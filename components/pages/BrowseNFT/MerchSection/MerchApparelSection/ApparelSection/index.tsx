@@ -8,15 +8,17 @@ import { FadeLoader } from 'react-spinners'
 import { useViewport } from 'utils'
 import uploadFileToS3 from 'apis/aws'
 import { dataURLtoFile } from 'utils/helpers'
+import { useRouter } from 'next/router'
 
 const ApparelSection = props => {
-  const { canvasId, nftName, apparel, nftCoverUrl, finishEditing } = props
+  const { canvasId, nftName, apparel, nftCoverUrl, finishEditing, isAddToCart } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const [isDrawing, setIsDrawing] = useState(false)
 
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     if (apparel && apparel.length > 0) {
@@ -53,6 +55,16 @@ const ApparelSection = props => {
           })
           let imgUrl = await uploadApparelSection(imgDataString)
           dispatch({ type: 'set', printImageUrl: imgUrl })
+          if (isAddToCart) {
+            let imageUrl = (await JSON.parse(localStorage.getItem('img'))) || []
+            if (!Array.isArray(imageUrl)) {
+              imageUrl = []
+            }
+            imageUrl.push(imgUrl)
+            localStorage.setItem('img', JSON.stringify(imageUrl))
+            dispatch({ type: 'set', activeTab: 4 })
+            router.push(`/merch-logs/`)
+          }
         } else {
           newCanvas.item(1).selectable = true
         }

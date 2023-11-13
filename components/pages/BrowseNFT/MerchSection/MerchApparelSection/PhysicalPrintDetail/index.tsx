@@ -67,6 +67,7 @@ const PhysicalPrintDetail = props => {
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
+  const [isAddToCart, setIsAddToCart] = useState(false)
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -236,13 +237,10 @@ const PhysicalPrintDetail = props => {
       existingData = []
     }
     let data = { apparel, gender, color, print, quality, size, quantity, cost }
-    onShipping(data)
     setFinishEditing(true)
-
+    setIsAddToCart(true)
     existingData.push(data)
     localStorage.setItem('data', JSON.stringify(existingData))
-    console.log('existingData==============', existingData)
-    router.push(`/merch-logs/`)
   }
 
   return (
@@ -255,6 +253,7 @@ const PhysicalPrintDetail = props => {
           apparel={previewApparel}
           nftCoverUrl={nftCoverUrl}
           finishEditing={finishEditing}
+          isAddToCart={isAddToCart}
         />
       </div>
       <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">

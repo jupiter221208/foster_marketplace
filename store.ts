@@ -37,6 +37,7 @@ const initialState = {
   printImageUrl: '',
   merchData: null,
   firstLoaded: false,
+  activeTab: 0,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
