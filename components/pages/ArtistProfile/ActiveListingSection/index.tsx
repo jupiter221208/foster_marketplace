@@ -4,10 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
-// third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -32,11 +29,16 @@ const ActiveListingSection = props => {
   const dispatch = useDispatch()
 
   const [exploreList, setExploreList] = useState([])
+  const [page, setPage] = useState(1)
+
+  const [isMounted, setIsMounted] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     if (artist.length === 0) return
 
-    dashboardAPI.getMarketplaceReleases('', artist).then(response => {
+    dashboardAPI.getMarketplaceReleases('', artist, page).then(response => {
       if (loadCompleted) loadCompleted()
 
       if (response !== null && response !== undefined && response.length !== 0) {
@@ -70,49 +72,37 @@ const ActiveListingSection = props => {
               fromPage === 'profile' ? 'justify-start' : 'justify-center'
             } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
           >
-            <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+            {/* <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
               Active Listings
-            </div>
+            </div> */}
           </div>
         </div>
+        {exploreList.length > 0 && isMounted && isVisibleFetching && (
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        )}
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           {exploreList.length > 4 ? (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="listingNavigationSwiper"
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-            >
+            <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
               {exploreList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                    <NFTCard
-                      token_id={item.token_id}
-                      image={item.asset_url}
-                      nftName={item.nft_name}
-                      assetType={item.asset_type}
-                      coverImage={item.cover_image_url}
-                      artistName={item.artist_username}
-                      collectionName={item.collection_name}
-                      price={item.list_price}
-                      onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
-                        router.push(`/nft/${item.token_id}`)
-                      }}
-                    />
-                  </div>
-                </SwiperSlide>
+                <div>
+                  <NFTCard
+                    key={index}
+                    token_id={item.token_id}
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
+                    artistName={item.artist_username}
+                    collectionName={item.collection_name}
+                    price={item.list_price}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/nft/${item.token_id}`)
+                    }}
+                  />
+                </div>
               ))}
-            </Swiper>
+            </div>
           ) : (
             <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
               {exploreList.map((item, index) => (
