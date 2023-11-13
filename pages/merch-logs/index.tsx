@@ -45,8 +45,9 @@ const MerchActivity = () => {
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
-  const [activeTab, setActiveTab] = useState<any>(0)
+  const [activeTab, setActiveTab] = useState<any>(defaultActiveTab)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
   const [purchases, setPurchases] = useState([])
@@ -74,12 +75,9 @@ const MerchActivity = () => {
   const [disableMerchModal, setDisableMerchModal] = useState(false)
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
-  const imgUrl = useSelector<any>(state => state.printImageUrl)
-  const [imageUrl, setImageUrl] = useState([])
   const [array, setArray] = useState([])
 
   const [tokenId, setTokenId] = useState(false)
-
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
     if (!connected) {
@@ -125,21 +123,17 @@ const MerchActivity = () => {
   }, [isFetching, publicKey])
 
   useEffect(() => {
-    const storedArray = JSON.parse(localStorage.getItem('data'))
-    setArray([...array, storedArray])
-  }, [])
+    const storedData = JSON.parse(localStorage.getItem('data'))
+    const storedImage = JSON.parse(localStorage.getItem('img'))
 
-  useEffect(() => {
-    console.info(imgUrl)
-    if (imgUrl) {
-      setImageUrl([...imageUrl, imgUrl])
+    if (storedData && storedImage) {
+      storedData.forEach((item, index) => {
+        item.imgUrl = storedImage[index]
+      })
     }
-  }, [imgUrl])
-
-  // useEffect(() => {
-  //   localStorage.setItem('url', JSON.stringify(imageUrl))
-  //   console.log('imageUrl==============', imageUrl)
-  // }, [imageUrl])
+    console.log('storedData', storedData)
+    setArray([...array, storedData])
+  }, [])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -487,7 +481,7 @@ const MerchActivity = () => {
           {activeTab === 4 && (
             <div className="w-full grid grid-cols-3">
               <div className="col-span-2">
-                <ShoppingCartActivity data={array} url={imageUrl} />
+                <ShoppingCartActivity data={array} />
               </div>
               <div className="flex col-span-1 ml-[40px] h-[200px]">
                 <div className={styles.tableColor}>
