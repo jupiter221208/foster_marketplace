@@ -216,7 +216,7 @@ const NFTLiveAuctionCard = props => {
           <div className="w-full">
             <div className="flex items-center justify-between mt-[6px] lg:mt-[15px]">
               <div className="w-full flex justify-between">
-                <div className={styles.currentBid}>{currentBid === null ? 'RESERVE' : 'CURRENT'}</div>
+                <div className={styles.currentBid}>{currentBid === null ? 'Reserve' : 'Current'}</div>
                 <div className={styles.currentBid}>Ends In</div>
               </div>
             </div>
