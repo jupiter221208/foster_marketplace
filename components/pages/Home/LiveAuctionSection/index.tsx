@@ -43,6 +43,7 @@ const LiveAuctionSection = props => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
@@ -59,7 +60,7 @@ const LiveAuctionSection = props => {
   }
   const getLiveAuctionsFromServer = (category, artist, mode) => {
     setIsLoading(true)
-    dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
+    dashboardAPI.getLiveAuctions(category, artist, mode, page).then(response => {
       if (setLiveAuctionLoaded) setLiveAuctionLoaded()
       setIsLoading(false)
       if (response !== null && response !== undefined && response.length !== 0) {

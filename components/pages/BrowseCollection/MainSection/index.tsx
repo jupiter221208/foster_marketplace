@@ -185,7 +185,7 @@ const MainSection = props => {
               <div className={styles.headerImage}>
                 <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
               </div>
-            ) : data !== undefined && data.banner_image !== undefined && data.banner_image.length > 0 ? (
+            ) : data?.banner_image ? (
               <div className={styles.headerImage}>
                 <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
               </div>

@@ -21,6 +21,7 @@ import ArtistPagination from 'components/Button/ArtistPagination'
 // apis
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import SubTabSection from 'components/pages/ArtistProfile/SubTabSection'
 
 const TabSection = props => {
   const {
@@ -179,15 +180,11 @@ const TabSection = props => {
 
       {activeTab === 1 && (
         <div className="w-full">
-          <LiveAuctionSection
+          <SubTabSection
             category={''}
             artist={wallet}
             fromPage={'profile'}
             setLiveAuctionLoaded={() => setLiveAuctionLoaded(true)}
-          />
-          <ActiveListingSection
-            artist={wallet}
-            fromPage={'profile'}
             loadCompleted={() => setActiveListingLoaded(true)}
           />
         </div>
