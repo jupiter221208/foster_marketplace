@@ -37,10 +37,11 @@ const MarketplaceReleaseSection = props => {
   const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
   const [cardLoop, setCardLoop] = useState(true)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '').then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         // let newList: any[] = []
         // let tempItem: any[] = []

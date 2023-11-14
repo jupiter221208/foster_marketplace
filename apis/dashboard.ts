@@ -52,20 +52,22 @@ class Dashboard {
       })
   }
 
-  getMarketplaceReleases(category, artist) {
+  getMarketplaceReleases(category, artist, page) {
     return client
       .get(
         API_URL +
           'v1/dashboard/marketplace-releases' +
           (category !== null && category?.length > 0 ? '?category=' + category : '') +
-          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
+          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '') +
+          '&page=' +
+          page
       )
       .then(response => {
         return response?.data
       })
   }
 
-  getLiveAuctions(category, artist, mode) {
+  getLiveAuctions(category, artist, mode, page) {
     let url = category !== null && category?.length > 0 ? '?category=' + category : ''
     if (artist !== null && artist?.length > 0) {
       if (url.length > 0) url = url + '&artist=' + artist
@@ -75,7 +77,7 @@ class Dashboard {
       if (url.length > 0) url = url + '&mode=' + mode
       else url = '?mode=' + mode
     }
-    return client.get(API_URL + 'v1/dashboard/live-auctions' + url).then(response => {
+    return client.get(API_URL + 'v1/dashboard/live-auctions' + url + '&page=' + page).then(response => {
       return response?.data
     })
   }
