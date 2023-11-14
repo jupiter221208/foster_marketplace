@@ -27,7 +27,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTAuctionCard from 'components/Card/NFTAuctionCard'
+import NFTLiveAuctionCard from 'components/Card/NFTLiveAuctionCard'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -128,7 +128,7 @@ const LiveAuctionSection = props => {
           </div>
         </div>
       )}
-      <div className="w-full mt-[30px] lg:mt-[40px] z-10">
+      <div className="w-full z-10">
         {isLoading ? (
           <div className="w-full h-[400px] flex justify-center">
             <div className="w-[500px] h-[40px]">
@@ -138,7 +138,7 @@ const LiveAuctionSection = props => {
         ) : (
           <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
-              <NFTAuctionCard
+              <NFTLiveAuctionCard
                 image={item.asset_url}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
