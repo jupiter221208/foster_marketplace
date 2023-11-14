@@ -12,7 +12,7 @@ class MyDocument extends Document {
           <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
         </Head>
         <body style={{ color: 'white' }}>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7ER9MVED6" />
+          <Script async strategy="beforeInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-V7ER9MVED6" />
           <Script strategy="beforeInteractive" id="google-analytics">
             {`
               window.dataLayer = window.dataLayer || [];
