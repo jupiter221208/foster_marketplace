@@ -55,7 +55,6 @@ const LiveAuctionSection = props => {
   const getLiveAuctionsFromServer = (category, artist, mode, nextpage) => {
     setIsLoading(true)
     dashboardAPI.getLiveAuctions(category, artist, mode, nextpage).then(response => {
-      console.log(response)
       if (setLiveAuctionLoaded) setLiveAuctionLoaded()
       setIsLoading(false)
       setIsMounted(true)
