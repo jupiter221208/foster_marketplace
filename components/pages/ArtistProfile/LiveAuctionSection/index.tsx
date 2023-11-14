@@ -16,7 +16,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 
 // custom functions
@@ -28,8 +27,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
-import SeeMoreButton from 'components/Button/SeeMoreButton'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
+import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -45,7 +43,7 @@ const LiveAuctionSection = props => {
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
-  const [rowCount, setRowCount] = useState(9)
+  const [rowCount, setRowCount] = useState(8)
   const [lists, setLists] = useState([])
 
   const [isMounted, setIsMounted] = useState(false)
@@ -77,7 +75,6 @@ const LiveAuctionSection = props => {
       // })
 
       if (response.length === rowCount) {
-        setIsFetching(true)
         setIsVisibleFetching(true)
       } else setIsVisibleFetching(false)
       setLiveAuctionList([...liveAuctionList, ...response])
@@ -139,10 +136,15 @@ const LiveAuctionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-3 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
-              <LiveAuctionCard
-                data={item}
+              <NFTAuctionCard
+                image={item.asset_url}
+                assetType={item.asset_type}
+                coverImage={item.cover_image_url}
+                currentBid={item.current_bid}
+                reservePrice={item.reserve_price}
+                endTime={item.end_time}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push('/nft/' + item.token_id)
