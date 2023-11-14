@@ -45,13 +45,60 @@ const LiveAuctionSection = props => {
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
+  const [rowCount, setRowCount] = useState(9)
+  const [lists, setLists] = useState([])
 
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
+  const getLiveAuctionsFromServer = (category, artist, mode, nextpage) => {
+    setIsLoading(true)
+    dashboardAPI.getLiveAuctions(category, artist, mode, nextpage).then(response => {
+      console.log(response)
+      if (setLiveAuctionLoaded) setLiveAuctionLoaded()
+      setIsLoading(false)
+      setIsMounted(true)
+      setIsFetching(false)
+
+      // response.forEach(item => {
+      //   if (!isExpired(item.end_time)) {
+      //     if (item.asset_url.length > 0) {
+      //       if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
+      //         if (item.asset_type === 'video') {
+      //           if (item.cover_image_url?.length > 0) lists.push(item)
+      //         } else {
+      //           lists.push(item)
+      //         }
+      //       } else {
+      //         lists.push(item)
+      //       }
+      //     }
+      //   }
+      // })
+
+      if (response.length === rowCount) {
+        setIsFetching(true)
+        setIsVisibleFetching(true)
+      } else setIsVisibleFetching(false)
+      setLiveAuctionList([...liveAuctionList, ...response])
+
+      if (isLoaded === false) {
+        setShowSection(true)
+        setIsLoaded(true)
+      }
+    }),
+      error => {
+        if (setLiveAuctionLoaded) setLiveAuctionLoaded()
+        setIsMounted(true)
+        setIsLoading(false)
+        setIsFetching(false)
+        console.log(error)
+      }
+  }
+
   useEffect(() => {
-    getLiveAuctionsFromServer(category, artist, 'recent_started')
+    getLiveAuctionsFromServer(category, artist, 'recent_started', page)
   }, [artist, category])
 
   const isExpired = endTime => {
@@ -63,70 +110,18 @@ const LiveAuctionSection = props => {
     if (end_difference < 0) return true
     return false
   }
-  const getLiveAuctionsFromServer = (category, artist, mode) => {
-    setIsLoading(true)
-    dashboardAPI.getLiveAuctions(category, artist, mode, page).then(response => {
-      if (setLiveAuctionLoaded) setLiveAuctionLoaded()
-      setIsLoading(false)
-      if (response !== null && response !== undefined && response.length !== 0) {
-        let lists = []
-        response.forEach(item => {
-          if (!isExpired(item.end_time)) {
-            if (item.asset_url.length > 0) {
-              if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
-                if (item.asset_type === 'video') {
-                  if (item.cover_image_url?.length > 0) lists.push(item)
-                } else {
-                  lists.push(item)
-                }
-              } else {
-                lists.push(item)
-              }
-            }
-          }
-        })
-        setLiveAuctionList(lists)
-        if (lists.length > 3) setCardLoop(true)
-        else setCardLoop(false)
-
-        if (isLoaded === false) {
-          setShowSection(true)
-          setIsLoaded(true)
-        }
-      } else {
-        setLiveAuctionList([])
-      }
-    }),
-      error => {
-        if (setLiveAuctionLoaded) setLiveAuctionLoaded()
-        setIsLoading(false)
-        console.log(error)
-      }
-  }
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        getLiveAuctionsFromServer(category, artist, 'upcoming')
-        setType('upcoming')
-        break
-      case 1:
-        getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
-        break
-      case 2:
-        getLiveAuctionsFromServer(category, artist, 'end_soon')
-        setType('end_soon')
-        break
-      default:
-        getLiveAuctionsFromServer(category, artist, 'recent_started')
-        setType('recent_started')
-        break
-    }
-  }
 
   useEffect(() => {}, [liveAuctionList])
+
+  useEffect(() => {
+    if (isFetching) {
+      setTimeout(() => {
+        const nextpage = page + 1
+        setPage(nextpage)
+        getLiveAuctionsFromServer(category, artist, 'recent_started', nextpage)
+      }, 2000)
+    }
+  }, [isFetching])
 
   return showSection ? (
     <section className={styles.container}>
@@ -136,9 +131,6 @@ const LiveAuctionSection = props => {
             <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
           </div>
         </div>
-      )}
-      {liveAuctionList.length > 0 && isMounted && isVisibleFetching && (
-        <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
       )}
       <div className="w-full mt-[30px] lg:mt-[40px] z-10">
         {isLoading ? (
@@ -178,6 +170,11 @@ const LiveAuctionSection = props => {
               height="40px"
             />
           </div>
+        </div>
+      )}
+      {isMounted && isVisibleFetching && (
+        <div className="w-full mt-[20px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
     </section>
