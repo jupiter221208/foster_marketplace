@@ -103,6 +103,14 @@ export function addUrlSearchParams(
   return url
 }
 
+export function addNonEmptySearchParams(
+  url: Parameters<typeof addUrlSearchParams>[0],
+  params: Parameters<typeof addUrlSearchParams>[1]
+): ReturnType<typeof addUrlSearchParams> {
+  for (let k in params) if (params[k] === '') delete params[k]
+  return addUrlSearchParams(url, params)
+}
+
 export const ensureMaxDecimals = (n, decimals) => {
   let multiplier = 10 ** decimals
   return Math.floor(n * multiplier) / multiplier

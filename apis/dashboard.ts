@@ -1,12 +1,7 @@
 import client from './client'
-import { addUrlSearchParams } from 'utils'
+import { addNonEmptySearchParams } from 'utils'
 
 const API_URL = process.env.BACKEND_URL
-
-function addNonEmptySearchParams(url: string | URL, params: Record<string, string | number | null | undefined>): URL {
-  for (let k in params) if (params[k] === '') delete params[k]
-  return addUrlSearchParams(url, params)
-}
 
 class Dashboard {
   getDashboardBanner() {
