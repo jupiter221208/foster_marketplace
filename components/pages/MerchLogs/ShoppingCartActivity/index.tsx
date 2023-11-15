@@ -36,13 +36,20 @@ const ShoppingCartActivity = props => {
                         <div className="flex items-center">
                           <SimpleCheckbox />
                         </div>
-                        <div className="w-[30%] h-[30%] flex ">
+                        <div className="w-[35%] h-[35%] flex ">
                           <img src={item.imgUrl} className="px-[50px] py-[50px]" alt="Item Image" />
                         </div>
-                        <div></div>
-                        <div className="w-full flex justify-between px-3 mt-[30px]">
-                          <div className={`${styles.value} w-[200px] text-right`}>
-                            <p dangerouslySetInnerHTML={{ __html: item.name }} />
+                        <div className="w-full flex flex-col px-[100px] mt-[40px]">
+                          <div className={`${styles.detail} text-right flex`}>Item Details</div>
+                          <div className={styles.content}>
+                            <div>{item.apparel.name}</div>
+                            <div>{item.color.type}</div>
+                            <div>Qty: {item.quantity}</div>
+                          </div>
+                          <div className="flex mt-[20px] items-center">
+                            <div className={styles.remove}>Remove Item</div>
+                            <div className={styles.costDivider} />
+                            <div className={styles.edit}>Edit</div>
                           </div>
                         </div>
                       </div>
