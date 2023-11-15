@@ -22,10 +22,42 @@
 .subTitle {
   font-family: 'Muli-Regular';
   font-size: 16px;
-  color: #95dbd5;
+  color: (var(--main-icon-color));
   padding: 0px 7px 30px 40px;
 }
 .listContainer {
   max-height: 100vh;
   overflow: scroll;
+}
+.detail {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+}
+.costDivider {
+  display: flex;
+  width: 1px;
+  height: 15px;
+  background: rgba(var(--text-gray-200-color-rgb), 0.15);
+  margin-right: 15px;
+  align-items: center;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+}
+.remove {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  margin-right: 15px;
+  cursor: pointer;
+}
+.edit {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  cursor: pointer;
 }

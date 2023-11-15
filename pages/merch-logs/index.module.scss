@@ -133,5 +133,6 @@
   display: flex;
   width: 1px;
   height: 20px;
-  background: var(--text-gray-200-color);
+  background: rgba(var(--text-gray-200-color-rgb), 0.15);
+  align-items: center;
 }
