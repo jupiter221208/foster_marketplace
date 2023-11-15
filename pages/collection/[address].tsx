@@ -26,7 +26,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import { useViewport } from 'utils'
+import { useViewport, parseCookies } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import TabSection from './TabSection'
 
@@ -151,16 +151,16 @@ BrowseCollection.getLayout = function getLayout(page) {
 BrowseCollection.getInitialProps = async function ({ req, query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
 
-  let cookies = req ? req.headers.cookie || '' : document.cookie
-  let token = cookies ? cookies.split('token=')[1] : ''
+  let cookies = parseCookies(req?.headers.cookie ?? document.cookie)
+  let token = cookies.token
 
   let publicCollectionData
   try {
-    if (token && token.length > 0) {
+    if (token) {
       publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}`, {
         headers: {
           accept: 'application/json',
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       })
         .then(r => r.json())
