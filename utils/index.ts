@@ -144,6 +144,16 @@ export async function trySendTransaction(
   return null
 }
 
+export function parseCookies(cookies?: string): Record<string, string> {
+  if (!cookies) return {}
+  return Object.fromEntries(
+    cookies
+      .split(';')
+      .map(v => v.split('='))
+      .map(([key, value]) => [decodeURIComponent(key.trim()), decodeURIComponent(value.trim())])
+  )
+}
+
 // TODO: test code
 export async function splitIntoTransactions(instructions: TransactionInstruction[][]): Promise<Transaction[]> {
   instructions = [...instructions]
