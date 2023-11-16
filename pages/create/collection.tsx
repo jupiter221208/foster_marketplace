@@ -96,8 +96,9 @@ const Collection = () => {
       let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
       setCoverImageUrl(coverImageUrl)
 
+      let trimmedCollectionName = collectionName.trim()
       const uri = await storage.uploadJson({
-        name: collectionName,
+        name: trimmedCollectionName,
         description: description,
         attributes: attributes,
         image: coverImageUrl,
@@ -110,7 +111,7 @@ const Collection = () => {
       const collectionNft = await mx.nfts().create({
         useNewMint: collectionNftMint,
         isCollection: true,
-        name: collectionName,
+        name: trimmedCollectionName,
         uri: uri,
         sellerFeeBasisPoints: royalties * 100,
       })
@@ -223,6 +224,7 @@ const Collection = () => {
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
         let { name, description, attributes, file, croppedImage } = collectionFiles[i]
+        name = name.trim()
         const metadata: JsonMetadata = {
           name,
           description,
@@ -312,7 +314,7 @@ const Collection = () => {
 
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
-      collection_name: collectionName,
+      collection_name: collectionName.trim(),
       description: description.replaceAll('\n', ' '),
       banner_image: bannerAWSUrl,
       cover_image: coverAWSUrl,

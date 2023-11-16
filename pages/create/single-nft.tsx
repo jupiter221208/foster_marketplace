@@ -340,8 +340,9 @@ const SingleNft = () => {
         .filter(({ checked }) => checked)
         .map(({ name }) => ({ trait_type: 'category', value: name }))
 
+      let trimmedNftName = nftName.trim()
       const metadata: JsonMetadata = {
-        name: nftName,
+        name: trimmedNftName,
         description,
         attributes,
         properties: {
@@ -398,7 +399,7 @@ const SingleNft = () => {
         .builders()
         .create({
           uri: metadataUri,
-          name: nftName,
+          name: trimmedNftName,
           sellerFeeBasisPoints: royalties * 100,
           useNewMint: nftMint,
           collection: collection?.mintAddress,
@@ -427,7 +428,7 @@ const SingleNft = () => {
           nftsAPI
             .create({
               token_id: nftMint.publicKey.toBase58(),
-              nft_name: nftName,
+              nft_name: trimmedNftName,
               categories: category.slice(0, -1),
               asset_type: nftType === 'image/gif' ? 'image' : nftType,
               cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
