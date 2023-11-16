@@ -76,6 +76,7 @@ const Collection = () => {
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
+  const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
     try {
@@ -95,9 +96,11 @@ const Collection = () => {
       let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
       setCoverImageUrl(coverImageUrl)
 
+      let trimmedCollectionName = collectionName.trim()
+      let trimmedDescription = description.trim()
       const uri = await storage.uploadJson({
-        name: collectionName,
-        description: description,
+        name: trimmedCollectionName,
+        description: trimmedDescription,
         attributes: attributes,
         image: coverImageUrl,
       })
@@ -107,8 +110,9 @@ const Collection = () => {
       // })
 
       const collectionNft = await mx.nfts().create({
+        useNewMint: collectionNftMint,
         isCollection: true,
-        name: collectionName,
+        name: trimmedCollectionName,
         uri: uri,
         sellerFeeBasisPoints: royalties * 100,
       })
@@ -221,6 +225,8 @@ const Collection = () => {
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
         let { name, description, attributes, file, croppedImage } = collectionFiles[i]
+        name = name.trim()
+        description = description.trim()
         const metadata: JsonMetadata = {
           name,
           description,
@@ -271,11 +277,14 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
-          mintAddress: nftKeypair.publicKey,
-          collectionMintAddress: collectionNft?.mintAddress,
-          isSizedCollection: true,
-        })
+        const verifyCollectionTransaction = await mx
+          .nfts()
+          .builders()
+          .verifyCollection({
+            mintAddress: nftKeypair.publicKey,
+            collectionMintAddress: collectionNft?.mintAddress,
+            isSizedCollection: true,
+          })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
@@ -307,8 +316,8 @@ const Collection = () => {
 
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
-      collection_name: collectionName,
-      description: description.replaceAll('\n', ' '),
+      collection_name: collectionName.trim(),
+      description: description.replaceAll('\n', ' ').trim(),
       banner_image: bannerAWSUrl,
       cover_image: coverAWSUrl,
       categories: category.slice(0, -1),
