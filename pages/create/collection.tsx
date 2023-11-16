@@ -76,6 +76,7 @@ const Collection = () => {
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
+  const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
     try {
@@ -107,6 +108,7 @@ const Collection = () => {
       // })
 
       const collectionNft = await mx.nfts().create({
+        useNewMint: collectionNftMint,
         isCollection: true,
         name: collectionName,
         uri: uri,
@@ -271,11 +273,14 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
-          mintAddress: nftKeypair.publicKey,
-          collectionMintAddress: collectionNft?.mintAddress,
-          isSizedCollection: true,
-        })
+        const verifyCollectionTransaction = await mx
+          .nfts()
+          .builders()
+          .verifyCollection({
+            mintAddress: nftKeypair.publicKey,
+            collectionMintAddress: collectionNft?.mintAddress,
+            isSizedCollection: true,
+          })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
