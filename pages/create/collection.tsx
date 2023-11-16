@@ -97,9 +97,10 @@ const Collection = () => {
       setCoverImageUrl(coverImageUrl)
 
       let trimmedCollectionName = collectionName.trim()
+      let trimmedDescription = description.trim()
       const uri = await storage.uploadJson({
         name: trimmedCollectionName,
-        description: description,
+        description: trimmedDescription,
         attributes: attributes,
         image: coverImageUrl,
       })
@@ -225,6 +226,7 @@ const Collection = () => {
       for (let i = 0; i < collectionFiles.length; i++) {
         let { name, description, attributes, file, croppedImage } = collectionFiles[i]
         name = name.trim()
+        description = description.trim()
         const metadata: JsonMetadata = {
           name,
           description,
@@ -315,7 +317,7 @@ const Collection = () => {
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
       collection_name: collectionName.trim(),
-      description: description.replaceAll('\n', ' '),
+      description: description.replaceAll('\n', ' ').trim(),
       banner_image: bannerAWSUrl,
       cover_image: coverAWSUrl,
       categories: category.slice(0, -1),

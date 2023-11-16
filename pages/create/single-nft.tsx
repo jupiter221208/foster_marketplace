@@ -341,9 +341,10 @@ const SingleNft = () => {
         .map(({ name }) => ({ trait_type: 'category', value: name }))
 
       let trimmedNftName = nftName.trim()
+      let trimmedDescription = description.trim()
       const metadata: JsonMetadata = {
         name: trimmedNftName,
-        description,
+        description: trimmedDescription,
         attributes,
         properties: {
           category: nftType.split('/')[0],
