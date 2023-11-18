@@ -151,7 +151,8 @@ BrowseCollection.getLayout = function getLayout(page) {
 BrowseCollection.getInitialProps = async function ({ req, query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
 
-  let cookies = parseCookies(req?.headers.cookie ?? document.cookie)
+  let documentCookie = typeof document == 'undefined' ? undefined : document.cookie
+  let cookies = parseCookies(req?.headers.cookie ?? documentCookie ?? '')
   let token = cookies.token
 
   let publicCollectionData
