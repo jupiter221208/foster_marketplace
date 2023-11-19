@@ -4,10 +4,10 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 const { withSentryConfig } = require('@sentry/nextjs')
 
-/** @type {import('next').NextConfig} */
 const path = require('path')
 const webpack = require('webpack')
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   env: {
