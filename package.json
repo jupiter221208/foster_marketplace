@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently --kill-others \"tsc --project tsconfig.json -w\" \"next dev\"",
-    "build": "next build",
+    "build": "next build && cp _headers .next",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
