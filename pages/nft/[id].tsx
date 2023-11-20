@@ -306,6 +306,12 @@ BrowseNFT.getLayout = function getLayout(page) {
 }
 
 BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
+  // set cache headers
+  if (res) {
+    // cache for 30m, shared cache for 1h
+    res.setHeader('cache-control', 'max-age=1800, s-maxage=3600')
+  }
+
   let mintAddress
   try {
     mintAddress = new PublicKey(query.id)
