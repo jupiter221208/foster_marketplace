@@ -11,7 +11,7 @@ import { dataURLtoFile } from 'utils/helpers'
 import { useRouter } from 'next/router'
 
 const ApparelSection = props => {
-  const { canvasId, nftName, apparel, nftCoverUrl, finishEditing, isAddToCart } = props
+  const { canvasId, nftName, apparel, nftCoverUrl, finishEditing, isAddToCart, saveImage } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const [isDrawing, setIsDrawing] = useState(false)
@@ -61,8 +61,7 @@ const ApparelSection = props => {
               imageUrl = []
             }
             imageUrl.push(imgUrl)
-            localStorage.setItem('img', JSON.stringify(imageUrl))
-            dispatch({ type: 'set', activeTab: 4 })
+            saveImage(imgUrl)
             router.push(`/merch-logs/`)
           }
         } else {

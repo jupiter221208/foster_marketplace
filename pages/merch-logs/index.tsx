@@ -38,6 +38,7 @@ import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import GradientButton from 'components/Button/GradientButton'
 import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
+import { useRouter } from 'next/router'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -47,6 +48,7 @@ const MerchActivity = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
   const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<any>(defaultActiveTab)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
@@ -76,6 +78,7 @@ const MerchActivity = () => {
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
   const [array, setArray] = useState([])
+  const [cart, setCart] = useState([])
 
   const [tokenId, setTokenId] = useState(false)
   useEffect(() => {
@@ -124,19 +127,26 @@ const MerchActivity = () => {
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
-    const storedImage = JSON.parse(localStorage.getItem('img'))
-
-    if (storedData && storedImage) {
-      storedData.forEach((item, index) => {
-        item.imgUrl = storedImage[index]
-      })
-    }
-    console.log('storedData', storedData)
-    setArray([...array, storedData])
+    setArray(storedData)
   }, [])
+
+  const getcartList = () => {
+    const storedData = JSON.parse(localStorage.getItem('data'))
+    setArray(storedData)
+  }
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
+  }
+
+  const handleOnClick = () => {
+    const orders = []
+    cart.forEach((item, index) => {
+      if (item.checked === true) orders.push(item)
+    })
+    dispatch({ type: 'set', openMerchPage: true })
+    dispatch({ type: 'set', orders })
+    router.push(`/shipping/`)
   }
 
   const getBuyerOrder = (page, rowCount) => {
@@ -481,7 +491,7 @@ const MerchActivity = () => {
           {activeTab === 4 && (
             <div className="w-full grid grid-cols-3">
               <div className="col-span-2">
-                <ShoppingCartActivity data={array} />
+                <ShoppingCartActivity data={array} getcartList={getcartList} cart={cart} setCart={setCart} />
               </div>
               <div className="flex col-span-1 ml-[40px] h-[200px]">
                 <div className={styles.tableColor}>
@@ -501,7 +511,7 @@ const MerchActivity = () => {
                       fontFamily="Muli-SemiBold"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-                      onClick={onclick}
+                      onClick={() => handleOnClick()}
                     />
                   </div>
                 </div>
