@@ -57,6 +57,7 @@ const PhysicalPrintDetail = props => {
   })
   const dispatch = useDispatch()
   const router = useRouter()
+  const id = router.query.id
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -67,7 +68,9 @@ const PhysicalPrintDetail = props => {
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
+  const shippingDetail = useSelector<any>(state => state.shippingDetail)
   const [isAddToCart, setIsAddToCart] = useState(false)
+  const [imgPath, setImgPath] = useState('')
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -81,6 +84,13 @@ const PhysicalPrintDetail = props => {
       dispatch({ type: 'set', apparelColor: -1 })
     }
   }, [apparelColor])
+
+  useEffect(() => {
+    if (shippingDetail) {
+      onShipping(data)
+      dispatch({ type: 'set', shippingDetail: false })
+    }
+  }, [shippingDetail])
 
   useEffect(() => {
     window.scrollTo({
@@ -232,16 +242,36 @@ const PhysicalPrintDetail = props => {
     return ''
   }
   const handleSaveData = () => {
-    let existingData = JSON.parse(localStorage.getItem('data')) || []
-    if (!Array.isArray(existingData)) {
-      existingData = []
-    }
-    let data = { apparel, gender, color, print, quality, size, quantity, cost }
     setFinishEditing(true)
     setIsAddToCart(true)
-    existingData.push(data)
-    localStorage.setItem('data', JSON.stringify(existingData))
   }
+
+  useEffect(() => {
+    if (imgPath) {
+      let existingData = JSON.parse(localStorage.getItem('data')) || []
+      if (!Array.isArray(existingData)) {
+        existingData = []
+      }
+
+      let data = {
+        previewApparel,
+        apparel,
+        gender,
+        color,
+        print,
+        quality,
+        size,
+        quantity,
+        cost,
+        id,
+        nftCoverUrl,
+        nftName,
+        imgPath,
+      }
+      existingData.push(data)
+      localStorage.setItem('data', JSON.stringify(existingData))
+    }
+  }, [imgPath])
 
   return (
     <section className={styles.container}>
@@ -254,6 +284,7 @@ const PhysicalPrintDetail = props => {
           nftCoverUrl={nftCoverUrl}
           finishEditing={finishEditing}
           isAddToCart={isAddToCart}
+          saveImage={setImgPath}
         />
       </div>
       <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">

@@ -5,7 +5,11 @@
   height: 100%;
   position: relative;
   border-radius: 15px;
-  background: var(--order-table-color);
+  background: var(--second-home-bg);
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
 }
 .divider {
   margin-left: 25px;
@@ -16,7 +20,7 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 30px;
-  color: #eff0f6;
+  color: var(--text-gray-200-color);
   padding: 40px 0px 0px 40px;
 }
 .subTitle {
@@ -24,6 +28,7 @@
   font-size: 16px;
   color: (var(--main-icon-color));
   padding: 0px 7px 30px 40px;
+  cursor: pointer;
 }
 .listContainer {
   max-height: 100vh;
@@ -32,6 +37,7 @@
 .detail {
   font-family: 'Muli-Bold';
   font-size: 16px;
+  color: var(--text-gray-200-color);
 }
 .costDivider {
   display: flex;
@@ -47,8 +53,24 @@
   margin-top: 15px;
   font-size: 14px;
   font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+}
+.mobileContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
 }
 .remove {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  margin-right: 15px;
+  cursor: pointer;
+}
+.mobileRemove {
   font-size: 14px;
   font-family: 'Muli-Regular';
   color: var(--main-icon-color);
@@ -60,4 +82,30 @@
   font-family: 'Muli-Regular';
   color: var(--main-icon-color);
   cursor: pointer;
+}
+.mobileEdit {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  cursor: pointer;
+}
+.mobileContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin-top: 20px;
+  display: block;
+  margin-bottom: 250px;
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+.tableColor {
+  display: flex;
+  margin-top: 5px;
+  width: 100%;
+  height: 120px;
+  border-radius: 15px;
+  border: 1px solid var(--second-home-bg);
+  background: var(--second-home-bg);
 }
