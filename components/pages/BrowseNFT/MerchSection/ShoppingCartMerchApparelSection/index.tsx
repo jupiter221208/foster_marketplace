@@ -3,26 +3,15 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 //component
-import PhysicalShipping from '../PhysicalShipping'
+import ShoppingCartPhysicalShipping from '../ShoppingCartPhysicalShipping'
 import MerchStepper from 'components/MerchStepper'
 
 import styles from './index.module.scss'
-import PhysicalShippingMethod from '../PhysicalShippingMethod'
+import ShoppingCartPhysicalMethod from '../ShoppingCartPhysicalMethod'
 import { useViewport } from 'utils'
 
 const ShippingMerchApparelSection = props => {
-  const {
-    nftName,
-    nftCoverUrl,
-    mintAddress,
-    subCategory,
-    base,
-    open,
-    onBack,
-    setFinishEditing,
-    setShowApparelMode,
-    setApparel,
-  } = props
+  const { nftName, nftCoverUrl, mintAddress, subCategory, base, open, onBack, setFinishEditing, setApparel } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [openPrintDetail, setOpenPrintDetail] = useState(false)
@@ -41,7 +30,7 @@ const ShippingMerchApparelSection = props => {
         <MerchStepper currentStep={currentStep} />
       </div>
       {openShippingDetail ? (
-        <PhysicalShipping
+        <ShoppingCartPhysicalShipping
           onBack={info => {
             setShippingData(info)
             setOpenPrintDetail(false)
@@ -61,7 +50,7 @@ const ShippingMerchApparelSection = props => {
           data={shippingData}
         />
       ) : openShippingMethod ? (
-        <PhysicalShippingMethod
+        <ShoppingCartPhysicalMethod
           data={printData}
           shippingData={shippingData}
           allShippingMethod={shipppingMethod}

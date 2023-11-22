@@ -24,7 +24,7 @@ import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
 import Radio from 'components/Radio/SimpleRadio'
 
-const PhysicalShipping = props => {
+const ShoppingCartPhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
   const viewport = useViewport()
   const { connected } = useWallet()
@@ -194,11 +194,6 @@ const PhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      {/* <div className="lg:hidden block">
-        <div className={styles.wallartBG}>
-          <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
-        </div>
-      </div> */}
       <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
         <Radio />
@@ -316,4 +311,4 @@ const PhysicalShipping = props => {
   )
 }
 
-export default PhysicalShipping
+export default ShoppingCartPhysicalShipping

@@ -93,7 +93,7 @@ const ShoppingCartActivity = props => {
               {item.imgPath && (
                 <div className={styles.tableColor}>
                   <div className="flex items-center ml-[30px]">
-                    <SimpleCheckbox onChange={() => handleSelectData(index)} />
+                    <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
                   </div>
                   <div className="w-[100px] h-[100px] flex ml-[15px] mt-[10px]">
                     <img src={item.imgPath} className="w-full h-full px-3 py-3" />

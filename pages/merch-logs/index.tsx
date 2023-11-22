@@ -140,13 +140,12 @@ const MerchActivity = () => {
   }
 
   const handleOnClick = () => {
-    const orders = []
-    cart.forEach((item, index) => {
-      if (item.checked === true) orders.push(item)
+    const checkedData = []
+    cart.forEach(item => {
+      if (item.checked === true) checkedData.push(item)
     })
-    dispatch({ type: 'set', openMerchPage: true })
-    dispatch({ type: 'set', orders })
-    router.push(`/shipping/`)
+    localStorage.setItem('checked', JSON.stringify(checkedData))
+    router.push(`/shopping/`)
   }
 
   const getBuyerOrder = (page, rowCount) => {
