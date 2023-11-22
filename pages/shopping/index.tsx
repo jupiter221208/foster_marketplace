@@ -4,6 +4,9 @@ import React, { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Navigation, Pagination } from 'swiper'
+
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
@@ -29,7 +32,6 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
-import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
@@ -37,9 +39,9 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
-import MerchApparelSection from 'components/pages/BrowseNFT/MerchSection/MerchApparelSection'
-import ShippingApparelSection from 'components/pages/BrowseNFT/MerchSection/ShippingMerchApparelSection/ShippingApparelSection'
-import ShippingMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShippingMerchApparelSection'
+import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
+import { NextButton, PreviewButton } from './customButton'
+SwiperCore.use([Navigation])
 
 export interface EditionDetail {
   number: number
@@ -55,22 +57,35 @@ export interface BrowseNFTProps {
   error?: string
 }
 
-const Shipping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
-  const orders = useSelector(state => (state as any).orders)
-  const [apparelData, setApparelData] = useState(null)
-  const [openApparelDetail, setOpenApparelDetail] = useState(false)
+  const [openApparelDetail, setOpenApparelDetail] = useState(true)
   const [finishEditing, setFinishEditing] = useState(false)
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const [data, setData] = useState(null)
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
-  const [showApparelMode, setShowApparelMode] = useState(null)
   const [apparel, setApparel] = useState(null)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
+  const [swiper, setSwiper] = useState(null)
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const goNext = () => {
+    if (swiper !== null) swiper.slideNext()
+    setCurrentStep(swiper.activeIndex)
+  }
+
+  const goPrev = () => {
+    if (swiper !== null) swiper.slidePrev()
+    setCurrentStep(swiper.activeIndex)
+  }
+
+  const handleOnChange = () => {
+    setCurrentStep(swiper.activeIndex)
+  }
 
   useEffect(() => {
     setTimeout(
@@ -89,30 +104,32 @@ const Shipping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [isLoading])
 
   useEffect(() => {
-    setApparelData(orders[0])
-    nftsAPI.getDetail(orders[0].id).then((response: any) => {
-      const nftName = response.name
-      const nftCoverUrl = response.cover_image_url
-      const mintAddress = response.address.toString()
-      const item = ShopApparelList.find(apparel => apparel.name === orders[0].apparel.name)
-      let params = {
-        nftName,
-        nftCoverUrl,
-        mintAddress,
-        category: item.category,
-        subCategory: item.sub_type,
-        base: item.base,
-      }
-      setData(params)
-      setShowApparelMode(params.category === 'apparel')
+    const orderData = []
+    const orders = JSON.parse(localStorage.getItem('checked'))
+
+    const promises = orders.map(array => {
+      return nftsAPI.getDetail(array.id).then((response: any) => {
+        const nftName = response.name
+        const nftCoverUrl = response.cover_image_url
+        const mintAddress = response.address.toString()
+        const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
+        let params = {
+          nftName,
+          nftCoverUrl,
+          mintAddress,
+          category: item.category,
+          subCategory: item.sub_type,
+          base: item.base,
+          imgPath: array.imgPath,
+        }
+        orderData.push(params)
+      })
+    })
+
+    Promise.all(promises).then(() => {
+      setData(orderData)
     })
   }, [])
-
-  useEffect(() => {
-    if (data?.category === 'apparel') {
-      setOpenApparelDetail(true)
-    }
-  }, [data])
 
   useEffect(() => {
     if (!nftDetail) return
@@ -168,9 +185,6 @@ const Shipping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     setNftCoverUrl(url)
   }
 
-  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
-  const [merchToggle, setMerchToggle] = useState(false)
-
   return (
     <div className="w-full h-full">
       <Head>
@@ -193,33 +207,51 @@ const Shipping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         <div className={styles.container}>
           <div className="w-full grid grid-cols-2 gap-10">
             <div className="col-span-2 lg:col-span-1 lg:flex hidden">
-              <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={data?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={0}
+                pagination={{
+                  clickable: true,
+                }}
+                onSlideChange={handleOnChange}
+                onSwiper={setSwiper}
+              >
+                <div className={styles.orderTitle}>
+                  {currentStep + 1}/{data?.length} cart items included in order
                 </div>
-                <div className={styles.blurImage} />
-                <ShippingApparelSection
-                  canvasId="canvas"
-                  nftName={data?.nftName}
-                  apparel={apparel}
-                  nftCoverUrl={data?.nftCoverUrl}
-                  finishEditing={finishEditing}
-                />
-              </div>
+                <div className={styles.prevButton} onClick={goPrev}>
+                  <PreviewButton />
+                </div>
+                <div className={styles.nextButton} onClick={goNext}>
+                  <NextButton />
+                </div>
+                {data &&
+                  data?.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className={styles.blurBackground}>
+                        <div className="absolute inset-0">
+                          <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                        </div>
+                        <div className={styles.blurImage} />
+                        <div style={{ zIndex: 10 }}>
+                          <img src={item?.imgPath} />
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
             </div>
             <div className="col-span-2 lg:col-span-1 z-10">
               {openApparelDetail && (
-                <ShippingMerchApparelSection
-                  nftData={apparelData}
+                <ShoppingCartMerchApparelSection
                   nftName={data?.nftName}
                   nftCoverUrl={data?.nftCoverUrl}
                   mintAddress={data?.mintAddress}
-                  open={openApparelDetail}
                   subCategory={data?.subCategory}
+                  open={openApparelDetail}
                   base={data?.base}
                   setFinishEditing={editing => setFinishEditing(editing)}
                   setApparel={apparel => setApparel(apparel)}
-                  setShowApparelMode={mode => setShowApparelMode(mode)}
                 />
               )}
             </div>
@@ -247,13 +279,13 @@ const Shipping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   )
 }
 
-export default Shipping
+export default Shopping
 
-Shipping.getLayout = function getLayout(page) {
+Shopping.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
-Shipping.getInitialProps = async function ({ res, query }): Promise<any> {
+Shopping.getInitialProps = async function ({ res, query }): Promise<any> {
   let mintAddress
   try {
     mintAddress = new PublicKey(query.id)

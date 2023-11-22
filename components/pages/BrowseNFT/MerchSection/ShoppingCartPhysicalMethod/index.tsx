@@ -23,7 +23,7 @@ import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
-const PhysicalShippingMethod = props => {
+const ShoppingCartPhysicalShippingMethod = props => {
   const {
     onBack,
     onNext,
@@ -318,4 +318,4 @@ const PhysicalShippingMethod = props => {
   )
 }
 
-export default PhysicalShippingMethod
+export default ShoppingCartPhysicalShippingMethod
