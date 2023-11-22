@@ -59,7 +59,7 @@ const HeroCard = props => {
                         : '/images/banner.png'
                     }
                     alt=""
-                    className="w-full h-full object-cover rounded-[24px]"
+                    className={`${styles.noSelect} w-full h-full object-cover rounded-[24px]`}
                     onLoad={() => {
                       setLoaded(true)
                     }}
@@ -79,7 +79,7 @@ const HeroCard = props => {
                         <img
                           src={data.cover_image_url}
                           alt=""
-                          className="w-full h-full object-cover"
+                          className={`${styles.noSelect} w-full h-full object-cover`}
                           onLoad={() => {
                             setLoaded(true)
                           }}
@@ -91,7 +91,7 @@ const HeroCard = props => {
                         src={DefaultNftBG}
                         alt=""
                         layout="fill"
-                        className="w-full h-full object-cover"
+                        className={`${styles.noSelect} w-full h-full object-cover`}
                         onClick={() => onClick()}
                       />
                     )}
@@ -117,7 +117,7 @@ const HeroCard = props => {
                     <img
                       src={data.cover_image_url}
                       alt=""
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                      className={`${styles.noSelect} w-full h-full rounded-[10px] lg:rounded-[24px] object-cover`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -129,12 +129,18 @@ const HeroCard = props => {
                     src={DefaultNftBG}
                     alt=""
                     layout="fill"
-                    className="w-full h-full object-cover"
+                    className={`${styles.noSelect} w-full h-full object-cover`}
                     onClick={() => onClick()}
                   />
                 )
               ) : (
-                <Image src={DefaultNftBG} alt="" layout="fill" className={styles.imageNft} onClick={() => onClick()} />
+                <Image
+                  src={DefaultNftBG}
+                  alt=""
+                  layout="fill"
+                  className={`${styles.imageNft} ${styles.noSelect}`}
+                  onClick={() => onClick()}
+                />
               )}
             </div>
           </div>
@@ -183,7 +189,7 @@ const HeroCard = props => {
                   alt=""
                   width={viewport === 'lg' ? 40 : 60}
                   height={viewport === 'lg' ? 40 : 60}
-                  className="rounded-full"
+                  className={`${styles.noSelect} rounded-full`}
                   loading="lazy"
                 />
               </div>
