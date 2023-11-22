@@ -48,8 +48,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [nfts, setNfts] = useState([])
   const [loaded, setLoaded] = useState(false)
   const address = collectionData?.collection_id
-  // const [activeListingLoaded, setActiveListingLoaded] = useState(false)
-  // const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -97,14 +95,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
   let collectionDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
-
-  // useEffect(() => {
-  //   if (activeListingLoaded && liveAuctionLoaded) {
-  //     setTimeout(() => {
-  //       dispatch({ type: 'set', isLoading: false })
-  //     }, 1000)
-  //   }
-  // }, [activeListingLoaded, liveAuctionLoaded])
 
   return (
     <div className="w-full">

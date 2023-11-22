@@ -20,7 +20,7 @@ import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection
 import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 
 const TabSection = props => {
-  const { nfts, collectionName, wallet, collectionId, setActiveListingLoaded, setLiveAuctionLoaded } = props
+  const { nfts, collectionName, collectionId } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
@@ -67,17 +67,3 @@ const TabSection = props => {
 }
 
 export default TabSection
-
-// {
-//   activeTab === 0 && (
-//     <div className="w-full">
-//       <LiveAuctionSection
-//         category={''}
-//         artist={wallet}
-//         fromPage={'profile'}
-//         setLiveAuctionLoaded={() => setLiveAuctionLoaded(true)}
-//       />
-//       <ActiveListingSection artist={wallet} fromPage={'profile'} loadCompleted={() => setActiveListingLoaded(true)} />
-//     </div>
-//   )
-// }
