@@ -189,3 +189,17 @@
     border-radius: 23px;
   }
 }
+
+// px-[100px] lg:px-[1rem]
+.responsivePadding {
+  padding-left: 100px;
+  padding-right: 100px;
+  @media (max-width: 765px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  @media (max-width: 1024px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}

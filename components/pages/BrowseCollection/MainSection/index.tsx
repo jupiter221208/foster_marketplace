@@ -222,7 +222,7 @@ const MainSection = props => {
               </div>
             )}
           </div>
-          <div className="g-container">
+          <div className="g-container mx-auto">
             <div className="w-full flex justify-between items-center -mt-[60px] lg:mt-[-85px]">
               <BrowseArtistCard
                 image={data?.cover_image ?? avatarImage.src}
@@ -299,7 +299,7 @@ const MainSection = props => {
           <div></div>
         </div>
       ) : (
-        <div className="g-container">
+        <div className="">
           <div className={styles.container}>
             <div className={styles.headerImage}>
               {data?.banner_image !== null && data?.banner_image.length > 0 ? (
@@ -336,7 +336,7 @@ const MainSection = props => {
               )}
             </div>
             <div className="w-full">
-              <div className="w-full flex justify-between items-center mt-[-50px] z-10">
+              <div className={`${styles.responsivePadding} w-full flex justify-between items-center mt-[-50px] z-10`}>
                 <BrowseArtistCard
                   image={data?.cover_image ?? avatarImage.src}
                   collectionName={data?.collection_name}
@@ -381,7 +381,7 @@ const MainSection = props => {
               {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
 
-            <div className="w-full flex justify-center mt-[30px]">
+            <div className={`${styles.responsivePadding} w-full flex justify-center mt-[30px]`}>
               <div className={styles.statesBack}>
                 <div className="w-full flex justify-between items-center gap-[5px]">
                   <div className={styles.statsArea}>
