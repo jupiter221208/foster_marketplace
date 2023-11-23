@@ -62,6 +62,7 @@ const ApparelSection = props => {
             }
             imageUrl.push(imgUrl)
             saveImage(imgUrl)
+            dispatch({ type: 'set', activeTab: 4 })
             router.push(`/merch-logs/`)
           }
         } else {

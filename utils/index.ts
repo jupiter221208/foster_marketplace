@@ -85,32 +85,12 @@ export const useDetectRouterPath = router => {
   }, [router.asPath])
 }
 
-// const COINGECKO_SOL_TO_USD_API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd'
-// export const fetchSolToUsdRate = async () => {
-//   return fetch(COINGECKO_SOL_TO_USD_API_URL)
-//     .then(r => r.json())
-//     .then(({ solana: { usd } }) => usd)
-// }
-
-const COINGECKO_SOL_TO_USD_API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd';
-
+const COINGECKO_SOL_TO_USD_API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd'
 export const fetchSolToUsdRate = async () => {
-  try {
-    const response = await fetch(COINGECKO_SOL_TO_USD_API_URL);
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch');
-    }
-
-    const data = await response.json();
-    const usdRate = data.solana.usd;
-
-    return usdRate;
-  } catch (error) {
-    console.error('Error:', error);
-    // Handle the error accordingly
-  }
-};
+  return fetch(COINGECKO_SOL_TO_USD_API_URL)
+    .then(r => r.json())
+    .then(({ solana: { usd } }) => usd)
+}
 
 export function addUrlSearchParams(
   base: string | URL,

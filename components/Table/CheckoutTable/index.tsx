@@ -3,7 +3,7 @@ import React from 'react'
 // styles
 import styles from './index.module.scss'
 
-const CheckoutTable = props => {
+const ShoppingCartCheckoutTable = props => {
   const { data } = props
   return (
     <table id={'CheckoutTable'} className="w-full table-auto">
@@ -34,4 +34,4 @@ const CheckoutTable = props => {
   )
 }
 
-export default CheckoutTable
+export default ShoppingCartCheckoutTable

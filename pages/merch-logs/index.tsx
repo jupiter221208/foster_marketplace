@@ -11,7 +11,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, ensureMaxDecimals } from 'utils'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
 
@@ -39,6 +39,7 @@ import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import GradientButton from 'components/Button/GradientButton'
 import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -79,6 +80,10 @@ const MerchActivity = () => {
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
   const [array, setArray] = useState([])
   const [cart, setCart] = useState([])
+  const [currentSelect, setCurrentSelect] = useState(0)
+  const [totalCost, setTotalCost] = useState(0)
+  const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
+  const solAmount = totalCost && solToUsdRate ? totalCost / solToUsdWithSlippage() : 0
 
   const [tokenId, setTokenId] = useState(false)
   useEffect(() => {
@@ -128,6 +133,7 @@ const MerchActivity = () => {
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
     setArray(storedData)
+    dispatch({ type: 'set', activeTab: 0 })
   }, [])
 
   const getcartList = () => {
@@ -488,15 +494,25 @@ const MerchActivity = () => {
             </div>
           )}
           {activeTab === 4 && (
-            <div className="w-full grid grid-cols-3">
+            <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
               <div className="col-span-2">
-                <ShoppingCartActivity data={array} getcartList={getcartList} cart={cart} setCart={setCart} />
+                <ShoppingCartActivity
+                  data={array}
+                  getcartList={getcartList}
+                  cart={cart}
+                  setCart={setCart}
+                  setCurrentSelect={setCurrentSelect}
+                  currentSelect={currentSelect}
+                  setTotalCost={setTotalCost}
+                  totalCost={totalCost}
+                />
               </div>
-              <div className="flex col-span-1 ml-[40px] h-[200px]">
+              <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
                 <div className={styles.tableColor}>
                   <div className="flex flex-row items-center justify-between">
-                    <div className={styles.subTotal}>Subtotal:</div>
+                    <div className={styles.subTotal}>Subtotal({currentSelect} itmes):</div>
                     <div className="flex flex-row items-center">
+                      $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
                       <div className={styles.costDivider} />
                       <div className="flex ml-[5px]">
                         <SolanaIcon alt="" className="text-[20px]" />

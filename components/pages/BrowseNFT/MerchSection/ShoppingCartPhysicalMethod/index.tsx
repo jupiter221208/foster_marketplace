@@ -24,22 +24,8 @@ import LoadingButton from 'components/Button/LoadingButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const ShoppingCartPhysicalShippingMethod = props => {
-  const {
-    onBack,
-    onNext,
-    data,
-    shippingData,
-    allShippingMethod,
-    method,
-    selectedMethod,
-    nftName,
-    nftCoverUrl,
-    mintAddress,
-    type,
-    setTotalCost,
-  } = props
+  const { onBack, onNext, apparelData, shippingData, allShippingMethod, type, setTotalCost, printData } = props
   const viewport = useViewport()
-
   const printImageUrl = useSelector(state => (state as any).printImageUrl)
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
@@ -48,29 +34,29 @@ const ShoppingCartPhysicalShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    let name = ''
-    if (type === 'apparel') {
-      name =
-        nftName +
-        '<br/>' +
-        data['apparel'].description +
-        ' (' +
-        data['size'].name +
-        ')' +
-        '<br/>' +
-        getFirstUpperString(data['color'].type)
-    } else {
-      name =
-        nftName +
-        '<br/>' +
-        getFirstUpperString(data.print.type) +
-        ' (' +
-        getFirstUpperString(data.orientation.type) +
-        ')<br/>' +
-        data.size.width +
-        ' x ' +
-        data.size.height
-    }
+    // let name = ''
+    // if (type === 'apparel') {
+    //   name =
+    //     nftName +
+    //     '<br/>' +
+    //     data['apparel'].description +
+    //     ' (' +
+    //     data['size'].name +
+    //     ')' +
+    //     '<br/>' +
+    //     getFirstUpperString(data['color'].type)
+    // } else {
+    //   name =
+    //     nftName +
+    //     '<br/>' +
+    //     getFirstUpperString(data.print.type) +
+    //     ' (' +
+    //     getFirstUpperString(data.orientation.type) +
+    //     ')<br/>' +
+    //     data.size.width +
+    //     ' x ' +
+    //     data.size.height
+    // }
 
     let methods = []
     if (isUniteState()) {
@@ -151,8 +137,12 @@ const ShoppingCartPhysicalShippingMethod = props => {
 
   useEffect(() => {
     if (shipping) {
-      let tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
-      let total = parseFloat(data.cost) + shipping.shipmentCost + tax
+      let totalCost = 0
+      printData.forEach(item => {
+        totalCost += parseFloat(item.cost)
+      })
+      let tax = Math.floor((totalCost + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      let total = totalCost + shipping.shipmentCost + tax
       setTax(tax)
       setTotal(total)
       setTotalCost(total)
@@ -174,45 +164,67 @@ const ShoppingCartPhysicalShippingMethod = props => {
       phone: '',
       residential: true,
     }
-    const { apparel, gender, quality, color, print, quantity, size } = data
+
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
     if (type === 'apparel') {
-      let item_id = apparel[gender.type][quality.type][color.type].item_id
-      item = {
-        id: item_id.toString(),
-        // sku: `SKU_${item_id.toString()}`,
-        quantity,
-        previewUrl: printImageUrl,
-        options: {
-          type: 'apparel',
-          nftName: nftName,
-          fosterUrl: `${origin}/nft/${mintAddress}`,
-          assetUrl: nftCoverUrl,
-          nftAddress: mintAddress,
-          size: size.name,
-          color: color.type,
-          print: print.name,
-        },
-        notes: `This is apparel ${apparel.description} item`,
-      }
+      // data.forEach(itemData => {
+      //   const { apparel, gender, quality, color, print, quantity, size } = itemData
+      //   let item_id = apparel[gender.type][quality.type][color.type].item_id
+      //   item = {
+      //     id: item_id.toString(),
+      //     // sku: `SKU_${item_id.toString()}`,
+      //     quantity,
+      //     previewUrl: printImageUrl,
+      //     options: {
+      //       type: 'apparel',
+      //       nftName: nftName,
+      //       fosterUrl: `${origin}/nft/${mintAddress}`,
+      //       assetUrl: nftCoverUrl,
+      //       nftAddress: mintAddress,
+      //       size: size.name,
+      //       color: color.type,
+      //       print: print.name,
+      //     },
+      //     notes: `This is apparel ${apparel.description} item`,
+      //   }
+      //   console.log('item==========', item)
+      // })
+      item = printData.map((itemData, index) => {
+        const { apparel, gender, quality, color, print, quantity, size } = itemData
+        let item_id = apparel[gender.type][quality.type][color.type].item_id
+
+        return {
+          id: item_id.toString(),
+          quantity,
+          previewUrl: printImageUrl,
+          options: {
+            type: 'apparel',
+            nftName: apparelData[index].nftName,
+            fosterUrl: apparelData[index].imgPath,
+            assetUrl: apparelData[index].nftCoverUrl,
+            nftAddress: apparelData[index].mintAddress,
+            size: size.name,
+            color: color.type,
+            print: print.name,
+          },
+          notes: `This is apparel ${apparel.description} item`,
+        }
+      })
     } else {
-      let item_id = data.size.id
-      item = {
-        id: item_id.toString(),
-        quantity,
-        previewUrl: printImageUrl,
-        options: {
-          type: 'wallart',
-          nftName: nftName,
-          fosterUrl: `${origin}/nft/${mintAddress}`,
-          assetUrl: nftCoverUrl,
-          nftAddress: mintAddress,
-          size: `${size.width}x${size.height}`,
-        },
-        notes: `This is wallart ${data.print.name} item`,
-      }
+      item = printData.map((itemData, index) => {
+        const { apparel, gender, quality, color, print, quantity, size } = itemData
+        let item_id = apparel[gender.type][quality.type][color.type].item_id
+
+        return {
+          id: item_id.toString(),
+          quantity,
+          previewUrl: printImageUrl,
+          options: { ...apparelData[index] },
+          notes: `This is apparel ${apparel.description} item`,
+        }
+      })
     }
 
     let params = {
@@ -220,7 +232,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
       shippingServiceCode: shipping.serviceCode,
       billTo: address,
       shipTo: address,
-      items: [item],
+      items: item,
       gift: true,
       giftMessage: 'Fantastic Gift',
       notes: 'Checkout Note',
@@ -264,7 +276,9 @@ const ShoppingCartPhysicalShippingMethod = props => {
             <div className={styles.orderView}>
               <div className="w-full flex justify-between">
                 <div className={styles.orderTotal}>Subtotal</div>
-                <div className={styles.totalPrice}>${data.cost}</div>
+                <div className={styles.totalPrice}>
+                  ${printData.reduce((totalCost, item) => totalCost + parseFloat(item.cost), 0).toFixed(2)}
+                </div>
               </div>
               <div className={`${styles.divider} mt-[15px]`} />
               <div className="w-full flex justify-between mt-[15px]">

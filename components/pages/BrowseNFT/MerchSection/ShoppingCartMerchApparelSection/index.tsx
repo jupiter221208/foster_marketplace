@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
@@ -10,19 +10,23 @@ import styles from './index.module.scss'
 import ShoppingCartPhysicalMethod from '../ShoppingCartPhysicalMethod'
 import { useViewport } from 'utils'
 
-const ShippingMerchApparelSection = props => {
-  const { nftName, nftCoverUrl, mintAddress, subCategory, base, open, onBack, setFinishEditing, setApparel } = props
+const ShoppingCartMerchApparelSection = props => {
+  const { nftName, nftCoverUrl, open, setFinishEditing, setApparel, apparelData } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  const [printData, setPrintData] = useState(null)
   const [openShippingDetail, setOpenShippingDetail] = useState(open)
   const [openShippingMethod, setOpenShippingMethod] = useState(false)
-  const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(2)
   const [totalCost, setTotalCost] = useState(null)
   const viewport = useViewport()
+
+  useEffect(() => {
+    setPrintData(JSON.parse(localStorage.getItem('checked')))
+  }, [])
 
   return (
     <section className={styles.container}>
@@ -31,12 +35,9 @@ const ShippingMerchApparelSection = props => {
       </div>
       {openShippingDetail ? (
         <ShoppingCartPhysicalShipping
-          onBack={info => {
-            setShippingData(info)
-            setOpenPrintDetail(false)
-            setOpenShippingDetail(false)
-            setFinishEditing(false)
-            setCurrentStep(1)
+          onBack={() => {
+            dispatch({ type: 'set', activeTab: 0 })
+            router.push(`/merch-logs`)
           }}
           onNext={info => {
             setShippingData(info.data)
@@ -51,12 +52,10 @@ const ShippingMerchApparelSection = props => {
         />
       ) : openShippingMethod ? (
         <ShoppingCartPhysicalMethod
-          data={printData}
+          apparelData={apparelData}
+          printData={printData}
           shippingData={shippingData}
           allShippingMethod={shipppingMethod}
-          nftName={nftName}
-          nftCoverUrl={nftCoverUrl}
-          mintAddress={mintAddress}
           setTotalCost={setTotalCost}
           type="apparel"
           onBack={() => {
@@ -73,7 +72,7 @@ const ShippingMerchApparelSection = props => {
               totalCost,
             }
             dispatch({ type: 'set', merchData: data })
-            router.push(`/orders/${orderId}`)
+            router.push(`/orders/shopping/${orderId}`)
           }}
         />
       ) : (
@@ -83,4 +82,4 @@ const ShippingMerchApparelSection = props => {
   )
 }
 
-export default ShippingMerchApparelSection
+export default ShoppingCartMerchApparelSection
