@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation, Pagination } from 'swiper'
+import SwiperCore, { Navigation } from 'swiper'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
@@ -41,6 +41,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import { NextButton, PreviewButton } from './customButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 SwiperCore.use([Navigation])
 
 export interface EditionDetail {
@@ -72,6 +73,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isloading, setIsloading] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -83,7 +86,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     setCurrentStep(swiper.activeIndex)
   }
 
-  const handleOnChange = () => {
+  const handleOnChange = swiper => {
     setCurrentStep(swiper.activeIndex)
   }
 
@@ -104,16 +107,21 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [isLoading])
 
   useEffect(() => {
-    const orderData = []
-    const orders = JSON.parse(localStorage.getItem('checked'))
+    setTimeout(() => {
+      setIsloading(true)
+    }, 2000)
+  }, [])
 
+  useEffect(() => {
+    const orders = JSON.parse(localStorage.getItem('checked'))
     const promises = orders.map(array => {
-      return nftsAPI.getDetail(array.id).then((response: any) => {
+      return nftsAPI.getDetail(array.id).then(response => {
+        setIsloading(false)
         const nftName = response.name
         const nftCoverUrl = response.cover_image_url
         const mintAddress = response.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
-        let params = {
+        const params = {
           nftName,
           nftCoverUrl,
           mintAddress,
@@ -122,12 +130,12 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           base: item.base,
           imgPath: array.imgPath,
         }
-        orderData.push(params)
+        return params
       })
     })
 
-    Promise.all(promises).then(() => {
-      setData(orderData)
+    Promise.all(promises).then(data => {
+      setData(data)
     })
   }, [])
 
@@ -216,40 +224,44 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 onSlideChange={handleOnChange}
                 onSwiper={setSwiper}
               >
-                <div className={styles.orderTitle}>
-                  {currentStep + 1}/{data?.length} cart items included in order
-                </div>
                 <div className={styles.prevButton} onClick={goPrev}>
                   <PreviewButton />
                 </div>
                 <div className={styles.nextButton} onClick={goNext}>
                   <NextButton />
                 </div>
-                {data &&
-                  data?.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div className={styles.blurBackground}>
-                        <div className="absolute inset-0">
-                          <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <div>
+                  {!isloading &&
+                    data &&
+                    data.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <div className={styles.blurBackground}>
+                          <div className="absolute inset-0">
+                            <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                          </div>
+                          <div className={styles.blurImage} />
+                          <div style={{ zIndex: 10 }}>
+                            <img src={item?.imgPath} />
+                          </div>
+                          <div className={styles.orderTitle}>
+                            {currentStep + 1}/{data?.length} cart items included in order
+                          </div>
                         </div>
-                        <div className={styles.blurImage} />
-                        <div style={{ zIndex: 10 }}>
-                          <img src={item?.imgPath} />
-                        </div>
-                      </div>
-                    </SwiperSlide>
-                  ))}
+                      </SwiperSlide>
+                    ))}
+                </div>
               </Swiper>
+              {isloading && (
+                <div className="w-full mt-[200px]">
+                  <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+                </div>
+              )}
             </div>
             <div className="col-span-2 lg:col-span-1 z-10">
               {openApparelDetail && (
                 <ShoppingCartMerchApparelSection
-                  nftName={data?.nftName}
-                  nftCoverUrl={data?.nftCoverUrl}
-                  mintAddress={data?.mintAddress}
-                  subCategory={data?.subCategory}
+                  apparelData={data}
                   open={openApparelDetail}
-                  base={data?.base}
                   setFinishEditing={editing => setFinishEditing(editing)}
                   setApparel={apparel => setApparel(apparel)}
                 />
@@ -258,7 +270,6 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         </div>
       </div>
-
       {fullScreen && (
         <div className={styles.fullScreen}>
           <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />

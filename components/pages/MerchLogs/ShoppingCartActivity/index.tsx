@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // components
 import CreatorSearchSection from '../CreatorSearchSection'
@@ -16,9 +18,11 @@ import styles from './index.module.scss'
 import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
 
 const ShoppingCartActivity = props => {
-  const { data, setCart, getcartList, cart } = props
+  const { data, setCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } = props
 
   const [cartList, setCartList] = useState<any[]>([])
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setCartList(props.data)
@@ -29,6 +33,14 @@ const ShoppingCartActivity = props => {
     if (arrayData[index]) {
       arrayData[index].checked = !arrayData[index].checked
     }
+    if (arrayData[index].checked) {
+      setCurrentSelect(currentSelect + 1)
+      setTotalCost(totalCost + parseFloat(arrayData[index].cost) * arrayData[index].quantity)
+    } else {
+      setCurrentSelect(currentSelect - 1)
+      setTotalCost(totalCost - parseFloat(arrayData[index].cost) * arrayData[index].quantity)
+    }
+
     setCart(arrayData)
   }
 
@@ -100,7 +112,7 @@ const ShoppingCartActivity = props => {
                   </div>
                   <div className="flex flex-col px-[10px]">
                     <div className={styles.mobileContent}>
-                      <div>{item.nftName}</div>
+                      <div className="w-[150px] overflow-x-auto">{item.nftName}</div>
                       <div>{item.apparel.name}</div>
                       <div>{item.color.type}</div>
                       <div>Qty: {item.quantity}</div>
