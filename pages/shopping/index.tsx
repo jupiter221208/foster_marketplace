@@ -40,7 +40,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
-import { NextButton, PreviewButton } from './customButton'
+import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 SwiperCore.use([Navigation])
 
