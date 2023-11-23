@@ -13,7 +13,7 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ShoppingCartPhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/ShoppingCartPhysicalCheckout'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { NextButton, PreviewButton } from './slideButton'
+import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 
 const OrderSection = props => {
   const router = useRouter()
