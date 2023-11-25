@@ -23,6 +23,7 @@ import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useViewport } from 'utils'
 
 const ProfileMenu = props => {
   const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
@@ -35,6 +36,16 @@ const ProfileMenu = props => {
   const [buttonClicked, setButtonClicked] = useState(false)
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const [loaded, setLoaded] = useState(false)
+  const [shortProfileMenuBtn, setShortProfileMenuBtn] = useState(false)
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log(shortProfileMenuBtn)
+      setShortProfileMenuBtn(innerWidth > 1160)
+    }, 500)
+
+    return () => clearInterval(intervalId)
+  }, [])
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -94,16 +105,18 @@ const ProfileMenu = props => {
                     Sign In
                   </div>
                 </div>
-                <div className={connectWalletStatus ? styles.activeAvatar : styles.avatar}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
-                    <path
-                      id="user-19"
-                      d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"
-                      transform="translate(-2.064 -1.995)"
-                      fill="var(--profile-user-color)"
-                    />
-                  </svg>
-                </div>
+                {shortProfileMenuBtn && (
+                  <div className={connectWalletStatus ? styles.activeAvatar : styles.avatar}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
+                      <path
+                        id="user-19"
+                        d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"
+                        transform="translate(-2.064 -1.995)"
+                        fill="var(--profile-user-color)"
+                      />
+                    </svg>
+                  </div>
+                )}
               </div>
             ) : (
               <div className={styles.activeAvatar}>
@@ -122,8 +135,8 @@ const ProfileMenu = props => {
                 )}
               </div>
             )}
-            {connectWalletStatus && (
-              <div className="flex gap-[8px] items-center">
+            {connectWalletStatus && shortProfileMenuBtn && (
+              <div className="flex gap-2 items-center">
                 <div>
                   <div className={styles.username}>@{username.replaceAll(' ', '').toLowerCase()}</div>
                   <div className={styles.wallet}>{wallet}</div>

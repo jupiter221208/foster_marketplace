@@ -68,9 +68,9 @@ const PrimaryHeader = () => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
       setIsScrollTop(position < 100)
-    }, 500) // Execute every 1000 milliseconds (1 second)
+    }, 500)
 
-    return () => clearInterval(intervalId) // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId)
   }, [])
 
   useEffect(() => {
@@ -186,7 +186,7 @@ const PrimaryHeader = () => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={`${styles.blurContainer} flex justify-center`}>
-      <nav className="gap-8 flex justify-between w-full max-w-[1750px] p-6 ">
+      <nav className="gap-6 flex justify-between w-full max-w-[1750px] p-6 ">
         <div className="my-auto">
           {routePath === '/' || 'studio' ? (
             <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
@@ -198,7 +198,7 @@ const PrimaryHeader = () => {
             </div>
           )}
         </div>
-        <div className="flex gap-8 my-auto w-full">
+        <div className="flex gap-4 my-auto w-full">
           <SearchBox
             value={searchKeyword}
             placeholder="Search Marketplace"
@@ -207,7 +207,7 @@ const PrimaryHeader = () => {
             onClick={() => handleClear()}
             onClose={() => handleClose()}
           />
-          <div className="flex px-4 gap-12 justify-between w-full max-w-xs items-center">
+          <div className="flex px-4 gap-8 justify-between w-full max-w-xs items-center">
             <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
               Studio
             </div>
@@ -225,7 +225,7 @@ const PrimaryHeader = () => {
             </div>
           </div>
         </div>
-        <div className="flex my-auto w-max gap-4">
+        <div className="flex items-center my-auto w-max gap-4">
           {connected && (
             <div onClick={() => router.push('/notifications')}>
               <NotificationIcon alt="" />
