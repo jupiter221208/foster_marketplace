@@ -57,17 +57,30 @@ const PrimaryHeader = () => {
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
+  const [isScrollingTop, setIsScrollingTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
 
   let timer = null
+  let lastScrollPosition = 0
+  console.log(isScrollingTop)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
       setIsScrollTop(position < 100)
+
+      if (position > lastScrollPosition) {
+        lastScrollPosition = position
+        setIsScrollingTop(true)
+      }
+
+      if (position < lastScrollPosition) {
+        lastScrollPosition = position
+        setIsScrollingTop(false)
+      }
     }, 500)
 
     return () => clearInterval(intervalId)
@@ -185,7 +198,9 @@ const PrimaryHeader = () => {
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-    <div className={`${styles.blurContainer} flex justify-center`}>
+    <div
+      className={`${styles.blurContainer} ${isScrollingTop ? '-top-28' : 'top-0'} flex justify-center transition-all`}
+    >
       <nav className="gap-6 flex justify-between w-full max-w-[1750px] p-6 ">
         <div className="my-auto">
           {routePath === '/' || 'studio' ? (
@@ -255,7 +270,11 @@ const PrimaryHeader = () => {
       </nav>
     </div>
   ) : (
-    <div className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} transition-all`}>
+    <div
+      className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
+        isScrollingTop ? '-top-28' : 'top-0'
+      } transition-all`}
+    >
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="flex">
