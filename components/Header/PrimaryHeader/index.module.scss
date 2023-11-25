@@ -1,11 +1,10 @@
 @import 'assets/scss/variable.module.scss';
 
 .blurContainer {
+  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  height: 100px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   background: var(--nav-bg-color);
