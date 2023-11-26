@@ -1,15 +1,6 @@
 [
   {
     "id": 0,
-    "icon01": "/icons/tag-green.svg",
-    "icon02": "/icons/tag-gray.svg",
-    "icon03": "/icons/tag-gray-light.svg",
-    "icon04": "/icons/tag-gray-dark.svg",
-    "label": "Listed",
-    "value": "Listed"
-  },
-  {
-    "id": 1,
     "icon01": "/icons/list-ui-alt-green.svg",
     "icon02": "/icons/list-ui-alt-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
@@ -18,7 +9,7 @@
     "value": "Items"
   },
   {
-    "id": 2,
+    "id": 1,
     "icon01": "/icons/heart-rate-green.svg",
     "icon02": "/icons/heart-rate-gray.svg",
     "icon03": "/icons/heart-rate-gray-light.svg",
