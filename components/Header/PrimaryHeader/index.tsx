@@ -64,22 +64,20 @@ const PrimaryHeader = () => {
   const markAsRead = useSelector(state => (state as any).markAsRead)
 
   let timer = null
+
   let lastScrollPosition = 0
   console.log(isScrollingTop)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
-      setIsScrollTop(position < 100)
 
       if (position > lastScrollPosition) {
         lastScrollPosition = position
-        setIsScrollingTop(true)
-      }
-
-      if (position < lastScrollPosition) {
-        lastScrollPosition = position
         setIsScrollingTop(false)
+      } else if (position < lastScrollPosition) {
+        lastScrollPosition = position
+        setIsScrollingTop(true)
       }
     }, 500)
 
@@ -199,7 +197,7 @@ const PrimaryHeader = () => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div
-      className={`${styles.blurContainer} ${isScrollingTop ? '-top-28' : 'top-0'} flex justify-center transition-all`}
+      className={`${styles.blurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} flex justify-center transition-all`}
     >
       <nav className="gap-6 flex justify-between w-full max-w-[1750px] p-6 ">
         <div className="my-auto">
