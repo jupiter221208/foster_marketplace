@@ -48,8 +48,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [nfts, setNfts] = useState([])
   const [loaded, setLoaded] = useState(false)
   const address = collectionData?.collection_id
-  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
-  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -69,7 +67,10 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       try {
         setLoaded(false)
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) setNfts(collectionNfts)
+        if (!isString(collectionNfts)) {
+          setNfts(collectionNfts)
+          dispatch({ type: 'set', isLoading: false })
+        }
 
         // if (isLoggedIn()) {
         //   let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
@@ -94,14 +95,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
   let collectionDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
-
-  useEffect(() => {
-    if (activeListingLoaded && liveAuctionLoaded) {
-      setTimeout(() => {
-        dispatch({ type: 'set', isLoading: false })
-      }, 1000)
-    }
-  }, [activeListingLoaded, liveAuctionLoaded])
 
   return (
     <div className="w-full">
@@ -129,10 +122,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
               nfts={nfts}
               collectionId={address}
               collectionName={collectionData?.collection_name}
-              wallet={collectionData?.minter_id}
               artistName={collectionData?.artist_username}
-              setActiveListingLoaded={setActiveListingLoaded}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
             />
           </div>
         </div>

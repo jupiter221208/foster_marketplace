@@ -200,3 +200,7 @@
   text-overflow: ellipsis;
   cursor: pointer;
 }
+
+.noSelect {
+  user-select: none;
+}
