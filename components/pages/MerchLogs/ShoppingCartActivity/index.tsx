@@ -129,15 +129,15 @@ const ShoppingCartActivity = props => {
                           <div>{item.nftName}</div>
                           <div>
                             {item.apparel.description}&nbsp;(
-                            {item.size.name === 'S'
+                            {item.size.name === 'S' || item.size.name === 'YXS'
                               ? 'Small'
-                              : item.size.name === 'M'
+                              : item.size.name === 'M' || item.size.name === 'YS'
                               ? 'Medium'
-                              : item.size.name === 'L'
+                              : item.size.name === 'L' || item.size.name === 'YM'
                               ? 'Large'
-                              : item.size.name === 'XL'
+                              : item.size.name === 'XL' || item.size.name === 'YL'
                               ? 'X-Large'
-                              : item.size.name === '2XL'
+                              : item.size.name === '2XL' || item.size.name === 'YXL'
                               ? '2X-Large'
                               : ''}
                             )
