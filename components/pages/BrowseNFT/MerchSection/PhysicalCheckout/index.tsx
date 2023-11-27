@@ -109,15 +109,15 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           apparel +
           ' ' +
           '(' +
-          (size === 'S'
+          (size === 'S' || size === 'YXS'
             ? 'Small'
-            : size === 'M'
+            : size === 'M' || size === 'YS'
             ? 'Medium'
-            : size === 'L'
+            : size === 'L' || size === 'YM'
             ? 'Large'
-            : size === 'XL'
+            : size === 'XL' || size === 'YL'
             ? 'X-Large'
-            : size === '2XL'
+            : size === '2XL' || size === 'YXL'
             ? '2X-Large'
             : '') +
           ')' +
