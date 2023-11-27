@@ -23,7 +23,8 @@ const ShoppingCartActivity = props => {
   const [cartList, setCartList] = useState<any[]>([])
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const [selectAll, setSelectALl] = useState(false)
+  const [checked, setChecked] = useState(false)
   useEffect(() => {
     setCartList(props.data)
   }, [props.data])
@@ -35,10 +36,10 @@ const ShoppingCartActivity = props => {
     }
     if (arrayData[index].checked) {
       setCurrentSelect(currentSelect + 1)
-      setTotalCost(totalCost + parseFloat(arrayData[index].cost) * arrayData[index].quantity)
+      setTotalCost(totalCost + parseFloat(arrayData[index].cost))
     } else {
       setCurrentSelect(currentSelect - 1)
-      setTotalCost(totalCost - parseFloat(arrayData[index].cost) * arrayData[index].quantity)
+      setTotalCost(totalCost - parseFloat(arrayData[index].cost))
     }
 
     setCart(arrayData)
@@ -53,30 +54,94 @@ const ShoppingCartActivity = props => {
     getcartList()
   }
 
+  const handleEdit = index => {
+    let arrayData = JSON.parse(localStorage.getItem('data'))
+    let token_id = arrayData[index].id
+    let color = arrayData[index].color.type
+    let colorValue
+
+    switch (color) {
+      case 'white':
+        colorValue = 0
+        break
+      case 'black':
+        colorValue = 1
+        break
+      case 'gray':
+        colorValue = 2
+        break
+      case 'navy':
+        colorValue = 3
+        break
+      default:
+        colorValue = null
+    }
+    let apparelType = arrayData[index].apparel.description
+    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', detailShow: true })
+    dispatch({ type: 'set', apparelType })
+    dispatch({ type: 'set', apparelColor: colorValue })
+    router.push(`/nft/${token_id}`)
+
+    arrayData.splice(index, 1)
+    localStorage.setItem('data', JSON.stringify(arrayData))
+
+    getcartList()
+  }
+
+  const handleSelectAll = () => {
+    const allSelected = !selectAll
+    setSelectALl(allSelected)
+    setCurrentSelect(allSelected ? cartList.length : 0)
+    setTotalCost(allSelected ? cartList.reduce((total, item) => total + parseFloat(item.cost), 0) : 0)
+    setChecked(!checked)
+    const updatedCart = cartList.map(item => {
+      item.checked = allSelected
+      return item
+    })
+    setCart(updatedCart)
+  }
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.title}>Studio Shopping Cart</div>
-        <div className={styles.subTitle}>Deselected all items</div>
+        <div className={styles.subTitle} onClick={() => handleSelectAll()}>
+          {selectAll ? 'Deselect all items' : 'Select all items'}
+        </div>
         <div className={styles.listContainer}>
           {cartList &&
             cartList.map((item, index) => (
               <div key={index}>
-                {item?.imgPath && (
+                {item?.printImageUrl && (
                   <>
                     <div className={styles.divider}></div>
                     <div className="w-full h-full flex flex-row justify-between ml-[40px]">
                       <div className="flex items-center">
-                        <SimpleCheckbox onChange={() => handleSelectData(index)} />
+                        <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
                       <div className="w-[35%] h-[35%] flex ">
-                        <img src={item.imgPath} className="px-[50px] py-[50px]" alt="Item Image" />
+                        <img src={item.printImageUrl} className="px-[50px] py-[50px]" alt="Item Image" />
                       </div>
                       <div className="w-full flex flex-col px-[100px] mt-[40px]">
                         <div className={`${styles.detail} text-right flex`}>Item Details</div>
                         <div className={styles.content}>
                           <div>{item.nftName}</div>
-                          <div>{item.apparel.name}</div>
+                          <div>
+                            {item.apparel.description}&nbsp;(
+                            {item.size.name === 'S'
+                              ? 'Small'
+                              : item.size.name === 'M'
+                              ? 'Medium'
+                              : item.size.name === 'L'
+                              ? 'Large'
+                              : item.size.name === 'XL'
+                              ? 'X-Large'
+                              : item.size.name === '2XL'
+                              ? '2X-Large'
+                              : ''}
+                            )
+                          </div>
                           <div>{item.color.type}</div>
                           <div>Qty: {item.quantity}</div>
                         </div>
@@ -85,7 +150,9 @@ const ShoppingCartActivity = props => {
                             Remove Item
                           </div>
                           <div className={styles.costDivider} />
-                          <div className={styles.edit}>Edit</div>
+                          <div className={styles.edit} onClick={() => handleEdit(index)}>
+                            Edit
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -102,13 +169,13 @@ const ShoppingCartActivity = props => {
         {cartList &&
           cartList.map((item, index) => (
             <div key={index}>
-              {item.imgPath && (
+              {item.printImageUrl && (
                 <div className={styles.tableColor}>
                   <div className="flex items-center ml-[30px]">
                     <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
                   </div>
                   <div className="w-[100px] h-[100px] flex ml-[15px] mt-[10px]">
-                    <img src={item.imgPath} className="w-full h-full px-3 py-3" />
+                    <img src={item.printImageUrl} className="w-full h-full px-3 py-3" />
                   </div>
                   <div className="flex flex-col px-[10px]">
                     <div className={styles.mobileContent}>
@@ -118,9 +185,13 @@ const ShoppingCartActivity = props => {
                       <div>Qty: {item.quantity}</div>
                     </div>
                     <div className="flex mt-[5px] items-center">
-                      <div className={styles.mobileRemove}>Delete</div>
+                      <div className={styles.mobileRemove} onClick={() => handleRemove(index)}>
+                        Delete
+                      </div>
                       <div className={styles.costDivider} />
-                      <div className={styles.mobileEdit}>Edit</div>
+                      <div className={styles.mobileEdit} onClick={() => handleEdit(index)}>
+                        Edit
+                      </div>
                     </div>
                   </div>
                 </div>

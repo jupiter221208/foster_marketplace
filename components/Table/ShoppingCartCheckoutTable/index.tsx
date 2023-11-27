@@ -22,7 +22,7 @@ const ShoppingCartCheckoutTable = props => {
                 </div>
               </td>
               <td className="text-right">
-                <div className={`${styles.value} w-[240px]`}>
+                <div className={`${styles.value} w-[240px] ml-[50px]`}>
                   <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
                 </div>
               </td>

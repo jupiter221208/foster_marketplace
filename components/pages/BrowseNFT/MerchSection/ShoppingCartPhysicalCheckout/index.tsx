@@ -56,6 +56,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
+  const [mobileList, setMobileList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
@@ -88,7 +89,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       : '-'
 
     let itemList = []
-    console.log('ordfdfsdf', orderData)
+    let mobilelistData = []
     orderData?.ssorder.items.forEach(item => {
       let itemQuantity = item.quantity
 
@@ -97,18 +98,50 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       var nftName = findElement(options, 'name', 'nftName')['value']
       var fosterUrl = findElement(options, 'name', 'fosterUrl')['value']
       var name = item.name
+      var apparel = findElement(options, 'name', 'apparel')['value']
       var size = findElement(options, 'name', 'size')['value']
       var itemName
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
-        itemName = nftName + '<br/>' + getFirstUpperString(color) + '<br/>' + 'Qty:' + itemQuantity
+        itemName =
+          nftName +
+          '<br/>' +
+          apparel +
+          ' ' +
+          '(' +
+          (size === 'S'
+            ? 'Small'
+            : size === 'M'
+            ? 'Medium'
+            : size === 'L'
+            ? 'Large'
+            : size === 'XL'
+            ? 'X-Large'
+            : size === '2XL'
+            ? '2X-Large'
+            : '') +
+          ')' +
+          '<br/>' +
+          getFirstUpperString(color) +
+          '<br/>' +
+          'Qty:' +
+          itemQuantity
       } else {
         itemName = nftName + '<br/>' + name + '<br/>' + 'Qty:' + itemQuantity
       }
       itemList.push({ url: fosterUrl, name: itemName, shipping: itemShipping })
+      mobilelistData.push({
+        url: fosterUrl,
+        nftName: nftName,
+        size: size,
+        color: color,
+        quantity: itemQuantity,
+        shipping: itemShipping,
+        apparel: apparel,
+      })
     })
-
     setList(itemList)
+    setMobileList(mobilelistData)
   }, [])
 
   const onCheckout = async () => {
@@ -169,17 +202,6 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
 
   return (
     <section className={styles.container}>
-      {/* <div className="flex gap-[15px] mt-[20px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden">
-            <ArrowLeftIconMobile alt="" />
-          </div>
-        </div>
-        <div className={styles.selecteCategory}>Checkout</div>
-      </div> */}
       <div className={styles.summary}>Order Summary</div>
       <div className="mt-[20px] hidden lg:block">
         <TableSection data={list} />
@@ -212,24 +234,24 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
 
       {/* Mobile Table */}
       <div className="w-full lg:hidden">
-        <div>
-          <div className={styles.tableColor}>
-            {list.map((item, index) => (
+        <div className="flex flex-col h-[200px] overflow-auto mt-[20px]">
+          {list.map((item, index) => (
+            <div className={styles.tableColor}>
               <div key={index} className="w-full flex justify-between">
                 <div className="w-full h-full flex items-center ml-[10px]">
-                  <img src={item?.url} className="w-[50%] h-[50%]" />
+                  <img src={item?.url} className="w-[50%] h-[50%] px-2 py-2" />
                 </div>
-                <div className={`${styles.value} w-[200px] text-right mr-[10px]`}>
+                <div className={`${styles.value} w-[270px] text-right mr-[10px]`}>
                   <p dangerouslySetInnerHTML={{ __html: item.name }} />
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
-            <div className={styles.shipping}>{'Shipping\nAddress:'}</div>
-            <div className={`${styles.shipping} text-left mt-[12px]`}>
-              <p dangerouslySetInnerHTML={{ __html: list[1]?.shipping }} />
             </div>
+          ))}
+        </div>
+        <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
+          <div className={styles.shipping}>{'Shipping\nAddress:'}</div>
+          <div className={`${styles.shipping} text-left mt-[12px]`}>
+            <p dangerouslySetInnerHTML={{ __html: list[0]?.shipping }} />
           </div>
         </div>
       </div>

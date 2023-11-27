@@ -82,8 +82,7 @@ const MerchActivity = () => {
   const [cart, setCart] = useState([])
   const [currentSelect, setCurrentSelect] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
-  const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
-  const solAmount = totalCost && solToUsdRate ? totalCost / solToUsdWithSlippage() : 0
+  const { solToUsdRate } = useSolToUsdRate()
 
   const [tokenId, setTokenId] = useState(false)
   useEffect(() => {
@@ -150,8 +149,10 @@ const MerchActivity = () => {
     cart.forEach(item => {
       if (item.checked === true) checkedData.push(item)
     })
-    localStorage.setItem('checked', JSON.stringify(checkedData))
-    router.push(`/shopping/`)
+    if (checkedData.length > 0) {
+      localStorage.setItem('checked', JSON.stringify(checkedData))
+      router.push(`/shopping/`)
+    }
   }
 
   const getBuyerOrder = (page, rowCount) => {
@@ -514,8 +515,10 @@ const MerchActivity = () => {
                     <div className="flex flex-row items-center">
                       $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
                       <div className={styles.costDivider} />
-                      <div className="flex ml-[5px]">
+                      <div className="flex ml-[5px] items-center">
                         <SolanaIcon alt="" className="text-[20px]" />
+                        &nbsp;
+                        {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
                       </div>
                     </div>
                   </div>

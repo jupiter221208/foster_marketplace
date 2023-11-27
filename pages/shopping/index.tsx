@@ -128,7 +128,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           category: item.category,
           subCategory: item.sub_type,
           base: item.base,
-          imgPath: array.imgPath,
+          printImageUrl: array.printImageUrl,
         }
         return params
       })
@@ -215,42 +215,44 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         <div className={styles.container}>
           <div className="w-full grid grid-cols-2 gap-10">
             <div className="col-span-2 lg:col-span-1 lg:flex hidden">
-              <Swiper
-                slidesPerView={1}
-                spaceBetween={0}
-                pagination={{
-                  clickable: true,
-                }}
-                onSlideChange={handleOnChange}
-                onSwiper={setSwiper}
-              >
-                <div className={styles.prevButton} onClick={goPrev}>
-                  <PreviewButton />
-                </div>
-                <div className={styles.nextButton} onClick={goNext}>
-                  <NextButton />
-                </div>
-                <div>
-                  {!isloading &&
-                    data &&
-                    data.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <div className={styles.blurBackground}>
-                          <div className="absolute inset-0">
-                            <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+              <div className="w-full relative" id="heroSwiper">
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={0}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  onSlideChange={handleOnChange}
+                  onSwiper={setSwiper}
+                >
+                  <div className={styles.prevButton} onClick={goPrev}>
+                    <PreviewButton />
+                  </div>
+                  <div className={styles.nextButton} onClick={goNext}>
+                    <NextButton />
+                  </div>
+                  <div>
+                    {!isloading &&
+                      data &&
+                      data.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <div className={styles.blurBackground}>
+                            <div className="absolute inset-0">
+                              <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                            </div>
+                            <div className={styles.blurImage} />
+                            <div style={{ zIndex: 10 }}>
+                              <img src={item?.printImageUrl} />
+                            </div>
+                            <div className={styles.orderTitle}>
+                              {currentStep + 1}/{data?.length} cart items included in order
+                            </div>
                           </div>
-                          <div className={styles.blurImage} />
-                          <div style={{ zIndex: 10 }}>
-                            <img src={item?.imgPath} />
-                          </div>
-                          <div className={styles.orderTitle}>
-                            {currentStep + 1}/{data?.length} cart items included in order
-                          </div>
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                </div>
-              </Swiper>
+                        </SwiperSlide>
+                      ))}
+                  </div>
+                </Swiper>
+              </div>
               {isloading && (
                 <div className="w-full mt-[200px]">
                   <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />

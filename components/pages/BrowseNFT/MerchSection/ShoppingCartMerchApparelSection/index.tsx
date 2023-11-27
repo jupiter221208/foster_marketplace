@@ -36,7 +36,7 @@ const ShoppingCartMerchApparelSection = props => {
       {openShippingDetail ? (
         <ShoppingCartPhysicalShipping
           onBack={() => {
-            dispatch({ type: 'set', activeTab: 0 })
+            dispatch({ type: 'set', activeTab: 4 })
             router.push(`/merch-logs`)
           }}
           onNext={info => {
