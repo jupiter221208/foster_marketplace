@@ -6,6 +6,9 @@ import { findElement } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 // component
 import MerchStepper from 'components/MerchStepper'
