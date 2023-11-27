@@ -5,7 +5,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Navigation } from 'swiper'
+import { Navigation, Pagination } from 'swiper'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
@@ -42,7 +45,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-SwiperCore.use([Navigation])
 
 export interface EditionDetail {
   number: number
@@ -213,54 +215,49 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="g-container z-10">
+      <div className="g-container">
         <div className={styles.container}>
           <div className="w-full grid grid-cols-2 gap-10">
-            <div className="col-span-2 lg:col-span-1 lg:flex hidden">
-              <div className="w-full relative" id="heroSwiper">
-                {!loading && (
-                  <Swiper
-                    slidesPerView={1}
-                    spaceBetween={0}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    onSlideChange={handleOnChange}
-                    onSwiper={setSwiper}
-                  >
-                    <div className={styles.prevButton} onClick={goPrev}>
-                      <PreviewButton />
-                    </div>
-                    <div className={styles.nextButton} onClick={goNext}>
-                      <NextButton />
-                    </div>
-                    <div>
-                      {data &&
-                        data.map((item, index) => (
-                          <SwiperSlide key={index}>
-                            <div className={styles.blurBackground}>
-                              <div className="absolute inset-0">
-                                <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                              </div>
-                              <div className={styles.blurImage} />
-                              <div style={{ zIndex: 10 }}>
-                                <img src={item?.printImageUrl} />
-                              </div>
-                              <div className={styles.orderTitle}>
-                                {currentStep + 1}/{data?.length} cart items included in order
-                              </div>
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                    </div>
-                  </Swiper>
-                )}
-                {loading && (
-                  <div className="w-full mt-[200px]">
-                    <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+            <div className="col-span-2 lg:col-span-1">
+              {!loading ? (
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={10}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  onSlideChange={handleOnChange}
+                  onSwiper={setSwiper}
+                >
+                  <div className={styles.orderTitle}>
+                    {currentStep + 1}/{data?.length} cart items included in order
                   </div>
-                )}
-              </div>
+                  <div className={styles.prevButton} onClick={goPrev}>
+                    <PreviewButton />
+                  </div>
+                  <div className={styles.nextButton} onClick={goNext}>
+                    <NextButton />
+                  </div>
+                  {data &&
+                    data.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <div className={styles.blurBackground}>
+                          <div className="absolute inset-0">
+                            <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                          </div>
+                          <div className={styles.blurImage} />
+                          <div style={{ zIndex: 10 }}>
+                            <img src={item?.printImageUrl} />
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
+              ) : (
+                <div className="w-full mt-[200px]">
+                  <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+                </div>
+              )}
             </div>
             <div className="col-span-2 lg:col-span-1 z-10">
               {openApparelDetail && (
