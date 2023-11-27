@@ -236,8 +236,8 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       <div className="w-full lg:hidden">
         <div className="flex flex-col h-[200px] overflow-auto mt-[20px]">
           {list.map((item, index) => (
-            <div className={styles.tableColor}>
-              <div key={index} className="w-full flex justify-between">
+            <div key={index} className={styles.tableColor}>
+              <div className="w-full flex justify-between">
                 <div className="w-full h-full flex items-center ml-[10px]">
                   <img src={item?.url} className="w-[50%] h-[50%] px-2 py-2" />
                 </div>
