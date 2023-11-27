@@ -38,6 +38,7 @@ const initialState = {
   merchData: null,
   firstLoaded: false,
   activeTab: 0,
+  isAddToCart: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

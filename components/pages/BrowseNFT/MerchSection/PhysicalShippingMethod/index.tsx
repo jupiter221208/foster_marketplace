@@ -191,6 +191,7 @@ const PhysicalShippingMethod = props => {
           fosterUrl: `${origin}/nft/${mintAddress}`,
           assetUrl: nftCoverUrl,
           nftAddress: mintAddress,
+          apparel: apparel.description,
           size: size.name,
           color: color.type,
           print: print.name,

@@ -202,9 +202,10 @@ const ShoppingCartPhysicalShippingMethod = props => {
           options: {
             type: 'apparel',
             nftName: apparelData[index].nftName,
-            fosterUrl: apparelData[index].imgPath,
+            fosterUrl: apparelData[index].printImageUrl,
             assetUrl: apparelData[index].nftCoverUrl,
             nftAddress: apparelData[index].mintAddress,
+            apparel: apparel.description,
             size: size.name,
             color: color.type,
             print: print.name,

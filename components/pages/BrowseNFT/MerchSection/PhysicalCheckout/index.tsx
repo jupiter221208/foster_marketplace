@@ -98,13 +98,34 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
       var name = item.name
+      var apparel = findElement(options, 'name', 'apparel')['value']
       var size = findElement(options, 'name', 'size')['value']
       var itemName
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
-        itemName = nftName + '<br/>' + getFirstUpperString(color) + '<br/>' + 'Qty:' + itemQuantity
-      } else {
-        itemName = nftName + '<br/>' + name + '<br/>' + 'Qty:' + itemQuantity
+        itemName =
+          nftName +
+          '<br/>' +
+          apparel +
+          ' ' +
+          '(' +
+          (size === 'S'
+            ? 'Small'
+            : size === 'M'
+            ? 'Medium'
+            : size === 'L'
+            ? 'Large'
+            : size === 'XL'
+            ? 'X-Large'
+            : size === '2XL'
+            ? '2X-Large'
+            : '') +
+          ')' +
+          '<br/>' +
+          getFirstUpperString(color) +
+          '<br/>' +
+          'Qty:' +
+          itemQuantity
       }
       itemList.push({ url: imageUrl, name: itemName, shipping: itemShipping })
     })

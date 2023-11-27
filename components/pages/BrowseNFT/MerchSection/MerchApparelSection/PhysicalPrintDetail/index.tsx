@@ -34,7 +34,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory, base } = props
+  const { onBack, onPrint, onShipping, onAddCart, data, setData, nftName, nftCoverUrl, subCategory, base } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [gender, setGender] = useState({ name: '', type: '' })
@@ -69,8 +69,8 @@ const PhysicalPrintDetail = props => {
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
   const shippingDetail = useSelector<any>(state => state.shippingDetail)
-  const [isAddToCart, setIsAddToCart] = useState(false)
-  const [imgPath, setImgPath] = useState('')
+  const printImageUrl = useSelector<any>(state => state.printImageUrl)
+  const isAddToCart = useSelector(state => (state as any).isAddToCart)
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -242,12 +242,12 @@ const PhysicalPrintDetail = props => {
     return ''
   }
   const handleSaveData = () => {
-    setFinishEditing(true)
-    setIsAddToCart(true)
+    let data = { apparel, gender, color, print, quality, size, quantity, cost }
+    onAddCart(data)
   }
 
   useEffect(() => {
-    if (imgPath) {
+    if (printImageUrl && isAddToCart) {
       let existingData = JSON.parse(localStorage.getItem('data')) || []
       if (!Array.isArray(existingData)) {
         existingData = []
@@ -266,12 +266,14 @@ const PhysicalPrintDetail = props => {
         id,
         nftCoverUrl,
         nftName,
-        imgPath,
+        printImageUrl,
       }
       existingData.push(data)
       localStorage.setItem('data', JSON.stringify(existingData))
+      dispatch({ type: 'set', isAddToCart: false })
+      dispatch({ type: 'set', printImageUrl: null })
     }
-  }, [imgPath])
+  }, [printImageUrl, isAddToCart])
 
   return (
     <section className={styles.container}>
@@ -283,8 +285,6 @@ const PhysicalPrintDetail = props => {
           apparel={previewApparel}
           nftCoverUrl={nftCoverUrl}
           finishEditing={finishEditing}
-          isAddToCart={isAddToCart}
-          saveImage={setImgPath}
         />
       </div>
       <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">
@@ -377,7 +377,7 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[30px] flex gap-[30px]">
         <OutlineButton
           label="Add to Cart"
-          onClick={handleSaveData}
+          onClick={() => handleSaveData()}
           fullWidth
           fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
