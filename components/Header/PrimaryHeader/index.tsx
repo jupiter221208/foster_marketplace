@@ -66,7 +66,6 @@ const PrimaryHeader = () => {
   let timer = null
 
   let lastScrollPosition = 0
-  console.log(isScrollingTop)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -199,7 +198,7 @@ const PrimaryHeader = () => {
     <div
       className={`${styles.blurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} flex justify-center transition-all`}
     >
-      <nav className="gap-6 flex justify-between w-full max-w-[1750px] p-6 ">
+      <nav className="gap-4 flex justify-between w-full max-w-[1750px] p-6 ">
         <div className="my-auto">
           {routePath === '/' || 'studio' ? (
             <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
@@ -220,10 +219,11 @@ const PrimaryHeader = () => {
             onClick={() => handleClear()}
             onClose={() => handleClose()}
           />
-          <div className="flex px-4 gap-8 justify-between w-full max-w-xs items-center">
+          <div className="flex gap-6 justify-between w-full max-w-sm items-center">
             <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
               Studio
             </div>
+
             <div>
               <ExploreMenu
                 label="Explore"
@@ -233,8 +233,13 @@ const PrimaryHeader = () => {
                 performerList={performerList}
               />
             </div>
+
             <div>
               <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+            </div>
+
+            <div>
+              <WalletButton/>
             </div>
           </div>
         </div>
