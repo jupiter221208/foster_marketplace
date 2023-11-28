@@ -219,7 +219,7 @@ const PrimaryHeader = () => {
             onClick={() => handleClear()}
             onClose={() => handleClose()}
           />
-          <div className="flex gap-6 justify-between w-full max-w-sm items-center">
+          <div className="flex gap-6 justify-between items-center">
             <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
               Studio
             </div>
@@ -249,11 +249,13 @@ const PrimaryHeader = () => {
               <NotificationIcon alt="" />
             </div>
           )}
+
           {!connected && isNewNotification && (
             <div onClick={() => router.push('/notifications')}>
               <Lottie animationData={NotifyAlarmIcon} loop={true} />
             </div>
           )}
+
           <div className=" min-w-fit">
             <ProfileMenu
               avatar={profileInfo?.profile_picture}
@@ -266,6 +268,7 @@ const PrimaryHeader = () => {
               handleThemeMode={handleThemeMode}
             />
           </div>
+          
           {!connected && (
             <div onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</div>
           )}
