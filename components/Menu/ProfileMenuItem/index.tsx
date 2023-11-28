@@ -21,7 +21,7 @@ import LogoutHoverIcon from 'assets/icons/logout-green.svg?component'
 import { deleteCookie } from 'cookies-next'
 
 const ProfileMenuItem = props => {
-  const { avatar, key, item, onSelect } = props
+  const { avatar, username, key, item, onSelect } = props
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)
@@ -29,7 +29,7 @@ const ProfileMenuItem = props => {
   return (
     <button
       key={key}
-      className={styles.menuItem}
+      className={`${styles.menuItem} ${item.id === 0 && "mb-4"}`}
       onClick={() => {
         if (item.id === 7) {
           if (localStorage.getItem('walletName') === '"Phantom"') {
@@ -50,13 +50,12 @@ const ProfileMenuItem = props => {
       // onMouseLeave={() => setMouseHover(false)}
     >
       {item.id === 0 ? (
-        <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
-          <div className={styles.imageArea}>
-            <Image src={avatar} alt="" width={24} height={24} className="rounded-full" />
-          </div>
+        <div className="w-full">
+          <Image src={avatar} alt="profile image" width={100} height={100} className="rounded-full w-full h-full" />
+          <span className={styles.username}>{username}</span>
         </div>
       ) : (
-        <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
+        <div className={`w-full flex min-h-[40px] items-center ${item.id !== 2 && "pl-[10px]"}`}>
           {item.id === 1 ? (
             mouseHover ? (
               <DashboardHoverIcon />
@@ -104,10 +103,71 @@ const ProfileMenuItem = props => {
           ) : (
             <div />
           )}
+          <span className={`ml-6 ${item.id === 2 && "ml-[17px]"}`}>{item.label}</span>
         </div>
       )}
-      <span>{item.label}</span>
     </button>
   )
 }
 export default ProfileMenuItem
+
+// {
+//   item.id === 0 ? (
+//     <div className="w-full h-40 ml-2 mr-2 flex flex-col justify-center items-center">
+//       <div className={styles.imageArea}>
+//         <Image src={avatar} alt="" width={24} height={24} className="rounded-full w-full h-full" />
+//       </div>
+//       <span>{item.label}</span>
+//     </div>
+//   ) : (
+//     <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
+//       {item.id === 1 ? (
+//         mouseHover ? (
+//           <DashboardHoverIcon />
+//         ) : (
+//           <DashboardIcon />
+//         )
+//       ) : item.id === 2 ? (
+//         mouseHover ? (
+//           <MerchHubHoverIcon />
+//         ) : (
+//           <MerchHubIcon />
+//         )
+//       ) : item.id === 3 ? (
+//         mouseHover ? (
+//           <StatsHoverIcon />
+//         ) : (
+//           <StatsIcon />
+//         )
+//       ) : // : item.id === 4 ? (
+//       //   mouseHover ? (
+//       //     <DaoHoverIcon />
+//       //   ) : (
+//       //     <DaoIcon />
+//       //   )
+//       // )
+//       // item.id === 5 ? (
+//       //   mouseHover ? (
+//       //     <ResourceHoverIcon />
+//       //   ) : (
+//       //     <ResourceIcon />
+//       //   )
+//       // ) :
+//       item.id === 6 ? (
+//         mouseHover ? (
+//           <SettingHoverIcon />
+//         ) : (
+//           <SettingIcon />
+//         )
+//       ) : item.id === 7 ? (
+//         mouseHover ? (
+//           <LogoutHoverIcon />
+//         ) : (
+//           <LogoutIcon />
+//         )
+//       ) : (
+//         <div />
+//       )}
+//     </div>
+//   )
+// }

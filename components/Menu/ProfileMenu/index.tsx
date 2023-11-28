@@ -15,8 +15,8 @@ import { Menu, Transition } from '@headlessui/react'
 import styles from './index.module.scss'
 
 // resources
-import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
-import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
+import SunIcon from 'assets/icons/sun-icon-dark.svg?component'
+import MoonIcon from 'assets/icons/moon-icon-dark.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 import ProfileMenuItem from '../ProfileMenuItem'
@@ -26,7 +26,16 @@ import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
 
 const ProfileMenu = props => {
-  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
+  const {
+    avatar,
+    wallet,
+    username,
+    menuList,
+    onSelect,
+    connectWalletStatus,
+    lightMode,
+    handleThemeMode
+  } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [showAlert, setShowAlert] = useState(false)
@@ -169,6 +178,7 @@ const ProfileMenu = props => {
               {menuList.map((item, index) => (
                 <ProfileMenuItem
                   avatar={avatar}
+                  username={username}
                   item={item}
                   key={index}
                   onSelect={item => {
@@ -180,11 +190,29 @@ const ProfileMenu = props => {
                   }}
                 />
               ))}
-              <div
-                className="w-full mt-[20px] mb-[10px] flex justify-center cursor-pointer"
-                onClick={() => handleThemeMode()}
-              >
-                {lightMode ? <LightDarkModeMobileIcon /> : <DarkLightModeMobileIcon />}
+
+              <div className="w-full flex min-h-[40px] items-center">
+                <div className={styles.themeContainer}>
+                  <button
+                    onClick={() => handleThemeMode(true)}
+                    className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
+                      lightMode ? 'text-primary bg-[#f4f7ff]' : 'text-body-color'
+                    }`}
+                  >
+                    <SunIcon fill="#95dbd5" />
+                    <span className="ml-4 font-bold">Light Mode</span>
+                  </button>
+
+                  <button
+                    onClick={() => handleThemeMode(false)}
+                    className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
+                      !lightMode ? 'text-primary bg-[#202427]' : 'text-body-color'
+                    }`}
+                  >
+                    <MoonIcon />
+                    <span className="ml-4 font-bold">Dark Mode</span>
+                  </button>
+                </div>
               </div>
             </div>
           </Transition>

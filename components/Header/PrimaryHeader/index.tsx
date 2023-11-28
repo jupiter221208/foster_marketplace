@@ -156,10 +156,10 @@ const PrimaryHeader = () => {
     })
   }
 
-  const handleThemeMode = () => {
-    setColorTheme(!lightMode)
-    dispatch({ type: 'set', lightMode: !lightMode })
-    setLightMode(!lightMode)
+  const handleThemeMode = (changeTo = !lightMode) => {
+    setColorTheme(changeTo)
+    dispatch({ type: 'set', lightMode: changeTo })
+    setLightMode(changeTo)
   }
 
   const handleClear = () => {
@@ -219,7 +219,7 @@ const PrimaryHeader = () => {
             onClick={() => handleClear()}
             onClose={() => handleClose()}
           />
-          <div className="flex gap-6 justify-between items-center">
+          <div className="flex gap-6 justify-between max-w-sm items-center">
             <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
               Studio
             </div>
@@ -245,7 +245,7 @@ const PrimaryHeader = () => {
             )}
           </div>
         </div>
-        <div className="flex items-center my-auto w-max gap-4">
+        <div className="flex items-center my-auto min-w-fit gap-4">
           {connected && (
             <div onClick={() => router.push('/notifications')}>
               <NotificationIcon alt="" />
@@ -258,7 +258,7 @@ const PrimaryHeader = () => {
             </div>
           )}
 
-          <div className=" min-w-fit">
+          <div className="min-w-fit">
             <ProfileMenu
               avatar={profileInfo?.profile_picture}
               wallet={getShortAddress(profileInfo?.wallet_id)}
@@ -272,7 +272,7 @@ const PrimaryHeader = () => {
           </div>
 
           {!connected && (
-            <div onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</div>
+            <button onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</button>
           )}
         </div>
       </nav>
