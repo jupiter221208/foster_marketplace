@@ -9,15 +9,10 @@ import { useDispatch } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
-import MerchHubHoverIcon from 'assets/icons/merch-hover-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
-import DashboardHoverIcon from 'assets/icons/dashboard-green.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon.svg?component'
-import StatsHoverIcon from 'assets/icons/statistic-green.svg?component'
 import SettingIcon from 'assets/icons/setting-icon.svg?component'
-import SettingHoverIcon from 'assets/icons/setting-green.svg?component'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
-import LogoutHoverIcon from 'assets/icons/logout-green.svg?component'
 import { deleteCookie } from 'cookies-next'
 
 const ProfileMenuItem = props => {
@@ -29,7 +24,9 @@ const ProfileMenuItem = props => {
   return (
     <button
       key={key}
-      className={`${styles.menuItem} ${item.id === 0 && "mb-4"}`}
+      className={`${styles.menuItem} ${item.id === 0 && 'mb-4'}`}
+      onMouseEnter={() => setMouseHover(true)}
+      onMouseLeave={() => setMouseHover(false)}
       onClick={() => {
         if (item.id === 7) {
           if (localStorage.getItem('walletName') === '"Phantom"') {
@@ -55,25 +52,13 @@ const ProfileMenuItem = props => {
           <span className={styles.username}>{username}</span>
         </div>
       ) : (
-        <div className={`w-full flex min-h-[40px] items-center ${item.id !== 2 && "pl-[10px]"}`}>
+        <div className={`w-full flex max-h-[25px] items-center ${item.id !== 2 && 'pl-[10px]'}`}>
           {item.id === 1 ? (
-            mouseHover ? (
-              <DashboardHoverIcon />
-            ) : (
-              <DashboardIcon />
-            )
+            <DashboardIcon className={styles.iconFill} />
           ) : item.id === 2 ? (
-            mouseHover ? (
-              <MerchHubHoverIcon />
-            ) : (
-              <MerchHubIcon />
-            )
+            <MerchHubIcon className={`${styles.iconStroke} ${styles.iconFill}`} />
           ) : item.id === 3 ? (
-            mouseHover ? (
-              <StatsHoverIcon />
-            ) : (
-              <StatsIcon />
-            )
+            <StatsIcon />
           ) : // : item.id === 4 ? (
           //   mouseHover ? (
           //     <DaoHoverIcon />
@@ -89,21 +74,13 @@ const ProfileMenuItem = props => {
           //   )
           // ) :
           item.id === 6 ? (
-            mouseHover ? (
-              <SettingHoverIcon />
-            ) : (
-              <SettingIcon />
-            )
+            <SettingIcon className={styles.iconFill} />
           ) : item.id === 7 ? (
-            mouseHover ? (
-              <LogoutHoverIcon />
-            ) : (
-              <LogoutIcon />
-            )
+            <LogoutIcon className={styles.iconFill} />
           ) : (
             <div />
           )}
-          <span className={`ml-6 ${item.id === 2 && "ml-[17px]"}`}>{item.label}</span>
+          <span className={`ml-4 ${item.id === 2 && 'ml-[12px]'} flex`}>{item.label}</span>
         </div>
       )}
     </button>
