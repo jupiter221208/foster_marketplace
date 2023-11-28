@@ -238,9 +238,11 @@ const PrimaryHeader = () => {
               <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
             </div>
 
-            <div>
-              <WalletButton/>
-            </div>
+            {connected && (
+              <div>
+                <WalletButton />
+              </div>
+            )}
           </div>
         </div>
         <div className="flex items-center my-auto w-max gap-4">
@@ -268,7 +270,7 @@ const PrimaryHeader = () => {
               handleThemeMode={handleThemeMode}
             />
           </div>
-          
+
           {!connected && (
             <div onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</div>
           )}
