@@ -46,7 +46,7 @@ export function getTrackingUrl({ serviceCode, trackingNumber }: ShipStationShipm
 
 export interface CreatePaymentTransactionArgs {
   metaplex: Metaplex
-  nftAddress: string
+  sellerShares: Record<string, number>
   usdAmounts: {
     maddiesAmount: number
     fosterAmount: number
@@ -65,34 +65,20 @@ function addTransferAmount(amountSplits: Map<string, number>, addressOrKey: stri
 
 export async function createPaymentTransaction({
   metaplex,
-  nftAddress,
+  sellerShares,
   usdAmounts: { maddiesAmount, fosterAmount, artistAmount },
   solToUsdRate,
   currency,
 }: CreatePaymentTransactionArgs): Promise<Transaction> {
-  if (currency == 'sol') {
-    maddiesAmount /= solToUsdRate
-    fosterAmount /= solToUsdRate
-    artistAmount /= solToUsdRate
-  }
+  let conversionRate = currency == 'usdc' ? 1 : solToUsdRate
 
   let amountSplits = new Map<string, number>()
-  addTransferAmount(amountSplits, MERCH_MADDIES_ADDRESS, maddiesAmount)
-  addTransferAmount(amountSplits, MERCH_FOSTER_ADDRESS, fosterAmount)
+  addTransferAmount(amountSplits, MERCH_MADDIES_ADDRESS, maddiesAmount / conversionRate)
+  addTransferAmount(amountSplits, MERCH_FOSTER_ADDRESS, fosterAmount / conversionRate)
 
-  let metadataAddress = metaplex
-    .nfts()
-    .pdas()
-    .metadata({ mint: new PublicKey(nftAddress) })
-  let metadataAccountInfo = await metaplex.rpc().getAccount(metadataAddress)
-  if (!metadataAccountInfo.exists)
-    throw new Error(`metadata account does not exist for mint ${nftAddress}: ${metadataAddress}`)
-  let metadata = toMetadata(toMetadataAccount(metadataAccountInfo))
-
-  if (metadata.creators)
-    for (let { address, share } of metadata.creators) {
-      addTransferAmount(amountSplits, address, (share * artistAmount) / 100)
-    }
+  for (let [address, share] of Object.entries(sellerShares)) {
+    addTransferAmount(amountSplits, address, artistAmount / conversionRate)
+  }
 
   let identity = metaplex.identity()
   let instructions: TransactionInstruction[][] = []
