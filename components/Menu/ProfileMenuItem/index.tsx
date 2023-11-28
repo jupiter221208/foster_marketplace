@@ -27,7 +27,7 @@ const ProfileMenuItem = props => {
   const [mouseHover, setMouseHover] = useState(false)
 
   return (
-    <div
+    <button
       key={key}
       className={styles.menuItem}
       onClick={() => {
@@ -106,8 +106,8 @@ const ProfileMenuItem = props => {
           )}
         </div>
       )}
-      {item.label}
-    </div>
+      <span>{item.label}</span>
+    </button>
   )
 }
 export default ProfileMenuItem
