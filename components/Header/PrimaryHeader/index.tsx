@@ -71,7 +71,10 @@ const PrimaryHeader = () => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
 
-      if (position > lastScrollPosition) {
+      if (position < 250) {
+        lastScrollPosition = position
+        setIsScrollingTop(true)
+      } else if (position > lastScrollPosition) {
         lastScrollPosition = position
         setIsScrollingTop(false)
       } else if (position < lastScrollPosition) {
@@ -272,7 +275,9 @@ const PrimaryHeader = () => {
           </div>
 
           {!connected && (
-            <button onClick={() => handleThemeMode()}>{lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}</button>
+            <button onClick={() => handleThemeMode()}>
+              {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+            </button>
           )}
         </div>
       </nav>
