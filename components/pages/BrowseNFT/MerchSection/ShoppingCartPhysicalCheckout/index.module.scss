@@ -153,7 +153,14 @@
   font-size: 14px;
   color: var(--text-gray-200-color);
 }
-
+.shipping {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+}
 .shippingMethod {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
