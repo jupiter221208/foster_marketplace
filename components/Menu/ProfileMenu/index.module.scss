@@ -24,23 +24,13 @@
   align-items: center;
 }
 
-.activeAvatar {
+.profileOutline {
   width: 46px;
   height: 46px;
   border-radius: 12px;
   border: 2px solid var(--profile-active-border-color);
   overflow: hidden;
   cursor: pointer;
-}
-
-.avatarArea {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--profile-active-border-color);
-  overflow: hidden;
 }
 
 .menuArea {

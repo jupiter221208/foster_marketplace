@@ -118,7 +118,7 @@ const ProfileMenu = props => {
                 )}
               </div>
             ) : (
-              <div className={styles.activeAvatar}>
+              <div>
                 {avatar === null || avatar === undefined ? (
                   <div className="w-full h-full">
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
@@ -126,8 +126,8 @@ const ProfileMenu = props => {
                     </ReactPlaceholder>
                   </div>
                 ) : avatar?.length > 0 ? (
-                  <div className={styles.avatarArea}>
-                    <img src={avatar} alt="" width={42} height={42} />
+                  <div>
+                    <img className={styles.profileOutline} src={avatar} alt="" width={42} height={42} />
                   </div>
                 ) : (
                   <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
