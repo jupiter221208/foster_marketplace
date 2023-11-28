@@ -150,15 +150,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       } = orderData
 
       if (items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
-      else if (items.length > 1)
-        throw new Error(`shipstation order ${order.id} has more than one item: ${items.length}`)
-
-      let nftAddress = items[0].options.find(({ name }) => name == 'nftAddress')?.value
-      if (!nftAddress) throw new Error(`nftAddress missing in: order ${order.id} item ${items[0].orderItemId}`)
 
       let transaction = await createPaymentTransaction({
         metaplex,
-        nftAddress,
+        sellerShares: order.seller_shares,
         usdAmounts: {
           maddiesAmount: order.maddies_cost + order.shipping_amount,
           fosterAmount: order.foster_commission + order.tax_amount,
