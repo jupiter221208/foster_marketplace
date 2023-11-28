@@ -40,8 +40,7 @@ const ProfileMenu = props => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log(shortProfileMenuBtn)
-      setShortProfileMenuBtn(innerWidth > 1160)
+      setShortProfileMenuBtn(innerWidth > 1200)
     }, 500)
 
     return () => clearInterval(intervalId)
