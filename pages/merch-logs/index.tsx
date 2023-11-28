@@ -149,6 +149,7 @@ const MerchActivity = () => {
     cart.forEach(item => {
       if (item.checked === true) checkedData.push(item)
     })
+    dispatch({ type: 'set', totlaItems: currentSelect })
     if (checkedData.length > 0) {
       localStorage.setItem('checked', JSON.stringify(checkedData))
       router.push(`/shopping/`)
@@ -511,7 +512,7 @@ const MerchActivity = () => {
               <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
                 <div className={styles.tableColor}>
                   <div className="flex flex-row items-center justify-between">
-                    <div className={styles.subTotal}>Subtotal({currentSelect} itmes):</div>
+                    <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
                     <div className="flex flex-row items-center">
                       $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
                       <div className={styles.costDivider} />

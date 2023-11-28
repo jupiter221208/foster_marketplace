@@ -35,13 +35,12 @@ const ShoppingCartActivity = props => {
       arrayData[index].checked = !arrayData[index].checked
     }
     if (arrayData[index].checked) {
-      setCurrentSelect(currentSelect + 1)
+      setCurrentSelect(currentSelect + arrayData[index].quantity)
       setTotalCost(totalCost + parseFloat(arrayData[index].cost))
     } else {
-      setCurrentSelect(currentSelect - 1)
+      setCurrentSelect(currentSelect - arrayData[index].quantity)
       setTotalCost(totalCost - parseFloat(arrayData[index].cost))
     }
-
     setCart(arrayData)
   }
 
@@ -91,8 +90,12 @@ const ShoppingCartActivity = props => {
 
   const handleSelectAll = () => {
     const allSelected = !selectAll
+    let sumitemArray = 0
+    cartList.forEach(item => {
+      sumitemArray += item.quantity
+    })
     setSelectALl(allSelected)
-    setCurrentSelect(allSelected ? cartList.length : 0)
+    setCurrentSelect(allSelected ? sumitemArray : 0)
     setTotalCost(allSelected ? cartList.reduce((total, item) => total + parseFloat(item.cost), 0) : 0)
     setChecked(!checked)
     const updatedCart = cartList.map(item => {

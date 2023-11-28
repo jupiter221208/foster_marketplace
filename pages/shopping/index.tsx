@@ -109,38 +109,37 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [isLoading])
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(true)
-      setIsFetching(true)
-    }, 2000)
+    setLoading(true)
+    setIsFetching(true)
   }, [])
 
   useEffect(() => {
     const orders = JSON.parse(localStorage.getItem('checked'))
-    const promises = orders.map(array => {
-      return nftsAPI.getDetail(array.id).then(response => {
+    setTimeout(() => {
+      const promises = orders.map(array => {
+        return nftsAPI.getDetail(array.id).then(response => {
+          const nftName = response.name
+          const nftCoverUrl = response.cover_image_url
+          const mintAddress = response.address.toString()
+          const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
+          const params = {
+            nftName,
+            nftCoverUrl,
+            mintAddress,
+            category: item.category,
+            subCategory: item.sub_type,
+            base: item.base,
+            printImageUrl: array.printImageUrl,
+          }
+          return params
+        })
+      })
+      Promise.all(promises).then(data => {
         setLoading(false)
         setIsFetching(false)
-        const nftName = response.name
-        const nftCoverUrl = response.cover_image_url
-        const mintAddress = response.address.toString()
-        const item = ShopApparelList.find(apparel => apparel.name === array.apparel.description)
-        const params = {
-          nftName,
-          nftCoverUrl,
-          mintAddress,
-          category: item.category,
-          subCategory: item.sub_type,
-          base: item.base,
-          printImageUrl: array.printImageUrl,
-        }
-        return params
+        setData(data)
       })
-    })
-
-    Promise.all(promises).then(data => {
-      setData(data)
-    })
+    }, 1000)
   }, [])
 
   useEffect(() => {

@@ -31,6 +31,7 @@ const ShoppingCartPhysicalShipping = props => {
   const { setVisible } = useWalletModal()
 
   const [enabled, setEnabled] = useState(false)
+  const [enabledFlag, setEnabledFlag] = useState(true)
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [city, setCity] = useState('')
@@ -85,6 +86,30 @@ const ShoppingCartPhysicalShipping = props => {
     onBack(checkout)
   }
 
+  const handleOnChange = () => {
+    setEnabledFlag(!enabledFlag)
+    if (enabledFlag) {
+      let localData = JSON.parse(localStorage.getItem('shipping'))
+      setEmail(localData.email)
+      setCountry(localData.country.name)
+      setState(localData.state.name)
+      setName(localData.name)
+      setCity(localData.city)
+      setStreet(localData.street)
+      setApartment(localData.apartment)
+      setZipCode(localData.zipCode)
+    } else {
+      setEmail('')
+      setCountry('')
+      setState('')
+      setName('')
+      setCity('')
+      setStreet('')
+      setApartment('')
+      setZipCode('')
+    }
+  }
+
   const proceedToCheckout = () => {
     if (!connected) {
       setVisible(true)
@@ -100,6 +125,9 @@ const ShoppingCartPhysicalShipping = props => {
       apartment,
       zipCode,
     }
+    localStorage.removeItem('shipping')
+    localStorage.setItem('shipping', JSON.stringify(data))
+
     let params
     if (category === 'apparel') {
       const cartItems = []
@@ -200,7 +228,7 @@ const ShoppingCartPhysicalShipping = props => {
     <section className={styles.container}>
       <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
-        <Radio />
+        <Radio disabled={enabledFlag} onChange={handleOnChange} />
       </div>
       <div className="w-full mt-[20px]">
         <div className={styles.label}>Contact Information *</div>

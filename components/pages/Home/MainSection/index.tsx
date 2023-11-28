@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper'
+import { EffectCoverflow, Pagination, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -116,13 +116,9 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination]}
+                  modules={[Pagination]}
                   className={'heroSwiperMobile'}
                   loop
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
@@ -153,12 +149,8 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination, Navigation]}
+                  modules={[Pagination, Navigation]}
                   className={'heroNavigationSwiper'}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>

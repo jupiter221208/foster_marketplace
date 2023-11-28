@@ -237,11 +237,11 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
         <div className="flex flex-col h-[200px] overflow-auto mt-[20px]">
           {list.map((item, index) => (
             <div key={index} className={styles.tableColor}>
-              <div className="w-full flex justify-between">
+              <div className="w-full flex justify-between px-2 py-2">
                 <div className="w-full h-full flex items-center ml-[10px]">
                   <img src={item?.url} className="w-[50%] h-[50%] px-2 py-2" />
                 </div>
-                <div className={`${styles.value} w-[270px] text-right mr-[10px]`}>
+                <div className={`${styles.value} w-full text-right mr-[10px]`}>
                   <p dangerouslySetInnerHTML={{ __html: item.name }} />
                 </div>
               </div>
