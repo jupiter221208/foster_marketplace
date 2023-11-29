@@ -186,11 +186,11 @@ const ShoppingCartPhysicalShipping = props => {
     )
   }
 
-  useEffect(() => {
-    if (country && shipping === null) {
-      setState(null)
-    }
-  }, [country])
+  // useEffect(() => {
+  //   if (country && shipping === null) {
+  //     setState(null)
+  //   }
+  // }, [country])
 
   useEffect(() => {
     if (email.length == 0) {
