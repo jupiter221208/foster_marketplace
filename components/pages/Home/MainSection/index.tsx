@@ -42,9 +42,16 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
+  const [isSwiperShow, SetIsSwiperShow] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
+  }
+
+  const swiperInit = () => {
+    setTimeout(() => {
+      SetIsSwiperShow(true)
+    }, 500)
   }
 
   useEffect(() => {
@@ -136,6 +143,7 @@ const MainSection = () => {
             style={{
               width: '100%',
               marginLeft: '0px',
+              opacity: isSwiperShow ? 1 : 0,
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
@@ -151,6 +159,7 @@ const MainSection = () => {
                   }}
                   modules={[Pagination, Navigation]}
                   className={'heroNavigationSwiper'}
+                  onInit={swiperInit}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
