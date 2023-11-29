@@ -136,3 +136,23 @@
   background: rgba(var(--text-gray-200-color-rgb), 0.15);
   align-items: center;
 }
+.lootieTitle {
+  display: flex;
+  justify-content: center;
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  color: var(--text-gray-200-color);
+}
+.lootieSubTitle {
+  display: flex;
+  justify-content: center;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  margin-top: 10px;
+}
+.shopButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

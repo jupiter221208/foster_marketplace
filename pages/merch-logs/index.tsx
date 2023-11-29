@@ -20,6 +20,8 @@ import TabList from 'assets/json/merch-logs/tab-list.json'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
 import SolanaIcon from 'assets/icons/solana-logo.svg?component'
+import Lottie from 'lottie-react'
+import animationData from 'assets/lottery/shopping-lottie.json'
 
 // styles
 import styles from './index.module.scss'
@@ -40,6 +42,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -497,44 +500,65 @@ const MerchActivity = () => {
           )}
           {activeTab === 4 && (
             <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
-              <div className="col-span-2">
-                <ShoppingCartActivity
-                  data={array}
-                  getcartList={getcartList}
-                  cart={cart}
-                  setCart={setCart}
-                  setCurrentSelect={setCurrentSelect}
-                  currentSelect={currentSelect}
-                  setTotalCost={setTotalCost}
-                  totalCost={totalCost}
-                />
-              </div>
-              <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
-                <div className={styles.tableColor}>
-                  <div className="flex flex-row items-center justify-between">
-                    <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
-                    <div className="flex flex-row items-center">
-                      $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
-                      <div className={styles.costDivider} />
-                      <div className="flex ml-[5px] items-center">
-                        <SolanaIcon alt="" className="text-[20px]" />
-                        &nbsp;
-                        {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
+              {array.length > 0 ? (
+                <>
+                  <div className="col-span-2">
+                    <ShoppingCartActivity
+                      data={array}
+                      getcartList={getcartList}
+                      cart={cart}
+                      setCart={setCart}
+                      setCurrentSelect={setCurrentSelect}
+                      currentSelect={currentSelect}
+                      setTotalCost={setTotalCost}
+                      totalCost={totalCost}
+                    />
+                  </div>
+                  <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
+                    <div className={styles.tableColor}>
+                      <div className="flex flex-row items-center justify-between">
+                        <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
+                        <div className="flex flex-row items-center">
+                          $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
+                          <div className={styles.costDivider} />
+                          <div className="flex ml-[5px] items-center">
+                            <SolanaIcon alt="" className="text-[20px]" />
+                            &nbsp;
+                            {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-full flex">
+                        <GradientButton
+                          label="Place Order"
+                          fullWidth
+                          fontFamily="Muli-SemiBold"
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+                          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+                          onClick={() => handleOnClick()}
+                        />
                       </div>
                     </div>
                   </div>
-                  <div className="w-full flex">
-                    <GradientButton
-                      label="Place Order"
-                      fullWidth
-                      fontFamily="Muli-SemiBold"
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-                      onClick={() => handleOnClick()}
-                    />
+                </>
+              ) : (
+                <div className="lg:mt-[-100px] col-start-2 col-span-1">
+                  <Lottie animationData={animationData}></Lottie>
+                  <div className="mt-[-50px] mb-[250px] lg:mt-[-70px]">
+                    <div className={styles.lootieTitle}>Your cart is empty</div>
+                    <div className={styles.lootieSubTitle}>Explore studio and foster your flavor</div>
+                    <div className={styles.shopButton}>
+                      <OutlineButton
+                        width={145}
+                        backgroundColor={'var(--second-home-bg)'}
+                        borderColor={'var(--back-btn-border-mobile)'}
+                        label={'Shop Studio'}
+                        onClick={() => router.push('/studio/')}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
           {((activeTab === 0 && isVisibleEnabledFetching) ||
