@@ -500,7 +500,7 @@ const MerchActivity = () => {
           )}
           {activeTab === 4 && (
             <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
-              {array.length > 0 ? (
+              {array.length && array.length > 0 ? (
                 <>
                   <div className="col-span-2">
                     <ShoppingCartActivity
