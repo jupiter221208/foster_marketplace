@@ -71,6 +71,9 @@ const PrimaryHeader = () => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
 
+      if (position > 100) setIsScrollTop(false)
+      else setIsScrollTop(true)
+
       if (position < 250) {
         lastScrollPosition = position
         setIsScrollingTop(true)
@@ -213,7 +216,7 @@ const PrimaryHeader = () => {
             </div>
           )}
         </div>
-        <div className="flex gap-4 my-auto w-full">
+        <div className="flex gap-8 my-auto w-full">
           <SearchBox
             value={searchKeyword}
             placeholder="Search Marketplace"
@@ -222,7 +225,7 @@ const PrimaryHeader = () => {
             onClick={() => handleClear()}
             onClose={() => handleClose()}
           />
-          <div className="flex gap-6 justify-between max-w-sm items-center">
+          <div className="flex gap-8 justify-between max-w-sm items-center">
             <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
               Studio
             </div>
@@ -285,7 +288,7 @@ const PrimaryHeader = () => {
   ) : (
     <div
       className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
-        isScrollingTop ? '-top-28' : 'top-0'
+        isScrollingTop ? 'top-0' : '-top-28'
       } transition-all`}
     >
       <div className={styles.mobileContainer}>

@@ -26,16 +26,7 @@ import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
 
 const ProfileMenu = props => {
-  const {
-    avatar,
-    wallet,
-    username,
-    menuList,
-    onSelect,
-    connectWalletStatus,
-    lightMode,
-    handleThemeMode
-  } = props
+  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [showAlert, setShowAlert] = useState(false)
@@ -196,11 +187,11 @@ const ProfileMenu = props => {
                   <button
                     onClick={() => handleThemeMode(true)}
                     className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                      lightMode ? 'text-primary bg-[#f4f7ff]' : 'text-body-color'
+                      lightMode ? 'text-[#eff0f6] bg-[#202427]' : 'text-body-color'
                     }`}
                   >
                     <SunIcon fill="#95dbd5" />
-                    <span className="ml-4 font-bold">Light Mode</span>
+                    <span className="ml-4">Light Mode</span>
                   </button>
 
                   <button
@@ -210,7 +201,7 @@ const ProfileMenu = props => {
                     }`}
                   >
                     <MoonIcon />
-                    <span className="ml-4 font-bold">Dark Mode</span>
+                    <span className="ml-4">Dark Mode</span>
                   </button>
                 </div>
               </div>
