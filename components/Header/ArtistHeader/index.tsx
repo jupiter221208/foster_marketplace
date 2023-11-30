@@ -71,6 +71,9 @@ const PrimaryHeader = () => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
 
+      if (position > 100) setIsScrollTop(false)
+      else setIsScrollTop(true)
+
       if (position < 250) {
         lastScrollPosition = position
         setIsScrollingTop(true)
@@ -197,128 +200,134 @@ const PrimaryHeader = () => {
     router.push('/')
   }
 
-  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-    <div
-      className={`${styles.blurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} flex justify-center transition-all`}
-    >
-      <nav className="gap-4 flex justify-between w-full max-w-[1750px] p-6 ">
-        <div className="my-auto">
-          {routePath === '/' || 'studio' ? (
-            <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
-              <FosterHeroLogo alt="" />
+  return (
+    <div className="fixed top-0 left-0 z-50 w-full">
+      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+        <div
+          className={`${styles.blurContainer} ${
+            isScrollingTop ? 'top-0' : '-top-28'
+          } flex justify-center transition-all`}
+        >
+          <nav className="gap-4 flex justify-between w-full max-w-[1750px] p-6 ">
+            <div className="my-auto">
+              {routePath === '/' || 'studio' ? (
+                <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
+                  <FosterHeroLogo alt="" />
+                </div>
+              ) : (
+                <div className={styles.logoArea} onClick={() => router.push('/')}>
+                  <FosterLogoDark alt="" />
+                </div>
+              )}
             </div>
-          ) : (
-            <div className={styles.logoArea} onClick={() => router.push('/')}>
-              <FosterLogoDark alt="" />
-            </div>
-          )}
-        </div>
-        <div className="flex gap-4 my-auto w-full">
-          <SearchBox
-            value={searchKeyword}
-            placeholder="Search Marketplace"
-            onChange={value => setSearchKeyword(value)}
-            searchList={searchList}
-            onClick={() => handleClear()}
-            onClose={() => handleClose()}
-          />
-          <div className="flex gap-6 justify-between max-w-sm items-center">
-            <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-              Studio
-            </div>
-
-            <div>
-              <ExploreMenu
-                label="Explore"
-                activeList={activeList}
-                filterList={filterList}
-                categoryList={categoryList}
-                performerList={performerList}
+            <div className="flex gap-16 my-auto w-full">
+              <SearchBox
+                value={searchKeyword}
+                placeholder="Search Marketplace"
+                onChange={value => setSearchKeyword(value)}
+                searchList={searchList}
+                onClick={() => handleClear()}
+                onClose={() => handleClose()}
               />
-            </div>
+              <div className="flex gap-12 justify-between max-w-md items-center">
+                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                  Studio
+                </div>
 
-            <div>
-              <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-            </div>
+                <div>
+                  <ExploreMenu
+                    label="Explore"
+                    activeList={activeList}
+                    filterList={filterList}
+                    categoryList={categoryList}
+                    performerList={performerList}
+                  />
+                </div>
 
-            {connected && (
-              <div>
-                <WalletButton />
+                <div>
+                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+                </div>
+
+                {connected && (
+                  <div>
+                    <WalletButton />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-        <div className="flex items-center my-auto min-w-fit gap-4">
-          {connected && (
-            <div onClick={() => router.push('/notifications')}>
-              <NotificationIcon alt="" />
             </div>
-          )}
+            <div className="flex items-center my-auto min-w-max gap-4">
+              {connected && (
+                <div onClick={() => router.push('/notifications')}>
+                  <NotificationIcon alt="" />
+                </div>
+              )}
 
-          {!connected && isNewNotification && (
-            <div onClick={() => router.push('/notifications')}>
-              <Lottie animationData={NotifyAlarmIcon} loop={true} />
-            </div>
-          )}
+              {!connected && isNewNotification && (
+                <div onClick={() => router.push('/notifications')}>
+                  <Lottie animationData={NotifyAlarmIcon} loop={true} />
+                </div>
+              )}
 
-          <div className="min-w-fit">
-            <ProfileMenu
-              avatar={profileInfo?.profile_picture}
-              wallet={getShortAddress(profileInfo?.wallet_id)}
-              username={profileInfo?.username ?? ''}
-              menuList={profileMenuList}
-              onSelect={item => router.push(item.path)}
-              connectWalletStatus={connected}
-              lightMode={lightMode}
-              handleThemeMode={handleThemeMode}
-            />
-          </div>
+              <div className="min-w-fit">
+                <ProfileMenu
+                  avatar={profileInfo?.profile_picture}
+                  wallet={getShortAddress(profileInfo?.wallet_id)}
+                  username={profileInfo?.username ?? ''}
+                  menuList={profileMenuList}
+                  onSelect={item => router.push(item.path)}
+                  connectWalletStatus={connected}
+                  lightMode={lightMode}
+                  handleThemeMode={handleThemeMode}
+                />
+              </div>
 
-          {!connected && (
-            <button onClick={() => handleThemeMode()}>
-              {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-            </button>
-          )}
+              {!connected && (
+                <button onClick={() => handleThemeMode()}>
+                  {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+                </button>
+              )}
+            </div>
+          </nav>
         </div>
-      </nav>
-    </div>
-  ) : (
-    <div
-      className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
-        isScrollingTop ? '-top-28' : 'top-0'
-      } transition-all`}
-    >
-      <div className={styles.mobileContainer}>
-        <div className="g-container flex justify-between items-center">
-          <div className="flex">
-            <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-              <FosterNavLogo width={101} height={23} />
+      ) : (
+        <div
+          className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
+            isScrollingTop ? 'top-0' : '-top-28'
+          } transition-all`}
+        >
+          <div className={styles.mobileContainer}>
+            <div className="g-container flex justify-between items-center">
+              <div className="flex">
+                <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
+                  <FosterNavLogo width={101} height={23} />
+                </div>
+              </div>
+              <div className="flex">
+                <div className="w-[39px] h-[39px] flex justify-center items-center">
+                  <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+                </div>
+                <div>
+                  <IconButtonWithSVG
+                    icon={
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
+                        <path
+                          id="bars-2"
+                          d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
+                          transform="translate(-2 -6)"
+                          fill="var(--mint-btn-bg-1)"
+                        />
+                      </svg>
+                    }
+                    onClick={() => handleOpenMobileMenu()}
+                    backgroundColor="transparent"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="flex">
-            <div className="w-[39px] h-[39px] flex justify-center items-center">
-              <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
-            </div>
-            <div>
-              <IconButtonWithSVG
-                icon={
-                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
-                    <path
-                      id="bars-2"
-                      d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
-                      transform="translate(-2 -6)"
-                      fill="var(--mint-btn-bg-1)"
-                    />
-                  </svg>
-                }
-                onClick={() => handleOpenMobileMenu()}
-                backgroundColor="transparent"
-              />
-            </div>
-          </div>
+          {!isScrollTop && <div className={styles.divider} />}
         </div>
-      </div>
-      {!isScrollTop && <div className={styles.divider} />}
+      )}
     </div>
   )
 }

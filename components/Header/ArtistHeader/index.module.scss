@@ -2,20 +2,24 @@
 
 .blurContainer {
   width: 100%;
-  position: fixed;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  position: relative;
   background: var(--nav-bg-color);
   border-bottom: 1px solid var(--header-bottom-color);
   box-shadow: 0px 0px 6px var(--nav-bg-shadow);
-  z-index: 9999;
+}
+.blurContainer::before {
+  backdrop-filter: blur(20px);
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
 
 .container {
-  position: fixed;
-  top: 0;
-  left: 0px;
-  right: 0;
   height: 100px;
   display: flex;
   flex-wrap: wrap;
