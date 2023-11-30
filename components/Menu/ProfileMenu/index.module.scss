@@ -38,11 +38,10 @@
   top: 76px;
   right: 0;
   min-width: 300px;
-  width: auto;
   padding: 8px;
   background-color: var(--header-bg-color);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 15px;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
 }
