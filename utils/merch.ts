@@ -77,7 +77,7 @@ export async function createPaymentTransaction({
   addTransferAmount(amountSplits, MERCH_FOSTER_ADDRESS, fosterAmount / conversionRate)
 
   for (let [address, share] of Object.entries(sellerShares)) {
-    addTransferAmount(amountSplits, address, artistAmount / conversionRate)
+    addTransferAmount(amountSplits, address, share / conversionRate)
   }
 
   let identity = metaplex.identity()
