@@ -154,6 +154,12 @@ const PhysicalShipping = props => {
   }
 
   useEffect(() => {
+    if (country && shipping === null) {
+      setState(null)
+    }
+  }, [country])
+
+  useEffect(() => {
     if (email.length == 0) {
       setEnabled(false)
       return
