@@ -228,15 +228,19 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   onSlideChange={handleOnChange}
                   onSwiper={setSwiper}
                 >
-                  <div className={styles.orderTitle}>
-                    {currentStep + 1}/{data?.length} cart items included in order
-                  </div>
-                  <div className={styles.prevButton} onClick={goPrev}>
-                    <PreviewButton />
-                  </div>
-                  <div className={styles.nextButton} onClick={goNext}>
-                    <NextButton />
-                  </div>
+                  {data && data.length > 1 && (
+                    <>
+                      <div className={styles.orderTitle}>
+                        {currentStep + 1}/{data?.length} cart items included in order
+                      </div>
+                      <div className={styles.prevButton} onClick={goPrev}>
+                        <PreviewButton />
+                      </div>
+                      <div className={styles.nextButton} onClick={goNext}>
+                        <NextButton />
+                      </div>
+                    </>
+                  )}
                   {data &&
                     data.map((item, index) => (
                       <SwiperSlide key={index}>

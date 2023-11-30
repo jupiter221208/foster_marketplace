@@ -22,7 +22,6 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
-import Radio from 'components/Radio/SimpleRadio'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -155,12 +154,6 @@ const PhysicalShipping = props => {
   }
 
   useEffect(() => {
-    if (country && shipping === null) {
-      setState(null)
-    }
-  }, [country])
-
-  useEffect(() => {
     if (email.length == 0) {
       setEnabled(false)
       return
@@ -201,7 +194,6 @@ const PhysicalShipping = props => {
       </div> */}
       <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
-        <Radio />
       </div>
       <div className="w-full mt-[20px]">
         <div className={styles.label}>Contact Information *</div>

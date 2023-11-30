@@ -19,7 +19,7 @@ const CountrySelect = props => {
   return (
     <div className="w-full">
       <Combobox
-        value={selected && selected.name ? selected.name : selected ? selected : null}
+        value={selected ? selected.name : null}
         onChange={item => {
           const filter = data.find(obj => item === obj.name)
           onChange(filter)

@@ -152,7 +152,6 @@ const MerchActivity = () => {
     cart.forEach(item => {
       if (item.checked === true) checkedData.push(item)
     })
-    dispatch({ type: 'set', totlaItems: currentSelect })
     if (checkedData.length > 0) {
       localStorage.setItem('checked', JSON.stringify(checkedData))
       router.push(`/shopping/`)
@@ -532,6 +531,7 @@ const MerchActivity = () => {
                         <GradientButton
                           label="Place Order"
                           fullWidth
+                          disabled={currentSelect == 0}
                           fontFamily="Muli-SemiBold"
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
                           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
