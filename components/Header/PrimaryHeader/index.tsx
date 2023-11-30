@@ -220,7 +220,7 @@ const PrimaryHeader = () => {
                 </div>
               )}
             </div>
-            <div className="flex gap-8 my-auto w-full">
+            <div className="flex gap-16 my-auto w-full">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -229,7 +229,7 @@ const PrimaryHeader = () => {
                 onClick={() => handleClear()}
                 onClose={() => handleClose()}
               />
-              <div className="flex gap-8 justify-between max-w-sm items-center">
+              <div className="flex gap-12 justify-between max-w-md items-center">
                 <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
                   Studio
                 </div>
@@ -255,7 +255,7 @@ const PrimaryHeader = () => {
                 )}
               </div>
             </div>
-            <div className="flex items-center my-auto min-w-fit gap-4">
+            <div className="flex items-center my-auto min-w-max gap-4">
               {connected && (
                 <div onClick={() => router.push('/notifications')}>
                   <NotificationIcon alt="" />

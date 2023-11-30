@@ -134,24 +134,6 @@ const ProfileMenu = props => {
                 )}
               </div>
             )}
-            {connectWalletStatus && shortProfileMenuBtn && (
-              <div className="flex gap-2 items-center">
-                <div>
-                  <div className={styles.username}>@{username.replaceAll(' ', '').toLowerCase()}</div>
-                  <div className={styles.wallet}>{wallet}</div>
-                </div>
-                <div className="w-3 h-3 flex justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
-                    <path
-                      id="angle-down-9"
-                      d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
-                      transform="translate(-6.754 -8.879)"
-                      fill="var(--chevron-up-icon-color)"
-                    />
-                  </svg>
-                </div>
-              </div>
-            )}
           </div>
         </Menu.Button>
 
@@ -183,24 +165,24 @@ const ProfileMenu = props => {
               ))}
 
               <div className="w-full flex min-h-[40px] items-center">
-                <div className={styles.themeContainer}>
+                <div className={`${styles.themeContainer} ${lightMode ? 'bg-[#20242725]' : 'bg-[#eff0f616]'}`}>
                   <button
                     onClick={() => handleThemeMode(true)}
                     className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                      lightMode ? 'text-[#eff0f6] bg-[#202427]' : 'text-body-color'
+                      lightMode ? 'text-[#1A1A1A] bg-[#F3F2F0]' : 'text-[#eff0f6b6]'
                     }`}
                   >
-                    <SunIcon fill="#95dbd5" />
+                    <SunIcon className={lightMode ? 'fill-[#1A1A1A]' : 'fill-[#EFF0F6]'} />
                     <span className="ml-4">Light Mode</span>
                   </button>
 
                   <button
                     onClick={() => handleThemeMode(false)}
                     className={`w-full flex items-center h-full space-x-[6px] rounded py-2 px-[18px] text-sm font-medium ${
-                      !lightMode ? 'text-primary bg-[#202427]' : 'text-body-color'
+                      !lightMode ? 'text-[#EFF0F6] bg-[#242424]' : 'text-[#1a1a1ab4]'
                     }`}
                   >
-                    <MoonIcon />
+                    <MoonIcon className={lightMode ? 'fill-[#202427]' : 'fill-[#95DBD5]'} />
                     <span className="ml-4">Dark Mode</span>
                   </button>
                 </div>
