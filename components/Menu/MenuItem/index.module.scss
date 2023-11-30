@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .menuItem {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
@@ -14,12 +14,6 @@
   align-items: center;
   white-space: nowrap;
   border: 1px solid transparent;
-  &:hover {
-    @media (min-width: 1024px) {
-      background-color: var(--profile-menu-item-bg);
-      // border: 1px solid var(--dropdown-menu-hover-border);
-    }
-  }
 
   &:hover {
     color: var(--main-icon-color);
