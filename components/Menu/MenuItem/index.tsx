@@ -19,7 +19,6 @@ import CollectionNftGreenIcon from 'assets/icons/large-collection-green.svg?comp
 
 const MenuItem = props => {
   const { key, item, onSelect } = props
-  const [hover, setHover] = useState(false)
 
   return (
     <div
@@ -33,41 +32,21 @@ const MenuItem = props => {
     >
       <div className="w-12 h-12">
         {item.type === 'nft_category' ? (
-          hover ? (
-            <NftCategoryGreenIcon />
-          ) : (
-            <NftCategoryIcon />
-          )
+          <NftCategoryIcon className={styles.iconFill} />
         ) : item.type === 'nft_collection' ? (
-          hover ? (
-            <NftCollectionGreenIcon />
-          ) : (
-            <NftCollectionIcon />
-          )
+          <NftCollectionIcon className={styles.iconFill} />
         ) : item.type === 'nft_artist' ? (
-          hover ? (
-            <NftArtistGreenIcon />
-          ) : (
-            <NftArtistIcon />
-          )
+          <NftArtistIcon className={styles.iconFill} />
         ) : item.type === 'single_nft' ? (
-          hover ? (
-            <SingleNftGreenIcon />
-          ) : (
-            <SingleNftIcon />
-          )
+          <SingleNftIcon className={styles.iconFill} />
         ) : item.type === 'collection_nft' ? (
-          hover ? (
-            <CollectionNftGreenIcon />
-          ) : (
-            <CollectionNftIcon />
-          )
+          <CollectionNftIcon className={styles.iconFill} />
         ) : (
           <div />
         )}
         {/* <Image src={item.icon} alt="" width={40} height={40} /> */}
       </div>
-      {item.label}
+      <span className="mt-2">{item.label}</span>
     </div>
   )
 }
