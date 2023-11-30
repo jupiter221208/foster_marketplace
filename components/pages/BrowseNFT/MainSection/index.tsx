@@ -7,7 +7,6 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import ModelViewer from 'react-model-viewer'
 
 import {
   Chart as ChartJS,
@@ -765,14 +764,6 @@ const MainSection = ({
     }
   }
 
-  const getFileExtension = () => {
-    console.log(nftInfo)
-    const url = new URL(nftAssetUrl)
-    const extValue = url.searchParams.get('ext')
-    console.log(extValue)
-    return extValue
-  }
-
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
@@ -827,8 +818,6 @@ const MainSection = ({
               ) : (
                 <></>
               )
-            ) : getFileExtension() === 'glb' ? (
-              typeof globalThis.window != 'undefined' && <ModelViewer type="glb" src={nftAssetUrl} />
             ) : nftType.includes('image') ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
@@ -1266,9 +1255,7 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
+                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
