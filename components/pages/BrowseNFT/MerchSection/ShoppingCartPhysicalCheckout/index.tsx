@@ -290,7 +290,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
         </div>
         <div className="w-full flex gap-[30px]">
           <OutlineButton
-            label="Cancel Order"
+            label="Back"
             onClick={onBack}
             fullWidth
             fontFamily="Muli-SemiBold"

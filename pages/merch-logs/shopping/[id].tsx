@@ -69,7 +69,9 @@ const MerchDetail = () => {
     let { order, ssorder, shipment } = orderData;
   
     if (shipment) setTrackingDetails(shipment);
-  
+    
+    let localData = JSON.parse(localStorage.getItem('data'))
+
     let itemList = []
     orderData.ssorder.items.forEach((itemData) => {
       let options = itemData.options;
@@ -90,9 +92,20 @@ const MerchDetail = () => {
         };
         itemList.push(itemDetails)
       }
-      setList(itemList)
     });
-  
+    setList(itemList)
+    
+    localData?.forEach((item) => {
+      itemList?.forEach((otherItem) => {
+        if (item.printImageUrl === otherItem.fosterUrl) {
+          const index = localData.indexOf(item);
+          localData.splice(index, 1);
+        }
+      });
+    });
+    
+    localStorage.setItem('data', JSON.stringify(localData));
+
     setPaymentDetails({
       method: order.payment_method,
       status: 'Complete',
@@ -399,15 +412,15 @@ const MerchDetail = () => {
           <div className='flex flex-col overflow-y-auto'>
             {list && list.map((item, index) => (
               <div key={index} className={styles.tableColor}>
-                <div className="w-full flex justify-center ml-[-25px]">
-                  <div className="w-[100px] h-auto object-cover">
+                <div className="w-full flex">
+                  <div className="w-[100px] h-auto object-cover ml-[15px]">
                     <img src={item.fosterUrl} alt="" />
                   </div>
                 </div>
-                <div className="w-full text-right mt-[10px]">
+                <div className="w-full text-right mt-[-10px]">
                   <div className={styles.detailValue}>&nbsp;{item?.print}</div>
-                  <div className={styles.detailValue}>&nbsp;{item?.apparel}&nbsp;{`(${item?.size === 'S' || item?.size === 'YXS' 
-                  ? 'Small':
+                  <div className={styles.detailValue}>&nbsp;{item?.apparel}&nbsp;{`(${
+                  item?.size === 'S' || item?.size === 'YXS' ? 'Small':
                   item?.size === 'M' || item?.size === 'YS' ? 'Medium':
                   item?.size === 'L' || item?.size === 'YM' ? 'Large':
                   item?.size === 'XL' || item?.size === 'YL' ? 'X-Large':

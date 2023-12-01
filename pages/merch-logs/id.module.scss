@@ -84,7 +84,7 @@
 }
 
 .detailValue {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);
@@ -109,4 +109,14 @@
   width: 700px;
   height: 1px;
   background: rgba(var(--text-gray-200-color-rgb), 0.15);
+}
+
+.tableColor {
+  display: flex;
+  width: 100%;
+  height: 120px;
+  border-radius: 15px;
+  border: 1px solid var(--second-home-bg);
+  background: var(--second-home-bg);
+  padding: 10px;
 }

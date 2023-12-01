@@ -69,17 +69,20 @@ const MerchDetail = () => {
     let { order, ssorder, shipment } = orderData
 
     if (shipment) setTrackingDetails(shipment)
-
     let itemData = orderData?.ssorder.items[0]
     let options = itemData.options
     let nftName = findElement(options, 'name', 'nftName')
     let size = findElement(options, 'name', 'size')
+    let color = findElement(options, 'name', 'color')
+    let apparel = findElement(options, 'name', 'apparel')
     if (options) {
       let itemDetails = {
         print: nftName ? nftName['value'] : '',
         quantity: itemData.quantity,
         product: itemData.name,
-        size: size ? size['value'] : ''
+        size: size ? size['value'] : '',
+        color: color? color['value'] : '',
+        apparel: apparel? apparel['value']: ''
       }
       setItemDetails(itemDetails)
     }
@@ -225,7 +228,13 @@ const MerchDetail = () => {
             <div className={styles.detailTitle}>Item Details</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
             <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.product}&nbsp;{`(${itemDetails?.size})`}</div>
+            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;{
+            itemDetails?.size === 'S' || itemDetails?.size === 'YXS' ? 'Small':
+            itemDetails?.size === 'M' || itemDetails?.size === 'YS' ? 'Medium':
+            itemDetails?.size === 'L' || itemDetails?.size === 'YM' ? 'Large':
+            itemDetails?.size === 'XL' || itemDetails?.size === 'YL' ? 'X-Large':
+            itemDetails?.size === '2XL' || itemDetails?.size === 'YXL' ? '2X-Large': ''
+            }&nbsp;/&nbsp;{itemDetails?.color}</div>
           </div>
           <div>
             <div className={styles.detailTitle}>Payment Details</div>
@@ -368,16 +377,23 @@ const MerchDetail = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex justify-center mt-[30px]">
-          <div className="w-[183px] h-auto object-cover">
-            <img src={previewUrl} alt="" />
+        <div className={styles.tableColor}>
+          <div className="w-full flex">
+            <div className="w-[100px] h-auto object-cover ml-[15px]">
+              <img src={previewUrl} alt="" />
+            </div>
           </div>
-        </div>
-        <div className="w-full mt-[30px]">
-          <div className={styles.detailTitle}>Item&nbsp;Details</div>
-          <div className={styles.detailValue}>Print:&nbsp;{itemDetails?.print}</div>
-          <div className={styles.detailValue}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-          <div className={styles.detailValue}>Product:&nbsp;{itemDetails?.product}&nbsp;{`(${itemDetails?.size})`}</div>
+          <div className="w-full text-right mt-[-10px]">
+            <div className={styles.detailValue}>{itemDetails?.print}</div>
+            <div className={styles.detailValue}>{itemDetails?.apparel}&nbsp;{`(${
+            itemDetails?.size === 'S' || itemDetails?.size === 'YXS' ? 'Small':
+            itemDetails?.size === 'M' || itemDetails?.size === 'YS' ? 'Medium':
+            itemDetails?.size === 'L' || itemDetails?.size === 'YM' ? 'Large':
+            itemDetails?.size === 'XL' || itemDetails?.size === 'YL' ? 'X-Large':
+            itemDetails?.size === '2XL' || itemDetails?.size === 'YXL' ? '2X-Large': ''})`}</div>
+            <div className={styles.detailValue}>{itemDetails?.color}</div>
+            <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
+          </div>
         </div>
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
