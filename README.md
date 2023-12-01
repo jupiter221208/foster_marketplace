@@ -9,14 +9,14 @@
 #### Leadership
 
 - CEO - [@StealthofFoster](https://github.com/StealthofFoster)
-- CXO - [@Plumpadoodle](https://github.com/Plumpadoodle)
+- Creative Director - [@Plumpadoodle](https://github.com/Plumpadoodle)
+- VP of Product - [@kartiksoneji](https://github.com/KartikSoneji)
 - CTO - [@drewburkhart](https://www.github.com/drewburkhart)
-- Director of Technology - @RedPrince on Discord
 
 #### Technical
 
 - Client App - [@nicholas716](https://github.com/nicholas716) / [@nshunt639](https://github.com/nshunt639)
-- Smart Contract - [@rockdev055](https://github.com/rockdev055)
+- Smart Contract - [@kartiksoneji](https://github.com/KartikSoneji)
 - Backend/DB/DevOps - [@drewburkhart](https://www.github.com/drewburkhart)
 
 ---
