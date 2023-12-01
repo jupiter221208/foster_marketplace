@@ -113,7 +113,6 @@ const MerchDetail = () => {
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
-
     setPreviewUrl(itemData.imageUrl)
   }, [orderData])
 

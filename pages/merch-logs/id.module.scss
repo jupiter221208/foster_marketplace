@@ -1,4 +1,12 @@
 @import 'assets/scss/variable.module.scss';
+.container {
+  width: 100%;
+  position: relative;
+  border-radius: 15px;
+  background: var(--second-home-bg);
+  display: flex;
+  flex-direction: column;
+}
 
 .orderTitle {
   font-family: 'Muli-Bold';

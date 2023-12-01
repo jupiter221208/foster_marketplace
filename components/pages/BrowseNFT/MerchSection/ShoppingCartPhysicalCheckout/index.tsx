@@ -229,7 +229,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
 
       {/* Mobile Table */}
       <div className="w-full lg:hidden">
-        <div className="flex flex-col h-[200px] overflow-auto mt-[20px]">
+        <div className="flex flex-col overflow-auto mt-[20px]">
           {list.map((item, index) => (
             <div key={index} className={styles.tableColor}>
               <div className="w-full flex justify-between px-2 py-2">
@@ -316,7 +316,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
           setShowAlert(false)
           setTimeout(() => {
             dispatch({ type: 'set', isLoading: true })
-            router.push(`/merch-logs/${id}`)
+            router.push(`/merch-logs/shopping/${id}`)
           }, 1000)
         }}
         data={alertData}
