@@ -1,8 +1,8 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, Stage, OrbitControls, Center } from '@react-three/drei'
-import { Box3, Vector3 } from 'three'
+import { useGLTF, OrbitControls, Center } from '@react-three/drei'
+import { Box3, Vector3, Mesh, MeshStandardMaterial } from 'three'
 
-import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react'
+import { useEffect, useRef, useState, Dispatch, SetStateAction, MutableRefObject } from 'react'
 
 type ModelTypes = {
   url: string
@@ -55,18 +55,19 @@ export default function GlbModelViewer() {
 }
 
 function Model({ url, setModelSize, setMaterialsColor }: ModelTypes) {
-  const modelRef: any = useRef()
-  const model: any = useGLTF(url)
+  const modelRef = useRef<Mesh>()
+  const model = useGLTF(url)
 
   const allColors: RGB[] = []
   model.scene.traverse(node => {
-    if (node.isMesh && node.material.color.isColor) {
+    const nodeMesh = node as Mesh
+    const nodeMaterial = nodeMesh.material as MeshStandardMaterial
+    if (nodeMesh.isMesh && nodeMaterial.color.isColor) {
       const newColor = {
-        r: node.material.color.r,
-        g: node.material.color.g,
-        b: node.material.color.b,
+        r: nodeMaterial.color.r,
+        g: nodeMaterial.color.g,
+        b: nodeMaterial.color.b,
       }
-
       allColors.push(newColor)
     }
   })
