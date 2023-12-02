@@ -98,5 +98,5 @@ function CameraRig({ modelSize }: { modelSize: Vector3 }) {
     camera.position.set(0, 0, largestDimension * 1.1)
   }, [modelSize])
 
-  return <OrbitControls />
+  return <OrbitControls enableZoom={false} minPolarAngle={Math.PI / 9} maxPolarAngle={Math.PI - Math.PI / 7} />
 }
