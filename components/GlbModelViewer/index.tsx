@@ -44,13 +44,11 @@ export default function GlbModelViewer() {
   return (
     <Canvas dpr={[1, 2]} className="max-h-[500px] max-w-[500px] mx-auto">
       <color attach="background" args={[getBackgroundColor(materialColors)]} />
-      <ambientLight intensity={0.3} />
-      <directionalLight intensity={0.3} />
+      <ambientLight intensity={10} />
+      <directionalLight intensity={1} />
       <CameraRig modelSize={modelSize} />
       <Center>
-        <Stage environment={null}>
-          <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url="/3D-models/baby.glb" />
-        </Stage>
+        <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url="/3D-models/baby.glb" />
       </Center>
     </Canvas>
   )
@@ -87,16 +85,18 @@ function Model({ url, setModelSize, setMaterialsColor }: ModelTypes) {
     }
   })
 
-  return <primitive ref={modelRef} object={model.scene} scale={0.01} />
+  return <primitive ref={modelRef} object={model.scene} scale={0.1} />
 }
 
 function CameraRig({ modelSize }: { modelSize: Vector3 }) {
   const { camera } = useThree()
 
   const largestDimension = Math.max(modelSize.x, modelSize.y, modelSize.z)
+  camera.near = 0
 
   useEffect(() => {
     camera.position.set(0, 0, largestDimension * 1.1)
   }, [modelSize])
+
   return <OrbitControls />
 }
