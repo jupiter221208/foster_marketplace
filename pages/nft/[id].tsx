@@ -43,6 +43,7 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
+import GlbModelViewer from 'components/GlbModelViewer'
 
 export interface EditionDetail {
   number: number
@@ -95,13 +96,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     if (detailShow === true) {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
         const nftName = (nftDetail?.name || nftDetail.json?.name) ?? 'No name found'
-        const nftCoverUrl = nftDetail.json?.image ?? ''
+        const nftUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
 
         let params = {
           nftName,
-          nftCoverUrl,
+          nftUrl,
           mintAddress,
           category: item.category,
           subCategory: item.sub_type,
@@ -159,7 +160,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     'Home to creators, collectors, and curators around the world.\n' +
     'Pushing the boundaries of digital art on Solana.'
 
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
+  const [nftUrl, setNftUrl] = useState({ type: '', url: '' })
   const [fullScreen, setFullScreen] = useState(false)
   const setFullScreenView = url => {
     window.scrollTo({
@@ -167,7 +168,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     })
     document.body.style.overflow = 'hidden'
     setFullScreen(true)
-    setNftCoverUrl(url)
+    setNftUrl(url)
   }
 
   const reloadNftData = () => {
@@ -232,6 +233,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     reloadNftData={reloadNftData}
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
+                    fullScreen={fullScreen}
                   />
                 </div>
               </div>
@@ -281,7 +283,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       {fullScreen && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          {nftUrl.type === 'Glb' ? (
+            <GlbModelViewer url={nftUrl.url} />
+          ) : (
+            <img src={nftUrl.url} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          )}
           <div
             className={styles.closeScreen}
             onClick={() => {

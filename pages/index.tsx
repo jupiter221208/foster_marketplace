@@ -15,7 +15,6 @@ import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionS
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import GlbModelViewer from 'components/GlbModelViewer'
 
 // images
 import PreviewImage from 'assets/images/preview-image.png'
@@ -68,7 +67,6 @@ const Home = () => {
       </Head>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <GlbModelViewer />
           <MainSection />
         </div>
       </div>

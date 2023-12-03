@@ -19,10 +19,12 @@ type RGB = {
 /**
  * GlbModelViewer function component loads a 3D model and sets up the scene.
  *
+ * @param {string} props.url - The URL of the 3D model to load.
+ *
  * @returns {JSX.Element} The Canvas component with the loaded 3D model and configured scene.
  */
 
-export default function GlbModelViewer() {
+export default function GlbModelViewer(props: { url: string }) {
   // Initialize state for the size of the model and the colors of the materials
   const [modelSize, setModelSize] = useState(new Vector3(0, 0, 0))
   const [materialColors, setMaterialColor] = useState<RGB[]>([])
@@ -57,13 +59,13 @@ export default function GlbModelViewer() {
 
   // Return the Canvas component with the loaded 3D model and configured scene
   return (
-    <Canvas dpr={[1, 2]} className="max-h-[500px] max-w-[500px] mx-auto">
+    <Canvas dpr={[1, 2]} className="min-w-full  min-h-full">
       <color attach="background" args={[getBackgroundColor(materialColors)]} />
       <ambientLight intensity={10} />
       <directionalLight intensity={1} />
       <CameraRig modelSize={modelSize} />
       <Center>
-        <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url="/3D-models/baby.glb" />
+        <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url={props.url} />
       </Center>
     </Canvas>
   )
@@ -134,11 +136,10 @@ function CameraRig({ modelSize }: { modelSize: Vector3 }) {
 
   // Calculate the largest dimension of the model
   const largestDimension = Math.max(modelSize.x, modelSize.y, modelSize.z)
-  camera.near = 0
 
   // Update the camera position when the model size changes
   useEffect(() => {
-    camera.position.set(0, 0, largestDimension * 1.1)
+    camera.position.set(0, 0, largestDimension * 1.2)
   }, [modelSize])
 
   // Return the OrbitControls component with zooming disabled and polar angle limits set
