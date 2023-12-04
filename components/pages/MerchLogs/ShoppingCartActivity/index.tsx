@@ -131,7 +131,7 @@ const ShoppingCartActivity = props => {
                         <div className={styles.content}>
                           <div>{item.nftName}</div>
                           <div>
-                            {item.apparel.description}&nbsp;(
+                            {item?.apparel.description}&nbsp;(
                             {item.size.name === 'S' || item.size.name === 'YXS'
                               ? 'Small'
                               : item.size.name === 'M' || item.size.name === 'YS'

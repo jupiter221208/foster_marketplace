@@ -46,6 +46,7 @@ const MerchDetail = () => {
   const [helpBody, setHelpBody] = useState('')
   const [reviewTitle, setReviewTitle] = useState('')
   const [reviewBody, setReviewBody] = useState('')
+  const [commission, setCommission] = useState(null)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -143,16 +144,25 @@ const MerchDetail = () => {
       
       localStorage.setItem('data', JSON.stringify(localData));
     }
+    let commissionData = Object.entries(order.seller_shares).map(([address, value]) => {
+      return { address, value };
+    });
+    
+    commissionData?.forEach((item) => {
+      if(item.address == publicKey?.toBase58()) {
+        const index = commissionData.indexOf(item)
+        setCommission(commissionData[index].value);
+      }
+    })
+    
     setPaymentDetails({
       method: order.payment_method,
       status: 'Complete',
-      commission: order.artist_commission.toFixed(2),
       shipping: order.shipping_amount.toFixed(2),
       tax: order.tax_amount.toFixed(2),
       txId: order.transaction_id,
       paidBy: order.buyer_address,
     })
-
     setIsOwn(order.buyer_address === publicKey?.toBase58())
 
     let keys = Object.keys(order.seller_shares)
@@ -412,7 +422,7 @@ const MerchDetail = () => {
               Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
             </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+              Creator&nbsp;Commission:&nbsp;${commission}
             </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}

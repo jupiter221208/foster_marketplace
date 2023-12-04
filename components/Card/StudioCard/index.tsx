@@ -79,8 +79,14 @@ const StudioCard = props => {
         />
         <div className="w-full flex flex-col items-center justify-center mt-[10px]">
           <div className="w-full flex flex-row justify-center">
-            <div className={styles.heroName}>{data['name']}</div>
-            <div className={styles.heroType}>( {data['type']} )</div>
+            {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
+              <div className={styles.heroName}>{data['name']}&nbsp;</div>
+            ) : (
+              <>
+                <div className={styles.heroName}>{data['name']}&nbsp;</div>
+                <div className={styles.heroType}>({data['type']})</div>
+              </>
+            )}
           </div>
           <div className={styles.heroPrice}>Starting at {data['start_price']}</div>
         </div>
