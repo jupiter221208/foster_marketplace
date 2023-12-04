@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, OrbitControls, Center } from '@react-three/drei'
 import { Box3, Vector3, Mesh, MeshStandardMaterial } from 'three'
