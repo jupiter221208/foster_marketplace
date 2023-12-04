@@ -316,7 +316,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
           setShowAlert(false)
           setTimeout(() => {
             dispatch({ type: 'set', isLoading: true })
-            router.push(`/merch-logs/shopping/${id}`)
+            router.push(`/merch-logs/${id}`)
           }, 1000)
         }}
         data={alertData}

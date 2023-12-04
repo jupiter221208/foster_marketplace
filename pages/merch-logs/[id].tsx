@@ -36,6 +36,7 @@ const MerchDetail = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
+  const [list, setList] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
   const [trackingDetails, setTrackingDetails] = useState<ShipStationShipment>(null)
   const [previewUrl, setPreviewUrl] = useState('')
@@ -69,24 +70,78 @@ const MerchDetail = () => {
     let { order, ssorder, shipment } = orderData
 
     if (shipment) setTrackingDetails(shipment)
-    let itemData = orderData?.ssorder.items[0]
-    let options = itemData.options
-    let nftName = findElement(options, 'name', 'nftName')
-    let size = findElement(options, 'name', 'size')
-    let color = findElement(options, 'name', 'color')
-    let apparel = findElement(options, 'name', 'apparel')
-    if (options) {
-      let itemDetails = {
-        print: nftName ? nftName['value'] : '',
-        quantity: itemData.quantity,
-        product: itemData.name,
-        size: size ? size['value'] : '',
-        color: color? color['value'] : '',
-        apparel: apparel? apparel['value']: ''
+    if(orderData?.ssorder.items.length === 1) {
+      let localData = JSON.parse(localStorage.getItem('data'))
+      
+      let itemData = orderData?.ssorder.items[0]
+      let options = itemData.options
+      let nftName = findElement(options, 'name', 'nftName')
+      let size = findElement(options, 'name', 'size')
+      let color = findElement(options, 'name', 'color')
+      let apparel = findElement(options, 'name', 'apparel')
+      let fosterUrl = findElement(options, 'name', 'fosterUrl')
+      let fosterUrlValue = fosterUrl.value
+      if (options) {
+        let itemDetails = {
+          print: nftName ? nftName['value'] : '',
+          quantity: itemData.quantity,
+          product: itemData.name,
+          size: size ? size['value'] : '',
+          color: color? color['value'] : '',
+          apparel: apparel? apparel['value']: ''
+        }
+        setItemDetails(itemDetails)
       }
-      setItemDetails(itemDetails)
-    }
+  
+      if(fosterUrlValue) {
+        setPreviewUrl(fosterUrlValue)
+        localData?.forEach((item) => {
+          if (item.printImageUrl === fosterUrlValue) {
+            const index = localData.indexOf(item);
+            localData.splice(index, 1);
+            }
+          });
+        } else {
+        setPreviewUrl(itemData.imageUrl)
+      }
 
+    } else {
+      let localData = JSON.parse(localStorage.getItem('data'))
+
+      let itemList = []
+      orderData.ssorder.items.forEach((itemData) => {
+        let options = itemData.options;
+        let nftName = findElement(options, 'name', 'nftName');
+        let size = findElement(options, 'name', 'size');
+        let color = findElement(options, 'name', 'color')
+        let fosterUrl = findElement(options, 'name', 'fosterUrl')
+        let apparel = findElement(options, 'name', 'apparel')
+        let quantity =  itemData.quantity
+        if (options) {
+          let itemDetails = {
+            quantity: quantity,
+            print: nftName ? nftName['value'] : '',
+            size: size ? size['value'] : '',
+            color: color ? color['value'] : '',
+            fosterUrl : fosterUrl ? fosterUrl['value'] : '',
+            apparel : apparel ? apparel['value'] : ''
+          };
+          itemList.push(itemDetails)
+        }
+      });
+      setList(itemList)
+  
+      localData?.forEach((item) => {
+        itemList?.forEach((otherItem) => {
+          if (item.printImageUrl === otherItem.fosterUrl) {
+            const index = localData.indexOf(item);
+            localData.splice(index, 1);
+          }
+        });
+      });
+      
+      localStorage.setItem('data', JSON.stringify(localData));
+    }
     setPaymentDetails({
       method: order.payment_method,
       status: 'Complete',
@@ -116,7 +171,6 @@ const MerchDetail = () => {
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
-    setPreviewUrl(itemData.imageUrl)
   }, [orderData])
 
   const setEmailBody = () => {
@@ -220,6 +274,7 @@ const MerchDetail = () => {
             </div>
           </div>
         </div>
+        {orderData?.ssorder.items.length === 1 ? (
         <div className="w-full flex justify-between mt-[70px]">
           <div className="w-[183px] h-[183px] object-cover">
             <img src={previewUrl} alt="" />
@@ -320,6 +375,122 @@ const MerchDetail = () => {
             </div>
           </div>
         </div>
+        ) : (
+        <div className="w-full flex mt-[70px] gap-20">
+          <div className={styles.orderContainer}>
+            <div className='flex flex-col gap-[37px] overflow-y-auto'>
+              {list && list.map((item, index) => (
+                <div key={index} className='flex flex-row justify-between w-full'>
+                  <div className="object-cover">
+                    <img src={item.fosterUrl} style={{height:'183px'}} alt="" />
+                  </div>
+                  <div className='w-1/2 flex flex-col justify-center'>
+                    <div className={styles.detailTitle}>Item Details</div>
+                    <div className={`mt-[20px] ${styles.detailOrderValue}`}>{item?.print}</div>
+                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>{item?.color}</div>
+                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>
+                      {item?.apparel} (
+                        {item?.size === 'S' || item?.size === 'YXS' ? 'Small' :
+                        item?.size === 'M' || item?.size === 'YS' ? 'Medium' :
+                        item?.size === 'L' || item?.size === 'YM' ? 'Large' :
+                        item?.size === 'XL' || item?.size === 'YL' ? 'X-Large' :
+                        item?.size === '2XL' || item?.size === 'YXL' ? '2X-Large' : ''}
+                      )
+                    </div>
+                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>Qty: {item?.quantity}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className='flex w-1/2 justify-between'>
+          <div>
+            <div className={styles.detailTitle}>Payment Details</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+            </div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+            </div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+            </div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
+            </div>
+            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+          </div>
+
+          <div>
+            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+              <div>
+                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+              </div>
+            ) : trackingDetails === null ? (
+              <div>
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Track package"
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                  width={335}
+                />
+              </div>
+            ) : (
+              <div>
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Track package"
+                  onClick={() => gotoTrackPage()}
+                />
+              </div>
+            )}
+            <div className="mt-[12px]">
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  subject: helpTitle,
+                  body: helpBody,
+                })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Get help"
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div className="mt-[12px]">
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  subject: reviewTitle,
+                  body: reviewBody,
+                })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a product review"
+                  onClick={() => {}}
+                  // onClick={() => {
+                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
+                  // }}
+                />
+              </a>
+            </div>
+          </div>
+          </div>
+        </div>
+        )}
+
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
             Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
@@ -377,6 +548,7 @@ const MerchDetail = () => {
             </div>
           </div>
         </div>
+        {orderData?.ssorder.items.length === 1 ? (
         <div className={styles.tableColor}>
           <div className="w-full flex">
             <div className="w-[100px] h-auto object-cover ml-[15px]">
@@ -395,6 +567,34 @@ const MerchDetail = () => {
             <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
           </div>
         </div>
+        ) : (
+        <div className={styles.mobileContainer}>
+          <div className='flex flex-col overflow-y-auto'>
+            {list && list.map((item, index) => (
+              <div key={index} className={styles.tableColor}>
+                <div className="w-full flex">
+                  <div className="w-[100px] h-auto object-cover ml-[15px]">
+                    <img src={item.fosterUrl} alt="" />
+                  </div>
+                </div>
+                <div className="w-full text-right mt-[-10px]">
+                  <div className={styles.detailValue}>&nbsp;{item?.print}</div>
+                  <div className={styles.detailValue}>&nbsp;{item?.apparel}&nbsp;{`(${
+                  item?.size === 'S' || item?.size === 'YXS' ? 'Small':
+                  item?.size === 'M' || item?.size === 'YS' ? 'Medium':
+                  item?.size === 'L' || item?.size === 'YM' ? 'Large':
+                  item?.size === 'XL' || item?.size === 'YL' ? 'X-Large':
+                  item?.size === '2XL' || item?.size === 'YXL' ? '2X-Large': ''})`}</div>
+                  <div className={styles.detailValue}>&nbsp;{item?.color}</div>
+                  <div className={styles.detailValue}>&nbsp;Qty: {item?.quantity}</div>
+                </div>
+              </div>
+              ))
+            }
+          </div>
+        </div>
+        )}
+
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>

@@ -8,6 +8,18 @@
   flex-direction: column;
 }
 
+.orderContainer {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  border-radius: 15px;
+  background: var(--second-home-bg);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}
+
 .orderTitle {
   font-family: 'Muli-Bold';
   font-size: 24px;
@@ -91,6 +103,13 @@
   margin-top: 8px;
 }
 
+.detailOrderValue {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
 .shipStatusTitle {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
@@ -119,4 +138,27 @@
   border: 1px solid var(--second-home-bg);
   background: var(--second-home-bg);
   padding: 10px;
+}
+
+.tableOrderColor {
+  display: flex;
+  margin-top: 15px;
+  width: 100%;
+  height: 120px;
+  border-radius: 15px;
+  border: 1px solid var(--second-home-bg);
+  background: var(--second-home-bg);
+  padding: 10px;
+}
+
+.mobileContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin-top: -20px;
+  font-size: 14px;
+  font-family: 'Muli-Light';
+  max-height: 300px;
+  color: var(--text-gray-200-color);
 }

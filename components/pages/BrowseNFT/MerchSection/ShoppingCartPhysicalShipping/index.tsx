@@ -100,8 +100,6 @@ const ShoppingCartPhysicalShipping = props => {
       apartment,
       zipCode,
     }
-    localStorage.removeItem('shipping')
-    localStorage.setItem('shipping', JSON.stringify(data))
 
     let params
     if (category === 'apparel') {
