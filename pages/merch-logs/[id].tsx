@@ -101,6 +101,7 @@ const MerchDetail = () => {
             localData.splice(index, 1);
             }
           });
+        localStorage.setItem('data', JSON.stringify(localData));
         } else {
         setPreviewUrl(itemData.imageUrl)
       }
