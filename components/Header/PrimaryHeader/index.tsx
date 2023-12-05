@@ -71,7 +71,7 @@ const PrimaryHeader = () => {
     const intervalId = setInterval(() => {
       const position = window.pageYOffset
 
-      if (position > 100) setIsScrollTop(false)
+      if (position > 50) setIsScrollTop(false)
       else setIsScrollTop(true)
 
       if (position < 250) {
@@ -84,7 +84,7 @@ const PrimaryHeader = () => {
         lastScrollPosition = position
         setIsScrollingTop(true)
       }
-    }, 500)
+    }, 100)
 
     return () => clearInterval(intervalId)
   }, [])
