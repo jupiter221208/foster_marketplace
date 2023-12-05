@@ -507,9 +507,12 @@ const MainSection = ({
   }, [nftCollectionUrl])
 
   useEffect(() => {
-    const url = new URL(nftAssetUrl)
-    const ext = url.searchParams.get('ext')
-    setIsNftGlb(ext === 'glb')
+    console.log(nftAssetUrl)
+    if (nftAssetUrl) {
+      const url = new URL(nftAssetUrl)
+      const ext = url.searchParams.get('ext')
+      setIsNftGlb(ext === 'glb')
+    }
   }, [nftAssetUrl])
 
   const processFinalizeSale = async () => {
