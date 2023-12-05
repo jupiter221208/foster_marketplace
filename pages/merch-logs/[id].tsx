@@ -32,6 +32,7 @@ const MerchDetail = () => {
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const type = useSelector<any>(state => state.orderType)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
@@ -144,25 +145,39 @@ const MerchDetail = () => {
       
       localStorage.setItem('data', JSON.stringify(localData));
     }
-    let commissionData = Object.entries(order.seller_shares).map(([address, value]) => {
-      return { address, value };
-    });
     
-    commissionData?.forEach((item) => {
-      if(item.address == publicKey?.toBase58()) {
-        const index = commissionData.indexOf(item)
-        setCommission(commissionData[index].value);
-      }
-    })
+    if(type === 'sales') {
+      let commissionData = Object.entries(order.seller_shares).map(([address, value]) => {
+        return { address, value };
+      });
+      
+      commissionData?.forEach((item) => {
+        if(item.address == publicKey?.toBase58()) {
+          const index = commissionData.indexOf(item)
+          setCommission(commissionData[index].value);
+        }
+      })
+
+      setPaymentDetails({
+        method: order.payment_method,
+        status: 'Complete',
+        shipping: order.shipping_amount.toFixed(2),
+        tax: order.tax_amount.toFixed(2),
+        txId: order.transaction_id,
+        paidBy: order.buyer_address,
+      })
+    } else {
+      setPaymentDetails({
+        method: order.payment_method,
+        status: 'Complete',
+        shipping: order.shipping_amount.toFixed(2),
+        tax: order.tax_amount.toFixed(2),
+        txId: order.transaction_id,
+        paidBy: order.buyer_address,
+        commission: order.artist_commission.toFixed(2)
+      })
+    }
     
-    setPaymentDetails({
-      method: order.payment_method,
-      status: 'Complete',
-      shipping: order.shipping_amount.toFixed(2),
-      tax: order.tax_amount.toFixed(2),
-      txId: order.transaction_id,
-      paidBy: order.buyer_address,
-    })
     setIsOwn(order.buyer_address === publicKey?.toBase58())
 
     let keys = Object.keys(order.seller_shares)
@@ -421,9 +436,16 @@ const MerchDetail = () => {
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
             </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${commission}
+            {type && type === 'sales' ? (
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
             </div>
+            ) : (
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+            </div>
+            )}
+            
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
             </div>
@@ -612,7 +634,15 @@ const MerchDetail = () => {
           <div className={styles.detailValue}>
             Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
           </div>
-          <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
+          {type && type === 'sales' ? (
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
+            </div>
+            ) : (
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+            </div>
+          )}
           <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
           <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
