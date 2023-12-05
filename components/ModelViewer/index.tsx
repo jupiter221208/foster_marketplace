@@ -62,8 +62,8 @@ export default function ModelViewer(props: { url: string }) {
   return (
     <Canvas dpr={[1, 2]} className="min-w-full  min-h-full">
       <color attach="background" args={[getBackgroundColor(materialColors)]} />
-      <ambientLight intensity={10} />
-      <directionalLight intensity={1} />
+      <ambientLight intensity={1.5} />
+      <directionalLight intensity={1.5} />
       <CameraRig modelSize={modelSize} />
       <Center>
         <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url={props.url} />

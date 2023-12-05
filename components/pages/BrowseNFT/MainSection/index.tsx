@@ -783,12 +783,9 @@ const MainSection = ({
         ) : (
           <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType.includes('vr') ? (
-                <div className={styles.blurBackground}>
-                  <div className={styles.blurImage} />
-                  <div className={styles.imageArea}>
-                    <ModelViewer url={nftAssetUrl} />
-                  </div>
+              nftType.includes('vr') && nftAssetUrl ? (
+                <div className={`${styles.mobileImageArea} aspect-square`}>
+                  <ModelViewer url={nftAssetUrl} />
                 </div>
               ) : nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
@@ -828,7 +825,7 @@ const MainSection = ({
               ) : (
                 <></>
               )
-            ) : nftType.includes('vr') && !fullScreen ? (
+            ) : nftType.includes('vr') && !fullScreen && nftAssetUrl ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
