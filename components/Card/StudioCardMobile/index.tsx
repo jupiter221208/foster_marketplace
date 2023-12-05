@@ -80,8 +80,14 @@ const StudioHeroCardMobile = props => {
             <div className="w-full flex flex-col items-center justify-center mt-[15px]">
               <div className="w-full flex flex-row justify-center">
                 <p className="inline text-center items-center gap-2">
-                  <span className={styles.mobileheroName}>{data['name']}</span>
-                  <span className={styles.mobileheroType}>( {data['type']} )</span>
+                  {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
+                    <span className={styles.mobileheroName}>{data['name']}&nbsp;</span>
+                  ) : (
+                    <>
+                      <span className={styles.mobileheroName}>{data['name']}&nbsp;</span>
+                      <span className={styles.mobileheroType}>({data['type']})</span>
+                    </>
+                  )}
                 </p>
               </div>
               <div className={styles.mobileheroPrice}>Starting at {data['start_price']}</div>

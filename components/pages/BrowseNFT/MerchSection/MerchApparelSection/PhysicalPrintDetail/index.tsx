@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // next components
+import { useRouter } from 'next/router'
 
 // components
 
@@ -33,7 +34,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory, base } = props
+  const { onBack, onPrint, onShipping, onAddCart, data, setData, nftName, nftCoverUrl, subCategory, base } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [gender, setGender] = useState({ name: '', type: '' })
@@ -55,6 +56,8 @@ const PhysicalPrintDetail = props => {
     asset_url: '/images/apparel-color-white.png',
   })
   const dispatch = useDispatch()
+  const router = useRouter()
+  const id = router.query.id
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -65,6 +68,9 @@ const PhysicalPrintDetail = props => {
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
+  const shippingDetail = useSelector<any>(state => state.shippingDetail)
+  const printImageUrl = useSelector<any>(state => state.printImageUrl)
+  const isAddToCart = useSelector(state => (state as any).isAddToCart)
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -78,6 +84,13 @@ const PhysicalPrintDetail = props => {
       dispatch({ type: 'set', apparelColor: -1 })
     }
   }, [apparelColor])
+
+  useEffect(() => {
+    if (shippingDetail) {
+      onShipping(data)
+      dispatch({ type: 'set', shippingDetail: false })
+    }
+  }, [shippingDetail])
 
   useEffect(() => {
     window.scrollTo({
@@ -228,6 +241,39 @@ const PhysicalPrintDetail = props => {
     }
     return ''
   }
+  const handleSaveData = () => {
+    let data = { apparel, gender, color, print, quality, size, quantity, cost }
+    onAddCart(data)
+  }
+
+  useEffect(() => {
+    if (printImageUrl && isAddToCart) {
+      let existingData = JSON.parse(localStorage.getItem('data')) || []
+      if (!Array.isArray(existingData)) {
+        existingData = []
+      }
+
+      let data = {
+        previewApparel,
+        apparel,
+        gender,
+        color,
+        print,
+        quality,
+        size,
+        quantity,
+        cost,
+        id,
+        nftCoverUrl,
+        nftName,
+        printImageUrl,
+      }
+      existingData.push(data)
+      localStorage.setItem('data', JSON.stringify(existingData))
+      dispatch({ type: 'set', isAddToCart: false })
+      dispatch({ type: 'set', printImageUrl: null })
+    }
+  }, [printImageUrl, isAddToCart])
 
   return (
     <section className={styles.container}>
@@ -330,8 +376,8 @@ const PhysicalPrintDetail = props => {
 
       <div className="w-full mt-[30px] flex gap-[30px]">
         <OutlineButton
-          label="Back"
-          onClick={onBack}
+          label="Add to Cart"
+          onClick={() => handleSaveData()}
           fullWidth
           fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
@@ -341,7 +387,7 @@ const PhysicalPrintDetail = props => {
 
         <GradientButton
           disabled={!enabled}
-          label="Next"
+          label="Buy Now"
           fontFamily="Muli-SemiBold"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}

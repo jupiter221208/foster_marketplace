@@ -198,8 +198,7 @@ const PhysicalShipping = props => {
           <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
         </div>
       </div> */}
-
-      <div className="flex gap-[15px] mt-[20px] items-center">
+      <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
       <div className="w-full mt-[20px]">

@@ -214,9 +214,9 @@ const OfferSection = () => {
             label="Offers Made"
             onClick={() => setShownOfferType('made')}
             fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'made' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'made' ? 'var(--time-slog-bg)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'made' ? 'var(--time-slog-bg)' : 'transparent'}
+            color={shownOfferType === 'made' ? '#1A1A1A' : '#979EA2'}
+            backgroundColor01={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'made' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -225,9 +225,9 @@ const OfferSection = () => {
             label="Offers Received"
             onClick={() => setShownOfferType('received')}
             fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'received' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'received' ? 'var(--time-slog-bg)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'received' ? 'var(--time-slog-bg)' : 'transparent'}
+            color={shownOfferType === 'received' ? '#1A1A1A' : '#979EA2'}
+            backgroundColor01={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'received' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}

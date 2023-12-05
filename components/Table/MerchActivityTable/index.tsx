@@ -60,6 +60,7 @@ const MerchActivityTable = props => {
                 className={styles.viewOrder}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
+                  dispatch({ type: 'set', orderType: type })
                   router.push(`merch-logs/${item.id}`)
                 }}
               >

@@ -66,6 +66,11 @@ const MerchApparelSection = props => {
             }
             setCurrentStep(2)
           }}
+          onAddCart={item => {
+            setPrintData(item)
+            dispatch({ type: 'set', isAddToCart: true })
+            setFinishEditing(true)
+          }}
           data={printData}
           subCategory={subCategory}
           base={base}

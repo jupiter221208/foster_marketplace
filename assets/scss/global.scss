@@ -1342,20 +1342,13 @@ h6 {
   border-right-style: solid;
 }
 
-#CheckoutTable tbody:before {
-  content: '@';
-  display: block;
-  line-height: 7px;
-  text-indent: -99999px;
-}
-
 #CheckoutTable tr {
   color: var(--artwork-table-tr);
 }
 
 #CheckoutTable td {
   border-style: solid none solid none;
-  padding: 4px;
+  padding: 15px 30px 15px 30px;
   height: 70px;
   background-color: transparent;
   font-family: 'Muli-SemiBold';
@@ -1383,14 +1376,14 @@ h6 {
 }
 
 #CheckoutTable tr td:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
   border-left-style: solid;
 }
 
 #CheckoutTable tr td:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
   border-right-style: solid;
 }
 
