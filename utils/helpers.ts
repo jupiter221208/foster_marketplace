@@ -530,6 +530,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--size-chart-modal-title', '#F3F2F0')
     doc.style.setProperty('--table-header-color', '#573A01')
     doc.style.setProperty('--order-table-color', 'rgba(32, 36, 39, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#FFFFFF')
 
     // =====================================================
     // =====================================================
@@ -829,5 +830,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--size-chart-modal-title', '#242424')
     doc.style.setProperty('--table-header-color', '#242424')
     doc.style.setProperty('--order-table-color', 'rgba(239, 240, 246, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#95DBD5')
   }
 }
