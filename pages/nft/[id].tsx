@@ -43,7 +43,7 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
-import GlbModelViewer from 'components/GlbModelViewer'
+import ModelViewer from 'components/ModelViewer'
 
 export interface EditionDetail {
   number: number
@@ -284,7 +284,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       {fullScreen && (
         <div className={styles.fullScreen}>
           {nftUrl.type === 'Glb' ? (
-            <GlbModelViewer url={nftUrl.url} />
+            <ModelViewer url={nftUrl.url} />
           ) : (
             <img src={nftUrl.url} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
           )}

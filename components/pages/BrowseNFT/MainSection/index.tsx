@@ -115,7 +115,7 @@ import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
-import GlbModelViewer from 'components/GlbModelViewer'
+import ModelViewer from 'components/ModelViewer'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -293,7 +293,6 @@ const MainSection = ({
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
-  const [isNftGlb, setIsNftGlb] = useState(false)
 
   const [isRunning, setIsRunning] = useState(false)
 
@@ -505,15 +504,6 @@ const MainSection = ({
       .then(({ data }) => setNftCollectionImage(data?.image))
       .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
   }, [nftCollectionUrl])
-
-  useEffect(() => {
-    console.log(nftAssetUrl)
-    if (nftAssetUrl) {
-      const url = new URL(nftAssetUrl)
-      const ext = url.searchParams.get('ext')
-      setIsNftGlb(ext === 'glb')
-    }
-  }, [nftAssetUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -793,11 +783,11 @@ const MainSection = ({
         ) : (
           <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              isNftGlb ? (
+              nftType.includes('vr') ? (
                 <div className={styles.blurBackground}>
                   <div className={styles.blurImage} />
                   <div className={styles.imageArea}>
-                    <GlbModelViewer url={nftAssetUrl} />
+                    <ModelViewer url={nftAssetUrl} />
                   </div>
                 </div>
               ) : nftType.includes('image') ? (
@@ -838,11 +828,11 @@ const MainSection = ({
               ) : (
                 <></>
               )
-            ) : isNftGlb && !fullScreen ? (
+            ) : nftType.includes('vr') && !fullScreen ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <GlbModelViewer url={nftAssetUrl} />
+                  <ModelViewer url={nftAssetUrl} />
                   <div
                     className={styles.fullScreenMode}
                     onClick={() => setFullScreenView({ type: 'Glb', url: nftAssetUrl })}

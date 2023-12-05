@@ -18,14 +18,14 @@ type RGB = {
 }
 
 /**
- * GlbModelViewer function component loads a 3D model and sets up the scene.
+ * ModelViewer function component loads a 3D model and sets up the scene.
  *
  * @param {string} props.url - The URL of the 3D model to load.
  *
  * @returns {JSX.Element} The Canvas component with the loaded 3D model and configured scene.
  */
 
-export default function GlbModelViewer(props: { url: string }) {
+export default function ModelViewer(props: { url: string }) {
   // Initialize state for the size of the model and the colors of the materials
   const [modelSize, setModelSize] = useState(new Vector3(0, 0, 0))
   const [materialColors, setMaterialColor] = useState<RGB[]>([])
