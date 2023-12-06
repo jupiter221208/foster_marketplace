@@ -115,6 +115,7 @@ import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
+import ModelViewer from 'components/ModelViewer'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -124,6 +125,7 @@ export interface MainSectionProps {
   reloadNftData: any
   enableMerch: any
   setCollectionName: any
+  fullScreen: boolean
 }
 
 const MainSection = ({
@@ -134,6 +136,7 @@ const MainSection = ({
   reloadNftData,
   enableMerch,
   setCollectionName,
+  fullScreen,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -780,7 +783,19 @@ const MainSection = ({
         ) : (
           <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType.includes('image') ? (
+              nftType.includes('vr') ? (
+                nftAssetUrl ? (
+                  <div className={`${styles.mobileImageArea} aspect-square`}>
+                    <ModelViewer url={nftAssetUrl} />
+                  </div>
+                ) : nftCoverUrl ? (
+                  <div className={styles.mobileImageArea}>
+                    <img src={nftCoverUrl} alt="" className="w-full" />
+                  </div>
+                ) : (
+                  <h1>Could not load NFT.</h1>
+                )
+              ) : nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" className="w-full" />
                   {/* <div className={styles.mobileImageBackground} /> */}
@@ -818,6 +833,28 @@ const MainSection = ({
               ) : (
                 <></>
               )
+            ) : nftType.includes('vr') && !fullScreen ? (
+              <div className={styles.blurBackground}>
+                <div className={styles.blurImage} />
+                <div className={styles.imageArea}>
+                  {nftAssetUrl ? (
+                    <>
+                      <ModelViewer url={nftAssetUrl} />
+                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
+                        <Image src={FullScreenModeIcon} alt="" />
+                      </div>
+                    </>
+                  ) : nftCoverUrl ? (
+                    <img
+                      src={nftCoverUrl}
+                      alt=""
+                      className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                    />
+                  ) : (
+                    <h1>Could not load NFT.</h1>
+                  )}
+                </div>
+              </div>
             ) : nftType.includes('image') ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
@@ -838,7 +875,10 @@ const MainSection = ({
                   <>
                     <div className="absolute inset-0">
                       <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                      <div
+                        className={styles.fullScreenMode}
+                        onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
+                      >
                         <Image src={FullScreenModeIcon} alt="" />
                       </div>
                     </div>
@@ -1255,7 +1295,9 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
+                              {nftCategories?.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">

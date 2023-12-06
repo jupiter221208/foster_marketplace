@@ -43,6 +43,7 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
+import ModelViewer from 'components/ModelViewer'
 
 export interface EditionDetail {
   number: number
@@ -159,7 +160,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     'Home to creators, collectors, and curators around the world.\n' +
     'Pushing the boundaries of digital art on Solana.'
 
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
+  const [nftCoverUrl, setNftCoverUrl] = useState()
   const [fullScreen, setFullScreen] = useState(false)
   const setFullScreenView = url => {
     window.scrollTo({
@@ -232,6 +233,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     reloadNftData={reloadNftData}
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
+                    fullScreen={fullScreen}
                   />
                 </div>
               </div>
@@ -281,7 +283,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       {fullScreen && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          {nftType.includes('vr') ? (
+            <ModelViewer url={nftCoverUrl} />
+          ) : (
+            <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          )}
           <div
             className={styles.closeScreen}
             onClick={() => {
