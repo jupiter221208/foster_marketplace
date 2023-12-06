@@ -785,9 +785,16 @@ const MainSection = ({
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
-                  <ModelViewer url={nftAssetUrl} />
+                  <>
+                    <ModelViewer url={nftAssetUrl} />
+                    <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
+                      <Image src={FullScreenModeIcon} alt="" />
+                    </div>
+                  </>
+                ) : nftCoverUrl ? (
+                  <img src={nftCoverUrl} alt="" className="w-full" />
                 ) : (
-                  <h2>Could not load NFT.</h2>
+                  <h1>Could not load NFT.</h1>
                 )
               ) : nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
@@ -838,8 +845,14 @@ const MainSection = ({
                         <Image src={FullScreenModeIcon} alt="" />
                       </div>
                     </>
+                  ) : nftCoverUrl ? (
+                    <img
+                      src={nftCoverUrl}
+                      alt=""
+                      className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                    />
                   ) : (
-                    <h2>Could not load NFT.</h2>
+                    <h1>Could not load NFT.</h1>
                   )}
                 </div>
               </div>
