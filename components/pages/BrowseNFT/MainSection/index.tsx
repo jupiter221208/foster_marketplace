@@ -785,14 +785,13 @@ const MainSection = ({
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
-                  <>
+                  <div className={`${styles.mobileImageArea} aspect-square`}>
                     <ModelViewer url={nftAssetUrl} />
-                    <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
-                      <Image src={FullScreenModeIcon} alt="" />
-                    </div>
-                  </>
+                  </div>
                 ) : nftCoverUrl ? (
-                  <img src={nftCoverUrl} alt="" className="w-full" />
+                  <div className={styles.mobileImageArea}>
+                    <img src={nftCoverUrl} alt="" className="w-full" />
+                  </div>
                 ) : (
                   <h1>Could not load NFT.</h1>
                 )
