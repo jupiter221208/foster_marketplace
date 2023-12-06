@@ -96,13 +96,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     if (detailShow === true) {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
         const nftName = (nftDetail?.name || nftDetail.json?.name) ?? 'No name found'
-        const nftUrl = nftDetail.json?.image ?? ''
+        const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
 
         let params = {
           nftName,
-          nftUrl,
+          nftCoverUrl,
           mintAddress,
           category: item.category,
           subCategory: item.sub_type,
@@ -160,7 +160,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     'Home to creators, collectors, and curators around the world.\n' +
     'Pushing the boundaries of digital art on Solana.'
 
-  const [nftUrl, setNftUrl] = useState({ type: '', url: '' })
+  const [nftCoverUrl, setNftCoverUrl] = useState()
   const [fullScreen, setFullScreen] = useState(false)
   const setFullScreenView = url => {
     window.scrollTo({
@@ -168,7 +168,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     })
     document.body.style.overflow = 'hidden'
     setFullScreen(true)
-    setNftUrl(url)
+    setNftCoverUrl(url)
   }
 
   const reloadNftData = () => {
@@ -283,10 +283,10 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       {fullScreen && (
         <div className={styles.fullScreen}>
-          {nftUrl.type === 'Glb' ? (
-            <ModelViewer url={nftUrl.url} />
+          {nftType.includes('vr') ? (
+            <ModelViewer url={nftCoverUrl} />
           ) : (
-            <img src={nftUrl.url} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+            <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
           )}
           <div
             className={styles.closeScreen}

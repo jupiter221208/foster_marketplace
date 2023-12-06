@@ -125,7 +125,7 @@ export interface MainSectionProps {
   reloadNftData: any
   enableMerch: any
   setCollectionName: any
-  fullScreen: Boolean
+  fullScreen: boolean
 }
 
 const MainSection = ({
@@ -783,10 +783,12 @@ const MainSection = ({
         ) : (
           <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType.includes('vr') && nftAssetUrl ? (
-                <div className={`${styles.mobileImageArea} aspect-square`}>
+              nftType.includes('vr') ? (
+                nftAssetUrl ? (
                   <ModelViewer url={nftAssetUrl} />
-                </div>
+                ) : (
+                  <h2>Could not load NFT.</h2>
+                )
               ) : nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" className="w-full" />
@@ -825,17 +827,20 @@ const MainSection = ({
               ) : (
                 <></>
               )
-            ) : nftType.includes('vr') && !fullScreen && nftAssetUrl ? (
+            ) : nftType.includes('vr') && !fullScreen ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <ModelViewer url={nftAssetUrl} />
-                  <div
-                    className={styles.fullScreenMode}
-                    onClick={() => setFullScreenView({ type: 'Glb', url: nftAssetUrl })}
-                  >
-                    <Image src={FullScreenModeIcon} alt="" />
-                  </div>
+                  {nftAssetUrl ? (
+                    <>
+                      <ModelViewer url={nftAssetUrl} />
+                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
+                        <Image src={FullScreenModeIcon} alt="" />
+                      </div>
+                    </>
+                  ) : (
+                    <h2>Could not load NFT.</h2>
+                  )}
                 </div>
               </div>
             ) : nftType.includes('image') ? (
@@ -847,10 +852,7 @@ const MainSection = ({
                     alt=""
                     className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                   />
-                  <div
-                    className={styles.fullScreenMode}
-                    onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
-                  >
+                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
                     <Image src={FullScreenModeIcon} alt="" />
                   </div>
                 </div>
