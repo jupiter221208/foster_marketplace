@@ -48,10 +48,12 @@ const StartAuctionModal = props => {
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('')
   const [price, setPrice] = useState('')
+  const [reservePrice, setReservePrice] = useState('')
   const [selectedType, setSelectedType] = useState('')
   const [startType, setStartType] = useState('')
   const [durationType, setDurationType] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [day, setDay] = useState('')
 
   const endDate = useMemo(() => {
     var plusDays = Number(days)
@@ -62,6 +64,10 @@ const StartAuctionModal = props => {
 
     const endDate = new Date(startDate)
     endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
+
+    const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const dayOfWeek = day[endDate.getDay()]
+    setDay(dayOfWeek)
 
     return endDate
   }, [startDate, days, hours])
@@ -183,120 +189,185 @@ const StartAuctionModal = props => {
                 <div className="w-full flex justify-center">
                   <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.json?.name}</div>
                 </div>
-                <input className="w-0 h-9" />
-                <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
-                  <div className="relative">
-                    <DatePicker
-                      selected={startDate}
-                      onChange={date => setStartDate(date)}
-                      dateFormat="MM/dd/yyyy h:mm aa"
-                      formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                      minDate={moment().toDate()}
-                      showTimeInput
-                      timeInputLabel=""
-                      className={styles.datePicker}
-                      customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                    />
-                    <div className="absolute top-[18px] right-4 ">
-                      <ArrowDownIcon alt="" />
-                    </div>
-                  </div>
 
-                  <div className="mt-2 w-full text-start">
-                    <div className={styles.label}>Schedule auction start date and time</div>
+                <div className="w-full">
+                  <div className="w-full mt-[25px]">
+                    <div className={styles.auctionStart}>
+                      Auction Start <span className={styles.auctionAsterisk}>*</span>
+                    </div>
                   </div>
-                </div>
-                <div className="mt-[38px] w-full grid grid-cols-2 gap-5 lg:gap-[57px]">
-                  <div className="col-span-1 flex justify-start items-end gap-[10px]">
-                    <Input
-                      value={days}
-                      placeholder="0"
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                      fullWidth
-                      borderRadius="9px"
-                      min={0}
-                      type="number"
-                      onChange={value => {
-                        if (value < 0) {
-                          setDays('')
-                        } else {
-                          setDays(value)
-                        }
-                      }}
-                    />
-                    <div className={styles.dateFont}>DAYS</div>
-                  </div>
-                  <div className="col-span-1 flex justify-start items-end gap-[10px]">
-                    <Input
-                      value={hours}
-                      placeholder="0"
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                      fullWidth
-                      borderRadius="9px"
-                      type="number"
-                      min={0}
-                      onChange={value => {
-                        if (value < 0) {
-                          setHours('')
-                        } else {
-                          setHours(value)
-                        }
-                      }}
-                    />
-                    <div className={styles.dateFont}>HOURS</div>
-                  </div>
-                </div>
-                {selectedType === 'schedule' && (
-                  <div className="w-full">
-                    <div className="w-full mt-[25px]">
-                      <div className={styles.auctionStart}>
-                        Auction Start <span className={styles.auctionAsterisk}>*</span>
+                  <div className="w-full flex gap-8 mt-[5px]">
+                    <div className="flex gap-4 items-center">
+                      <input
+                        className={styles.radio}
+                        type="radio"
+                        id="reserve"
+                        checked={startType === 'soon'}
+                        onChange={() => setStartType('soon')}
+                      />
+                      <div className={styles.radioText} onClick={() => setStartType('soon')}>
+                        Immediately
                       </div>
                     </div>
-                    <div className="w-full flex gap-8 mt-[5px]">
-                      <div className="flex gap-4 items-center">
-                        <input
-                          className={styles.radio}
-                          type="radio"
-                          id="reserve"
-                          checked={startType === 'soon'}
-                          onChange={() => setStartType('soon')}
-                        />
-                        <div className={styles.radioText} onClick={() => setStartType('soon')}>
-                          Immediately
-                        </div>
-                      </div>
-                      <div className="flex gap-4 items-center">
-                        <input
-                          className={styles.radio}
-                          type="radio"
-                          id="reserve"
-                          checked={startType === 'later'}
-                          onChange={() => setStartType('later')}
-                        />
-                        <div>
-                          <div className="w-full startAuctionDatePicker">
-                            <div className="relative">
-                              <DatePicker
-                                selected={startDate}
-                                onChange={date => setStartDate(date)}
-                                dateFormat="MM/dd/yyyy h:mm aa"
-                                formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                                minDate={moment().toDate()}
-                                showTimeInput
-                                timeInputLabel=""
-                                className={styles.datePicker}
-                                disabled={startType === 'soon'}
-                                customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                              />
-                              <div className="absolute top-[20px] right-4">
-                                <ArrowDownIcon alt="" />
-                              </div>
+                    <div className="flex gap-4 items-center">
+                      <input
+                        className={styles.radio}
+                        type="radio"
+                        id="reserve"
+                        checked={startType === 'later'}
+                        onChange={() => setStartType('later')}
+                      />
+                      <div>
+                        <div className="w-full startAuctionDatePicker">
+                          <div className="relative">
+                            <DatePicker
+                              selected={startDate}
+                              onChange={date => setStartDate(date)}
+                              dateFormat="MM/dd/yyyy h:mm aa"
+                              formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                              minDate={moment().toDate()}
+                              showTimeInput
+                              timeInputLabel=""
+                              className={styles.datePicker}
+                              disabled={startType === 'soon'}
+                              customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                            />
+                            <div className="absolute top-[20px] right-4">
+                              <ArrowDownIcon alt="" />
                             </div>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-full mt-[25px]">
+                  <div className={styles.auctionStart}>
+                    Reserve Bid <span className={styles.auctionAsterisk}>*</span>
+                  </div>
+                </div>
+                <div className="mt-[15px] w-full">
+                  <PriceInput
+                    value={reservePrice}
+                    placeholder="Set the reserve starting bid"
+                    backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                    fullWidth
+                    type="number"
+                    min={0}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                    onChange={value => {
+                      if (value < 0) {
+                        setReservePrice('')
+                      } else {
+                        setReservePrice(value)
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="w-full mt-[25px]">
+                  <div className={styles.auctionStart}>
+                    Auction Duration <span className={styles.auctionAsterisk}>*</span>
+                  </div>
+                </div>
+                <div className="w-full flex gap-8 mt-[15px]">
+                  <div className="flex gap-4 items-center">
+                    <input
+                      className={styles.radio}
+                      type="radio"
+                      id="24 hours"
+                      checked={durationType === '24'}
+                      onChange={() => setDurationType('24')}
+                    />
+                    <div className={styles.radioText} onClick={() => setDurationType('24')}>
+                      24 hours
+                    </div>
+                  </div>
+                  <div className="flex gap-4 items-center">
+                    <input
+                      className={styles.radio}
+                      type="radio"
+                      id="48 hours"
+                      checked={durationType === '48'}
+                      onChange={() => setDurationType('48')}
+                    />
+                    <div className={styles.radioText} onClick={() => setDurationType('48')}>
+                      48 hours
+                    </div>
+                  </div>
+                  <div className="flex gap-4 items-center">
+                    <input
+                      className={styles.radio}
+                      type="radio"
+                      id="custom"
+                      checked={durationType === 'custom'}
+                      onChange={() => setDurationType('custom')}
+                    />
+                    <div className={styles.radioText} onClick={() => setDurationType('custom')}>
+                      Custom
+                    </div>
+                  </div>
+                </div>
+
+                {durationType === 'custom' && (
+                  <div>
+                    <div className="w-full mt-[25px]">
+                      <div className={styles.auctionStart}>
+                        Custom Duration <span className={styles.auctionAsterisk}>*</span>
+                      </div>
+                    </div>
+                    <div className="mt-[15px] w-full grid grid-cols-2 gap-5">
+                      <div className="col-span-1 flex justify-start items-end gap-[10px]">
+                        <Input
+                          value={days}
+                          placeholder="0"
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                          fullWidth
+                          borderRadius="9px"
+                          min={0}
+                          type="number"
+                          onChange={value => {
+                            if (value < 0) {
+                              setDays('')
+                            } else {
+                              setDays(value)
+                            }
+                          }}
+                        />
+                        <div className={styles.dateFont}>DAYS</div>
+                      </div>
+                      <div className="col-span-1 flex justify-start items-end gap-[10px]">
+                        <Input
+                          value={hours}
+                          placeholder="0"
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                          fullWidth
+                          borderRadius="9px"
+                          type="number"
+                          min={0}
+                          onChange={value => {
+                            if (value < 0) {
+                              setHours('')
+                            } else {
+                              setHours(value)
+                            }
+                          }}
+                        />
+                        <div className={styles.dateFont}>HOURS</div>
+                      </div>
+                    </div>
+                    <div className="mt-2 w-full text-start">
+                      <div className={styles.label}>
+                        The auction is due to end{' '}
+                        <span className={styles.dateLabel}>
+                          {day}
+                          {', '}
+                          {endDate.toLocaleDateString()}
+                        </span>
+                        {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
                       </div>
                     </div>
                   </div>
@@ -304,14 +375,13 @@ const StartAuctionModal = props => {
 
                 <div className="w-full mt-[25px]">
                   <div className={styles.auctionStart}>
-                    What is the lowest price this artwork should sell for?{' '}
-                    <span className={styles.auctionAsterisk}>*</span>
+                    Minimum bid Increment <span className={styles.auctionAsterisk}>*</span>
                   </div>
                 </div>
-                <div className="mt-[49px] w-full">
+                <div className="mt-[15px] w-full">
                   <PriceInput
                     value={price}
-                    placeholder="Enter starting bid"
+                    placeholder="Set the minimum bid increment"
                     backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                     fullWidth
                     type="number"
