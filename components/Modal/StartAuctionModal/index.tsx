@@ -115,11 +115,11 @@ const StartAuctionModal = props => {
     let disabled = false
 
     if (parseFloat(days) > 30) disabled = true
-    else if (days === '' && hours === '') disabled = true
     else if (parseFloat(hours) > 23) disabled = true
     else if (price === undefined || price === '' || price === null) disabled = true
+    else if (reservePrice === undefined || reservePrice === '' || reservePrice === null) disabled = true
     setButtonDisabled(disabled)
-  }, [days, hours, price])
+  }, [days, hours, price, reservePrice])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -158,7 +158,7 @@ const StartAuctionModal = props => {
                         height="30"
                         rx="15"
                         transform="translate(1164 333)"
-                        fill="var(--modal-close-btn-bg)"
+                        fill="rgba(var(--background-light-color-rgb), 0.05)"
                       />
                       <path
                         id="times-7"
@@ -354,6 +354,7 @@ const StartAuctionModal = props => {
                         <Input
                           value={days}
                           placeholder="0"
+                          backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
@@ -368,12 +369,13 @@ const StartAuctionModal = props => {
                             }
                           }}
                         />
-                        <div className={styles.dateFont}>DAYS</div>
+                        <div className={styles.dateFont}>Days</div>
                       </div>
                       <div className="col-span-1 flex justify-start items-end gap-[10px]">
                         <Input
                           value={hours}
                           placeholder="0"
+                          backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
@@ -388,7 +390,7 @@ const StartAuctionModal = props => {
                             }
                           }}
                         />
-                        <div className={styles.dateFont}>HOURS</div>
+                        <div className={styles.dateFont}>Hours</div>
                       </div>
                     </div>
                     <div className="mt-2 w-full text-start">
@@ -407,7 +409,7 @@ const StartAuctionModal = props => {
 
                 <div className="w-full mt-[25px]">
                   <div className={styles.auctionStart}>
-                    Minimum bid Increment <span className={styles.auctionAsterisk}>*</span>
+                    Minimum Bid Increment <span className={styles.auctionAsterisk}>*</span>
                   </div>
                 </div>
                 <div className="mt-[15px] w-full">
