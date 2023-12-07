@@ -88,7 +88,7 @@
 
 .datePicker {
   width: 100%;
-  max-width: 428px;
+  max-width: 125px;
   height: 45px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
   border-radius: 9px;
@@ -101,6 +101,9 @@
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
+  @media (min-width: 1024px) {
+    max-width: 428px;
+  }
 }
 
 .label {

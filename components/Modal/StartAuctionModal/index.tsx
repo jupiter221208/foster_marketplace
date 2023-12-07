@@ -196,8 +196,16 @@ const StartAuctionModal = props => {
                       Auction Start <span className={styles.auctionAsterisk}>*</span>
                     </div>
                   </div>
-                  <div className="w-full flex gap-8 mt-[5px]">
-                    <div className="flex gap-4 items-center">
+                  <div
+                    className={`w-full flex mt-[5px] justify-between ${
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-8'
+                    }`}
+                  >
+                    <div
+                      className={`flex items-center ${
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                      }`}
+                    >
                       <input
                         className={styles.radio}
                         type="radio"
@@ -209,7 +217,11 @@ const StartAuctionModal = props => {
                         Immediately
                       </div>
                     </div>
-                    <div className="flex gap-4 items-center">
+                    <div
+                      className={`flex items-center ${
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                      }`}
+                    >
                       <input
                         className={styles.radio}
                         type="radio"
@@ -223,7 +235,11 @@ const StartAuctionModal = props => {
                             <DatePicker
                               selected={startDate}
                               onChange={date => setStartDate(date)}
-                              dateFormat="MM/dd/yyyy h:mm aa"
+                              dateFormat={
+                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                  ? 'MM/dd/yyyy'
+                                  : 'MM/dd/yyyy h:mm aa'
+                              }
                               formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
                               minDate={moment().toDate()}
                               showTimeInput
@@ -271,8 +287,16 @@ const StartAuctionModal = props => {
                     Auction Duration <span className={styles.auctionAsterisk}>*</span>
                   </div>
                 </div>
-                <div className="w-full flex gap-8 mt-[15px]">
-                  <div className="flex gap-4 items-center">
+                <div
+                  className={`w-full flex mt-[15px] justify-between ${
+                    viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-8'
+                  }`}
+                >
+                  <div
+                    className={`flex items-center ${
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[5px]' : 'gap-4'
+                    }`}
+                  >
                     <input
                       className={styles.radio}
                       type="radio"
@@ -284,7 +308,11 @@ const StartAuctionModal = props => {
                       24 hours
                     </div>
                   </div>
-                  <div className="flex gap-4 items-center">
+                  <div
+                    className={`flex items-center ${
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[5px]' : 'gap-4'
+                    }`}
+                  >
                     <input
                       className={styles.radio}
                       type="radio"
@@ -296,7 +324,11 @@ const StartAuctionModal = props => {
                       48 hours
                     </div>
                   </div>
-                  <div className="flex gap-4 items-center">
+                  <div
+                    className={`flex items-center ${
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[5px]' : 'gap-4'
+                    }`}
+                  >
                     <input
                       className={styles.radio}
                       type="radio"
@@ -396,18 +428,7 @@ const StartAuctionModal = props => {
                     }}
                   />
                 </div>
-                <div className="mt-2 w-full flex gap-2 items-center">
-                  <div className={styles.label}>Minimum bid increment: 0.1 SOL</div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9">
-                    <path
-                      id="noun-help-2123682"
-                      d="M13.332,8.855a4.477,4.477,0,1,0,4.477,4.477A4.482,4.482,0,0,0,13.332,8.855Zm-.6,1.806a.113.113,0,0,1,.113-.113h.964a.113.113,0,0,1,.113.113v3.571a.113.113,0,0,1-.113.113H12.85a.113.113,0,0,1-.113-.113Zm.6,5.455a.737.737,0,1,1,.737-.737A.737.737,0,0,1,13.332,16.116Z"
-                      transform="translate(-8.855 -8.855)"
-                      fill="var(--text-gray-200-color)"
-                    />
-                  </svg>
-                </div>
-                <div className="w-full mt-12">
+                <div className="w-full mt-7">
                   <GradientButton
                     label="Publish Auction"
                     fullWidth
