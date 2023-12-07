@@ -93,8 +93,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
   let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
-  let collectionDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+  let collectionDescription = collectionData?.description ?? ''
 
   return (
     <div className="w-full">
