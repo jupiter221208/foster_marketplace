@@ -156,9 +156,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   let nftTitle = `${nftName} | Foster Marketplace`
   let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
 
-  let nftDescription =
-    'Home to creators, collectors, and curators around the world.\n' +
-    'Pushing the boundaries of digital art on Solana.'
+  let nftDescription = nftDetail?.json?.description ?? ''
 
   const [nftCoverUrl, setNftCoverUrl] = useState()
   const [fullScreen, setFullScreen] = useState(false)
