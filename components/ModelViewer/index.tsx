@@ -112,7 +112,7 @@ function CameraRig({ modelSize }: { modelSize: Vector3 }) {
 
 export async function getSnapshot(path) {
   const renderer = new WebGLRenderer({ alpha: true })
-  renderer.setSize(1000, 1000)
+  renderer.setSize(330, 390)
   renderer.setClearColor(0x000000, 0)
   const element = document.body.appendChild(renderer.domElement)
 

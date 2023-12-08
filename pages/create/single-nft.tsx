@@ -667,6 +667,11 @@ const SingleNft = () => {
                       </div>
                     )}
                   </div>
+                  {nftType === 'vr' && (
+                    <p className={styles.nft3DModelMessage}>
+                      The file you've uploaded will be viewable in 3D on the NFT page after being minted.
+                    </p>
+                  )}
                   <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
                     {nftName}
                   </div>
@@ -692,11 +697,13 @@ const SingleNft = () => {
                     </div>
                     {/* upload artwork part */}
                     {currentStep === 1 && (
-                      <Step01SingleNFTSection
-                        nftType={nftType}
-                        setNftArt={item => handleChangeNftArt(item)}
-                        setNftCover={item => handleChangeNftCover(item)}
-                      />
+                      <>
+                        <Step01SingleNFTSection
+                          nftType={nftType}
+                          setNftArt={item => handleChangeNftArt(item)}
+                          setNftCover={item => handleChangeNftCover(item)}
+                        />
+                      </>
                     )}
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
@@ -907,11 +914,18 @@ const SingleNft = () => {
               </div>
               {/* upload artwork part */}
               {currentStep === 1 && (
-                <Step01SingleNFTSection
-                  nftType={nftType}
-                  setNftArt={item => handleChangeNftArt(item)}
-                  setNftCover={item => handleChangeNftCover(item)}
-                />
+                <>
+                  {nftType === 'vr' && (
+                    <p className={styles.nft3DModelMessage}>
+                      The file you've uploaded will be viewable in 3D on the NFT page after being minted.
+                    </p>
+                  )}
+                  <Step01SingleNFTSection
+                    nftType={nftType}
+                    setNftArt={item => handleChangeNftArt(item)}
+                    setNftCover={item => handleChangeNftCover(item)}
+                  />
+                </>
               )}
 
               {currentStep === 2 && (
