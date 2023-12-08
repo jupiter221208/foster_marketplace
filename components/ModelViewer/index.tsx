@@ -21,7 +21,6 @@ import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react'
 type ModelTypes = {
   url: string
   setModelSize: Dispatch<SetStateAction<Vector3>>
-  setMaterialsColor: Dispatch<SetStateAction<RGB[]>>
 }
 
 type RGB = {
@@ -41,45 +40,15 @@ type RGB = {
 export default function ModelViewer(props: { url: string }) {
   // Initialize state for the size of the model and the colors of the materials
   const [modelSize, setModelSize] = useState(new Vector3(0, 0, 0))
-  const [materialColors, setMaterialColor] = useState<RGB[]>([])
-
-  /**
-   * getBackgroundColor function calculates the average color of the materials and decides the background color based on the brightness.
-   *
-   * @param {RGB[]} materialColors - The array of colors of the materials.
-   *
-   * @returns {string} The background color ('black' or 'white').
-   */
-  function getBackgroundColor(materialColors: RGB[]) {
-    // Calculate the average color
-    let avgColor = { r: 0, g: 0, b: 0 }
-    materialColors.forEach(color => {
-      avgColor.r += color.r
-      avgColor.g += color.g
-      avgColor.b += color.b
-    })
-    avgColor.r /= materialColors.length
-    avgColor.g /= materialColors.length
-    avgColor.b /= materialColors.length
-
-    // Calculate the brightness of the average color
-    let brightness = Math.sqrt(
-      0.299 * avgColor.r * avgColor.r + 0.587 * avgColor.g * avgColor.g + 0.114 * avgColor.b * avgColor.b
-    )
-
-    // Decide the background color based on the brightness
-    return brightness > 0.5 ? 'black' : 'white'
-  }
 
   // Return the Canvas component with the loaded 3D model and configured scene
   return (
-    <Canvas gl={{ preserveDrawingBuffer: true }} dpr={[1, 2]} className="min-w-full  min-h-full">
-      <color attach="background" args={[getBackgroundColor(materialColors)]} />
+    <Canvas gl={{ alpha: true }} dpr={[1, 2]} className="min-w-full  min-h-full">
       <ambientLight intensity={1.5} />
       <directionalLight intensity={1.5} />
       <CameraRig modelSize={modelSize} />
       <Center>
-        <Model setMaterialsColor={setMaterialColor} setModelSize={setModelSize} url={props.url} />
+        <Model setModelSize={setModelSize} url={props.url} />
       </Center>
     </Canvas>
   )
@@ -91,31 +60,12 @@ export default function ModelViewer(props: { url: string }) {
  * @param {Object} props - The properties passed to the component.
  * @param {string} props.url - The URL of the 3D model to load.
  * @param {Function} props.setModelSize - The function to call to set the size of the model.
- * @param {Function} props.setMaterialsColor - The function to call to set the materials color of the model.
  *
  * @returns {JSX.Element} The primitive component with the loaded 3D model.
  */
-function Model({ url, setModelSize, setMaterialsColor }: ModelTypes) {
+function Model({ url, setModelSize }: ModelTypes) {
   const modelRef = useRef<Mesh>() // Create a ref for the 3D model
   const model = useGLTF(url) // Load the 3D model from the provided URL
-
-  const allColors: RGB[] = [] // Initialize an array to store the colors of the model's materials
-  // Traverse the nodes of the 3D model
-  model.scene.traverse(node => {
-    // Cast the node to a Mesh and its material to a MeshStandardMaterial
-    const nodeMesh = node as Mesh
-    const nodeMaterial = nodeMesh.material as MeshStandardMaterial
-    // If the node is a mesh and its material has a color, add the color to the array
-    if (nodeMesh.isMesh && nodeMaterial.color.isColor) {
-      const newColor = {
-        r: nodeMaterial.color.r,
-        g: nodeMaterial.color.g,
-        b: nodeMaterial.color.b,
-      }
-      allColors.push(newColor)
-    }
-  })
-  setMaterialsColor(allColors) // Set the materials color state with the array of colors
 
   // When the component mounts or the model changes, calculate the size of the model and set the model size state
   useEffect(() => {
@@ -161,12 +111,12 @@ function CameraRig({ modelSize }: { modelSize: Vector3 }) {
 }
 
 export async function getSnapshot(path) {
-  const renderer = new WebGLRenderer()
+  const renderer = new WebGLRenderer({ alpha: true })
   renderer.setSize(1000, 1000)
+  renderer.setClearColor(0x000000, 0)
   const element = document.body.appendChild(renderer.domElement)
 
   const scene = new Scene()
-  scene.background = new Color(0xffffff)
   const camera = new PerspectiveCamera(75, 1, 0.1, 1000)
 
   const loader = new GLTFLoader()

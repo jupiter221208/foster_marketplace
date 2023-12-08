@@ -96,7 +96,7 @@ const Step01SingleNFTSection = props => {
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
-                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif .glb</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
                 </section>
@@ -177,7 +177,7 @@ const Step01SingleNFTSection = props => {
                     <p className={styles.text}>
                       Supported File Formats
                       <br />
-                      .png .jpeg .mp4 and .gif .glb
+                      .png .jpeg .mp4 .gif .glb
                     </p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
@@ -226,7 +226,7 @@ const Step01SingleNFTSection = props => {
                         <p className={styles.text}>
                           Supported File Formats
                           <br />
-                          .png .jpeg and .gif
+                          .png .jpeg .gif
                         </p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>
