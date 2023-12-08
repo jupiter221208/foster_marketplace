@@ -14,6 +14,7 @@ import {
   DirectionalLight,
 } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react'
 
@@ -169,6 +170,10 @@ export async function getSnapshot(path) {
   const camera = new PerspectiveCamera(75, 1, 0.1, 1000)
 
   const loader = new GLTFLoader()
+  const dracoLoader = new DRACOLoader()
+  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+  dracoLoader.setDecoderConfig({ type: 'js' })
+  loader.setDRACOLoader(dracoLoader)
   const gltf = await loader.loadAsync(path)
   scene.add(gltf.scene)
 
