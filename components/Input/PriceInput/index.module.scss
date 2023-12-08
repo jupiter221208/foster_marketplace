@@ -1,7 +1,6 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 540px;
   min-width: 100px;
   width: 100%;
   @media (min-width: 1024px) {

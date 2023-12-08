@@ -25,6 +25,7 @@ const PriceInput = props => {
     paddingLeft = '',
     paddingRight = '',
     showMax = false,
+    margin = '',
   } = props
   return (
     <div
@@ -39,6 +40,7 @@ const PriceInput = props => {
         borderRadius: borderRadius,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
+        margin: margin && '0px 18px 0px 18px',
       }}
     >
       <div className="mx-[8px] flex items-center mt-[2px]">

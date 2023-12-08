@@ -724,3 +724,81 @@
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
+.priceInput {
+  width: 100%;
+  margin: 9px 3px;
+  @media (min-width: 1024px) {
+    margin: 12px 9px;
+  }
+}
+.activityContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
+  background: var(--nft-generative-color);
+}
+.subContainer {
+  width: 100%;
+  display: flex;
+  padding: 10px 35px 10px 35px;
+}
+.selectedTab {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  background: var(--selected-tab-color);
+  border-radius: 12px 12px 0px 0px;
+  align-items: center;
+}
+.tabTitle {
+  display: flex;
+  align-items: center;
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  color: var(--background-light-color);
+  cursor: pointer;
+}
+.userName {
+  display: flex;
+  font-size: 14px;
+  font-family: 'Muli-Bold';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    font-family: 'Muli-Bold';
+  }
+}
+.actionType {
+  display: flex;
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    font-family: 'Muli-Regular';
+  }
+}
+.dateValue {
+  display: flex;
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    font-family: 'Muli-Light';
+  }
+}
+.usdValue {
+  display: flex;
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
+  justify-content: end;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    font-family: 'Muli-Light';
+  }
+}

@@ -531,6 +531,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--table-header-color', '#573A01')
     doc.style.setProperty('--order-table-color', 'rgba(32, 36, 39, 0.02)')
     doc.style.setProperty('--toggle-bg-color', '#FFFFFF')
+    doc.style.setProperty('--selected-tab-color', 'rgba(32, 36, 39, 0.05)')
 
     // =====================================================
     // =====================================================
@@ -831,5 +832,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--table-header-color', '#242424')
     doc.style.setProperty('--order-table-color', 'rgba(239, 240, 246, 0.02)')
     doc.style.setProperty('--toggle-bg-color', '#95DBD5')
+    doc.style.setProperty('--selected-tab-color', 'rgba(150, 163, 236, 0.05)')
   }
 }
