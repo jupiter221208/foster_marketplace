@@ -1,7 +1,19 @@
 /* eslint-disable */
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, OrbitControls, Center } from '@react-three/drei'
-import { Box3, Vector3, Mesh, MeshStandardMaterial } from 'three'
+import {
+  Box3,
+  Vector3,
+  Mesh,
+  MeshStandardMaterial,
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  AmbientLight,
+  Color,
+  DirectionalLight,
+} from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react'
 
@@ -60,7 +72,7 @@ export default function ModelViewer(props: { url: string }) {
 
   // Return the Canvas component with the loaded 3D model and configured scene
   return (
-    <Canvas dpr={[1, 2]} className="min-w-full  min-h-full">
+    <Canvas gl={{ preserveDrawingBuffer: true }} dpr={[1, 2]} className="min-w-full  min-h-full">
       <color attach="background" args={[getBackgroundColor(materialColors)]} />
       <ambientLight intensity={1.5} />
       <directionalLight intensity={1.5} />
@@ -145,4 +157,39 @@ function CameraRig({ modelSize }: { modelSize: Vector3 }) {
 
   // Return the OrbitControls component with zooming disabled and polar angle limits set
   return <OrbitControls enableZoom={false} minPolarAngle={Math.PI / 9} maxPolarAngle={Math.PI - Math.PI / 7} />
+}
+
+export async function getSnapshot(path) {
+  const renderer = new WebGLRenderer()
+  renderer.setSize(1000, 1000)
+  const element = document.body.appendChild(renderer.domElement)
+
+  const scene = new Scene()
+  scene.background = new Color(0xffffff)
+  const camera = new PerspectiveCamera(75, 1, 0.1, 1000)
+
+  const loader = new GLTFLoader()
+  const gltf = await loader.loadAsync(path)
+  scene.add(gltf.scene)
+
+  const bbox = new Box3().setFromObject(gltf.scene)
+
+  const size = new Vector3()
+  bbox.getSize(size)
+
+  camera.position.set(0, size.y / 2, Math.max(size.x, size.y, size.z))
+
+  const ambientLight = new AmbientLight(0x404040, 1.2)
+  scene.add(ambientLight)
+
+  const directionalLight = new DirectionalLight(0xffffff, 1)
+  scene.add(directionalLight)
+
+  renderer.render(scene, camera)
+
+  const screenshot = renderer.domElement.toDataURL()
+  const res = await fetch(screenshot)
+  const blob = await res.blob()
+  document.body.removeChild(element)
+  return [{ type: 'image/png', blob }]
 }

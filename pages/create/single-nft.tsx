@@ -48,6 +48,7 @@ import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
+import ModelViewer, { getSnapshot } from 'components/ModelViewer'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -191,7 +192,7 @@ const SingleNft = () => {
       } else if (nftArt[0].type === 'image/gif') {
         setNftType('image/gif')
         setNftImage(URL.createObjectURL(nftArt[0]))
-      } else {
+      } else if (nftArt[0].type === 'video/mp4') {
         const type = nftArt[0].type.split('/')[0]
         setNftType(type)
         if (type === 'video') {
@@ -214,12 +215,18 @@ const SingleNft = () => {
           })
           hidden_video.currentTime = 5
         }
+      } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
+        const path = URL.createObjectURL(nftArt[0])
+        setNftType('vr')
+        getSnapshot(path).then(modelCoverImg => {
+          setNftImage(URL.createObjectURL(modelCoverImg[0].blob))
+        })
       }
     }
   }, [nftArt])
 
   useEffect(() => {
-    if (nftCover !== null) {
+    if (nftCover !== null && !(nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path))) {
       if (nftCover[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftCover[0])
@@ -510,7 +517,11 @@ const SingleNft = () => {
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                    {nftType === 'image' || nftType === 'image/gif' ? (
+                    {nftType === 'vr' ? (
+                      <div className="max-w-[672px] max-h-[672px] w-full h-full">
+                        <img src={nftImage} alt="" />
+                      </div>
+                    ) : nftType === 'image' || nftType === 'image/gif' ? (
                       <div
                         className={styles.artArea}
                         style={{
@@ -758,7 +769,11 @@ const SingleNft = () => {
               </div> */}
 
               <div className="w-full flex flex-wrap justify-center">
-                {nftType === 'image' ? (
+                {nftType === 'vr' ? (
+                  <div className="max-w-[672px] w-full aspect-square">
+                    <img src={nftImage} alt="" />
+                  </div>
+                ) : nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
                     style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
