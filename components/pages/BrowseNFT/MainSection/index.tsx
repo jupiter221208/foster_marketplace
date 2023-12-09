@@ -1213,54 +1213,56 @@ const MainSection = ({
                         setIsEnded={setIsEnded}
                         setIsStarted={setIsStarted}
                       />
-                      <div className="w-full flex justify-center">
-                        <PriceInput
-                          value={price}
-                          placeholder="Enter Bid amount"
-                          backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                          fullWidth
-                          type="number"
-                          min={0}
-                          margin
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
-                          onChange={value => {
-                            if (value < 0) {
-                              setPrice('')
-                            } else {
-                              setPrice(value)
-                            }
-                          }}
-                        />
-                      </div>
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
                           {publicKey?.toBase58() === highBidder ? (
                             <div className={styles.highBidText}>You are currently the highest bidder!</div>
                           ) : (
-                            <div
-                              className={`${styles.placeBidBG} ${
-                                isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                              }`}
-                              onClick={() => {
-                                if (isEnded) return
+                            <>
+                              <div className="w-full flex justify-center">
+                                <PriceInput
+                                  value={price}
+                                  placeholder="Enter Bid amount"
+                                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                  fullWidth
+                                  type="number"
+                                  min={0}
+                                  margin
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onChange={value => {
+                                    if (value < 0) {
+                                      setPrice('')
+                                    } else {
+                                      setPrice(value)
+                                    }
+                                  }}
+                                />
+                              </div>
+                              <div
+                                className={`${styles.placeBidBG} ${
+                                  isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                                }`}
+                                onClick={() => {
+                                  if (isEnded) return
 
-                                if (!connected) {
-                                  setVisible(true)
-                                  return
-                                }
-                                setShowModalPlaceBid(true)
-                              }}
-                            >
-                              <div className="flex">
-                                <div
-                                  className={`${styles.placeBidBtn} ${
-                                    isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
-                                  }`}
-                                >
-                                  Place Bid
+                                  if (!connected) {
+                                    setVisible(true)
+                                    return
+                                  }
+                                  setShowModalPlaceBid(true)
+                                }}
+                              >
+                                <div className="flex">
+                                  <div
+                                    className={`${styles.placeBidBtn} ${
+                                      isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
+                                    }`}
+                                  >
+                                    Place Bid
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            </>
                           )}
                         </div>
                       )}
@@ -1398,13 +1400,21 @@ const MainSection = ({
                               <div className={styles.dateValue}>{formattedDate}</div>
                             </div>
                             <div className="w-fit-content flex flex-col">
-                              <div className="w-fit-content flex flex-row justify-end items-center">
-                                <SolanaLogoIcon />
-                                <div className={styles.userName}>&nbsp;{item.amount}</div>
-                              </div>
-                              <div className={styles.usdValue}>
-                                ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
-                              </div>
+                              {item.action_type === 'ListingCancelled' ||
+                              item.action_type === 'OfferCancelled' ||
+                              item.action_type === 'AuctionCancelled' ? (
+                                <></>
+                              ) : (
+                                <>
+                                  <div className="w-fit-content flex flex-row justify-end items-center">
+                                    <SolanaLogoIcon />
+                                    <div className={styles.userName}>&nbsp;{item.amount}</div>
+                                  </div>
+                                  <div className={styles.usdValue}>
+                                    ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
                         )
