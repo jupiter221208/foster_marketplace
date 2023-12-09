@@ -14,11 +14,9 @@ const Tab01 = props => {
     <HTab.Group>
       <HTab.List className="flex gap-[30px] lg:gap-[60px]">
         {tabList.map((item, index) => (
-          <div>
-            <HTab as={Fragment} key={index}>
-              <TabItem item={item} onChange={onChange} />
-            </HTab>
-          </div>
+          <HTab as={Fragment} key={index}>
+            <TabItem item={item} onChange={onChange} />
+          </HTab>
         ))}
       </HTab.List>
     </HTab.Group>
