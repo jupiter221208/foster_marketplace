@@ -118,7 +118,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
 import TabList from 'assets/json/browse-nft/auction-list.json'
-import Tab01 from 'components/Tab/Tab'
+import SelectedTab from 'components/Tab/SelectedTab'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -1306,32 +1306,27 @@ const MainSection = ({
               <div className={'mt-10 w-full h-[180px] lg:h-[200px] relative'}>
                 <div className={styles.activityContainer}>
                   <div className={styles.selectedTab}>
-                    <Tab01
-                      tabList={tabList}
-                      style={{ marginLeft: '30px !important' }}
-                      onChange={item => handleSelectedTab(item)}
-                      margin
-                    />
+                    <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                   </div>
-                  {activeTab === 0 && (
-                    <div className="w-full flex flex-wrap flex-column space-between">
-                      <div className={styles.whiteDescription}>{nftDescription}</div>
-                      <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
-                        <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                          {nftCategories?.map((item, index) => (
-                            <SmallCategoryChip data={item} key={index} />
-                          ))}
-                        </div>
-                        <div className="flex items-end">
-                          <div className="block text-center">
-                            <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
-                            <div className={styles.whiteRoyalties}>Royalties</div>
+                  <div className={styles.mainContainer}>
+                    {activeTab === 0 && (
+                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] py-[15px]">
+                        <div className={styles.whiteDescription}>{nftDescription}</div>
+                        <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
+                          <div className="flex flex-wrap items-end gap-2 lg:gap-3 xl:gap-4">
+                            {nftCategories?.map((item, index) => (
+                              <SmallCategoryChip data={item} key={index} />
+                            ))}
+                          </div>
+                          <div className="flex items-end">
+                            <div className="block text-center">
+                              <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
+                              <div className={styles.whiteRoyalties}>Royalties</div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                  <div className="w-full h-[140px] overflow-y-auto">
+                    )}
                     {activeTab === 1 &&
                       activityList.map((item, index) => {
                         let date = new Date(item.created_at)
@@ -1356,13 +1351,54 @@ const MainSection = ({
                           <div className={styles.subContainer} key={index}>
                             <div className="w-full flex flex-col">
                               <div className="w-full flex flex-row">
-                                <div className={styles.userName}>Username</div>
-                                <div className={styles.actionType}>&nbsp;{item.action_type}</div>
+                                {item.action_type === 'AuctionStarted' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;published an auction</div>
+                                  </>
+                                ) : item.action_type === 'AuctionCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;cancelled auction</div>
+                                  </>
+                                ) : item.action_type === 'ListingAdded' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;listed artwork for sale</div>
+                                  </>
+                                ) : item.action_type === 'ListingCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;removed listing</div>
+                                  </>
+                                ) : item.action_type === 'OfferCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;cancelled their offer</div>
+                                  </>
+                                ) : item.action_type === 'OfferMade' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;made an offer</div>
+                                  </>
+                                ) : item.action_type === 'BidPlaced' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;placed a bid</div>
+                                  </>
+                                ) : item.action_type === 'QuickBuy' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;purchased artwork</div>
+                                  </>
+                                ) : (
+                                  ''
+                                )}
                               </div>
                               <div className={styles.dateValue}>{formattedDate}</div>
                             </div>
-                            <div className="w-full flex flex-col">
-                              <div className="w-full flex flex-row justify-end items-center">
+                            <div className="w-fit-content flex flex-col">
+                              <div className="w-fit-content flex flex-row justify-end items-center">
                                 <SolanaLogoIcon />
                                 <div className={styles.userName}>&nbsp;{item.amount}</div>
                               </div>

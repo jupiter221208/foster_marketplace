@@ -833,5 +833,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--order-table-color', 'rgba(239, 240, 246, 0.02)')
     doc.style.setProperty('--toggle-bg-color', '#95DBD5')
     doc.style.setProperty('--selected-tab-color', 'rgba(150, 163, 236, 0.05)')
+    doc.style.setProperty('--selected-tab-border-color', '#303030')
   }
 }
