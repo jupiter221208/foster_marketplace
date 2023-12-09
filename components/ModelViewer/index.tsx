@@ -114,7 +114,6 @@ export async function getSnapshot(path) {
   const renderer = new WebGLRenderer({ alpha: true })
   renderer.setSize(330, 390)
   renderer.setClearColor(0x000000, 0)
-  const element = document.body.appendChild(renderer.domElement)
 
   const scene = new Scene()
   const camera = new PerspectiveCamera(75, 1, 0.1, 1000)
@@ -145,6 +144,5 @@ export async function getSnapshot(path) {
   const screenshot = renderer.domElement.toDataURL()
   const res = await fetch(screenshot)
   const blob = await res.blob()
-  document.body.removeChild(element)
   return [{ type: 'image/png', blob }]
 }

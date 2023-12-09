@@ -519,7 +519,7 @@ const SingleNft = () => {
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     {nftType === 'vr' ? (
                       <div className="max-w-[672px] max-h-[672px] w-full h-full">
-                        <img src={nftImage} alt="" />
+                        <img className="w-full" src={nftImage} alt="" />
                       </div>
                     ) : nftType === 'image' || nftType === 'image/gif' ? (
                       <div
@@ -778,7 +778,7 @@ const SingleNft = () => {
               <div className="w-full flex flex-wrap justify-center">
                 {nftType === 'vr' ? (
                   <div className="max-w-[672px] w-full aspect-square">
-                    <img src={nftImage} alt="" />
+                    <img className="w-full" src={nftImage} alt="" />
                   </div>
                 ) : nftType === 'image' ? (
                   <div
