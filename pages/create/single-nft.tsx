@@ -669,7 +669,7 @@ const SingleNft = () => {
                   </div>
                   {nftType === 'vr' && (
                     <span className={styles.nft3DModelMessage}>
-                      The file you've uploaded will be viewable in 3D on the NFT page after being minted.
+                      The file you have uploaded will be viewable in 3D on the NFT page after being minted.
                     </span>
                   )}
                   <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
@@ -917,7 +917,7 @@ const SingleNft = () => {
                 <>
                   {nftType === 'vr' && (
                     <span className={styles.nft3DModelMessage}>
-                      The file you've uploaded will be viewable in 3D on the NFT page after being minted.
+                      The file you have uploaded will be viewable in 3D on the NFT page after being minted.
                     </span>
                   )}
                   <Step01SingleNFTSection
