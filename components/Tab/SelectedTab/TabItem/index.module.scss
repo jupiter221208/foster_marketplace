@@ -23,16 +23,28 @@
 }
 
 .activeTab {
-  font-family: 'Muli-ExtraBold';
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
   color: var(--text-gray-200-color);
   border: 1px solid var(--selected-tab-border-color);
   border-radius: 15px 15px 0px 0px;
   padding: 20px;
   background: var(--place-bid-color);
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+  }
 }
 
 .activeTab1 {
   padding: 20px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  color: rgba(var(--text-gray-200-color), 0.7);
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 18px;
+  }
 }
 
 .tooltip {

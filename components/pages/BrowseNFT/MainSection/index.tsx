@@ -287,6 +287,7 @@ const MainSection = ({
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
+  const [placeBidLoading, setPlaceBidLoading] = useState(false)
 
   const [isRunning, setIsRunning] = useState(false)
 
@@ -1216,7 +1217,28 @@ const MainSection = ({
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
                           {publicKey?.toBase58() === highBidder ? (
-                            <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                            <>
+                              <div className="w-full flex justify-center">
+                                <PriceInput
+                                  value={price}
+                                  placeholder="Enter Bid amount"
+                                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                  fullWidth
+                                  type="number"
+                                  min={0}
+                                  margin
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onChange={value => {
+                                    if (value < 0) {
+                                      setPrice('')
+                                    } else {
+                                      setPrice(value)
+                                    }
+                                  }}
+                                />
+                              </div>
+                              <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                            </>
                           ) : (
                             <>
                               <div className="w-full flex justify-center">
@@ -1242,25 +1264,32 @@ const MainSection = ({
                                 className={`${styles.placeBidBG} ${
                                   isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
                                 }`}
-                                onClick={() => {
+                                onClick={async () => {
                                   if (isEnded) return
 
                                   if (!connected) {
                                     setVisible(true)
                                     return
                                   }
+                                  setPlaceBidLoading(true)
+                                  await new Promise(resolve => setTimeout(resolve, 2000))
                                   setShowModalPlaceBid(true)
+                                  setPlaceBidLoading(false)
                                 }}
                               >
-                                <div className="flex">
-                                  <div
-                                    className={`${styles.placeBidBtn} ${
-                                      isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
-                                    }`}
-                                  >
-                                    Place Bid
+                                {placeBidLoading ? (
+                                  <LoadingButton fullWidth />
+                                ) : (
+                                  <div className="flex">
+                                    <div
+                                      className={`${styles.placeBidBtn} ${
+                                        isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
+                                      }`}
+                                    >
+                                      Place Bid
+                                    </div>
                                   </div>
-                                </div>
+                                )}
                               </div>
                             </>
                           )}
@@ -1312,13 +1341,21 @@ const MainSection = ({
                   </div>
                   <div className={styles.mainContainer}>
                     {activeTab === 0 && (
-                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] py-[15px]">
-                        <div className={styles.whiteDescription}>{nftDescription}</div>
+                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] py-[15px] gap-6">
+                        {nftDescription ? (
+                          <div className={styles.whiteDescription}>{nftDescription}</div>
+                        ) : (
+                          <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
+                        )}
+
                         <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
-                          <div className="flex flex-wrap items-end gap-2 lg:gap-3 xl:gap-4">
-                            {nftCategories?.map((item, index) => (
-                              <SmallCategoryChip data={item} key={index} />
-                            ))}
+                          <div className="flex flex-wrap flex-col gap-2">
+                            <div className={styles.categories}>Categories</div>
+                            <div className="flex flex-row">
+                              {nftCategories?.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
+                            </div>
                           </div>
                           <div className="flex items-end">
                             <div className="block text-center">
@@ -1657,6 +1694,7 @@ const MainSection = ({
         loading={auctionLoading}
         onClose={() => {
           setShowModalPlaceBid(false)
+          setPlaceBidLoading(false)
         }}
       />
 

@@ -367,25 +367,26 @@
 
 .whiteDescription {
   font-family: 'Muli-Regular';
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   color: var(--text-gray-200-color);
 }
 
 .greenRoyalties {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
+    font-family: 'Muli-SemiBold';
   }
   color: var(--main-icon-color);
 }
 
 .whiteRoyalties {
-  font-family: 'Muli-Regular';
-  font-size: 9px;
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
   @media (min-width: 1024px) {
     font-size: 12px;
   }
@@ -622,7 +623,7 @@
   justify-content: center;
   font-family: 'Muli-Regular';
   font-size: 14px;
-  background: rgba(var(--main-bg-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
   color: var(--main-bg-color);
   margin: 4px 18px;
   @media (min-width: 1024px) {
@@ -811,4 +812,9 @@
 }
 .button {
   position: absolute;
+}
+.categories {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
 }
