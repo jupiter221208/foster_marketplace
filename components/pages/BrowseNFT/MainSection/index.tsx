@@ -40,7 +40,7 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
+import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import PrintApparelSection from 'assets/images/apparel.png'
@@ -462,6 +462,24 @@ const MainSection = ({
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
+        } else {
+          let auctionListing = await fetchAuctionListing(
+            mx,
+            tokenAccount.owner,
+            tokenAccount.address,
+            tokenAccount.mint
+          )
+          // use to set auction info
+          let {
+            minBidIncrement,
+            endTime,
+            reservePrice,
+            highestBid: { amount },
+          } = auctionListing
+          parseFloat(minBidIncrement.toString()) / LAMPORTS_PER_SOL
+          new Date(parseInt(endTime.toString()))
+          parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
+          parseFloat(amount.toString()) / LAMPORTS_PER_SOL
         }
       }
 
