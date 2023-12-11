@@ -1284,7 +1284,7 @@ const MainSection = ({
                                   isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
                                 }`}
                                 onClick={async () => {
-                                  if (price === '') return
+                                  if (price === '' || parseFloat(price) < minBidAmount) return
 
                                   if (isEnded) return
 
@@ -1305,7 +1305,7 @@ const MainSection = ({
                                   <div className="flex">
                                     <div
                                       className={`${styles.placeBidBtn} ${
-                                        isEnded || price === ''
+                                        isEnded || price === '' || parseFloat(price) < minBidAmount
                                           ? styles.placeBidDisabledColor
                                           : styles.placeBidEnabledColor
                                       }`}
