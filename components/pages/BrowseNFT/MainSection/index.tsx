@@ -40,7 +40,7 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
+import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import PrintApparelSection from 'assets/images/apparel.png'
@@ -116,6 +116,9 @@ import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
 import ModelViewer from 'components/ModelViewer'
+import PriceInput from 'components/Input/PriceInput'
+import TabList from 'assets/json/browse-nft/auction-list.json'
+import SelectedTab from 'components/Tab/SelectedTab'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -156,6 +159,7 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [minBidAmount, setMinBidAmount] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<String>(null)
@@ -186,18 +190,9 @@ const MainSection = ({
   const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
-
-  const clickRecent = index => {
-    const clickedButton = buttonRefs.current[index]
-    if (clickedButton === openedRef.current) {
-      openedRef.current = null
-      return
-    }
-    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
-      openedRef.current?.click()
-    }
-    openedRef.current = clickedButton
-  }
+  const [price, setPrice] = useState('')
+  const [activeTab, setActiveTab] = useState<any>(0)
+  const [tabList, setTabList] = useState<any[]>(TabList)
 
   // const options = {
   //   responsive: true,
@@ -293,6 +288,7 @@ const MainSection = ({
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
+  const [placeBidLoading, setPlaceBidLoading] = useState(false)
 
   const [isRunning, setIsRunning] = useState(false)
 
@@ -424,8 +420,6 @@ const MainSection = ({
     ;(async () => {
       if (!nftDetail) return
 
-      if (nftInfo && nftInfo.auction?.auction) return
-
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
@@ -467,6 +461,24 @@ const MainSection = ({
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
+        } else {
+          let auctionListing = await fetchAuctionListing(
+            mx,
+            tokenAccount.owner,
+            tokenAccount.address,
+            tokenAccount.mint
+          )
+          // use to set auction info
+          let {
+            minBidIncrement,
+            reservePrice,
+            highestBid: { amount },
+          } = auctionListing
+          let strMinBid = minBidIncrement.toString()
+          let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
+          let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
+          let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
+          setMinBidAmount(highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice)
         }
       }
 
@@ -765,6 +777,24 @@ const MainSection = ({
         err => {}
       )
     }
+  }
+
+  useEffect(() => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === activeTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+  }, [activeTab])
+
+  const handleSelectedTab = item => {
+    setActiveTab(item.id)
   }
 
   return (
@@ -1189,7 +1219,7 @@ const MainSection = ({
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[135px]' : 'h-[52px] lg:h-[60px]'
+                      showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
                     } relative`}
                   >
                     <div className={styles.auctionContainer}>
@@ -1204,32 +1234,89 @@ const MainSection = ({
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
                           {publicKey?.toBase58() === highBidder ? (
-                            <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                          ) : (
-                            <div
-                              className={`${styles.placeBidBG} ${
-                                isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                              }`}
-                              onClick={() => {
-                                if (isEnded) return
-
-                                if (!connected) {
-                                  setVisible(true)
-                                  return
-                                }
-                                setShowModalPlaceBid(true)
-                              }}
-                            >
-                              <div className="flex">
-                                <div
-                                  className={`${styles.placeBidBtn} ${
-                                    isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
-                                  }`}
-                                >
-                                  Place Bid
-                                </div>
+                            <>
+                              <div className="w-full flex justify-center">
+                                <PriceInput
+                                  value={price}
+                                  placeholder="Enter Bid amount"
+                                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                  fullWidth
+                                  type="number"
+                                  min={0}
+                                  margin
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onMinimum={() => {}}
+                                  onChange={value => {
+                                    if (value < 0) {
+                                      setPrice('')
+                                    } else {
+                                      setPrice(value)
+                                    }
+                                  }}
+                                />
                               </div>
-                            </div>
+                              <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="w-full flex justify-center">
+                                <PriceInput
+                                  value={price}
+                                  placeholder="Enter Bid amount"
+                                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                  fullWidth
+                                  type="number"
+                                  min={0}
+                                  margin
+                                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onMinimum={() => setPrice(minBidAmount.toFixed(2))}
+                                  onChange={value => {
+                                    if (value < 0) {
+                                      setPrice('')
+                                    } else {
+                                      setPrice(value)
+                                    }
+                                  }}
+                                />
+                              </div>
+                              <div
+                                className={`${styles.placeBidBG} ${
+                                  isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                                }`}
+                                onClick={async () => {
+                                  if (price === '' || parseFloat(price) < minBidAmount) return
+
+                                  if (isEnded) return
+
+                                  if (!connected) {
+                                    setVisible(true)
+                                    return
+                                  }
+                                  // setPlaceBidLoading(true)
+                                  // await new Promise(resolve => setTimeout(resolve, 2000))
+                                  // setShowModalPlaceBid(true)
+                                  // setPlaceBidLoading(false)
+                                  placeBidAndSave(price)
+                                }}
+                              >
+                                {auctionLoading ? (
+                                  <LoadingButton fullWidth height={51} />
+                                ) : (
+                                  <div className="flex">
+                                    <div
+                                      className={`${styles.placeBidBtn} ${
+                                        isEnded || price === '' || parseFloat(price) < minBidAmount
+                                          ? styles.placeBidDisabledColor
+                                          : styles.placeBidEnabledColor
+                                      }`}
+                                    >
+                                      Place Bid
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                              <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
+                            </>
                           )}
                         </div>
                       )}
@@ -1272,335 +1359,136 @@ const MainSection = ({
                 <div></div>
               )}
 
-              <div className="mx-auto w-full mt-[20px]">
-                <Disclosure>
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button
-                        className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        data-value={open}
-                        ref={ref => {
-                          buttonRefs.current[0] = ref
-                        }}
-                        onClick={() => clickRecent(0)}
-                      >
-                        <div className="flex items-center gap-3">
-                          <DescriptionGreenIcon alt="" />
-                          <div>Description</div>
-                        </div>
-                        <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className={styles.accordionArea}>
-                        <div className="w-full flex flex-wrap flex-column space-between">
+              <div className={'mt-10 w-full h-[180px] lg:h-[200px] relative'}>
+                <div className={styles.activityContainer}>
+                  <div className={styles.selectedTab}>
+                    <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                  </div>
+                  <div className={styles.mainContainer}>
+                    {activeTab === 0 && (
+                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] py-[15px] gap-6">
+                        {nftDescription ? (
                           <div className={styles.whiteDescription}>{nftDescription}</div>
-                          <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
-                            <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
-                            </div>
-                            <div className="flex items-end">
-                              <div className="block text-center">
-                                <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
-                                <div className={styles.whiteRoyalties}>Royalties</div>
+                        ) : (
+                          <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
+                        )}
+
+                        <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
+                          <div className="flex flex-wrap flex-col gap-2">
+                            <div className={styles.categories}>Categories</div>
+                            {nftCategories && nftCategories.length > 0 ? (
+                              <div className="flex flex-row">
+                                {nftCategories.map((item, index) => (
+                                  <SmallCategoryChip data={item} key={index} />
+                                ))}
                               </div>
-                            </div>
+                            ) : (
+                              <div className="flex flex-row">
+                                <SmallCategoryChip data={['N/A']} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex flex-col gap-2 text-center">
+                            <div className={styles.whiteRoyalties}>Royalties</div>
+                            <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
                           </div>
                         </div>
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-                {/*<Disclosure as="div" className="mt-2">
-              {({ open }) => (
-                <>
-                  <Disclosure.Button
-                    className={open ? styles.accordionOpenButton : styles.accordionButton}
-                    data-value={open}
-                    ref={ref => {
-                      buttonRefs.current[1] = ref
-                    }}
-                    onClick={() => clickRecent(1)}
-                  >
-                    <div className="flex items-center gap-3">
-                      {open ? (
-                        <svg
-                          id="Price_History_Icon"
-                          data-name="Price History Icon"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="46"
-                          height="46"
-                          viewBox="0 0 46 46"
-                        >
-                          <rect
-                            id="Rectangle_20893"
-                            data-name="Rectangle 20893"
-                            width="46"
-                            height="46"
-                            fill="none"
-                          />
-                          <g id="noun-chart-1186582-EFF0F6" transform="translate(9.979 10.02)">
-                            <path
-                              id="Path_105746"
-                              data-name="Path 105746"
-                              d="M10.148,20.356a9.882,9.882,0,0,1-7.145-3A10,10,0,0,1,3,3.063a10.161,10.161,0,0,1,14.37,14.37A10.476,10.476,0,0,1,10.148,20.356Zm0-18.673A8.226,8.226,0,0,0,4.141,4.2a8.429,8.429,0,0,0,0,12.016,8.429,8.429,0,0,0,12.016,0,8.477,8.477,0,0,0,0-12.016A8.226,8.226,0,0,0,10.148,1.682Z"
-                              transform="translate(0 -0.079)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                            <path
-                              id="Path_105747"
-                              data-name="Path 105747"
-                              d="M63.006,65.766a2.639,2.639,0,0,1-1.949-.812L53.75,57.647l.812-.568a9.281,9.281,0,0,0,2.517-2.517l.568-.812,7.388,7.388a2.794,2.794,0,0,1,0,3.9,3.118,3.118,0,0,1-2.03.731Zm-6.739-7.957,6.008,6.008a1.091,1.091,0,0,0,1.543-1.543l-6.008-6.008a7.32,7.32,0,0,1-.731.812A2.3,2.3,0,0,1,56.267,57.809Z"
-                              transform="translate(-39.785 -39.806)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                            <path
-                              id="Path_105748"
-                              data-name="Path 105748"
-                              d="M14.688,37.5h1.624v7.957H14.688Z"
-                              transform="translate(-10.872 -27.778)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                            <path
-                              id="Path_105749"
-                              data-name="Path 105749"
-                              d="M28.75,45.312h1.624v7.469H28.75Z"
-                              transform="translate(-21.281 -33.56)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                            <path
-                              id="Path_105750"
-                              data-name="Path 105750"
-                              d="M43.125,20h1.624V34.046H43.125Z"
-                              transform="translate(-31.921 -14.824)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                            <path
-                              id="Path_105751"
-                              data-name="Path 105751"
-                              d="M57.188,33.75h1.624v8.931H57.188Z"
-                              transform="translate(-42.33 -25.002)"
-                              fill="var(--menu-item-activity-icon)"
-                            />
-                          </g>
-                        </svg>
-                      ) : (
-                        <Image src={PriceHistoryGreenIcon} alt="" />
-                      )}
-                      <div>Price History</div>
-                    </div>
-                    <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
-                  </Disclosure.Button>
-                  <Disclosure.Panel className={styles.accordionArea}>
-                    <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
-                      <div className="w-[100px] lg:w-[150px] z-10">
-                        <DateSelect
-                          data={TimeList}
-                          selected={selectedTime}
-                          onChange={item => setSelectedTime(item)}
-                        />
                       </div>
-                      <div className="flex flex-1">
-                        <Line options={options as any} data={data} height="100px" width="150px" />
-                      </div>
-                    </div>
-                  </Disclosure.Panel>
-                </>
-              )}
-            </Disclosure> */}
-                <Disclosure as="div" className="mt-2">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button
-                        className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        data-value={open}
-                        ref={ref => {
-                          buttonRefs.current[2] = ref
-                        }}
-                        onClick={() => clickRecent(2)}
-                      >
-                        <div className="flex items-center gap-3">
-                          {open ? (
-                            <svg
-                              id="Icon_Circus_Tent_Filled"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="46"
-                              height="46"
-                              viewBox="0 0 46 46"
-                            >
-                              <rect
-                                id="Rectangle_20893"
-                                data-name="Rectangle 20893"
-                                width="46"
-                                height="46"
-                                fill="none"
-                              />
-                              <g
-                                id="Circus_Tent_Icon_Filled"
-                                data-name="Circus Tent Icon Filled"
-                                transform="translate(12 12)"
-                              >
-                                <path
-                                  id="Path_105701"
-                                  data-name="Path 105701"
-                                  d="M15.112,54.671l-.754.265a.112.112,0,0,0-.071.14l.065.208a.113.113,0,0,0,.147.071l.075-.028a.113.113,0,0,1,.09,0,.112.112,0,0,1,.058.069l.4,1.343a.113.113,0,0,0,.055.068.12.12,0,0,0,.087.008l.3-.1a.113.113,0,0,0,.067-.06.11.11,0,0,0,0-.089l-.513-1.334a.111.111,0,0,1,.06-.143l.079-.035a.114.114,0,0,0,.062-.14l-.061-.182h0a.11.11,0,0,0-.057-.065.107.107,0,0,0-.087,0Z"
-                                  transform="translate(-14.282 -43.66)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105702"
-                                  data-name="Path 105702"
-                                  d="M49.573,20.777h-.536a.075.075,0,0,0-.075.072l-.006.145a.07.07,0,0,0,.022.057.072.072,0,0,0,.057.022h.054a.078.078,0,0,1,.055.024.073.073,0,0,1,.021.055l-.05,5.163a.075.075,0,0,0,.021.055.069.069,0,0,0,.053.024l.209.006a.076.076,0,0,0,.079-.079l-.026-5.182a.077.077,0,0,1,.071-.079l.057,0a.074.074,0,0,0,.071-.073v-.129a.076.076,0,0,0-.022-.054.079.079,0,0,0-.054-.022Z"
-                                  transform="translate(-38.315 -20.777)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105703"
-                                  data-name="Path 105703"
-                                  d="M82.371,54.671l.754.265a.112.112,0,0,1,.069.14l-.065.208a.1.1,0,0,1-.057.067.113.113,0,0,1-.09,0l-.075-.028a.113.113,0,0,0-.09,0,.116.116,0,0,0-.058.069l-.4,1.343a.108.108,0,0,1-.055.068.119.119,0,0,1-.087.008l-.3-.1a.117.117,0,0,1-.067-.06.11.11,0,0,1,0-.089l.513-1.334h0a.111.111,0,0,0-.06-.143l-.079-.035a.112.112,0,0,1-.061-.14l.061-.182a.108.108,0,0,1,.058-.065.106.106,0,0,1,.087,0Z"
-                                  transform="translate(-61.199 -43.66)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105704"
-                                  data-name="Path 105704"
-                                  d="M52.248,22c-.865-.673-2.361,0-2.361,0v2.993a2.133,2.133,0,0,1,2.1,0c.865.673,2.361,0,2.361,0V22A2.129,2.129,0,0,1,52.248,22Z"
-                                  transform="translate(-39.268 -21.372)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105705"
-                                  data-name="Path 105705"
-                                  d="M36.419,39.158s-10.758-4.352-10.758-9.017c0,.1-.01.2-.022.3-.012-.1-.019-.2-.022-.3,0,4.666-10.758,9.018-10.758,9.018s1.323,7.9,0,9.287a57.654,57.654,0,0,1,7.7.373s3.081-3.021,3.081-6.925c0,3.9,3.081,6.925,3.081,6.925a57.653,57.653,0,0,1,7.7-.373c-1.323-1.392,0-9.288,0-9.288Z"
-                                  transform="translate(-14.655 -26.819)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                              </g>
-                            </svg>
-                          ) : (
-                            <NotificationGreenIcon alt="" />
-                          )}
-                          <div>Activity</div>
-                        </div>
-                        {/***************** Dropdown *******************/}
-                        <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
-                      </Disclosure.Button>
-                      <Disclosure.Panel
-                        className={styles.accordionArea}
-                        style={{
-                          padding: '0px',
-                          overflow: 'auto',
-                        }}
-                      >
-                        <table className="w-full table-auto">
-                          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                            <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(32, 36, 39, 1)' }}>
-                                <th>Event</th>
-                                <th>Price</th>
-                                <th>Buyer</th>
-                                <th>Seller</th>
-                                <th>Date</th>
-                              </tr>
-                            </thead>
-                          ) : (
-                            <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(32, 36, 39, 1)' }}>
-                                <th>Event</th>
-                                <th>Price</th>
-                                <th>Buyer</th>
-                                <th>Seller</th>
-                                <th>Date</th>
-                              </tr>
-                            </thead>
-                          )}
-                          <tbody>
-                            {activityList.map((item, index) => (
-                              <tr
-                                key={index}
-                                className={`${styles.tableText} gap-2`}
-                                style={{
-                                  background: index % 2 === 1 ? 'var(--activity-tr-bg)' : 'transparent',
-                                }}
-                              >
-                                <td className="mx-2">
-                                  <div className="flex items-center ml-2">
-                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                      <></>
-                                    ) : (
-                                      <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
-                                        {/* <Image
-                                      src={item.action_type === 'AuctionStarted' ? SaleLightIcon : TagLightIcon}
-                                      alt=""
-                                      width={
-                                        viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                      }
-                                      height={
-                                        viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                      }
-                                    /> */}
-                                        {item.action_type === 'AuctionStarted' ? (
-                                          <SaleLightIcon alt="" />
-                                        ) : (
-                                          <TagLightIcon alt="" />
-                                        )}
-                                      </div>
-                                    )}
-                                    <div className={`ml-2 ${styles.activityInline}`}>
-                                      {item.action_type.replace(/([A-Z])/g, ' $1').trim()}
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="w-[60px]">
-                                  <div className="flex items-center mx-2 gap-1 ">
-                                    <div className="min-w-[18px] flex items-center">
-                                      {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
-                                      <SolanaLogoIcon alt="" />
-                                    </div>
-                                    <div className="">
-                                      {isAmountExisting(item.action_type) ? Number(item.amount).toFixed(2) : 'N/A'}
-                                    </div>
-                                  </div>
-                                </td>
+                    )}
+                    {activeTab === 1 &&
+                      activityList.map((item, index) => {
+                        let date = new Date(item.created_at)
 
-                                <td>
-                                  <div
-                                    className={`${styles.activityUser} ${styles.activityInline}`}
-                                    onClick={() => {
-                                      if (isBuyerExisting(item.action_type)) {
-                                        gotoUserDetail(getBuyerName(item))
-                                      }
-                                    }}
-                                  >
-                                    {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
-                                  </div>
-                                </td>
+                        let dateString = date.toLocaleDateString('en-GB', {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                        })
 
-                                <td>
-                                  <div
-                                    className={`${styles.activityUser} ${styles.activityInline}`}
-                                    onClick={() => gotoUserDetail(getOwnerName(item))}
-                                  >
-                                    {getOwnerName(item)}
-                                  </div>
-                                </td>
+                        let timeString = date
+                          .toLocaleTimeString('en-GB', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false,
+                          })
+                          .replace(/:\d{2}\s/, ' ')
 
-                                <td>
-                                  <div
-                                    className={`w-full flex justify-end items-center ml-2 pr-4  ${styles.activityInline}`}
-                                  >
-                                    {getDateString(item.created_at)}ago
+                        let formattedDate = `${dateString} • ${timeString}`
+
+                        return (
+                          <div className={styles.subContainer} key={index}>
+                            <div className="w-full flex flex-col">
+                              <div className="w-full flex flex-row">
+                                {item.action_type === 'AuctionStarted' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;published an auction</div>
+                                  </>
+                                ) : item.action_type === 'AuctionCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;cancelled auction</div>
+                                  </>
+                                ) : item.action_type === 'ListingAdded' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;listed artwork for sale</div>
+                                  </>
+                                ) : item.action_type === 'ListingCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.owner_username}</div>
+                                    <div className={styles.actionType}>&nbsp;removed listing</div>
+                                  </>
+                                ) : item.action_type === 'OfferCancelled' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;cancelled their offer</div>
+                                  </>
+                                ) : item.action_type === 'OfferMade' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;made an offer</div>
+                                  </>
+                                ) : item.action_type === 'BidPlaced' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;placed a bid</div>
+                                  </>
+                                ) : item.action_type === 'QuickBuy' ? (
+                                  <>
+                                    <div className={styles.userName}>{item.reference_username}</div>
+                                    <div className={styles.actionType}>&nbsp;purchased artwork</div>
+                                  </>
+                                ) : (
+                                  ''
+                                )}
+                              </div>
+                              <div className={styles.dateValue}>{formattedDate}</div>
+                            </div>
+                            <div className="w-fit-content flex flex-col">
+                              {item.action_type === 'ListingCancelled' ||
+                              item.action_type === 'OfferCancelled' ||
+                              item.action_type === 'AuctionCancelled' ? (
+                                <></>
+                              ) : (
+                                <>
+                                  <div className="w-fit-content flex flex-row justify-end items-center">
+                                    <SolanaLogoIcon />
+                                    <div className={styles.userName}>&nbsp;{item.amount}</div>
                                   </div>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
+                                  <div className={styles.usdValue}>
+                                    ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      })}
+                  </div>
+                </div>
               </div>
+              {/* </div> */}
               {/* {nftType.includes('image') && merchToggle && (
                 <div className="w-full flex flex-wrap">
                   <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
@@ -1835,6 +1723,7 @@ const MainSection = ({
         loading={auctionLoading}
         onClose={() => {
           setShowModalPlaceBid(false)
+          setPlaceBidLoading(false)
         }}
       />
 

@@ -6,6 +6,7 @@ import {
   createExecuteSaleInstruction,
   createWithdrawInstruction,
   AUCTIONEER_PROGRAM_ID,
+  ListingConfig as AuctionListing
 } from '@metaplex-foundation/mpl-auctioneer'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
@@ -19,6 +20,8 @@ import {
 import { Metaplex, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
 
 import usersAPI from 'apis/user'
+
+export { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
 export const TIMED_AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
@@ -100,12 +103,25 @@ export async function getAuctionHouseTreasury() {
   )
 }
 
+export async function fetchAuctionListing(
+  metaplex: Metaplex,
+  publicKey: PublicKey,
+  associatedAddress: PublicKey,
+  mintAddress: PublicKey
+): Promise<AuctionListing | null> {
+  let [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
+  let accountInfo = await metaplex.connection.getAccountInfo(listingConfig)
+  if(!accountInfo) return null;
+  else return AuctionListing.fromAccountInfo(accountInfo)[0];
+}
+
 export async function startAuction(
   mx: Metaplex,
   mintAddress: PublicKey,
   startDate: Date,
   endDate: Date,
-  price: number
+  price: number,
+  minBidIncrement: number
 ) {
   const startTime = Math.floor(startDate.getTime() / 1000)
   const endTime = Math.floor(endDate.getTime() / 1000)
@@ -163,7 +179,7 @@ export async function startAuction(
     startTime: startTime,
     endTime: endTime,
     reservePrice: price * 1000000000,
-    minBidIncrement: 1,
+    minBidIncrement: minBidIncrement * 1000000000,
     timeExtPeriod: 1,
     timeExtDelta: 1,
     allowHighBidCancel: true,

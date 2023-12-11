@@ -352,7 +352,7 @@ const ListedNFTSection = props => {
             label="Live&nbsp;Auction"
             onClick={() => handleChangeActive(1)}
             fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? 'v#1A1A1A' : '#979EA2'}
+            color={active === 1 ? '#1A1A1A' : '#979EA2'}
             backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
             backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
             gradientDirection="bottom"
