@@ -122,7 +122,7 @@ const StartAuctionModal = props => {
     let disabled = false
 
     if (parseFloat(days) > 30) disabled = true
-    else if (parseFloat(hours) > 23) disabled = true
+    else if (durationType === 'custom' && parseFloat(hours) > 23) disabled = true
     else if (!minBidIncrement) disabled = true
     else if (reservePrice === undefined || reservePrice === '' || reservePrice === null) disabled = true
     setButtonDisabled(disabled)
@@ -218,9 +218,18 @@ const StartAuctionModal = props => {
                         type="radio"
                         id="reserve"
                         checked={startType === 'soon'}
-                        onChange={() => setStartType('soon')}
+                        onChange={() => {
+                          setStartDate(new Date())
+                          setStartType('soon')
+                        }}
                       />
-                      <div className={styles.radioText} onClick={() => setStartType('soon')}>
+                      <div
+                        className={styles.radioText}
+                        onClick={() => {
+                          setStartDate(new Date())
+                          setStartType('soon')
+                        }}
+                      >
                         Immediately
                       </div>
                     </div>
@@ -309,9 +318,20 @@ const StartAuctionModal = props => {
                       type="radio"
                       id="24 hours"
                       checked={durationType === '24'}
-                      onChange={() => setDurationType('24')}
+                      onChange={() => {
+                        setDays('')
+                        setHours('24')
+                        setDurationType('24')
+                      }}
                     />
-                    <div className={styles.radioText} onClick={() => setDurationType('24')}>
+                    <div
+                      className={styles.radioText}
+                      onClick={() => {
+                        setDays('')
+                        setHours('24')
+                        setDurationType('24')
+                      }}
+                    >
                       24 hours
                     </div>
                   </div>
@@ -325,9 +345,20 @@ const StartAuctionModal = props => {
                       type="radio"
                       id="48 hours"
                       checked={durationType === '48'}
-                      onChange={() => setDurationType('48')}
+                      onChange={() => {
+                        setDays('')
+                        setHours('48')
+                        setDurationType('48')
+                      }}
                     />
-                    <div className={styles.radioText} onClick={() => setDurationType('48')}>
+                    <div
+                      className={styles.radioText}
+                      onClick={() => {
+                        setDays('')
+                        setHours('48')
+                        setDurationType('48')
+                      }}
+                    >
                       48 hours
                     </div>
                   </div>
@@ -341,9 +372,20 @@ const StartAuctionModal = props => {
                       type="radio"
                       id="custom"
                       checked={durationType === 'custom'}
-                      onChange={() => setDurationType('custom')}
+                      onChange={() => {
+                        setDays('')
+                        setHours('')
+                        setDurationType('custom')
+                      }}
                     />
-                    <div className={styles.radioText} onClick={() => setDurationType('custom')}>
+                    <div
+                      className={styles.radioText}
+                      onClick={() => {
+                        setDays('')
+                        setHours('')
+                        setDurationType('custom')
+                      }}
+                    >
                       Custom
                     </div>
                   </div>
