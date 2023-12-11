@@ -420,8 +420,6 @@ const MainSection = ({
     ;(async () => {
       if (!nftDetail) return
 
-      if (nftInfo && nftInfo.auction?.auction) return
-
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
@@ -480,7 +478,7 @@ const MainSection = ({
           let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
           let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
           let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
-          setMinBidAmount((highestBidAmount > 0 ? highestBidAmount : reservedPrice) + minBidInc)
+          setMinBidAmount(highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice)
         }
       }
 
