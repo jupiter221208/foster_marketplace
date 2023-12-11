@@ -75,11 +75,13 @@ const PriceInput = props => {
         style={{ fontSize }}
       />
 
-      <div className="mx-[8px] flex">
-        <button className={styles.buttonText} onClick={() => onMinimum()}>
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Min' : 'Minimum'}
-        </button>
-      </div>
+      {onMinimum && (
+        <div className="mx-[8px] flex">
+          <button className={styles.buttonText} onClick={() => onMinimum()}>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Min' : 'Minimum'}
+          </button>
+        </div>
+      )}
 
       {showMax && (
         <div className={styles.maxText} onClick={() => onMax()}>
