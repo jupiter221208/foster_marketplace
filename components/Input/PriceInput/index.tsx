@@ -4,6 +4,7 @@ import React from 'react'
 
 // import images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
+import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
@@ -27,6 +28,9 @@ const PriceInput = props => {
     showMax = false,
     margin = '',
   } = props
+
+  const viewport = useViewport()
+
   return (
     <div
       className={styles.container}
@@ -69,6 +73,12 @@ const PriceInput = props => {
         }}
         style={{ fontSize }}
       />
+
+      <div className="mx-[8px] flex">
+        <button className={styles.buttonText}>
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Min' : 'Minimum'}
+        </button>
+      </div>
 
       {showMax && (
         <div className={styles.maxText} onClick={() => onMax()}>

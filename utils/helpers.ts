@@ -535,6 +535,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-color', '#EBEAE8')
     doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
     doc.style.setProperty('--selected-tab-border-color', '#DDDCDC')
+    doc.style.setProperty('--place-bid-minimum-color', '#242424')
+    doc.style.setProperty('--place-bid-minvalue-color', '#242424')
 
     // =====================================================
     // =====================================================
@@ -839,5 +841,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--selected-tab-border-color', '#303030')
     doc.style.setProperty('--place-bid-color', '#232323')
     doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--place-bid-minimum-color', '#95DBD5')
+    doc.style.setProperty('--place-bid-minvalue-color', '#eff0f6')
   }
 }

@@ -236,7 +236,7 @@
   gap: 8px;
   height: 44px;
   border-radius: 16px;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
   margin-top: 6px;
@@ -810,8 +810,14 @@
     font-family: 'Muli-Light';
   }
 }
-.button {
-  position: absolute;
+.minText {
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  margin: 4px 18px 0px 25px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  color: var(--place-bid-minvalue-color);
 }
 .categories {
   font-family: 'Muli-Regular';

@@ -42,3 +42,9 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   cursor: pointer;
 }
+
+.buttonText {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--place-bid-minimum-color);
+}

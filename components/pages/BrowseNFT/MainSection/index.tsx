@@ -1309,6 +1309,7 @@ const MainSection = ({
                                   </div>
                                 )}
                               </div>
+                              <div className={styles.minText}>Min:&nbsp;{nftReservePrice}&nbsp;SOL</div>
                             </>
                           )}
                         </div>
@@ -1381,11 +1382,9 @@ const MainSection = ({
                               </div>
                             )}
                           </div>
-                          <div className="flex items-end">
-                            <div className="block text-center">
-                              <div className={styles.whiteRoyalties}>Royalties</div>
-                              <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
-                            </div>
+                          <div className="flex flex-col gap-2 text-center">
+                            <div className={styles.whiteRoyalties}>Royalties</div>
+                            <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
                           </div>
                         </div>
                       </div>
