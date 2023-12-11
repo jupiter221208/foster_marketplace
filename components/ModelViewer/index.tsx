@@ -1,114 +1,94 @@
 /* eslint-disable */
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, OrbitControls, Center } from '@react-three/drei'
-import {
-  Box3,
-  Vector3,
-  Mesh,
-  MeshStandardMaterial,
-  WebGLRenderer,
-  Scene,
-  PerspectiveCamera,
-  AmbientLight,
-  Color,
-  DirectionalLight,
-} from 'three'
+import { Box3, Vector3, WebGLRenderer, Scene, PerspectiveCamera, AmbientLight, DirectionalLight } from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+// @ts-ignore
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
-import { useEffect, useRef, useState, Dispatch, SetStateAction } from 'react'
+import React, { useState, useEffect } from 'react'
 
-type ModelTypes = {
-  url: string
-  setModelSize: Dispatch<SetStateAction<Vector3>>
-}
+const ModelViewer = ({ path, width = 500, height = 500 }) => {
+  // State variables
+  const [renderer, setRenderer] = useState(null)
+  const [scene, setScene] = useState(null)
+  const [camera, setCamera] = useState(null)
+  const [controls, setControls] = useState(null)
+  const [model, setModel] = useState(null)
 
-type RGB = {
-  r: number
-  g: number
-  b: number
-}
+  // Load the GLTF model and set up the scene
+  useEffect(() => {
+    const renderer = new WebGLRenderer({ alpha: true })
+    renderer.setSize(width, height)
+    renderer.setClearColor(0x000000, 0)
+    setRenderer(renderer)
 
-/**
- * ModelViewer function component loads a 3D model and sets up the scene.
- *
- * @param {string} props.url - The URL of the 3D model to load.
- *
- * @returns {JSX.Element} The Canvas component with the loaded 3D model and configured scene.
- */
+    const scene = new Scene()
+    setScene(scene)
 
-export default function ModelViewer(props: { url: string }) {
-  // Initialize state for the size of the model and the colors of the materials
-  const [modelSize, setModelSize] = useState(new Vector3(0, 0, 0))
+    const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
+    setCamera(camera)
 
-  // Return the Canvas component with the loaded 3D model and configured scene
+    const controls = new OrbitControls(camera, renderer.domElement)
+    setControls(controls)
+
+    const render = () => {
+      controls.update()
+      renderer.render(scene, camera)
+      requestAnimationFrame(render)
+    }
+
+    render()
+
+    const loader = new GLTFLoader()
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+    dracoLoader.setDecoderConfig({ type: 'js' })
+    loader.setDRACOLoader(dracoLoader)
+    loader.loadAsync(path).then(gltf => {
+      setModel(gltf)
+      scene.add(gltf.scene)
+
+      const bbox = new Box3().setFromObject(gltf.scene)
+      const center = bbox.getCenter(new Vector3())
+      const size = bbox.getSize(new Vector3())
+
+      camera.position.set(0, 0, Math.max(size.x, size.y, size.z) * 1.5)
+      controls.target.set(center.x, center.y, center.z)
+      controls.update()
+
+      const ambientLight = new AmbientLight(0x404040, 1.2)
+      scene.add(ambientLight)
+
+      const directionalLight = new DirectionalLight(0xffffff, 1)
+      scene.add(directionalLight)
+    })
+
+    return () => {
+      // Dispose of resources
+      renderer.dispose()
+    }
+  }, [path])
+
+  useEffect(() => {
+    if (renderer) {
+      renderer.setSize(width, height)
+      camera.aspect = width / height
+      camera.updateProjectionMatrix()
+    }
+  }, [width, height])
+
   return (
-    <Canvas gl={{ alpha: true }} dpr={[1, 2]} className="min-w-full  min-h-full">
-      <ambientLight intensity={1.5} />
-      <directionalLight intensity={1.5} />
-      <CameraRig modelSize={modelSize} />
-      <Center>
-        <Model setModelSize={setModelSize} url={props.url} />
-      </Center>
-    </Canvas>
+    <div
+      ref={el => {
+        if (renderer && el) {
+          el.appendChild(renderer.domElement)
+        }
+      }}
+    />
   )
 }
 
-/**
- * Model function component loads a 3D model and sets up its rotation.
- *
- * @param {Object} props - The properties passed to the component.
- * @param {string} props.url - The URL of the 3D model to load.
- * @param {Function} props.setModelSize - The function to call to set the size of the model.
- *
- * @returns {JSX.Element} The primitive component with the loaded 3D model.
- */
-function Model({ url, setModelSize }: ModelTypes) {
-  const modelRef = useRef<Mesh>() // Create a ref for the 3D model
-  const model = useGLTF(url) // Load the 3D model from the provided URL
-
-  // When the component mounts or the model changes, calculate the size of the model and set the model size state
-  useEffect(() => {
-    const box = new Box3().setFromObject(model.scene)
-    const size = new Vector3()
-    box.getSize(size)
-    setModelSize(size)
-  }, [])
-
-  // On each frame, if the model ref is defined, rotate the model around the y-axis
-  useFrame(() => {
-    if (modelRef.current) {
-      modelRef.current.rotation.y += 0.001
-    }
-  })
-
-  // Return a primitive component with the 3D model and a scale of 0.1
-  return <primitive ref={modelRef} object={model.scene} scale={0.1} />
-}
-
-/**
- * CameraRig function component sets up the camera and controls for the 3D scene.
- *
- * @param {Object} props - The properties passed to the component.
- * @param {THREE.Vector3} props.modelSize - The size of the 3D model.
- *
- * @returns {JSX.Element} The OrbitControls component with configured properties.
- */
-function CameraRig({ modelSize }: { modelSize: Vector3 }) {
-  // Get the camera from the React Three Fiber context
-  const { camera } = useThree()
-
-  // Calculate the largest dimension of the model
-  const largestDimension = Math.max(modelSize.x, modelSize.y, modelSize.z)
-
-  // Update the camera position when the model size changes
-  useEffect(() => {
-    camera.position.set(0, 0, largestDimension * 1.2)
-  }, [modelSize])
-
-  // Return the OrbitControls component with zooming disabled and polar angle limits set
-  return <OrbitControls enableZoom={false} minPolarAngle={Math.PI / 9} maxPolarAngle={Math.PI - Math.PI / 7} />
-}
+export default ModelViewer
 
 export async function getSnapshot(path) {
   const renderer = new WebGLRenderer({ alpha: true })

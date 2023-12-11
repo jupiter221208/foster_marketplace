@@ -41,6 +41,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
+import useContainerDimensions from 'hooks/useContainerDimensions'
 
 // images and icons
 import PrintApparelSection from 'assets/images/apparel.png'
@@ -797,6 +798,9 @@ const MainSection = ({
     setActiveTab(item.id)
   }
 
+  const sizeRef = useRef()
+  const { width, height } = useContainerDimensions(sizeRef)
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
@@ -815,8 +819,8 @@ const MainSection = ({
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
-                  <div className={`${styles.mobileImageArea} aspect-square`}>
-                    <ModelViewer url={nftAssetUrl} />
+                  <div ref={sizeRef} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                    <ModelViewer path={nftAssetUrl} width={width} height={height} />
                   </div>
                 ) : nftCoverUrl ? (
                   <div className={styles.mobileImageArea}>
@@ -866,10 +870,10 @@ const MainSection = ({
             ) : nftType.includes('vr') && !fullScreen ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
-                <div className={styles.imageArea}>
+                <div ref={sizeRef} className={`${styles.imageArea} w-full h-full`}>
                   {nftAssetUrl ? (
                     <>
-                      <ModelViewer url={nftAssetUrl} />
+                      <ModelViewer path={nftAssetUrl} width={width} height={height} />
                       <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
                         <Image src={FullScreenModeIcon} alt="" />
                       </div>
