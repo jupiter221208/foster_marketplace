@@ -7,7 +7,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 import React, { useState, useEffect } from 'react'
 
-const ModelViewer = ({ path, width = 500, height = 500 }) => {
+const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fullScreen = false }) => {
   // State variables
   const [renderer, setRenderer] = useState(null)
   const [scene, setScene] = useState(null)
@@ -29,6 +29,11 @@ const ModelViewer = ({ path, width = 500, height = 500 }) => {
     setCamera(camera)
 
     const controls = new OrbitControls(camera, renderer.domElement)
+    if (orbitLimited) {
+      controls.enableZoom = false
+      controls.minPolarAngle = 0.5
+      controls.maxPolarAngle = 2.5
+    }
     setControls(controls)
 
     const render = () => {
@@ -36,7 +41,6 @@ const ModelViewer = ({ path, width = 500, height = 500 }) => {
       renderer.render(scene, camera)
       requestAnimationFrame(render)
     }
-
     render()
 
     const loader = new GLTFLoader()
@@ -70,9 +74,13 @@ const ModelViewer = ({ path, width = 500, height = 500 }) => {
   }, [path])
 
   useEffect(() => {
-    if (renderer) {
+    if (renderer && !fullScreen) {
       renderer.setSize(width, height)
       camera.aspect = width / height
+      camera.updateProjectionMatrix()
+    } else if (renderer && fullScreen) {
+      renderer.setSize(innerWidth, innerHeight)
+      camera.aspect = innerWidth / innerHeight
       camera.updateProjectionMatrix()
     }
   }, [width, height])

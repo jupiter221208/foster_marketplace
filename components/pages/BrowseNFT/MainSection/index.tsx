@@ -820,7 +820,7 @@ const MainSection = ({
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
                   <div ref={sizeRef} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                    <ModelViewer path={nftAssetUrl} width={width} height={height} />
+                    <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
                   </div>
                 ) : nftCoverUrl ? (
                   <div className={styles.mobileImageArea}>
@@ -873,7 +873,7 @@ const MainSection = ({
                 <div ref={sizeRef} className={`${styles.imageArea} w-full h-full`}>
                   {nftAssetUrl ? (
                     <>
-                      <ModelViewer path={nftAssetUrl} width={width} height={height} />
+                      <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
                       <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
                         <Image src={FullScreenModeIcon} alt="" />
                       </div>
