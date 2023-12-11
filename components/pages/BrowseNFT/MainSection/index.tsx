@@ -159,6 +159,7 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [minBidAmount, setMinBidAmount] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<String>(null)
@@ -472,14 +473,14 @@ const MainSection = ({
           // use to set auction info
           let {
             minBidIncrement,
-            endTime,
             reservePrice,
             highestBid: { amount },
           } = auctionListing
-          parseFloat(minBidIncrement.toString()) / LAMPORTS_PER_SOL
-          new Date(parseInt(endTime.toString()))
-          parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
-          parseFloat(amount.toString()) / LAMPORTS_PER_SOL
+          let strMinBid = minBidIncrement.toString()
+          let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
+          let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
+          let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
+          setMinBidAmount((highestBidAmount > 0 ? highestBidAmount : reservedPrice) + minBidInc)
         }
       }
 
@@ -1246,6 +1247,7 @@ const MainSection = ({
                                   min={0}
                                   margin
                                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onMinimum={() => {}}
                                   onChange={value => {
                                     if (value < 0) {
                                       setPrice('')
@@ -1269,6 +1271,7 @@ const MainSection = ({
                                   min={0}
                                   margin
                                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                                  onMinimum={() => setPrice(minBidAmount.toFixed(2))}
                                   onChange={value => {
                                     if (value < 0) {
                                       setPrice('')
@@ -1289,14 +1292,15 @@ const MainSection = ({
                                     setVisible(true)
                                     return
                                   }
-                                  setPlaceBidLoading(true)
-                                  await new Promise(resolve => setTimeout(resolve, 2000))
-                                  setShowModalPlaceBid(true)
-                                  setPlaceBidLoading(false)
+                                  // setPlaceBidLoading(true)
+                                  // await new Promise(resolve => setTimeout(resolve, 2000))
+                                  // setShowModalPlaceBid(true)
+                                  // setPlaceBidLoading(false)
+                                  placeBidAndSave(price)
                                 }}
                               >
-                                {placeBidLoading ? (
-                                  <LoadingButton fullWidth />
+                                {auctionLoading ? (
+                                  <LoadingButton fullWidth height={51} />
                                 ) : (
                                   <div className="flex">
                                     <div
@@ -1309,7 +1313,7 @@ const MainSection = ({
                                   </div>
                                 )}
                               </div>
-                              <div className={styles.minText}>Min:&nbsp;{nftReservePrice}&nbsp;SOL</div>
+                              <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                             </>
                           )}
                         </div>

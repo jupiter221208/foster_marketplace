@@ -15,6 +15,7 @@ const PriceInput = props => {
     placeholder,
     onChange,
     onMax,
+    onMinimum,
     fullWidth,
     width = '',
     height = '',
@@ -75,7 +76,7 @@ const PriceInput = props => {
       />
 
       <div className="mx-[8px] flex">
-        <button className={styles.buttonText}>
+        <button className={styles.buttonText} onClick={() => onMinimum()}>
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Min' : 'Minimum'}
         </button>
       </div>
