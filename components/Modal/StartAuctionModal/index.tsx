@@ -40,14 +40,14 @@ const StartAuctionModal = props => {
   const { refreshToken } = useAuthentication()
 
   const closeModal = () => {
-    setPrice(null)
+    setMinBidIncrement(null)
     onClose()
   }
 
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('')
-  const [price, setPrice] = useState('')
+  const [minBidIncrement, setMinBidIncrement] = useState('')
   const [reservePrice, setReservePrice] = useState('')
   const [selectedType, setSelectedType] = useState('')
   const [startType, setStartType] = useState('')
@@ -78,7 +78,14 @@ const StartAuctionModal = props => {
     await refreshToken()
 
     onStartProgress()
-    const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, Number(price))
+    const { auction } = await startAuction(
+      mx,
+      data.mintAddress,
+      startDate,
+      endDate,
+      Number(reservePrice),
+      Number(minBidIncrement)
+    )
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
       associated_address: auction.associatedAddress.toBase58(),
@@ -116,10 +123,10 @@ const StartAuctionModal = props => {
 
     if (parseFloat(days) > 30) disabled = true
     else if (parseFloat(hours) > 23) disabled = true
-    else if (price === undefined || price === '' || price === null) disabled = true
+    else if (!minBidIncrement) disabled = true
     else if (reservePrice === undefined || reservePrice === '' || reservePrice === null) disabled = true
     setButtonDisabled(disabled)
-  }, [days, hours, price, reservePrice])
+  }, [days, hours, reservePrice, minBidIncrement])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -414,7 +421,7 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-[15px] w-full">
                   <PriceInput
-                    value={price}
+                    value={minBidIncrement}
                     placeholder="Set the minimum bid increment"
                     backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                     fullWidth
@@ -423,9 +430,9 @@ const StartAuctionModal = props => {
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => {
                       if (value < 0) {
-                        setPrice('')
+                        setMinBidIncrement('')
                       } else {
-                        setPrice(value)
+                        setMinBidIncrement(value)
                       }
                     }}
                   />
