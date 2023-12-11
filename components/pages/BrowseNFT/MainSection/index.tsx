@@ -1286,6 +1286,8 @@ const MainSection = ({
                                   isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
                                 }`}
                                 onClick={async () => {
+                                  if (price === '') return
+
                                   if (isEnded) return
 
                                   if (!connected) {
@@ -1305,7 +1307,9 @@ const MainSection = ({
                                   <div className="flex">
                                     <div
                                       className={`${styles.placeBidBtn} ${
-                                        isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
+                                        isEnded || price === ''
+                                          ? styles.placeBidDisabledColor
+                                          : styles.placeBidEnabledColor
                                       }`}
                                     >
                                       Place Bid
