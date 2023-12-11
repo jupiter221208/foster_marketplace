@@ -245,7 +245,7 @@
     height: 56px;
     border-radius: 28px;
     margin-top: 6px;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 22px;
     padding: 8px 16px;
   }
@@ -337,14 +337,14 @@
 }
 
 .collectionText {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 16px;
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .greenText {
@@ -385,10 +385,10 @@
 }
 
 .whiteRoyalties {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   @media (min-width: 1024px) {
-    font-size: 12px;
+    font-size: 14px;
   }
   line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
@@ -717,13 +717,13 @@
   margin-bottom: 40px;
 }
 .fixedPrice {
-  font-family: 'Muli-Light';
-  font-size: 14px;
+  font-family: 'Muli-Regular';
+  font-size: 12px;
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 22px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 .priceInput {
   width: 100%;
@@ -814,7 +814,10 @@
   position: absolute;
 }
 .categories {
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  color: var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }

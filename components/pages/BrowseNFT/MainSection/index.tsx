@@ -1351,16 +1351,22 @@ const MainSection = ({
                         <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
                           <div className="flex flex-wrap flex-col gap-2">
                             <div className={styles.categories}>Categories</div>
-                            <div className="flex flex-row">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
-                            </div>
+                            {nftCategories && nftCategories.length > 0 ? (
+                              <div className="flex flex-row">
+                                {nftCategories.map((item, index) => (
+                                  <SmallCategoryChip data={item} key={index} />
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="flex flex-row">
+                                <SmallCategoryChip data={['N/A']} />
+                              </div>
+                            )}
                           </div>
                           <div className="flex items-end">
                             <div className="block text-center">
-                              <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
                               <div className={styles.whiteRoyalties}>Royalties</div>
+                              <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
                             </div>
                           </div>
                         </div>
