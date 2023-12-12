@@ -1155,6 +1155,7 @@ const MainSection = ({
                           icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
                           fontFamily="Muli-SemiBold"
+                          fontSize={16}
                           height={50}
                           disabled={!tradeStateAddress}
                         />

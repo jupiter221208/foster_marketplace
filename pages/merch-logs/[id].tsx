@@ -128,7 +128,7 @@ const MerchDetail = () => {
             print: nftName ? nftName['value'] : '',
             size: size ? size['value'] : '',
             color: color ? color['value'] : '',
-            fosterUrl : previewUrl ? previewUrl : fosterUrl['value'],
+            fosterUrl : previewUrl,
             apparel : apparel ? apparel['value'] : ''
           };
           itemList.push(itemDetails)
