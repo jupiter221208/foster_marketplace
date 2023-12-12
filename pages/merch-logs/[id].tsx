@@ -81,8 +81,9 @@ const MerchDetail = () => {
       let size = findElement(options, 'name', 'size')
       let color = findElement(options, 'name', 'color')
       let apparel = findElement(options, 'name', 'apparel')
+      let previewUrl = itemData.imageUrl
       let fosterUrl = findElement(options, 'name', 'fosterUrl')
-      let fosterUrlValue = fosterUrl.value
+      let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
       if (options) {
         let itemDetails = {
           print: nftName ? nftName['value'] : '',
@@ -118,6 +119,7 @@ const MerchDetail = () => {
         let size = findElement(options, 'name', 'size');
         let color = findElement(options, 'name', 'color')
         let fosterUrl = findElement(options, 'name', 'fosterUrl')
+        let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
         let quantity =  itemData.quantity
         if (options) {
@@ -126,7 +128,7 @@ const MerchDetail = () => {
             print: nftName ? nftName['value'] : '',
             size: size ? size['value'] : '',
             color: color ? color['value'] : '',
-            fosterUrl : fosterUrl ? fosterUrl['value'] : '',
+            fosterUrl : previewUrl ? previewUrl : fosterUrl['value'],
             apparel : apparel ? apparel['value'] : ''
           };
           itemList.push(itemDetails)
