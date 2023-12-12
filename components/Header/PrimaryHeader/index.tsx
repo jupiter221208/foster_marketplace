@@ -256,18 +256,19 @@ const PrimaryHeader = () => {
               </div>
             </div>
             <div className="flex items-center my-auto min-w-max gap-4">
-              {connected && (
-                <div onClick={() => router.push('/notifications')}>
-                  <NotificationIcon alt="" />
-                </div>
-              )}
+              <div className="flex">
+                {connected && (
+                  <div className="relative" onClick={() => router.push('/notifications')}>
+                    <NotificationIcon alt="" />
+                  </div>
+                )}
 
-              {connected && isNewNotification && (
-                <div onClick={() => router.push('/notifications')}>
-                  <Lottie animationData={NotifyAlarmIcon} loop={true} />
-                </div>
-              )}
-
+                {connected && isNewNotification && (
+                  <div className="absolute ml-[20px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                    <Lottie animationData={NotifyAlarmIcon} loop={true} />
+                  </div>
+                )}
+              </div>
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
