@@ -72,9 +72,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [merchCurrentPage, setMerchCurrentPage] = useState(1)
   const [merchRowCount, setMerchRowCount] = useState(12)
   const [merchTotalCount, setMerchTotalCount] = useState(0)
-  const [artistToEnd, setArtistToEnd] = useState(false)
-  const [collectorToEnd, setCollectorToEnd] = useState(false)
-  const [merchToEnd, setMerchToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
   const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
   const [isFetchingCreated, setIsFetchingCreated] = useState(false)
@@ -191,7 +188,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getMerchNftData = (id, row_count, current_page, refresh = false, reset = false) => {
-    if (merchToEnd) return
     artistsAPI.getMerchNfts(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
@@ -205,9 +201,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         else setMerchNfts([...merchNfts, ...response])
 
         setMerchCurrentPage(current_page)
-        if (response.length < row_count) {
-          setMerchToEnd(true)
-        }
       },
       error => {
         setIsLoaded(true)
@@ -219,12 +212,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getArtistData = (id, row_count, current_page, refresh = false, reset = false) => {
-    if (artistToEnd) return
-
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
         setIsFetchingCreated(false)
+
         if (isString(response)) return
         let artist = response.artist
 
@@ -237,16 +229,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
         else setIsVisibleFetchingCreated(false)
-
         if (reset === true) setCreatedNfts(response.nfts)
         else setCreatedNfts([...createdNfts, ...response.nfts])
 
         setArtistCurrentPage(current_page)
         setArtistTotalCount(response.total_nfts)
-        if (response.nfts.length < row_count) {
-          setArtistToEnd(true)
-        }
-
         setCollections(response.collections)
 
         if (categoryList.length === 0) setCategoryList(response.categories)
@@ -260,7 +247,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getCollectorData = (id, row_count, current_page, refresh = false, reset = false) => {
-    if (collectorToEnd) return
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
@@ -283,9 +269,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         else setCollectedNfts([...collectedNfts, ...response.nfts])
 
         setCollectorCurrentPage(current_page)
-        if (response.nfts.length < row_count) {
-          setCollectorToEnd(true)
-        }
       },
       error => {
         setIsLoaded(true)
