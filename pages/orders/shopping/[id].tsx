@@ -58,7 +58,7 @@ const OrderSection = props => {
       orderData.ssorder.items.forEach(itemData => {
         let type = findElement(itemData.options, 'name', 'type').value
         setMerchType(type)
-        let previewUrl = findElement(itemData.options, 'name', 'fosterUrl').value
+        let previewUrl = itemData.imageUrl
         let coverUrl = findElement(itemData.options, 'name', 'assetUrl').value
         imageArray.push({ previewUrl, coverUrl })
       })
