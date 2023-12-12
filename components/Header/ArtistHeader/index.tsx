@@ -297,36 +297,38 @@ const PrimaryHeader = () => {
             isScrollingTop ? 'top-0' : '-top-28'
           } transition-all`}
         >
-          <div className={styles.mobileContainer}>
-            <div className="g-container flex justify-between items-center">
-              <div className="flex">
-                <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                  <FosterNavLogo width={101} height={23} />
+          {isScrollingTop && (
+            <div className={styles.mobileContainer}>
+              <div className="g-container flex justify-between items-center">
+                <div className="flex">
+                  <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
+                    <FosterNavLogo width={101} height={23} />
+                  </div>
                 </div>
-              </div>
-              <div className="flex">
-                <div className="w-[39px] h-[39px] flex justify-center items-center">
-                  <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
-                </div>
-                <div>
-                  <IconButtonWithSVG
-                    icon={
-                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
-                        <path
-                          id="bars-2"
-                          d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
-                          transform="translate(-2 -6)"
-                          fill="var(--mint-btn-bg-1)"
-                        />
-                      </svg>
-                    }
-                    onClick={() => handleOpenMobileMenu()}
-                    backgroundColor="transparent"
-                  />
+                <div className="flex">
+                  <div className="w-[39px] h-[39px] flex justify-center items-center">
+                    <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+                  </div>
+                  <div>
+                    <IconButtonWithSVG
+                      icon={
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
+                          <path
+                            id="bars-2"
+                            d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
+                            transform="translate(-2 -6)"
+                            fill="var(--mint-btn-bg-1)"
+                          />
+                        </svg>
+                      }
+                      onClick={() => handleOpenMobileMenu()}
+                      backgroundColor="transparent"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
           {!isScrollTop && <div className={styles.divider} />}
         </div>
       )}
