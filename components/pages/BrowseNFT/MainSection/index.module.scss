@@ -241,6 +241,7 @@
   line-height: 18px;
   margin-top: 6px;
   padding: 8px 12px;
+  width: fit-content;
   @media (min-width: 1024px) {
     height: 56px;
     border-radius: 28px;
@@ -643,10 +644,14 @@
 }
 
 .editionContainer {
+  width: 100%;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 20px;
-  padding: 25px;
+  padding: 10px 25px 10px 25px;
   margin-top: 30px;
+  @media (min-width: 1280px) {
+    width: 50%;
+  }
 }
 
 .editionTitle {
@@ -744,10 +749,7 @@
 .subContainer {
   width: 100%;
   display: flex;
-  padding: 10px 35px 10px 35px;
-  @media (min-width: 1024px) {
-    padding: 10px 25px 10px 25px;
-  }
+  padding: 10px 25px 10px 25px;
 }
 .mainContainer {
   width: 100%;
@@ -778,7 +780,6 @@
   cursor: pointer;
 }
 .userName {
-  display: flex;
   font-size: 14px;
   font-family: 'Muli-Bold';
   color: var(--text-gray-200-color);
@@ -788,7 +789,6 @@
   }
 }
 .actionType {
-  display: flex;
   font-size: 14px;
   font-family: 'Muli-Regular';
   color: var(--text-gray-200-color);
@@ -834,4 +834,13 @@
     font-size: 14px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+.collectionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  @media (min-width: 1280px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

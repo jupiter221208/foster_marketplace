@@ -1060,45 +1060,48 @@ const MainSection = ({
                   </div>
                 )}
               </div>
-              {nftCollectionUrl.length > 0 && (
-                <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                  <div className={styles.collectionText}>Collection</div>
-                  <div
-                    className={styles.collectionName}
-                    onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
-                  >
-                    {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                      <Image
-                        src={nftCollectionImage}
-                        alt=""
-                        width={25}
-                        height={25}
-                        className="object-cover rounded-[4px]"
-                      />
-                    )}
-                    {nftCollectionName}
+              <div className={styles.collectionContainer}>
+                {nftCollectionUrl.length > 0 && (
+                  <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                    <div className={styles.collectionText}>Collection</div>
+                    <div
+                      className={styles.collectionName}
+                      onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
+                    >
+                      {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                        <Image
+                          src={nftCollectionImage}
+                          alt=""
+                          width={25}
+                          height={25}
+                          className="object-cover rounded-[4px]"
+                        />
+                      )}
+                      {nftCollectionName}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-            {editionDetail && (
-              <div className={styles.editionContainer}>
-                <div className="w-full flex justify-between">
-                  <div className={styles.editionTitle}>Token Type</div>
-                  <div className={styles.editionValue}>
-                    {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                )}
+                {editionDetail && (
+                  <div className={styles.editionContainer}>
+                    <div className="w-full flex justify-between">
+                      <div className={styles.editionTitle}>Token Type</div>
+                      <div className={styles.editionValue}>
+                        {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                      </div>
+                    </div>
+                    <div className="w-full flex justify-between mt-[15px]">
+                      <div className={styles.editionTitle}>Editon Number</div>
+                      <div className={styles.editionValue}>{editionDetail['number']}</div>
+                    </div>
+                    <div className="w-full flex justify-between mt-[15px]">
+                      <div className={styles.editionTitle}>Edition Supply</div>
+                      <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="w-full flex justify-between mt-[15px]">
-                  <div className={styles.editionTitle}>Editon Number</div>
-                  <div className={styles.editionValue}>{editionDetail['number']}</div>
-                </div>
-                <div className="w-full flex justify-between mt-[15px]">
-                  <div className={styles.editionTitle}>Edition Supply</div>
-                  <div className={styles.editionValue}>{editionDetail['supply']}</div>
-                </div>
+                )}
               </div>
-            )}
+            </div>
+
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>
@@ -1218,7 +1221,7 @@ const MainSection = ({
               ) : liveAuction === true ? (
                 <>
                   <div
-                    className={`mt-10 w-full ${
+                    className={`mt-6 w-full ${
                       showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
                     } relative`}
                   >
@@ -1359,7 +1362,7 @@ const MainSection = ({
                 <div></div>
               )}
 
-              <div className={'mt-10 w-full h-[180px] lg:h-[200px] relative'}>
+              <div className={'mt-6 w-full h-[180px] lg:h-[200px] relative'}>
                 <div className={styles.activityContainer}>
                   <div className={styles.selectedTab}>
                     <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
@@ -1418,51 +1421,49 @@ const MainSection = ({
                         return (
                           <div className={styles.subContainer} key={index}>
                             <div className="w-full flex flex-col">
-                              <div className="w-full flex flex-row">
-                                {item.action_type === 'AuctionStarted' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.owner_username}</div>
-                                    <div className={styles.actionType}>&nbsp;published an auction</div>
-                                  </>
-                                ) : item.action_type === 'AuctionCancelled' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.owner_username}</div>
-                                    <div className={styles.actionType}>&nbsp;cancelled auction</div>
-                                  </>
-                                ) : item.action_type === 'ListingAdded' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.owner_username}</div>
-                                    <div className={styles.actionType}>&nbsp;listed artwork for sale</div>
-                                  </>
-                                ) : item.action_type === 'ListingCancelled' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.owner_username}</div>
-                                    <div className={styles.actionType}>&nbsp;removed listing</div>
-                                  </>
-                                ) : item.action_type === 'OfferCancelled' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.reference_username}</div>
-                                    <div className={styles.actionType}>&nbsp;cancelled their offer</div>
-                                  </>
-                                ) : item.action_type === 'OfferMade' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.reference_username}</div>
-                                    <div className={styles.actionType}>&nbsp;made an offer</div>
-                                  </>
-                                ) : item.action_type === 'BidPlaced' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.reference_username}</div>
-                                    <div className={styles.actionType}>&nbsp;placed a bid</div>
-                                  </>
-                                ) : item.action_type === 'QuickBuy' ? (
-                                  <>
-                                    <div className={styles.userName}>{item.reference_username}</div>
-                                    <div className={styles.actionType}>&nbsp;purchased artwork</div>
-                                  </>
-                                ) : (
-                                  ''
-                                )}
-                              </div>
+                              {item.action_type === 'AuctionStarted' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span>&nbsp;published an auction</span>
+                                </div>
+                              ) : item.action_type === 'AuctionCancelled' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span>&nbsp;cancelled auction</span>
+                                </div>
+                              ) : item.action_type === 'ListingAdded' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span>&nbsp;listed artwork for sale</span>
+                                </div>
+                              ) : item.action_type === 'ListingCancelled' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span>&nbsp;removed listing</span>
+                                </div>
+                              ) : item.action_type === 'OfferCancelled' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span>&nbsp;cancelled their offer</span>
+                                </div>
+                              ) : item.action_type === 'OfferMade' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span>&nbsp;made an offer</span>
+                                </div>
+                              ) : item.action_type === 'BidPlaced' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span>&nbsp;placed a bid</span>
+                                </div>
+                              ) : item.action_type === 'QuickBuy' ? (
+                                <div className={styles.actionType}>
+                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span>&nbsp;purchased artwork</span>
+                                </div>
+                              ) : (
+                                ''
+                              )}
                               <div className={styles.dateValue}>{formattedDate}</div>
                             </div>
                             <div className="w-fit-content flex flex-col">
