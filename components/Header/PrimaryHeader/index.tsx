@@ -262,12 +262,6 @@ const PrimaryHeader = () => {
                 </div>
               )}
 
-              {!connected && isNewNotification && (
-                <div onClick={() => router.push('/notifications')}>
-                  <Lottie animationData={NotifyAlarmIcon} loop={true} />
-                </div>
-              )}
-
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}

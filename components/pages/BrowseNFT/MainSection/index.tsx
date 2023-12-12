@@ -1366,7 +1366,7 @@ const MainSection = ({
                   </div>
                   <div className={styles.mainContainer}>
                     {activeTab === 0 && (
-                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] py-[15px] gap-6">
+                      <div className="w-full flex flex-wrap flex-column space-between px-[35px] gap-6">
                         {nftDescription ? (
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                         ) : (

@@ -769,16 +769,16 @@ const MainSection = prop => {
             <div className={styles.grayText}>Following</div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10 px-[20px]">
-        {artistInfo?.bio && (
-          <span className={styles.description}>
-            {artistInfo?.bio}
-            {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+        <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
+          {artistInfo?.bio && (
+            <span className={styles.description}>
+              {artistInfo?.bio}
+              {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span> */}
-          </span>
-        )}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
