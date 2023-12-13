@@ -292,11 +292,7 @@ const PrimaryHeader = () => {
           </nav>
         </div>
       ) : (
-        <div
-          className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
-            isScrollingTop ? 'top-0' : '-top-28'
-          } transition-all`}
-        >
+        <div className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}>
           {isScrollingTop && (
             <div className={styles.mobileContainer}>
               <div className="g-container flex justify-between items-center">
@@ -329,7 +325,7 @@ const PrimaryHeader = () => {
               </div>
             </div>
           )}
-          {!isScrollTop && <div className={styles.divider} />}
+          <div className={styles.divider} />
         </div>
       )}
     </div>
