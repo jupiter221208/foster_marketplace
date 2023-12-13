@@ -225,3 +225,30 @@
   color: var(--main-bg-color);
   text-align: center;
 }
+
+.coverImgMsg {
+  color: var(--scroll-arrow-color);
+  h6 {
+    font-size: 18px;
+    font-weight: 700;
+    span {
+      color: var(--primary-btn-bg-right);
+    }
+  }
+}
+
+.coverBtnBox {
+  margin-top: 20px;
+  color: var(--primary-btn-bg-right);
+  fill: var(--primary-btn-bg-right);
+  display: flex;
+  gap: 24px;
+  button {
+    border-radius: 10px;
+    display: flex;
+    gap: 0.5rem;
+    padding: 16px 21px;
+    align-items: center;
+    background-color: rgba(var(--main-bg-color-rgb), 0.05);
+  }
+}

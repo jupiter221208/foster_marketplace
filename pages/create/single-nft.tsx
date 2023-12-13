@@ -45,6 +45,8 @@ import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 
 // styles
+import ImageIcon from 'assets/icons/image-icon.svg?component'
+import ShareIcon from 'assets/icons/share-icon.svg?component'
 import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
@@ -708,6 +710,27 @@ const SingleNft = () => {
                           setNftArt={item => handleChangeNftArt(item)}
                           setNftCover={item => handleChangeNftCover(item)}
                         />
+                        {nftType === 'vr' && (
+                          <>
+                            <div className={styles.coverImgMsg}>
+                              <h6>
+                                Cover Photo <span>*</span>
+                              </h6>
+                              <p>
+                                Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+                              </p>
+                            </div>
+
+                            <div className={styles.coverBtnBox}>
+                              <button>
+                                <ImageIcon /> Take Snapshot
+                              </button>
+                              <button>
+                                <ShareIcon /> Upload Photo
+                              </button>
+                            </div>
+                          </>
+                        )}
                       </>
                     )}
                     {currentStep === 2 && (
