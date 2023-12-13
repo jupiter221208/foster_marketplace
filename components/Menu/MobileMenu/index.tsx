@@ -122,7 +122,7 @@ const MobileMenu = () => {
               type="avatar"
               data={profileMenuList}
             />
-            <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" />
+            <AccordionMenu label="Merch Hub" type="studio" data={[]} path="/studio" />
             <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
