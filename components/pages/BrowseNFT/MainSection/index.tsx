@@ -1155,7 +1155,7 @@ const MainSection = ({
                           icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
                           fontFamily="Muli-SemiBold"
-                          fontSize={16}
+                          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                           height={50}
                           disabled={!tradeStateAddress}
                         />
@@ -1180,6 +1180,7 @@ const MainSection = ({
                         gap="4px"
                         fullWidth
                         height={50}
+                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                         borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       />
                     </div>

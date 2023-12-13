@@ -62,15 +62,15 @@ const AuctionCard = props => {
           <div className={styles.grayText}>
             {auctionStarted === true ? 'Ends in' : auctionStarted === false ? 'Starts in' : ''}
           </div>
-          {timeLeft['days'] !== '00' && (
+          {timeLeft && timeLeft['days'] !== '00' && (
             <div className="flex block justify-center gap-[2px]">
               <div className={styles.whiteText}>{timeLeft['days']}</div>
               <div className={styles.grayText}>d</div>
             </div>
           )}
-          {timeLeft['hours'] !== '00' && (
+          {timeLeft && timeLeft['hours'] !== '00' && (
             <div className="flex block justify-center gap-[2px]">
-              <div className={styles.whiteText}>{timeLeft && timeLeft['hours']}</div>
+              <div className={styles.whiteText}>{timeLeft['hours']}</div>
               <div className={styles.grayText}>h</div>
             </div>
           )}
