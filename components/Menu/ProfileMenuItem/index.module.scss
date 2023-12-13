@@ -1,11 +1,12 @@
 @import 'assets/scss/variable.module.scss';
 
 .menuItem {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  width: 100%;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
@@ -15,15 +16,40 @@
   white-space: nowrap;
   border: 1px solid transparent;
   &:hover {
-    @media (min-width: 1024px) {
-      background-color: var(--profile-menu-item-bg);
-    }
+    color: var(--main-icon-color);
+  }
+  &:hover .iconStroke {
+    stroke: var(--main-icon-color);
+  }
+  &:hover .iconFill {
+    fill: var(--main-icon-color);
+  }
+  .iconStroke {
+    overflow: visible;
+    stroke: var(--main-bg-color);
+  }
+  .iconFill {
+    margin-top: 5px;
+    transform: scale(0.7);
+    overflow: visible;
+    fill: var(--main-bg-color);
   }
 }
 
 .imageArea {
-  width: 24px;
-  height: 24px;
+  width: 100%;
+  height: 100%;
   border-radius: 14px;
   border: 2px solid var(--brand-09-color);
+}
+
+.username {
+  display: block;
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--main-bg-color);
+  &:hover {
+    color: var(--brand-09-color);
+  }
 }

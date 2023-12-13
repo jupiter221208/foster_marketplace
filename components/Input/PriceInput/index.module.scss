@@ -1,7 +1,6 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 540px;
   min-width: 100px;
   width: 100%;
   @media (min-width: 1024px) {
@@ -42,4 +41,10 @@
   line-height: 24px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   cursor: pointer;
+}
+
+.buttonText {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--place-bid-minimum-color);
 }

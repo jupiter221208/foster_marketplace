@@ -117,7 +117,7 @@ export interface OrderData {
     artist_commission: number
     tax_amount: number
     shipping_amount: number
-    seller_shares: any
+    seller_shares: Record<string, number>
     buyer_address: string
   }
   ssorder: ShipStationOrder

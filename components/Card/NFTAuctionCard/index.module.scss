@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   height: 100%;
-  background: var(--collection-card-bg);
+  background: var(--background-main-color);
   border-radius: 17px;
   padding: 9px;
   border: 1px solid var(--nft-border-color);
@@ -194,11 +194,12 @@
   font-size: 10px;
   line-height: 10px;
   @media (min-width: 1024px) {
-    font-size: 16px;
+    font-family: 'Muli-Regular';
+    font-size: 18px;
     line-height: 20px;
   }
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: var(--primary-btn-bg-right);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -229,7 +230,7 @@
     font-family: 'Muli-SemiBold';
     margin-top: 0px;
     margin-left: 7px;
-    font-size: 18px;
+    font-size: 22px;
     line-height: 24px;
   }
   letter-spacing: 0;
@@ -242,7 +243,7 @@
   line-height: 13px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
-    font-size: 18px;
+    font-size: 22px;
     line-height: 24px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
@@ -255,7 +256,7 @@
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
-    font-size: 18px;
+    font-size: 22px;
     line-height: 24px;
   }
 }

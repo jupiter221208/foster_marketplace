@@ -8,7 +8,6 @@ import Head from 'next/head'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -44,10 +43,10 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
-  const [collectionData, setCollectionData] = useState(publicCollectionData)
+  const [collectionData, setCollectionData] = useState()
   const [nfts, setNfts] = useState([])
   const [loaded, setLoaded] = useState(false)
-  const address = collectionData?.collection_id
+  const address = publicCollectionData?.collection_id
 
   useEffect(() => {
     setTimeout(
@@ -63,6 +62,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   useEffect(() => {
     ;(async () => {
+      setCollectionData(publicCollectionData)
+
       if (!address) return
       try {
         setLoaded(false)
@@ -71,11 +72,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           setNfts(collectionNfts)
           dispatch({ type: 'set', isLoading: false })
         }
-
-        // if (isLoggedIn()) {
-        //   let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
-        //   setOtherList(otherCollections)
-        // }
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -91,10 +87,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     })()
   }, [connected, loginAndRefresh])
 
-  let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
-  let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
-  let collectionDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+  let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`
+  let collectionImageUrl = getAbsoluteOgUrl(publicCollectionData?.cover_image ?? DefaultNftBG.src)
+  let collectionDescription = publicCollectionData?.description ?? ''
 
   return (
     <div className="w-full">
@@ -121,8 +116,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
             <TabSection
               nfts={nfts}
               collectionId={address}
-              collectionName={collectionData?.collection_name}
-              artistName={collectionData?.artist_username}
+              collectionName={publicCollectionData?.collection_name}
+              artistName={publicCollectionData?.artist_username}
             />
           </div>
         </div>

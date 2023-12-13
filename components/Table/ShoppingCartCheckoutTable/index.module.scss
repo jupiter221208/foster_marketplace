@@ -1,0 +1,18 @@
+@import 'assets/scss/variable.module.scss';
+
+.value {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 23px;
+  color: var(--text-gray-200-color);
+}
+.tableColor {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  max-height: 200px;
+  height: fit-content;
+  border-radius: 15px;
+  background: var(--order-table-color);
+}

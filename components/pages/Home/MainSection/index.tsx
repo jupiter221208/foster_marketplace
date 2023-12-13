@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper'
+import { EffectCoverflow, Pagination, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -42,9 +42,16 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
+  const [isSwiperShow, SetIsSwiperShow] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
+  }
+
+  const swiperInit = () => {
+    setTimeout(() => {
+      SetIsSwiperShow(true)
+    }, 500)
   }
 
   useEffect(() => {
@@ -116,13 +123,9 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination]}
+                  modules={[Pagination]}
                   className={'heroSwiperMobile'}
                   loop
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
@@ -140,6 +143,7 @@ const MainSection = () => {
             style={{
               width: '100%',
               marginLeft: '0px',
+              opacity: isSwiperShow ? 1 : 0,
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
@@ -153,12 +157,9 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination, Navigation]}
+                  modules={[Pagination, Navigation]}
                   className={'heroNavigationSwiper'}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
+                  onInit={swiperInit}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>

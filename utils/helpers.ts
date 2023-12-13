@@ -529,6 +529,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-generative-color', '#FFFFFF')
     doc.style.setProperty('--size-chart-modal-title', '#F3F2F0')
     doc.style.setProperty('--table-header-color', '#573A01')
+    doc.style.setProperty('--order-table-color', 'rgba(32, 36, 39, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#FFFFFF')
+    doc.style.setProperty('--selected-tab-color', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--place-bid-color', '#EBEAE8')
+    doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--selected-tab-border-color', '#DDDCDC')
+    doc.style.setProperty('--place-bid-minimum-color', '#242424')
+    doc.style.setProperty('--place-bid-minvalue-color', '#242424')
 
     // =====================================================
     // =====================================================
@@ -827,5 +835,13 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-generative-color', '#2F2F2F')
     doc.style.setProperty('--size-chart-modal-title', '#242424')
     doc.style.setProperty('--table-header-color', '#242424')
+    doc.style.setProperty('--order-table-color', 'rgba(239, 240, 246, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#95DBD5')
+    doc.style.setProperty('--selected-tab-color', 'rgba(150, 163, 236, 0.05)')
+    doc.style.setProperty('--selected-tab-border-color', '#303030')
+    doc.style.setProperty('--place-bid-color', '#232323')
+    doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--place-bid-minimum-color', '#95DBD5')
+    doc.style.setProperty('--place-bid-minvalue-color', '#eff0f6')
   }
 }

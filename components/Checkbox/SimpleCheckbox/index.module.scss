@@ -1,0 +1,62 @@
+@import 'assets/scss/variable.module.scss';
+
+.checkbox {
+  appearance: none;
+  border: 1px solid var(--text-gray-200-color);
+  background-color: transparent;
+  &:checked {
+    border: 1px solid var(--checkbox-border-color);
+    // border-color: var(--checkbox-bg-color);
+    position: relative;
+    &:before {
+      content: '';
+      background-color: transparent;
+      /* position the checkbox */
+      position: absolute;
+      left: 4px;
+      bottom: 3px;
+
+      /* setting the checkbox */
+      /* short arm */
+      width: 7px;
+      border-bottom: 1px solid var(--checkbox-border-color);
+      /* long arm */
+      height: 12px;
+      border-right: 1px solid var(--checkbox-border-color);
+
+      /* rotate the mirrored L to make it a checkbox */
+      transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+  vertical-align: top;
+  cursor: pointer;
+  width: 17px;
+  height: 17px;
+}
+
+.checkmark {
+  cursor: pointer;
+  font-family: 'Muli-Regular';
+  flex: 1;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  letter-spacing: 0;
+}
+
+.label {
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.selected {
+  color: rgba(var(--text-gray-200-color-rgb), 1) !important;
+}
