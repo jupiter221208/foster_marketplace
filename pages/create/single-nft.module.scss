@@ -244,11 +244,14 @@
   display: flex;
   gap: 24px;
   button {
-    border-radius: 10px;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
     display: flex;
     gap: 0.5rem;
     padding: 16px 21px;
     align-items: center;
+    justify-content: center;
     background-color: rgba(var(--main-bg-color-rgb), 0.05);
   }
 }

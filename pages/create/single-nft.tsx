@@ -948,11 +948,32 @@ const SingleNft = () => {
                       The file you have uploaded will be viewable in 3D on the NFT page after being minted.
                     </span>
                   )}
-                  <Step01SingleNFTSection
-                    nftType={nftType}
-                    setNftArt={item => handleChangeNftArt(item)}
-                    setNftCover={item => handleChangeNftCover(item)}
-                  />
+                  <>
+                    <Step01SingleNFTSection
+                      nftType={nftType}
+                      setNftArt={item => handleChangeNftArt(item)}
+                      setNftCover={item => handleChangeNftCover(item)}
+                    />
+                    {nftType === 'vr' && (
+                      <>
+                        <div className={styles.coverImgMsg}>
+                          <h6>
+                            Cover Photo <span>*</span>
+                          </h6>
+                          <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                        </div>
+
+                        <div className={styles.coverBtnBox}>
+                          <button>
+                            <ImageIcon /> Take Snapshot
+                          </button>
+                          <button>
+                            <ShareIcon /> Upload Photo
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </>
                 </>
               )}
 
