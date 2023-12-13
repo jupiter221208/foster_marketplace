@@ -3,15 +3,14 @@ import React from 'react'
 // styles
 import styles from './index.module.scss'
 
-import SearchGrayIcon from 'assets/icons/search-gray.svg'
-import Image from 'next/image'
+import SearchGrayIcon from 'assets/icons/search-gray.svg?component'
 
 const FollowSearchBox = props => {
   const { value, onChange } = props
   return (
     <div className={styles.container}>
       <div className={styles.iconArea}>
-        <Image src={SearchGrayIcon} alt="" />
+        <SearchGrayIcon className="cursor-pointer" />
       </div>
       <input
         className={styles.inputArea}

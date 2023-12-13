@@ -186,11 +186,19 @@ const MainSection = () => {
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
-              <GradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
+              <GradientButton
+                width={88}
+                fontSize={16}
+                fontFamily="Muli-SemiBold"
+                label="Explore"
+                onClick={() => router.push('/explore')}
+              />
               <OutlineButton
                 label="Create"
                 borderWidth={2}
                 width={88}
+                fontSize={16}
+                fontFamily="Muli-SemiBold"
                 borderColor={'var(--see-more-border)'}
                 onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />

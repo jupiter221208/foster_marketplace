@@ -15,15 +15,25 @@
 
 .modalView {
   width: 100%;
+
   max-width: 488px;
   background-color: var(--modal-bg-color);
   border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
-  border-radius: 30px;
   padding: 35px 24px 30px 24px;
   @media (min-width: 1024px) {
     padding: 35px 30px 30px 30px;
+    border-radius: 30px;
   }
-
+  @media (max-width: 768px) {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    z-index: 9999;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -120,6 +130,9 @@
   line-height: 24px;
   color: var(--text-gray-200-color);
   text-align: center;
+  @media (max-width: 1024px) {
+    margin-bottom: 130px;
+  }
 }
 
 .termService {

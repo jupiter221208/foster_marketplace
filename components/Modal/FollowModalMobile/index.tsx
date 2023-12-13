@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 import artistsAPI from 'apis/artists'
 import FollowSearchBox from 'components/Input/FollowSearchBox'
 import FollowTab from 'components/Tab/FollowTab'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const FollowModalMobile = props => {
   const { open, close, ownWallet, type, wallet, username } = props
@@ -37,6 +38,8 @@ const FollowModalMobile = props => {
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any>(TabList)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -79,17 +82,22 @@ const FollowModalMobile = props => {
   const [searchKey, setSearchKey] = useState('')
 
   useEffect(() => {
-    if (open) {
-      reloadFollowing()
-    }
+    setIsLoading(true)
+    setTimeout(() => {
+      if (open) {
+        reloadFollowing()
+      }
+    }, 2000)
   }, [open])
 
   const reloadFollowing = () => {
     artistsAPI.getFollowers(wallet).then(response => {
+      setIsLoading(false)
       setFilterFollowersList(response)
       setFollowersList(response)
     })
     artistsAPI.getFollowings(wallet).then(response => {
+      setIsLoading(false)
       setFilterFollowingList(response)
       setFollowingList(response)
     })
@@ -184,77 +192,30 @@ const FollowModalMobile = props => {
                     <FollowSearchBox value={searchKey} onChange={value => onSearch(value)} />
                   </div>
 
-                  <div className="w-full h-[calc(100%-220px)] flex justify-between items-start mt-4 overflow-auto">
-                    {activeTab === 0 && (
-                      <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
-                        {filterFollowersList.map((item, index) => (
-                          <div
-                            className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
-                            key={index}
-                          >
-                            <div className="flex gap-3 items-center">
-                              <div className={styles.avatarArea}>
-                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
-                                  <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
-                                ) : (
-                                  <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
-                                    <Image src={DefaultAvatar} alt="" />
-                                  </div>
-                                )}
-                              </div>
+                  {isLoading ? (
+                    <div className="mt-[100px]">
+                      <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+                    </div>
+                  ) : (
+                    <div className="w-full h-[calc(100%-220px)] flex justify-between items-start mt-4 overflow-auto">
+                      {activeTab === 0 && (
+                        <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
+                          {filterFollowersList.map((item, index) => (
+                            <div
+                              className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
+                              key={index}
+                            >
+                              <div className="flex gap-3 items-center">
+                                <div className={styles.avatarArea}>
+                                  {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                    <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                  ) : (
+                                    <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
+                                      <Image src={DefaultAvatar} alt="" />
+                                    </div>
+                                  )}
+                                </div>
 
-                              <div
-                                className={styles.username}
-                                onClick={() => {
-                                  router.push(`/${item.username}`)
-                                  close()
-                                }}
-                              >
-                                {item.username}
-                                {ownWallet === wallet && <div className={styles.text}>is following you</div>}
-                              </div>
-                            </div>
-                            {ownWallet !== item.wallet_id && (
-                              <div className="w-[90px] lg:w-[122px]">
-                                {item.following === false ? (
-                                  <PositiveButton
-                                    label="Follow"
-                                    onClick={() => {
-                                      followArtist(item.wallet_id)
-                                    }}
-                                  />
-                                ) : (
-                                  <NegativeButton
-                                    label="Following"
-                                    onClick={() => {
-                                      unfollowArtist(item.wallet_id)
-                                    }}
-                                  />
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                    {activeTab === 1 && (
-                      <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
-                        {filterFollowingList.map((item, index) => (
-                          <div
-                            className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
-                            key={index}
-                          >
-                            <div className="flex gap-3 items-center">
-                              <div className={styles.avatarArea}>
-                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
-                                  <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
-                                ) : (
-                                  <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
-                                    <Image src={DefaultAvatar} alt="" />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="flex">
                                 <div
                                   className={styles.username}
                                   onClick={() => {
@@ -263,33 +224,86 @@ const FollowModalMobile = props => {
                                   }}
                                 >
                                   {item.username}
+                                  {ownWallet === wallet && <div className={styles.text}>is following you</div>}
                                 </div>
                               </div>
+                              {ownWallet !== item.wallet_id && (
+                                <div className="w-[90px] lg:w-[122px]">
+                                  {item.following === false ? (
+                                    <PositiveButton
+                                      label="Follow"
+                                      onClick={() => {
+                                        followArtist(item.wallet_id)
+                                      }}
+                                    />
+                                  ) : (
+                                    <NegativeButton
+                                      label="Following"
+                                      onClick={() => {
+                                        unfollowArtist(item.wallet_id)
+                                      }}
+                                    />
+                                  )}
+                                </div>
+                              )}
                             </div>
-                            {ownWallet !== item.wallet_id && (
-                              <div className="w-24 lg:w-[146px]">
-                                {item.following === false ? (
-                                  <PositiveButton
-                                    label="Follow"
+                          ))}
+                        </div>
+                      )}
+                      {activeTab === 1 && (
+                        <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
+                          {filterFollowingList.map((item, index) => (
+                            <div
+                              className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
+                              key={index}
+                            >
+                              <div className="flex gap-3 items-center">
+                                <div className={styles.avatarArea}>
+                                  {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                    <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                  ) : (
+                                    <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
+                                      <Image src={DefaultAvatar} alt="" />
+                                    </div>
+                                  )}
+                                </div>
+                                <div className="flex">
+                                  <div
+                                    className={styles.username}
                                     onClick={() => {
-                                      followArtist(item.wallet_id)
+                                      router.push(`/${item.username}`)
+                                      close()
                                     }}
-                                  />
-                                ) : (
-                                  <NegativeButton
-                                    label="Following"
-                                    onClick={() => {
-                                      unfollowArtist(item.wallet_id)
-                                    }}
-                                  />
-                                )}
+                                  >
+                                    {item.username}
+                                  </div>
+                                </div>
                               </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                              {ownWallet !== item.wallet_id && (
+                                <div className="w-24 lg:w-[146px]">
+                                  {item.following === false ? (
+                                    <PositiveButton
+                                      label="Follow"
+                                      onClick={() => {
+                                        followArtist(item.wallet_id)
+                                      }}
+                                    />
+                                  ) : (
+                                    <NegativeButton
+                                      label="Following"
+                                      onClick={() => {
+                                        unfollowArtist(item.wallet_id)
+                                      }}
+                                    />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>
