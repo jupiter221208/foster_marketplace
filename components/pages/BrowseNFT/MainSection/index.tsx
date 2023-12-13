@@ -1338,12 +1338,16 @@ const MainSection = ({
                       borderColor="#707070"
                       borderWidth="2"
                       fullWidth
+                      fontFamily="Muli-SemiBold"
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                     />
                     <GradientButton
                       label={'List NFT'}
                       fullWidth
                       onClick={() => setShowListNFTModal(true)}
                       direction="rtl"
+                      fontFamily="Muli-SemiBold"
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                     />
                   </div>
                 ) : isOwnNft === false ? (
@@ -1425,42 +1429,98 @@ const MainSection = ({
                             <div className="w-full flex flex-col">
                               {item.action_type === 'AuctionStarted' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.owner_username}`)
+                                    }}
+                                  >
+                                    {item.owner_username}
+                                  </span>
                                   <span>&nbsp;published an auction</span>
                                 </div>
                               ) : item.action_type === 'AuctionCancelled' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.owner_username}`)
+                                    }}
+                                  >
+                                    {item.owner_username}
+                                  </span>
                                   <span>&nbsp;cancelled auction</span>
                                 </div>
                               ) : item.action_type === 'ListingAdded' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.owner_username}`)
+                                    }}
+                                  >
+                                    {item.owner_username}
+                                  </span>
                                   <span>&nbsp;listed artwork for sale</span>
                                 </div>
                               ) : item.action_type === 'ListingCancelled' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.owner_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.owner_username}`)
+                                    }}
+                                  >
+                                    {item.owner_username}
+                                  </span>
                                   <span>&nbsp;removed listing</span>
                                 </div>
                               ) : item.action_type === 'OfferCancelled' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.reference_username}`)
+                                    }}
+                                  >
+                                    {item.reference_username}
+                                  </span>
                                   <span>&nbsp;cancelled their offer</span>
                                 </div>
                               ) : item.action_type === 'OfferMade' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.reference_username}`)
+                                    }}
+                                  >
+                                    {item.reference_username}
+                                  </span>
                                   <span>&nbsp;made an offer</span>
                                 </div>
                               ) : item.action_type === 'BidPlaced' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.reference_username}`)
+                                    }}
+                                  >
+                                    {item.reference_username}
+                                  </span>
                                   <span>&nbsp;placed a bid</span>
                                 </div>
                               ) : item.action_type === 'QuickBuy' ? (
                                 <div className={styles.actionType}>
-                                  <span className={styles.userName}>{item.reference_username}</span>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.reference_username}`)
+                                    }}
+                                  >
+                                    {item.reference_username}
+                                  </span>
                                   <span>&nbsp;purchased artwork</span>
                                 </div>
                               ) : (
@@ -1475,8 +1535,12 @@ const MainSection = ({
                                 <></>
                               ) : (
                                 <>
-                                  <div className="w-fit-content flex flex-row justify-end items-center">
-                                    <SolanaLogoIcon />
+                                  <div className="w-fit-content h-4 lg:h-[25px] flex flex-row justify-end items-center">
+                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                      <SolanaLogoMobileIcon alt="" />
+                                    ) : (
+                                      <SolanaLogoIcon className="mt-[2px]" alt="" />
+                                    )}
                                     <div className={styles.userName}>&nbsp;{item.amount}</div>
                                   </div>
                                   <div className={styles.usdValue}>
