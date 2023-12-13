@@ -12,6 +12,7 @@ const GradientButton = props => {
     onClick,
     fullWidth,
     color,
+    backgroundColor,
     backgroundColor01 = 'var(--primary-btn-bg-right)',
     backgroundColor02 = 'var(--primary-btn-bg-left)',
     width = '',
@@ -40,7 +41,9 @@ const GradientButton = props => {
       style={{
         width: fullWidth ? '100%' : width,
         color: color,
-        background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
+        background: backgroundColor
+          ? 'var(--primary-btn-bg-right)'
+          : `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
         fontFamily: fontFamily,
         fontSize: fontSize,

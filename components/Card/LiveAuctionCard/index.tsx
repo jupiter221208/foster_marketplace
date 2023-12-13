@@ -78,7 +78,7 @@ const LiveAuctionCard = props => {
                         className="w-full h-full absolute"
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
-                <source src=${data.asset_url} type="video/mp4" /></video>`,
+              <source src=${data.asset_url} type="video/mp4" /></video>`,
                         }}
                         onClick={() => onClick()}
                       />

@@ -94,9 +94,9 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       let itemQuantity = item.quantity
 
       let options = item.options
+      var fosterUrl = item.imageUrl
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
-      var fosterUrl = findElement(options, 'name', 'fosterUrl')['value']
       var name = item.name
       var apparel = findElement(options, 'name', 'apparel')['value']
       var size = findElement(options, 'name', 'size')['value']

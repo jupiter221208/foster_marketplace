@@ -85,6 +85,10 @@ const TabSection = props => {
       setArtistEnable(false)
       setMerchEnable(true)
       setCollectorEnable(false)
+    } else if (activeTab === 3) {
+      setArtistEnable(false)
+      setMerchEnable(false)
+      setCollectorEnable(true)
     } else if (activeTab === 4) {
       setShowCollections(collections.slice(0, rowCount))
       setIsFetching(false)

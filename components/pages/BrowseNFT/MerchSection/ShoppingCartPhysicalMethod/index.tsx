@@ -191,6 +191,8 @@ const ShoppingCartPhysicalShippingMethod = props => {
       //   }
       //   console.log('item==========', item)
       // })
+      const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+
       item = printData.map((itemData, index) => {
         const { apparel, gender, quality, color, print, quantity, size } = itemData
         let item_id = apparel[gender.type][quality.type][color.type].item_id
@@ -198,11 +200,11 @@ const ShoppingCartPhysicalShippingMethod = props => {
         return {
           id: item_id.toString(),
           quantity,
-          previewUrl: printImageUrl,
+          previewUrl: apparelData[index].printImageUrl,
           options: {
             type: 'apparel',
             nftName: apparelData[index].nftName,
-            fosterUrl: apparelData[index].printImageUrl,
+            fosterUrl: `${origin}/nft/${apparelData[index].mintAddress}`,
             assetUrl: apparelData[index].nftCoverUrl,
             nftAddress: apparelData[index].mintAddress,
             apparel: apparel.description,

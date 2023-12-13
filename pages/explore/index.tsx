@@ -539,7 +539,7 @@ const Explore = () => {
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
-              <div className="hidden lg:flex max-w-[280px] min-w-[280px] w-full z-20">
+              <div className="hidden lg:flex max-w-[280px] xl:min-w-[280px] xl:w-full z-20">
                 <Select
                   data={sortData}
                   selected={selectedSort}

@@ -24,6 +24,7 @@ import artistsAPI from 'apis/artists'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
 import FollowTab from 'components/Tab/FollowTab'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const FollowModal = props => {
   const { open, close, ownWallet, type, wallet } = props
@@ -35,6 +36,8 @@ const FollowModal = props => {
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any>(TabList)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -70,22 +73,28 @@ const FollowModal = props => {
   const [followingList, setFollowingList] = useState([])
 
   useEffect(() => {
-    if (open) {
-      reloadFollowing()
-    }
+    setIsLoading(true)
+    setTimeout(() => {
+      if (open) {
+        reloadFollowing()
+      }
+    }, 2000)
   }, [open])
 
   const reloadFollowing = () => {
     artistsAPI.getFollowers(wallet).then(response => {
+      setIsLoading(false)
       setFollowersList(response)
     })
     artistsAPI.getFollowings(wallet).then(response => {
+      setIsLoading(false)
       setFollowingList(response)
     })
   }
 
   const followArtist = wallet => {
     artistsAPI.followArtist(wallet).then(response => {
+      setIsLoading(false)
       if (response && response.followed_wallet_id) {
         let new_list = []
         if (activeTab === 0) {
@@ -107,6 +116,7 @@ const FollowModal = props => {
 
   const unfollowArtist = wallet => {
     artistsAPI.unfollowArtist(wallet).then(response => {
+      setIsLoading(false)
       let new_list = []
       if (activeTab === 0) {
         new_list = [...followersList]
@@ -260,6 +270,9 @@ const FollowModal = props => {
                         </div>
                       </div>
                     )}
+                    <div className="mb-[400px] mr-[50px]">
+                      {isLoading && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
