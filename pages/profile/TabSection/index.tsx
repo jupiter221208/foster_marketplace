@@ -119,7 +119,7 @@ const TabSection = props => {
       setMerchEnable(false)
       setCollectorEnable(false)
     }
-  }, [activeTab])
+  }, [activeTab, artworkType])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -192,12 +192,13 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full">
-          <div className="w-full flex mt-5 gap-4">
+          <div className="w-full flex overflow-x-scroll no-scrollbar mt-5 gap-2 lg:gap-4">
             <TimeSlotButton
               label="All"
+              width={50}
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'all' ? '#1A1A1A' : '#eff0f6'}
+              color={artworkType === 'all' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
               backgroundColor01={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               backgroundColor02={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               onClick={() => {
@@ -206,10 +207,22 @@ const TabSection = props => {
             />
 
             <TimeSlotButton
-              label="Live Auction"
+              label="Quick&nbsp;Buy"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'auction' ? '#1A1A1A' : '#eff0f6'}
+              color={artworkType === 'listed' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
+              backgroundColor01={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              backgroundColor02={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              onClick={() => {
+                setArtworkType('listed')
+              }}
+            />
+
+            <TimeSlotButton
+              label="Live&nbsp;Auction"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              color={artworkType === 'auction' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
               backgroundColor01={artworkType === 'auction' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               backgroundColor02={artworkType === 'auction' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               onClick={() => {
@@ -221,7 +234,7 @@ const TabSection = props => {
               label="Studio"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'studio' ? '#1A1A1A' : '#eff0f6'}
+              color={artworkType === 'studio' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
               backgroundColor01={artworkType === 'studio' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               backgroundColor02={artworkType === 'studio' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               onClick={() => {
@@ -233,7 +246,7 @@ const TabSection = props => {
               label="Created"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'created' ? '#1A1A1A' : '#eff0f6'}
+              color={artworkType === 'created' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
               backgroundColor01={artworkType === 'created' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               backgroundColor02={artworkType === 'created' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               onClick={() => {
@@ -245,23 +258,11 @@ const TabSection = props => {
               label="Collected"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'collected' ? '#1A1A1A' : '#eff0f6'}
+              color={artworkType === 'collected' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
               backgroundColor01={artworkType === 'collected' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               backgroundColor02={artworkType === 'collected' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
               onClick={() => {
                 setArtworkType('collected')
-              }}
-            />
-
-            <TimeSlotButton
-              label="Quick Buy"
-              height={42}
-              fontFamily={'Muli-Regular'}
-              color={artworkType === 'listed' ? '#1A1A1A' : '#eff0f6'}
-              backgroundColor01={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              onClick={() => {
-                setArtworkType('listed')
               }}
             />
           </div>
