@@ -62,6 +62,7 @@
     "react-placeholder": "^4.1.0",
     "react-range": "^1.8.14",
     "react-redux": "^8.0.2",
+    "react-resize-detector": "^9.1.0",
     "react-share": "^4.4.1",
     "react-spinners": "^0.13.4",
     "react-tooltip": "^5.7.3",

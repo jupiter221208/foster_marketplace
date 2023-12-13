@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Head from 'next/head'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -92,6 +93,7 @@ const SingleNft = () => {
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
+  const [nftUrl, setNftUrl] = useState<string>()
 
   useEffect(() => {
     let width = 0
@@ -218,9 +220,10 @@ const SingleNft = () => {
       } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
-        getSnapshot(path).then(modelCoverImg => {
-          setNftImage(URL.createObjectURL(modelCoverImg[0].blob))
-        })
+        setNftUrl(path)
+        // getSnapshot(path).then(modelCoverImg => {
+        //   setNftImage(URL.createObjectURL(modelCoverImg[0].blob))
+        // })
       }
     }
   }, [nftArt])
@@ -502,6 +505,8 @@ const SingleNft = () => {
     }
   }
 
+  const { width, height, ref } = useResizeDetector()
+
   return (
     <div className="w-full flex justify-center">
       <Head>
@@ -518,8 +523,8 @@ const SingleNft = () => {
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     {nftType === 'vr' ? (
-                      <div className="max-w-[672px] max-h-[672px] w-full h-full">
-                        <img className="w-full" src={nftImage} alt="" />
+                      <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                        <ModelViewer path={nftUrl} width={width} height={height} />
                       </div>
                     ) : nftType === 'image' || nftType === 'image/gif' ? (
                       <div
@@ -775,10 +780,10 @@ const SingleNft = () => {
                 <Stepper currentStep={currentStep} />
               </div> */}
 
-              <div className="w-full flex flex-wrap justify-center">
+              <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
-                  <div className="max-w-[672px] w-full aspect-square">
-                    <img className="w-full" src={nftImage} alt="" />
+                  <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                    <ModelViewer path={nftUrl} width={width} height={height} />
                   </div>
                 ) : nftType === 'image' ? (
                   <div

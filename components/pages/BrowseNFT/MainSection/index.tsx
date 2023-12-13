@@ -41,7 +41,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
-import useContainerDimensions from 'hooks/useContainerDimensions'
 
 // images and icons
 import PrintApparelSection from 'assets/images/apparel.png'
@@ -120,6 +119,7 @@ import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
 import TabList from 'assets/json/browse-nft/auction-list.json'
 import SelectedTab from 'components/Tab/SelectedTab'
+import { useResizeDetector } from 'react-resize-detector'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -799,7 +799,7 @@ const MainSection = ({
   }
 
   const sizeRef = useRef()
-  const { width, height } = useContainerDimensions(sizeRef)
+  const { width, height, ref } = useResizeDetector()
 
   return (
     <div className={styles.container}>
@@ -819,7 +819,7 @@ const MainSection = ({
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
-                  <div ref={sizeRef} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                  <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
                     <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
                   </div>
                 ) : nftCoverUrl ? (
@@ -870,7 +870,7 @@ const MainSection = ({
             ) : nftType.includes('vr') && !fullScreen ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
-                <div ref={sizeRef} className={`${styles.imageArea} w-full h-full`}>
+                <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
                   {nftAssetUrl ? (
                     <>
                       <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
