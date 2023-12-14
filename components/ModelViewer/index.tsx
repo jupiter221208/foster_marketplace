@@ -101,7 +101,7 @@ const ModelViewer = ({
       const res = await fetch(screenshot)
       const blob = await res.blob()
 
-      getSnapshot.onSnapshot([{ type: 'image/png', blob }])
+      getSnapshot.onSnapshot(blob)
     } // Pass the image object as a property to onSnapshot
   }
 

@@ -224,10 +224,6 @@ const SingleNft = () => {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
         setNftUrl(path)
-        // getSnapshot(path).then(modelCoverImg => {
-        //   console.log(modelCoverImg)
-        //   setNftImage(URL.createObjectURL(modelCoverImg[0].blob))
-        // })
       }
     }
   }, [nftArt])
@@ -511,6 +507,7 @@ const SingleNft = () => {
 
   const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
   return (
     <div className="w-full flex justify-center">
@@ -535,7 +532,7 @@ const SingleNft = () => {
                           height={height}
                           getSnapshot={{
                             onSnapshot: image => {
-                              setNftImage(URL.createObjectURL(image[0].blob))
+                              setNftImage(URL.createObjectURL(image))
                               setTakeSnapshotStatus(false)
                             },
                             status: takeSnapshotStatus,
@@ -667,14 +664,44 @@ const SingleNft = () => {
                                 Pick the best angle to take a snapshot or upload an image to use as the cover photo.
                               </p>
                             </div>
+
                             <div className={styles.coverBtnBox}>
                               <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
                                 <ImageIcon /> Take Snapshot
                               </button>
+
                               <button disabled={nftImage !== ''}>
                                 <ShareIcon /> Upload Photo
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  id="fileInput"
+                                  onChange={e => {
+                                    const file = e.target.files[0]
+                                    if (file && file.type.startsWith('image/')) {
+                                      setNftCover(file)
+                                      setOpenCoverImageEditorModal(true)
+                                    } else {
+                                      alert('Please select an image file.')
+                                    }
+                                  }}
+                                />
                               </button>
+
+                              {nftCover && (
+                                <NftImageEditorModal
+                                  open={openCoverImageEditorModal}
+                                  close={() => setOpenCoverImageEditorModal(false)}
+                                  nftImage={nftType === 'vr' && [nftCover]}
+                                  getCroppedImage={croppedImage => {
+                                    setNftImage(croppedImage)
+                                    setOpenCoverImageEditorModal(false)
+                                  }}
+                                  dimension={selectedDimension}
+                                />
+                              )}
                             </div>
+
                             {nftImage && (
                               <div className={styles.glbNftImageSection}>
                                 <img className="w-full aspect-square" src={nftImage} alt="" />
@@ -766,7 +793,7 @@ const SingleNft = () => {
                       height={height}
                       getSnapshot={{
                         onSnapshot: image => {
-                          setNftImage(URL.createObjectURL(image[0].blob))
+                          setNftImage(URL.createObjectURL(image))
                           setTakeSnapshotStatus(false)
                         },
                         status: takeSnapshotStatus,
@@ -866,14 +893,30 @@ const SingleNft = () => {
                           </h6>
                           <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
                         </div>
+
                         <div className={styles.coverBtnBox}>
                           <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
                             <ImageIcon /> Take Snapshot
                           </button>
+
                           <button disabled={nftImage !== ''}>
                             <ShareIcon /> Upload Photo
                           </button>
+
+                          {nftCover && (
+                            <NftImageEditorModal
+                              open={openCoverImageEditorModal}
+                              close={() => setOpenCoverImageEditorModal(false)}
+                              nftImage={nftType === 'vr' && nftCover}
+                              getCroppedImage={croppedImage => {
+                                setNftImage(croppedImage)
+                                setOpenCoverImageEditorModal(false)
+                              }}
+                              dimension={selectedDimension}
+                            />
+                          )}
                         </div>
+
                         {nftImage && (
                           <div className={styles.glbNftImageSection}>
                             <img className="w-full aspect-square" src={nftImage} alt="" />
