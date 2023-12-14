@@ -1427,7 +1427,19 @@ const MainSection = ({
                         return (
                           <div className={styles.subContainer} key={index}>
                             <div className="w-full flex flex-col">
-                              {item.action_type === 'AuctionStarted' ? (
+                              {item.action_type === 'AuctionWon' ? (
+                                <div className={styles.actionType}>
+                                  <span
+                                    className={styles.userName}
+                                    onClick={() => {
+                                      router.push(`/${item.reference_username}`)
+                                    }}
+                                  >
+                                    {item.reference_username}
+                                  </span>
+                                  <span>&nbsp;has won the auction</span>
+                                </div>
+                              ) : item.action_type === 'AuctionStarted' ? (
                                 <div className={styles.actionType}>
                                   <span
                                     className={styles.userName}

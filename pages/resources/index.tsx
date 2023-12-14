@@ -117,8 +117,7 @@ const Resources = () => {
 
   let pageTitle = 'Foster Marketplace | Resources'
   let pageImageUrl = PreviewImage.src
-  let pageDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+  let pageDescription = "A Beginner's Guide to Selling Digital Art on Foster Marketplace"
 
   return (
     <div className="g-container">

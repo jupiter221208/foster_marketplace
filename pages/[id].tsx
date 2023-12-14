@@ -292,8 +292,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   let artistName = `${artistInfo?.username} | Foster Marketplace`
   let artistImageUrl = getAbsoluteOgUrl(artistInfo?.profile_picture ?? DefaultNftBG.src)
-  let artistDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+  let artistDescription = artistInfo?.bio ?? ''
 
   return (
     <div className="w-full">
