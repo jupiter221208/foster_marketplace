@@ -96,11 +96,7 @@ const ModelViewer = ({
     if (getSnapshot.status) giveSnapshot()
   }, [getSnapshot.status])
   async function giveSnapshot() {
-    if (renderer) {
-      const screenshot = renderer.domElement.toBlob(blob => {
-        getSnapshot.onSnapshot(blob) // Pass the image object as a property to onSnapshot
-      })
-    }
+    if (renderer) renderer.domElement.toBlob(blob => getSnapshot.onSnapshot(blob))
   }
 
   return (
