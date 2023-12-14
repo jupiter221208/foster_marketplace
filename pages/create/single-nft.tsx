@@ -52,7 +52,7 @@ import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
-import ModelViewer, { getSnapshot } from 'components/ModelViewer'
+import ModelViewer from 'components/ModelViewer'
 
 const SingleNft = () => {
   const viewport = useViewport()
