@@ -239,19 +239,29 @@
 
 .coverBtnBox {
   margin-top: 20px;
-  color: var(--primary-btn-bg-right);
-  fill: var(--primary-btn-bg-right);
   display: flex;
   gap: 24px;
   button {
     @media (max-width: 1024px) {
       width: 100%;
     }
+    color: var(--primary-btn-bg-right);
+    fill: var(--primary-btn-bg-right);
     display: flex;
     gap: 0.5rem;
     padding: 16px 21px;
     align-items: center;
     justify-content: center;
     background-color: rgba(var(--main-bg-color-rgb), 0.05);
+    border-radius: 10px;
   }
+  button:disabled {
+    color: var(--main-bg-color);
+    fill: var(--main-bg-color);
+  }
+}
+
+.glbNftImageSection {
+  max-width: 300px;
+  width: 100%;
 }

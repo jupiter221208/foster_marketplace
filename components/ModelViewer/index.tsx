@@ -7,7 +7,14 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 import React, { useState, useEffect } from 'react'
 
-const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fullScreen = false }) => {
+const ModelViewer = ({
+  path,
+  width = 500,
+  height = 500,
+  orbitLimited = false,
+  fullScreen = false,
+  getSnapshot = { onSnapshot: url => {}, status: false },
+}) => {
   // State variables
   const [renderer, setRenderer] = useState(null)
   const [scene, setScene] = useState(null)
@@ -17,10 +24,10 @@ const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fu
 
   // Load the GLTF model and set up the scene
   useEffect(() => {
-    const renderer = new WebGLRenderer({ alpha: true })
-    renderer.setSize(width, height)
-    renderer.setClearColor(0x000000, 0)
-    setRenderer(renderer)
+    const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
+    newRenderer.setSize(width, height)
+    newRenderer.setClearColor(0x000000, 0)
+    setRenderer(newRenderer)
 
     const scene = new Scene()
     setScene(scene)
@@ -28,7 +35,7 @@ const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fu
     const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
     setCamera(camera)
 
-    const controls = new OrbitControls(camera, renderer.domElement)
+    const controls = new OrbitControls(camera, newRenderer.domElement)
     if (orbitLimited) {
       controls.enableZoom = false
       controls.minPolarAngle = 0.5
@@ -38,7 +45,7 @@ const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fu
 
     const render = () => {
       controls.update()
-      renderer.render(scene, camera)
+      newRenderer.render(scene, camera)
       requestAnimationFrame(render)
     }
     render()
@@ -69,9 +76,9 @@ const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fu
 
     return () => {
       // Dispose of resources
-      renderer.dispose()
+      newRenderer.dispose()
     }
-  }, [path])
+  }, [])
 
   useEffect(() => {
     if (renderer && !fullScreen) {
@@ -84,6 +91,19 @@ const ModelViewer = ({ path, width = 500, height = 500, orbitLimited = false, fu
       camera.updateProjectionMatrix()
     }
   }, [width, height])
+
+  useEffect(() => {
+    if (getSnapshot.status) giveSnapshot()
+  }, [getSnapshot.status])
+  async function giveSnapshot() {
+    if (renderer) {
+      const screenshot = renderer.domElement.toDataURL('image/png')
+      const res = await fetch(screenshot)
+      const blob = await res.blob()
+
+      getSnapshot.onSnapshot([{ type: 'image/png', blob }])
+    } // Pass the image object as a property to onSnapshot
+  }
 
   return (
     <div
