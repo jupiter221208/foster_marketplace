@@ -74,7 +74,7 @@ const TrendingSection = props => {
                 </div>
               </div>
             ) : (
-              <div className="w-full flex flex-row justify-between">
+              <div className="w-full flex flex-row justify-between" id="recent">
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Recent Purchases</div>
                 <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
@@ -90,12 +90,8 @@ const TrendingSection = props => {
           spaceBetween={40}
           centeredSlides={true}
           loop
-          modules={[Autoplay, Navigation]}
+          modules={[Navigation]}
           className={'heroNavigationSwiper'}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
         >
           <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
             {trendingList.map((item: any, index) => (

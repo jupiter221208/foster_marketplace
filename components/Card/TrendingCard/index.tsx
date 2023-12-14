@@ -22,7 +22,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const TrendingCard = props => {
-  const { token_id, imagedata, nftName, assetUrl, onClick } = props
+  const { token_id, imagedata, nftName, assetUrl, onClick, userName } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { solToUsdRate } = useSolToUsdRate()
@@ -105,7 +105,9 @@ const TrendingCard = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <>
           <div className="w-full flex flex-row justify-between">
-            <div className={styles.apparelTitle}>Studio Sauce {apparelList?.name}</div>
+            <div className={styles.apparelTitle}>
+              {nftName}&nbsp;{apparelList?.name}
+            </div>
             <div className="flex relative mt-[-20px]">
               <StudioSelectionColor
                 label={''}
@@ -115,7 +117,7 @@ const TrendingCard = props => {
               />
             </div>
           </div>
-          <div className={styles.nftName}>{nftName}</div>
+          <div className={styles.nftName}>{userName}</div>
           <div className="flex flex-row justify-between">
             <div className="flex flex-row mt-[5px] items-center lg:justify-center">
               <div className={styles.cost}>
@@ -136,8 +138,10 @@ const TrendingCard = props => {
         </>
       ) : (
         <>
-          <div className={styles.apparelTitle}>Studio Sauce {apparelList?.name}</div>
-          <div className={styles.nftName}>{nftName}</div>
+          <div className={styles.apparelTitle}>
+            {nftName}&nbsp;{apparelList?.name}
+          </div>
+          <div className={styles.nftName}>{userName}</div>
           <div className="flex flex-row mt-[5px] items-center lg:justify-center">
             <div className={styles.cost}>$&nbsp;{apparelList?.black.cost}</div>
             <div className={styles.costDivider} />

@@ -55,42 +55,44 @@ const StudioCard = props => {
         <div className={styles.imageArea}>
 
           <div className={styles.imageContent}> */}
-      <div className="w-full">
-        {!loaded && (
-          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-            <div></div>
-          </ReactPlaceholder>
-        )}
-        <img
-          src={data['asset_url']}
-          alt=""
-          className={styles.imageStatus}
-          onLoad={() => {
-            setLoaded(true)
-          }}
-          loading="lazy"
-          onClick={() => {
-            onSelected(data.name)
-            dispatch({ type: 'set', apparelType: data.name })
-          }}
-          style={{
-            border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
-          }}
-        />
-        <div className="w-full flex flex-col items-center justify-center mt-[10px]">
-          <div className="w-full flex flex-row justify-center">
-            {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
-              <div className={styles.heroName}>{data['name']}&nbsp;</div>
-            ) : (
-              <>
+      <a href="#recent">
+        <div className="w-full">
+          {!loaded && (
+            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+              <div></div>
+            </ReactPlaceholder>
+          )}
+          <img
+            src={data['asset_url']}
+            alt=""
+            className={styles.imageStatus}
+            onLoad={() => {
+              setLoaded(true)
+            }}
+            loading="lazy"
+            onClick={() => {
+              onSelected(data.name)
+              dispatch({ type: 'set', apparelType: data.name })
+            }}
+            style={{
+              border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
+            }}
+          />
+          <div className="w-full flex flex-col items-center justify-center mt-[10px]">
+            <div className="w-full flex flex-row justify-center">
+              {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
                 <div className={styles.heroName}>{data['name']}&nbsp;</div>
-                <div className={styles.heroType}>({data['type']})</div>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className={styles.heroName}>{data['name']}&nbsp;</div>
+                  <div className={styles.heroType}>({data['type']})</div>
+                </>
+              )}
+            </div>
+            <div className={styles.heroPrice}>Starting at {data['start_price']}</div>
           </div>
-          <div className={styles.heroPrice}>Starting at {data['start_price']}</div>
         </div>
-      </div>
+      </a>
       {/* </div>
         </div>
       </a> */}

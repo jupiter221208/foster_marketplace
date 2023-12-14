@@ -49,11 +49,10 @@
   border-radius: 10px;
   margin: 0 auto;
   transition: transform 0.2s;
-  padding: 10px !important;
   @media (min-width: 1024px) {
     max-width: 600px;
     border-radius: 24px;
-    padding: 20px !important;
+    padding: 10px !important;
   }
 }
 
@@ -100,7 +99,7 @@
 
 .apparelTitle {
   display: flex;
-  margin-top: -10px;
+  margin-top: 5px;
   font-size: 14px;
   font-family: 'Muli-Regular';
   justify-content: center;
@@ -108,7 +107,7 @@
   @media (min-width: 1024px) {
     font-size: 19px;
     font-family: 'Muli-Bold';
-    margin-top: -25px;
+    margin-top: -10px;
   }
   color: var(--text-gray-200-color);
 }

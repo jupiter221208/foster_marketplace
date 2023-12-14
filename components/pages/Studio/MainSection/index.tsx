@@ -86,7 +86,7 @@ const MainSection = ({ onchange, heroValue }) => {
               </div>
             </div> */}
             <div className={styles.text}>LOVE THE ART. OWN THE MERCH.</div>
-            <div className={styles.slug}>Explore the latest merch from your favorite artists.</div>
+            <div className={styles.slug}>Pick the base garment and explore merch from your favorite artists.</div>
           </div>
         )}
 
@@ -99,9 +99,9 @@ const MainSection = ({ onchange, heroValue }) => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Ready to level-up your wardrobe?</div>
+              <div className={styles.mobileTitle}>LOVE THE ART. OWN THE MERCH.</div>
               <div className={styles.mobileText}>
-                Pick your base and then select from the available studio artwork to begin designing.
+                Pick the base garment and explore merch from your favorite artists.
               </div>
             </div>
             {StudioHeroList.length !== 0 && (

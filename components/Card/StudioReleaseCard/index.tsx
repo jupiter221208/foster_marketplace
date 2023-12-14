@@ -113,8 +113,10 @@ const DashboardNFTCard = props => {
           </div>
         </div>
 
-        <div className={styles.apparelTitle}>Studio Sauce {apparelList?.name}</div>
-        <div className={styles.nftName}>{nftName}</div>
+        <div className={styles.apparelTitle}>
+          {nftName}&nbsp;{apparelList?.name}
+        </div>
+        <div className={styles.nftName}>{userName}</div>
         <div className="flex flex-row mt-[5px] items-center justify-center">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className={styles.cost}>
