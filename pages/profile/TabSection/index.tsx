@@ -56,7 +56,7 @@ const TabSection = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [artworkType, setArtworkType] = useState('all')
+  const [artworkType, setArtworkType] = useState('created')
 
   useEffect(() => {
     setTimeout(() => {
@@ -193,7 +193,7 @@ const TabSection = props => {
       {activeTab === 0 && (
         <div className="w-full">
           <div className="w-full flex overflow-x-scroll no-scrollbar mt-5 gap-2 lg:gap-4">
-            <TimeSlotButton
+            {/* <TimeSlotButton
               label="All"
               width={50}
               height={42}
@@ -204,7 +204,7 @@ const TabSection = props => {
               onClick={() => {
                 setArtworkType('all')
               }}
-            />
+            /> */}
 
             <TimeSlotButton
               label="Quick&nbsp;Buy"
