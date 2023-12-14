@@ -47,55 +47,57 @@ const StudioHeroCardMobile = props => {
   // }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.imageBG}></div>
-      <div className={styles.mobileImageArea}>
-        <div className={styles.imageArea}>
-          <div className={styles.imageContent}>
-            {!loaded && (
-              <div className="w-full h-full">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              </div>
-            )}
-            <img
-              src={data['asset_url']}
-              alt=""
-              width={550}
-              height={772}
-              className={styles.mobileImageStatus}
-              loading="lazy"
-              onLoad={() => {
-                setLoaded(true)
-              }}
-              onClick={() => {
-                onSelected(data.name)
-                dispatch({ type: 'set', apparelType: data.name })
-              }}
-              style={{
-                border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
-              }}
-            />
-            <div className="w-full flex flex-col items-center justify-center mt-[15px]">
-              <div className="w-full flex flex-row justify-center">
-                <p className="inline text-center items-center gap-2">
-                  {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
-                    <span className={styles.mobileheroName}>{data['name']}&nbsp;</span>
-                  ) : (
-                    <>
+    <a href="#recent">
+      <div className={styles.container}>
+        <div className={styles.imageBG}></div>
+        <div className={styles.mobileImageArea}>
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              {!loaded && (
+                <div className="w-full h-full">
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
+                </div>
+              )}
+              <img
+                src={data['asset_url']}
+                alt=""
+                width={550}
+                height={772}
+                className={styles.mobileImageStatus}
+                loading="lazy"
+                onLoad={() => {
+                  setLoaded(true)
+                }}
+                onClick={() => {
+                  onSelected(data.name)
+                  dispatch({ type: 'set', apparelType: data.name })
+                }}
+                style={{
+                  border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
+                }}
+              />
+              <div className="w-full flex flex-col items-center justify-center mt-[15px]">
+                <div className="w-full flex flex-row justify-center">
+                  <p className="inline text-center items-center gap-2">
+                    {data && (data['name'].includes('Youth') || data['name'].includes('Women')) ? (
                       <span className={styles.mobileheroName}>{data['name']}&nbsp;</span>
-                      <span className={styles.mobileheroType}>({data['type']})</span>
-                    </>
-                  )}
-                </p>
+                    ) : (
+                      <>
+                        <span className={styles.mobileheroName}>{data['name']}&nbsp;</span>
+                        <span className={styles.mobileheroType}>({data['type']})</span>
+                      </>
+                    )}
+                  </p>
+                </div>
+                <div className={styles.mobileheroPrice}>Starting at {data['start_price']}</div>
               </div>
-              <div className={styles.mobileheroPrice}>Starting at {data['start_price']}</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
   )
 }
 export default StudioHeroCardMobile

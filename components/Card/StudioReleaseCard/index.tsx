@@ -114,7 +114,14 @@ const DashboardNFTCard = props => {
         </div>
 
         <div className={styles.apparelTitle}>
-          {nftName}&nbsp;{apparelList?.name}
+          <div className={styles.overText}>{nftName}</div>
+          <div>
+            {apparelList?.name === "Women's Short Sleeve"
+              ? 'Womens T-Shirt'
+              : apparelList?.name === 'Youth Short Sleeve'
+              ? 'Youth T-Shirt'
+              : apparelList?.name}
+          </div>
         </div>
         <div className={styles.nftName}>{userName}</div>
         <div className="flex flex-row mt-[5px] items-center justify-center">

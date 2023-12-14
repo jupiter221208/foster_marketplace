@@ -58,18 +58,18 @@ const MarketplaceReleaseSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>New Releases</div>
-                <div className={styles.filterButton}>
+                {/* <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
                   <FilterIcon />
-                </div>
+                </div> */}
               </div>
             ) : (
               <div className="w-full flex flex-row justify-between">
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
-                <div className={styles.filterButton}>
+                {/* <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
                   <FilterIcon />
-                </div>
+                </div> */}
               </div>
             )}
           </div>

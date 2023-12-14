@@ -99,6 +99,7 @@
 
 .apparelTitle {
   display: flex;
+  flex-direction: column;
   margin-top: 5px;
   font-size: 14px;
   font-family: 'Muli-Regular';
@@ -146,4 +147,10 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   color: var(--primary-btn-bg-right);
+}
+
+.overText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

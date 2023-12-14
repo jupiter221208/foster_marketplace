@@ -149,7 +149,7 @@
 }
 
 .mobileText {
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   font-family: 'Muli-Regular';
   font-size: 20px;
   line-height: 24px;
