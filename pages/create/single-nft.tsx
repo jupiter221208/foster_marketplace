@@ -671,22 +671,24 @@ const SingleNft = () => {
                               </button>
 
                               <button disabled={nftImage !== ''}>
-                                <ShareIcon /> Upload Photo
-                                <input
-                                  type="file"
-                                  accept="image/*"
-                                  id="fileInput"
-                                  onChange={e => {
-                                    const file = e.target.files[0]
-                                    if (file && file.type.startsWith('image/')) {
-                                      setNftCover(file)
-                                      setOpenCoverImageEditorModal(true)
-                                    } else {
-                                      alert('Please select an image file.')
-                                    }
-                                  }}
-                                />
+                                <label htmlFor="fileInput">
+                                  <ShareIcon /> Upload Photo
+                                </label>
                               </button>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id="fileInput"
+                                onChange={e => {
+                                  const file = e.target.files[0]
+                                  if (file && file.type.startsWith('image/')) {
+                                    setNftCover(file)
+                                    setOpenCoverImageEditorModal(true)
+                                  } else {
+                                    alert('Please select an image file.')
+                                  }
+                                }}
+                              />
 
                               {nftCover && (
                                 <NftImageEditorModal
@@ -900,14 +902,30 @@ const SingleNft = () => {
                           </button>
 
                           <button disabled={nftImage !== ''}>
-                            <ShareIcon /> Upload Photo
+                            <label htmlFor="fileInput">
+                              <ShareIcon /> Upload Photo
+                            </label>
                           </button>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="fileInput"
+                            onChange={e => {
+                              const file = e.target.files[0]
+                              if (file && file.type.startsWith('image/')) {
+                                setNftCover(file)
+                                setOpenCoverImageEditorModal(true)
+                              } else {
+                                alert('Please select an image file.')
+                              }
+                            }}
+                          />
 
                           {nftCover && (
                             <NftImageEditorModal
                               open={openCoverImageEditorModal}
                               close={() => setOpenCoverImageEditorModal(false)}
-                              nftImage={nftType === 'vr' && nftCover}
+                              nftImage={nftType === 'vr' && [nftCover]}
                               getCroppedImage={croppedImage => {
                                 setNftImage(croppedImage)
                                 setOpenCoverImageEditorModal(false)

@@ -241,23 +241,40 @@
   margin-top: 20px;
   display: flex;
   gap: 24px;
+
   button {
     @media (max-width: 1024px) {
       width: 100%;
     }
     color: var(--primary-btn-bg-right);
     fill: var(--primary-btn-bg-right);
+    background-color: rgba(var(--main-bg-color-rgb), 0.05);
+    border-radius: 10px;
+  }
+  button:first-child {
     display: flex;
     gap: 0.5rem;
     padding: 16px 21px;
     align-items: center;
     justify-content: center;
-    background-color: rgba(var(--main-bg-color-rgb), 0.05);
-    border-radius: 10px;
+  }
+  button:nth-child(2) {
+    label {
+      display: flex;
+      gap: 0.5rem;
+      padding: 16px 21px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
   }
   button:disabled {
     color: var(--main-bg-color);
     fill: var(--main-bg-color);
+  }
+
+  input {
+    display: none;
   }
 }
 
