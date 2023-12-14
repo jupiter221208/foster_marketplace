@@ -1,0 +1,31 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  display: block;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+.selected {
+  width: 28px;
+  height: 28px;
+  border-radius: 33px;
+  border: 3px solid var(--main-icon-color);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.labelText {
+  font-family: 'Muli-Bold';
+}
+
+.normal {
+  width: 28px;
+  height: 28px;
+  border-radius: 33px;
+  border-width: 0px;
+  cursor: pointer;
+  overflow: hidden;
+}

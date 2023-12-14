@@ -16,6 +16,7 @@ import 'swiper/css/navigation'
 // components
 import OutlineButton from 'components/Button/OutlineButton'
 import StudioReleaseCard from 'components/Card/StudioReleaseCard'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -53,13 +54,23 @@ const MarketplaceReleaseSection = props => {
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
-                <div className={styles.title}>New Studio Releases</div>
+              <div className="w-full flex justify-between items-center z-10">
+                <div className={styles.title}>New Releases</div>
+                <div className={styles.filterButton}>
+                  <div className={styles.filter}>Filter</div>
+                  <FilterIcon />
+                </div>
               </div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
+              <div className="w-full flex flex-row justify-between">
+                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
+                <div className={styles.filterButton}>
+                  <div className={styles.filter}>Filter</div>
+                  <FilterIcon />
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -75,11 +86,11 @@ const MarketplaceReleaseSection = props => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
-                onClick={color => {
+                onClick={colorNumber => {
                   dispatch({ type: 'set', isLoading: true })
                   dispatch({ type: 'set', apparelType })
                   dispatch({ type: 'set', detailShow: true })
-                  dispatch({ type: 'set', apparelColor: color })
+                  dispatch({ type: 'set', apparelColor: colorNumber })
                   router.push(`/nft/${item.nft.token_id}`)
                 }}
               />

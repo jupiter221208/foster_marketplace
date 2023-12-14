@@ -10,103 +10,83 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import PlayVideoIcon from 'assets/icons/play-video.svg'
-import PauseVideoIcon from 'assets/icons/pause-video.svg'
-import HideIcon from 'assets/icons/hide-icon.svg?component'
-import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
-import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
-import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
-import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
-import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
-import UnhideSmallMobileIcon from 'assets/icons/unhide-small-icon-mobile.svg'
+import StudioSelectionColor from 'components/StudioSelectionColor'
+import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import ColorType from 'assets/json/print/color.json'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // styles
 import styles from './index.module.scss'
-import { formattedAmount } from 'utils/helpers'
-import GradientButton from 'components/Button/GradientButton'
-
-import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
-import LoadingModal from 'components/Modal/LoadingModal'
-import ImageWithFallback from 'components/ImageWithFallback'
 
 const DashboardNFTCard = props => {
-  const {
-    token_id,
-    image,
-    userName,
-    nftName,
-    coverImage = '',
-    artistName,
-    collectionName,
-    assetType,
-    price,
-    onClick,
-    unSave = null,
-    showHideButton = false,
-    showUnhideButton = false,
-    nftImage,
-  } = props
+  const { token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const [play, setPlay] = useState(false)
-  const [loaded, setLoaded] = useState(false)
-  const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
-  const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [assetUrl, setAssetUrl] = useState('')
-  const [innerImage, setInnerImage] = useState('')
-  const imageLabelList = ['white', 'black', 'gray', 'navy']
+  const { solToUsdRate } = useSolToUsdRate()
   const [randomColorNumber, setRandomColorNumber] = useState(-1)
-  const [showNftImage, setShowNftImage] = useState(false)
-
-  const performHideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.hideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayHideConfirm(false)
-        dispatch({ type: 'set', hideNftToken: token_id })
-      },
-      error => {}
-    )
-  }
-
-  const performUnhideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.unhideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayUnhideConfirm(false)
-        dispatch({ type: 'set', unhideNftToken: token_id })
-      },
-      error => {}
-    )
-  }
-
-  const setImageLoaded = () => [setShowNftImage(true)]
+  const [apparelList, setApparelList] = useState(null)
+  const [imagePath, setImagepath] = useState('')
+  const [color, setColor] = useState({
+    id: 0,
+    name: '#000000',
+    type: 'black',
+    asset_url: '/images/apparel-color-black.png',
+  })
+  const [colorNumber, setColorNumber] = useState(-1)
 
   useEffect(() => {
-    if (nftImage) {
-      // for (var i = 0; i < nftImage.length; i++) {
-      //   if (nftImage[i].name == 'asset_url') {
-      setAssetUrl(nftImage)
-      // }
-      // }
-    }
     if (image) {
-      const randomNumber = Math.floor(Math.random() * 4)
-      let label = imageLabelList[randomNumber]
-      setInnerImage(image[label].image.front)
-      setRandomColorNumber(randomNumber)
+      setApparelList(image)
     }
-  }, [nftImage, image])
+  }, [image])
+
+  useEffect(() => {
+    if (apparelList) {
+      setImagepath(apparelList.black.image.front)
+    }
+  }, [apparelList])
+
+  useEffect(() => {
+    if (color && apparelList) {
+      switch (color.type) {
+        case 'black':
+          setImagepath(apparelList.black.image.front)
+          break
+        case 'white':
+          setImagepath(apparelList.white.image.front)
+          break
+        case 'gray':
+          setImagepath(apparelList.gray.image.front)
+          break
+        case 'navy':
+          setImagepath(apparelList.navy.image.front)
+          break
+        default:
+          break
+      }
+    }
+  }, [color])
+
+  useEffect(() => {
+    switch (color.type) {
+      case 'black':
+        setColorNumber(1)
+        break
+      case 'white':
+        setColorNumber(0)
+        break
+      case 'gray':
+        setColorNumber(2)
+        break
+      case 'navy':
+        setColorNumber(3)
+        break
+      default:
+        break
+    }
+  }, [color])
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
@@ -115,156 +95,54 @@ const DashboardNFTCard = props => {
           <div
             className={styles.imageContent}
             onClick={() => {
-              onClick(randomColorNumber)
+              onClick(colorNumber)
             }}
           >
-            {innerImage !== null && innerImage !== '' ? (
+            {apparelList !== null && apparelList !== '' ? (
               <>
-                <ImageWithFallback
-                  src={innerImage}
-                  layout="fill"
-                  alt=""
-                  className={styles.imageNft}
-                  setImageLoaded={setImageLoaded}
-                />
-                {showNftImage && (
-                  <div className={styles.nftImage}>
-                    <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
-                      <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
-                    </div>
+                <img src={imagePath} className={styles.imageNft} />
+                <div className={styles.nftImage}>
+                  <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                    <img src={nftImage} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
                   </div>
-                )}
+                </div>
               </>
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
             )}
           </div>
-
-          {showHideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
-            </div>
-          )}
-          {showUnhideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
-            </div>
-          )}
         </div>
 
-        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
-          <div className="w-full">
-            <div className="flex items-center">
-              <div className={styles.nftName}>{nftName}</div>
+        <div className={styles.apparelTitle}>Studio Sauce {apparelList?.name}</div>
+        <div className={styles.nftName}>{nftName}</div>
+        <div className="flex flex-row mt-[5px] items-center justify-center">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className={styles.cost}>
+              <span className={styles.dollar}>$&nbsp;</span>
+              {apparelList?.black.cost}
             </div>
-            <div className="w-full flex justify-between items-center mt-[2px]">
-              <div className={styles.artistName}>{userName}</div>
-            </div>
-            <div className="w-full flex justify-between items-center mt-[2px]">
-              {price && (
-                <div className="flex justify-center items-center">
-                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                    <SolanaLogoMobileIcon />
-                  ) : (
-                    <SolanaLogoIcon />
-                  )}
-                  <div className={styles.price}>{formattedAmount(price)}</div>
-                </div>
-              )}
+          ) : (
+            <div className={styles.cost}>$&nbsp;{apparelList?.black.cost}</div>
+          )}
+          <div className={styles.costDivider} />
+          <div className="flex items-center ml-[10px]">
+            <SolanaIcon alt="" />
+            &nbsp;
+            <div className={styles.cost}>
+              {apparelList?.black.cost ? (apparelList?.black.cost / solToUsdRate).toFixed(2) : ''}
             </div>
           </div>
         </div>
-        {unSave !== null && (
-          <div className="mt-[10px]">
-            <GradientButton
-              fullWidth
-              label="Unsave"
-              onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
-                unSave()
-              }}
-            />
-          </div>
-        )}
+        <div className="w-full mt-[10px] relative">
+          <StudioSelectionColor
+            label={''}
+            data={ColorType}
+            selected={color?.type}
+            onSelect={itemData => setColor(itemData)}
+            newStudio={true}
+          />
+        </div>
       </div>
-
-      {displayHideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This action will hide the artwork from your profile page.
-                  <br />
-                  <br />
-                  Would you like to proceed?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performHideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Hide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {displayUnhideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This artwork is currently hidden from your profile page.
-                  <br />
-                  <br />
-                  Would you like to unhide it?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Unhide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   )
 }

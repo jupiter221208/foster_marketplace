@@ -16,6 +16,7 @@ import 'swiper/css/navigation'
 // components
 import OutlineButton from 'components/Button/OutlineButton'
 import TrendingCard from 'components/Card/TrendingCard'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -63,13 +64,23 @@ const TrendingSection = props => {
     trendingList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10 mb-[30px]">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
+              <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>Trending</div>
+                <div className={styles.filterButton}>
+                  <div className={styles.filter}>Filter</div>
+                  <FilterIcon />
+                </div>
               </div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending</div>
+              <div className="w-full flex flex-row justify-between">
+                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Recent Purchases</div>
+                <div className={styles.filterButton}>
+                  <div className={styles.filter}>Filter</div>
+                  <FilterIcon />
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -89,7 +100,7 @@ const TrendingSection = props => {
           <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
             {trendingList.map((item: any, index) => (
               <SwiperSlide key={index}>
-                <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
+                <div className="w-full flex flex-col col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
                   <TrendingCard
                     imagedata={props.heroValue.data}
                     nftName={item.nft.nft_name}
@@ -97,11 +108,11 @@ const TrendingSection = props => {
                     assetUrl={item.nft.asset_url}
                     profilePicture={item.artist.profile_picture}
                     token_id={item.nft.token_id}
-                    onClick={color => {
+                    onClick={colorNumber => {
                       dispatch({ type: 'set', isLoading: true })
                       dispatch({ type: 'set', apparelType })
                       dispatch({ type: 'set', detailShow: true })
-                      dispatch({ type: 'set', apparelColor: color })
+                      dispatch({ type: 'set', apparelColor: colorNumber })
                       router.push(`/nft/${item.nft.token_id}`)
                     }}
                   />
