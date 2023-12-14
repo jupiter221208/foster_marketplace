@@ -97,12 +97,10 @@ const ModelViewer = ({
   }, [getSnapshot.status])
   async function giveSnapshot() {
     if (renderer) {
-      const screenshot = renderer.domElement.toDataURL('image/png')
-      const res = await fetch(screenshot)
-      const blob = await res.blob()
-
-      getSnapshot.onSnapshot(blob)
-    } // Pass the image object as a property to onSnapshot
+      const screenshot = renderer.domElement.toBlob(blob => {
+        getSnapshot.onSnapshot(blob) // Pass the image object as a property to onSnapshot
+      })
+    }
   }
 
   return (
