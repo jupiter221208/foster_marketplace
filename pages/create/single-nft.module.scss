@@ -264,4 +264,19 @@
 .glbNftImageSection {
   max-width: 300px;
   width: 100%;
+  margin-top: 1rem;
+  button {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin: 1rem auto 0 auto;
+    color: var(--main-bg-color);
+    fill: none;
+    stroke: var(--primary-btn-bg-right);
+  }
+}
+
+.trashIcon {
+  fill: none;
+  stroke: var(--primary-btn-bg-right);
 }
