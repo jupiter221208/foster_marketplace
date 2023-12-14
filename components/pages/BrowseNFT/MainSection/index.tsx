@@ -1437,7 +1437,7 @@ const MainSection = ({
                                   >
                                     {item.reference_username}
                                   </span>
-                                  <span>&nbsp;has finalized the auction</span>
+                                  <span>&nbsp;has won the auction</span>
                                 </div>
                               ) : item.action_type === 'AuctionStarted' ? (
                                 <div className={styles.actionType}>
