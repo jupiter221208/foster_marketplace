@@ -618,11 +618,6 @@ const SingleNft = () => {
                       </div>
                     )}
                   </div>
-                  {nftType === 'vr' && (
-                    <span className={styles.nft3DModelMessage}>
-                      The file you have uploaded will be viewable in 3D on the NFT page after being minted.
-                    </span>
-                  )}
                   <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
                     {nftName}
                   </div>
@@ -876,76 +871,69 @@ const SingleNft = () => {
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <>
+                  <Step01SingleNFTSection
+                    nftType={nftType}
+                    setNftArt={item => handleChangeNftArt(item)}
+                    setNftCover={item => handleChangeNftCover(item)}
+                  />
                   {nftType === 'vr' && (
-                    <span className={styles.nft3DModelMessage}>
-                      The file you have uploaded will be viewable in 3D on the NFT page after being minted.
-                    </span>
-                  )}
-                  <>
-                    <Step01SingleNFTSection
-                      nftType={nftType}
-                      setNftArt={item => handleChangeNftArt(item)}
-                      setNftCover={item => handleChangeNftCover(item)}
-                    />
-                    {nftType === 'vr' && (
-                      <>
-                        <div className={styles.coverImgMsg}>
-                          <h6>
-                            Cover Photo <span>*</span>
-                          </h6>
-                          <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
-                        </div>
+                    <>
+                      <div className={styles.coverImgMsg}>
+                        <h6>
+                          Cover Photo <span>*</span>
+                        </h6>
+                        <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                      </div>
 
-                        <div className={styles.coverBtnBox}>
-                          <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
-                            <ImageIcon /> Take Snapshot
-                          </button>
+                      <div className={styles.coverBtnBox}>
+                        <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
+                          <ImageIcon /> Take Snapshot
+                        </button>
 
-                          <button disabled={nftImage !== ''}>
-                            <label htmlFor="fileInput">
-                              <ShareIcon /> Upload Photo
-                            </label>
-                          </button>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            id="fileInput"
-                            onChange={e => {
-                              const file = e.target.files[0]
-                              if (file && file.type.startsWith('image/')) {
-                                setNftCover(file)
-                                setOpenCoverImageEditorModal(true)
-                              } else {
-                                alert('Please select an image file.')
-                              }
+                        <button disabled={nftImage !== ''}>
+                          <label htmlFor="fileInput">
+                            <ShareIcon /> Upload Photo
+                          </label>
+                        </button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="fileInput"
+                          onChange={e => {
+                            const file = e.target.files[0]
+                            if (file && file.type.startsWith('image/')) {
+                              setNftCover(file)
+                              setOpenCoverImageEditorModal(true)
+                            } else {
+                              alert('Please select an image file.')
+                            }
+                          }}
+                        />
+
+                        {nftCover && (
+                          <NftImageEditorModal
+                            open={openCoverImageEditorModal}
+                            close={() => setOpenCoverImageEditorModal(false)}
+                            nftImage={nftType === 'vr' && [nftCover]}
+                            getCroppedImage={croppedImage => {
+                              setNftImage(croppedImage)
+                              setOpenCoverImageEditorModal(false)
                             }}
+                            dimension={selectedDimension}
                           />
-
-                          {nftCover && (
-                            <NftImageEditorModal
-                              open={openCoverImageEditorModal}
-                              close={() => setOpenCoverImageEditorModal(false)}
-                              nftImage={nftType === 'vr' && [nftCover]}
-                              getCroppedImage={croppedImage => {
-                                setNftImage(croppedImage)
-                                setOpenCoverImageEditorModal(false)
-                              }}
-                              dimension={selectedDimension}
-                            />
-                          )}
-                        </div>
-
-                        {nftImage && (
-                          <div className={styles.glbNftImageSection}>
-                            <img className="w-full aspect-square" src={nftImage} alt="" />
-                            <button onClick={() => setNftImage('')}>
-                              <TrashBin /> Remove Cover Image
-                            </button>
-                          </div>
                         )}
-                      </>
-                    )}
-                  </>
+                      </div>
+
+                      {nftImage && (
+                        <div className={styles.glbNftImageSection}>
+                          <img className="w-full aspect-square" src={nftImage} alt="" />
+                          <button onClick={() => setNftImage('')}>
+                            <TrashBin /> Remove Cover Image
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </>
               )}
 
