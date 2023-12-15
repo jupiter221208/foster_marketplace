@@ -149,12 +149,14 @@ const TrendingCard = props => {
         <>
           <div className="flex flex-col justify-center">
             <div className={styles.apparelTitle}>
-              {nftName}&nbsp;
-              {apparelList?.name === "Women's Short Sleeve"
-                ? 'Womens T-Shirt'
-                : apparelList?.name === 'Youth Short Sleeve'
-                ? 'Youth T-Shirt'
-                : apparelList?.name}
+              <div className={styles.overText}>{nftName}</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
             </div>
           </div>
           <div className={styles.nftName}>{userName}</div>
