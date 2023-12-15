@@ -127,9 +127,9 @@ const TrendingCard = props => {
               />
             </div>
           </div>
-          <div className={styles.nftName}>{userName}</div>
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-row mt-[5px] items-center lg:justify-center">
+          <div className="flex flex-row items-baseline justify-between">
+            <div className={styles.nftName}>{userName}</div>
+            <div className="flex flex-row mt-[5px] items-center">
               <div className={styles.cost}>
                 <span className={styles.dollar}>$&nbsp;</span>
                 {apparelList?.black.cost}
@@ -143,19 +143,20 @@ const TrendingCard = props => {
                 </div>
               </div>
             </div>
-            <button className={styles.button}>View Item</button>
           </div>
         </>
       ) : (
         <>
           <div className="flex flex-col justify-center">
             <div className={styles.apparelTitle}>
-              {nftName}&nbsp;
-              {apparelList?.name === "Women's Short Sleeve"
-                ? 'Womens T-Shirt'
-                : apparelList?.name === 'Youth Short Sleeve'
-                ? 'Youth T-Shirt'
-                : apparelList?.name}
+              <div className={styles.overText}>{nftName}</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
             </div>
           </div>
           <div className={styles.nftName}>{userName}</div>
