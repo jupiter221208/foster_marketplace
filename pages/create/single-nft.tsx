@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Head from 'next/head'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -44,10 +45,14 @@ import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 
 // styles
+import ImageIcon from 'assets/icons/image-icon.svg?component'
+import ShareIcon from 'assets/icons/share-icon.svg?component'
+import TrashBin from 'assets/icons/trash-bin.svg?component'
 import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
+import ModelViewer from 'components/ModelViewer'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -91,6 +96,7 @@ const SingleNft = () => {
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
+  const [nftUrl, setNftUrl] = useState<string>()
 
   useEffect(() => {
     let width = 0
@@ -191,7 +197,7 @@ const SingleNft = () => {
       } else if (nftArt[0].type === 'image/gif') {
         setNftType('image/gif')
         setNftImage(URL.createObjectURL(nftArt[0]))
-      } else {
+      } else if (nftArt[0].type === 'video/mp4') {
         const type = nftArt[0].type.split('/')[0]
         setNftType(type)
         if (type === 'video') {
@@ -214,12 +220,16 @@ const SingleNft = () => {
           })
           hidden_video.currentTime = 5
         }
+      } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
+        const path = URL.createObjectURL(nftArt[0])
+        setNftType('vr')
+        setNftUrl(path)
       }
     }
   }, [nftArt])
 
   useEffect(() => {
-    if (nftCover !== null) {
+    if (nftCover !== null && !(nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path))) {
       if (nftCover[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftCover[0])
@@ -495,6 +505,10 @@ const SingleNft = () => {
     }
   }
 
+  const { width, height, ref } = useResizeDetector()
+  const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
+
   return (
     <div className="w-full flex justify-center">
       <Head>
@@ -510,7 +524,22 @@ const SingleNft = () => {
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                    {nftType === 'image' || nftType === 'image/gif' ? (
+                    {nftType === 'vr' && nftUrl ? (
+                      <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                        <ModelViewer
+                          path={nftUrl}
+                          width={width}
+                          height={height}
+                          getSnapshot={{
+                            onSnapshot: image => {
+                              setNftImage(URL.createObjectURL(image))
+                              setTakeSnapshotStatus(false)
+                            },
+                            status: takeSnapshotStatus,
+                          }}
+                        />
+                      </div>
+                    ) : nftType === 'image' || nftType === 'image/gif' ? (
                       <div
                         className={styles.artArea}
                         style={{
@@ -579,74 +608,7 @@ const SingleNft = () => {
                           //   backgroundColor="transparent"
                           // />
                           <IconButtonWithSVG
-                            icon={
-                              <svg
-                                id="Group_52015"
-                                data-name="Group 52015"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="46"
-                                height="46"
-                                viewBox="0 0 46 46"
-                              >
-                                <g
-                                  id="Icon_feather-trash-2"
-                                  data-name="Icon feather-trash-2"
-                                  transform="translate(12.378 10.643)"
-                                >
-                                  <path
-                                    id="Path_105833"
-                                    data-name="Path 105833"
-                                    d="M4.5,9H26.743"
-                                    transform="translate(-4.5 -4.057)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                  />
-                                  <path
-                                    id="Path_105834"
-                                    data-name="Path 105834"
-                                    d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                                    transform="translate(-5.029 -3)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                  />
-                                  <path
-                                    id="Path_105835"
-                                    data-name="Path 105835"
-                                    d="M15,16.5v7.414"
-                                    transform="translate(-6.35 -5.378)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                  />
-                                  <path
-                                    id="Path_105836"
-                                    data-name="Path 105836"
-                                    d="M21,16.5v7.414"
-                                    transform="translate(-7.407 -5.378)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                  />
-                                </g>
-                                <rect
-                                  id="Rectangle_21074"
-                                  data-name="Rectangle 21074"
-                                  width="46"
-                                  height="46"
-                                  fill="none"
-                                />
-                              </svg>
-                            }
+                            icon={<TrashBin className={styles.trashIcon} />}
                             onClick={() => handleDeleteNftArt()}
                             backgroundColor="transparent"
                           />
@@ -681,11 +643,73 @@ const SingleNft = () => {
                     </div>
                     {/* upload artwork part */}
                     {currentStep === 1 && (
-                      <Step01SingleNFTSection
-                        nftType={nftType}
-                        setNftArt={item => handleChangeNftArt(item)}
-                        setNftCover={item => handleChangeNftCover(item)}
-                      />
+                      <>
+                        <Step01SingleNFTSection
+                          nftType={nftType}
+                          setNftArt={item => handleChangeNftArt(item)}
+                          setNftCover={item => handleChangeNftCover(item)}
+                        />
+                        {nftType === 'vr' && (
+                          <>
+                            <div className={styles.coverImgMsg}>
+                              <h6>
+                                Cover Photo <span>*</span>
+                              </h6>
+                              <p>
+                                Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+                              </p>
+                            </div>
+
+                            <div className={styles.coverBtnBox}>
+                              <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
+                                <ImageIcon /> Take Snapshot
+                              </button>
+
+                              <button disabled={nftImage !== ''}>
+                                <label htmlFor="fileInput">
+                                  <ShareIcon /> Upload Photo
+                                </label>
+                              </button>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                id="fileInput"
+                                onChange={e => {
+                                  const file = e.target.files[0]
+                                  if (file && file.type.startsWith('image/')) {
+                                    setNftCover(file)
+                                    setOpenCoverImageEditorModal(true)
+                                  } else {
+                                    alert('Please select an image file.')
+                                  }
+                                }}
+                              />
+
+                              {nftCover && (
+                                <NftImageEditorModal
+                                  open={openCoverImageEditorModal}
+                                  close={() => setOpenCoverImageEditorModal(false)}
+                                  nftImage={nftType === 'vr' && [nftCover]}
+                                  getCroppedImage={croppedImage => {
+                                    setNftImage(croppedImage)
+                                    setOpenCoverImageEditorModal(false)
+                                  }}
+                                  dimension={selectedDimension}
+                                />
+                              )}
+                            </div>
+
+                            {nftImage && (
+                              <div className={styles.glbNftImageSection}>
+                                <img className="w-full aspect-square" src={nftImage} alt="" />
+                                <button onClick={() => setNftImage('')}>
+                                  <TrashBin /> Remove Cover Image
+                                </button>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
                     )}
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
@@ -757,8 +781,23 @@ const SingleNft = () => {
                 <Stepper currentStep={currentStep} />
               </div> */}
 
-              <div className="w-full flex flex-wrap justify-center">
-                {nftType === 'image' ? (
+              <div className="w-full flex flex-wrap justify-center flex-row">
+                {nftType === 'vr' ? (
+                  <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                    <ModelViewer
+                      path={nftUrl}
+                      width={width}
+                      height={height}
+                      getSnapshot={{
+                        onSnapshot: image => {
+                          setNftImage(URL.createObjectURL(image))
+                          setTakeSnapshotStatus(false)
+                        },
+                        status: takeSnapshotStatus,
+                      }}
+                    />
+                  </div>
+                ) : nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
                     style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
@@ -819,68 +858,7 @@ const SingleNft = () => {
                       )}
 
                       <IconButtonWithSVG
-                        icon={
-                          <svg
-                            id="Group_52015"
-                            data-name="Group 52015"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="46"
-                            height="46"
-                            viewBox="0 0 46 46"
-                          >
-                            <g
-                              id="Icon_feather-trash-2"
-                              data-name="Icon feather-trash-2"
-                              transform="translate(12.378 10.643)"
-                            >
-                              <path
-                                id="Path_105833"
-                                data-name="Path 105833"
-                                d="M4.5,9H26.743"
-                                transform="translate(-4.5 -4.057)"
-                                fill="none"
-                                stroke="var(--trash-icon-color)"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                              />
-                              <path
-                                id="Path_105834"
-                                data-name="Path 105834"
-                                d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                                transform="translate(-5.029 -3)"
-                                fill="none"
-                                stroke="var(--trash-icon-color)"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                              />
-                              <path
-                                id="Path_105835"
-                                data-name="Path 105835"
-                                d="M15,16.5v7.414"
-                                transform="translate(-6.35 -5.378)"
-                                fill="none"
-                                stroke="var(--trash-icon-color)"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                              />
-                              <path
-                                id="Path_105836"
-                                data-name="Path 105836"
-                                d="M21,16.5v7.414"
-                                transform="translate(-7.407 -5.378)"
-                                fill="none"
-                                stroke="var(--trash-icon-color)"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                              />
-                            </g>
-                            <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
-                          </svg>
-                        }
+                        icon={<TrashBin className={styles.trashIcon} />}
                         onClick={() => handleDeleteNftArt()}
                         backgroundColor="transparent"
                         width="32px"
@@ -892,11 +870,71 @@ const SingleNft = () => {
               </div>
               {/* upload artwork part */}
               {currentStep === 1 && (
-                <Step01SingleNFTSection
-                  nftType={nftType}
-                  setNftArt={item => handleChangeNftArt(item)}
-                  setNftCover={item => handleChangeNftCover(item)}
-                />
+                <>
+                  <Step01SingleNFTSection
+                    nftType={nftType}
+                    setNftArt={item => handleChangeNftArt(item)}
+                    setNftCover={item => handleChangeNftCover(item)}
+                  />
+                  {nftType === 'vr' && (
+                    <>
+                      <div className={styles.coverImgMsg}>
+                        <h6>
+                          Cover Photo <span>*</span>
+                        </h6>
+                        <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                      </div>
+
+                      <div className={styles.coverBtnBox}>
+                        <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
+                          <ImageIcon /> Take Snapshot
+                        </button>
+
+                        <button disabled={nftImage !== ''}>
+                          <label htmlFor="fileInput">
+                            <ShareIcon /> Upload Photo
+                          </label>
+                        </button>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          id="fileInput"
+                          onChange={e => {
+                            const file = e.target.files[0]
+                            if (file && file.type.startsWith('image/')) {
+                              setNftCover(file)
+                              setOpenCoverImageEditorModal(true)
+                            } else {
+                              alert('Please select an image file.')
+                            }
+                          }}
+                        />
+
+                        {nftCover && (
+                          <NftImageEditorModal
+                            open={openCoverImageEditorModal}
+                            close={() => setOpenCoverImageEditorModal(false)}
+                            nftImage={nftType === 'vr' && [nftCover]}
+                            getCroppedImage={croppedImage => {
+                              setNftImage(croppedImage)
+                              setOpenCoverImageEditorModal(false)
+                            }}
+                            dimension={selectedDimension}
+                          />
+                        )}
+                      </div>
+
+                      {nftImage && (
+                        <div className={styles.glbNftImageSection}>
+                          <img className="w-full aspect-square" src={nftImage} alt="" />
+                          <button onClick={() => setNftImage('')}>
+                            <TrashBin /> Remove Cover Image
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </>
               )}
 
               {currentStep === 2 && (

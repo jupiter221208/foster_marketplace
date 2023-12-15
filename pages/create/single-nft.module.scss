@@ -218,3 +218,82 @@
   color: var(--text-gray-200-color);
   text-align: center;
 }
+
+.nft3DModelMessage {
+  font-family: 'Muli-Regular';
+  padding: 5rem 0;
+  color: var(--main-bg-color);
+  text-align: center;
+}
+
+.coverImgMsg {
+  color: var(--scroll-arrow-color);
+  h6 {
+    font-size: 18px;
+    font-weight: 700;
+    span {
+      color: var(--primary-btn-bg-right);
+    }
+  }
+}
+
+.coverBtnBox {
+  margin-top: 20px;
+  display: flex;
+  gap: 24px;
+
+  button {
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+    color: var(--primary-btn-bg-right);
+    fill: var(--primary-btn-bg-right);
+    background-color: rgba(var(--main-bg-color-rgb), 0.05);
+    border-radius: 10px;
+  }
+  button:first-child {
+    display: flex;
+    gap: 0.5rem;
+    padding: 16px 21px;
+    align-items: center;
+    justify-content: center;
+  }
+  button:nth-child(2) {
+    label {
+      display: flex;
+      gap: 0.5rem;
+      padding: 16px 21px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+  button:disabled {
+    color: var(--main-bg-color);
+    fill: var(--main-bg-color);
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.glbNftImageSection {
+  max-width: 300px;
+  width: 100%;
+  margin-top: 1rem;
+  button {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin: 1rem auto 0 auto;
+    color: var(--main-bg-color);
+    fill: none;
+    stroke: var(--primary-btn-bg-right);
+  }
+}
+
+.trashIcon {
+  fill: none;
+  stroke: var(--primary-btn-bg-right);
+}
