@@ -53,12 +53,7 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap z-10">
-          <NFTSwiperSection
-            nfts={nfts}
-            hasloading={hasloading}
-            collectionName={collectionName}
-            showHideButton={false}
-          />
+          <NFTSwiperSection nfts={nfts} collectionName={collectionName} showHideButton={false} />
         </div>
       )}
 
