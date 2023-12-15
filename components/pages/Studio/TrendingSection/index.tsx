@@ -66,7 +66,7 @@ const TrendingSection = props => {
         <div className="w-full flex justify-between items-center z-10 mb-[30px]">
           <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-between items-center z-10" id="recentMobile">
+              <div className="w-full flex justify-center items-center z-10" id="recentMobile">
                 <div className={styles.title}>Trending</div>
                 {/* <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
