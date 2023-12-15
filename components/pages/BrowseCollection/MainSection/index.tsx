@@ -7,8 +7,6 @@ import IconButton from 'components/Button/IconButton'
 import uploadFileToS3 from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Alert from 'components/Alert'
-import Lottie from 'lottie-react'
-import animationData from 'assets/lottery/shopping-lottie.json'
 
 // next components
 import Image from 'next/image'
@@ -184,9 +182,7 @@ const MainSection = props => {
         <div className={styles.container}>
           <div className="relative w-full">
             {hasloading ? (
-              <div>
-                <Lottie animationData={animationData} loop={true}></Lottie>
-              </div>
+              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[435px]`}></div>
             ) : (
               <>
                 {croppedBanner !== '' ? (
@@ -256,22 +252,28 @@ const MainSection = props => {
                       <div></div>
                     </ReactPlaceholder>
                   )}
-                  {saved ? (
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={100}
-                      height={45}
-                      label="Saved"
-                      onClick={() => unsaveCollection(data?.collection_id)}
-                    />
+                  {hasloading ? (
+                    <div className={`${styles.skeletonLoader} `}></div>
                   ) : (
-                    <GradientButton
-                      width={100}
-                      height={45}
-                      label="Save"
-                      backgroundColor
-                      onClick={() => saveCollection(data?.collection_id)}
-                    />
+                    <>
+                      {saved ? (
+                        <OutlineButton
+                          borderColor="var(--follow-btn-border-mobile)"
+                          width={100}
+                          height={45}
+                          label="Saved"
+                          onClick={() => unsaveCollection(data?.collection_id)}
+                        />
+                      ) : (
+                        <GradientButton
+                          width={100}
+                          height={45}
+                          label="Save"
+                          backgroundColor
+                          onClick={() => saveCollection(data?.collection_id)}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
               </div>
@@ -362,6 +364,7 @@ const MainSection = props => {
                         <ShareSmallIcon alt="" />
                       </div>
                     </div>
+
                     <div className="w-[70px] overflow-hidden rounded-[6px]">
                       {!loaded && (
                         <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
