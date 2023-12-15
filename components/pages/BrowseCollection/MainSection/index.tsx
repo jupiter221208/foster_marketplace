@@ -236,6 +236,7 @@ const MainSection = props => {
                 collectionName={data?.collection_name}
                 artistName={data?.artist_username}
                 artistAddress={data?.artist_username}
+                hasloading={hasloading}
               />
               <div className="flex">
                 <div className="flex mr-[24px] items-center">
@@ -253,7 +254,7 @@ const MainSection = props => {
                     </ReactPlaceholder>
                   )}
                   {hasloading ? (
-                    <div className={`${styles.skeletonLoader} `}></div>
+                    <div className={`${styles.skeletonLoader} w-[100px] h-[45px]`}></div>
                   ) : (
                     <>
                       {saved ? (
@@ -278,37 +279,60 @@ const MainSection = props => {
                 </div>
               </div>
             </div>
-            <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
-              {data?.description && <span className={styles.description}>{data?.description}</span>}
-            </div>
-            <div className="flex mt-[15px] gap-[15px]">
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>
-                  <div className="mt-[4px]">
-                    <SolanaLogoIcon alt="" />
-                  </div>
-                  <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+            {hasloading ? (
+              <>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
+                ></div>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
+                ></div>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
+                ></div>
+              </>
+            ) : (
+              <>
+                <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
+                  {data?.description && <span className={styles.description}>{data?.description}</span>}
                 </div>
-                <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>
-                  <div className="mt-[4px]">
-                    <SolanaLogoIcon alt="" />
+              </>
+            )}
+
+            {hasloading ? (
+              <div className={`${styles.skeletonLoader} w-1/2 h-[22px] mt-[30px] rounded-full`}></div>
+            ) : (
+              <>
+                <div className="flex mt-[15px] gap-[15px]">
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>
+                      <div className="mt-[4px]">
+                        <SolanaLogoIcon alt="" />
+                      </div>
+                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                    </div>
+                    <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
-                  <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>
+                      <div className="mt-[4px]">
+                        <SolanaLogoIcon alt="" />
+                      </div>
+                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                    </div>
+                    <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
+                  </div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>{items}</div>
+                    <div className={styles.nftInfoValue}>Items</div>
+                  </div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>{owners}</div>
+                    <div className={styles.nftInfoValue}>Owners</div>
+                  </div>
                 </div>
-                <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>{items}</div>
-                <div className={styles.nftInfoValue}>Items</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>{owners}</div>
-                <div className={styles.nftInfoValue}>Owners</div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
           <div></div>
         </div>
@@ -357,6 +381,7 @@ const MainSection = props => {
                     collectionName={data?.collection_name}
                     artistName={data?.artist_username}
                     artistAddress={data?.artist_username}
+                    hasloading={hasloading}
                   />
                   <div className="flex">
                     <div className="mr-[11px] lg:mr-[24px]">
