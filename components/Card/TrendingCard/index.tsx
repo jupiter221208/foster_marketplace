@@ -90,17 +90,19 @@ const TrendingCard = props => {
 
   return (
     <div className="w-full h-full relative p-[10px] lg:p-[12px]">
-      <div className={styles.imageContent} onClick={() => onClick(colorNumber)}>
-        {apparelList !== null && apparelList !== '' && (
-          <>
-            <img src={imagePath} className={styles.imageNft} />
-            <div className={styles.nftImage}>
-              <div className="w-[25%] h-[25%] lg:-mt-[35%] -mt-[35%] flex justify-center items-start opacity-80">
-                <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain" />
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent} onClick={() => onClick(colorNumber)}>
+          {apparelList !== null && apparelList !== '' && (
+            <>
+              <img src={imagePath} className={styles.imageNft} />
+              <div className={styles.nftImage}>
+                <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                  <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain" />
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <>
@@ -146,7 +148,7 @@ const TrendingCard = props => {
         </>
       ) : (
         <>
-          <div className="flex justify-center">
+          <div className="flex flex-col justify-center">
             <div className={styles.apparelTitle}>
               {nftName}&nbsp;
               {apparelList?.name === "Women's Short Sleeve"
