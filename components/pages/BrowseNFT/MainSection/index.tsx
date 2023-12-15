@@ -119,6 +119,7 @@ import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
 import TabList from 'assets/json/browse-nft/auction-list.json'
 import SelectedTab from 'components/Tab/SelectedTab'
+import { useResizeDetector } from 'react-resize-detector'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -797,6 +798,9 @@ const MainSection = ({
     setActiveTab(item.id)
   }
 
+  const sizeRef = useRef()
+  const { width, height, ref } = useResizeDetector()
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
@@ -815,8 +819,8 @@ const MainSection = ({
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('vr') ? (
                 nftAssetUrl ? (
-                  <div className={`${styles.mobileImageArea} aspect-square`}>
-                    <ModelViewer url={nftAssetUrl} />
+                  <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                    <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
                   </div>
                 ) : nftCoverUrl ? (
                   <div className={styles.mobileImageArea}>
@@ -866,10 +870,10 @@ const MainSection = ({
             ) : nftType.includes('vr') && !fullScreen ? (
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
-                <div className={styles.imageArea}>
+                <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
                   {nftAssetUrl ? (
                     <>
-                      <ModelViewer url={nftAssetUrl} />
+                      <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
                       <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
                         <Image src={FullScreenModeIcon} alt="" />
                       </div>

@@ -59,3 +59,22 @@
   padding: 0px 6px;
   z-index: 10;
 }
+
+.filterButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  background: var(--second-home-bg);
+  padding: 12px 15px 12px 15px;
+  border-radius: 16px;
+  @media (min-width: 1024px) {
+    margin-right: 40px;
+  }
+  cursor: pointer;
+}
+
+.filter {
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+}

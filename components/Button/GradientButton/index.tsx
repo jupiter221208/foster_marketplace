@@ -36,7 +36,7 @@ const GradientButton = props => {
     <button
       type="button"
       onClick={() => onClick()}
-      className={styles.container}
+      className={`${styles.container} min-w-max`}
       disabled={disabled}
       style={{
         width: fullWidth ? '100%' : width,

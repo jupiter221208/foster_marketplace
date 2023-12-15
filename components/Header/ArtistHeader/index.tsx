@@ -29,6 +29,7 @@ import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
+import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
@@ -258,18 +259,30 @@ const PrimaryHeader = () => {
             <div className="flex items-center my-auto min-w-max gap-4">
               <div className="flex">
                 {connected && (
-                  <div className="relative" onClick={() => router.push('/notifications')}>
-                    <NotificationIcon alt="" />
-                  </div>
+                  <>
+                    <div className="flex flex-row">
+                      <div
+                        className="flex mr-[20px] cursor-pointer"
+                        onClick={() => {
+                          dispatch({ type: 'set', activeTab: 4 })
+                          router.push(`/merch-logs`)
+                        }}
+                      >
+                        <ShoppingCartIcon alt="" />
+                      </div>
+                      <div className="flex relative cursor-pointer" onClick={() => router.push('/notifications')}>
+                        <NotificationIcon alt="" />
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 {connected && isNewNotification && (
-                  <div className="absolute ml-[20px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                  <div className="absolute ml-[90px] mt-[-10px]" onClick={() => router.push('/notifications')}>
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}
               </div>
-
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
@@ -292,7 +305,11 @@ const PrimaryHeader = () => {
           </nav>
         </div>
       ) : (
-        <div className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}>
+        <div
+          className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
+            isScrollingTop ? 'top-0' : '-top-28'
+          } transition-all`}
+        >
           {isScrollingTop && (
             <div className={styles.mobileContainer}>
               <div className="g-container flex justify-between items-center">
@@ -325,7 +342,7 @@ const PrimaryHeader = () => {
               </div>
             </div>
           )}
-          <div className={styles.divider} />
+          {!isScrollTop && <div className={styles.divider} />}
         </div>
       )}
     </div>

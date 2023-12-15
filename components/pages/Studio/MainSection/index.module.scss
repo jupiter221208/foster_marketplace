@@ -142,16 +142,16 @@
 
 .mobileTitle {
   color: var(--text-gray-200-color);
-  font-family: 'Muli-Bold';
-  font-size: 26px;
+  font-family: 'BebasKai';
+  font-size: 32px;
   line-height: 32px;
   text-align: center;
 }
 
 .mobileText {
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 20px;
   line-height: 24px;
   text-align: center;
   margin-top: 5px;
@@ -171,19 +171,19 @@
 .text {
   width: 100%;
   margin-top: 10px;
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-family: 'BebasKai';
+  font-size: 32x;
   line-height: 36px;
   text-align: center;
   // text-transform: uppercase;
   @media (min-width: 640px) {
     margin-top: 13px;
-    font-size: 14px;
+    font-size: 32px;
     line-height: 32px;
   }
   @media (min-width: 768px) {
     margin-top: 0px;
-    font-size: 20px;
+    font-size: 32px;
     line-height: 24px;
   }
   @media (min-width: 1024px) {
@@ -204,11 +204,11 @@
 .slug {
   margin-top: 9px;
   font-family: 'Muli-Regular';
-  font-size: 24px;
+  font-size: 20px;
   line-height: 36px;
   text-align: center;
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 30px;
     padding-left: 0px;
     padding-right: 0px;
@@ -302,11 +302,19 @@
   z-index: 10;
 }
 .studio {
-  width: 1435px;
   height: 100%;
   position: relative;
   border-radius: 50px;
   background-color: var(--g-right-container-bg);
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
+  @media (min-width: 1280px) {
+    width: 90%;
+  }
+  @media (min-width: 1440px) {
+    width: 80%;
+  }
 }
 .prevButton {
   position: absolute;

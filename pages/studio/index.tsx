@@ -80,9 +80,11 @@ const Studio = () => {
       </div>
       <div>
         {heroState.selected && (
-          <div className="g-container">
-            <TrendingSection category={''} heroValue={heroState} />
-            <FullScreenLoadingModal open={isLoading} />
+          <div className="w-full flex justify-center">
+            <div className="g-container">
+              <TrendingSection category={''} heroValue={heroState} />
+              <FullScreenLoadingModal open={isLoading} />
+            </div>
           </div>
         )}
       </div>
@@ -94,7 +96,7 @@ const Studio = () => {
           </div>
         </div>
       )}
-      <div>
+      <div className="w-full flex justify-center">
         <div className="g-container">
           <StudioArtistsSection />
         </div>

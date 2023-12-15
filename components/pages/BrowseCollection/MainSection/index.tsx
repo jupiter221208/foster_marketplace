@@ -258,6 +258,7 @@ const MainSection = props => {
                       width={100}
                       height={45}
                       label="Save"
+                      backgroundColor
                       onClick={() => saveCollection(data?.collection_id)}
                     />
                   )}
@@ -371,6 +372,7 @@ const MainSection = props => {
                           height={29}
                           borderRadius={6}
                           label="Save"
+                          backgroundColor
                           onClick={() => saveCollection(data?.collection_id)}
                         />
                       )}
