@@ -132,14 +132,14 @@
 
 .mobileTitle {
   color: var(--text-gray-200-color);
-  font-family: 'Muli-SemiBold';
+  font-family: 'BebasKai';
   font-size: 26px;
   line-height: 32px;
   text-align: center;
 }
 
 .mobileText {
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   font-family: 'Muli-Light';
   font-size: 18px;
   line-height: 24px;
@@ -162,7 +162,7 @@
 .text {
   width: 100%;
   margin-top: 10px;
-  font-family: 'Muli-Bold';
+  font-family: 'BebasKai';
   font-size: 18px;
   line-height: 36px;
   text-align: center;
@@ -195,12 +195,12 @@
 .slug {
   margin-top: 9px;
   font-family: 'Muli-Regular';
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 15px;
   text-align: center;
   @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 10px;
     padding-left: 0px;
     padding-right: 0px;
   }

@@ -79,16 +79,14 @@ const MainSection = ({ onchange, heroValue }) => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12 justify-center">
-            <div className="flex items-center justify-center mb-[20px]">
+            {/* <div className="flex items-center justify-center mb-[20px]">
               <Image src={StudioAvatar} alt="" width={90} height={90} />
               <div className="flex ml-[20px]">
                 <StudioTitle />
               </div>
-            </div>
-            <div className={styles.text}>Ready to level-up your wardrobe?</div>
-            <div className={styles.slug}>
-              Pick your base and then select from the available studio artwork to begin designing.
-            </div>
+            </div> */}
+            <div className={styles.text}>LOVE THE ART. OWN THE MERCH.</div>
+            <div className={styles.slug}>Pick a base garment and explore merch from your favorite artists.</div>
           </div>
         )}
 
@@ -101,10 +99,8 @@ const MainSection = ({ onchange, heroValue }) => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Ready to level-up your wardrobe?</div>
-              <div className={styles.mobileText}>
-                Pick your base and then select from the available studio artwork to begin designing.
-              </div>
+              <div className={styles.mobileTitle}>LOVE THE ART. OWN THE MERCH.</div>
+              <div className={styles.mobileText}>Pick a base garment and explore merch from your favorite artists.</div>
             </div>
             {StudioHeroList.length !== 0 && (
               <div className="w-full relative px-[20px]" id="heroSwiperMobile">

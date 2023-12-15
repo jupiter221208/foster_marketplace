@@ -80,11 +80,11 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12">
-            <div className={styles.text}>Foster Studio is Live</div>
+            <div className={styles.text}>Your Daily Dose of Art</div>
             <div className={styles.slug}>
               {/* Home to creators, collectors, and curators around the world.
               <br /> */}
-              Pushing the boundaries of digital art on Solana.
+              Pushing the Boundaries of Digital Art on Solana.
             </div>
 
             {/* <div className="hidden lg:flex lg:mt-1 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
@@ -112,8 +112,8 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Foster Studio is Live</div>
-              <div className={styles.mobileText}>Pushing the boundaries of digital art on Solana.</div>
+              <div className={styles.mobileTitle}>Your Daily Dose of Art</div>
+              <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana.</div>
             </div>
             {heroList.length !== 0 && (
               <div className="w-full relative" id="heroSwiperMobile">
