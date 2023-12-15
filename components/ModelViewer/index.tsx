@@ -5,7 +5,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 // @ts-ignore
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const ModelViewer = ({
   path,
@@ -21,6 +21,8 @@ const ModelViewer = ({
   const [camera, setCamera] = useState(null)
   const [controls, setControls] = useState(null)
   const [model, setModel] = useState(null)
+
+  const divRef = useRef<HTMLDivElement>()
 
   // Load the GLTF model and set up the scene
   useEffect(() => {
@@ -77,8 +79,9 @@ const ModelViewer = ({
     return () => {
       // Dispose of resources
       newRenderer.dispose()
+      renderer && renderer.dispose()
     }
-  }, [])
+  }, [path])
 
   useEffect(() => {
     if (renderer && !fullScreen) {
@@ -99,15 +102,11 @@ const ModelViewer = ({
     if (renderer) renderer.domElement.toBlob(blob => getSnapshot.onSnapshot(blob))
   }
 
-  return (
-    <div
-      ref={el => {
-        if (renderer && el) {
-          el.appendChild(renderer.domElement)
-        }
-      }}
-    />
-  )
+  useEffect(() => {
+    if (divRef.current && renderer) divRef.current.appendChild(renderer.domElement)
+  }, [divRef.current, renderer])
+
+  return <div ref={divRef} />
 }
 
 export default ModelViewer
