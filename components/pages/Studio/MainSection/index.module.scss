@@ -302,11 +302,19 @@
   z-index: 10;
 }
 .studio {
-  width: 1435px;
   height: 100%;
   position: relative;
   border-radius: 50px;
   background-color: var(--g-right-container-bg);
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
+  @media (min-width: 1280px) {
+    width: 90%;
+  }
+  @media (min-width: 1440px) {
+    width: 80%;
+  }
 }
 .prevButton {
   position: absolute;
