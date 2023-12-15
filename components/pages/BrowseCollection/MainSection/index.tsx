@@ -7,6 +7,8 @@ import IconButton from 'components/Button/IconButton'
 import uploadFileToS3 from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Alert from 'components/Alert'
+import Lottie from 'lottie-react'
+import animationData from 'assets/lottery/shopping-lottie.json'
 
 // next components
 import Image from 'next/image'
@@ -41,7 +43,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const MainSection = props => {
-  const { nfts, data, publicKey, loaded } = props
+  const { nfts, data, publicKey, loaded, hasloading } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -181,17 +183,26 @@ const MainSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={styles.container}>
           <div className="relative w-full">
-            {croppedBanner !== '' ? (
-              <div className={styles.headerImage}>
-                <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
-              </div>
-            ) : data?.banner_image ? (
-              <div className={styles.headerImage}>
-                <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
+            {hasloading ? (
+              <div>
+                <Lottie animationData={animationData} loop={true}></Lottie>
               </div>
             ) : (
-              <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
+              <>
+                {croppedBanner !== '' ? (
+                  <div className={styles.headerImage}>
+                    <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
+                ) : data?.banner_image ? (
+                  <div className={styles.headerImage}>
+                    <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
+                ) : (
+                  <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
+                )}
+              </>
             )}
+
             {/* <div className={styles.bottomMask}></div> */}
 
             {publicKey?.toBase58() === data?.minter_id && (

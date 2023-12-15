@@ -48,6 +48,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [loaded, setLoaded] = useState(false)
   const address = publicCollectionData?.collection_id
 
+  const [hasloading, setHasLoading] = useState(false)
+
   useEffect(() => {
     setTimeout(
       () =>
@@ -57,7 +59,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
@@ -67,11 +69,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) {
-          setNfts(collectionNfts)
-          dispatch({ type: 'set', isLoading: false })
+        setHasLoading(true)
+        const loadCollectionNfts = async () => {
+          let collectionNfts = await collectionsAPI.getCollectionNft(address)
+          if (!isString(collectionNfts)) {
+            setNfts(collectionNfts)
+            // dispatch({ type: 'set', isLoading: false })
+          }
+          setHasLoading(false)
         }
+
+        setTimeout(loadCollectionNfts, 3000)
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -110,7 +118,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
-        <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} loaded={loaded} />
+        <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} loaded={loaded} />
         <div className="w-full flex justify-center">
           <div className="g-container">
             <TabSection
