@@ -55,7 +55,7 @@ const StudioCard = props => {
         <div className={styles.imageArea}>
 
           <div className={styles.imageContent}> */}
-      <a href="#recent">
+      <a href="#recentDesktop">
         <div className="w-full">
           {!loaded && (
             <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">

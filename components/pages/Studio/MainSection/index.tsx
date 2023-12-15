@@ -86,7 +86,7 @@ const MainSection = ({ onchange, heroValue }) => {
               </div>
             </div> */}
             <div className={styles.text}>LOVE THE ART. OWN THE MERCH.</div>
-            <div className={styles.slug}>Pick the base garment and explore merch from your favorite artists.</div>
+            <div className={styles.slug}>Pick a base garment and explore merch from your favorite artists.</div>
           </div>
         )}
 
@@ -100,9 +100,7 @@ const MainSection = ({ onchange, heroValue }) => {
           >
             <div className={styles.contentArea}>
               <div className={styles.mobileTitle}>LOVE THE ART. OWN THE MERCH.</div>
-              <div className={styles.mobileText}>
-                Pick the base garment and explore merch from your favorite artists.
-              </div>
+              <div className={styles.mobileText}>Pick a base garment and explore merch from your favorite artists.</div>
             </div>
             {StudioHeroList.length !== 0 && (
               <div className="w-full relative px-[20px]" id="heroSwiperMobile">

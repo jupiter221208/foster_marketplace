@@ -106,14 +106,22 @@ const TrendingCard = props => {
         <>
           <div className="w-full flex flex-row justify-between">
             <div className={styles.apparelTitle}>
-              {nftName}&nbsp;{apparelList?.name}
+              <div className={styles.overText}>{nftName}</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
             </div>
-            <div className="flex relative mt-[-20px]">
+            <div className="flex relative mt-[-10px]">
               <StudioSelectionColor
                 label={''}
                 data={ColorType}
                 selected={color?.type}
                 onSelect={itemData => setColor(itemData)}
+                newStudio={true}
               />
             </div>
           </div>
@@ -138,8 +146,15 @@ const TrendingCard = props => {
         </>
       ) : (
         <>
-          <div className={styles.apparelTitle}>
-            {nftName}&nbsp;{apparelList?.name}
+          <div className="flex justify-center">
+            <div className={styles.apparelTitle}>
+              {nftName}&nbsp;
+              {apparelList?.name === "Women's Short Sleeve"
+                ? 'Womens T-Shirt'
+                : apparelList?.name === 'Youth Short Sleeve'
+                ? 'Youth T-Shirt'
+                : apparelList?.name}
+            </div>
           </div>
           <div className={styles.nftName}>{userName}</div>
           <div className="flex flex-row mt-[5px] items-center lg:justify-center">

@@ -60,7 +60,8 @@
 
 .apparelTitle {
   display: flex;
-  margin-top: -20px;
+  flex-direction: column;
+  margin-top: -10px;
   font-size: 18px;
   font-family: 'Muli-Regular';
   @media (min-width: 1024px) {
@@ -116,4 +117,10 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   color: var(--primary-btn-bg-right);
+}
+
+.overText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

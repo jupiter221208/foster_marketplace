@@ -47,7 +47,7 @@ const StudioHeroCardMobile = props => {
   // }
 
   return (
-    <a href="#recent">
+    <a href="#recentMobile">
       <div className={styles.container}>
         <div className={styles.imageBG}></div>
         <div className={styles.mobileImageArea}>
