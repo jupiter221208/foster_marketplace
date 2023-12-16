@@ -73,8 +73,8 @@
 
 .skeletonLoader:empty {
   display: block;
-  background-color: #ffffff !important;
-  border-color: #ffffff !important;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
   animation-name: skeletonAnimation;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
@@ -96,12 +96,12 @@
 
 @keyframes skeletonAnimation {
   0% {
-    opacity: 0.8;
+    opacity: 0.6;
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.2;
   }
   100% {
-    opacity: 0.8;
+    opacity: 0.6;
   }
 }

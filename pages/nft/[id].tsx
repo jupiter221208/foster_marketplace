@@ -75,6 +75,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
+  const [hasLoading, setHasLoading] = useState(null)
 
   useEffect(() => {
     setTimeout(
@@ -85,7 +86,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
@@ -117,31 +118,36 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   useEffect(() => {
     if (!nftDetail) return
-    if (connected) {
-      nftsAPI.getDetail(nftDetail.address).then(
-        (response: any) => {
-          if (!isString(response)) {
-            setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+    setHasLoading(true)
+    setTimeout(() => {
+      if (connected) {
+        nftsAPI.getDetail(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
             }
-          }
-        },
-        error => {}
-      )
-    } else {
-      nftsAPI.get(nftDetail.address).then(
-        (response: any) => {
-          if (!isString(response)) {
-            setNftInfo(response)
-            if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+          },
+          error => {}
+        )
+        setHasLoading(false)
+      } else {
+        nftsAPI.get(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
             }
-          }
-        },
-        error => {}
-      )
-    }
+          },
+          error => {}
+        )
+        setHasLoading(false)
+      }
+    }, 3000)
   }, [nftDetail, profileInfo])
 
   const collectionId = nftDetail?.collection?.address.toString()
@@ -232,6 +238,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
+                    hasLoading={hasLoading}
                   />
                 </div>
               </div>
