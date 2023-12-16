@@ -239,14 +239,19 @@ const MainSection = props => {
                 hasloading={hasloading}
               />
               <div className="flex">
-                <div className="flex mr-[24px] items-center">
-                  <MenuSocialShare
-                    type="image"
-                    vote={true}
-                    message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                    url={`/collection/${data?.collection_id}`}
-                  />
-                </div>
+                {hasloading ? (
+                  <div className={`${styles.skeletonLoader} w-[45px] h-[45px] mt-[50px] mr-[24px] rounded-md`}></div>
+                ) : (
+                  <div className="flex mr-[24px] items-center">
+                    <MenuSocialShare
+                      type="image"
+                      vote={true}
+                      message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                      url={`/collection/${data?.collection_id}`}
+                    />
+                  </div>
+                )}
+
                 <div className="w-[100px] overflow-hidden rounded-[12px]">
                   {!loaded && (
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
@@ -254,7 +259,7 @@ const MainSection = props => {
                     </ReactPlaceholder>
                   )}
                   {hasloading ? (
-                    <div className={`${styles.skeletonLoader} w-[100px] h-[45px]`}></div>
+                    <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
                   ) : (
                     <>
                       {saved ? (

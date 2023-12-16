@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 
 // third party components
-import { Disclosure } from '@headlessui/react'
 
 import {
   Chart as ChartJS,
@@ -25,7 +24,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 // components
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
-import ReportMenu from 'components/Menu/ReportMenu'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -43,15 +41,10 @@ import { loadAuctionHouse } from 'utils/auction.util'
 import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
-import PrintApparelSection from 'assets/images/apparel.png'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
 import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
-import DescriptionGreenIcon from 'assets/icons/description-green.svg?component'
-import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
-import SaleLightIcon from 'assets/icons/sale-light.svg?component'
-import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
@@ -79,7 +72,6 @@ import { Url } from 'url'
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getDateString } from 'utils/strings'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Nft } from '@metaplex-foundation/js'
@@ -806,18 +798,10 @@ const MainSection = ({
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
-        {loading ? (
-          <div className="col-span-2 lg:col-span-1">
-            <div className={styles.loadingBackground}>
-              <div className="w-full h-[400px] lg:h-full">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              </div>
-            </div>
-          </div>
-        ) : hasLoading ? (
-          <div className={`${styles.skeletonLoader} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1`}></div>
+        {hasLoading ? (
+          <div
+            className={`${styles.skeletonLoader} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
+          ></div>
         ) : (
           <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -854,7 +838,7 @@ const MainSection = ({
                         }}
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                      <source src=${nftAssetUrl} type="video/mp4" /></video>`,
+                        <source src=${nftAssetUrl} type="video/mp4" /></video>`,
                         }}
                       />
                     )}
