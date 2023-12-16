@@ -33,6 +33,12 @@ const StudioHeroCardMobile = props => {
           data: item,
         })
       }
+      setTimeout(() => {
+        window.scrollTo({
+          top: window.innerHeight * 0.85,
+          behavior: 'smooth',
+        })
+      }, 1000)
     })
   }
 
