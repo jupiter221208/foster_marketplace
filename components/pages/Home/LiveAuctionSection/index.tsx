@@ -246,14 +246,7 @@ const LiveAuctionSection = props => {
           >
             {liveAuctionList.map((item: any, index) => (
               <SwiperSlide key={index}>
-                <LiveAuctionCard
-                  data={item}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push('/nft/' + item.token_id)
-                  }}
-                  key={index}
-                />
+                <LiveAuctionCard data={item} key={index} />
               </SwiperSlide>
             ))}
           </Swiper>
