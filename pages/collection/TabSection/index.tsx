@@ -20,7 +20,7 @@ import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection
 import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 
 const TabSection = props => {
-  const { nfts, collectionName, collectionId } = props
+  const { nfts, collectionName, collectionId, hasloading } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
@@ -59,7 +59,7 @@ const TabSection = props => {
 
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap z-10">
-          <ActivitySection collectionId={collectionId} />
+          <ActivitySection collectionId={collectionId} hasloading={hasloading} />
         </div>
       )}
     </div>

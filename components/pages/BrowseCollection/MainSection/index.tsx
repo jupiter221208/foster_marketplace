@@ -41,7 +41,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const MainSection = props => {
-  const { nfts, data, publicKey, loaded } = props
+  const { nfts, data, publicKey, loaded, hasloading } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -181,17 +181,24 @@ const MainSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={styles.container}>
           <div className="relative w-full">
-            {croppedBanner !== '' ? (
-              <div className={styles.headerImage}>
-                <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
-              </div>
-            ) : data?.banner_image ? (
-              <div className={styles.headerImage}>
-                <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
-              </div>
+            {hasloading ? (
+              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[435px]`}></div>
             ) : (
-              <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
+              <>
+                {croppedBanner !== '' ? (
+                  <div className={styles.headerImage}>
+                    <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
+                ) : data?.banner_image ? (
+                  <div className={styles.headerImage}>
+                    <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
+                ) : (
+                  <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
+                )}
+              </>
             )}
+
             {/* <div className={styles.bottomMask}></div> */}
 
             {publicKey?.toBase58() === data?.minter_id && (
@@ -229,113 +236,153 @@ const MainSection = props => {
                 collectionName={data?.collection_name}
                 artistName={data?.artist_username}
                 artistAddress={data?.artist_username}
+                hasloading={hasloading}
               />
               <div className="flex">
-                <div className="flex mr-[24px] items-center">
-                  <MenuSocialShare
-                    type="image"
-                    vote={true}
-                    message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                    url={`/collection/${data?.collection_id}`}
-                  />
-                </div>
+                {hasloading ? (
+                  <div className={`${styles.skeletonLoader} w-[45px] h-[45px] mt-[50px] mr-[24px] rounded-md`}></div>
+                ) : (
+                  <div className="flex mr-[24px] items-center">
+                    <MenuSocialShare
+                      type="image"
+                      vote={true}
+                      message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                      url={`/collection/${data?.collection_id}`}
+                    />
+                  </div>
+                )}
+
                 <div className="w-[100px] overflow-hidden rounded-[12px]">
                   {!loaded && (
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                       <div></div>
                     </ReactPlaceholder>
                   )}
-                  {saved ? (
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={100}
-                      height={45}
-                      label="Saved"
-                      onClick={() => unsaveCollection(data?.collection_id)}
-                    />
+                  {hasloading ? (
+                    <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
                   ) : (
-                    <GradientButton
-                      width={100}
-                      height={45}
-                      label="Save"
-                      backgroundColor
-                      onClick={() => saveCollection(data?.collection_id)}
-                    />
+                    <>
+                      {saved ? (
+                        <OutlineButton
+                          borderColor="var(--follow-btn-border-mobile)"
+                          width={100}
+                          height={45}
+                          label="Saved"
+                          onClick={() => unsaveCollection(data?.collection_id)}
+                        />
+                      ) : (
+                        <GradientButton
+                          width={100}
+                          height={45}
+                          label="Save"
+                          backgroundColor
+                          onClick={() => saveCollection(data?.collection_id)}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
               </div>
             </div>
-            <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
-              {data?.description && <span className={styles.description}>{data?.description}</span>}
-            </div>
-            <div className="flex mt-[15px] gap-[15px]">
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>
-                  <div className="mt-[4px]">
-                    <SolanaLogoIcon alt="" />
-                  </div>
-                  <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+            {hasloading ? (
+              <>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
+                ></div>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
+                ></div>
+                <div
+                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
+                ></div>
+              </>
+            ) : (
+              <>
+                <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
+                  {data?.description && <span className={styles.description}>{data?.description}</span>}
                 </div>
-                <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>
-                  <div className="mt-[4px]">
-                    <SolanaLogoIcon alt="" />
+              </>
+            )}
+
+            {hasloading ? (
+              <div className={`${styles.skeletonLoader} w-1/2 h-[22px] mt-[30px] rounded-full`}></div>
+            ) : (
+              <>
+                <div className="flex mt-[15px] gap-[15px]">
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>
+                      <div className="mt-[4px]">
+                        <SolanaLogoIcon alt="" />
+                      </div>
+                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                    </div>
+                    <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
-                  <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>
+                      <div className="mt-[4px]">
+                        <SolanaLogoIcon alt="" />
+                      </div>
+                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                    </div>
+                    <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
+                  </div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>{items}</div>
+                    <div className={styles.nftInfoValue}>Items</div>
+                  </div>
+                  <div className="flex gap-[6px] items-center">
+                    <div className={styles.nftInfoLabel}>{owners}</div>
+                    <div className={styles.nftInfoValue}>Owners</div>
+                  </div>
                 </div>
-                <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>{items}</div>
-                <div className={styles.nftInfoValue}>Items</div>
-              </div>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.nftInfoLabel}>{owners}</div>
-                <div className={styles.nftInfoValue}>Owners</div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
           <div></div>
         </div>
       ) : (
         <div>
           <div className={styles.container}>
-            <div className={styles.headerImage}>
-              {data?.banner_image !== null && data?.banner_image.length > 0 ? (
-                <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
-              )}
-              {publicKey?.toBase58() === data?.minter_id && (
-                <div className="absolute right-4 bottom-2 cursor-pointer">
-                  <div className={styles.iconBlurView}>
-                    <div className="w-full h-full flex justify-center items-center">
-                      <IconButton
-                        icon={CameraWhiteIcon}
-                        onClick={() => inputBannerFile.current.click()}
-                        backgroundColor={'transparent'}
-                        borderRadius="100%"
-                        width={20}
-                        height={20}
-                        iconWidth={20}
-                        iconHeight={20}
-                        disabled={bannerUploadingToS3}
-                      />
+            {hasloading ? (
+              <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
+            ) : (
+              <div className={styles.headerImage}>
+                {data?.banner_image !== null && data?.banner_image.length > 0 ? (
+                  <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
+                )}
+                {publicKey?.toBase58() === data?.minter_id && (
+                  <div className="absolute right-4 bottom-2 cursor-pointer">
+                    <div className={styles.iconBlurView}>
+                      <div className="w-full h-full flex justify-center items-center">
+                        <IconButton
+                          icon={CameraWhiteIcon}
+                          onClick={() => inputBannerFile.current.click()}
+                          backgroundColor={'transparent'}
+                          borderRadius="100%"
+                          width={20}
+                          height={20}
+                          iconWidth={20}
+                          iconHeight={20}
+                          disabled={bannerUploadingToS3}
+                        />
+                      </div>
                     </div>
+                    <input
+                      type="file"
+                      id="banner-file"
+                      accept="image/png, image/jpeg, image/gif"
+                      ref={inputBannerFile}
+                      style={{ display: 'none' }}
+                      onChange={event => handleChangeBannerImage(event)}
+                    />
                   </div>
-                  <input
-                    type="file"
-                    id="banner-file"
-                    accept="image/png, image/jpeg, image/gif"
-                    ref={inputBannerFile}
-                    style={{ display: 'none' }}
-                    onChange={event => handleChangeBannerImage(event)}
-                  />
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
+
             <div className="g-container">
               <div className="w-full">
                 <div className="w-full flex justify-between items-center mt-[-50px] z-10">
@@ -344,20 +391,30 @@ const MainSection = props => {
                     collectionName={data?.collection_name}
                     artistName={data?.artist_username}
                     artistAddress={data?.artist_username}
+                    hasloading={hasloading}
                   />
                   <div className="flex">
-                    <div className="mr-[11px] lg:mr-[24px]">
-                      <div onClick={() => setOpenShareModal(true)}>
-                        <ShareSmallIcon alt="" />
+                    {hasloading ? (
+                      <div
+                        className={`${styles.skeletonLoader} w-[29px] h-[29px] rounded-md mt-[30px] mr-[11px]`}
+                      ></div>
+                    ) : (
+                      <div className="mr-[11px] lg:mr-[24px]">
+                        <div onClick={() => setOpenShareModal(true)}>
+                          <ShareSmallIcon alt="" />
+                        </div>
                       </div>
-                    </div>
+                    )}
+
                     <div className="w-[70px] overflow-hidden rounded-[6px]">
                       {!loaded && (
                         <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                           <div></div>
                         </ReactPlaceholder>
                       )}
-                      {saved ? (
+                      {hasloading ? (
+                        <div className={`${styles.skeletonLoader} w-[70px] h-[29px] rounded-md mt-[30px]`}></div>
+                      ) : saved ? (
                         <OutlineButton
                           width={70}
                           height={29}
@@ -380,58 +437,89 @@ const MainSection = props => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
-                {data?.description && <span className={styles.description}>{data?.description}</span>}
-              </div>
+              {hasloading ? (
+                <>
+                  <div
+                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
+                  ></div>
+                  <div
+                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
+                  ></div>
+                  <div
+                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
+                  ></div>
+                </>
+              ) : (
+                <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
+                  {data?.description && <span className={styles.description}>{data?.description}</span>}
+                </div>
+              )}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>
                   <div className="w-full flex justify-between items-center gap-[5px]">
-                    <div className={styles.statsArea}>
-                      <div className="text-center">
-                        <div className="flex justify-center">
-                          <div className={styles.nftInfoLabelMobile}>{items}</div>
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} ${styles.statsArea} h-[30px]`}></div>
+                    ) : (
+                      <div className={styles.statsArea}>
+                        <div className="text-center">
+                          <div className="flex justify-center">
+                            <div className={styles.nftInfoLabelMobile}>{items}</div>
+                          </div>
+                          <div className={styles.nftInfoValueMobile}>Items</div>
                         </div>
-                        <div className={styles.nftInfoValueMobile}>Items</div>
                       </div>
-                    </div>
-                    <div className={styles.statsArea}>
-                      <div className="text-center">
-                        <div className="flex justify-center">
-                          <div className={styles.nftInfoLabelMobile}>{owners}</div>
+                    )}
+
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} ${styles.statsArea} h-[30px]`}></div>
+                    ) : (
+                      <div className={styles.statsArea}>
+                        <div className="text-center">
+                          <div className="flex justify-center">
+                            <div className={styles.nftInfoLabelMobile}>{owners}</div>
+                          </div>
+                          <div className={styles.nftInfoValueMobile}>Owners</div>
                         </div>
-                        <div className={styles.nftInfoValueMobile}>Owners</div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
-                    <div className={styles.statsArea}>
-                      <div className="text-center">
-                        <div className="flex justify-center">
-                          <div className="flex gap-2 items-center">
-                            <SolanaLogoMobileIcon />
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} ${styles.statsArea} h-[30px]`}></div>
+                    ) : (
+                      <div className={styles.statsArea}>
+                        <div className="text-center">
+                          <div className="flex justify-center">
+                            <div className="flex gap-2 items-center">
+                              <SolanaLogoMobileIcon />
 
-                            <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
-                          </div>
-                        </div>
-                        <div className={styles.nftInfoValueMobile}>Floor Price</div>
-                      </div>
-                    </div>
-                    <div className={styles.statsArea}>
-                      <div className="text-center">
-                        <div className="flex items-center justify-center">
-                          <div className="flex gap-2 items-center">
-                            <SolanaLogoMobileIcon />
-
-                            <div className={styles.nftInfoLabelMobile}>
-                              {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                              <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                             </div>
                           </div>
+                          <div className={styles.nftInfoValueMobile}>Floor Price</div>
                         </div>
-
-                        <div className={styles.nftInfoValueMobile}>Total Volume</div>
                       </div>
-                    </div>
+                    )}
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} ${styles.statsArea} h-[30px]`}></div>
+                    ) : (
+                      <div className={styles.statsArea}>
+                        <div className="text-center">
+                          <div className="flex items-center justify-center">
+                            <div className="flex gap-2 items-center">
+                              <SolanaLogoMobileIcon />
+
+                              <div className={styles.nftInfoLabelMobile}>
+                                {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className={styles.nftInfoValueMobile}>Total Volume</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

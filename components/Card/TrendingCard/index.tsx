@@ -89,7 +89,7 @@ const TrendingCard = props => {
   }, [color])
 
   return (
-    <div className="w-full h-full relative p-[10px] lg:p-[12px]">
+    <div className="w-full h-full relative px-[10px] lg:p-[12px]">
       <div className={styles.imageArea}>
         <div className={styles.imageContent} onClick={() => onClick(colorNumber)}>
           {apparelList !== null && apparelList !== '' && (
