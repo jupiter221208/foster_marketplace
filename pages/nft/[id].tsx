@@ -288,7 +288,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       {fullScreen && (
         <div className={styles.fullScreen}>
-          {nftType.includes('vr') ? (
+          {nftType?.includes('vr') ? (
             <ModelViewer path={nftCoverUrl} fullScreen width={innerWidth} height={innerHeight} />
           ) : (
             <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
