@@ -14,6 +14,7 @@ import { calculateTimeLeft, formattedAmount, getTimeDifference } from 'utils/hel
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -25,7 +26,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 import ImageWithFallback from 'components/ImageWithFallback'
 
 const LiveAuctionCard = props => {
-  const { data } = props
+  const { data, onClick } = props
   const router = useRouter()
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -66,7 +67,7 @@ const LiveAuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <Link href={`/nft/${data.token_id}`}>
+        <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
           <a>
             <div className={styles.imageContent}>
               {data.asset_type.includes('video') ? (
@@ -79,16 +80,24 @@ const LiveAuctionCard = props => {
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                         }}
+                        onClick={() => onClick()}
                       />
                     ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
                       <ImageWithFallback
                         src={data.cover_image_url}
+                        onClick={onClick}
                         layout="fill"
                         alt=""
                         className="w-full h-full rounded-[24px] object-cover"
                       />
                     ) : (
-                      <Image src={DefaultNftBG} alt="" layout="fill" className="w-full h-full object-cover" />
+                      <Image
+                        src={DefaultNftBG}
+                        alt=""
+                        layout="fill"
+                        className="w-full h-full object-cover"
+                        onClick={() => onClick()}
+                      />
                     )}
                     <div className={styles.playButton}>
                       <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
@@ -109,6 +118,7 @@ const LiveAuctionCard = props => {
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
+                    onClick={() => onClick()}
                   />
                 )
               ) : data.asset_type.includes('audio') ? (
@@ -124,11 +134,13 @@ const LiveAuctionCard = props => {
                     layout="fill"
                     className="w-full h-full rounded-[24px] object-cover"
                     onLoadingComplete={() => setLoaded(true)}
+                    onClick={() => onClick()}
                   />
                 </div>
               ) : (
                 <ImageWithFallback
                   src={data.asset_url}
+                  onClick={onClick}
                   layout="fill"
                   alt=""
                   className="w-full h-full rounded-[24px] object-cover"

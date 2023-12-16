@@ -25,9 +25,15 @@ const TrendingCollectionCard = props => {
   const [loaded, setLoaded] = useState(false)
 
   return (
-    <Link href={`/collection/${collectionID}`}>
+    <Link href={`${window.origin}/collection/${collectionID}`} passHref>
       <a>
-        <div className={styles.container}>
+        <div
+          className={styles.container}
+          onClick={() => {
+            dispatch({ type: 'set', isLoading: true })
+            router.push('/collection/' + collectionID)
+          }}
+        >
           <div className="relative w-full h-full rounded-[24px] overflow-hidden">
             <div className={styles.imageArea}>
               {!loaded && (
