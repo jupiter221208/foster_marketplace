@@ -90,67 +90,65 @@ const DashboardNFTCard = props => {
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
-      <div className={styles.container}>
-        <div className={styles.imageArea}>
-          <div
-            className={styles.imageContent}
-            onClick={() => {
-              onClick(colorNumber)
-            }}
-          >
-            {apparelList !== null && apparelList !== '' ? (
-              <>
-                <img src={imagePath} className={styles.imageNft} />
-                <div className={styles.nftImage}>
-                  <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
-                    <img src={nftImage} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
-                  </div>
+      <div className={styles.imageArea}>
+        <div
+          className={styles.imageContent}
+          onClick={() => {
+            onClick(colorNumber)
+          }}
+        >
+          {apparelList !== null && apparelList !== '' ? (
+            <>
+              <img src={imagePath} className={styles.imageNft} />
+              <div className={styles.nftImage}>
+                <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                  <img src={nftImage} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
                 </div>
-              </>
-            ) : (
-              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-            )}
-          </div>
-        </div>
-
-        <div className={styles.apparelTitle}>
-          <div className={styles.overText}>{nftName}</div>
-          <div>
-            {apparelList?.name === "Women's Short Sleeve"
-              ? 'Womens T-Shirt'
-              : apparelList?.name === 'Youth Short Sleeve'
-              ? 'Youth T-Shirt'
-              : apparelList?.name}
-          </div>
-        </div>
-        <div className={styles.nftName}>{userName}</div>
-        <div className="flex flex-row mt-[5px] items-center justify-center">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className={styles.cost}>
-              <span className={styles.dollar}>$&nbsp;</span>
-              {apparelList?.black.cost}
-            </div>
+              </div>
+            </>
           ) : (
-            <div className={styles.cost}>$&nbsp;{apparelList?.black.cost}</div>
+            <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
           )}
-          <div className={styles.costDivider} />
-          <div className="flex items-center ml-[10px]">
-            <SolanaIcon alt="" />
-            &nbsp;
-            <div className={styles.cost}>
-              {apparelList?.black.cost ? (apparelList?.black.cost / solToUsdRate).toFixed(2) : ''}
-            </div>
+        </div>
+      </div>
+
+      <div className={styles.apparelTitle}>
+        <div className={styles.overText}>{nftName}</div>
+        <div>
+          {apparelList?.name === "Women's Short Sleeve"
+            ? 'Womens T-Shirt'
+            : apparelList?.name === 'Youth Short Sleeve'
+            ? 'Youth T-Shirt'
+            : apparelList?.name}
+        </div>
+      </div>
+      <div className={styles.nftName}>{userName}</div>
+      <div className="flex flex-row mt-[5px] items-center justify-center">
+        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+          <div className={styles.cost}>
+            <span className={styles.dollar}>$&nbsp;</span>
+            {apparelList?.black.cost}
+          </div>
+        ) : (
+          <div className={styles.cost}>$&nbsp;{apparelList?.black.cost}</div>
+        )}
+        <div className={styles.costDivider} />
+        <div className="flex items-center ml-[10px]">
+          <SolanaIcon alt="" />
+          &nbsp;
+          <div className={styles.cost}>
+            {apparelList?.black.cost ? (apparelList?.black.cost / solToUsdRate).toFixed(2) : ''}
           </div>
         </div>
-        <div className="w-full mt-[10px] relative">
-          <StudioSelectionColor
-            label={''}
-            data={ColorType}
-            selected={color?.type}
-            onSelect={itemData => setColor(itemData)}
-            newStudio={true}
-          />
-        </div>
+      </div>
+      <div className="w-full mt-[10px] relative">
+        <StudioSelectionColor
+          label={''}
+          data={ColorType}
+          selected={color?.type}
+          onSelect={itemData => setColor(itemData)}
+          newStudio={true}
+        />
       </div>
     </div>
   )

@@ -66,15 +66,15 @@ const TrendingSection = props => {
         <div className="w-full flex justify-between items-center z-10 mb-[30px]">
           <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10" id="recentMobile">
-                <div className={styles.title}>Trending</div>
+              <div className="w-full flex justify-center items-center z-10">
+                <div className={styles.title}>Recent Purchases</div>
                 {/* <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
                   <FilterIcon />
                 </div> */}
               </div>
             ) : (
-              <div className="w-full flex flex-row justify-between" id="recentDesktop">
+              <div className="w-full flex flex-row justify-between">
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Recent Purchases</div>
                 {/* <div className={styles.filterButton}>
                   <div className={styles.filter}>Filter</div>
@@ -93,7 +93,7 @@ const TrendingSection = props => {
           modules={[Navigation]}
           className={'heroNavigationSwiper'}
         >
-          <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+          <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[10px] lg:mt-[34px] z-10">
             {trendingList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="w-full flex flex-col col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
