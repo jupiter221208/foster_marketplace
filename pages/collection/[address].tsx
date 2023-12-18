@@ -70,16 +70,12 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       try {
         setLoaded(false)
         setHasLoading(true)
-        const loadCollectionNfts = async () => {
-          let collectionNfts = await collectionsAPI.getCollectionNft(address)
-          if (!isString(collectionNfts)) {
-            setNfts(collectionNfts)
-            // dispatch({ type: 'set', isLoading: false })
-          }
-          setHasLoading(false)
+        let collectionNfts = await collectionsAPI.getCollectionNft(address)
+        if (!isString(collectionNfts)) {
+          setNfts(collectionNfts)
+          // dispatch({ type: 'set', isLoading: false })
         }
-
-        setTimeout(loadCollectionNfts, 3000)
+        setHasLoading(false)
       } catch (e: any) {
         console.error(e)
       } finally {

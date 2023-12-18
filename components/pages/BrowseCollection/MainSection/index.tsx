@@ -253,33 +253,33 @@ const MainSection = props => {
                 )}
 
                 <div className="w-[100px] overflow-hidden rounded-[12px]">
-                  {!loaded && (
+                  {/* {!loaded && (
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                       <div></div>
                     </ReactPlaceholder>
-                  )}
-                  {hasloading ? (
+                  )} */}
+                  {saved ? (
+                    hasloading ? (
+                      <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
+                    ) : (
+                      <OutlineButton
+                        borderColor="var(--follow-btn-border-mobile)"
+                        width={100}
+                        height={45}
+                        label="Saved"
+                        onClick={() => unsaveCollection(data?.collection_id)}
+                      />
+                    )
+                  ) : hasloading ? (
                     <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
                   ) : (
-                    <>
-                      {saved ? (
-                        <OutlineButton
-                          borderColor="var(--follow-btn-border-mobile)"
-                          width={100}
-                          height={45}
-                          label="Saved"
-                          onClick={() => unsaveCollection(data?.collection_id)}
-                        />
-                      ) : (
-                        <GradientButton
-                          width={100}
-                          height={45}
-                          label="Save"
-                          backgroundColor
-                          onClick={() => saveCollection(data?.collection_id)}
-                        />
-                      )}
-                    </>
+                    <GradientButton
+                      width={100}
+                      height={45}
+                      label="Save"
+                      backgroundColor
+                      onClick={() => saveCollection(data?.collection_id)}
+                    />
                   )}
                 </div>
               </div>
@@ -407,22 +407,26 @@ const MainSection = props => {
                     )}
 
                     <div className="w-[70px] overflow-hidden rounded-[6px]">
-                      {!loaded && (
+                      {/* {!loaded && (
                         <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                           <div></div>
                         </ReactPlaceholder>
-                      )}
-                      {hasloading ? (
-                        <div className={`${styles.skeletonLoader} w-[70px] h-[29px] rounded-md mt-[30px]`}></div>
-                      ) : saved ? (
-                        <OutlineButton
-                          width={70}
-                          height={29}
-                          borderRadius={6}
-                          borderColor="var(--follow-btn-border-mobile)"
-                          label="Saved"
-                          onClick={() => unsaveCollection(data?.collection_id)}
-                        />
+                      )} */}
+                      {saved ? (
+                        hasloading ? (
+                          <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
+                        ) : (
+                          <OutlineButton
+                            width={70}
+                            height={29}
+                            borderRadius={6}
+                            borderColor="var(--follow-btn-border-mobile)"
+                            label="Saved"
+                            onClick={() => unsaveCollection(data?.collection_id)}
+                          />
+                        )
+                      ) : hasloading ? (
+                        <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
                       ) : (
                         <GradientButton
                           width={70}

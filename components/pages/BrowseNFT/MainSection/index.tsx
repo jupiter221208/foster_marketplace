@@ -798,154 +798,162 @@ const MainSection = ({
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
-        {hasLoading ? (
+        {/* {hasLoading ? (
           <div
             className={`${styles.skeletonLoader} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
           ></div>
-        ) : (
-          <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType.includes('vr') ? (
-                nftAssetUrl ? (
-                  <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                    <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
-                  </div>
-                ) : nftCoverUrl ? (
-                  <div className={styles.mobileImageArea}>
-                    <img src={nftCoverUrl} alt="" className="w-full" />
-                  </div>
-                ) : (
-                  <h1>Could not load NFT.</h1>
-                )
-              ) : nftType.includes('image') ? (
+        ) : ( */}
+        <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            hasLoading ? (
+              <div
+                className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full max-h-[250px]`}
+              ></div>
+            ) : nftType.includes('vr') ? (
+              nftAssetUrl ? (
+                <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                  <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
+                </div>
+              ) : nftCoverUrl ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" className="w-full" />
-                  {/* <div className={styles.mobileImageBackground} /> */}
-                </div>
-              ) : nftType.includes('audio') ? (
-                <div className={styles.audioArea}>
-                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
-                </div>
-              ) : nftType.includes('video') ? (
-                <div className={styles.videoArea}>
-                  <div className={styles.mobileVideoThumb}>
-                    <img src={nftCoverUrl} alt="" />
-                    {play && (
-                      <div
-                        className="w-full h-full absolute flex items-center"
-                        onClick={() => {
-                          if (play) setPlay(false)
-                        }}
-                        dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                        <source src=${nftAssetUrl} type="video/mp4" /></video>`,
-                        }}
-                      />
-                    )}
-                  </div>
-
-                  {!play && (
-                    <div className={styles.playButton}>
-                      <div className="w-[22px] h-[18px] flex justify-end">
-                        <Image src={PlayVideoIcon} width={18} height={18} alt="" onClick={() => setPlay(!play)} />
-                      </div>
-                    </div>
-                  )}
                 </div>
               ) : (
-                <></>
+                <h1>Could not load NFT.</h1>
               )
-            ) : nftType.includes('vr') && !fullScreen ? (
-              <div className={styles.blurBackground}>
-                <div className={styles.blurImage} />
-                <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
-                  {nftAssetUrl ? (
-                    <>
-                      <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
-                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
-                        <Image src={FullScreenModeIcon} alt="" />
-                      </div>
-                    </>
-                  ) : nftCoverUrl ? (
-                    <img
-                      src={nftCoverUrl}
-                      alt=""
-                      className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+            ) : nftType.includes('image') ? (
+              <div className={styles.mobileImageArea}>
+                <img src={nftCoverUrl} alt="" className="w-full" />
+                {/* <div className={styles.mobileImageBackground} /> */}
+              </div>
+            ) : nftType.includes('audio') ? (
+              <div className={styles.audioArea}>
+                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+              </div>
+            ) : nftType.includes('video') ? (
+              <div className={styles.videoArea}>
+                <div className={styles.mobileVideoThumb}>
+                  <img src={nftCoverUrl} alt="" />
+                  {play && (
+                    <div
+                      className="w-full h-full absolute flex items-center"
+                      onClick={() => {
+                        if (play) setPlay(false)
+                      }}
+                      dangerouslySetInnerHTML={{
+                        __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                          <source src=${nftAssetUrl} type="video/mp4" /></video>`,
+                      }}
                     />
-                  ) : (
-                    <h1>Could not load NFT.</h1>
                   )}
                 </div>
+
+                {!play && (
+                  <div className={styles.playButton}>
+                    <div className="w-[22px] h-[18px] flex justify-end">
+                      <Image src={PlayVideoIcon} width={18} height={18} alt="" onClick={() => setPlay(!play)} />
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : nftType.includes('image') ? (
-              <div className={styles.blurBackground}>
-                <div className={styles.blurImage} />
-                <div className={styles.imageArea}>
+            ) : (
+              <></>
+            )
+          ) : hasLoading ? (
+            <div
+              className={`${styles.skeletonLoader} ${styles.blurBackground} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
+            ></div>
+          ) : nftType.includes('vr') && !fullScreen ? (
+            <div className={styles.blurBackground}>
+              <div className={styles.blurImage} />
+              <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                {nftAssetUrl ? (
+                  <>
+                    <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
+                    <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
+                      <Image src={FullScreenModeIcon} alt="" />
+                    </div>
+                  </>
+                ) : nftCoverUrl ? (
                   <img
                     src={nftCoverUrl}
                     alt=""
                     className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                   />
-                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-                    <Image src={FullScreenModeIcon} alt="" />
-                  </div>
-                </div>
-              </div>
-            ) : nftType.includes('audio') ? (
-              <div className={styles.blurBackground}>
-                {nftAssetUrl && (
-                  <>
-                    <div className="absolute inset-0">
-                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                      <div
-                        className={styles.fullScreenMode}
-                        onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
-                      >
-                        <Image src={FullScreenModeIcon} alt="" />
-                      </div>
-                    </div>
-                  </>
-                )}
-                <div className={styles.blurImage} />
-                <div className={styles.audioArea}>
-                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
-                </div>
-              </div>
-            ) : nftType.includes('video') ? (
-              <div className={styles.blurBackground}>
-                {nftAssetUrl ? (
-                  <>
-                    <div className="absolute inset-0">
-                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                    </div>
-                    <div className={styles.videoArea}>
-                      <video controls autoPlay loop className="max-w-full max-h-full">
-                        <source type="video/mp4" src={nftAssetUrl} />
-                      </video>
-                    </div>
-                  </>
                 ) : (
-                  <>
-                    <div className={styles.videoArea}>
-                      <video controls autoPlay loop className="max-w-full max-h-full">
-                        <source type="video/mp4" src={nftAssetUrl} />
-                      </video>
-                    </div>
-                    {!nftAssetUrl && (
-                      <div className={styles.errorMessage}>
-                        <ErrorMessageIcon />
-                        <div>Video File Missing</div>
-                      </div>
-                    )}
-                  </>
+                  <h1>Could not load NFT.</h1>
                 )}
-                <div className={styles.blurImage} />
               </div>
-            ) : (
-              <></>
-            )}
-          </div>
-        )}
+            </div>
+          ) : nftType.includes('image') ? (
+            <div className={styles.blurBackground}>
+              <div className={styles.blurImage} />
+              <div className={styles.imageArea}>
+                <img
+                  src={nftCoverUrl}
+                  alt=""
+                  className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                />
+                <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                  <Image src={FullScreenModeIcon} alt="" />
+                </div>
+              </div>
+            </div>
+          ) : nftType.includes('audio') ? (
+            <div className={styles.blurBackground}>
+              {nftAssetUrl && (
+                <>
+                  <div className="absolute inset-0">
+                    <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                    <div
+                      className={styles.fullScreenMode}
+                      onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
+                    >
+                      <Image src={FullScreenModeIcon} alt="" />
+                    </div>
+                  </div>
+                </>
+              )}
+              <div className={styles.blurImage} />
+              <div className={styles.audioArea}>
+                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+              </div>
+            </div>
+          ) : nftType.includes('video') ? (
+            <div className={styles.blurBackground}>
+              {nftAssetUrl ? (
+                <>
+                  <div className="absolute inset-0">
+                    <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  </div>
+                  <div className={styles.videoArea}>
+                    <video controls autoPlay loop className="max-w-full max-h-full">
+                      <source type="video/mp4" src={nftAssetUrl} />
+                    </video>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className={styles.videoArea}>
+                    <video controls autoPlay loop className="max-w-full max-h-full">
+                      <source type="video/mp4" src={nftAssetUrl} />
+                    </video>
+                  </div>
+                  {!nftAssetUrl && (
+                    <div className={styles.errorMessage}>
+                      <ErrorMessageIcon />
+                      <div>Video File Missing</div>
+                    </div>
+                  )}
+                </>
+              )}
+              <div className={styles.blurImage} />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        {/* )} */}
 
         <div className="col-span-2 lg:col-span-1 z-10">
           <div className={styles.nftDetailCard}>
@@ -999,7 +1007,7 @@ const MainSection = ({
 
                 <div className="inline">
                   {hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[300px] h-[22px] rounded-full`}></div>
+                    <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
                   ) : (
                     <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                       <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
@@ -1046,7 +1054,7 @@ const MainSection = ({
               </div>
               {hasLoading ? (
                 <div
-                  className={`${styles.skeletonLoader} ${styles.title} w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
+                  className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
                 ></div>
               ) : (
                 <>
