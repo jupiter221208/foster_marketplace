@@ -61,9 +61,12 @@ const MainSection = () => {
       console.log(heroList[1].token_id, '===========2========')
       console.log(heroList[2].token_id, '===========3========')
 
-      router.prefetch(`/nft/${heroList[0].token_id}`)
-      router.prefetch(`/nft/${heroList[1].token_id}`)
-      router.prefetch(`/nft/${heroList[2].token_id}`)
+      // router.prefetch(`/nft/${heroList[0].token_id}`)
+      // router.prefetch(`/nft/${heroList[1].token_id}`)
+      // router.prefetch(`/nft/${heroList[2].token_id}`)
+      fetch(`/nft/${heroList[0].token_id}`).then(e => e.text())
+      fetch(`/nft/${heroList[1].token_id}`).then(e => e.text())
+      fetch(`/nft/${heroList[2].token_id}`).then(e => e.text())
     }
   }, [heroList, router])
 
