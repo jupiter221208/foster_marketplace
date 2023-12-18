@@ -80,6 +80,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isVisibleFetchingMerch, setIsVisibleFetchingMerch] = useState(false)
   const [isFetchingCollected, setIsFetchingCollected] = useState(false)
   const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
+  const [hasLoading, setHasLoading] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -104,7 +105,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
@@ -134,13 +135,14 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [merchNfts])
 
   useEffect(() => {
-    ;(async () => {
+    setHasLoading(true)
+    ;async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
-      getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
-      getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
-    })()
+      await getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
+      await getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
+      await getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
+    }
   }, [connected, loginAndRefresh, publicArtistData])
 
   const reloadPage = () => {
@@ -192,6 +194,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       response => {
         setIsLoaded(true)
         setIsFetchingMerch(false)
+        setHasLoading(false)
         if (isString(response)) return
 
         if (response.length === merchRowCount) setIsVisibleFetchingMerch(true)
@@ -216,7 +219,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       response => {
         setIsLoaded(true)
         setIsFetchingCreated(false)
-
+        setHasLoading(false)
         if (isString(response)) return
         let artist = response.artist
 
@@ -251,7 +254,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       response => {
         setIsLoaded(true)
         setIsFetchingCollected(false)
-
+        setHasLoading(false)
         if (isString(response)) return
         let artist = response.collector
         if (refresh && artist) {
@@ -281,6 +284,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   useEffect(() => {
     if (!artistPublicKey) return
     resetData()
+    setHasLoading(true)
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
     getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
     getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
@@ -320,6 +324,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setFullScreenView={setFullScreenView}
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
+          hasLoading={hasLoading}
         />
         <div className="w-full flex justify-center">
           <div className="g-container">
