@@ -39,10 +39,10 @@ const ProfileArtistCard = props => {
 
   return (
     <div className={styles.container}>
-      {hasLoading ? (
-        <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
-      ) : (
-        <div className={styles.avatarArea}>
+      <div className={styles.avatarArea}>
+        {hasLoading ? (
+          <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
+        ) : (
           <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
             {/* {!loaded && (
               <div className="w-full h-full overflow-hidden rounded-full">
@@ -88,8 +88,8 @@ const ProfileArtistCard = props => {
               </div>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         hasLoading ? (
