@@ -68,7 +68,7 @@ const MainSection = () => {
       fetch(`/nft/${heroList[1].token_id}`).then(e => e.text())
       fetch(`/nft/${heroList[2].token_id}`).then(e => e.text())
     }
-  }, [heroList])
+  }, [heroList, router])
 
   useEffect(() => {
     dashboardAPI.getDashboardBanner().then(
