@@ -22,18 +22,24 @@
     "baseUrl": ".",
     "noImplicitAny": false,
     "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo",
-    "strictNullChecks" : false,
+    "strictNullChecks": false,
     "types": [
       "webpack-env",
       "@types/moment-duration-format",
       "@types/jest"
+    ],
+    "plugins": [
+      {
+        "name": "next"
+      }
     ]
   },
   "include": [
     ".",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
