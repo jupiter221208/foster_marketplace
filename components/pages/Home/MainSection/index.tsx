@@ -65,7 +65,7 @@ const MainSection = () => {
       router.prefetch(`/nft/${heroList[1].token_id}`)
       router.prefetch(`/nft/${heroList[2].token_id}`)
     }
-  }, [heroList])
+  }, [heroList, router])
 
   useEffect(() => {
     dashboardAPI.getDashboardBanner().then(
