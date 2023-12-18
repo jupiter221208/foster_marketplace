@@ -31,6 +31,7 @@ const ProfileArtistCard = props => {
     avatarUploadingToS3,
     handleChangeAvatar,
     setFullScreenView,
+    hasLoading,
   } = props
   const viewport = useViewport()
   const [loaded, setLoaded] = useState(false)
@@ -38,74 +39,85 @@ const ProfileArtistCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.avatarArea}>
-        <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-          {!loaded && (
-            <div className="w-full h-full overflow-hidden rounded-full">
-              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                <div></div>
-              </ReactPlaceholder>
-            </div>
-          )}
-          <Image
-            src={image}
-            alt=""
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            className="rounded-full"
-            onLoadingComplete={() => setLoaded(true)}
-            onClick={setFullScreenView}
-          />
-          {isOwn && (
-            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
-              <div className={styles.iconProfileBlurView}>
-                <div className="w-full h-full flex justify-center items-center">
-                  <IconButton
-                    icon={EditorGreenIcon}
-                    onClick={() => inputAvatarFile.current.click()}
-                    backgroundColor={'transparent'}
-                    borderRadius="100%"
-                    width={20}
-                    height={20}
-                    iconWidth={20}
-                    iconHeight={20}
-                    disabled={avatarUploadingToS3}
-                  />
+      {hasLoading ? (
+        <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
+      ) : (
+        <div className={styles.avatarArea}>
+          <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
+            {!loaded && (
+              <div className="w-full h-full overflow-hidden rounded-full">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              </div>
+            )}
+            <Image
+              src={image}
+              alt=""
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+              className="rounded-full"
+              onLoadingComplete={() => setLoaded(true)}
+              onClick={setFullScreenView}
+            />
+            {isOwn && (
+              <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
+                <div className={styles.iconProfileBlurView}>
+                  <div className="w-full h-full flex justify-center items-center">
+                    <IconButton
+                      icon={EditorGreenIcon}
+                      onClick={() => inputAvatarFile.current.click()}
+                      backgroundColor={'transparent'}
+                      borderRadius="100%"
+                      width={20}
+                      height={20}
+                      iconWidth={20}
+                      iconHeight={20}
+                      disabled={avatarUploadingToS3}
+                    />
+                  </div>
                 </div>
-              </div>
-              <input
-                type="file"
-                id="avatar-file"
-                accept="image/png, image/jpeg, image/gif"
-                ref={inputAvatarFile}
-                style={{ display: 'none' }}
-                onChange={event => handleChangeAvatar(event)}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <div className={styles.name}>
-          {name}
-          <div className="w-full flex gap-[10px] items-center ml-[9px]">
-            {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
-              <div>
-                <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
-              </div>
-            )}
-            {twitter_url !== null && twitter_url !== undefined && twitter_url.length > 0 && (
-              <div>
-                <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
-              </div>
-            )}
-            {site_url !== null && site_url !== undefined && site_url.length > 0 && (
-              <div>
-                <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
+                <input
+                  type="file"
+                  id="avatar-file"
+                  accept="image/png, image/jpeg, image/gif"
+                  ref={inputAvatarFile}
+                  style={{ display: 'none' }}
+                  onChange={event => handleChangeAvatar(event)}
+                />
               </div>
             )}
           </div>
         </div>
+      )}
+
+      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        hasLoading ? (
+          <div className={`${styles.skeletonLoader} ${styles.name} w-[250px] h-[22px] rounded-full mt-[15px]`}></div>
+        ) : (
+          <div className={styles.name}>
+            {name}
+            <div className="w-full flex gap-[10px] items-center ml-[9px]">
+              {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
+                <div>
+                  <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
+                </div>
+              )}
+              {twitter_url !== null && twitter_url !== undefined && twitter_url.length > 0 && (
+                <div>
+                  <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
+                </div>
+              )}
+              {site_url !== null && site_url !== undefined && site_url.length > 0 && (
+                <div>
+                  <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      ) : hasLoading ? (
+        <div className={`${styles.skeletonLoader} ${styles.name} w-[150px] h-[22px] rounded-full`}></div>
       ) : (
         <div className={styles.name}>{name}</div>
       )}

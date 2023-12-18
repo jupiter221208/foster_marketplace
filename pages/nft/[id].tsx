@@ -117,11 +117,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [detailShow, apparelType])
 
   useEffect(() => {
-    if (!nftDetail) return
-    setHasLoading(true)
-    setTimeout(() => {
+    const fetchData = async () => {
+      if (!nftDetail) return
+      setHasLoading(true)
       if (connected) {
-        nftsAPI.getDetail(nftDetail.address).then(
+        await nftsAPI.getDetail(nftDetail.address).then(
           (response: any) => {
             if (!isString(response)) {
               setNftInfo(response)
@@ -132,9 +132,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           },
           error => {}
         )
-        setHasLoading(false)
       } else {
-        nftsAPI.get(nftDetail.address).then(
+        await nftsAPI.get(nftDetail.address).then(
           (response: any) => {
             if (!isString(response)) {
               setNftInfo(response)
@@ -145,9 +144,10 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           },
           error => {}
         )
-        setHasLoading(false)
       }
-    }, 3000)
+      setHasLoading(false)
+    }
+    fetchData()
   }, [nftDetail, profileInfo])
 
   const collectionId = nftDetail?.collection?.address.toString()
