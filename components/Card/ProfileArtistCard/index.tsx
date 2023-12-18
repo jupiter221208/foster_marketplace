@@ -44,13 +44,13 @@ const ProfileArtistCard = props => {
       ) : (
         <div className={styles.avatarArea}>
           <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-            {!loaded && (
+            {/* {!loaded && (
               <div className="w-full h-full overflow-hidden rounded-full">
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                   <div></div>
                 </ReactPlaceholder>
               </div>
-            )}
+            )} */}
             <Image
               src={image}
               alt=""

@@ -442,7 +442,7 @@ const MainSection = prop => {
               {artistInfo?.site_url !== null &&
                 artistInfo?.site_url.length > 0 &&
                 (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[30px] h-[30px] rounded-full`}></div>
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
                 ) : (
                   <div>
                     <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
@@ -675,7 +675,7 @@ const MainSection = prop => {
     // mobile view
     <div className={styles.container}>
       {hasLoading ? (
-        <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
+        <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
       ) : (
         <div className={styles.headerImage}>
           <img
@@ -739,7 +739,7 @@ const MainSection = prop => {
           <div className="absolute flex right-0 top-[60px]">
             <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
               {hasLoading ? (
-                <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] rounded-md`}></div>
+                <div className={`${styles.skeletonLoader} w-[26px] h-[26px] rounded-md`}></div>
               ) : refreshing ? (
                 <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
               ) : (

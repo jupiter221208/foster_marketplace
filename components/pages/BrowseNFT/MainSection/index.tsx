@@ -806,7 +806,9 @@ const MainSection = ({
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             hasLoading ? (
-              <div className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full h-full`}></div>
+              <div
+                className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full max-h-[250px]`}
+              ></div>
             ) : nftType.includes('vr') ? (
               nftAssetUrl ? (
                 <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
