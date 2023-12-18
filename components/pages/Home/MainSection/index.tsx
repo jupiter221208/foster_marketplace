@@ -55,6 +55,15 @@ const MainSection = () => {
   }
 
   useEffect(() => {
+    // Prefetch the hero cards
+    if (heroList.length > 0) {
+      heroList.map(item => {
+        router.prefetch(`/nft/${item.token_id}`)
+      })
+    }
+  }, [heroList])
+
+  useEffect(() => {
     dashboardAPI.getDashboardBanner().then(
       response => {
         if (response !== null && response !== undefined) {
