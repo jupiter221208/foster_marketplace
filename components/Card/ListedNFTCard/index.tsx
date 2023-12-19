@@ -95,7 +95,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          {assetJson?.animation_url ? (
+          {assetJson?.properties?.category === 'audio' || assetJson?.properties?.category === 'video' ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
