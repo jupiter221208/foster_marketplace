@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Pagination, Navigation } from 'swiper'
+import { Pagination, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -20,9 +20,6 @@ import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -54,6 +51,22 @@ const MainSection = () => {
     }, 500)
   }
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    if (heroList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < heroList.length; index++) {
+          let data = heroList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [heroList, router])
+
   useEffect(() => {
     dashboardAPI.getDashboardBanner().then(
       response => {
@@ -80,27 +93,8 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12">
-            <div className={styles.text}>Your Daily Dose of Art</div>
-            <div className={styles.slug}>
-              {/* Home to creators, collectors, and curators around the world.
-              <br /> */}
-              Pushing the Boundaries of Digital Art on Solana.
-            </div>
-
-            {/* <div className="hidden lg:flex lg:mt-1 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
-              <div className="block">
-                <div className={styles.count}>{artworkCnt}</div>
-                <div className={styles.countText}>Artworks</div>
-              </div>
-              <div className="block items-center">
-                <div className={styles.count}>{collectionCnt}</div>
-                <div className={styles.countText}>Collections</div>
-              </div>
-              <div className="block">
-                <div className={styles.count}>{nftCnt}</div>
-                <div className={styles.countText}>Ecosystem</div>
-              </div>
-            </div> */}
+            <div className={styles.text}>Home to Creators Around the World</div>
+            <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
         )}
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -112,8 +106,8 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Your Daily Dose of Art</div>
-              <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana.</div>
+              <div className={styles.mobileTitle}>Home to Creators Around the World</div>
+              <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
             </div>
             {heroList.length !== 0 && (
               <div className="w-full relative" id="heroSwiperMobile">
