@@ -35,26 +35,28 @@ const MarketplaceReleaseSection = props => {
 
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
   const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
-  const [cardLoop, setCardLoop] = useState(true)
   const [page, setPage] = useState(1)
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    if (marketplaceReleaseList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < marketplaceReleaseList.length; index++) {
+          let data = marketplaceReleaseList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [marketplaceReleaseList, router])
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '', page).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        // let newList: any[] = []
-        // let tempItem: any[] = []
-        // response.map((item, index) => {
-        //   tempItem.push(item)
-        //   if (index % 2 === 1) {
-        //     newList.push(tempItem)
-        //     tempItem = []
-        //   }
-        // })
-
-        // if (tempItem.length > 0) newList.push(tempItem)
-
         setAllMarketplaceReleaseList(response)
       }
     }),

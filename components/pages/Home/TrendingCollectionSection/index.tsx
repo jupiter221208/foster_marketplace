@@ -41,6 +41,22 @@ const TrendingCollectionSection = props => {
   const [active, setActive] = useState<any>(1)
   const [isLoading, setIsLoading] = useState(false)
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    if (trendingList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < trendingList.length; index++) {
+          let data = trendingList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [trendingList, router])
+
   useEffect(() => {
     setTrendingList([])
     getTrendingCollectionsFromServer(category, 'week')

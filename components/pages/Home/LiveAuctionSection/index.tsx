@@ -56,7 +56,6 @@ const LiveAuctionSection = props => {
       ;(async () => {
         for (let index = 0; index < liveAuctionList.length; index++) {
           let data = liveAuctionList[index]
-          console.log('=========index=======', index)
           fetch(`/nft/${data.token_id}`).then(e => e.text())
           if (index % 3 == 2) {
             await sleep(1000)
