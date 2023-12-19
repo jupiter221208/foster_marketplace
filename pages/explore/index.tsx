@@ -35,7 +35,6 @@ import MarketList from 'assets/json/explore/market.json'
 
 // images and icons
 import PreviewImage from 'assets/images/preview-image.png'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
 import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
 
@@ -57,7 +56,6 @@ import GradientButton from 'components/Button/GradientButton'
 const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
 
@@ -188,7 +186,7 @@ const Explore = () => {
       default:
         break
     }
-  }, [exploreTab])
+  }, [exploreTab, availabilityFilter])
 
   useEffect(() => {
     if (!isMounted) return
@@ -608,7 +606,6 @@ const Explore = () => {
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
                   {nftList.length !== 0 &&
                     nftList?.map((item, index) => {
-                      console.log(index, item)
                       return (
                         <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                           {selectedAvailability.value === 'timed' ? (
