@@ -54,19 +54,34 @@ const MainSection = () => {
     }, 500)
   }
 
-  useEffect(() => {
-    // Prefetch the hero cards
-    if (heroList.length > 0) {
-      console.log(heroList[0].token_id, '===========1========')
-      console.log(heroList[1].token_id, '===========2========')
-      console.log(heroList[2].token_id, '===========3========')
+  // useEffect(() => {
+  //   // Prefetch the hero cards
+  //   if (heroList.length > 0) {
+  //     console.log(heroList[0].token_id, '===========1========')
+  //     console.log(heroList[1].token_id, '===========2========')
+  //     console.log(heroList[2].token_id, '===========3========')
 
-      // router.prefetch(`/nft/${heroList[0].token_id}`)
-      // router.prefetch(`/nft/${heroList[1].token_id}`)
-      // router.prefetch(`/nft/${heroList[2].token_id}`)
-      fetch(`/nft/${heroList[0].token_id}`).then(e => e.text())
-      fetch(`/nft/${heroList[1].token_id}`).then(e => e.text())
-      fetch(`/nft/${heroList[2].token_id}`).then(e => e.text())
+  //     // router.prefetch(`/nft/${heroList[0].token_id}`)
+  //     // router.prefetch(`/nft/${heroList[1].token_id}`)
+  //     // router.prefetch(`/nft/${heroList[2].token_id}`)
+  //     fetch(`/nft/${heroList[0].token_id}`).then(e => e.text())
+  //     fetch(`/nft/${heroList[1].token_id}`).then(e => e.text())
+  //     fetch(`/nft/${heroList[2].token_id}`).then(e => e.text())
+  //   }
+  // }, [heroList, router])
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    if (heroList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < heroList.length; index++) {
+          let data = heroList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
     }
   }, [heroList, router])
 
