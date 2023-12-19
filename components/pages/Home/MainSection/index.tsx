@@ -113,27 +113,29 @@ const MainSection = () => {
               <div className={styles.mobileTitle}>Home to Creators Around the World</div>
               <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
             </div>
-            {/* {heroList.length === 0 && ( */}
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={20}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className={'heroSwiperMobile'}
-              loop
-            >
-              {heroEmptyList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className={`${styles.skeletonLoader} w-full min-h-[508px] rounded-[24px]`}></div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            {/* )} */}
+            <div className="w-full relative" id="heroSwiperMobile">
+              {heroList.length === 0 && (
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={20}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination]}
+                  className={'heroSwiperMobile'}
+                  loop
+                >
+                  {heroEmptyList.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className={`${styles.skeletonLoader} w-[90%] min-h-[287px] mt-[200px] mx-[20px] rounded-[24px]`}
+                      ></div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              )}
 
-            {heroList.length !== 0 && (
-              <div className="w-full relative" id="heroSwiperMobile">
+              {heroList.length !== 0 && (
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={20}
@@ -151,8 +153,8 @@ const MainSection = () => {
                     </SwiperSlide>
                   ))}
                 </Swiper>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         ) : (
           <div
