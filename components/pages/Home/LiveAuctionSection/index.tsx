@@ -49,6 +49,23 @@ const LiveAuctionSection = props => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    if (liveAuctionList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < liveAuctionList.length; index++) {
+          let data = liveAuctionList[index]
+          console.log('=========index=======', index)
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [liveAuctionList, router])
+
   const isExpired = endTime => {
     let endDate = new Date(endTime)
     let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
