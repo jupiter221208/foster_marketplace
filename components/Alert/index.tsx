@@ -11,15 +11,17 @@ import { useViewport } from 'utils'
 
 // images
 import SuccessIcon from 'assets/lottery/success.json'
+import SuccessLightIcon from 'assets/lottery/success-light.json'
 import FailureIcon from 'assets/lottery/failure.json'
 import CloseIcon from 'assets/icons/close-black-icon.svg?component'
-import CloseMobileIcon from 'assets/icons/close-black-mobile-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const Alert = props => {
   const { open, close, data } = props
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     if (open) {
@@ -53,7 +55,7 @@ const Alert = props => {
                         <div className="w-full flex justify-center mt-[40px]">
                           <div className="w-[100px]">
                             {item.type === 'success' ? (
-                              <Lottie animationData={SuccessIcon} loop={true} />
+                              <Lottie animationData={lightDarkMode ? SuccessLightIcon : SuccessIcon} loop={true} />
                             ) : (
                               <Lottie
                                 animationData={FailureIcon}
@@ -114,7 +116,7 @@ const Alert = props => {
                         <div className="flex">
                           <div className="w-[60px]">
                             {item.type === 'success' ? (
-                              <Lottie animationData={SuccessIcon} loop={true} />
+                              <Lottie animationData={lightDarkMode ? SuccessLightIcon : SuccessIcon} loop={true} />
                             ) : (
                               <Lottie
                                 animationData={FailureIcon}
