@@ -153,7 +153,6 @@
     width: 70px;
     height: 70px;
   }
-  border: 3px solid rgba(var(--collection-card-bg-rgb), 0.75);
 }
 
 .nftNames {
@@ -166,6 +165,7 @@
     font-family: 'Muli-Light';
     font-weight: 300;
     font-size: 18px;
+    color: var(--pagination-down-icon);
     span {
       font-family: 'Muli-SemiBold';
       font-weight: 600;
@@ -184,6 +184,7 @@
   }
   button:first-child {
     border: solid 2px rgba(var(--text-gray-200-color-rgb), 0.1);
+    color: var(--pagination-down-icon);
   }
   button:nth-child(2) {
     background-color: var(--primary-btn-bg-right);
