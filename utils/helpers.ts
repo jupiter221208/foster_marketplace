@@ -539,6 +539,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-minimum-color', '#242424')
     doc.style.setProperty('--place-bid-minvalue-color', '#242424')
     doc.style.setProperty('--view-item-btn-color', '#202427')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(32, 36, 39, 0.15)')
 
     // =====================================================
     // =====================================================
@@ -847,5 +848,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-minimum-color', '#95DBD5')
     doc.style.setProperty('--place-bid-minvalue-color', '#eff0f6')
     doc.style.setProperty('--view-item-btn-color', '#242424')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
   }
 }

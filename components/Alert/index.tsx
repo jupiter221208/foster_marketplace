@@ -149,12 +149,6 @@ const Alert = props => {
                         </div>
                       )}
                     </div>
-
-                    <div className={styles.closeBG} onClick={() => close()}>
-                      <div className="lg:w-[18px] lg:h-[18px] w-[15px] h-[15px] object-cover">
-                        <CloseIcon alt="" />
-                      </div>
-                    </div>
                   </Dialog.Panel>
                 </Transition.Child>
               </div>

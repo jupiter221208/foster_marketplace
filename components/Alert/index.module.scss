@@ -13,6 +13,7 @@
   bottom: 62px;
   width: 100%;
   max-width: 620px;
+  box-shadow: 0px 0px 10px var(--notification-shadow-color);
 }
 
 .closeBG {
@@ -114,6 +115,7 @@
   background: var(--background-main-color);
   border-radius: 30px 30px 0px 0px;
   border: 1px solid var(--secondary-button-border);
+  box-shadow: 0px 0px 10px var(--notification-shadow-color);
 }
 
 .mobileClose {
