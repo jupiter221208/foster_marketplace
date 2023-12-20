@@ -1116,7 +1116,7 @@ const MainSection = ({
             <div className="w-full flex flex-wrap">
               {loadListing && (
                 <div
-                  className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] h-[100px] rounded-[12px]`}
+                  className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
                 ></div>
               )}
               {nftPrice > 0 && !liveAuction ? (
