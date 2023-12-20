@@ -112,7 +112,7 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
-                  slidesPerView={1.2}
+                  slidesPerView={1}
                   spaceBetween={20}
                   pagination={{
                     clickable: true,
@@ -124,7 +124,8 @@ const MainSection = () => {
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <HeroCard data={item} />
+                      <HeroCardMobile data={item} />
+                      <div className={styles.overlay} />
                     </SwiperSlide>
                   ))}
                 </Swiper>

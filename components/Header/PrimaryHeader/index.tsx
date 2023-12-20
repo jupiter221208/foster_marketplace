@@ -31,6 +31,7 @@ import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
+import FosterLogo from 'assets/logo.svg?component'
 
 // json
 import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
@@ -45,6 +46,7 @@ import styles from './index.module.scss'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/strings'
+import Link from 'next/link'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -209,19 +211,32 @@ const PrimaryHeader = () => {
             isScrollingTop ? 'top-0' : '-top-28'
           } flex justify-center transition-all`}
         >
-          <nav className="gap-4 flex justify-between w-full max-w-[1750px] p-6 ">
-            <div className="my-auto">
-              {routePath === '/' || 'studio' ? (
-                <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
-                  <FosterHeroLogo alt="" />
-                </div>
-              ) : (
-                <div className={styles.logoArea} onClick={() => router.push('/')}>
-                  <FosterLogoDark alt="" />
-                </div>
-              )}
+          <nav className="gap-16 flex justify-between w-full max-w-[1750px] p-6 ">
+            <div className={`${styles.linkNames} flex gap-14 my-auto items-center w-full max-w-max`}>
+              <div onClick={() => handleGotoHomepage()}>
+                <FosterLogo className={styles.logoIcon} />
+              </div>
+
+              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                Studio
+              </div>
+
+              <div>
+                <ExploreMenu
+                  label="Explore"
+                  activeList={activeList}
+                  filterList={filterList}
+                  categoryList={categoryList}
+                  performerList={performerList}
+                />
+              </div>
+
+              <div>
+                <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+              </div>
             </div>
-            <div className="flex gap-16 my-auto w-full">
+
+            <div className="w-full">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -230,39 +245,18 @@ const PrimaryHeader = () => {
                 onClick={() => handleClear()}
                 onClose={() => handleClose()}
               />
-              <div className="flex gap-12 justify-between max-w-md items-center">
-                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                  Studio
-                </div>
-
-                <div>
-                  <ExploreMenu
-                    label="Explore"
-                    activeList={activeList}
-                    filterList={filterList}
-                    categoryList={categoryList}
-                    performerList={performerList}
-                  />
-                </div>
-
-                <div>
-                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-                </div>
-
-                {connected && (
-                  <div>
-                    <WalletButton />
-                  </div>
-                )}
-              </div>
             </div>
-            <div className="flex items-center my-auto min-w-max gap-4">
+
+            <div className="flex items-center my-auto min-w-max">
               <div className="flex">
                 {connected && (
                   <>
                     <div className="flex flex-row">
+                      <div>
+                        <WalletButton />
+                      </div>
                       <div
-                        className="flex mr-[20px] cursor-pointer"
+                        className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
                         onClick={() => {
                           dispatch({ type: 'set', activeTab: 4 })
                           router.push(`/merch-logs`)
@@ -270,7 +264,10 @@ const PrimaryHeader = () => {
                       >
                         <ShoppingCartIcon alt="" />
                       </div>
-                      <div className="flex relative cursor-pointer" onClick={() => router.push('/notifications')}>
+                      <div
+                        className={`${styles.iconArea} flex relative cursor-pointer`}
+                        onClick={() => router.push('/notifications')}
+                      >
                         <NotificationIcon alt="" />
                       </div>
                     </div>
@@ -283,6 +280,7 @@ const PrimaryHeader = () => {
                   </div>
                 )}
               </div>
+
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
@@ -342,7 +340,7 @@ const PrimaryHeader = () => {
               </div>
             </div>
           )}
-          {!isScrollTop && <div className={styles.divider} />}
+          <div className={styles.divider} />
         </div>
       )}
     </div>
