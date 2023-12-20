@@ -215,6 +215,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         setCollections(response.collections)
 
         if (categoryList.length === 0) setCategoryList(response.categories)
+
+        fetchNftData(response.nfts)
       },
       error => {
         setIsLoaded(true)
@@ -254,6 +256,22 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         setIsVisibleFetchingCollected(false)
       }
     )
+  }
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
   }
 
   useEffect(() => {
