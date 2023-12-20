@@ -40,8 +40,6 @@ const MainSection = () => {
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
   const [isSwiperShow, SetIsSwiperShow] = useState(false)
-  const [hasLoading, setHasLoading] = useState(false)
-  const [heroEmptyList, setHeroEmptyList] = useState<any[]>([0, 1, 2])
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -70,7 +68,6 @@ const MainSection = () => {
   }, [heroList, router])
 
   useEffect(() => {
-    setHasLoading(true)
     dashboardAPI.getDashboardBanner().then(
       response => {
         if (response !== null && response !== undefined) {
@@ -79,7 +76,6 @@ const MainSection = () => {
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
         }
-        setHasLoading(false)
         if (!firstLoaded) {
           setTimeout(() => {
             dispatch({ type: 'set', firstLoaded: true })
@@ -114,27 +110,6 @@ const MainSection = () => {
               <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
             </div>
             <div className="w-full relative" id="heroSwiperMobile">
-              {heroList.length === 0 && (
-                <Swiper
-                  slidesPerView={1}
-                  spaceBetween={20}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination]}
-                  className={'heroSwiperMobile'}
-                  loop
-                >
-                  {heroEmptyList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div
-                        className={`${styles.skeletonLoader} w-[90%] min-h-[287px] mt-[200px] mx-[20px] rounded-[24px]`}
-                      ></div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              )}
-
               {heroList.length !== 0 && (
                 <Swiper
                   slidesPerView={1}
@@ -166,30 +141,6 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length === 0 && (
-                <Swiper
-                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={3}
-                  spaceBetween={0}
-                  centeredSlides={true}
-                  loop
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                  className={'heroNavigationSwiper'}
-                  onInit={swiperInit}
-                >
-                  {heroEmptyList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div className={`${styles.skeletonLoader} w-full min-h-[508px] rounded-[24px]`}></div>
-                    </SwiperSlide>
-                  ))}
-                  <div className={styles.leftSide} />
-                  <div className={styles.rightSide} />
-                </Swiper>
-              )}
-
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}

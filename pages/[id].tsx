@@ -102,12 +102,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [])
 
   useEffect(() => {
-    if (createdNfts !== null && createdNfts !== undefined && createdNfts.length > 0 && hasLoading) {
-      setHasLoading(false)
-    }
-  }, [createdNfts])
-
-  useEffect(() => {
     if (hideNftToken.length > 0) {
       let newNfts = createdNfts.filter(item => item.token_id !== hideNftToken)
       setCreatedNfts(newNfts)
@@ -199,6 +193,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        setHasLoading(false)
+
         setIsFetchingCreated(false)
         if (isString(response)) return
         let artist = response.artist
@@ -222,6 +218,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       },
       error => {
         setIsLoaded(true)
+        setHasLoading(false)
         setIsFetchingCreated(false)
         setIsVisibleFetchingCreated(false)
       }
