@@ -23,7 +23,6 @@ import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
@@ -35,11 +34,9 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
-import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
-import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
@@ -72,7 +69,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
-  const viewport = useViewport()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [hasLoading, setHasLoading] = useState(null)
@@ -191,7 +187,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     )
   }
 
-  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
   const [merchToggle, setMerchToggle] = useState(false)
 
   return (
@@ -257,16 +252,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       setOpenMerchPage(true)
                     }}
                   />
-                  {/* <ShopApparelSection
-                      title="Shop Wall Art"
-                      type="wall"
-                      nftDetail={nftDetail}
-                      shopApparelList={ShopWallartlList}
-                      openMerchPage={data => {
-                        setMerchData(data)
-                        setOpenMerchPage(true)
-                      }}
-                    /> */}
                 </div>
               </div>
             ) : (
