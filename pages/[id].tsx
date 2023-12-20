@@ -258,6 +258,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   useEffect(() => {
     if (!artistPublicKey) return
+    setHasLoading(true)
     resetData()
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
     getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
