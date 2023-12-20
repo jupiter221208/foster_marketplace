@@ -9,6 +9,7 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  background-color: var(--profile-card-bg);
   border: solid 1px rgb(var(--gradient-btn-color-rgb));
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -59,7 +60,6 @@
 }
 
 .infoBox {
-  background-color: var(--profile-card-bg);
   padding: 3rem;
   display: flex;
   flex-flow: column;
