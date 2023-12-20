@@ -52,7 +52,7 @@ const Alert = props => {
                   >
                     <Dialog.Panel className="w-full">
                       <div className="w-full">
-                        <div className="w-full flex justify-center mt-[40px]">
+                        <div className="w-full flex justify-center mt-[30px]">
                           <div className="w-[100px]">
                             {item.type === 'success' ? (
                               <Lottie animationData={lightDarkMode ? SuccessLightIcon : SuccessIcon} loop={true} />
@@ -111,7 +111,7 @@ const Alert = props => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full">
-                    <div className="w-full">
+                    <div className="w-full pb-[40px]">
                       <div className="w-full flex flex-row mt-[25px] ml-[32px]">
                         <div className="flex">
                           <div className="w-[60px]">
@@ -133,18 +133,18 @@ const Alert = props => {
                           <div className={styles.title}>{item.title}</div>
                         </div>
                       </div>
-                      <div className="w-full flex mt-1 lg:mt-[15px] mb-[50px]">
+                      <div className="w-full flex mt-1 lg:mt-[15px]">
                         <div className={styles.description}>{item.description}</div>
                       </div>
                       {item.description2 && (
-                        <div className="w-full flex mt-1 lg:mt-[15px] mb-[50px]">
+                        <div className="w-full flex mt-1 lg:mt-[15px] mt-[30px]">
                           <div className="max-w-[600px]">
                             <div className={styles.description}>{item.description2}</div>
                           </div>
                         </div>
                       )}
                       {item.description3 && (
-                        <div className="w-full flex mt-1 lg:mt-[15px] mb-[50px]">
+                        <div className="w-full flex mt-1 lg:mt-[15px] mt-[30px]">
                           <div className={styles.description}>{item.description3}</div>
                         </div>
                       )}
