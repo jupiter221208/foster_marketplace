@@ -399,9 +399,7 @@ const MainSection = ({
       setLike(liked)
       setSave(saved)
       setShare(sharedSocial)
-      setTimeout(() => {
-        setIsHasLoading(false)
-      }, 3000)
+      setIsHasLoading(false)
     }
   }, [nftInfo])
 
@@ -833,7 +831,7 @@ const MainSection = ({
               </div>
             ) : nftType.includes('audio') ? (
               <div className={styles.audioArea}>
-                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} className="w-full" />
               </div>
             ) : nftType.includes('video') ? (
               <div className={styles.videoArea}>
@@ -1133,7 +1131,6 @@ const MainSection = ({
                 </div>
               )}
             </div>
-
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>
