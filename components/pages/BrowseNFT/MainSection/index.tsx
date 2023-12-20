@@ -798,11 +798,6 @@ const MainSection = ({
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
-        {/* {hasLoading ? (
-          <div
-            className={`${styles.skeletonLoader} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
-          ></div>
-        ) : ( */}
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             hasLoading ? (
@@ -1237,20 +1232,16 @@ const MainSection = ({
                 nftCurrentPrice > 0 &&
                 (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                 connected ? (
-                hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-full`}></div>
-                ) : (
-                  <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
-                    <OutlineButton
-                      label="Finalize Sale"
-                      onClick={() => processFinalizeSale()}
-                      color="var(--main-bg-color)"
-                      borderColor="#707070"
-                      borderWidth="2"
-                      fullWidth
-                    />
-                  </div>
-                )
+                <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
+                  <OutlineButton
+                    label="Finalize Sale"
+                    onClick={() => processFinalizeSale()}
+                    color="var(--main-bg-color)"
+                    borderColor="#707070"
+                    borderWidth="2"
+                    fullWidth
+                  />
+                </div>
               ) : liveAuction === true ? (
                 <>
                   {hasLoading ? (
@@ -1369,45 +1360,37 @@ const MainSection = ({
                 </>
               ) : !loading && nftInfo && connected ? (
                 isOwnNft === true ? (
-                  hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[200px] h-[40px] mt-[20px] rounded-full`}></div>
-                  ) : (
-                    <div className="w-full flex gap-[20px] mt-[20px]">
-                      <OutlineButton
-                        label="Start Auction"
-                        onClick={() => setShowStartAuctionModal(true)}
-                        color="var(--main-bg-color)"
-                        borderColor="#707070"
-                        borderWidth="2"
-                        fullWidth
-                        fontFamily="Muli-SemiBold"
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                      />
-                      <GradientButton
-                        label={'List NFT'}
-                        fullWidth
-                        onClick={() => setShowListNFTModal(true)}
-                        direction="rtl"
-                        fontFamily="Muli-SemiBold"
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                      />
-                    </div>
-                  )
+                  <div className="w-full flex gap-[20px] mt-[20px]">
+                    <OutlineButton
+                      label="Start Auction"
+                      onClick={() => setShowStartAuctionModal(true)}
+                      color="var(--main-bg-color)"
+                      borderColor="#707070"
+                      borderWidth="2"
+                      fullWidth
+                      fontFamily="Muli-SemiBold"
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                    />
+                    <GradientButton
+                      label={'List NFT'}
+                      fullWidth
+                      onClick={() => setShowListNFTModal(true)}
+                      direction="rtl"
+                      fontFamily="Muli-SemiBold"
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                    />
+                  </div>
                 ) : isOwnNft === false ? (
-                  hasLoading ? (
-                    <div className={`${styles.skeletonLoader} w-[200px] h-[40px] mt-[20px] rounded-full`}></div>
-                  ) : (
-                    <div className="w-full flex gap-[20px] mt-[20px]">
-                      <OutlineButton
-                        label="Make Offer"
-                        onClick={() => setOpenOfferModal(true)}
-                        color="var(--main-bg-color)"
-                        borderColor="#707070"
-                        borderWidth="2"
-                        fullWidth
-                      />
-                    </div>
-                  )
+                  <div className="w-full flex gap-[20px] mt-[20px]">
+                    <OutlineButton
+                      label="Make Offer"
+                      onClick={() => setOpenOfferModal(true)}
+                      color="var(--main-bg-color)"
+                      borderColor="#707070"
+                      borderWidth="2"
+                      fullWidth
+                    />
+                  </div>
                 ) : (
                   <></>
                 )
