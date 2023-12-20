@@ -463,13 +463,6 @@ h6 {
   background-color: var(--g-right-container-bg);
 }
 
-#heroSwiper {
-  padding-bottom: 46px !important;
-  @media (min-width: 1024px) {
-    padding-left: 20px;
-    padding-bottom: 30px !important;
-  }
-}
 #heroSwiper .swiper .swiper-slide {
   transform: scale(0.9);
   transition: all 0.4s;
