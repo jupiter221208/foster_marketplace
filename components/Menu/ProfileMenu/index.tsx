@@ -80,6 +80,7 @@ const ProfileMenu = props => {
         ])
         dispatch({ type: 'set', showConnectAlert: true })
         setTimeout(() => {
+          console.log('============Wallet Connected!================')
           setShowAlert(true)
         }, 1000)
       }

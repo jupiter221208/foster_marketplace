@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 // next components
 
@@ -20,6 +20,14 @@ import styles from './index.module.scss'
 
 const Alert = props => {
   const { open, close, data } = props
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        close()
+      }, 3000)
+    }
+  }, [open])
 
   const viewport = useViewport()
 
