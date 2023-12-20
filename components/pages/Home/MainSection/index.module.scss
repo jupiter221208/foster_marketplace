@@ -15,36 +15,12 @@
   align-items: center;
 }
 
-.topLeftEllipse {
+.topEllipse {
   position: absolute;
-  width: 2021px;
-  height: 2021px;
-  top: -956px;
-  left: -1950px;
-  @media (min-width: 1024px) {
-    width: 2021px;
-    height: 2021px;
-    top: -856px;
-    left: -850px;
-  }
+  top: -200px;
+  left: -300px;
+  scale: 0.9;
   z-index: 0;
-  opacity: 0.25;
-}
-
-.topRightEllipse {
-  position: absolute;
-  width: 652px;
-  height: 652px;
-  top: -32px;
-  right: -245px;
-  @media (min-width: 1024px) {
-    width: 1705px;
-    height: 1705px;
-    top: 0px;
-    right: -440px;
-  }
-  z-index: 0;
-  opacity: 0.25;
 }
 
 .alpha {

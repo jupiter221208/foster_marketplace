@@ -29,6 +29,8 @@ import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
+import EllipseBlueGreen from 'assets/icons/ellipse-blue-green.svg?component'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
@@ -90,7 +92,7 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full z-10 items-center">
+      <div className="w-full items-center relative overflow-hidden">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="">
             <div className={styles.text}>Home to Creators Around the World</div>
@@ -193,6 +195,10 @@ const MainSection = () => {
         ) : (
           <></>
         )}
+
+        <div className={styles.topEllipse}>
+          <EllipseBlueGreen />
+        </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
