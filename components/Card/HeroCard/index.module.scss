@@ -9,14 +9,6 @@
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background-color: var(--profile-card-bg);
-  border: solid 1px rgb(var(--gradient-btn-color-rgb));
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: 4fr 1fr;
-  }
 }
 
 .topMask {
@@ -39,10 +31,9 @@
   @media (max-width: 1600px) {
     min-height: 400px;
   }
-  @media (max-width: 1200px) {
-    min-height: 300px;
+  @media (min-width: 1024px) {
+    padding-top: 100%; /* 140.36% 550:720 Aspect Ratio */
   }
-  z-index: 999;
 }
 
 .imageContent {
@@ -59,8 +50,16 @@
   box-shadow: 0px 0px 10px rgba(#202427, 0.1);
 }
 
-.infoBox {
-  padding: 3rem;
+.avatarArea {
+  position: absolute;
+  bottom: 23px;
+  left: 25px;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: rgba(var(--background-dark-color), 0.15);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -144,53 +143,45 @@
 }
 
 .avatar {
-  width: 130px;
-  height: 130px;
-  @media (max-width: 1600px) {
-    width: 100px;
-    height: 100px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30x;
+  @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+    border-radius: 30px;
   }
-  @media (max-width: 1500px) {
-    width: 70px;
-    height: 70px;
+  @media (min-width: 1280px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 30px;
   }
+  @media (min-width: 1536px) {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  }
+  border: 3px solid rgba(var(--collection-card-bg-rgb), 0.75);
 }
 
-.nftNames {
-  p:first-child {
-    font-family: 'Muli-Bold';
-    font-size: 40px;
-    color: var(--pagination-down-icon);
+.artistName {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: var(--hero-artist-color);
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
   }
-  p:nth-child(2) {
-    font-family: 'Muli-Light';
-    font-weight: 300;
+  @media (min-width: 1280px) {
     font-size: 18px;
-    color: var(--pagination-down-icon);
-    span {
-      font-family: 'Muli-SemiBold';
-      font-weight: 600;
-      color: var(--primary-btn-bg-right);
-    }
+    line-height: 24px;
   }
-}
-
-.btnBox {
-  display: flex;
-  gap: 1rem;
-  button {
-    padding: 0.4rem 1.3rem;
-    border-radius: 0.7rem;
-    margin-bottom: 0.1rem;
-  }
-  button:first-child {
-    border: solid 2px rgba(var(--text-gray-200-color-rgb), 0.1);
-    color: var(--pagination-down-icon);
-  }
-  button:nth-child(2) {
-    background-color: var(--primary-btn-bg-right);
-    color: var(--nft-generative-color);
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .noSelect {

@@ -92,7 +92,7 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full items-center relative overflow-hidden">
+      <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="">
             <div className={styles.text}>Home to Creators Around the World</div>
@@ -114,7 +114,7 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
-                  slidesPerView={1}
+                  slidesPerView={1.2}
                   spaceBetween={20}
                   pagination={{
                     clickable: true,
@@ -126,8 +126,7 @@ const MainSection = () => {
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <HeroCardMobile data={item} />
-                      <div className={styles.overlay} />
+                      <HeroCard data={item} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -144,6 +143,30 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
+              {heroList.length === 0 && (
+                <Swiper
+                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                  slidesPerView={3}
+                  spaceBetween={0}
+                  centeredSlides={true}
+                  loop
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination, Navigation]}
+                  className={'heroNavigationSwiper'}
+                  onInit={swiperInit}
+                >
+                  {heroEmptyList.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <div className={`${styles.skeletonLoader} w-full min-h-[508px] rounded-[24px]`}></div>
+                    </SwiperSlide>
+                  ))}
+                  <div className={styles.leftSide} />
+                  <div className={styles.rightSide} />
+                </Swiper>
+              )}
+
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
