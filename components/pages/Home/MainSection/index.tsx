@@ -29,6 +29,9 @@ import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
+import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
@@ -90,16 +93,16 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full grid grid-cols-12 z-10 items-center">
+      <div className="w-full z-10 items-center relative">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="col-span-12">
+          <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
         )}
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
-            className="w-full col-span-12 min-h-[508px]"
+            className="w-full min-h-[508px]"
             style={{
               width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
               marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
@@ -117,6 +120,7 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
+                  centeredSlides={true}
                   modules={[Pagination]}
                   className={'heroSwiperMobile'}
                   loop
@@ -133,7 +137,7 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-12 lg:pt-[20px] "
+            className="w-full lg:pt-[20px] "
             style={{
               width: '100%',
               marginLeft: '0px',
@@ -144,8 +148,8 @@ const MainSection = () => {
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={3}
-                  spaceBetween={0}
+                  slidesPerView={1.2}
+                  spaceBetween={-30}
                   centeredSlides={true}
                   loop
                   pagination={{
@@ -165,21 +169,11 @@ const MainSection = () => {
                 </Swiper>
               )}
             </div>
-
-            <div className="mt-[35px] lg:mt-[0px] flex justify-center gap-8">
-              <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton
-                label="Create"
-                width={124}
-                borderWidth={2}
-                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
-              />
-            </div>
           </div>
         )}
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end lg:mt-[20px]">
+          <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
                 width={88}
@@ -202,6 +196,13 @@ const MainSection = () => {
         ) : (
           <></>
         )}
+
+        <div className={styles.leftEllipse}>
+          <EllipseBlue />
+        </div>
+        <div className={styles.rightEllipse}>
+          <EllipseGreen />
+        </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>

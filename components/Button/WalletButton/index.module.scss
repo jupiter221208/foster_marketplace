@@ -201,3 +201,18 @@
   background: var(--social-bg-color);
   border-radius: 16px;
 }
+
+.iconArea {
+  width: 46px;
+  aspect-ratio: 1/1;
+  margin-right: 20px;
+  border-radius: 50px;
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  * {
+    opacity: 1;
+    fill: var(--main-bg-color);
+  }
+}
