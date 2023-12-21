@@ -145,34 +145,6 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length === 0 && (
-                <Swiper
-                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={1.2}
-                  spaceBetween={-30}
-                  centeredSlides={true}
-                  loop
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                  className={'heroNavigationSwiper'}
-                  onInit={swiperInit}
-                >
-                  <SwiperSlide>
-                    <div className={styles.skeletonLoader}></div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className={styles.skeletonLoader}></div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className={styles.skeletonLoader}></div>
-                  </SwiperSlide>
-                  <div className={styles.leftSide} />
-                  <div className={styles.rightSide} />
-                </Swiper>
-              )}
-
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
