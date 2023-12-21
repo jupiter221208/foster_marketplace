@@ -117,7 +117,7 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
-                  slidesPerView={1.2}
+                  slidesPerView={1}
                   spaceBetween={20}
                   pagination={{
                     clickable: true,

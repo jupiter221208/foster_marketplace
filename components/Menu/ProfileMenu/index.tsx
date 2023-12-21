@@ -93,17 +93,6 @@ const ProfileMenu = props => {
           <div className={styles.container}>
             {!connectWalletStatus ? (
               <div className="w-full flex gap-[20px]">
-                <div className="flex items-center mb-[3px]">
-                  <div
-                    className={styles.signIn}
-                    onClick={() => {
-                      setButtonClicked(true)
-                      setVisible(true)
-                    }}
-                  >
-                    Sign In
-                  </div>
-                </div>
                 {shortProfileMenuBtn && (
                   <div className={connectWalletStatus ? styles.activeAvatar : styles.avatar}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
@@ -116,6 +105,17 @@ const ProfileMenu = props => {
                     </svg>
                   </div>
                 )}
+                <div className="flex items-center mb-[3px]">
+                  <div
+                    className={styles.signIn}
+                    onClick={() => {
+                      setButtonClicked(true)
+                      setVisible(true)
+                    }}
+                  >
+                    Sign In
+                  </div>
+                </div>
               </div>
             ) : (
               <div>
