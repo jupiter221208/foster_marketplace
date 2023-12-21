@@ -541,6 +541,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--view-item-btn-color', '#202427')
     doc.style.setProperty('--ellipse-blue', '#202427')
     doc.style.setProperty('--ellipse-green', '#202427')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(32, 36, 39, 0.15)')
 
     // =====================================================
     // =====================================================
@@ -851,5 +852,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--view-item-btn-color', '#242424')
     doc.style.setProperty('--ellipse-blue', '#5C8CCE')
     doc.style.setProperty('--ellipse-green', '#26C29C')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
   }
 }

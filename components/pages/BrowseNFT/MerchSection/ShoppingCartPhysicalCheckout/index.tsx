@@ -66,10 +66,8 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
       {
         id: 0,
         title: 'Order Placed!',
-        description: 'Your order was placed successfully!',
-        description2:
-          'Order details will be emailed to the address provided and can also be tracked on the Foster Creator Studio.',
-        description3: `Your order number is #${id}.`,
+        description: 'You will receive an email once the order has been shipped. ',
+        description2: `Your order number is #${id}.`,
         type: 'success',
       },
     ])
