@@ -76,7 +76,7 @@ const LiveAuctionCard = props => {
                     <div
                       className="w-full h-full absolute"
                       dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
@@ -87,14 +87,14 @@ const LiveAuctionCard = props => {
                       onClick={onClick}
                       layout="fill"
                       alt=""
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <Image
                       src={DefaultNftBG}
                       alt=""
                       layout="fill"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onClick={() => onClick()}
                     />
                   )}
@@ -114,7 +114,7 @@ const LiveAuctionCard = props => {
                 <div
                   className="w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
@@ -131,7 +131,7 @@ const LiveAuctionCard = props => {
                   src={data.cover_image_url}
                   alt=""
                   layout="fill"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   onLoadingComplete={() => setLoaded(true)}
                   onClick={() => onClick()}
                 />
@@ -142,7 +142,7 @@ const LiveAuctionCard = props => {
                 onClick={onClick}
                 layout="fill"
                 alt=""
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             )}
           </div>
