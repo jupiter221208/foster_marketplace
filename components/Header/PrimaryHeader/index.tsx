@@ -213,7 +213,7 @@ const PrimaryHeader = () => {
         >
           <nav className="gap-16 flex justify-between w-full max-w-[1750px] p-6 ">
             <div className={`${styles.linkNames} flex gap-14 my-auto items-center w-full max-w-max`}>
-              <div onClick={() => handleGotoHomepage()}>
+              <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
                 <FosterLogo className={styles.logoIcon} />
               </div>
 
