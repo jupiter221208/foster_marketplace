@@ -151,7 +151,7 @@ const MainSection = () => {
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
-                  spaceBetween={-40}
+                  spaceBetween={-1000}
                   centeredSlides={true}
                   loop
                   pagination={{
@@ -169,7 +169,7 @@ const MainSection = () => {
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
-                  spaceBetween={-40}
+                  spaceBetween={-30}
                   centeredSlides={true}
                   loop
                   pagination={{

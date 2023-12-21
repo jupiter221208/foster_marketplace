@@ -18,8 +18,9 @@
 .leftEllipse {
   position: absolute;
   top: -200px;
-  left: -250px;
+  left: -180px;
   scale: 0.9;
+  opacity: 0.69;
   svg defs radialGradient stop {
     stop-color: var(--ellipse-blue);
   }
@@ -31,8 +32,9 @@
 .rightEllipse {
   position: absolute;
   top: -170px;
-  right: -250px;
+  right: -200px;
   scale: 0.9;
+  opacity: 0.69;
   svg defs radialGradient stop {
     stop-color: var(--ellipse-green);
   }
