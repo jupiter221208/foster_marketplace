@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
+import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
 
 // next components
 import Image from 'next/image'
@@ -69,7 +70,7 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
-import type { Nft } from '@metaplex-foundation/js'
+import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
 
 // call apis
 import axios from 'axios'
@@ -106,6 +107,7 @@ import TabList from 'assets/json/browse-nft/auction-list.json'
 import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
+import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -269,6 +271,7 @@ const MainSection = ({
   const [nftPrice, setNftPrice] = useState(0)
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorname, setNftCreatorname] = useState('')
+  const [nftListingData, setNftListingData] = useState(null)
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
   const [merchToggle, setMerchToggle] = useState(false)
@@ -280,6 +283,11 @@ const MainSection = ({
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
+
+  function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
+    if ('mintAddress' in asset) return asset.mintAddress
+    else return asset.mint.address
+  }
 
   const quickBuy = async () => {
     if (!connected) {
@@ -447,6 +455,21 @@ const MainSection = ({
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
+
+          let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
+          let listingAsset = listingAssets[0]
+          let { asset, sellerAddress, price } = listingAsset
+          let listingData = {
+            address: getMintAddress(asset),
+            name: asset?.name,
+            uri: asset?.uri,
+            sellerAddress,
+            tradeStateAddress,
+            price: Number(price.basisPoints.toString()),
+            creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
+            json: nftDetail.json,
+          }
+          setNftListingData(listingData)
         } else {
           let auctionListing = await fetchAuctionListing(
             mx,
@@ -576,6 +599,84 @@ const MainSection = ({
       })
     } catch (e) {
       console.error(e)
+      setOpenProgressingModal(false)
+    }
+  }
+
+  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
+    setOpenProgressingModal(true)
+    try {
+      await refreshToken()
+
+      const result = await cancelList(mx, tradeStateAddress)
+      if (result) {
+        listingsAPI.unlistNft(address.toBase58()).then(response => {
+          if (response) {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Listing Removed!',
+                description: `You've successfully removed your fixed-price listing!`,
+                type: 'success',
+              },
+            ])
+            setOpenProgressingModal(false)
+            setTimeout(() => {
+              setShowListNFTModal(false)
+              setTimeout(() => {
+                setShowAlert(true)
+                setTimeout(() => {
+                  dispatch({ type: 'set', isGetMyNFTs: false })
+                }, 800)
+              }, 800)
+            }, 800)
+          }
+        }),
+          error => {
+            console.log(error)
+            setOpenProgressingModal(false)
+          }
+      }
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
+  }
+
+  const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
+    setOpenProgressingModal(true)
+    try {
+      await refreshToken()
+
+      const result = await updateList(mx, address, tradeStateAddress, price)
+      if (result) {
+        setNftPrice(price / 1000000000)
+        listingsAPI.updateNft(address.toBase58(), { amount: (price / 1000000000).toString() }).then(
+          response => {
+            if (response) {
+              setAlertData([
+                {
+                  id: 0,
+                  title: 'Listing Updated!',
+                  description: `You've successfully updated your fixed-price listing!`,
+                  type: 'success',
+                },
+              ])
+              setOpenProgressingModal(false)
+              setTimeout(() => {
+                setShowListNFTModal(false)
+                setTimeout(() => {
+                  setShowAlert(true)
+                }, 500)
+              }, 500)
+            }
+          },
+          error => {
+            console.log(error)
+            setOpenProgressingModal(false)
+          }
+        )
+      }
+    } catch (e) {
       setOpenProgressingModal(false)
     }
   }
@@ -1629,7 +1730,13 @@ const MainSection = ({
         }}
       />
 
-      <UpdateNFTModal data={nftDetail} open={showListNFTModal} onClose={() => setShowListNFTModal(false)} />
+      <UpdateNFTModal
+        data={nftListingData}
+        open={showListNFTModal}
+        onClose={() => setShowListNFTModal(false)}
+        onCancelList={onCancelList}
+        onUpdatePrice={onUpdatePrice}
+      />
 
       {showLikeModal && publicKey && (
         <LikeModal
