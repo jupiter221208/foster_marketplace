@@ -76,7 +76,7 @@ const LiveAuctionCard = props => {
                     <div
                       className="w-full h-full absolute"
                       dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
@@ -87,7 +87,7 @@ const LiveAuctionCard = props => {
                       onClick={onClick}
                       layout="fill"
                       alt=""
-                      className="w-full h-full rounded-[24px] object-cover"
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <Image
@@ -114,7 +114,7 @@ const LiveAuctionCard = props => {
                 <div
                   className="w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
@@ -131,7 +131,7 @@ const LiveAuctionCard = props => {
                   src={data.cover_image_url}
                   alt=""
                   layout="fill"
-                  className="w-full h-full rounded-[24px] object-cover"
+                  className="w-full h-full object-cover"
                   onLoadingComplete={() => setLoaded(true)}
                   onClick={() => onClick()}
                 />
@@ -142,30 +142,11 @@ const LiveAuctionCard = props => {
                 onClick={onClick}
                 layout="fill"
                 alt=""
-                className="w-full h-full rounded-[24px] object-cover"
+                className="w-full h-full object-cover"
               />
             )}
           </div>
         </Link>
-        {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
-          <div
-            className={styles.avatar}
-            onClick={() => {
-              router.push(`/${data.artist_username}`)
-              dispatch({ type: 'set', isLoading: true })
-            }}
-          >
-            <div className="w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] rounded-full overflow-hidden">
-              <img
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                src={data.artist_profile_picture}
-                alt=""
-                className="rounded-full"
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       <div className={styles.bidContainer}>

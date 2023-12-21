@@ -542,6 +542,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-blue', '#202427')
     doc.style.setProperty('--ellipse-green', '#202427')
     doc.style.setProperty('--notification-shadow-color', 'rgba(32, 36, 39, 0.15)')
+    doc.style.setProperty('--liveauction-bg-color', 'rgba(32, 36, 39, 0.03)')
 
     // =====================================================
     // =====================================================
@@ -853,5 +854,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-blue', '#5C8CCE')
     doc.style.setProperty('--ellipse-green', '#26C29C')
     doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
+    doc.style.setProperty('--liveauction-bg-color', 'rgba(239, 240, 246, 0.03)')
   }
 }
