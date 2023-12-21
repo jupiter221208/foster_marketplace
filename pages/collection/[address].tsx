@@ -73,10 +73,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) {
           setNfts(collectionNfts)
+          fetchNftData(collectionNfts)
           // dispatch({ type: 'set', isLoading: false })
         }
-
-        fetchNftData(collectionNfts)
 
         setHasLoading(false)
       } catch (e: any) {
