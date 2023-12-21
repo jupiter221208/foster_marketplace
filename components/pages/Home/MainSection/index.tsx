@@ -90,9 +90,11 @@ const MainSection = () => {
     )
   }, [])
 
+  console.log(heroList)
+
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full grid grid-cols-12 z-10 items-center">
+      <div className="w-full z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="">
             <div className={styles.text}>Home to Creators Around the World</div>
@@ -126,7 +128,8 @@ const MainSection = () => {
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <HeroCard data={item} />
+                      <HeroCardMobile data={item} />
+                      <div className={styles.overlay} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -143,35 +146,11 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length === 0 && (
-                <Swiper
-                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={3}
-                  spaceBetween={0}
-                  centeredSlides={true}
-                  loop
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                  className={'heroNavigationSwiper'}
-                  onInit={swiperInit}
-                >
-                  {heroEmptyList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <div className={`${styles.skeletonLoader} w-full min-h-[508px] rounded-[24px]`}></div>
-                    </SwiperSlide>
-                  ))}
-                  <div className={styles.leftSide} />
-                  <div className={styles.rightSide} />
-                </Swiper>
-              )}
-
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
-                  spaceBetween={1}
+                  spaceBetween={-40}
                   centeredSlides={true}
                   loop
                   pagination={{

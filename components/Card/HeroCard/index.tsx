@@ -37,6 +37,7 @@ const HeroCard = props => {
   }
 
   console.log(data)
+
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
@@ -57,7 +58,7 @@ const HeroCard = props => {
                     : '/images/banner.png'
                 }
                 alt=""
-                className={`${styles.noSelect} w-full h-[418px] shadow-2xl object-contain`}
+                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                 onLoad={() => {
                   setLoaded(true)
                 }}
@@ -66,9 +67,9 @@ const HeroCard = props => {
             </div>
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full h-[418px] shadow-2xl overflow-hidden">
+              <div className="w-full xl:h-[418px] h-[300px] shadow-2xl overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <div className="w-full h-[418px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+                  <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
                     {!loaded && (
                       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                         <div></div>
@@ -77,7 +78,7 @@ const HeroCard = props => {
                     <img
                       src={data.cover_image_url}
                       alt=""
-                      className={`${styles.noSelect} w-full h-[418px] shadow-2xl object-contain`}
+                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -89,16 +90,16 @@ const HeroCard = props => {
                     src={DefaultNftBG}
                     alt=""
                     layout="fill"
-                    className={`${styles.noSelect} w-full h-[418px] shadow-2xl object-contain`}
+                    className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                     onClick={() => onClick()}
                   />
                 )}
               </div>
             ) : (
               <div
-                className="w-full h-[418px] shadow-2xl object-contain"
+                className="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain"
                 dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-[418px] shadow-2xl object-contain overflow-hidden">
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                 }}
                 onClick={() => gotoNftDetailPage()}
@@ -106,7 +107,7 @@ const HeroCard = props => {
             )
           ) : data.asset_type.includes('audio') ? (
             data.cover_image_url !== null && data.cover_image_url !== '' ? (
-              <div className="w-full h-[418px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+              <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
                 {!loaded && (
                   <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                     <div></div>
@@ -115,7 +116,7 @@ const HeroCard = props => {
                 <img
                   src={data.cover_image_url}
                   alt=""
-                  className={`${styles.noSelect} w-full h-[418px] shadow-2xl object-contain`}
+                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                   onLoad={() => {
                     setLoaded(true)
                   }}
@@ -127,7 +128,7 @@ const HeroCard = props => {
                 src={DefaultNftBG}
                 alt=""
                 layout="fill"
-                className={`${styles.noSelect} w-full h-[418px] shadow-2xl object-contain`}
+                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                 onClick={() => onClick()}
               />
             )
@@ -147,7 +148,7 @@ const HeroCard = props => {
         <div className={styles.nftNames}>
           <p>{data.nft_name}</p>
           <p>
-            Created by <span>artist_username</span>
+            Created by <span>{data.artist_username}</span>
           </p>
         </div>
 
@@ -166,8 +167,8 @@ const HeroCard = props => {
             )}
 
           <div className={styles.btnBox}>
-            <button>Visit Artist Profile</button>
-            <button>View</button>
+            <button onClick={() => router.push(`/${data.artist_username}`)}>Visit Artist Profile</button>
+            <button onClick={() => router.push(`/nft/${data.token_id}`)}>View</button>
           </div>
         </div>
       </div>
