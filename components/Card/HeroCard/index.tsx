@@ -36,8 +36,6 @@ const HeroCard = props => {
     router.push(`/nft/${data.token_id}`)
   }
 
-  console.log(data)
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>

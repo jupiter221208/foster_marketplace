@@ -91,13 +91,11 @@ const MainSection = () => {
     )
   }, [])
 
-  console.log(heroList)
-
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="">
+          <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
