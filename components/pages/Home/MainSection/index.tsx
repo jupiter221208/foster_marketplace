@@ -145,7 +145,7 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length !== 0 && (
+              {heroList.length === 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
@@ -173,7 +173,7 @@ const MainSection = () => {
                 </Swiper>
               )}
 
-              {heroList.length === 0 && (
+              {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
