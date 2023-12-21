@@ -289,6 +289,9 @@
 }
 
 .skeletonLoader:empty {
+  min-width: 1000px;
+  min-height: 575px;
+  border-radius: 1rem;
   display: block;
   background-color: var(--main-bg-color) !important;
   border-color: var(--main-bg-color) !important;
