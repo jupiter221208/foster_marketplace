@@ -75,6 +75,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           setNfts(collectionNfts)
           // dispatch({ type: 'set', isLoading: false })
         }
+
+        fetchNftData(collectionNfts)
+
         setHasLoading(false)
       } catch (e: any) {
         console.error(e)
@@ -83,6 +86,22 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       }
     })()
   }, [address, publicCollectionData])
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
 
   useEffect(() => {
     ;(async () => {
