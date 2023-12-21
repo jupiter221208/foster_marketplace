@@ -160,6 +160,7 @@ const MainSection = ({
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
+  const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -610,6 +611,7 @@ const MainSection = ({
 
       const result = await cancelList(mx, tradeStateAddress)
       if (result) {
+        setNftPrice(0)
         listingsAPI.unlistNft(address.toBase58()).then(response => {
           if (response) {
             setAlertData([
@@ -622,7 +624,7 @@ const MainSection = ({
             ])
             setOpenProgressingModal(false)
             setTimeout(() => {
-              setShowListNFTModal(false)
+              setShowUpdateListNFTModal(false)
               setTimeout(() => {
                 setShowAlert(true)
                 setTimeout(() => {
@@ -663,7 +665,7 @@ const MainSection = ({
               ])
               setOpenProgressingModal(false)
               setTimeout(() => {
-                setShowListNFTModal(false)
+                setShowUpdateListNFTModal(false)
                 setTimeout(() => {
                   setShowAlert(true)
                 }, 500)
@@ -1302,10 +1304,10 @@ const MainSection = ({
 
                   {isOwnNft === true ? (
                     <div className="w-full flex content-none mt-[20px]">
-                      <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
+                      <div className="w-full mb-1 mt-0 lg:mt-0 lg:mb-5">
                         <OutlineButton
                           label="Delist or Update"
-                          onClick={() => setShowListNFTModal(true)}
+                          onClick={() => setShowUpdateListNFTModal(true)}
                           color="var(--main-bg-color)"
                           borderColor="#707070"
                           borderWidth="2"
@@ -1727,13 +1729,14 @@ const MainSection = ({
           setIsOwnNft(true)
           setNftPrice(parseFloat(price))
           reloadNftData()
+          if (status === 'listed') router.reload()
         }}
       />
 
       <UpdateNFTModal
         data={nftListingData}
-        open={showListNFTModal}
-        onClose={() => setShowListNFTModal(false)}
+        open={showUpdateListNFTModal}
+        onClose={() => setShowUpdateListNFTModal(false)}
         onCancelList={onCancelList}
         onUpdatePrice={onUpdatePrice}
       />
