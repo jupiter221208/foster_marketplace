@@ -15,12 +15,30 @@
   align-items: center;
 }
 
-.topEllipse {
+.leftEllipse {
   position: absolute;
   top: -200px;
-  left: -300px;
+  left: -250px;
   scale: 0.9;
-  z-index: 0;
+  svg defs radialGradient stop {
+    stop-color: var(--ellipse-blue);
+  }
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.rightEllipse {
+  position: absolute;
+  top: -170px;
+  right: -250px;
+  scale: 0.9;
+  svg defs radialGradient stop {
+    stop-color: var(--ellipse-green);
+  }
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .alpha {

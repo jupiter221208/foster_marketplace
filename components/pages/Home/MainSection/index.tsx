@@ -29,7 +29,8 @@ import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
-import EllipseBlueGreen from 'assets/icons/ellipse-blue-green.svg?component'
+import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -94,7 +95,7 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full z-10 items-center">
+      <div className="w-full z-10 items-center relative">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="">
             <div className={styles.text}>Home to Creators Around the World</div>
@@ -146,6 +147,24 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
+              {heroList.length === 0 && (
+                <Swiper
+                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                  slidesPerView={1.2}
+                  spaceBetween={-40}
+                  centeredSlides={true}
+                  loop
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination, Navigation]}
+                  className={'heroNavigationSwiper'}
+                  onInit={swiperInit}
+                >
+                  <div className={styles.skeletonLoader}></div>
+                </Swiper>
+              )}
+
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
@@ -198,8 +217,11 @@ const MainSection = () => {
           <></>
         )}
 
-        <div className={styles.topEllipse}>
-          <EllipseBlueGreen />
+        <div className={styles.leftEllipse}>
+          <EllipseBlue />
+        </div>
+        <div className={styles.rightEllipse}>
+          <EllipseGreen />
         </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
