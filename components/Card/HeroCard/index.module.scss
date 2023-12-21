@@ -10,7 +10,7 @@
   position: relative;
   overflow: hidden;
   background-color: var(--profile-card-bg);
-  border: solid 1px rgb(var(--gradient-btn-color-rgb), 0.2);
+  border: solid 1px rgb(var(--text-gray-200-color-rgb), 0.15);
   display: grid;
   grid-template-columns: 1fr 1fr;
   @media (max-width: 1024px) {
