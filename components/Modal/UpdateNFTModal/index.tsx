@@ -75,7 +75,7 @@ const UpdateNFTModal = props => {
                   </svg>
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                {data?.json?.animation_url ? (
+                {data?.properties?.category === 'audio' || data?.properties?.category === 'video' ? (
                   <div
                     className="mt-[10px]"
                     dangerouslySetInnerHTML={{
