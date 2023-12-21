@@ -59,12 +59,12 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
     ;(async () => {
       setCollectionData(publicCollectionData)
+      dispatch({ type: 'set', isLoading: false })
 
       if (!address) return
       try {
