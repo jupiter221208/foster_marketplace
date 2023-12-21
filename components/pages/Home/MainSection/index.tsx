@@ -149,7 +149,7 @@ const MainSection = () => {
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={1.2}
-                  spaceBetween={10}
+                  spaceBetween={-30}
                   centeredSlides={true}
                   loop
                   pagination={{
@@ -168,6 +168,8 @@ const MainSection = () => {
                   <SwiperSlide>
                     <div className={styles.skeletonLoader}></div>
                   </SwiperSlide>
+                  <div className={styles.leftSide} />
+                  <div className={styles.rightSide} />
                 </Swiper>
               )}
 
