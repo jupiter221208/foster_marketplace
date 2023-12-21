@@ -105,6 +105,7 @@ import PriceInput from 'components/Input/PriceInput'
 import TabList from 'assets/json/browse-nft/auction-list.json'
 import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
+import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -1200,7 +1201,16 @@ const MainSection = ({
 
                   {isOwnNft === true ? (
                     <div className="w-full flex content-none mt-[20px]">
-                      <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
+                      <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
+                        <OutlineButton
+                          label="Delist or Update"
+                          onClick={() => setShowListNFTModal(true)}
+                          color="var(--main-bg-color)"
+                          borderColor="#707070"
+                          borderWidth="2"
+                          fullWidth
+                        />
+                      </div>
                     </div>
                   ) : (
                     <></>
@@ -1618,6 +1628,8 @@ const MainSection = ({
           reloadNftData()
         }}
       />
+
+      <UpdateNFTModal data={nftDetail} open={showListNFTModal} onClose={() => setShowListNFTModal(false)} />
 
       {showLikeModal && publicKey && (
         <LikeModal
