@@ -43,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0.8;
+  // opacity: 0.8;
   // &:not([disabled]):hover {
   //   box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
   // }
@@ -212,7 +212,6 @@
   justify-content: center;
   align-items: center;
   * {
-    opacity: 1;
     fill: var(--main-bg-color);
   }
 }

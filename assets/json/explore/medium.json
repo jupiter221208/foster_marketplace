@@ -1,6 +1,7 @@
 [
   { "id": "medium-0", "label": "Image/GIF", "value": "image" },
-  { "id": "medium-1", "label": "Video", "value": "video" },
-  { "id": "medium-2", "label": "Audio", "value": "audio" },
-  { "id": "medium-3", "label": "All", "value": "all" }
+  { "id": "medium-1", "label": "3D Model", "value": "3d" },
+  { "id": "medium-2", "label": "Video", "value": "video" },
+  { "id": "medium-3", "label": "Audio", "value": "audio" },
+  { "id": "medium-4", "label": "All", "value": "all" }
 ]
