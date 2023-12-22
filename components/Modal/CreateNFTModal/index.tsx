@@ -185,7 +185,7 @@ const CreateNFTModal = props => {
                           </svg>
                         }
                         onClick={() => handleClickButton('/create/collection')}
-                        color="var(--text-gray-200-color)"
+                        color={'var(--text-gray-200-color)'}
                         fontSize="18px"
                         borderWidth="1px"
                       />
