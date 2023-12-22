@@ -208,6 +208,8 @@ const CreatorsSection = props => {
         </div>
       )}
 
+      {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
+
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
