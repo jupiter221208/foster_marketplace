@@ -69,7 +69,7 @@ const ProfileSection = prop => {
   const [errorWebsiteUrl, setErrorWebsiteUrl] = useState('')
   const [solrPlexUrl, setSolrPlexUrl] = useState('')
   const [errorSolrPlexUrl, setErrorSolrPlexUrl] = useState('')
-  const [landUrl, setlandUrl] = useState('')
+  const [landUrl, setLandUrl] = useState('')
   const [errorLandUrl, setErrprLandUrl] = useState('')
 
   const checkEnableSave = () => {
@@ -97,6 +97,14 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
+    if (solrPlexUrl !== orgUserInfo.solarplex_url) {
+      setEnableSave(true)
+      return
+    }
+    if (landUrl !== orgUserInfo.three_land_url) {
+      setEnableSave(true)
+      return
+    }
     if (websiteUrl !== orgUserInfo.site_url) {
       setEnableSave(true)
       return
@@ -121,6 +129,7 @@ const ProfileSection = prop => {
     }
     setUsername(userName.trimEnd())
     setBio(bio.replaceAll('\n', ' '))
+    console.log(landUrl, '=========landUrl=======')
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
@@ -131,6 +140,8 @@ const ProfileSection = prop => {
         twitter_url: twitterUrl,
         discord_url: discordUrl,
         telegram_url: telegramUrl,
+        solarplex_url: solrPlexUrl,
+        three_land_url: landUrl,
         site_url: websiteUrl,
         profile_picture: profilePictureUrl,
       })
@@ -179,6 +190,8 @@ const ProfileSection = prop => {
           setWebSiteUrl(userInfo.site_url)
           setDiscordUrl(userInfo.discord_url)
           setTelegramUrl(userInfo.telegram_url)
+          setSolrPlexUrl(userInfo.solarplex_url)
+          setLandUrl(userInfo.three_land_url)
           setOrgUserInfo(userInfo)
         }
       },
@@ -190,7 +203,19 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, websiteUrl, profilePictureUrl])
+  }, [
+    userName,
+    bio,
+    userEmail,
+    igUrl,
+    discordUrl,
+    twitterUrl,
+    telegramUrl,
+    solrPlexUrl,
+    landUrl,
+    websiteUrl,
+    profilePictureUrl,
+  ])
 
   return (
     <div className={styles.container}>
@@ -293,7 +318,7 @@ const ProfileSection = prop => {
                 <Input
                   value={landUrl}
                   label01={errorLandUrl}
-                  placeholder="Enter your personal SolrPlex link"
+                  placeholder="Enter your 3.Land link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
                   onChange={value => {
@@ -302,7 +327,7 @@ const ProfileSection = prop => {
                     } else {
                       setErrprLandUrl('Please enter a valid website url.')
                     }
-                    setlandUrl(value)
+                    setLandUrl(value)
                   }}
                 />
               </div>
@@ -315,7 +340,7 @@ const ProfileSection = prop => {
                 <Input
                   value={solrPlexUrl}
                   label01={errorSolrPlexUrl}
-                  placeholder="Enter your personal land link"
+                  placeholder="Enter your Solarplex link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
                   onChange={value => {

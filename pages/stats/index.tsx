@@ -14,7 +14,6 @@ import { useViewport } from 'utils'
 
 // json
 import TabList from 'assets/json/stats/tab-list.json'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
 
 // styles
