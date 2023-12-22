@@ -24,6 +24,8 @@ import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?comp
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import WebSiteSmallIcon from 'assets/icons/website-icon-mobile.svg?component'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
@@ -279,6 +281,50 @@ const ProfileSection = prop => {
               </div>
             </div>
             {/* Personal Web Site */}
+            <div className="mt-[10px] lg:mt-[30px] flex ">
+              <div className={styles.socialIcon}>
+                <LandIcon />
+              </div>
+              <div className="w-full ml-[10px] lg:ml-[24px]">
+                <Input
+                  value={websiteUrl}
+                  label01={errorWebsiteUrl}
+                  placeholder="Enter your personal website link"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  color="var(--text-gray-200-color)"
+                  onChange={value => {
+                    if (value.includes('http')) {
+                      setErrorWebsiteUrl('')
+                    } else {
+                      setErrorWebsiteUrl('Please enter a valid website url.')
+                    }
+                    setWebSiteUrl(value)
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mt-[10px] lg:mt-[30px] flex ">
+              <div className={styles.socialIcon}>
+                <SolrPlexIcon />
+              </div>
+              <div className="w-full ml-[10px] lg:ml-[24px]">
+                <Input
+                  value={websiteUrl}
+                  label01={errorWebsiteUrl}
+                  placeholder="Enter your personal website link"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  color="var(--text-gray-200-color)"
+                  onChange={value => {
+                    if (value.includes('http')) {
+                      setErrorWebsiteUrl('')
+                    } else {
+                      setErrorWebsiteUrl('Please enter a valid website url.')
+                    }
+                    setWebSiteUrl(value)
+                  }}
+                />
+              </div>
+            </div>
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
                 <WebSiteIcon />

@@ -476,7 +476,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(255, 255, 255, 0.5')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(243, 242, 240, 0.5')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
     doc.style.setProperty('--live-auction-card', '#FFF')
@@ -545,6 +545,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--liveauction-bg-color', 'rgba(32, 36, 39, 0.03)')
     doc.style.setProperty('--single-title-color', '#FFFFFF')
     doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #C1C1C1, #DADADA)')
+    doc.style.setProperty('--solrplex-icon-color', 'rgba(32, 36, 39, 0.05)')
 
     // =====================================================
     // =====================================================
@@ -859,5 +860,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--liveauction-bg-color', 'rgba(239, 240, 246, 0.03)')
     doc.style.setProperty('--single-title-color', '#202427')
     doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #242424, #1F1F1F)')
+    doc.style.setProperty('--solrplex-icon-color', 'rgba(149, 219, 213, 0.05)')
   }
 }
