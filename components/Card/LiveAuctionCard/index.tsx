@@ -23,7 +23,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithFallback from 'components/ImageWithFallback'
+import ImageWithAuction from 'components/ImageWithAuction'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
@@ -82,7 +82,7 @@ const LiveAuctionCard = props => {
                       onClick={() => onClick()}
                     />
                   ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <ImageWithFallback
+                    <ImageWithAuction
                       src={data.cover_image_url}
                       onClick={onClick}
                       layout="fill"
@@ -137,7 +137,7 @@ const LiveAuctionCard = props => {
                 />
               </div>
             ) : (
-              <ImageWithFallback
+              <ImageWithAuction
                 src={data.asset_url}
                 onClick={onClick}
                 layout="fill"
