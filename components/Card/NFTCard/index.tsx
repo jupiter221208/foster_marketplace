@@ -187,7 +187,7 @@ const DashboardNFTCard = props => {
           )}
         </div>
 
-        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+        <div className={styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
               <div className={styles.nftName}>{nftName}</div>
