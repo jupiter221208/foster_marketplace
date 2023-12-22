@@ -186,24 +186,27 @@ const FavoriteSection = () => {
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&
           !loading &&
-          nftList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <NFTCard
-                token_id={item.token_id}
-                image={item.asset_url}
-                nftName={item.nft_name}
-                assetType={item.asset_type}
-                coverImage={item.cover_image_url}
-                artistName={item.artist_username}
-                collectionName={item.collection_name}
-                price={item.list_price}
-                onClick={() => {
-                  router.push(`/nft/${item.token_id}`)
-                }}
-                unSave={() => unSaveNft(item.token_id)}
-              />
-            </div>
-          ))}
+          nftList.map(
+            (item: any, index) =>
+              item.nft_name && (
+                <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+                  <NFTCard
+                    token_id={item.token_id}
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
+                    artistName={item.artist_username}
+                    collectionName={item.collection_name}
+                    price={item.list_price}
+                    onClick={() => {
+                      router.push(`/nft/${item.token_id}`)
+                    }}
+                    unSave={() => unSaveNft(item.token_id)}
+                  />
+                </div>
+              )
+          )}
 
         {active === 1 &&
           !loading &&

@@ -179,12 +179,16 @@ const ArtworksSection = props => {
                   <StatsCollectionCard key={index} data={item} type="artworks" />
                 </SwiperSlide>
               ))}
-              <div className={styles.prevButton} onClick={goPrev}>
-                <PreviewButton />
-              </div>
-              <div className={styles.nextButton} onClick={goNext}>
-                <NextButton />
-              </div>
+              {list?.length > 4 && (
+                <>
+                  <div className={styles.prevButton} onClick={goPrev}>
+                    <PreviewButton />
+                  </div>
+                  <div className={styles.nextButton} onClick={goNext}>
+                    <NextButton />
+                  </div>
+                </>
+              )}
             </Swiper>
           </div>
         ))}

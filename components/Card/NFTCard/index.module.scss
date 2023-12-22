@@ -203,6 +203,7 @@
   font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 14px;
+  margin-top: 2px;
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 36px;
@@ -218,6 +219,7 @@
   font-family: 'Muli-Regular';
   font-size: 10px;
   line-height: 12px;
+  margin-top: 2px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
@@ -230,13 +232,13 @@
 }
 
 .price {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
   line-height: 12px;
   margin-left: 3px;
   margin-top: -2px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
+    font-family: 'Muli-Bold';
     margin-top: 0px;
     margin-left: 7px;
     font-size: 20px;
