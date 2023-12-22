@@ -159,8 +159,8 @@ const MainSection = () => {
                     <HeroCard data={item} />
                   </SwiperSlide>
                 ))}
-                <div className={styles.leftSide} />
-                <div className={styles.rightSide} />
+                {/* <div className={styles.leftSide} />
+                <div className={styles.rightSide} /> */}
               </Swiper>
             </div>
           </div>
