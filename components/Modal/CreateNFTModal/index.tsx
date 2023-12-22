@@ -196,7 +196,7 @@ const CreateNFTModal = props => {
                               stroke="var(--text-gray-200-color)"
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              stroke-width="2"
+                              strokeWidth="2"
                             />
                           </svg>
                         }
