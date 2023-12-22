@@ -52,11 +52,7 @@ const OutlineButton = props => {
       }}
     >
       {label !== '' && <div>{label}</div>}
-      {direction === 'ltr' && icon !== '' && (
-        <div className="flex items-center">
-          <Image src={icon} alt="" />
-        </div>
-      )}
+      {direction === 'ltr' && icon !== '' && <div className="flex items-center">{icon}</div>}
     </button>
   )
 }

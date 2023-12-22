@@ -258,7 +258,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
-    doc.style.setProperty('--nav-bg-color', 'rgba(255, 255, 255, 0.75)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(243, 242, 240, 0.75)')
     doc.style.setProperty('--nav-bg-shadow', 'rgba(32, 36, 39, 0.4)')
     doc.style.setProperty('--second-home-bg', '#FFF')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
@@ -544,6 +544,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--notification-shadow-color', 'rgba(32, 36, 39, 0.15)')
     doc.style.setProperty('--liveauction-bg-color', 'rgba(32, 36, 39, 0.03)')
     doc.style.setProperty('--single-title-color', '#FFFFFF')
+    doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #C1C1C1, #DADADA)')
 
     // =====================================================
     // =====================================================
@@ -857,5 +858,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
     doc.style.setProperty('--liveauction-bg-color', 'rgba(239, 240, 246, 0.03)')
     doc.style.setProperty('--single-title-color', '#202427')
+    doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #242424, #1F1F1F)')
   }
 }
