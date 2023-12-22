@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 
@@ -54,7 +53,6 @@ const CollectionsSection = props => {
         setList(collections)
         setTotalCount(12)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collections])

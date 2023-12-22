@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 
 const TableSection = props => {
   const { data } = props
+  console.log(data, '==================data===============')
   const viewport = useViewport()
 
   return (

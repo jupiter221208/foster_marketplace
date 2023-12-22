@@ -56,7 +56,6 @@ const ArtworksSection = props => {
         setScreenWidth(window.innerWidth)
         setList(artworks)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [artworks])

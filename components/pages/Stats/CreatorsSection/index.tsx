@@ -59,7 +59,6 @@ const CreatorsSection = props => {
         setList(creators)
         setTotalCount(12)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [creators])

@@ -60,7 +60,6 @@ const CollectorsSection = props => {
         setList(collectors)
         setTotalCount(12)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collectors])
