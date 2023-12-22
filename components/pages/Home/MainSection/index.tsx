@@ -32,26 +32,21 @@ import HeroCardMobile from 'components/Card/HeroCardMobile'
 import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
+import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
-  const [heroList, setHeroList] = useState<any[]>([])
+  const [heroList, setHeroList] = useState<any[]>(HeroEmptyList)
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
-  const [isSwiperShow, SetIsSwiperShow] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
-  }
-
-  const swiperInit = () => {
-    setTimeout(() => {
-      SetIsSwiperShow(true)
-    }, 500)
   }
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -74,7 +69,10 @@ const MainSection = () => {
     dashboardAPI.getDashboardBanner().then(
       response => {
         if (response !== null && response !== undefined) {
-          setHeroList(response.featured_nfts)
+          setTimeout(() => {
+            setHeroList(response.featured_nfts)
+          }, 1000)
+          console.log(response.featured_nfts, '==========response.featured_nfts========')
           setNftCnt(response.stats.users)
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
@@ -141,33 +139,31 @@ const MainSection = () => {
             style={{
               width: '100%',
               marginLeft: '0px',
-              opacity: isSwiperShow ? 1 : 0,
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length !== 0 && (
-                <Swiper
-                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={1.2}
-                  spaceBetween={-30}
-                  centeredSlides={true}
-                  loop
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                  className={'heroNavigationSwiper'}
-                  onInit={swiperInit}
-                >
-                  {heroList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <HeroCard data={item} />
-                    </SwiperSlide>
-                  ))}
-                  <div className={styles.leftSide} />
-                  <div className={styles.rightSide} />
-                </Swiper>
-              )}
+              {/* {heroList.length !== 0 && ( */}
+              <Swiper
+                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                slidesPerView={1.2}
+                spaceBetween={-30}
+                centeredSlides={true}
+                loop
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation]}
+                className={'heroNavigationSwiper'}
+              >
+                {heroList.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <HeroCard data={item} />
+                  </SwiperSlide>
+                ))}
+                <div className={styles.leftSide} />
+                <div className={styles.rightSide} />
+              </Swiper>
+              {/* )} */}
             </div>
           </div>
         )}

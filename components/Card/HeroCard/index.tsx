@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
-import Link from 'next/link'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -16,7 +15,6 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import Button from 'components/Button'
 
 const HeroCard = props => {
   const { data } = props
@@ -24,6 +22,7 @@ const HeroCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
+  const [profieLoaded, setProfieLoaded] = useState(false)
   const onClick = () => {}
 
   const gotoAristPage = () => {
@@ -42,26 +41,27 @@ const HeroCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('image') ? (
             <div onClick={() => gotoNftDetailPage()}>
-              {!loaded && (
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
+              {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                <img
+                  src={
+                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                      ? data.asset_url
+                      : data.cover_image_url !== '' &&
+                        data.cover_image_url !== null &&
+                        data.cover_image_url !== undefined
+                      ? data.cover_image_url
+                      : ''
+                  }
+                  alt=""
+                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                  loading="lazy"
+                />
+              ) : (
+                <div></div>
               )}
-              <img
-                src={
-                  data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                    ? data.asset_url
-                    : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                    ? data.cover_image_url
-                    : '/images/banner.png'
-                }
-                alt=""
-                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
-                onLoad={() => {
-                  setLoaded(true)
-                }}
-                loading="lazy"
-              />
             </div>
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -144,13 +144,24 @@ const HeroCard = props => {
 
       <div className={styles.infoBox}>
         <div className={styles.nftNames}>
-          <p>{data.nft_name}</p>
-          <p>
-            Created by <span>{data.artist_username}</span>
-          </p>
+          {data.nft_name === '' ? (
+            <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
+          ) : (
+            <p>{data.nft_name}</p>
+          )}
+          {data.nft_name === '' ? (
+            <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
+          ) : (
+            <p>
+              Created by <span>{data.artist_username}</span>
+            </p>
+          )}
         </div>
 
         <div className="flex justify-between items-end">
+          {data.artist_profile_picture === '' && (
+            <div className={`${styles.skeletonLoader} w-[100px] h-[100px] rounded-full`}></div>
+          )}
           {data.artist_profile_picture &&
             data.artist_profile_picture !== '' &&
             data.artist_profile_picture !== undefined && (
@@ -160,13 +171,22 @@ const HeroCard = props => {
                   alt=""
                   className={`${styles.noSelect} rounded-full`}
                   loading="lazy"
+                  onLoad={() => {
+                    setProfieLoaded(true)
+                  }}
                 />
               </div>
             )}
 
-          <div className={styles.btnBox}>
-            <button onClick={() => router.push(`/${data.artist_username}`)}>Visit Artist Profile</button>
-            <button onClick={() => router.push(`/nft/${data.token_id}`)}>View</button>
+          <div>
+            {data.artist_username === '' ? (
+              <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
+            ) : (
+              <div className={styles.btnBox}>
+                <button onClick={() => router.push(`/${data.artist_username}`)}>Visit Artist Profile</button>
+                <button onClick={() => router.push(`/nft/${data.token_id}`)}>View</button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -175,5 +195,3 @@ const HeroCard = props => {
 }
 
 export default HeroCard
-
-// link: <Link href={`${window.origin}/nft/${data.token_id}`} passHref></Link>
