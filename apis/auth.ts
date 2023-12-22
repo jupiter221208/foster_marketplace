@@ -11,6 +11,8 @@ export interface User {
   ig_url?: string
   discord_url?: string
   twitter_url?: string
+  solarplex_url?: string
+  three_land_url: string
   email?: string
   created_at: string
   telegram_url?: string
