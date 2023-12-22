@@ -97,7 +97,7 @@ const MainSection = () => {
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
         )}
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div className="flex lg:hidden">
           <div
             className="w-full min-h-[508px]"
             style={{
@@ -132,7 +132,8 @@ const MainSection = () => {
               )}
             </div>
           </div>
-        ) : (
+        </div>
+        <div className="hidden lg:flex">
           <div
             className="w-full lg:pt-[20px] "
             style={{
@@ -141,7 +142,6 @@ const MainSection = () => {
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {/* {heroList.length !== 0 && ( */}
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                 slidesPerView={1.2}
@@ -162,10 +162,9 @@ const MainSection = () => {
                 <div className={styles.leftSide} />
                 <div className={styles.rightSide} />
               </Swiper>
-              {/* )} */}
             </div>
           </div>
-        )}
+        </div>
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
