@@ -72,7 +72,6 @@ const MainSection = () => {
           setTimeout(() => {
             setHeroList(response.featured_nfts)
           }, 1000)
-          console.log(response.featured_nfts, '==========response.featured_nfts========')
           setNftCnt(response.stats.users)
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)

@@ -91,6 +91,7 @@ const CollectionsSection = props => {
   useEffect(() => {
     if (!isMounted) return
     setSearchLoading(true)
+    setIsVisibleFetching(false)
     getCollectionData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
@@ -135,53 +136,56 @@ const CollectionsSection = props => {
         </div>
       )}
 
-      {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-          <Swiper
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.2
-                : viewport === 'sm'
-                ? 2.5
-                : viewport === 'md'
-                ? 2.9
-                : viewport === 'lg'
-                ? 2.5
-                : viewport === 'xl'
-                ? screenWidth >= 1300
-                  ? 3
-                  : 2.8
-                : viewport === '2xl'
-                ? screenWidth >= 1768
-                  ? 4
-                  : 3.5
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy]}
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-            onSlideChange={handleOnChange}
-            onSwiper={setSwiper}
-          >
-            {list.map((item, index) => (
-              <SwiperSlide key={index}>
-                <StatsCollectionCard data={item} type="collections" />
-              </SwiperSlide>
-            ))}
-            <div className={styles.prevButton} onClick={goPrev}>
-              <PreviewButton />
-            </div>
-            <div className={styles.nextButton} onClick={goNext}>
-              <NextButton />
-            </div>
-          </Swiper>
-        </div>
-      )}
+      {!loading &&
+        (list.length === 0 ? (
+          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+        ) : (
+          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+            <Swiper
+              slidesPerView={
+                viewport === 'xs'
+                  ? 1.2
+                  : viewport === 'sm'
+                  ? 2.5
+                  : viewport === 'md'
+                  ? 2.9
+                  : viewport === 'lg'
+                  ? 2.5
+                  : viewport === 'xl'
+                  ? screenWidth >= 1300
+                    ? 3
+                    : 2.8
+                  : viewport === '2xl'
+                  ? screenWidth >= 1768
+                    ? 4
+                    : 3.5
+                  : 4
+              }
+              spaceBetween={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              }
+              modules={[Autoplay, Lazy]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              onSlideChange={handleOnChange}
+              onSwiper={setSwiper}
+            >
+              {list.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <StatsCollectionCard data={item} type="collections" />
+                </SwiperSlide>
+              ))}
+              <div className={styles.prevButton} onClick={goPrev}>
+                <PreviewButton />
+              </div>
+              <div className={styles.nextButton} onClick={goNext}>
+                <NextButton />
+              </div>
+            </Swiper>
+          </div>
+        ))}
 
       {!loading && (
         <SearchSection

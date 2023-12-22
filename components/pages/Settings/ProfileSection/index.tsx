@@ -129,7 +129,6 @@ const ProfileSection = prop => {
     }
     setUsername(userName.trimEnd())
     setBio(bio.replaceAll('\n', ' '))
-    console.log(landUrl, '=========landUrl=======')
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
