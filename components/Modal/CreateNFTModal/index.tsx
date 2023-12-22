@@ -138,73 +138,7 @@ const CreateNFTModal = props => {
                         fontSize="18px"
                         color={'var(--single-title-color)'}
                       />
-                      <GradientButtonWithSVG
-                        label="Collection"
-                        width={180}
-                        height={49}
-                        backgroundColor01={'transparent'}
-                        backgroundColor02={'transparent'}
-                        borderColor="var(--follow-btn-border-mobile)"
-                        borderWidth="2px"
-                        icon={
-                          <svg
-                            id="Component_2334_2"
-                            data-name="Component 2334 – 2"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="25.224"
-                            height="24.632"
-                            viewBox="0 0 25.224 24.632"
-                          >
-                            <g id="Component_2333_1" data-name="Component 2333 – 1">
-                              <g
-                                id="Rectangle_1732"
-                                data-name="Rectangle 1732"
-                                fill="none"
-                                stroke="var(--text-gray-200-color)"
-                                stroke-width="2"
-                              >
-                                <rect width="20" height="20" rx="3" stroke="none" />
-                                <rect x="1" y="1" width="18" height="18" rx="2" fill="none" />
-                              </g>
-                              <line
-                                id="Line_298"
-                                data-name="Line 298"
-                                y2="8"
-                                transform="translate(10 6)"
-                                fill="none"
-                                stroke="var(--text-gray-200-color)"
-                                stroke-linecap="round"
-                                stroke-width="2"
-                              />
-                              <line
-                                id="Line_299"
-                                data-name="Line 299"
-                                y2="8.121"
-                                transform="translate(13.883 9.596) rotate(90)"
-                                fill="none"
-                                stroke="var(--text-gray-200-color)"
-                                stroke-linecap="round"
-                                stroke-width="2"
-                              />
-                            </g>
-                            <path
-                              id="primary"
-                              d="M12.889,21.827h7.739a3.1,3.1,0,0,0,3.1-3.1V9.444"
-                              transform="translate(0.5 1.805)"
-                              fill="none"
-                              stroke="var(--text-gray-200-color)"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                            />
-                          </svg>
-                        }
-                        onClick={() => handleClickButton('/create/collection')}
-                        gradientDirection="right"
-                        fontSize="18px"
-                        color="var(--text-gray-200-color)"
-                      />
-                      {/* 
+
                       <OutlineButton
                         label="Collection"
                         width={180}
@@ -214,7 +148,7 @@ const CreateNFTModal = props => {
                         color="var(--text-gray-200-color)"
                         fontSize="18px"
                         borderWidth="1px"
-                      /> */}
+                      />
                     </div>
                   </div>
                 ) : (
