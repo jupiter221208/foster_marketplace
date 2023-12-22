@@ -1,9 +1,9 @@
-<svg id="Solarplex_Logo_-_Dark_Mode_Desktop" data-name="Solarplex Logo - Dark Mode Desktop" xmlns="http://www.w3.org/2000/svg" width="24.015" height="24.016" viewBox="0 0 24.015 24.016">
-  <ellipse id="Ellipse_4323" data-name="Ellipse 4323" cx="12.007" cy="12.008" rx="12.007" ry="12.008" fill="#95dbd5"/>
-  <path id="Path_108504" data-name="Path 108504" d="M43.992,226.8a12,12,0,0,1-4.973-2.934h4.973Z" transform="translate(-35.415 -203.278)" fill="#202427"/>
-  <path id="Path_108505" data-name="Path 108505" d="M92.857,190.149h6.857a1.715,1.715,0,0,0,0-3.431H94.573a1.715,1.715,0,0,0-1.715,1.715Z" transform="translate(-84.28 -169.563)" fill="#202427"/>
-  <path id="Path_108506" data-name="Path 108506" d="M2.35,153a11.925,11.925,0,0,1-1.034-3.431H9.771v1.715A1.715,1.715,0,0,1,8.056,153Z" transform="translate(-1.194 -135.85)" fill="#202427"/>
-  <path id="Path_108507" data-name="Path 108507" d="M94.573,112.427h8.577a1.715,1.715,0,0,1,0,3.431H92.857v-1.715A1.715,1.715,0,0,1,94.573,112.427Z" transform="translate(-84.28 -102.135)" fill="#202427"/>
-  <path id="Path_108508" data-name="Path 108508" d="M1.316,78.713A11.924,11.924,0,0,1,2.35,75.282H9.771V77a1.715,1.715,0,0,1-1.715,1.715Z" transform="translate(-1.194 -68.421)" fill="#202427"/>
-  <path id="Path_108509" data-name="Path 108509" d="M92.857,41.568h6.857a1.715,1.715,0,0,0,0-3.431H94.573a1.715,1.715,0,0,0-1.715,1.715Z" transform="translate(-84.28 -34.707)" fill="#202427"/>
+<svg id="Solarplex_Logo_-_Dark_Mode_Desktop" data-name="solrplex-icon" xmlns="http://www.w3.org/2000/svg" width="24.015" height="24.016" viewBox="0 0 24.015 24.016">
+  <ellipse id="Ellipse_4323" data-name="Ellipse 4323" cx="12.007" cy="12.008" rx="12.007" ry="12.008" />
+  <path id="Path_108504" data-name="Path 108504" d="M43.992,226.8a12,12,0,0,1-4.973-2.934h4.973Z" transform="translate(-35.415 -203.278)"/>
+  <path id="Path_108505" data-name="Path 108505" d="M92.857,190.149h6.857a1.715,1.715,0,0,0,0-3.431H94.573a1.715,1.715,0,0,0-1.715,1.715Z" transform="translate(-84.28 -169.563)" data-fill="a"/>
+  <path id="Path_108506" data-name="Path 108506" d="M2.35,153a11.925,11.925,0,0,1-1.034-3.431H9.771v1.715A1.715,1.715,0,0,1,8.056,153Z" transform="translate(-1.194 -135.85)" data-fill="a"/>
+  <path id="Path_108507" data-name="Path 108507" d="M94.573,112.427h8.577a1.715,1.715,0,0,1,0,3.431H92.857v-1.715A1.715,1.715,0,0,1,94.573,112.427Z" transform="translate(-84.28 -102.135)" data-fill="a"/>
+  <path id="Path_108508" data-name="Path 108508" d="M1.316,78.713A11.924,11.924,0,0,1,2.35,75.282H9.771V77a1.715,1.715,0,0,1-1.715,1.715Z" transform="translate(-1.194 -68.421)" data-fill="a"/>
+  <path id="Path_108509" data-name="Path 108509" d="M92.857,41.568h6.857a1.715,1.715,0,0,0,0-3.431H94.573a1.715,1.715,0,0,0-1.715,1.715Z" transform="translate(-84.28 -34.707)" data-fill="a"/>
 </svg>

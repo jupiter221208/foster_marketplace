@@ -1614,6 +1614,13 @@ h6 {
   }
 }
 
+[data-name='solrplex-icon'] {
+  --fill-color: var(--active-btn-border-color);
+  [data-fill='a'] {
+    fill: var(--auction-input-bg);
+  }
+}
+
 [data-name='ellipse-effect'] {
   [offset='0'] {
     stop-color: var(--ellipse-svg-1);

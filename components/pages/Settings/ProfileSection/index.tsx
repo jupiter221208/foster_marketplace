@@ -67,6 +67,10 @@ const ProfileSection = prop => {
   const [errorIGUrl, setErrorIGUrl] = useState('')
   const [errorTwitterUrl, setErrorTwitterUrl] = useState('')
   const [errorWebsiteUrl, setErrorWebsiteUrl] = useState('')
+  const [solrPlexUrl, setSolrPlexUrl] = useState('')
+  const [errorSolrPlexUrl, setErrorSolrPlexUrl] = useState('')
+  const [landUrl, setlandUrl] = useState('')
+  const [errorLandUrl, setErrprLandUrl] = useState('')
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -287,18 +291,18 @@ const ProfileSection = prop => {
               </div>
               <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
-                  value={websiteUrl}
-                  label01={errorWebsiteUrl}
-                  placeholder="Enter your personal website link"
+                  value={landUrl}
+                  label01={errorLandUrl}
+                  placeholder="Enter your personal SolrPlex link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('http')) {
-                      setErrorWebsiteUrl('')
+                      setErrprLandUrl('')
                     } else {
-                      setErrorWebsiteUrl('Please enter a valid website url.')
+                      setErrprLandUrl('Please enter a valid website url.')
                     }
-                    setWebSiteUrl(value)
+                    setlandUrl(value)
                   }}
                 />
               </div>
@@ -309,18 +313,18 @@ const ProfileSection = prop => {
               </div>
               <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
-                  value={websiteUrl}
-                  label01={errorWebsiteUrl}
-                  placeholder="Enter your personal website link"
+                  value={solrPlexUrl}
+                  label01={errorSolrPlexUrl}
+                  placeholder="Enter your personal land link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('http')) {
-                      setErrorWebsiteUrl('')
+                      setErrorSolrPlexUrl('')
                     } else {
-                      setErrorWebsiteUrl('Please enter a valid website url.')
+                      setErrorSolrPlexUrl('Please enter a valid website url.')
                     }
-                    setWebSiteUrl(value)
+                    setSolrPlexUrl(value)
                   }}
                 />
               </div>
