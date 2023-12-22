@@ -26,15 +26,6 @@
 
   letter-spacing: 0;
   color: var(--text-gray-800-color);
-
-  &:hover {
-    @media (min-width: 1024px) {
-      background: #121212 !important;
-      color: var(--brand-09-color);
-      box-shadow: 0px 3px 6px rgba($brand-09-color, 0.16);
-    }
-  }
-
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
 }

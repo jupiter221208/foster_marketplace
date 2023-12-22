@@ -66,7 +66,7 @@ const Home = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <div className="max-w-[1920px] w-full px-4">
+        <div className="max-w-[1920px] w-full px-4 lg:px-0">
           <MainSection />
         </div>
       </div>

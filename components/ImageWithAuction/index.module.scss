@@ -1,0 +1,16 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+}
+
+.card span {
+  overflow: revert !important;
+}
+
+.card img {
+  width: auto !important;
+  height: auto !important;
+  min-width: auto !important;
+  min-height: auto !important;
+  box-shadow: 0px 0px 30px rgba(#000000, 0.25);
+}

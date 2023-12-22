@@ -120,6 +120,7 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
+      fetch(`/${profileInfo.username.replaceAll(' ', '%20')}`).then(e => e.text())
     }
   }, [profileInfo])
 
@@ -340,7 +341,7 @@ const PrimaryHeader = () => {
               </div>
             </div>
           )}
-          <div className={styles.divider} />
+          {!isScrollTop && <div className={styles.divider} />}
         </div>
       )}
     </div>

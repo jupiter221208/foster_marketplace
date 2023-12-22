@@ -23,7 +23,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithFallback from 'components/ImageWithFallback'
+import ImageWithAuction from 'components/ImageWithAuction'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
@@ -76,25 +76,25 @@ const LiveAuctionCard = props => {
                     <div
                       className="w-full h-full absolute"
                       dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
                     />
                   ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <ImageWithFallback
+                    <ImageWithAuction
                       src={data.cover_image_url}
                       onClick={onClick}
                       layout="fill"
                       alt=""
-                      className="w-full h-full rounded-[24px] object-cover"
+                      className="w-full h-full object-contain"
                     />
                   ) : (
                     <Image
                       src={DefaultNftBG}
                       alt=""
                       layout="fill"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onClick={() => onClick()}
                     />
                   )}
@@ -114,7 +114,7 @@ const LiveAuctionCard = props => {
                 <div
                   className="w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
@@ -131,41 +131,22 @@ const LiveAuctionCard = props => {
                   src={data.cover_image_url}
                   alt=""
                   layout="fill"
-                  className="w-full h-full rounded-[24px] object-cover"
+                  className="w-full h-full object-contain"
                   onLoadingComplete={() => setLoaded(true)}
                   onClick={() => onClick()}
                 />
               </div>
             ) : (
-              <ImageWithFallback
+              <ImageWithAuction
                 src={data.asset_url}
                 onClick={onClick}
                 layout="fill"
                 alt=""
-                className="w-full h-full rounded-[24px] object-cover"
+                className="w-full h-full object-contain"
               />
             )}
           </div>
         </Link>
-        {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
-          <div
-            className={styles.avatar}
-            onClick={() => {
-              router.push(`/${data.artist_username}`)
-              dispatch({ type: 'set', isLoading: true })
-            }}
-          >
-            <div className="w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] rounded-full overflow-hidden">
-              <img
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                src={data.artist_profile_picture}
-                alt=""
-                className="rounded-full"
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       <div className={styles.bidContainer}>

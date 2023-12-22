@@ -36,7 +36,10 @@ const HeroCardMobile = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
-        {data.asset_type.includes('video') ? (
+        {(data.asset_url === null || data.asset_url === '') &&
+        (data.cover_image_url === null || data.cover_image_url === '') ? (
+          <div></div>
+        ) : data.asset_type.includes('video') ? (
           <img
             src={
               data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
@@ -77,7 +80,10 @@ const HeroCardMobile = props => {
                 </ReactPlaceholder>
               </div>
             )}
-            {data.asset_type.includes('image') ? (
+            {(data.asset_url === null || data.asset_url === '') &&
+            (data.cover_image_url === null || data.cover_image_url === '') ? (
+              <div></div>
+            ) : data.asset_type.includes('image') ? (
               <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined

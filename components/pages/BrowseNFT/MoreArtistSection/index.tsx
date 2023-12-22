@@ -42,12 +42,29 @@ const MoreArtistSection = props => {
         response => {
           if (response instanceof Array) {
             setCollectionList(response)
+            fetchCollectionData(response)
           }
         },
         error => {}
       )
     }
   }, [artistInfo])
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchCollectionData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
 
   return (
     collectionList.length > 0 && (

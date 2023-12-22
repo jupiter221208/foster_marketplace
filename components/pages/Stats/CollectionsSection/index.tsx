@@ -7,7 +7,7 @@ import TableSections from './TableSection'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -20,9 +20,10 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
+SwiperCore.use([Navigation])
 
 const CollectionsSection = props => {
   const { collections } = props
@@ -41,6 +42,22 @@ const CollectionsSection = props => {
   const [searchLoading, setSearchLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [swiper, setSwiper] = useState(null)
+  const [currentStep, setCurrentStep] = useState(0)
+
+  const goNext = () => {
+    if (swiper !== null) swiper.slideNext()
+    setCurrentStep(swiper.activeIndex)
+  }
+
+  const goPrev = () => {
+    if (swiper !== null) swiper.slidePrev()
+    setCurrentStep(swiper.activeIndex)
+  }
+
+  const handleOnChange = swiper => {
+    setCurrentStep(swiper.activeIndex)
+  }
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
@@ -54,7 +71,6 @@ const CollectionsSection = props => {
         setList(collections)
         setTotalCount(12)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collections])
@@ -75,6 +91,7 @@ const CollectionsSection = props => {
   useEffect(() => {
     if (!isMounted) return
     setSearchLoading(true)
+    setIsVisibleFetching(false)
     getCollectionData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
@@ -119,47 +136,60 @@ const CollectionsSection = props => {
         </div>
       )}
 
-      {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.2
-                : viewport === 'sm'
-                ? 2.5
-                : viewport === 'md'
-                ? 2.9
-                : viewport === 'lg'
-                ? 2.5
-                : viewport === 'xl'
-                ? screenWidth >= 1300
-                  ? 3
-                  : 2.8
-                : viewport === '2xl'
-                ? screenWidth >= 1768
-                  ? 4
-                  : 3.5
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-          >
-            {list.map((item, index) => (
-              <SwiperSlide key={index}>
-                <StatsCollectionCard data={item} type="collections" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
+      {!loading &&
+        (list.length === 0 ? (
+          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+        ) : (
+          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+            <Swiper
+              slidesPerView={
+                viewport === 'xs'
+                  ? 1.2
+                  : viewport === 'sm'
+                  ? 2.5
+                  : viewport === 'md'
+                  ? 2.9
+                  : viewport === 'lg'
+                  ? 2.5
+                  : viewport === 'xl'
+                  ? screenWidth >= 1300
+                    ? 3
+                    : 2.8
+                  : viewport === '2xl'
+                  ? screenWidth >= 1768
+                    ? 4
+                    : 3.5
+                  : 4
+              }
+              spaceBetween={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              }
+              modules={[Autoplay, Lazy]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              onSlideChange={handleOnChange}
+              onSwiper={setSwiper}
+            >
+              {list.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <StatsCollectionCard data={item} type="collections" />
+                </SwiperSlide>
+              ))}
+              {list?.length > 4 && (
+                <>
+                  <div className={styles.prevButton} onClick={goPrev}>
+                    <PreviewButton />
+                  </div>
+                  <div className={styles.nextButton} onClick={goNext}>
+                    <NextButton />
+                  </div>
+                </>
+              )}
+            </Swiper>
+          </div>
+        ))}
 
       {!loading && (
         <SearchSection
@@ -182,6 +212,8 @@ const CollectionsSection = props => {
           <TableSections data={list} />
         </div>
       )}
+
+      {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">

@@ -1,17 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35.324" height="34.668" viewBox="0 0 35.324 34.668">
-  <defs>
-    <filter id="times-7" x="0" y="1.33" width="35.324" height="33.338" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.549"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Component_1990_2" data-name="Component 1990 – 2" transform="translate(2.662)">
-    <rect id="Rectangle_21148" data-name="Rectangle 21148" width="30" height="30" rx="15" fill="rgba(239,240,246,0.2)"/>
-    <g transform="matrix(1, 0, 0, 1, -2.66, 0)" filter="url(#times-7)">
-      <path id="times-7-2" data-name="times-7" d="M16.689,13.664l6.2-5.479a1.181,1.181,0,0,0,0-1.814,1.584,1.584,0,0,0-2.048,0l-6.187,5.492L8.469,6.372a1.584,1.584,0,0,0-2.048,0,1.181,1.181,0,0,0,0,1.814l6.2,5.479-6.2,5.479a1.177,1.177,0,0,0,0,1.814,1.577,1.577,0,0,0,2.048,0l6.187-5.492,6.187,5.492a1.577,1.577,0,0,0,2.048,0,1.177,1.177,0,0,0,0-1.814Z" transform="translate(3.01 1.33)" fill="#eff0f6"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Group_53844" data-name="Group 53844" transform="translate(20867 16438)">
+    <circle id="Ellipse_4314" data-name="Ellipse 4314" cx="15" cy="15" r="15" transform="translate(-20867 -16438)" fill="#585b5d"/>
+    <path id="times-7" d="M14.016,12.49l4.651-4.64a1.086,1.086,0,0,0-1.536-1.536l-4.64,4.651L7.85,6.314A1.086,1.086,0,0,0,6.314,7.85l4.651,4.64-4.651,4.64A1.086,1.086,0,1,0,7.85,18.666l4.64-4.651,4.64,4.651a1.086,1.086,0,1,0,1.536-1.536Z" transform="translate(-20864.49 -16435.492)" fill="#eff0f6"/>
   </g>
 </svg>

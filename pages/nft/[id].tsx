@@ -115,7 +115,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
-      setHasLoading(true)
+      if (hasLoading === null) setHasLoading(true)
       if (connected) {
         await nftsAPI.getDetail(nftDetail.address).then(
           (response: any) => {
@@ -141,7 +141,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       }
-      setHasLoading(false)
+      if (hasLoading) setHasLoading(false)
     }
     fetchData()
   }, [nftDetail, profileInfo])

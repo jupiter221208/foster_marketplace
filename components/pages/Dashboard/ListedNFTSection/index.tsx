@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import ListedNFTCard, { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
-import FilterButton from 'components/Button/FilterButton'
 
 // styles
 import styles from './index.module.scss'

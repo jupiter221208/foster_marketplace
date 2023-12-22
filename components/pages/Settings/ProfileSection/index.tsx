@@ -24,6 +24,8 @@ import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?comp
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import WebSiteSmallIcon from 'assets/icons/website-icon-mobile.svg?component'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
@@ -65,6 +67,10 @@ const ProfileSection = prop => {
   const [errorIGUrl, setErrorIGUrl] = useState('')
   const [errorTwitterUrl, setErrorTwitterUrl] = useState('')
   const [errorWebsiteUrl, setErrorWebsiteUrl] = useState('')
+  const [solrPlexUrl, setSolrPlexUrl] = useState('')
+  const [errorSolrPlexUrl, setErrorSolrPlexUrl] = useState('')
+  const [landUrl, setLandUrl] = useState('')
+  const [errorLandUrl, setErrprLandUrl] = useState('')
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -88,6 +94,14 @@ const ProfileSection = prop => {
       return
     }
     if (twitterUrl !== orgUserInfo.twitter_url) {
+      setEnableSave(true)
+      return
+    }
+    if (solrPlexUrl !== orgUserInfo.solarplex_url) {
+      setEnableSave(true)
+      return
+    }
+    if (landUrl !== orgUserInfo.three_land_url) {
       setEnableSave(true)
       return
     }
@@ -125,6 +139,8 @@ const ProfileSection = prop => {
         twitter_url: twitterUrl,
         discord_url: discordUrl,
         telegram_url: telegramUrl,
+        solarplex_url: solrPlexUrl,
+        three_land_url: landUrl,
         site_url: websiteUrl,
         profile_picture: profilePictureUrl,
       })
@@ -173,6 +189,8 @@ const ProfileSection = prop => {
           setWebSiteUrl(userInfo.site_url)
           setDiscordUrl(userInfo.discord_url)
           setTelegramUrl(userInfo.telegram_url)
+          setSolrPlexUrl(userInfo.solarplex_url)
+          setLandUrl(userInfo.three_land_url)
           setOrgUserInfo(userInfo)
         }
       },
@@ -184,7 +202,19 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, websiteUrl, profilePictureUrl])
+  }, [
+    userName,
+    bio,
+    userEmail,
+    igUrl,
+    discordUrl,
+    twitterUrl,
+    telegramUrl,
+    solrPlexUrl,
+    landUrl,
+    websiteUrl,
+    profilePictureUrl,
+  ])
 
   return (
     <div className={styles.container}>
@@ -279,6 +309,50 @@ const ProfileSection = prop => {
               </div>
             </div>
             {/* Personal Web Site */}
+            <div className="mt-[10px] lg:mt-[30px] flex ">
+              <div className={styles.socialIcon}>
+                <LandIcon />
+              </div>
+              <div className="w-full ml-[10px] lg:ml-[24px]">
+                <Input
+                  value={landUrl}
+                  label01={errorLandUrl}
+                  placeholder="Enter your 3.Land link"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  color="var(--text-gray-200-color)"
+                  onChange={value => {
+                    if (value.includes('http')) {
+                      setErrprLandUrl('')
+                    } else {
+                      setErrprLandUrl('Please enter a valid website url.')
+                    }
+                    setLandUrl(value)
+                  }}
+                />
+              </div>
+            </div>
+            <div className="mt-[10px] lg:mt-[30px] flex ">
+              <div className={styles.socialIcon}>
+                <SolrPlexIcon />
+              </div>
+              <div className="w-full ml-[10px] lg:ml-[24px]">
+                <Input
+                  value={solrPlexUrl}
+                  label01={errorSolrPlexUrl}
+                  placeholder="Enter your Solarplex link"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  color="var(--text-gray-200-color)"
+                  onChange={value => {
+                    if (value.includes('http')) {
+                      setErrorSolrPlexUrl('')
+                    } else {
+                      setErrorSolrPlexUrl('Please enter a valid website url.')
+                    }
+                    setSolrPlexUrl(value)
+                  }}
+                />
+              </div>
+            </div>
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
                 <WebSiteIcon />
