@@ -5,14 +5,11 @@
   height: 100%;
   background: var(--background-main-color);
   border-radius: 17px;
-  padding: 9px;
   border: 1px solid var(--nft-border-color);
   @media (min-width: 1024px) {
-    padding: 15px;
     border-radius: 30px;
   }
   @media (min-width: 1536px) {
-    padding: 19px;
     border-radius: 30px;
   }
   cursor: pointer;
@@ -147,11 +144,26 @@
   justify-content: center;
   // align-items: center;
   // border: 1px solid rgba(var(--text-gray-200-color), 0.1);
-  border-radius: 10px;
+  border-radius: 16px 16px 0px 0px;
   @media (min-width: 1024px) {
-    border-radius: 24px;
+    border-radius: 24px 24px 0px 0px;
   }
   overflow: hidden;
+}
+
+.imageInfo {
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+  flex: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 16px 16px 16px;
+  @media (min-width: 1024px) {
+    margin-top: 15px;
+    padding: 0px 24px 24px 24px;
+  }
 }
 
 .imageNft {
@@ -159,16 +171,13 @@
   height: 100%;
   max-width: 400px;
   object-fit: cover;
-  border-radius: 10px;
   margin: 0 auto;
   transition: transform 0.2s;
   @media (min-width: 1024px) {
     max-width: 600px;
-    border-radius: 24px;
   }
   &:hover {
     @media (min-width: 1024px) {
-      border-radius: 30px;
       -ms-transform: scale(1.2);
       -webkit-transform: scale(1.2);
       transform: scale(1.2);
@@ -208,10 +217,10 @@
 .artistName {
   font-family: 'Muli-Regular';
   font-size: 10px;
-  line-height: 12px;
+  line-height: 14px;
   @media (min-width: 1024px) {
     font-size: 16px;
-    line-height: 24px;
+    line-height: 36px;
   }
   letter-spacing: 0;
   color: var(--main-icon-color);
