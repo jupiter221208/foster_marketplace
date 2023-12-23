@@ -101,7 +101,7 @@ const Explore = () => {
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
   const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[3])
-  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
+  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[4])
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
 
   useEffect(() => {

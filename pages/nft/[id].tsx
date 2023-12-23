@@ -71,7 +71,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const { profileInfo } = useAuthentication()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
-  const [hasLoading, setHasLoading] = useState(null)
+  const [hasLoading, setHasLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(
@@ -115,10 +115,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
-      if (hasLoading === null) setHasLoading(true)
+
       if (connected) {
         await nftsAPI.getDetail(nftDetail.address).then(
           (response: any) => {
+            setHasLoading(false)
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
@@ -126,11 +127,14 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               }
             }
           },
-          error => {}
+          error => {
+            setHasLoading(false)
+          }
         )
       } else {
         await nftsAPI.get(nftDetail.address).then(
           (response: any) => {
+            setHasLoading(false)
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
@@ -138,10 +142,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               }
             }
           },
-          error => {}
+          error => {
+            setHasLoading(false)
+          }
         )
       }
-      if (hasLoading) setHasLoading(false)
     }
     fetchData()
   }, [nftDetail, profileInfo])

@@ -138,12 +138,12 @@ const NFTAuctionCard = props => {
           <div className={styles.imageContent}>
             {assetType?.includes('video') ? (
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                <div className="w-full relative flex justify-center items-center overflow-hidden">
                   {play ? (
                     <div
                       className="w-full h-full absolute"
                       dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
@@ -153,7 +153,7 @@ const NFTAuctionCard = props => {
                       src={coverImage}
                       alt=""
                       layout="fill"
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                      className="w-full h-full object-cover"
                       onClick={() => onClick()}
                     />
                   ) : (
@@ -175,7 +175,7 @@ const NFTAuctionCard = props => {
                 <div
                   className="w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
@@ -188,7 +188,7 @@ const NFTAuctionCard = props => {
                   onClick={onClick}
                   layout="fill"
                   alt=""
-                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                  className="w-full h-full object-cover"
                 />
               ) : (
                 <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
@@ -212,15 +212,15 @@ const NFTAuctionCard = props => {
             </div>
           )}
         </div>
-        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+        <div className={styles.imageInfo}>
           <div className="w-full">
-            <div className="flex items-center justify-between mt-[6px] lg:mt-[15px]">
+            <div className="flex items-center justify-between mt-[2px]">
               <div className="w-full flex justify-between">
                 <div className={styles.currentBid}>{currentBid === null ? 'Reserve' : 'Current'}</div>
                 <div className={styles.currentBid}>Ends In</div>
               </div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[3px] lg:mt-[8px]">
+            <div className="w-full flex justify-between items-center mt-[3px]">
               <div className="flex justify-center items-center">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />

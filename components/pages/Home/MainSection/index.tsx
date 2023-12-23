@@ -76,11 +76,6 @@ const MainSection = () => {
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
         }
-        // if (!firstLoaded) {
-        //   setTimeout(() => {
-        //     dispatch({ type: 'set', firstLoaded: true })
-        //   }, 2000)
-        // }
       },
       error => {
         console.log(error)
@@ -91,12 +86,12 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
+        <div className="hidden lg:block">
           <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
-        )}
+        </div>
         <div className="flex lg:hidden">
           <div
             className="w-full min-h-[508px]"
