@@ -19,7 +19,6 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
@@ -27,10 +26,8 @@ import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
-import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
@@ -46,12 +43,9 @@ import styles from './index.module.scss'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/strings'
-import Link from 'next/link'
 
 const PrimaryHeader = () => {
-  const viewport = useViewport()
   const router = useRouter()
-  const routePath = router.pathname
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
@@ -206,7 +200,7 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+      <div className="hidden lg:flex">
         <div
           className={`${styles.blurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
@@ -303,7 +297,8 @@ const PrimaryHeader = () => {
             </div>
           </nav>
         </div>
-      ) : (
+      </div>
+      <div className="flex lg:hidden">
         <div
           className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
@@ -343,7 +338,7 @@ const PrimaryHeader = () => {
           )}
           {!isScrollTop && <div className={styles.divider} />}
         </div>
-      )}
+      </div>
     </div>
   )
 }
