@@ -91,7 +91,7 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        <div className="hidden lg:flex">
+        <div className="hidden lg:block">
           <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
