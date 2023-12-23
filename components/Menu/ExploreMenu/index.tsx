@@ -65,7 +65,7 @@ const ExploreMenu = props => {
             <div className="flex flex-row justify-between w-full px-6 py-4 h-full">
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Active Listings</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {activeList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <p
@@ -90,7 +90,7 @@ const ExploreMenu = props => {
               </div>
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Filter & Sorting</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {filterList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <p
@@ -108,9 +108,9 @@ const ExploreMenu = props => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4 font-normal">
+              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Top Performers</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {performerList?.map((item, index) => (
                     <Link key={index} href={`/stats`} passHref>
                       <p
