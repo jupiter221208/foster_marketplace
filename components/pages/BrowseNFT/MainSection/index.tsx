@@ -254,7 +254,6 @@ const MainSection = ({
 
   const nftType: string =
     (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
-  console.log('==========nftDetail===========', nftDetail)
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'

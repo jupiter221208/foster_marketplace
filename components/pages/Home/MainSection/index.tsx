@@ -76,11 +76,6 @@ const MainSection = () => {
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
         }
-        // if (!firstLoaded) {
-        //   setTimeout(() => {
-        //     dispatch({ type: 'set', firstLoaded: true })
-        //   }, 2000)
-        // }
       },
       error => {
         console.log(error)
