@@ -28,6 +28,8 @@ import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import IGHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
@@ -109,6 +111,8 @@ const MainSection = () => {
   const profileName = profileInfo?.username ? profileInfo?.username : ''
   const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
   const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
+  const threelandUrl = profileInfo?.three_land_url ? getPrefixUrl(profileInfo?.three_land_url) : ''
+  const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
 
   const showAlertModal = () => {
     setAlertData([
@@ -324,6 +328,12 @@ const MainSection = () => {
               <div>
                 <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
               </div>
+              <div>
+                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
+              </div>
+              <div>
+                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
+              </div>
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
@@ -355,6 +365,12 @@ const MainSection = () => {
               </div>
               <div>
                 <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
+              </div>
+              <div>
+                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
+              </div>
+              <div>
+                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
               </div>
               <div>
                 <IconButtonWithSVG

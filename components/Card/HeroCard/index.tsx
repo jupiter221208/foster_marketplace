@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
-import Link from 'next/link'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -23,6 +22,7 @@ const HeroCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
+  const [profieLoaded, setProfieLoaded] = useState(false)
   const onClick = () => {}
 
   const gotoAristPage = () => {
@@ -37,16 +37,11 @@ const HeroCard = props => {
 
   return (
     <div className={styles.container}>
-      <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-        <div className={styles.imageArea}>
-          <div className={styles.imageContent}>
-            {data.asset_type.includes('image') ? (
-              <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-                {!loaded && (
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
-                )}
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          {data.asset_type.includes('image') ? (
+            <div onClick={() => gotoNftDetailPage()}>
+              {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                 <img
                   src={
                     data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
@@ -55,129 +50,118 @@ const HeroCard = props => {
                         data.cover_image_url !== null &&
                         data.cover_image_url !== undefined
                       ? data.cover_image_url
-                      : '/images/banner.png'
+                      : ''
                   }
                   alt=""
-                  className={`${styles.noSelect} w-full h-full object-cover rounded-[24px]`}
+                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                  loading="lazy"
+                />
+              ) : (
+                <div></div>
+              )}
+            </div>
+          ) : data.asset_type.includes('video') ? (
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full xl:h-[418px] h-[300px] shadow-2xl overflow-hidden">
+                {data.cover_image_url != null && data.cover_image_url !== '' ? (
+                  <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+                    {!loaded && (
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
+                    )}
+                    <img
+                      src={data.cover_image_url}
+                      alt=""
+                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                      onLoad={() => {
+                        setLoaded(true)
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={DefaultNftBG}
+                    alt=""
+                    layout="fill"
+                    className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                    onClick={() => onClick()}
+                  />
+                )}
+              </div>
+            ) : (
+              <div
+                className="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain"
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain overflow-hidden">
+              <source src=${data.asset_url} type="video/mp4" /></video>`,
+                }}
+                onClick={() => gotoNftDetailPage()}
+              />
+            )
+          ) : data.asset_type.includes('audio') ? (
+            data.cover_image_url !== null && data.cover_image_url !== '' ? (
+              <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+                {!loaded && (
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
+                )}
+                <img
+                  src={data.cover_image_url}
+                  alt=""
+                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                   onLoad={() => {
                     setLoaded(true)
                   }}
                   loading="lazy"
                 />
               </div>
-            ) : data.asset_type.includes('video') ? (
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-                      {!loaded && (
-                        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                          <div></div>
-                        </ReactPlaceholder>
-                      )}
-                      <img
-                        src={data.cover_image_url}
-                        alt=""
-                        className={`${styles.noSelect} w-full h-full object-cover`}
-                        onLoad={() => {
-                          setLoaded(true)
-                        }}
-                        loading="lazy"
-                      />
-                    </div>
-                  ) : (
-                    <Image
-                      src={DefaultNftBG}
-                      alt=""
-                      layout="fill"
-                      className={`${styles.noSelect} w-full h-full object-cover`}
-                      onClick={() => onClick()}
-                    />
-                  )}
-                </div>
-              ) : (
-                <div
-                  className="w-full h-full object-cover"
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-              <source src=${data.asset_url} type="video/mp4" /></video>`,
-                  }}
-                  onClick={() => gotoNftDetailPage()}
-                />
-              )
-            ) : data.asset_type.includes('audio') ? (
-              data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-                  {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )}
-                  <img
-                    src={data.cover_image_url}
-                    alt=""
-                    className={`${styles.noSelect} w-full h-full rounded-[10px] lg:rounded-[24px] object-cover`}
-                    onLoad={() => {
-                      setLoaded(true)
-                    }}
-                    loading="lazy"
-                  />
-                </div>
-              ) : (
-                <Image
-                  src={DefaultNftBG}
-                  alt=""
-                  layout="fill"
-                  className={`${styles.noSelect} w-full h-full object-cover`}
-                  onClick={() => onClick()}
-                />
-              )
             ) : (
               <Image
                 src={DefaultNftBG}
                 alt=""
                 layout="fill"
-                className={`${styles.imageNft} ${styles.noSelect}`}
+                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
                 onClick={() => onClick()}
               />
-            )}
-          </div>
+            )
+          ) : (
+            <Image
+              src={DefaultNftBG}
+              alt=""
+              layout="fill"
+              className={`${styles.imageNft} ${styles.noSelect}`}
+              onClick={() => onClick()}
+            />
+          )}
         </div>
-      </Link>
-      {/* {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
-        <div className={styles.cardArea}>
-          <div className="flex justify-between gap-[6px]">
-            <div className="w-full block">
-              <div className={styles.nftName} onClick={() => gotoNftDetailPage()}>
-                {data.nft_name}
-              </div>
-              <div className={`flex ${styles.artistName}`} onClick={() => gotoAristPage()}>
-                {data.artist_username}
-              </div>
-            </div>
-            <div className="justify-start items-center lg:mt-[10px]">
-              <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <img
-                  src={
-                    data.artist_profile_picture &&
-                    data.artist_profile_picture !== '' &&
-                    data.artist_profile_picture !== undefined
-                      ? data.artist_profile_picture
-                      : '/images/avatar.png'
-                  }
-                  alt=""
-                  width={viewport === 'lg' ? 40 : 60}
-                  height={viewport === 'lg' ? 40 : 60}
-                  className="rounded-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <div className={styles.infoBox}>
+        <div className={styles.nftNames}>
+          {data.nft_name === '' ? (
+            <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
+          ) : (
+            <p>{data.nft_name}</p>
+          )}
+          {data.nft_name === '' ? (
+            <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
+          ) : (
+            <p>
+              Created by <span>{data.artist_username}</span>
+            </p>
+          )}
         </div>
-      )} */}
-      <div className="absolute z-10 right-8 bottom-8 cursor-pointer">
-        <div className="justify-start items-center lg:mt-[10px]">
+
+        <div className="flex justify-between items-end">
+          {data.artist_profile_picture === '' && (
+            <div className={`${styles.skeletonLoader} w-[100px] h-[100px] rounded-full`}></div>
+          )}
           {data.artist_profile_picture &&
             data.artist_profile_picture !== '' &&
             data.artist_profile_picture !== undefined && (
@@ -185,13 +169,25 @@ const HeroCard = props => {
                 <img
                   src={data.artist_profile_picture}
                   alt=""
-                  width={viewport === 'lg' ? 40 : 60}
-                  height={viewport === 'lg' ? 40 : 60}
                   className={`${styles.noSelect} rounded-full`}
                   loading="lazy"
+                  onLoad={() => {
+                    setProfieLoaded(true)
+                  }}
                 />
               </div>
             )}
+
+          <div>
+            {data.artist_username === '' ? (
+              <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
+            ) : (
+              <div className={styles.btnBox}>
+                <button onClick={() => router.push(`/${data.artist_username}`)}>Visit Artist Profile</button>
+                <button onClick={() => router.push(`/nft/${data.token_id}`)}>View</button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

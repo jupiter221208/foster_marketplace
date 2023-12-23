@@ -92,13 +92,13 @@ const DashboardNFTCard = props => {
             <div className={styles.imageContent}>
               {assetType?.includes('video') ? (
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                  <div className="w-full relative flex justify-center items-center overflow-hidden">
                     {play ? (
                       <div
                         className="w-full h-full absolute"
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                    <source src=${image} type="video/mp4" /></video>`,
+                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                  <source src=${image} type="video/mp4" /></video>`,
                         }}
                         onClick={() => onClick()}
                       />
@@ -107,7 +107,7 @@ const DashboardNFTCard = props => {
                         src={coverImage}
                         alt=""
                         layout="fill"
-                        className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                        className="w-full h-full object-cover"
                         onClick={() => onClick()}
                       />
                     ) : (
@@ -134,8 +134,8 @@ const DashboardNFTCard = props => {
                   <div
                     className="w-full"
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  <source src=${image} type="video/mp4" /></video>`,
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
                     }}
                     onClick={() => onClick()}
                   />
@@ -155,7 +155,7 @@ const DashboardNFTCard = props => {
                     onClick={onClick}
                     layout="fill"
                     alt=""
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    className="w-full h-full object-cover"
                   />
                 ) : (
                   <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
@@ -175,6 +175,7 @@ const DashboardNFTCard = props => {
               )}
             </div>
           </Link>
+
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
@@ -187,7 +188,7 @@ const DashboardNFTCard = props => {
           )}
         </div>
 
-        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+        <div className={styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
               <div className={styles.nftName}>{nftName}</div>
@@ -206,19 +207,19 @@ const DashboardNFTCard = props => {
               )}
             </div>
           </div>
+          {unSave !== null && (
+            <div className="mt-[10px]">
+              <GradientButton
+                fullWidth
+                label="Unsave"
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  unSave()
+                }}
+              />
+            </div>
+          )}
         </div>
-        {unSave !== null && (
-          <div className="mt-[10px]">
-            <GradientButton
-              fullWidth
-              label="Unsave"
-              onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
-                unSave()
-              }}
-            />
-          </div>
-        )}
       </div>
 
       {displayHideConfirm && (

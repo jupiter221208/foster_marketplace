@@ -37,6 +37,8 @@ import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
@@ -448,6 +450,24 @@ const MainSection = prop => {
                     <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
                   </div>
                 ))}
+              {artistInfo?.three_land_url !== null &&
+                artistInfo?.three_land_url.length > 0 &&
+                (hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
+                ) : (
+                  <div>
+                    <LandIcon onClick={() => window.open(validUrl(artistInfo?.three_land_url))} />
+                  </div>
+                ))}
+              {artistInfo?.solarplex_url !== null &&
+                artistInfo?.solarplex_url.length > 0 &&
+                (hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
+                ) : (
+                  <div>
+                    <SolrPlexIcon onClick={() => window.open(validUrl(artistInfo?.solarplex_url))} />
+                  </div>
+                ))}
             </div>
 
             <div className="w-full h-[24px] mt-[17px] mb-[34px] flex items-center">
@@ -726,6 +746,8 @@ const MainSection = prop => {
             ig_url={artistInfo?.ig_url}
             site_url={artistInfo?.site_url}
             twitter_url={artistInfo?.twitter_url}
+            three_land_url={artistInfo?.three_land_url}
+            solarplex_url={artistInfo?.solarplex_url}
             avatarUploadingToS3={avatarUploadingToS3}
             handleChangeAvatar={handleChangeAvatar}
             hasLoading={hasLoading}

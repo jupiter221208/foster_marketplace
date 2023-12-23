@@ -84,7 +84,7 @@ const ProfileMenu = props => {
         }, 1000)
       }
     }
-  }, [loginSignedFlag])
+  }, [loginSignedFlag, connected])
 
   return (
     <div className="relative flex items-center">

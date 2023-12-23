@@ -59,12 +59,12 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
     ;(async () => {
       setCollectionData(publicCollectionData)
+      dispatch({ type: 'set', isLoading: false })
 
       if (!address) return
       try {
@@ -73,8 +73,10 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) {
           setNfts(collectionNfts)
+          fetchNftData(collectionNfts)
           // dispatch({ type: 'set', isLoading: false })
         }
+
         setHasLoading(false)
       } catch (e: any) {
         console.error(e)
@@ -83,6 +85,22 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       }
     })()
   }, [address, publicCollectionData])
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
 
   useEffect(() => {
     ;(async () => {

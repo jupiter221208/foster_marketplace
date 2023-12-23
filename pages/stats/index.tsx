@@ -14,7 +14,6 @@ import { useViewport } from 'utils'
 
 // json
 import TabList from 'assets/json/stats/tab-list.json'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
 
 // styles
@@ -175,8 +174,7 @@ const Stats = () => {
       </Head>
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
-          <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
-          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[56px] lg:h-[76px] ">
+          <div className="relative mt-[10px] lg:mt-[24px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[56px] lg:h-[76px] ">
             <HouseStatsTab
               tabList={tabList}
               onChange={item => {

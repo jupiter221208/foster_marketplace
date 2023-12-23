@@ -40,11 +40,28 @@ const MoreCategorySection = props => {
       dashboardAPI.getTrendingCollections(categories[0], 'week').then(
         response => {
           if (response instanceof Array) setCollectionList(response)
+          fetchCollectionListData(response)
         },
         error => {}
       )
     }
   }, [categories])
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchCollectionListData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
 
   return (
     collectionList.length > 0 && (

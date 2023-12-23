@@ -36,7 +36,7 @@ const initialState = {
   loginSignedFlag: false,
   printImageUrl: '',
   merchData: null,
-  firstLoaded: false,
+  firstLoaded: true,
   activeTab: 0,
   isAddToCart: false,
 }

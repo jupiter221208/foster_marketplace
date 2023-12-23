@@ -58,16 +58,6 @@ const ExploreMenu = props => {
         <HMenu.Button onClick={toggleMenu} ref={itemRef as MutableRefObject<HTMLButtonElement>}>
           <div className={styles.container}>
             <div className="mr-[9px]">{props.label}</div>
-            <div className="w-3 h-3 flex justify-center items-center mt-1">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
-                <path
-                  id="angle-down-9"
-                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
-                  transform="translate(-6.754 -8.879)"
-                  fill="var(--chevron-up-icon-color)"
-                />
-              </svg>
-            </div>
           </div>
         </HMenu.Button>
         {isMenuOpen && (
@@ -75,7 +65,7 @@ const ExploreMenu = props => {
             <div className="flex flex-row justify-between w-full px-6 py-4 h-full">
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Active Listings</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {activeList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <p
@@ -100,7 +90,7 @@ const ExploreMenu = props => {
               </div>
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Filter & Sorting</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {filterList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <p
@@ -118,9 +108,9 @@ const ExploreMenu = props => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4 font-normal">
+              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
                 <div className={styles.title}>Top Performers</div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 font-normal">
                   {performerList?.map((item, index) => (
                     <Link key={index} href={`/stats`} passHref>
                       <p

@@ -19,7 +19,6 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
@@ -27,10 +26,9 @@ import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
-import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
+import FosterLogo from 'assets/logo.svg?component'
 
 // json
 import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
@@ -47,9 +45,7 @@ import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/strings'
 
 const PrimaryHeader = () => {
-  const viewport = useViewport()
   const router = useRouter()
-  const routePath = router.pathname
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
@@ -118,6 +114,7 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
+      fetch(`/${profileInfo.username.replaceAll(' ', '%20')}`).then(e => e.text())
     }
   }, [profileInfo])
 
@@ -203,25 +200,38 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+      <div className="hidden lg:flex">
         <div
           className={`${styles.blurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
           } flex justify-center transition-all`}
         >
-          <nav className="gap-4 flex justify-between w-full max-w-[1750px] p-6 ">
-            <div className="my-auto">
-              {routePath === '/' || 'studio' ? (
-                <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
-                  <FosterHeroLogo alt="" />
-                </div>
-              ) : (
-                <div className={styles.logoArea} onClick={() => router.push('/')}>
-                  <FosterLogoDark alt="" />
-                </div>
-              )}
+          <nav className="gap-16 flex justify-between w-full max-w-[1750px] p-6 ">
+            <div className={`${styles.linkNames} flex gap-14 my-auto items-center w-full max-w-max`}>
+              <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
+                <FosterLogo className={styles.logoIcon} />
+              </div>
+
+              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                Studio
+              </div>
+
+              <div>
+                <ExploreMenu
+                  label="Explore"
+                  activeList={activeList}
+                  filterList={filterList}
+                  categoryList={categoryList}
+                  performerList={performerList}
+                />
+              </div>
+
+              <div>
+                <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+              </div>
             </div>
-            <div className="flex gap-16 my-auto w-full">
+
+            <div className="w-full">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -230,39 +240,18 @@ const PrimaryHeader = () => {
                 onClick={() => handleClear()}
                 onClose={() => handleClose()}
               />
-              <div className="flex gap-12 justify-between max-w-md items-center">
-                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                  Studio
-                </div>
-
-                <div>
-                  <ExploreMenu
-                    label="Explore"
-                    activeList={activeList}
-                    filterList={filterList}
-                    categoryList={categoryList}
-                    performerList={performerList}
-                  />
-                </div>
-
-                <div>
-                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-                </div>
-
-                {connected && (
-                  <div>
-                    <WalletButton />
-                  </div>
-                )}
-              </div>
             </div>
-            <div className="flex items-center my-auto min-w-max gap-4">
+
+            <div className="flex items-center my-auto min-w-max">
               <div className="flex">
                 {connected && (
                   <>
                     <div className="flex flex-row">
+                      <div>
+                        <WalletButton />
+                      </div>
                       <div
-                        className="flex mr-[20px] cursor-pointer"
+                        className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
                         onClick={() => {
                           dispatch({ type: 'set', activeTab: 4 })
                           router.push(`/merch-logs`)
@@ -270,7 +259,10 @@ const PrimaryHeader = () => {
                       >
                         <ShoppingCartIcon alt="" />
                       </div>
-                      <div className="flex relative cursor-pointer" onClick={() => router.push('/notifications')}>
+                      <div
+                        className={`${styles.iconArea} flex relative cursor-pointer`}
+                        onClick={() => router.push('/notifications')}
+                      >
                         <NotificationIcon alt="" />
                       </div>
                     </div>
@@ -278,11 +270,12 @@ const PrimaryHeader = () => {
                 )}
 
                 {connected && isNewNotification && (
-                  <div className="absolute ml-[90px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                  <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}
               </div>
+
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
@@ -297,14 +290,15 @@ const PrimaryHeader = () => {
               </div>
 
               {!connected && (
-                <button onClick={() => handleThemeMode()}>
+                <button className="ml-7" onClick={() => handleThemeMode()}>
                   {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                 </button>
               )}
             </div>
           </nav>
         </div>
-      ) : (
+      </div>
+      <div className="flex lg:hidden">
         <div
           className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
@@ -344,7 +338,7 @@ const PrimaryHeader = () => {
           )}
           {!isScrollTop && <div className={styles.divider} />}
         </div>
-      )}
+      </div>
     </div>
   )
 }

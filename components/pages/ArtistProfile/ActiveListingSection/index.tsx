@@ -67,6 +67,8 @@ const ActiveListingSection = props => {
       if (response.length === rowCount) setIsVisibleFetching(true)
       else setIsVisibleFetching(false)
       setExploreList([...exploreList, ...response])
+
+      fetchNftData(response)
     })
     error => {
       if (loadCompleted) loadCompleted()
@@ -74,6 +76,22 @@ const ActiveListingSection = props => {
       setIsFetching(false)
       setIsVisibleFetching(false)
       console.log(error)
+    }
+  }
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
     }
   }
 

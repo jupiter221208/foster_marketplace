@@ -29,26 +29,24 @@ import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
+import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+
+import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
-  const [heroList, setHeroList] = useState<any[]>([])
+  const [heroList, setHeroList] = useState<any[]>(HeroEmptyList)
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
-  const [isSwiperShow, SetIsSwiperShow] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
-  }
-
-  const swiperInit = () => {
-    setTimeout(() => {
-      SetIsSwiperShow(true)
-    }, 500)
   }
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -71,15 +69,12 @@ const MainSection = () => {
     dashboardAPI.getDashboardBanner().then(
       response => {
         if (response !== null && response !== undefined) {
-          setHeroList(response.featured_nfts)
+          setTimeout(() => {
+            setHeroList(response.featured_nfts)
+          }, 1000)
           setNftCnt(response.stats.users)
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
-        }
-        if (!firstLoaded) {
-          setTimeout(() => {
-            dispatch({ type: 'set', firstLoaded: true })
-          }, 2000)
         }
       },
       error => {
@@ -90,16 +85,16 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full grid grid-cols-12 z-10 items-center">
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="col-span-12">
+      <div className="w-full z-10 items-center relative">
+        <div className="hidden lg:block">
+          <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
-        )}
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        </div>
+        <div className="flex lg:hidden">
           <div
-            className="w-full col-span-12 min-h-[508px]"
+            className="w-full min-h-[508px]"
             style={{
               width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
               marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
@@ -117,6 +112,7 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
+                  centeredSlides={true}
                   modules={[Pagination]}
                   className={'heroSwiperMobile'}
                   loop
@@ -131,55 +127,42 @@ const MainSection = () => {
               )}
             </div>
           </div>
-        ) : (
+        </div>
+        <div className="hidden lg:flex">
           <div
-            className="w-full col-span-12 lg:col-span-12 lg:pt-[20px] "
+            className="w-full lg:pt-[20px] "
             style={{
               width: '100%',
               marginLeft: '0px',
-              opacity: isSwiperShow ? 1 : 0,
             }}
           >
             <div className="w-full relative mt-[15px]" id="heroSwiper">
-              {heroList.length !== 0 && (
-                <Swiper
-                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                  slidesPerView={3}
-                  spaceBetween={0}
-                  centeredSlides={true}
-                  loop
-                  pagination={{
-                    clickable: true,
-                  }}
-                  modules={[Pagination, Navigation]}
-                  className={'heroNavigationSwiper'}
-                  onInit={swiperInit}
-                >
-                  {heroList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <HeroCard data={item} />
-                    </SwiperSlide>
-                  ))}
-                  <div className={styles.leftSide} />
-                  <div className={styles.rightSide} />
-                </Swiper>
-              )}
-            </div>
-
-            <div className="mt-[35px] lg:mt-[0px] flex justify-center gap-8">
-              <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton
-                label="Create"
-                width={124}
-                borderWidth={2}
-                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
-              />
+              <Swiper
+                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                slidesPerView={1.2}
+                spaceBetween={-30}
+                centeredSlides={true}
+                loop
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Pagination, Navigation]}
+                className={'heroNavigationSwiper'}
+              >
+                {heroList.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <HeroCard data={item} />
+                  </SwiperSlide>
+                ))}
+                {/* <div className={styles.leftSide} />
+                <div className={styles.rightSide} /> */}
+              </Swiper>
             </div>
           </div>
-        )}
+        </div>
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end lg:mt-[20px]">
+          <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
                 width={88}
@@ -202,6 +185,13 @@ const MainSection = () => {
         ) : (
           <></>
         )}
+
+        <div className={styles.leftEllipse}>
+          <EllipseBlue />
+        </div>
+        <div className={styles.rightEllipse}>
+          <EllipseGreen />
+        </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>

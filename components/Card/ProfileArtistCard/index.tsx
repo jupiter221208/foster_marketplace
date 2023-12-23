@@ -15,6 +15,8 @@ import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
@@ -28,6 +30,8 @@ const ProfileArtistCard = props => {
     ig_url,
     twitter_url,
     site_url,
+    solarplex_url,
+    three_land_url,
     avatarUploadingToS3,
     handleChangeAvatar,
     setFullScreenView,
@@ -111,6 +115,16 @@ const ProfileArtistCard = props => {
               {site_url !== null && site_url !== undefined && site_url.length > 0 && (
                 <div>
                   <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
+                </div>
+              )}
+              {three_land_url !== null && three_land_url !== undefined && three_land_url.length > 0 && (
+                <div>
+                  <LandIcon onClick={() => window.open(validUrl(three_land_url))} />
+                </div>
+              )}
+              {solarplex_url !== null && solarplex_url !== undefined && solarplex_url.length > 0 && (
+                <div>
+                  <SolrPlexIcon onClick={() => window.open(validUrl(solarplex_url))} />
                 </div>
               )}
             </div>

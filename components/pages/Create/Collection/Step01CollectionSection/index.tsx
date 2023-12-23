@@ -324,7 +324,7 @@ const Step01CollectionSection = props => {
                                     // onClick={() => {
                                     //   dropzoneBannerEl?.current?.open()
                                     // }}
-                                    backgroundColor="rgba(55, 130, 135, 0.3)"
+                                    backgroundColor="#242424"
                                     borderColor="transparent"
                                     borderRadius="100%"
                                   />
@@ -420,7 +420,7 @@ const Step01CollectionSection = props => {
                                       iconHeight={15}
                                       icon={EditorGreenIcon}
                                       onClick={() => {}}
-                                      backgroundColor="rgba(55, 130, 135, 0.3)"
+                                      backgroundColor="#242424"
                                       borderColor="transparent"
                                       borderRadius="100%"
                                     />
@@ -650,7 +650,7 @@ const Step01CollectionSection = props => {
                                 iconHeight={15}
                                 icon={EditorGreenIcon}
                                 onClick={() => {}}
-                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                backgroundColor="#242424"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />
@@ -755,7 +755,7 @@ const Step01CollectionSection = props => {
                                 iconHeight={15}
                                 icon={EditorGreenIcon}
                                 onClick={() => {}}
-                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                backgroundColor="#242424"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />
