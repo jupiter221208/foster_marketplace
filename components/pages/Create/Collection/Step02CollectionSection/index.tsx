@@ -264,14 +264,6 @@ const Step02CollectionSection = props => {
                     <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
-                    // <IconButton
-                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                    //   onClick={() => {
-                    //     onRemoveCollectionFile(selectedCollectionFile)
-                    //     setSelectedCollectionFile(undefined)
-                    //   }}
-                    //   backgroundColor="transparent"
-                    // />
                     <IconButtonWithSVG
                       icon={
                         <svg
@@ -377,6 +369,7 @@ const Step02CollectionSection = props => {
                         'video/mp4': [],
                         'audio/mpeg': [],
                         'audio/wav': [],
+                        'model/gltf-binary': ['.glb'],
                       }}
                       maxFiles={25}
                       maxSize={31457280}
@@ -483,13 +476,6 @@ const Step02CollectionSection = props => {
                             />
                           </div>
                         </div>
-                        {/* <IconButton
-                          icon={TrashGrayIcon}
-                          onClick={() => onRemoveCollectionFile(item)}
-                          backgroundColor="transparent"
-                          iconWidth={24}
-                          iconHeight={24}
-                        /> */}
                         <IconButtonWithSVG
                           icon={
                             <svg
@@ -681,16 +667,6 @@ const Step02CollectionSection = props => {
                     <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
-                    // <IconButton
-                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                    //   onClick={() => {
-                    //     onRemoveCollectionFile(selectedCollectionFile)
-                    //     setSelectedCollectionFile(undefined)
-                    //   }}
-                    //   backgroundColor="transparent"
-                    //   width="24px"
-                    //   height="24px"
-                    // />
                     <IconButtonWithSVG
                       icon={
                         <svg
@@ -785,6 +761,7 @@ const Step02CollectionSection = props => {
                   'video/mp4': [],
                   'audio/mpeg': [],
                   'audio/wav': [],
+                  'model/gltf-binary': ['.glb'],
                 }}
                 maxFiles={25}
                 maxSize={31457280}
@@ -849,13 +826,6 @@ const Step02CollectionSection = props => {
                       </div>
                       <div className={styles.fileName}>{item.file?.name}</div>
                     </div>
-                    {/* <IconButton
-                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                      onClick={() => onRemoveCollectionFile(item)}
-                      backgroundColor="transparent"
-                      iconWidth={24}
-                      iconHeight={24}
-                    /> */}
 
                     <IconButtonWithSVG
                       icon={

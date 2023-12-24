@@ -884,7 +884,6 @@ const MainSection = ({
     setActiveTab(item.id)
   }
 
-  const sizeRef = useRef()
   const { width, height, ref } = useResizeDetector()
 
   return (

@@ -162,6 +162,8 @@ const Collection = () => {
           })
         })
         hidden_video.currentTime = 5
+      } else if (item.type === '' && /\.glb$/.test(item.name)) {
+        object.type = 'vr'
       }
       array.push(object)
     })
@@ -224,7 +226,7 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage } = collectionFiles[i]
+        let { name, description, attributes, file, croppedImage, type } = collectionFiles[i]
         name = name.trim()
         description = description.trim()
         const metadata: JsonMetadata = {
@@ -232,7 +234,7 @@ const Collection = () => {
           description,
           attributes,
           properties: {
-            category: file.type.split('/')[0],
+            category: type === 'vr' ? type : file.type.split('/')[0],
           },
         }
 
@@ -254,8 +256,9 @@ const Collection = () => {
             type: 'image/png',
             url: croppedImage,
           }
+        } else if (metadata.properties.category === 'vr') {
+          assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
         }
-
         metadata.image = imageFile.url
         metadata.properties.files = [imageFile]
         if (assetFile) {
@@ -277,14 +280,11 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx
-          .nfts()
-          .builders()
-          .verifyCollection({
-            mintAddress: nftKeypair.publicKey,
-            collectionMintAddress: collectionNft?.mintAddress,
-            isSizedCollection: true,
-          })
+        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
+          mintAddress: nftKeypair.publicKey,
+          collectionMintAddress: collectionNft?.mintAddress,
+          isSizedCollection: true,
+        })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
