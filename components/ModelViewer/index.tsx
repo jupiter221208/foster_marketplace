@@ -103,6 +103,7 @@ const ModelViewer = ({
   }
 
   useEffect(() => {
+    if (divRef.current) divRef.current.innerHTML = ''
     if (divRef.current && renderer) divRef.current.appendChild(renderer.domElement)
   }, [divRef.current, renderer])
 
