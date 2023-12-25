@@ -34,6 +34,8 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import ModelViewer from 'components/ModelViewer'
+import { useResizeDetector } from 'react-resize-detector'
 
 const Step02CollectionSection = props => {
   const {
@@ -196,6 +198,9 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
+  console.log(selectedCollectionFile)
+  const { width, height, ref } = useResizeDetector()
+
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -207,9 +212,9 @@ const Step02CollectionSection = props => {
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className="w-full flex justify-center z-10">
-                  <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
-                    <div className="absolute inset-0 flex justify-center items-center">
-                      {selectedCollectionFile !== undefined && (
+                  <div ref={ref} className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                    {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
+                      <div className="absolute inset-0 flex justify-center items-center">
                         <img
                           src={
                             selectedCollectionFile.croppedImage !== ''
@@ -219,11 +224,10 @@ const Step02CollectionSection = props => {
                           alt=""
                           className="w-full h-full object-cover z-0"
                         />
-                      )}
-                    </div>
-                    {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio' && (
-                      <div className={styles.blurImage} />
+                      </div>
                     )}
+                    {(selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio') ||
+                      ('vr' && <div className={styles.blurImage} />)}
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                       <video controls className="w-full h-full z-10" id="video">
                         <source
@@ -232,10 +236,17 @@ const Step02CollectionSection = props => {
                         />
                         Your browser does not support the video tag.
                       </video>
+                    ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
+                      <ModelViewer
+                        path={URL.createObjectURL(selectedCollectionFile.file)}
+                        width={width}
+                        height={height}
+                      />
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
                       <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
                     ) : (
-                      selectedCollectionFile !== undefined && (
+                      selectedCollectionFile !== undefined &&
+                      selectedCollectionFile.type !== 'vr' && (
                         <img
                           src={
                             selectedCollectionFile.croppedImage !== ''
@@ -610,11 +621,12 @@ const Step02CollectionSection = props => {
               {/* banner image */}
               <div className="w-full flex justify-center">
                 <div
+                  ref={ref}
                   className={styles.imageArea}
                   style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                 >
-                  <div className="absolute inset-0 flex justify-center items-center">
-                    {selectedCollectionFile !== undefined && (
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
+                    <div className="absolute inset-0 flex justify-center items-center">
                       <img
                         src={
                           selectedCollectionFile.croppedImage !== ''
@@ -624,9 +636,15 @@ const Step02CollectionSection = props => {
                         alt=""
                         className="w-full h-full object-contain"
                       />
-                    )}
-                  </div>
-                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
+                    </div>
+                  )}
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
+                    <ModelViewer
+                      path={URL.createObjectURL(selectedCollectionFile.file)}
+                      width={width}
+                      height={height}
+                    />
+                  ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                     <video controls className="w-full h-full z-10" id="video">
                       <source
                         src={URL.createObjectURL(selectedCollectionFile.file)}
