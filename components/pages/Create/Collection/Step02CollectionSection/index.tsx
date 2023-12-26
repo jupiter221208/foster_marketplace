@@ -43,6 +43,7 @@ const Step02CollectionSection = props => {
     coverCroppedImage,
     onChangeCurrentStep,
     collectionFiles,
+    setCollectionFiles,
     onChangeCollectionFiles,
     onRemoveCollectionFile,
     onChangeCollectionName,
@@ -198,8 +199,8 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
-  console.log(selectedCollectionFile)
   const { width, height, ref } = useResizeDetector()
+  const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
 
   return (
     <div className="w-full">
@@ -241,6 +242,24 @@ const Step02CollectionSection = props => {
                         path={URL.createObjectURL(selectedCollectionFile.file)}
                         width={width}
                         height={height}
+                        getSnapshot={{
+                          onSnapshot: image => {
+                            setCollectionFiles(prevFiles => {
+                              const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
+                              if (fileIndex !== -1) {
+                                // Create a copy of the array
+                                let newFiles = [...prevFiles]
+                                // Replace the file at the found index
+                                newFiles[fileIndex].coverImage = image
+                                return newFiles
+                              }
+                              // If file not found, return the original array
+                              return prevFiles
+                            })
+                            setTakeSnapshotStatus(false)
+                          },
+                          status: takeSnapshotStatus,
+                        }}
                       />
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
                       <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />

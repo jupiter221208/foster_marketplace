@@ -23,7 +23,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import { Keypair } from '@solana/web3.js'
-import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
 
@@ -134,6 +134,8 @@ const Collection = () => {
       let object: any = {}
       object.id = index
       object.file = item
+      object.coverImage = null
+
       if (item.type === 'image/gif') {
         object.type = item.type
       } else {
@@ -226,7 +228,7 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage, type } = collectionFiles[i]
+        let { name, description, attributes, file, croppedImage, type, coverImage } = collectionFiles[i]
         name = name.trim()
         description = description.trim()
         const metadata: JsonMetadata = {
@@ -258,7 +260,17 @@ const Collection = () => {
           }
         } else if (metadata.properties.category === 'vr') {
           assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
+          if (coverImage) {
+            const metaplexFile = toMetaplexFile(await coverImage.arrayBuffer(), 'image.png', {
+              contentType: coverImage.type,
+            })
+            imageFile = {
+              type: 'image/png',
+              url: await storage.upload(metaplexFile),
+            }
+          }
         }
+
         metadata.image = imageFile.url
         metadata.properties.files = [imageFile]
         if (assetFile) {
@@ -371,6 +383,7 @@ const Collection = () => {
             coverCroppedImage={coverCroppedImage}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionFiles={collectionFiles}
+            setCollectionFiles={setCollectionFiles}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
