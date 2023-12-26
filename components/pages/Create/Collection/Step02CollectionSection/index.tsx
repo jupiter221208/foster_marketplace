@@ -199,11 +199,39 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
+  const setCoverImage = image => {
+    setCollectionFiles(prevFiles => {
+      const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
+      if (fileIndex !== -1) {
+        // Create a copy of the array
+        let newFiles = [...prevFiles]
+        // Replace the file at the found index
+        newFiles[fileIndex].coverImage = image
+        return newFiles
+      }
+      // If file not found, return the original array
+      return prevFiles
+    })
+  }
+
   const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
   return (
     <div className="w-full">
+      {selectedCollectionFile && selectedCollectionFile.coverImage && selectedCollectionFile.type === 'vr' && (
+        <NftImageEditorModal
+          open={openCoverImageEditorModal}
+          close={() => setOpenCoverImageEditorModal(false)}
+          nftImage={[selectedCollectionFile.coverImage]}
+          getCroppedImage={croppedImage => {
+            setCoverImage(croppedImage)
+            setOpenCoverImageEditorModal(false)
+          }}
+          dimension={{ value: [1920, 1920] }}
+        />
+      )}
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
@@ -244,18 +272,7 @@ const Step02CollectionSection = props => {
                         height={height}
                         getSnapshot={{
                           onSnapshot: image => {
-                            setCollectionFiles(prevFiles => {
-                              const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
-                              if (fileIndex !== -1) {
-                                // Create a copy of the array
-                                let newFiles = [...prevFiles]
-                                // Replace the file at the found index
-                                newFiles[fileIndex].coverImage = image
-                                return newFiles
-                              }
-                              // If file not found, return the original array
-                              return prevFiles
-                            })
+                            setCoverImage(image)
                             setTakeSnapshotStatus(false)
                           },
                           status: takeSnapshotStatus,

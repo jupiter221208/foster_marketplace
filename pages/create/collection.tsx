@@ -261,7 +261,13 @@ const Collection = () => {
         } else if (metadata.properties.category === 'vr') {
           assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
           if (coverImage) {
-            const metaplexFile = toMetaplexFile(await coverImage.arrayBuffer(), 'image.png', {
+            let image = coverImage
+
+            if (coverImage.startsWith('blob:')) {
+              image = await fetch(coverImage).then(r => r.blob())
+            }
+
+            const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
               contentType: coverImage.type,
             })
             imageFile = {
