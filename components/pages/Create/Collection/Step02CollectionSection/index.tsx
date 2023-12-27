@@ -719,18 +719,20 @@ const Step02CollectionSection = props => {
                     </div>
                   )}
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
-                    <ModelViewer
-                      path={URL.createObjectURL(selectedCollectionFile.file)}
-                      width={width}
-                      height={height}
-                      getSnapshot={{
-                        onSnapshot: image => {
-                          addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
-                          setTakeSnapshotStatus(false)
-                        },
-                        status: takeSnapshotStatus,
-                      }}
-                    />
+                    selectedCollectionFile.url && (
+                      <ModelViewer
+                        path={selectedCollectionFile.url}
+                        width={width}
+                        height={height}
+                        getSnapshot={{
+                          onSnapshot: image => {
+                            addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
+                            setTakeSnapshotStatus(false)
+                          },
+                          status: takeSnapshotStatus,
+                        }}
+                      />
+                    )
                   ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                     <video controls className="w-full h-full z-10" id="video">
                       <source
