@@ -367,7 +367,7 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
-        {false && (
+        {currentStep === 1 && (
           <Step01CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
@@ -392,7 +392,7 @@ const Collection = () => {
             mintCollection={mintCollection}
           />
         )}
-        {true && (
+        {currentStep === 2 && (
           <Step02CollectionSection
             currentStep={currentStep}
             coverCroppedImage={coverCroppedImage}
