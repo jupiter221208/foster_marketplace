@@ -196,7 +196,8 @@ const Collection = () => {
   const handleChangeCollectionDescription = (item, value) => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
-      if (index > -1) prevFiles[index].Description = value
+      console.log(index, item)
+      if (index > -1) prevFiles[index].description = value
       return [...prevFiles]
     })
   }
@@ -366,7 +367,7 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
-        {currentStep === 1 && (
+        {false && (
           <Step01CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
@@ -391,7 +392,7 @@ const Collection = () => {
             mintCollection={mintCollection}
           />
         )}
-        {currentStep === 2 && (
+        {true && (
           <Step02CollectionSection
             currentStep={currentStep}
             coverCroppedImage={coverCroppedImage}
