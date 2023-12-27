@@ -43,7 +43,7 @@ const PrimaryFooter = () => {
               <Link href="/explore">Explore</Link>
             </div>
             <div className={styles.linkText}>
-              <Link href="/dao">Circus DAO</Link>
+              <Link href="/dao">Governance</Link>
             </div>
             <div className={styles.linkText}>
               <Link href="/resources">Resources</Link>
@@ -56,7 +56,7 @@ const PrimaryFooter = () => {
             <div className={styles.title}>About</div>
             <div className={`${styles.linkText} !mt-[49px]`}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                Foster House
+                Foster Labs
               </a>
             </div>
             <div className={styles.linkText}>
@@ -185,7 +185,7 @@ const PrimaryFooter = () => {
                 <Link href="/explore">Explore</Link>
               </div>
               <div className={styles.linkText}>
-                <Link href="/dao">Circus DAO</Link>
+                <Link href="/dao">Governance</Link>
               </div>
               <div className={styles.linkText}>
                 <Link href="/resources">Resources</Link>
@@ -198,7 +198,7 @@ const PrimaryFooter = () => {
               <div className={styles.title}>About</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                  Foster House
+                  Foster Labs
                 </a>
               </div>
               <div className={styles.linkText}>
