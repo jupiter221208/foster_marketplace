@@ -48,7 +48,7 @@ const Step02CollectionSection = props => {
     coverCroppedImage,
     onChangeCurrentStep,
     collectionFiles,
-    setCollectionFiles,
+    addCoverImageToFile,
     onChangeCollectionFiles,
     onRemoveCollectionFile,
     onChangeCollectionName,
@@ -204,21 +204,6 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
-  const setCoverImage = image => {
-    setCollectionFiles(prevFiles => {
-      const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
-      if (fileIndex !== -1) {
-        // Create a copy of the array
-        let newFiles = [...prevFiles]
-        // Replace the file at the found index
-        newFiles[fileIndex].coverImage = image
-        return newFiles
-      }
-      // If file not found, return the original array
-      return prevFiles
-    })
-  }
-
   const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
@@ -231,7 +216,7 @@ const Step02CollectionSection = props => {
           close={() => setOpenCoverImageEditorModal(false)}
           nftImage={[selectedCollectionFile.coverImage]}
           getCroppedImage={croppedImage => {
-            setCoverImage(croppedImage)
+            addCoverImageToFile(selectedCollectionFile, croppedImage)
             setOpenCoverImageEditorModal(false)
           }}
           dimension={{ value: [1920, 1920] }}
@@ -271,18 +256,20 @@ const Step02CollectionSection = props => {
                         Your browser does not support the video tag.
                       </video>
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
-                      <ModelViewer
-                        path={URL.createObjectURL(selectedCollectionFile.file)}
-                        width={width}
-                        height={height}
-                        getSnapshot={{
-                          onSnapshot: image => {
-                            setCoverImage(URL.createObjectURL(image))
-                            setTakeSnapshotStatus(false)
-                          },
-                          status: takeSnapshotStatus,
-                        }}
-                      />
+                      selectedCollectionFile.url && (
+                        <ModelViewer
+                          path={selectedCollectionFile.url}
+                          width={width}
+                          height={height}
+                          getSnapshot={{
+                            onSnapshot: image => {
+                              addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
+                              setTakeSnapshotStatus(false)
+                            },
+                            status: takeSnapshotStatus,
+                          }}
+                        />
+                      )
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
                       <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
                     ) : (
@@ -559,7 +546,7 @@ const Step02CollectionSection = props => {
                                   onChange={e => {
                                     const file = e.target.files[0]
                                     if (file && file.type.startsWith('image/')) {
-                                      setCoverImage(file)
+                                      addCoverImageToFile(selectedCollectionFile, file)
                                       setOpenCoverImageEditorModal(true)
                                     } else {
                                       alert('Please select an image file.')
@@ -571,7 +558,7 @@ const Step02CollectionSection = props => {
                               {item.coverImage && (
                                 <div className={styles.glbNftImageSection}>
                                   <img className="w-full aspect-square" src={item.coverImage} alt="" />
-                                  <button onClick={() => setCoverImage(null)}>
+                                  <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
                                     <TrashBin /> Remove Cover Image
                                   </button>
                                 </div>
@@ -738,7 +725,7 @@ const Step02CollectionSection = props => {
                       height={height}
                       getSnapshot={{
                         onSnapshot: image => {
-                          setCoverImage(URL.createObjectURL(image))
+                          addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
                           setTakeSnapshotStatus(false)
                         },
                         status: takeSnapshotStatus,
@@ -1072,7 +1059,7 @@ const Step02CollectionSection = props => {
                             onChange={e => {
                               const file = e.target.files[0]
                               if (file && file.type.startsWith('image/')) {
-                                setCoverImage(file)
+                                addCoverImageToFile(selectedCollectionFile, file)
                                 setOpenCoverImageEditorModal(true)
                               } else {
                                 alert('Please select an image file.')
@@ -1084,7 +1071,7 @@ const Step02CollectionSection = props => {
                         {item.coverImage && (
                           <div className={styles.glbNftImageSection}>
                             <img className="w-full aspect-square" src={item.coverImage} alt="" />
-                            <button onClick={() => setCoverImage(null)}>
+                            <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
                               <TrashBin /> Remove Cover Image
                             </button>
                           </div>

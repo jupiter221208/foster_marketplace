@@ -135,6 +135,7 @@ const Collection = () => {
       object.id = index
       object.file = item
       object.coverImage = null
+      object.url = null
 
       if (item.type === 'image/gif') {
         object.type = item.type
@@ -166,6 +167,7 @@ const Collection = () => {
         hidden_video.currentTime = 5
       } else if (item.type === '' && /\.glb$/.test(item.name)) {
         object.type = 'vr'
+        object.url = URL.createObjectURL(item)
       }
       array.push(object)
     })
@@ -184,21 +186,19 @@ const Collection = () => {
   }
 
   const handleChangeCollectionName = (item, value) => {
-    let array = [...collectionFiles]
-    let index = array.indexOf(item)
-    if (index !== -1) {
-      array[index].name = value
-    }
-    setCollectionFiles(array)
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].name = value
+      return [...prevFiles]
+    })
   }
 
   const handleChangeCollectionDescription = (item, value) => {
-    let array = [...collectionFiles]
-    let index = array.indexOf(item)
-    if (index !== -1) {
-      array[index].description = value
-    }
-    setCollectionFiles(array)
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].Description = value
+      return [...prevFiles]
+    })
   }
 
   const handleChangeCroppedImage = (croppedImage, id) => {
@@ -209,6 +209,14 @@ const Collection = () => {
       }
     })
     setCollectionFiles(array)
+  }
+
+  const addCoverImageToFile = (selectedCollectionFile, image) => {
+    setCollectionFiles(prevFiles => {
+      const fileIndex = prevFiles.indexOf(selectedCollectionFile)
+      if (fileIndex > -1) prevFiles[fileIndex].coverImage = image
+      return [...prevFiles]
+    })
   }
 
   // step 3
@@ -389,7 +397,7 @@ const Collection = () => {
             coverCroppedImage={coverCroppedImage}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionFiles={collectionFiles}
-            setCollectionFiles={setCollectionFiles}
+            addCoverImageToFile={addCoverImageToFile}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
