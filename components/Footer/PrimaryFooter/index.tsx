@@ -55,12 +55,12 @@ const PrimaryFooter = () => {
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>About</div>
             <div className={`${styles.linkText} !mt-[49px]`}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
                 Foster Labs
               </a>
             </div>
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                 Turkey Circus
               </a>
             </div>
@@ -197,12 +197,12 @@ const PrimaryFooter = () => {
             <div className="w-full block justify-center text-center">
               <div className={styles.title}>About</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+                <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
                   Foster Labs
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+                <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                   Turkey Circus
                 </a>
               </div>
