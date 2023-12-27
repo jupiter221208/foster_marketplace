@@ -905,7 +905,7 @@ const Step02CollectionSection = props => {
                   <div className="flex justify-between mb-8">
                     <div
                       className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.file.path === item.file.path
+                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
                           ? styles.selectedImage
                           : styles.nonSelectedImage
                       }

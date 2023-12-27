@@ -173,6 +173,7 @@ const Collection = () => {
     })
 
     let new_files = [...collectionFiles, ...array]
+    new_files.map((file, i) => (file.id = i))
     setCollectionFiles(new_files)
   }
 
@@ -214,9 +215,16 @@ const Collection = () => {
 
   const addCoverImageToFile = (selectedCollectionFile, image) => {
     setCollectionFiles(prevFiles => {
-      const fileIndex = prevFiles.indexOf(selectedCollectionFile)
-      if (fileIndex > -1) prevFiles[fileIndex].coverImage = image
-      return [...prevFiles]
+      const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
+      if (fileIndex !== -1) {
+        // Create a copy of the array
+        let newFiles = [...prevFiles]
+        // Replace the file at the found index
+        newFiles[fileIndex].coverImage = image
+        return newFiles
+      }
+      // If file not found, return the original array
+      return prevFiles
     })
   }
 

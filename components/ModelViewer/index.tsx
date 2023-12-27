@@ -29,8 +29,6 @@ const ModelViewer = ({
   useEffect(() => {
     if (path !== oldPath) {
       setOldPath(path)
-      console.log('old: ' + oldPath)
-      console.log('new: ' + path)
 
       const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
       newRenderer.setSize(width, height)
