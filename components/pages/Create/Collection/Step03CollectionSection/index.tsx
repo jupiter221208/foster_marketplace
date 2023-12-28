@@ -605,7 +605,6 @@ const Step03CollectionSection = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          backgroundColor={'var(--input-bg)'}
                           onChange={() => {}}
                           height="46px"
                         />
@@ -625,7 +624,6 @@ const Step03CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          backgroundColor={'var(--input-bg)'}
                           fullWidth
                           onChange={() => {}}
                           height="90px"

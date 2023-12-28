@@ -787,7 +787,6 @@ const Step01CollectionSection = props => {
               <Input
                 value={limit(collectionName, 30)}
                 placeholder="Give your art name"
-                backgroundColor={'var(--input-bg)'}
                 label01="Max Characters 30"
                 label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
                 onChange={value => onChangeCollectionName(limit(value, 30))}
@@ -798,8 +797,6 @@ const Step01CollectionSection = props => {
             </div>
             <div className="w-full mt-5">
               <Textarea
-                value={limit(description, 1000)}
-                backgroundColor={'var(--input-bg)'}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
@@ -814,7 +811,6 @@ const Step01CollectionSection = props => {
                 value={royalties}
                 placeholder="Insert a royalty percentage"
                 label="From 0 to 10%"
-                backgroundColor={'var(--input-bg)'}
                 type="number"
                 min={0}
                 onChange={value => {
