@@ -80,7 +80,7 @@ const CollectionMintProgressingModal = props => {
                               </video>
                             ) : (
                               <Image
-                                src={item.croppedImage}
+                                src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
                                 alt=""
                                 width={68}
                                 height={68}
@@ -143,7 +143,7 @@ const CollectionMintProgressingModal = props => {
                                 </video>
                               ) : (
                                 <Image
-                                  src={item.croppedImage}
+                                  src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
                                   alt=""
                                   width={64}
                                   height={64}

@@ -566,7 +566,7 @@ const Step03CollectionSection = props => {
                           </video>
                         ) : (
                           <Image
-                            src={item.croppedImage}
+                            src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
                             alt=""
                             width={
                               selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
