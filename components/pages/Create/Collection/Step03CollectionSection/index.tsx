@@ -131,7 +131,7 @@ const Step03CollectionSection = props => {
                       </div>
                     ) : (
                       <Image
-                        src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
+                        src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                         alt=""
                         width={100}
                         height={100}
@@ -296,7 +296,7 @@ const Step03CollectionSection = props => {
                             </video>
                           ) : (
                             <Image
-                              src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
+                              src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                               alt=""
                               width={
                                 selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
@@ -566,7 +566,7 @@ const Step03CollectionSection = props => {
                           </video>
                         ) : (
                           <Image
-                            src={item.type === 'vr' && item.coverImage ? item.coverImage : item.croppedImage}
+                            src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                             alt=""
                             width={
                               selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68

@@ -210,11 +210,11 @@ const Step02CollectionSection = props => {
 
   return (
     <div className="w-full flex justify-center">
-      {selectedCollectionFile && selectedCollectionFile.coverImage && selectedCollectionFile.type === 'vr' && (
+      {selectedCollectionFile && selectedCollectionFile.nftCoverImage && selectedCollectionFile.type === 'vr' && (
         <NftImageEditorModal
           open={openCoverImageEditorModal}
           close={() => setOpenCoverImageEditorModal(false)}
-          nftImage={[selectedCollectionFile.coverImage]}
+          nftImage={[selectedCollectionFile.nftCoverImage]}
           getCroppedImage={croppedImage => {
             addCoverImageToFile(selectedCollectionFile, croppedImage)
             setOpenCoverImageEditorModal(false)
@@ -466,8 +466,8 @@ const Step02CollectionSection = props => {
                             ) : (
                               <NextImage
                                 src={
-                                  item.type === 'vr' && item.coverImage
-                                    ? item.coverImage
+                                  item.type === 'vr' && item.nftCoverImage
+                                    ? item.nftCoverImage
                                     : item.croppedImage !== ''
                                     ? item.croppedImage
                                     : URL.createObjectURL(item.file)
@@ -531,10 +531,13 @@ const Step02CollectionSection = props => {
                                 </p>
                               </div>
                               <div className={styles.coverBtnBox}>
-                                <button disabled={item.coverImage !== null} onClick={() => setTakeSnapshotStatus(true)}>
+                                <button
+                                  disabled={item.nftCoverImage !== null}
+                                  onClick={() => setTakeSnapshotStatus(true)}
+                                >
                                   <ImageIcon /> Take Snapshot
                                 </button>
-                                <button disabled={item.coverImage !== null}>
+                                <button disabled={item.nftCoverImage !== null}>
                                   <label htmlFor="fileInput">
                                     <ShareIcon /> Upload Photo
                                   </label>
@@ -556,9 +559,9 @@ const Step02CollectionSection = props => {
                                 />
                               </div>
 
-                              {item.coverImage && (
+                              {item.nftCoverImage && (
                                 <div className={styles.glbNftImageSection}>
-                                  <img className="w-full aspect-square" src={item.coverImage} alt="" />
+                                  <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
                                   <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
                                     <TrashBin /> Remove Cover Image
                                   </button>
@@ -919,8 +922,8 @@ const Step02CollectionSection = props => {
                       ) : (
                         <NextImage
                           src={
-                            item.type === 'vr' && item.coverImage
-                              ? item.coverImage
+                            item.type === 'vr' && item.nftCoverImage
+                              ? item.nftCoverImage
                               : item.croppedImage !== ''
                               ? item.croppedImage
                               : URL.createObjectURL(item.file)
@@ -1047,10 +1050,10 @@ const Step02CollectionSection = props => {
                           <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
                         </div>
                         <div className={styles.coverBtnBox}>
-                          <button disabled={item.coverImage !== null} onClick={() => setTakeSnapshotStatus(true)}>
+                          <button disabled={item.nftCoverImage !== null} onClick={() => setTakeSnapshotStatus(true)}>
                             <ImageIcon /> Take Snapshot
                           </button>
-                          <button disabled={item.coverImage !== null}>
+                          <button disabled={item.nftCoverImage !== null}>
                             <label htmlFor="fileInput">
                               <ShareIcon /> Upload Photo
                             </label>
@@ -1072,9 +1075,9 @@ const Step02CollectionSection = props => {
                           />
                         </div>
 
-                        {item.coverImage && (
+                        {item.nftCoverImage && (
                           <div className={styles.glbNftImageSection}>
-                            <img className="w-full aspect-square" src={item.coverImage} alt="" />
+                            <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
                             <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
                               <TrashBin /> Remove Cover Image
                             </button>

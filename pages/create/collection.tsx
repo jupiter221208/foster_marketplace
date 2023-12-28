@@ -134,7 +134,7 @@ const Collection = () => {
       let object: any = {}
       object.id = index
       object.file = item
-      object.coverImage = null
+      object.nftCoverImage = null
       object.url = null
 
       if (item.type === 'image/gif') {
@@ -220,7 +220,7 @@ const Collection = () => {
         // Create a copy of the array
         let newFiles = [...prevFiles]
         // Replace the file at the found index
-        newFiles[fileIndex].coverImage = image
+        newFiles[fileIndex].nftCoverImage = image
         return newFiles
       }
       // If file not found, return the original array
@@ -245,7 +245,7 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage, type, coverImage } = collectionFiles[i]
+        let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
         name = name.trim()
         description = description.trim()
         const metadata: JsonMetadata = {
@@ -264,6 +264,7 @@ const Collection = () => {
         let assetFile = null
 
         if (metadata.properties.category === 'audio') {
+          console.log(coverImage)
           assetFile = imageFile
           imageFile = {
             type: coverImage[0].type,
@@ -277,15 +278,15 @@ const Collection = () => {
           }
         } else if (metadata.properties.category === 'vr') {
           assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
-          if (coverImage) {
-            let image = coverImage
+          if (nftCoverImage) {
+            let image = nftCoverImage
 
-            if (coverImage.startsWith('blob:')) {
-              image = await fetch(coverImage).then(r => r.blob())
+            if (nftCoverImage.startsWith('blob:')) {
+              image = await fetch(nftCoverImage).then(r => r.blob())
             }
 
             const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
-              contentType: coverImage.type,
+              contentType: nftCoverImage.type,
             })
             imageFile = {
               type: 'image/png',
