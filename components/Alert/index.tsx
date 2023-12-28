@@ -118,14 +118,7 @@ const Alert = props => {
                             {item.type === 'success' ? (
                               <Lottie animationData={lightDarkMode ? SuccessLightIcon : SuccessIcon} loop={true} />
                             ) : (
-                              <Lottie
-                                animationData={FailureIcon}
-                                loop={true}
-                                style={{
-                                  width: 100,
-                                  height: 100,
-                                }}
-                              />
+                              <Lottie animationData={FailureIcon} loop={true} />
                             )}
                           </div>
                         </div>
@@ -137,14 +130,14 @@ const Alert = props => {
                         <div className={styles.description}>{item.description}</div>
                       </div>
                       {item.description2 && (
-                        <div className="w-full flex mt-1 lg:mt-[15px] mt-[30px]">
+                        <div className="w-full flex lg:mt-[15px] mt-[30px]">
                           <div className="max-w-[600px]">
                             <div className={styles.description}>{item.description2}</div>
                           </div>
                         </div>
                       )}
                       {item.description3 && (
-                        <div className="w-full flex mt-1 lg:mt-[15px] mt-[30px]">
+                        <div className="w-full flex lg:mt-[15px] mt-[30px]">
                           <div className={styles.description}>{item.description3}</div>
                         </div>
                       )}
