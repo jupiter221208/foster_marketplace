@@ -23,7 +23,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import { Keypair } from '@solana/web3.js'
-import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
 
@@ -134,6 +134,9 @@ const Collection = () => {
       let object: any = {}
       object.id = index
       object.file = item
+      object.nftCoverImage = null
+      object.url = null
+
       if (item.type === 'image/gif') {
         object.type = item.type
       } else {
@@ -162,11 +165,15 @@ const Collection = () => {
           })
         })
         hidden_video.currentTime = 5
+      } else if (item.type === '' && /\.glb$/.test(item.name)) {
+        object.type = 'vr'
+        object.url = URL.createObjectURL(item)
       }
       array.push(object)
     })
 
     let new_files = [...collectionFiles, ...array]
+    new_files.map((file, i) => (file.id = i))
     setCollectionFiles(new_files)
   }
 
@@ -180,21 +187,20 @@ const Collection = () => {
   }
 
   const handleChangeCollectionName = (item, value) => {
-    let array = [...collectionFiles]
-    let index = array.indexOf(item)
-    if (index !== -1) {
-      array[index].name = value
-    }
-    setCollectionFiles(array)
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].name = value
+      return [...prevFiles]
+    })
   }
 
   const handleChangeCollectionDescription = (item, value) => {
-    let array = [...collectionFiles]
-    let index = array.indexOf(item)
-    if (index !== -1) {
-      array[index].description = value
-    }
-    setCollectionFiles(array)
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      console.log(index, item)
+      if (index > -1) prevFiles[index].description = value
+      return [...prevFiles]
+    })
   }
 
   const handleChangeCroppedImage = (croppedImage, id) => {
@@ -205,6 +211,21 @@ const Collection = () => {
       }
     })
     setCollectionFiles(array)
+  }
+
+  const addCoverImageToFile = (selectedCollectionFile, image) => {
+    setCollectionFiles(prevFiles => {
+      const fileIndex = prevFiles.findIndex(file => file.file === selectedCollectionFile.file)
+      if (fileIndex !== -1) {
+        // Create a copy of the array
+        let newFiles = [...prevFiles]
+        // Replace the file at the found index
+        newFiles[fileIndex].nftCoverImage = image
+        return newFiles
+      }
+      // If file not found, return the original array
+      return prevFiles
+    })
   }
 
   // step 3
@@ -224,7 +245,7 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage } = collectionFiles[i]
+        let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
         name = name.trim()
         description = description.trim()
         const metadata: JsonMetadata = {
@@ -232,7 +253,7 @@ const Collection = () => {
           description,
           attributes,
           properties: {
-            category: file.type.split('/')[0],
+            category: type === 'vr' ? type : file.type.split('/')[0],
           },
         }
 
@@ -243,6 +264,7 @@ const Collection = () => {
         let assetFile = null
 
         if (metadata.properties.category === 'audio') {
+          console.log(coverImage)
           assetFile = imageFile
           imageFile = {
             type: coverImage[0].type,
@@ -253,6 +275,23 @@ const Collection = () => {
           imageFile = {
             type: 'image/png',
             url: croppedImage,
+          }
+        } else if (metadata.properties.category === 'vr') {
+          assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
+          if (nftCoverImage) {
+            let image = nftCoverImage
+
+            if (nftCoverImage.startsWith('blob:')) {
+              image = await fetch(nftCoverImage).then(r => r.blob())
+            }
+
+            const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
+              contentType: nftCoverImage.type,
+            })
+            imageFile = {
+              type: 'image/png',
+              url: await storage.upload(metaplexFile),
+            }
           }
         }
 
@@ -277,14 +316,11 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx
-          .nfts()
-          .builders()
-          .verifyCollection({
-            mintAddress: nftKeypair.publicKey,
-            collectionMintAddress: collectionNft?.mintAddress,
-            isSizedCollection: true,
-          })
+        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
+          mintAddress: nftKeypair.publicKey,
+          collectionMintAddress: collectionNft?.mintAddress,
+          isSizedCollection: true,
+        })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
@@ -371,6 +407,7 @@ const Collection = () => {
             coverCroppedImage={coverCroppedImage}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionFiles={collectionFiles}
+            addCoverImageToFile={addCoverImageToFile}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
