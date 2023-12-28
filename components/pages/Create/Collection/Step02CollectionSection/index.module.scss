@@ -32,15 +32,9 @@
 .title {
   width: 100%;
   margin-top: 26px;
-
-  font-family: 'KCDurhamboxcar';
-  font-size: 31px;
+  font-family: 'Muli-SemiBold';
+  font-size: 30px;
   line-height: 41px;
-  @media (min-width: 1024px) {
-    margin-top: 0px;
-    font-size: 74px;
-    line-height: 158px;
-  }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   text-align: center;
@@ -60,11 +54,7 @@
 }
 
 .imageArea {
-  @media (min-width: 1024px) {
-    border-radius: 12px;
-    background-color: var(--collection-mint-left-bg);
-  }
-  background-color: var(--background-dark-color);
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
   display: flex;
   justify-content: center;
   align-items: center;

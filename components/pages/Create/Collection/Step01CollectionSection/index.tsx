@@ -481,7 +481,9 @@ const Step01CollectionSection = props => {
                 </div>
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[75px]`}>Collection Name *</div>
+                  <div className={`${styles.subTitle} mt-[75px]`}>
+                    Collection Name <span>*</span>
+                  </div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
                       value={limit(collectionName, 30)}
@@ -491,7 +493,9 @@ const Step01CollectionSection = props => {
                       onChange={value => onChangeCollectionName(limit(value, 30))}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Description *</div>
+                  <div className={`${styles.subTitle} mt-10`}>
+                    Description <span>*</span>
+                  </div>
                   <div className="w-full mt-5">
                     <Textarea
                       value={limit(description, 1000)}
@@ -506,7 +510,9 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                    Royalties <span>*</span>
+                  </div>
 
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
@@ -524,7 +530,9 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Categories (max. 3) *</div>
+                  <div className={`${styles.subTitle} mt-10`}>
+                    Categories (max. 3) <span>*</span>
+                  </div>
                   <div className="w-full mt-5">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
@@ -772,7 +780,9 @@ const Step01CollectionSection = props => {
 
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Collection Name <span>*</span>
+            </div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
                 value={limit(collectionName, 30)}
@@ -783,7 +793,9 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeCollectionName(limit(value, 30))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Description *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Description <span>*</span>
+            </div>
             <div className="w-full mt-5">
               <Textarea
                 value={limit(description, 1000)}
@@ -794,7 +806,9 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
+            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+              Royalties <span>*</span>
+            </div>
             <div className="max-w-[370px] w-full mt-5">
               <Input
                 value={royalties}
@@ -810,7 +824,9 @@ const Step01CollectionSection = props => {
                 }}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Categories *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Categories <span>*</span>
+            </div>
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
