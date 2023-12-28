@@ -543,6 +543,7 @@ const Step02CollectionSection = props => {
                                   type="file"
                                   accept="image/*"
                                   id="fileInput"
+                                  onClick={e => e.stopPropagation()}
                                   onChange={e => {
                                     const file = e.target.files[0]
                                     if (file && file.type.startsWith('image/')) {
@@ -1058,6 +1059,7 @@ const Step02CollectionSection = props => {
                             type="file"
                             accept="image/*"
                             id="fileInput"
+                            onClick={e => e.stopPropagation()}
                             onChange={e => {
                               const file = e.target.files[0]
                               if (file && file.type.startsWith('image/')) {
