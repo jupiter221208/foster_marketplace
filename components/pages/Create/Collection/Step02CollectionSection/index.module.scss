@@ -11,8 +11,9 @@
 // left part
 .leftContainer {
   width: 100%;
-  height: fit-content;
+  max-height: 100vh;
   padding: 16px 16px 16px 0px;
+  overflow-y: scroll;
   @media (min-width: 1024px) {
     padding: 50px 50px 80px 0px;
   }
@@ -23,6 +24,9 @@
   justify-content: center;
   flex-wrap: wrap;
   z-index: 100;
+}
+.leftContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .title {
@@ -87,8 +91,9 @@
 // right part
 .rightContainer {
   width: 100%;
-  min-height: calc(100vh - 100px);
+  max-height: 100vh;
   padding: 16px 0px 16px 16px;
+  overflow-y: scroll;
   @media (min-width: 1024px) {
     padding: 50px 0px 80px 50px;
   }
@@ -96,6 +101,9 @@
   justify-content: center;
   flex-wrap: wrap;
   z-index: 100;
+}
+.rightContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .subTitle {
@@ -208,6 +216,9 @@
   margin-top: 20px;
   display: flex;
   gap: 24px;
+  @media (max-width: 420px) {
+    gap: 1rem;
+  }
 
   button {
     @media (max-width: 1024px) {
@@ -217,6 +228,11 @@
     fill: var(--primary-btn-bg-right);
     background-color: rgba(var(--main-bg-color-rgb), 0.05);
     border-radius: 10px;
+    @media (max-width: 420px) {
+      svg {
+        scale: 0.7;
+      }
+    }
   }
   button:first-child {
     display: flex;
@@ -224,6 +240,11 @@
     padding: 16px 21px;
     align-items: center;
     justify-content: center;
+    @media (max-width: 420px) {
+      font-size: 0.7rem;
+      padding: 12px 17px;
+      gap: 0.25rem;
+    }
   }
   button:nth-child(2) {
     label {
@@ -233,6 +254,11 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      @media (max-width: 420px) {
+        font-size: 0.7rem;
+        padding: 12px 17px;
+        gap: 0.25rem;
+      }
     }
   }
   button:disabled {

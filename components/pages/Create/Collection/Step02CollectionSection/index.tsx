@@ -209,7 +209,7 @@ const Step02CollectionSection = props => {
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center">
       {selectedCollectionFile && selectedCollectionFile.coverImage && selectedCollectionFile.type === 'vr' && (
         <NftImageEditorModal
           open={openCoverImageEditorModal}
@@ -223,9 +223,9 @@ const Step02CollectionSection = props => {
         />
       )}
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="relative w-full grid grid-cols-12 gap-0">
+        <div className="relative flex min-h-screen">
           {/* left part */}
-          <div className="col-span-12 lg:col-span-6 g-left-container">
+          <div className="flex-[50%] g-left-container">
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Artwork Preview</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
@@ -385,7 +385,7 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+          <div className="flex-[50%] g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">
