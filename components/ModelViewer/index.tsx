@@ -21,65 +21,70 @@ const ModelViewer = ({
   const [camera, setCamera] = useState(null)
   const [controls, setControls] = useState(null)
   const [model, setModel] = useState(null)
+  const [oldPath, setOldPath] = useState('')
 
   const divRef = useRef<HTMLDivElement>()
 
   // Load the GLTF model and set up the scene
   useEffect(() => {
-    const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
-    newRenderer.setSize(width, height)
-    newRenderer.setClearColor(0x000000, 0)
-    setRenderer(newRenderer)
+    if (path !== oldPath) {
+      setOldPath(path)
 
-    const scene = new Scene()
-    setScene(scene)
+      const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
+      newRenderer.setSize(width, height)
+      newRenderer.setClearColor(0x000000, 0)
+      setRenderer(newRenderer)
 
-    const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
-    setCamera(camera)
+      const scene = new Scene()
+      setScene(scene)
 
-    const controls = new OrbitControls(camera, newRenderer.domElement)
-    if (orbitLimited) {
-      controls.enableZoom = false
-      controls.minPolarAngle = 0.5
-      controls.maxPolarAngle = 2.5
-    }
-    setControls(controls)
+      const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
+      setCamera(camera)
 
-    const render = () => {
-      controls.update()
-      newRenderer.render(scene, camera)
-      requestAnimationFrame(render)
-    }
-    render()
+      const controls = new OrbitControls(camera, newRenderer.domElement)
+      if (orbitLimited) {
+        controls.enableZoom = false
+        controls.minPolarAngle = 0.5
+        controls.maxPolarAngle = 2.5
+      }
+      setControls(controls)
 
-    const loader = new GLTFLoader()
-    const dracoLoader = new DRACOLoader()
-    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
-    dracoLoader.setDecoderConfig({ type: 'js' })
-    loader.setDRACOLoader(dracoLoader)
-    loader.loadAsync(path).then(gltf => {
-      setModel(gltf)
-      scene.add(gltf.scene)
+      const render = () => {
+        controls.update()
+        newRenderer.render(scene, camera)
+        requestAnimationFrame(render)
+      }
+      render()
 
-      const bbox = new Box3().setFromObject(gltf.scene)
-      const center = bbox.getCenter(new Vector3())
-      const size = bbox.getSize(new Vector3())
+      const loader = new GLTFLoader()
+      const dracoLoader = new DRACOLoader()
+      dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
+      dracoLoader.setDecoderConfig({ type: 'js' })
+      loader.setDRACOLoader(dracoLoader)
+      loader.loadAsync(path).then(gltf => {
+        setModel(gltf)
+        scene.add(gltf.scene)
 
-      camera.position.set(0, 0, Math.max(size.x, size.y, size.z) * 1.5)
-      controls.target.set(center.x, center.y, center.z)
-      controls.update()
+        const bbox = new Box3().setFromObject(gltf.scene)
+        const center = bbox.getCenter(new Vector3())
+        const size = bbox.getSize(new Vector3())
 
-      const ambientLight = new AmbientLight(0x404040, 1.2)
-      scene.add(ambientLight)
+        camera.position.set(0, 0, Math.max(size.x, size.y, size.z) * 1.5)
+        controls.target.set(center.x, center.y, center.z)
+        controls.update()
 
-      const directionalLight = new DirectionalLight(0xffffff, 1)
-      scene.add(directionalLight)
-    })
+        const ambientLight = new AmbientLight(0x404040, 1.2)
+        scene.add(ambientLight)
 
-    return () => {
-      // Dispose of resources
-      newRenderer.dispose()
-      renderer && renderer.dispose()
+        const directionalLight = new DirectionalLight(0xffffff, 1)
+        scene.add(directionalLight)
+      })
+
+      return () => {
+        // Dispose of resources
+        newRenderer.dispose()
+        renderer && renderer.dispose()
+      }
     }
   }, [path])
 
@@ -103,6 +108,7 @@ const ModelViewer = ({
   }
 
   useEffect(() => {
+    if (divRef.current) divRef.current.innerHTML = ''
     if (divRef.current && renderer) divRef.current.appendChild(renderer.domElement)
   }, [divRef.current, renderer])
 

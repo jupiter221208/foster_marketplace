@@ -77,6 +77,7 @@ const Step03CollectionSection = props => {
   // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
 
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
+  console.log(collectionFiles)
 
   return (
     <div className="w-full">
@@ -130,7 +131,7 @@ const Step03CollectionSection = props => {
                       </div>
                     ) : (
                       <Image
-                        src={item.croppedImage}
+                        src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                         alt=""
                         width={100}
                         height={100}
@@ -295,7 +296,7 @@ const Step03CollectionSection = props => {
                             </video>
                           ) : (
                             <Image
-                              src={item.croppedImage}
+                              src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                               alt=""
                               width={
                                 selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
@@ -565,7 +566,7 @@ const Step03CollectionSection = props => {
                           </video>
                         ) : (
                           <Image
-                            src={item.croppedImage}
+                            src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                             alt=""
                             width={
                               selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
@@ -604,7 +605,6 @@ const Step03CollectionSection = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          backgroundColor={'var(--input-bg)'}
                           onChange={() => {}}
                           height="46px"
                         />
@@ -624,7 +624,6 @@ const Step03CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          backgroundColor={'var(--input-bg)'}
                           fullWidth
                           onChange={() => {}}
                           height="90px"
