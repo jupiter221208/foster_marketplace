@@ -170,7 +170,7 @@
   height: 68px;
   border: 2px solid var(--brand-03-color);
   border-radius: 8px;
-  filter: drop-shadow(0px 0px 4px var(--brand-03-color));
+  background: var(--search-bg-color);
 }
 
 .nonSelectedImage {
@@ -182,6 +182,8 @@
   height: 68px;
   border: 2px solid transparent;
   border-radius: 8px;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.4);
+  background: var(--search-bg-color);
 }
 
 .fileName {
@@ -279,4 +281,13 @@
     fill: none;
     stroke: var(--primary-btn-bg-right);
   }
+}
+
+.tapToView {
+  text-align: center;
+  color: var(--main-icon-color);
+  width: 100%;
+  height: 100%;
+  padding-top: 0.8rem;
+  font-size: 0.8rem;
 }

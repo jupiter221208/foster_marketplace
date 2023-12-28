@@ -463,6 +463,8 @@ const Step02CollectionSection = props => {
                                 <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                                 Your browser does not support the video tag.
                               </video>
+                            ) : item.type === 'vr' && !item.nftCoverImage ? (
+                              <p className={styles.tapToView}>Click to Preview</p>
                             ) : (
                               <NextImage
                                 src={
@@ -919,6 +921,8 @@ const Step02CollectionSection = props => {
                           <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                           Your browser does not support the video tag.
                         </video>
+                      ) : item.type === 'vr' && !item.nftCoverImage ? (
+                        <p className={styles.tapToView}>Click to Preview</p>
                       ) : (
                         <NextImage
                           src={
