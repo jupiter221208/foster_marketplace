@@ -130,6 +130,7 @@
     height: auto;
     padding: 24px;
   }
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
   border-radius: 12px;
   border: 2px dashed rgba(var(--text-gray-200-color-rgb), 0.6);
 }
