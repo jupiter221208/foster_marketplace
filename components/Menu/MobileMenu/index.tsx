@@ -170,12 +170,16 @@ const MobileMenu = () => {
           <div className={styles.separator} />
           <div className="w-full mt-[15px]">
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
                 About
               </a>
             </div>
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+              <a
+                target="_blank"
+                href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
+                rel="noopener noreferrer"
+              >
                 Whitepaper
               </a>
             </div>
@@ -185,7 +189,7 @@ const MobileMenu = () => {
               </a>
             </div>
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                 Turkey Circus
               </a>
             </div>
@@ -268,12 +272,16 @@ const MobileMenu = () => {
           <div className={styles.separator} />
           <div className="w-full mt-[15px]">
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
                 About
               </a>
             </div>
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+              <a
+                target="_blank"
+                href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
+                rel="noopener noreferrer"
+              >
                 Whitepaper
               </a>
             </div>
@@ -283,7 +291,7 @@ const MobileMenu = () => {
               </a>
             </div>
             <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                 Turkey Circus
               </a>
             </div>
