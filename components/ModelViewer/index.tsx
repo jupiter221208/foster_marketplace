@@ -73,10 +73,10 @@ const ModelViewer = ({
         controls.target.set(center.x, center.y, center.z)
         controls.update()
 
-        const ambientLight = new AmbientLight(0x404040, 1.2)
+        const ambientLight = new AmbientLight(0x404040, 20)
         scene.add(ambientLight)
 
-        const directionalLight = new DirectionalLight(0xffffff, 1)
+        const directionalLight = new DirectionalLight(0xffffff, 5)
         scene.add(directionalLight)
       })
 
