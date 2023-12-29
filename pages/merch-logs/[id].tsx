@@ -356,6 +356,9 @@ const MerchDetail = () => {
                   borderWidth={1}
                   color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                   width={335}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             ) : (
@@ -364,13 +367,15 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Track package"
-                  onClick={() => gotoTrackPage()}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             )}
             <div className="mt-[12px]">
               <a
-                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                   subject: helpTitle,
                   body: helpBody,
                 })}`}
@@ -379,13 +384,15 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Get help"
-                  onClick={() => {}}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </a>
             </div>
             <div className="mt-[12px]">
               <a
-                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                   subject: reviewTitle,
                   body: reviewBody,
                 })}`}
@@ -394,10 +401,10 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Write a product review"
-                  onClick={() => {}}
-                  // onClick={() => {
-                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
-                  // }}
+                  // onClick={() => {}}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </a>
             </div>
@@ -476,6 +483,9 @@ const MerchDetail = () => {
                   borderWidth={1}
                   color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                   width={335}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             ) : (
@@ -484,13 +494,15 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Track package"
-                  onClick={() => gotoTrackPage()}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             )}
             <div className="mt-[12px]">
               <a
-                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                   subject: helpTitle,
                   body: helpBody,
                 })}`}
@@ -499,13 +511,15 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Get help"
-                  onClick={() => {}}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </a>
             </div>
             <div className="mt-[12px]">
               <a
-                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                   subject: reviewTitle,
                   body: reviewBody,
                 })}`}
@@ -514,10 +528,10 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Write a product review"
-                  onClick={() => {}}
-                  // onClick={() => {
-                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
-                  // }}
+                  // onClick={() => {}}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </a>
             </div>
@@ -676,6 +690,9 @@ const MerchDetail = () => {
                   borderWidth={1}
                   color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                   width={335}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             ) : (
@@ -684,7 +701,9 @@ const MerchDetail = () => {
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Track package"
-                  onClick={() => gotoTrackPage()}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  }}
                 />
               </div>
             )}
@@ -695,7 +714,7 @@ const MerchDetail = () => {
                 width={335}
                 label="Get help"
                 onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                  window.location.href = 'mailto:admin@Fostermarketplace.app'
                 }}
               />
             </div>
@@ -705,7 +724,7 @@ const MerchDetail = () => {
                 width={335}
                 label="Write a product review"
                 onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                  window.location.href = 'mailto:admin@Fostermarketplace.app'
                 }}
               />
             </div>
