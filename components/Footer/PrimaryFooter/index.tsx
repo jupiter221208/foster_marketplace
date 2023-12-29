@@ -88,7 +88,11 @@ const PrimaryFooter = () => {
               </a>
             </div>
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+              <a
+                target="_blank"
+                href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
+                rel="noopener noreferrer"
+              >
                 Brand & Design
               </a>
             </div>
@@ -103,7 +107,7 @@ const PrimaryFooter = () => {
               </a>
             </div>
             <div className={styles.linkText}>
-              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
+              <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
@@ -230,7 +234,11 @@ const PrimaryFooter = () => {
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+                <a
+                  target="_blank"
+                  href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
+                  rel="noopener noreferrer"
+                >
                   Brand & Design
                 </a>
               </div>
@@ -245,7 +253,7 @@ const PrimaryFooter = () => {
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
+                <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
               </div>
             </div>
           </div>
