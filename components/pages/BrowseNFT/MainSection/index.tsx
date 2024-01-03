@@ -1603,6 +1603,18 @@ const MainSection = ({
                                     </span>
                                     <span>&nbsp;listed artwork for sale</span>
                                   </div>
+                                ) : item.action_type === 'ListingUpdated' ? (
+                                  <div className={styles.actionType}>
+                                    <span
+                                      className={styles.userName}
+                                      onClick={() => {
+                                        router.push(`/${item.owner_username}`)
+                                      }}
+                                    >
+                                      {item.owner_username}
+                                    </span>
+                                    <span>&nbsp;updated listing</span>
+                                  </div>
                                 ) : item.action_type === 'ListingCancelled' ? (
                                   <div className={styles.actionType}>
                                     <span
