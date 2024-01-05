@@ -11,33 +11,38 @@ import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { getShortAddress } from 'utils/strings'
+import Link from 'next/link'
 
 const DashboardCollectionCard = props => {
-  const { image, nftName, category, artistAddress, mintAddress, onClick, unSave = null } = props
+  const { image, nftName, link, category, artistAddress, mintAddress, onClick, unSave = null } = props
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageArea} onClick={() => onClick()}>
-        <div className={styles.imageContent}>
-          <div className="w-full h-full overflow-hidden">
-            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-              <img src={image} alt="" className="w-full h-full object-cover rounded-[10px] lg:rounded-[20px]" />
-            </ReactPlaceholder>
-            {!loaded && (
-              <img
-                src={image}
-                alt=""
-                className="w-full h-full object-cover"
-                onLoad={() => {
-                  setLoaded(true)
-                }}
-              />
-            )}
+      <Link href={link} passHref>
+        <a>
+          <div className={styles.imageArea} onClick={() => onClick()}>
+            <div className={styles.imageContent}>
+              <div className="w-full h-full overflow-hidden">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <img src={image} alt="" className="w-full h-full object-cover rounded-[10px] lg:rounded-[20px]" />
+                </ReactPlaceholder>
+                {!loaded && (
+                  <img
+                    src={image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </a>
+      </Link>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex justify-start items-center">
           <div className={styles.nftName}>{nftName}</div>
