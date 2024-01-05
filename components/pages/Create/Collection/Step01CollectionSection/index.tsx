@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -24,10 +24,10 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
-import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
+import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
+import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -64,12 +64,10 @@ const Step01CollectionSection = props => {
   } = props
   const viewport = useViewport()
 
-  // const dropzoneBannerEl = useRef(null)
-  // const dropzoneCoverEl = useRef(null)
-
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [collectionType, setCollectionType] = useState('foster')
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -476,8 +474,24 @@ const Step01CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
+                <div className="w-full flex justify-center">
+                  {/* <CollectionStepper currentStep={currentStep} /> */}
+                  <div className={styles.collectionTypeSection}>
+                    <div
+                      className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
+                      onClick={() => setCollectionType('foster')}
+                    >
+                      <FosterLogoSmall />
+                      Create New Collection
+                    </div>
+                    <div
+                      className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
+                      onClick={() => setCollectionType('ea')}
+                    >
+                      <EAImportIcon />
+                      Import EA Series
+                    </div>
+                  </div>
                 </div>
                 {/* upload artwork part */}
                 <div className="w-full">
@@ -567,7 +581,24 @@ const Step01CollectionSection = props => {
         <div className="g-container mt-[26px] mb-[47px]">
           {/* CollectionStepper part */}
           <div className="w-full">
-            <CollectionStepper currentStep={currentStep} />
+            {/* <CollectionStepper currentStep={currentStep} /> */}
+            <div className={styles.collectionTypeSection}>
+              <div
+                className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
+                onClick={() => setCollectionType('foster')}
+              >
+                <FosterLogoSmall />
+                <div className="lg:block hidden">Create New Collection</div>
+                <div className="lg:hidden block">New Collection</div>
+              </div>
+              <div
+                className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
+                onClick={() => setCollectionType('ea')}
+              >
+                <EAImportIcon />
+                Import EA Series
+              </div>
+            </div>
           </div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">

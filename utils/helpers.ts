@@ -546,7 +546,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--single-title-color', '#FFFFFF')
     doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #C1C1C1, #DADADA)')
     doc.style.setProperty('--solrplex-icon-color', 'rgba(32, 36, 39, 0.05)')
-
+    doc.style.setProperty('--collection-type-card-color', '#202427')
+    doc.style.setProperty('--connection-type-bg', '#FFFFFF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -861,5 +862,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--single-title-color', '#202427')
     doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #242424, #1F1F1F)')
     doc.style.setProperty('--solrplex-icon-color', 'rgba(149, 219, 213, 0.05)')
+    doc.style.setProperty('--collection-type-card-color', '#1a1a1a')
+    doc.style.setProperty('--connection-type-bg', '#95dbd5')
   }
 }
