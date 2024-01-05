@@ -28,12 +28,10 @@ const HeroCard = props => {
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
-    // router.push(`/${data.artist_username}`)
   }
 
   const gotoNftDetailPage = () => {
     dispatch({ type: 'set', isLoading: true })
-    // router.push(`/nft/${data.token_id}`)
   }
 
   return (
@@ -164,7 +162,11 @@ const HeroCard = props => {
           {data.nft_name === '' ? (
             <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
           ) : (
-            <p>{data.nft_name}</p>
+            <Link href={`/nft/${data.token_id}`} passHref>
+              <a>
+                <p>{data.nft_name}</p>
+              </a>
+            </Link>
           )}
           {data.nft_name === '' ? (
             <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
