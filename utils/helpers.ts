@@ -548,6 +548,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--solrplex-icon-color', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--collection-type-card-color', '#202427')
     doc.style.setProperty('--connection-type-bg', '#FFFFFF')
+    doc.style.setProperty('--create-collection-color', 'rgba(255, 255, 255, 0.6)')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -864,5 +866,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--solrplex-icon-color', 'rgba(149, 219, 213, 0.05)')
     doc.style.setProperty('--collection-type-card-color', '#1a1a1a')
     doc.style.setProperty('--connection-type-bg', '#95dbd5')
+    doc.style.setProperty('--create-collection-color', 'rgba(239, 240, 246, 0.6)')
   }
 }

@@ -30,9 +30,11 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { useRouter } from 'next/router'
 
 const Collection = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const isLoading = useSelector<any>(state => state.isLoading)
   const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
   const [screenLoaded, setScreenLoaded] = useState(false)
@@ -105,10 +107,6 @@ const Collection = () => {
         image: coverImageUrl,
       })
 
-      // const result = await axios.get(uri).then(response => {
-      //   return response.data
-      // })
-
       const collectionNft = await mx.nfts().create({
         useNewMint: collectionNftMint,
         isCollection: true,
@@ -119,12 +117,13 @@ const Collection = () => {
 
       if (collectionNft) {
         setCollectionNft(collectionNft)
-        setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+        router.push(`/collection/${collectionNft.mintAddress.toString()}`)
+        // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
       }
     } catch (e) {
       console.log(e)
-    } finally {
       dispatch({ type: 'set', isLoading: false })
+    } finally {
     }
   }
 

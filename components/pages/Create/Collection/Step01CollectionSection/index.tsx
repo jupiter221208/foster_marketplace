@@ -495,7 +495,7 @@ const Step01CollectionSection = props => {
                 </div>
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[75px]`}>
+                  <div className={`${styles.subTitle} mt-[30px]`}>
                     Collection Name <span>*</span>
                   </div>
                   <div className="max-w-[370px] w-full mt-5">
@@ -554,23 +554,19 @@ const Step01CollectionSection = props => {
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <div />
-                  {disabledNextButton ? (
-                    <Button
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
-                    />
-                  ) : (
-                    <GradientButton
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      onClick={() => mintCollection()}
-                    />
-                  )}
+
+                  <GradientButton
+                    width={viewport === '2xl' ? 184 : 175}
+                    height={viewport === '2xl' ? 53 : 46}
+                    backgroundColor01="var(--view-item-btn-color)"
+                    backgroundColor02="var(--view-item-btn-color)"
+                    color="var(--create-collection-color)"
+                    borderWidth="1px"
+                    borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                    label="Create Collection"
+                    disabled={disabledNextButton}
+                    onClick={() => mintCollection()}
+                  />
                 </div>
               </div>
             </div>
