@@ -68,22 +68,24 @@ const ExploreMenu = props => {
                 <div className="flex flex-col gap-4 font-normal">
                   {activeList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
-                      <p
-                        className={styles.text}
-                        onClick={() => {
-                          setIsMenuOpen(false)
-                          dispatch({ type: 'set', isLoading: true })
-                          dispatch({ type: 'set', exploreTab: 0 })
-                          if (item.query === 'live_auctions') {
-                            dispatch({ type: 'set', availabilityFilter: 1 })
-                          } else {
-                            dispatch({ type: 'set', availabilityFilter: 0 })
-                          }
-                          router.push('/explore')
-                        }}
-                      >
-                        {item.label}
-                      </p>
+                      <a>
+                        <p
+                          className={styles.text}
+                          onClick={() => {
+                            setIsMenuOpen(false)
+                            dispatch({ type: 'set', isLoading: true })
+                            dispatch({ type: 'set', exploreTab: 0 })
+                            if (item.query === 'live_auctions') {
+                              dispatch({ type: 'set', availabilityFilter: 1 })
+                            } else {
+                              dispatch({ type: 'set', availabilityFilter: 0 })
+                            }
+                            router.push('/explore')
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                      </a>
                     </Link>
                   ))}
                 </div>
@@ -93,17 +95,19 @@ const ExploreMenu = props => {
                 <div className="flex flex-col gap-4 font-normal">
                   {filterList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
-                      <p
-                        className={styles.text}
-                        onClick={() => {
-                          setIsMenuOpen(false)
-                          dispatch({ type: 'set', isLoading: true })
-                          dispatch({ type: 'set', exploreTab: index })
-                          router.push('/explore')
-                        }}
-                      >
-                        {item.label}
-                      </p>
+                      <a>
+                        <p
+                          className={styles.text}
+                          onClick={() => {
+                            setIsMenuOpen(false)
+                            dispatch({ type: 'set', isLoading: true })
+                            dispatch({ type: 'set', exploreTab: index })
+                            router.push('/explore')
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                      </a>
                     </Link>
                   ))}
                 </div>
@@ -113,17 +117,19 @@ const ExploreMenu = props => {
                 <div className="flex flex-col gap-4 font-normal">
                   {performerList?.map((item, index) => (
                     <Link key={index} href={`/stats`} passHref>
-                      <p
-                        className={styles.text}
-                        onClick={() => {
-                          setIsMenuOpen(false)
-                          dispatch({ type: 'set', isLoading: true })
-                          dispatch({ type: 'set', activeTab: index })
-                          router.push('/stats')
-                        }}
-                      >
-                        {item.label}
-                      </p>
+                      <a>
+                        <p
+                          className={styles.text}
+                          onClick={() => {
+                            setIsMenuOpen(false)
+                            dispatch({ type: 'set', isLoading: true })
+                            dispatch({ type: 'set', activeTab: index })
+                            router.push('/stats')
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                      </a>
                     </Link>
                   ))}
                 </div>
@@ -133,16 +139,18 @@ const ExploreMenu = props => {
                 <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 font-normal">
                   {displayItems?.map((item, index) => (
                     <Link key={index} href={`/category/${item.query.toLowerCase()}`} passHref>
-                      <p
-                        className={styles.text}
-                        onClick={() => {
-                          setIsMenuOpen(false)
-                          dispatch({ type: 'set', isLoading: true })
-                          router.push(`/category/${item.query.toLowerCase()}`)
-                        }}
-                      >
-                        {item.label}
-                      </p>
+                      <a>
+                        <p
+                          className={styles.text}
+                          onClick={() => {
+                            setIsMenuOpen(false)
+                            dispatch({ type: 'set', isLoading: true })
+                            router.push(`/category/${item.query.toLowerCase()}`)
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                      </a>
                     </Link>
                   ))}
                 </div>

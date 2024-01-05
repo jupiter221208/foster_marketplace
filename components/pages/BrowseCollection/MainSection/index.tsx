@@ -199,8 +199,6 @@ const MainSection = props => {
               </>
             )}
 
-            {/* <div className={styles.bottomMask}></div> */}
-
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-7 bottom-7 cursor-pointer">
                 <div className={styles.iconBlurView}>

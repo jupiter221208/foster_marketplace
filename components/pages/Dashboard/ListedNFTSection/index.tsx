@@ -401,18 +401,6 @@ const ListedNFTSection = props => {
         </div>
       )}
 
-      {/* <div className="w-full flex justify-end">
-        <Pagination
-          data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs}
-          getCurrentData={data => {
-            setNFTList([])
-            setTimeout(() => {
-              setNFTList(data)
-            }, 500)
-          }}
-        />
-      </div> */}
-
       <UpdateNFTModal
         data={selectedData}
         open={showListNFTModal}

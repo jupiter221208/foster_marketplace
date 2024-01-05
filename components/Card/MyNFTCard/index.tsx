@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 // next components
-// import Image from 'next/image'
+import Link from 'next/link'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -15,35 +16,44 @@ import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MyNFTCard = props => {
-  const { data, onClick, onClickStartAuction, onClickListNFT } = props
+  const { data, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
+  const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
-      <div className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden" onClick={() => onClick(data)}>
-        {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+      <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
+        <a>
           <div
-            dangerouslySetInnerHTML={{
-              __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+            className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
+            onClick={() => dispatch({ type: 'set', isLoading: true })}
+          >
+            {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
                   <source src=${data.json.animation_url} type="video/mp4" /></video>`,
-            }}
-          />
-        ) : (
-          <div className={styles.imageArea}>
-            <div className={styles.imageContent}>
-              <img
-                src={
-                  data.json.image === undefined || data.json.image === null
-                    ? AudioPlayerBackground.src
-                    : data.json.image
-                }
-                alt={data.json.name || data.name}
-                className="w-full h-full object-cover"
+                }}
               />
-            </div>
+            ) : (
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  <img
+                    src={
+                      data.json.image === undefined || data.json.image === null
+                        ? AudioPlayerBackground.src
+                        : data.json.image
+                    }
+                    alt={data.json.name || data.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </a>
+      </Link>
+
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
           <div className={styles.nftName}>{data.json.name || data.name}</div>

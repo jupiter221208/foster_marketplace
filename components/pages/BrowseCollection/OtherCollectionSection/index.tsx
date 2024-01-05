@@ -64,10 +64,7 @@ const OtherCollectionSection = props => {
                 artistName={artistName}
                 artistAddress={artistId}
                 mintAddress={item.collection_id}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push(`/collection/${item.collection_id}`)
-                }}
+                link={`/collection/${item.collection_id}`}
               />
             </SwiperSlide>
           ))}

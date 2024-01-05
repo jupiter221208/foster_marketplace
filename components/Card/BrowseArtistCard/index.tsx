@@ -10,6 +10,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import Link from 'next/link'
 
 const BrowseArtistCard = props => {
   const { image, collectionName, artistName, artistAddress, hasloading } = props
@@ -50,14 +51,20 @@ const BrowseArtistCard = props => {
             )}
 
             {artistName ? (
-              <div
-                className={styles.artistName}
-                onClick={() => {
-                  router.push('/' + artistAddress)
-                  dispatch({ type: 'set', isLoading: true })
-                }}
-              >
-                Created by <span className={styles.greenText}>{artistName}</span>
+              <div className={styles.artistName}>
+                Created by&nbsp;
+                <Link href={`/${artistAddress}`} passHref>
+                  <a>
+                    <span
+                      className={styles.greenText}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                      }}
+                    >
+                      {artistName}
+                    </span>
+                  </a>
+                </Link>
               </div>
             ) : (
               <div className="w-full h-[22px]"></div>

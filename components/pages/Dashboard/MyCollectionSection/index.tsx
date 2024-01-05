@@ -79,9 +79,9 @@ const MyCollectionSection = () => {
                 category={getCategory(item.json?.attributes)}
                 artistAddress={item.creators[0]?.address.toString()}
                 mintAddress={item.mintAddress.toBase58()}
+                link={`/collection/${item.mintAddress.toString()}`}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/collection/${item.mintAddress.toString()}`)
                 }}
               />
             </div>
