@@ -72,10 +72,7 @@ const ExploreCollectionSection = props => {
                     mintAddress={item.artist.wallet_id}
                     nfts={item.number_of_nfts}
                     icon={item.artist.profile_picture}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/collection/${item.artist.wallet_id}`)
-                    }}
+                    link={`/collection/${item.artist.wallet_id}`}
                   />
                 </SwiperSlide>
               ))}
@@ -90,10 +87,7 @@ const ExploreCollectionSection = props => {
                     mintAddress={item.artist.wallet_id}
                     nfts={item.number_of_nfts}
                     icon={item.artist.profile_picture}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/collection/${item.artist.wallet_id}`)
-                    }}
+                    link={`/collection/${item.artist.wallet_id}`}
                   />
                 </div>
               ))}

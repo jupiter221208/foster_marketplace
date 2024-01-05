@@ -55,12 +55,6 @@ const StudioCard = props => {
   }
   return (
     <div>
-      {/* <div className={styles.container}> */}
-      {/* <Link href={`${window.origin}/nft/${data.token_id}`} passHref> */}{' '}
-      {/* <a>
-        <div className={styles.imageArea}>
-
-          <div className={styles.imageContent}> */}
       <div className="w-full">
         {!loaded && (
           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">

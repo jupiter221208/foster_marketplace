@@ -108,6 +108,7 @@ import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import Link from 'next/link'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -811,7 +812,6 @@ const MainSection = ({
 
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
   }
 
   const handleSuccessAuction = nftName => {
@@ -1151,17 +1151,25 @@ const MainSection = ({
                   <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
                     <div className="flex gap-1 lg:gap-2">
                       <div className={styles.grayText}>Created by</div>
-                      <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                        {nftCreatorname}
-                      </div>
+                      <Link href={`/${nftCreatorname}`} passHref>
+                        <a>
+                          <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
+                            {nftCreatorname}
+                          </div>
+                        </a>
+                      </Link>
                     </div>
 
                     {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
                       <div className="flex gap-1 lg:gap-2">
                         <div className={styles.grayText}>Fostered by</div>
-                        <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                          {nftOwnerUsername}
-                        </div>
+                        <Link href={`/${nftOwnerUsername}`} passHref>
+                          <a>
+                            <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                              {nftOwnerUsername}
+                            </div>
+                          </a>
+                        </Link>
                       </div>
                     )}
                   </div>

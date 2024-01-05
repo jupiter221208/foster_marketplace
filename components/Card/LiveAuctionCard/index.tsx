@@ -68,84 +68,86 @@ const LiveAuctionCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-          <div className={styles.imageContent}>
-            {data.asset_type.includes('video') ? (
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
-                  {play ? (
-                    <div
-                      className="w-full h-full absolute"
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+          <a>
+            <div className={styles.imageContent}>
+              {data.asset_type.includes('video') ? (
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+                    {play ? (
+                      <div
+                        className="w-full h-full absolute"
+                        dangerouslySetInnerHTML={{
+                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
-                      }}
-                      onClick={() => onClick()}
-                    />
-                  ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <ImageWithAuction
-                      src={data.cover_image_url}
-                      onClick={onClick}
-                      layout="fill"
-                      alt=""
-                      className="w-full h-full object-contain"
-                    />
-                  ) : (
-                    <Image
-                      src={DefaultNftBG}
-                      alt=""
-                      layout="fill"
-                      className="w-full h-full object-contain"
-                      onClick={() => onClick()}
-                    />
-                  )}
-                  <div className={styles.playButton}>
-                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                      <Image
-                        src={play ? PauseVideoIcon : PlayVideoIcon}
-                        width={18}
-                        height={18}
-                        alt=""
-                        onClick={() => setPlay(!play)}
+                        }}
+                        onClick={() => onClick()}
                       />
+                    ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
+                      <ImageWithAuction
+                        src={data.cover_image_url}
+                        onClick={onClick}
+                        layout="fill"
+                        alt=""
+                        className="w-full h-full object-contain"
+                      />
+                    ) : (
+                      <Image
+                        src={DefaultNftBG}
+                        alt=""
+                        layout="fill"
+                        className="w-full h-full object-contain"
+                        onClick={() => onClick()}
+                      />
+                    )}
+                    <div className={styles.playButton}>
+                      <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                        <Image
+                          src={play ? PauseVideoIcon : PlayVideoIcon}
+                          width={18}
+                          height={18}
+                          alt=""
+                          onClick={() => setPlay(!play)}
+                        />
+                      </div>
                     </div>
                   </div>
+                ) : (
+                  <div
+                    className="w-full"
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${data.asset_url} type="video/mp4" /></video>`,
+                    }}
+                    onClick={() => onClick()}
+                  />
+                )
+              ) : data.asset_type.includes('audio') ? (
+                <div className="w-full h-full">
+                  {!loaded && (
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  )}
+                  <Image
+                    src={data.cover_image_url}
+                    alt=""
+                    layout="fill"
+                    className="w-full h-full object-contain"
+                    onLoadingComplete={() => setLoaded(true)}
+                    onClick={() => onClick()}
+                  />
                 </div>
               ) : (
-                <div
-                  className="w-full"
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-                <source src=${data.asset_url} type="video/mp4" /></video>`,
-                  }}
-                  onClick={() => onClick()}
-                />
-              )
-            ) : data.asset_type.includes('audio') ? (
-              <div className="w-full h-full">
-                {!loaded && (
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
-                )}
-                <Image
-                  src={data.cover_image_url}
-                  alt=""
+                <ImageWithAuction
+                  src={data.asset_url}
+                  onClick={onClick}
                   layout="fill"
+                  alt=""
                   className="w-full h-full object-contain"
-                  onLoadingComplete={() => setLoaded(true)}
-                  onClick={() => onClick()}
                 />
-              </div>
-            ) : (
-              <ImageWithAuction
-                src={data.asset_url}
-                onClick={onClick}
-                layout="fill"
-                alt=""
-                className="w-full h-full object-contain"
-              />
-            )}
-          </div>
+              )}
+            </div>
+          </a>
         </Link>
       </div>
 

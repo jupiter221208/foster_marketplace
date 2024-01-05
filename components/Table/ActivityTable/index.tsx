@@ -18,16 +18,12 @@ import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
 import { useDispatch } from 'react-redux'
+import Link from 'next/link'
 
 const ActivityTable = props => {
   const { data, type } = props
   const dispatch = useDispatch()
   const router = useRouter()
-
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
-  }
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -49,16 +45,22 @@ const ActivityTable = props => {
           <tr key={index}>
             <td>
               <div className="h-[90px] flex justify-center items-center">
-                <div className="w-[60px] h-[60px]" onClick={() => router.push(`/nft/${item.mint_address}`)}>
-                  <ActivityTableItem url={item.asset_url} />
-                </div>
+                <Link href={`/nft/${item.mint_address}`} passHref>
+                  <a>
+                    <div className="w-[60px] h-[60px]">
+                      <ActivityTableItem url={item.asset_url} />
+                    </div>
+                  </a>
+                </Link>
               </div>
             </td>
             <td>
               <div className="block">
-                <div className={styles.nftName} onClick={() => router.push(`/nft/${item.mint_address}`)}>
-                  {item.asset_name}
-                </div>
+                <Link href={`/nft/${item.mint_address}`} passHref>
+                  <a>
+                    <div className={styles.nftName}>{item.asset_name}</div>
+                  </a>
+                </Link>
               </div>
             </td>
             <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
@@ -78,17 +80,25 @@ const ActivityTable = props => {
               className="text-center cursor-pointer hover:underline"
               onClick={() => {
                 if (isBuyerExisting(item.action_type)) {
-                  gotoUserDetail(getBuyerName(item))
+                  dispatch({ type: 'set', isLoading: true })
                 }
               }}
             >
-              {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+              {isBuyerExisting(item.action_type) ? (
+                <Link href={`/${getBuyerName(item)}`} passHref>
+                  {getBuyerName(item)}
+                </Link>
+              ) : (
+                'N/A'
+              )}
             </td>
             <td
               className="text-center cursor-pointer hover:underline"
-              onClick={() => gotoUserDetail(getOwnerName(item))}
+              onClick={() => dispatch({ type: 'set', isLoading: true })}
             >
-              {getOwnerName(item)}
+              <Link href={`/${getOwnerName(item)}`} passHref>
+                {getOwnerName(item)}
+              </Link>
             </td>
           </tr>
         ))}

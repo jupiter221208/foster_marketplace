@@ -22,6 +22,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import Link from 'next/link'
 
 export interface ListedNFTCardData {
   address: PublicKey
@@ -94,22 +95,26 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          {assetJson?.properties?.category === 'audio' || assetJson?.properties?.category === 'video' ? (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
-              }}
-            />
-          ) : (
-            <img
-              src={assetJson?.image}
-              alt=""
-              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-            />
-          )}
-        </div>
+        <Link href={`/nft/${address}`} passHref>
+          <a>
+            <div className={styles.imageContent}>
+              {assetJson?.properties?.category === 'audio' || assetJson?.properties?.category === 'video' ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
+                  }}
+                />
+              ) : (
+                <img
+                  src={assetJson?.image}
+                  alt=""
+                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                />
+              )}
+            </div>
+          </a>
+        </Link>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
