@@ -43,6 +43,7 @@ import styles from './index.module.scss'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/strings'
+import Link from 'next/link'
 
 const PrimaryHeader = () => {
   const router = useRouter()
@@ -178,7 +179,7 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
-      router.push(item.path)
+      // router.push(item.path)
     } else {
       setVisible(true)
     }
@@ -211,10 +212,13 @@ const PrimaryHeader = () => {
               <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
                 <FosterLogo className={styles.logoIcon} />
               </div>
-
-              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Studio
-              </div>
+              <Link href={'/studio'} passHref>
+                <a>
+                  <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                    Studio
+                  </div>
+                </a>
+              </Link>
 
               <div>
                 <ExploreMenu

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // next components
@@ -20,10 +19,10 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
+import Link from 'next/link'
 
 const NotificationsCard = props => {
   const { data, onClickMarkAsRead } = props
-  const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
 
@@ -186,16 +185,13 @@ const NotificationsCard = props => {
     return show
   }
 
-  const gotoUserPage = wallet => {
-    router.push(`/${wallet}`)
-  }
-
   const gotoDetailPage = notification => {
     const type = notification.notification_type
+    let route_path = '/'
     switch (type) {
       case 'offer':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=6&filter=1`)
+        route_path = `/dashboard?tab=6&filter=1`
         break
       case 'bid':
       case 'save_nft':
@@ -204,19 +200,19 @@ const NotificationsCard = props => {
       case 'outbid':
       case 'purchase':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/nft/${notification.reference_token_id}`)
+        route_path = `/nft/${notification.reference_token_id}`
         break
       case 'save_collection':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/collection/${notification.reference_token_id}`)
+        route_path = `/collection/${notification.reference_token_id}`
         break
       case 'winner':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=1&filter=1`)
+        route_path = `/dashboard?tab=1&filter=1`
         break
       case 'no_winner':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=1&filter=1`)
+        route_path = `/dashboard?tab=1&filter=1`
         break
     }
   }
@@ -232,10 +228,6 @@ const NotificationsCard = props => {
     if (elem.reference_user_profile_picture !== null && elem.reference_user_profile_picture !== '')
       return elem.reference_user_profile_picture
     else return DefaultAvatar.src
-  }
-
-  function gotoNFTPage(elem) {
-    router.push(`/nft/${elem.reference_token_id}`)
   }
 
   return (
@@ -272,23 +264,31 @@ const NotificationsCard = props => {
                     <div className="block items-start">
                       <p className="max-w-[450px]">
                         {fromUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
-                            {elem.reference_username}&nbsp;
-                          </span>
+                          <Link href={`/${elem.reference_username}`} passHref>
+                            <a>
+                              <span className={styles.username}>{elem.reference_username}&nbsp;</span>
+                            </a>
+                          </Link>
                         )}
 
                         <span className={styles.type}>{getNotificationType(elem)}</span>
 
                         {fromEndUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
-                            &nbsp;{elem.reference_username}
-                          </span>
+                          <Link href={`/${elem.reference_username}`} passHref>
+                            <a>
+                              <span className={styles.username}>&nbsp;{elem.reference_username}</span>
+                            </a>
+                          </Link>
                         )}
                       </p>
                       {elem.notification_type === 'offer' && (
-                        <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
-                          {getViewDetail(elem)}
-                        </div>
+                        <Link href={`/${gotoDetailPage(elem)}`} passHref>
+                          <a>
+                            <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
+                              {getViewDetail(elem)}
+                            </div>
+                          </a>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -315,19 +315,23 @@ const NotificationsCard = props => {
                       />
                     ) : (
                       isShowAvatar(elem) && (
-                        <div className={styles.assetUrl} onClick={() => gotoNFTPage(elem)}>
-                          <Image
-                            src={
-                              elem.reference_asset_url !== null && elem.reference_asset_url !== ''
-                                ? elem.reference_asset_url
-                                : DefaultAvatar
-                            }
-                            alt=""
-                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                            className="rounded-[8px] lg:rounded-[8px] object-cover"
-                          />
-                        </div>
+                        <Link href={`/nft/${elem.reference_token_id}`} passHref>
+                          <a>
+                            <div className={styles.assetUrl}>
+                              <Image
+                                src={
+                                  elem.reference_asset_url !== null && elem.reference_asset_url !== ''
+                                    ? elem.reference_asset_url
+                                    : DefaultAvatar
+                                }
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                                className="rounded-[8px] lg:rounded-[8px] object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
                       )
                     )}
                   </div>
