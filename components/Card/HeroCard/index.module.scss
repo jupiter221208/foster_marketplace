@@ -146,21 +146,26 @@
 .btnBox {
   display: flex;
   gap: 1rem;
-  button {
-    padding: 0.4rem 1.6rem;
-    border-radius: 0.5rem;
-    @media (max-width: 1400px) {
-      padding: 0.3rem 1.4rem;
-    }
+}
+
+.firstBtn {
+  padding: 0.4rem 1.6rem;
+  border-radius: 0.5rem;
+  @media (max-width: 1400px) {
+    padding: 0.3rem 1.4rem;
   }
-  button:first-child {
-    color: var(--pagination-down-icon);
-    border: solid 2px rgba(var(--background-light-color-rgb), 0.1);
+  color: var(--pagination-down-icon);
+  border: solid 2px rgba(var(--background-light-color-rgb), 0.1);
+}
+
+.secondBtn {
+  padding: 0.4rem 1.6rem;
+  border-radius: 0.5rem;
+  @media (max-width: 1400px) {
+    padding: 0.3rem 1.4rem;
   }
-  button:nth-child(2) {
-    background-color: var(--hero-artist-color);
-    color: var(--create-nft-card-bg);
-  }
+  background-color: var(--hero-artist-color);
+  color: var(--create-nft-card-bg);
 }
 
 .noSelect {
