@@ -190,7 +190,6 @@ const NotificationsCard = props => {
     let route_path = '/'
     switch (type) {
       case 'offer':
-        dispatch({ type: 'set', isLoading: true })
         route_path = `/dashboard?tab=6&filter=1`
         break
       case 'bid':
@@ -199,22 +198,19 @@ const NotificationsCard = props => {
       case 'sale':
       case 'outbid':
       case 'purchase':
-        dispatch({ type: 'set', isLoading: true })
         route_path = `/nft/${notification.reference_token_id}`
         break
       case 'save_collection':
-        dispatch({ type: 'set', isLoading: true })
         route_path = `/collection/${notification.reference_token_id}`
         break
       case 'winner':
-        dispatch({ type: 'set', isLoading: true })
         route_path = `/dashboard?tab=1&filter=1`
         break
       case 'no_winner':
-        dispatch({ type: 'set', isLoading: true })
         route_path = `/dashboard?tab=1&filter=1`
         break
     }
+    return route_path
   }
 
   function getUserProfileImage(elem) {
@@ -282,9 +278,12 @@ const NotificationsCard = props => {
                         )}
                       </p>
                       {elem.notification_type === 'offer' && (
-                        <Link href={`/${gotoDetailPage(elem)}`} passHref>
+                        <Link href={`${gotoDetailPage(elem)}`} passHref>
                           <a>
-                            <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
+                            <div
+                              className={styles.viewDetails}
+                              onClick={() => dispatch({ type: 'set', isLoading: true })}
+                            >
                               {getViewDetail(elem)}
                             </div>
                           </a>

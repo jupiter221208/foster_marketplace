@@ -28,7 +28,6 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
-  const router = useRouter()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
@@ -66,11 +65,6 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
-
-  const handleGotoDetailPage = (data: any) => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/nft/${data.mintAddress.toString()}`)
-  }
 
   const handleStartAuction = item => {
     setSelectedData(item)
@@ -208,7 +202,6 @@ const MyNFTSection = props => {
               <MyNFTCard
                 data={item}
                 publicKey={publicKey}
-                onClick={(data: any) => handleGotoDetailPage(data)}
                 onClickStartAuction={item => handleStartAuction(item)}
                 onClickListNFT={item => handleListNFT(item)}
               />
