@@ -104,10 +104,7 @@ const MoreCategorySection = props => {
                     category={categories}
                     artistName={item.artist_username}
                     mintAddress={item.collection_id}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/collection/${item.collection_id}`)
-                    }}
+                    link={`/collection/${item.collection_id}`}
                   />
                 </div>
               </SwiperSlide>

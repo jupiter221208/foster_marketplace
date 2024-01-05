@@ -78,7 +78,7 @@ const CollectedSection = props => {
                 mintAddress={item.artist_id}
                 icon={item.artist_profile_picture}
                 key={index}
-                onClick={() => onClickItem(item.collection_id)}
+                link={`/collection/${item.collection_id}`}
               />
             </div>
           ))}
