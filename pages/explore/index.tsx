@@ -52,6 +52,7 @@ import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
 import GradientButton from 'components/Button/GradientButton'
+import Link from 'next/link'
 
 const Explore = () => {
   const router = useRouter()
@@ -609,65 +610,78 @@ const Explore = () => {
                       return (
                         <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                           {selectedAvailability.value === 'timed' ? (
-                            <NFTAuctionCard
-                              image={item.image}
-                              assetType={item.asset_type}
-                              coverImage={item.cover_image_url}
-                              currentBid={item.current_bid}
-                              reservePrice={item.reserve_price}
-                              endTime={item.end_time}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                                router.push(item.url)
-                              }}
-                              price={item.price}
-                            />
+                            <Link href={item.url} passHref>
+                              <a>
+                                <NFTAuctionCard
+                                  image={item.image}
+                                  assetType={item.asset_type}
+                                  coverImage={item.cover_image_url}
+                                  currentBid={item.current_bid}
+                                  reservePrice={item.reserve_price}
+                                  endTime={item.end_time}
+                                  onClick={() => {
+                                    dispatch({ type: 'set', isLoading: true })
+                                  }}
+                                  price={item.price}
+                                />
+                              </a>
+                            </Link>
                           ) : selectedAvailability.value === 'all' ? (
                             isAvailableAuctionCard(item) ? (
-                              <NFTAuctionCard
-                                image={item.image}
-                                assetType={item.asset_type}
-                                coverImage={item.cover_image_url}
-                                currentBid={item.current_bid}
-                                reservePrice={item.reserve_price}
-                                endTime={item.end_time}
-                                onClick={() => {
-                                  dispatch({ type: 'set', isLoading: true })
-                                  router.push(item.url)
-                                }}
-                                price={item.price}
-                              />
+                              <Link href={item.url} passHref>
+                                <a>
+                                  <NFTAuctionCard
+                                    image={item.image}
+                                    assetType={item.asset_type}
+                                    coverImage={item.cover_image_url}
+                                    currentBid={item.current_bid}
+                                    reservePrice={item.reserve_price}
+                                    endTime={item.end_time}
+                                    onClick={() => {
+                                      dispatch({ type: 'set', isLoading: true })
+                                    }}
+                                    price={item.price}
+                                  />
+                                </a>
+                              </Link>
                             ) : (
-                              <NFTCard
-                                token_id={item.token_id}
-                                image={item.image}
-                                nftName={item.name}
-                                assetType={item.asset_type}
-                                coverImage={item.cover_image_url}
-                                artistName={item.creator}
-                                collectionName={item.collection_name}
-                                onClick={() => {
-                                  dispatch({ type: 'set', isLoading: true })
-                                  router.push(item.url)
-                                }}
-                                price={item.price}
-                              />
+                              <Link href={item.url} passHref>
+                                <a>
+                                  <NFTCard
+                                    token_id={item.token_id}
+                                    image={item.image}
+                                    nftName={item.name}
+                                    assetType={item.asset_type}
+                                    coverImage={item.cover_image_url}
+                                    artistName={item.creator}
+                                    collectionName={item.collection_name}
+                                    onClick={() => {
+                                      dispatch({ type: 'set', isLoading: true })
+                                    }}
+                                    price={item.price}
+                                  />
+                                </a>
+                              </Link>
                             )
                           ) : (
-                            <NFTCard
-                              token_id={item.token_id}
-                              image={item.image}
-                              nftName={item.name}
-                              assetType={item.asset_type}
-                              coverImage={item.cover_image_url}
-                              artistName={item.creator}
-                              collectionName={item.collection_name}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                                router.push(item.url)
-                              }}
-                              price={item.price}
-                            />
+                            <Link href={item.url} passHref>
+                              <a>
+                                <NFTCard
+                                  token_id={item.token_id}
+                                  image={item.image}
+                                  nftName={item.name}
+                                  assetType={item.asset_type}
+                                  coverImage={item.cover_image_url}
+                                  artistName={item.creator}
+                                  collectionName={item.collection_name}
+                                  onClick={() => {
+                                    dispatch({ type: 'set', isLoading: true })
+                                    router.push(item.url)
+                                  }}
+                                  price={item.price}
+                                />
+                              </a>
+                            </Link>
                           )}
                         </div>
                       )
