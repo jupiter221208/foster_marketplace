@@ -15,6 +15,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
+import { NftData as NewNftData } from '@types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)
@@ -261,7 +262,7 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
   }
 }
 
-export function getNFTCategories(nft: Sft | Nft | null): string[] {
+export function getNFTCategories(nft: NewNftData): string[] {
   return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 

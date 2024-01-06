@@ -41,6 +41,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
+import { NftData } from '@types/nft'
 
 export interface EditionDetail {
   number: number
@@ -49,7 +50,7 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: Nft
+  nftDetail?: NftData
   editionDetail?: EditionDetail
   originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
@@ -57,7 +58,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = nftDetail?.json?.properties?.category as string
+  const nftType = nftDetail?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
