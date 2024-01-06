@@ -69,12 +69,9 @@ const Step01CollectionSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [collectionType, setCollectionType] = useState('foster')
   const [showEAModal, setShowEAModal] = useState(false)
-<<<<<<< HEAD
   const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
-=======
->>>>>>> c5d8f4fc (Add ImportEAModal)
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -966,17 +963,11 @@ const Step01CollectionSection = props => {
                 borderWidth="1px"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                 label="Create Collection"
-<<<<<<< HEAD
+
                 disabled={disabledNextButton} //disabledNextButton
                 onClick={() => {
                   if (collectionType === 'foster') mintCollection('foster', '')
                   else mintCollection('ea', eaImportUrl)
-=======
-                disabled={disabledNextButton}
-                onClick={() => {
-                  if (collectionType === 'foster') mintCollection('foster', '')
-                  else setShowEAModal(true)
->>>>>>> c5d8f4fc (Add ImportEAModal)
                 }}
                 height="45px"
               />
@@ -985,11 +976,9 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
-<<<<<<< HEAD
+
       <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
-=======
-      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={url => {}} />
->>>>>>> c5d8f4fc (Add ImportEAModal)
+
       <Alert
         open={showAlert}
         close={() => {
