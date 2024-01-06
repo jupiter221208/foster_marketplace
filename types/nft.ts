@@ -1,4 +1,4 @@
-import { Pda } from '@metaplex-foundation/js'
+import { BigNumber, Pda } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 
 export interface NftData {
@@ -12,11 +12,18 @@ export interface NftData {
   creators?: NftCreator[]
   attributes?: Array<{ value: string; trait_type: string }>
   sellerFeeBasisPoints?: number
-  address?: string
+  address?: PublicKey
   metadataAddress?: Pda
   url?: string
   price?: number
   creator?: string
+  sellerAddress?: PublicKey
+  tradeStateAddress?: PublicKey
+  uri?: string
+  creatorAddress?: string
+  startTime?: number
+  endTime?: number
+  amount: string
 
   animation_url?: string
   token_id?: PublicKey
@@ -30,9 +37,20 @@ export interface NftData {
   collection_name?: string
   current_bid?: number
   reserve_price?: number
-  end_time?: Date
+  end_time?: number
+  asset_name: string
+  action_type: string
+  created_at: Date
+  mint_address: string
 
-  properties: {
+  highestBid?: {
+    buyer_address: string
+    amount: string
+  }
+  mint?: {
+    address: PublicKey
+  }
+  properties?: {
     category: string
     files?: {
       [key: string]: unknown
@@ -45,22 +63,43 @@ export interface NftData {
     verified: boolean
   }
   collectionDetails?: {
-    size: number
+    size: BigNumber
   }
   tokenAccount?: {
     delegate: PublicKey | null
     isFrozen: boolean
   }
   json?: {
-    name: string
-    image: string
-    description: string
-    category: string
-    animation_url: string
-    attributes: { trait_type: string; value: string }[]
-    properties: {
-      category: string
+    name?: string
+    symbol?: string
+    description?: string
+    seller_fee_basis_points?: number
+    image?: string
+    external_url?: string
+    attributes?: Array<{
+      trait_type?: string
+      value?: string
+      [key: string]: unknown
+    }>
+    properties?: {
+      creators?: Array<{
+        address?: string
+        share?: number
+        [key: string]: unknown
+      }>
+      files?: Array<{
+        type?: string
+        uri?: string
+        [key: string]: unknown
+      }>
+      [key: string]: unknown
     }
+    collection?: {
+      name?: string
+      family?: string
+      [key: string]: unknown
+    }
+    [key: string]: unknown
   }
 }
 

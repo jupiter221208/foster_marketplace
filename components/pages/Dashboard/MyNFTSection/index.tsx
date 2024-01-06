@@ -68,6 +68,11 @@ const MyNFTSection = props => {
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
 
+  const handleGotoDetailPage = (data: any) => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/nft/${data.mintAddress.toString()}`)
+  }
+
   const handleStartAuction = item => {
     setSelectedData(item)
     setShowStartAuctionModal(true)
@@ -130,7 +135,7 @@ const MyNFTSection = props => {
   }, [myNftList, active])
 
   useEffect(() => {
-    let new_list = filteredList as any[]
+    let new_list = filteredList as NftData[]
     if (new_list.length > rowCount) setIsVisibleFetching(true)
     setNFTList(new_list.slice(0, rowCount))
   }, [filteredList])
@@ -200,7 +205,7 @@ const MyNFTSection = props => {
             <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <MyNFTCard
                 data={item}
-                onClick={(data: any) => handleGotoDetailPage(data)}
+                onClick={(data: NftData) => handleGotoDetailPage(data)}
                 onClickStartAuction={item => handleStartAuction(item)}
                 onClickListNFT={item => handleListNFT(item)}
               />

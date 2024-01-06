@@ -18,6 +18,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const MyCollectionSection = () => {
   const router = useRouter()
@@ -29,7 +30,7 @@ const MyCollectionSection = () => {
   const [rowCount, setRowCount] = useState(12)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [myCollections, setMyCollections] = useState([])
+  const [myCollections, setMyCollections] = useState<NftData[]>([])
   useEffect(() => {
     const getCollections = async () => {
       const collections = await getMyCollections(mx)

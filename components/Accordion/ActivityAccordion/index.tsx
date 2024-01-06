@@ -22,9 +22,10 @@ import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/h
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { NftData } from 'types/nft'
 
 const ActivityAccordion = props => {
-  const { data } = props
+  const { data }: { data: NftData[] } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()

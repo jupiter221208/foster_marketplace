@@ -9,7 +9,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useSelector, useDispatch } from 'react-redux'
 
 // components
-import ListedNFTCard, { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import ListedNFTCard from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 
@@ -33,6 +33,7 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -44,8 +45,8 @@ const ListedNFTSection = props => {
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
-  const [selectedData, setSelectedData] = useState()
-  const handleSelectData = item => {
+  const [selectedData, setSelectedData] = useState<NftData>()
+  const handleSelectData = (item: NftData) => {
     setSelectedData(item)
     setShowListNFTModal(true)
   }
@@ -74,9 +75,9 @@ const ListedNFTSection = props => {
 
   const { updateSolBalance } = useWallets()
 
-  const [nftList, setNFTList] = useState([])
+  const [nftList, setNFTList] = useState<NftData[]>([])
 
-  function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
+  function getMintAddress(asset: NftData): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
     else return asset.mint.address
   }
@@ -85,17 +86,15 @@ const ListedNFTSection = props => {
     setLoading(true)
     const listedNfts = await getMyListedNFTs(mx)
     if (listedNfts) {
-      let fixedPriceNFTs: ListedNFTCardData[] = listedNfts.map(
-        ({ asset, sellerAddress, tradeStateAddress, price }) => ({
-          address: getMintAddress(asset),
-          name: asset?.name,
-          uri: asset?.uri,
-          sellerAddress,
-          tradeStateAddress,
-          price: Number(price.basisPoints.toString()),
-          creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
-        })
-      )
+      let fixedPriceNFTs: NftData[] = listedNfts.map(({ asset, sellerAddress, tradeStateAddress, price }) => ({
+        address: getMintAddress(asset),
+        name: asset?.name,
+        uri: asset?.uri,
+        sellerAddress,
+        tradeStateAddress,
+        price: Number(price.basisPoints.toString()),
+        creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
+      }))
       dispatch({ type: 'set', fixedPriceNFTs })
     }
 
@@ -103,7 +102,7 @@ const ListedNFTSection = props => {
     const nfts = await mx
       .nfts()
       .findAllByMintList({ mints: listings.map(({ auction }) => new PublicKey(auction.mint_address)) })
-    const liveAuction: ListedNFTCardData[] = listings
+    const liveAuction: NftData[] = listings
       .map(
         ({ auction, highest_bid }, index) =>
           nfts[index] && {
@@ -129,7 +128,7 @@ const ListedNFTSection = props => {
     if (mx && !isGetListedNFTs) setMyListedNFTs()
   }, [mx, isGetListedNFTs])
 
-  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
+  const onCancelList = async ({ address, tradeStateAddress }: NftData) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -169,7 +168,7 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }: NftData, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -220,7 +219,7 @@ const ListedNFTSection = props => {
     },
   ])
 
-  const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
+  const cancelAuction = async ({ address, sellerAddress, name }: NftData) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -251,7 +250,7 @@ const ListedNFTSection = props => {
     }
   }
 
-  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: NftData) => {
     setTimeout(() => {
       setOpenProgressingModal(true)
     }, 500)

@@ -16,9 +16,11 @@ import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { NftData } from 'types/nft'
 
 const ActivityTable = props => {
-  const { data, type } = props
+  const { data, type }: { data: NftData[]; type: any } = props
   const dispatch = useDispatch()
 
   const getUserName = item => {
