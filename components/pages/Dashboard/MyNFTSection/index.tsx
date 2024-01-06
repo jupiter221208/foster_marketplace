@@ -33,6 +33,7 @@ const MyNFTSection = props => {
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
   const [allNftList, setAllNftList] = useState<any>([])
+  const [allList, setAllList] = useState<any>([])
   const [filteredList, setFilteredList] = useState<any>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
@@ -106,6 +107,7 @@ const MyNFTSection = props => {
     let list = []
 
     let allList = myNftList as any[]
+    setAllList(allList)
     allList.forEach(item => {
       let created = false
       let creators = item.creators
@@ -164,7 +166,7 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && allNftList.length > 0 && (
+      {!loading && allList.length > 0 && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
           <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
             <div className={styles.slotBG}>
