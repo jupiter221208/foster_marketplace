@@ -29,14 +29,15 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import { NftData } from 'types/nft'
 
 const MostPopularSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [allMostPopularList, setAllMostPopularList] = useState<any[]>([])
-  const [mostPopularList, setMostPopularList] = useState<any[]>([])
+  const [allMostPopularList, setAllMostPopularList] = useState<NftData[]>([])
+  const [mostPopularList, setMostPopularList] = useState<NftData[]>([])
   const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {

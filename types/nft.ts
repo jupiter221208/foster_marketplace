@@ -24,6 +24,7 @@ export interface NftData {
   artist_username: string
   artist_id: PublicKey
   list_price: number
+  collection_name: string
 
   properties: {
     category: string

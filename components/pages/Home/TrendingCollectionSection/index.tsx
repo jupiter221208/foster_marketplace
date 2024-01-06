@@ -31,13 +31,14 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { NftData } from 'types/nft'
 
 const TrendingCollectionSection = props => {
   const { category, loop } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [trendingList, setTrendingList] = useState<any[]>([])
+  const [trendingList, setTrendingList] = useState<NftData[]>([])
   const [active, setActive] = useState<any>(1)
   const [isLoading, setIsLoading] = useState(false)
 

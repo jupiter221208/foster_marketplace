@@ -27,14 +27,15 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import { NftData } from 'types/nft'
 
 const FreshMintSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [allFreshMintsList, setAllFreshMintsList] = useState<any[]>([])
-  const [freshMintsList, setFreshMintsList] = useState<any[]>([])
+  const [allFreshMintsList, setAllFreshMintsList] = useState<NftData[]>([])
+  const [freshMintsList, setFreshMintsList] = useState<NftData[]>([])
   const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
