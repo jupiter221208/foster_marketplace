@@ -15,7 +15,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
-import { NftData as NewNftData } from '@types/nft'
+import { NftData as NewNftData } from 'types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)

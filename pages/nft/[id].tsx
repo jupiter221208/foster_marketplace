@@ -41,7 +41,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import { NftData } from '@types/nft'
+import { NftData } from 'types/nft'
 
 export interface EditionDetail {
   number: number
