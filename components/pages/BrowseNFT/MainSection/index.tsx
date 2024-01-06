@@ -377,7 +377,9 @@ const MainSection = ({
       setLiveAuction(false)
       if (auction?.auction) {
         setLiveAuction(true)
-        if (!connected) setIsOwnNft(false)
+        if (!connected) {
+          setIsOwnNft(false)
+        }
         let {
           highest_bid,
           auction: { reserve_price, start_time, end_time },
@@ -442,7 +444,7 @@ const MainSection = ({
 
         let listingReceipt = openListings[0]
         if (listingReceipt) {
-          if (!connected) setIsOwnNft(false)
+          // if (!connected) setIsOwnNft(false)
           setLoadListing(true)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
           let listing = toLazyListing(listingReceipt, auctionHouse)
@@ -1267,7 +1269,7 @@ const MainSection = ({
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
 
-                  {isOwnNft === false && (
+                  {(isOwnNft === false || isOwnNft === null) && (
                     <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
                       {tradeStateAddress ? (
                         <GradientButton
