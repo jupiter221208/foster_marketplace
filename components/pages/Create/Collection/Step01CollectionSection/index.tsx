@@ -12,10 +12,8 @@ import Alert from 'components/Alert'
 import IconButton from 'components/Button/IconButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
-import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
@@ -37,6 +35,7 @@ import styles from './index.module.scss'
 
 // call apis
 import uploadFileToS3API from 'apis/aws'
+import ImportEAModal from 'components/Modal/ImportEAModal'
 
 const Step01CollectionSection = props => {
   const {
@@ -68,6 +67,7 @@ const Step01CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [collectionType, setCollectionType] = useState('foster')
+  const [showEAModal, setShowEAModal] = useState(false)
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -564,8 +564,11 @@ const Step01CollectionSection = props => {
                     borderWidth="1px"
                     borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                     label="Create Collection"
-                    disabled={disabledNextButton}
-                    onClick={() => mintCollection()}
+                    disabled={false} //disabledNextButton
+                    onClick={() => {
+                      if (collectionType === 'foster') mintCollection('foster', '')
+                      else setShowEAModal(true)
+                    }}
                   />
                 </div>
               </div>
@@ -878,31 +881,28 @@ const Step01CollectionSection = props => {
 
           <div className="w-full flex justify-between my-10">
             {/* button group part */}
-            {disabledNextButton ? (
-              <div className="w-full">
-                <Button
-                  fullWidth
-                  label="Next Step"
-                  disabled={disabledNextButton}
-                  backgroundColor="#888A8E"
-                  height="45px"
-                />
-              </div>
-            ) : (
-              <div className="w-full">
-                <GradientButton
-                  fullWidth
-                  label="Next Step"
-                  disabled={disabledNextButton}
-                  onClick={() => mintCollection()}
-                  height="45px"
-                />
-              </div>
-            )}
+            <div className="w-full">
+              <GradientButton
+                fullWidth
+                backgroundColor01="var(--view-item-btn-color)"
+                backgroundColor02="var(--view-item-btn-color)"
+                color="var(--create-collection-color)"
+                borderWidth="1px"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                label="Create Collection"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  if (collectionType === 'foster') mintCollection('foster', '')
+                  else setShowEAModal(true)
+                }}
+                height="45px"
+              />
+            </div>
           </div>
         </div>
       )}
 
+      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={url => {}} />
       <Alert
         open={showAlert}
         close={() => {

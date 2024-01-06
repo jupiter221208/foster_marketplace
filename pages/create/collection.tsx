@@ -399,7 +399,12 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
-            mintCollection={mintCollection}
+            mintCollection={(type, url) => {
+              if (type === 'foster') mintCollection()
+              else {
+                // Mint Collection With EA Series
+              }
+            }}
           />
         )}
         {currentStep === 2 && (
