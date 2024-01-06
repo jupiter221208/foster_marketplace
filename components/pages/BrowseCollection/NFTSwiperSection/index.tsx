@@ -21,6 +21,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
@@ -32,8 +33,6 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [nftList, setNFTList] = useState<any[]>([])
-  const [artworkType, setArtworkType] = useState('all')
-  const [quickBuyNfts, setQuickBuyNfts] = useState([])
 
   useEffect(() => {
     if (nfts) {

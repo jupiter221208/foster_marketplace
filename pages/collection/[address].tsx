@@ -30,6 +30,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import { parseCookies } from 'utils'
 import TabSection from './TabSection'
 import EASection from './EASection'
+import { NftData } from 'types/nft'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -44,7 +45,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [collectionData, setCollectionData] = useState()
-  const [nfts, setNfts] = useState([])
+  const [nfts, setNfts] = useState<NftData[]>([])
   const [loaded, setLoaded] = useState(false)
   const address = publicCollectionData?.collection_id
 

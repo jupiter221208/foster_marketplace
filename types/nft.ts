@@ -8,10 +8,23 @@ export interface NftData {
   description?: string
   image?: string
   imageCdn?: string
-  animation_url?: string
   category?: string
   creators?: NftCreator[]
   attributes?: Array<{ value: string; trait_type: string }>
+  sellerFeeBasisPoints?: number
+  address?: string
+  metadataAddress?: Pda
+
+  animation_url?: string
+  token_id: PublicKey
+  asset_url: string
+  nft_name: string
+  asset_type: string
+  cover_image_url: string
+  artist_username: string
+  artist_id: PublicKey
+  list_price: number
+
   properties: {
     category: string
     files?: {
@@ -42,9 +55,6 @@ export interface NftData {
       category: string
     }
   }
-  sellerFeeBasisPoints?: number
-  address?: string
-  metadataAddress?: Pda
 }
 
 export interface NftCreator {
