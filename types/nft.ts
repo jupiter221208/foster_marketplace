@@ -14,17 +14,23 @@ export interface NftData {
   sellerFeeBasisPoints?: number
   address?: string
   metadataAddress?: Pda
+  url?: string
+  price?: number
+  creator?: string
 
   animation_url?: string
-  token_id: PublicKey
-  asset_url: string
-  nft_name: string
-  asset_type: string
-  cover_image_url: string
-  artist_username: string
-  artist_id: PublicKey
-  list_price: number
-  collection_name: string
+  token_id?: PublicKey
+  asset_url?: string
+  nft_name?: string
+  asset_type?: string
+  cover_image_url?: string
+  artist_username?: string
+  artist_id?: PublicKey
+  list_price?: number
+  collection_name?: string
+  current_bid?: number
+  reserve_price?: number
+  end_time?: Date
 
   properties: {
     category: string
