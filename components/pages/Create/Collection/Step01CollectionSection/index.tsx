@@ -890,7 +890,7 @@ const Step01CollectionSection = props => {
                 borderWidth="1px"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                 label="Create Collection"
-                disabled={disabledNextButton}
+                disabled={false} //disabledNextButton
                 onClick={() => {
                   if (collectionType === 'foster') mintCollection('foster', '')
                   else setShowEAModal(true)
@@ -902,7 +902,13 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
-      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={url => {}} />
+      <ImportEAModal
+        open={showEAModal}
+        onClose={() => setShowEAModal(false)}
+        onImportUrl={url => {
+          setShowEAModal(false)
+        }}
+      />
       <Alert
         open={showAlert}
         close={() => {

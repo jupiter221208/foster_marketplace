@@ -6,11 +6,8 @@ import { Dialog, Transition } from '@headlessui/react'
 // custom components
 import GradientButton from 'components/Button/GradientButton'
 
-import AudioPlayerBackground from 'assets/images/audio-player.png'
-
 // styles
 import styles from './index.module.scss'
-import OutlineButton from 'components/Button/OutlineButton'
 
 const ImportEAModal = props => {
   const { open, onClose, onImportUrl } = props
@@ -72,22 +69,20 @@ const ImportEAModal = props => {
                 <div className={styles.title}>Import EA Series</div>
 
                 <div className={`${styles.url} mt-4 w-full`}>Enter the URL to your series on Exchange Art</div>
-                <div className={styles.inputArea}>
-                  <input
-                    className={styles.inputBox}
-                    value={url}
-                    placeholder={'https://exchange.art/series/'}
-                    onChange={event => setUrl(event.target.value)}
-                  />
-                </div>
 
-                <div className="w-full mt-[15px] lg:mt-[30px]">
+                <input
+                  className={styles.inputArea}
+                  value={url}
+                  placeholder={'https://exchange.art/series/'}
+                  onChange={event => setUrl(event.target.value)}
+                />
+
+                <div className="w-full mt-[20px] lg:mt-[15px]">
                   <GradientButton
                     label="Import"
                     fullWidth
                     onClick={() => onImportUrl(url)}
                     backgroundColor="transparent"
-                    borderWidth={1}
                   />
                 </div>
               </Dialog.Panel>
