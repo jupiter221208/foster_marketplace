@@ -34,49 +34,17 @@ export interface NftData {
   shared?: { facebook: boolean; twitter: boolean; telegram: boolean }
 
   animation_url?: string
-  token_id?: PublicKey
-  asset_url?: string
-  nft_name?: string
-  asset_type?: string
-  cover_image_url?: string
-  artist_username?: string
-  artist_id?: PublicKey
-  list_price?: number
-  collection_name?: string
-  current_bid?: number
-  reserve_price?: number
-  end_time?: number
-  asset_name?: string
-  action_type?: string
-  created_at?: Date
-  mint_address?: string
-  artist_profile_picture?: string
-  merch_hub_enabled?: boolean
+  token_id: PublicKey
+  asset_url: string
+  nft_name: string
+  asset_type: string
+  cover_image_url: string
+  artist_username: string
+  artist_id: PublicKey
+  list_price: number
+  collection_name: string
 
-  content?: {
-    $schema: string
-    files: { uri: string; mime: string }[]
-    json_uri: string
-    links: {
-      image: string
-    }
-    metadata: {
-      attributes: any[]
-      description: string
-      name: string
-      symbol: string
-      token_standard: string
-    }
-  }
-
-  highestBid?: {
-    buyer_address: string
-    amount: string
-  }
-  mint?: {
-    address: PublicKey
-  }
-  properties?: {
+  properties: {
     category: string
     files?: {
       [key: string]: unknown
