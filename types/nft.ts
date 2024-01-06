@@ -31,9 +31,20 @@ export interface NftData {
   collection_name?: string
   current_bid?: number
   reserve_price?: number
-  end_time?: Date
+  end_time?: number
+  asset_name: string
+  action_type: string
+  created_at: Date
+  mint_address: string
 
-  properties: {
+  highestBid?: {
+    buyer_address: string
+    amount: string
+  }
+  mint?: {
+    address: PublicKey
+  }
+  properties?: {
     category: string
     files?: {
       [key: string]: unknown
