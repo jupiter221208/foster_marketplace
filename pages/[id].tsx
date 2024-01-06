@@ -28,6 +28,7 @@ import { isString } from 'utils/helpers'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import TabSection from './profile/TabSection'
+import { NftData } from 'types/nft'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -47,10 +48,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistStatsInfo, setArtistStatsInfo] = useState<any>({})
   const [collectorStatsInfo, setCollectorStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
-  const [createdNfts, setCreatedNfts] = useState<any>([])
-  const [collectedNfts, setCollectedNfts] = useState<any>([])
-  const [merchNfts, setMerchNfts] = useState<any>([])
-  const [collections, setCollections] = useState<any>([])
+  const [createdNfts, setCreatedNfts] = useState<NftData[]>([])
+  const [collectedNfts, setCollectedNfts] = useState<NftData[]>([])
+  const [merchNfts, setMerchNfts] = useState<NftData[]>([])
+  const [collections, setCollections] = useState<NftData[]>([])
   const [artistEnable, setArtistEnable] = useState(true)
   const [merchEnable, setMerchEnable] = useState(false)
   const [collectorEnable, setCollectorEnable] = useState(false)

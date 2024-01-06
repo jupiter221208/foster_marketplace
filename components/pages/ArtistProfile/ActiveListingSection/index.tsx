@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 // api
 import dashboardAPI from 'apis/dashboard'
 import NFTCard from 'components/Card/NFTCard'
+import { NftData } from 'types/nft'
 
 const ActiveListingSection = props => {
   const { artist = '', fromPage = '', loadCompleted = null } = props
@@ -28,7 +29,7 @@ const ActiveListingSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [exploreList, setExploreList] = useState([])
+  const [exploreList, setExploreList] = useState<NftData[]>([])
   const [page, setPage] = useState(1)
 
   const [isMounted, setIsMounted] = useState(false)
