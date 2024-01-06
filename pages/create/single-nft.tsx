@@ -53,6 +53,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
+import { NftData } from 'types/nft'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -277,8 +278,8 @@ const SingleNft = () => {
   }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
-  const [nftName, setNftName] = useState<any>('')
-  const [description, setDescription] = useState<any>('')
+  const [nftName, setNftName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [showCategoryList, setShowCategoryList] = useState<boolean>(false)
 
@@ -337,7 +338,7 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
-  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
+  const [nftMetadata, setNftMetadata] = useState<NftData>()
   const { refreshToken } = useAuthentication()
 
   const createNft = async () => {
@@ -350,9 +351,9 @@ const SingleNft = () => {
         .filter(({ checked }) => checked)
         .map(({ name }) => ({ trait_type: 'category', value: name }))
 
-      let trimmedNftName = nftName.trim()
-      let trimmedDescription = description.trim()
-      const metadata: JsonMetadata = {
+      let trimmedNftName: string = nftName.trim()
+      let trimmedDescription: string = description.trim()
+      const metadata: NftData = {
         name: trimmedNftName,
         description: trimmedDescription,
         attributes,

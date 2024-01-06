@@ -1,8 +1,8 @@
-import { Metadata, Pda } from '@metaplex-foundation/js'
+import { Pda } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 
 export interface NftData {
-  mintAddress: PublicKey
+  mintAddress?: PublicKey
   name?: string
   symbol?: string
   description?: string
@@ -12,6 +12,14 @@ export interface NftData {
   category?: string
   creators?: NftCreator[]
   attributes?: Array<{ value: string; trait_type: string }>
+  properties: {
+    category: string
+    files?: {
+      [key: string]: unknown
+      type?: string
+      uri?: string
+    }[]
+  }
   collection?: {
     address: PublicKey
     verified: boolean
@@ -19,11 +27,11 @@ export interface NftData {
   collectionDetails?: {
     size: number
   }
-  tokenAccount: {
+  tokenAccount?: {
     delegate: PublicKey | null
     isFrozen: boolean
   }
-  json: {
+  json?: {
     name: string
     image: string
     description: string
@@ -34,9 +42,9 @@ export interface NftData {
       category: string
     }
   }
-  sellerFeeBasisPoints: number
-  address: string
-  metadataAddress: Pda
+  sellerFeeBasisPoints?: number
+  address?: string
+  metadataAddress?: Pda
 }
 
 export interface NftCreator {
