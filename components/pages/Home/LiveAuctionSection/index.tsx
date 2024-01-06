@@ -261,7 +261,7 @@ const LiveAuctionSection = props => {
             //   disableOnInteraction: false,
             // }}
           >
-            {liveAuctionList.map((item: any, index) => (
+            {liveAuctionList.map((item, index) => (
               <SwiperSlide key={index}>
                 <LiveAuctionCard
                   data={item}

@@ -42,6 +42,7 @@ export interface NftData {
   action_type: string
   created_at: Date
   mint_address: string
+  artist_profile_picture?: string
 
   highestBid?: {
     buyer_address: string

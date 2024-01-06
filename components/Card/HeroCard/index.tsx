@@ -17,9 +17,10 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
+import { NftData } from 'types/nft'
 
 const HeroCard = props => {
-  const { data } = props
+  const { data }: { data: NftData } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
