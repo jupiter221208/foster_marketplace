@@ -50,10 +50,18 @@ const CollectionCard = props => {
 
       <div className={styles.imageInfo}>
         <div className="w-full flex justify-start items-center">
-          <div className={styles.nftName}>{nftName}</div>
+          <Link href={link} passHref>
+            <a>
+              <div className={styles.nftName}>{nftName}</div>
+            </a>
+          </Link>
         </div>
         <div className="w-full flex justify-start items-center">
-          <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+          <Link href={`/${artistName || collectionName}`} passHref>
+            <a>
+              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+            </a>
+          </Link>
         </div>
         {unSave !== null && (
           <div className="mt-[10px]">
