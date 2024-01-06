@@ -17,6 +17,7 @@ import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/h
 import ActivityTableItem from './ActivityTableItem'
 import Link from 'next/link'
 import { useDispatch } from 'react-redux'
+import Link from 'next/link'
 import { NftData } from 'types/nft'
 
 type ActivityTableTypes = {

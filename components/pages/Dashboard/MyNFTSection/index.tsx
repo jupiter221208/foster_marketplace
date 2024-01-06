@@ -39,6 +39,7 @@ const MyNFTSection = props => {
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
+  const router = useRouter()
 
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
@@ -69,7 +70,7 @@ const MyNFTSection = props => {
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
 
-  const handleGotoDetailPage = (data: any) => {
+  const handleGotoDetailPage = (data: NftData) => {
     dispatch({ type: 'set', isLoading: true })
     router.push(`/nft/${data.mintAddress.toString()}`)
   }
@@ -113,7 +114,7 @@ const MyNFTSection = props => {
   useEffect(() => {
     let list = []
 
-    let allList = myNftList as NftData[]
+    let allList = myNftList as any[]
     setAllList(allList)
     allList.forEach(item => {
       let created = false
