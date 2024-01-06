@@ -30,6 +30,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { NftData } from 'types/nft'
 import { useRouter } from 'next/router'
 
 const Collection = () => {
@@ -267,24 +268,23 @@ const Collection = () => {
 
     let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
     let category = ''
-    let nft_attributes = []
-    collectionInfo.json.attributes?.forEach(item => {
-      category += item.value + ','
-      nft_attributes.push({ trait_type: 'category', value: item.value })
+    categories.forEach(item => {
+      category += item.name + ','
     })
 
-    for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
-      name = name.trim()
-      description = description.trim()
-      const metadata: JsonMetadata = {
-        name,
-        description,
-        attributes: nft_attributes,
-        properties: {
-          category: type === 'vr' ? type : file.type.split('/')[0],
-        },
-      }
+    if (collectionNft) {
+      for (let i = 0; i < collectionFiles.length; i++) {
+        let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+        name = name.trim()
+        description = description.trim()
+        const metadata: JsonMetadata = {
+          name,
+          description,
+          attributes,
+          properties: {
+            category: type === 'vr' ? type : file.type.split('/')[0],
+          },
+        }
 
       let imageFile = {
         type: file.type,
