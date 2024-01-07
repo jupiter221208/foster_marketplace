@@ -38,6 +38,7 @@ const MyNFTSection = props => {
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
+  const router = useRouter()
 
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {

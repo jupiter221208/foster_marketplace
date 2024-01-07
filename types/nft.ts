@@ -23,7 +23,7 @@ export interface NftData {
   creatorAddress?: string
   startTime?: number
   endTime?: number
-  amount: string
+  amount?: string
 
   animation_url?: string
   token_id?: PublicKey
@@ -38,10 +38,10 @@ export interface NftData {
   current_bid?: number
   reserve_price?: number
   end_time?: number
-  asset_name: string
-  action_type: string
-  created_at: Date
-  mint_address: string
+  asset_name?: string
+  action_type?: string
+  created_at?: Date
+  mint_address?: string
   artist_profile_picture?: string
 
   highestBid?: {
@@ -64,7 +64,7 @@ export interface NftData {
     verified: boolean
   }
   collectionDetails?: {
-    size: BigNumber
+    size: number
   }
   tokenAccount?: {
     delegate: PublicKey | null

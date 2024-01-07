@@ -108,6 +108,7 @@ import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import { NftData } from 'types/nft'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 import { NftData } from 'types/nft'
@@ -608,7 +609,7 @@ const MainSection = ({
     }
   }
 
-  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
+  const onCancelList = async ({ address, tradeStateAddress }: NftData) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -648,7 +649,7 @@ const MainSection = ({
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }: NftData, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()

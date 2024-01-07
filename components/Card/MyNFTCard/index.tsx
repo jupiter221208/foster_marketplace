@@ -16,12 +16,14 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import { NftData } from 'types/nft'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import { PublicKey } from '@metaplex-foundation/js'
 
 export interface MyNFTCardProps {
   data: NftData
   onClick: (data: NftData) => any
   onClickStartAuction: (data: NftData) => any
   onClickListNFT: (data: NftData) => any
+  publicKey: PublicKey
 }
 
 const MyNFTCard = ({ data, onClick, onClickStartAuction, onClickListNFT }: MyNFTCardProps) => {
