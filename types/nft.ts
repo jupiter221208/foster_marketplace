@@ -64,7 +64,7 @@ export interface NftData {
     verified: boolean
   }
   collectionDetails?: {
-    size: number
+    size: number | BigNumber
   }
   tokenAccount?: {
     delegate: PublicKey | null

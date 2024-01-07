@@ -22,7 +22,6 @@ import { cancelListing, executeSale } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
-import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
 
 // call apis
 import listingsAPI from 'apis/listings'
