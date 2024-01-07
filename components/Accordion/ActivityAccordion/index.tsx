@@ -24,8 +24,11 @@ import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { NftData } from 'types/nft'
 
-const ActivityAccordion = props => {
-  const { data }: { data: NftData[] } = props
+type ActivityAccordionTypes = {
+  data: NftData[]
+}
+
+const ActivityAccordion = ({ data }: ActivityAccordionTypes) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()

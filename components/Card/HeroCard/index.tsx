@@ -19,8 +19,11 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 import { NftData } from 'types/nft'
 
-const HeroCard = props => {
-  const { data }: { data: NftData } = props
+type HeroCardTypes = {
+  data: NftData
+}
+
+const HeroCard = ({ data }: HeroCardTypes) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()

@@ -19,8 +19,12 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { NftData } from 'types/nft'
 
-const ActivityTable = props => {
-  const { data, type }: { data: NftData[]; type: any } = props
+type ActivityTableTypes = {
+  data: NftData[]
+  type: any
+}
+
+const ActivityTable = ({ data, type }: ActivityTableTypes) => {
   const dispatch = useDispatch()
 
   const getUserName = item => {

@@ -16,8 +16,11 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { NftData } from 'types/nft'
 
-const HeroCardMobile = props => {
-  const { data }: { data: NftData } = props
+type HeroCardMobileTypes = {
+  data: NftData
+}
+
+const HeroCardMobile = ({ data }: HeroCardMobileTypes) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)
