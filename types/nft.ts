@@ -18,6 +18,13 @@ export interface NftData {
   url?: string
   price?: number
   creator?: string
+  sellerAddress?: PublicKey
+  tradeStateAddress?: PublicKey
+  uri?: string
+  creatorAddress?: string
+  startTime?: number
+  endTime?: number
+  amount: string
 
   animation_url?: string
   token_id?: PublicKey
@@ -36,6 +43,7 @@ export interface NftData {
   action_type: string
   created_at: Date
   mint_address: string
+  artist_profile_picture?: string
 
   highestBid?: {
     buyer_address: string
