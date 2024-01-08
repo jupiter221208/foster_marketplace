@@ -12,8 +12,6 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
-import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
 
 // apis
