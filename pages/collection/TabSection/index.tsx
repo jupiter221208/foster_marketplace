@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import IconTab from 'components/Tab/IconTab'
-
+import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
+import AddSection from 'components/pages/BrowseCollection/AddSection'
 // json
 import TabList from 'assets/json/browse-collection/tab-list.json'
 
@@ -15,7 +16,6 @@ import styles from './index.module.scss'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
 
 // apis
-import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 
 const TabSection = props => {
   const { nfts, collectionName, collectionId, hasloading } = props
@@ -58,6 +58,12 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap z-10">
           <ActivitySection collectionId={collectionId} hasloading={hasloading} />
+        </div>
+      )}
+
+      {activeTab === 3 && (
+        <div className="w-full flex flex-wrap z-10">
+          <AddSection />
         </div>
       )}
     </div>

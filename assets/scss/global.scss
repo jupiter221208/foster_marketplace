@@ -1757,6 +1757,10 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='main-stroke-icon'] {
+  stroke: var(--main-bg-color);
+}
+
 [data-name='quick-buy-icon'] {
   fill: var(--quick-buy-icon-color);
 }
