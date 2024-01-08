@@ -14,19 +14,16 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 import styles from './index.module.scss'
 
 import { getShortAddress } from 'utils/strings'
-import { NftData } from 'types/nft'
 import SecondaryButton from 'components/Button/SecondaryButton'
-import { PublicKey } from '@metaplex-foundation/js'
+import { NftData } from 'types/nft'
 
-export interface MyNFTCardProps {
+type MyNFTCardTypes = {
   data: NftData
-  onClick: (data: NftData) => any
-  onClickStartAuction: (data: NftData) => any
-  onClickListNFT: (data: NftData) => any
-  publicKey: PublicKey
+  onClickStartAuction: (item: NftData) => void
+  onClickListNFT: (item: NftData) => void
 }
 
-const MyNFTCard = ({ data, onClick, onClickStartAuction, onClickListNFT }: MyNFTCardProps) => {
+const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
   const dispatch = useDispatch()
 
@@ -38,23 +35,19 @@ const MyNFTCard = ({ data, onClick, onClickStartAuction, onClickListNFT }: MyNFT
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+            {data.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.animation_url} type="video/mp4" /></video>`,
                 }}
               />
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   <img
-                    src={
-                      data.json.image === undefined || data.json.image === null
-                        ? AudioPlayerBackground.src
-                        : data.json.image
-                    }
-                    alt={data.json.name || data.name}
+                    src={data.category === undefined || data.category === null ? AudioPlayerBackground.src : data.image}
+                    alt={data.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -66,7 +59,7 @@ const MyNFTCard = ({ data, onClick, onClickStartAuction, onClickListNFT }: MyNFT
 
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.name}</div>
+          <div className={styles.nftName}>{data.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>
