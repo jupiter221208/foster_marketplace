@@ -81,8 +81,8 @@ const ActivitySection = props => {
         ) : (
           <div className="mt-[40px] lg:mt-[110px]">
             <NoDataSection
-              title="No activity history available"
-              description="This tab displays a log of all your activity on Foster Marketplace"
+              title="No collection activity found"
+              description="This tab displays a log of the collection activity on Foster Marketplace"
             />
           </div>
         )}

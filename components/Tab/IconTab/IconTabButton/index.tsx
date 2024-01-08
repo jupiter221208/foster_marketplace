@@ -11,7 +11,7 @@ const IconTabButton = props => {
   return (
     <div className="relative">
       <button className={`${styles.container} ${item.selected ? styles.activeTab : ''}`} onClick={() => onChange(item)}>
-        <div className="w-full h-full flex items-center max-w-[20px] max-h-[20px]">
+        <div className="w-full h-full flex items-center w-[20px] h-[20px]">
           <img
             src={
               lightDarkMode ? (item.selected ? item.icon04 : item.icon03) : item.selected ? item.icon01 : item.icon02

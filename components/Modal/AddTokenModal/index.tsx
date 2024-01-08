@@ -38,6 +38,12 @@ const AddTokenModal = props => {
     setTokenList(list)
   }
 
+  const setTokenId = (index, value) => {
+    let list = [...tokenList]
+    list[index].token_id = value
+    setTokenList(list)
+  }
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -103,7 +109,9 @@ const AddTokenModal = props => {
                           className={styles.inputArea}
                           value={token.token_id}
                           placeholder={'Enter token ID'}
-                          onChange={event => setUrl(event.target.value)}
+                          onChange={event => {
+                            setTokenId(index, event.target.value)
+                          }}
                         />
                         <TrashIcon onClick={() => removeToken(index)} />
                       </div>
@@ -118,7 +126,12 @@ const AddTokenModal = props => {
                   <GradientButton
                     label="Import"
                     fullWidth
-                    onClick={() => onImportUrl(url)}
+                    onClick={() => {
+                      onImportUrl(tokenList)
+                      setTimeout(() => {
+                        setTokenList([{ token_id: '' }])
+                      }, 1000)
+                    }}
                     backgroundColor="transparent"
                   />
                 </div>
