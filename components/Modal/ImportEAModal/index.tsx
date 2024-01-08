@@ -82,6 +82,7 @@ const ImportEAModal = props => {
                     label="Import"
                     fullWidth
                     onClick={() => onImportUrl(url)}
+                    disabled={url.length === 0}
                     backgroundColor="transparent"
                   />
                 </div>
