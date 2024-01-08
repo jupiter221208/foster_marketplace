@@ -112,7 +112,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`
   let collectionImageUrl = getAbsoluteOgUrl(publicCollectionData?.cover_image ?? DefaultNftBG.src)
   let collectionDescription = publicCollectionData?.description ?? ''
-
   return (
     <div className="w-full">
       <Head>
@@ -138,6 +137,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
             <TabSection
               nfts={nfts}
               collectionId={address}
+              minter={publicCollectionData?.minter_id}
               collectionName={publicCollectionData?.collection_name}
               artistName={publicCollectionData?.artist_username}
               description={publicCollectionData?.description}

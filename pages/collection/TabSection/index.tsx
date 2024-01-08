@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next components
 
@@ -8,6 +9,7 @@ import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 import AddSection from 'components/pages/BrowseCollection/AddSection'
 // json
 import TabList from 'assets/json/browse-collection/tab-list.json'
+import TabNoAddList from 'assets/json/browse-collection/tab-list-no-add.json'
 
 // resources
 
@@ -19,11 +21,13 @@ import AboutSection from 'components/pages/BrowseCollection/AboutSection'
 // apis
 
 const TabSection = props => {
-  const { nfts, collectionName, description, categories, collectionId, hasloading } = props
+  const { nfts, collectionName, minter, description, categories, collectionId, hasloading } = props
+  const { publicKey } = useWallet()
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
   const [tabList, setTabList] = useState<any[]>(TabList)
+  const [tabNoAdd, setTabNoAdd] = useState<any[]>(TabNoAddList)
 
   useEffect(() => {
     let array: any[] = []
@@ -42,11 +46,14 @@ const TabSection = props => {
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
-
+  console.log(minter, publicKey?.toString())
   return (
     <div className={styles.container}>
       <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
-        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+        <IconTab
+          tabList={minter === publicKey?.toString() ? tabList : tabNoAdd}
+          onChange={item => handleSelectedTab(item)}
+        />
       </div>
       <div className={styles.divider} />
 
