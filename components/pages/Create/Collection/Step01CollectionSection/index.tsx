@@ -907,7 +907,9 @@ const Step01CollectionSection = props => {
         onClose={() => setShowEAModal(false)}
         onImportUrl={url => {
           setShowEAModal(false)
-          mintCollection('ea', url)
+          setTimeout(() => {
+            mintCollection('ea', url)
+          }, 1000)
         }}
       />
       <Alert
