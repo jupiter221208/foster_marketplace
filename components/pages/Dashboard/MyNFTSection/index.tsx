@@ -19,7 +19,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMyNFTsDas } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -39,12 +39,11 @@ const MyNFTSection = props => {
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
-  const router = useRouter()
 
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
     setLoading(true)
-    let nfts = await getMyNFTsDas(mx)
+    let nfts = await getMyNFTs(mx)
     let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
@@ -69,11 +68,6 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
-
-  const handleGotoDetailPage = (data: NftData) => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/nft/${data.mintAddress.toString()}`)
-  }
 
   const handleStartAuction = item => {
     setSelectedData(item)
@@ -115,7 +109,6 @@ const MyNFTSection = props => {
     let list = []
 
     let allList = myNftList as any[]
-    setAllList(allList)
     allList.forEach(item => {
       let created = false
       let creators = item.creators
@@ -132,8 +125,8 @@ const MyNFTSection = props => {
       }
     })
 
-    setFilteredList(list as NftData[])
-    setAllNftList(list as NftData[])
+    setFilteredList(list)
+    setAllNftList(list)
   }, [myNftList, active])
 
   useEffect(() => {
@@ -162,7 +155,11 @@ const MyNFTSection = props => {
       let filtered = []
       setFilteredList([])
       allNftList.forEach(element => {
-        if (element.name?.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
+        if (
+          element.json?.name?.toLowerCase().includes(key.toLowerCase()) ||
+          element.name.toLowerCase().includes(key.toLowerCase())
+        )
+          filtered.push(element)
       })
       setFilteredList(filtered)
     }

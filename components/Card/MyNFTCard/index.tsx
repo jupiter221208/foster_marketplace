@@ -12,7 +12,7 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserNames } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
 import { PublicKey } from '@metaplex-foundation/js'
@@ -22,6 +22,7 @@ type MyNFTCardTypes = {
   onClick?: (data: NftData) => any
   onClickStartAuction: (data: NftData) => any
   onClickListNFT: (data: NftData) => any
+  publicKey: PublicKey
 }
 
 const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
@@ -64,7 +65,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
 
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.json.name || data.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>
