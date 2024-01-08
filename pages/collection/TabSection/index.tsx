@@ -41,6 +41,18 @@ const TabSection = props => {
       array.push(object)
     })
     setTabList(array)
+
+    let array1: any[] = []
+    TabNoAddList.map(item => {
+      let object: any = item
+      if (item.id === activeTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array1.push(object)
+    })
+    setTabNoAdd(array1)
   }, [activeTab])
 
   const handleSelectedTab = item => {
