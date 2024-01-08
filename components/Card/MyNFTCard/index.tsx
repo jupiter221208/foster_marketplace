@@ -48,12 +48,8 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   <img
-                    src={
-                      data.json.image === undefined || data.json.image === null
-                        ? AudioPlayerBackground.src
-                        : data.json.image
-                    }
-                    alt={data.json.name || data.name}
+                    src={data.category === undefined || data.category === null ? AudioPlayerBackground.src : data.image}
+                    alt={data.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
