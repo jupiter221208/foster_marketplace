@@ -403,6 +403,7 @@ const Collection = () => {
               if (type === 'foster') mintCollection()
               else {
                 // Mint Collection With EA Series
+                mintCollection()
               }
             }}
           />

@@ -564,7 +564,7 @@ const Step01CollectionSection = props => {
                     borderWidth="1px"
                     borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                     label="Create Collection"
-                    disabled={false} //disabledNextButton
+                    disabled={disabledNextButton} //disabledNextButton
                     onClick={() => {
                       if (collectionType === 'foster') mintCollection('foster', '')
                       else setShowEAModal(true)
@@ -890,7 +890,7 @@ const Step01CollectionSection = props => {
                 borderWidth="1px"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                 label="Create Collection"
-                disabled={false} //disabledNextButton
+                disabled={disabledNextButton} //disabledNextButton
                 onClick={() => {
                   if (collectionType === 'foster') mintCollection('foster', '')
                   else setShowEAModal(true)
@@ -907,6 +907,7 @@ const Step01CollectionSection = props => {
         onClose={() => setShowEAModal(false)}
         onImportUrl={url => {
           setShowEAModal(false)
+          mintCollection('ea', url)
         }}
       />
       <Alert
