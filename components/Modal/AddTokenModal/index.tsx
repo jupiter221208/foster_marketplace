@@ -97,7 +97,7 @@ const AddTokenModal = props => {
                 <div className="max-h-[350px] w-full mt-[30px]">
                   {tokenList.map((token, index) => {
                     return (
-                      <div className="flex gap-[18px] mb-[20px] items-center">
+                      <div key={index} className="flex gap-[18px] mb-[20px] items-center">
                         <div className={styles.tokenIndex}>{index + 1}</div>
                         <input
                           className={styles.inputArea}

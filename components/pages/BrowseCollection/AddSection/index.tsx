@@ -27,7 +27,10 @@ const AddSection = props => {
           <UploadIcon />
           Upload New
         </div>
-        <div className={styles.button} onClick={() => setShowAddTokenModal(true)}>
+        <div
+          className={styles.button}
+          /*onClick={() => setShowAddTokenModal(true)}*/
+        >
           <ImportIcon />
           Import Mint Keys
         </div>
