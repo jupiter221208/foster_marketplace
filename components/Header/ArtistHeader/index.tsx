@@ -181,7 +181,7 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
-      router.push(item.path)
+      // router.push(item.path)
     } else {
       setVisible(true)
     }

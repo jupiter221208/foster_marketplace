@@ -6,12 +6,16 @@ import Image from 'next/image'
 // third party components
 import { Menu as HMenu, Transition } from '@headlessui/react'
 
+import { useWallet } from '@solana/wallet-adapter-react'
+
 // styles
 import styles from './index.module.scss'
 import MenuItem from './MenuItem'
+import Link from 'next/link'
 
 const Menu = props => {
   const { label, menuList, onSelect } = props
+  const { connected } = useWallet()
 
   return (
     <div className="relative flex items-center">
@@ -31,9 +35,17 @@ const Menu = props => {
           leaveTo="transform opacity-0 scale-95"
         >
           <div className={styles.menuArea}>
-            {menuList.map((item, index) => (
-              <MenuItem key={index} item={item} onSelect={onSelect} />
-            ))}
+            {menuList.map((item, index) =>
+              connected ? (
+                <Link href={`/${item.path}`} passHref>
+                  <a>
+                    <MenuItem key={index} item={item} onSelect={onSelect} />
+                  </a>
+                </Link>
+              ) : (
+                <MenuItem key={index} item={item} onSelect={onSelect} />
+              )
+            )}
           </div>
         </Transition>
       </HMenu>

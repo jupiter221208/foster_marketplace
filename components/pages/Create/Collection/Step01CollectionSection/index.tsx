@@ -68,6 +68,7 @@ const Step01CollectionSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [collectionType, setCollectionType] = useState('foster')
   const [showEAModal, setShowEAModal] = useState(false)
+  const [eaImportUrl, setEAImportUrl] = useState('')
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -486,7 +487,10 @@ const Step01CollectionSection = props => {
                     </div>
                     <div
                       className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
-                      onClick={() => setCollectionType('ea')}
+                      onClick={() => {
+                        setCollectionType('ea')
+                        setShowEAModal(true)
+                      }}
                     >
                       <EAImportIcon />
                       Import EA Series
@@ -563,7 +567,7 @@ const Step01CollectionSection = props => {
                     }}
                     onClick={() => {
                       if (collectionType === 'foster') mintCollection('foster', '')
-                      else setShowEAModal(true)
+                      else mintCollection('ea', eaImportUrl)
                     }}
                   >
                     Create Collection
@@ -590,7 +594,10 @@ const Step01CollectionSection = props => {
               </div>
               <div
                 className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
-                onClick={() => setCollectionType('ea')}
+                onClick={() => {
+                  setShowEAModal(true)
+                  setCollectionType('ea')
+                }}
               >
                 <EAImportIcon />
                 Import EA Series
@@ -891,7 +898,7 @@ const Step01CollectionSection = props => {
                 disabled={disabledNextButton} //disabledNextButton
                 onClick={() => {
                   if (collectionType === 'foster') mintCollection('foster', '')
-                  else setShowEAModal(true)
+                  else mintCollection('ea', eaImportUrl)
                 }}
                 height="45px"
               />
@@ -905,9 +912,7 @@ const Step01CollectionSection = props => {
         onClose={() => setShowEAModal(false)}
         onImportUrl={url => {
           setShowEAModal(false)
-          setTimeout(() => {
-            mintCollection('ea', url)
-          }, 1000)
+          setEAImportUrl(url)
         }}
       />
       <Alert
