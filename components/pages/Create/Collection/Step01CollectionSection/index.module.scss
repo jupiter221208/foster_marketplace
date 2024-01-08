@@ -390,3 +390,23 @@
   }
   cursor: pointer;
 }
+
+.createCollection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  border-radius: 12px;
+  color: var(--create-collection-color);
+  background: var(--create-collection-btn);
+  border-color: rgba(var(--main-bg-color-rgb), 0.1);
+  border-width: 1px;
+  width: 175px;
+  height: 46px;
+  @media (min-width: 1024px) {
+    width: 224px;
+    height: 56px;
+    font-size: 16px;
+  }
+}

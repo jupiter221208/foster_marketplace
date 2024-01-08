@@ -117,7 +117,29 @@ const Collection = () => {
 
       if (collectionNft) {
         setCollectionNft(collectionNft)
-        router.push(`/collection/${collectionNft.mintAddress.toString()}`)
+
+        const categories = categoryList.filter(item => item.checked)
+        let category = ''
+        categories.forEach(item => {
+          category += item.name + ','
+        })
+
+        let collectionInfo = {
+          collection_id: collectionNft.mintAddress.toString(),
+          collection_name: collectionName.trim(),
+          description: description.replaceAll('\n', ' ').trim(),
+          banner_image: bannerAWSUrl,
+          cover_image: coverAWSUrl,
+          categories: category.slice(0, -1),
+          nfts: [],
+        }
+
+        collectionsAPI.mintCollection(collectionInfo).then(
+          response => {
+            router.push(`/collection/${collectionNft.mintAddress.toString()}`)
+          },
+          error => {}
+        )
         // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
       }
     } catch (e) {

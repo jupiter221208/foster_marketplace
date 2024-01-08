@@ -555,21 +555,19 @@ const Step01CollectionSection = props => {
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <div />
 
-                  <GradientButton
-                    width={viewport === '2xl' ? 184 : 175}
-                    height={viewport === '2xl' ? 53 : 46}
-                    backgroundColor01="var(--view-item-btn-color)"
-                    backgroundColor02="var(--view-item-btn-color)"
-                    color="var(--create-collection-color)"
-                    borderWidth="1px"
-                    borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
-                    label="Create Collection"
+                  <button
+                    className={styles.createCollection}
                     disabled={disabledNextButton} //disabledNextButton
+                    style={{
+                      opacity: disabledNextButton ? 0.5 : 1,
+                    }}
                     onClick={() => {
                       if (collectionType === 'foster') mintCollection('foster', '')
                       else setShowEAModal(true)
                     }}
-                  />
+                  >
+                    Create Collection
+                  </button>
                 </div>
               </div>
             </div>

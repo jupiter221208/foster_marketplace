@@ -549,6 +549,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--collection-type-card-color', '#202427')
     doc.style.setProperty('--connection-type-bg', '#FFFFFF')
     doc.style.setProperty('--create-collection-color', 'rgba(255, 255, 255, 0.6)')
+    doc.style.setProperty('--create-collection-btn', 'rgba(32, 36, 39, 0.8)')
     doc.style.setProperty('--import-ea-border-color', '255, 255, 255')
     // =====================================================
     // =====================================================
@@ -867,6 +868,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--collection-type-card-color', '#1a1a1a')
     doc.style.setProperty('--connection-type-bg', '#95dbd5')
     doc.style.setProperty('--create-collection-color', 'rgba(239, 240, 246, 0.6)')
+    doc.style.setProperty('--create-collection-btn', 'rgba(36, 36, 36, 0.8)')
     doc.style.setProperty('--import-ea-border-color', '239, 240, 246')
   }
 }
