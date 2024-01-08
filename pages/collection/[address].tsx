@@ -140,6 +140,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
               collectionId={address}
               collectionName={publicCollectionData?.collection_name}
               artistName={publicCollectionData?.artist_username}
+              description={publicCollectionData?.description}
+              categories={publicCollectionData?.categories}
             />
           </div>
         </div>

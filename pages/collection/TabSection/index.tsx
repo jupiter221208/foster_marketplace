@@ -14,11 +14,12 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 // styles
 import styles from './index.module.scss'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
+import AboutSection from 'components/pages/BrowseCollection/AboutSection'
 
 // apis
 
 const TabSection = props => {
-  const { nfts, collectionName, collectionId, hasloading } = props
+  const { nfts, collectionName, description, categories, collectionId, hasloading } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
@@ -58,6 +59,12 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap z-10">
           <ActivitySection collectionId={collectionId} hasloading={hasloading} />
+        </div>
+      )}
+
+      {activeTab === 2 && (
+        <div className="w-full flex flex-wrap z-10">
+          <AboutSection description={description} categories={categories} />
         </div>
       )}
 
