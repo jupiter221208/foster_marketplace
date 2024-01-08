@@ -963,7 +963,6 @@ const Step01CollectionSection = props => {
                 borderWidth="1px"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                 label="Create Collection"
-
                 disabled={disabledNextButton} //disabledNextButton
                 onClick={() => {
                   if (collectionType === 'foster') mintCollection('foster', '')
