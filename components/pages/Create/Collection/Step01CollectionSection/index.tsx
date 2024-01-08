@@ -164,7 +164,7 @@ const Step01CollectionSection = props => {
         uploadCoverfile(file, filename)
       }
       fetchData(coverCroppedImage)
-      setUpdateBannerImage(false)
+      setUpdateCoverImage(false)
     }
   }, [updateCoverImage])
 
