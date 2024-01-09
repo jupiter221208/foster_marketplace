@@ -27,7 +27,6 @@ const ActivityTable = props => {
       case 'AuctionStarted':
       case 'AuctionCancelled':
       case 'ListingAdded':
-      case 'ListingCancelled':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -48,19 +47,16 @@ const ActivityTable = props => {
         type = 'published an auction'
         break
       case 'AuctionCancelled':
-        type = 'canceled an auction for'
+        type = 'cancelled an auction'
         break
       case 'ListingAdded':
         type = 'listed'
-        break
-      case 'ListingCancelled':
-        type = 'canceled listing for'
         break
       case 'OfferMade':
         type = 'made an offer'
         break
       case 'OfferCancelled':
-        type = 'canceled an offer for'
+        type = 'cancelled an offer'
         break
       case 'QuickBuy':
         type = 'purchased'
@@ -74,7 +70,6 @@ const ActivityTable = props => {
     }
     return type
   }
-
   return (
     <table id="ArtworksTable" className="w-full table-auto">
       <tbody>
