@@ -316,7 +316,7 @@ const MainSection = prop => {
               />
             </div>
           )}
-          {/* <div className={styles.bottomMask}></div> */}
+          {/* <div className={styles.bannerBoard}>Upload your profile banner</div> */}
         </div>
       )}
 

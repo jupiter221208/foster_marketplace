@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 
 // third party components
+import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -18,7 +19,6 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
-import ConnectLogo from 'assets/images/profile_setup_logo.png'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'
 
@@ -27,18 +27,18 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
-import { getShortAddress } from 'utils/wallet.util'
 
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
+import { getShortAddress } from 'utils/strings'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
   const viewport = useViewport()
   const dispatch = useDispatch()
-
+  const router = useRouter()
   const [displayName, setDisplayName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -89,7 +89,7 @@ const ProfileSetupModal = () => {
 
   useEffect(() => {
     if (publicKey) {
-      setDisplayName(getShortAddress(publicKey))
+      setDisplayName(getShortAddress(publicKey.toBase58()))
     }
   }, [publicKey])
 
@@ -136,12 +136,16 @@ const ProfileSetupModal = () => {
   }
 
   const updateUserName = () => {
+    let user_name = displayName
+    if (displayName.includes('***')) user_name = publicKey.toBase58()
+
     userAPI
-      .update({ wallet_id: publicKey?.toBase58() || '', username: displayName, profile_picture: profilePictureUrl })
+      .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
         response => {
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
+            router.push(`/${response.username}`)
           }
           closeModal()
         },

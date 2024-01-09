@@ -21,6 +21,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import IconButton from 'components/Button/IconButton'
+import { getShortAddress } from 'utils/strings'
 
 const ProfileArtistCard = props => {
   const {
@@ -100,7 +101,7 @@ const ProfileArtistCard = props => {
           <div className={`${styles.skeletonLoader} ${styles.name} w-[250px] h-[22px] rounded-full mt-[15px]`}></div>
         ) : (
           <div className={styles.name}>
-            {name}
+            {name.length >= 40 ? getShortAddress(name) : name}
             <div className="w-full flex gap-[10px] items-center ml-[9px]">
               {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
                 <div>
@@ -133,7 +134,7 @@ const ProfileArtistCard = props => {
       ) : hasLoading ? (
         <div className={`${styles.skeletonLoader} ${styles.name} w-[150px] h-[22px] rounded-full`}></div>
       ) : (
-        <div className={styles.name}>{name}</div>
+        <div className={styles.name}>{name.length >= 40 ? getShortAddress(name) : name}</div>
       )}
     </div>
   )

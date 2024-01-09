@@ -15,6 +15,7 @@ import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
+import { getShortAddress } from 'utils/strings'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
@@ -62,7 +63,9 @@ const ProfileMenuItem = props => {
             </div>
           )}
 
-          <span className={styles.username}>{profile?.username}</span>
+          <span className={styles.username}>
+            {profile?.username.length >= 40 ? getShortAddress(profile?.username) : profile?.username}
+          </span>
         </div>
       ) : (
         <div className={`w-full flex max-h-[25px] items-center ${item.id !== 2 && 'pl-[10px]'}`}>
