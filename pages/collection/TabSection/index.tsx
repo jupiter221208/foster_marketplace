@@ -58,7 +58,7 @@ const TabSection = props => {
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
-  console.log(minter, publicKey?.toString())
+
   return (
     <div className={styles.container}>
       <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">

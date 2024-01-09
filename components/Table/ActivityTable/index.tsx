@@ -27,6 +27,7 @@ const ActivityTable = props => {
       case 'AuctionStarted':
       case 'AuctionCancelled':
       case 'ListingAdded':
+      case 'ListingCancelled':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -47,16 +48,19 @@ const ActivityTable = props => {
         type = 'published an auction'
         break
       case 'AuctionCancelled':
-        type = 'cancelled an auction'
+        type = 'canceled an auction for'
         break
       case 'ListingAdded':
         type = 'listed'
+        break
+      case 'ListingCancelled':
+        type = 'canceled listing for'
         break
       case 'OfferMade':
         type = 'made an offer'
         break
       case 'OfferCancelled':
-        type = 'cancelled an offer'
+        type = 'canceled an offer for'
         break
       case 'QuickBuy':
         type = 'purchased'
@@ -77,40 +81,49 @@ const ActivityTable = props => {
         {data.map((item, index) => (
           <tr key={index}>
             <td>
-              <div className="h-[90px] flex items-center ml-[35px]">
-                <Link href={`/nft/${item.mint_address}`} passHref>
-                  <a>
-                    <div className="w-[50px] h-[50px]">
-                      <ActivityTableItem url={item.asset_url} />
-                    </div>
-                  </a>
-                </Link>
-                <div className="ml-[15px]">
-                  <div className="flex">
-                    <Link href={`/${getBuyerName(item)}`} passHref>
-                      <a>
-                        <div className={styles.userName}>{getUserName(item)}</div>
-                      </a>
-                    </Link>
-                    <div className={styles.text}>&nbsp;{getActionType(item)}&nbsp;</div>
-                    <div className="block">
-                      <Link href={`/nft/${item.mint_address}`} passHref>
+              <div className="flex justify-between">
+                <div className="h-[90px] flex items-center ml-[35px]">
+                  <Link href={`/nft/${item.mint_address}`} passHref>
+                    <a>
+                      <div className="w-[50px] h-[50px]">
+                        <ActivityTableItem url={item.asset_url} />
+                      </div>
+                    </a>
+                  </Link>
+                  <div className="ml-[15px]">
+                    <div className="flex">
+                      <Link href={`/${getBuyerName(item)}`} passHref>
                         <a>
-                          <div className={styles.nftName}>{item.asset_name}</div>
+                          <div className={styles.userName}>{getUserName(item)}</div>
                         </a>
                       </Link>
+                      <div className={styles.text}>&nbsp;{getActionType(item)}&nbsp;</div>
+                      <div className="block">
+                        <Link href={`/nft/${item.mint_address}`} passHref>
+                          <a>
+                            <div className={styles.nftName}>{item.asset_name}</div>
+                          </a>
+                        </Link>
+                      </div>
+                      {isAmountExisting(item.action_type) && (
+                        <>
+                          <div className={styles.text}>&nbsp;for&nbsp;</div>
+                          <div className="flex justify-center items-center gap-[5px]">
+                            <SolanaLogoIcon />
+                            {countDecimals(parseFloat(item.amount)) > 2
+                              ? parseFloat(item.amount).toFixed(2)
+                              : item.amount}
+                          </div>
+                        </>
+                      )}
                     </div>
-                    <div className={styles.text}>&nbsp;for&nbsp;</div>
-                    <div className="flex justify-center items-center gap-[5px]">
-                      <SolanaLogoIcon />
-                      {isAmountExisting(item.action_type)
-                        ? countDecimals(parseFloat(item.amount)) > 2
-                          ? parseFloat(item.amount).toFixed(2)
-                          : item.amount
-                        : 'N/A'}
-                    </div>
+                    <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                   </div>
-                  <div className={styles.date}>{getLocalDate(item.create_at)}</div>
+                </div>
+                <div className={styles.view}>
+                  <Link href={`/nft/${item.mint_address}`} passHref>
+                    <a>View</a>
+                  </Link>
                 </div>
               </div>
             </td>

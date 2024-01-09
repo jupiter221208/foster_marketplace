@@ -91,7 +91,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             color={artworkType === 'all' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
             backgroundColor01={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
             backgroundColor02={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-            width={60}
+            width={80}
             onClick={() => {
               setArtworkType('all')
             }}
@@ -109,7 +109,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             }}
           />
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full mt-[15px] lg:mt-[45px] z-10">
           <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {nftList.map((item, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>

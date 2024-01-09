@@ -42,3 +42,18 @@
   font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9)
 }
+
+.view {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+  cursor: pointer;
+  &:hover {
+    @media (min-width: 1024px) {
+      text-decoration: underline;
+    }
+  }
+}
