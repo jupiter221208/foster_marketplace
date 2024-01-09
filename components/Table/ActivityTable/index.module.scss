@@ -4,8 +4,14 @@
   display: flex;
   justify-content: center;
   font-family: 'Muli-Bold';
-  font-size: 16px;
+  font-size: 18px;
   color: var(--text-gray-200-color);
+  cursor: pointer;
+  &:hover {
+    @media (min-width: 1024px) {
+      text-decoration: underline;
+    }
+  }
 }
 
 .actionType {
@@ -13,13 +19,26 @@
   justify-content: center;
 }
 
-.nftName {
-  display: flex;
-  justify-items: center;
+.userName {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
   cursor: pointer;
   &:hover {
     @media (min-width: 1024px) {
       text-decoration: underline;
     }
   }
+}
+
+.text {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  color: var(--text-gray-200-color)
+}
+
+.date {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9)
 }

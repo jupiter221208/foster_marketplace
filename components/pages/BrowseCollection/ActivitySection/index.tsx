@@ -59,7 +59,7 @@ const ActivitySection = props => {
   }, [isFetching])
 
   return (
-    <section className="w-full mt-6 lg:mt-12">
+    <section className="w-full mt-6 lg:mt-2">
       <div className="w-full z-10">
         {loading === false ? (
           <div className="col-span-12">
