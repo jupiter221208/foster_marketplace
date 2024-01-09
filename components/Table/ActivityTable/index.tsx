@@ -70,6 +70,7 @@ const ActivityTable = props => {
     }
     return type
   }
+
   return (
     <table id="ArtworksTable" className="w-full table-auto">
       <tbody>
