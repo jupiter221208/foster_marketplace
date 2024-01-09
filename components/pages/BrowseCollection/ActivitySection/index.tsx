@@ -57,7 +57,7 @@ const ActivitySection = props => {
       }
     }
   }, [isFetching])
-
+  console.log(activityList, '=========activityList=========')
   return (
     <section className="w-full mt-6 lg:mt-2">
       <div className="w-full z-10">
