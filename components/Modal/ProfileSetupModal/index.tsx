@@ -90,7 +90,7 @@ const ProfileSetupModal = () => {
   }
   useEffect(() => {
     if (publicKey) {
-      setDisplayName(getShortAddress(publicKey))
+      setDisplayName(getShortAddress(publicKey.toBase58()))
     }
   }, [publicKey])
 
@@ -139,7 +139,6 @@ const ProfileSetupModal = () => {
   const updateUserName = () => {
     let user_name = displayName
     if (displayName.includes('***')) user_name = publicKey.toBase58()
-
     localStorage.setItem('isVisibleBannerBoard', 'true')
     localStorage.setItem('isVisibleSocialBoard', 'true')
 
