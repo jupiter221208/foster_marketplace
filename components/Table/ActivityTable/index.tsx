@@ -92,7 +92,7 @@ const ActivityTable = props => {
                   </Link>
                   <div className="ml-[15px]">
                     <div className="flex">
-                      <Link href={`/${getBuyerName(item)}`} passHref>
+                      <Link href={`/${getUserName(item)}`} passHref>
                         <a>
                           <div className={styles.userName}>{getUserName(item)}</div>
                         </a>
