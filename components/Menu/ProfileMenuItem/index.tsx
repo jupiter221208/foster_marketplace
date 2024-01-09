@@ -20,6 +20,7 @@ import Link from 'next/link'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
+  const profile = useSelector(state => (state as any).profileInfo)
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)
