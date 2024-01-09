@@ -27,6 +27,7 @@ const ActivityTable = props => {
       case 'AuctionStarted':
       case 'AuctionCancelled':
       case 'ListingAdded':
+      case 'ListingCancelled':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -47,16 +48,19 @@ const ActivityTable = props => {
         type = 'published an auction'
         break
       case 'AuctionCancelled':
-        type = 'cancelled an auction'
+        type = 'canceled an auction for'
         break
       case 'ListingAdded':
         type = 'listed'
+        break
+      case 'ListingCancelled':
+        type = 'canceled listing for'
         break
       case 'OfferMade':
         type = 'made an offer'
         break
       case 'OfferCancelled':
-        type = 'cancelled an offer'
+        type = 'canceled an offer for'
         break
       case 'QuickBuy':
         type = 'purchased'
