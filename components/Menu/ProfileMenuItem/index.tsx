@@ -5,18 +5,20 @@ import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon.svg?component'
 import SettingIcon from 'assets/icons/setting-icon.svg?component'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
+  const profile = useSelector(state => (state as any).profileInfo)
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)
@@ -48,8 +50,19 @@ const ProfileMenuItem = props => {
     >
       {item.id === 0 ? (
         <div className="w-full">
-          <Image src={avatar} alt="profile image" width={100} height={100} className="rounded-full w-full h-full" />
-          <span className={styles.username}>{username}</span>
+          {avatar?.length > 0 ? (
+            <div>
+              <Image src={avatar} alt="profile image" width={100} height={100} className="rounded-full w-full h-full" />
+            </div>
+          ) : (
+            <div className="w-full flex justify-center">
+              <div className="rounded-full w-[100px] h-[100px] overflow-hidden">
+                <Image src={AvatarImage} alt="" width={100} height={100} layout="responsive" objectFit="cover" />
+              </div>
+            </div>
+          )}
+
+          <span className={styles.username}>{profile?.username}</span>
         </div>
       ) : (
         <div className={`w-full flex max-h-[25px] items-center ${item.id !== 2 && 'pl-[10px]'}`}>

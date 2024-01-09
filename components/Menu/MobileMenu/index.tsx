@@ -80,18 +80,6 @@ const MobileMenu = () => {
     setButtonClicked(true)
 
     if (connected) {
-      // setAlertData([
-      //   {
-      //     id: 0,
-      //     title: 'Wallet Connected!',
-      //     description: `You've successfully connected your wallet!`,
-      //     type: 'success',
-      //   },
-      // ])
-      // dispatch({ type: 'set', showConnectAlert: true })
-      // setTimeout(() => {
-      //   setShowAlert(true)
-      // }, 1000)
     } else {
       setAlertData([
         {

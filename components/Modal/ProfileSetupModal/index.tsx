@@ -27,6 +27,7 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
+import { getShortAddress } from 'utils/wallet.util'
 
 // call apis
 import userAPI from 'apis/user'
@@ -36,7 +37,6 @@ import Alert from 'components/Alert'
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
   const viewport = useViewport()
-
   const dispatch = useDispatch()
 
   const [displayName, setDisplayName] = useState('')
@@ -88,6 +88,12 @@ const ProfileSetupModal = () => {
   }
 
   useEffect(() => {
+    if (publicKey) {
+      setDisplayName(getShortAddress(publicKey))
+    }
+  }, [publicKey])
+
+  useEffect(() => {
     if (croppedAvatar !== '' && updateImage) {
       const fetchData = async url => {
         let response = await fetch(url)
@@ -126,6 +132,10 @@ const ProfileSetupModal = () => {
       return
     }
 
+    updateUserName()
+  }
+
+  const updateUserName = () => {
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: displayName, profile_picture: profilePictureUrl })
       .then(
@@ -250,26 +260,18 @@ const ProfileSetupModal = () => {
                           </div>
                           <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
                             <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
-                              <OutlineButton label="Skip" fullWidth onClick={() => closeModal()} />
+                              <OutlineButton label="Skip" fullWidth onClick={() => updateUserName()} />
                               <GradientButton
                                 label="Save"
+                                backgroundColor01="#95DBD5"
+                                backgroundColor02="#95DBD5"
                                 fullWidth
                                 onClick={() => handleSaveUsermame()}
-                                // gradientDirection="right"
-                                // backgroundColor01="#377771"
-                                // backgroundColor02="#5AC3BA"
                               />
                             </div>
                           </div>
                         </div>
                       </div>
-                      {/* <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
-                        <div className={styles.rightPanel}>
-                          <div className="w-[348px] min-w-[348px]">
-                            <Image src={ConnectLogo} alt="" width={348} height={348} />
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

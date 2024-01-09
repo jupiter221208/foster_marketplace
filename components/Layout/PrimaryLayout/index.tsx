@@ -37,10 +37,8 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
-  const showConnectAlert = useSelector<any>(state => state.showConnectAlert)
   const { connected } = useWallet()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
-  const firstLoaded = useSelector<any>(state => state.firstLoaded)
   useEffect(() => {
     setColorTheme(lightDarkMode)
   }, [])
@@ -58,30 +56,8 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
           {children}
         </main>
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <PrimaryFooter />}
-        {connected && profileSetup && !showConnectAlert && <ProfileSetupModal />}
+        {connected && profileSetup && <ProfileSetupModal />}
       </>
-      {/* {!firstLoaded && (router.asPath === '/' || router.asPath === '/studio') && (
-        <div className={styles.preLoaderView}>
-          <div className="w-full mt-[150px] lg:mt-[216px]">
-            <div className="w-full flex justify-center">
-              <div className="lg:flex hidden">
-                <FosterHeroLogo alt="" />
-              </div>
-              <div className="flex lg:hidden">
-                <FosterHeroLogoMobile alt="" />
-              </div>
-            </div>
-            <div className="w-full flex justify-center">
-              <div className="w-[500px] h-[40px]">
-                <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
-              </div>
-            </div>
-            <div className="w-full flex justify-center mt-[150px] lg:mt-[250px]">
-              <div className={styles.justDoArt}>WELCOME HOME</div>
-            </div>
-          </div>
-        </div>
-      )} */}
     </div>
   )
 }
