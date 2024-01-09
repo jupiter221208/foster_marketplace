@@ -54,6 +54,7 @@ const ActivityAccordion = props => {
       case 'AuctionStarted':
       case 'AuctionCancelled':
       case 'ListingAdded':
+      case 'ListingCancelled':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -74,16 +75,19 @@ const ActivityAccordion = props => {
         type = 'published an auction'
         break
       case 'AuctionCancelled':
-        type = 'cancelled an auction'
+        type = 'canceled an auction'
         break
       case 'ListingAdded':
         type = 'listed'
+        break
+      case 'ListingCancelled':
+        type = 'canceled listing'
         break
       case 'OfferMade':
         type = 'made an offer'
         break
       case 'OfferCancelled':
-        type = 'cancelled an offer'
+        type = 'canceled an offer'
         break
       case 'QuickBuy':
         type = 'purchased'
@@ -131,7 +135,7 @@ const ActivityAccordion = props => {
                         <div className={styles.title}>{getUserName(item)}</div>
                         <div className={styles.text}>{getActionType(item)}</div>
                       </div>
-                      <div className={styles.date}>{getLocalDate(item.create_at)}</div>
+                      <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                     </div>
                   </div>
                   <div className={styles.firstRow}>
@@ -152,6 +156,17 @@ const ActivityAccordion = props => {
                     <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
                       {getDisplayUserName(getOwnerName(item))}
                     </div>
+                    {isAmountExisting(item.action_type) && (
+                      <div>
+                        <div className="flex justify-center items-center gap-[5px] mb-[3px]">
+                          <SolanaLogoIcon />
+                          <div className={styles.text}>{parseFloat(item.amount).toFixed(2)}</div>
+                        </div>
+                        <div className={`${styles.date} text-end`}>
+                          ${(parseFloat(item.amount) * solToUsdRate).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </Disclosure.Panel>
               </>

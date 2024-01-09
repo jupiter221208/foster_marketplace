@@ -1286,7 +1286,7 @@ h6 {
 
 #ArtworksTable tr {
   &:hover {
-    background: var(--stats-search-bg);
+    background: rgba(var(--main-bg-color-rgb), 0.05);
     // color: var(--artwork-table-tr-hover-color);
   }
 }
