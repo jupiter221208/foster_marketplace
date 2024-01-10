@@ -316,3 +316,43 @@
     opacity: 0.6;
   }
 }
+
+.bannerBoard {
+  position: absolute;
+  bottom: 17px;
+  right: 140px;
+  background: rgba(var(--social-share-bg-rgb), 0.4);
+  border-radius: 30px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  width: calc(100% - 56px);
+  height: 150px;
+  left: 28px;
+  right: 28px;
+  top: 16px;
+  padding: 12px 20px;    
+  border-radius: 30px;
+  @media (min-width: 1024px) {
+    width: 480px;
+    height: 136px;
+    padding: 16px 21px;  
+    bottom: 17px;
+    left: auto;
+    top: auto;
+    right: 140px;
+  }
+  z-index: 101;
+}
+
+.boardTitle {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.boardText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  margin-top: 4px;
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -11,7 +12,6 @@ import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
-import { getShortDescription } from 'utils/strings'
 import Lottie from 'lottie-react'
 
 // custom components
@@ -28,8 +28,6 @@ import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
@@ -39,7 +37,6 @@ import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { copyClipboardAlert, copyToClipboard, isLoggedIn, validUrl } from 'utils/helpers'
@@ -62,9 +59,12 @@ import nftsAPI from 'apis/nfts'
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView, wallet, reloadPage, hasLoading } = prop
   const dispatch = useDispatch()
+  const router = useRouter()
   const viewport = useViewport()
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
+
+  // redux
 
   // banner part
   const inputBannerFile = useRef<any>(null)
@@ -94,6 +94,17 @@ const MainSection = prop => {
   const [artistFollowing, setArtistFollowing] = useState(artistInfo?.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo?.followers)
   const [followLoaded, setFollowLoaded] = useState(false)
+  const [showBannerBoard, setShowBannerBoard] = useState(false)
+  const [showSocialBoard, setShowSocialBoard] = useState(false)
+
+  useEffect(() => {
+    if (publicKey?.toBase58() === artistInfo?.wallet_id) {
+      const isVisibleBannerBoard = localStorage.getItem('isVisibleBannerBoard')
+      if (isVisibleBannerBoard !== 'false') {
+        setShowBannerBoard(true)
+      }
+    }
+  }, [publicKey])
 
   useEffect(() => {
     if (artistInfo) {
@@ -201,6 +212,12 @@ const MainSection = prop => {
       }
       fetchData(croppedBanner)
       setUpdateBanner(false)
+      const isVisibleSocialBoard = localStorage.getItem('isVisibleSocialBoard')
+      if (isVisibleSocialBoard !== 'false') {
+        setTimeout(() => {
+          setShowSocialBoard(true)
+        }, 1000)
+      }
     }
   }, [updateBanner])
 
@@ -295,7 +312,10 @@ const MainSection = prop => {
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButton
                     icon={EditorGreenIcon}
-                    onClick={() => inputBannerFile.current.click()}
+                    onClick={() => {
+                      if (showBannerBoard || showSocialBoard) return
+                      inputBannerFile.current.click()
+                    }}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
                     width={20}
@@ -316,7 +336,84 @@ const MainSection = prop => {
               />
             </div>
           )}
-          {/* <div className={styles.bottomMask}></div> */}
+          {showBannerBoard && (
+            <div className={styles.bannerBoard}>
+              <div className={styles.boardTitle}>Upload your profile banner</div>
+              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+              <div className="flex justify-end mt-[15px]">
+                <div className="flex gap-[9px]">
+                  <OutlineButton
+                    width={78}
+                    height={37}
+                    borderRadius={12}
+                    label="Skip"
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    onClick={() => {
+                      setShowBannerBoard(false)
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
+
+                      setTimeout(() => {
+                        setShowSocialBoard(true)
+                      }, 1000)
+                    }}
+                  />
+                  <GradientButton
+                    label="Upload"
+                    width={78}
+                    height={37}
+                    border={12}
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    onClick={() => {
+                      setShowBannerBoard(false)
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
+                      inputBannerFile.current.click()
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {showSocialBoard && (
+            <div className={styles.bannerBoard}>
+              <div className={styles.boardTitle}>Setup your socials and bio</div>
+              <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
+              <div className="flex justify-end mt-[15px]">
+                <div className="flex gap-[9px]">
+                  <OutlineButton
+                    width={78}
+                    height={37}
+                    borderRadius={12}
+                    label="Skip"
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    onClick={() => {
+                      setShowSocialBoard(false)
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                    }}
+                  />
+                  <GradientButton
+                    label="Settings"
+                    width={78}
+                    height={37}
+                    border={12}
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    onClick={() => {
+                      setShowSocialBoard(false)
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                      router.push('/settings')
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -523,122 +620,6 @@ const MainSection = prop => {
             )}
           </div>
         </div>
-
-        {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
-          {artistEnable ? (
-            <div className={styles.switchArea}>
-              <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
-                <div className={styles.switchDisabled}>Collector</div>
-              </div>
-              <div className="w-[50%] h-full absolute top-0 right-0">
-                <div className={styles.switchEnabled}>Artist</div>
-              </div>
-            </div>
-          ) : (
-            <div className={styles.switchArea}>
-              <div className="w-[50%] h-full">
-                <div className={styles.switchLeftEnabled}>Collector</div>
-              </div>
-              <div
-                className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
-                onClick={() => setArtistEnable(true)}
-              >
-                <div className={styles.switchDisabled}>Artist</div>
-              </div>
-            </div>
-          )}
-        </div> */}
-
-        {/* <div className="w-full flex justify-center mt-[14px] lg:mt-[15px]">
-          <div className="max-w-[698px] w-full flex justify-center">
-            <div className={styles.statesBack}>
-              <div className="w-full flex justify-between items-center">
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>
-                        {isLoaded === false ? (
-                          <div className="w-full h-full">
-                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                              <div></div>
-                            </ReactPlaceholder>
-                          </div>
-                        ) : (
-                          <div>{artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}</div>
-                        )}
-                      </div>
-                    </div>
-                    <div className={styles.nftInfoValue}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
-                  </div>
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>
-                        {isLoaded === false ? (
-                          <div className="w-full h-full">
-                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                              <div></div>
-                            </ReactPlaceholder>
-                          </div>
-                        ) : (
-                          <div>{artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}</div>
-                        )}
-                      </div>
-                    </div>
-                    <div className={styles.nftInfoValue}>
-                      {artistEnable ? 'COLLECTIONS PUBLISHED' : 'UNIQUE COLLECTIONS'}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>
-                        {isLoaded === false ? (
-                          <div className="w-full h-full">
-                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                              <div></div>
-                            </ReactPlaceholder>
-                          </div>
-                        ) : (
-                          <div> {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}</div>
-                        )}
-                      </div>
-                    </div>
-                    <div className={styles.nftInfoValue}>
-                      {artistEnable ? 'UNIQUE COLLECTORS' : 'CREATORS SUPPORTED'}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
-                      <div className={styles.nftInfoLabel}>
-                        {isLoaded === false ? (
-                          <div className="w-full h-full">
-                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                              <div></div>
-                            </ReactPlaceholder>
-                          </div>
-                        ) : (
-                          <div className="flex items-center">
-                            <SolanaLogoIcon alt="" />
-                            <div className={'ml-[6px]'}>
-                              {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className={styles.nftInfoValue}>{artistEnable ? 'SALES VOLUME' : 'PURCHASE VOLUME'}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
 
       {showFollowModal && (
@@ -712,7 +693,10 @@ const MainSection = prop => {
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButton
                     icon={EditorGreenIcon}
-                    onClick={() => inputBannerFile.current.click()}
+                    onClick={() => {
+                      if (showBannerBoard || showSocialBoard) return
+                      inputBannerFile.current.click()
+                    }}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
                     width={20}
@@ -731,6 +715,83 @@ const MainSection = prop => {
                 style={{ display: 'none' }}
                 onChange={event => handleChangeBannerImage(event)}
               />
+            </div>
+          )}
+          {showBannerBoard && (
+            <div className={styles.bannerBoard}>
+              <div className={styles.boardTitle}>Upload your profile banner</div>
+              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+              <div className="flex justify-end mt-[25px]">
+                <div className="flex gap-[9px]">
+                  <OutlineButton
+                    width={78}
+                    height={37}
+                    borderRadius={12}
+                    label="Skip"
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    onClick={() => {
+                      setShowBannerBoard(false)
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
+                      setTimeout(() => {
+                        setShowSocialBoard(true)
+                      }, 1000)
+                    }}
+                  />
+                  <GradientButton
+                    label="Upload"
+                    width={78}
+                    height={37}
+                    border={12}
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    onClick={() => {
+                      setShowBannerBoard(false)
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
+                      inputBannerFile.current.click()
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {showSocialBoard && (
+            <div className={styles.bannerBoard}>
+              <div className={styles.boardTitle}>Setup your socials and bio</div>
+              <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
+              <div className="flex justify-end mt-[15px]">
+                <div className="flex gap-[9px]">
+                  <OutlineButton
+                    width={78}
+                    height={37}
+                    borderRadius={12}
+                    label="Skip"
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    onClick={() => {
+                      setShowSocialBoard(false)
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                    }}
+                  />
+                  <GradientButton
+                    label="Settings"
+                    width={78}
+                    height={37}
+                    border={12}
+                    fontFamily="Muli-SemiBold"
+                    fontSize={14}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    onClick={() => {
+                      setShowSocialBoard(false)
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                      router.push('/settings')
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>

@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 import { PublicKey } from '@solana/web3.js'
+import { getDisplayUserName } from 'utils/strings'
 
 // custom components
 import DashboardArtistCard from 'components/Card/DashboardArtistCard'
@@ -295,7 +296,9 @@ const MainSection = () => {
               </div>
             </div>
             <div className={styles.bottomSection}>
-              <div className={styles.artistName}>{profileName.length > 0 ? profileName : 'Username'}</div>
+              <div className={styles.artistName}>
+                {getDisplayUserName(profileName)}
+              </div>
             </div>
             <div className="relative flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
               <div className="relative">

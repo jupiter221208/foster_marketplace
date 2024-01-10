@@ -16,7 +16,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 
 // styles
 import styles from './index.module.scss'
-import { getShortAddress, getPriceValue } from 'utils/strings'
+import { getPriceValue, getDisplayUserName } from 'utils/strings'
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
@@ -121,7 +121,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
+          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <SolanaLogoIcon alt="" />
             <div className={styles.nftName}>{getPriceValue(price)}</div>
@@ -205,7 +205,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
+          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
           <div className="flex items-center gap-[6px]">
             <SolanaLogoMobileIcon alt="" />
             <div className={styles.price}>{getPriceValue(price)}</div>
