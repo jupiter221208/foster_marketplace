@@ -141,17 +141,25 @@ const ActivityAccordion = ({ data }: ActivityAccordionTypes) => {
                       </div>
                       <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                     </div>
-                    {isAmountExisting(item.action_type) && (
-                      <div>
-                        <div className="flex justify-center items-center gap-[5px] mb-[3px]">
-                          <SolanaLogoIcon />
-                          <div className={styles.text}>{parseFloat(item.amount).toFixed(2)}</div>
-                        </div>
-                        <div className={`${styles.date} text-end`}>
-                          ${(parseFloat(item.amount) * solToUsdRate).toFixed(2)}
-                        </div>
-                      </div>
-                    )}
+                  </div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.title}>Buyer</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => {
+                        if (isBuyerExisting(item.action_type)) {
+                          gotoUserDetail(getBuyerName(item))
+                        }
+                      }}
+                    >
+                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                    </div>
+                  </div>
+                  <div className={styles.secondRow}>
+                    <div className={styles.title}>Seller</div>
+                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
+                      {getOwnerName(item)}
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>
