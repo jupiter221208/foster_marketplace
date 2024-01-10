@@ -2,6 +2,7 @@ import { BigNumber, Pda } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 
 export interface NftData {
+  id?: any
   mintAddress?: PublicKey
   name?: string
   symbol?: string
@@ -43,6 +44,22 @@ export interface NftData {
   created_at?: Date
   mint_address?: string
   artist_profile_picture?: string
+
+  content?: {
+    $schema: string
+    files: { uri: string; mime: string }[]
+    json_uri: string
+    links: {
+      image: string
+    }
+    metadata: {
+      attributes: any[]
+      description: string
+      name: string
+      symbol: string
+      token_standard: string
+    }
+  }
 
   highestBid?: {
     buyer_address: string

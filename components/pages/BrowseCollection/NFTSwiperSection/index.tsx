@@ -79,6 +79,8 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
     }
   }, [isFetching])
 
+  console.log(nftList)
+
   return (
     nftList !== undefined && (
       <section className={styles.container}>
@@ -113,11 +115,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             {nftList.map((item, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
-                  token_id={item.token_id}
-                  image={item.asset_url}
-                  nftName={item.nft_name}
-                  assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
+                  token_id={item.id}
+                  asset={item.content.files[0].uri}
+                  nftName={item.content.metadata.name}
+                  assetType={item.content.files[0].mime}
+                  coverImage={item.content.links.image}
                   artistName={item.artist_username}
                   collectionName={collectionName}
                   artistId={item.artist_id}

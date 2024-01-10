@@ -73,10 +73,29 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       try {
         setLoaded(false)
         setHasLoading(true)
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) {
-          setNfts(collectionNfts)
-          fetchNftData(collectionNfts)
+
+        const response = await fetch(process.env.PROVIDER_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            jsonrpc: '2.0',
+            id: 'my-id',
+            method: 'getAssetsByGroup',
+            params: {
+              groupKey: 'collection',
+              groupValue: address,
+              page: 1,
+              limit: 1000,
+            },
+          }),
+        })
+        const { result } = await response.json()
+        if (result) {
+          console.log(result)
+          setNfts(result.items)
+          fetchNftData(result.items)
         }
 
         setHasLoading(false)

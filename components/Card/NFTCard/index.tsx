@@ -38,7 +38,7 @@ import { getDisplayUserName } from 'utils/strings'
 const DashboardNFTCard = props => {
   const {
     token_id,
-    image,
+    asset,
     nftName,
     coverImage = '',
     artistName,
@@ -100,7 +100,7 @@ const DashboardNFTCard = props => {
                           className="w-full h-full absolute"
                           dangerouslySetInnerHTML={{
                             __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                  <source src=${image} type="video/mp4" /></video>`,
+                  <source src=${asset} type="video/mp4" /></video>`,
                           }}
                           onClick={() => onClick()}
                         />
@@ -137,7 +137,7 @@ const DashboardNFTCard = props => {
                       className="w-full"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                <source src=${image} type="video/mp4" /></video>`,
+                <source src=${asset} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
                     />
@@ -145,8 +145,8 @@ const DashboardNFTCard = props => {
                 ) : assetType?.includes('vr') ? (
                   coverImage !== null && coverImage !== '' ? (
                     <Image src={coverImage} layout="fill" />
-                  ) : image !== null && image !== '' ? (
-                    <Image src={image} layout="fill" />
+                  ) : asset !== null && asset !== '' ? (
+                    <Image src={asset} layout="fill" />
                   ) : (
                     <p>Could not NFT cover</p>
                   )
@@ -162,8 +162,8 @@ const DashboardNFTCard = props => {
                   ) : (
                     <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
                   )
-                ) : image !== null && image !== '' ? (
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                ) : asset !== null && asset !== '' ? (
+                  <ImageWithFallback src={asset} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
                 ) : coverImage !== null && coverImage !== '' ? (
                   <ImageWithFallback
                     src={coverImage}
