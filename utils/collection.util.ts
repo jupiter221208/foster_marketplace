@@ -1,5 +1,6 @@
 import { Metaplex } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
+import collectionsAPI from 'apis/collections'
 import { getListedNFTs } from './auction.util'
 
 export async function getCollectionByAddress(mx: Metaplex, address: string) {
