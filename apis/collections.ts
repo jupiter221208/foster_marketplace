@@ -1,3 +1,4 @@
+import { addUrlSearchParams } from 'utils'
 import { isLoggedIn } from 'utils/helpers'
 import client from './client'
 
@@ -63,6 +64,15 @@ class Collections {
     return client.get(API_URL + 'v1/users/favorites?tab=nfts').then(response => {
       return response.data
     })
+  }
+
+  exchangeArtInfo(collection_name: string) {
+    return client
+      .get(addUrlSearchParams(API_URL + 'v1/collections/exchange-art-info', { collection_name }).toString())
+      .then(response => {
+        if (typeof response.data === 'string') throw new Error(response.data)
+        return response.data
+      })
   }
 }
 

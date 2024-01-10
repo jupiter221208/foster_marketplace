@@ -20,6 +20,7 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
+import { type EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -69,6 +70,8 @@ const Step01CollectionSection = props => {
   const [collectionType, setCollectionType] = useState('foster')
   const [showEAModal, setShowEAModal] = useState(false)
   const [eaImportUrl, setEAImportUrl] = useState('')
+  const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
+  const [eaTags, setEATags] = useState<string[]>([])
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -197,6 +200,57 @@ const Step01CollectionSection = props => {
       item.checked = false
     })
     onChangeCategoryList(array)
+  }
+
+  const importEACollection = async url => {
+    setShowEAModal(false)
+    setEAImportUrl(url)
+
+    try {
+      let collectionInfo = await getEACollectionInfo(url)
+      setEACollectionInfo(collectionInfo)
+
+      let { name, description, primaryCategory, tags } = collectionInfo.info
+
+      let eaTags = [primaryCategory, ...tags]
+      let eaTagSet = new Set(eaTags.map(tag => tag.toLowerCase()))
+      let checkedCount = 0
+      let fosterCategories = [...categoryList]
+      for (let category of fosterCategories)
+        if (eaTagSet.has(category.name.toLowerCase()) && checkedCount < 3) {
+          category.checked = true
+          checkedCount++
+        }
+      onChangeCategoryList(fosterCategories)
+
+      onChangeCollectionName(name)
+      onChangeDescription(description)
+      setEATags(eaTags)
+
+      let { bannerPath, thumbnailPath } = collectionInfo.assets
+      let [bannerBlob, coverBlob] = await Promise.all([
+        fetch(bannerPath)
+          .then(r => r.blob())
+          .catch(e => e),
+        fetch(thumbnailPath)
+          .then(r => r.blob())
+          .catch(e => e),
+      ])
+
+      if (bannerBlob instanceof Blob) onChangeBannerImage([bannerBlob])
+      else {
+        console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
+        // TODO: show error message
+      }
+      if (coverBlob instanceof Blob) onChangeCoverImage([coverBlob])
+      else {
+        console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
+        // TODO: show error message
+      }
+    } catch (e) {
+      console.error(e)
+      // TODO: show error message
+    }
   }
 
   useEffect(() => {
