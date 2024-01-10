@@ -48,7 +48,7 @@ const AccordionProfileMenu = props => {
       router.push(path)
     }
   }
-
+  console.log(icon, '============icon==========')
   return (
     <Disclosure>
       {({ open }) => (
