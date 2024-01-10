@@ -14,12 +14,13 @@ import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
-import LandIcon from 'assets/icons/land-icon-mobile.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
+import LandIcon from 'assets/icons/land-icon.svg?component'
+import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
+import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import IconButton from 'components/Button/IconButton'
-import { getShortAddress } from 'utils/strings'
+import { getDisplayUserName } from 'utils/strings'
 
 const ProfileArtistCard = props => {
   const {
@@ -92,7 +93,7 @@ const ProfileArtistCard = props => {
           <div className={`${styles.skeletonLoader} ${styles.name} w-[250px] h-[22px] rounded-full mt-[15px]`}></div>
         ) : (
           <div className={styles.name}>
-            {name.length >= 40 ? getShortAddress(name) : name}
+            {getDisplayUserName(name)}
             <div className="w-full flex gap-[10px] items-center ml-[9px]">
               {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
                 <div>
@@ -125,7 +126,7 @@ const ProfileArtistCard = props => {
       ) : hasLoading ? (
         <div className={`${styles.skeletonLoader} ${styles.name} w-[150px] h-[22px] rounded-full`}></div>
       ) : (
-        <div className={styles.name}>{name.length >= 40 ? getShortAddress(name) : name}</div>
+        <div className={styles.name}>{getDisplayUserName(name)}</div>
       )}
     </div>
   )

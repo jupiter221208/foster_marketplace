@@ -15,12 +15,11 @@ import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserName, getShortStringAddress } from 'utils/strings'
 import Link from 'next/link'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
-  const profile = useSelector(state => (state as any).profileInfo)
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)

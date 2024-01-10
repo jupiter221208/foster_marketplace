@@ -34,7 +34,7 @@ import { getShortAddress } from 'utils/wallet.util'
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
-import { getShortAddress } from 'utils/strings'
+import { getShortStringAddress } from 'utils/strings'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -90,7 +90,7 @@ const ProfileSetupModal = () => {
   }
   useEffect(() => {
     if (publicKey) {
-      setDisplayName(getShortAddress(publicKey.toBase58()))
+      setDisplayName(getShortStringAddress(publicKey.toBase58()))
     }
   }, [publicKey])
 
