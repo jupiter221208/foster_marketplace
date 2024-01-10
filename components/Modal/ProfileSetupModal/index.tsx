@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 
 // third party components
+import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -18,7 +19,6 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
-import ConnectLogo from 'assets/images/profile_setup_logo.png'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'
 
@@ -27,18 +27,19 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
+import { getShortAddress } from 'utils/strings'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
   const viewport = useViewport()
-
   const dispatch = useDispatch()
-
+  const router = useRouter()
   const [displayName, setDisplayName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -88,6 +89,12 @@ const ProfileSetupModal = () => {
   }
 
   useEffect(() => {
+    if (publicKey) {
+      setDisplayName(getShortAddress(publicKey.toBase58()))
+    }
+  }, [publicKey])
+
+  useEffect(() => {
     if (croppedAvatar !== '' && updateImage) {
       const fetchData = async url => {
         let response = await fetch(url)
@@ -126,12 +133,23 @@ const ProfileSetupModal = () => {
       return
     }
 
+    updateUserName()
+  }
+
+  const updateUserName = () => {
+    let user_name = displayName
+    if (displayName.includes('***')) user_name = publicKey.toBase58()
+
+    localStorage.setItem('isVisibleBannerBoard', 'true')
+    localStorage.setItem('isVisibleSocialBoard', 'true')
+
     userAPI
-      .update({ wallet_id: publicKey?.toBase58() || '', username: displayName, profile_picture: profilePictureUrl })
+      .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
-        response => {
+        async response => {
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
+            router.push(`/${response.username}`)
           }
           closeModal()
         },
@@ -199,7 +217,7 @@ const ProfileSetupModal = () => {
                           <div className={styles.title}>Welcome to Foster Marketplace!</div>
                           <p className={styles.text}>
                             {
-                              'You can edit your display name and profile image now or at a later time from your dashboard.'
+                              'You can edit your display name and profile image now or at a later time from your profile settings.'
                             }
                           </p>
                           <div className="mt-[16px]">
@@ -207,6 +225,7 @@ const ProfileSetupModal = () => {
                             <Input
                               error={errorMessage}
                               placeholder="Choose your display name"
+                              color="#eff0f6"
                               backgroundColor="var(--profile-setup-input-bg)"
                               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
                               onChange={(value: string) => {
@@ -250,26 +269,25 @@ const ProfileSetupModal = () => {
                           </div>
                           <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
                             <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
-                              <OutlineButton label="Skip" fullWidth onClick={() => closeModal()} />
+                              <OutlineButton
+                                label="Skip"
+                                color="#eff0f6"
+                                borderColor="rgba(239, 240, 247, 0.25)"
+                                fullWidth
+                                onClick={() => updateUserName()}
+                              />
                               <GradientButton
                                 label="Save"
+                                backgroundColor01="#95DBD5"
+                                backgroundColor02="#95DBD5"
+                                color="#202427"
                                 fullWidth
                                 onClick={() => handleSaveUsermame()}
-                                // gradientDirection="right"
-                                // backgroundColor01="#377771"
-                                // backgroundColor02="#5AC3BA"
                               />
                             </div>
                           </div>
                         </div>
                       </div>
-                      {/* <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
-                        <div className={styles.rightPanel}>
-                          <div className="w-[348px] min-w-[348px]">
-                            <Image src={ConnectLogo} alt="" width={348} height={348} />
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

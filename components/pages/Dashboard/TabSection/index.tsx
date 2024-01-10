@@ -8,7 +8,6 @@ import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
 import ListedNFTSection from 'components/pages/Dashboard/ListedNFTSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
-import CollectedSection from 'components/pages/Dashboard/CollectedSection'
 import MyCollectionSection from 'components/pages/Dashboard/MyCollectionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
@@ -19,7 +18,6 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
-import DetailCollectedSection from '../DetailCollectedSection'
 
 const TabSection = () => {
   const router = useRouter()

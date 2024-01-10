@@ -12,7 +12,7 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getShortAddress } from 'utils/strings'
+import { getDisplayUserName } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MyNFTCard = props => {
@@ -59,7 +59,9 @@ const MyNFTCard = props => {
           <div className={styles.nftName}>{data.json.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
+          <div className={styles.artistName}>
+            {getDisplayUserName(data.creators[0].address.toString()) || 'No Artist'}
+          </div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton

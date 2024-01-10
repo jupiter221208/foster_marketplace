@@ -23,7 +23,6 @@ import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { useViewport } from 'utils'
 
 const ProfileMenu = props => {
   const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
@@ -78,7 +77,6 @@ const ProfileMenu = props => {
             type: 'success',
           },
         ])
-        dispatch({ type: 'set', showConnectAlert: true })
         setTimeout(() => {
           setShowAlert(true)
         }, 1000)
@@ -130,7 +128,9 @@ const ProfileMenu = props => {
                     <img className={styles.profileOutline} src={avatar} alt="" width={42} height={42} />
                   </div>
                 ) : (
-                  <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+                  <div className={styles.profileOutline}>
+                    <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+                  </div>
                 )}
               </div>
             )}

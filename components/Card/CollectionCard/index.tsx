@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 // next component
 
 // custom components
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // styles
 import styles from './index.module.scss'
@@ -11,6 +10,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectionCard = props => {
   const { image, nftName, link, artistName, collectionName, unSave = null } = props
@@ -59,7 +59,9 @@ const CollectionCard = props => {
         <div className="w-full flex justify-start items-center">
           <Link href={`/${artistName || collectionName}`} passHref>
             <a>
-              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+              <div className={styles.artistName}>
+                {getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}
+              </div>
             </a>
           </Link>
         </div>

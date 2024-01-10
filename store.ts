@@ -32,7 +32,6 @@ const initialState = {
   unhideNftToken: '',
   markAsRead: false,
   expiryDate: 0,
-  showConnectAlert: false,
   loginSignedFlag: false,
   printImageUrl: '',
   merchData: null,
