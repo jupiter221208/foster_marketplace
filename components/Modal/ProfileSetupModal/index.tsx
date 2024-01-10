@@ -272,8 +272,14 @@ const ProfileSetupModal = () => {
                           </div>
                           <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
                             <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
-                              <OutlineButton label="Skip" fullWidth onClick={() => closeModal()} />
-                              <GradientButton label="Save" fullWidth onClick={() => handleSaveUsermame()} />
+                              <OutlineButton label="Skip" fullWidth onClick={() => updateUserName()} />
+                              <GradientButton
+                                label="Save"
+                                backgroundColor01="#95DBD5"
+                                backgroundColor02="#95DBD5"
+                                fullWidth
+                                onClick={() => handleSaveUsermame()}
+                              />
                             </div>
                           </div>
                         </div>
