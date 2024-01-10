@@ -961,14 +961,7 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
-      <ImportEAModal
-        open={showEAModal}
-        onClose={() => setShowEAModal(false)}
-        onImportUrl={url => {
-          setShowEAModal(false)
-          setEAImportUrl(url)
-        }}
-      />
+      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
       <Alert
         open={showAlert}
         close={() => {
