@@ -227,29 +227,41 @@ const Step01CollectionSection = props => {
       onChangeDescription(description)
       setEATags(eaTags)
 
-      let { bannerPath, thumbnailPath } = collectionInfo.assets
-      let [bannerBlob, coverBlob] = await Promise.all([
-        fetch(bannerPath)
+      let { thumbnailPath, bannerPath } = collectionInfo.assets
+      let coverName = thumbnailPath.match(/[^\/]*$/)?.[0] || 'cover.png'
+      let bannerName = bannerPath.match(/[^\/]*$/)?.[0] || 'banner.png'
+      let [coverBlob, bannerBlob] = await Promise.all([
+        fetch(thumbnailPath)
           .then(r => r.blob())
           .catch(e => e),
-        fetch(thumbnailPath)
+        fetch(bannerPath)
           .then(r => r.blob())
           .catch(e => e),
       ])
 
-      if (coverBlob instanceof Blob) onChangeCoverImage([coverBlob])
+      if (coverBlob instanceof Blob)
+        onChangeCoverImage([
+          new File([coverBlob], coverName, {
+            type: coverBlob.type,
+          }),
+        ])
       else {
         console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
         // TODO: show error message
       }
-      
-      setTimeout(() => {
-        if (bannerBlob instanceof Blob) onChangeBannerImage([bannerBlob])
-        else {
-          console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
-          // TODO: show error message
-        }
-      }, 1000)
+
+      await new Promise(resolve => setTimeout(resolve, 1))
+
+      if (bannerBlob instanceof Blob)
+        onChangeBannerImage([
+          new File([bannerBlob], bannerName, {
+            type: bannerBlob.type,
+          }),
+        ])
+      else {
+        console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
+        // TODO: show error message
+      }
     } catch (e) {
       console.error(e)
       // TODO: show error message
