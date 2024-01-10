@@ -94,6 +94,17 @@ const MainSection = prop => {
   const [artistFollowing, setArtistFollowing] = useState(artistInfo?.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo?.followers)
   const [followLoaded, setFollowLoaded] = useState(false)
+  const [showBannerBoard, setShowBannerBoard] = useState(false)
+  const [showSocialBoard, setShowSocialBoard] = useState(false)
+
+  useEffect(() => {
+    if (publicKey?.toBase58() === artistInfo?.wallet_id) {
+      const isVisibleBannerBoard = localStorage.getItem('isVisibleBannerBoard')
+      if (isVisibleBannerBoard !== 'false') {
+        setShowBannerBoard(true)
+      }
+    }
+  }, [publicKey])
 
   useEffect(() => {
     if (artistInfo) {
@@ -201,6 +212,12 @@ const MainSection = prop => {
       }
       fetchData(croppedBanner)
       setUpdateBanner(false)
+      const isVisibleSocialBoard = localStorage.getItem('isVisibleSocialBoard')
+      if (isVisibleSocialBoard !== 'false') {
+        setTimeout(() => {
+          setShowSocialBoard(true)
+        }, 1000)
+      }
     }
   }, [updateBanner])
 
