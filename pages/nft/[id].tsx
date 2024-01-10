@@ -65,7 +65,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const categories = getNFTCategories(nftDetail)
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
-  const [nftInfo, setNftInfo] = useState(null)
+  const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
@@ -117,37 +117,30 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     const fetchData = async () => {
       if (!nftDetail) return
 
-      if (connected) {
-        await nftsAPI.getDetail(nftDetail.address).then(
-          (response: any) => {
-            setHasLoading(false)
-            if (!isString(response)) {
-              setNftInfo(response)
-              if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
-              }
-            }
+      await fetch(process.env.PROVIDER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 'my-id',
+          method: 'getAsset',
+          params: {
+            id: nftDetail.address,
           },
-          error => {
-            setHasLoading(false)
-          }
-        )
-      } else {
-        await nftsAPI.get(nftDetail.address).then(
-          (response: any) => {
-            setHasLoading(false)
-            if (!isString(response)) {
-              setNftInfo(response)
-              if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
-              }
-            }
-          },
-          error => {
-            setHasLoading(false)
-          }
-        )
-      }
+        }),
+      })
+        .then(async res => {
+          const { result } = await res.json()
+          setHasLoading(false)
+          setNftInfo(result)
+          console.log('Asset: ', result)
+        })
+        .catch(e => {
+          console.log(e)
+          setHasLoading(false)
+        })
     }
     fetchData()
   }, [nftDetail, profileInfo])
