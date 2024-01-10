@@ -94,7 +94,7 @@ const ActivityTable = props => {
                     <div className="flex">
                       <Link href={`/${getUserName(item)}`} passHref>
                         <a>
-                          <div className={styles.userName}>{getUserName(item)}</div>
+                          <div className={styles.userName}>{getDisplayUserName(getUserName(item))}</div>
                         </a>
                       </Link>
                       <div className={styles.text}>&nbsp;{getActionType(item)}&nbsp;</div>
@@ -126,52 +126,6 @@ const ActivityTable = props => {
                   </Link>
                 </div>
               </div>
-            </td>
-            <td>
-              <div className="block">
-                <Link href={`/nft/${item.mint_address}`} passHref>
-                  <a>
-                    <div className={styles.nftName}>{item.asset_name}</div>
-                  </a>
-                </Link>
-              </div>
-            </td>
-            <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
-            <td className="text-center">{getDateString(item.created_at)}</td>
-            <td className="text-center">
-              <div className="flex justify-center items-center gap-[5px]">
-                {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
-                <SolanaLogoIcon />
-                {isAmountExisting(item.action_type)
-                  ? countDecimals(parseFloat(item.amount)) > 2
-                    ? parseFloat(item.amount).toFixed(2)
-                    : item.amount
-                  : 'N/A'}
-              </div>
-            </td>
-            <td
-              className="text-center cursor-pointer hover:underline"
-              onClick={() => {
-                if (isBuyerExisting(item.action_type)) {
-                  dispatch({ type: 'set', isLoading: true })
-                }
-              }}
-            >
-              {isBuyerExisting(item.action_type) ? (
-                <Link href={`/${getBuyerName(item)}`} passHref>
-                  {getDisplayUserName(getBuyerName(item))}
-                </Link>
-              ) : (
-                'N/A'
-              )}
-            </td>
-            <td
-              className="text-center cursor-pointer hover:underline"
-              onClick={() => dispatch({ type: 'set', isLoading: true })}
-            >
-              <Link href={`/${getOwnerName(item)}`} passHref>
-                {getDisplayUserName(getOwnerName(item))}
-              </Link>
             </td>
           </tr>
         ))}

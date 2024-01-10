@@ -132,29 +132,10 @@ const ActivityAccordion = props => {
                   <div className={styles.firstRow}>
                     <div>
                       <div className="flex gap-[4px] mb-[5px]">
-                        <div className={styles.title}>{getUserName(item)}</div>
+                        <div className={styles.title}>{getDisplayUserName(getUserName(item))}</div>
                         <div className={styles.text}>{getActionType(item)}</div>
                       </div>
                       <div className={styles.date}>{getLocalDate(item.created_at)}</div>
-                    </div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Buyer</div>
-                    <div
-                      className={styles.text}
-                      onClick={() => {
-                        if (isBuyerExisting(item.action_type)) {
-                          gotoUserDetail(getBuyerName(item))
-                        }
-                      }}
-                    >
-                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
-                    </div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Seller</div>
-                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getDisplayUserName(getOwnerName(item))}
                     </div>
                     {isAmountExisting(item.action_type) && (
                       <div>
