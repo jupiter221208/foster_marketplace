@@ -94,8 +94,8 @@ const Collection = () => {
       const attributes = categories.map(category => {
         return { trait_type: 'category', value: category.name }
       })
-
       let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
+
       setCoverImageUrl(coverImageUrl)
 
       let trimmedCollectionName = collectionName.trim()
@@ -421,12 +421,8 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
-            mintCollection={(type, url) => {
-              if (type === 'foster') mintCollection()
-              else {
-                // Mint Collection With EA Series
-                mintCollection()
-              }
+            mintCollection={() => {
+              mintCollection()
             }}
           />
         )}

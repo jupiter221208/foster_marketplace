@@ -237,16 +237,19 @@ const Step01CollectionSection = props => {
           .catch(e => e),
       ])
 
-      if (bannerBlob instanceof Blob) onChangeBannerImage([bannerBlob])
-      else {
-        console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
-        // TODO: show error message
-      }
       if (coverBlob instanceof Blob) onChangeCoverImage([coverBlob])
       else {
         console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
         // TODO: show error message
       }
+      
+      setTimeout(() => {
+        if (bannerBlob instanceof Blob) onChangeBannerImage([bannerBlob])
+        else {
+          console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
+          // TODO: show error message
+        }
+      }, 1000)
     } catch (e) {
       console.error(e)
       // TODO: show error message
@@ -620,8 +623,7 @@ const Step01CollectionSection = props => {
                       opacity: disabledNextButton ? 0.5 : 1,
                     }}
                     onClick={() => {
-                      if (collectionType === 'foster') mintCollection('foster', '')
-                      else mintCollection('ea', eaImportUrl)
+                      mintCollection()
                     }}
                   >
                     Create Collection
