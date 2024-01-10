@@ -94,17 +94,6 @@ const MainSection = prop => {
   const [artistFollowing, setArtistFollowing] = useState(artistInfo?.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo?.followers)
   const [followLoaded, setFollowLoaded] = useState(false)
-  const [showBannerBoard, setShowBannerBoard] = useState(false)
-  const [showSocialBoard, setShowSocialBoard] = useState(false)
-
-  useEffect(() => {
-    if (publicKey?.toBase58() === artistInfo?.wallet_id) {
-      const isVisibleBannerBoard = localStorage.getItem('isVisibleBannerBoard')
-      if (isVisibleBannerBoard === 'true') {
-        setShowBannerBoard(true)
-      }
-    }
-  }, [publicKey])
 
   useEffect(() => {
     if (artistInfo) {
@@ -212,12 +201,6 @@ const MainSection = prop => {
       }
       fetchData(croppedBanner)
       setUpdateBanner(false)
-      const isVisibleSocialBoard = localStorage.getItem('isVisibleSocialBoard')
-      if (isVisibleSocialBoard === 'true') {
-        setTimeout(() => {
-          setShowSocialBoard(true)
-        }, 1000)
-      }
     }
   }, [updateBanner])
 
@@ -306,7 +289,7 @@ const MainSection = prop => {
             alt=""
             className="w-full h-full object-cover"
           />
-          {isOwn && (
+          {isOwn && !showBannerBoard && !showSocialBoard && (
             <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
@@ -336,84 +319,7 @@ const MainSection = prop => {
               />
             </div>
           )}
-          {showBannerBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
-              <div className="flex justify-end mt-[15px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
-
-                      setTimeout(() => {
-                        setShowSocialBoard(true)
-                      }, 1000)
-                    }}
-                  />
-                  <GradientButton
-                    label="Upload"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
-                      inputBannerFile.current.click()
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-          {showSocialBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Setup your socials and bio</div>
-              <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
-              <div className="flex justify-end mt-[15px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                    }}
-                  />
-                  <GradientButton
-                    label="Settings"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    onClick={() => {
-                      setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                      router.push('/settings')
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+          {/* <div className={styles.bannerBoard}>Upload your profile banner</div> */}
         </div>
       )}
 
@@ -682,7 +588,7 @@ const MainSection = prop => {
             loading="lazy"
             className="w-full h-full object-cover rounded-none"
           />
-          {isOwn && (
+          {isOwn && !showBannerBoard && !showSocialBoard && (
             <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
