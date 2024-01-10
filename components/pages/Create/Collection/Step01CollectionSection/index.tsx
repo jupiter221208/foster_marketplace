@@ -635,8 +635,7 @@ const Step01CollectionSection = props => {
                       opacity: disabledNextButton ? 0.5 : 1,
                     }}
                     onClick={() => {
-                      if (collectionType === 'foster') mintCollection('foster', '')
-                      else mintCollection('ea', eaImportUrl)
+                      mintCollection()
                     }}
                   >
                     Create Collection
