@@ -1574,7 +1574,7 @@ const MainSection = ({
                                         router.push(`/${item.reference_username}`)
                                       }}
                                     >
-                                      {item.reference_username}
+                                      {getDisplayUserName(item.reference_username)}
                                     </span>
                                     <span>&nbsp;has won the auction</span>
                                   </div>
@@ -1586,7 +1586,7 @@ const MainSection = ({
                                         router.push(`/${item.owner_username}`)
                                       }}
                                     >
-                                      {item.owner_username}
+                                      {getDisplayUserName(item.owner_username)}
                                     </span>
                                     <span>&nbsp;published an auction</span>
                                   </div>
@@ -1598,7 +1598,7 @@ const MainSection = ({
                                         router.push(`/${item.owner_username}`)
                                       }}
                                     >
-                                      {item.owner_username}
+                                      {getDisplayUserName(item.owner_username)}
                                     </span>
                                     <span>&nbsp;cancelled auction</span>
                                   </div>
@@ -1610,7 +1610,7 @@ const MainSection = ({
                                         router.push(`/${item.owner_username}`)
                                       }}
                                     >
-                                      {item.owner_username}
+                                      {getDisplayUserName(item.owner_username)}
                                     </span>
                                     <span>&nbsp;listed artwork for sale</span>
                                   </div>
@@ -1622,7 +1622,7 @@ const MainSection = ({
                                         router.push(`/${item.owner_username}`)
                                       }}
                                     >
-                                      {item.owner_username}
+                                      {getDisplayUserName(item.owner_username)}
                                     </span>
                                     <span>&nbsp;updated listing</span>
                                   </div>
@@ -1634,7 +1634,7 @@ const MainSection = ({
                                         router.push(`/${item.owner_username}`)
                                       }}
                                     >
-                                      {item.owner_username}
+                                      {getDisplayUserName(item.owner_username)}
                                     </span>
                                     <span>&nbsp;removed listing</span>
                                   </div>
@@ -1646,7 +1646,7 @@ const MainSection = ({
                                         router.push(`/${item.reference_username}`)
                                       }}
                                     >
-                                      {item.reference_username}
+                                      {getDisplayUserName(item.reference_username)}
                                     </span>
                                     <span>&nbsp;cancelled their offer</span>
                                   </div>
@@ -1658,7 +1658,7 @@ const MainSection = ({
                                         router.push(`/${item.reference_username}`)
                                       }}
                                     >
-                                      {item.reference_username}
+                                      {getDisplayUserName(item.reference_username)}
                                     </span>
                                     <span>&nbsp;made an offer</span>
                                   </div>
@@ -1670,7 +1670,7 @@ const MainSection = ({
                                         router.push(`/${item.reference_username}`)
                                       }}
                                     >
-                                      {item.reference_username}
+                                      {getDisplayUserName(item.reference_username)}
                                     </span>
                                     <span>&nbsp;placed a bid</span>
                                   </div>
@@ -1682,7 +1682,7 @@ const MainSection = ({
                                         router.push(`/${item.reference_username}`)
                                       }}
                                     >
-                                      {item.reference_username}
+                                      {getDisplayUserName(item.reference_username)}
                                     </span>
                                     <span>&nbsp;purchased artwork</span>
                                   </div>

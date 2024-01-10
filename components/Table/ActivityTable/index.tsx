@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
-import { getDateString } from 'utils/strings'
+import { getDateString, getDisplayUserName } from 'utils/strings'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
 // styles
@@ -86,7 +86,7 @@ const ActivityTable = props => {
             >
               {isBuyerExisting(item.action_type) ? (
                 <Link href={`/${getBuyerName(item)}`} passHref>
-                  {getBuyerName(item)}
+                  {getDisplayUserName(getBuyerName(item))}
                 </Link>
               ) : (
                 'N/A'
@@ -97,7 +97,7 @@ const ActivityTable = props => {
               onClick={() => dispatch({ type: 'set', isLoading: true })}
             >
               <Link href={`/${getOwnerName(item)}`} passHref>
-                {getOwnerName(item)}
+                {getDisplayUserName(getOwnerName(item))}
               </Link>
             </td>
           </tr>

@@ -15,7 +15,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getDateString } from 'utils/strings'
+import { getDateString, getDisplayUserName } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { getBuyerName, getOwnerName } from 'utils/helpers'
@@ -94,13 +94,13 @@ const ActivityAccordion = props => {
                         }
                       }}
                     >
-                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
                     </div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getOwnerName(item)}
+                      {getDisplayUserName(getOwnerName(item))}
                     </div>
                   </div>
                 </Disclosure.Panel>
