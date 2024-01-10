@@ -15,11 +15,11 @@ import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
-import { getShortAddress } from 'utils/strings'
+import { getDisplayUserName, getShortStringAddress } from 'utils/strings'
+import Link from 'next/link'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
-  const profile = useSelector(state => (state as any).profileInfo)
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)
@@ -31,7 +31,9 @@ const ProfileMenuItem = props => {
       onMouseEnter={() => setMouseHover(true)}
       onMouseLeave={() => setMouseHover(false)}
       onClick={() => {
-        if (item.id === 7) {
+        if (item.id === 0) {
+          return
+        } else if (item.id === 7) {
           if (localStorage.getItem('walletName') === '"Phantom"') {
             localStorage.removeItem('walletName')
             ;(window as any).solana.disconnect()
@@ -62,10 +64,11 @@ const ProfileMenuItem = props => {
               </div>
             </div>
           )}
-
-          <span className={styles.username}>
-            {profile?.username.length >= 40 ? getShortAddress(profile?.username) : profile?.username}
-          </span>
+          <Link href={`/${username}`}>
+            <a>
+              <span className={styles.username}>{getDisplayUserName(username)}</span>
+            </a>
+          </Link>
         </div>
       ) : (
         <div className={`w-full flex max-h-[25px] items-center ${item.id !== 2 && 'pl-[10px]'}`}>

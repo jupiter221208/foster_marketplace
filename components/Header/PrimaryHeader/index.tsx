@@ -42,7 +42,7 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { getShortAddress } from 'utils/strings'
+import { getShortStringAddress } from 'utils/strings'
 import Link from 'next/link'
 
 const PrimaryHeader = () => {
@@ -283,7 +283,7 @@ const PrimaryHeader = () => {
               <div className="min-w-fit">
                 <ProfileMenu
                   avatar={profileInfo?.profile_picture}
-                  wallet={getShortAddress(profileInfo?.wallet_id)}
+                  wallet={getShortStringAddress(profileInfo?.wallet_id)}
                   username={profileInfo?.username ?? ''}
                   menuList={profileMenuList}
                   onSelect={item => router.push(item.path)}

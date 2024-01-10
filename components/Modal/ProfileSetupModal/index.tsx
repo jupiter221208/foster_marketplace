@@ -27,12 +27,13 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
-import { getShortAddress } from 'utils/strings'
+import { getShortStringAddress } from 'utils/strings'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -89,7 +90,7 @@ const ProfileSetupModal = () => {
 
   useEffect(() => {
     if (publicKey) {
-      setDisplayName(getShortAddress(publicKey.toBase58()))
+      setDisplayName(getShortStringAddress(publicKey.toBase58()))
     }
   }, [publicKey])
 
@@ -142,7 +143,7 @@ const ProfileSetupModal = () => {
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
-        response => {
+        async response => {
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
             router.push(`/${response.username}`)

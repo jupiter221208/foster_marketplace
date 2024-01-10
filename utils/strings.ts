@@ -2,7 +2,14 @@ export const limit = (string = '', limit = 0) => {
   return string.substring(0, limit)
 }
 
-export const getShortAddress = address => {
+export const getDisplayUserName = name => {
+  if (name.length >= 32) {
+    return getShortStringAddress(name)
+  } else {
+    return name
+  }
+}
+export const getShortStringAddress = address => {
   if (address === null || address === undefined || address.length < 5) return address
   return address.slice(0, 3) + '***' + address.slice(-3) || ''
 }

@@ -33,6 +33,7 @@ import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const DashboardNFTCard = props => {
   const {
@@ -198,7 +199,9 @@ const DashboardNFTCard = props => {
             <div className="w-full flex justify-between items-center mt-[2px]">
               <Link href={`/${artistName || collectionName}`} passHref>
                 <a>
-                  <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+                  <div className={styles.artistName}>
+                    {getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}
+                  </div>
                 </a>
               </Link>
               {price && (

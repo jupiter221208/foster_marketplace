@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { type PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { setCookie } from 'cookies-next'
@@ -11,7 +11,7 @@ import AvatarImage from 'assets/images/dashboard-avatar.png'
 export interface UseAuthenticationReturn {
   isCurrentTokenValid: () => boolean
   refreshToken: (force?: boolean) => Promise<User>
-  profileInfo: User | null
+  profileInfo: any | null
 }
 
 let fetchUserPromise: null | Promise<User> = null
@@ -22,6 +22,7 @@ export function useAuthentication(): UseAuthenticationReturn {
   const { connected, publicKey, signMessage } = useWallet()
 
   const [user, setUser] = useState<User | null>(null)
+  const userInfo = useSelector((state: any) => state.profileInfo)
 
   const isCurrentTokenValid = useCallback((): boolean => isTokenValid(localStorage.getItem('token')), [])
 
@@ -84,5 +85,5 @@ export function useAuthentication(): UseAuthenticationReturn {
     refreshToken().then(setUser)
   }, [connected, publicKey, refreshToken])
 
-  return { isCurrentTokenValid, refreshToken, profileInfo: user }
+  return { isCurrentTokenValid, refreshToken, profileInfo: userInfo,  }
 }

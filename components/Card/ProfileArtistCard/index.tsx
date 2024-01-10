@@ -10,18 +10,16 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 import { validUrl } from 'utils/helpers'
 
-import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import IconButton from 'components/Button/IconButton'
-import { getShortAddress } from 'utils/strings'
+import { getDisplayUserName } from 'utils/strings'
 
 const ProfileArtistCard = props => {
   const {
@@ -49,13 +47,6 @@ const ProfileArtistCard = props => {
           <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
         ) : (
           <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-            {/* {!loaded && (
-              <div className="w-full h-full overflow-hidden rounded-full">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              </div>
-            )} */}
             <Image
               src={image}
               alt=""
@@ -101,7 +92,7 @@ const ProfileArtistCard = props => {
           <div className={`${styles.skeletonLoader} ${styles.name} w-[250px] h-[22px] rounded-full mt-[15px]`}></div>
         ) : (
           <div className={styles.name}>
-            {name.length >= 40 ? getShortAddress(name) : name}
+            {getDisplayUserName(name)}
             <div className="w-full flex gap-[10px] items-center ml-[9px]">
               {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
                 <div>
@@ -134,7 +125,7 @@ const ProfileArtistCard = props => {
       ) : hasLoading ? (
         <div className={`${styles.skeletonLoader} ${styles.name} w-[150px] h-[22px] rounded-full`}></div>
       ) : (
-        <div className={styles.name}>{name.length >= 40 ? getShortAddress(name) : name}</div>
+        <div className={styles.name}>{getDisplayUserName(name)}</div>
       )}
     </div>
   )

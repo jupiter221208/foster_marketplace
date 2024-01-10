@@ -36,6 +36,7 @@ import { deleteCookie } from 'cookies-next'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import AccordionProfileMenu from '../AccordionProfileMenu'
+import { getDisplayUserName } from 'utils/strings'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -106,7 +107,7 @@ const MobileMenu = () => {
           <div className="w-full flex flex-wrap gap-[10px]">
             <AccordionProfileMenu
               icon={profileImage}
-              label={profileName.length > 0 ? profileName : ''}
+              label={getDisplayUserName(profileName)}
               type="avatar"
               data={profileMenuList}
             />
