@@ -109,6 +109,7 @@ import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -1156,7 +1157,7 @@ const MainSection = ({
                       <Link href={`/${nftCreatorname}`} passHref>
                         <a>
                           <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                            {nftCreatorname}
+                            {getDisplayUserName(nftCreatorname)}
                           </div>
                         </a>
                       </Link>
@@ -1168,7 +1169,7 @@ const MainSection = ({
                         <Link href={`/${nftOwnerUsername}`} passHref>
                           <a>
                             <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                              {nftOwnerUsername}
+                              {getDisplayUserName(nftOwnerUsername)}
                             </div>
                           </a>
                         </Link>

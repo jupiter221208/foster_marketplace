@@ -10,7 +10,7 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { getShortStringAddress } from 'utils/strings'
+import { getShortString } from 'utils/strings'
 import Link from 'next/link'
 
 const DashboardCollectionCard = props => {
@@ -48,9 +48,7 @@ const DashboardCollectionCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-start items-center">
-          <div className={styles.artistName}>
-            {getShortStringAddress(artistAddress) || getShortStringAddress(mintAddress)}
-          </div>
+          <div className={styles.artistName}>{getShortString(artistAddress) || getShortString(mintAddress)}</div>
         </div>
       </div>
       {unSave !== null && (
