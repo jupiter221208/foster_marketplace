@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const NotificationsCard = props => {
   const { data, onClickMarkAsRead } = props
@@ -262,7 +263,9 @@ const NotificationsCard = props => {
                         {fromUser(elem) && (
                           <Link href={`/${elem.reference_username}`} passHref>
                             <a>
-                              <span className={styles.username}>{elem.reference_username}&nbsp;</span>
+                              <span className={styles.username}>
+                                {getDisplayUserName(elem.reference_username)}&nbsp;
+                              </span>
                             </a>
                           </Link>
                         )}
@@ -272,7 +275,9 @@ const NotificationsCard = props => {
                         {fromEndUser(elem) && (
                           <Link href={`/${elem.reference_username}`} passHref>
                             <a>
-                              <span className={styles.username}>&nbsp;{elem.reference_username}</span>
+                              <span className={styles.username}>
+                                &nbsp;{getDisplayUserName(elem.reference_username)}
+                              </span>
                             </a>
                           </Link>
                         )}

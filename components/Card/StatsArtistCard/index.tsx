@@ -14,6 +14,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const StatsArtistCard = props => {
   const { data, type } = props
@@ -42,7 +43,9 @@ const StatsArtistCard = props => {
         </div>
       </div>
       <div className="w-full flex justify-center pt-[3px] lg:pt-[7px]">
-        <div className={styles.name}>{type === 'creators' ? data.creator_name : data.collector_name}</div>
+        <div className={styles.name}>
+          {type === 'creators' ? getDisplayUserName(data.creator_name) : getDisplayUserName(data.collector_name)}
+        </div>
       </div>
       <div className="w-full pt-[20px] lg:pt-[36px]">
         <div className="flex justify-center items-center gap-[4px]">
