@@ -306,13 +306,16 @@ const MainSection = prop => {
             alt=""
             className="w-full h-full object-cover"
           />
-          {isOwn && !showBannerBoard && !showSocialBoard && (
+          {isOwn && (
             <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButton
                     icon={EditorGreenIcon}
-                    onClick={() => inputBannerFile.current.click()}
+                    onClick={() => {
+                      if (showBannerBoard || showSocialBoard) return
+                      inputBannerFile.current.click()
+                    }}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
                     width={20}
@@ -366,7 +369,7 @@ const MainSection = prop => {
                     backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
+                      localStorage.setItem('isVisibleBannerBoard', 'false')
                       inputBannerFile.current.click()
                     }}
                   />
@@ -684,13 +687,16 @@ const MainSection = prop => {
             loading="lazy"
             className="w-full h-full object-cover rounded-none"
           />
-          {isOwn && !showBannerBoard && !showSocialBoard && (
+          {isOwn && (
             <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButton
                     icon={EditorGreenIcon}
-                    onClick={() => inputBannerFile.current.click()}
+                    onClick={() => {
+                      if (showBannerBoard || showSocialBoard) return
+                      inputBannerFile.current.click()
+                    }}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
                     width={20}

@@ -140,6 +140,9 @@ const ProfileSetupModal = () => {
     let user_name = displayName
     if (displayName.includes('***')) user_name = publicKey.toBase58()
 
+    localStorage.setItem('isVisibleBannerBoard', 'true')
+    localStorage.setItem('isVisibleSocialBoard', 'true')
+
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
