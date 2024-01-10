@@ -15,7 +15,7 @@ import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
-import { getDisplayUserName, getShortStringAddress } from 'utils/strings'
+import { getDisplayUserName } from 'utils/strings'
 import Link from 'next/link'
 
 const ProfileMenuItem = props => {

@@ -12,7 +12,7 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getShortAddress } from 'utils/strings'
+import { getShortStringAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
 
@@ -57,7 +57,9 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
           <div className={styles.nftName}>{data.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
+          <div className={styles.artistName}>
+            {getShortStringAddress(data.creators[0].address.toString()) || 'No Artist'}
+          </div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton

@@ -110,8 +110,6 @@ import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import { NftData } from 'types/nft'
 import Link from 'next/link'
-import { getDisplayUserName } from 'utils/strings'
-import { NftData } from 'types/nft'
 
 export interface MainSectionProps {
   nftDetail: NftData
