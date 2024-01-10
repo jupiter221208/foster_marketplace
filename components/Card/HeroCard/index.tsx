@@ -16,6 +16,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const HeroCard = props => {
   const { data } = props
@@ -174,7 +175,7 @@ const HeroCard = props => {
             <p>
               <Link href={`/${data.artist_username}`} passHref>
                 <a>
-                  Created by <span>{data.artist_username}</span>
+                  Created by <span>{getDisplayUserName(data.artist_username)}</span>
                 </a>
               </Link>
             </p>

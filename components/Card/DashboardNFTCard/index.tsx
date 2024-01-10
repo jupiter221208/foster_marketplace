@@ -13,6 +13,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const NFTCard = props => {
   const { image, nftName, artistName, onClick } = props
@@ -28,7 +29,7 @@ const NFTCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{artistName}</div>
+          <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
         </div>
         <div className="w-full flex xs:mt-[9px] mt-[16px] justify-between items-center">
           <div className="justify-center">

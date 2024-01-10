@@ -11,6 +11,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const BrowseArtistCard = props => {
   const { image, collectionName, artistName, artistAddress, hasloading } = props
@@ -61,7 +62,7 @@ const BrowseArtistCard = props => {
                         dispatch({ type: 'set', isLoading: true })
                       }}
                     >
-                      {artistName}
+                      {getDisplayUserName(artistName)}
                     </span>
                   </a>
                 </Link>

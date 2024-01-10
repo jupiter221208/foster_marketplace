@@ -128,12 +128,12 @@ const ProfileSection = prop => {
       return
     }
     setUsername(userName.trimEnd())
-    setBio(bio.replaceAll('\n', ' '))
+    setBio(bio?.replaceAll('\n', ' '))
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
         username: userName.trimEnd(),
-        bio: bio.replaceAll('\n', ' '),
+        bio: bio?.replaceAll('\n', ' '),
         email: userEmail,
         ig_url: igUrl,
         twitter_url: twitterUrl,
