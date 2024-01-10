@@ -20,7 +20,7 @@ import { getOrder, type OrderData, type ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
-import { getShortString } from 'utils/strings'
+import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 import GradientButton from 'components/Button/GradientButton'
@@ -329,7 +329,7 @@ const MerchDetail = () => {
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
-              Paid&nbsp;by:&nbsp;{getShortString(paymentDetails?.paidBy)}
+              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
             </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
@@ -456,7 +456,7 @@ const MerchDetail = () => {
             )}
             
             <div className={`mt-[15px] ${styles.detailValue}`}>
-              Paid&nbsp;by:&nbsp;{getShortString(paymentDetails?.paidBy)}
+              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
             </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
@@ -659,7 +659,7 @@ const MerchDetail = () => {
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
           )}
-          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortString(paymentDetails?.paidBy)}</div>
+          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
           <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
         </div>

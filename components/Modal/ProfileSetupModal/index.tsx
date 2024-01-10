@@ -33,7 +33,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import Alert from 'components/Alert'
-import { getShortString } from 'utils/strings'
+import { getShortAddress } from 'utils/strings'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -90,7 +90,7 @@ const ProfileSetupModal = () => {
 
   useEffect(() => {
     if (publicKey) {
-      setDisplayName(getShortString(publicKey.toBase58()))
+      setDisplayName(getShortAddress(publicKey.toBase58()))
     }
   }, [publicKey])
 
