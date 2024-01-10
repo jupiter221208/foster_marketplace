@@ -92,7 +92,20 @@ export interface NftAndCollectionData extends NftData {
   // collectionName
 }
 
+export function shouldUseDas(metaplex: Metaplex): boolean {
+  let rpcEndpoint = metaplex.connection.rpcEndpoint
+  return new URL(rpcEndpoint).hostname.endsWith('helius.xyz')
+}
+
+export function assertDasSupported(metaplex: Metaplex): void {
+  if (!shouldUseDas(metaplex)) throw new Error(`needs DAS enabled rpc, found: ${metaplex.connection.rpcEndpoint}`)
+}
+
 export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
+  return shouldUseDas(mx) ? getMyNFTsDas(mx) : getMyNFTsMetaplex(mx)
+}
+
+export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
   let tokenAccounts = await mx.connection
     .getTokenAccountsByOwner(mx.identity().publicKey, {
       programId: TOKEN_PROGRAM_ID,
@@ -159,15 +172,14 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
 }
 
 export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
-  let rpcEndpoint = mx.connection.rpcEndpoint
-  if (!new URL(rpcEndpoint).hostname.endsWith('helius.xyz')) throw new Error(`needs helius rpc, found: ${rpcEndpoint}`)
+  assertDasSupported(mx)
 
   let allNfts = []
   let limit = 1000
   for (let page = 1; ; page++) {
     let {
       result: { items },
-    } = await fetch(rpcEndpoint, {
+    } = await fetch(mx.connection.rpcEndpoint, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
