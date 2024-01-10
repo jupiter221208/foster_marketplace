@@ -14,6 +14,7 @@ import BannerImage from 'assets/images/avatar-banner.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const EcosystemCard = props => {
   const { data } = props
@@ -65,7 +66,9 @@ const EcosystemCard = props => {
           </div>
           <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
             <div className="w-full flex justify-center items-center">
-              <div className={styles.artistName}>{data.artist.username ?? 'Ecosystem'}</div>
+              <div className={styles.artistName}>
+                {data.artist.username ? getDisplayUserName(data.artist.username) : 'Ecosystem'}
+              </div>
             </div>
           </div>
           <div className={styles.contentCard}>
