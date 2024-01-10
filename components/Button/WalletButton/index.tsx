@@ -44,6 +44,7 @@ import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { getDisplayUserName } from 'utils/strings'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -255,7 +256,9 @@ const WalletButton = props => {
                 <div className="w-full flex gap-3">
                   <Avatar avatar={profileImage !== '' ? profileImage : avatar} width={36} height={36} />
                   <div className="block whitespace-nowrap">
-                    <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
+                    <div className={styles.title}>
+                      {profileName.length > 0 ? getDisplayUserName(profileName) : 'Username'}
+                    </div>
                     <div className={styles.grayText}>{shortMainAddress}</div>
                   </div>
                 </div>

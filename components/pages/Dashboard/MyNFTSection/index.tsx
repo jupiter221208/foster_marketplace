@@ -215,7 +215,7 @@ const MyNFTSection = props => {
         </div>
       </div>
       {isGetMyNFTs && allNftList.length === 0 && (
-        <div className="mt-[30px] lg:mt-[70px]">
+        <div className="mt-[30px] lg:mt-[30px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"
             description="This tab displays the NFTs you own without an active listing"

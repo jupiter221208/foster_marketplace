@@ -257,7 +257,7 @@ const OfferSection = () => {
           )}
         </div>
       ) : (
-        <div className="mt-[35px] lg:mt-[105px]">
+        <div className="mt-[35px] lg:mt-[85px]">
           <NoDataSection
             title="You don't have any active offers right now"
             description="This tab shows any active offer you made or received on Foster Marketplace"

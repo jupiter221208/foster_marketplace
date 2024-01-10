@@ -217,7 +217,7 @@ const ProfileSetupModal = () => {
                           <div className={styles.title}>Welcome to Foster Marketplace!</div>
                           <p className={styles.text}>
                             {
-                              'You can edit your display name and profile image now or at a later time from your dashboard.'
+                              'You can edit your display name and profile image now or at a later time from your profile settings.'
                             }
                           </p>
                           <div className="mt-[16px]">

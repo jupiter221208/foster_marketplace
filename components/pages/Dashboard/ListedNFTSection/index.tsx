@@ -380,7 +380,7 @@ const ListedNFTSection = props => {
       </div>
       {isGetListedNFTs &&
         ((active === 0 && fixedPriceNFTs.length === 0) || (active === 1 && liveAuctionNFTs.length === 0)) && (
-          <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[30px]">
+          <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[20px]">
             <NoDataSection
               title={
                 active === 0
