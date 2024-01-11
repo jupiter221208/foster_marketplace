@@ -17,6 +17,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
@@ -122,7 +123,7 @@ const SearchBox = props => {
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                 </div>
               </div>
             ))}
@@ -155,7 +156,7 @@ const SearchBox = props => {
                     />
                   )}
                 </div>
-                <div className={styles.text}>{item.name}</div>
+                <div className={styles.text}>{getDisplayUserName(item.name)}</div>
               </div>
             ))}
           </div>
@@ -179,7 +180,7 @@ const SearchBox = props => {
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                 </div>
               </div>
             ))}
