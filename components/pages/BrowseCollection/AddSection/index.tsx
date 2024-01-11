@@ -57,6 +57,7 @@ const AddSection = props => {
         onClose={() => setShowAddTokenModal(false)}
         onImportUrl={url => {
           setShowAddTokenModal(false)
+          importEACollection(url)
         }}
       />
 
