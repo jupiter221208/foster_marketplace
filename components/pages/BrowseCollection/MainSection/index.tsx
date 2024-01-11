@@ -282,25 +282,6 @@ const MainSection = props => {
                 </div>
               </div>
             </div>
-            {/* {hasloading ? (
-              <>
-                <div
-                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
-                ></div>
-                <div
-                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
-                ></div>
-                <div
-                  className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[10px] rounded-full`}
-                ></div>
-              </>
-            ) : (
-              <>
-                <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
-                  {data?.description && <span className={styles.description}>{data?.description}</span>}
-                </div>
-              </>
-            )} */}
 
             {hasloading ? (
               <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] rounded-full`}></div>

@@ -9,11 +9,23 @@ import ImportIcon from 'assets/icons/import-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import AddTokenModal from 'components/Modal/AddTokenModal'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const AddSection = props => {
+  const { collectionId, coverUrl } = props
+  const dispatch = useDispatch()
+  const router = useRouter()
   const [showAddTokenModal, setShowAddTokenModal] = useState(false)
 
   useEffect(() => {}, [])
+
+  const uploadNew = () => {
+    dispatch({ type: 'set', mintCollectionStep: 2 })
+    dispatch({ type: 'set', collectionMintAddress: collectionId })
+    dispatch({ type: 'set', collectionCoverUrl: coverUrl })
+    router.push('/create/collection')
+  }
 
   return (
     <div className={styles.container}>
@@ -23,7 +35,7 @@ const AddSection = props => {
       </div>
       <div className={styles.description}>Pick your preferred method for adding artwork to your collection</div>
       <div className="flex justify-around lg:gap-[30px] mt-[30px]">
-        <div className={styles.button}>
+        <div className={styles.button} onClick={() => uploadNew()}>
           <UploadIcon />
           Upload New
         </div>

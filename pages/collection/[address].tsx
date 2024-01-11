@@ -139,6 +139,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
               collectionId={address}
               minter={publicCollectionData?.minter_id}
               collectionName={publicCollectionData?.collection_name}
+              coverUrl={publicCollectionData?.cover_image}
               artistName={publicCollectionData?.artist_username}
               description={publicCollectionData?.description}
               categories={publicCollectionData?.categories}

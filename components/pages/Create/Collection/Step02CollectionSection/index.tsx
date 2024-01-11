@@ -388,9 +388,9 @@ const Step02CollectionSection = props => {
           <div className="flex-[50%] g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full">
+                {/* <div className="w-full">
                   <CollectionStepper currentStep={currentStep} />
-                </div>
+                </div> */}
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-[76px]`}>
                     Collection Files (max. 25) <span>*</span>
