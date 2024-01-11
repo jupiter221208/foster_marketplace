@@ -25,9 +25,9 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import { useViewport, parseCookies } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
+import { parseCookies } from 'utils'
 import TabSection from './TabSection'
+import EASection from './EASection'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -37,8 +37,6 @@ type BrowseCollectionProps = {
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
-  useAuthentication()
-  const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
@@ -49,6 +47,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const address = publicCollectionData?.collection_id
 
   const [hasloading, setHasLoading] = useState(false)
+  const [showEAPreview, setShowEAPreview] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -131,21 +130,33 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
-        <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} loaded={loaded} />
-        <div className="w-full flex justify-center">
-          <div className="g-container">
-            <TabSection
+        {showEAPreview ? (
+          <EASection />
+        ) : (
+          <div>
+            <MainSection
               nfts={nfts}
-              collectionId={address}
-              minter={publicCollectionData?.minter_id}
-              collectionName={publicCollectionData?.collection_name}
-              coverUrl={publicCollectionData?.cover_image}
-              artistName={publicCollectionData?.artist_username}
-              description={publicCollectionData?.description}
-              categories={publicCollectionData?.categories}
+              data={collectionData}
+              hasloading={hasloading}
+              publicKey={publicKey}
+              loaded={loaded}
             />
+            <div className="w-full flex justify-center">
+              <div className="g-container">
+                <TabSection
+                  nfts={nfts}
+                  collectionId={address}
+                  minter={publicCollectionData?.minter_id}
+                  collectionName={publicCollectionData?.collection_name}
+                  coverUrl={publicCollectionData?.cover_image}
+                  artistName={publicCollectionData?.artist_username}
+                  description={publicCollectionData?.description}
+                  categories={publicCollectionData?.categories}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>

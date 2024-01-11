@@ -384,16 +384,11 @@ const Collection = () => {
     }
 
     let collectionInfo = {
-      collection_id: collectionPublicKey.toBase58(),
-      collection_name: collectionName.trim(),
-      description: description.replaceAll('\n', ' ').trim(),
-      banner_image: bannerAWSUrl,
-      cover_image: coverAWSUrl,
-      categories: category.slice(0, -1),
       nfts: array,
     }
+    console.log(collectionInfo, '========collectionInfo========')
 
-    collectionsAPI.mintCollection(collectionInfo).then(
+    collectionsAPI.updateCollectionNFT(collectionMintAddress, collectionInfo).then(
       response => {},
       error => {}
     )

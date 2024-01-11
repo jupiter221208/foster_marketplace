@@ -29,6 +29,12 @@ class Collections {
     })
   }
 
+  updateCollectionNFT(collection_id, collectionInfo) {
+    return client.patch(API_URL + 'v1/collections/' + collection_id + '/nfts', collectionInfo).then(response => {
+      return response.data
+    })
+  }
+
   updateCollectionBanner(collection_id, bannerInfo) {
     return client.put(API_URL + 'v1/collections/' + collection_id + '/banner', bannerInfo).then(response => {
       return response.data
@@ -43,7 +49,7 @@ class Collections {
 
   getCollectionNft(collection_id) {
     if (isLoggedIn())
-      return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
+      return client.get(API_URL + 'v1/collection/' + collection_id + '/nfts').then(response => {
         if (typeof response.data === 'string') throw new Error(response.data)
         return response.data
       })
