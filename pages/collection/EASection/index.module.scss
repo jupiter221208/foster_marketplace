@@ -3,16 +3,22 @@
 .container {
   height: 100%;
   z-index: 10;
-  margin-top: 50px;
+  margin-top: 30px;
   padding-bottom: 40px;
+  @media (min-width:1024px) {
+    margin-top: 50px;
+  }
 }
 
 .title {
   width: 100%;
   text-align: center;
   font-family: 'Muli-Bold';
-  font-size: 30px;
-  color: $text-gray-200-color
+  font-size: 22px;
+  color: $text-gray-200-color;
+  @media (min-width:1024px) {
+    font-size: 30px;
+  }
 }
 
 .artworkArea {
@@ -34,14 +40,22 @@
 .tokenTitle {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  color: $text-gray-200-color
+  color: $text-gray-200-color;
+  text-align: center;
+  @media (min-width:1024px) {
+    text-align: start;
+  }
 }
 
 .tokenText {
   font-family: 'Muli-Light';
-  font-size: 16px;
+  font-size: 14px;
   color: $text-gray-200-color;
   margin-bottom: 15px;
+  overflow: hidden;
+  @media (min-width:1024px) {
+    margin-top: 16px;
+  }
 }
 
 .artworkTitle {
@@ -64,20 +78,30 @@
   margin-top: 16px;
   padding: 15px;
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
   color: $text-gray-200-color;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  @media (min-width:1024px) {
+    font-size: 16px;
+  }
 }
 
 .nftAsset {
-  max-width: 90px;
-  max-height: 90px;
-  min-width: 90px;
-  min-height: 90px;
+  max-width: 70px;
+  max-height: 70px;
+  min-width: 70px;
+  min-height: 70px;
   margin-left: 30px;
   border-radius: 8px;
   border: 2px solid #95dbd5;
   overflow: hidden;
   cursor: pointer;
+  @media (min-width:1024px) {
+    max-width: 90px;
+    max-height: 90px;
+    min-width: 90px;
+    min-height: 90px;
+  }
 }
