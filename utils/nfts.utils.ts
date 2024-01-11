@@ -192,7 +192,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
           ownerAddress: mx.identity().publicKey,
           page,
           limit,
-          displayOptions: {
+          options: {
             showUnverifiedCollections: true,
           },
         },
