@@ -9,6 +9,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import { getFirstUpperString } from 'utils/helpers'
+import { getDisplayUserName } from 'utils/strings'
 
 const VoteHistoryAccordion = props => {
   const { data } = props
@@ -51,7 +52,7 @@ const VoteHistoryAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className="block">
-                      <div className={styles.subTitle}>{item.username}</div>
+                      <div className={styles.subTitle}>{getDisplayUserName(item.username)}</div>
                       <div className="flex">
                         <div className={styles.priceValue}>{getFirstUpperString(item.vote_status)}</div>
                       </div>

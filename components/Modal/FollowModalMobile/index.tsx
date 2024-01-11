@@ -27,6 +27,7 @@ import artistsAPI from 'apis/artists'
 import FollowSearchBox from 'components/Input/FollowSearchBox'
 import FollowTab from 'components/Tab/FollowTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { getDisplayUserName } from 'utils/strings'
 
 const FollowModalMobile = props => {
   const { open, close, ownWallet, type, wallet, username } = props
@@ -223,7 +224,7 @@ const FollowModalMobile = props => {
                                     close()
                                   }}
                                 >
-                                  {item.username}
+                                  {getDisplayUserName(item.username)}
                                   {ownWallet === wallet && <div className={styles.text}>is following you</div>}
                                 </div>
                               </div>
@@ -275,7 +276,7 @@ const FollowModalMobile = props => {
                                       close()
                                     }}
                                   >
-                                    {item.username}
+                                    {getDisplayUserName(item.username)}
                                   </div>
                                 </div>
                               </div>

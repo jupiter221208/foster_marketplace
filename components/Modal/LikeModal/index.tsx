@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 import nftsAPI from 'apis/nfts'
 import artistsAPI from 'apis/artists'
 import { getFirstUpperString } from 'utils/helpers'
+import { getDisplayUserName } from 'utils/strings'
 
 const LikeModal = props => {
   const { open, close, ownWallet, type, wallet } = props
@@ -135,7 +136,7 @@ const LikeModal = props => {
                                   close()
                                 }}
                               >
-                                {item.username}
+                                {getDisplayUserName(item.username)}
                                 {/* {ownWallet === wallet && <div className={styles.text}>is following you</div>} */}
                               </div>
                             </div>
