@@ -77,7 +77,6 @@ const Step03CollectionSection = props => {
   // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
 
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
-  console.log(collectionFiles)
 
   return (
     <div className="w-full">

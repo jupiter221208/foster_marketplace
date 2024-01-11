@@ -197,7 +197,6 @@ const Collection = () => {
   const handleChangeCollectionDescription = (item, value) => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
-      console.log(index, item)
       if (index > -1) prevFiles[index].description = value
       return [...prevFiles]
     })
