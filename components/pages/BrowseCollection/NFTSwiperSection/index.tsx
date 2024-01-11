@@ -116,7 +116,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
                   token_id={item.id}
-                  asset={item.content.files[0].uri}
+                  image={item.content.files[0].uri}
                   nftName={item.content.metadata.name}
                   assetType={item.content.files[0].mime}
                   coverImage={item.content.links.image}
