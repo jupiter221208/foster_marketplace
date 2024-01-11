@@ -99,11 +99,7 @@ const TabSection = props => {
 
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap z-10">
-<<<<<<< HEAD
           <AddSection collectionId={collectionId} coverUrl={coverUrl} handleCollectionImport={handleCollectionImport} />
-=======
-          <AddSection collectionId={collectionId} coverUrl={coverUrl} />
->>>>>>> 87900496 (Add audio cover url on mint)
         </div>
       )}
     </div>
