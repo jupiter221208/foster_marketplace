@@ -101,6 +101,10 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     }
   }
 
+  const importEACollection = url => {
+    setShowEAPreview(true)
+  }
+
   useEffect(() => {
     ;(async () => {
       if (!connected || !loginAndRefresh) return
@@ -152,6 +156,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                   artistName={publicCollectionData?.artist_username}
                   description={publicCollectionData?.description}
                   categories={publicCollectionData?.categories}
+                  importEACollection={importEACollection}
                 />
               </div>
             </div>

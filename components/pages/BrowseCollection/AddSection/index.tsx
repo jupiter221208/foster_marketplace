@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // components
+import AddTokenModal from 'components/Modal/AddTokenModal'
+import ImportEAModal from 'components/Modal/ImportEAModal'
 
 // icons
 import UploadIcon from 'assets/icons/upload-icon.svg?component'
 import ImportIcon from 'assets/icons/import-icon.svg?component'
+import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import AddTokenModal from 'components/Modal/AddTokenModal'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 
 const AddSection = props => {
-  const { collectionId, coverUrl } = props
+  const { collectionId, coverUrl, importEACollection } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const [showAddTokenModal, setShowAddTokenModal] = useState(false)
+  const [showImportEAModal, setShowImportEAModal] = useState(false)
 
   useEffect(() => {}, [])
 
@@ -40,8 +43,12 @@ const AddSection = props => {
           Upload New
         </div>
         <div className={styles.button} onClick={() => setShowAddTokenModal(true)}>
+          <CrossPlusIcon />
+          Add Token IDs
+        </div>
+        <div className={styles.button} onClick={() => setShowImportEAModal(true)}>
           <ImportIcon />
-          Import Mint Keys
+          Import from EA
         </div>
       </div>
 
@@ -51,6 +58,12 @@ const AddSection = props => {
         onImportUrl={url => {
           setShowAddTokenModal(false)
         }}
+      />
+
+      <ImportEAModal
+        open={showImportEAModal}
+        onClose={() => setShowImportEAModal(false)}
+        onImportUrl={importEACollection}
       />
     </div>
   )
