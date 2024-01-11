@@ -386,9 +386,9 @@ const Collection = () => {
     let collectionInfo = {
       nfts: array,
     }
-    console.log(collectionInfo, '========collectionInfo========')
+    console.log(array, '========array========')
 
-    collectionsAPI.updateCollectionNFT(collectionMintAddress, collectionInfo).then(
+    collectionsAPI.updateCollectionNFT(collectionMintAddress, array).then(
       response => {},
       error => {}
     )

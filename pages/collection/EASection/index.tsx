@@ -115,7 +115,7 @@ const EASection = props => {
                     label="Back"
                     color="#eff0f6"
                     borderColor="rgba(239, 240, 247, 0.25)"
-                    onClick={() => onBack}
+                    onClick={() => onBack()}
                   />
                   <GradientButton
                     width={120}

@@ -135,7 +135,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
       <div className={styles.container}>
         {showEAPreview ? (
-          <EASection />
+          <EASection onBack={() => setShowEAPreview(false)} />
         ) : (
           <div>
             <MainSection

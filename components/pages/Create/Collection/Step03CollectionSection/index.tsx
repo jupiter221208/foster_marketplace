@@ -151,9 +151,6 @@ const Step03CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
-                </div>
                 <div className="w-full mt-[70px]">
                   {/* {showMore &&
                     subCollectionFiles !== undefined &&
