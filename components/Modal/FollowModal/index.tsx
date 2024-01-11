@@ -25,6 +25,7 @@ import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
 import FollowTab from 'components/Tab/FollowTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { getDisplayUserName } from 'utils/strings'
 
 const FollowModal = props => {
   const { open, close, ownWallet, type, wallet } = props
@@ -191,7 +192,7 @@ const FollowModal = props => {
                                     close()
                                   }}
                                 >
-                                  {item.username}
+                                  {getDisplayUserName(item.username)}
                                   {ownWallet === wallet && <div className={styles.text}>is following you</div>}
                                 </div>
                               </div>
@@ -242,7 +243,7 @@ const FollowModal = props => {
                                       close()
                                     }}
                                   >
-                                    {item.username}
+                                    {getDisplayUserName(item.username)}
                                   </div>
                                 </div>
                               </div>
