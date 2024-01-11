@@ -335,6 +335,9 @@ const Collection = () => {
           coverUrl = metadata.image
         } else if (assetType === 'video') {
           assetUrl = metadata.animation_url
+        } else if (assetType === 'vr') {
+          assetUrl = metadata.animation_url
+          coverUrl = metadata.image
         } else {
           assetUrl = metadata.image
         }
