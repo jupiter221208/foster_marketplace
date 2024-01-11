@@ -79,8 +79,6 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
     }
   }, [isFetching])
 
-  console.log(nftList)
-
   return (
     nftList !== undefined && (
       <section className={styles.container}>

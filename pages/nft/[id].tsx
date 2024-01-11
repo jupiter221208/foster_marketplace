@@ -135,7 +135,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           const { result } = await res.json()
           setHasLoading(false)
           setNftInfo(result)
-          console.log('Asset: ', result)
         })
         .catch(e => {
           console.log(e)

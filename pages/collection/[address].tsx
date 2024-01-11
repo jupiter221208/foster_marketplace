@@ -93,7 +93,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         })
         const { result } = await response.json()
         if (result) {
-          console.log(result)
           setNfts(result.items)
           fetchNftData(result.items)
         }
