@@ -9,7 +9,6 @@ import Lottie from 'lottie-react'
 // components
 import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
@@ -18,9 +17,6 @@ import Textarea from 'components/Input/Textarea'
 import { useViewport } from 'utils'
 
 // images and icons
-import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
@@ -73,9 +69,6 @@ const Step03CollectionSection = props => {
     }
   }, [collectionFiles])
 
-  // const [showMore, setShowMore] = useState(false)
-  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
-
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   return (
@@ -89,18 +82,17 @@ const Step03CollectionSection = props => {
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className={styles.bannerImageArea}>
-                  {bannerCroppedImage !== undefined && (
-                    <Image
-                      src={bannerCroppedImage}
-                      alt=""
-                      width={758}
-                      height={194}
-                      layout="responsive"
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
-                  )}
-                  <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
+                  <Image
+                    src={bannerCroppedImage}
+                    alt=""
+                    width={640}
+                    height={640}
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-[20px]"
+                  />
+
+                  {/* <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
                     <div className={styles.coverImageArea}>
                       <Image
                         src={coverCroppedImage}
@@ -112,10 +104,10 @@ const Step03CollectionSection = props => {
                         className="rounded-[6px]"
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className={`w-full flex justify-center items-center mt-[195px] mb-5 ${styles.subTitle}`}>
+              {/* <div className={`w-full flex justify-center items-center mt-[195px] mb-5 ${styles.subTitle}`}>
                 Collection Artworks
               </div>
               <div className={styles.uploadedImageArea}>
@@ -144,7 +136,7 @@ const Step03CollectionSection = props => {
               </div>
               <div className={`w-full flex justify-start items-center my-2 z-10 ${styles.grayText}`}>
                 Files Uploaded: {collectionFiles.length}
-              </div>
+              </div> */}
             </div>
           </div>
           {/* right part */}

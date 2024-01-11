@@ -29,23 +29,20 @@
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'KCDurhamboxcar';
-  font-size: 31px;
-  line-height: 41px;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 74px;
-    line-height: 158px;
+    font-size: 30px;
   }
-  letter-spacing: 0;
   color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .bannerImageArea {
   position: relative;
-  max-width: 758px;
-  max-height: 194px;
+  max-width: 640px;
+  max-height: 640px;
   width: 100%;
   height: 100%;
   border-radius: 20px;

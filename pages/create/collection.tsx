@@ -14,6 +14,7 @@ import Step02CollectionSection from 'components/pages/Create/Collection/Step02Co
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import CollectionMintProgressingModal from 'components/Modal/ProgressingModal/CollectionMintProgressingModal'
+import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -41,6 +42,8 @@ const Collection = () => {
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
   const [screenLoaded, setScreenLoaded] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -270,17 +273,6 @@ const Collection = () => {
 
     for (let i = 0; i < collectionFiles.length; i++) {
       let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
-      console.log(
-        name,
-        description,
-        attributes,
-        file,
-        croppedImage,
-        type,
-        nftCoverImage,
-        '========collectionFiles[i]========'
-      )
-
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
@@ -297,7 +289,6 @@ const Collection = () => {
         url: await storage.upload(await toMetaplexFileFromBrowser(file)),
       }
       let assetFile = null
-      console.log(imageFile, '========imageFile========')
 
       if (metadata.properties.category === 'audio') {
         assetFile = imageFile
@@ -383,16 +374,27 @@ const Collection = () => {
       setUploadedCount(i + 1)
     }
 
-    let collectionInfo = {
-      nfts: array,
-    }
-    console.log(array, '========array========')
+    // let collectionInfo = {
+    //   nfts: array,
+    // }
 
     collectionsAPI.updateCollectionNFT(collectionMintAddress, array).then(
-      response => {},
+      response => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Congratulations!',
+            description: `Your NFT collection has been minted successfully.`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+        router.push(`/collection/${collectionMintAddress}`)
+      },
       error => {}
     )
-    setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+
+    // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
     dispatch({ type: 'set', isCollectionMinting: false })
   }
 
@@ -455,7 +457,7 @@ const Collection = () => {
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverCroppedImage={coverCroppedImage}
-            bannerCroppedImage={bannerCroppedImage}
+            bannerCroppedImage={collectionCoverUrl}
             collectionFiles={collectionFiles}
             readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
@@ -464,7 +466,7 @@ const Collection = () => {
         {currentStep === 4 && (
           <SuccessMintCollectionSection
             coverCroppedImage={coverCroppedImage}
-            bannerCroppedImage={bannerCroppedImage}
+            bannerCroppedImage={collectionCoverUrl}
             mintAddress={collectionMintAddress}
           />
         )}
@@ -474,6 +476,13 @@ const Collection = () => {
         open={isCollectionMinting}
         collectionFiles={collectionFiles}
         uploadedCount={uploadedCount}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )
