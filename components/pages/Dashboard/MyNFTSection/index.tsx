@@ -47,7 +47,6 @@ const MyNFTSection = props => {
     let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
-    console.log(nfts, '===================nfts===========')
     setLoading(false)
   }
 
