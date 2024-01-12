@@ -169,28 +169,6 @@ const ShoppingCartPhysicalShippingMethod = props => {
 
     let item
     if (type === 'apparel') {
-      // data.forEach(itemData => {
-      //   const { apparel, gender, quality, color, print, quantity, size } = itemData
-      //   let item_id = apparel[gender.type][quality.type][color.type].item_id
-      //   item = {
-      //     id: item_id.toString(),
-      //     // sku: `SKU_${item_id.toString()}`,
-      //     quantity,
-      //     previewUrl: printImageUrl,
-      //     options: {
-      //       type: 'apparel',
-      //       nftName: nftName,
-      //       fosterUrl: `${origin}/nft/${mintAddress}`,
-      //       assetUrl: nftCoverUrl,
-      //       nftAddress: mintAddress,
-      //       size: size.name,
-      //       color: color.type,
-      //       print: print.name,
-      //     },
-      //     notes: `This is apparel ${apparel.description} item`,
-      //   }
-      //   console.log('item==========', item)
-      // })
       const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
       item = printData.map((itemData, index) => {
