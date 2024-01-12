@@ -118,6 +118,10 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     setShowEAPreview(true)
   }
 
+  const successImporting = () => {
+    setShowEAPreview(false)
+  }
+
   useEffect(() => {
     ;(async () => {
       if (!connected || !loginAndRefresh) return
@@ -152,6 +156,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
             mintList={importMintList}
             setMintList={setImportMintList}
             onBack={() => setShowEAPreview(false)}
+            onSuccess={() => successImporting()}
             coverUrl={publicCollectionData?.cover_image}
           />
         ) : (

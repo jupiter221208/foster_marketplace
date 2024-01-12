@@ -19,17 +19,20 @@ import GradientButton from 'components/Button/GradientButton'
 
 // apis
 import { useMetaplex } from 'hooks/useMetaplex'
+import LoadingButton from 'components/Button/LoadingButton'
 
 export interface EASectionProps {
   mintList: string[]
   coverUrl: string
   setMintList: (list: string[]) => void
   onBack: () => any
+  onSuccess: () => any
 }
 
-const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) => {
+const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASectionProps) => {
   const { query } = useRouter()
   const { metaplex } = useMetaplex()
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const collectionMint = new PublicKey(query.address ?? 0)
 
@@ -96,6 +99,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) 
   }
 
   const onImport = async () => {
+    setIsProcessing(true)
     let nftInfos = await metaplex.nfts().findAllByMintList({
       mints: nftDetails.map(({ id }) => new PublicKey(id)),
     })
@@ -130,7 +134,13 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) 
     let signatures = await Promise.all(signedTxs.map(tx => metaplex.connection.sendRawTransaction(tx.serialize())))
     console.log(signatures)
 
+    nftInfos.map(nft => {
+      let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
+      fetch(`/nft/${mintAddress.toBase58()}`)
+    })
     // TODO: show success message
+    //
+    setIsProcessing(false)
   }
 
   return (
@@ -178,15 +188,19 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) 
                       borderColor="rgba(239, 240, 247, 0.25)"
                       onClick={() => onBack()}
                     />
-                    <GradientButton
-                      width={120}
-                      height={50}
-                      label="Import"
-                      backgroundColor01="#95DBD5"
-                      backgroundColor02="#95DBD5"
-                      color="#202427"
-                      onClick={() => onImport()}
-                    />
+                    {isProcessing ? (
+                      <LoadingButton backgroundColor01="#95DBD5" backgroundColor02="#95DBD5" width={120} height={50} />
+                    ) : (
+                      <GradientButton
+                        width={120}
+                        height={50}
+                        label="Import"
+                        backgroundColor01="#95DBD5"
+                        backgroundColor02="#95DBD5"
+                        color="#202427"
+                        onClick={() => onImport()}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -245,15 +259,19 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) 
               borderColor="rgba(239, 240, 247, 0.25)"
               onClick={() => onBack()}
             />
-            <GradientButton
-              fullWidth
-              height={45}
-              label="Import"
-              backgroundColor01="#95DBD5"
-              backgroundColor02="#95DBD5"
-              color="#202427"
-              onClick={() => onImport()}
-            />
+            {isProcessing ? (
+              <LoadingButton backgroundColor01="#95DBD5" backgroundColor02="#95DBD5" fullWidth height={45} />
+            ) : (
+              <GradientButton
+                fullWidth
+                height={45}
+                label="Import"
+                backgroundColor01="#95DBD5"
+                backgroundColor02="#95DBD5"
+                color="#202427"
+                onClick={() => onImport()}
+              />
+            )}
           </div>
           <div className="w-full mt-[50px]">
             <div className={styles.tokenTitle}>Could not process the following tokens:</div>

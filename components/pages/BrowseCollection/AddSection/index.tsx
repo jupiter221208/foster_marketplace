@@ -37,7 +37,7 @@ const AddSection = props => {
         <div className={`lg:block hidden ${styles.astro}`}>&nbsp;* </div>
       </div>
       <div className={styles.description}>Pick your preferred method for adding artwork to your collection</div>
-      <div className="flex justify-around lg:gap-[30px] mt-[30px]">
+      <div className="flex flex-wrap lg:justify-around gap-[10px] lg:gap-[30px] mt-[30px]">
         <div className={styles.button} onClick={() => uploadNew()}>
           <UploadIcon />
           Upload New
