@@ -38,19 +38,6 @@ const TrendingSection = props => {
     merchAPI.getRecentOrders().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let arr = Object.keys(response.nftData).map(key => response.nftData[key])
-
-        // let newData = []
-        // const uniqueAssetUrls = new Set()
-
-        // arr.forEach(item => {
-        //   const objectArray: any[] = item.nft[0]
-        //   console.log('222222222222222222', objectArray)
-        //   const assetUrl = objectArray.find(item => item.nft === 'assetUrl')
-        //   if (!uniqueAssetUrls.has(assetUrl)) {
-        //     uniqueAssetUrls.add(assetUrl)
-        //     newData.push(item)
-        //   }
-        // })
         setTrendingList(arr)
       }
     }),
@@ -68,18 +55,10 @@ const TrendingSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
                 <div className={styles.title}>Recent Purchases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
               </div>
             ) : (
               <div className="w-full flex flex-row justify-between">
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Recent Purchases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
               </div>
             )}
           </div>
