@@ -58,7 +58,13 @@ const EASection = ({ mintList, setMintList, onBack }: EASectionProps) => {
 
       let validNfts = []
       let errors: string[][] = []
-      for (let nft of result) {
+      for (let i = 0; i < mintList.length; i++) {
+        let nft = result[i]
+        if (!nft) {
+          errors.push([mintList[i], 'could not load nft'])
+          continue
+        }
+
         let error: null | string = null
 
         let collection = nft.grouping.find(({ group_key }) => group_key == 'collection')
