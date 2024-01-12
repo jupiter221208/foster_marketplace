@@ -30,7 +30,7 @@ const EASection = ({ mintList, setMintList, onBack }: EASectionProps) => {
   const { query } = useRouter()
   const { metaplex } = useMetaplex()
 
-  const collectionMint = new PublicKey(query.address)
+  const collectionMint = new PublicKey(query.address ?? 0)
 
   // TODO: replace with DAS endpoints once merged
   const [nftDetails, setNftDetails] = useState<any>([])
