@@ -140,6 +140,27 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           console.log(e)
           setHasLoading(false)
         })
+
+      await nftsAPI.getDetail(nftDetail.address).then(res => {
+        setHasLoading(false)
+        if (!isString(res)) {
+          setNftInfo(prev => {
+            let newObject = prev
+            newObject.auction = res.auction
+            newObject.merch_hub_enabled = res.merch_hub_enabled
+            newObject.likes = res.likes
+            newObject.shares = res.shares
+            newObject.saves = res.saves
+            newObject.liked = res.liked
+            newObject.saved = res.saved
+            newObject.shared = res.shared
+            return newObject
+          })
+          if (res.creator_address !== null) {
+            setArtistInfo({ address: res.creator_address, name: res.creator_username })
+          }
+        }
+      })
     }
     fetchData()
   }, [nftDetail, profileInfo])
@@ -169,20 +190,32 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     setNftCoverUrl(url)
   }
 
-  const reloadNftData = () => {
+  const reloadNftData = async () => {
     if (!nftDetail) return
-    setNftInfo(null)
-    nftsAPI.getDetail(nftDetail.address).then(
-      (response: any) => {
-        if (!isString(response)) {
-          setNftInfo(response)
-          if (response.creator_address !== null) {
-            setArtistInfo({ address: response.creator_address, name: response.creator_username })
-          }
-        }
+
+    await fetch(process.env.PROVIDER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-      error => {}
-    )
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 'my-id',
+        method: 'getAsset',
+        params: {
+          id: nftDetail.address,
+        },
+      }),
+    })
+      .then(async res => {
+        const { result } = await res.json()
+        setHasLoading(false)
+        setNftInfo(result)
+      })
+      .catch(e => {
+        console.log(e)
+        setHasLoading(false)
+      })
   }
 
   const [merchToggle, setMerchToggle] = useState(false)

@@ -25,6 +25,13 @@ export interface NftData {
   startTime?: number
   endTime?: number
   amount?: string
+  auction?: any
+  likes?: number
+  shares?: number
+  saves?: number
+  liked?: boolean
+  saved?: boolean
+  shared?: { facebook: boolean; twitter: boolean; telegram: boolean }
 
   animation_url?: string
   token_id?: PublicKey
@@ -44,6 +51,7 @@ export interface NftData {
   created_at?: Date
   mint_address?: string
   artist_profile_picture?: string
+  merch_hub_enabled?: boolean
 
   content?: {
     $schema: string

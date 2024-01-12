@@ -408,9 +408,9 @@ const MainSection = ({
     if (publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
     }
-    if (publicKey !== null && nftInfo?.creator_address !== null && nftInfo?.owner_address !== null) {
+    if (publicKey !== null && nftInfo?.creators[0].address !== null && nftInfo?.ownership.owner !== null) {
       setIsCreatedNft(
-        publicKey?.toBase58() === nftInfo?.creator_address && publicKey?.toBase58() === nftInfo?.owner_address
+        publicKey?.toBase58() === nftInfo?.creators[0].address && publicKey?.toBase58() === nftInfo?.ownership.owner
       )
     }
   }, [publicKey, sellerAddress, nftInfo])
