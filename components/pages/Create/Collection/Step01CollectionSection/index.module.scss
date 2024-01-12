@@ -118,7 +118,7 @@
   width: 100%;
   height: auto;
   padding: 24px 24px 56px 24px;
-  background-color: #373d41;
+  background-color: var(--collection-desc-bg-color);
   border-radius: 20px;
 }
 
@@ -128,7 +128,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .descriptionText {
@@ -137,7 +137,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .dropzoneTitle {
