@@ -30,7 +30,7 @@ const TabSection = props => {
     categories,
     collectionId,
     hasloading,
-    importEACollection,
+    handleCollectionImport,
   } = props
   const { publicKey } = useWallet()
 
@@ -99,7 +99,7 @@ const TabSection = props => {
 
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap z-10">
-          <AddSection collectionId={collectionId} coverUrl={coverUrl} importEACollection={importEACollection} />
+          <AddSection collectionId={collectionId} coverUrl={coverUrl} handleCollectionImport={handleCollectionImport} />
         </div>
       )}
     </div>

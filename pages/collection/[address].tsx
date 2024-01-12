@@ -22,6 +22,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
+import { getEACollectionInfo } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -48,6 +49,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const [hasloading, setHasLoading] = useState(false)
   const [showEAPreview, setShowEAPreview] = useState(false)
+  const [importMintList, setImportMintList] = useState<string[]>([])
 
   useEffect(() => {
     setTimeout(
@@ -101,7 +103,18 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     }
   }
 
-  const importEACollection = url => {
+  const handleCollectionImport = async ({ eaUrl, mintList }) => {
+    if (eaUrl)
+      try {
+        let { mints } = await getEACollectionInfo(eaUrl)
+        setImportMintList(mints)
+      } catch (e: any) {
+        console.error(`could not fetch EA collection info: ${e?.message}`)
+        // TODO: show error
+        return
+      }
+    else setImportMintList(Array.from(new Set(mintList)))
+
     setShowEAPreview(true)
   }
 
@@ -135,7 +148,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
       <div className={styles.container}>
         {showEAPreview ? (
-          <EASection onBack={() => setShowEAPreview(false)} />
+          <EASection mintList={importMintList} setMintList={setImportMintList} onBack={() => setShowEAPreview(false)} />
         ) : (
           <div>
             <MainSection
@@ -156,7 +169,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                   artistName={publicCollectionData?.artist_username}
                   description={publicCollectionData?.description}
                   categories={publicCollectionData?.categories}
-                  importEACollection={importEACollection}
+                  handleCollectionImport={handleCollectionImport}
                 />
               </div>
             </div>

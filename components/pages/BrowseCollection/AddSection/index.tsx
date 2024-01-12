@@ -15,7 +15,7 @@ import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import styles from './index.module.scss'
 
 const AddSection = props => {
-  const { collectionId, coverUrl, importEACollection } = props
+  const { collectionId, coverUrl, handleCollectionImport } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const [showAddTokenModal, setShowAddTokenModal] = useState(false)
@@ -55,16 +55,16 @@ const AddSection = props => {
       <AddTokenModal
         open={showAddTokenModal}
         onClose={() => setShowAddTokenModal(false)}
-        onImportUrl={url => {
+        onImportMintList={mintList => {
           setShowAddTokenModal(false)
-          importEACollection(url)
+          handleCollectionImport({ mintList })
         }}
       />
 
       <ImportEAModal
         open={showImportEAModal}
         onClose={() => setShowImportEAModal(false)}
-        onImportUrl={importEACollection}
+        onImportUrl={eaUrl => handleCollectionImport({ eaUrl })}
       />
     </div>
   )

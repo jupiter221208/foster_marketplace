@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 // components
 
-// json
+// solana
+import { PublicKey } from '@solana/web3.js'
 
 // resources
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
@@ -16,52 +18,113 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // apis
+import { useMetaplex } from 'hooks/useMetaplex'
 
-const EASection = props => {
-  const { onBack } = props
+export interface EASectionProps {
+  mintList: string[]
+  setMintList: (list: string[]) => void
+  onBack: () => any
+}
 
-  const [artworkList, setArtworkList] = useState([])
-  const [tokenList, setTokenList] = useState([])
+const EASection = ({ mintList, setMintList, onBack }: EASectionProps) => {
+  const { query } = useRouter()
+  const { metaplex } = useMetaplex()
+
+  const collectionMint = new PublicKey(query.address)
+
+  // TODO: replace with DAS endpoints once merged
+  const [nftDetails, setNftDetails] = useState<any>([])
+  const [errorList, setErrorList] = useState<string[][]>([])
 
   useEffect(() => {
-    const artworks = [
-      {
-        nft_name: 'Anubis',
-        mint_address: 'RrkQW86rKadkzcG3Z93pVQ1pBNkzxBsXSFAThH5QoTH',
-        nft_asset: 'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/bf9e9a2f-b657-4c0c-95a2-1b1d5fdc14a5.jpg',
-      },
-      {
-        nft_name: 'Anubis',
-        mint_address: 'RrkQW86rKadkzcG3Z93pVQ1pBNkzxBsXSFAThH5QoTH',
-        nft_asset: 'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/bf9e9a2f-b657-4c0c-95a2-1b1d5fdc14a5.jpg',
-      },
-      {
-        nft_name: 'Anubis',
-        mint_address: 'RrkQW86rKadkzcG3Z93pVQ1pBNkzxBsXSFAThH5QoTH',
-        nft_asset: 'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/bf9e9a2f-b657-4c0c-95a2-1b1d5fdc14a5.jpg',
-      },
-      {
-        nft_name: 'Anubis',
-        mint_address: 'RrkQW86rKadkzcG3Z93pVQ1pBNkzxBsXSFAThH5QoTH',
-        nft_asset: 'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/bf9e9a2f-b657-4c0c-95a2-1b1d5fdc14a5.jpg',
-      },
-    ]
-    setArtworkList(artworks)
-    setTokenList([
-      '96RqhnjPdYVFSrLX12zBpyQvRfPcXt1z7hnWUe61SXPB',
-      '96RqhnjPdYVFSrLX12zBpyQvRfPcXt1z7hnWUe61SXPB',
-      '96RqhnjPdYVFSrLX12zBpyQvRfPcXt1z7hnWUe61SXPB',
-    ])
-  }, [])
+    ;(async () => {
+      let { result } = await fetch(metaplex.connection.rpcEndpoint, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 'getMultipleNftsDAS',
+          method: 'getAssetBatch',
+          params: {
+            ids: mintList,
+            options: {
+              showUnverifiedCollections: true,
+            },
+          },
+        }),
+      }).then(r => r.json())
+
+      let validNfts = []
+      let errors: string[][] = []
+      for (let nft of result) {
+        let error: null | string = null
+
+        let collection = nft.grouping.find(({ group_key }) => group_key == 'collection')
+        if (collection?.verified && collection?.group_value == collectionMint.toString())
+          error = `nft is already verified part of collection ${query.address}`
+        else if (!nft.mutable) error = 'nft is immutable, cannot be updated'
+        else {
+          let updateAuthority = nft.authorities?.find(({ scopes }) => scopes.includes('full'))?.address
+          if (!updateAuthority) error = 'could not find update authority of nft'
+          else if (updateAuthority != metaplex.identity().publicKey.toString())
+            error = `update authority mismatch, expected ${updateAuthority}, got ${metaplex.identity().publicKey}`
+        }
+
+        if (error) errors.push([nft.id, error])
+        else validNfts.push(nft)
+      }
+
+      setNftDetails(validNfts)
+      setErrorList(errors)
+    })()
+  }, [metaplex, mintList])
 
   const removeNft = index => {
-    if (artworkList.length === 1) return
-    let list = [...artworkList]
+    if (nftDetails.length === 1) return
+    let list = [...nftDetails]
     list.splice(index, 1)
-    setArtworkList(list)
+    setNftDetails(list)
   }
 
-  const onImport = () => {}
+  const onImport = async () => {
+    let nftInfos = await metaplex.nfts().findAllByMintList({
+      mints: nftDetails.map(({ id }) => new PublicKey(id)),
+    })
+
+    let builders = nftInfos.map(nft => {
+      let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
+      return metaplex
+        .nfts()
+        .builders()
+        .update({
+          nftOrSft: {
+            ...nft,
+            address: mintAddress,
+          },
+          collection: collectionMint,
+        })
+        .add(
+          metaplex.nfts().builders().verifyCollection({
+            mintAddress,
+            collectionMintAddress: collectionMint,
+          })
+        )
+    })
+    let batchedBuilders = []
+    for (let i = 0; i < builders.length; i++)
+      if (i % 3 == 0) batchedBuilders[i / 3] = builders[i]
+      else batchedBuilders[Math.floor(i / 3)].add(builders[i])
+
+    let blockhashInfo = await metaplex.connection.getLatestBlockhash()
+    let txs = batchedBuilders.map(builder => builder.toTransaction(blockhashInfo))
+    let signedTxs = await metaplex.identity().signAllTransactions(txs)
+    let signatures = await Promise.all(signedTxs.map(tx => metaplex.connection.sendRawTransaction(tx.serialize())))
+    console.log(signatures)
+
+    // TODO: show success message
+  }
 
   return (
     <div className="g-container">
@@ -71,9 +134,9 @@ const EASection = props => {
           <div className="w-full flex mt-[40px] mb-[40px] ml-[22px] mr-[22px]">
             <div className="w-[56%] px-[22px]">
               <div className={styles.artworkArea}>
-                <div className={styles.artworkTitle}>4 artworks</div>
+                <div className={styles.artworkTitle}>{nftDetails.length} artworks</div>
                 <div className="mt-[30px] h-[440px] overflow-scroll">
-                  {artworkList.map((item, index) => {
+                  {nftDetails.map((nft, index) => {
                     return (
                       <div key={index} className="w-full flex mb-[20px] items-center">
                         <div className="min-w-[16px]">
@@ -82,7 +145,7 @@ const EASection = props => {
 
                         <div className={styles.nftAsset}>
                           <Image
-                            src={item.nft_asset}
+                            src={nft.content.files?.[0]?.cdn_uri ?? nft.content.links.image}
                             width={88}
                             height={88}
                             alt=""
@@ -91,8 +154,8 @@ const EASection = props => {
                           />
                         </div>
                         <div className="w-full ml-4 mr-4">
-                          <div className={styles.nftName}>{item.nft_name}</div>
-                          <div className={styles.mintAddress}>{item.mint_address}</div>
+                          <div className={styles.nftName}>{nft.content.metadata.name}</div>
+                          <div className={styles.mintAddress}>{nft.id}</div>
                         </div>
                       </div>
                     )
@@ -123,12 +186,12 @@ const EASection = props => {
             </div>
             <div className="w-[44%] px-[44px]">
               <div className={styles.tokenArea}>
-                <div className={styles.tokenTitle}>No results found for the following tokens:</div>
+                <div className={styles.tokenTitle}>Could not process the following tokens:</div>
                 <div className="mt-[30px]">
-                  {tokenList.map((item, index) => {
+                  {errorList.map(([nftId, reason], index) => {
                     return (
                       <div key={index} className={styles.tokenText}>
-                        {item}
+                        {`${nftId}: ${reason}`}
                       </div>
                     )
                   })}
@@ -139,22 +202,29 @@ const EASection = props => {
         </div>
         <div className="w-full lg:hidden block">
           <div className="mt-[30px]">
-            {artworkList.map((item, index) => {
+            {nftDetails.map((nft, index) => {
               return (
                 <div key={index} className="mb-[20px]">
-                  <div className="w-full flex  items-center">
+                  <div className="w-full flex items-center">
                     <div className="min-w-[16px]">
                       <TrashIcon onClick={() => removeNft(index)} />
                     </div>
 
                     <div className={styles.nftAsset}>
-                      <Image src={item.nft_asset} width={68} height={68} alt="" layout="responsive" objectFit="cover" />
+                      <Image
+                        src={nft.content.files?.[0]?.cdn_uri ?? nft.content.links.image}
+                        width={68}
+                        height={68}
+                        alt=""
+                        layout="responsive"
+                        objectFit="cover"
+                      />
                     </div>
                     <div className="w-full ml-4 mr-4">
-                      <div className={styles.nftName}>{item.nft_name}</div>
+                      <div className={styles.nftName}>{nft.content.metadata.name}</div>
                     </div>
                   </div>
-                  <div className={styles.mintAddress}>{item.mint_address}</div>
+                  <div className={styles.mintAddress}>{nft.id}</div>
                 </div>
               )
             })}
@@ -179,12 +249,12 @@ const EASection = props => {
             />
           </div>
           <div className="w-full mt-[50px]">
-            <div className={styles.tokenTitle}>No results found for the following tokens:</div>
+            <div className={styles.tokenTitle}>Could not process the following tokens:</div>
             <div className="mt-[10px]">
-              {tokenList.map((item, index) => {
+              {errorList.map(([nftId, reason], index) => {
                 return (
                   <div key={index} className={styles.tokenText}>
-                    {item}
+                    {`${nftId}: ${reason}`}
                   </div>
                 )
               })}

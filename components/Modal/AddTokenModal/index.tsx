@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react'
+import { PublicKey } from '@solana/web3.js'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -14,7 +15,7 @@ import TrashIcon from 'assets/icons/trash-icon.svg?component'
 import styles from './index.module.scss'
 
 const AddTokenModal = props => {
-  const { open, onClose, onImportUrl } = props
+  const { open, onClose, onImportMintList } = props
 
   const closeModal = () => {
     setTokenList([{ token_id: '' }])
@@ -127,7 +128,18 @@ const AddTokenModal = props => {
                     label="Import"
                     fullWidth
                     onClick={() => {
-                      onImportUrl(tokenList)
+                      onImportMintList(
+                        tokenList
+                          .map(({ token_id }) => {
+                            try {
+                              return new PublicKey(token_id.trim()).toString()
+                            } catch (e) {
+                              console.error(`could not parse token id {token_id}: ${e}`)
+                              return null
+                            }
+                          })
+                          .filter(id => id != null)
+                      )
                       setTimeout(() => {
                         setTokenList([{ token_id: '' }])
                       }, 1000)

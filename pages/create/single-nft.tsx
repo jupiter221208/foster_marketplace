@@ -417,7 +417,7 @@ const SingleNft = () => {
         })
       if (collection)
         createNftOperation.add(
-          await mx.nfts().builders().verifyCollection({
+          mx.nfts().builders().verifyCollection({
             mintAddress: nftMint.publicKey,
             collectionMintAddress: collection.mintAddress,
           })
