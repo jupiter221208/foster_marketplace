@@ -632,7 +632,8 @@ const Step01CollectionSection = props => {
                     className={styles.createCollection}
                     disabled={disabledNextButton} //disabledNextButton
                     style={{
-                      opacity: disabledNextButton ? 0.5 : 1,
+                      color: disabledNextButton ? "var(--create-collection-color)" : "var(--twitter-text-color)",
+                      background: disabledNextButton ? "var(--create-collection-btn)" : "var(--main-icon-color)"
                     }}
                     onClick={() => {
                       mintCollection()

@@ -148,9 +148,14 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
       <div className={styles.container}>
         {showEAPreview ? (
-          <EASection mintList={importMintList} setMintList={setImportMintList} onBack={() => setShowEAPreview(false)} />
+          <EASection
+            mintList={importMintList}
+            setMintList={setImportMintList}
+            onBack={() => setShowEAPreview(false)}
+            coverUrl={publicCollectionData?.cover_image}
+          />
         ) : (
-          <div>
+          <div className="w-full">
             <MainSection
               nfts={nfts}
               data={collectionData}

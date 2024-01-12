@@ -142,7 +142,7 @@
 
 .dropzoneTitle {
   text-align: start;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 21px;
   margin-right: 4px;
@@ -152,7 +152,7 @@
     gap: 4px;
   }
   @media (min-width: 1680px) {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
     gap: 8px;
   }
@@ -398,8 +398,6 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   border-radius: 12px;
-  color: var(--create-collection-color);
-  background: var(--create-collection-btn);
   border-color: rgba(var(--main-bg-color-rgb), 0.1);
   border-width: 1px;
   width: 175px;

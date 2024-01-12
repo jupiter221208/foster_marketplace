@@ -41,12 +41,20 @@
 
 .bannerImageArea {
   position: relative;
-  max-width: 640px;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: transparent;
+  @media (min-width: 1024px) {
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
   max-height: 640px;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background-color: rgba(var(--white-color-rgb), 0.1);
+    border-radius: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: rgba(var(--white-color-rgb), 0.1);
+  }
 }
 
 .coverImageArea {
@@ -156,4 +164,22 @@
   height: 68px;
   border: 2px solid transparent;
   border-radius: 8px;
+}
+
+.mintCollection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  border-radius: 12px;
+  border-color: rgba(var(--main-bg-color-rgb), 0.1);
+  border-width: 1px;
+  width: 175px;
+  height: 46px;
+  @media (min-width: 1024px) {
+    width: 224px;
+    height: 56px;
+    font-size: 16px;
+  }
 }

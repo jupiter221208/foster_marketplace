@@ -22,11 +22,12 @@ import { useMetaplex } from 'hooks/useMetaplex'
 
 export interface EASectionProps {
   mintList: string[]
+  coverUrl: string
   setMintList: (list: string[]) => void
   onBack: () => any
 }
 
-const EASection = ({ mintList, setMintList, onBack }: EASectionProps) => {
+const EASection = ({ mintList, coverUrl, setMintList, onBack }: EASectionProps) => {
   const { query } = useRouter()
   const { metaplex } = useMetaplex()
 

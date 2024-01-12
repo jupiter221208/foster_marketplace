@@ -670,24 +670,17 @@ const Step02CollectionSection = props => {
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-end">
-                  {disabledNextButton ? (
-                    <Button
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
-                    />
-                  ) : (
-                    <GradientButton
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      gradientDirection="bottom"
-                      onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                    />
-                  )}
+                  <button
+                    className={styles.nextStep}
+                    disabled={disabledNextButton}
+                    style={{
+                      color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                      background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                    }}
+                    onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                  >
+                    Next Step
+                  </button>
                 </div>
               </div>
             </div>
@@ -695,15 +688,15 @@ const Step02CollectionSection = props => {
         </div>
       ) : (
         // mobile part
-        <div className="g-container mt-[26px] mb-[47px]">
+        <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          <div className="w-full">
+          {/* <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
-          </div>
+          </div> */}
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
+          <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
-            <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+            <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
               <div className="w-full flex justify-center">
                 <div
@@ -1111,8 +1104,19 @@ const Step02CollectionSection = props => {
             </div>
           )}
           <div className="w-full flex justify-end my-10">
-            <div className="w-[161px]">
-              {disabledNextButton ? (
+            <div className="w-[161px] mr-[16px]">
+              <button
+                className={styles.nextStep}
+                disabled={disabledNextButton}
+                style={{
+                  color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                  background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                }}
+                onClick={() => handleChangeCurrentStep(currentStep + 1)}
+              >
+                Next Step
+              </button>
+              {/* {disabledNextButton ? (
                 <Button
                   label="Next Step"
                   height={viewport === '2xl' ? 53 : 46}
@@ -1132,7 +1136,7 @@ const Step02CollectionSection = props => {
                   color={'var(--mint-btn-color)'}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
                 />
-              )}
+              )} */}
             </div>
           </div>
         </div>
