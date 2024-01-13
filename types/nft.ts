@@ -47,10 +47,10 @@ export interface NftData {
   current_bid?: number
   reserve_price?: number
   end_time?: number
-  asset_name: string
-  action_type: string
-  created_at: Date
-  mint_address: string
+  asset_name?: string
+  action_type?: string
+  created_at?: Date
+  mint_address?: string
   artist_profile_picture?: string
 
   content?: {
@@ -87,7 +87,7 @@ export interface NftData {
     verified: boolean
   }
   collectionDetails?: {
-    size: number
+    size: number | BigNumber
   }
   tokenAccount?: {
     delegate: PublicKey | null
