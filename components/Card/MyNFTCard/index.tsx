@@ -12,17 +12,16 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getDisplayUserNames } from 'utils/strings'
+import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
 import { PublicKey } from '@metaplex-foundation/js'
 
 type MyNFTCardTypes = {
   data: NftData
-  onClick?: (data: NftData) => any
-  onClickStartAuction: (data: NftData) => any
-  onClickListNFT: (data: NftData) => any
-  publicKey: PublicKey
+  onClick?: any
+  onClickStartAuction: (item: NftData) => void
+  onClickListNFT: (item: NftData) => void
 }
 
 const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
