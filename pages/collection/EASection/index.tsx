@@ -20,6 +20,7 @@ import GradientButton from 'components/Button/GradientButton'
 // apis
 import { useMetaplex } from 'hooks/useMetaplex'
 import LoadingButton from 'components/Button/LoadingButton'
+import nftAPI from 'apis/nfts'
 
 export interface EASectionProps {
   mintList: string[]
@@ -134,15 +135,23 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
     let signatures = await Promise.all(signedTxs.map(tx => metaplex.connection.sendRawTransaction(tx.serialize())))
     console.log(signatures)
 
+    let nftArray = []
     nftInfos.map(nft => {
       let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
-      fetch(`/nft/${mintAddress.toBase58()}`)
+      nftArray.push(mintAddress)
     })
+
+    nftAPI.batchIndexNft(nftArray).then(
+      response => {},
+      error => {}
+    )
+
+    onSuccess()
     // TODO: show success message
     //
     setIsProcessing(false)
   }
-
+  console.log(nftDetails, '=============nftDetails===========')
   return (
     <div className="g-container">
       <div className={styles.container}>
