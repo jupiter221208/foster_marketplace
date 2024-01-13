@@ -53,6 +53,20 @@ export interface NftData {
   mint_address: string
   artist_profile_picture?: string
 
+  content?: {
+    files: [
+      {
+        uri: string
+        mime: string
+      }
+    ]
+    links: {
+      image: string
+    }
+    metadata: {
+      name: string
+    }
+  }
   highestBid?: {
     buyer_address: string
     amount: string
