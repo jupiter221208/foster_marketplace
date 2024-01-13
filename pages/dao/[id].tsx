@@ -45,7 +45,7 @@ const Dao = () => {
     ;(async () => {
       setIsLoading(true)
       if (connected) {
-        let nfts = await getMyNFTs(metaplex)
+        let nfts: any = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
         setNfts(nfts)
       }

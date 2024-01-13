@@ -43,6 +43,7 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
+import { NftData } from 'types/nft'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -264,7 +265,7 @@ const MerchActivity = () => {
 
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
-    let nfts = await getMyNFTs(mx)
+    let nfts: any = await getMyNFTs(mx)
 
     let eligibleNfts = nfts.filter(
       item =>
