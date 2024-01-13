@@ -141,7 +141,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       nftArray.push(mintAddress)
     })
 
-    nftAPI.batchIndexNft(nftArray).then(
+    nftAPI.batchIndex(nftArray).then(
       response => {},
       error => {}
     )

@@ -172,11 +172,6 @@ class Nfts {
       return response.data
     })
   }
-  batchIndexNft(params) {
-    return client.post(`${API_URL}v1/nfts/index/`, params).then(response => {
-      return response.data
-    })
-  }
 }
 
 export default new Nfts()
