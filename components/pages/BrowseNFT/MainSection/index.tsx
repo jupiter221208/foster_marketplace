@@ -108,6 +108,8 @@ import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import { getDisplayUserName } from 'utils/strings'
+import Link from 'next/link'
 import { NftData } from 'types/nft'
 
 export interface MainSectionProps {

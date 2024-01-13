@@ -25,24 +25,6 @@ import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import Link from 'next/link'
 import { NftData } from 'types/nft'
 
-// export interface ListedNFTCardData {
-//   address: PublicKey
-//   name: string
-//   uri: string
-//   sellerAddress: PublicKey
-//   tradeStateAddress: PublicKey
-//   price: number
-//   creatorAddress: string
-//   startTime?: number
-//   endTime?: number
-//   highestBid?: {
-//     buyer_address: string
-//     amount: string
-//   }
-// }
-
-// export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
-
 export interface ListedNFTCardProps {
   data: NftData
   type: 'fixed' | 'auction'

@@ -43,7 +43,7 @@ const MyNFTSection = props => {
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
     setLoading(true)
-    let nfts = await getMyNFTs(mx)
+    let nfts: any = await getMyNFTs(mx)
     let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
