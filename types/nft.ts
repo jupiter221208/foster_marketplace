@@ -24,8 +24,16 @@ export interface NftData {
   creatorAddress?: string
   startTime?: number
   endTime?: number
-  amount: string
+  amount?: string
+  auction?: any
+  likes?: number
+  shares?: number
+  saves?: number
+  liked?: boolean
+  saved?: boolean
+  shared?: { facebook: boolean; twitter: boolean; telegram: boolean }
 
+  merch_hub_enabled?: any
   animation_url?: string
   token_id?: PublicKey
   asset_url?: string
