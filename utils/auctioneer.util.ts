@@ -6,7 +6,7 @@ import {
   createExecuteSaleInstruction,
   createWithdrawInstruction,
   AUCTIONEER_PROGRAM_ID,
-  ListingConfig as AuctionListing
+  ListingConfig as AuctionListing,
 } from '@metaplex-foundation/mpl-auctioneer'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
@@ -111,8 +111,8 @@ export async function fetchAuctionListing(
 ): Promise<AuctionListing | null> {
   let [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
   let accountInfo = await metaplex.connection.getAccountInfo(listingConfig)
-  if(!accountInfo) return null;
-  else return AuctionListing.fromAccountInfo(accountInfo)[0];
+  if (!accountInfo) return null
+  else return AuctionListing.fromAccountInfo(accountInfo)[0]
 }
 
 export async function startAuction(
