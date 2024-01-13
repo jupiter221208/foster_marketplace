@@ -15,7 +15,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
-import { NftData as NewNftData } from 'types/nft'
+import { NftData as NewNftData, NftData } from 'types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)
@@ -57,37 +57,13 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
   return tokenAccounts[0]
 }
 
-export interface NftData {
-  mintAddress: PublicKey
-  name?: string
-  symbol?: string
-  description?: string
-  image?: string
-  imageCdn?: string
-  animation_url?: string
-  category?: string
-  creators?: NftCreator[]
-  attributes?: Array<{ value: string; trait_type: string }>
-  collection?: {
-    address: PublicKey
-    verified: boolean
-  }
-}
-
 export interface NftCreator {
   address: PublicKey
   share: number
   verified: boolean
 }
 
-export interface CollectionNftData extends NftData {
-  collectionDetails?: {
-    version: string
-    size: bigint
-  }
-}
-
-export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
+export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
   let tokenAccounts = await new TokenGpaBuilder(mx)
     .whereOwner(mx.identity().publicKey)
     .whereAmount(1)
@@ -101,7 +77,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
 
   let nfts = await mx.nfts().findAllByMintList({ mints: tokenAccounts.map(({ mint }) => mint) })
 
-  let userNfts: GetMyNftsOutput = []
+  let userNfts = []
   for (let i = 0; i < tokenAccounts.length; i++) {
     if (!nfts[i] || tokenAccounts[i].isFrozen) continue
 
@@ -120,7 +96,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
         // @ts-ignore
         nft.jsonLoaded = true
       } catch (e) {
-        console.warn(`failed to parse metadata for ${nftAddress}\n`, e)
+        console.warn(`failed to parse metadata for ${nft.address}\n`, e)
       }
 
       return null

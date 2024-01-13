@@ -6,7 +6,7 @@ import Head from 'next/head'
 // solana
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { type NftData, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 
 // components
@@ -25,6 +25,7 @@ import { useRouter } from 'next/router'
 import { isExpiredDate } from 'utils/helpers'
 import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { NftData } from 'types/nft'
 
 const Dao = () => {
   const router = useRouter()
