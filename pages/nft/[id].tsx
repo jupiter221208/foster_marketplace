@@ -133,7 +133,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       })
         .then(async res => {
           const { result } = await res.json()
-          setHasLoading(false)
           setNftInfo(result)
         })
         .catch(e => {
@@ -142,10 +141,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         })
 
       await nftsAPI.getDetail(nftDetail.address).then(res => {
-        setHasLoading(false)
         if (!isString(res)) {
           setNftInfo(prev => {
-            let newObject = prev
+            let newObject = { ...prev }
             newObject.auction = res.auction
             newObject.merch_hub_enabled = res.merch_hub_enabled
             newObject.likes = res.likes
@@ -159,6 +157,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (res.creator_address !== null) {
             setArtistInfo({ address: res.creator_address, name: res.creator_username })
           }
+          setHasLoading(false)
         }
       })
     }
@@ -209,16 +208,37 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     })
       .then(async res => {
         const { result } = await res.json()
-        setHasLoading(false)
         setNftInfo(result)
       })
       .catch(e => {
         console.log(e)
         setHasLoading(false)
       })
+
+    await nftsAPI.getDetail(nftDetail.address).then(res => {
+      if (!isString(res)) {
+        setNftInfo(prev => {
+          let newObject = prev
+          newObject.auction = res.auction
+          newObject.merch_hub_enabled = res.merch_hub_enabled
+          newObject.likes = res.likes
+          newObject.shares = res.shares
+          newObject.saves = res.saves
+          newObject.liked = res.liked
+          newObject.saved = res.saved
+          newObject.shared = res.shared
+          return newObject
+        })
+        if (res.creator_address !== null) {
+          setArtistInfo({ address: res.creator_address, name: res.creator_username })
+        }
+      }
+    })
   }
 
   const [merchToggle, setMerchToggle] = useState(false)
+
+  console.log(nftInfo)
 
   return (
     <div className="w-full h-full">
