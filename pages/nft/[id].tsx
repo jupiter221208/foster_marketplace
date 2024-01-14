@@ -238,8 +238,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const [merchToggle, setMerchToggle] = useState(false)
 
-  console.log(nftInfo)
-
   return (
     <div className="w-full h-full">
       <Head>
