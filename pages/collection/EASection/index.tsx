@@ -101,9 +101,8 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
 
   const onImport = async () => {
     setIsProcessing(true)
-    let nftInfos = await metaplex.nfts().findAllByMintList({
-      mints: nftDetails.map(({ id }) => new PublicKey(id)),
-    })
+    let mints = nftDetails.map(({ id }) => new PublicKey(id))
+    let nftInfos = await metaplex.nfts().findAllByMintList({ mints })
 
     let builders = nftInfos.map(nft => {
       let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
@@ -135,16 +134,11 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
     let signatures = await Promise.all(signedTxs.map(tx => metaplex.connection.sendRawTransaction(tx.serialize())))
     console.log(signatures)
 
-    let nftArray = []
-    nftInfos.map(nft => {
-      let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
-      nftArray.push(mintAddress)
-    })
-
-    nftAPI.batchIndex(nftArray).then(
-      response => {},
-      error => {}
+    await Promise.all(
+      signatures.map(signature => metaplex.rpc().confirmTransaction(signature, blockhashInfo, 'finalized'))
     )
+
+    await nftAPI.batchIndex(mints)
 
     onSuccess()
     // TODO: show success message
