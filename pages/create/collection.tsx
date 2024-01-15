@@ -260,16 +260,16 @@ const Collection = () => {
 
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
-    const categories = categoryList.filter(item => item.checked)
 
     let array = []
 
-    let category = ''
-    categories.forEach(item => {
-      category += item.name + ','
-    })
-
     const collectionPublicKey = new PublicKey(collectionMintAddress)
+
+    let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
+    let category = ''
+    collectionInfo.json.attributes?.forEach(item => {
+      category += item.value + ','
+    })
 
     for (let i = 0; i < collectionFiles.length; i++) {
       let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
@@ -370,14 +370,10 @@ const Collection = () => {
         asset_url: assetUrl,
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
       })
       setUploadedCount(i + 1)
     }
-
-    // let collectionInfo = {
-    //   nfts: array,
-    // }
-
     collectionsAPI.updateCollectionNFT(collectionMintAddress, array).then(
       response => {
         setAlertData([
