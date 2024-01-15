@@ -15,6 +15,8 @@ import styles from './index.module.scss'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'
+// import { useMetaplex } from 'hooks/useMetaplex'
+
 // redux
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -38,6 +40,7 @@ type BrowseCollectionProps = {
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
+  // const { metaplex } = useMetaplex()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
@@ -85,6 +88,13 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         setLoaded(true)
       }
     })()
+    // ;(async () => {
+    //   const collectionAddress = publicCollectionData?.collection_id
+    //   let nftInfos = await metaplex.nfts().findAllByMintList({ mints: [new PublicKey(collectionAddress)] })
+    //   let item = await fetch(nftInfos[0].uri).then(r => r.json())
+    //   console.log(nftInfos, '========================nftInfos=============')
+    //   console.log(item, '========================item=============')
+    // })()
   }, [address, publicCollectionData])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

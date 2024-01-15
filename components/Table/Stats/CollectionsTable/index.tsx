@@ -15,6 +15,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import Link from 'next/link'
 
 const CollectionsTable = props => {
   const { data } = props
@@ -41,26 +42,29 @@ const CollectionsTable = props => {
           return (
             <tr key={index}>
               <td>
-                <div className="flex gap-2 mx-3 items-center">
-                  <div className="min-w-[38px] w-[38x]">
-                    <Image
-                      src={item.cover_image !== null && item.cover_image !== '' ? item.cover_image : DefaultAvatar}
-                      alt=""
-                      width={38}
-                      height={38}
-                      className="rounded-[8px]"
-                    />
-                  </div>
-                  <div
-                    className="flex justify-center cursor-pointer"
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/collection/${item.collection_address}`)
-                    }}
-                  >
-                    {item.collection_name}
-                  </div>
-                </div>
+                <Link href={`/collection/${item.collection_address}`} passHref>
+                  <a>
+                    <div className="flex gap-2 mx-3 items-center">
+                      <div className="min-w-[38px] w-[38x]">
+                        <Image
+                          src={item.cover_image !== null && item.cover_image !== '' ? item.cover_image : DefaultAvatar}
+                          alt=""
+                          width={38}
+                          height={38}
+                          className="rounded-[8px]"
+                        />
+                      </div>
+                      <div
+                        className="flex justify-center cursor-pointer"
+                        onClick={() => {
+                          dispatch({ type: 'set', isLoading: true })
+                        }}
+                      >
+                        {item.collection_name}
+                      </div>
+                    </div>
+                  </a>
+                </Link>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
@@ -92,7 +96,9 @@ const CollectionsTable = props => {
                   router.push(`/${item.creator_username}`)
                 }}
               >
-                {getDisplayUserName(item.creator_username)}
+                <Link href={`/${item.creator_username}`} passHref>
+                  <a>{getDisplayUserName(item.creator_username)}</a>
+                </Link>
               </td>
               <td className="text-center">{item.unique_holders}</td>
             </tr>
