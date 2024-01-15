@@ -181,8 +181,6 @@ const PrimaryHeader = () => {
       // router.push(item.path)
       if (item.type === 'collection_nft') {
         dispatch({ type: 'set', mintCollectionStep: 1 })
-        dispatch({ type: 'set', collectionMintAddress: '' })
-        dispatch({ type: 'set', collectionCoverUrl: '' })
       }
     } else {
       setVisible(true)
@@ -223,7 +221,7 @@ const PrimaryHeader = () => {
               />
             </div>
 
-            <div className="w-full flex justify-between p-6">
+            <div className="w-full h-full flex justify-between px-6">
               <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
                 <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
                   <FosterLogo className={styles.logoIcon} />

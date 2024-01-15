@@ -40,6 +40,7 @@ const Collection = () => {
   const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
+  const collectionMintName = useSelector(state => (state as any).collectionMintName)
   const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
   const [screenLoaded, setScreenLoaded] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -455,6 +456,7 @@ const Collection = () => {
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={collectionCoverUrl}
+            collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
             readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}

@@ -31,6 +31,7 @@ const Step03CollectionSection = props => {
     currentStep,
     onChangeCurrentStep,
     coverCroppedImage,
+    collectionMintName,
     collectionFiles,
     bannerCroppedImage,
     readFilesAndUplaod,
@@ -78,7 +79,7 @@ const Step03CollectionSection = props => {
           {/* left part */}
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Review Collection</div>
+              <div className={`${styles.title} w-full`}>{collectionMintName}</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className={styles.bannerImageArea}>
@@ -229,7 +230,7 @@ const Step03CollectionSection = props => {
           {/* <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div> */}
-          <div className={`${styles.title} w-full`}>Review Collection</div>
+          <div className={`${styles.title} w-full`}>{collectionMintName}</div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             {/* banner part */}

@@ -46,8 +46,6 @@ const AccordionMenu = props => {
 
     if (item.type === 'collection_nft') {
       dispatch({ type: 'set', mintCollectionStep: 1 })
-      dispatch({ type: 'set', collectionMintAddress: '' })
-      dispatch({ type: 'set', collectionCoverUrl: '' })
     }
 
     router.push(item.path)

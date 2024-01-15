@@ -40,6 +40,7 @@ const initialState = {
   isAddToCart: false,
   mintCollectionStep: 1,
   collectionMintAddress: '',
+  collectionMintName: '',
   collectionCoverUrl: ''
 }
 
