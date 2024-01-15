@@ -27,10 +27,8 @@ import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
-import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
@@ -49,7 +47,6 @@ import userAPI from 'apis/user'
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const routePath = router.pathname
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
@@ -181,7 +178,12 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
-      router.push(item.path)
+      // router.push(item.path)
+      if (item.type === 'collection_nft') {
+        dispatch({ type: 'set', mintCollectionStep: 1 })
+        dispatch({ type: 'set', collectionMintAddress: '' })
+        dispatch({ type: 'set', collectionCoverUrl: '' })
+      }
     } else {
       setVisible(true)
     }

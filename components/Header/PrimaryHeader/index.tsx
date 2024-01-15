@@ -178,7 +178,11 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
-      // router.push(item.path)
+      if (item.type === 'collection_nft') {
+        dispatch({ type: 'set', mintCollectionStep: 1 })
+        dispatch({ type: 'set', collectionMintAddress: '' })
+        dispatch({ type: 'set', collectionCoverUrl: '' })
+      }
     } else {
       setVisible(true)
     }

@@ -18,14 +18,16 @@ import styles from './index.module.scss'
 import { getDateString, getDisplayUserName } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { getBuyerName, getOwnerName } from 'utils/helpers'
+import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 const ActivityAccordion = props => {
   const { data } = props
   const dispatch = useDispatch()
   const router = useRouter()
+  const { solToUsdRate } = useSolToUsdRate()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -44,6 +46,60 @@ const ActivityAccordion = props => {
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
     router.push(`/${link}`)
+  }
+
+  const getUserName = item => {
+    let user = ''
+    switch (item.action_type) {
+      case 'AuctionStarted':
+      case 'AuctionCancelled':
+      case 'ListingAdded':
+      case 'ListingCancelled':
+        user = getOwnerName(item)
+        break
+      case 'OfferMade':
+      case 'OfferCancelled':
+      case 'QuickBuy':
+      case 'AuctionWon':
+      case 'BidPlaced':
+        user = getBuyerName(item)
+        break
+    }
+    return user
+  }
+
+  const getActionType = item => {
+    let type = ''
+    switch (item.action_type) {
+      case 'AuctionStarted':
+        type = 'published an auction'
+        break
+      case 'AuctionCancelled':
+        type = 'canceled an auction'
+        break
+      case 'ListingAdded':
+        type = 'listed'
+        break
+      case 'ListingCancelled':
+        type = 'canceled listing'
+        break
+      case 'OfferMade':
+        type = 'made an offer'
+        break
+      case 'OfferCancelled':
+        type = 'canceled an offer'
+        break
+      case 'QuickBuy':
+        type = 'purchased'
+        break
+      case 'AuctionWon':
+        type = 'won an auction'
+        break
+      case 'BidPlaced':
+        type = 'placed a bid'
+        break
+    }
+    return type
   }
 
   return (
@@ -74,34 +130,24 @@ const ActivityAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Time</div>
-                    <div className={styles.text}>{getDateString(item.created_at)}</div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Amount</div>
-                    <div className="flex gap-[4px] items-center">
-                      <SolanaLogoIcon alt="" />
-                      <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
+                    <div>
+                      <div className="flex gap-[4px] mb-[5px]">
+                        <div className={styles.title}>{getDisplayUserName(getUserName(item))}</div>
+                        <div className={styles.text}>{getActionType(item)}</div>
+                      </div>
+                      <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                     </div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Buyer</div>
-                    <div
-                      className={styles.text}
-                      onClick={() => {
-                        if (isBuyerExisting(item.action_type)) {
-                          gotoUserDetail(getBuyerName(item))
-                        }
-                      }}
-                    >
-                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
-                    </div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Seller</div>
-                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getDisplayUserName(getOwnerName(item))}
-                    </div>
+                    {isAmountExisting(item.action_type) && (
+                      <div>
+                        <div className="flex justify-center items-center gap-[5px] mb-[3px]">
+                          <SolanaLogoIcon />
+                          <div className={styles.text}>{parseFloat(item.amount).toFixed(2)}</div>
+                        </div>
+                        <div className={`${styles.date} text-end`}>
+                          ${(parseFloat(item.amount) * solToUsdRate).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </Disclosure.Panel>
               </>

@@ -23,18 +23,15 @@ import { useConnection } from '@solana/wallet-adapter-react'
 import { TwitterShareButton } from 'react-share'
 
 const SuccessMintCollectionSection = props => {
-  const { coverCroppedImage, bannerCroppedImage, collectionNft } = props
+  const { coverCroppedImage, bannerCroppedImage, mintAddress } = props
 
   const router = useRouter()
 
   const viewport = useViewport()
 
   const { connection } = useConnection()
-  const explorerURL = useMemo(
-    () => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()),
-    [collectionNft, connection]
-  )
-  const collectionDetailUrl = globalThis.window?.origin + '/collection/' + collectionNft.mintAddress.toBase58()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, mintAddress), [mintAddress, connection])
+  const collectionDetailUrl = globalThis.window?.origin + '/collection/' + mintAddress
 
   return (
     <div className="w-full">
@@ -75,7 +72,7 @@ const SuccessMintCollectionSection = props => {
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
               Your NFT collection has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/collection/' + collectionNft.mintAddress.toBase58()}>
+              <a className={styles.mintLinkText} href={'/collection/' + mintAddress}>
                 collection page
               </a>
             </div>
@@ -147,7 +144,7 @@ const SuccessMintCollectionSection = props => {
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
               Your NFT collection has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/collection/' + collectionNft.mintAddress.toBase58()}>
+              <a className={styles.mintLinkText} href={'/collection/' + mintAddress}>
                 collection page
               </a>
             </div>

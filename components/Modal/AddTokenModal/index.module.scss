@@ -1,0 +1,105 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background-color: rgba(var(--background-dark-color-rgb), 0.3);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  max-width: 690px;
+  background: var(--modal-bg-color);
+  border-width: 1px;
+  border-color: rgba(var(--import-ea-border-color), 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  @media (min-width: 1024px) {
+    border-radius: 30px;
+    padding: 35px 40px 30px 40px;
+    border-radius: 20px;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.topic {
+  width: 100%;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+  @media (min-width: 1024px) {
+    width: auto;
+    font-size: 18px;
+    text-align: left;
+  }
+}
+
+.astro {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--main-icon-color);
+}
+
+.description {
+  font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+  font-size: 14px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    text-align: left;
+  }
+}
+
+.tokenIndex {
+  color:var(--text-gray-200-color);
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.inputArea {
+  width: 100%;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  color:var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  outline: none;
+  padding: 15px 24px;
+}
+
+.button {
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  font-size: 16px;
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  width: 100%;
+  height: 50px;
+  display: flex;
+  gap: 17px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

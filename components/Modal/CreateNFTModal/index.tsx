@@ -1,4 +1,6 @@
 import { Fragment } from 'react'
+import { useViewport } from 'utils'
+import { useDispatch } from 'react-redux'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -14,11 +16,9 @@ import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // custom functions
-import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
-import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -26,6 +26,7 @@ import GradientButtonWithSVG from 'components/Button/GradientButtonWithSVG'
 
 const CreateNFTModal = props => {
   const { open, close } = props
+  const dispatch = useDispatch()
   const viewport = useViewport()
   const router = useRouter()
   const { connected } = useWallet()
@@ -236,7 +237,12 @@ const CreateNFTModal = props => {
                         label="Collection"
                         width={221}
                         height={45}
-                        onClick={() => handleClickButton('/create/collection')}
+                        onClick={() => {
+                          dispatch({ type: 'set', mintCollectionStep: 1 })
+                          dispatch({ type: 'set', collectionMintAddress: '' })
+                          dispatch({ type: 'set', collectionCoverUrl: '' })
+                          handleClickButton('/create/collection')
+                        }}
                         color="var(--text-gray-200-color)"
                         fontSize="16px"
                         borderWidth="1px"

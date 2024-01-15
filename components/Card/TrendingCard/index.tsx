@@ -19,7 +19,6 @@ import styles from './index.module.scss'
 
 import { useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import OutlineButton from 'components/Button/OutlineButton'
 
 const TrendingCard = props => {
   const { token_id, imagedata, nftName, assetUrl, onClick, userName } = props

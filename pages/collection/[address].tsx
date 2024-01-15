@@ -22,12 +22,13 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
+import { getEACollectionInfo } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import { useViewport, parseCookies } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
+import { parseCookies } from 'utils'
 import TabSection from './TabSection'
+import EASection from './EASection'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -37,8 +38,6 @@ type BrowseCollectionProps = {
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
-  useAuthentication()
-  const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
@@ -49,6 +48,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const address = publicCollectionData?.collection_id
 
   const [hasloading, setHasLoading] = useState(false)
+  const [showEAPreview, setShowEAPreview] = useState(false)
+  const [importMintList, setImportMintList] = useState<string[]>([])
 
   useEffect(() => {
     setTimeout(
@@ -102,6 +103,31 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     }
   }
 
+  const handleCollectionImport = async ({ eaUrl, mintList }) => {
+    if (eaUrl)
+      try {
+        let { mints } = await getEACollectionInfo(eaUrl)
+        setImportMintList(mints)
+      } catch (e: any) {
+        console.error(`could not fetch EA collection info: ${e?.message}`)
+        // TODO: show error
+        return
+      }
+    else setImportMintList(Array.from(new Set(mintList)))
+
+    setShowEAPreview(true)
+  }
+
+  const successImporting = () => {
+    collectionsAPI.getCollectionNft(address).then(
+      response => {
+        setNfts(response)
+        setShowEAPreview(false)
+      },
+      error => {}
+    )
+  }
+
   useEffect(() => {
     ;(async () => {
       if (!connected || !loginAndRefresh) return
@@ -112,7 +138,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`
   let collectionImageUrl = getAbsoluteOgUrl(publicCollectionData?.cover_image ?? DefaultNftBG.src)
   let collectionDescription = publicCollectionData?.description ?? ''
-
   return (
     <div className="w-full">
       <Head>
@@ -132,17 +157,40 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
-        <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} loaded={loaded} />
-        <div className="w-full flex justify-center">
-          <div className="g-container">
-            <TabSection
+        {showEAPreview ? (
+          <EASection
+            mintList={importMintList}
+            setMintList={setImportMintList}
+            onBack={() => setShowEAPreview(false)}
+            onSuccess={() => successImporting()}
+            coverUrl={publicCollectionData?.cover_image}
+          />
+        ) : (
+          <div className="w-full">
+            <MainSection
               nfts={nfts}
-              collectionId={address}
-              collectionName={publicCollectionData?.collection_name}
-              artistName={publicCollectionData?.artist_username}
+              data={collectionData}
+              hasloading={hasloading}
+              publicKey={publicKey}
+              loaded={loaded}
             />
+            <div className="w-full flex justify-center">
+              <div className="g-container">
+                <TabSection
+                  nfts={nfts}
+                  collectionId={address}
+                  minter={publicCollectionData?.minter_id}
+                  collectionName={publicCollectionData?.collection_name}
+                  coverUrl={publicCollectionData?.cover_image}
+                  artistName={publicCollectionData?.artist_username}
+                  description={publicCollectionData?.description}
+                  categories={publicCollectionData?.categories}
+                  handleCollectionImport={handleCollectionImport}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>

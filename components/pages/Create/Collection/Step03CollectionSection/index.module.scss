@@ -29,27 +29,32 @@
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'KCDurhamboxcar';
-  font-size: 31px;
-  line-height: 41px;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 74px;
-    line-height: 158px;
+    font-size: 30px;
   }
-  letter-spacing: 0;
   color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .bannerImageArea {
   position: relative;
-  max-width: 758px;
-  max-height: 194px;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background-color: rgba(var(--white-color-rgb), 0.1);
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: transparent;
+  @media (min-width: 1024px) {
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+  max-height: 640px;
+    border-radius: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: rgba(var(--white-color-rgb), 0.1);
+  }
 }
 
 .coverImageArea {
@@ -159,4 +164,22 @@
   height: 68px;
   border: 2px solid transparent;
   border-radius: 8px;
+}
+
+.mintCollection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  border-radius: 12px;
+  border-color: rgba(var(--main-bg-color-rgb), 0.1);
+  border-width: 1px;
+  width: 175px;
+  height: 46px;
+  @media (min-width: 1024px) {
+    width: 224px;
+    height: 56px;
+    font-size: 16px;
+  }
 }

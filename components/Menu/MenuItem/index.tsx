@@ -16,34 +16,30 @@ const MenuItem = props => {
   const { key, item, onSelect } = props
 
   return (
-    <Link href={`/${item.path}`} passHref>
-      <a>
-        <div
-          key={key}
-          className={styles.menuItem}
-          onClick={() => {
-            onSelect(item)
-          }}
-        >
-          <div className="w-12 h-12">
-            {item.type === 'nft_category' ? (
-              <NftCategoryIcon className={styles.iconFill} />
-            ) : item.type === 'nft_collection' ? (
-              <NftCollectionIcon className={styles.iconFill} />
-            ) : item.type === 'nft_artist' ? (
-              <NftArtistIcon className={styles.iconFill} />
-            ) : item.type === 'single_nft' ? (
-              <SingleNftIcon className={styles.iconFill} />
-            ) : item.type === 'collection_nft' ? (
-              <CollectionNftIcon className={styles.iconFill} />
-            ) : (
-              <div />
-            )}
-          </div>
-          <span className="mt-2">{item.label}</span>
-        </div>
-      </a>
-    </Link>
+    <div
+      key={key}
+      className={styles.menuItem}
+      onClick={() => {
+        onSelect(item)
+      }}
+    >
+      <div className="w-12 h-12">
+        {item.type === 'nft_category' ? (
+          <NftCategoryIcon className={styles.iconFill} />
+        ) : item.type === 'nft_collection' ? (
+          <NftCollectionIcon className={styles.iconFill} />
+        ) : item.type === 'nft_artist' ? (
+          <NftArtistIcon className={styles.iconFill} />
+        ) : item.type === 'single_nft' ? (
+          <SingleNftIcon className={styles.iconFill} />
+        ) : item.type === 'collection_nft' ? (
+          <CollectionNftIcon className={styles.iconFill} />
+        ) : (
+          <div />
+        )}
+      </div>
+      <span className="mt-2">{item.label}</span>
+    </div>
   )
 }
 

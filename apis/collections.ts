@@ -1,3 +1,4 @@
+import { addUrlSearchParams } from 'utils'
 import { isLoggedIn } from 'utils/helpers'
 import client from './client'
 
@@ -24,6 +25,12 @@ class Collections {
 
   saveCollection(collection_id) {
     return client.post(API_URL + 'v1/collections/save/' + collection_id).then(response => {
+      return response.data
+    })
+  }
+
+  updateCollectionNFT(collection_id, collectionInfo) {
+    return client.patch(API_URL + 'v1/collections/' + collection_id + '/nfts', collectionInfo).then(response => {
       return response.data
     })
   }
@@ -63,6 +70,15 @@ class Collections {
     return client.get(API_URL + 'v1/users/favorites?tab=nfts').then(response => {
       return response.data
     })
+  }
+
+  exchangeArtInfo(collection_name: string) {
+    return client
+      .get(addUrlSearchParams(API_URL + 'v1/collections/exchange-art-info', { collection_name }).toString())
+      .then(response => {
+        if (typeof response.data === 'string') throw new Error(response.data)
+        return response.data
+      })
   }
 }
 

@@ -33,7 +33,10 @@ const NftImageEditorModal = props => {
   useEffect(() => {
     if (nftImage !== undefined && nftImage !== null) {
       setTimeout(() => {
-        setImage(URL.createObjectURL(nftImage[0]))
+        console.log(typeof nftImage[0])
+        if (typeof nftImage[0] === 'object') {
+          setImage(URL.createObjectURL(nftImage[0]))
+        } else setImage(nftImage[0])
       }, 400)
     }
   }, [nftImage])
