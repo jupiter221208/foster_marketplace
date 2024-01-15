@@ -267,18 +267,20 @@ const Collection = () => {
 
     let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
     let category = ''
+    let nft_attributes = []
     collectionInfo.json.attributes?.forEach(item => {
       category += item.value + ','
+      nft_attributes.push({ trait_type: 'category', value: item.value })
     })
 
     for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
         name,
         description,
-        attributes,
+        attributes: nft_attributes,
         properties: {
           category: type === 'vr' ? type : file.type.split('/')[0],
         },
@@ -330,16 +332,13 @@ const Collection = () => {
       }
       const uri = await storage.uploadJson(metadata)
       const nftKeypair = Keypair.generate()
-      const createNftTransaction = await mx
-        .nfts()
-        .builders()
-        .create({
-          useNewMint: nftKeypair,
-          uri: uri,
-          name,
-          sellerFeeBasisPoints: royalties * 100,
-          collection: collectionPublicKey,
-        })
+      const createNftTransaction = await mx.nfts().builders().create({
+        useNewMint: nftKeypair,
+        uri: uri,
+        name,
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        collection: collectionPublicKey,
+      })
 
       const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
         mintAddress: nftKeypair.publicKey,
@@ -385,7 +384,9 @@ const Collection = () => {
           },
         ])
         setShowAlert(true)
-        router.push(`/collection/${collectionMintAddress}`)
+        setTimeout(() => {
+          router.push(`/collection/${collectionMintAddress}`)
+        }, 500)
       },
       error => {}
     )
