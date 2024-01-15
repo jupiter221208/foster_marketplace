@@ -12,6 +12,9 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   opacity: 0.8;
+  &:hover {
+    color: #95dbd5;
+  }
 }
 
 .menuArea {

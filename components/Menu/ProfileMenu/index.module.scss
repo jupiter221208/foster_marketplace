@@ -12,6 +12,9 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   color: var(--text-gray-200-color);
+  &:hover {
+    color: #95dbd5;
+  }
 }
 
 .avatar {

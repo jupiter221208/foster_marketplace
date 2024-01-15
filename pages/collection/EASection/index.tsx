@@ -103,7 +103,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
   const onImport = async () => {
     setIsProcessing(true)
     let mints = nftDetails.map(({ id }) => new PublicKey(id))
-    let nftInfos: Metadata[] = await metaplex.nfts().findAllByMintList({ mints })
+    let nftInfos = (await metaplex.nfts().findAllByMintList({ mints })) as Metadata[]
 
     let builders = nftInfos
       .filter(nft => nft?.isMutable)
