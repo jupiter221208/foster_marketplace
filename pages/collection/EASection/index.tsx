@@ -187,8 +187,8 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
                       width={120}
                       height={50}
                       label="Back"
-                      color="#eff0f6"
-                      borderColor="rgba(239, 240, 247, 0.25)"
+                      color="var(--text-gray-200-color)"
+                      borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       onClick={() => onBack()}
                     />
                     {isProcessing ? (
