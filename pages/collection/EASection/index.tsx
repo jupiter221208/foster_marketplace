@@ -8,6 +8,7 @@ import Image from 'next/image'
 
 // solana
 import { PublicKey } from '@solana/web3.js'
+import { type Metadata } from '@metaplex-foundation/js'
 
 // resources
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
@@ -102,27 +103,28 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
   const onImport = async () => {
     setIsProcessing(true)
     let mints = nftDetails.map(({ id }) => new PublicKey(id))
-    let nftInfos = await metaplex.nfts().findAllByMintList({ mints })
+    let nftInfos = (await metaplex.nfts().findAllByMintList({ mints })) as Metadata[]
 
-    let builders = nftInfos.map(nft => {
-      let mintAddress = 'mintAddress' in nft ? nft.mintAddress : nft.address
-      return metaplex
-        .nfts()
-        .builders()
-        .update({
-          nftOrSft: {
-            ...nft,
-            address: mintAddress,
-          },
-          collection: collectionMint,
-        })
-        .add(
-          metaplex.nfts().builders().verifyCollection({
-            mintAddress,
-            collectionMintAddress: collectionMint,
+    let builders = nftInfos
+      .filter(nft => nft?.isMutable)
+      .map(nft =>
+        metaplex
+          .nfts()
+          .builders()
+          .update({
+            nftOrSft: {
+              ...nft,
+              address: nft.mintAddress,
+            },
+            collection: collectionMint,
           })
-        )
-    })
+          .add(
+            metaplex.nfts().builders().verifyCollection({
+              mintAddress: nft.mintAddress,
+              collectionMintAddress: collectionMint,
+            })
+          )
+      )
     let batchedBuilders = []
     for (let i = 0; i < builders.length; i++)
       if (i % 3 == 0) batchedBuilders[i / 3] = builders[i]
@@ -138,7 +140,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       signatures.map(signature => metaplex.rpc().confirmTransaction(signature, blockhashInfo, 'finalized'))
     )
 
-    await nftAPI.batchIndex(mints)
+    await nftAPI.batchIndex(nftInfos.filter(nft => nft?.isMutable).map(({ mintAddress }) => mintAddress.toString()))
 
     onSuccess()
     // TODO: show success message
