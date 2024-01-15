@@ -14,6 +14,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectionsTable = props => {
   const { data } = props
@@ -91,7 +92,7 @@ const CollectionsTable = props => {
                   router.push(`/${item.creator_username}`)
                 }}
               >
-                {item.creator_username}
+                {getDisplayUserName(item.creator_username)}
               </td>
               <td className="text-center">{item.unique_holders}</td>
             </tr>

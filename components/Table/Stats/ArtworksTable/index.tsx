@@ -14,6 +14,7 @@ import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { getDisplayUserName } from 'utils/strings'
 
 const ArtworksTable = props => {
   const { data } = props
@@ -82,10 +83,10 @@ const ArtworksTable = props => {
               <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
               <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getOwnerName(item))}>
-                {getOwnerName(item)}
+                {getDisplayUserName(getOwnerName(item))}
               </td>
               <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getBuyerName(item))}>
-                {getBuyerName(item)}
+                {getDisplayUserName(getBuyerName(item))}
               </td>
               <td className="text-center">{getFirstUpperString(item.market)}</td>
             </tr>

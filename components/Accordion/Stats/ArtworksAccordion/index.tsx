@@ -18,6 +18,7 @@ import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'u
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const ArtworksAccordion = props => {
   const { data } = props
@@ -87,13 +88,13 @@ const ArtworksAccordion = props => {
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getOwnerName(item)}
+                      {getDisplayUserName(getOwnerName(item))}
                     </div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Buyer</div>
                     <div className={styles.secondText} onClick={() => gotoUserDetail(getBuyerName(item))}>
-                      {getBuyerName(item)}
+                      {getDisplayUserName(getBuyerName(item))}
                     </div>
                   </div>
                   <div className={styles.firstRow}>

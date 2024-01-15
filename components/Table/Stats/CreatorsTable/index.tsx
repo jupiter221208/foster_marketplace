@@ -13,6 +13,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const CreatorsTable = props => {
   const { data } = props
@@ -58,7 +59,7 @@ const CreatorsTable = props => {
                       router.push(`/${item.creator_name}`)
                     }}
                   >
-                    {item.creator_name}
+                    {getDisplayUserName(item.creator_name)}
                   </div>
                 </div>
               </td>

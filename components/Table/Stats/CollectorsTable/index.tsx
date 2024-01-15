@@ -14,6 +14,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectorsTable = props => {
   const { data } = props
@@ -59,7 +60,7 @@ const CollectorsTable = props => {
                       router.push(`/${item.collector_name}`)
                     }}
                   >
-                    {item.collector_name}
+                    {getDisplayUserName(item.collector_name)}
                   </div>
                 </div>
               </td>
