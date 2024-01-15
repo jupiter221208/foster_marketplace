@@ -297,7 +297,7 @@ const PrimaryHeader = () => {
               </div>
 
               {!connected && (
-                <button className="ml-7" onClick={() => handleThemeMode()}>
+                <button className="ml-6" onClick={() => handleThemeMode()}>
                   {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                 </button>
               )}
