@@ -15,7 +15,7 @@ import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import styles from './index.module.scss'
 
 const AddSection = props => {
-  const { collectionId, coverUrl, handleCollectionImport } = props
+  const { collectionId, coverUrl, collectionName, handleCollectionImport } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const [showAddTokenModal, setShowAddTokenModal] = useState(false)
@@ -27,6 +27,7 @@ const AddSection = props => {
     dispatch({ type: 'set', mintCollectionStep: 2 })
     dispatch({ type: 'set', collectionMintAddress: collectionId })
     dispatch({ type: 'set', collectionCoverUrl: coverUrl })
+    dispatch({ type: 'set', collectionMintName: collectionName })
     router.push('/create/collection')
   }
 

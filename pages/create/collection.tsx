@@ -40,6 +40,7 @@ const Collection = () => {
   const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
+  const collectionMintName = useSelector(state => (state as any).collectionMintName)
   const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
   const [screenLoaded, setScreenLoaded] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -260,25 +261,27 @@ const Collection = () => {
 
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
-    const categories = categoryList.filter(item => item.checked)
 
     let array = []
 
-    let category = ''
-    categories.forEach(item => {
-      category += item.name + ','
-    })
-
     const collectionPublicKey = new PublicKey(collectionMintAddress)
 
+    let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
+    let category = ''
+    let nft_attributes = []
+    collectionInfo.json.attributes?.forEach(item => {
+      category += item.value + ','
+      nft_attributes.push({ trait_type: 'category', value: item.value })
+    })
+
     for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
         name,
         description,
-        attributes,
+        attributes: nft_attributes,
         properties: {
           category: type === 'vr' ? type : file.type.split('/')[0],
         },
@@ -330,16 +333,13 @@ const Collection = () => {
       }
       const uri = await storage.uploadJson(metadata)
       const nftKeypair = Keypair.generate()
-      const createNftTransaction = await mx
-        .nfts()
-        .builders()
-        .create({
-          useNewMint: nftKeypair,
-          uri: uri,
-          name,
-          sellerFeeBasisPoints: royalties * 100,
-          collection: collectionPublicKey,
-        })
+      const createNftTransaction = await mx.nfts().builders().create({
+        useNewMint: nftKeypair,
+        uri: uri,
+        name,
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        collection: collectionPublicKey,
+      })
 
       const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
         mintAddress: nftKeypair.publicKey,
@@ -370,14 +370,10 @@ const Collection = () => {
         asset_url: assetUrl,
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
       })
       setUploadedCount(i + 1)
     }
-
-    // let collectionInfo = {
-    //   nfts: array,
-    // }
-
     collectionsAPI.updateCollectionNFT(collectionMintAddress, array).then(
       response => {
         setAlertData([
@@ -389,7 +385,9 @@ const Collection = () => {
           },
         ])
         setShowAlert(true)
-        router.push(`/collection/${collectionMintAddress}`)
+        setTimeout(() => {
+          router.push(`/collection/${collectionMintAddress}`)
+        }, 500)
       },
       error => {}
     )
@@ -458,6 +456,7 @@ const Collection = () => {
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={collectionCoverUrl}
+            collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
             readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
