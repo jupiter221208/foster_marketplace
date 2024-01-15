@@ -15,6 +15,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const CreatorsAccordion = props => {
   const { data } = props
@@ -60,7 +61,7 @@ const CreatorsAccordion = props => {
                     </div>
                     <div className="block">
                       <div className={styles.subTitle} onClick={() => router.push(`/${item.creator_name}`)}>
-                        {item.creator_name}
+                        {getDisplayUserName(item.creator_name)}
                       </div>
                       <div className="flex gap-2 mt-1 items-center">
                         <div className={styles.priceText}>Total Sales</div>

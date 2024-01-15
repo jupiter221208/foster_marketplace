@@ -16,6 +16,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectionsAccordion = props => {
   const { data } = props
@@ -127,7 +128,7 @@ const CollectionsAccordion = props => {
                         router.push(`/${item.creator_username}`)
                       }}
                     >
-                      {item.creator_username}
+                      {getDisplayUserName(item.creator_username)}
                     </div>
                   </div>
                 </Disclosure.Panel>
