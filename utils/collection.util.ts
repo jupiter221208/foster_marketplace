@@ -103,8 +103,9 @@ export interface EACollectionInfo {
   info: {
     name: string
     description: string
-    primaryCategory: string
-    tags: string[]
+    primaryCategory?: string
+    secondaryCategory?: string
+    tags?: string[]
   }
   createdAt: string
   lastVersionNumMints: number

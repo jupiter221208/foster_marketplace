@@ -210,10 +210,10 @@ const Step01CollectionSection = props => {
       let collectionInfo = await getEACollectionInfo(url)
       setEACollectionInfo(collectionInfo)
 
-      let { name, description, primaryCategory, tags } = collectionInfo.info
+      let { name, description, primaryCategory, secondaryCategory, tags = [] } = collectionInfo.info
 
-      let eaTags = [primaryCategory, ...tags]
-      let eaTagSet = new Set(eaTags.map(tag => tag.toLowerCase()))
+      let eaTags = [primaryCategory, secondaryCategory, ...tags]
+      let eaTagSet = new Set(eaTags.filter(tag => typeof tag == 'string').map(tag => tag.toLowerCase()))
       let checkedCount = 0
       let fosterCategories = [...categoryList]
       for (let category of fosterCategories)
@@ -975,7 +975,6 @@ const Step01CollectionSection = props => {
           </div>
         </div>
       )}
-
 
       <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
 
