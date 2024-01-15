@@ -145,7 +145,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
     //
     setIsProcessing(false)
   }
-  console.log(nftDetails, '=============nftDetails===========')
+
   return (
     <div className="g-container">
       <div className={styles.container}>
