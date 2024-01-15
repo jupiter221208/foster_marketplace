@@ -92,8 +92,20 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           }),
         })
         const { result } = await response.json()
-        if (result) {
-          setNfts(result.items)
+
+        let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+        if (collectionNfts && result) {
+          let newNftsArr = [...result.items]
+          collectionNfts.map((data, index) => {
+            newNftsArr[index].artist_username = data.artist_username
+            newNftsArr[index].artist_id = data.artist_id
+            newNftsArr[index].list_price = data.list_price
+            newNftsArr[index].start_time = data.start_time
+            newNftsArr[index].end_time = data.end_time
+            newNftsArr[index].current_bid = data.current_bid
+          })
+          setNfts(newNftsArr)
           fetchNftData(result.items)
         }
 
@@ -113,7 +125,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       ;(async () => {
         for (let index = 0; index < nfts.length; index++) {
           let data = nfts[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/nft/${data.id}`).then(e => e.text())
           if (index % 3 == 2) {
             await sleep(1000)
           }
