@@ -8,7 +8,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useViewport } from 'utils'
 
 // custom components
-import Navbar from 'components/Navbar'
 import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryFooter from 'components/Footer/PrimaryFooter'
