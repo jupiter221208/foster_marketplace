@@ -119,7 +119,13 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   }
 
   const successImporting = () => {
-    setShowEAPreview(false)
+    collectionsAPI.getCollectionNft(address).then(
+      response => {
+        setNfts(response)
+        setShowEAPreview(false)
+      },
+      error => {}
+    )
   }
 
   useEffect(() => {
