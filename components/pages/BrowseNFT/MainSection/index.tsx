@@ -1187,21 +1187,22 @@ const MainSection = ({
                   {nftCollectionUrl.length > 0 && (
                     <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
                       <div className={styles.collectionText}>Collection</div>
-                      <div
-                        className={styles.collectionName}
-                        onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
-                      >
-                        {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                          <Image
-                            src={nftCollectionImage}
-                            alt=""
-                            width={25}
-                            height={25}
-                            className="object-cover rounded-[4px]"
-                          />
-                        )}
-                        {nftCollectionName}
-                      </div>
+                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                        <a>
+                          <div className={styles.collectionName}>
+                            {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                              <Image
+                                src={nftCollectionImage}
+                                alt=""
+                                width={25}
+                                height={25}
+                                className="object-cover rounded-[4px]"
+                              />
+                            )}
+                            {nftCollectionName}
+                          </div>
+                        </a>
+                      </Link>
                     </div>
                   )}
                   {editionDetail && (
