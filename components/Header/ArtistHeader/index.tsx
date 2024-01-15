@@ -239,7 +239,7 @@ const PrimaryHeader = () => {
             <div className="w-full">
               <SearchBox
                 value={searchKeyword}
-                placeholder="Search Marketplace"
+                placeholder="Search"
                 onChange={value => setSearchKeyword(value)}
                 searchList={searchList}
                 onClick={() => handleClear()}
