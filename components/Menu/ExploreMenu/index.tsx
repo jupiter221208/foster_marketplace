@@ -57,7 +57,7 @@ const ExploreMenu = props => {
       <HMenu>
         <HMenu.Button onClick={toggleMenu} ref={itemRef as MutableRefObject<HTMLButtonElement>}>
           <div className={styles.container}>
-            <div className="mr-[9px]">{props.label}</div>
+            <div>{props.label}</div>
           </div>
         </HMenu.Button>
         {isMenuOpen && (

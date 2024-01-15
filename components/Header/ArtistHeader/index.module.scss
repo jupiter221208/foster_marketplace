@@ -7,10 +7,10 @@
   border-bottom: 1px solid var(--header-bottom-color);
   box-shadow: 0px 0px 6px var(--nav-bg-shadow);
 
-  .linkNames {
+  .linkNames * {
     font-family: 'Muli-SemiBold';
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     opacity: 1;
   }
 }

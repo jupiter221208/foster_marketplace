@@ -14,6 +14,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import Link from 'next/link'
 
 const CreatorsTable = props => {
   const { data } = props
@@ -40,28 +41,31 @@ const CreatorsTable = props => {
           return (
             <tr key={index}>
               <td>
-                <div className="flex gap-2 mx-3 items-center">
-                  <div className={styles.avatarArea}>
-                    <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
-                      <Image
-                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="rounded-[8px]"
-                      />
+                <Link href={`/${item.creator_name}`} passHref>
+                  <a>
+                    <div className="flex gap-2 mx-3 items-center">
+                      <div className={styles.avatarArea}>
+                        <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
+                          <Image
+                            src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
+                            alt=""
+                            width={36}
+                            height={36}
+                            className="rounded-[8px]"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="flex justify-center cursor-pointer"
+                        onClick={() => {
+                          dispatch({ type: 'set', isLoading: true })
+                        }}
+                      >
+                        {getDisplayUserName(item.creator_name)}
+                      </div>
                     </div>
-                  </div>
-                  <div
-                    className="flex justify-center cursor-pointer"
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/${item.creator_name}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.creator_name)}
-                  </div>
-                </div>
+                  </a>
+                </Link>
               </td>
               <td className="text-center">{item.unique_collectors}</td>
               <td className="text-center">
