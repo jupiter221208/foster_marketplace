@@ -52,8 +52,8 @@ export interface NftData {
   created_at?: Date
   mint_address?: string
   artist_profile_picture?: string
-  creator_address: PublicKey
-  creator_username: string
+  creator_address?: PublicKey
+  creator_username?: string
 
   content?: {
     files: [
