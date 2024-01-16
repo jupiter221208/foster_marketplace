@@ -613,11 +613,6 @@ const MainSection = prop => {
                 )}
               </div>
             </div>
-            {hasLoading ? (
-              <div className={`${styles.skeletonLoader} w-[450px] h-[24px] mt-[17px] mb-[34px] rounded-full`}></div>
-            ) : (
-              artistInfo?.bio && <span className={styles.description}>{artistInfo?.bio}</span>
-            )}
           </div>
         </div>
       </div>
@@ -939,14 +934,6 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-
-        {hasLoading ? (
-          <div className={`${styles.skeletonLoader} w-[280px] h-[24px] mt-[17px] mb-[34px] rounded-full`}></div>
-        ) : (
-          <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
-            {artistInfo?.bio && <span className={styles.description}>{artistInfo?.bio}</span>}
-          </div>
-        )}
       </div>
 
       {showFollowModal && (
