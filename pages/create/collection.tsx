@@ -13,7 +13,6 @@ import Step01CollectionSection from 'components/pages/Create/Collection/Step01Co
 import Step02CollectionSection from 'components/pages/Create/Collection/Step02CollectionSection'
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import CollectionMintProgressingModal from 'components/Modal/ProgressingModal/CollectionMintProgressingModal'
 import Alert from 'components/Alert'
 
 // json

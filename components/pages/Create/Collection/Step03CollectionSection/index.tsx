@@ -23,6 +23,7 @@ import LoaderLottery from 'assets/lottery/loader.json'
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 import { FadeLoader } from 'react-spinners'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -50,6 +51,10 @@ const Step03CollectionSection = props => {
     setStartUpload(true)
     readFilesAndUplaod()
   }
+
+  useEffect(() => {
+    if (uploadedCount === collectionFiles.length) setStartUpload(false)
+  })
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
@@ -216,17 +221,26 @@ const Step03CollectionSection = props => {
                       height={53}
                       borderWidth={2}
                     />
-                    <button
-                      className={styles.mintCollection}
-                      disabled={disabledNextButton}
-                      style={{
-                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                      }}
-                      onClick={() => uploadArtworks()}
-                    >
-                      Mint
-                    </button>
+                    {startUpload ? (
+                      <LoadingButton
+                        width={120}
+                        height={53}
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                      />
+                    ) : (
+                      <button
+                        className={styles.mintCollection}
+                        disabled={disabledNextButton}
+                        style={{
+                          color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                          background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                        }}
+                        onClick={() => uploadArtworks()}
+                      >
+                        Mint
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
