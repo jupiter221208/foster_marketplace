@@ -149,25 +149,27 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           setHasLoading(false)
         })
 
-      await nftsAPI.getDetail(nftDetail.address).then(res => {
-        if (!isString(res)) {
-          setNftInfo(prev => {
-            let newObject = { ...prev }
-            newObject.auction = res.auction
-            newObject.merch_hub_enabled = res.merch_hub_enabled
-            newObject.likes = res.likes
-            newObject.shares = res.shares
-            newObject.saves = res.saves
-            newObject.liked = res.liked
-            newObject.saved = res.saved
-            newObject.shared = res.shared
-            return newObject
-          })
-          if (res.creator_address !== null) {
-            setArtistInfo({ address: res.creator_address, name: res.creator_username })
-          }
+      let nftsApiData: NftData
+      if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
+      else nftsApiData = await nftsAPI.get(nftDetail.address)
+
+      if (!isString(nftsApiData) && nftsApiData) {
+        setNftInfo(prev => {
+          let newObject = { ...prev }
+          newObject.auction = nftsApiData.auction
+          newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
+          newObject.likes = nftsApiData.likes
+          newObject.shares = nftsApiData.shares
+          newObject.saves = nftsApiData.saves
+          newObject.liked = nftsApiData.liked
+          newObject.saved = nftsApiData.saved
+          newObject.shared = nftsApiData.shared
+          return newObject
+        })
+        if (nftsApiData.creator_address !== null) {
+          setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
         }
-      })
+      }
     }
     fetchData()
   }, [nftDetail, profileInfo])
@@ -216,32 +218,43 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     })
       .then(async res => {
         const { result } = await res.json()
+        result.auction = null
+        result.merch_hub_enabled = null
+        result.likes = null
+        result.shares = null
+        result.saves = null
+        result.liked = null
+        result.saved = null
+        result.shared = null
         setNftInfo(result)
+        setHasLoading(false)
       })
       .catch(e => {
         console.log(e)
         setHasLoading(false)
       })
 
-    await nftsAPI.getDetail(nftDetail.address).then(res => {
-      if (!isString(res)) {
-        setNftInfo(prev => {
-          let newObject = prev
-          newObject.auction = res.auction
-          newObject.merch_hub_enabled = res.merch_hub_enabled
-          newObject.likes = res.likes
-          newObject.shares = res.shares
-          newObject.saves = res.saves
-          newObject.liked = res.liked
-          newObject.saved = res.saved
-          newObject.shared = res.shared
-          return newObject
-        })
-        if (res.creator_address !== null) {
-          setArtistInfo({ address: res.creator_address, name: res.creator_username })
-        }
+    let nftsApiData: NftData
+    if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
+    else nftsApiData = await nftsAPI.get(nftDetail.address)
+
+    if (!isString(nftsApiData) && nftsApiData) {
+      setNftInfo(prev => {
+        let newObject = { ...prev }
+        newObject.auction = nftsApiData.auction
+        newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
+        newObject.likes = nftsApiData.likes
+        newObject.shares = nftsApiData.shares
+        newObject.saves = nftsApiData.saves
+        newObject.liked = nftsApiData.liked
+        newObject.saved = nftsApiData.saved
+        newObject.shared = nftsApiData.shared
+        return newObject
+      })
+      if (nftsApiData.creator_address !== null) {
+        setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
       }
-    })
+    }
   }
 
   const [merchToggle, setMerchToggle] = useState(false)
