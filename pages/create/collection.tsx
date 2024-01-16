@@ -14,6 +14,7 @@ import Step02CollectionSection from 'components/pages/Create/Collection/Step02Co
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import CollectionMintProgressingModal from 'components/Modal/ProgressingModal/CollectionMintProgressingModal'
+import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -22,7 +23,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
-import { Keypair } from '@solana/web3.js'
+import { Keypair, PublicKey } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
@@ -30,12 +31,20 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { useRouter } from 'next/router'
 
 const Collection = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const isLoading = useSelector<any>(state => state.isLoading)
   const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
+  const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
+  const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
+  const collectionMintName = useSelector(state => (state as any).collectionMintName)
+  const collectionCoverUrl = useSelector(state => (state as any).collectionCoverUrl)
   const [screenLoaded, setScreenLoaded] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -43,7 +52,7 @@ const Collection = () => {
   const { refreshToken } = useAuthentication()
 
   // --------------variables------------
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(mintCollectionStep)
 
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
@@ -92,8 +101,8 @@ const Collection = () => {
       const attributes = categories.map(category => {
         return { trait_type: 'category', value: category.name }
       })
-
       let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
+
       setCoverImageUrl(coverImageUrl)
 
       let trimmedCollectionName = collectionName.trim()
@@ -105,10 +114,6 @@ const Collection = () => {
         image: coverImageUrl,
       })
 
-      // const result = await axios.get(uri).then(response => {
-      //   return response.data
-      // })
-
       const collectionNft = await mx.nfts().create({
         useNewMint: collectionNftMint,
         isCollection: true,
@@ -119,12 +124,34 @@ const Collection = () => {
 
       if (collectionNft) {
         setCollectionNft(collectionNft)
-        setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+
+        const categories = categoryList.filter(item => item.checked)
+        let category = ''
+        categories.forEach(item => {
+          category += item.name + ','
+        })
+
+        let collectionInfo = {
+          collection_id: collectionNft.mintAddress.toString(),
+          collection_name: collectionName.trim(),
+          description: description.replaceAll('\n', ' ').trim(),
+          banner_image: bannerAWSUrl,
+          cover_image: coverAWSUrl,
+          categories: category.slice(0, -1),
+          nfts: [],
+        }
+
+        collectionsAPI.mintCollection(collectionInfo).then(
+          response => {
+            router.push(`/collection/${collectionNft.mintAddress.toString()}`)
+          },
+          error => {}
+        )
       }
     } catch (e) {
       console.log(e)
-    } finally {
       dispatch({ type: 'set', isLoading: false })
+    } finally {
     }
   }
 
@@ -145,7 +172,8 @@ const Collection = () => {
       object.name = ''
       object.description = ''
       if (item.type.split('/')[0] === 'audio') {
-        object.croppedImage = URL.createObjectURL(coverImage[0])
+        // object.croppedImage = URL.createObjectURL(coverImage[0])
+        object.croppedImage = collectionCoverUrl
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       } else if (item.type.split('/')[0] === 'video') {
@@ -197,7 +225,6 @@ const Collection = () => {
   const handleChangeCollectionDescription = (item, value) => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
-      console.log(index, item)
       if (index > -1) prevFiles[index].description = value
       return [...prevFiles]
     })
@@ -234,137 +261,138 @@ const Collection = () => {
 
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
-    const categories = categoryList.filter(item => item.checked)
 
     let array = []
 
+    const collectionPublicKey = new PublicKey(collectionMintAddress)
+
+    let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
     let category = ''
-    categories.forEach(item => {
-      category += item.name + ','
+    let nft_attributes = []
+    collectionInfo.json.attributes?.forEach(item => {
+      category += item.value + ','
+      nft_attributes.push({ trait_type: 'category', value: item.value })
     })
 
-    if (collectionNft) {
-      for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
-        name = name.trim()
-        description = description.trim()
-        const metadata: JsonMetadata = {
-          name,
-          description,
-          attributes,
-          properties: {
-            category: type === 'vr' ? type : file.type.split('/')[0],
-          },
-        }
+    for (let i = 0; i < collectionFiles.length; i++) {
+      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      name = name.trim()
+      description = description.trim()
+      const metadata: JsonMetadata = {
+        name,
+        description,
+        attributes: nft_attributes,
+        properties: {
+          category: type === 'vr' ? type : file.type.split('/')[0],
+        },
+      }
 
-        let imageFile = {
-          type: file.type,
-          url: await storage.upload(await toMetaplexFileFromBrowser(file)),
-        }
-        let assetFile = null
+      let imageFile = {
+        type: file.type,
+        url: await storage.upload(await toMetaplexFileFromBrowser(file)),
+      }
+      let assetFile = null
 
-        if (metadata.properties.category === 'audio') {
-          console.log(coverImage)
-          assetFile = imageFile
-          imageFile = {
-            type: coverImage[0].type,
-            url: coverImageUrl,
+      if (metadata.properties.category === 'audio') {
+        assetFile = imageFile
+        imageFile = {
+          type: 'image/png',
+          // url: coverImageUrl,
+          url: croppedImage,
+        }
+      } else if (metadata.properties.category === 'video') {
+        assetFile = imageFile
+        imageFile = {
+          type: 'image/png',
+          url: croppedImage,
+        }
+      } else if (metadata.properties.category === 'vr') {
+        assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
+        if (nftCoverImage) {
+          let image = nftCoverImage
+
+          if (nftCoverImage.startsWith('blob:')) {
+            image = await fetch(nftCoverImage).then(r => r.blob())
           }
-        } else if (metadata.properties.category === 'video') {
-          assetFile = imageFile
+
+          const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
+            contentType: nftCoverImage.type,
+          })
           imageFile = {
             type: 'image/png',
-            url: croppedImage,
-          }
-        } else if (metadata.properties.category === 'vr') {
-          assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
-          if (nftCoverImage) {
-            let image = nftCoverImage
-
-            if (nftCoverImage.startsWith('blob:')) {
-              image = await fetch(nftCoverImage).then(r => r.blob())
-            }
-
-            const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
-              contentType: nftCoverImage.type,
-            })
-            imageFile = {
-              type: 'image/png',
-              url: await storage.upload(metaplexFile),
-            }
+            url: await storage.upload(metaplexFile),
           }
         }
-
-        metadata.image = imageFile.url
-        metadata.properties.files = [imageFile]
-        if (assetFile) {
-          metadata.animation_url = assetFile.url
-          metadata.properties.files.push(assetFile)
-        }
-
-        const uri = await storage.uploadJson(metadata)
-
-        const nftKeypair = Keypair.generate()
-        const createNftTransaction = await mx
-          .nfts()
-          .builders()
-          .create({
-            useNewMint: nftKeypair,
-            uri: uri,
-            name,
-            sellerFeeBasisPoints: royalties * 100,
-            collection: collectionNft?.mintAddress,
-          })
-
-        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
-          mintAddress: nftKeypair.publicKey,
-          collectionMintAddress: collectionNft?.mintAddress,
-          isSizedCollection: true,
-        })
-
-        const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
-        await combinedTransaction.sendAndConfirm(mx)
-
-        let assetUrl: any = ''
-        let coverUrl: any = ''
-        let assetType = metadata.properties.category
-        if (assetType === 'image') {
-          assetUrl = metadata.image
-        } else if (assetType === 'audio') {
-          assetUrl = metadata.animation_url
-          coverUrl = metadata.image
-        } else if (assetType === 'video') {
-          assetUrl = metadata.animation_url
-        } else {
-          assetUrl = metadata.image
-        }
-        array.push({
-          token_id: nftKeypair.publicKey.toString(),
-          nft_name: metadata.name,
-          asset_type: assetType,
-          asset_url: assetUrl,
-          cover_image_url: coverUrl,
-          categories: category.slice(0, -1),
-        })
-        setUploadedCount(i + 1)
       }
-    }
 
-    let collectionInfo = {
-      collection_id: collectionNft.mintAddress.toString(),
-      collection_name: collectionName.trim(),
-      description: description.replaceAll('\n', ' ').trim(),
-      banner_image: bannerAWSUrl,
-      cover_image: coverAWSUrl,
-      categories: category.slice(0, -1),
-      nfts: array,
-    }
+      metadata.image = imageFile.url
+      metadata.properties.files = [imageFile]
+      if (assetFile) {
+        metadata.animation_url = assetFile.url
+        metadata.properties.files.push(assetFile)
+      }
+      const uri = await storage.uploadJson(metadata)
+      const nftKeypair = Keypair.generate()
+      const createNftTransaction = await mx.nfts().builders().create({
+        useNewMint: nftKeypair,
+        uri: uri,
+        name,
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        collection: collectionPublicKey,
+      })
 
-    collectionsAPI.mintCollection(collectionInfo).then(
-      response => {},
+      const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
+        mintAddress: nftKeypair.publicKey,
+        collectionMintAddress: collectionPublicKey,
+        isSizedCollection: true,
+      })
+
+      const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
+      await combinedTransaction.sendAndConfirm(mx)
+
+      let assetUrl: any = ''
+      let coverUrl: any = ''
+      let assetType = metadata.properties.category
+      if (assetType === 'image') {
+        assetUrl = metadata.image
+      } else if (assetType === 'audio') {
+        assetUrl = metadata.animation_url
+        coverUrl = metadata.image
+      } else if (assetType === 'video') {
+        assetUrl = metadata.animation_url
+      } else {
+        assetUrl = metadata.image
+      }
+      array.push({
+        token_id: nftKeypair.publicKey.toString(),
+        nft_name: metadata.name,
+        asset_type: assetType,
+        asset_url: assetUrl,
+        cover_image_url: coverUrl,
+        categories: category.slice(0, -1),
+        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+      })
+      setUploadedCount(i + 1)
+    }
+    collectionsAPI.updateCollectionNFT(collectionMintAddress, array).then(
+      response => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Congratulations!',
+            description: `Your NFT collection has been minted successfully.`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+        setTimeout(() => {
+          router.push(`/collection/${collectionMintAddress}`)
+        }, 500)
+      },
       error => {}
     )
-    setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+
+    // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
     dispatch({ type: 'set', isCollectionMinting: false })
   }
 
@@ -398,7 +426,9 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
-            mintCollection={mintCollection}
+            mintCollection={() => {
+              mintCollection()
+            }}
           />
         )}
         {currentStep === 2 && (
@@ -425,7 +455,8 @@ const Collection = () => {
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverCroppedImage={coverCroppedImage}
-            bannerCroppedImage={bannerCroppedImage}
+            bannerCroppedImage={collectionCoverUrl}
+            collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
             readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
@@ -434,8 +465,8 @@ const Collection = () => {
         {currentStep === 4 && (
           <SuccessMintCollectionSection
             coverCroppedImage={coverCroppedImage}
-            bannerCroppedImage={bannerCroppedImage}
-            collectionNft={collectionNft}
+            bannerCroppedImage={collectionCoverUrl}
+            mintAddress={collectionMintAddress}
           />
         )}
       </div>
@@ -444,6 +475,13 @@ const Collection = () => {
         open={isCollectionMinting}
         collectionFiles={collectionFiles}
         uploadedCount={uploadedCount}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

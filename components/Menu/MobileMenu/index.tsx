@@ -31,7 +31,6 @@ import styles from './index.module.scss'
 
 // call apis
 import { setColorTheme } from 'utils/helpers'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { deleteCookie } from 'cookies-next'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'

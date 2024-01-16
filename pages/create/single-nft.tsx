@@ -417,7 +417,7 @@ const SingleNft = () => {
         })
       if (collection)
         createNftOperation.add(
-          await mx.nfts().builders().verifyCollection({
+          mx.nfts().builders().verifyCollection({
             mintAddress: nftMint.publicKey,
             collectionMintAddress: collection.mintAddress,
           })
@@ -433,32 +433,24 @@ const SingleNft = () => {
         category += item.name + ','
       })
 
-      axios.get(metadataUri).then(response => {
-        if (response !== undefined) {
-          const result: any = response.data
-          nftsAPI
-            .create({
-              token_id: nftMint.publicKey.toBase58(),
-              nft_name: trimmedNftName,
-              categories: category.slice(0, -1),
-              asset_type: nftType === 'image/gif' ? 'image' : nftType,
-              cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
-              asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
-              collection_id: collection?.mintAddress.toBase58(),
-            })
-            .then(
-              response => {
-                console.log(response)
-              },
-              error => {
-                console.log(error)
-              }
-            )
-        }
-      }),
-        error => {
-          console.log(error)
-        }
+      await nftsAPI
+        .create({
+          token_id: nftMint.publicKey.toBase58(),
+          nft_name: trimmedNftName,
+          categories: category.slice(0, -1),
+          asset_type: nftType === 'image/gif' ? 'image' : nftType,
+          cover_image_url: imageUrl,
+          asset_url: animationUrl,
+          collection_id: collection?.mintAddress.toBase58(),
+        })
+        .then(
+          response => {
+            console.log(response)
+          },
+          error => {
+            console.log(error)
+          }
+        )
       handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
     } catch (error) {
       console.error(error)

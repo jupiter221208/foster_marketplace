@@ -27,10 +27,8 @@ import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
-import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
@@ -49,7 +47,6 @@ import userAPI from 'apis/user'
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const routePath = router.pathname
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
@@ -181,7 +178,10 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
-      router.push(item.path)
+      // router.push(item.path)
+      if (item.type === 'collection_nft') {
+        dispatch({ type: 'set', mintCollectionStep: 1 })
+      }
     } else {
       setVisible(true)
     }
@@ -209,35 +209,11 @@ const PrimaryHeader = () => {
             isScrollingTop ? 'top-0' : '-top-28'
           } flex justify-center transition-all`}
         >
-          <nav className="gap-16 flex justify-between w-full max-w-[1750px] p-6 ">
-            <div className={`${styles.linkNames} flex gap-14 my-auto items-center w-full max-w-max`}>
-              <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-                <FosterLogo className={styles.logoIcon} />
-              </div>
-
-              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Studio
-              </div>
-
-              <div>
-                <ExploreMenu
-                  label="Explore"
-                  activeList={activeList}
-                  filterList={filterList}
-                  categoryList={categoryList}
-                  performerList={performerList}
-                />
-              </div>
-
-              <div>
-                <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-              </div>
-            </div>
-
-            <div className="w-full">
+          <nav className="w-full max-w-[1750px] relative">
+            <div className="absolute inset-0 w-full flex justify-center items-center">
               <SearchBox
                 value={searchKeyword}
-                placeholder="Search Marketplace"
+                placeholder="Search"
                 onChange={value => setSearchKeyword(value)}
                 searchList={searchList}
                 onClick={() => handleClear()}
@@ -245,58 +221,84 @@ const PrimaryHeader = () => {
               />
             </div>
 
-            <div className="flex items-center my-auto min-w-max">
-              <div className="flex">
-                {connected && (
-                  <>
-                    <div className="flex flex-row">
-                      <div>
-                        <WalletButton />
+            <div className="w-full h-full flex justify-between px-6">
+              <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
+                <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
+                  <FosterLogo className={styles.logoIcon} />
+                </div>
+
+                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                  Studio
+                </div>
+
+                <div>
+                  <ExploreMenu
+                    label="Explore"
+                    activeList={activeList}
+                    filterList={filterList}
+                    categoryList={categoryList}
+                    performerList={performerList}
+                  />
+                </div>
+
+                <div>
+                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+                </div>
+              </div>
+
+              <div className="flex items-center my-auto min-w-max z-[10001]">
+                <div className="flex">
+                  {connected && (
+                    <>
+                      <div className="flex flex-row">
+                        <div>
+                          <WalletButton />
+                        </div>
+                        <div
+                          className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
+                          onClick={() => {
+                            dispatch({ type: 'set', activeTab: 4 })
+                            router.push(`/merch-logs`)
+                          }}
+                        >
+                          <ShoppingCartIcon alt="" />
+                        </div>
+                        <div
+                          className={`${styles.iconArea} flex relative cursor-pointer`}
+                          onClick={() => router.push('/notifications')}
+                        >
+                          <NotificationIcon alt="" />
+                        </div>
                       </div>
-                      <div
-                        className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
-                        onClick={() => {
-                          dispatch({ type: 'set', activeTab: 4 })
-                          router.push(`/merch-logs`)
-                        }}
-                      >
-                        <ShoppingCartIcon alt="" />
-                      </div>
-                      <div
-                        className={`${styles.iconArea} flex relative cursor-pointer`}
-                        onClick={() => router.push('/notifications')}
-                      >
-                        <NotificationIcon alt="" />
-                      </div>
+                    </>
+                  )}
+
+                  {connected && isNewNotification && (
+                    <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                      <Lottie animationData={NotifyAlarmIcon} loop={true} />
                     </div>
-                  </>
-                )}
+                  )}
+                </div>
 
-                {connected && isNewNotification && (
-                  <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
-                    <Lottie animationData={NotifyAlarmIcon} loop={true} />
-                  </div>
+                <div className="min-w-fit">
+                  <ProfileMenu
+                    avatar={profileInfo?.profile_picture}
+                    wallet={profileInfo?.wallet_id}
+                    username={profileInfo?.username ?? ''}
+                    menuList={profileMenuList}
+                    onSelect={item => router.push(item.path)}
+                    connectWalletStatus={connected}
+                    lightMode={lightMode}
+                    handleThemeMode={handleThemeMode}
+                  />
+                </div>
+
+                {!connected && (
+                  <button className="ml-7" onClick={() => handleThemeMode()}>
+                    {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+                  </button>
                 )}
               </div>
-
-              <div className="min-w-fit">
-                <ProfileMenu
-                  avatar={profileInfo?.profile_picture}
-                  wallet={profileInfo?.wallet_id}
-                  username={profileInfo?.username ?? ''}
-                  menuList={profileMenuList}
-                  onSelect={item => router.push(item.path)}
-                  connectWalletStatus={connected}
-                  lightMode={lightMode}
-                  handleThemeMode={handleThemeMode}
-                />
-              </div>
-
-              {!connected && (
-                <button className="ml-7" onClick={() => handleThemeMode()}>
-                  {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-                </button>
-              )}
             </div>
           </nav>
         </div>

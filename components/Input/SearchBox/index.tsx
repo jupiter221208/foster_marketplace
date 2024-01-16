@@ -61,7 +61,16 @@ const SearchBox = props => {
             )}
           </div>
         ) : (
-          <></>
+          <div className={styles.iconArea} onClick={() => onClick()}>
+            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={0.7}>
+              <path
+                id="search-32"
+                d="M23.687,22.124,19.6,18.076A9.9,9.9,0,1,0,18.076,19.6l4.049,4.049a1.093,1.093,0,1,0,1.562-1.529ZM11.9,19.6a7.7,7.7,0,1,1,7.7-7.7,7.7,7.7,0,0,1-7.7,7.7Z"
+                transform="translate(-1.979 -1.979)"
+                fill="var(--text-gray-200-color)"
+              />
+            </svg>
+          </div>
         )}
 
         <input

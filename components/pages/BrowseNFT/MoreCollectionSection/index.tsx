@@ -64,7 +64,7 @@ const MoreCollectionSection = props => {
     }
   }
 
-  return (
+  return nftList.length > 0 ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
@@ -85,7 +85,7 @@ const MoreCollectionSection = props => {
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className={nftList.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
@@ -122,6 +122,8 @@ const MoreCollectionSection = props => {
         </div>
       </div>
     </section>
+  ) : (
+    <></>
   )
 }
 export default MoreCollectionSection

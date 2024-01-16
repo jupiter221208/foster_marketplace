@@ -1,5 +1,6 @@
 import { Metaplex } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
+import collectionsAPI from 'apis/collections'
 import { getListedNFTs } from './auction.util'
 
 export async function getCollectionByAddress(mx: Metaplex, address: string) {
@@ -81,4 +82,52 @@ export async function getMyCollections(mx: Metaplex) {
   }
 
   return []
+}
+
+export interface EACollectionInfo {
+  artist: {
+    id: string
+    name: string
+    slug: string
+  }
+  assets: {
+    bannerPath: string
+    thumbnailPath: string
+  }
+  flags: {
+    isCertified: boolean
+    isCurated: boolean
+    isNsfw: boolean
+    isOneOfOne: boolean
+  }
+  info: {
+    name: string
+    description: string
+    primaryCategory?: string
+    secondaryCategory?: string
+    tags?: string[]
+  }
+  createdAt: string
+  lastVersionNumMints: number
+  lastVersionTimestamp: string
+  mints: string[]
+  ordinal: number
+  seriesId: string
+  status: string
+}
+
+export async function getEACollectionInfo(eaCollectionUrl: string): Promise<EACollectionInfo> {
+  let { hostname, pathname } = new URL(eaCollectionUrl)
+  if (hostname != 'exchange.art') throw new Error(`expected url hostname to be exchange.art, got ${hostname}`)
+
+  let [eaSeriesName] = pathname.match(/(?<=\/series\/)[^/]+/) ?? []
+  if (!eaSeriesName) throw new Error(`could not extract series name from ${pathname}`)
+  eaSeriesName = decodeURIComponent(eaSeriesName)
+
+  // fix asset urls
+  let [collectionInfo] = await collectionsAPI.exchangeArtInfo(eaSeriesName)
+  for (let asset in collectionInfo.assets)
+    collectionInfo.assets[asset] = new URL(collectionInfo.assets[asset], 'https://images-cdn.exchange.art/').toString()
+
+  return collectionInfo
 }

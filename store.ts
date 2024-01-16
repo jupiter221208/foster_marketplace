@@ -38,6 +38,10 @@ const initialState = {
   firstLoaded: true,
   activeTab: 0,
   isAddToCart: false,
+  mintCollectionStep: 1,
+  collectionMintAddress: '',
+  collectionMintName: '',
+  collectionCoverUrl: ''
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

@@ -36,6 +36,7 @@ const nextConfig = {
       'cdn.britannica.com',
       'static.wixstatic.com',
       'shdw-drive.genesysgo.net',
+      'cdn.helius-rpc.com',
     ],
   },
   sassOptions: {

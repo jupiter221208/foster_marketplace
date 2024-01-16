@@ -89,6 +89,11 @@ class Nfts {
       return response.data
     })
   }
+  batchIndex(tokenIds) {
+    return client.post(API_URL + 'v1/nfts/index', tokenIds).then(response => {
+      return response.data
+    })
+  }
   getMyFavorites() {
     return client.get(API_URL + 'v1/nfts/favorites').then(response => {
       return response.data

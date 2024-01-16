@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -61,7 +59,7 @@ const ActivitySection = props => {
   }, [isFetching])
 
   return (
-    <section className="w-full mt-6 lg:mt-12">
+    <section className="w-full mt-6 lg:mt-2">
       <div className="w-full z-10">
         {loading === false ? (
           <div className="col-span-12">
@@ -83,8 +81,8 @@ const ActivitySection = props => {
         ) : (
           <div className="mt-[40px] lg:mt-[110px]">
             <NoDataSection
-              title="No activity history available"
-              description="This tab displays a log of all your activity on Foster Marketplace"
+              title="No collection activity found"
+              description="This tab displays a log of the collection activity on Foster Marketplace"
             />
           </div>
         )}

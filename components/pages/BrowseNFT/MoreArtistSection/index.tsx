@@ -90,7 +90,7 @@ const MoreArtistSection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
+            className={collectionList.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
