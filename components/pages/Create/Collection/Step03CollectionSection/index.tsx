@@ -202,8 +202,8 @@ const Step03CollectionSection = props => {
                     <OutlineButton
                       label="Back"
                       onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                      width={viewport === '2xl' ? 124 : 117}
-                      height={viewport === '2xl' ? 53 : 46}
+                      width={120}
+                      height={53}
                       borderWidth={2}
                     />
                     <button
