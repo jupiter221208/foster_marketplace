@@ -133,7 +133,16 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       })
         .then(async res => {
           const { result } = await res.json()
+          result.auction = null
+          result.merch_hub_enabled = null
+          result.likes = null
+          result.shares = null
+          result.saves = null
+          result.liked = null
+          result.saved = null
+          result.shared = null
           setNftInfo(result)
+          setHasLoading(false)
         })
         .catch(e => {
           console.log(e)
@@ -157,7 +166,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (res.creator_address !== null) {
             setArtistInfo({ address: res.creator_address, name: res.creator_username })
           }
-          setHasLoading(false)
         }
       })
     }
