@@ -128,7 +128,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .greenText {
@@ -187,4 +187,5 @@
   text-align: center;
   font-family: 'Muli-SemiBold';
   font-size: 26px;
+  color: var(--text-gray-200-color);
 }

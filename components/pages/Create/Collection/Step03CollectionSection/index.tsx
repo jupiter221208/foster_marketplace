@@ -22,6 +22,7 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
+import { FadeLoader } from 'react-spinners'
 
 const Step03CollectionSection = props => {
   const {
@@ -46,7 +47,7 @@ const Step03CollectionSection = props => {
   }
 
   const uploadArtworks = () => {
-    // setStartUpload(true)
+    setStartUpload(true)
     readFilesAndUplaod()
   }
 
@@ -159,6 +160,8 @@ const Step03CollectionSection = props => {
                               placeholder="Give your art name"
                               label=""
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="46px"
                             />
@@ -179,6 +182,8 @@ const Step03CollectionSection = props => {
                               value={item.description}
                               placeholder="Add a short description..."
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="90px"
                             />
@@ -186,10 +191,15 @@ const Step03CollectionSection = props => {
                         </div>
                         {startUpload && (
                           <div className="absolute -right-20 top-10 w-10 h-10">
-                            {index < uploadedCount ? (
+                            {/* {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (
                               <Lottie animationData={LoaderLottery} loop={true} />
+                            )} */}
+                            {index < uploadedCount ? (
+                              <Lottie animationData={CheckLottery} loop={true} />
+                            ) : (
+                              <FadeLoader margin="0" height={10} speedMultiplier={1} color="#63D6CD" />
                             )}
                           </div>
                         )}

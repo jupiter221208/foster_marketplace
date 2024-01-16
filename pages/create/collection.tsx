@@ -471,11 +471,11 @@ const Collection = () => {
         )}
       </div>
       <ProgressingModal open={isLoading && screenLoaded} />
-      <CollectionMintProgressingModal
+      {/* <CollectionMintProgressingModal
         open={isCollectionMinting}
         collectionFiles={collectionFiles}
         uploadedCount={uploadedCount}
-      />
+      /> */}
       <Alert
         open={showAlert}
         close={() => {
