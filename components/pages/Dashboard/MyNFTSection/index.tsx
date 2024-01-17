@@ -19,7 +19,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTsDas } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -43,7 +43,7 @@ const MyNFTSection = props => {
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
     setLoading(true)
-    let nfts: any = await getMyNFTs(mx)
+    let nfts: any = await getMyNFTsDas(mx)
     let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
