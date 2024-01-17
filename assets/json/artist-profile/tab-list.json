@@ -27,5 +27,15 @@
     "label": "Statistics",
     "value": "Statistics",
     "coming_soon": false
+  },
+  {
+    "id": 3,
+    "icon01": "/icons/info-green.svg",
+    "icon02": "/icons/info-gray.svg",
+    "icon03": "/icons/info-gray-light.svg",
+    "icon04": "/icons/info-green-light.svg",
+    "label": "About",
+    "value": "About",
+    "coming_soon": false
   }
 ]

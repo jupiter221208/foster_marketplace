@@ -27,8 +27,6 @@
 
 .title {
   width: 100%;
-  margin-top: 26px;
-
   font-family: 'Muli-SemiBold';
   font-size: 24px;
   @media (min-width: 1024px) {
@@ -130,7 +128,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .greenText {
@@ -175,11 +173,19 @@
   border-radius: 12px;
   border-color: rgba(var(--main-bg-color-rgb), 0.1);
   border-width: 1px;
-  width: 175px;
+  width: 160px;
   height: 46px;
   @media (min-width: 1024px) {
-    width: 224px;
-    height: 56px;
-    font-size: 16px;
+    width: 120px;
+    height: 53px;
+    font-size: 18px;
   }
+}
+
+.reviewCollection {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 26px;
+  color: var(--text-gray-200-color);
 }

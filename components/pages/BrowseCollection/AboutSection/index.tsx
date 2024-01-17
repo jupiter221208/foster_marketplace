@@ -21,7 +21,7 @@ const AboutSection = props => {
       </div>
       <div className="mt-[24px] lg:mt-[32px]">
         <div className={styles.descTitle}>Categories</div>
-        <div className="w-full flex mt-[13px] lg:mt-[17px] gap-[8px]">
+        <div className="w-full flex flex-wrap mt-[13px] lg:mt-[17px] gap-[8px]">
           {categories.split(',').map((item, index) => (
             <div key={index}>{item.length > 0 && <CategoryChip data={{ value: item }} />}</div>
           ))}

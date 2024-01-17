@@ -22,6 +22,7 @@ import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSw
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import SubTabSection from 'components/pages/ArtistProfile/SubTabSection'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import AboutSection from 'components/pages/ArtistProfile/AboutSection'
 
 const TabSection = props => {
   const {
@@ -30,6 +31,8 @@ const TabSection = props => {
     merchNfts,
     collections,
     wallet,
+    description,
+    categoryList,
     isOwn,
     isLoaded,
     handleNextPage,
@@ -77,26 +80,6 @@ const TabSection = props => {
     })
     setTabList(array)
 
-    // if (activeTab === 1) {
-    //   setArtistEnable(true)
-    //   setMerchEnable(false)
-    //   setCollectorEnable(false)
-    // } else if (activeTab === 2) {
-    //   setArtistEnable(false)
-    //   setMerchEnable(true)
-    //   setCollectorEnable(false)
-    // } else if (activeTab === 3) {
-    //   setArtistEnable(false)
-    //   setMerchEnable(false)
-    //   setCollectorEnable(true)
-    // } else if (activeTab === 4) {
-    //   setShowCollections(collections.slice(0, rowCount))
-    //   setIsFetching(false)
-    //   setIsVisibleFetching(true)
-    //   setArtistEnable(false)
-    //   setMerchEnable(false)
-    //   setCollectorEnable(false)
-    // }
     if (activeTab === 0) {
       if (artworkType === 'created') {
         setArtistEnable(true)
@@ -130,22 +113,6 @@ const TabSection = props => {
 
   useEffect(() => {
     if (isFetching === true) {
-      // if (activeTab === 1 || activeTab === 2) handleNextPage()
-      // else if (activeTab === 4) {
-      //   setTimeout(() => {
-      //     setIsFetching(false)
-      //     if (showCollections.length + rowCount > collections.length) {
-      //       setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
-      //       setIsVisibleFetching(false)
-      //     } else {
-      //       setShowCollections([
-      //         ...showCollections,
-      //         ...collections.slice(showCollections.length, showCollections.length + rowCount),
-      //       ])
-      //       setIsVisibleFetching(true)
-      //     }
-      //   }, 2000)
-      // }
       if (activeTab === 0 && (artworkType === 'listed' || artworkType === 'studio')) handleNextPage()
       else if (activeTab === 1) {
         setTimeout(() => {
@@ -320,35 +287,6 @@ const TabSection = props => {
         </div>
       )}
 
-      {/* {activeTab === 1 && (
-        <div className="w-full">
-          <SubTabSection
-            category={''}
-            artist={wallet}
-            fromPage={'profile'}
-            setLiveAuctionLoaded={() => setLiveAuctionLoaded(true)}
-            loadCompleted={() => setActiveListingLoaded(true)}
-          />
-        </div>
-      )}
-      {activeTab === 2 && (
-        <div className="w-full">
-          <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {merchNfts?.length > 0 && isLoaded && isVisibleFetchingMerch && (
-            <LoadingComponent isFetching={isFetchingMerch} setIsFetching={setIsFetchingMerch} />
-          )}
-        </div>
-      )}
-
-      {activeTab === 3 && (
-        <div className="w-full">
-          <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
-            <LoadingComponent isFetching={isFetchingCollected} setIsFetching={setIsFetchingCollected} />
-          )}
-        </div>
-      )} */}
-
       {activeTab === 1 && (
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} />
@@ -390,6 +328,12 @@ const TabSection = props => {
             <div>Collections Published</div>
             <div>{artistStatsInfo?.collections_created}</div>
           </div>
+        </div>
+      )}
+
+      {activeTab === 3 && (
+        <div className="w-full flex flex-wrap z-10">
+          <AboutSection description={description} categories={categoryList} />
         </div>
       )}
     </div>

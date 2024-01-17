@@ -327,6 +327,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
+              description={artistDescription}
+              categoryList={categoryList}
               isOwn={isOwn}
               isLoaded={isLoaded}
               handleNextPage={() => handleNextPage()}

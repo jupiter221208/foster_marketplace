@@ -7,9 +7,6 @@ import Image from 'next/image'
 import Lottie from 'lottie-react'
 
 // components
-import CollectionStepper from 'components/Stepper/CollectionStepper'
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 
@@ -25,6 +22,8 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
+import { FadeLoader } from 'react-spinners'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -49,9 +48,13 @@ const Step03CollectionSection = props => {
   }
 
   const uploadArtworks = () => {
-    // setStartUpload(true)
+    setStartUpload(true)
     readFilesAndUplaod()
   }
+
+  useEffect(() => {
+    if (uploadedCount === collectionFiles.length) setStartUpload(false)
+  })
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
@@ -100,7 +103,8 @@ const Step03CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full mt-[70px]">
+                <div className={styles.reviewCollection}>Review Collection Items</div>
+                <div className="w-full">
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
@@ -161,6 +165,8 @@ const Step03CollectionSection = props => {
                               placeholder="Give your art name"
                               label=""
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="46px"
                             />
@@ -181,6 +187,8 @@ const Step03CollectionSection = props => {
                               value={item.description}
                               placeholder="Add a short description..."
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="90px"
                             />
@@ -188,10 +196,15 @@ const Step03CollectionSection = props => {
                         </div>
                         {startUpload && (
                           <div className="absolute -right-20 top-10 w-10 h-10">
-                            {index < uploadedCount ? (
+                            {/* {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (
                               <Lottie animationData={LoaderLottery} loop={true} />
+                            )} */}
+                            {index < uploadedCount ? (
+                              <Lottie animationData={CheckLottery} loop={true} />
+                            ) : (
+                              <FadeLoader margin="0" height={10} speedMultiplier={1} color="#63D6CD" />
                             )}
                           </div>
                         )}
@@ -199,25 +212,36 @@ const Step03CollectionSection = props => {
                     ))}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-between">
-                  <OutlineButton
-                    label="Back"
-                    onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                    width={viewport === '2xl' ? 124 : 117}
-                    height={viewport === '2xl' ? 53 : 46}
-                    borderWidth={2}
-                  />
-                  <button
-                    className={styles.mintCollection}
-                    disabled={disabledNextButton}
-                    style={{
-                      color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                      background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                    }}
-                    onClick={() => uploadArtworks()}
-                  >
-                    Mint Collection
-                  </button>
+                <div className="absolute bottom-0 w-full flex justify-end">
+                  <div className="flex gap-10">
+                    <OutlineButton
+                      label="Back"
+                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                      width={120}
+                      height={53}
+                      borderWidth={2}
+                    />
+                    {startUpload ? (
+                      <LoadingButton
+                        width={120}
+                        height={53}
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                      />
+                    ) : (
+                      <button
+                        className={styles.mintCollection}
+                        disabled={disabledNextButton}
+                        style={{
+                          color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                          background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                        }}
+                        onClick={() => uploadArtworks()}
+                      >
+                        Mint
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,7 +249,7 @@ const Step03CollectionSection = props => {
         </div>
       ) : (
         // mobile part
-        <div className="g-container mt-[26px] mb-[47px]">
+        <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
           {/* <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
@@ -346,19 +370,19 @@ const Step03CollectionSection = props => {
           </div>
           <div className="w-full flex justify-between my-10">
             {/* button group part */}
-            <div className="w-full grid grid-cols-2 gap-5">
-              <div className="col-span-1">
+            <div className="w-full flex justify-between">
+              <div>
                 <OutlineButton
                   label="Back"
                   onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                  fullWidth
+                  width={175}
                   height="45px"
                   // color="#EFF0F6"
                   borderWidth={2}
                   // borderColor="#5AC3BA"
                 />
               </div>
-              <div className="col-span-1">
+              <div>
                 <button
                   className={styles.mintCollection}
                   disabled={disabledNextButton}
@@ -368,7 +392,7 @@ const Step03CollectionSection = props => {
                   }}
                   onClick={() => uploadArtworks()}
                 >
-                  Mint Collection
+                  Mint
                 </button>
               </div>
             </div>
