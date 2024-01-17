@@ -95,9 +95,15 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
 
-        if (collectionNfts && result) {
+        let sortedCollectionNfts = result.items
+          .map(r => {
+            return collectionNfts.find(nft => nft.token_id === r.id)
+          })
+          .filter(nft => nft !== undefined)
+
+        if (sortedCollectionNfts && result) {
           let newNftsArr = [...result.items]
-          collectionNfts.map((data, index) => {
+          sortedCollectionNfts.map((data, index) => {
             newNftsArr[index].artist_username = data.artist_username
             newNftsArr[index].artist_id = data.artist_id
             newNftsArr[index].list_price = data.list_price
