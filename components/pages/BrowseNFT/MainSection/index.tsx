@@ -145,6 +145,9 @@ const MainSection = ({
   const { profileInfo } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
+
+  const startAuctionFlag = useSelector(state => (state as any).startAuctionFlag)
+
   const [loading, setLoading] = useState<boolean>(true)
   const { solToUsdRate } = useSolToUsdRate()
   const { connection } = useConnection()
@@ -189,28 +192,6 @@ const MainSection = ({
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
 
-  // const options = {
-  //   responsive: true,
-  //   plugins: {
-  //     legend: {
-  //       display: false,
-  //       position: 'bottom',
-  //     },
-  //     title: {
-  //       display: false,
-  //       text: 'Chart.js Line Chart',
-  //     },
-  //   },
-  //   maintainAspectRatio: false,
-  //   elements: {
-  //     line: {
-  //       tension: 0.5, // disables bezier curves
-  //     },
-  //     point: {
-  //       radius: 0,
-  //     },
-  //   },
-  // }
   const labels =
     viewport === 'xs' || viewport === 'sm' || viewport === 'md'
       ? ['12/21', '1/22', '2/22', '3/22']
@@ -354,6 +335,14 @@ const MainSection = ({
     setOpenOfferModal(false)
     setOpenProgressingModal(false)
   }
+
+  useEffect(() => {
+    if (startAuctionFlag) {
+      dispatch({ type: 'set', startAuctionFlag: false })
+      setShowAuctionDetail(true)
+      setShowAuctionSection(true)
+    }
+  }, [startAuctionFlag])
 
   useEffect(() => {
     ;(async () => {

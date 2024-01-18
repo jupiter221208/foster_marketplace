@@ -476,33 +476,37 @@ const AuctionDetail = props => {
           </div>
         </div>
 
-        {/* End Phase Duration */}
-        <div className="w-full mt-[20px] lg:mt-[30px]">
-          <div className={styles.auctionStart}>
-            End Phase Bid Increasement&nbsp;<span className={styles.auctionAsterisk}>*</span>
+        {/* End Phase Bid Increasement */}
+        {endPhaseDurationType !== 'none' && (
+          <div className="w-full">
+            <div className="w-full mt-[20px] lg:mt-[30px]">
+              <div className={styles.auctionStart}>
+                End Phase Bid Increasement&nbsp;<span className={styles.auctionAsterisk}>*</span>
+              </div>
+              <div className={styles.description}>
+                The end phase bid increment is the increment between bids during the end phase duration of the auction.
+              </div>
+            </div>
+            <div className="mt-[15px] w-full">
+              <PriceInput
+                value={endBidIncrement}
+                placeholder="Set the end phase bid increment"
+                backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                fullWidth
+                type="number"
+                min={0}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
+                onChange={value => {
+                  if (value < 0) {
+                    setEndBidIncrement('')
+                  } else {
+                    setEndBidIncrement(value)
+                  }
+                }}
+              />
+            </div>
           </div>
-          <div className={styles.description}>
-            The end phase bid increment is the increment between bids during the end phase duration of the auction.
-          </div>
-        </div>
-        <div className="mt-[15px] w-full">
-          <PriceInput
-            value={endBidIncrement}
-            placeholder="Set the end phase bid increment"
-            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-            fullWidth
-            type="number"
-            min={0}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
-            onChange={value => {
-              if (value < 0) {
-                setEndBidIncrement('')
-              } else {
-                setEndBidIncrement(value)
-              }
-            }}
-          />
-        </div>
+        )}
       </div>
 
       <button

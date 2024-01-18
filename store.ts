@@ -41,7 +41,8 @@ const initialState = {
   mintCollectionStep: 1,
   collectionMintAddress: '',
   collectionMintName: '',
-  collectionCoverUrl: ''
+  collectionCoverUrl: '',
+  startAuctionFlag: false
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
