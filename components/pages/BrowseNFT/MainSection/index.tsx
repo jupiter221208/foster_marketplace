@@ -122,6 +122,7 @@ export interface MainSectionProps {
   setCollectionName: any
   fullScreen: boolean
   hasLoading: any
+  setShowAuctionSection: any
 }
 
 const MainSection = ({
@@ -134,6 +135,7 @@ const MainSection = ({
   setCollectionName,
   fullScreen,
   hasLoading,
+  setShowAuctionSection,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -160,7 +162,7 @@ const MainSection = ({
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
-
+  const [showAuctionDetail, setShowAuctionDetail] = useState(false)
   // const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
@@ -186,7 +188,7 @@ const MainSection = ({
   const [price, setPrice] = useState('')
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
-  const [showAuctionDetail, setShowAuctionDetail] = useState(true)
+
   // const options = {
   //   responsive: true,
   //   plugins: {
@@ -834,6 +836,7 @@ const MainSection = ({
 
     setTimeout(() => {
       setShowAuctionDetail(false)
+      setShowAuctionSection(false)
       setTimeout(() => {
         setShowAlert(true)
       }, 1000)
@@ -1055,7 +1058,10 @@ const MainSection = ({
                 }}
                 onSuccess={nft => handleSuccessAuction(nft)}
                 onStartProgress={() => handleStartProgress()}
-                onClose={() => setShowAuctionDetail(false)}
+                onClose={() => {
+                  setShowAuctionDetail(false)
+                  setShowAuctionSection(false)
+                }}
               />
             </div>
           ) : (
@@ -1482,7 +1488,10 @@ const MainSection = ({
                     <div className="w-full flex gap-[20px] mt-[20px]">
                       <OutlineButton
                         label="Start Auction"
-                        onClick={() => setShowAuctionDetail(true)}
+                        onClick={() => {
+                          setShowAuctionDetail(true)
+                          setShowAuctionSection(true)
+                        }}
                         color="var(--main-bg-color)"
                         borderColor="#707070"
                         borderWidth="2"

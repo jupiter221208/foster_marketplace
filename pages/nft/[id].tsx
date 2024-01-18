@@ -72,6 +72,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [hasLoading, setHasLoading] = useState(true)
+  const [showAuctionSection, setShowAuctionSection] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -239,12 +240,14 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
                     hasLoading={hasLoading}
+                    setShowAuctionSection={enable => setShowAuctionSection(enable)}
                   />
                 </div>
               </div>
             )}
-
-            {merchToggle ? (
+            {showAuctionSection ? (
+              <></>
+            ) : merchToggle ? (
               <div className={styles.centerScreen}>
                 <div className="g-container">
                   <ShopApparelSection
