@@ -206,10 +206,7 @@ const MyNFTSection = props => {
                 data={item}
                 publicKey={publicKey}
                 onClickStartAuction={item => {
-                  // handleStartAuction(item)
-                  dispatch({ type: 'set', isLoading: true })
-                  dispatch({ type: 'set', startAuctionFlag: true })
-                  router.push(`/nft/${item.mintAddress.toString()}`)
+                  handleStartAuction(item)
                 }}
                 onClickListNFT={item => handleListNFT(item)}
               />
@@ -251,6 +248,7 @@ const MyNFTSection = props => {
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
       />
+
       <ListNFTModal
         data={selectedData}
         open={showListNFTModal}

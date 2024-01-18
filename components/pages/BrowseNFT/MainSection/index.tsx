@@ -146,8 +146,6 @@ const MainSection = ({
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
 
-  const startAuctionFlag = useSelector(state => (state as any).startAuctionFlag)
-
   const [loading, setLoading] = useState<boolean>(true)
   const { solToUsdRate } = useSolToUsdRate()
   const { connection } = useConnection()
@@ -335,14 +333,6 @@ const MainSection = ({
     setOpenOfferModal(false)
     setOpenProgressingModal(false)
   }
-
-  useEffect(() => {
-    if (startAuctionFlag) {
-      dispatch({ type: 'set', startAuctionFlag: false })
-      setShowAuctionDetail(true)
-      setShowAuctionSection(true)
-    }
-  }, [startAuctionFlag])
 
   useEffect(() => {
     ;(async () => {
