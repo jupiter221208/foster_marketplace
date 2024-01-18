@@ -161,7 +161,7 @@ const MainSection = ({
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
 
-  const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  // const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -833,7 +833,7 @@ const MainSection = ({
     ])
 
     setTimeout(() => {
-      setShowStartAuctionModal(false)
+      setShowAuctionDetail(false)
       setTimeout(() => {
         setShowAlert(true)
       }, 1000)
@@ -1043,12 +1043,20 @@ const MainSection = ({
             <></>
           )}
         </div>
-        {/* )} */}
 
         <div className="col-span-2 lg:col-span-1 z-10">
           {showAuctionDetail ? (
-            <div className="ml-[50px]">
-              <AuctionDetail />
+            <div className="ml-[0px] lg:ml-[50px]">
+              <AuctionDetail
+                data={{
+                  mintAddress: new PublicKey(nftDetail.address),
+                  name: nftName,
+                  json: nftDetail.json,
+                }}
+                onSuccess={nft => handleSuccessAuction(nft)}
+                onStartProgress={() => handleStartProgress()}
+                onClose={() => setShowAuctionDetail(false)}
+              />
             </div>
           ) : (
             <div className={styles.nftDetailCard}>
@@ -1474,7 +1482,7 @@ const MainSection = ({
                     <div className="w-full flex gap-[20px] mt-[20px]">
                       <OutlineButton
                         label="Start Auction"
-                        onClick={() => setShowStartAuctionModal(true)}
+                        onClick={() => setShowAuctionDetail(true)}
                         color="var(--main-bg-color)"
                         borderColor="#707070"
                         borderWidth="2"
@@ -1734,7 +1742,7 @@ const MainSection = ({
 
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
-      <StartAuctionModal
+      {/* <StartAuctionModal
         data={{
           mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
@@ -1744,7 +1752,7 @@ const MainSection = ({
         onSuccess={nft => handleSuccessAuction(nft)}
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
-      />
+      /> */}
 
       <ListNFTModal
         data={{

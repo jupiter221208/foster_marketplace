@@ -1609,6 +1609,10 @@ h6 {
   fill: var(--menu-item-right-icon);
 }
 
+[data-name='black-white-color'] {
+  fill: var(--collection-card-bg);
+}
+
 [data-name='gradient-btn-icon'] {
   fill: var(--gradient-btn-color);
 }

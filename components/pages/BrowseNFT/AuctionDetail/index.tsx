@@ -32,7 +32,7 @@ import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 const AuctionDetail = props => {
-  const { data, open, onSuccess, onClose, onStartProgress } = props
+  const { data, onSuccess, onClose, onStartProgress } = props
 
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -41,15 +41,16 @@ const AuctionDetail = props => {
 
   const closeModal = () => {
     setMinBidIncrement(null)
+    setEndBidIncrement(null)
     onClose()
   }
 
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState('')
-  const [hours, setHours] = useState('')
+  const [hours, setHours] = useState('24')
   const [minBidIncrement, setMinBidIncrement] = useState('')
+  const [endBidIncrement, setEndBidIncrement] = useState('')
   const [reservePrice, setReservePrice] = useState('')
-  const [selectedType, setSelectedType] = useState('')
   const [startType, setStartType] = useState('soon')
   const [durationType, setDurationType] = useState('24')
   const [endPhaseType, setEndPhaseType] = useState('clock')
@@ -70,7 +71,6 @@ const AuctionDetail = props => {
     const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const dayOfWeek = day[endDate.getDay()]
     setDay(dayOfWeek)
-
     return endDate
   }, [startDate, days, hours])
 
@@ -135,7 +135,7 @@ const AuctionDetail = props => {
       <div className={styles.container}>
         <div className="w-full flex justify-between">
           <div className={styles.auctionDetail}>Auction Details</div>
-          <div className={styles.backBtn}>
+          <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">
               <BackIcon />
               Back
@@ -144,14 +144,14 @@ const AuctionDetail = props => {
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[40px]">
+          <div className="w-full mt-[20px] lg:mt-[40px]">
             <div className={styles.auctionStart}>
               Auction Start <span className={styles.auctionAsterisk}>*</span>
             </div>
           </div>
           <div
             className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-[70px]'
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
             }`}
           >
             <div
@@ -220,7 +220,7 @@ const AuctionDetail = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
             Reserve Bid <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -244,14 +244,15 @@ const AuctionDetail = props => {
           />
         </div>
 
-        <div className="w-full mt-[30px]">
+        {/* Auction Duration */}
+        <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
             Auction Duration <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
           className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-8'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
           }`}
         >
           <div
@@ -301,7 +302,7 @@ const AuctionDetail = props => {
 
         {durationType === 'custom' && (
           <div>
-            <div className="w-full mt-[30px]">
+            <div className="w-full mt-[20px] lg:mt-[30px]">
               <div className={styles.auctionStart}>
                 Custom Duration <span className={styles.auctionAsterisk}>*</span>
               </div>
@@ -364,7 +365,7 @@ const AuctionDetail = props => {
           </div>
         )}
 
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
             Minimum Bid Increment <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -389,7 +390,7 @@ const AuctionDetail = props => {
         </div>
 
         {/* End Phase */}
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
             End Phase <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -403,7 +404,7 @@ const AuctionDetail = props => {
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-8'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-8'
           }`}
         >
           <div
@@ -416,7 +417,7 @@ const AuctionDetail = props => {
           </div>
 
           <div
-            className={durationType === 'knife' ? styles.durationSelected : styles.durationDeselected}
+            className={endPhaseType === 'knife' ? styles.durationSelected : styles.durationDeselected}
             onClick={() => {
               setEndPhaseType('knife')
             }}
@@ -426,7 +427,7 @@ const AuctionDetail = props => {
         </div>
 
         {/* End Phase Duration */}
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
             End Phase Duration&nbsp;<span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -438,13 +439,13 @@ const AuctionDetail = props => {
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-10'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between gap-[15px]' : 'gap-10'
           }`}
         >
           <div
             className={endPhaseDurationType === 'none' ? styles.durationSelected : styles.durationDeselected}
             onClick={() => {
-              setEndPhaseDurationType('None')
+              setEndPhaseDurationType('none')
             }}
           >
             None
@@ -474,9 +475,44 @@ const AuctionDetail = props => {
             60 mins
           </div>
         </div>
+
+        {/* End Phase Duration */}
+        <div className="w-full mt-[20px] lg:mt-[30px]">
+          <div className={styles.auctionStart}>
+            End Phase Bid Increasement&nbsp;<span className={styles.auctionAsterisk}>*</span>
+          </div>
+          <div className={styles.description}>
+            The end phase bid increment is the increment between bids during the end phase duration of the auction.
+          </div>
+        </div>
+        <div className="mt-[15px] w-full">
+          <PriceInput
+            value={endBidIncrement}
+            placeholder="Set the end phase bid increment"
+            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+            fullWidth
+            type="number"
+            min={0}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'}
+            onChange={value => {
+              if (value < 0) {
+                setEndBidIncrement('')
+              } else {
+                setEndBidIncrement(value)
+              }
+            }}
+          />
+        </div>
       </div>
 
-      <div className={styles.startAuction}>Start Auction</div>
+      <button
+        className={styles.startAuction}
+        disabled={buttonDisabled}
+        style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+        onClick={() => handleStartAuction()}
+      >
+        Start Auction
+      </button>
     </div>
   )
 }
