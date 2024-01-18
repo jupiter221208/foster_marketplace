@@ -122,8 +122,10 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
         ? nft.json.properties.category
         : ''
 
+      console.log(nft)
+
       nftData.push({
-        mintAddress: new PublicKey(nft.address),
+        mintAddress: new PublicKey(nft.mintAddress),
         name: nft.json.name,
         image: nft.json.image,
         animation_url: nft.json.animation_url as string,
