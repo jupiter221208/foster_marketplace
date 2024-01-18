@@ -132,30 +132,6 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                 </div>
               </div>
             </td>
-            <td
-              className="text-center cursor-pointer hover:underline"
-              onClick={() => {
-                if (isBuyerExisting(item.action_type)) {
-                  dispatch({ type: 'set', isLoading: true })
-                }
-              }}
-            >
-              {isBuyerExisting(item.action_type) ? (
-                <Link href={`/${getBuyerName(item)}`} passHref>
-                  {getBuyerName(item)}
-                </Link>
-              ) : (
-                'N/A'
-              )}
-            </td>
-            <td
-              className="text-center cursor-pointer hover:underline"
-              onClick={() => dispatch({ type: 'set', isLoading: true })}
-            >
-              <Link href={`/${getOwnerName(item)}`} passHref>
-                {getOwnerName(item)}
-              </Link>
-            </td>
           </tr>
         ))}
       </tbody>
