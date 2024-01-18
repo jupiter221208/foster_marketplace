@@ -21,7 +21,6 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NftData } from 'types/nft'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
@@ -33,6 +32,8 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [nftList, setNFTList] = useState<any[]>([])
+  const [artworkType, setArtworkType] = useState('all')
+  const [quickBuyNfts, setQuickBuyNfts] = useState([])
 
   useEffect(() => {
     if (nfts) {
@@ -113,11 +114,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             {nftList.map((item, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
-                  token_id={item.id}
-                  image={item.content.files[0].uri}
-                  nftName={item.content.metadata.name}
-                  assetType={item.content.files[0].mime}
-                  coverImage={item.content.links.image}
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
                   artistName={item.artist_username}
                   collectionName={collectionName}
                   artistId={item.artist_id}

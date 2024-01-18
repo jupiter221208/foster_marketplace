@@ -63,9 +63,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
           <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>
-            {getShortStringAddress(data.creators[0].address.toString()) || 'No Artist'}
-          </div>
+          <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton

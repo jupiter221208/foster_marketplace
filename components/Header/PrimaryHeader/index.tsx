@@ -19,6 +19,7 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
+import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
@@ -42,10 +43,11 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { getShortStringAddress } from 'utils/strings'
 import Link from 'next/link'
+import { getShortAddress } from 'utils/wallet.util'
 
 const PrimaryHeader = () => {
+  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
@@ -115,7 +117,6 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
-      fetch(`/${profileInfo.username.replaceAll(' ', '%20')}`).then(e => e.text())
     }
   }, [profileInfo])
 
@@ -179,6 +180,7 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
+      // router.push(item.path)
       if (item.type === 'collection_nft') {
         dispatch({ type: 'set', mintCollectionStep: 1 })
       }
@@ -203,7 +205,7 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      <div className="hidden lg:flex">
+      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div
           className={`${styles.blurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
@@ -220,18 +222,16 @@ const PrimaryHeader = () => {
                 onClose={() => handleClose()}
               />
             </div>
+
             <div className="w-full h-full flex justify-between px-6">
               <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
-                <div className="cursor-pointer mr-[14px]" onClick={() => handleGotoHomepage()}>
+                <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
                   <FosterLogo className={styles.logoIcon} />
                 </div>
-                <Link href={'/studio'} passHref>
-                  <a>
-                    <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                      Studio
-                    </div>
-                  </a>
-                </Link>
+
+                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                  Studio
+                </div>
 
                 <div>
                   <ExploreMenu
@@ -285,7 +285,7 @@ const PrimaryHeader = () => {
                 <div className="min-w-fit">
                   <ProfileMenu
                     avatar={profileInfo?.profile_picture}
-                    wallet={getShortStringAddress(profileInfo?.wallet_id)}
+                    wallet={getShortAddress(profileInfo?.wallet_id)}
                     username={profileInfo?.username ?? ''}
                     menuList={profileMenuList}
                     onSelect={item => router.push(item.path)}
@@ -296,7 +296,7 @@ const PrimaryHeader = () => {
                 </div>
 
                 {!connected && (
-                  <button className="ml-6" onClick={() => handleThemeMode()}>
+                  <button className="ml-7" onClick={() => handleThemeMode()}>
                     {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                   </button>
                 )}
@@ -304,8 +304,7 @@ const PrimaryHeader = () => {
             </div>
           </nav>
         </div>
-      </div>
-      <div className="flex lg:hidden">
+      ) : (
         <div
           className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
             isScrollingTop ? 'top-0' : '-top-28'
@@ -343,9 +342,9 @@ const PrimaryHeader = () => {
               </div>
             </div>
           )}
-          {!isScrollTop && <div className={styles.divider} />}
+          <div className={styles.divider} />
         </div>
-      </div>
+      )}
     </div>
   )
 }
