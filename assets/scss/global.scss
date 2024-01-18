@@ -1398,13 +1398,15 @@ h6 {
       justify-content: center;
       align-items: center;
       &:hover {
-        background-color: #707070;
+        @media (min-width: 1024px) {
+          background-color: #707070;
+        }
       }
     }
     .react-datepicker__navigation--previous {
       left: auto;
       top: 20px;
-      right: 48px;
+      right: 58px;
       align-items: center;
       background-image: url('../../assets/icons/arrow-left-white-01.svg');
       background-repeat: no-repeat;
@@ -1435,9 +1437,10 @@ h6 {
       background-repeat: no-repeat;
       background-position: center;
       &:hover {
-        background-image: url('../../assets/icons/arrow-right-black-01.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+          background-image: url('../../assets/icons/arrow-right-black-01.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+
       }
       .react-datepicker__navigation-icon::before {
         border-width: 0px;
