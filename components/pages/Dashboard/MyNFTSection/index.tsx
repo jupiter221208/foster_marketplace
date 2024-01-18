@@ -44,6 +44,7 @@ const MyNFTSection = props => {
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts: any = await getMyNFTs(mx)
+    setAllList(nfts)
     let validNfts = nfts.filter(item => item.creators?.length > 0)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
