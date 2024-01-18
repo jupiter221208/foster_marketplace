@@ -1398,7 +1398,7 @@ h6 {
       justify-content: center;
       align-items: center;
       &:hover {
-        background-color: var(--brand-01-color);
+        background-color: #707070;
       }
     }
     .react-datepicker__navigation--previous {
@@ -1557,15 +1557,9 @@ h6 {
     margin: 10px 0px 0px 0px;
     background: rgba(var(--main-bg-color-rgb), 0.05);
     border-radius: 9px;
-    &:focus {
-      outline: none;
-    }
   }
   .react-datepicker__input-time-container .react-datepicker-time__input-container {
     width: 100%;
-    &:focus {
-      outline: none;
-    }
   }
   .react-datepicker-time__input {
     width: 100%;

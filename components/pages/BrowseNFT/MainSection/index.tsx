@@ -1482,7 +1482,7 @@ const MainSection = ({
                           setShowAuctionSection(true)
                         }}
                         color="var(--main-bg-color)"
-                        borderColor="#707070"
+                        borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                         borderWidth="2"
                         fullWidth
                         fontFamily="Muli-SemiBold"
