@@ -127,17 +127,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   const fetchNftData = nfts => {
-    // if (nfts.length > 0) {
-    //   ;(async () => {
-    //     for (let index = 0; index < nfts.length; index++) {
-    //       let data = nfts[index]
-    //       fetch(`/nft/${data.id}`).then(e => e.text())
-    //       if (index % 3 == 2) {
-    //         await sleep(1000)
-    //       }
-    //     }
-    //   })()
-    // }
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
   }
 
   const handleCollectionImport = async ({ eaUrl, mintList }) => {
