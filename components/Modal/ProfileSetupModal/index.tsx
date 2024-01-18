@@ -28,7 +28,6 @@ import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useAuthentication } from 'hooks/useAuthentication'
-import { getShortAddress } from 'utils/wallet.util'
 
 // call apis
 import userAPI from 'apis/user'
@@ -88,6 +87,7 @@ const ProfileSetupModal = () => {
     setAvatar(file)
     setOpenNftImageEditorModal(true)
   }
+
   useEffect(() => {
     if (publicKey) {
       setDisplayName(getShortAddress(publicKey.toBase58()))
@@ -140,7 +140,9 @@ const ProfileSetupModal = () => {
     let user_name = displayName
     if (displayName.includes('***')) user_name = publicKey.toBase58()
 
-  const updateUserName = () => {
+    localStorage.setItem('isVisibleBannerBoard', 'true')
+    localStorage.setItem('isVisibleSocialBoard', 'true')
+
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: user_name, profile_picture: profilePictureUrl })
       .then(
@@ -267,11 +269,18 @@ const ProfileSetupModal = () => {
                           </div>
                           <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
                             <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
-                              <OutlineButton label="Skip" fullWidth onClick={() => updateUserName()} />
+                              <OutlineButton
+                                label="Skip"
+                                color="#eff0f6"
+                                borderColor="rgba(239, 240, 247, 0.25)"
+                                fullWidth
+                                onClick={() => updateUserName()}
+                              />
                               <GradientButton
                                 label="Save"
                                 backgroundColor01="#95DBD5"
                                 backgroundColor02="#95DBD5"
+                                color="#202427"
                                 fullWidth
                                 onClick={() => handleSaveUsermame()}
                               />

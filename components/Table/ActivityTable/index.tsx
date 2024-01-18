@@ -16,8 +16,6 @@ import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
 import Link from 'next/link'
-import { useDispatch } from 'react-redux'
-import Link from 'next/link'
 import { NftData } from 'types/nft'
 
 type ActivityTableTypes = {

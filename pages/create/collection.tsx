@@ -268,23 +268,24 @@ const Collection = () => {
 
     let collectionInfo = await mx.nfts().findByMint({ mintAddress: new PublicKey(collectionPublicKey) })
     let category = ''
-    categories.forEach(item => {
-      category += item.name + ','
+    let nft_attributes = []
+    collectionInfo.json.attributes?.forEach(item => {
+      category += item.value + ','
+      nft_attributes.push({ trait_type: 'category', value: item.value })
     })
 
-    if (collectionNft) {
-      for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
-        name = name.trim()
-        description = description.trim()
-        const metadata: JsonMetadata = {
-          name,
-          description,
-          attributes,
-          properties: {
-            category: type === 'vr' ? type : file.type.split('/')[0],
-          },
-        }
+    for (let i = 0; i < collectionFiles.length; i++) {
+      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      name = name.trim()
+      description = description.trim()
+      const metadata: NftData = {
+        name,
+        description,
+        attributes: nft_attributes,
+        properties: {
+          category: type === 'vr' ? type : file.type.split('/')[0],
+        },
+      }
 
       let imageFile = {
         type: file.type,
