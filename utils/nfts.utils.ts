@@ -107,24 +107,35 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
 
   let nftData: NftData[] = []
 
-  userNfts.map(nft => {
-    nftData.push({
-      mintAddress: new PublicKey(nft.address),
-      name: nft.json.name,
-      image: nft.json.image,
-      animation_url: nft.json.animation_url as string,
-      category: nft.json.properties.category as string,
-      creators: nft.creators.map(({ address, verified, share }) => ({
-        address: address,
-        verified: verified,
-        share: share,
-      })),
-      collection: {
-        address: nft.collection.address,
-        verified: nft.collection.verified,
-      },
+  if (userNfts)
+    userNfts.map(nft => {
+      let collection = nft.collection
+        ? {
+            address: nft.collection.address,
+            verified: nft.collection.verified,
+          }
+        : nft.collection
+
+      let category = nft.json.attributes
+        ? nft.json.attributes[0].value
+        : nft.json.properties.category
+        ? nft.json.properties.category
+        : ''
+
+      nftData.push({
+        mintAddress: new PublicKey(nft.address),
+        name: nft.json.name,
+        image: nft.json.image,
+        animation_url: nft.json.animation_url as string,
+        category: category,
+        creators: nft.creators.map(({ address, verified, share }) => ({
+          address: address,
+          verified: verified,
+          share: share,
+        })),
+        collection,
+      })
     })
-  })
 
   return nftData
 }

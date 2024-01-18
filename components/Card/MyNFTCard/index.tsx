@@ -36,11 +36,11 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+            {data.category === 'video' || data.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.animation_url} type="video/mp4" /></video>`,
                 }}
               />
             ) : (
