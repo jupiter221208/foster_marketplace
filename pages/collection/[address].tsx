@@ -94,8 +94,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
               newNftsArr[index].start_time = data.start_time
               newNftsArr[index].end_time = data.end_time
               newNftsArr[index].current_bid = data.current_bid
+              newNftsArr[index].asset_type = data.asset_type
             })
-            setNfts(sortedCollectionNfts)
+            setNfts(newNftsArr)
             fetchNftData(result)
           }
 

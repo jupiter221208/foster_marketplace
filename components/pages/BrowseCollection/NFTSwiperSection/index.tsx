@@ -22,8 +22,15 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { NftData } from 'types/nft'
 
-const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
+type NFTSwiperSectionTypes = {
+  nfts: NftData[]
+  collectionName: string
+  showHideButton: any
+}
+
+const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSectionTypes) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -80,6 +87,8 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
     }
   }, [isFetching])
 
+  console.log(nftList)
+
   return (
     nftList !== undefined && (
       <section className={styles.container}>
@@ -114,11 +123,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             {nftList.map((item, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
-                  token_id={item.token_id}
-                  image={item.asset_url}
-                  nftName={item.nft_name}
+                  token_id={item.id}
+                  image={item.content.json_uri}
+                  nftName={item.content.metadata.name}
                   assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
+                  coverImage={item.content.files[0].cdn_uri || item.content.files[0].uri || item.content.links.image}
                   artistName={item.artist_username}
                   collectionName={collectionName}
                   artistId={item.artist_id}

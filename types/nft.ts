@@ -32,6 +32,7 @@ export interface NftData {
   liked?: boolean
   saved?: boolean
   shared?: { facebook: boolean; twitter: boolean; telegram: boolean }
+  animationUrl?: string
 
   merch_hub_enabled?: any
   animation_url?: string
@@ -56,11 +57,20 @@ export interface NftData {
   creator_username?: string
   start_time?: number
 
+  original?: {
+    image: string
+    animationUrl: string
+  }
+  optimized?: {
+    image: string
+    animationUrl: string
+  }
   content?: {
     files: [
       {
         uri: string
         mime: string
+        cdn_uri: string
       }
     ]
     links: {
