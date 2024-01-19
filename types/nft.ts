@@ -54,6 +54,7 @@ export interface NftData {
   artist_profile_picture?: string
   creator_address?: PublicKey
   creator_username?: string
+  start_time?: number
 
   content?: {
     files: [

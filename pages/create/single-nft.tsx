@@ -338,7 +338,7 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
-  const [nftMetadata, setNftMetadata] = useState<NftData>()
+  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>()
   const { refreshToken } = useAuthentication()
 
   const createNft = async () => {
@@ -353,7 +353,7 @@ const SingleNft = () => {
 
       let trimmedNftName: string = nftName.trim()
       let trimmedDescription: string = description.trim()
-      const metadata: NftData = {
+      const metadata: JsonMetadata = {
         name: trimmedNftName,
         description: trimmedDescription,
         attributes,

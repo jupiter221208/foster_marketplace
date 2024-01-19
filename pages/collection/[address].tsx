@@ -23,7 +23,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { getEACollectionInfo } from 'utils/collection.util'
+import { getCollectionFromDAS, getEACollectionInfo } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -74,35 +74,18 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         setLoaded(false)
         setHasLoading(true)
 
-        const response = await fetch(process.env.PROVIDER_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            jsonrpc: '2.0',
-            id: 'my-id',
-            method: 'getAssetsByGroup',
-            params: {
-              groupKey: 'collection',
-              groupValue: address,
-              page: 1,
-              limit: 1000,
-            },
-          }),
-        })
-        const { result } = await response.json()
+        const result = await getCollectionFromDAS(address)
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
 
-        let sortedCollectionNfts = result.items
+        let sortedCollectionNfts = result
           .map(r => {
             return collectionNfts.find(nft => nft.token_id === r.id)
           })
           .filter(nft => nft !== undefined)
 
         if (sortedCollectionNfts && result) {
-          let newNftsArr = [...result.items]
+          let newNftsArr = [...result]
           sortedCollectionNfts.map((data, index) => {
             newNftsArr[index].artist_username = data.artist_username
             newNftsArr[index].artist_id = data.artist_id
@@ -112,7 +95,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
             newNftsArr[index].current_bid = data.current_bid
           })
           setNfts(sortedCollectionNfts)
-          fetchNftData(result.items)
+          fetchNftData(result)
         }
 
         setHasLoading(false)
