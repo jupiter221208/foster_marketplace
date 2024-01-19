@@ -28,7 +28,7 @@ const BrowseArtistCard = props => {
           <>
             <div className={styles.avatar}>
               {image && (
-                <img
+                <Image
                   src={image}
                   alt=""
                   width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
