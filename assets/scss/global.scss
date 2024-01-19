@@ -1411,6 +1411,7 @@ h6 {
       background-image: url('../../assets/icons/arrow-left-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
+      -webkit-tap-highlight-color: transparent;
       @media (min-width: 1024px) {
         right: 98px;
       }
@@ -1436,6 +1437,7 @@ h6 {
       background-image: url('../../assets/icons/arrow-right-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
+      -webkit-tap-highlight-color: transparent;
       &:hover {
           background-image: url('../../assets/icons/arrow-right-black-01.svg');
           background-repeat: no-repeat;
