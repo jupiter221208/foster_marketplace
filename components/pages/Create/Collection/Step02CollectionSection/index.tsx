@@ -137,9 +137,6 @@ const Step02CollectionSection = props => {
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
-  // const [showMore, setShowMore] = useState(false)
-  // const [collectionFilesCount, setCollectionFilesCount] = useState(0)
-  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -198,6 +195,10 @@ const Step02CollectionSection = props => {
         setSelectedCollectionFile(undefined)
       }
       setDisabledNextButton(true)
+    }
+
+    if (collectionFiles.length > 0) {
+      handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
     }
   }, [collectionFiles])
 
