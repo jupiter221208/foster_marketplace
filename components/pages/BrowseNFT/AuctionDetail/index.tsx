@@ -127,8 +127,13 @@ const AuctionDetail = props => {
     else if (durationType === 'custom' && parseFloat(hours) > 23) disabled = true
     else if (!minBidIncrement) disabled = true
     else if (reservePrice === undefined || reservePrice === '' || reservePrice === null) disabled = true
+    else if (
+      endPhaseDurationType !== 'none' &&
+      (endBidIncrement === undefined || endBidIncrement === '' || endBidIncrement === null)
+    )
+      disabled = true
     setButtonDisabled(disabled)
-  }, [days, hours, reservePrice, minBidIncrement])
+  }, [days, hours, reservePrice, minBidIncrement, endPhaseDurationType, endBidIncrement])
 
   return (
     <div className="w-full">
