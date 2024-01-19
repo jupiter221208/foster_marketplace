@@ -20,6 +20,7 @@
   height: 100%;
   overflow: scroll;
   @media (min-width: 1024px) {
+    overflow: unset;
     display: flex;  
   } 
 }

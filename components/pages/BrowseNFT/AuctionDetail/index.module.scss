@@ -226,7 +226,7 @@
   width: 20px;
   height: 20px;
   border-radius: 12px;
-
+  -webkit-tap-highlight-color: transparent;
   &:checked {
     border: 2px solid var(--radio-check-color);
     background-color: transparent;
@@ -267,6 +267,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 45px;
+  -webkit-tap-highlight-color: transparent;
   @media (min-width: 1024px) {
     font-size: 20px;
     width: 100%;
