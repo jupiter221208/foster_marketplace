@@ -922,28 +922,17 @@ const MainSection = ({
             ) : nftType.includes('video') ? (
               <div className={styles.videoArea}>
                 <div className={styles.mobileVideoThumb}>
-                  <img src={nftCoverUrl} alt="" />
-                  {play && (
-                    <div
-                      className="w-full h-full absolute flex items-center"
-                      onClick={() => {
-                        if (play) setPlay(false)
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                          <source src=${nftAssetUrl} type="video/mp4" /></video>`,
-                      }}
-                    />
-                  )}
+                  <video
+                    autoPlay
+                    src={nftAssetUrl}
+                    loop
+                    webkit-playsinline
+                    playsInline
+                    controls
+                    controlsList="nodownload"
+                    className="w-full h-full object-cover overflow-hidden"
+                  />
                 </div>
-
-                {!play && (
-                  <div className={styles.playButton}>
-                    <div className="w-[22px] h-[18px] flex justify-end">
-                      <Image src={PlayVideoIcon} width={18} height={18} alt="" onClick={() => setPlay(!play)} />
-                    </div>
-                  </div>
-                )}
               </div>
             ) : (
               <></>
@@ -1016,7 +1005,7 @@ const MainSection = ({
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                   </div>
                   <div className={styles.videoArea}>
-                    <video controls autoPlay loop className="max-w-full max-h-full">
+                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                       <source type="video/mp4" src={nftAssetUrl} />
                     </video>
                   </div>
@@ -1024,7 +1013,7 @@ const MainSection = ({
               ) : (
                 <>
                   <div className={styles.videoArea}>
-                    <video controls autoPlay loop className="max-w-full max-h-full">
+                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                       <source type="video/mp4" src={nftAssetUrl} />
                     </video>
                   </div>
