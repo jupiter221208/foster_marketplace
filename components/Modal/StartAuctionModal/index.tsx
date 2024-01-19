@@ -8,12 +8,10 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useResizeDetector } from 'react-resize-detector'
 
 // images
 import AudioPlayerBackground from 'assets/images/audio-player.png'
-
-// backend
-import AuctionsAPI from 'apis/auctions'
 
 // solana
 
@@ -22,6 +20,7 @@ import { useDispatch } from 'react-redux'
 // styles
 import styles from './index.module.scss'
 import AuctionDetail from 'components/pages/BrowseNFT/AuctionDetail'
+import ModelViewer from 'components/ModelViewer'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
@@ -31,6 +30,8 @@ const StartAuctionModal = props => {
   const closeModal = () => {
     onClose()
   }
+
+  const { width, height, ref } = useResizeDetector()
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -64,19 +65,34 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="w-full h-full flex justify-center mt-[50px] px-[100px]">
                   <div className={styles.nftArea}>
-                    <div className="w-full max-w-[480px] flex justify-center  overflow-hidden">
-                      {data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.json.animation_url} type="video/mp4" /></video>`,
-                          }}
-                        />
+                    <div className={styles.imageArea}>
+                      {data?.json?.category === 'vr' || data?.json?.properties?.category === 'vr' ? (
+                        <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                          {data?.json.animation_url ? (
+                            <>
+                              <ModelViewer path={data?.json.animation_url} width={width} height={height} orbitLimited />
+                            </>
+                          ) : data?.json?.image ? (
+                            <img
+                              src={data?.json?.image}
+                              alt=""
+                              className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                            />
+                          ) : (
+                            <h1>Could not load NFT.</h1>
+                          )}
+                        </div>
+                      ) : data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
+                        <div className={styles.videoArea}>
+                          <video controls autoPlay loop className="max-w-full max-h-full">
+                            <source type="video/mp4" src={data?.json.animation_url} />
+                          </video>
+                        </div>
                       ) : (
                         <img
                           src={data?.json?.image || AudioPlayerBackground.src}
                           alt={data?.json?.name || data?.name}
-                          className="w-full aspect-[321/321] object-cover"
+                          className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                         />
                       )}
                     </div>
