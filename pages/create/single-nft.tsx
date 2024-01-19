@@ -62,6 +62,7 @@ const SingleNft = () => {
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenLoaded, setScreenLoaded] = useState(false)
+  const [isMinting, setIsMinting] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: false })
@@ -342,8 +343,8 @@ const SingleNft = () => {
 
   const createNft = async () => {
     try {
-      dispatch({ type: 'set', isLoading: true })
-
+      // dispatch({ type: 'set', isLoading: true })
+      setIsMinting(true)
       await refreshToken()
 
       const attributes = categoryList
@@ -455,7 +456,8 @@ const SingleNft = () => {
     } catch (error) {
       console.error(error)
     } finally {
-      dispatch({ type: 'set', isLoading: false })
+      setIsMinting(false)
+      // dispatch({ type: 'set', isLoading: false })
     }
   }
 
@@ -723,6 +725,7 @@ const SingleNft = () => {
                         setCollection={setCollection}
                         disabledNextButton={disabledNextButton}
                         createNft={() => createNft()}
+                        isMinting={isMinting}
                       />
                     )}
                     <div className="w-full h-32" />

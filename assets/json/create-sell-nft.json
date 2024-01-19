@@ -2,7 +2,7 @@
   {
     "id": 0,
     "title": "Connect your wallet",
-    "description": "Choose from any of the supported Solana wallets: Phantom, Solflare or Sollet. Connect your wallet and create a profile on Foster Marketplace that will be associated with it.",
+    "description": "Choose from any of the supported Solana wallets: Phantom, Solflare or Backpack. Connect your wallet and create a profile on Foster Marketplace that will be associated with it.",
     "linkText": "Connect your wallet",
     "link": "connectYourWallet"
   },

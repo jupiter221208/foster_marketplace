@@ -17,9 +17,10 @@ import styles from './index.module.scss'
 
 // resources
 import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step03SingleNFTSection = props => {
-  const { royalties, setRoyalties, setCollection, disabledNextButton, createNft } = props
+  const { royalties, setRoyalties, setCollection, disabledNextButton, createNft, isMinting } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
@@ -72,6 +73,8 @@ const Step03SingleNFTSection = props => {
             disabled={disabledNextButton}
             backgroundColor="#888A8E"
           />
+        ) : isMinting ? (
+          <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
         ) : (
           <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={() => createNft()} />
         )}
@@ -106,6 +109,8 @@ const Step03SingleNFTSection = props => {
       <div className="w-full mt-10">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
           <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
+        ) : isMinting ? (
+          <LoadingButton fullWidth height={40} />
         ) : (
           <GradientButton label="Mint NFT" onClick={() => createNft()} fullWidth />
         )}
