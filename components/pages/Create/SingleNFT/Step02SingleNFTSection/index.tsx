@@ -38,11 +38,11 @@ const Step02SingleNFTSection = props => {
       <div className={`${styles.subTitle} mt-20`}>NFT Name *</div>
       <div className="max-w-[370px] w-full mt-5">
         <Input
-          value={limit(nftName, 30)}
+          value={limit(nftName, 69)}
           placeholder="Give your art name"
-          label01="Max Characters 30"
-          label02={30 - nftName.length === 30 ? '' : `${30 - nftName.length} Characters left`}
-          onChange={value => setNftName(limit(value, 30))}
+          label01="Max Characters 69"
+          label02={69 - nftName.length === 69 ? '' : `${69 - nftName.length} Characters left`}
+          onChange={value => setNftName(limit(value, 69))}
         />
       </div>
       <div className={`${styles.subTitle} mt-20`}>Description *</div>
@@ -65,13 +65,13 @@ const Step02SingleNFTSection = props => {
       <div className={`${styles.mobileSubTitle} mt-5`}>NFT Name *</div>
       <div className="max-w-[370px] w-full mt-4">
         <Input
-          value={limit(nftName, 30)}
+          value={limit(nftName, 69)}
           placeholder="Give your art name"
           color={'var(--text-gray-200-color)'}
           backgroundColor={'var(--input-bg)'}
-          label01="Max Characters 30"
-          label02={20 - nftName.length === 20 ? '' : `${20 - nftName.length} Characters left`}
-          onChange={value => setNftName(limit(value, 20))}
+          label01="Max Characters 69"
+          label02={69 - nftName.length === 69 ? '' : `${69 - nftName.length} Characters left`}
+          onChange={value => setNftName(limit(value, 69))}
         />
       </div>
       <div className={`${styles.mobileSubTitle} mt-5`}>Description *</div>

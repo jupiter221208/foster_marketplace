@@ -473,7 +473,9 @@ const MainSection = ({
           let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
           let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
           let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
-          setMinBidAmount(highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice)
+          let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
+          setMinBidAmount(minBidAmount)
+          setPrice(minBidAmount.toFixed(2))
         }
       }
 
@@ -1412,7 +1414,7 @@ const MainSection = ({
                                       height={
                                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                       }
-                                      onMinimum={() => setPrice(minBidAmount.toFixed(2))}
+                                      // onMinimum={() => setPrice(minBidAmount.toFixed(2))}
                                       onChange={value => {
                                         if (value < 0) {
                                           setPrice('')
