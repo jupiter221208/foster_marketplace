@@ -1575,10 +1575,11 @@ h6 {
       cursor: pointer;
       background: url('../../assets/icons/timer-gray.svg') no-repeat;
       padding-right: 15px;
-      
+      outline: none;
     }
     input[type='time'] {
       color: var(--text-gray-200-color);
+      outline: none;
     }
   }
 }
