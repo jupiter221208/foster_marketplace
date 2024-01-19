@@ -197,13 +197,11 @@ const DashboardNFTCard = props => {
               <div className={styles.nftName}>{nftName}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
-              <Link href={`/${artistName || collectionName}`} passHref>
-                <a>
-                  <div className={styles.artistName}>
-                    {getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}
-                  </div>
-                </a>
-              </Link>
+              <div className={styles.artistName}>
+                <Link href={`/${artistName || collectionName}`} passHref>
+                  <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
+                </Link>
+              </div>
               {price && (
                 <div className="flex justify-center items-center">
                   {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
