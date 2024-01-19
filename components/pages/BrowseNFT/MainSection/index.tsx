@@ -926,7 +926,6 @@ const MainSection = ({
                     autoPlay
                     src={nftAssetUrl}
                     loop
-                    webkit-playsinline
                     playsInline
                     controls
                     controlsList="nodownload"
