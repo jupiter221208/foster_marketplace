@@ -76,29 +76,31 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
         const result = await getCollectionFromDAS(address)
 
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
+        if (result) {
+          let collectionNfts = await collectionsAPI.getCollectionNft(address)
 
-        let sortedCollectionNfts = result
-          .map(r => {
-            return collectionNfts.find(nft => nft.token_id === r.id)
-          })
-          .filter(nft => nft !== undefined)
+          let sortedCollectionNfts = result
+            .map(r => {
+              return collectionNfts.find(nft => nft.token_id === r.id)
+            })
+            .filter(nft => nft !== undefined)
 
-        if (sortedCollectionNfts && result) {
-          let newNftsArr = [...result]
-          sortedCollectionNfts.map((data, index) => {
-            newNftsArr[index].artist_username = data.artist_username
-            newNftsArr[index].artist_id = data.artist_id
-            newNftsArr[index].list_price = data.list_price
-            newNftsArr[index].start_time = data.start_time
-            newNftsArr[index].end_time = data.end_time
-            newNftsArr[index].current_bid = data.current_bid
-          })
-          setNfts(sortedCollectionNfts)
-          fetchNftData(result)
+          if (sortedCollectionNfts && result) {
+            let newNftsArr = [...result]
+            sortedCollectionNfts.map((data, index) => {
+              newNftsArr[index].artist_username = data.artist_username
+              newNftsArr[index].artist_id = data.artist_id
+              newNftsArr[index].list_price = data.list_price
+              newNftsArr[index].start_time = data.start_time
+              newNftsArr[index].end_time = data.end_time
+              newNftsArr[index].current_bid = data.current_bid
+            })
+            setNfts(sortedCollectionNfts)
+            fetchNftData(result)
+          }
+
+          setHasLoading(false)
         }
-
-        setHasLoading(false)
       } catch (e: any) {
         console.error(e)
       } finally {

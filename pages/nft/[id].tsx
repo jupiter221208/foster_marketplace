@@ -204,28 +204,32 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
     const result = await getNftFromDAS(nftDetail.address)
 
-    setNftInfo(result)
-    setHasLoading(false)
+    console.log(result)
 
-    let nftsApiData: NftData
-    if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
-    else nftsApiData = await nftsAPI.get(nftDetail.address)
+    if (result) {
+      setNftInfo(result)
+      setHasLoading(false)
 
-    if (!isString(nftsApiData) && nftsApiData) {
-      setNftInfo(prev => {
-        let newObject = { ...prev }
-        newObject.auction = nftsApiData.auction
-        newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
-        newObject.likes = nftsApiData.likes
-        newObject.shares = nftsApiData.shares
-        newObject.saves = nftsApiData.saves
-        newObject.liked = nftsApiData.liked
-        newObject.saved = nftsApiData.saved
-        newObject.shared = nftsApiData.shared
-        return newObject
-      })
-      if (nftsApiData.creator_address !== null) {
-        setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
+      let nftsApiData: NftData
+      if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
+      else nftsApiData = await nftsAPI.get(nftDetail.address)
+
+      if (!isString(nftsApiData) && nftsApiData) {
+        setNftInfo(prev => {
+          let newObject = { ...prev }
+          newObject.auction = nftsApiData.auction
+          newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
+          newObject.likes = nftsApiData.likes
+          newObject.shares = nftsApiData.shares
+          newObject.saves = nftsApiData.saves
+          newObject.liked = nftsApiData.liked
+          newObject.saved = nftsApiData.saved
+          newObject.shared = nftsApiData.shared
+          return newObject
+        })
+        if (nftsApiData.creator_address !== null) {
+          setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
+        }
       }
     }
   }
