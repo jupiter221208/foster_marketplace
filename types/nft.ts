@@ -1,62 +1,19 @@
-import { BigNumber, Pda } from '@metaplex-foundation/js'
-import { PublicKey } from '@solana/web3.js'
-
 export interface NftData {
-  id?: any
-  mintAddress?: PublicKey
+  mintAddress?: string
+  metadataAddress?: string
+  tokenAccount?: {
+    address: string
+    delegate: string | null
+    isFrozen: boolean
+  }
+
   name?: string
   symbol?: string
   description?: string
-  image?: string
-  imageCdn?: string
-  category?: string
-  creators?: NftCreator[]
-  attributes?: Array<{ value: string; trait_type: string }>
-  sellerFeeBasisPoints?: number
-  address?: PublicKey
-  metadataAddress?: Pda
-  url?: string
-  price?: number
-  creator?: string
-  sellerAddress?: PublicKey
-  tradeStateAddress?: PublicKey
   uri?: string
-  creatorAddress?: string
-  startTime?: number
-  endTime?: number
-  amount?: string
-  auction?: any
-  likes?: number
-  shares?: number
-  saves?: number
-  liked?: boolean
-  saved?: boolean
-  shared?: { facebook: boolean; twitter: boolean; telegram: boolean }
+
+  image?: string
   animationUrl?: string
-
-  merch_hub_enabled?: any
-  animation_url?: string
-  token_id?: PublicKey
-  asset_url?: string
-  nft_name?: string
-  asset_type?: string
-  cover_image_url?: string
-  artist_username?: string
-  artist_id?: PublicKey
-  list_price?: number
-  collection_name?: string
-  current_bid?: number
-  reserve_price?: number
-  end_time?: number
-  asset_name?: string
-  action_type?: string
-  created_at?: Date
-  mint_address?: string
-  artist_profile_picture?: string
-  creator_address?: PublicKey
-  creator_username?: string
-  start_time?: number
-
   original?: {
     image: string
     animationUrl: string
@@ -65,13 +22,33 @@ export interface NftData {
     image: string
     animationUrl: string
   }
+
+  sellerFeeBasisPoints?: number
+  creators?: NftCreator[]
+  category?: string
+  attributes?: Array<{ value: string; trait_type: string }>
+
+  collection?: {
+    address: string
+    verified: boolean
+  }
+  collectionDetails?: {
+    size?: number
+  }
+
+  supply: {
+    edition: number | null
+    current: number | null
+    max: number | null
+  }
+
   content?: {
     files: [
       {
         uri: string
         mime: string
         cdn_uri: string
-      }
+      },
     ]
     links: {
       image: string
@@ -80,13 +57,9 @@ export interface NftData {
       name: string
     }
   }
-  highestBid?: {
-    buyer_address: string
-    amount: string
-  }
-  mint?: {
-    address: PublicKey
-  }
+
+  marketplaceInfo?: NftMarketplaceInfo
+
   properties?: {
     category: string
     files?: {
@@ -95,17 +68,7 @@ export interface NftData {
       uri?: string
     }[]
   }
-  collection?: {
-    address: PublicKey
-    verified: boolean
-  }
-  collectionDetails?: {
-    size: number | BigNumber
-  }
-  tokenAccount?: {
-    delegate: PublicKey | null
-    isFrozen: boolean
-  }
+
   json?: {
     name?: string
     symbol?: string
@@ -144,4 +107,19 @@ export interface NftCreator {
   address: PublicKey
   share: number
   verified: boolean
+}
+
+export interface NftMarketplaceInfo {
+  id: number
+  minterId: string
+  timestamp: number
+  mintedOnFoster: boolean
+  views: number
+  likes: number
+  shares: number
+  saves: number
+  categories: string
+  listingStatus: string
+  coverImageUrl?: string
+  merchHubEnabled: boolean
 }
