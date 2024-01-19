@@ -254,3 +254,36 @@ export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo> 
   let sharedSocial = shared.facebook || shared.twitter || shared.telegram
   return { likes, shares, saves, liked, saved, sharedSocial }
 }
+
+export async function getNftFromDAS(address): Promise<NftData> {
+  try {
+    const response = await fetch(process.env.PROVIDER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 'my-id',
+        method: 'getAsset',
+        params: {
+          id: address,
+        },
+      }),
+    })
+    const { result } = await response.json()
+
+    result.auction = null
+    result.merch_hub_enabled = null
+    result.likes = null
+    result.shares = null
+    result.saves = null
+    result.liked = null
+    result.saved = null
+    result.shared = null
+
+    return result
+  } catch (error) {
+    console.log('Error while fetching nft: ', error)
+  }
+}

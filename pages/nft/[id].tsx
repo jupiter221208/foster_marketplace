@@ -20,7 +20,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -202,37 +202,10 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const reloadNftData = async () => {
     if (!nftDetail) return
 
-    await fetch(process.env.PROVIDER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        jsonrpc: '2.0',
-        id: 'my-id',
-        method: 'getAsset',
-        params: {
-          id: nftDetail.address,
-        },
-      }),
-    })
-      .then(async res => {
-        const { result } = await res.json()
-        result.auction = null
-        result.merch_hub_enabled = null
-        result.likes = null
-        result.shares = null
-        result.saves = null
-        result.liked = null
-        result.saved = null
-        result.shared = null
-        setNftInfo(result)
-        setHasLoading(false)
-      })
-      .catch(e => {
-        console.log(e)
-        setHasLoading(false)
-      })
+    const result = await getNftFromDAS(nftDetail.address)
+
+    setNftInfo(result)
+    setHasLoading(false)
 
     let nftsApiData: NftData
     if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
