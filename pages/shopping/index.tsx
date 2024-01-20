@@ -45,7 +45,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NftData } from 'types/nft'
 
 export interface EditionDetail {
   number: number
@@ -54,7 +53,7 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: NftData
+  nftDetail?: Nft
   editionDetail?: EditionDetail
   originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey

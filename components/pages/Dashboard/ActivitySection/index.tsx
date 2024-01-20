@@ -19,7 +19,7 @@ import ActivityAPI from 'apis/activity'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import LoadingModal from 'components/Modal/LoadingModal'
-import { NftData } from 'types/nft'
+import { ActivityAPIData, NftData } from 'types/nft'
 
 const ActivitySection = () => {
   const viewport = useViewport()
@@ -27,14 +27,14 @@ const ActivitySection = () => {
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [activityList, setActivityList] = useState<NftData[]>([])
-  const [allList, setAllList] = useState<NftData[]>([])
+  const [activityList, setActivityList] = useState<ActivityAPIData[]>([])
+  const [allList, setAllList] = useState<ActivityAPIData[]>([])
   const { publicKey } = useWallet()
 
   useEffect(() => {
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
       if (response.length === 0) return
-      let tempItem: NftData[] = []
+      let tempItem: ActivityAPIData[] = []
       response.reverse().map((item, index) => {
         tempItem.push(item)
       })

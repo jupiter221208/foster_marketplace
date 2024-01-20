@@ -179,3 +179,7 @@ export interface ActivityAPIData {
   amount: string
   created_at: string
 }
+
+export interface ArtistsAPIData {
+  token_id: string
+}
