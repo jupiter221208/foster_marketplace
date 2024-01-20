@@ -117,61 +117,34 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     const fetchData = async () => {
       if (!nftDetail) return
 
-      await fetch(process.env.PROVIDER_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          jsonrpc: '2.0',
-          id: 'my-id',
-          method: 'getAsset',
-          params: {
-            id: nftDetail.address,
-          },
-        }),
-      })
-        .then(async res => {
-          const { result } = await res.json()
-          result.auction = null
-          result.marketplaceInfo = {
-            likes: null,
-            shares: null,
-            saves: null,
-            liked: null,
-            saved: null,
-            shared: null,
-            merchHubEnabled: null,
-          }
-          setNftInfo(result)
-          setHasLoading(false)
-        })
-        .catch(e => {
-          console.log(e)
-          setHasLoading(false)
-        })
+      const result = await getNftFromDAS(nftDetail.address)
 
-      let nftsApiData
-      if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
-      else nftsApiData = await nftsAPI.get(nftDetail.address)
+      if (result) {
+        setNftInfo(result)
+        setHasLoading(false)
 
-      if (!isString(nftsApiData) && nftsApiData) {
-        setNftInfo(prev => {
-          let newObject = { ...prev }
-          newObject.auction = nftsApiData.auction
-          newObject.marketplaceInfo = {
-            likes: nftsApiData.likes,
-            shares: nftsApiData.shares,
-            saves: nftsApiData.saves,
-            liked: nftsApiData.liked,
-            saved: nftsApiData.saved,
-            shared: nftsApiData.shared,
-            merchHubEnabled: nftsApiData.merch_hub_enabled,
+        let nftsApiData
+        if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
+        else nftsApiData = await nftsAPI.get(nftDetail.address)
+
+        if (!isString(nftsApiData) && nftsApiData) {
+          setNftInfo(prev => {
+            let newObject = { ...prev }
+            newObject.auction = nftsApiData.auction
+            newObject.marketplaceInfo = {
+              likes: nftsApiData.likes,
+              shares: nftsApiData.shares,
+              saves: nftsApiData.saves,
+              liked: nftsApiData.liked,
+              saved: nftsApiData.saved,
+              shared: nftsApiData.shared,
+              merchHubEnabled: nftsApiData.merch_hub_enabled,
+            }
+            return newObject
+          })
+          if (nftsApiData.creator_address !== null) {
+            setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
           }
-          return newObject
-        })
-        if (nftsApiData.creator_address !== null) {
-          setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
         }
       }
     }
@@ -353,7 +326,7 @@ BrowseNFT.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
-BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
+BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTProps> {
   // set cache headers
   if (res) {
     // cache for 30m, shared cache for 1h

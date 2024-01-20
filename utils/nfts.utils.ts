@@ -272,13 +272,15 @@ export async function getNftFromDAS(address): Promise<NftData> {
     const { result } = await response.json()
 
     result.auction = null
-    result.merch_hub_enabled = null
-    result.likes = null
-    result.shares = null
-    result.saves = null
-    result.liked = null
-    result.saved = null
-    result.shared = null
+    result.marketplaceInfo = {
+      likes: null,
+      shares: null,
+      saves: null,
+      liked: null,
+      saved: null,
+      shared: null,
+      merchHubEnabled: null,
+    }
 
     return result
   } catch (error) {
