@@ -43,13 +43,11 @@ export interface NftData {
   }
 
   content?: {
-    files: [
-      {
-        uri: string
-        mime: string
-        cdn_uri: string
-      },
-    ]
+    files: {
+      uri: string
+      mime: string
+      cdn_uri: string
+    }[]
     links: {
       image: string
     }
@@ -59,14 +57,11 @@ export interface NftData {
   }
 
   marketplaceInfo?: NftMarketplaceInfo
+  auction_info?: AuctionInfo
 
   properties?: {
     category: string
-    files?: {
-      [key: string]: unknown
-      type?: string
-      uri?: string
-    }[]
+    files?: FlilesInfo[]
   }
 
   json?: {
@@ -82,16 +77,8 @@ export interface NftData {
       [key: string]: unknown
     }>
     properties?: {
-      creators?: Array<{
-        address?: string
-        share?: number
-        [key: string]: unknown
-      }>
-      files?: Array<{
-        type?: string
-        uri?: string
-        [key: string]: unknown
-      }>
+      creators?: NftCreator[]
+      files?: Array<FlilesInfo>
       [key: string]: unknown
     }
     collection?: {
@@ -104,9 +91,11 @@ export interface NftData {
 }
 
 export interface NftCreator {
-  address: PublicKey
+  address: string
   share: number
   verified: boolean
+  artist_username: string
+  [key: string]: unknown
 }
 
 export interface NftMarketplaceInfo {
@@ -122,4 +111,17 @@ export interface NftMarketplaceInfo {
   listingStatus: string
   coverImageUrl?: string
   merchHubEnabled: boolean
+}
+
+export interface FlilesInfo {
+  type?: string
+  uri?: string
+  [key: string]: unknown
+}
+
+export interface AuctionInfo {
+  list_price: number
+  start_time: number
+  end_time: number
+  current_bid: number
 }

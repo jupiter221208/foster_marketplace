@@ -86,15 +86,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
             .filter(nft => nft !== undefined)
 
           if (sortedCollectionNfts && result) {
-            let newNftsArr = [...result]
+            let newNftsArr: NftData[] = [...result]
             sortedCollectionNfts.map((data, index) => {
-              newNftsArr[index].artist_username = data.artist_username
-              newNftsArr[index].artist_id = data.artist_id
-              newNftsArr[index].list_price = data.list_price
-              newNftsArr[index].start_time = data.start_time
-              newNftsArr[index].end_time = data.end_time
-              newNftsArr[index].current_bid = data.current_bid
-              newNftsArr[index].asset_type = data.asset_type
+              newNftsArr[index].mintAddress = data.token_id
+              newNftsArr[index].creators[0].artist_username = data.artist_username
+              newNftsArr[index].auction_info = {
+                current_bid: data.current_bid,
+                start_time: data.start_time,
+                end_time: data.end_time,
+                list_price: data.list_price,
+              }
+              console.log(newNftsArr)
             })
             setNfts(newNftsArr)
             fetchNftData(result)

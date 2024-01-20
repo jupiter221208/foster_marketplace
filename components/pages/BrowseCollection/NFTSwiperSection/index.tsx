@@ -44,7 +44,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
 
   useEffect(() => {
     if (nfts) {
-      const listeNfts = nfts.filter(item => item.list_price != null)
+      const listeNfts = nfts.filter(item => item.auction_info.list_price != null)
       setQuickBuyNfts(listeNfts)
 
       setNFTList(nfts.slice(0, rowCount))
@@ -120,22 +120,22 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
         </div>
         <div className="w-full mt-[15px] lg:mt-[45px] z-10">
           <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-            {nftList.map((item, index) => (
+            {nftList.map((item: NftData, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
-                  token_id={item.id}
-                  image={item.content.json_uri}
+                  token_id={item.mintAddress}
+                  image={item.content.files[0].uri}
                   nftName={item.content.metadata.name}
-                  assetType={item.asset_type}
+                  assetType={item.content.files[1].mime}
                   coverImage={item.content.files[0].cdn_uri || item.content.files[0].uri || item.content.links.image}
-                  artistName={item.artist_username}
+                  artistName={item.creators[0].artist_username}
                   collectionName={collectionName}
-                  artistId={item.artist_id}
-                  price={item.list_price}
+                  artistId={item.creators[0].address}
+                  price={item.auction_info.list_price}
                   showHideButton={showHideButton}
                   onClick={() => {
                     let token_id = item.mintAddress
-                    if (token_id === null || token_id === undefined) token_id = item.token_id
+                    if (token_id === null || token_id === undefined) token_id = item.mintAddress
                     if (token_id !== null && token_id !== undefined) {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/nft/${token_id.toString()}`)

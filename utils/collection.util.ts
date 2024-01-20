@@ -129,7 +129,7 @@ export async function getEACollectionInfo(eaCollectionUrl: string): Promise<EACo
   return collectionInfo
 }
 
-export async function getCollectionFromDAS(address): Promise<NftData[]> {
+export async function getCollectionFromDAS(address) {
   const response = await fetch(process.env.PROVIDER_URL, {
     method: 'POST',
     headers: {
