@@ -278,7 +278,7 @@ const Collection = () => {
       let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
-      const metadata: NftData = {
+      const metadata: JsonMetadata = {
         name,
         description,
         attributes: nft_attributes,

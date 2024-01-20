@@ -35,7 +35,7 @@ const Dao = () => {
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [nfts, setNfts] = useState<NftData[]>([])
+  const [nfts, setNfts] = useState([])
 
   const { id } = router.query
   const paramId = id + ''

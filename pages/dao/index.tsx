@@ -27,7 +27,7 @@ const Dao = () => {
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
 
-  const [nfts, setNfts] = useState<NftData[]>([])
+  const [nfts, setNfts] = useState([])
 
   useEffect(() => {
     ;(async () => {

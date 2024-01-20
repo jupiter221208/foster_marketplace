@@ -79,7 +79,7 @@ const MyCollectionSection = () => {
                 nftName={item.json?.name}
                 category={getCategory(item.json?.attributes)}
                 artistAddress={item.creators[0]?.address.toString()}
-                mintAddress={item.mintAddress.toBase58()}
+                mintAddress={item.mintAddress.toString()}
                 link={`/collection/${item.mintAddress.toString()}`}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })

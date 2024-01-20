@@ -53,7 +53,7 @@ import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
 import GradientButton from 'components/Button/GradientButton'
 import Link from 'next/link'
-import { NftData } from 'types/nft'
+import { ExploreAPIData } from 'types/nft'
 
 const Explore = () => {
   const router = useRouter()
@@ -68,7 +68,7 @@ const Explore = () => {
   const artworkSort = useSelector<any>(state => state.artworkSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
-  const [nftList, setNftList] = useState<NftData[]>([])
+  const [nftList, setNftList] = useState<ExploreAPIData[]>([])
   const [collectionList, setCollectionList] = useState<any>([])
   const [ecosystemList, setEcosystemList] = useState<any>([])
   const [categoryList, setCategoryList] = useState<any>([])

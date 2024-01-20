@@ -14,13 +14,8 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { NftData } from 'types/nft'
 
-type HeroCardMobileTypes = {
-  data: NftData
-}
-
-const HeroCardMobile = ({ data }: HeroCardMobileTypes) => {
+const HeroCardMobile = ({ data }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)

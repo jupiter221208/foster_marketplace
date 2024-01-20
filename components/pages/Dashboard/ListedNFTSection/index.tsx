@@ -32,7 +32,7 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NftData } from 'types/nft'
+import { ListingsAPIData } from 'types/nft'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -44,8 +44,8 @@ const ListedNFTSection = props => {
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
-  const [selectedData, setSelectedData] = useState<NftData>()
-  const handleSelectData = (item: NftData) => {
+  const [selectedData, setSelectedData] = useState<ListingsAPIData>()
+  const handleSelectData = (item: ListingsAPIData) => {
     setSelectedData(item)
     setShowListNFTModal(true)
   }
@@ -74,9 +74,9 @@ const ListedNFTSection = props => {
 
   const { updateSolBalance } = useWallets()
 
-  const [nftList, setNFTList] = useState<NftData[]>([])
+  const [nftList, setNFTList] = useState<ListingsAPIData[]>([])
 
-  function getMintAddress(asset: NftData): PublicKey {
+  function getMintAddress(asset): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
     else return asset.mint.address
   }
@@ -85,7 +85,7 @@ const ListedNFTSection = props => {
     setLoading(true)
     const listedNfts = await getMyListedNFTs(mx)
     if (listedNfts) {
-      let fixedPriceNFTs: NftData[] = listedNfts.map(({ asset, sellerAddress, tradeStateAddress, price }) => ({
+      let fixedPriceNFTs = listedNfts.map(({ asset, sellerAddress, tradeStateAddress, price }) => ({
         address: getMintAddress(asset),
         name: asset?.name,
         uri: asset?.uri,
@@ -101,7 +101,7 @@ const ListedNFTSection = props => {
     const nfts = await mx
       .nfts()
       .findAllByMintList({ mints: listings.map(({ auction }) => new PublicKey(auction.mint_address)) })
-    const liveAuction: NftData[] = listings
+    const liveAuction: ListingsAPIData[] = listings
       .map(
         ({ auction, highest_bid }, index) =>
           nfts[index] && {
@@ -127,7 +127,7 @@ const ListedNFTSection = props => {
     if (mx && !isGetListedNFTs) setMyListedNFTs()
   }, [mx, isGetListedNFTs])
 
-  const onCancelList = async ({ address, tradeStateAddress }: NftData) => {
+  const onCancelList = async ({ address, tradeStateAddress }) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -167,7 +167,7 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }: NftData, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -218,7 +218,7 @@ const ListedNFTSection = props => {
     },
   ])
 
-  const cancelAuction = async ({ address, sellerAddress, name }: NftData) => {
+  const cancelAuction = async ({ address, sellerAddress, name }) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -249,7 +249,7 @@ const ListedNFTSection = props => {
     }
   }
 
-  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: NftData) => {
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
     setTimeout(() => {
       setOpenProgressingModal(true)
     }, 500)

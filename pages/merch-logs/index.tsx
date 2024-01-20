@@ -265,7 +265,7 @@ const MerchActivity = () => {
 
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
-    let nfts: NftData[] = await getMyNFTs(mx)
+    let nfts = await getMyNFTs(mx)
 
     let eligibleNfts = nfts.filter(
       item =>

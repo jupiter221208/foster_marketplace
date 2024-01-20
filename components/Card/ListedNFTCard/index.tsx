@@ -23,15 +23,17 @@ import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import Link from 'next/link'
-import { NftData } from 'types/nft'
+import { ListingsAPIData } from 'types/nft'
+
+export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
-  data: NftData
+  data: ListingsAPIData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
-  onActionClick: (data: NftData) => void
-  cancelAuction: (data: NftData) => void
-  finalizeSale: (data: NftData) => void
+  onActionClick: (data: ListedNFTCardDataWithJson) => void
+  cancelAuction: any
+  finalizeSale: any
 }
 
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {

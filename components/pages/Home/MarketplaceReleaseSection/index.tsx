@@ -26,7 +26,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
-import { NftData } from 'types/nft'
+import { DashboardAPIData } from 'types/nft'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -34,8 +34,8 @@ const MarketplaceReleaseSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<NftData[]>([])
-  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<NftData[]>([])
+  const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<DashboardAPIData[]>([])
+  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<DashboardAPIData[]>([])
   const [page, setPage] = useState(1)
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

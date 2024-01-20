@@ -63,7 +63,7 @@ export interface NftCreator {
   verified: boolean
 }
 
-export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
+export async function getMyNFTs(mx: Metaplex) {
   let tokenAccounts = await new TokenGpaBuilder(mx)
     .whereOwner(mx.identity().publicKey)
     .whereAmount(1)

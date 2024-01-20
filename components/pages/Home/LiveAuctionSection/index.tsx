@@ -29,7 +29,7 @@ import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
-import { NftData } from 'types/nft'
+import { DashboardAPIData } from 'types/nft'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -37,7 +37,7 @@ const LiveAuctionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [liveAuctionList, setLiveAuctionList] = useState<NftData[]>([])
+  const [liveAuctionList, setLiveAuctionList] = useState<DashboardAPIData[]>([])
   const [active, setActive] = useState<any>(1)
   const [cardLoop, setCardLoop] = useState(true)
   const [type, setType] = useState('recent_started')

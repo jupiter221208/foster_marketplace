@@ -13,7 +13,7 @@ export interface NftData {
   uri?: string
 
   image?: string
-  animationUrl?: string
+  animation_url?: string
   original?: {
     image: string
     animationUrl: string
@@ -127,4 +127,55 @@ export interface AuctionInfo {
   start_time: number
   end_time: number
   current_bid: number
+}
+
+export interface DashboardAPIData {
+  token_id: string
+  asset_url: string
+  nft_name: string
+  asset_type: string
+  cover_image_url: string
+  artist_username: string
+  collection_name: string
+  list_price: number
+}
+
+export interface ListingsAPIData {
+  address?: string
+  name?: string
+  uri?: string
+  sellerAddress?: string
+  tradeStateAddress?: string
+  price?: number
+  creatorAddress?: string
+  startTime?: number
+  endTime?: number
+  highestBid?: {
+    buyer_address: string
+    amount: string
+  }
+}
+
+export interface ExploreAPIData {
+  url: string
+  image: string
+  asset_type: string
+  cover_image_url: string
+  current_bid: number
+  reserve_price: number
+  end_time: number
+  price: number
+  token_id: string
+  name: string
+  creator: string
+  collection_name: string
+}
+
+export interface ActivityAPIData {
+  asset_url: string
+  mint_address: string
+  asset_name: string
+  action_type: string
+  amount: string
+  created_at: string
 }

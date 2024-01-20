@@ -41,7 +41,7 @@ const MainSection = () => {
   const dispatch = useDispatch()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
-  const [heroList, setHeroList] = useState<NftData[]>(HeroEmptyList as any)
+  const [heroList, setHeroList] = useState(HeroEmptyList as any)
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()

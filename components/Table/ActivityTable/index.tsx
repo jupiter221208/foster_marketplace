@@ -16,10 +16,10 @@ import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
 import Link from 'next/link'
-import { NftData } from 'types/nft'
+import { ActivityAPIData } from 'types/nft'
 
 type ActivityTableTypes = {
-  data: NftData[]
+  data: ActivityAPIData[]
   type: any
 }
 
