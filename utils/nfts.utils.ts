@@ -105,7 +105,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
 
   userNfts = userNfts.filter(({ jsonLoaded }) => jsonLoaded)
 
-  let nftData: NftData[] = []
+  let nftData = []
 
   if (userNfts)
     userNfts.map(nft => {
@@ -206,7 +206,7 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
   }
 }
 
-export function getNFTCategories(nft: NewNftData): string[] {
+export function getNFTCategories(nft): string[] {
   return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 

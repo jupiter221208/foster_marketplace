@@ -7,7 +7,7 @@ import Image from 'next/image'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import type { Sft, Nft, NftWithToken } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -50,7 +50,7 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: NftData
+  nftDetail?: Nft
   editionDetail?: EditionDetail
   originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
@@ -58,7 +58,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = nftDetail?.category as string
+  const nftType = (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
@@ -134,13 +134,15 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         .then(async res => {
           const { result } = await res.json()
           result.auction = null
-          result.merch_hub_enabled = null
-          result.likes = null
-          result.shares = null
-          result.saves = null
-          result.liked = null
-          result.saved = null
-          result.shared = null
+          result.marketplaceInfo = {
+            likes: null,
+            shares: null,
+            saves: null,
+            liked: null,
+            saved: null,
+            shared: null,
+            merchHubEnabled: null,
+          }
           setNftInfo(result)
           setHasLoading(false)
         })
@@ -149,7 +151,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           setHasLoading(false)
         })
 
-      let nftsApiData: NftData
+      let nftsApiData
       if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
       else nftsApiData = await nftsAPI.get(nftDetail.address)
 
@@ -157,13 +159,15 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         setNftInfo(prev => {
           let newObject = { ...prev }
           newObject.auction = nftsApiData.auction
-          newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
-          newObject.likes = nftsApiData.likes
-          newObject.shares = nftsApiData.shares
-          newObject.saves = nftsApiData.saves
-          newObject.liked = nftsApiData.liked
-          newObject.saved = nftsApiData.saved
-          newObject.shared = nftsApiData.shared
+          newObject.marketplaceInfo = {
+            likes: nftsApiData.likes,
+            shares: nftsApiData.shares,
+            saves: nftsApiData.saves,
+            liked: nftsApiData.liked,
+            saved: nftsApiData.saved,
+            shared: nftsApiData.shared,
+            merchHubEnabled: nftsApiData.merch_hub_enabled,
+          }
           return newObject
         })
         if (nftsApiData.creator_address !== null) {
@@ -204,13 +208,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
     const result = await getNftFromDAS(nftDetail.address)
 
-    console.log(result)
-
     if (result) {
       setNftInfo(result)
       setHasLoading(false)
 
-      let nftsApiData: NftData
+      let nftsApiData
       if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
       else nftsApiData = await nftsAPI.get(nftDetail.address)
 
@@ -218,13 +220,16 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         setNftInfo(prev => {
           let newObject = { ...prev }
           newObject.auction = nftsApiData.auction
-          newObject.merch_hub_enabled = nftsApiData.merch_hub_enabled
-          newObject.likes = nftsApiData.likes
-          newObject.shares = nftsApiData.shares
-          newObject.saves = nftsApiData.saves
-          newObject.liked = nftsApiData.liked
-          newObject.saved = nftsApiData.saved
-          newObject.shared = nftsApiData.shared
+          newObject.marketplaceInfo = {
+            likes: nftsApiData.likes,
+            shares: nftsApiData.shares,
+            saves: nftsApiData.saves,
+            liked: nftsApiData.liked,
+            saved: nftsApiData.saved,
+            shared: nftsApiData.shared,
+            merchHubEnabled: nftsApiData.merch_hub_enabled,
+          }
+
           return newObject
         })
         if (nftsApiData.creator_address !== null) {

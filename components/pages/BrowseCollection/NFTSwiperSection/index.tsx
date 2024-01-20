@@ -44,7 +44,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
 
   useEffect(() => {
     if (nfts) {
-      const listeNfts = nfts.filter(item => item.auction_info.list_price != null)
+      const listeNfts = nfts.filter(item => item.auction.list_price != null)
       setQuickBuyNfts(listeNfts)
 
       setNFTList(nfts.slice(0, rowCount))
@@ -131,7 +131,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                   artistName={item.creators[0].artist_username}
                   collectionName={collectionName}
                   artistId={item.creators[0].address}
-                  price={item.auction_info.list_price}
+                  price={item.auction.list_price}
                   showHideButton={showHideButton}
                   onClick={() => {
                     let token_id = item.mintAddress

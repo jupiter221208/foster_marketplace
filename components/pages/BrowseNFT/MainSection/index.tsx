@@ -112,7 +112,7 @@ import Link from 'next/link'
 import { NftData } from 'types/nft'
 
 export interface MainSectionProps {
-  nftDetail: NftData
+  nftDetail: Nft
   editionDetail: any
   nftInfo: any
   setFullScreenView: any
@@ -607,7 +607,7 @@ const MainSection = ({
     }
   }
 
-  const onCancelList = async ({ address, tradeStateAddress }: NftData) => {
+  const onCancelList = async ({ address, tradeStateAddress }) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -647,7 +647,7 @@ const MainSection = ({
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }: NftData, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()

@@ -57,7 +57,7 @@ export interface NftData {
   }
 
   marketplaceInfo?: NftMarketplaceInfo
-  auction_info?: AuctionInfo
+  auction?: AuctionInfo
 
   properties?: {
     category: string
@@ -99,18 +99,21 @@ export interface NftCreator {
 }
 
 export interface NftMarketplaceInfo {
-  id: number
-  minterId: string
-  timestamp: number
-  mintedOnFoster: boolean
-  views: number
-  likes: number
-  shares: number
-  saves: number
-  categories: string
-  listingStatus: string
+  id?: number
+  minterId?: string
+  timestamp?: number
+  mintedOnFoster?: boolean
+  views?: number
+  likes?: number
+  shares?: number
+  saves?: number
+  shared?: boolean
+  liked?: boolean
+  saved?: boolean
+  categories?: string
+  listingStatus?: string
   coverImageUrl?: string
-  merchHubEnabled: boolean
+  merchHubEnabled?: boolean
 }
 
 export interface FlilesInfo {
