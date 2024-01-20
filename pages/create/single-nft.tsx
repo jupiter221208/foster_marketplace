@@ -726,11 +726,12 @@ const SingleNft = () => {
                         disabledNextButton={disabledNextButton}
                         createNft={() => createNft()}
                         isMinting={isMinting}
+                        onBack={() => handleChangeCurrentStep(currentStep - 1)}
                       />
                     )}
                     <div className="w-full h-32" />
                     <div className="absolute bottom-0 w-full flex justify-between">
-                      {currentStep !== 1 ? (
+                      {currentStep === 2 ? (
                         <Button
                           label="Back"
                           onClick={() => handleChangeCurrentStep(currentStep - 1)}
@@ -953,6 +954,7 @@ const SingleNft = () => {
                   setCollection={setCollection}
                   setRoyalties={value => setRoyalties(value)}
                   disabledNextButton={disabledNextButton}
+                  onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   handleChangeCurrentStep={() =>
                     handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
                   }
@@ -1021,7 +1023,7 @@ const SingleNft = () => {
                     </div>
                   </div>
                 )}
-                {currentStep === 3 && (
+                {/* {currentStep === 3 && (
                   <div className="w-[161px]">
                     <Button
                       label="Back"
@@ -1034,7 +1036,7 @@ const SingleNft = () => {
                       borderWidth={1}
                     />
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           )}

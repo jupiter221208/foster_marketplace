@@ -35,17 +35,21 @@ const Step02SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>NFT Name *</div>
+      <div className={`${styles.subTitle} mt-20`}>
+        NFT Name <span>*</span>
+      </div>
       <div className="max-w-[370px] w-full mt-5">
         <Input
-          value={limit(nftName, 69)}
+          value={limit(nftName, 32)}
           placeholder="Give your art name"
-          label01="Max Characters 69"
-          label02={69 - nftName.length === 69 ? '' : `${69 - nftName.length} Characters left`}
-          onChange={value => setNftName(limit(value, 69))}
+          label01="Max Characters 32"
+          label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+          onChange={value => setNftName(limit(value, 32))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-20`}>Description *</div>
+      <div className={`${styles.subTitle} mt-20`}>
+        Description <span>*</span>
+      </div>
       <div className="w-full mt-5">
         <Textarea
           value={limit(description, 1000)}
@@ -55,26 +59,32 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-20`}>Categories (max. 3) *</div>
+      <div className={`${styles.subTitle} mt-20`}>
+        Categories (max. 3) <span>*</span>
+      </div>
       <div className="w-full mt-5">
         <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       </div>
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.mobileSubTitle} mt-5`}>NFT Name *</div>
+      <div className={`${styles.mobileSubTitle} mt-5`}>
+        NFT Name <span>*</span>
+      </div>
       <div className="max-w-[370px] w-full mt-4">
         <Input
-          value={limit(nftName, 69)}
+          value={limit(nftName, 32)}
           placeholder="Give your art name"
           color={'var(--text-gray-200-color)'}
           backgroundColor={'var(--input-bg)'}
-          label01="Max Characters 69"
-          label02={69 - nftName.length === 69 ? '' : `${69 - nftName.length} Characters left`}
-          onChange={value => setNftName(limit(value, 69))}
+          label01="Max Characters 32"
+          label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+          onChange={value => setNftName(limit(value, 32))}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>Description *</div>
+      <div className={`${styles.mobileSubTitle} mt-5`}>
+        Description <span>*</span>
+      </div>
       <div className="w-full mt-5">
         <Textarea
           value={limit(description, 1000)}
@@ -86,7 +96,9 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(value)}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>Categories *</div>
+      <div className={`${styles.mobileSubTitle} mt-5`}>
+        Categories <span>*</span>
+      </div>
       <div className="w-full mt-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">

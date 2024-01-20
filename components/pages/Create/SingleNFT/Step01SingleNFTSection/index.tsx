@@ -70,7 +70,9 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>Art *</div>
+          <div className={`${styles.subTitle} mt-20`}>
+            Art <span>*</span>
+          </div>
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
@@ -147,7 +149,11 @@ const Step01SingleNFTSection = props => {
         </div>
       ) : (
         <div className="w-full">
-          {nftType === 'audio' && <div className={`${styles.subTitle} mt-20`}>Art *</div>}
+          {nftType === 'audio' && (
+            <div className={`${styles.subTitle} mt-20`}>
+              Art <span>*</span>
+            </div>
+          )}
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
