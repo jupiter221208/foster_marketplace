@@ -19,9 +19,9 @@ const HeroCardMobile = props => {
   const { data } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const [profileLoaded, setProfileLoaded] = useState(false)
+  const [profileLoaded, setProfileLoaded] = useState(true)
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(true)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -84,7 +84,7 @@ const HeroCardMobile = props => {
             (data.cover_image_url === null || data.cover_image_url === '') ? (
               <div></div>
             ) : data.asset_type.includes('image') ? (
-              <Image
+              <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                     ? data.asset_url
@@ -97,21 +97,23 @@ const HeroCardMobile = props => {
                 height={772}
                 className="w-full h-full object-cover rounded-[24px]"
                 onClick={() => gotoNftDetailPage()}
-                onLoadingComplete={() => {
-                  setLoaded(true)
-                }}
+                // loading="lazy"
+                // onLoad={() => {
+                //   setLoaded(true)
+                // }}
               />
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <Image
+                  <img
                     src={data.cover_image_url}
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
-                    onLoadingComplete={() => {
-                      setLoaded(true)
-                    }}
+                    // loading="lazy"
+                    // onLoad={() => {
+                    //   setLoaded(true)
+                    // }}
                   />
                 ) : (
                   <Image
@@ -133,7 +135,7 @@ const HeroCardMobile = props => {
                   alt=""
                   className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                   onClick={() => gotoNftDetailPage()}
-                  loading="lazy"
+                  // loading="lazy"
                 />
               ) : (
                 <Image
@@ -184,8 +186,8 @@ const HeroCardMobile = props => {
               width={60}
               height={60}
               className="rounded-full"
-              loading="lazy"
-              onLoad={() => setProfileLoaded(true)}
+              // loading="lazy"
+              // onLoad={() => setProfileLoaded(true)}
             />
           </div>
         </div>
