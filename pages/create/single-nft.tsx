@@ -730,39 +730,41 @@ const SingleNft = () => {
                       />
                     )}
                     <div className="w-full h-32" />
-                    <div className="absolute bottom-0 w-full flex justify-between">
-                      {currentStep === 2 ? (
-                        <Button
-                          label="Back"
-                          onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                          backgroundColor={'transparent'}
-                          borderColor={'var(--back-btn-border-mobile)'}
-                          borderWidth={1}
-                          color="var(--main-bg-color)"
-                          width={viewport === '2xl' ? 124 : 117}
-                          height={viewport === '2xl' ? 53 : 46}
-                        />
-                      ) : (
-                        <div />
-                      )}
-                      {currentStep < 3 &&
-                        (disabledNextButton ? (
+                    <div className="absolute bottom-0 w-full flex justify-end">
+                      <div className="flex gap-10">
+                        {currentStep === 2 ? (
                           <Button
+                            label="Back"
+                            onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                            backgroundColor={'transparent'}
+                            borderColor={'var(--back-btn-border-mobile)'}
+                            borderWidth={1}
+                            color="var(--main-bg-color)"
                             width={viewport === '2xl' ? 124 : 117}
                             height={viewport === '2xl' ? 53 : 46}
-                            label="Next Step"
-                            disabled={disabledNextButton}
-                            backgroundColor="#888A8E"
                           />
-                        ) : coverImageProcessing ? (
-                          <LoadingButton width={viewport === '2xl' ? 124 : 117} />
                         ) : (
-                          <GradientButton
-                            width={viewport === '2xl' ? 124 : 117}
-                            label="Next Step"
-                            onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                          />
-                        ))}
+                          <div />
+                        )}
+                        {currentStep < 3 &&
+                          (disabledNextButton ? (
+                            <Button
+                              width={viewport === '2xl' ? 124 : 117}
+                              height={viewport === '2xl' ? 53 : 46}
+                              label="Next Step"
+                              disabled={disabledNextButton}
+                              backgroundColor="#888A8E"
+                            />
+                          ) : coverImageProcessing ? (
+                            <LoadingButton width={viewport === '2xl' ? 124 : 117} />
+                          ) : (
+                            <GradientButton
+                              width={viewport === '2xl' ? 124 : 117}
+                              label="Next Step"
+                              onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                            />
+                          ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -852,14 +854,15 @@ const SingleNft = () => {
                       ) : (
                         <>&nbsp;</>
                       )}
-
-                      <IconButtonWithSVG
-                        icon={<TrashBin className={styles.trashIcon} />}
-                        onClick={() => handleDeleteNftArt()}
-                        backgroundColor="transparent"
-                        width="32px"
-                        height="32px"
-                      />
+                      {currentStep === 1 && (
+                        <IconButtonWithSVG
+                          icon={<TrashBin className={styles.trashIcon} />}
+                          onClick={() => handleDeleteNftArt()}
+                          backgroundColor="transparent"
+                          width="32px"
+                          height="32px"
+                        />
+                      )}
                     </div>
                   </div>
                 )}

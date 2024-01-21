@@ -53,7 +53,7 @@ const Step02SingleNFTSection = props => {
       <div className="w-full mt-5">
         <Textarea
           value={limit(description, 1000)}
-          placeholder="Add a short description..."
+          color={'var(--text-gray-200-color)'}
           label01="Max Characters 1000"
           label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
           onChange={value => setDescription(limit(value, 1000))}
@@ -76,7 +76,7 @@ const Step02SingleNFTSection = props => {
           value={limit(nftName, 32)}
           placeholder="Give your art name"
           color={'var(--text-gray-200-color)'}
-          backgroundColor={'var(--input-bg)'}
+          backgroundColor={'var(--shipping-board-bg)'}
           label01="Max Characters 32"
           label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
           onChange={value => setNftName(limit(value, 32))}
@@ -90,7 +90,7 @@ const Step02SingleNFTSection = props => {
           value={limit(description, 1000)}
           placeholder="Add a short description..."
           color={'var(--text-gray-200-color)'}
-          backgroundColor={'var(--input-bg)'}
+          backgroundColor={'var(--shipping-board-bg)'}
           label01="Max Characters 1000"
           label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
           onChange={value => setDescription(value)}

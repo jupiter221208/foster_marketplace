@@ -306,10 +306,10 @@ const PrimaryHeader = () => {
       </div>
       <div className="flex lg:hidden">
         <div
-          // className={`${isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer} ${
-          //   isScrollingTop ? 'top-0' : '-top-28'
-          // } transition-all`}
-          className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
+          className={`${
+            isScrollTop && router.pathname === '/' ? styles.mobileNonBlurContainer : styles.mobileBlurContainer
+          } ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
+          // className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
         >
           {isScrollingTop && (
             <div className={styles.mobileContainer}>
