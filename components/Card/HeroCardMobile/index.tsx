@@ -84,7 +84,7 @@ const HeroCardMobile = props => {
             (data.cover_image_url === null || data.cover_image_url === '') ? (
               <div></div>
             ) : data.asset_type.includes('image') ? (
-              <img
+              <Image
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                     ? data.asset_url
@@ -97,21 +97,19 @@ const HeroCardMobile = props => {
                 height={772}
                 className="w-full h-full object-cover rounded-[24px]"
                 onClick={() => gotoNftDetailPage()}
-                loading="lazy"
-                onLoad={() => {
+                onLoadingComplete={() => {
                   setLoaded(true)
                 }}
               />
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
-                    loading="lazy"
-                    onLoad={() => {
+                    onLoadingComplete={() => {
                       setLoaded(true)
                     }}
                   />
