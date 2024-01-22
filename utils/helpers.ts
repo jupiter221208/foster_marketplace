@@ -553,6 +553,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--create-collection-btn', 'rgba(32, 36, 39, 0.8)')
     doc.style.setProperty('--import-ea-border-color', '255, 255, 255')
     doc.style.setProperty('--collection-desc-bg-color', '#F3F2F0')
+    doc.style.setProperty('--hero-card-bg', '#ECEBEA')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -874,5 +875,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--create-collection-btn', 'rgba(36, 36, 36, 0.8)')
     doc.style.setProperty('--import-ea-border-color', '239, 240, 246')
     doc.style.setProperty('--collection-desc-bg-color', '#2F2F2F')
+    doc.style.setProperty('--hero-card-bg', '#212121')
   }
 }

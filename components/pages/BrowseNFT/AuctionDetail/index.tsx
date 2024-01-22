@@ -100,6 +100,9 @@ const AuctionDetail = props => {
       reserve_price: auction.reservePrice.toString(),
       canceled_at: null,
       sold_at: null,
+      end_phase_extension_delta: endPhaseType === 'clock' ? 300 : null,
+      end_phase_duration: endPhaseDurationType === 'none' ? null : parseInt(endPhaseDurationType) * 60,
+      end_phase_bid_increment: parseFloat(endBidIncrement),
     }).then(res => {
       if (res) {
         onSuccess(data?.json?.name)

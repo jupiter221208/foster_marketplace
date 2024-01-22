@@ -34,11 +34,12 @@
 }
 
 .imageArea {
-  background-color: rgba(var(--main-bg-color-rgb), 0.03);
+  background-color: var(--hero-card-bg);
   min-height: 575px;
   @media (max-width: 1600px) {
     min-height: 450px;
   }
+  z-index: 100;
 }
 
 .imageContent {
@@ -56,6 +57,7 @@
   display: flex;
   flex-flow: column;
   justify-content: space-between;
+  z-index: 100;
 }
 
 .cardArea {
@@ -150,19 +152,20 @@
 
 .firstBtn {
   padding: 0.4rem 1.6rem;
-  border-radius: 0.5rem;
-  @media (max-width: 1400px) {
-    padding: 0.3rem 1.4rem;
+  border-radius: 12px;
+  @media (min-width: 1024px) {
+    padding: 11px 19px;
   }
   color: var(--pagination-down-icon);
-  border: solid 2px rgba(var(--background-light-color-rgb), 0.1);
+  background: var(--second-home-bg);
+  // border: solid 2px rgba(var(--background-light-color-rgb), 0.1);
 }
 
 .secondBtn {
   padding: 0.4rem 1.6rem;
-  border-radius: 0.5rem;
-  @media (max-width: 1400px) {
-    padding: 0.3rem 1.4rem;
+  border-radius: 12px;
+  @media (min-width: 1024px) {
+    padding: 11px 32px;
   }
   background-color: var(--hero-artist-color);
   color: var(--create-nft-card-bg);
