@@ -121,7 +121,9 @@ export async function startAuction(
   startDate: Date,
   endDate: Date,
   price: number,
-  minBidIncrement: number
+  minBidIncrement: number,
+  timeExtPeriod: number | null,
+  timeExtDelta: number | null,
 ) {
   const startTime = Math.floor(startDate.getTime() / 1000)
   const endTime = Math.floor(endDate.getTime() / 1000)
@@ -180,8 +182,8 @@ export async function startAuction(
     endTime: endTime,
     reservePrice: price * 1000000000,
     minBidIncrement: minBidIncrement * 1000000000,
-    timeExtPeriod: 1,
-    timeExtDelta: 1,
+    timeExtPeriod,
+    timeExtDelta,
     allowHighBidCancel: true,
   }
 
