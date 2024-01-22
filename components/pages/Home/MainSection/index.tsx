@@ -94,12 +94,12 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        <div className="hidden lg:block">
+        {/* <div className="hidden lg:block">
           <div>
             <div className={styles.text}>Home to Creators Around the World</div>
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
-        </div>
+        </div> */}
         <div className="flex lg:hidden">
           <div
             className="w-full min-h-[508px]"
@@ -138,13 +138,13 @@ const MainSection = () => {
         </div>
         <div className="hidden lg:flex">
           <div
-            className="w-full lg:pt-[20px] "
+            className="w-full"
             style={{
               width: '100%',
               marginLeft: '0px',
             }}
           >
-            <div className="w-full relative mt-[15px]" id="heroSwiper">
+            <div className="w-full relative" id="heroSwiper">
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                 slidesPerView={1.2}

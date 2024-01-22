@@ -96,16 +96,13 @@
   color: var(--pagination-down-icon);
   p:first-child {
     font-family: 'Muli-Bold';
-    font-size: 40px;
-    font-weight: 700;
+    font-size: 30px;
   }
   p:nth-child(2) {
     font-family: 'Muli-Light';
     font-size: 18px;
-    font-weight: 300;
     span {
       font-family: 'Muli-SemiBold';
-      font-weight: 600;
       color: var(--primary-btn-bg-right);
     }
   }
@@ -137,8 +134,8 @@
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   @media (max-width: 1400px) {
     width: 70px;
     height: 70px;
@@ -151,6 +148,8 @@
 }
 
 .firstBtn {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
   padding: 0.4rem 1.6rem;
   border-radius: 12px;
   @media (min-width: 1024px) {
@@ -162,6 +161,8 @@
 }
 
 .secondBtn {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
   padding: 0.4rem 1.6rem;
   border-radius: 12px;
   @media (min-width: 1024px) {
@@ -169,6 +170,12 @@
   }
   background-color: var(--hero-artist-color);
   color: var(--create-nft-card-bg);
+}
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  color: var(--text-gray-200-color) 
 }
 
 .noSelect {

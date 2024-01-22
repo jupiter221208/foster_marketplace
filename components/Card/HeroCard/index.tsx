@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import 'react-placeholder/lib/reactPlaceholder.css'
+import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -12,11 +15,9 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
+import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import Link from 'next/link'
-import { getDisplayUserName } from 'utils/strings'
 
 const HeroCard = props => {
   const { data } = props
@@ -200,48 +201,56 @@ const HeroCard = props => {
           )}
         </div>
 
-        <div className="flex justify-between items-end">
-          {data.artist_profile_picture === '' && (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[100px] rounded-full`}></div>
-          )}
-          {data.artist_profile_picture &&
-            data.artist_profile_picture !== '' &&
-            data.artist_profile_picture !== undefined && (
-              <Link href={`/${data.artist_username}`} passHref>
-                <a>
-                  <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                    <img
-                      src={data.artist_profile_picture}
-                      alt=""
-                      className={`${styles.noSelect} rounded-full`}
-                      loading="lazy"
-                      onLoad={() => {
-                        setProfieLoaded(true)
-                      }}
-                    />
-                  </div>
-                </a>
-              </Link>
+        <div className="items-end">
+          <div className="flex justify-between">
+            {data.artist_profile_picture === '' && (
+              <div className={`${styles.skeletonLoader} w-[130px] h-[130px] rounded-full`}></div>
             )}
-
-          <div>
-            {data.artist_username === '' ? (
-              <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
-            ) : (
-              <div className={styles.btnBox}>
+            {data.artist_profile_picture &&
+              data.artist_profile_picture !== '' &&
+              data.artist_profile_picture !== undefined && (
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
-                    <div className={styles.firstBtn}>Visit Artist Profile</div>
+                    <div className={styles.avatar} onClick={() => gotoAristPage()}>
+                      <img
+                        src={data.artist_profile_picture}
+                        alt=""
+                        className={`${styles.noSelect} rounded-full`}
+                        loading="lazy"
+                        onLoad={() => {
+                          setProfieLoaded(true)
+                        }}
+                      />
+                    </div>
                   </a>
                 </Link>
+              )}
 
-                <Link href={`/nft/${data.token_id}`} passHref>
-                  <a>
-                    <div className={styles.secondBtn}>View</div>
-                  </a>
-                </Link>
-              </div>
-            )}
+            <div className="flex items-end">
+              {data.artist_username === '' ? (
+                <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
+              ) : (
+                <div>
+                  <div className="flex justify-end mb-[20px] gap-[8px] items-center">
+                    <SolanaIcon alt="" />
+                    <div className={styles.price}>{data.list_price}</div>
+                  </div>
+                  <div className={styles.btnBox}>
+                    <Link href={`/${data.artist_username}`} passHref>
+                      <a>
+                        <div className={styles.firstBtn}>Visit Artist Profile</div>
+                      </a>
+                    </Link>
+
+                    <Link href={`/nft/${data.token_id}`} passHref>
+                      <a>
+                        <div className={styles.secondBtn}>View</div>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

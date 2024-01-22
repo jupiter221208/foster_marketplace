@@ -979,12 +979,12 @@ const MainSection = ({
                 <>
                   <div className="absolute inset-0">
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                    <div
+                    {/* <div
                       className={styles.fullScreenMode}
                       onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
                     >
                       <Image src={FullScreenModeIcon} alt="" />
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}
