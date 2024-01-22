@@ -1414,7 +1414,6 @@ const MainSection = ({
                                       height={
                                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                       }
-                                      // onMinimum={() => setPrice(minBidAmount.toFixed(2))}
                                       onChange={value => {
                                         if (value < 0) {
                                           setPrice('')
@@ -1429,7 +1428,8 @@ const MainSection = ({
                                       isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
                                     }`}
                                     onClick={async () => {
-                                      if (price === '' || parseFloat(price) < minBidAmount) return
+                                      if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
+                                        return
 
                                       if (isEnded) return
 
@@ -1446,7 +1446,9 @@ const MainSection = ({
                                       <div className="flex">
                                         <div
                                           className={`${styles.placeBidBtn} ${
-                                            isEnded || price === '' || parseFloat(price) < minBidAmount
+                                            isEnded ||
+                                            price === '' ||
+                                            parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               ? styles.placeBidDisabledColor
                                               : styles.placeBidEnabledColor
                                           }`}

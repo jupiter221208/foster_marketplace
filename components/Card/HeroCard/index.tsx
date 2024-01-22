@@ -202,16 +202,16 @@ const HeroCard = props => {
         </div>
 
         <div className="items-end">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-end">
             {data.artist_profile_picture === '' && (
               <div className={`${styles.skeletonLoader} w-[130px] h-[130px] rounded-full`}></div>
             )}
             {data.artist_profile_picture &&
               data.artist_profile_picture !== '' &&
               data.artist_profile_picture !== undefined && (
-                <Link href={`/${data.artist_username}`} passHref>
-                  <a>
-                    <div className={styles.avatar} onClick={() => gotoAristPage()}>
+                <div className={styles.avatar} onClick={() => gotoAristPage()}>
+                  <Link href={`/${data.artist_username}`} passHref>
+                    <a>
                       <img
                         src={data.artist_profile_picture}
                         alt=""
@@ -221,9 +221,9 @@ const HeroCard = props => {
                           setProfieLoaded(true)
                         }}
                       />
-                    </div>
-                  </a>
-                </Link>
+                    </a>
+                  </Link>
+                </div>
               )}
 
             <div className="flex items-end">
