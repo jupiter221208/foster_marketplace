@@ -100,14 +100,8 @@ const MainSection = () => {
             <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
           </div>
         </div> */}
-        <div className="flex lg:hidden">
-          <div
-            className="w-full min-h-[508px]"
-            style={{
-              width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
-              marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
-            }}
-          >
+        <div className="flex lg:hidden w-[calc(100%+32px)]">
+          <div className={styles.heroMobileSection}>
             <div className={styles.contentArea}>
               <div className={styles.mobileTitle}>Home to Creators Around the World</div>
               <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
