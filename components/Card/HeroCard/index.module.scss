@@ -134,8 +134,8 @@
 }
 
 .avatar {
-  width: 130px;
-  height: 130px;
+  width: 66px;
+  height: 66px;
   @media (max-width: 1400px) {
     width: 70px;
     height: 70px;
@@ -153,16 +153,16 @@
   padding: 0.4rem 1.6rem;
   border-radius: 12px;
   @media (min-width: 1024px) {
-    padding: 8px 12px;
+    padding: 6px 12px;
     font-size: 16px;
   }
   @media (min-width: 1280px) {
     font-size: 18px;
-    padding: 11px 19px;
+    padding: 9px 19px;
   }
   color: var(--pagination-down-icon);
-  background: var(--second-home-bg);
-  // border: solid 2px rgba(var(--background-light-color-rgb), 0.1);
+  // background: var(--second-home-bg);
+  border: solid 2px rgba(var(--background-light-color-rgb), 0.25);
 }
 
 .secondBtn {
@@ -183,8 +183,8 @@
 }
 
 .price {
-  font-family: 'Muli-Bold';
-  font-size: 24px;
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
   color: var(--text-gray-200-color) 
 }
 

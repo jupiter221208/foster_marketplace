@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 
@@ -178,81 +178,80 @@ const HeroCard = props => {
       </div>
 
       <div className={styles.infoBox}>
-        <div className={styles.nftNames}>
-          {data.nft_name === '' ? (
-            <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
-          ) : (
-            <Link href={`/nft/${data.token_id}`} passHref>
-              <a>
-                <p>{data.nft_name}</p>
-              </a>
-            </Link>
+        <div className="w-full flex gap-[21px] items-center">
+          {data.artist_profile_picture === '' && (
+            <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
-          {data.nft_name === '' ? (
-            <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
-          ) : (
-            <p>
-              <Link href={`/${data.artist_username}`} passHref>
+          {data.artist_profile_picture &&
+            data.artist_profile_picture !== '' &&
+            data.artist_profile_picture !== undefined && (
+              <div className={styles.avatar} onClick={() => gotoAristPage()}>
+                <Link href={`/${data.artist_username}`} passHref>
+                  <a>
+                    <img
+                      src={data.artist_profile_picture}
+                      alt=""
+                      className={`${styles.noSelect} rounded-full`}
+                      loading="lazy"
+                      onLoad={() => {
+                        setProfieLoaded(true)
+                      }}
+                    />
+                  </a>
+                </Link>
+              </div>
+            )}
+          <div className={styles.nftNames}>
+            {data.nft_name === '' ? (
+              <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
+            ) : (
+              <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
-                  Created by <span>{getDisplayUserName(data.artist_username)}</span>
+                  <p>{data.nft_name}</p>
                 </a>
               </Link>
-            </p>
-          )}
+            )}
+            {data.nft_name === '' ? (
+              <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
+            ) : (
+              <p>
+                <Link href={`/${data.artist_username}`} passHref>
+                  <a>
+                    Created by <span>{getDisplayUserName(data.artist_username)}</span>
+                  </a>
+                </Link>
+              </p>
+            )}
+          </div>
         </div>
 
-        <div className="items-end">
-          <div className="flex justify-between items-end">
-            {data.artist_profile_picture === '' && (
-              <div className={`${styles.skeletonLoader} w-[130px] h-[130px] rounded-full`}></div>
-            )}
-            {data.artist_profile_picture &&
-              data.artist_profile_picture !== '' &&
-              data.artist_profile_picture !== undefined && (
-                <div className={styles.avatar} onClick={() => gotoAristPage()}>
+        <div className="w-full flex justify-end">
+          <div className="flex items-end">
+            {data.artist_username === '' ? (
+              <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
+            ) : (
+              <div>
+                <div className="flex justify-end mb-[10px] xl:mb-[20px] gap-[8px] items-center mr-1">
+                  <div className="mt-1">
+                    <SolanaIcon alt="" />
+                  </div>
+                  <div className={styles.price}>{data.list_price}</div>
+                </div>
+                <div className={styles.btnBox}>
                   <Link href={`/${data.artist_username}`} passHref>
                     <a>
-                      <img
-                        src={data.artist_profile_picture}
-                        alt=""
-                        className={`${styles.noSelect} rounded-full`}
-                        loading="lazy"
-                        onLoad={() => {
-                          setProfieLoaded(true)
-                        }}
-                      />
+                      <div className={styles.firstBtn}>Visit Artist Profile</div>
+                    </a>
+                  </Link>
+
+                  <Link href={`/nft/${data.token_id}`} passHref>
+                    <a>
+                      <div className={styles.secondBtn}>View</div>
                     </a>
                   </Link>
                 </div>
-              )}
-
-            <div className="flex items-end">
-              {data.artist_username === '' ? (
-                <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
-              ) : (
-                <div>
-                  <div className="flex justify-end mb-[10px] xl:mb-[20px] gap-[8px] items-center">
-                    <div className="mt-1">
-                      <SolanaIcon alt="" />
-                    </div>
-                    <div className={styles.price}>{data.list_price}</div>
-                  </div>
-                  <div className={styles.btnBox}>
-                    <Link href={`/${data.artist_username}`} passHref>
-                      <a>
-                        <div className={styles.firstBtn}>Visit Artist Profile</div>
-                      </a>
-                    </Link>
-
-                    <Link href={`/nft/${data.token_id}`} passHref>
-                      <a>
-                        <div className={styles.secondBtn}>View</div>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
