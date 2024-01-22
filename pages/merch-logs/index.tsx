@@ -272,7 +272,7 @@ const MerchActivity = () => {
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
         (item.category ?? 'image') === 'image' &&
-        item.creators.some(({ address }) => publicKey.equals(address))
+        item.creators.some(({ address }) => publicKey?.toString() === address)
     )
 
     let nftStatus = await NftAPI.enableAllMerchHub({
@@ -280,10 +280,10 @@ const MerchActivity = () => {
     })
     if (!nftStatus) return
     let disabledNfts = eligibleNfts
-      .filter(({ mintAddress }, index) => !nftStatus[mintAddress.toBase58()])
+      .filter(({ mintAddress }, index) => !nftStatus[mintAddress.toString()])
       .map(({ mintAddress, name, image }, index) => ({
         nft_name: name,
-        token_id: mintAddress.toBase58(),
+        token_id: mintAddress.toString(),
         asset_url: image,
       }))
     setDisabledItems(disabledNfts)
