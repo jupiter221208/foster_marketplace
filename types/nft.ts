@@ -2,9 +2,9 @@ export interface NftData {
   mintAddress?: string
   metadataAddress?: string
   tokenAccount?: {
-    address: string
-    delegate: string | null
-    isFrozen: boolean
+    address?: string
+    delegate?: string | null
+    isFrozen?: boolean
   }
 
   name?: string
@@ -36,7 +36,7 @@ export interface NftData {
     size?: number
   }
 
-  supply: {
+  supply?: {
     edition: number | null
     current: number | null
     max: number | null
@@ -92,9 +92,9 @@ export interface NftData {
 
 export interface NftCreator {
   address: string
-  share: number
+  share?: number
   verified: boolean
-  artist_username: string
+  artist_username?: string
   [key: string]: unknown
 }
 

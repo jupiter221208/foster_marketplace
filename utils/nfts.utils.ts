@@ -15,7 +15,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
-import { NftData as NewNftData, NftData } from 'types/nft'
+import { NftData as NewNftData, NftCreator, NftData } from 'types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)
@@ -79,7 +79,7 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
   let metadataAddresses = tokenAccounts.map(({ mint }) => mx.nfts().pdas().metadata({ mint }))
   let metadataAccountInfos = await getMultipleAccountsInfoBatched(mx.connection, metadataAddresses)
-  let metadatas: (Metadata<JsonMetadata<string>> | null)[] = await Promise.all(
+  let metadatas = await Promise.all(
     metadataAccountInfos.map(async (accountInfo, index) => {
       if (!accountInfo) return null
 
@@ -107,7 +107,7 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
         return metadata
       } catch (e) {
-        console.warn(`failed to parse metadata for ${nft.address}\n`, e)
+        console.warn(`failed to parse metadata for ${nftAddress}\n`, e)
       }
 
       return null
@@ -116,24 +116,44 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
   return metadatas
     .filter(metadata => metadata != null)
-    .map(({ name, creators, collection, collectionDetails, json }, index) => ({
-      mintAddress: tokenAccounts[index].mint,
-      name: name || json?.name,
-      description: json?.description,
-      image: json?.image,
-      animation_url: json?.animation_url as string | undefined,
-      category: (json?.properties?.category || json?.category) as string | undefined,
-      creators,
-      collection,
-      collectionDetails: collectionDetails && {
-        version: collectionDetails.version,
-        size: collectionDetails.size?.toNumber(),
-      },
-      tokenAccount: {
-        delegate: tokenAccounts[index].delegate,
-        isFrozen: tokenAccounts[index].isFrozen,
-      },
-    }))
+    .map(({ name, creators, collection, collectionDetails, json }, index) => {
+      const creatorsInfo = creators
+        ? creators.map(c => ({
+            address: c.address.toBase58(),
+            verified: c.verified,
+            share: c.share,
+          }))
+        : null
+
+      const collectionInfo = collection
+        ? {
+            address: collection.address?.toString(),
+            verified: collection.verified,
+          }
+        : null
+
+      console.log(collection)
+      console.log(collectionInfo)
+
+      return {
+        mintAddress: tokenAccounts[index].mint?.toString(),
+        name: name || json?.name,
+        description: json?.description,
+        image: json?.image,
+        animation_url: json?.animation_url as string | undefined,
+        category: (json?.properties?.category || json?.category) as string | undefined,
+        creators: creatorsInfo,
+        collection: collectionInfo,
+        collectionDetails: collectionDetails && {
+          version: collectionDetails.version,
+          size: collectionDetails.size?.toNumber(),
+        },
+        tokenAccount: {
+          delegate: tokenAccounts[index].delegate?.toString(),
+          isFrozen: tokenAccounts[index].isFrozen,
+        },
+      }
+    })
 }
 
 export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
@@ -196,7 +216,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
     // let supply = supply.print_current_supply
 
     return {
-      mintAddress: new PublicKey(id),
+      mintAddress: new PublicKey(id)?.toString(),
       name: content.metadata.name,
       symbol: content.metadata.symbol,
       description: content.metadata.description,
@@ -205,15 +225,15 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       animation_url,
       original: {
         image,
-        animation_url
+        animation_url,
       },
-      optimized:{
+      optimized: {
         image: imageCdn,
       },
 
       category: '',
       creators: creators.map(({ address, share, verified }) => ({
-        address: new PublicKey(address),
+        address: new PublicKey(address)?.toString(),
         share,
         verified,
       })),
@@ -221,7 +241,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       collection,
       collectionDetails,
       tokenAccount: {
-        delegate: ownership.delegated ? new PublicKey(ownership.delegate) : null,
+        delegate: ownership.delegated?.toString() ? new PublicKey(ownership.delegate)?.toString() : null,
         isFrozen: ownership.frozen,
       },
     }

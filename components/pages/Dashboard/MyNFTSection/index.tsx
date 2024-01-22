@@ -114,7 +114,7 @@ const MyNFTSection = props => {
       let created = false
       let creators = item.creators
       creators.forEach(creator => {
-        if (publicKey && creator.address.toBase58() === publicKey.toBase58()) {
+        if (publicKey && creator.address.toString() === publicKey.toString()) {
           created = true
           return
         }
