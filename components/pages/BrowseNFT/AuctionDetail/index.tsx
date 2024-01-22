@@ -86,7 +86,9 @@ const AuctionDetail = props => {
       startDate,
       endDate,
       Number(reservePrice),
-      Number(minBidIncrement)
+      Number(minBidIncrement),
+      endPhaseType == 'clock' ? 300 : null,
+      endPhaseType == 'clock' ? 300 : null,
     )
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
