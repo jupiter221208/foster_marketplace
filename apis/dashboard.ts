@@ -47,13 +47,14 @@ class Dashboard {
       })
   }
 
-  getMarketplaceReleases(category: string | null, artist: string | null, page?: number) {
+  getMarketplaceReleases(category: string | null, artist: string | null, page?: number, per_page?: number) {
     return client
       .get(
         addNonEmptySearchParams(API_URL + 'v1/dashboard/marketplace-releases', {
           category,
           artist,
           page,
+          per_page,
         }).toString()
       )
       .then(response => {

@@ -149,7 +149,7 @@ export const formattedAmount = value => {
   if (length === 0) {
     value = '0' + value
   }
-  length = value.toString().split('.')[1].length
+  length = value.toString().split('.')[1]?.length
   if (length > 1) return parseFloat(value).toFixed(2)
   else return value
 }

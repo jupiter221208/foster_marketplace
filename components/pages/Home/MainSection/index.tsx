@@ -66,21 +66,30 @@ const MainSection = () => {
   }, [heroList, router])
 
   useEffect(() => {
-    dashboardAPI.getDashboardBanner().then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setTimeout(() => {
-            setHeroList(response.featured_nfts)
-          }, 1000)
-          setNftCnt(response.stats.users)
-          setCollectionCnt(response.stats.collections)
-          setArtworkCnt(response.stats.nfts)
-        }
-      },
+    // dashboardAPI.getDashboardBanner().then(
+    //   response => {
+    //     if (response !== null && response !== undefined) {
+    //       setTimeout(() => {
+    //         setHeroList(response.featured_nfts)
+    //       }, 1000)
+    //       setNftCnt(response.stats.users)
+    //       setCollectionCnt(response.stats.collections)
+    //       setArtworkCnt(response.stats.nfts)
+    //     }
+    //   },
+    //   error => {
+    //     console.log(error)
+    //   }
+    // )
+    dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        console.log(response.slice(1, 6), '==============response=====================')
+        setHeroList(response.slice(1, 6))
+      }
+    }),
       error => {
         console.log(error)
       }
-    )
   }, [])
 
   return (
@@ -154,8 +163,6 @@ const MainSection = () => {
                     <HeroCard data={item} />
                   </SwiperSlide>
                 ))}
-                {/* <div className={styles.leftSide} />
-                <div className={styles.rightSide} /> */}
               </Swiper>
             </div>
           </div>

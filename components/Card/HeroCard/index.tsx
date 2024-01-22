@@ -39,7 +39,7 @@ const HeroCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type.includes('image') ? (
+          {data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
             <Link href={`/nft/${data.token_id}`} passHref>
               <a>
                 <div onClick={() => gotoNftDetailPage()}>
