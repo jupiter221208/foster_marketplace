@@ -83,8 +83,7 @@ const MainSection = () => {
     // )
     dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        console.log(response.slice(1, 6), '==============response=====================')
-        setHeroList(response.slice(1, 6))
+        setHeroList(response.slice(0, 5))
       }
     }),
       error => {
