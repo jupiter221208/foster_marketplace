@@ -1388,7 +1388,7 @@ const MainSection = ({
                                       height={
                                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                       }
-                                      onMinimum={() => {}}
+                                      // onMinimum={() => {}}
                                       onChange={value => {
                                         if (value < 0) {
                                           setPrice('')

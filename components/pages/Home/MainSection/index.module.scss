@@ -31,10 +31,10 @@
 
 .rightEllipse {
   position: absolute;
-  top: -170px;
+  top: -250px;
   right: -200px;
   scale: 0.9;
-  opacity: 0.69;
+  opacity: 0.5;
   svg defs radialGradient stop {
     stop-color: var(--ellipse-green);
   }

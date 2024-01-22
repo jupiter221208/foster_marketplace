@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 
@@ -61,7 +61,7 @@ const HeroCard = props => {
           {data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
             <Link href={`/nft/${data.token_id}`} passHref>
               <a>
-                <div onClick={() => gotoNftDetailPage()}>
+                <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
                   {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                     <img
                       src={
@@ -74,7 +74,7 @@ const HeroCard = props => {
                           : ''
                       }
                       alt=""
-                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -88,11 +88,11 @@ const HeroCard = props => {
             </Link>
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full xl:h-[418px] h-[300px] shadow-2xl overflow-hidden">
+              <div className="w-full xl:h-[418px] h-[300px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
                   <Link href={`/nft/${data.token_id}`} passHref>
                     <a>
-                      <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+                      <div className="w-full xl:h-[418px] h-[300px] " onClick={() => gotoNftDetailPage()}>
                         {!loaded && (
                           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                             <div></div>
@@ -101,7 +101,7 @@ const HeroCard = props => {
                         <img
                           src={data.cover_image_url}
                           alt=""
-                          className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                          className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                           onLoad={() => {
                             setLoaded(true)
                           }}
@@ -115,7 +115,7 @@ const HeroCard = props => {
                     src={DefaultNftBG}
                     alt=""
                     layout="fill"
-                    className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                    className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                     onClick={() => onClick()}
                   />
                 )}
@@ -124,9 +124,9 @@ const HeroCard = props => {
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
                   <div
-                    className="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain"
+                    className="w-full xl:h-[418px] h-[300px] object-contain"
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] shadow-2xl object-contain overflow-hidden">
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
                     onClick={() => gotoNftDetailPage()}
@@ -138,7 +138,7 @@ const HeroCard = props => {
             data.cover_image_url !== null && data.cover_image_url !== '' ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
-                  <div className="w-full xl:h-[418px] h-[300px] shadow-2xl" onClick={() => gotoNftDetailPage()}>
+                  <div className="w-full xl:h-[418px] h-[300px]" onClick={() => gotoNftDetailPage()}>
                     {!loaded && (
                       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                         <div></div>
@@ -147,7 +147,7 @@ const HeroCard = props => {
                     <img
                       src={data.cover_image_url}
                       alt=""
-                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -161,7 +161,7 @@ const HeroCard = props => {
                 src={DefaultNftBG}
                 alt=""
                 layout="fill"
-                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] shadow-2xl object-contain`}
+                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                 onClick={() => onClick()}
               />
             )
@@ -232,7 +232,9 @@ const HeroCard = props => {
               ) : (
                 <div>
                   <div className="flex justify-end mb-[20px] gap-[8px] items-center">
-                    <SolanaIcon alt="" />
+                    <div className="mt-1">
+                      <SolanaIcon alt="" />
+                    </div>
                     <div className={styles.price}>{data.list_price}</div>
                   </div>
                   <div className={styles.btnBox}>
