@@ -231,7 +231,7 @@ const HeroCard = props => {
                 <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
               ) : (
                 <div>
-                  <div className="flex justify-end mb-[20px] gap-[8px] items-center">
+                  <div className="flex justify-end mb-[10px] xl:mb-[20px] gap-[8px] items-center">
                     <div className="mt-1">
                       <SolanaIcon alt="" />
                     </div>

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // custom functions
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -19,9 +19,9 @@ const HeroCardMobile = props => {
   const { data } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const [profileLoaded, setProfileLoaded] = useState(true)
+  const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(true)
+  const [loaded, setLoaded] = useState(false)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -32,6 +32,13 @@ const HeroCardMobile = props => {
     dispatch({ type: 'set', isLoading: true })
     router.push(`/nft/${data.token_id}`)
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true)
+      setProfileLoaded(true)
+    }, 2000)
+  }, [])
 
   return (
     <div className={styles.container}>
