@@ -14,22 +14,53 @@ import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
 
 const AuctionCard = props => {
-  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
+  const {
+    currentPrice,
+    reservePrice,
+    endTime,
+    startTime,
+    setIsEnded,
+    setIsStarted,
+    endPhaseDuration,
+    setEndPhaseBid,
+    auctionLoaded,
+  } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
+  // const [resetEndBid, setResetEndBid] = useState(false)
   const viewport = useViewport()
+  let resetEndBid = false
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
+      getStartTime()
+    }
+  }, [startTime, endTime])
+
+  useEffect(() => {
+    if (auctionLoaded && startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
 
       const timer = setInterval(() => {
-        setTimeLeft(calculateTimeLeft(getStartTime()))
+        let time_left = calculateTimeLeft(getStartTime())
+        setTimeLeft(time_left)
+
+        if (endPhaseDuration !== null && resetEndBid === false) {
+          let seconds =
+            time_left['days'] * 24 * 3600 +
+            time_left['hours'] * 3600 +
+            time_left['minutes'] * 60 +
+            time_left['seconds'] * 1
+          if (seconds < endPhaseDuration) {
+            resetEndBid = true
+            setEndPhaseBid()
+          }
+        }
       }, 1000)
 
       return () => clearTimeout(timer)
     }
-  }, [startTime, endTime])
+  }, [auctionLoaded])
 
   const getStartTime = () => {
     let startDate = new Date(startTime)
@@ -75,14 +106,18 @@ const AuctionCard = props => {
             </div>
           )}
 
-          <div className="flex block justify-center gap-[2px]">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
-            <div className={styles.grayText}>m</div>
-          </div>
-          <div className="flex block justify-center gap-[2px]">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
-            <div className={styles.grayText}>s</div>
-          </div>
+          {timeLeft && timeLeft['minutes'] !== '00' && (
+            <div className="flex block justify-center gap-[2px]">
+              <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
+              <div className={styles.grayText}>m</div>
+            </div>
+          )}
+          {timeLeft && timeLeft['seconds'] !== '00' && (
+            <div className="flex block justify-center gap-[2px]">
+              <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
+              <div className={styles.grayText}>s</div>
+            </div>
+          )}
         </div>
       </div>
       <div className="block justify-center items-start">

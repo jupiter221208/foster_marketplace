@@ -93,7 +93,6 @@ import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
-import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
@@ -154,6 +153,9 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [auctionLoaded, setAuctionLoaded] = useState(false)
+  const [reservedPrice, setReservedPrice] = useState(0)
+  const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidAmount, setMinBidAmount] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
@@ -365,10 +367,11 @@ const MainSection = ({
         }
         let {
           highest_bid,
-          auction: { reserve_price, start_time, end_time },
+          auction: { reserve_price, start_time, end_time, end_phase_duration, end_phase_bid_increment },
         } = auction
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+        setHighestBidAmount(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
         setEndTime(end_time)
         setStartTime(start_time)
@@ -476,6 +479,7 @@ const MainSection = ({
           let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
           setMinBidAmount(minBidAmount)
           setPrice(minBidAmount.toFixed(2))
+          setAuctionLoaded(true)
         }
       }
 
@@ -513,6 +517,17 @@ const MainSection = ({
       .then(({ data }) => setNftCollectionImage(data?.image))
       .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
   }, [nftCollectionUrl])
+
+  const setEndPhaseBidIncresement = () => {
+    if (parseFloat(price) === reservedPrice) {
+      return
+    } else {
+      let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
+      let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
+      setMinBidAmount(bidAmount)
+      setPrice(bidAmount.toFixed(2))
+    }
+  }
 
   const processFinalizeSale = async () => {
     let data = {
@@ -1354,12 +1369,15 @@ const MainSection = ({
                     >
                       <div className={styles.auctionContainer}>
                         <AuctionCard
+                          endPhaseDuration={nftInfo?.auction?.auction?.end_phase_duration}
                           currentPrice={nftCurrentPrice}
                           reservePrice={nftReservePrice}
                           endTime={endTime}
                           startTime={startTime}
                           setIsEnded={setIsEnded}
                           setIsStarted={setIsStarted}
+                          setEndPhaseBid={() => setEndPhaseBidIncresement()}
+                          auctionLoaded={auctionLoaded}
                         />
 
                         {showPlaceBidButton &&
