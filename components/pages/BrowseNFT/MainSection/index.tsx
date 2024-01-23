@@ -39,7 +39,7 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
+import { cancelListing, fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -377,6 +377,13 @@ const MainSection = ({
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
         setEndTime(end_time)
         setStartTime(start_time)
+
+        let endDate = new Date(end_time)
+        let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+        let proposalEndTime = endDate.getTime() - offsetEnd
+
+        let end_difference = proposalEndTime - new Date().getTime()
+        if (end_difference < 0) setIsEnded(true)
       } else {
         setNftCurrentPrice(0)
       }
@@ -612,6 +619,33 @@ const MainSection = ({
     }
   }
 
+  const cancelAuction = async () => {
+    setOpenProgressingModal(true)
+    try {
+      const { auction } = await cancelListing(mx, new PublicKey(mintAddress), sellerAddress)
+      AuctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
+        if (res) {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Auction Canceled!',
+              description: `You've successfully canceled the auction`,
+              type: 'success',
+            },
+          ])
+          setLiveAuction(false)
+          setEndTime(null)
+          setOpenProgressingModal(false)
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 500)
+        }
+      })
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
+  }
+
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
@@ -635,9 +669,6 @@ const MainSection = ({
               setShowUpdateListNFTModal(false)
               setTimeout(() => {
                 setShowAlert(true)
-                setTimeout(() => {
-                  dispatch({ type: 'set', isGetMyNFTs: false })
-                }, 800)
               }, 800)
             }, 800)
           }
@@ -1353,175 +1384,187 @@ const MainSection = ({
                   </>
                 ) : endTime !== null &&
                   getTimeDifference(endTime) < 0 &&
-                  nftCurrentPrice > 0 &&
                   (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                   connected ? (
                   <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
-                    <OutlineButton
-                      label="Finalize Sale"
-                      onClick={() => processFinalizeSale()}
-                      color="var(--main-bg-color)"
-                      borderColor="#707070"
-                      borderWidth="2"
-                      fullWidth
-                    />
+                    {nftCurrentPrice > 0 ? (
+                      <OutlineButton
+                        label="Finalize Sale"
+                        onClick={() => processFinalizeSale()}
+                        color="var(--main-bg-color)"
+                        borderColor="#707070"
+                        borderWidth="2"
+                        fullWidth
+                      />
+                    ) : (
+                      <OutlineButton
+                        label="Cancel Auction"
+                        onClick={() => cancelAuction()}
+                        color="var(--main-bg-color)"
+                        borderColor="#707070"
+                        borderWidth="2"
+                        fullWidth
+                      />
+                    )}
                   </div>
                 ) : liveAuction === true ? (
                   <>
-                    <div
-                      className={`mt-6 w-full ${
-                        showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
-                      } relative`}
-                    >
-                      <div className={styles.auctionContainer}>
-                        <AuctionCard
-                          endPhaseDuration={nftInfo?.auction?.auction?.end_phase_duration}
-                          currentPrice={nftCurrentPrice}
-                          reservePrice={nftReservePrice}
-                          endTime={endTime}
-                          startTime={startTime}
-                          setIsEnded={setIsEnded}
-                          setIsStarted={setIsStarted}
-                          setEndPhaseBid={() => setEndPhaseBidIncresement()}
-                          auctionLoaded={auctionLoaded}
-                        />
+                    {!isEnded && (
+                      <div
+                        className={`mt-6 w-full ${
+                          showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
+                        } relative`}
+                      >
+                        <div className={styles.auctionContainer}>
+                          <AuctionCard
+                            endPhaseDuration={nftInfo?.auction?.auction?.end_phase_duration}
+                            currentPrice={nftCurrentPrice}
+                            reservePrice={nftReservePrice}
+                            endTime={endTime}
+                            startTime={startTime}
+                            setIsEnded={setIsEnded}
+                            setIsStarted={setIsStarted}
+                            setEndPhaseBid={() => setEndPhaseBidIncresement()}
+                            auctionLoaded={auctionLoaded}
+                          />
 
-                        {showPlaceBidButton &&
-                          !isOwnNft &&
-                          (loading || !auctionPriceLoaded ? (
-                            <div className="w-full pl-[20px] pr-[20px]">
-                              <div className="w-full flex justify-center">
-                                <div
-                                  className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
-                                ></div>
-                              </div>
-                            </div>
-                          ) : (
-                            <div>
-                              {publicKey?.toBase58() === highBidder ? (
-                                <>
-                                  <div className="w-full flex justify-center">
-                                    <PriceInput
-                                      value={price}
-                                      placeholder="Enter Bid amount"
-                                      backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                                      fullWidth
-                                      min={0}
-                                      margin
-                                      height={
-                                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
-                                      }
-                                      onChange={value => {
-                                        if (value < 0) {
-                                          setPrice('')
-                                        } else {
-                                          setPrice(value)
-                                        }
-                                      }}
-                                    />
-                                  </div>
-                                  <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className="w-full flex justify-center">
-                                    <PriceInput
-                                      value={price}
-                                      placeholder="Enter Bid amount"
-                                      backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                                      fullWidth
-                                      min={0}
-                                      margin
-                                      height={
-                                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
-                                      }
-                                      onChange={value => {
-                                        if (value < 0) {
-                                          setPrice('')
-                                        } else {
-                                          setPrice(value)
-                                        }
-                                      }}
-                                    />
-                                  </div>
+                          {showPlaceBidButton &&
+                            !isOwnNft &&
+                            (loading || !auctionPriceLoaded ? (
+                              <div className="w-full pl-[20px] pr-[20px]">
+                                <div className="w-full flex justify-center">
                                   <div
-                                    className={`${styles.placeBidBG} ${
-                                      isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                                    }`}
-                                    onClick={async () => {
-                                      if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                        return
-
-                                      if (isEnded) return
-
-                                      if (!connected) {
-                                        setVisible(true)
-                                        return
-                                      }
-                                      placeBidAndSave(price)
-                                    }}
-                                  >
-                                    {auctionLoading ? (
-                                      <LoadingButton fullWidth height={51} />
-                                    ) : (
-                                      <div className="flex">
-                                        <div
-                                          className={`${styles.placeBidBtn} ${
-                                            isEnded ||
-                                            price === '' ||
-                                            price === '.' ||
-                                            parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                              ? styles.placeBidDisabledColor
-                                              : styles.placeBidEnabledColor
-                                          }`}
-                                        >
-                                          Place Bid
-                                        </div>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="w-full flex items-center justify-between">
-                                    <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
-                                    {nftInfo?.auction?.auction?.end_phase_duration !== null && (
-                                      <div
-                                        className="flex gap-[10px] items-center mr-[24px]"
-                                        onMouseEnter={() => setAuctionInfoFocus(true)}
-                                        onMouseLeave={() => setAuctionInfoFocus(false)}
-                                        onClick={() => {
-                                          setAuctionInfoFocus(true)
-                                          setTimeout(() => {
-                                            setAuctionInfoFocus(false)
-                                          }, 2000)
+                                    className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
+                                  ></div>
+                                </div>
+                              </div>
+                            ) : (
+                              <div>
+                                {publicKey?.toBase58() === highBidder ? (
+                                  <>
+                                    <div className="w-full flex justify-center">
+                                      <PriceInput
+                                        value={price}
+                                        placeholder="Enter Bid amount"
+                                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                        fullWidth
+                                        min={0}
+                                        margin
+                                        height={
+                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
+                                        }
+                                        onChange={value => {
+                                          if (value < 0) {
+                                            setPrice('')
+                                          } else {
+                                            setPrice(value)
+                                          }
                                         }}
-                                      >
-                                        <div className={styles.endPhaseText}>End Phase</div>
-                                        <div className="mt-[4px]">
-                                          <InfoGreenIcon />
+                                      />
+                                    </div>
+                                    <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="w-full flex justify-center">
+                                      <PriceInput
+                                        value={price}
+                                        placeholder="Enter Bid amount"
+                                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                        fullWidth
+                                        min={0}
+                                        margin
+                                        height={
+                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
+                                        }
+                                        onChange={value => {
+                                          if (value < 0) {
+                                            setPrice('')
+                                          } else {
+                                            setPrice(value)
+                                          }
+                                        }}
+                                      />
+                                    </div>
+                                    <div
+                                      className={`${styles.placeBidBG} ${
+                                        isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                                      }`}
+                                      onClick={async () => {
+                                        if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
+                                          return
+
+                                        if (isEnded) return
+
+                                        if (!connected) {
+                                          setVisible(true)
+                                          return
+                                        }
+                                        placeBidAndSave(price)
+                                      }}
+                                    >
+                                      {auctionLoading ? (
+                                        <LoadingButton fullWidth height={51} />
+                                      ) : (
+                                        <div className="flex">
+                                          <div
+                                            className={`${styles.placeBidBtn} ${
+                                              isEnded ||
+                                              price === '' ||
+                                              price === '.' ||
+                                              parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                                ? styles.placeBidDisabledColor
+                                                : styles.placeBidEnabledColor
+                                            }`}
+                                          >
+                                            Place Bid
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="w-full flex items-center justify-between">
+                                      <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
+                                      {nftInfo?.auction?.auction?.end_phase_duration !== null && (
+                                        <div
+                                          className="flex gap-[10px] items-center mr-[24px]"
+                                          onMouseEnter={() => setAuctionInfoFocus(true)}
+                                          onMouseLeave={() => setAuctionInfoFocus(false)}
+                                          onClick={() => {
+                                            setAuctionInfoFocus(true)
+                                            setTimeout(() => {
+                                              setAuctionInfoFocus(false)
+                                            }, 2000)
+                                          }}
+                                        >
+                                          <div className={styles.endPhaseText}>End Phase</div>
+                                          <div className="mt-[4px]">
+                                            <InfoGreenIcon />
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                    {auctionInfoFocus && (
+                                      <div className="w-full flex justify-end">
+                                        <div className={styles.auctionInfoText}>
+                                          <div className={styles.auctionInfoTitle}>End Phase</div>
+                                          Auction uses
+                                          <span>
+                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                          </span>
+                                          bid increments in the last
+                                          <span>
+                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
+                                          </span>
                                         </div>
                                       </div>
                                     )}
-                                  </div>
-                                  {auctionInfoFocus && (
-                                    <div className="w-full flex justify-end">
-                                      <div className={styles.auctionInfoText}>
-                                        <div className={styles.auctionInfoTitle}>End Phase</div>
-                                        Auction uses
-                                        <span>
-                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
-                                        </span>
-                                        bid increments in the last
-                                        <span>
-                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
-                                        </span>
-                                      </div>
-                                    </div>
-                                  )}
-                                </>
-                              )}
-                            </div>
-                          ))}
+                                  </>
+                                )}
+                              </div>
+                            ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </>
                 ) : !loading && nftInfo && connected ? (
                   isOwnNft === true ? (
