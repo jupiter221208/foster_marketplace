@@ -478,12 +478,13 @@ const MainSection = ({
           let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
           let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
           let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
+          setReservedPrice(reservedPrice)
           setMinBidAmount(minBidAmount)
           setPrice(minBidAmount.toFixed(2))
           setAuctionLoaded(true)
           setTimeout(() => {
             setAuctionPriceLoaded(true)
-          }, 2000)
+          }, 4000)
         }
       }
 
@@ -1404,7 +1405,6 @@ const MainSection = ({
                                       placeholder="Enter Bid amount"
                                       backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                                       fullWidth
-                                      type="number"
                                       min={0}
                                       margin
                                       height={
@@ -1429,7 +1429,6 @@ const MainSection = ({
                                       placeholder="Enter Bid amount"
                                       backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                                       fullWidth
-                                      type="number"
                                       min={0}
                                       margin
                                       height={
@@ -1469,6 +1468,7 @@ const MainSection = ({
                                           className={`${styles.placeBidBtn} ${
                                             isEnded ||
                                             price === '' ||
+                                            price === '.' ||
                                             parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               ? styles.placeBidDisabledColor
                                               : styles.placeBidEnabledColor
