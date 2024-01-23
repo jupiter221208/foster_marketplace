@@ -154,6 +154,7 @@ const MainSection = ({
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [auctionLoaded, setAuctionLoaded] = useState(false)
+  const [auctionPriceLoaded, setAuctionPriceLoaded] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidAmount, setMinBidAmount] = useState(0)
@@ -480,6 +481,9 @@ const MainSection = ({
           setMinBidAmount(minBidAmount)
           setPrice(minBidAmount.toFixed(2))
           setAuctionLoaded(true)
+          setTimeout(() => {
+            setAuctionPriceLoaded(true)
+          }, 2000)
         }
       }
 
@@ -1382,7 +1386,7 @@ const MainSection = ({
 
                         {showPlaceBidButton &&
                           !isOwnNft &&
-                          (loading ? (
+                          (loading || !auctionPriceLoaded ? (
                             <div className="w-full pl-[20px] pr-[20px]">
                               <div className="w-full flex justify-center">
                                 <div
@@ -1406,7 +1410,6 @@ const MainSection = ({
                                       height={
                                         viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                       }
-                                      // onMinimum={() => {}}
                                       onChange={value => {
                                         if (value < 0) {
                                           setPrice('')
