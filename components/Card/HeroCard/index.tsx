@@ -38,7 +38,7 @@ const HeroCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className="absolute w-full h-full flex items-center z-10 opacity-[15%]">
+      <div className="absolute w-full h-full flex items-center z-10 opacity-[25%]">
         <img
           src={
             data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
