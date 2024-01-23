@@ -53,7 +53,6 @@ const PriceInput = props => {
       </div>
 
       <input
-        type="number"
         min="0"
         className={styles.inputArea}
         value={value}
