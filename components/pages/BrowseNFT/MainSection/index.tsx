@@ -1501,15 +1501,12 @@ const MainSection = ({
                                   {auctionInfoFocus && (
                                     <div className={styles.auctionInfoText}>
                                       <div className={styles.auctionInfoTitle}>End Phase</div>
-                                      Auction uses end-phase bid increments of
-                                      <span className={styles.auctionEndBidText}>
-                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                      Auction uses
+                                      <span>&nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;</span>
+                                      bid increments in the last
+                                      <span>
+                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
                                       </span>
-                                      in the last
-                                      <span className={styles.auctionEndBidText}>
-                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins&nbsp;
-                                      </span>
-                                      .
                                     </div>
                                   )}
                                 </>
