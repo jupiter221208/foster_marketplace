@@ -158,6 +158,7 @@ const MainSection = ({
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidAmount, setMinBidAmount] = useState(0)
+  const [enabledEndPhaseBid, setEnabledEndPhaseBid] = useState(false)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<String>(null)
@@ -188,6 +189,7 @@ const MainSection = ({
   const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
+  const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState('')
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -368,7 +370,7 @@ const MainSection = ({
         }
         let {
           highest_bid,
-          auction: { reserve_price, start_time, end_time, end_phase_duration, end_phase_bid_increment },
+          auction: { reserve_price, start_time, end_time },
         } = auction
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
@@ -531,6 +533,7 @@ const MainSection = ({
       let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
       setMinBidAmount(bidAmount)
       setPrice(bidAmount.toFixed(2))
+      setEnabledEndPhaseBid(true)
     }
   }
 
@@ -1479,7 +1482,38 @@ const MainSection = ({
                                       </div>
                                     )}
                                   </div>
-                                  <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
+                                  <div className="w-full flex items-center">
+                                    <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
+                                    {enabledEndPhaseBid && (
+                                      <div
+                                        className="mt-[4px]"
+                                        onMouseEnter={() => setAuctionInfoFocus(true)}
+                                        onMouseLeave={() => setAuctionInfoFocus(false)}
+                                        onClick={() => {
+                                          setAuctionInfoFocus(true)
+                                          setTimeout(() => {
+                                            setAuctionInfoFocus(false)
+                                          }, 2000)
+                                        }}
+                                      >
+                                        <InfoGreenIcon />
+                                      </div>
+                                    )}
+                                  </div>
+                                  {enabledEndPhaseBid && auctionInfoFocus && (
+                                    <div className={styles.auctionInfoText}>
+                                      <div className={styles.auctionInfoTitle}>End Phase</div>
+                                      Auction uses end-phase bid increments of
+                                      <span className={styles.auctionEndBidText}>
+                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                      </span>
+                                      in the last
+                                      <span className={styles.auctionEndBidText}>
+                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins&nbsp;
+                                      </span>
+                                      .
+                                    </div>
+                                  )}
                                 </>
                               )}
                             </div>
