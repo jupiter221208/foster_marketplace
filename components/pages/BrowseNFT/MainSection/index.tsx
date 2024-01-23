@@ -158,7 +158,6 @@ const MainSection = ({
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidAmount, setMinBidAmount] = useState(0)
-  const [enabledEndPhaseBid, setEnabledEndPhaseBid] = useState(false)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<String>(null)
@@ -533,7 +532,6 @@ const MainSection = ({
       let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
       setMinBidAmount(bidAmount)
       setPrice(bidAmount.toFixed(2))
-      setEnabledEndPhaseBid(true)
     }
   }
 
@@ -1484,7 +1482,7 @@ const MainSection = ({
                                   </div>
                                   <div className="w-full flex items-center">
                                     <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
-                                    {enabledEndPhaseBid && (
+                                    {nftInfo?.auction?.auction?.end_phase_duration !== null && (
                                       <div
                                         className="mt-[4px]"
                                         onMouseEnter={() => setAuctionInfoFocus(true)}
@@ -1500,7 +1498,7 @@ const MainSection = ({
                                       </div>
                                     )}
                                   </div>
-                                  {enabledEndPhaseBid && auctionInfoFocus && (
+                                  {auctionInfoFocus && (
                                     <div className={styles.auctionInfoText}>
                                       <div className={styles.auctionInfoTitle}>End Phase</div>
                                       Auction uses end-phase bid increments of
