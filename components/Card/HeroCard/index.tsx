@@ -178,7 +178,7 @@ const HeroCard = props => {
       </div>
 
       <div className={styles.infoBox}>
-        <div className="w-full flex gap-[21px] items-center">
+        <div className={styles.avatarArea}>
           {data.artist_profile_picture === '' && (
             <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
@@ -231,13 +231,14 @@ const HeroCard = props => {
               <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
             ) : (
               <div>
-                <div className="flex justify-end mb-[10px] xl:mb-[20px] gap-[8px] items-center mr-1">
-                  <div className="mt-1">
-                    <SolanaIcon alt="" />
-                  </div>
-                  <div className={styles.price}>{data.list_price}</div>
-                </div>
                 <div className={styles.btnBox}>
+                  <div className="flex gap-[8px] items-center mr-1">
+                    <div className="mt-1">
+                      <SolanaIcon alt="" />
+                    </div>
+                    <div className={styles.price}>{data.list_price}</div>
+                  </div>
+
                   <Link href={`/${data.artist_username}`} passHref>
                     <a>
                       <div className={styles.firstBtn}>Visit Artist Profile</div>
