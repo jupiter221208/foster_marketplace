@@ -108,7 +108,7 @@
   color: var(--pagination-down-icon);
   p:first-child {
     font-family: 'Muli-Bold';
-    font-size: 30px;
+    font-size: 24px;
   }
   p:nth-child(2) {
     font-family: 'Muli-Light';
@@ -156,7 +156,7 @@
 
 .btnBox {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   background: var(--hero-avatar-bg-rgb);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
@@ -178,8 +178,11 @@
     padding: 9px 19px;
   }
   color: var(--pagination-down-icon);
-  // background: var(--second-home-bg);
-  border: solid 2px rgba(var(--background-light-color-rgb), 0.25);
+  border: solid 1px rgba(var(--background-light-color-rgb), 0.25);
+  &:hover {
+    color: var(--main-icon-color);
+    border: solid 1px var(--main-icon-color);
+  }
 }
 
 .secondBtn {
@@ -195,8 +198,12 @@
     font-size: 18px;
     padding: 11px 32px;
   }
-  background-color: var(--hero-artist-color);
-  color: var(--create-nft-card-bg);
+  background-color: var(--second-home-bg);
+  color: var(--text-gray-200-color);
+  &:hover {
+    background-color: var(--hero-artist-color);
+    color: var(--create-nft-card-bg);
+  }
 }
 
 .price {
@@ -205,7 +212,14 @@
   color: var(--text-gray-200-color) 
 }
 
-.nftShadow {
+.priceBox {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-right: 4px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
 .noSelect {

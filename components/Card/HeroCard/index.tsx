@@ -232,7 +232,7 @@ const HeroCard = props => {
             ) : (
               <div>
                 <div className={styles.btnBox}>
-                  <div className="flex gap-[8px] items-center mr-1">
+                  <div className={styles.priceBox}>
                     <div className="mt-1">
                       <SolanaIcon alt="" />
                     </div>

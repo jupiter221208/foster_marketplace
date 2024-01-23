@@ -190,7 +190,7 @@ const MainSection = () => {
           <EllipseBlue />
         </div>
         <div className={styles.rightEllipse}>
-          <EllipseGreen />
+          <EllipseBlue />
         </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
