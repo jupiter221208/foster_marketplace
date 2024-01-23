@@ -859,6 +859,17 @@
   }
   color: var(--place-bid-minvalue-color);
 }
+
+.endPhaseText {
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  margin-top: 4px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  color: var(--place-bid-minvalue-color);
+}
+
 .categories {
   font-family: 'Muli-Regular';
   font-size: 12px;

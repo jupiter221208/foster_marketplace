@@ -1480,11 +1480,11 @@ const MainSection = ({
                                       </div>
                                     )}
                                   </div>
-                                  <div className="w-full flex items-center">
+                                  <div className="w-full flex items-center justify-between">
                                     <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                                     {nftInfo?.auction?.auction?.end_phase_duration !== null && (
                                       <div
-                                        className="mt-[4px]"
+                                        className="flex gap-[10px] items-center mr-[24px]"
                                         onMouseEnter={() => setAuctionInfoFocus(true)}
                                         onMouseLeave={() => setAuctionInfoFocus(false)}
                                         onClick={() => {
@@ -1494,19 +1494,26 @@ const MainSection = ({
                                           }, 2000)
                                         }}
                                       >
-                                        <InfoGreenIcon />
+                                        <div className={styles.endPhaseText}>End Phase</div>
+                                        <div className="mt-[4px]">
+                                          <InfoGreenIcon />
+                                        </div>
                                       </div>
                                     )}
                                   </div>
                                   {auctionInfoFocus && (
-                                    <div className={styles.auctionInfoText}>
-                                      <div className={styles.auctionInfoTitle}>End Phase</div>
-                                      Auction uses
-                                      <span>&nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;</span>
-                                      bid increments in the last
-                                      <span>
-                                        &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
-                                      </span>
+                                    <div className="w-full flex justify-end">
+                                      <div className={styles.auctionInfoText}>
+                                        <div className={styles.auctionInfoTitle}>End Phase</div>
+                                        Auction uses
+                                        <span>
+                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                        </span>
+                                        bid increments in the last
+                                        <span>
+                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
+                                        </span>
+                                      </div>
                                     </div>
                                   )}
                                 </>
