@@ -1,5 +1,9 @@
 import * as moment from 'moment'
 
+export const validDigits = (n) => {
+  return n.replace(/[^0-9.]+/g, '')
+}
+
 export const calculateTimeLeft = endDate => {
   let difference = getTimeDifference(endDate)
   let timeLeft = {}

@@ -18,6 +18,7 @@ import styles from './index.module.scss'
 // resources
 import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
 import LoadingButton from 'components/Button/LoadingButton'
+import { validDigits } from 'utils/helpers'
 
 const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, setCollection, disabledNextButton, createNft, isMinting, onBack } = props
@@ -50,11 +51,11 @@ const Step03SingleNFTSection = props => {
           value={royalties}
           placeholder="Insert a royalty percentage"
           label01="From 0 to 10%"
-          type="number"
           min={0}
           onChange={value => {
-            if (value > 10) setRoyalties(10)
-            else setRoyalties(Math.floor(value))
+            let royal = validDigits(value)
+            if (royal > 10) setRoyalties(10)
+            else setRoyalties(Math.floor(royal))
           }}
         />
       </div>
@@ -109,12 +110,12 @@ const Step03SingleNFTSection = props => {
           placeholder="Insert a royalty percentage"
           backgroundColor={'var(--shipping-board-bg)'}
           label01="From 0 to 10%"
-          type="number"
           color={'var(--text-gray-200-color)'}
           min={0}
           onChange={value => {
-            if (value > 10) setRoyalties(10)
-            else setRoyalties(Math.floor(value))
+            let royal = validDigits(value)
+            if (royal > 10) setRoyalties(10)
+            else setRoyalties(Math.floor(royal))
           }}
         />
       </div>

@@ -30,6 +30,7 @@ import AuctionsAPI from 'apis/auctions'
 // solana
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
+import { validDigits } from 'utils/helpers'
 
 const AuctionDetail = props => {
   const { data, onSuccess, onClose, onStartProgress } = props
@@ -88,7 +89,7 @@ const AuctionDetail = props => {
       Number(reservePrice),
       Number(minBidIncrement),
       endPhaseType == 'clock' ? 300 : null,
-      endPhaseType == 'clock' ? 300 : null,
+      endPhaseType == 'clock' ? 300 : null
     )
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
@@ -328,12 +329,12 @@ const AuctionDetail = props => {
                   fullWidth
                   borderRadius="9px"
                   min={0}
-                  type="number"
                   onChange={value => {
-                    if (value < 0) {
+                    let days = validDigits(value)
+                    if (days < 0) {
                       setDays('')
                     } else {
-                      setDays(value)
+                      setDays(days)
                     }
                   }}
                 />
@@ -348,13 +349,13 @@ const AuctionDetail = props => {
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
                   borderRadius="9px"
-                  type="number"
                   min={0}
                   onChange={value => {
-                    if (value < 0) {
+                    let hours = validDigits(value)
+                    if (hours < 0) {
                       setHours('')
                     } else {
-                      setHours(value)
+                      setHours(hours)
                     }
                   }}
                 />
