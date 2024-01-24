@@ -417,7 +417,7 @@ const MainSection = ({
 
     setStartTime(new Date(parseInt(startTime.toString())).toISOString())
     setEndTime(new Date(parseInt(endTime.toString())).toISOString())
-    if (endTime < Math.floor(Date.now() / 1000)) setIsEnded(true)
+    if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
 
     setAuctionLoaded(true)
     setAuctionPriceLoaded(true)
