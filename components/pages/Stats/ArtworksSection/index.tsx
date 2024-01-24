@@ -164,7 +164,7 @@ const ArtworksSection = props => {
                   : 4
               }
               spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 10 : 25
               }
               modules={[Autoplay, Lazy]}
               autoplay={{

@@ -1,11 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 
 // next components
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 // icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -18,7 +14,6 @@ import Link from 'next/link'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
-  const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
 

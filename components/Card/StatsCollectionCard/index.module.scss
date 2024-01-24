@@ -2,11 +2,9 @@
 
 .container {
   position: relative;
-  // border: 1px solid rgba(var(--white-color), 0.1);
   border-radius: 16px;
-  width: 100%;
-  max-width: 250px;
-  height: 250px;
+  max-width: 237px;
+  height: 237px;
   margin: 8px 4px;
   @media (min-width: 1024px) {
     border-radius: 16px;
