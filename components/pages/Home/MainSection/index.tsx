@@ -141,7 +141,7 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiper">
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={1.2}
+                slidesPerView={1.4}
                 spaceBetween={-30}
                 centeredSlides={true}
                 loop
@@ -190,7 +190,7 @@ const MainSection = () => {
           <EllipseBlue />
         </div>
         <div className={styles.rightEllipse}>
-          <EllipseBlue />
+          <EllipseGreen />
         </div>
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />

@@ -217,7 +217,7 @@ const HeroCard = props => {
               <p>
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
-                    Created by <span>{getDisplayUserName(data.artist_username)}</span>
+                    <span>{getDisplayUserName(data.artist_username)}</span>
                   </a>
                 </Link>
               </p>
@@ -241,7 +241,7 @@ const HeroCard = props => {
 
                   <Link href={`/${data.artist_username}`} passHref>
                     <a>
-                      <div className={styles.firstBtn}>Visit Artist Profile</div>
+                      <div className={styles.firstBtn}>Artist Profile</div>
                     </a>
                   </Link>
 

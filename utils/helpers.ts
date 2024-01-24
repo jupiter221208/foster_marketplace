@@ -868,7 +868,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-minvalue-color', '#eff0f6')
     doc.style.setProperty('--view-item-btn-color', '#242424')
     doc.style.setProperty('--ellipse-blue', '#5C8CCE')
-    doc.style.setProperty('--ellipse-green', '#26C29C')
+    doc.style.setProperty('--ellipse-green', '#95dbd5')
     doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
     doc.style.setProperty('--liveauction-bg-color', 'rgba(239, 240, 246, 0.03)')
     doc.style.setProperty('--single-title-color', '#202427')
