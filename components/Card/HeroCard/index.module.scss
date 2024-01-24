@@ -125,9 +125,9 @@
   }
   p:nth-child(2) {
     font-family: 'Muli-Light';
-    font-size: 18px;
+    font-size: 16px;
     @media (min-width: 1440px) {
-      font-size: 22px;
+      font-size: 18px;
     }
     color: rgba(var(--main-bg-color-rgb), 0.9);
   }

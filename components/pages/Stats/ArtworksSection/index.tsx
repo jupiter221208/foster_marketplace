@@ -128,7 +128,7 @@ const ArtworksSection = props => {
               navigation={true}
               slidesPerView={
                 viewport === 'xs'
-                  ? 1.5
+                  ? 1.3
                   : viewport === 'sm'
                   ? 2.5
                   : viewport === 'md'
