@@ -34,7 +34,7 @@ import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const AuctionDetail = props => {
-  const { data, onSuccess, onClose, onStartProgress } = props
+  const { data, onSuccess, onClose, onRefreshPage } = props
 
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -112,7 +112,8 @@ const AuctionDetail = props => {
       }).then(res => {
         if (res) {
           onSuccess(data?.json?.name)
-          setIsLoading(false)
+          // setIsLoading(false)
+          onRefreshPage()
         }
       })
     } catch (e: any) {

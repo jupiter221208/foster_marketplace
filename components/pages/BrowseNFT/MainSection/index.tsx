@@ -854,9 +854,7 @@ const MainSection = ({
   }
 
   const handleSuccessAuction = nftName => {
-    reloadNftData()
-
-    setOpenProgressingModal(false)
+    // reloadNftData()
 
     setAlertData([
       {
@@ -868,16 +866,10 @@ const MainSection = ({
     ])
 
     setTimeout(() => {
-      setShowAuctionDetail(false)
-      setShowAuctionSection(false)
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
+      // setShowAuctionDetail(false)
+      // setShowAuctionSection(false)
+      setShowAlert(true)
     }, 1000)
-  }
-
-  const handleStartProgress = () => {
-    setOpenProgressingModal(true)
   }
 
   const enableMerchToggle = toggle => {
@@ -1090,7 +1082,9 @@ const MainSection = ({
                   json: nftDetail.json,
                 }}
                 onSuccess={nft => handleSuccessAuction(nft)}
-                onStartProgress={() => handleStartProgress()}
+                onRefreshPage={() => {
+                  router.reload()
+                }}
                 onClose={() => {
                   setShowAuctionDetail(false)
                   setShowAuctionSection(false)

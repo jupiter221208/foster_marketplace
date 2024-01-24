@@ -144,7 +144,7 @@ const CollectionsSection = props => {
             <Swiper
               slidesPerView={
                 viewport === 'xs'
-                  ? 1.2
+                  ? 1.5
                   : viewport === 'sm'
                   ? 2.5
                   : viewport === 'md'

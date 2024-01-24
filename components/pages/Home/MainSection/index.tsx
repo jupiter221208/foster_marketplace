@@ -30,7 +30,7 @@ import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
 import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
 
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 
@@ -142,7 +142,7 @@ const MainSection = () => {
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                 slidesPerView={1.4}
-                spaceBetween={-30}
+                spaceBetween={-40}
                 centeredSlides={true}
                 loop
                 pagination={{
