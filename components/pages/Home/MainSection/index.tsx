@@ -141,8 +141,8 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiper">
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={1.4}
-                spaceBetween={-40}
+                slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
+                spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
                 centeredSlides={true}
                 loop
                 pagination={{

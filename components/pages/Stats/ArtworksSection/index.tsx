@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-import { useDispatch } from 'react-redux'
-
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
@@ -28,7 +26,6 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 SwiperCore.use([Navigation])
 
 const ArtworksSection = props => {
@@ -46,22 +43,6 @@ const ArtworksSection = props => {
   const [searchLoading, setSearchLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [swiper, setSwiper] = useState(null)
-  const [currentStep, setCurrentStep] = useState(0)
-
-  const goNext = () => {
-    if (swiper !== null) swiper.slideNext()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const goPrev = () => {
-    if (swiper !== null) swiper.slidePrev()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const handleOnChange = swiper => {
-    setCurrentStep(swiper.activeIndex)
-  }
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
@@ -144,6 +125,7 @@ const ArtworksSection = props => {
         ) : (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
+              navigation={true}
               slidesPerView={
                 viewport === 'xs'
                   ? 1.5
@@ -166,32 +148,22 @@ const ArtworksSection = props => {
               spaceBetween={
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 10 : 25
               }
-              modules={[Autoplay, Lazy]}
+              modules={[Autoplay, Lazy, Navigation]}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
-              onSlideChange={handleOnChange}
-              onSwiper={setSwiper}
+              className={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                  ? 'noScrollNavigationSwiper'
+                  : 'auctionNavigationSwiper'
+              }
             >
               {list.map((item: any, index) => (
                 <SwiperSlide key={index}>
                   <StatsCollectionCard key={index} data={item} type="artworks" />
                 </SwiperSlide>
               ))}
-              {viewport === 'md' ||
-                viewport === 'lg' ||
-                viewport === 'xl' ||
-                (viewport === '2xl' && list?.length > 4 && (
-                  <>
-                    <div className={styles.prevButton} onClick={goPrev}>
-                      <PreviewButton />
-                    </div>
-                    <div className={styles.nextButton} onClick={goNext}>
-                      <NextButton />
-                    </div>
-                  </>
-                ))}
             </Swiper>
           </div>
         ))}
