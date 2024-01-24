@@ -39,7 +39,14 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { cancelListing, fetchAuctionListing, getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
+import {
+  cancelListing,
+  fetchAuctionListing,
+  getBuyerEscrowBalanceDeficit,
+  getListingConfig,
+  parseAuctionListing,
+  placeBid,
+} from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -71,6 +78,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
+import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
 // call apis
 import axios from 'axios'
@@ -356,37 +364,10 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      let { auction, merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
+      let { merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setMerchToggle(merch_hub_enabled)
       enableMerch(merch_hub_enabled)
-
-      setLiveAuction(false)
-      if (auction?.auction) {
-        setLiveAuction(true)
-        if (!connected) {
-          setIsOwnNft(false)
-        }
-        let {
-          highest_bid,
-          auction: { reserve_price, start_time, end_time },
-        } = auction
-        setNftReservePrice(Number(reserve_price))
-        setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-        setHighestBidAmount(Number(highest_bid ? highest_bid.amount : 0))
-        setHighBidder(highest_bid ? highest_bid.buyer_address : '')
-        setEndTime(end_time)
-        setStartTime(start_time)
-
-        let endDate = new Date(end_time)
-        let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
-        let proposalEndTime = endDate.getTime() - offsetEnd
-
-        let end_difference = proposalEndTime - new Date().getTime()
-        if (end_difference < 0) setIsEnded(true)
-      } else {
-        setNftCurrentPrice(0)
-      }
       setLikeCount(likes)
       setShareCount(shares)
       setSaveCount(saves)
@@ -407,7 +388,43 @@ const MainSection = ({
     }
   }, [publicKey, sellerAddress, nftInfo])
 
+  async function handleAuctionData(auctionListing: AuctionListing) {
+    // use to set auction info
+    let {
+      startTime,
+      endTime,
+      minBidIncrement,
+      reservePrice,
+      highestBid: { amount },
+      timeExtPeriod,
+      timeExtDelta,
+    } = auctionListing
+
+    let strMinBid = minBidIncrement.toString()
+    let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
+    let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
+    let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
+    let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
+
+    setReservedPrice(reservedPrice)
+    setNftReservePrice(reservedPrice)
+    setMinBidAmount(minBidAmount)
+    setPrice(minBidAmount.toFixed(2))
+
+    setHighestBidAmount(highestBidAmount)
+    setNftCurrentPrice(highestBidAmount)
+    setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
+
+    setStartTime(new Date(parseInt(startTime.toString())).toISOString())
+    setEndTime(new Date(parseInt(endTime.toString())).toISOString())
+    if (endTime < Math.floor(Date.now() / 1000)) setIsEnded(true)
+
+    setAuctionLoaded(true)
+    setAuctionPriceLoaded(true)
+  }
+
   useEffect(() => {
+    let auctionListenerHandle: number | null = null
     ;(async () => {
       if (!nftDetail) return
 
@@ -469,30 +486,20 @@ const MainSection = ({
           }
           setNftListingData(listingData)
         } else {
+          setLiveAuction(true)
           let auctionListing = await fetchAuctionListing(
             mx,
             tokenAccount.owner,
             tokenAccount.address,
             tokenAccount.mint
           )
-          // use to set auction info
-          let {
-            minBidIncrement,
-            reservePrice,
-            highestBid: { amount },
-          } = auctionListing
-          let strMinBid = minBidIncrement.toString()
-          let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
-          let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
-          let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
-          let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
-          setReservedPrice(reservedPrice)
-          setMinBidAmount(minBidAmount)
-          setPrice(minBidAmount.toFixed(2))
-          setAuctionLoaded(true)
-          setTimeout(() => {
-            setAuctionPriceLoaded(true)
-          }, 4000)
+          let [listingConfig] = await getListingConfig(tokenAccount.owner, tokenAccount.address, tokenAccount.mint)
+          await handleAuctionData(auctionListing)
+          auctionListenerHandle = await mx.connection.onAccountChange(
+            listingConfig,
+            accountInfo => handleAuctionData(parseAuctionListing(accountInfo)),
+            'single'
+          )
         }
       }
 
@@ -521,8 +528,12 @@ const MainSection = ({
       setLoading(false)
 
       dispatch({ type: 'set', isLoading: false })
+
+      return () => {
+        if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
+      }
     })()
-  }, [nftDetail])
+  }, [mx, nftDetail])
 
   useEffect(() => {
     axios
