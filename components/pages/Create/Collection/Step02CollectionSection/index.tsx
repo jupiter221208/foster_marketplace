@@ -244,6 +244,7 @@ const Step02CollectionSection = props => {
                           alt=""
                           className="w-full h-full object-cover z-0"
                         />
+                        <div className={styles.blurView} />
                       </div>
                     )}
                     {(selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio') ||

@@ -31,6 +31,7 @@ import AuctionsAPI from 'apis/auctions'
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const AuctionDetail = props => {
   const { data, onSuccess, onClose, onStartProgress } = props
@@ -46,6 +47,7 @@ const AuctionDetail = props => {
     onClose()
   }
 
+  const [isLoading, setIsLoading] = useState(false)
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('24')
@@ -78,40 +80,44 @@ const AuctionDetail = props => {
   const { metaplex: mx } = useMetaplex()
 
   const handleStartAuction = async () => {
-    await refreshToken()
+    try {
+      await refreshToken()
 
-    onStartProgress()
-    const { auction } = await startAuction(
-      mx,
-      data.mintAddress,
-      startDate,
-      endDate,
-      Number(reservePrice),
-      Number(minBidIncrement),
-      endPhaseType == 'clock' ? 300 : null,
-      endPhaseType == 'clock' ? 300 : null
-    )
-    AuctionsAPI.create(auction.mintAddress.toBase58(), {
-      mint_address: auction.mintAddress.toBase58(),
-      associated_address: auction.associatedAddress.toBase58(),
-      free_trade_state: auction.freeTradeState.toBase58(),
-      metadata: auction.metadata.toBase58(),
-      signer: auction.signer.toBase58(),
-      seller_address: auction.sellerAddress.toBase58(),
-      start_time: startDate.toISOString().split('.')[0], //auction.startTime.toString(),
-      end_time: endDate.toISOString().split('.')[0], //auction.endTime.toString(),
-      reserve_price: auction.reservePrice.toString(),
-      canceled_at: null,
-      sold_at: null,
-      end_phase_extension_delta: endPhaseType === 'clock' ? 300 : null,
-      end_phase_duration: endPhaseDurationType === 'none' ? null : parseInt(endPhaseDurationType) * 60,
-      end_phase_bid_increment: parseFloat(endBidIncrement),
-    }).then(res => {
-      if (res) {
-        onSuccess(data?.json?.name)
-        dispatch({ type: 'set', isGetListedNFTs: false })
-      }
-    })
+      setIsLoading(true)
+      const { auction } = await startAuction(
+        mx,
+        data.mintAddress,
+        startDate,
+        endDate,
+        Number(reservePrice),
+        Number(minBidIncrement),
+        endPhaseType == 'clock' ? 300 : null,
+        endPhaseType == 'clock' ? 300 : null
+      )
+      AuctionsAPI.create(auction.mintAddress.toBase58(), {
+        mint_address: auction.mintAddress.toBase58(),
+        associated_address: auction.associatedAddress.toBase58(),
+        free_trade_state: auction.freeTradeState.toBase58(),
+        metadata: auction.metadata.toBase58(),
+        signer: auction.signer.toBase58(),
+        seller_address: auction.sellerAddress.toBase58(),
+        start_time: startDate.toISOString().split('.')[0], //auction.startTime.toString(),
+        end_time: endDate.toISOString().split('.')[0], //auction.endTime.toString(),
+        reserve_price: auction.reservePrice.toString(),
+        canceled_at: null,
+        sold_at: null,
+        end_phase_extension_delta: endPhaseType === 'clock' ? 300 : null,
+        end_phase_duration: endPhaseDurationType === 'none' ? null : parseInt(endPhaseDurationType) * 60,
+        end_phase_bid_increment: parseFloat(endBidIncrement),
+      }).then(res => {
+        if (res) {
+          onSuccess(data?.json?.name)
+          setIsLoading(false)
+        }
+      })
+    } catch (e: any) {
+      setIsLoading(false)
+    }
   }
 
   const CustomTimeInput = ({ date, value, onChange }) => {
@@ -520,14 +526,20 @@ const AuctionDetail = props => {
         )}
       </div>
 
-      <button
-        className={styles.startAuction}
-        disabled={buttonDisabled}
-        style={{ opacity: buttonDisabled ? 0.5 : 1 }}
-        onClick={() => handleStartAuction()}
-      >
-        Start Auction
-      </button>
+      <div className="mt-[45px] w-full">
+        {isLoading ? (
+          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+        ) : (
+          <button
+            className={styles.startAuction}
+            disabled={buttonDisabled}
+            style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+            onClick={() => handleStartAuction()}
+          >
+            Start Auction
+          </button>
+        )}
+      </div>
     </div>
   )
 }

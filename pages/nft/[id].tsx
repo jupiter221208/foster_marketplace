@@ -267,7 +267,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <div className="g-container">
                   <div>
                     {collectionId && (
-                      <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />
+                      <MoreCollectionSection
+                        collectionId={collectionId}
+                        collectionName={collectionName}
+                        mintAddress={nftDetail.address.toString()}
+                      />
                     )}
                     {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
                     <MoreCategorySection categories={categories} />
