@@ -66,21 +66,6 @@ const MainSection = () => {
   }, [heroList, router])
 
   useEffect(() => {
-    // dashboardAPI.getDashboardBanner().then(
-    //   response => {
-    //     if (response !== null && response !== undefined) {
-    //       setTimeout(() => {
-    //         setHeroList(response.featured_nfts)
-    //       }, 1000)
-    //       setNftCnt(response.stats.users)
-    //       setCollectionCnt(response.stats.collections)
-    //       setArtworkCnt(response.stats.nfts)
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
     dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setHeroList(response.slice(0, 5))
@@ -91,15 +76,24 @@ const MainSection = () => {
       }
   }, [])
 
+  useEffect(() => {
+    if (heroList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < heroList.length; index++) {
+          let data = heroList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/${data.artist_username}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [heroList])
+
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        {/* <div className="hidden lg:block">
-          <div>
-            <div className={styles.text}>Home to Creators Around the World</div>
-            <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
-          </div>
-        </div> */}
         <div className="flex lg:hidden w-[calc(100%+32px)]">
           <div className={styles.heroMobileSection}>
             <div className={styles.contentArea}>
