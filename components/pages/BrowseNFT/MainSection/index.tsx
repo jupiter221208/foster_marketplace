@@ -415,8 +415,8 @@ const MainSection = ({
     setNftCurrentPrice(highestBidAmount)
     setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
 
-    setStartTime(new Date(parseInt(startTime.toString())).toISOString())
-    setEndTime(new Date(parseInt(endTime.toString())).toISOString())
+    setStartTime(new Date(parseInt(startTime.toString()) * 1000).toISOString())
+    setEndTime(new Date(parseInt(endTime.toString()) * 1000).toISOString())
     if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
 
     setAuctionLoaded(true)
