@@ -77,9 +77,7 @@ const AuctionCard = props => {
       setAuctionStarted(true)
 
       let endDate = new Date(endTime)
-      let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
-      let proposalEndTime = endDate.getTime() - offsetEnd
-
+      let proposalEndTime = endDate.getTime()
       let end_difference = proposalEndTime - new Date().getTime()
       if (end_difference < 0) setIsEnded(true)
       return endTime

@@ -92,7 +92,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { compareDate, getTimeDifference } from 'utils/helpers'
+import { compareDate, getTimeDifferenceWithAuction } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -420,7 +420,9 @@ const MainSection = ({
     if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
 
     setAuctionLoaded(true)
-    setAuctionPriceLoaded(true)
+    setTimeout(() => {
+      setAuctionPriceLoaded(true)
+    }, 3000)
   }
 
   useEffect(() => {
@@ -1391,7 +1393,7 @@ const MainSection = ({
                     )}
                   </>
                 ) : endTime !== null &&
-                  getTimeDifference(endTime) < 0 &&
+                  getTimeDifferenceWithAuction(endTime) < 0 &&
                   (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                   connected ? (
                   <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">

@@ -5,7 +5,7 @@ export const validDigits = (n) => {
 }
 
 export const calculateTimeLeft = endDate => {
-  let difference = getTimeDifference(endDate)
+  let difference = getTimeDifferenceWithAuction(endDate)
   let timeLeft = {}
 
   if (difference > 0) {
@@ -33,6 +33,14 @@ export const getTimeDifference = endTime => {
   let endListingTime = new Date(endTime)
   let offset = endListingTime.getTimezoneOffset() * 60 * 1000
   let endLocalTime = endListingTime.getTime() - offset
+  let nowDate = new Date().getTime()
+  let difference = endLocalTime - nowDate
+  return difference
+}
+
+export const getTimeDifferenceWithAuction = endTime => {
+  let endListingTime = new Date(endTime)
+  let endLocalTime = endListingTime.getTime()
   let nowDate = new Date().getTime()
   let difference = endLocalTime - nowDate
   return difference
