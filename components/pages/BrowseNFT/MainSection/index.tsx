@@ -487,6 +487,9 @@ const MainSection = ({
           setNftListingData(listingData)
         } else {
           setLiveAuction(true)
+          if (!connected) {
+            setIsOwnNft(false)
+          }
           let auctionListing = await fetchAuctionListing(
             mx,
             tokenAccount.owner,
