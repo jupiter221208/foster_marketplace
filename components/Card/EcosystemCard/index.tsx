@@ -68,12 +68,12 @@ const EcosystemCard = props => {
           </div>
           <div className="w-full flex justify-end mt-[10px] items-center">
             <div className="w-[60%] flex">
-              <div className="w-full flex justify-end gap-[18px] mr-[18px]">
-                <div className="flex items-center gap-2">
+              <div className="w-full flex justify-end lg:gap-[18px] gap-[10px] mr-[18px]">
+                <div className="flex items-center gap-[4px] lg:gap-2">
                   <div className={styles.text}>{data.number_of_categories ?? 0}</div>
                   <div className={styles.title}>Collections</div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-[4px] lg:gap-2">
                   <div className={styles.text}>{data.number_of_nfts ?? 0}</div>
                   <div className={styles.title}>Artworks</div>
                 </div>
@@ -81,7 +81,7 @@ const EcosystemCard = props => {
             </div>
           </div>
 
-          <div className="w-full mt-[35px] flex justify-center mb-[25px]">
+          <div className="w-full mt-[25px] lg:mt-[35px] flex justify-center mb-[15px] lg:mb-[25px]">
             <div className={styles.artistName}>
               {data.artist.username ? getDisplayUserName(data.artist.username) : 'Ecosystem'}
             </div>

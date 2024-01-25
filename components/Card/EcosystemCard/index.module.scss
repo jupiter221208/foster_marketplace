@@ -104,13 +104,19 @@
 }
 
 .title {
-  font-family: 'Muli-Light';
-  font-size: 14px;
+  font-family: 'Muli-SemiBold';
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
 .text {
-  font-family: 'Muli-Bold';
-  font-size: 16px;
+  font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
 }
