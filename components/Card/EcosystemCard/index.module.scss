@@ -42,9 +42,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(var(--background-main-color-rgb), 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--background-main-color);
   overflow: hidden;
 }
 
@@ -104,7 +102,7 @@
 }
 
 .title {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Light';
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   font-size: 14px;
   @media (min-width: 1024px) {
@@ -113,7 +111,7 @@
 }
 
 .text {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
   color: var(--text-gray-200-color);
   font-size: 14px;
   @media (min-width: 1024px) {
