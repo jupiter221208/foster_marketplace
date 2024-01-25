@@ -97,9 +97,8 @@
 
 .contentArea {
   width: 100%;
-  height: calc(100vh - 200px);
-  overflow: hidden;
-  position: relative;
+  height: 100%;
+  display: flex;
 }
 
 .contentScroll {
@@ -108,7 +107,6 @@
   left: 0;
   bottom: -20px;
   right: -20px; 
-  overflow: scroll;
   display: flex;
 }
 
