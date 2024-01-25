@@ -38,6 +38,7 @@ import PreviewImage from 'assets/images/preview-image.png'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
 import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
 import FilterNormalIcon from 'assets/icons/filter-icon-normal.svg?component'
+import FilterGreenIcon from 'assets/icons/filter-icon-green.svg?component'
 // styles
 import styles from './index.module.scss'
 
@@ -54,6 +55,7 @@ import LoadingComponent from './LoadingComponent'
 import GradientButton from 'components/Button/GradientButton'
 import Link from 'next/link'
 import IconTab from 'components/Tab/IconTab'
+import OrderSelect from 'components/Select/OrderSelect'
 
 const Explore = () => {
   const router = useRouter()
@@ -95,6 +97,9 @@ const Explore = () => {
       array.push(object)
     })
     setTabList(array)
+
+    var myDiv = document.getElementById('contentScroll')
+    myDiv.scrollTop = 0
   }, [exploreTab])
 
   const handleSelectedTab = item => {
@@ -535,25 +540,76 @@ const Explore = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className="w-full flex relative">
+        <div className="w-full hidden lg:flex relative mb-[30px]">
           <div className="w-full h-[40px] relative">
             <div className="absolute left-0">
               <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
-            <div className="absolute right-0 bottom-3">
-              <div className={styles.filterBtn}>
-                <div className={styles.filterText} onClick={() => setShowFilter(!showFilter)}>
+            <div className="absolute right-0 bottom-3 flex gap-3">
+              <div className="hidden lg:flex w-auto z-20">
+                <OrderSelect
+                  data={sortData}
+                  selected={selectedSort}
+                  onChange={item => setSelectedSort(item)}
+                  maxHeight="none"
+                />
+              </div>
+              <div className={styles.filterBtn} onClick={() => setShowFilter(!showFilter)}>
+                <div
+                  className={styles.filterText}
+                  style={{ color: showFilter ? 'var(--main-icon-color)' : 'var(--text-gray-200-color)' }}
+                >
                   Filter
                 </div>
-                <FilterNormalIcon alt="" />
+                {showFilter ? <FilterGreenIcon alt="" /> : <FilterNormalIcon alt="" />}
               </div>
             </div>
           </div>
           <div className={styles.tabBorder} />
         </div>
-        <div className="w-full h-[60px]"></div>
+        <div className="w-full lg:hidden block">
+          <div className={styles.tabContainer}>
+            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+          </div>
+          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
+            <GradientButton
+              label="Filter"
+              onClick={() => setOpenMobileFilter(!openMobileFilter)}
+              fullWidth
+              height="40px"
+              color={'var(--text-gray-200-color)'}
+              icon1={<FilterGrayIcon alt="" />}
+              backgroundColor01="var(--resource-card-bg)"
+              backgroundColor02="var(--resource-card-bg)"
+              gradientDirection="bottom"
+              fontFamily="Muli-Regular"
+              fontSize={14}
+              borderRadius={8}
+              borderWidth={1}
+              borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+              direction="rtl"
+            />
+            <GradientButton
+              label="Sort"
+              onClick={() => setOpenMobileSort(!openMobileSort)}
+              fullWidth
+              height="40px"
+              color={'var(--text-gray-200-color)'}
+              icon1={<SortGrayIcon alt="" />}
+              backgroundColor01="var(--resource-card-bg)"
+              backgroundColor02="var(--resource-card-bg)"
+              gradientDirection="bottom"
+              fontFamily="Muli-Regular"
+              fontSize={14}
+              borderRadius={8}
+              borderWidth={1}
+              borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+              direction="rtl"
+            />
+          </div>
+        </div>
         <div className={styles.contentArea}>
-          <div className={styles.contentScroll}>
+          <div id="contentScroll" className={styles.contentScroll}>
             {showFilter && (
               <div className="block max-w-[324px] min-w-[324px] w-full mr-[100px]">
                 {exploreTab === 0 && (
@@ -664,7 +720,7 @@ const Explore = () => {
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {collectionList.length !== 0 &&
                     collectionList.map((item, index) => (
-                      <div className="col-span-6 2xl:col-span-3 z-10" key={index}>
+                      <div className={`col-span-6 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
                         <CollectionCard
                           image={item.image}
                           nftName={item.collectionName}
@@ -680,7 +736,7 @@ const Explore = () => {
               {exploreTab === 2 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {ecosystemList.map((item, index) => (
-                    <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
+                    <div className={`col-span-6 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
                       <EcosystemCard data={item} />
                     </div>
                   ))}
@@ -693,71 +749,8 @@ const Explore = () => {
           </div>
         </div>
         {/* <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] z-10">
-          <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
-            {exploreTab === 0 && (
-              <NFTFilter
-                selectedAvailability={selectedAvailability}
-                setSelectedAvailability={setSelectedAvailability}
-                selectCategory={selectCategory}
-                selectedMedium={selectedMedium}
-                setSelectedMedium={setSelectedMedium}
-                selectedMarket={selectedMarket}
-                setSelectedMarket={setSelectedMarket}
-              />
-            )}
-            {exploreTab === 1 && <CollectionFilter selectCategory={selectCategory} />}
-            {exploreTab === 2 && <EcosystemFilter />}
-          </div>
           <div className="w-full flex-1 flex-wrap">
-            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10">
-              <div className={styles.tabContainer}>
-                <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-              </div>
-              <div className="hidden lg:flex max-w-[280px] xl:min-w-[280px] xl:w-full z-20">
-                <Select
-                  data={sortData}
-                  selected={selectedSort}
-                  onChange={item => setSelectedSort(item)}
-                  maxHeight="none"
-                />
-              </div>
-            </div>
-            <div className="flex lg:hidden w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
-              <GradientButton
-                label="Filter"
-                onClick={() => setOpenMobileFilter(!openMobileFilter)}
-                fullWidth
-                height="40px"
-                color={'var(--text-gray-200-color)'}
-                icon1={<FilterGrayIcon alt="" />}
-                backgroundColor01="var(--resource-card-bg)"
-                backgroundColor02="var(--resource-card-bg)"
-                gradientDirection="bottom"
-                fontFamily="Muli-Regular"
-                fontSize={14}
-                borderRadius={8}
-                borderWidth={1}
-                borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
-                direction="rtl"
-              />
-              <GradientButton
-                label="Sort"
-                onClick={() => setOpenMobileSort(!openMobileSort)}
-                fullWidth
-                height="40px"
-                color={'var(--text-gray-200-color)'}
-                icon1={<SortGrayIcon alt="" />}
-                backgroundColor01="var(--resource-card-bg)"
-                backgroundColor02="var(--resource-card-bg)"
-                gradientDirection="bottom"
-                fontFamily="Muli-Regular"
-                fontSize={14}
-                borderRadius={8}
-                borderWidth={1}
-                borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
-                direction="rtl"
-              />
-            </div>
+            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10"></div>
 
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
