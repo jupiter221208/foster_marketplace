@@ -736,7 +736,10 @@ const Explore = () => {
               {exploreTab === 2 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {ecosystemList.map((item, index) => (
-                    <div className={`col-span-6 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
+                    <div
+                      className={`col-span-12 sm:col-span-6 ${showFilter ? '2xl:col-span-6' : '2xl:col-span-4'} z-10`}
+                      key={index}
+                    >
                       <EcosystemCard data={item} />
                     </div>
                   ))}
@@ -748,128 +751,6 @@ const Explore = () => {
             </div>
           </div>
         </div>
-        {/* <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] z-10">
-          <div className="w-full flex-1 flex-wrap">
-            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10"></div>
-
-            <div className="w-full relative z-10">
-              {exploreTab === 0 && (
-                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
-                  {nftList.length !== 0 &&
-                    nftList?.map((item, index) => {
-                      return (
-                        <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
-                          {selectedAvailability.value === 'timed' ? (
-                            <Link href={item.url} passHref>
-                              <a>
-                                <NFTAuctionCard
-                                  image={item.image}
-                                  assetType={item.asset_type}
-                                  coverImage={item.cover_image_url}
-                                  currentBid={item.current_bid}
-                                  reservePrice={item.reserve_price}
-                                  endTime={item.end_time}
-                                  onClick={() => {
-                                    dispatch({ type: 'set', isLoading: true })
-                                  }}
-                                  price={item.price}
-                                />
-                              </a>
-                            </Link>
-                          ) : selectedAvailability.value === 'all' ? (
-                            isAvailableAuctionCard(item) ? (
-                              <Link href={item.url} passHref>
-                                <a>
-                                  <NFTAuctionCard
-                                    image={item.image}
-                                    assetType={item.asset_type}
-                                    coverImage={item.cover_image_url}
-                                    currentBid={item.current_bid}
-                                    reservePrice={item.reserve_price}
-                                    endTime={item.end_time}
-                                    onClick={() => {
-                                      dispatch({ type: 'set', isLoading: true })
-                                    }}
-                                    price={item.price}
-                                  />
-                                </a>
-                              </Link>
-                            ) : (
-                              <Link href={item.url} passHref>
-                                <a>
-                                  <NFTCard
-                                    token_id={item.token_id}
-                                    image={item.image}
-                                    nftName={item.name}
-                                    assetType={item.asset_type}
-                                    coverImage={item.cover_image_url}
-                                    artistName={item.creator}
-                                    collectionName={item.collection_name}
-                                    onClick={() => {
-                                      dispatch({ type: 'set', isLoading: true })
-                                    }}
-                                    price={item.price}
-                                  />
-                                </a>
-                              </Link>
-                            )
-                          ) : (
-                            <Link href={item.url} passHref>
-                              <a>
-                                <NFTCard
-                                  token_id={item.token_id}
-                                  image={item.image}
-                                  nftName={item.name}
-                                  assetType={item.asset_type}
-                                  coverImage={item.cover_image_url}
-                                  artistName={item.creator}
-                                  collectionName={item.collection_name}
-                                  onClick={() => {
-                                    dispatch({ type: 'set', isLoading: true })
-                                    router.push(item.url)
-                                  }}
-                                  price={item.price}
-                                />
-                              </a>
-                            </Link>
-                          )}
-                        </div>
-                      )
-                    })}
-                </div>
-              )}
-              {exploreTab === 1 && (
-                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {collectionList.length !== 0 &&
-                    collectionList.map((item, index) => (
-                      <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
-                        <CollectionCard
-                          image={item.image}
-                          nftName={item.collectionName}
-                          artistName={item.artistName}
-                          collectionName={item.collectionName}
-                          price={item.price}
-                          link={`/collection/${item.collectionId}`}
-                        />
-                      </div>
-                    ))}
-                </div>
-              )}
-              {exploreTab === 2 && (
-                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {ecosystemList.map((item, index) => (
-                    <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <EcosystemCard data={item} />
-                    </div>
-                  ))}
-                </div>
-              )}
-              {isMounted && isVisibleFetching && (
-                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
-              )}
-            </div>
-          </div>
-        </div> */}
       </div>
       <div className="flex lg:hidden w-full">
         {openMobileFilter && exploreTab === 0 && (
