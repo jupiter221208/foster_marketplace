@@ -100,6 +100,8 @@ const Explore = () => {
 
     var myDiv = document.getElementById('contentScroll')
     myDiv.scrollTop = 0
+
+    if (exploreTab === 2) setShowFilter(false)
   }, [exploreTab])
 
   const handleSelectedTab = item => {
@@ -554,15 +556,17 @@ const Explore = () => {
                   maxHeight="none"
                 />
               </div>
-              <div className={styles.filterBtn} onClick={() => setShowFilter(!showFilter)}>
-                <div
-                  className={styles.filterText}
-                  style={{ color: showFilter ? 'var(--main-icon-color)' : 'var(--text-gray-200-color)' }}
-                >
-                  Filter
+              {exploreTab !== 2 && (
+                <div className={styles.filterBtn} onClick={() => setShowFilter(!showFilter)}>
+                  <div
+                    className={styles.filterText}
+                    style={{ color: showFilter ? 'var(--main-icon-color)' : 'var(--text-gray-200-color)' }}
+                  >
+                    Filter
+                  </div>
+                  {showFilter ? <FilterGreenIcon alt="" /> : <FilterNormalIcon alt="" />}
                 </div>
-                {showFilter ? <FilterGreenIcon alt="" /> : <FilterNormalIcon alt="" />}
-              </div>
+              )}
             </div>
           </div>
           <div className={styles.tabBorder} />
@@ -571,24 +575,27 @@ const Explore = () => {
           <div className={styles.tabContainer}>
             <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
           </div>
+
           <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
-            <GradientButton
-              label="Filter"
-              onClick={() => setOpenMobileFilter(!openMobileFilter)}
-              fullWidth
-              height="40px"
-              color={'var(--text-gray-200-color)'}
-              icon1={<FilterGrayIcon alt="" />}
-              backgroundColor01="var(--resource-card-bg)"
-              backgroundColor02="var(--resource-card-bg)"
-              gradientDirection="bottom"
-              fontFamily="Muli-Regular"
-              fontSize={14}
-              borderRadius={8}
-              borderWidth={1}
-              borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
-              direction="rtl"
-            />
+            {exploreTab !== 2 && (
+              <GradientButton
+                label="Filter"
+                onClick={() => setOpenMobileFilter(!openMobileFilter)}
+                fullWidth
+                height="40px"
+                color={'var(--text-gray-200-color)'}
+                icon1={<FilterGrayIcon alt="" />}
+                backgroundColor01="var(--resource-card-bg)"
+                backgroundColor02="var(--resource-card-bg)"
+                gradientDirection="bottom"
+                fontFamily="Muli-Regular"
+                fontSize={14}
+                borderRadius={8}
+                borderWidth={1}
+                borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+                direction="rtl"
+              />
+            )}
             <GradientButton
               label="Sort"
               onClick={() => setOpenMobileSort(!openMobileSort)}
