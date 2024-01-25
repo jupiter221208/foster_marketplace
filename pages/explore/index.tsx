@@ -37,7 +37,7 @@ import MarketList from 'assets/json/explore/market.json'
 import PreviewImage from 'assets/images/preview-image.png'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
 import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
-
+import FilterNormalIcon from 'assets/icons/filter-icon-normal.svg?component'
 // styles
 import styles from './index.module.scss'
 
@@ -53,6 +53,7 @@ import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
 import GradientButton from 'components/Button/GradientButton'
 import Link from 'next/link'
+import IconTab from 'components/Tab/IconTab'
 
 const Explore = () => {
   const router = useRouter()
@@ -80,6 +81,7 @@ const Explore = () => {
   const [rowCount, setRowCount] = useState(12)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [showFilter, setShowFilter] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -533,9 +535,164 @@ const Explore = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        {/* <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore</div> */}
-        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] z-10">
-          {/* filter menu part */}
+        <div className="w-full flex relative">
+          <div className="w-full h-[40px] relative">
+            <div className="absolute left-0">
+              <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+            </div>
+            <div className="absolute right-0 bottom-3">
+              <div className={styles.filterBtn}>
+                <div className={styles.filterText} onClick={() => setShowFilter(!showFilter)}>
+                  Filter
+                </div>
+                <FilterNormalIcon alt="" />
+              </div>
+            </div>
+          </div>
+          <div className={styles.tabBorder} />
+        </div>
+        <div className="w-full h-[60px]"></div>
+        <div className={styles.contentArea}>
+          <div className={styles.contentScroll}>
+            {showFilter && (
+              <div className="block max-w-[324px] min-w-[324px] w-full mr-[100px]">
+                {exploreTab === 0 && (
+                  <NFTFilter
+                    selectedAvailability={selectedAvailability}
+                    setSelectedAvailability={setSelectedAvailability}
+                    selectCategory={selectCategory}
+                    selectedMedium={selectedMedium}
+                    setSelectedMedium={setSelectedMedium}
+                    selectedMarket={selectedMarket}
+                    setSelectedMarket={setSelectedMarket}
+                  />
+                )}
+                {exploreTab === 1 && <CollectionFilter selectCategory={selectCategory} />}
+                {exploreTab === 2 && <EcosystemFilter />}
+              </div>
+            )}
+            <div className={styles.nftArea}>
+              {exploreTab === 0 && (
+                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
+                  {nftList.length !== 0 &&
+                    nftList?.map((item, index) => {
+                      return (
+                        <div
+                          className={`col-span-6 z-10 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'}`}
+                          key={index}
+                        >
+                          {selectedAvailability.value === 'timed' ? (
+                            <Link href={item.url} passHref>
+                              <a>
+                                <NFTAuctionCard
+                                  image={item.image}
+                                  assetType={item.asset_type}
+                                  coverImage={item.cover_image_url}
+                                  currentBid={item.current_bid}
+                                  reservePrice={item.reserve_price}
+                                  endTime={item.end_time}
+                                  onClick={() => {
+                                    dispatch({ type: 'set', isLoading: true })
+                                  }}
+                                  price={item.price}
+                                />
+                              </a>
+                            </Link>
+                          ) : selectedAvailability.value === 'all' ? (
+                            isAvailableAuctionCard(item) ? (
+                              <Link href={item.url} passHref>
+                                <a>
+                                  <NFTAuctionCard
+                                    image={item.image}
+                                    assetType={item.asset_type}
+                                    coverImage={item.cover_image_url}
+                                    currentBid={item.current_bid}
+                                    reservePrice={item.reserve_price}
+                                    endTime={item.end_time}
+                                    onClick={() => {
+                                      dispatch({ type: 'set', isLoading: true })
+                                    }}
+                                    price={item.price}
+                                  />
+                                </a>
+                              </Link>
+                            ) : (
+                              <Link href={item.url} passHref>
+                                <a>
+                                  <NFTCard
+                                    token_id={item.token_id}
+                                    image={item.image}
+                                    nftName={item.name}
+                                    assetType={item.asset_type}
+                                    coverImage={item.cover_image_url}
+                                    artistName={item.creator}
+                                    collectionName={item.collection_name}
+                                    onClick={() => {
+                                      dispatch({ type: 'set', isLoading: true })
+                                    }}
+                                    price={item.price}
+                                  />
+                                </a>
+                              </Link>
+                            )
+                          ) : (
+                            <Link href={item.url} passHref>
+                              <a>
+                                <NFTCard
+                                  token_id={item.token_id}
+                                  image={item.image}
+                                  nftName={item.name}
+                                  assetType={item.asset_type}
+                                  coverImage={item.cover_image_url}
+                                  artistName={item.creator}
+                                  collectionName={item.collection_name}
+                                  onClick={() => {
+                                    dispatch({ type: 'set', isLoading: true })
+                                    router.push(item.url)
+                                  }}
+                                  price={item.price}
+                                />
+                              </a>
+                            </Link>
+                          )}
+                        </div>
+                      )
+                    })}
+                </div>
+              )}
+              {exploreTab === 1 && (
+                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
+                  {collectionList.length !== 0 &&
+                    collectionList.map((item, index) => (
+                      <div className="col-span-6 2xl:col-span-3 z-10" key={index}>
+                        <CollectionCard
+                          image={item.image}
+                          nftName={item.collectionName}
+                          artistName={item.artistName}
+                          collectionName={item.collectionName}
+                          price={item.price}
+                          link={`/collection/${item.collectionId}`}
+                        />
+                      </div>
+                    ))}
+                </div>
+              )}
+              {exploreTab === 2 && (
+                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
+                  {ecosystemList.map((item, index) => (
+                    <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
+                      <EcosystemCard data={item} />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {isMounted && isVisibleFetching && (
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+              )}
+            </div>
+          </div>
+        </div>
+        {/* <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] z-10">
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
             {exploreTab === 0 && (
               <NFTFilter
@@ -551,7 +708,6 @@ const Explore = () => {
             {exploreTab === 1 && <CollectionFilter selectCategory={selectCategory} />}
             {exploreTab === 2 && <EcosystemFilter />}
           </div>
-          {/* content part */}
           <div className="w-full flex-1 flex-wrap">
             <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10">
               <div className={styles.tabContainer}>
@@ -602,6 +758,7 @@ const Explore = () => {
                 direction="rtl"
               />
             </div>
+
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
@@ -717,21 +874,9 @@ const Explore = () => {
               {isMounted && isVisibleFetching && (
                 <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
               )}
-              {/* <div className="w-full flex justify-end">
-                <ExplorePagination
-                  currentPage={currentPage}
-                  totalCount={totalCount}
-                  rowCount={rowCount}
-                  setRowCount={count => {
-                    selectRowCount(count)
-                  }}
-                  handleNext={handleNextPage}
-                  handlePrev={handlePreviousPage}
-                />
-              </div> */}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="flex lg:hidden w-full">
         {openMobileFilter && exploreTab === 0 && (
