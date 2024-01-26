@@ -399,7 +399,7 @@ const MainSection = ({
       timeExtPeriod,
       timeExtDelta,
     } = auctionListing
-
+    console.log(auctionListing, '==============auctionListing============')
     let strMinBid = minBidIncrement.toString()
     let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
     let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
@@ -420,6 +420,9 @@ const MainSection = ({
     if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
 
     setAuctionLoaded(true)
+
+    dispatch({ type: 'set', resetEndBid: false })
+
     setTimeout(() => {
       setAuctionPriceLoaded(true)
     }, 3000)
@@ -499,6 +502,7 @@ const MainSection = ({
             tokenAccount.mint
           )
           let [listingConfig] = await getListingConfig(tokenAccount.owner, tokenAccount.address, tokenAccount.mint)
+
           await handleAuctionData(auctionListing)
           auctionListenerHandle = await mx.connection.onAccountChange(
             listingConfig,
@@ -548,11 +552,14 @@ const MainSection = ({
   }, [nftCollectionUrl])
 
   const setEndPhaseBidIncresement = () => {
+    console.log(price, '======price=============')
+    console.log(reservedPrice, '======reservedPrice=============')
     if (parseFloat(price) === reservedPrice) {
       return
     } else {
       let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
       let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
+      console.log(increment, highestBidAmount, '================highestBidAmount============')
       setMinBidAmount(bidAmount)
       setPrice(bidAmount.toFixed(2))
     }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -8,13 +7,12 @@ import Link from 'next/link'
 
 // custom functions
 import { useViewport } from 'utils'
-import { calculateTimeLeft, formattedAmount, getTimeDifference } from 'utils/helpers'
+import { formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
-import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -27,13 +25,36 @@ import ImageWithAuction from 'components/ImageWithAuction'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
-  const router = useRouter()
   const viewport = useViewport()
-  const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [loaded, setLoaded] = useState(false)
+
+  const calculateAuctionTimeLeft = endDate => {
+    let difference = getTimeDifference(endDate)
+    let timeLeft = {}
+
+    if (difference > 0) {
+      const seconds = Math.floor((difference / 1000) % 60)
+      const minutes = Math.floor((difference / 1000 / 60) % 60)
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      timeLeft['seconds'] = (seconds < 10 && '0') + seconds + ''
+      timeLeft['minutes'] = (minutes < 10 && '0') + minutes + ''
+      timeLeft['hours'] = (hours < 10 && '0') + hours + ''
+      timeLeft['days'] = (days < 10 && '0') + days + ''
+    } else {
+      timeLeft = {
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+      }
+    }
+
+    return timeLeft
+  }
 
   useEffect(() => {
     if (
@@ -42,10 +63,10 @@ const LiveAuctionCard = props => {
       data.end_time !== undefined &&
       data.end_time !== null
     ) {
-      setTimeLeft(calculateTimeLeft(getStartTime(data)))
+      setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
 
       const timer = setInterval(() => {
-        setTimeLeft(calculateTimeLeft(getStartTime(data)))
+        setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
       }, 1000)
 
       return () => clearTimeout(timer)

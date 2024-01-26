@@ -5,6 +5,7 @@ export const validDigits = (n) => {
 }
 
 export const calculateTimeLeft = endDate => {
+  
   let difference = getTimeDifferenceWithAuction(endDate)
   let timeLeft = {}
 

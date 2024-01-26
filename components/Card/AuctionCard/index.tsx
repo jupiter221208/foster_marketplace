@@ -12,6 +12,7 @@ import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
+import { useDispatch, useSelector } from 'react-redux'
 
 const AuctionCard = props => {
   const {
@@ -27,9 +28,9 @@ const AuctionCard = props => {
   } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
-  // const [resetEndBid, setResetEndBid] = useState(false)
   const viewport = useViewport()
-  let resetEndBid = false
+  const dispatch = useDispatch()
+  const resetEndBid = useSelector(state => (state as any).resetEndBid)
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
@@ -44,15 +45,16 @@ const AuctionCard = props => {
       const timer = setInterval(() => {
         let time_left = calculateTimeLeft(getStartTime())
         setTimeLeft(time_left)
-
         if (endPhaseDuration !== null && resetEndBid === false) {
           let seconds =
             time_left['days'] * 24 * 3600 +
             time_left['hours'] * 3600 +
             time_left['minutes'] * 60 +
             time_left['seconds'] * 1
+
           if (seconds < endPhaseDuration) {
-            resetEndBid = true
+            console.log(seconds, endPhaseDuration, '===========seconds=======')
+            dispatch({ type: 'set', resetEndBid: true })
             setEndPhaseBid()
           }
         }
