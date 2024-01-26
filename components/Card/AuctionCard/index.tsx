@@ -24,7 +24,6 @@ const AuctionCard = props => {
     endPhaseDuration,
     setEndPhaseBid,
     auctionLoaded,
-    setAuctionLoaded,
   } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
@@ -38,14 +37,13 @@ const AuctionCard = props => {
         let time_left = calculateTimeLeft(getStartTime())
         setTimeLeft(time_left)
 
-        if (endPhaseDuration !== null && resetFlag === false) {
+        if (auctionLoaded && endPhaseDuration !== null && resetFlag === false) {
           let seconds =
             time_left['days'] * 24 * 3600 +
             time_left['hours'] * 3600 +
             time_left['minutes'] * 60 +
             time_left['seconds'] * 1
 
-          // console.log(seconds, '============seconds==========')
           if (seconds < endPhaseDuration) {
             resetFlag = true
             setEndPhaseBid()
@@ -57,7 +55,7 @@ const AuctionCard = props => {
         clearTimeout(timer)
       }
     }
-  }, [startTime, endTime])
+  }, [startTime, endTime, auctionLoaded])
 
   const getStartTime = () => {
     let startDate = new Date(startTime)

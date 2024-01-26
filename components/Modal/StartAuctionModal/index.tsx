@@ -160,7 +160,13 @@ const StartAuctionModal = props => {
                 )}
               </div>
               <div className={styles.rightPanel}>
-                <AuctionDetail data={data} onSuccess={onSuccess} onStartProgress={onStartProgress} onClose={onClose} />
+                <AuctionDetail
+                  data={data}
+                  onSuccess={onSuccess}
+                  onStartProgress={onStartProgress}
+                  onClose={onClose}
+                  onRefreshPage={() => {}}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>
