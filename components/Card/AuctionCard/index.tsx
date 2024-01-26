@@ -37,7 +37,6 @@ const AuctionCard = props => {
       const timer = setInterval(() => {
         let time_left = calculateTimeLeft(getStartTime())
         setTimeLeft(time_left)
-        // console.log(time_left, '============endPhaseDuration==========')
 
         if (endPhaseDuration !== null && resetFlag === false) {
           let seconds =
@@ -46,6 +45,7 @@ const AuctionCard = props => {
             time_left['minutes'] * 60 +
             time_left['seconds'] * 1
 
+          // console.log(seconds, '============seconds==========')
           if (seconds < endPhaseDuration) {
             resetFlag = true
             setEndPhaseBid()

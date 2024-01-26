@@ -366,6 +366,7 @@ const MainSection = ({
     if (nftInfo) {
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
+      setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
       setMerchToggle(merch_hub_enabled)
       enableMerch(merch_hub_enabled)
       setLikeCount(likes)
@@ -411,15 +412,23 @@ const MainSection = ({
 
     setHighestBidAmount(highestBidAmount)
     setNftCurrentPrice(highestBidAmount)
-    setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
 
     setStartTime(new Date(parseInt(startTime.toString()) * 1000).toISOString())
     let end_time = new Date(parseInt(endTime.toString()) * 1000).toISOString()
     setEndTime(end_time)
 
     let endPhaseDuration = nftInfo?.auction?.auction?.end_phase_duration
+    // console.log(endPhaseDuration, '==============endPhaseDuration============')
+
     if (endPhaseDuration !== null) {
       let diffTime = parseInt(endTime.toString()) - Math.floor(Date.now() / 1000)
+      // console.log(
+      //   endTime,
+      //   diffTime,
+      //   endPhaseDuration,
+      //   '================endTime, diffTime, endPhaseDuration============'
+      // )
+
       if (diffTime < endPhaseDuration) {
         let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
         let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
@@ -448,7 +457,7 @@ const MainSection = ({
   useEffect(() => {
     let auctionListenerHandle: number | null = null
     ;(async () => {
-      if (!nftDetail) return
+      if (!nftDetail || !nftInfo) return
 
       setLoading(true)
 
@@ -559,7 +568,7 @@ const MainSection = ({
         if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
       }
     })()
-  }, [mx, nftDetail])
+  }, [mx, nftDetail, nftInfo])
 
   useEffect(() => {
     axios
@@ -569,9 +578,12 @@ const MainSection = ({
   }, [nftCollectionUrl])
 
   const setEndPhaseBidIncresement = () => {
+    console.log(highBidder, '================highBidder============')
+
     if (highBidder !== '') {
       let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
       let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
+      console.log(increment, highestBidAmount, '================highestBidAmount============')
       setMinBidAmount(bidAmount)
       setPrice(bidAmount.toFixed(2))
     }
