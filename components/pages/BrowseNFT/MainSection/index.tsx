@@ -1450,7 +1450,7 @@ const MainSection = ({
                               </div>
                             ) : (
                               <div>
-                                {/* {publicKey?.toBase58() === highBidder ? (
+                                {publicKey?.toBase58() === highBidder ? (
                                   <>
                                     <div className="w-full flex justify-center">
                                       <PriceInput
@@ -1474,102 +1474,102 @@ const MainSection = ({
                                     </div>
                                     <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                   </>
-                                ) : ( */}
-                                <>
-                                  <div className="w-full flex justify-center">
-                                    <PriceInput
-                                      value={price}
-                                      placeholder="Enter Bid amount"
-                                      backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                                      fullWidth
-                                      min={0}
-                                      margin
-                                      height={
-                                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
-                                      }
-                                      onChange={value => {
-                                        if (value < 0) {
-                                          setPrice('')
-                                        } else {
-                                          setPrice(value)
+                                ) : (
+                                  <>
+                                    <div className="w-full flex justify-center">
+                                      <PriceInput
+                                        value={price}
+                                        placeholder="Enter Bid amount"
+                                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                        fullWidth
+                                        min={0}
+                                        margin
+                                        height={
+                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                         }
-                                      }}
-                                    />
-                                  </div>
-                                  <div
-                                    className={`${styles.placeBidBG} ${
-                                      isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                                    }`}
-                                    onClick={async () => {
-                                      if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                        return
-
-                                      if (isEnded) return
-
-                                      if (!connected) {
-                                        setVisible(true)
-                                        return
-                                      }
-                                      placeBidAndSave(price)
-                                    }}
-                                  >
-                                    {auctionLoading ? (
-                                      <LoadingButton fullWidth height={51} />
-                                    ) : (
-                                      <div className="flex">
-                                        <div
-                                          className={`${styles.placeBidBtn} ${
-                                            isEnded ||
-                                            price === '' ||
-                                            price === '.' ||
-                                            parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                              ? styles.placeBidDisabledColor
-                                              : styles.placeBidEnabledColor
-                                          }`}
-                                        >
-                                          Place Bid
-                                        </div>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="w-full flex items-center justify-between">
-                                    <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
-                                    {nftInfo?.auction?.auction?.end_phase_duration !== null && (
-                                      <div
-                                        className="flex gap-[10px] items-center mr-[24px]"
-                                        onMouseEnter={() => setAuctionInfoFocus(true)}
-                                        onMouseLeave={() => setAuctionInfoFocus(false)}
-                                        onClick={() => {
-                                          setAuctionInfoFocus(true)
-                                          setTimeout(() => {
-                                            setAuctionInfoFocus(false)
-                                          }, 2000)
+                                        onChange={value => {
+                                          if (value < 0) {
+                                            setPrice('')
+                                          } else {
+                                            setPrice(value)
+                                          }
                                         }}
-                                      >
-                                        <div className={styles.endPhaseText}>End Phase</div>
-                                        <div className="mt-[4px]">
-                                          <InfoGreenIcon />
+                                      />
+                                    </div>
+                                    <div
+                                      className={`${styles.placeBidBG} ${
+                                        isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                                      }`}
+                                      onClick={async () => {
+                                        if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
+                                          return
+
+                                        if (isEnded) return
+
+                                        if (!connected) {
+                                          setVisible(true)
+                                          return
+                                        }
+                                        placeBidAndSave(price)
+                                      }}
+                                    >
+                                      {auctionLoading ? (
+                                        <LoadingButton fullWidth height={51} />
+                                      ) : (
+                                        <div className="flex">
+                                          <div
+                                            className={`${styles.placeBidBtn} ${
+                                              isEnded ||
+                                              price === '' ||
+                                              price === '.' ||
+                                              parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                                ? styles.placeBidDisabledColor
+                                                : styles.placeBidEnabledColor
+                                            }`}
+                                          >
+                                            Place Bid
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div className="w-full flex items-center justify-between">
+                                      <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
+                                      {nftInfo?.auction?.auction?.end_phase_duration !== null && (
+                                        <div
+                                          className="flex gap-[10px] items-center mr-[24px]"
+                                          onMouseEnter={() => setAuctionInfoFocus(true)}
+                                          onMouseLeave={() => setAuctionInfoFocus(false)}
+                                          onClick={() => {
+                                            setAuctionInfoFocus(true)
+                                            setTimeout(() => {
+                                              setAuctionInfoFocus(false)
+                                            }, 2000)
+                                          }}
+                                        >
+                                          <div className={styles.endPhaseText}>End Phase</div>
+                                          <div className="mt-[4px]">
+                                            <InfoGreenIcon />
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                    {auctionInfoFocus && (
+                                      <div className="w-full flex justify-end">
+                                        <div className={styles.auctionInfoText}>
+                                          <div className={styles.auctionInfoTitle}>End Phase</div>
+                                          Auction uses
+                                          <span>
+                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                          </span>
+                                          bid increments in the last
+                                          <span>
+                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
+                                          </span>
                                         </div>
                                       </div>
                                     )}
-                                  </div>
-                                  {auctionInfoFocus && (
-                                    <div className="w-full flex justify-end">
-                                      <div className={styles.auctionInfoText}>
-                                        <div className={styles.auctionInfoTitle}>End Phase</div>
-                                        Auction uses
-                                        <span>
-                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
-                                        </span>
-                                        bid increments in the last
-                                        <span>
-                                          &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
-                                        </span>
-                                      </div>
-                                    </div>
-                                  )}
-                                </>
-                                {/* )} */}
+                                  </>
+                                )}
                               </div>
                             ))}
                         </div>
