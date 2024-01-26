@@ -14,21 +14,10 @@ import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
 
 const AuctionCard = props => {
-  const {
-    currentPrice,
-    reservePrice,
-    endTime,
-    startTime,
-    setIsEnded,
-    setIsStarted,
-    endPhaseDuration,
-    setEndPhaseBid,
-    auctionLoaded,
-  } = props
+  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted, auctionLoaded } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
-  let resetFlag = false
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
@@ -36,19 +25,6 @@ const AuctionCard = props => {
       const timer = setInterval(() => {
         let time_left = calculateTimeLeft(getStartTime())
         setTimeLeft(time_left)
-
-        if (auctionLoaded && endPhaseDuration !== null && resetFlag === false) {
-          let seconds =
-            time_left['days'] * 24 * 3600 +
-            time_left['hours'] * 3600 +
-            time_left['minutes'] * 60 +
-            time_left['seconds'] * 1
-
-          if (seconds < endPhaseDuration) {
-            resetFlag = true
-            setEndPhaseBid()
-          }
-        }
       }, 1000)
 
       return () => {

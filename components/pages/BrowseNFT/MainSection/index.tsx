@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
+import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
@@ -164,11 +164,12 @@ const MainSection = ({
   const [auctionPriceLoaded, setAuctionPriceLoaded] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
-  const [minBidAmount, setMinBidAmount] = useState(0)
+  const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<string>(null)
   const [startTime, setStartTime] = useState<string>(null)
+  const [endPhaseDuration, setEndPhaseDuration] = useState<number>(0)
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
@@ -197,7 +198,7 @@ const MainSection = ({
   const [infoFocus, setInfoFocus] = useState(false)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState<string>('')
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
 
@@ -274,6 +275,7 @@ const MainSection = ({
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
+  const minBidAmount = highestBidAmount + minBidIncrement
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
@@ -363,9 +365,8 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      let { merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
+      let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
-      setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
       setMerchToggle(merch_hub_enabled)
       enableMerch(merch_hub_enabled)
       setLikeCount(likes)
@@ -374,8 +375,31 @@ const MainSection = ({
       setLike(liked)
       setSave(saved)
       setShare(sharedSocial)
+      setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
     }
   }, [nftInfo])
+
+  // set timeout to switch to end phase
+  useEffect(() => {
+    if (!nftInfo) return
+
+    let setEndPhaseTimeoutHandle: number | null = null
+
+    let endPhaseMinBidIncrement = nftInfo.auction?.auction?.end_phase_bid_increment ?? 0
+    function endPhaseStarted() {
+      setMinBidIncrement(endPhaseMinBidIncrement)
+      setPrice((highestBidAmount + endPhaseMinBidIncrement).toFixed(2))
+    }
+
+    if (endPhaseDuration > 0 && endPhaseMinBidIncrement > 0 && liveAuction && !isEnded) {
+      let endTimestampMs = new Date(endTime).getTime()
+      let endPhaseStartsIn = endTimestampMs - Date.now() - endPhaseDuration * 1000
+      if (endPhaseStartsIn <= 0) endPhaseStarted()
+      else setTimeout(endPhaseStarted, endPhaseStartsIn)
+    }
+
+    if (setEndPhaseTimeoutHandle != null) return () => clearTimeout(setEndPhaseTimeoutHandle)
+  }, [endPhaseDuration, liveAuction, isEnded, endTime, highestBidAmount, nftInfo])
 
   useEffect(() => {
     if (publicKey !== null && sellerAddress !== null) {
@@ -388,41 +412,48 @@ const MainSection = ({
     }
   }, [publicKey, sellerAddress, nftInfo])
 
-  async function handleAuctionData(auctionListing: AuctionListing) {
-    // use to set auction info
-    let {
-      startTime,
-      endTime,
-      minBidIncrement,
-      reservePrice,
-      highestBid: { amount },
-      timeExtPeriod,
-      timeExtDelta,
-    } = auctionListing
-    let strMinBid = minBidIncrement.toString()
-    let minBidInc = strMinBid === '1' ? 0.1 : parseFloat(strMinBid) / LAMPORTS_PER_SOL
-    let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
-    let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
-    let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
+  const handleAuctionData = useCallback(
+    async (auctionListing: AuctionListing) => {
+      if (!auctionListing) return
+      setLiveAuction(true)
 
-    setReservedPrice(reservedPrice)
-    setNftReservePrice(reservedPrice)
+      // use to set auction info
+      let {
+        startTime,
+        endTime,
+        minBidIncrement: minBidIncrementBN,
+        reservePrice,
+        highestBid: { amount },
+        timeExtPeriod,
+        timeExtDelta,
+      } = auctionListing
+      let minBidInc = parseFloat(minBidIncrementBN.toString()) / LAMPORTS_PER_SOL
+      let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
+      let highestBidAmount = parseFloat(amount.toString()) / LAMPORTS_PER_SOL
+      let minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidInc : reservedPrice
 
-    setHighestBidAmount(highestBidAmount)
-    setNftCurrentPrice(highestBidAmount)
+      setReservedPrice(reservedPrice)
+      setNftReservePrice(reservedPrice)
 
-    setStartTime(new Date(parseInt(startTime.toString()) * 1000).toISOString())
-    let end_time = new Date(parseInt(endTime.toString()) * 1000).toISOString()
-    setEndTime(end_time)
-    setMinBidAmount(minBidAmount)
-    setPrice(minBidAmount.toFixed(2))
+      setHighestBidAmount(highestBidAmount)
+      setNftCurrentPrice(highestBidAmount)
 
-    setTimeout(() => {
-      setAuctionPriceLoaded(true)
-    }, 3000)
+      setStartTime(new Date(parseInt(startTime.toString()) * 1000).toISOString())
+      let endTimestamp = parseInt(endTime.toString())
+      setEndTime(new Date(endTimestamp * 1000).toISOString())
+      if (!minBidIncrement) {
+        setMinBidIncrement(minBidInc)
+        setPrice(minBidAmount.toFixed(2))
+      }
 
-    if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
-  }
+      if (endTimestamp < Math.floor(Date.now() / 1000)) setIsEnded(true)
+    },
+    [minBidIncrement]
+  )
+
+  useEffect(() => {
+    if (nftInfo && setLiveAuction) setAuctionPriceLoaded(true)
+  }, [nftInfo, setLiveAuction])
 
   useEffect(() => {
     let auctionListenerHandle: number | null = null
@@ -487,7 +518,6 @@ const MainSection = ({
           }
           setNftListingData(listingData)
         } else {
-          setLiveAuction(true)
           if (!connected) {
             setIsOwnNft(false)
           }
@@ -546,18 +576,6 @@ const MainSection = ({
       .then(({ data }) => setNftCollectionImage(data?.image))
       .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
   }, [nftCollectionUrl])
-
-  const setEndPhaseBidIncresement = () => {
-    console.log(highBidder, '================highBidder============')
-
-    if (highBidder !== '') {
-      let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
-      let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
-      console.log(increment, highestBidAmount, '================highestBidAmount============')
-      setMinBidAmount(bidAmount)
-      setPrice(bidAmount.toFixed(2))
-    }
-  }
 
   const processFinalizeSale = async () => {
     let data = {
@@ -1427,14 +1445,12 @@ const MainSection = ({
                       >
                         <div className={styles.auctionContainer}>
                           <AuctionCard
-                            endPhaseDuration={nftInfo?.auction?.auction?.end_phase_duration}
                             currentPrice={nftCurrentPrice}
                             reservePrice={nftReservePrice}
                             endTime={endTime}
                             startTime={startTime}
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
-                            setEndPhaseBid={() => setEndPhaseBidIncresement()}
                             auctionLoaded={auctionPriceLoaded}
                           />
 
@@ -1534,7 +1550,7 @@ const MainSection = ({
                                     </div>
                                     <div className="w-full flex items-center justify-between">
                                       <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
-                                      {nftInfo?.auction?.auction?.end_phase_duration !== null && (
+                                      {endPhaseDuration > 0 && (
                                         <div
                                           className="flex gap-[10px] items-center mr-[24px]"
                                           onMouseEnter={() => setAuctionInfoFocus(true)}
@@ -1562,9 +1578,7 @@ const MainSection = ({
                                             &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
                                           </span>
                                           bid increments in the last
-                                          <span>
-                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_duration / 60} mins.&nbsp;
-                                          </span>
+                                          <span>&nbsp;{Math.floor(endPhaseDuration / 60)} mins.&nbsp;</span>
                                         </div>
                                       </div>
                                     )}
