@@ -1452,7 +1452,7 @@ const MainSection = ({
                               <div>
                                 {publicKey?.toBase58() === highBidder ? (
                                   <>
-                                    <div className="w-full flex justify-center">
+                                    {/* <div className="w-full flex justify-center">
                                       <PriceInput
                                         value={price}
                                         placeholder="Enter Bid amount"
@@ -1471,7 +1471,7 @@ const MainSection = ({
                                           }
                                         }}
                                       />
-                                    </div>
+                                    </div> */}
                                     <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                   </>
                                 ) : (
