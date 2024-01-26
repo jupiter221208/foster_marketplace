@@ -408,15 +408,32 @@ const MainSection = ({
 
     setReservedPrice(reservedPrice)
     setNftReservePrice(reservedPrice)
-    setMinBidAmount(minBidAmount)
-    setPrice(minBidAmount.toFixed(2))
 
     setHighestBidAmount(highestBidAmount)
     setNftCurrentPrice(highestBidAmount)
     setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
 
     setStartTime(new Date(parseInt(startTime.toString()) * 1000).toISOString())
-    setEndTime(new Date(parseInt(endTime.toString()) * 1000).toISOString())
+    let end_time = new Date(parseInt(endTime.toString()) * 1000).toISOString()
+    setEndTime(end_time)
+
+    let endPhaseDuration = nftInfo?.auction?.auction?.end_phase_duration
+    if (endPhaseDuration !== null) {
+      let diffTime = parseInt(endTime.toString()) - Math.floor(Date.now() / 1000)
+      if (diffTime < endPhaseDuration) {
+        let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
+        let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
+        setMinBidAmount(bidAmount)
+        setPrice(bidAmount.toFixed(2))
+      } else {
+        setMinBidAmount(minBidAmount)
+        setPrice(minBidAmount.toFixed(2))
+      }
+    } else {
+      setMinBidAmount(minBidAmount)
+      setPrice(minBidAmount.toFixed(2))
+    }
+
     if (parseInt(endTime.toString()) < Math.floor(Date.now() / 1000)) setIsEnded(true)
 
     setAuctionLoaded(true)
@@ -552,14 +569,9 @@ const MainSection = ({
   }, [nftCollectionUrl])
 
   const setEndPhaseBidIncresement = () => {
-    console.log(price, '======price=============')
-    console.log(reservedPrice, '======reservedPrice=============')
-    if (parseFloat(price) === reservedPrice) {
-      return
-    } else {
+    if (highBidder !== '') {
       let increment = nftInfo?.auction?.auction?.end_phase_bid_increment
       let bidAmount = highestBidAmount > 0 ? highestBidAmount + increment : reservedPrice
-      console.log(increment, highestBidAmount, '================highestBidAmount============')
       setMinBidAmount(bidAmount)
       setPrice(bidAmount.toFixed(2))
     }
@@ -754,7 +766,6 @@ const MainSection = ({
 
     try {
       await refreshToken()
-
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {
         updateSolBalance()
@@ -1426,7 +1437,7 @@ const MainSection = ({
                   </div>
                 ) : liveAuction === true ? (
                   <>
-                    {!isEnded && (
+                    {!isEnded && nftInfo && (
                       <div
                         className={`mt-6 w-full ${
                           showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
@@ -1442,6 +1453,7 @@ const MainSection = ({
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
                             setEndPhaseBid={() => setEndPhaseBidIncresement()}
+                            setAuctionLoaded={() => setAuctionLoaded(false)}
                             auctionLoaded={auctionLoaded}
                           />
 

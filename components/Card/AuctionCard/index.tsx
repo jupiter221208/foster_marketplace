@@ -12,7 +12,6 @@ import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
-import { useDispatch, useSelector } from 'react-redux'
 
 const AuctionCard = props => {
   const {
@@ -25,27 +24,22 @@ const AuctionCard = props => {
     endPhaseDuration,
     setEndPhaseBid,
     auctionLoaded,
+    setAuctionLoaded,
   } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
-  const dispatch = useDispatch()
-  const resetEndBid = useSelector(state => (state as any).resetEndBid)
+  let resetFlag = false
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
-      getStartTime()
-    }
-  }, [startTime, endTime])
-
-  useEffect(() => {
-    if (auctionLoaded && startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
-
       const timer = setInterval(() => {
         let time_left = calculateTimeLeft(getStartTime())
         setTimeLeft(time_left)
-        if (endPhaseDuration !== null && resetEndBid === false) {
+        // console.log(time_left, '============endPhaseDuration==========')
+
+        if (endPhaseDuration !== null && resetFlag === false) {
           let seconds =
             time_left['days'] * 24 * 3600 +
             time_left['hours'] * 3600 +
@@ -53,16 +47,17 @@ const AuctionCard = props => {
             time_left['seconds'] * 1
 
           if (seconds < endPhaseDuration) {
-            console.log(seconds, endPhaseDuration, '===========seconds=======')
-            dispatch({ type: 'set', resetEndBid: true })
+            resetFlag = true
             setEndPhaseBid()
           }
         }
       }, 1000)
 
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+      }
     }
-  }, [auctionLoaded])
+  }, [startTime, endTime])
 
   const getStartTime = () => {
     let startDate = new Date(startTime)
@@ -130,7 +125,7 @@ const AuctionCard = props => {
             )}
           </div>
           <div className={styles.priceText}>
-            {Math.round((auctionStarted && currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
+            {Math.round((currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
           </div>
         </div>
       </div>

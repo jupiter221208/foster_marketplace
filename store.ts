@@ -42,6 +42,7 @@ const initialState = {
   collectionMintAddress: '',
   collectionMintName: '',
   collectionCoverUrl: '',
+  resetEndBid: false
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
