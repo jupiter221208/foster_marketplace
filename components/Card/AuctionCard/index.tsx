@@ -35,9 +35,7 @@ const AuctionCard = props => {
 
   const getStartTime = () => {
     let startDate = new Date(startTime)
-    let offset = startDate.getTimezoneOffset() * 60 * 1000
-    let proposalStartTime = startDate.getTime() - offset
-
+    let proposalStartTime = startDate.getTime()
     let difference = proposalStartTime - new Date().getTime()
 
     if (difference >= 0) {

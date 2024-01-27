@@ -54,7 +54,7 @@ const MoreCategorySection = props => {
       ;(async () => {
         for (let index = 0; index < nfts.length; index++) {
           let data = nfts[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/collection/${data.collection_id}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }

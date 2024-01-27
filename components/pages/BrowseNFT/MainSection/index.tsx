@@ -639,6 +639,8 @@ const MainSection = ({
 
         reloadCreatorOwnerName()
         setNftCurrentPrice(0)
+        setLiveAuction(false)
+        setEndTime(null)
 
         setTimeout(() => {
           setOpenProgressingModal(false)
@@ -1438,11 +1440,7 @@ const MainSection = ({
                 ) : liveAuction === true ? (
                   <>
                     {!isEnded && (
-                      <div
-                        className={`mt-6 w-full ${
-                          showPlaceBidButton && isOwnNft === false ? 'h-[180px] lg:h-[200px]' : 'h-[52px] lg:h-[60px]'
-                        } relative`}
-                      >
+                      <div className={`mt-6 w-full`}>
                         <div className={styles.auctionContainer}>
                           <AuctionCard
                             currentPrice={nftCurrentPrice}
@@ -1491,7 +1489,7 @@ const MainSection = ({
                                     <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                   </>
                                 ) : (
-                                  <>
+                                  <div className="relative">
                                     <div className="w-full flex justify-center">
                                       <PriceInput
                                         value={price}
@@ -1553,8 +1551,14 @@ const MainSection = ({
                                       {endPhaseDuration > 0 && (
                                         <div
                                           className="flex gap-[10px] items-center mr-[24px]"
-                                          onMouseEnter={() => setAuctionInfoFocus(true)}
-                                          onMouseLeave={() => setAuctionInfoFocus(false)}
+                                          onMouseEnter={() => {
+                                            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                                              setAuctionInfoFocus(true)
+                                          }}
+                                          onMouseLeave={() => {
+                                            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                                              setAuctionInfoFocus(false)
+                                          }}
                                           onClick={() => {
                                             setAuctionInfoFocus(true)
                                             setTimeout(() => {
@@ -1570,7 +1574,7 @@ const MainSection = ({
                                       )}
                                     </div>
                                     {auctionInfoFocus && (
-                                      <div className="w-full flex justify-end">
+                                      <div className="absolute w-full flex justify-end">
                                         <div className={styles.auctionInfoText}>
                                           <div className={styles.auctionInfoTitle}>End Phase</div>
                                           Auction uses
@@ -1582,7 +1586,7 @@ const MainSection = ({
                                         </div>
                                       </div>
                                     )}
-                                  </>
+                                  </div>
                                 )}
                               </div>
                             ))}
