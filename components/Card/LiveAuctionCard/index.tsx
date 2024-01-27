@@ -24,7 +24,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 import ImageWithAuction from 'components/ImageWithAuction'
 
 const LiveAuctionCard = props => {
-  const { data, onClick } = props
+  const { data, onClick, setCardExpired } = props
   const viewport = useViewport()
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
@@ -66,7 +66,15 @@ const LiveAuctionCard = props => {
       setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
 
       const timer = setInterval(() => {
-        setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
+        let timeLeft = calculateAuctionTimeLeft(getStartTime(data))
+        if (
+          timeLeft['days'] === '00' &&
+          timeLeft['hours'] === '00' &&
+          timeLeft['minutes'] === '00' &&
+          timeLeft['seconds'] === '00'
+        )
+          setCardExpired(data)
+        setTimeLeft(timeLeft)
       }, 1000)
 
       return () => clearTimeout(timer)
