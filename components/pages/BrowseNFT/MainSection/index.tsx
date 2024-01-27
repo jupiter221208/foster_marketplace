@@ -367,6 +367,7 @@ const MainSection = ({
     if (nftInfo) {
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
+      setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
       setMerchToggle(merch_hub_enabled)
       enableMerch(merch_hub_enabled)
       setLikeCount(likes)
