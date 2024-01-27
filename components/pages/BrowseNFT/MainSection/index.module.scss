@@ -251,7 +251,8 @@
     line-height: 22px;
     padding: 8px 16px;
   }
-  background: rgba(var(--background-light-color-rgb), 0.05);
+  // background: rgba(var(--background-light-color-rgb), 0.05);
+  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
   color: var(--text-gray-200-color);
   white-space: nowrap;
   cursor: pointer;
