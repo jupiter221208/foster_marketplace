@@ -106,18 +106,18 @@ const ProfileMenu = props => {
             ) : (
               <div>
                 {avatar === null || avatar === undefined ? (
-                  <div className="w-full h-full">
+                  <div className={styles.profileOutline}>
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                       <div></div>
                     </ReactPlaceholder>
                   </div>
                 ) : avatar?.length > 0 ? (
-                  <div>
-                    <img className={styles.profileOutline} src={avatar} alt="" width={42} height={42} />
+                  <div className={styles.profileOutline}>
+                    <img src={avatar} alt="" width={46} height={46} />
                   </div>
                 ) : (
                   <div className={styles.profileOutline}>
-                    <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+                    <Image src={AvatarImage} alt="" width={46} height={46} layout="responsive" objectFit="cover" />
                   </div>
                 )}
               </div>

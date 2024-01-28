@@ -193,6 +193,10 @@ const MainSection = props => {
                   <div className={styles.headerImage}>
                     <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
                   </div>
+                ) : data?.cover_image ? (
+                  <div className={styles.headerImage}>
+                    <img src={data?.cover_image} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
                 ) : (
                   <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
                 )}
@@ -251,11 +255,6 @@ const MainSection = props => {
                 )}
 
                 <div className="w-[100px] overflow-hidden rounded-[12px]">
-                  {/* {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )} */}
                   {saved ? (
                     hasloading ? (
                       <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
@@ -329,6 +328,8 @@ const MainSection = props => {
               <div className={styles.headerImage}>
                 {data?.banner_image !== null && data?.banner_image.length > 0 ? (
                   <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
+                ) : data?.cover_image ? (
+                  <img src={data?.cover_image} alt="" className="w-full h-[132px] object-cover" />
                 ) : (
                   <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
                 )}

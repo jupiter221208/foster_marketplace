@@ -25,7 +25,7 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 
 const MoreCollectionSection = props => {
-  const { collectionId, collectionName = '' } = props
+  const { collectionId, collectionName = '', mintAddress } = props
   const viewport = useViewport()
   const router = useRouter()
 
@@ -35,12 +35,14 @@ const MoreCollectionSection = props => {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
           if (response instanceof Array) {
+            let resData = response.filter(item => item.token_id !== mintAddress)
+            if (resData.length === 0) return
             if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
-              setNftList(response.filter(item => item.cover_image_url !== null))
+              setNftList(resData.filter(item => item.cover_image_url !== null))
             } else {
-              setNftList(response)
+              setNftList(resData)
             }
-            fetchNftData(response)
+            fetchNftData(resData)
           }
         },
         error => {}

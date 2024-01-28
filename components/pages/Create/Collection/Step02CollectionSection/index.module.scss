@@ -29,6 +29,15 @@
   display: none;
 }
 
+.blurView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--hero-avatar-bg-rgb);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
 .title {
   width: 100%;
   margin-top: 26px;

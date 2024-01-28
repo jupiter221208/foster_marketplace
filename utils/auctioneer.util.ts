@@ -9,7 +9,7 @@ import {
   ListingConfig as AuctionListing
 } from '@metaplex-foundation/mpl-auctioneer'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
-import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { AccountInfo, PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { BN } from '@project-serum/anchor'
 import {
   createApproveInstruction,
@@ -112,7 +112,11 @@ export async function fetchAuctionListing(
   let [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
   let accountInfo = await metaplex.connection.getAccountInfo(listingConfig)
   if(!accountInfo) return null;
-  else return AuctionListing.fromAccountInfo(accountInfo)[0];
+  else return parseAuctionListing(accountInfo)
+}
+
+export function parseAuctionListing(accountInfo: AccountInfo<Buffer>): AuctionListing {
+  return AuctionListing.fromAccountInfo(accountInfo)[0];
 }
 
 export async function startAuction(
@@ -121,7 +125,9 @@ export async function startAuction(
   startDate: Date,
   endDate: Date,
   price: number,
-  minBidIncrement: number
+  minBidIncrement: number,
+  timeExtPeriod: number | null,
+  timeExtDelta: number | null,
 ) {
   const startTime = Math.floor(startDate.getTime() / 1000)
   const endTime = Math.floor(endDate.getTime() / 1000)
@@ -180,8 +186,8 @@ export async function startAuction(
     endTime: endTime,
     reservePrice: price * 1000000000,
     minBidIncrement: minBidIncrement * 1000000000,
-    timeExtPeriod: 1,
-    timeExtDelta: 1,
+    timeExtPeriod,
+    timeExtDelta,
     allowHighBidCancel: true,
   }
 

@@ -30,7 +30,7 @@ import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
 
 import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
 
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 
@@ -66,40 +66,36 @@ const MainSection = () => {
   }, [heroList, router])
 
   useEffect(() => {
-    dashboardAPI.getDashboardBanner().then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setTimeout(() => {
-            setHeroList(response.featured_nfts)
-          }, 1000)
-          setNftCnt(response.stats.users)
-          setCollectionCnt(response.stats.collections)
-          setArtworkCnt(response.stats.nfts)
-        }
-      },
+    dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        setHeroList(response.slice(0, 5))
+      }
+    }),
       error => {
         console.log(error)
       }
-    )
   }, [])
+
+  useEffect(() => {
+    if (heroList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < heroList.length; index++) {
+          let data = heroList[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/${data.artist_username}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [heroList])
 
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        <div className="hidden lg:block">
-          <div>
-            <div className={styles.text}>Home to Creators Around the World</div>
-            <div className={styles.slug}>Pushing the Boundaries of Digital Art on Solana</div>
-          </div>
-        </div>
-        <div className="flex lg:hidden">
-          <div
-            className="w-full min-h-[508px]"
-            style={{
-              width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
-              marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
-            }}
-          >
+        <div className="flex lg:hidden w-[calc(100%+32px)]">
+          <div className={styles.heroMobileSection}>
             <div className={styles.contentArea}>
               <div className={styles.mobileTitle}>Home to Creators Around the World</div>
               <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
@@ -130,17 +126,17 @@ const MainSection = () => {
         </div>
         <div className="hidden lg:flex">
           <div
-            className="w-full lg:pt-[20px] "
+            className="w-full"
             style={{
               width: '100%',
               marginLeft: '0px',
             }}
           >
-            <div className="w-full relative mt-[15px]" id="heroSwiper">
+            <div className="w-full relative" id="heroSwiper">
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={1.2}
-                spaceBetween={-30}
+                slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
+                spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
                 centeredSlides={true}
                 loop
                 pagination={{
@@ -154,8 +150,6 @@ const MainSection = () => {
                     <HeroCard data={item} />
                   </SwiperSlide>
                 ))}
-                {/* <div className={styles.leftSide} />
-                <div className={styles.rightSide} /> */}
               </Swiper>
             </div>
           </div>
@@ -186,12 +180,12 @@ const MainSection = () => {
           <></>
         )}
 
-        <div className={styles.leftEllipse}>
+        {/* <div className={styles.leftEllipse}>
           <EllipseBlue />
         </div>
         <div className={styles.rightEllipse}>
           <EllipseGreen />
-        </div>
+        </div> */}
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>

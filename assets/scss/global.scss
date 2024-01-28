@@ -562,7 +562,10 @@ h6 {
     height: 56px;
     border-radius: 28px;
     top: 45%;
-    left: 25px;
+    left: 60px;
+    @media (min-width: 1440px) {
+      left: 160px;
+    }
     right: 55px;
     background: var(--create-nft-card-bg);
     box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
@@ -588,7 +591,10 @@ h6 {
     border-radius: 28px;
     top: 45%;
     bottom: 0px;
-    right: 20px;
+    right: 60px;
+    @media (min-width: 1440px) {
+      right: 160px;
+    }
     background: var(--create-nft-card-bg);
     box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
     color: var(--scroll-arrow-color);
@@ -961,7 +967,7 @@ h6 {
 ::-webkit-scrollbar {
   width: 8px;
   height: 0px;
-  background-color: var(--text-gray-800-color);
+  background-color: var(--scroll-bar-bg);
 }
 
 /* Track */
@@ -1373,7 +1379,7 @@ h6 {
     background: var(--datepicker-bg-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid transparent;
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 9px;
     width: 100%;
     max-width: 432px;
@@ -1398,17 +1404,20 @@ h6 {
       justify-content: center;
       align-items: center;
       &:hover {
-        background-color: var(--brand-01-color);
+        @media (min-width: 1024px) {
+          background-color: #707070;
+        }
       }
     }
     .react-datepicker__navigation--previous {
       left: auto;
       top: 20px;
-      right: 48px;
+      right: 58px;
       align-items: center;
       background-image: url('../../assets/icons/arrow-left-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
+      -webkit-tap-highlight-color: transparent;
       @media (min-width: 1024px) {
         right: 98px;
       }
@@ -1434,10 +1443,12 @@ h6 {
       background-image: url('../../assets/icons/arrow-right-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
+      -webkit-tap-highlight-color: transparent;
       &:hover {
-        background-image: url('../../assets/icons/arrow-right-black-01.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+          background-image: url('../../assets/icons/arrow-right-black-01.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+
       }
       .react-datepicker__navigation-icon::before {
         border-width: 0px;
@@ -1555,7 +1566,7 @@ h6 {
 
   .react-datepicker__input-time-container {
     margin: 10px 0px 0px 0px;
-    background: var(--background-dark-color);
+    background: rgba(var(--main-bg-color-rgb), 0.05);
     border-radius: 9px;
   }
   .react-datepicker__input-time-container .react-datepicker-time__input-container {
@@ -1570,6 +1581,11 @@ h6 {
       cursor: pointer;
       background: url('../../assets/icons/timer-gray.svg') no-repeat;
       padding-right: 15px;
+      outline: none;
+    }
+    input[type='time'] {
+      color: var(--text-gray-200-color);
+      outline: none;
     }
   }
 }
@@ -1607,6 +1623,10 @@ h6 {
 
 [data-name='right-icon'] {
   fill: var(--menu-item-right-icon);
+}
+
+[data-name='black-white-color'] {
+  fill: var(--collection-card-bg);
 }
 
 [data-name='gradient-btn-icon'] {

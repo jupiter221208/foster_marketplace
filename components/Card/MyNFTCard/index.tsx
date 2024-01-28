@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // next components
 import Link from 'next/link'
@@ -14,11 +15,13 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import ModelViewer from 'components/ModelViewer'
 
 const MyNFTCard = props => {
   const { data, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
   const dispatch = useDispatch()
+  const { width, height, ref } = useResizeDetector()
 
   return (
     <div className={styles.container}>
@@ -28,7 +31,21 @@ const MyNFTCard = props => {
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+            {data.json.category === 'vr' || data.json.properties?.category === 'vr' ? (
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  {data?.json.animation_url ? (
+                    <>
+                      <ModelViewer path={data?.json.animation_url} orbitLimited />
+                    </>
+                  ) : data?.json?.image ? (
+                    <img src={data?.json?.image} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <h1>Could not load NFT.</h1>
+                  )}
+                </div>
+              </div>
+            ) : data.json.category === 'video' || data.json.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
