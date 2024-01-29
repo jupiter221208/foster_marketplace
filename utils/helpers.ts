@@ -567,7 +567,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--import-ea-border-color', '255, 255, 255')
     doc.style.setProperty('--collection-desc-bg-color', '#F3F2F0')
     doc.style.setProperty('--hero-card-bg', '#ECEBEA')
-    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(243, 242, 240, 0.5)')
+    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(243, 242, 240, 0)')
     doc.style.setProperty('--explore-tab-border', '#202427')
     // =====================================================
     // =====================================================
@@ -891,7 +891,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--import-ea-border-color', '239, 240, 246')
     doc.style.setProperty('--collection-desc-bg-color', '#2F2F2F')
     doc.style.setProperty('--hero-card-bg', '#212121')
-    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(27, 27, 27, 0.5)')
+    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(27, 27, 27, 0)')
     doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
   }
 }
