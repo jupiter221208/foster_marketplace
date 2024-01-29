@@ -47,7 +47,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setNftName(limit(value, 32))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-[30px]`}>
         Description <span>*</span>
       </div>
       <div className="w-full mt-5">
@@ -59,7 +59,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-[30px]`}>
         Categories (max. 3) <span>*</span>
       </div>
       <div className="w-full mt-5">
