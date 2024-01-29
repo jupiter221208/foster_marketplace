@@ -84,12 +84,6 @@ const MainSection = props => {
         if (nft.list_price) prices.push(parseFloat(nft.list_price))
       })
     setFloorPrice(prices.length === 0 ? 0 : Math.min.apply(Math, prices))
-    console.log(
-      publicKey.toBase58(),
-      data?.minter_id,
-      publicKey?.toBase58() !== data?.minter_id,
-      '=============data============='
-    )
   }, [nfts])
 
   const saveCollection = collectionId => {
@@ -293,7 +287,7 @@ const MainSection = props => {
                       <div className="mt-[4px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>

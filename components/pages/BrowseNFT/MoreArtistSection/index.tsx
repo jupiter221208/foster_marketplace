@@ -74,11 +74,14 @@ const MoreArtistSection = props => {
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from {artistInfo.name}</div>
           </div>
           <div className="hidden lg:flex">
-            <SeeMoreButton
+            <OutlineButton
+              label="See More"
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
+              borderColor={'var(--see-more-border)'}
+              height="42px"
             />
           </div>
         </div>

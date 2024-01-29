@@ -4,20 +4,16 @@ import { useDispatch } from 'react-redux'
 // next components
 
 // icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+
 // styles
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
-import { useViewport } from 'utils'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
   const dispatch = useDispatch()
-  const viewport = useViewport()
-  console.log(data, '============data===========')
   return (
     <Link href={type === 'artworks' ? `/nft/${data.mint_address}` : `/collection/${data.collection_address}`} passHref>
       <a>
