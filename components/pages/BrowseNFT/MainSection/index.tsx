@@ -1456,7 +1456,7 @@ const MainSection = ({
                           {showPlaceBidButton &&
                             !isOwnNft &&
                             (loading || !auctionPriceLoaded ? (
-                              <div className="w-full pl-[20px] pr-[20px]">
+                              <div className="w-full pl-[20px] pr-[20px] mb-[16px]">
                                 <div className="w-full flex justify-center">
                                   <div
                                     className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
@@ -1527,11 +1527,11 @@ const MainSection = ({
                                         </div>
                                       )}
                                     </div>
-                                    <div className="w-full flex items-center justify-between">
+                                    <div className="w-full flex items-center justify-between px-[18px] mb-[10px] mt-[4px]">
                                       <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                                       {endPhaseDuration > 0 && (
                                         <div
-                                          className="flex gap-[10px] items-center mr-[24px]"
+                                          className="flex gap-[10px] items-center"
                                           onMouseEnter={() => {
                                             if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
                                               setAuctionInfoFocus(true)
@@ -1548,7 +1548,7 @@ const MainSection = ({
                                           }}
                                         >
                                           <div className={styles.endPhaseText}>End Phase</div>
-                                          <div className="mt-[4px]">
+                                          <div>
                                             <InfoGreenIcon />
                                           </div>
                                         </div>
