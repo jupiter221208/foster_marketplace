@@ -275,7 +275,7 @@ const MainSection = ({
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
-  const minBidAmount = highestBidAmount + minBidIncrement
+  const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
