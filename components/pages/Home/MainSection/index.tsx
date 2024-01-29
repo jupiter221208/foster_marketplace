@@ -112,7 +112,6 @@ const MainSection = () => {
                   modules={[Pagination]}
                   className={'heroSwiperMobile'}
                   loop
-                  navigation
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
