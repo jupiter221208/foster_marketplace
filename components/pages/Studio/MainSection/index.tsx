@@ -85,7 +85,7 @@ const MainSection = ({ onchange, heroValue }) => {
                 <StudioTitle />
               </div>
             </div> */}
-            <div className={styles.text}>LOVE THE ART. OWN THE MERCH.</div>
+            <div className={styles.text}>Solana Couture: Fashion & Fulfillment</div>
             <div className={styles.slug}>Pick a base garment and explore merch from your favorite artists.</div>
           </div>
         )}
@@ -99,7 +99,7 @@ const MainSection = ({ onchange, heroValue }) => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>LOVE THE ART. OWN THE MERCH.</div>
+              <div className={styles.mobileTitle}>Solana Couture: Fashion & Fulfillment</div>
               <div className={styles.mobileText}>Pick a base garment and explore merch from your favorite artists.</div>
             </div>
             {StudioHeroList.length !== 0 && (
