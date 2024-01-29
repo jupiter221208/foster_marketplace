@@ -70,7 +70,7 @@ const TrendingSection = props => {
           centeredSlides={true}
           loop
           modules={[Navigation]}
-          className={'heroNavigationSwiper'}
+          className={'auctionNavigationSwiper'}
         >
           <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[10px] lg:mt-[34px] z-10">
             {trendingList.map((item: any, index) => (

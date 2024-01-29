@@ -30,7 +30,7 @@
   flex-direction: column;
   width: 100%;
   @media (min-width: 1024px) {
-    height: calc(100vh - 100px - 60px);
+    height: calc(100vh - 100px - 90px);
   }
   display: flex;
   justify-content: center;
@@ -52,7 +52,7 @@
 .imageArea {
   position: relative;
   width: 90%;
-  height: 90%;
+  height: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -859,7 +859,7 @@
 .minText {
   font-size: 12px;
   font-family: 'Muli-Light';
-  margin: 4px 18px 0px 25px;
+  // margin: 4px 18px 8px 25px;
   @media (min-width: 1024px) {
     font-size: 14px;
   }
@@ -869,7 +869,6 @@
 .endPhaseText {
   font-size: 12px;
   font-family: 'Muli-Light';
-  margin-top: 4px;
   @media (min-width: 1024px) {
     font-size: 14px;
   }

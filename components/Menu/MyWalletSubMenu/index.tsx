@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -17,8 +16,6 @@ import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
-import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 

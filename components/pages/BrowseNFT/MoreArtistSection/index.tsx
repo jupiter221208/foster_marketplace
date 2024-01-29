@@ -71,7 +71,9 @@ const MoreArtistSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Artist</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              {artistInfo?.name.length > 0 && `More from ${artistInfo.name}`}
+            </div>
           </div>
           <div className="hidden lg:flex">
             <SeeMoreButton

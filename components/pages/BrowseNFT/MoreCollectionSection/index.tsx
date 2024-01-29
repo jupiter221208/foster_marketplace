@@ -17,17 +17,20 @@ import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreCollectionSection = props => {
   const { collectionId, collectionName = '', mintAddress } = props
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [nftList, setNftList] = useState([])
   useEffect(() => {
@@ -70,14 +73,16 @@ const MoreCollectionSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Collection</div>
+          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+            {collectionName?.length > 0 && `More from ${collectionName}`}
+          </div>
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
-            onClick={() => router.push(`/collection/${collectionId}`)}
-            borderColor={'var(--see-more-border)'}
-            height="42px"
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', isLoading: true })
+              router.push(`/collection/${collectionId}`)
+            }}
           />
         </div>
       </div>
