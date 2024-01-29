@@ -70,7 +70,7 @@ const MoreCollectionSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Collection</div>
+          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from {collectionName}</div>
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton
