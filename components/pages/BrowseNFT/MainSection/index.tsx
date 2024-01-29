@@ -275,7 +275,6 @@ const MainSection = ({
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
-  const [walletConnectChecked, setWalletConnectChecked] = useState(false)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -414,10 +413,6 @@ const MainSection = ({
       )
     }
   }, [publicKey, sellerAddress, nftInfo])
-
-  useEffect(() => {
-    setWalletConnectChecked(true)
-  }, [publicKey])
 
   const handleAuctionData = useCallback(
     async (auctionListing: AuctionListing) => {
@@ -797,10 +792,9 @@ const MainSection = ({
                   },
                 ])
                 setShowAlert(true)
-                setHighBidder(publicKey?.toBase58())
+                setAuctionLoading(false)
               }, 500)
-              setAuctionLoading(false)
-
+              setHighBidder(publicKey?.toBase58())
               usersAPI.getLockupValues().then(
                 response => {
                   dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
@@ -1470,7 +1464,6 @@ const MainSection = ({
                                 </div>
                               </div>
                             ) : (
-                              walletConnectChecked && (
                                 <div>
                                   {publicKey?.toBase58() === highBidder ? (
                                     <>
@@ -1581,7 +1574,6 @@ const MainSection = ({
                                     </div>
                                   )}
                                 </div>
-                              )
                             ))}
                         </div>
                       </div>
