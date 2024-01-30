@@ -387,7 +387,6 @@ const SingleNft = () => {
       await ensureLocalWalletBalance(totalCost)
 
       let [imageUrl, animationUrl] = await storage.uploadAll(assets)
-      console.log(imageUrl, animationUrl, '==========imageUrl===============')
 
       metadata.image = imageUrl
       if (animationFile) metadata.animation_url = animationUrl
