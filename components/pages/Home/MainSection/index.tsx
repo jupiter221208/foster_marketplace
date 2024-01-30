@@ -23,6 +23,8 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import Lottie from 'lottie-react'
+import LoadingIcon from 'assets/lottery/loader-new.json'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -44,6 +46,7 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
+  const [heroCardOpacity, setHeroCardOpacity] = useState(0)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -66,6 +69,9 @@ const MainSection = () => {
   }, [heroList, router])
 
   useEffect(() => {
+    setTimeout(() => {
+      setHeroCardOpacity(100)
+    }, 2000)
     dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setHeroList(response.slice(0, 5))
@@ -126,7 +132,7 @@ const MainSection = () => {
         </div>
         <div className="hidden lg:flex">
           <div
-            className="w-full"
+            className="w-full relative"
             style={{
               width: '100%',
               marginLeft: '0px',
@@ -143,7 +149,7 @@ const MainSection = () => {
                   clickable: true,
                 }}
                 modules={[Pagination, Navigation]}
-                className={'heroNavigationSwiper'}
+                className={`heroNavigationSwiper opacity-${heroCardOpacity}`}
               >
                 {heroList.map((item, index) => (
                   <SwiperSlide key={index}>
@@ -152,6 +158,15 @@ const MainSection = () => {
                 ))}
               </Swiper>
             </div>
+            {heroCardOpacity === 0 && (
+              <div className="absolute inset-0 flex justify-center items-center">
+                <div className={styles.loadingText}>
+                  <div className="flex items-center w-[200px]">
+                    <Lottie animationData={LoadingIcon} loop={true} />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
