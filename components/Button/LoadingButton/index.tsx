@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // third party components
 import Lottie from 'lottie-react'
-import LoadingIcon from 'assets/lottery/loader-new.json'
+import LoadingIcon from 'assets/lottery/loader-black.json'
 
 // styles
 import styles from './index.module.scss'
