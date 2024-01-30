@@ -41,6 +41,7 @@ const MainSection = () => {
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [heroList, setHeroList] = useState<any[]>(HeroEmptyList)
+  const [heroSectionOpacity, setHeroSectionOpacity] = useState(0)
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
@@ -50,6 +51,13 @@ const MainSection = () => {
   }
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    setHeroSectionOpacity(0)
+    setTimeout(() => {
+      setHeroSectionOpacity(100)
+    }, 500)
+  }, [])
 
   useEffect(() => {
     if (heroList.length > 0) {
@@ -143,7 +151,7 @@ const MainSection = () => {
                   clickable: true,
                 }}
                 modules={[Pagination, Navigation]}
-                className={'heroNavigationSwiper'}
+                className={`heroNavigationSwiper opacity-[${heroSectionOpacity}%]`}
               >
                 {heroList.map((item, index) => (
                   <SwiperSlide key={index}>
