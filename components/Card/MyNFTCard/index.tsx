@@ -31,6 +31,8 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
   const dispatch = useDispatch()
   const { width, height, ref } = useResizeDetector()
 
+  console.log(data)
+
   return (
     <div className={styles.container}>
       <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
@@ -39,7 +41,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json.category === 'vr' || data.json.properties?.category === 'vr' ? (
+            {data.json?.category === 'vr' || data.json?.properties?.category === 'vr' ? (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   {data?.json.animation_url ? (
@@ -53,7 +55,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
                   )}
                 </div>
               </div>
-            ) : data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+            ) : data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">

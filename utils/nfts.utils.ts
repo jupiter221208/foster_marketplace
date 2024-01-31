@@ -349,3 +349,23 @@ export async function getNftFromDAS(address): Promise<NftData> {
     console.log('Error while fetching nft: ', error)
   }
 }
+
+type determineCategoryType = {
+  uri: string
+  mime: string
+  cdn_uri: string
+}[]
+
+export function determineCategory(files: determineCategoryType) {
+  let category: string
+
+  if (files.length > 1) {
+    files.map((file, index) => {
+      if ((index > 0 && file.mime !== '') || undefined || null) category = file.mime.split('/')[0]
+    })
+  } else {
+    category = files[0].mime.split('/')[0]
+  }
+
+  return category || 'image'
+}

@@ -31,6 +31,7 @@ import { parseCookies } from 'utils'
 import TabSection from './TabSection'
 import EASection from './EASection'
 import { NftData } from 'types/nft'
+import { determineCategory } from 'utils/nfts.utils'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -87,6 +88,11 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
           if (sortedCollectionNfts && result) {
             let newNftsArr: NftData[] = [...result]
+
+            newNftsArr.map((data, index) => {
+              newNftsArr[index].category = determineCategory(data.content.files)
+            })
+
             sortedCollectionNfts.map((data, index) => {
               newNftsArr[index].mintAddress = data.token_id
               newNftsArr[index].creators[0].artist_username = data.artist_username
@@ -96,8 +102,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                 end_time: data.end_time,
                 list_price: data.list_price,
               }
-              console.log(newNftsArr)
             })
+
+            console.log(newNftsArr)
             setNfts(newNftsArr)
             fetchNftData(result)
           }
