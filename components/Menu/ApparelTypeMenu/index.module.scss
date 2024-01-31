@@ -1,9 +1,10 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 103px;
+  width: auto;
   height: 45px;
-  padding: 13px 13px;
+  padding: 13px 15px;
+  gap: 8px;
   border-radius: 16px;
   background: var(--dao-treasury-bg);
   font-family: 'Muli-Regular';

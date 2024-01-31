@@ -25,8 +25,8 @@ import styles from './index.module.scss'
 import merchAPI from 'apis/merch'
 import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
 
-const MarketplaceReleaseSection = props => {
-  const { type, heroValue } = props
+const NewStudioReleasesSection = props => {
+  const { type, heroValue, onChange } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -35,7 +35,6 @@ const MarketplaceReleaseSection = props => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
-  const [refresh, setRefresh] = useState(new Date())
 
   useEffect(() => {
     if (type === 'trending') {
@@ -78,7 +77,7 @@ const MarketplaceReleaseSection = props => {
             )}
           </div>
           <div className="absolute top-[10px] right-[10px]">
-            <ApparelTypeMenu />
+            <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} />
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
@@ -114,4 +113,4 @@ const MarketplaceReleaseSection = props => {
   )
 }
 
-export default MarketplaceReleaseSection
+export default NewStudioReleasesSection

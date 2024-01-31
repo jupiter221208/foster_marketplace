@@ -76,14 +76,14 @@ const Studio = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <MainSection onchange={setHeroState} heroValue={heroState} />
+        <MainSection onChange={setHeroState} heroValue={heroState} />
       </div>
       <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
 
       {heroState?.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
-            <NewStudioReleasesSection type={'trending'} heroValue={heroState} />
+            <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
             <FullScreenLoadingModal open={isLoading} />
           </div>
         </div>
@@ -91,7 +91,7 @@ const Studio = () => {
       {heroState?.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
-            <NewStudioReleasesSection type={'release'} heroValue={heroState} />
+            <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
             <FullScreenLoadingModal open={isLoading} />
           </div>
         </div>

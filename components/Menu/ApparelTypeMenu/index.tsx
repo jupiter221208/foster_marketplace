@@ -1,7 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -13,32 +12,53 @@ import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import styles from './index.module.scss'
 
 // solana
-import { useConnection } from '@solana/wallet-adapter-react'
 import Radio from 'components/Radio'
+import StudioHeroList from 'assets/json/hero/hero-list.json'
+import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 
 const ApparelTypeMenu = props => {
-  const { type, setType } = props
-  const router = useRouter()
-  const { id } = router.query
-  const { connection } = useConnection()
+  const { base, onChange } = props
   const [apparelTypes, setApparelTypes] = useState([])
-  const [selectedType, setSelectedType] = useState({})
+  const [selectedType, setSelectedType] = useState(null)
 
   useEffect(() => {
-    setApparelTypes([
-      { id: '0', label: 'T-Shirts', value: 'T-Shirts', disabled: false },
-      { id: '1', label: 'Long Sleeves', value: 'Long Sleeves', disabled: false },
-      { id: '2', label: 'Hoodies', value: 'Hoodies', disabled: false },
-      { id: '3', label: 'Crewneck', value: 'Crewneck', disabled: false },
-    ])
-    setSelectedType({ id: '0', label: 'T-Shirts', value: 'T-Shirts', disabled: false })
-  }, [])
+    for (var i = 0; i < StudioHeroList.length; i++) {
+      let hero = StudioHeroList[i]
+      let bases = hero.bases.filter(item => item.base === base)
+
+      if (bases.length > 0) {
+        let types = []
+        hero.bases.map((item, index) => {
+          let type = { id: index, label: item.name, value: item.base, disabled: false }
+          types.push(type)
+          if (item.base === base) {
+            setSelectedType(type)
+          }
+        })
+        setApparelTypes(types)
+        break
+      }
+    }
+  }, [base])
+
+  const onChangeType = type => {
+    setSelectedType(type)
+    StudioApparelList.map(item => {
+      if (item.name === type.value) {
+        onChange({
+          selected: true,
+          data: item,
+        })
+      }
+    })
+  }
+
   return (
     <div className="relative mt-[4px]">
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
-            {selectedType['label']}
+            {selectedType ? selectedType['label'] : 'Filter'}
             <FilterIcon alt="" />
           </div>
         </Menu.Button>
@@ -56,7 +76,7 @@ const ApparelTypeMenu = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem}>
-                  <Radio data={apparelTypes} selected={selectedType} onChange={item => {}} />
+                  <Radio data={apparelTypes} selected={selectedType} onChange={item => onChangeType(item)} />
                 </div>
               )}
             </Menu.Item>

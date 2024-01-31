@@ -31,7 +31,7 @@ import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 SwiperCore.use([Navigation])
 
-const MainSection = ({ onchange, heroValue }) => {
+const MainSection = ({ onChange, heroValue }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -42,7 +42,7 @@ const MainSection = ({ onchange, heroValue }) => {
   useEffect(() => {
     StudioApparelList.map(item => {
       if (item.name === 'Hoodie') {
-        onchange({
+        onChange({
           selected: true,
           data: item,
         })
@@ -81,7 +81,7 @@ const MainSection = ({ onchange, heroValue }) => {
 
         StudioApparelList.map(item => {
           if (item.name === base) {
-            onchange({
+            onChange({
               selected: true,
               data: item,
             })

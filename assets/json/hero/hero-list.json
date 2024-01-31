@@ -7,7 +7,7 @@
     "bases": [
       {
         "name": "Tees",
-        "base": "Hoodie",
+        "base": "Short Sleeve",
         "selected": "true"
       },
       {
@@ -17,12 +17,12 @@
       },
       {
         "name": "Hoodies",
-        "base": "Hoodies",
+        "base": "Hoodie",
         "selected": "false"
       },
       {
         "name": "Crewnecks",
-        "base": "Short Sleeve",
+        "base": "Sweatshirt",
         "selected": "false"
       }
     ]
