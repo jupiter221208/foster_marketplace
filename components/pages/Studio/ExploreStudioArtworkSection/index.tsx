@@ -94,7 +94,7 @@ const MarketplaceReleaseSection = props => {
             centeredSlides={false}
             spaceBetween={20}
             modules={[Autoplay, Navigation]}
-            className={'heroNavigationSwiper'}
+            className={'auctionNavigationSwiper'}
             loop
             autoplay={{
               delay: 5000,

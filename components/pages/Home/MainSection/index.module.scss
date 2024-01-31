@@ -29,12 +29,20 @@
   }
 }
 
+.loadingText {
+  display: flex;
+  gap: 20px;
+  color: var(--main-icon-color);
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+}
+
 .rightEllipse {
   position: absolute;
-  top: -170px;
-  right: -200px;
+  top: -50px;
+  right: -50px;
   scale: 0.9;
-  opacity: 0.69;
+  opacity: 0.2;
   svg defs radialGradient stop {
     stop-color: var(--ellipse-green);
   }
@@ -115,6 +123,11 @@
   @media (min-width: 1024px) {
     justify-content: left;
   }
+}
+
+.heroMobileSection {
+  width: 100%;
+  margin-left: -16px;
 }
 
 .heroGreen {

@@ -17,7 +17,7 @@ const HouseStatsTab = props => {
       <HTab.List
         className={`${
           viewport === 'xs' || viewport === 'sm' ? styles.mobileScrollbar : ''
-        } flex gap-[30px] lg:gap-[60px] h-[60px] lg:h-[120px]`}
+        } flex gap-[20px] lg:gap-[60px] h-[60px] lg:h-[120px]`}
       >
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>

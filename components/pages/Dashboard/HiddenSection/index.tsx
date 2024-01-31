@@ -38,7 +38,7 @@ const HiddenSection = () => {
   const getHiddenNftData = () => {
     userAPI.getHiddenNFT().then(
       response => {
-        setAllNftList(response)
+        setAllNftList(response.filter(item => item.nft_name !== ''))
         setLoading(false)
       },
       error => {

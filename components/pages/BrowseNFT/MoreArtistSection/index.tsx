@@ -57,7 +57,7 @@ const MoreArtistSection = props => {
       ;(async () => {
         for (let index = 0; index < nfts.length; index++) {
           let data = nfts[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/collection/${data.collection_id}`).then(e => e.text())
           if (index % 4 == 3) {
             await sleep(1000)
           }
@@ -71,7 +71,9 @@ const MoreArtistSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Artist</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              {artistInfo?.name.length > 0 && `More from ${artistInfo.name}`}
+            </div>
           </div>
           <div className="hidden lg:flex">
             <SeeMoreButton
@@ -90,7 +92,7 @@ const MoreArtistSection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={collectionList.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+            className={collectionList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,

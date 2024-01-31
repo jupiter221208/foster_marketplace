@@ -110,7 +110,7 @@ const Category = () => {
             <></>
           )}
         </div>
-        <div className="flex justify-center mt-[10px] lg:mt-[40px]">
+        <div className="flex justify-center">
           <div className="g-container">
             <TrendingCollectionSection category={cateQuery} loop={false} />
             <MostPopularSection category={cateQuery} />

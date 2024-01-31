@@ -140,6 +140,11 @@ const LiveAuctionSection = props => {
 
   useEffect(() => {}, [liveAuctionList])
 
+  const removeExipredAuction = item => {
+    let list = liveAuctionList.filter(auction => auction.token_id !== item.token_id)
+    setLiveAuctionList(list)
+  }
+
   return showSection ? (
     <section className={styles.container}>
       {fromPage !== 'profile' && (
@@ -256,10 +261,6 @@ const LiveAuctionSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
             loop={cardLoop}
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
           >
             {liveAuctionList.map((item, index) => (
               <SwiperSlide key={index}>
@@ -268,6 +269,9 @@ const LiveAuctionSection = props => {
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })
                     router.push('/nft/' + item.token_id)
+                  }}
+                  setCardExpired={item => {
+                    removeExipredAuction(item)
                   }}
                   key={index}
                 />

@@ -192,13 +192,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           />
         ) : (
           <div className="w-full">
-            <MainSection
-              nfts={nfts}
-              data={collectionData}
-              hasloading={hasloading}
-              publicKey={publicKey}
-              loaded={loaded}
-            />
+            <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} />
             <div className="w-full flex justify-center">
               <div className="g-container">
                 <TabSection

@@ -30,6 +30,7 @@ import { NftData } from 'types/nft'
 const MyNFTSection = props => {
   const { changeActiveTab } = props
   const dispatch = useDispatch()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
@@ -248,6 +249,7 @@ const MyNFTSection = props => {
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
       />
+
       <ListNFTModal
         data={selectedData}
         open={showListNFTModal}

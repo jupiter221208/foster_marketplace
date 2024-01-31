@@ -137,9 +137,6 @@ const Step02CollectionSection = props => {
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
-  // const [showMore, setShowMore] = useState(false)
-  // const [collectionFilesCount, setCollectionFilesCount] = useState(0)
-  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -199,6 +196,10 @@ const Step02CollectionSection = props => {
       }
       setDisabledNextButton(true)
     }
+
+    if (collectionFiles.length > 0) {
+      handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
+    }
   }, [collectionFiles])
 
   // form validate
@@ -243,6 +244,7 @@ const Step02CollectionSection = props => {
                           alt=""
                           className="w-full h-full object-cover z-0"
                         />
+                        <div className={styles.blurView} />
                       </div>
                     )}
                     {(selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio') ||
@@ -670,7 +672,7 @@ const Step02CollectionSection = props => {
                   )}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
+                <div className="absolute bottom-10 w-full flex justify-end">
                   <button
                     className={styles.nextStep}
                     disabled={disabledNextButton}
@@ -1117,27 +1119,6 @@ const Step02CollectionSection = props => {
               >
                 Next Step
               </button>
-              {/* {disabledNextButton ? (
-                <Button
-                  label="Next Step"
-                  height={viewport === '2xl' ? 53 : 46}
-                  fullWidth
-                  disabled={disabledNextButton}
-                  backgroundColor={'#888A8E'}
-                />
-              ) : (
-                <GradientButton
-                  height={viewport === '2xl' ? 53 : 46}
-                  label="Next Step"
-                  fullWidth
-                  disabled={disabledNextButton}
-                  gradientDirection="bottom"
-                  backgroundColor01={'var(--mint-btn-bg-1)'}
-                  backgroundColor02={'var(--mint-btn-bg-2)'}
-                  color={'var(--mint-btn-color)'}
-                  onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                />
-              )} */}
             </div>
           </div>
         </div>

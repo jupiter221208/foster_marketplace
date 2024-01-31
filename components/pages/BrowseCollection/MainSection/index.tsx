@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { isLoggedIn } from 'utils/helpers'
@@ -9,14 +9,11 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Alert from 'components/Alert'
 
 // next components
-import Image from 'next/image'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // custom components
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import ReadMoreCollectionModal from 'components/Modal/ReadMoreCollectionModal'
-
-import { getShortDescription } from 'utils/strings'
 
 // custom functions
 import { namePublicFile, useViewport } from 'utils'
@@ -37,11 +34,9 @@ import collectionAPI from 'apis/collections'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 const MainSection = props => {
-  const { nfts, data, publicKey, loaded, hasloading } = props
+  const { nfts, data, publicKey, hasloading } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -62,7 +57,6 @@ const MainSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [banner, setBanner] = useState<any>()
-
   useEffect(() => {
     if (data) {
       setTotalVolume(data.total_volume)
@@ -193,6 +187,10 @@ const MainSection = props => {
                   <div className={styles.headerImage}>
                     <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
                   </div>
+                ) : data?.cover_image ? (
+                  <div className={styles.headerImage}>
+                    <img src={data?.cover_image} alt="" className="w-full h-[435px] object-cover" />
+                  </div>
                 ) : (
                   <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
                 )}
@@ -238,9 +236,9 @@ const MainSection = props => {
               />
               <div className="flex">
                 {hasloading ? (
-                  <div className={`${styles.skeletonLoader} w-[45px] h-[45px] mt-[50px] mr-[24px] rounded-md`}></div>
+                  <div className={`${styles.skeletonLoader} w-[45px] h-[45px] mt-[50px] rounded-md`}></div>
                 ) : (
-                  <div className="flex mr-[24px] items-center">
+                  <div className="flex items-center">
                     <MenuSocialShare
                       type="image"
                       vote={true}
@@ -249,42 +247,38 @@ const MainSection = props => {
                     />
                   </div>
                 )}
-
-                <div className="w-[100px] overflow-hidden rounded-[12px]">
-                  {/* {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )} */}
-                  {saved ? (
-                    hasloading ? (
+                {publicKey?.toBase58() !== data?.minter_id && (
+                  <div className="w-[100px] overflow-hidden rounded-[12px] ml-[24px]">
+                    {saved ? (
+                      hasloading ? (
+                        <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
+                      ) : (
+                        <OutlineButton
+                          borderColor="var(--follow-btn-border-mobile)"
+                          width={100}
+                          height={45}
+                          label="Saved"
+                          onClick={() => unsaveCollection(data?.collection_id)}
+                        />
+                      )
+                    ) : hasloading ? (
                       <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
                     ) : (
-                      <OutlineButton
-                        borderColor="var(--follow-btn-border-mobile)"
+                      <GradientButton
                         width={100}
                         height={45}
-                        label="Saved"
-                        onClick={() => unsaveCollection(data?.collection_id)}
+                        label="Save"
+                        backgroundColor
+                        onClick={() => saveCollection(data?.collection_id)}
                       />
-                    )
-                  ) : hasloading ? (
-                    <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
-                  ) : (
-                    <GradientButton
-                      width={100}
-                      height={45}
-                      label="Save"
-                      backgroundColor
-                      onClick={() => saveCollection(data?.collection_id)}
-                    />
-                  )}
-                </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
             {hasloading ? (
-              <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] rounded-full`}></div>
+              <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
                 <div className="flex mt-[40px] gap-[15px]">
@@ -293,7 +287,7 @@ const MainSection = props => {
                       <div className="mt-[4px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
@@ -329,6 +323,8 @@ const MainSection = props => {
               <div className={styles.headerImage}>
                 {data?.banner_image !== null && data?.banner_image.length > 0 ? (
                   <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
+                ) : data?.cover_image ? (
+                  <img src={data?.cover_image} alt="" className="w-full h-[132px] object-cover" />
                 ) : (
                   <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
                 )}
@@ -374,69 +370,47 @@ const MainSection = props => {
                   />
                   <div className="flex">
                     {hasloading ? (
-                      <div
-                        className={`${styles.skeletonLoader} w-[29px] h-[29px] rounded-md mt-[30px] mr-[11px]`}
-                      ></div>
+                      <div className={`${styles.skeletonLoader} w-[29px] h-[29px] rounded-md mt-[30px]`}></div>
                     ) : (
-                      <div className="mr-[11px] lg:mr-[24px]">
+                      <div className="">
                         <div onClick={() => setOpenShareModal(true)}>
                           <ShareSmallIcon alt="" />
                         </div>
                       </div>
                     )}
 
-                    <div className="w-[70px] overflow-hidden rounded-[6px]">
-                      {/* {!loaded && (
-                        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                          <div></div>
-                        </ReactPlaceholder>
-                      )} */}
-                      {saved ? (
-                        hasloading ? (
+                    {publicKey?.toBase58() !== data?.minter_id && (
+                      <div className="w-[70px] overflow-hidden rounded-[6px] ml-[11px] lg:ml-[24px]">
+                        {saved ? (
+                          hasloading ? (
+                            <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
+                          ) : (
+                            <OutlineButton
+                              width={70}
+                              height={29}
+                              borderRadius={6}
+                              borderColor="var(--follow-btn-border-mobile)"
+                              label="Saved"
+                              onClick={() => unsaveCollection(data?.collection_id)}
+                            />
+                          )
+                        ) : hasloading ? (
                           <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
                         ) : (
-                          <OutlineButton
+                          <GradientButton
                             width={70}
                             height={29}
                             borderRadius={6}
-                            borderColor="var(--follow-btn-border-mobile)"
-                            label="Saved"
-                            onClick={() => unsaveCollection(data?.collection_id)}
+                            label="Save"
+                            backgroundColor
+                            onClick={() => saveCollection(data?.collection_id)}
                           />
-                        )
-                      ) : hasloading ? (
-                        <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
-                      ) : (
-                        <GradientButton
-                          width={70}
-                          height={29}
-                          borderRadius={6}
-                          label="Save"
-                          backgroundColor
-                          onClick={() => saveCollection(data?.collection_id)}
-                        />
-                      )}
-                    </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              {/* {hasloading ? (
-                <>
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
-                  ></div>
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
-                  ></div>
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.description} w-full h-[22px] mt-[30px] rounded-full`}
-                  ></div>
-                </>
-              ) : (
-                <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
-                  {data?.description && <span className={styles.description}>{data?.description}</span>}
-                </div>
-              )} */}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>
