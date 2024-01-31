@@ -684,15 +684,18 @@ const MainSection = ({
     }
   }
 
-  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
+  const onCancelList = async ({ address, tradeStateAddress }: { address: string; tradeStateAddress: string }) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await cancelList(mx, tradeStateAddress)
+      const tradeStateAddressKey =
+        typeof tradeStateAddress === 'string' ? new PublicKey(tradeStateAddress) : tradeStateAddress
+
+      const result = await cancelList(mx, tradeStateAddressKey)
       if (result) {
         setNftPrice(0)
-        listingsAPI.unlistNft(address.toBase58()).then(response => {
+        listingsAPI.unlistNft(address.toString()).then(response => {
           if (response) {
             setAlertData([
               {

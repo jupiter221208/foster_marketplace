@@ -61,7 +61,7 @@ export interface NftData {
 
   properties?: {
     category: string
-    files?: FlilesInfo[]
+    files?: FilesInfo[]
   }
 
   json?: {
@@ -78,7 +78,7 @@ export interface NftData {
     }>
     properties?: {
       creators?: NftCreator[]
-      files?: Array<FlilesInfo>
+      files?: Array<FilesInfo>
       [key: string]: unknown
     }
     collection?: {
@@ -116,7 +116,7 @@ export interface NftMarketplaceInfo {
   merchHubEnabled?: boolean
 }
 
-export interface FlilesInfo {
+export interface FilesInfo {
   type?: string
   uri?: string
   [key: string]: unknown
