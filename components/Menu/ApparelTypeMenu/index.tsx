@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { FacebookShareButton, TwitterShareButton, TelegramShareButton } from 'react-share'
 // next components
 import Image from 'next/image'
 
@@ -8,18 +7,13 @@ import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import HamburgerMenuIcon from 'assets/icons/hamburger-menu-dot-white.svg'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
-// call apis
-import nftsAPI from 'apis/nfts'
-
 // solana
-import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
-import { copyToClipboard } from 'utils/helpers'
 import Radio from 'components/Radio'
 
 const ApparelTypeMenu = props => {
@@ -43,8 +37,9 @@ const ApparelTypeMenu = props => {
     <div className="relative mt-[4px]">
       <Menu>
         <Menu.Button>
-          <div className="w-7 h-7 flex justify-center items-center">
-            <Image src={HamburgerMenuIcon} alt="" />
+          <div className={styles.btnArea}>
+            {selectedType['label']}
+            <FilterIcon alt="" />
           </div>
         </Menu.Button>
 

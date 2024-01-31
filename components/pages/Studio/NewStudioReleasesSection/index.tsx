@@ -23,6 +23,7 @@ import styles from './index.module.scss'
 
 // call apis
 import merchAPI from 'apis/merch'
+import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
 
 const MarketplaceReleaseSection = props => {
   const { type, heroValue } = props
@@ -62,19 +63,22 @@ const MarketplaceReleaseSection = props => {
   return (
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full relative">
           <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
-                <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Release'}</div>
+                <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
               </div>
             ) : (
               <div className="w-full flex justify-center">
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-                  {type === 'trending' ? 'Trending Now' : 'New Release'}
+                  {type === 'trending' ? 'Trending Now' : 'New Releases'}
                 </div>
               </div>
             )}
+          </div>
+          <div className="absolute top-[10px] right-[10px]">
+            <ApparelTypeMenu />
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">

@@ -116,7 +116,7 @@ const MainSection = ({ onchange, heroValue }) => {
               Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
             </div>
             <div className={`${styles.slug} lg:flex hidden`}>Fashion & Fulfillment</div>
-            <div className="mt-[75px] gap-[20px] hidden lg:flex">
+            <div className="mt-[25px] gap-[20px] hidden lg:flex">
               <GradientButton
                 backgroundColor01="var(--hero-artist-color)"
                 backgroundColor02="var(--hero-artist-color)"
