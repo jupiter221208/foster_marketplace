@@ -14,17 +14,19 @@ const StudioCard = props => {
           <div className={styles.titleText}>{data.name}</div>
         </div>
       </div>
-      <div className={styles.baseContainer}>
-        <div className={styles.baseText}>
-          {data.bases.map((item, index) => (
-            <div
-              key={index}
-              className={item.selected === 'true' ? styles.selected : styles.deselected}
-              onClick={() => onSelected(data.type, item.name, item.base)}
-            >
-              {item.name}
-            </div>
-          ))}
+      <div className="lg:block hidden">
+        <div className={styles.baseContainer}>
+          <div className={styles.baseText}>
+            {data.bases.map((item, index) => (
+              <div
+                key={index}
+                className={item.selected === 'true' ? styles.selected : styles.deselected}
+                onClick={() => onSelected(data.type, item.name, item.base)}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

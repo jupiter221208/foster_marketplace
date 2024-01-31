@@ -66,26 +66,25 @@ const MarketplaceReleaseSection = props => {
           <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
-                <div className={styles.title}>New Releases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
+                <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Release'}</div>
               </div>
             ) : (
-              <div className="w-full flex flex-row justify-between">
-                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
+              <div className="w-full flex justify-center">
+                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+                  {type === 'trending' ? 'Trending Now' : 'New Release'}
+                </div>
               </div>
             )}
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
-            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+            <div
+              key={index}
+              className={`flex ${
+                type === 'trending' ? 'col-span-12' : 'col-span-6'
+              } lg:col-span-4 2xl:col-span-3 flex items-center`}
+            >
               <StudioReleaseCard
                 image={heroValue.data}
                 nftImage={item.nft.asset_url}

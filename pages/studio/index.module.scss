@@ -6,3 +6,20 @@
   justify-content: center;
   background: var(--second-home-bg);
 }
+
+.connecting {
+  width: 100%;
+  height: 70px;
+  background: var(--social-share-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-Regular';
+  text-align: center;
+  color: var(--text-gray-200-color);
+  font-size: 18px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    margin-top: 210px;
+  }
+}

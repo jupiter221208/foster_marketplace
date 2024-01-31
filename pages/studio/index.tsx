@@ -78,6 +78,8 @@ const Studio = () => {
       <div className="w-full flex justify-center">
         <MainSection onchange={setHeroState} heroValue={heroState} />
       </div>
+      <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
+
       {heroState?.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
