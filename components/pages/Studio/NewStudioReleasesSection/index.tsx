@@ -83,7 +83,7 @@ const MarketplaceReleaseSection = props => {
               key={index}
               className={`flex ${
                 type === 'trending' ? 'col-span-12' : 'col-span-6'
-              } lg:col-span-4 2xl:col-span-3 flex items-center`}
+              } lg:col-span-4 2xl:col-span-4 flex items-center`}
             >
               <StudioReleaseCard
                 image={heroValue.data}
