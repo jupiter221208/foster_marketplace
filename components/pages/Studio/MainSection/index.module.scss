@@ -170,34 +170,23 @@
 
 .text {
   width: 100%;
-  margin-top: 10px;
   font-family: 'Muli-Bold';
   font-size: 24x;
-  line-height: 30px;
-  text-align: center;
   @media (min-width: 640px) {
-    margin-top: 13px;
     font-size: 30px;
-    line-height: 40px;
   }
-  letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
-.slug {
-  margin-top: 9px;
-  font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 36px;
-  text-align: center;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 30px;
-    padding-left: 0px;
-    padding-right: 0px;
-  }
 
-  letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+.slash {
+  color: var(--main-icon-color);
+}
+
+.slug {
+  margin-top: 6px;
+  font-family: 'Muli-Regular';
+  font-size: 26px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .count {

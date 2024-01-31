@@ -7,16 +7,13 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import StudioReleaseCard from 'components/Card/StudioReleaseCard'
-import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -26,9 +23,9 @@ import styles from './index.module.scss'
 
 // call apis
 import merchAPI from 'apis/merch'
-import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MarketplaceReleaseSection = props => {
+  const { type, heroValue } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -40,15 +37,27 @@ const MarketplaceReleaseSection = props => {
   const [refresh, setRefresh] = useState(new Date())
 
   useEffect(() => {
-    merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
-      if (response !== null && response !== undefined && response.length !== 0) {
-        setStudioReleaseList(response)
-      }
-    }),
-      error => {
-        console.log(error)
-      }
-  }, [refresh])
+    if (type === 'trending') {
+      merchAPI.getRecentOrders().then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          let arr = Object.keys(response.nftData).map(key => response.nftData[key])
+          setStudioReleaseList(arr)
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    } else {
+      merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          setStudioReleaseList(response)
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    }
+  }, [])
 
   return (
     studioReleaseList.length !== 0 && (
@@ -78,7 +87,7 @@ const MarketplaceReleaseSection = props => {
           {studioReleaseList.map((item: any, index) => (
             <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
               <StudioReleaseCard
-                image={props.heroValue.data}
+                image={heroValue.data}
                 nftImage={item.nft.asset_url}
                 token_id={item.nft.token_id}
                 nftName={item.nft.nft_name}

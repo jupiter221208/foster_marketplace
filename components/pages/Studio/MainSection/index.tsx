@@ -37,6 +37,7 @@ import GradientButton from 'components/Button/GradientButton'
 import StudioHeroCardMobile from 'components/Card/StudioCardMobile'
 import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioHeroMobileList from 'assets/json/hero/hero-mobile-list.json'
+import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 import { NextButton, PreviewButton } from './customButton'
 SwiperCore.use([Navigation])
 
@@ -46,18 +47,23 @@ const MainSection = ({ onchange, heroValue }) => {
   const dispatch = useDispatch()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
+  const [studioHeroList, setStudioHeroList] = useState(StudioHeroList)
   const [heroList, setHeroList] = useState<any[]>([])
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
   const [swiper, setSwiper] = useState(null)
-  const goNext = () => {
-    if (swiper !== null) swiper.slideNext()
-  }
 
-  const goPrev = () => {
-    if (swiper !== null) swiper.slidePrev()
-  }
+  useEffect(() => {
+    StudioApparelList.map(item => {
+      if (item.name === 'Hoodie') {
+        onchange({
+          selected: true,
+          data: item,
+        })
+      }
+    })
+  }, [])
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -74,25 +80,81 @@ const MainSection = ({ onchange, heroValue }) => {
     }
   }, [])
 
+  const onSelected = (type, name, base) => {
+    let newStudioList = []
+    studioHeroList.map(studioData => {
+      if (studioData.type === type) {
+        let newData = { ...studioData }
+        let newBases = []
+        newData.bases.map(item => {
+          if (item.name === name) item.selected = 'true'
+          else item.selected = 'false'
+          newBases.push(item)
+        })
+        newData['bases'] = newBases
+        newStudioList.push(newData)
+
+        StudioApparelList.map(item => {
+          if (item.name === base) {
+            onchange({
+              selected: true,
+              data: item,
+            })
+          }
+          setTimeout(() => {
+            window.scrollTo({
+              top: window.innerHeight,
+              behavior: 'smooth',
+            })
+          }, 1000)
+        })
+      } else {
+        let newData = { ...studioData }
+        let newBases = []
+        newData.bases.map(item => {
+          item.selected = 'false'
+          newBases.push(item)
+        })
+        newData['bases'] = newBases
+        newStudioList.push(newData)
+      }
+    })
+    setStudioHeroList(newStudioList)
+  }
+
   return (
     <section id="main-section" className={styles.container}>
-      <div className="w-full grid grid-cols-12 z-10 items-center">
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="col-span-12 justify-center">
-            {/* <div className="flex items-center justify-center mb-[20px]">
-              <Image src={StudioAvatar} alt="" width={90} height={90} />
-              <div className="flex ml-[20px]">
-                <StudioTitle />
-              </div>
-            </div> */}
-            <div className={styles.text}>Solana Couture: Fashion & Fulfillment</div>
-            <div className={styles.slug}>Pick a base garment and explore merch from your favorite artists.</div>
+      <div className="g-container w-full h-full z-10">
+        <div className="w-full">
+          <div className="mt-[90px]">
+            <div className={styles.text}>
+              Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
+            </div>
+            <div className={styles.slug}>Fashion & Fulfillment</div>
+            <div className="mt-[75px] flex gap-[20px]">
+              <GradientButton
+                backgroundColor01="var(--hero-artist-color)"
+                backgroundColor02="var(--hero-artist-color)"
+                width={150}
+                height={50}
+                label="Start Earning"
+              />
+              <OutlineButton width={150} height={50} borderColor="var(--follow-btn-border-mobile)" label="Dashboard" />
+            </div>
           </div>
-        )}
+
+          <div className="w-full flex justify-around mt-[75px] gap-[20px]">
+            {studioHeroList.map((item, index) => (
+              <div key={index}>
+                <StudioCard data={item} onSelected={onSelected} value={heroValue} />
+              </div>
+            ))}
+          </div>
+        </div>
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
-            className="w-full col-span-12 min-h-[508px]"
+            className="w-full min-h-[508px]"
             style={{
               width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
               marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
@@ -100,7 +162,6 @@ const MainSection = ({ onchange, heroValue }) => {
           >
             <div className={styles.contentArea}>
               <div className={styles.mobileTitle}>Solana Couture: Fashion & Fulfillment</div>
-              <div className={styles.mobileText}>Pick a base garment and explore merch from your favorite artists.</div>
             </div>
             {StudioHeroList.length !== 0 && (
               <div className="w-full relative px-[20px]" id="heroSwiperMobile">
@@ -127,47 +188,7 @@ const MainSection = ({ onchange, heroValue }) => {
             )}
           </div>
         ) : (
-          <div
-            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
-            style={{
-              width: '100%',
-              marginLeft: '0px',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <div className={styles.studio}>
-                <div className="px-[65px] pt-[70px] pb-[30px]" id="heroStudioSwiper">
-                  {StudioHeroList.length !== 0 && (
-                    <Swiper
-                      slidesPerView={4}
-                      spaceBetween={15}
-                      className={'heroStudioSwiper'}
-                      pagination={{
-                        clickable: true,
-                      }}
-                      modules={[Pagination]}
-                      loop
-                      onSwiper={setSwiper}
-                    >
-                      {StudioHeroList.map((item: any, index) => (
-                        <SwiperSlide key={index}>
-                          <StudioCard data={item} change={onchange} value={heroValue} />
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  )}
-                  <div className={styles.nextButton} onClick={goNext}>
-                    <NextButton />
-                  </div>
-                  <div className={styles.prevButton} onClick={goPrev}>
-                    <PreviewButton />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div></div>
         )}
       </div>
       <div className={styles.gradient}></div>

@@ -78,20 +78,18 @@ const Studio = () => {
       <div className="w-full flex justify-center">
         <MainSection onchange={setHeroState} heroValue={heroState} />
       </div>
-      <div>
-        {heroState.selected && (
-          <div className="w-full flex justify-center">
-            <div className="g-container">
-              <TrendingSection category={''} heroValue={heroState} />
-              <FullScreenLoadingModal open={isLoading} />
-            </div>
-          </div>
-        )}
-      </div>
-      {heroState.selected && (
+      {heroState?.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
-            <NewStudioReleasesSection category={''} heroValue={heroState} />
+            <NewStudioReleasesSection type={'trending'} heroValue={heroState} />
+            <FullScreenLoadingModal open={isLoading} />
+          </div>
+        </div>
+      )}
+      {heroState?.selected && (
+        <div className="w-full flex justify-center">
+          <div className="g-container">
+            <NewStudioReleasesSection type={'release'} heroValue={heroState} />
             <FullScreenLoadingModal open={isLoading} />
           </div>
         </div>
