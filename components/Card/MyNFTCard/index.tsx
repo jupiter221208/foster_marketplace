@@ -16,7 +16,6 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
-import { PublicKey } from '@metaplex-foundation/js'
 import ModelViewer from 'components/ModelViewer'
 
 type MyNFTCardTypes = {
@@ -29,9 +28,6 @@ type MyNFTCardTypes = {
 const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
   const dispatch = useDispatch()
-  const { width, height, ref } = useResizeDetector()
-
-  console.log(data)
 
   return (
     <div className={styles.container}>

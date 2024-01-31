@@ -104,7 +104,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
               }
             })
 
-            console.log(newNftsArr)
             setNfts(newNftsArr)
             fetchNftData(result)
           }
