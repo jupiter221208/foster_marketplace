@@ -12,7 +12,7 @@ import { useViewport } from 'utils'
 // images and icons
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import StudioSelectionColor from 'components/StudioSelectionColor'
-import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import ColorType from 'assets/json/print/color.json'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
@@ -111,15 +111,16 @@ const DashboardNFTCard = props => {
           )}
         </div>
       </div>
-
-      <div className={styles.apparelTitle}>
-        <div className={styles.overText}>{nftName}</div>
-        <div>
-          {apparelList?.name === "Women's Short Sleeve"
-            ? 'Womens T-Shirt'
-            : apparelList?.name === 'Youth Short Sleeve'
-            ? 'Youth T-Shirt'
-            : apparelList?.name}
+      <div className="w-full flex justify-center">
+        <div className={styles.apparelTitle}>
+          <div>{nftName}&nbsp;</div>
+          <div>
+            {apparelList?.name === "Women's Short Sleeve"
+              ? 'Womens T-Shirt'
+              : apparelList?.name === 'Youth Short Sleeve'
+              ? 'Youth T-Shirt'
+              : apparelList?.name}
+          </div>
         </div>
       </div>
       <div className={styles.nftName}>{userName}</div>
