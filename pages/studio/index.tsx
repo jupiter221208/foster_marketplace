@@ -9,7 +9,6 @@ import MainSection from 'components/pages/Studio/MainSection'
 import StudioArtistsSection from 'components/pages/Studio/StudioArtistsSection'
 import NewStudioReleasesSection from 'components/pages/Studio/NewStudioReleasesSection'
 import ExploreStudioArtworkSection from 'components/pages/Studio/ExploreStudioArtworkSection'
-import TrendingSection from 'components/pages/Studio/TrendingSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
@@ -76,22 +75,22 @@ const Studio = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <MainSection onchange={setHeroState} heroValue={heroState} />
+        <MainSection onChange={setHeroState} heroValue={heroState} />
       </div>
-      <div>
-        {heroState.selected && (
-          <div className="w-full flex justify-center">
-            <div className="g-container">
-              <TrendingSection category={''} heroValue={heroState} />
-              <FullScreenLoadingModal open={isLoading} />
-            </div>
-          </div>
-        )}
-      </div>
-      {heroState.selected && (
+      <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
+
+      {heroState?.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
-            <NewStudioReleasesSection category={''} heroValue={heroState} />
+            <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
+            <FullScreenLoadingModal open={isLoading} />
+          </div>
+        </div>
+      )}
+      {heroState?.selected && (
+        <div className="w-full flex justify-center">
+          <div className="g-container">
+            <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
             <FullScreenLoadingModal open={isLoading} />
           </div>
         </div>

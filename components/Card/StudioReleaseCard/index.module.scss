@@ -99,15 +99,13 @@
 
 .apparelTitle {
   display: flex;
-  flex-direction: column;
+  text-align: center;
   margin-top: 5px;
   font-size: 14px;
   font-family: 'Muli-Regular';
-  justify-content: center;
-  text-align: center;
   @media (min-width: 1024px) {
-    font-size: 19px;
-    font-family: 'Muli-Bold';
+    font-size: 18px;
+    font-family: 'Muli-SemiBold';
     margin-top: -10px;
   }
   color: var(--text-gray-200-color);

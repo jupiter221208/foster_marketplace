@@ -7,78 +7,98 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import StudioReleaseCard from 'components/Card/StudioReleaseCard'
-import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // call apis
 import merchAPI from 'apis/merch'
-import SeeMoreButton from 'components/Button/SeeMoreButton'
+import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
+import MobileApparelFilter from 'components/Filter/MobileApparelFilter'
 
-const MarketplaceReleaseSection = props => {
+const NewStudioReleasesSection = props => {
+  const { type, heroValue, onChange } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const apparelType = useSelector<any>(state => state.apparelType)
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
+  const [showMobileFilter, setShowMobileFilter] = useState(false)
+  const [filterName, setFilterName] = useState('Filter')
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
-  const [refresh, setRefresh] = useState(new Date())
 
   useEffect(() => {
-    merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
-      if (response !== null && response !== undefined && response.length !== 0) {
-        setStudioReleaseList(response)
-      }
-    }),
-      error => {
-        console.log(error)
-      }
-  }, [refresh])
+    if (type === 'trending') {
+      merchAPI.getRecentOrders().then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          let arr = Object.keys(response.nftData).map(key => response.nftData[key])
+          setStudioReleaseList(arr.slice(0, 6))
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    } else {
+      merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          setStudioReleaseList(response)
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    }
+  }, [])
 
   return (
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
-          <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+        <div className="w-full relative">
+          <div className="w-auto lg:w-full flex justify-start lg:justify-center items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
-                <div className={styles.title}>New Releases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
-              </div>
+              <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
             ) : (
-              <div className="w-full flex flex-row justify-between">
-                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
-                {/* <div className={styles.filterButton}>
-                  <div className={styles.filter}>Filter</div>
-                  <FilterIcon />
-                </div> */}
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+                {type === 'trending' ? 'Trending Now' : 'New Releases'}
               </div>
             )}
+          </div>
+          <div className="hidden lg:block absolute top-[10px] right-[10px]">
+            <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} setFilterName={setFilterName} />
+          </div>
+          <div className="block lg:hidden absolute top-[-10px] right-[0px]">
+            <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
+              {filterName}
+              <FilterIcon alt="" />
+            </div>
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
-            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+            <div
+              key={index}
+              className={`flex ${
+                type === 'trending'
+                  ? 'col-span-12 sm:col-span-6 lg:col-span-4'
+                  : 'col-span-6 lg:col-span-4 xl:col-span-3'
+              } flex items-center`}
+            >
               <StudioReleaseCard
-                image={props.heroValue.data}
+                type={type}
+                image={heroValue.data}
                 nftImage={item.nft.asset_url}
                 token_id={item.nft.token_id}
                 nftName={item.nft.nft_name}
@@ -97,9 +117,19 @@ const MarketplaceReleaseSection = props => {
             </div>
           ))}
         </div>
+        {showMobileFilter && (
+          <div className="absolute left-0 top-0">
+            <MobileApparelFilter
+              base={heroValue.data['name']}
+              setFilterName={setFilterName}
+              onChange={onChange}
+              onClose={() => setShowMobileFilter(false)}
+            />
+          </div>
+        )}
       </section>
     )
   )
 }
 
-export default MarketplaceReleaseSection
+export default NewStudioReleasesSection

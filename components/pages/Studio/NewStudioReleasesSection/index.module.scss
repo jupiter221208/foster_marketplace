@@ -37,6 +37,21 @@
   color: var(--text-gray-200-color);
 }
 
+.btnArea {
+  width: auto;
+  height: 45px;
+  padding: 13px 15px;
+  gap: 8px;
+  border-radius: 16px;
+  background: var(--dao-treasury-bg);
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .seeMore {
   font-family: 'Muli-SemiBold';
   font-size: 14px;

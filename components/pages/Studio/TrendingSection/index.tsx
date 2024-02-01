@@ -8,15 +8,13 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Pagination, Navigation } from 'swiper'
+import { Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import TrendingCard from 'components/Card/TrendingCard'
-import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
