@@ -91,10 +91,13 @@ const NewStudioReleasesSection = props => {
             <div
               key={index}
               className={`flex ${
-                type === 'trending' ? 'col-span-12 lg:col-span-4' : 'col-span-6 lg:col-span-3'
+                type === 'trending'
+                  ? 'col-span-12 sm:col-span-6 lg:col-span-4'
+                  : 'col-span-6 lg:col-span-4 xl:col-span-3'
               } flex items-center`}
             >
               <StudioReleaseCard
+                type={type}
                 image={heroValue.data}
                 nftImage={item.nft.asset_url}
                 token_id={item.nft.token_id}

@@ -124,8 +124,20 @@ const MainSection = ({ onChange, heroValue }) => {
                 width={150}
                 height={50}
                 label="Start Earning"
+                onClick={() => {
+                  dispatch({ type: 'set', activeTab: 1 })
+                  router.push(`/merch-logs`)
+                }}
               />
-              <OutlineButton width={150} height={50} borderColor="var(--follow-btn-border-mobile)" label="Dashboard" />
+              <OutlineButton
+                width={150}
+                height={50}
+                borderColor="var(--follow-btn-border-mobile)"
+                label="Dashboard"
+                onClick={() => {
+                  router.push(`/merch-logs`)
+                }}
+              />
             </div>
           </div>
 
@@ -153,6 +165,10 @@ const MainSection = ({ onChange, heroValue }) => {
               fullWidth
               height={45}
               label="Start Earning"
+              onClick={() => {
+                dispatch({ type: 'set', activeTab: 1 })
+                router.push(`/merch-logs`)
+              }}
             />
             <OutlineButton
               fullWidth
@@ -160,6 +176,9 @@ const MainSection = ({ onChange, heroValue }) => {
               fontFamily="Muli-SemiBold"
               borderColor="var(--follow-btn-border-mobile)"
               label="Dashboard"
+              onClick={() => {
+                router.push(`/merch-logs`)
+              }}
             />
           </div>
         </div>

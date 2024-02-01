@@ -20,8 +20,8 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 
-const DashboardNFTCard = props => {
-  const { token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
+const StudioReleaseCard = props => {
+  const { type, token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { solToUsdRate } = useSolToUsdRate()
@@ -126,14 +126,29 @@ const DashboardNFTCard = props => {
       </div>
       <div className="w-full flex justify-center">
         <div className={styles.apparelTitle}>
-          <div>{nftName}&nbsp;</div>
-          <div>
-            {apparelList?.name === "Women's Short Sleeve"
-              ? 'Womens T-Shirt'
-              : apparelList?.name === 'Youth Short Sleeve'
-              ? 'Youth T-Shirt'
-              : apparelList?.name}
-          </div>
+          {viewport === 'xs' && type !== 'trending' ? (
+            <div className="w-full">
+              <div>{nftName}</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex">
+              <div>{nftName}&nbsp;</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.nftName}>{userName}</div>
@@ -168,4 +183,4 @@ const DashboardNFTCard = props => {
   )
 }
 
-export default DashboardNFTCard
+export default StudioReleaseCard

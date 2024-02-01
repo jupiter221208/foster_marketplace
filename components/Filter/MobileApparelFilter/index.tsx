@@ -49,6 +49,7 @@ const MobileApparelFilter = props => {
           selected: true,
           data: item,
         })
+        onClose()
       }
     })
   }

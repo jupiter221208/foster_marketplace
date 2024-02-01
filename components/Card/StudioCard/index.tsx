@@ -13,7 +13,6 @@ const StudioCard = props => {
       >
         <div className={styles.imageStatus}>
           <img src={data['asset_url']} alt="" loading="lazy" className="object-cover w-full h-full" />
-          <div className={styles.imageCover} />
         </div>
 
         <div className={styles.titleContainer}>
