@@ -45,7 +45,7 @@ const NewStudioReleasesSection = props => {
       merchAPI.getRecentOrders().then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
           let arr = Object.keys(response.nftData).map(key => response.nftData[key])
-          setStudioReleaseList(arr)
+          setStudioReleaseList(arr.slice(0, 6))
         }
       }),
         error => {
