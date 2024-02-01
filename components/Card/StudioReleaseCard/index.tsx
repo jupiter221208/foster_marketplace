@@ -28,13 +28,26 @@ const DashboardNFTCard = props => {
   const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [apparelList, setApparelList] = useState(null)
   const [imagePath, setImagepath] = useState('')
-  const [color, setColor] = useState({
-    id: 0,
-    name: '#000000',
-    type: 'black',
-    asset_url: '/images/apparel-color-black.png',
-  })
+  const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
+
+  useEffect(() => {
+    if (Math.floor(Math.random() * 1000) % 2 === 0) {
+      setColor({
+        id: 0,
+        name: '#000000',
+        type: 'black',
+        asset_url: '/images/apparel-color-black.png',
+      })
+    } else {
+      setColor({
+        id: 1,
+        name: '#fff',
+        type: 'white',
+        asset_url: '/images/apparel-color-white.png',
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (image) {
@@ -50,7 +63,7 @@ const DashboardNFTCard = props => {
 
   useEffect(() => {
     if (color && apparelList) {
-      switch (color.type) {
+      switch (color?.type) {
         case 'black':
           setImagepath(apparelList.black.image.front)
           break
@@ -70,7 +83,7 @@ const DashboardNFTCard = props => {
   }, [color])
 
   useEffect(() => {
-    switch (color.type) {
+    switch (color?.type) {
       case 'black':
         setColorNumber(1)
         break

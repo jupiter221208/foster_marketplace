@@ -5,11 +5,17 @@ import styles from './index.module.scss'
 
 const StudioCard = props => {
   const { data, onSelected } = props
-
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <img src={data['asset_url']} alt="" className={styles.imageStatus} loading="lazy" />
+      <div
+        className={styles.imageContainer}
+        onClick={() => onSelected(data.type, data.bases[0].name, data.bases[0].base)}
+      >
+        <div className={styles.imageStatus}>
+          <img src={data['asset_url']} alt="" loading="lazy" className="object-cover w-full h-full" />
+          <div className={styles.imageCover} />
+        </div>
+
         <div className={styles.titleContainer}>
           <div className={styles.titleText}>{data.name}</div>
         </div>
