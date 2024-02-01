@@ -20,10 +20,12 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // call apis
 import merchAPI from 'apis/merch'
 import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
+import MobileApparelFilter from 'components/Filter/MobileApparelFilter'
 
 const NewStudioReleasesSection = props => {
   const { type, heroValue, onChange } = props
@@ -32,6 +34,8 @@ const NewStudioReleasesSection = props => {
   const dispatch = useDispatch()
   const apparelType = useSelector<any>(state => state.apparelType)
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
+  const [showMobileFilter, setShowMobileFilter] = useState(false)
+  const [filterName, setFilterName] = useState('Filter')
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
@@ -63,21 +67,23 @@ const NewStudioReleasesSection = props => {
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full relative">
-          <div className="w-full flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          <div className="w-auto lg:w-full flex justify-start lg:justify-center items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
-                <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
-              </div>
+              <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
             ) : (
-              <div className="w-full flex justify-center">
-                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-                  {type === 'trending' ? 'Trending Now' : 'New Releases'}
-                </div>
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+                {type === 'trending' ? 'Trending Now' : 'New Releases'}
               </div>
             )}
           </div>
-          <div className="absolute top-[10px] right-[10px]">
-            <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} />
+          <div className="hidden lg:block absolute top-[10px] right-[10px]">
+            <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} setFilterName={setFilterName} />
+          </div>
+          <div className="block lg:hidden absolute top-[-10px] right-[0px]">
+            <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
+              {filterName}
+              <FilterIcon alt="" />
+            </div>
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
@@ -108,6 +114,16 @@ const NewStudioReleasesSection = props => {
             </div>
           ))}
         </div>
+        {showMobileFilter && (
+          <div className="absolute left-0 top-0">
+            <MobileApparelFilter
+              base={heroValue.data['name']}
+              setFilterName={setFilterName}
+              onChange={onChange}
+              onClose={() => setShowMobileFilter(false)}
+            />
+          </div>
+        )}
       </section>
     )
   )

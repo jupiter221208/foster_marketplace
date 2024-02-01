@@ -41,7 +41,7 @@ const MainSection = ({ onChange, heroValue }) => {
 
   useEffect(() => {
     StudioApparelList.map(item => {
-      if (item.name === 'Hoodie') {
+      if (item.name === 'Short Sleeve') {
         onChange({
           selected: true,
           data: item,

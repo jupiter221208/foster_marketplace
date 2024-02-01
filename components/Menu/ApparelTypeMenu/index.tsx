@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 // next components
 
 // third party components
@@ -17,7 +16,7 @@ import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 
 const ApparelTypeMenu = props => {
-  const { base, onChange } = props
+  const { base, onChange, setFilterName } = props
   const [apparelTypes, setApparelTypes] = useState([])
   const [selectedType, setSelectedType] = useState(null)
 
@@ -33,6 +32,7 @@ const ApparelTypeMenu = props => {
           types.push(type)
           if (item.base === base) {
             setSelectedType(type)
+            setFilterName(type['label'])
           }
         })
         setApparelTypes(types)
