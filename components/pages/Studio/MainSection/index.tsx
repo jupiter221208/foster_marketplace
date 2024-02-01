@@ -18,7 +18,8 @@ import StudioCard from 'components/Card/StudioCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images and icons
 
@@ -32,9 +33,10 @@ import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 SwiperCore.use([Navigation])
 
 const MainSection = ({ onChange, heroValue }) => {
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [studioHeroList, setStudioHeroList] = useState(StudioHeroList)
@@ -125,6 +127,10 @@ const MainSection = ({ onChange, heroValue }) => {
                 height={50}
                 label="Start Earning"
                 onClick={() => {
+                  if (!connected) {
+                    setVisible(true)
+                    return
+                  }
                   dispatch({ type: 'set', activeTab: 1 })
                   router.push(`/merch-logs`)
                 }}
@@ -135,6 +141,10 @@ const MainSection = ({ onChange, heroValue }) => {
                 borderColor="var(--follow-btn-border-mobile)"
                 label="Dashboard"
                 onClick={() => {
+                  if (!connected) {
+                    setVisible(true)
+                    return
+                  }
                   router.push(`/merch-logs`)
                 }}
               />
@@ -166,6 +176,10 @@ const MainSection = ({ onChange, heroValue }) => {
               height={45}
               label="Start Earning"
               onClick={() => {
+                if (!connected) {
+                  setVisible(true)
+                  return
+                }
                 dispatch({ type: 'set', activeTab: 1 })
                 router.push(`/merch-logs`)
               }}
@@ -177,6 +191,10 @@ const MainSection = ({ onChange, heroValue }) => {
               borderColor="var(--follow-btn-border-mobile)"
               label="Dashboard"
               onClick={() => {
+                if (!connected) {
+                  setVisible(true)
+                  return
+                }
                 router.push(`/merch-logs`)
               }}
             />
