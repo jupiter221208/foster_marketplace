@@ -21,7 +21,6 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // api
 import SeeMoreButton from 'components/Button/SeeMoreButton'

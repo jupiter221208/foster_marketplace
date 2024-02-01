@@ -8,6 +8,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import { validDigits } from 'utils/helpers'
 
 const PriceInput = props => {
   const {
@@ -53,13 +54,13 @@ const PriceInput = props => {
       </div>
 
       <input
-        type="number"
+        // type="number"
         min="0"
         className={styles.inputArea}
         value={value}
         placeholder={placeholder}
         onChange={event => {
-          let value = event.target.value
+          let value = validDigits(event.target.value)
           let strValue = value.toString()
           let splitValues = strValue.split('.')
           if (splitValues.length > 1 && splitValues[1].length > 2) {

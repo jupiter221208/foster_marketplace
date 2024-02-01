@@ -14,7 +14,7 @@ const LoadingButton = props => {
   const {
     fullWidth,
     backgroundColor01 = 'var(--primary-btn-bg-right)',
-    backgroundColor02 = 'var(--primary-btn-bg-left)',
+    backgroundColor02 = 'var(--primary-btn-bg-right)',
     width = 160,
     height = 40,
     gradientDirection = 'left',

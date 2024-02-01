@@ -29,6 +29,7 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 const MyNFTSection = props => {
   const { changeActiveTab } = props
   const dispatch = useDispatch()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
@@ -204,7 +205,9 @@ const MyNFTSection = props => {
               <MyNFTCard
                 data={item}
                 publicKey={publicKey}
-                onClickStartAuction={item => handleStartAuction(item)}
+                onClickStartAuction={item => {
+                  handleStartAuction(item)
+                }}
                 onClickListNFT={item => handleListNFT(item)}
               />
             </div>
@@ -245,6 +248,7 @@ const MyNFTSection = props => {
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
       />
+
       <ListNFTModal
         data={selectedData}
         open={showListNFTModal}

@@ -72,6 +72,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [hasLoading, setHasLoading] = useState(true)
+  const [showAuctionSection, setShowAuctionSection] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -96,14 +97,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
-
         let params = {
           nftName,
           nftCoverUrl,
           mintAddress,
-          category: item.category,
-          subCategory: item.sub_type,
-          base: item.base,
+          category: item?.category,
+          subCategory: item?.sub_type,
+          base: item?.base,
         }
         setMerchData(params)
         setOpenMerchPage(true)
@@ -239,12 +239,14 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
                     hasLoading={hasLoading}
+                    setShowAuctionSection={enable => setShowAuctionSection(enable)}
                   />
                 </div>
               </div>
             )}
-
-            {merchToggle ? (
+            {showAuctionSection ? (
+              <></>
+            ) : merchToggle ? (
               <div className={styles.centerScreen}>
                 <div className="g-container">
                   <ShopApparelSection
@@ -264,7 +266,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <div className="g-container">
                   <div>
                     {collectionId && (
-                      <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />
+                      <MoreCollectionSection
+                        collectionId={collectionId}
+                        collectionName={collectionName}
+                        mintAddress={nftDetail.address.toString()}
+                      />
                     )}
                     {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
                     <MoreCategorySection categories={categories} />

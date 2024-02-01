@@ -2,10 +2,10 @@
 
 .container {
   position: relative;
-  margin-top: 60px;
+  margin-top: 30px;
   margin-bottom: 187px;
   @media (min-width: 1024px) {
-    margin-top: 86px;
+    margin-top: 35px;
     margin-bottom: 142px;
   }
 }
@@ -15,12 +15,8 @@
   font-size: 24px;
   line-height: 36px;
   @media (min-width: 1024px) {
-    font-size: 32px;
+    font-size: 30px;
     line-height: 40px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 40px;
-    line-height: 56px;
   }
   color: var(--text-gray-200-color);
 }

@@ -37,7 +37,7 @@ const ActiveListingSection = props => {
   const [rowCount, setRowCount] = useState(8)
 
   useEffect(() => {
-    dashboardAPI.getMarketplaceReleases('', artist, page).then(response => {
+    dashboardAPI.getMarketplaceReleases('', artist, page, 8).then(response => {
       if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)
@@ -59,7 +59,7 @@ const ActiveListingSection = props => {
   }, [artist])
 
   const getExploreList = nextpage => {
-    dashboardAPI.getMarketplaceReleases('', artist, nextpage).then(response => {
+    dashboardAPI.getMarketplaceReleases('', artist, nextpage, 8).then(response => {
       if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)

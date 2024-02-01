@@ -27,15 +27,29 @@
 }
 
 .title {
-  font-family: 'BebasKai';
+  font-family: 'Muli-Bold';
   font-size: 24px;
   line-height: 30px;
   @media (min-width: 1024px) {
-    font-family: 'BebasKai';
-    font-size: 40px;
-    line-height: 50px;
+    font-size: 30px;
+    line-height: 40px;
   }
   color: var(--text-gray-200-color);
+}
+
+.btnArea {
+  width: auto;
+  height: 45px;
+  padding: 13px 15px;
+  gap: 8px;
+  border-radius: 16px;
+  background: var(--dao-treasury-bg);
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .seeMore {

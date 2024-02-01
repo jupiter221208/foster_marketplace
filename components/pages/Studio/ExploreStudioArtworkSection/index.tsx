@@ -53,7 +53,7 @@ const MarketplaceReleaseSection = props => {
   useEffect(() => {
     merchAPI.getArtworkMerchHub(seed, page, perPage).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setArtworkList(response)
+        setArtworkList(response.filter(item => item.nft.asset_url !== ''))
       }
     }),
       error => {
@@ -93,7 +93,7 @@ const MarketplaceReleaseSection = props => {
             centeredSlides={false}
             spaceBetween={20}
             modules={[Autoplay, Navigation]}
-            className={'heroNavigationSwiper'}
+            className={'auctionNavigationSwiper'}
             loop
             autoplay={{
               delay: 5000,

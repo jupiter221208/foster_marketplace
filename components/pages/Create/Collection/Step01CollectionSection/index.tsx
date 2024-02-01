@@ -37,6 +37,7 @@ import styles from './index.module.scss'
 // call apis
 import uploadFileToS3API from 'apis/aws'
 import ImportEAModal from 'components/Modal/ImportEAModal'
+import { validDigits } from 'utils/helpers'
 
 const Step01CollectionSection = props => {
   const {
@@ -606,13 +607,13 @@ const Step01CollectionSection = props => {
                       value={royalties}
                       placeholder="Insert a royalty percentage"
                       label="From 0 to 10%"
-                      type="number"
                       min="0"
                       onChange={value => {
-                        if (value > 10) {
+                        let royal = validDigits(value)
+                        if (royal > 10) {
                           onChangeRoyalties(10)
                         } else {
-                          onChangeRoyalties(Math.floor(value))
+                          onChangeRoyalties(Math.floor(royal))
                         }
                       }}
                     />
@@ -915,12 +916,12 @@ const Step01CollectionSection = props => {
                 value={royalties}
                 placeholder="Insert a royalty percentage"
                 label="From 0 to 10%"
-                type="number"
                 min={0}
                 onChange={value => {
-                  if (value > 10) {
+                  let royal = validDigits(value)
+                  if (royal > 10) {
                     onChangeRoyalties(10)
-                  } else onChangeRoyalties(Math.floor(value))
+                  } else onChangeRoyalties(Math.floor(royal))
                 }}
               />
             </div>

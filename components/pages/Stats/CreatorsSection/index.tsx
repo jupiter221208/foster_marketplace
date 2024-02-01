@@ -41,22 +41,6 @@ const CreatorsSection = props => {
   const [searchLoading, setSearchLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [swiper, setSwiper] = useState(null)
-  const [currentStep, setCurrentStep] = useState(0)
-
-  const goNext = () => {
-    if (swiper !== null) swiper.slideNext()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const goPrev = () => {
-    if (swiper !== null) swiper.slidePrev()
-    setCurrentStep(swiper.activeIndex)
-  }
-
-  const handleOnChange = swiper => {
-    setCurrentStep(swiper.activeIndex)
-  }
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
@@ -141,6 +125,7 @@ const CreatorsSection = props => {
         ) : (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
             <Swiper
+              navigation={true}
               slidesPerView={
                 viewport === 'xs'
                   ? 2
@@ -163,32 +148,22 @@ const CreatorsSection = props => {
               spaceBetween={
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32
               }
-              modules={[Autoplay, Lazy]}
+              modules={[Autoplay, Lazy, Navigation]}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
               }}
-              onSlideChange={handleOnChange}
-              onSwiper={setSwiper}
+              className={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                  ? 'noScrollNavigationSwiper'
+                  : 'auctionNavigationSwiper'
+              }
             >
               {list.map((item, index) => (
                 <SwiperSlide key={index}>
                   <StatsArtistCard data={item} type="creators" />
                 </SwiperSlide>
               ))}
-              {viewport === 'md' ||
-                viewport === 'lg' ||
-                viewport === 'xl' ||
-                (viewport === '2xl' && list?.length > 4 && (
-                  <>
-                    <div className={styles.prevButton} onClick={goPrev}>
-                      <PreviewButton />
-                    </div>
-                    <div className={styles.nextButton} onClick={goNext}>
-                      <NextButton />
-                    </div>
-                  </>
-                ))}
             </Swiper>
           </div>
         ))}

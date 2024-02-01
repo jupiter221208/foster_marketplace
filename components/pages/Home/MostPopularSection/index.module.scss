@@ -2,9 +2,11 @@
 
 .container {
   position: relative;
-  margin-top: 35px;
+  margin-top: 30px;
+  margin-bottom: 30px;
   @media (min-width: 1024px) {
-    margin-top: 86px;
+    margin-top: 0px;
+    margin-bottom: 50px;
   }
 }
 
@@ -23,11 +25,10 @@
 }
 
 .title {
-  font-family: 'BebasKai';
+  font-family: 'Muli-Bold';
   font-size: 24px;
   line-height: 36px;
   @media (min-width: 1024px) {
-    font-family: 'BebasKai';
     font-size: 30px;
     line-height: 40px;
   }

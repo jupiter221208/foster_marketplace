@@ -76,32 +76,6 @@ const TabSection = () => {
           <ActivitySection />
         </div>
       )}
-      {/* {activeTab === 3 && (
-        <div className="w-full flex flex-wrap">
-          {detailCollection ? (
-            <div className="w-full z-10">
-              <div className="w-full flex justify-end">
-                <div
-                  className={styles.return}
-                  onClick={() => {
-                    setDetailCollection(false)
-                  }}
-                >
-                  Return
-                </div>
-              </div>
-              <DetailCollectedSection collectionId={collectionId}></DetailCollectedSection>
-            </div>
-          ) : (
-            <CollectedSection
-              onClickItem={collectionId => {
-                setCollectionId(collectionId)
-                setDetailCollection(true)
-              }}
-            />
-          )}
-        </div>
-      )} */}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
           <MyCollectionSection />
