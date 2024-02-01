@@ -92,7 +92,7 @@ const NewStudioReleasesSection = props => {
               key={index}
               className={`flex ${
                 type === 'trending' ? 'col-span-12 lg:col-span-4' : 'col-span-6 lg:col-span-3'
-              }  2xl:col-span-4 flex items-center`}
+              } flex items-center`}
             >
               <StudioReleaseCard
                 image={heroValue.data}
