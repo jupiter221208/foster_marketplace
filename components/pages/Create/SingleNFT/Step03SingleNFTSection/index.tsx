@@ -11,21 +11,33 @@ import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
 // custom functions
 import { useViewport } from 'utils'
+import { validDigits } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
-import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
 import LoadingButton from 'components/Button/LoadingButton'
-import { validDigits } from 'utils/helpers'
+import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
+import TrashIcon from 'assets/icons/trash-icon.svg?component'
+import Alert from 'components/Alert'
 
 const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, setCollection, disabledNextButton, createNft, isMinting, onBack } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
+  const [tokenList, setTokenList] = useState([{ token_id: '', pros: '' }])
+  const [showAlert, setShowAlert] = useState(false)
 
+  let alertData = [
+    {
+      id: 0,
+      title: 'Percentage Error',
+      description: `The sum of percentage should be 100%.`,
+      type: 'warning',
+    },
+  ]
   const [collectionList, setCollectionList] = useState([])
   useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
@@ -38,6 +50,52 @@ const Step03SingleNFTSection = props => {
     } else {
       setCollection(null)
       setSelectedCollectionName(null)
+    }
+  }
+
+  const addAnotherToken = () => {
+    if (tokenList.length === 5) return
+    setTokenList([...tokenList, { token_id: '', pros: '' }])
+  }
+
+  const removeToken = index => {
+    if (tokenList.length === 1) {
+      setTokenList([{ token_id: '', pros: '' }])
+      return
+    }
+    let list = [...tokenList]
+    list.splice(index, 1)
+    setTokenList(list)
+  }
+
+  const setTokenId = (index, value) => {
+    let list = [...tokenList]
+    list[index].token_id = value
+    setTokenList(list)
+  }
+
+  const setTokenPros = (index, value) => {
+    let list = [...tokenList]
+    list[index].pros = value
+    setTokenList(list)
+  }
+
+  const createSingleNFT = () => {
+    if (tokenList.length === 1 && tokenList[0].token_id === '') {
+      createNft()
+      return
+    }
+
+    let totalPros = 0
+
+    for (let i = 0; i < tokenList.length; i++) {
+      let token = tokenList[i]
+      totalPros = totalPros + parseInt(token.pros)
+    }
+    if (totalPros === 100) {
+      createNft()
+    } else {
+      setShowAlert(true)
     }
   }
 
@@ -59,6 +117,47 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
+      <div className={styles.collaborationTitle}>Collaboration Split (optional)</div>
+      <div className={styles.collaborationText}>
+        Add collaborators to this NFT. The percentage splits will apply to both the primary and secondary sales.
+      </div>
+
+      <div className="max-w-[540px] max-h-[350px] w-full mt-[15px]">
+        {tokenList.map((token, index) => {
+          return (
+            <div key={index} className="flex gap-[18px] mb-[20px] items-center">
+              <input
+                className={styles.inputArea}
+                value={token.token_id}
+                placeholder={'Enter token ID'}
+                onChange={event => {
+                  setTokenId(index, event.target.value)
+                }}
+              />
+              <input
+                className={styles.inputPros}
+                value={token.pros}
+                placeholder={'100'}
+                onChange={event => {
+                  let pros = validDigits(event.target.value)
+                  if (pros === '') {
+                    setTokenPros(index, '')
+                  } else {
+                    setTokenPros(index, event.target.value)
+                  }
+                }}
+              />
+              <div className="w-[20px]">
+                <TrashIcon onClick={() => removeToken(index)} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div className={styles.button} onClick={() => addAnotherToken()}>
+        <CrossPlusIcon />
+        Add another wallet
+      </div>
       {/* <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
         <SelectCollectionMenu
@@ -67,7 +166,7 @@ const Step03SingleNFTSection = props => {
           onClick={index => chooseCollection(index)}
         />
       </div> */}
-      <div className="w-full flex justify-end mt-[300px]">
+      <div className="w-full flex justify-end mt-[50px]">
         <div className="flex gap-10">
           <div>
             <Button
@@ -93,11 +192,22 @@ const Step03SingleNFTSection = props => {
             ) : isMinting ? (
               <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
             ) : (
-              <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={() => createNft()} />
+              <GradientButton
+                width={viewport === '2xl' ? 124 : 117}
+                label="Mint NFT"
+                onClick={() => createSingleNFT()}
+              />
             )}
           </div>
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   ) : (
     <div className="w-full">
@@ -119,6 +229,47 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
+      <div className={styles.collaborationTitle}>Royalty Split (optional)</div>
+      <div className={styles.collaborationText}>
+        Add collaborators to this NFT. The percentage splits will apply to both the primary and secondary sales.
+      </div>
+      <div className="max-w-[540px] max-h-[350px] w-full mt-[18px]">
+        {tokenList.map((token, index) => {
+          return (
+            <div key={index} className="flex gap-[18px] mb-[20px] items-center">
+              <input
+                className={styles.inputArea}
+                value={token.token_id}
+                placeholder={'Enter token ID'}
+                onChange={event => {
+                  setTokenId(index, event.target.value)
+                }}
+              />
+              <input
+                className={styles.inputPros}
+                value={token.pros}
+                placeholder={'100'}
+                onChange={event => {
+                  let pros = validDigits(event.target.value)
+                  if (pros === '') {
+                    setTokenPros(index, '')
+                  } else {
+                    setTokenPros(index, event.target.value)
+                  }
+                }}
+              />
+              <div className="w-[20px]">
+                <TrashIcon onClick={() => removeToken(index)} />
+              </div>
+            </div>
+          )
+        })}
+      </div>
+      <div className={styles.button} onClick={() => addAnotherToken()}>
+        <CrossPlusIcon />
+        Add another wallet
+      </div>
+
       {/* <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
         <SelectCollectionMenu
@@ -127,7 +278,7 @@ const Step03SingleNFTSection = props => {
           onClick={index => chooseCollection(index)}
         />
       </div> */}
-      <div className="w-full flex gap-2 mt-20">
+      <div className="w-full flex gap-2 mt-[100px]">
         <Button
           label="Back"
           fullWidth
@@ -144,9 +295,16 @@ const Step03SingleNFTSection = props => {
         ) : isMinting ? (
           <LoadingButton fullWidth height={40} />
         ) : (
-          <GradientButton label="Mint NFT" onClick={() => createNft()} fullWidth />
+          <GradientButton label="Mint NFT" onClick={() => createSingleNFT()} fullWidth />
         )}
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

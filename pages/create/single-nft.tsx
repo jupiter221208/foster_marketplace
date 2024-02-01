@@ -41,7 +41,6 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // call apis
-import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 
 // styles
@@ -181,7 +180,6 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              // windowWidth = screenWidth - 32 - 8
               windowWidth = screenWidth
               break
           }
@@ -256,7 +254,6 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              // windowWidth = screenWidth - 32 - 8
               windowWidth = screenWidth
               break
           }
