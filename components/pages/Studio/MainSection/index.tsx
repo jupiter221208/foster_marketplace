@@ -48,6 +48,7 @@ const MainSection = ({ onChange, heroValue }) => {
           selected: true,
           data: item,
         })
+        dispatch({ type: 'set', apparelType: item.name })
       }
     })
   }, [])
@@ -87,6 +88,7 @@ const MainSection = ({ onChange, heroValue }) => {
               selected: true,
               data: item,
             })
+            dispatch({ type: 'set', apparelType: item.name })
           }
           setTimeout(() => {
             window.scrollTo({

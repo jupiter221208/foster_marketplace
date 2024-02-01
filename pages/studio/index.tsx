@@ -9,7 +9,6 @@ import MainSection from 'components/pages/Studio/MainSection'
 import StudioArtistsSection from 'components/pages/Studio/StudioArtistsSection'
 import NewStudioReleasesSection from 'components/pages/Studio/NewStudioReleasesSection'
 import ExploreStudioArtworkSection from 'components/pages/Studio/ExploreStudioArtworkSection'
-import TrendingSection from 'components/pages/Studio/TrendingSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images

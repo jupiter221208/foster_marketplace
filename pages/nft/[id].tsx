@@ -97,14 +97,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
-
         let params = {
           nftName,
           nftCoverUrl,
           mintAddress,
-          category: item.category,
-          subCategory: item.sub_type,
-          base: item.base,
+          category: item?.category,
+          subCategory: item?.sub_type,
+          base: item?.base,
         }
         setMerchData(params)
         setOpenMerchPage(true)
