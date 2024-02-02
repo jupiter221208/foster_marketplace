@@ -242,11 +242,11 @@ const Step03SingleNFTSection = props => {
       <div className="max-w-[540px] max-h-[350px] w-full mt-[18px]">
         {tokenList.map((token, index) => {
           return (
-            <div key={index} className="flex gap-[18px] mb-[20px] items-center">
+            <div key={index} className="flex gap-[10px] mb-[20px] items-center">
               <input
                 className={styles.inputArea}
                 value={token.token_id}
-                placeholder={'Enter token ID'}
+                placeholder={'Enter wallet address'}
                 onChange={event => {
                   setTokenId(index, event.target.value)
                 }}
@@ -264,9 +264,11 @@ const Step03SingleNFTSection = props => {
                   }
                 }}
               />
-              <div className="w-[20px]">
-                <TrashIcon onClick={() => removeToken(index)} />
-              </div>
+              {index > 0 && (
+                <div className="w-[20px]">
+                  <TrashIcon onClick={() => removeToken(index)} />
+                </div>
+              )}
             </div>
           )
         })}
