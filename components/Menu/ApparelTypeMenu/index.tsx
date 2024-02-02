@@ -54,36 +54,38 @@ const ApparelTypeMenu = props => {
   }
 
   return (
-    <div className="relative mt-[4px]">
-      <Menu>
-        <Menu.Button>
-          <div className={styles.btnArea}>
-            {selectedType ? selectedType['label'] : 'Filter'}
-            <FilterIcon alt="" />
-          </div>
-        </Menu.Button>
+    apparelTypes.length > 1 && (
+      <div className="relative mt-[4px]">
+        <Menu>
+          <Menu.Button>
+            <div className={styles.btnArea}>
+              {selectedType ? selectedType['label'] : 'Filter'}
+              <FilterIcon alt="" />
+            </div>
+          </Menu.Button>
 
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className={styles.menuArea}>
-            <Menu.Item>
-              {({ active }) => (
-                <div className={styles.menuItem}>
-                  <Radio data={apparelTypes} selected={selectedType} onChange={item => onChangeType(item)} />
-                </div>
-              )}
-            </Menu.Item>
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </div>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className={styles.menuArea}>
+              <Menu.Item>
+                {({ active }) => (
+                  <div className={styles.menuItem}>
+                    <Radio data={apparelTypes} selected={selectedType} onChange={item => onChangeType(item)} />
+                  </div>
+                )}
+              </Menu.Item>
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      </div>
+    )
   )
 }
 

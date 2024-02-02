@@ -16,7 +16,9 @@ const StudioCard = props => {
         </div>
 
         <div className={styles.titleContainer}>
-          <div className={styles.titleText}>{data.name}</div>
+          <div className="lg:block hidden">
+            <div className={styles.titleText}>{data.name}</div>
+          </div>
         </div>
       </div>
       <div className="lg:block hidden">

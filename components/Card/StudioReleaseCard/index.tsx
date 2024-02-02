@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import Link from 'next/link'
 
 // next components
 import Image from 'next/image'
@@ -18,14 +15,11 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
 
 const StudioReleaseCard = props => {
   const { type, token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
   const viewport = useViewport()
-  const dispatch = useDispatch()
   const { solToUsdRate } = useSolToUsdRate()
-  const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [apparelList, setApparelList] = useState(null)
   const [imagePath, setImagepath] = useState('')
   const [color, setColor] = useState(null)

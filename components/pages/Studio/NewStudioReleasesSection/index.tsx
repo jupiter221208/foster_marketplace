@@ -26,6 +26,7 @@ import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import merchAPI from 'apis/merch'
 import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
 import MobileApparelFilter from 'components/Filter/MobileApparelFilter'
+import StudioHeroList from 'assets/json/hero/hero-list.json'
 
 const NewStudioReleasesSection = props => {
   const { type, heroValue, onChange } = props
@@ -36,6 +37,7 @@ const NewStudioReleasesSection = props => {
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
   const [showMobileFilter, setShowMobileFilter] = useState(false)
   const [filterName, setFilterName] = useState('Filter')
+  const [bases, setBases] = useState([])
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
@@ -63,6 +65,17 @@ const NewStudioReleasesSection = props => {
     }
   }, [])
 
+  useEffect(() => {
+    for (var i = 0; i < StudioHeroList.length; i++) {
+      let hero = StudioHeroList[i]
+      let bases = hero.bases.filter(item => item.base === heroValue.data['name'])
+      if (bases.length > 0) {
+        setBases(hero.bases)
+        break
+      }
+    }
+  }, [heroValue])
+
   return (
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
@@ -79,12 +92,14 @@ const NewStudioReleasesSection = props => {
           <div className="hidden lg:block absolute top-[10px] right-[10px]">
             <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} setFilterName={setFilterName} />
           </div>
-          <div className="block lg:hidden absolute top-[-10px] right-[0px]">
-            <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
-              {filterName}
-              <FilterIcon alt="" />
+          {bases.length > 1 && (
+            <div className="block lg:hidden absolute top-[-10px] right-[0px]">
+              <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
+                {filterName}
+                <FilterIcon alt="" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
