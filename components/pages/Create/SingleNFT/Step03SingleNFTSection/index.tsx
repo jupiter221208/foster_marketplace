@@ -8,6 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollectionNFTs } from 'utils/nfts.utils'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -21,13 +22,17 @@ import LoadingButton from 'components/Button/LoadingButton'
 import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
 import Alert from 'components/Alert'
+import { getDisplayUserName } from 'utils/strings'
 
 const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, setCollection, disabledNextButton, createNft, isMinting, onBack } = props
   const viewport = useViewport()
+  const { publicKey } = useWallet()
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
-  const [tokenList, setTokenList] = useState([{ token_id: '', pros: '' }])
+  const [tokenList, setTokenList] = useState([
+    { token_id: getDisplayUserName(publicKey?.toBase58()) + ' (your address)', pros: '100' },
+  ])
   const [showAlert, setShowAlert] = useState(false)
 
   let alertData = [
@@ -55,14 +60,13 @@ const Step03SingleNFTSection = props => {
 
   const addAnotherToken = () => {
     if (tokenList.length === 5) return
-    setTokenList([...tokenList, { token_id: '', pros: '' }])
+    let totalPros = 0
+    tokenList.map(token => (totalPros += parseInt(token.pros)))
+    console.log(tokenList, totalPros, '===========tokenList------------')
+    setTokenList([...tokenList, { token_id: '', pros: totalPros >= 100 ? '0' : (100 - totalPros).toString() }])
   }
 
   const removeToken = index => {
-    if (tokenList.length === 1) {
-      setTokenList([{ token_id: '', pros: '' }])
-      return
-    }
     let list = [...tokenList]
     list.splice(index, 1)
     setTokenList(list)
@@ -87,10 +91,9 @@ const Step03SingleNFTSection = props => {
     }
 
     let totalPros = 0
-
     for (let i = 0; i < tokenList.length; i++) {
       let token = tokenList[i]
-      totalPros = totalPros + parseInt(token.pros)
+      totalPros += parseInt(token.pros)
     }
     if (totalPros === 100) {
       createNft()
@@ -122,41 +125,44 @@ const Step03SingleNFTSection = props => {
         Add collaborators to this NFT. The percentage splits will apply to both the primary and secondary sales.
       </div>
 
-      <div className="max-w-[540px] max-h-[350px] w-full mt-[15px]">
+      <div className="max-w-[575px] max-h-[350px] w-full mt-[15px]">
         {tokenList.map((token, index) => {
           return (
-            <div key={index} className="flex gap-[18px] mb-[20px] items-center">
-              <input
-                className={styles.inputArea}
-                value={token.token_id}
-                placeholder={'Enter token ID'}
-                onChange={event => {
-                  setTokenId(index, event.target.value)
-                }}
-              />
-              <input
-                className={styles.inputPros}
-                value={token.pros}
-                placeholder={'100'}
-                onChange={event => {
-                  let pros = validDigits(event.target.value)
-                  if (pros === '') {
-                    setTokenPros(index, '')
-                  } else {
-                    setTokenPros(index, event.target.value)
-                  }
-                }}
-              />
-              <div className="w-[20px]">
-                <TrashIcon onClick={() => removeToken(index)} />
+            <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">
+              <div className="w-full max-w-[540px] flex gap-[18px]">
+                <input
+                  className={styles.inputArea}
+                  value={token.token_id}
+                  placeholder={'Enter wallet address'}
+                  disabled={index === 0}
+                  onChange={event => {
+                    setTokenId(index, event.target.value)
+                  }}
+                />
+                <input
+                  className={styles.inputPros}
+                  value={token.pros}
+                  placeholder={'100'}
+                  onChange={event => {
+                    let pros = validDigits(event.target.value)
+                    if (pros === '') {
+                      setTokenPros(index, '')
+                    } else {
+                      setTokenPros(index, event.target.value)
+                    }
+                  }}
+                />
               </div>
+              <div className="w-[20px]">{index > 0 && <TrashIcon onClick={() => removeToken(index)} />}</div>
             </div>
           )
         })}
       </div>
-      <div className={styles.button} onClick={() => addAnotherToken()}>
-        <CrossPlusIcon />
-        Add another wallet
+      <div className="max-w-[575px] w-full pr-[35px]">
+        <div className={styles.button} onClick={() => addAnotherToken()}>
+          <CrossPlusIcon />
+          Add another wallet
+        </div>
       </div>
       {/* <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
