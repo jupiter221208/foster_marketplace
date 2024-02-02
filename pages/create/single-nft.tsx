@@ -33,6 +33,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import { useViewport } from 'utils'
+import { getDisplayUserName } from 'utils/strings'
 
 // images and icons
 
@@ -327,16 +328,26 @@ const SingleNft = () => {
     }
   }, [nftName, description, categoryList])
 
-  // step 3
-  const [royalties, setRoyalties] = useState(0)
-  const [collection, setCollection] = useState(null)
-
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
   const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
   const { refreshToken } = useAuthentication()
+
+  // step 3
+  const [royalties, setRoyalties] = useState(0)
+  const [collection, setCollection] = useState(null)
+  const [creatorList, setCreatorList] = useState<Array<{ address: string; share: string }>>([])
+  useEffect(() => {
+    try {
+      setCreatorList([
+        { address: getDisplayUserName(mx.identity().publicKey.toBase58()) + ' (your address)', share: '100' },
+      ])
+    } catch (e) {
+      console.warn(`could not fetch metaplex identity: ${e}`)
+    }
+  }, [mx])
 
   const createNft = async () => {
     try {
@@ -403,6 +414,7 @@ const SingleNft = () => {
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
+      let publicKey = mx.identity().publicKey
       let nftMint = Keypair.generate()
       let createNftOperation = await mx
         .nfts()
@@ -411,6 +423,11 @@ const SingleNft = () => {
           uri: metadataUri,
           name: trimmedNftName,
           sellerFeeBasisPoints: royalties * 100,
+          creators: creatorList.map(({ address, share }, index) => ({
+            address: index == 0 ? publicKey : new PublicKey(address),
+            share: parseInt(share),
+            verified: address == publicKey.toBase58(),
+          })),
           useNewMint: nftMint,
           collection: collection?.mintAddress,
         })
@@ -721,6 +738,8 @@ const SingleNft = () => {
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
                         setCollection={setCollection}
+                        creatorList={creatorList}
+                        setCreatorList={setCreatorList}
                         disabledNextButton={disabledNextButton}
                         createNft={() => createNft()}
                         isMinting={isMinting}
@@ -952,8 +971,10 @@ const SingleNft = () => {
                 <Step03SingleNFTSection
                   createNft={() => createNft()}
                   royalties={royalties}
-                  setCollection={setCollection}
                   setRoyalties={value => setRoyalties(value)}
+                  setCollection={setCollection}
+                  creatorList={creatorList}
+                  setCreatorList={setCreatorList}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   handleChangeCurrentStep={() =>
