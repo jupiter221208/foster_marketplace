@@ -82,7 +82,9 @@ const NewStudioReleasesSection = props => {
         <div className="w-full relative">
           <div className="w-auto lg:w-full flex justify-start lg:justify-center items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className={styles.title}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
+              <div className={`${styles.title} ${bases.length === 1 ? 'w-full text-center' : ''} `}>
+                {type === 'trending' ? 'Trending Now' : 'New Releases'}
+              </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
                 {type === 'trending' ? 'Trending Now' : 'New Releases'}

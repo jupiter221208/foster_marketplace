@@ -41,7 +41,7 @@ const StudioReleaseCard = props => {
         asset_url: '/images/apparel-color-white.png',
       })
     }
-  }, [])
+  }, [image])
 
   useEffect(() => {
     if (image) {
