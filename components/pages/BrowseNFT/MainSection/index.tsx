@@ -539,6 +539,18 @@ const MainSection = ({
         }
       }
 
+      setLoading(false)
+
+      dispatch({ type: 'set', isLoading: false })
+
+      return () => {
+        if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
+      }
+    })()
+  }, [nftDetail])
+
+  useEffect(() => {
+    ;(async () => {
       if (nftDetail.collection?.verified)
         try {
           let collectionMint = new PublicKey(nftDetail.collection.address)
@@ -560,14 +572,6 @@ const MainSection = ({
         },
         error => {}
       )
-
-      setLoading(false)
-
-      dispatch({ type: 'set', isLoading: false })
-
-      return () => {
-        if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
-      }
     })()
   }, [nftDetail])
 
