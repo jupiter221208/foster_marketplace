@@ -74,6 +74,31 @@ export interface NftData {
     category: string
     files?: FilesInfo[]
   }
+
+  json?: {
+    name?: string
+    symbol?: string
+    description?: string
+    seller_fee_basis_points?: number
+    image?: string
+    external_url?: string
+    attributes?: Array<{
+      trait_type?: string
+      value?: string
+      [key: string]: unknown
+    }>
+    properties?: {
+      creators?: NftCreator[]
+      files?: Array<FilesInfo>
+      [key: string]: unknown
+    }
+    collection?: {
+      name?: string
+      family?: string
+      [key: string]: unknown
+    }
+    [key: string]: unknown
+  }
 }
 
 export interface NftCreator {
