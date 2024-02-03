@@ -77,7 +77,7 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
-import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
+import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
 // call apis
@@ -116,11 +116,11 @@ import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { getDisplayUserName } from 'utils/strings'
 import Link from 'next/link'
-import { NftData } from 'types/nft'
+import { NftData, NftApiData } from 'types/nft'
 import AuctionDetail from '../AuctionDetail'
 
 export interface MainSectionProps {
-  nftDetail: Nft
+  nftDetail: NftApiData
   editionDetail: any
   nftInfo: any
   setFullScreenView: any
@@ -248,17 +248,16 @@ const MainSection = ({
     }
   }, [isEnded, isStarted])
 
-  const nftType: string =
-    (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
+  const nftType: string = (nftDetail.json?.category as string) ?? 'image'
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-  const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
+  const nftName = nftDetail.json?.name ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
 
   const mintAddress = nftDetail.address.toString()
-  const nftCollectionAddress = nftDetail.collection?.address.toString()
+  const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftCollectionUrl, setNftCollectionUrl] = useState('')
@@ -466,7 +465,12 @@ const MainSection = ({
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
-      let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+      const creators = nftDetail.creators.map(c => ({
+        ...c,
+        address: new PublicKey(c.address),
+      }))
+
+      let createAddress = getNFTArtistPublicKey({ creators })
       let { username: creatorName } = await usersAPI.get(createAddress)
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
@@ -607,7 +611,12 @@ const MainSection = ({
 
     setSellerAddress(tokenAccount.owner)
 
-    let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+    const creators = nftDetail.creators.map(c => ({
+      ...c,
+      address: new PublicKey(c.address),
+    }))
+
+    let createAddress = getNFTArtistPublicKey({ creators })
     let { username: creatorName } = await usersAPI.get(createAddress)
     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 

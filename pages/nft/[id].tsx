@@ -7,7 +7,6 @@ import Image from 'next/image'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
-import type { Sft, Nft, NftWithToken } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -41,7 +40,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import { NftData } from 'types/nft'
+import { NftData, NftApiData } from 'types/nft'
 
 export interface EditionDetail {
   number: number
@@ -50,7 +49,7 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: Nft
+  nftDetail?: NftApiData
   editionDetail?: EditionDetail
   originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
@@ -58,7 +57,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
+  const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
@@ -94,7 +93,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     if (detailShow === true) {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
-        const nftName = (nftDetail?.name || nftDetail.json?.name) ?? 'No name found'
+        const nftName = nftDetail.json?.name ?? 'No name found'
         const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
@@ -152,9 +151,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     fetchData()
   }, [nftDetail, profileInfo])
 
-  const collectionId = nftDetail?.collection?.address.toString()
+  const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
 
-  let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
+  let nftName = nftDetail?.json?.name ?? ''
   if (editionDetail) {
     let { number, supply, maxSupply } = editionDetail
     let supplyInfo = `#${number}/${supply}`
@@ -352,19 +351,45 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
 
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
-    let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
-    if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
+
+    const nftDataFromDas = await getNftFromDAS(mintAddress)
+
+    const metadataAddress = await metaplex.nfts().pdas().metadata({ mint: mintAddress })
+
+    let nftDetail: NftApiData = {
+      address: query.id,
+      collection: {
+        address: nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value || undefined,
+        verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
+      },
+      creators: nftDataFromDas.creators,
+      metadataAddress,
+      model: nftDataFromDas.content?.metadata?.token_standard,
+      symbol: nftDataFromDas.content.metadata.symbol,
+      sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
+      json: {
+        category: nftDataFromDas.category,
+        image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
+        animation_url: nftDataFromDas.content?.files?.[1]?.uri,
+        name: nftDataFromDas.content?.metadata?.name,
+        description: nftDataFromDas.content?.metadata?.description,
+        sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
+        attributes: nftDataFromDas.content.metadata.attributes,
+      },
+    }
+
+    if (nftDetail.model != 'NonFungible') throw new Error('expected NonFungible')
 
     let editionDetail = null
     let originalEditionDetail = null
-    if ('parent' in nftDetail.edition) {
-      originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
-      editionDetail = {
-        number: nftDetail.edition.number.toNumber(),
-        supply: originalEditionDetail.supply.toNumber(),
-        maxSupply: originalEditionDetail.maxSupply?.toNumber(),
-      }
-    }
+    // if ('parent' in nftDetail.edition) {
+    //   originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
+    //   editionDetail = {
+    //     number: nftDetail.edition.number.toNumber(),
+    //     supply: originalEditionDetail.supply.toNumber(),
+    //     maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+    //   }
+    // }
     return {
       nftDetail,
       editionDetail,

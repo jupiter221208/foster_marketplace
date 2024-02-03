@@ -1,3 +1,5 @@
+import { Pda } from '@metaplex-foundation/js'
+
 export interface NftData {
   mintAddress?: string
   metadataAddress?: string
@@ -53,8 +55,17 @@ export interface NftData {
     }
     metadata: {
       name: string
+      description: string
+      token_standard: string
+      attributes: { value: string; trait_type: string }[]
+      symbol: string
     }
+    json_uri: string
   }
+  royalty?: {
+    basis_points: number
+  }
+  grouping?: { group_key: string; group_value: string }[]
 
   marketplaceInfo?: NftMarketplaceInfo
   auction?: AuctionInfo
@@ -63,36 +74,11 @@ export interface NftData {
     category: string
     files?: FilesInfo[]
   }
-
-  json?: {
-    name?: string
-    symbol?: string
-    description?: string
-    seller_fee_basis_points?: number
-    image?: string
-    external_url?: string
-    attributes?: Array<{
-      trait_type?: string
-      value?: string
-      [key: string]: unknown
-    }>
-    properties?: {
-      creators?: NftCreator[]
-      files?: Array<FilesInfo>
-      [key: string]: unknown
-    }
-    collection?: {
-      name?: string
-      family?: string
-      [key: string]: unknown
-    }
-    [key: string]: unknown
-  }
 }
 
 export interface NftCreator {
   address: string
-  share?: number
+  share: number
   verified: boolean
   artist_username?: string
   [key: string]: unknown
@@ -182,4 +168,41 @@ export interface ActivityAPIData {
 
 export interface ArtistsAPIData {
   token_id: string
+}
+
+export interface NftApiData {
+  address: string
+  collection: {
+    address: string
+    verified: boolean
+  }
+  creators: NftCreator[]
+  metadataAddress: Pda
+  model: string
+  symbol: string
+  sellerFeeBasisPoints: number
+  json?: {
+    name?: string
+    symbol?: string
+    description?: string
+    seller_fee_basis_points?: number
+    image?: string
+    external_url?: string
+    attributes?: Array<{
+      trait_type?: string
+      value?: string
+      [key: string]: unknown
+    }>
+    properties?: {
+      creators?: NftCreator[]
+      files?: Array<FilesInfo>
+      [key: string]: unknown
+    }
+    collection?: {
+      name?: string
+      family?: string
+      [key: string]: unknown
+    }
+    [key: string]: unknown
+  }
 }
