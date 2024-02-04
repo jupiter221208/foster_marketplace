@@ -1,4 +1,4 @@
-import type { PublicKey } from "@solana/web3.js";
+import type { PublicKey, Commitment } from "@solana/web3.js";
 import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
 import type { BigNumber, BigNumberValues } from "@metaplex-foundation/js";
 import {
@@ -45,22 +45,27 @@ export const useLocalWalletBundlr = () => {
   if(!isBundlrStorageDriver(bundlr))
     throw new Error("unreachable");
 
-  async function ensureLocalWalletBalance(amount: BigNumberValues): Promise<string>{
+  async function ensureLocalWalletBalance(
+    amount: BigNumberValues,
+    commitment?: Commitment
+  ): Promise<string> {
     let currentBalance = await connection.getBalance(keypair.publicKey);
     let difference = toBigNumber(amount).sub(toBigNumber(currentBalance));
 
     // ensure minimum balance for rent-exemption
     const MINIMUM_BALANCE = 900_000;
-    if(difference.neg().toNumber() < MINIMUM_BALANCE)
+    if (difference.neg().toNumber() < MINIMUM_BALANCE)
       difference.iadd(toBigNumber(MINIMUM_BALANCE));
 
-    return fundLocalWallet(difference);
+    return fundLocalWallet(difference, commitment);
   }
 
-  async function fundLocalWallet(amount: BigNumberValues): Promise<string>{
+  async function fundLocalWallet(
+    amount: BigNumberValues,
+    commitment?: Commitment
+  ): Promise<string> {
     let amountBn = toBigNumber(amount);
-    if(amountBn.lte(toBigNumber(0)))
-      return "";
+    if (amountBn.lte(toBigNumber(0))) return "";
 
     let tx = new Transaction().add(
       SystemProgram.transfer({
@@ -70,7 +75,14 @@ export const useLocalWalletBundlr = () => {
       })
     );
 
+    let blockhashInfo = await metaplex.rpc().getLatestBlockhash();
+    tx.recentBlockhash = blockhashInfo.blockhash;
+
     let signature = await sendTransaction(tx, connection);
+    if (commitment)
+      await metaplex
+        .rpc()
+        .confirmTransaction(signature, blockhashInfo, commitment);
     console.log(`funded local wallet with ${amount} lamports: ${signature}`);
     return signature;
   }
