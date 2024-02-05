@@ -42,6 +42,7 @@ const Step03SingleNFTSection = props => {
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
+  let addressCheck = [true, true, true, true, true]
 
   let alertData = [
     {
@@ -73,6 +74,14 @@ const Step03SingleNFTSection = props => {
     } else {
       setShowAlert(true)
       setEnableMintBtn(false)
+    }
+
+    for (let i = 0; i < creatorList.length; i++) {
+      let creator = creatorList[i]
+      if (creator.address.length === 0) {
+        setEnableMintBtn(false)
+        break
+      }
     }
   }, [creatorList])
 
@@ -109,6 +118,8 @@ const Step03SingleNFTSection = props => {
       creator.share = sharePros
     })
     setCreatorList(list)
+
+    addressCheck[index] = true
   }
 
   const setCreatorAddress = (index, value) => {
@@ -127,8 +138,20 @@ const Step03SingleNFTSection = props => {
     createNft()
   }
 
-  const validCheckAddress = (index, flag) => {
-    console.log(index, flag)
+  const setValidCheckAddress = (index, flag) => {
+    console.log(index, flag, '============addressCheck===========')
+    addressCheck[index] = flag
+  }
+
+  const validCheckAddress = () => {
+    let check = false
+    for (let i = 0; i < 5; i++) {
+      if (addressCheck[i] === false) {
+        check = true
+        break
+      }
+    }
+    return check
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -173,10 +196,10 @@ const Step03SingleNFTSection = props => {
                     {(() => {
                       try {
                         if (index > 0 && address.length > 0) new PublicKey(address)
-                        validCheckAddress(index, true)
+                        setValidCheckAddress(index, true)
                         return null
                       } catch (e) {
-                        validCheckAddress(index, false)
+                        setValidCheckAddress(index, false)
                         return <Image src={ErrorIcon} alt="" width={24} height={24} />
                       }
                     })()}
@@ -233,7 +256,11 @@ const Step03SingleNFTSection = props => {
             />
           </div>
           <div>
-            {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 || !enableMintBtn ? (
+            {royalties === '' ||
+            parseInt(royalties) < 0 ||
+            parseInt(royalties) > 10 ||
+            !enableMintBtn ||
+            validCheckAddress() ? (
               <Button
                 width={viewport === '2xl' ? 124 : 117}
                 height={viewport === '2xl' ? 53 : 46}
