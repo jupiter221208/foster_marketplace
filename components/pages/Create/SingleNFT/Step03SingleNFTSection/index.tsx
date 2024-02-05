@@ -264,6 +264,7 @@ const Step03SingleNFTSection = props => {
                 label="Mint"
                 disabled={disabledNextButton}
                 backgroundColor="var(--second-home-bg)"
+                color="rgba(var(--main-bg-color-rgb), 0.5)"
               />
             ) : isMinting ? (
               <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
@@ -385,7 +386,9 @@ const Step03SingleNFTSection = props => {
           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
           borderWidth={2}
           color="var(--main-bg-color)"
-          height={40}
+          fontFamily="Muli-SemiBold"
+          height={45}
+          fontSize={16}
         />
 
         {royalties === '' ||
@@ -393,14 +396,24 @@ const Step03SingleNFTSection = props => {
         parseInt(royalties) > 10 ||
         !enableMintBtn ||
         validCheckAddress() ? (
-          <Button fullWidth height={40} label="Mint NFT" disabled={disabledNextButton} backgroundColor="#888A8E" />
+          <Button
+            fullWidth
+            height={45}
+            label="Mint"
+            disabled={disabledNextButton}
+            backgroundColor="var(--second-home-bg)"
+            color="rgba(var(--main-bg-color-rgb), 0.5)"
+            fontFamily="Muli-SemiBold"
+            fontSize={16}
+          />
         ) : isMinting ? (
-          <LoadingButton fullWidth height={40} />
+          <LoadingButton fullWidth height={45} />
         ) : (
           <GradientButton
             label="Mint"
             onClick={() => createSingleNFT()}
             fullWidth
+            height={45}
             backgroundColor01="var(--main-icon-color)"
             backgroundColor02="var(--main-icon-color)"
           />
