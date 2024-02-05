@@ -971,6 +971,7 @@ const SingleNft = () => {
                   setCollection={setCollection}
                   creatorList={creatorList}
                   setCreatorList={setCreatorList}
+                  isMinting={isMinting}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   handleChangeCurrentStep={() =>

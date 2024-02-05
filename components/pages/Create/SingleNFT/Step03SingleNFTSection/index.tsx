@@ -23,9 +23,6 @@ import styles from './index.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
-import Alert from 'components/Alert'
-import ErrorIcon from 'assets/icons/warning-icon.svg'
-import Image from 'next/image'
 
 const Step03SingleNFTSection = props => {
   const {
