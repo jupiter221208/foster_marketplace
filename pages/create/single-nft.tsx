@@ -1047,6 +1047,8 @@ const SingleNft = () => {
                             height="45px"
                             fontSize={16}
                             fontFamily="Muli-SemiBold"
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
                           />
                         </div>
                       )}

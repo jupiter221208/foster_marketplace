@@ -416,6 +416,8 @@ const Step03SingleNFTSection = props => {
             height={45}
             backgroundColor01="var(--main-icon-color)"
             backgroundColor02="var(--main-icon-color)"
+            fontSize={16}
+            fontFamily="Muli-SemiBold"
           />
         )}
       </div>
