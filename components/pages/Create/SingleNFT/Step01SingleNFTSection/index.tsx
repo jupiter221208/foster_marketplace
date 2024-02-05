@@ -70,7 +70,7 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>
+          <div className={`${styles.subTitle} mt-10`}>
             Art <span>*</span>
           </div>
           <div className="mt-5">

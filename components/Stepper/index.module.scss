@@ -5,24 +5,26 @@
   padding-left: 26px;
   padding-right: 20px;
   @media (min-width: 1024px) {
-    padding-left: 40px;
-    padding-right: 20px;
+    padding-left: 21px;
+    padding-right: 21px;
   }
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-radius: 30px;
 }
 
 .grayLine {
   flex: 1;
-  height: 1px;
-  background-color: rgba(#9a9da2, 0.2); // rgba(var(--white-color-rgb), 0.2);
+  height: 3px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
 }
 
 .greenLine {
   flex: 1;
-  height: 1px;
+  height: 3px;
   background-color: var(--main-icon-color);
 }
 

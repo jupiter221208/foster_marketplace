@@ -791,11 +791,6 @@ const SingleNft = () => {
         : currentStep !== 4 && (
             // mobile part
             <div className="g-container mb-[47px]">
-              {/* stepper part */}
-              {/* <div className="w-full">
-                <Stepper currentStep={currentStep} />
-              </div> */}
-
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
                   <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">

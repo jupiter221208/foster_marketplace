@@ -155,7 +155,7 @@ const Step03SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-10`}>
         Royalties <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-5">
