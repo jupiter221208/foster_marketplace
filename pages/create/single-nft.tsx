@@ -991,6 +991,8 @@ const SingleNft = () => {
                         backgroundColor="var(--second-home-bg)"
                         color="rgba(var(--main-bg-color-rgb), 0.5)"
                         height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
                       />
                     </div>
                   ) : (
@@ -1002,6 +1004,8 @@ const SingleNft = () => {
                         backgroundColor02="var(--main-icon-color)"
                         onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                         height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
                       />
                     </div>
                   ))}

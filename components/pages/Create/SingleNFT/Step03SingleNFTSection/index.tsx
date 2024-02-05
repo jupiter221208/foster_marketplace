@@ -174,9 +174,7 @@ const Step03SingleNFTSection = props => {
                     }}
                   />
                   {isValidPublicKey(address) ? null : (
-                    <div className="absolute right-[10px] top-[12px]">
-                      <Image src={ErrorIcon} alt="" width={24} height={24} />
-                    </div>
+                    <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
                   )}
                 </div>
                 {creatorList.length > 1 && (
@@ -267,7 +265,7 @@ const Step03SingleNFTSection = props => {
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-5`}>
+      <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-4">
@@ -285,10 +283,8 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
-      <div className={styles.collaborationTitle}>Royalty Split (optional)</div>
-      <div className={styles.collaborationText}>
-        Add collaborators to this NFT. The percentage splits will apply to both the primary and secondary sales.
-      </div>
+      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
+      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
       <div className="max-w-[540px] max-h-[350px] w-full mt-[18px]">
         {creatorList.map(({ address, share }, index) => {
           return (
@@ -304,9 +300,10 @@ const Step03SingleNFTSection = props => {
                   }}
                 />
                 {isValidPublicKey(address) ? null : (
-                  <div className="absolute right-[10px] top-[15px]">
-                    return <Image src={ErrorIcon} alt="" width={20} height={20} />
-                  </div>
+                  <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
+                  // <div className="absolute right-[10px] top-[15px]">
+                  //   <Image src={ErrorIcon} alt="" width={20} height={20} />
+                  // </div>
                 )}
               </div>
               {creatorList.length > 1 && (
@@ -324,16 +321,14 @@ const Step03SingleNFTSection = props => {
                   }}
                 />
               )}
-
-              {index > 0 && (
-                <div className="w-[20px]">
-                  <TrashIcon onClick={() => removeCreator(index)} />
-                </div>
+              {creatorList.length > 1 && (
+                <div className="w-[24px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
               )}
             </div>
           )
         })}
       </div>
+      {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
       <div className={styles.button} onClick={() => addAnotherCreator()}>
         <CrossPlusIcon />
         Add another wallet
