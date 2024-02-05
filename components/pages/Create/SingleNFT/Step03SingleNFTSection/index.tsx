@@ -139,7 +139,6 @@ const Step03SingleNFTSection = props => {
   }
 
   const setValidCheckAddress = (index, flag) => {
-    console.log(index, flag, '============addressCheck===========')
     addressCheck[index] = flag
   }
 
@@ -172,10 +171,8 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
-      <div className={styles.collaborationTitle}>Collaboration Split (optional)</div>
-      <div className={styles.collaborationText}>
-        Add collaborators to this NFT. The percentage splits will apply to both the primary and secondary sales.
-      </div>
+      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
+      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
 
       <div className="max-w-[575px] max-h-[350px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
@@ -316,44 +313,50 @@ const Step03SingleNFTSection = props => {
         {creatorList.map(({ address, share }, index) => {
           return (
             <div key={index} className="flex gap-[10px] mb-[20px] items-center">
-              <input
-                className={styles.inputArea}
-                value={address}
-                placeholder={'Enter wallet address'}
-                disabled={index === 0}
-                onChange={event => {
-                  setCreatorAddress(index, event.target.value)
-                }}
-              />
-              <input
-                className={styles.inputPros}
-                value={share}
-                placeholder={'100'}
-                onChange={event => {
-                  let share = validDigits(event.target.value)
-                  if (share === '') {
-                    setCreatorShare(index, '')
-                  } else {
-                    setCreatorShare(index, event.target.value)
-                  }
-                }}
-              />
+              <div className="w-full relative">
+                <input
+                  className={styles.inputArea}
+                  value={address}
+                  placeholder={'Enter wallet address'}
+                  disabled={index === 0}
+                  onChange={event => {
+                    setCreatorAddress(index, event.target.value)
+                  }}
+                />
+                <div className="absolute right-[10px] top-[15px]">
+                  {(() => {
+                    try {
+                      if (index > 0) new PublicKey(address)
+                      setValidCheckAddress(index, true)
+                      return null
+                    } catch (e) {
+                      setValidCheckAddress(index, false)
+                      return <Image src={ErrorIcon} alt="" width={20} height={20} />
+                    }
+                  })()}
+                </div>
+              </div>
+              {creatorList.length > 1 && (
+                <input
+                  className={styles.inputPros}
+                  value={share}
+                  placeholder={'100'}
+                  onChange={event => {
+                    let share = validDigits(event.target.value)
+                    if (share === '') {
+                      setCreatorShare(index, '')
+                    } else {
+                      setCreatorShare(index, event.target.value)
+                    }
+                  }}
+                />
+              )}
+
               {index > 0 && (
                 <div className="w-[20px]">
                   <TrashIcon onClick={() => removeCreator(index)} />
                 </div>
               )}
-              <div className="w-[20px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
-              {(() => {
-                try {
-                  if (index > 0) new PublicKey(address)
-                  return null
-                } catch (e) {
-                  console.error(`could not construct public key: ${address}`)
-                  // TODO: show warning icon next to input
-                  // return <WarningIcon tooltip="" />
-                }
-              })()}
             </div>
           )
         })}
@@ -383,21 +386,25 @@ const Step03SingleNFTSection = props => {
           height={40}
         />
 
-        {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
-          <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
+        {royalties === '' ||
+        parseInt(royalties) < 0 ||
+        parseInt(royalties) > 10 ||
+        !enableMintBtn ||
+        validCheckAddress() ? (
+          <Button fullWidth height={40} label="Mint NFT" disabled={disabledNextButton} backgroundColor="#888A8E" />
         ) : isMinting ? (
           <LoadingButton fullWidth height={40} />
         ) : (
           <GradientButton label="Mint NFT" onClick={() => createSingleNFT()} fullWidth />
         )}
       </div>
-      <Alert
+      {/* <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
         }}
         data={alertData}
-      />
+      /> */}
     </div>
   )
 }
