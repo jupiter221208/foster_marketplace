@@ -245,8 +245,8 @@ const Step03SingleNFTSection = props => {
               label="Back"
               onClick={() => onBack()}
               backgroundColor={'transparent'}
-              borderColor={'var(--back-btn-border-mobile)'}
-              borderWidth={1}
+              borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+              borderWidth={2}
               color="var(--main-bg-color)"
               width={viewport === '2xl' ? 124 : 117}
               height={viewport === '2xl' ? 53 : 46}
@@ -261,17 +261,19 @@ const Step03SingleNFTSection = props => {
               <Button
                 width={viewport === '2xl' ? 124 : 117}
                 height={viewport === '2xl' ? 53 : 46}
-                label="Mint NFT"
+                label="Mint"
                 disabled={disabledNextButton}
-                backgroundColor="#888A8E"
+                backgroundColor="var(--second-home-bg)"
               />
             ) : isMinting ? (
               <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
             ) : (
               <GradientButton
                 width={viewport === '2xl' ? 124 : 117}
-                label="Mint NFT"
+                label="Mint"
                 onClick={() => createSingleNFT()}
+                backgroundColor01="var(--main-icon-color)"
+                backgroundColor02="var(--main-icon-color)"
               />
             )}
           </div>
@@ -380,8 +382,8 @@ const Step03SingleNFTSection = props => {
           fullWidth
           onClick={() => onBack()}
           backgroundColor={'transparent'}
-          borderColor={'var(--back-btn-border-mobile)'}
-          borderWidth={1}
+          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+          borderWidth={2}
           color="var(--main-bg-color)"
           height={40}
         />
@@ -395,7 +397,13 @@ const Step03SingleNFTSection = props => {
         ) : isMinting ? (
           <LoadingButton fullWidth height={40} />
         ) : (
-          <GradientButton label="Mint NFT" onClick={() => createSingleNFT()} fullWidth />
+          <GradientButton
+            label="Mint"
+            onClick={() => createSingleNFT()}
+            fullWidth
+            backgroundColor01="var(--main-icon-color)"
+            backgroundColor02="var(--main-icon-color)"
+          />
         )}
       </div>
       {/* <Alert

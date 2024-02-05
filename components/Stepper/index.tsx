@@ -16,7 +16,7 @@ const Stepper = props => {
       <div className={styles.container}>
         <div className="relative h-[40px] lg:h-[30px] flex items-center">
           {/* {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />} */}
-          <div className={`${styles.greenText} absolute top-[25px] lg:top-[50px] -left-16 -right-16`}>Upload file</div>
+          <div className={`${styles.greenText} absolute top-[25px] lg:top-[50px] -left-6 -right-16`}>Upload file</div>
         </div>
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />

@@ -754,8 +754,8 @@ const SingleNft = () => {
                             label="Back"
                             onClick={() => handleChangeCurrentStep(currentStep - 1)}
                             backgroundColor={'transparent'}
-                            borderColor={'var(--back-btn-border-mobile)'}
-                            borderWidth={1}
+                            borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                            borderWidth={2}
                             color="var(--main-bg-color)"
                             width={viewport === '2xl' ? 124 : 117}
                             height={viewport === '2xl' ? 53 : 46}
@@ -770,14 +770,18 @@ const SingleNft = () => {
                               height={viewport === '2xl' ? 53 : 46}
                               label="Next Step"
                               disabled={disabledNextButton}
-                              backgroundColor="#888A8E"
+                              backgroundColor="var(--second-home-bg)"
+                              color="rgba(var(--main-bg-color-rgb), 0.5)"
                             />
                           ) : coverImageProcessing ? (
                             <LoadingButton width={viewport === '2xl' ? 124 : 117} />
                           ) : (
                             <GradientButton
                               width={viewport === '2xl' ? 124 : 117}
+                              height={viewport === '2xl' ? 53 : 46}
                               label="Next Step"
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
                               onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
                             />
                           ))}
@@ -849,7 +853,7 @@ const SingleNft = () => {
                   </div>
                 )}
 
-                {nftArt !== null && (
+                {nftArt !== null && currentStep === 1 && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="w-full flex justify-between">
                       {currentStep === 1 &&
@@ -987,7 +991,8 @@ const SingleNft = () => {
                         fullWidth
                         label="Next Step"
                         disabled={disabledNextButton}
-                        backgroundColor="#888A8E"
+                        backgroundColor="var(--second-home-bg)"
+                        color="rgba(var(--main-bg-color-rgb), 0.5)"
                         height="45px"
                       />
                     </div>
@@ -996,6 +1001,8 @@ const SingleNft = () => {
                       <GradientButton
                         fullWidth
                         label="Next Step"
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
                         onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                         height="45px"
                       />
@@ -1012,8 +1019,8 @@ const SingleNft = () => {
                         height="45px"
                         backgroundColor="transparent"
                         color="var(--main-bg-color)"
-                        borderColor="var(--back-btn-border-mobile)"
-                        borderWidth={1}
+                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                        borderWidth={2}
                       />
                     </div>
                     <div className="col-span-1">
@@ -1023,7 +1030,8 @@ const SingleNft = () => {
                             fullWidth
                             label="Next Step"
                             disabled={disabledNextButton}
-                            backgroundColor="#888A8E"
+                            backgroundColor="var(--second-home-bg)"
+                            color="rgba(var(--main-bg-color-rgb), 0.5)"
                             height="45px"
                           />
                         </div>
