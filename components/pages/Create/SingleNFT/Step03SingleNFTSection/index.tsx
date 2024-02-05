@@ -22,6 +22,8 @@ import LoadingButton from 'components/Button/LoadingButton'
 import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
 import Alert from 'components/Alert'
+import ErrorIcon from 'assets/icons/warning-icon.svg'
+import Image from 'next/image'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -39,6 +41,7 @@ const Step03SingleNFTSection = props => {
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
+  const [enableMintBtn, setEnableMintBtn] = useState(false)
 
   let alertData = [
     {
@@ -49,9 +52,29 @@ const Step03SingleNFTSection = props => {
     },
   ]
   const [collectionList, setCollectionList] = useState([])
+
   useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
+
+  useEffect(() => {
+    if (creatorList.length === 0) return
+
+    if (creatorList.length === 1 && creatorList[0].address === '') {
+      setShowAlert(false)
+      setEnableMintBtn(true)
+      return
+    }
+
+    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
+    if (totalShares === 100) {
+      setShowAlert(false)
+      setEnableMintBtn(true)
+    } else {
+      setShowAlert(true)
+      setEnableMintBtn(false)
+    }
+  }, [creatorList])
 
   const chooseCollection = index => {
     if (index >= 0) {
@@ -64,13 +87,27 @@ const Step03SingleNFTSection = props => {
   }
 
   const addAnotherCreator = () => {
-    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
-    setCreatorList([...creatorList, { address: '', share: totalShares >= 100 ? '0' : (100 - totalShares).toString() }])
+    if (creatorList.length === 5) return
+
+    let newList = []
+    let count = creatorList.length
+    let sharePros = Math.floor(100 / (count + 1)).toString()
+    creatorList.map(creator => {
+      creator.share = sharePros
+      newList.push(creator)
+    })
+    newList.push({ address: '', share: sharePros, valid: true })
+    setCreatorList(newList)
   }
 
   const removeCreator = index => {
     let list = [...creatorList]
     list.splice(index, 1)
+    let count = list.length
+    let sharePros = Math.floor(100 / count).toString()
+    list.map(creator => {
+      creator.share = sharePros
+    })
     setCreatorList(list)
   }
 
@@ -87,17 +124,11 @@ const Step03SingleNFTSection = props => {
   }
 
   const createSingleNFT = () => {
-    if (creatorList.length === 1 && creatorList[0].address === '') {
-      createNft()
-      return
-    }
+    createNft()
+  }
 
-    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
-    if (totalShares === 100) {
-      createNft()
-    } else {
-      setShowAlert(true)
-    }
+  const validCheckAddress = (index, flag) => {
+    console.log(index, flag)
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -128,44 +159,51 @@ const Step03SingleNFTSection = props => {
           return (
             <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">
               <div className="w-full max-w-[540px] flex gap-[18px]">
-                <input
-                  className={styles.inputArea}
-                  value={address}
-                  disabled={index === 0}
-                  placeholder={'Enter wallet address'}
-                  onChange={event => {
-                    setCreatorAddress(index, event.target.value)
-                  }}
-                />
-                <input
-                  className={styles.inputPros}
-                  value={share}
-                  placeholder={'100'}
-                  onChange={event => {
-                    let pros = validDigits(event.target.value)
-                    if (pros === '') {
-                      setCreatorShare(index, '')
-                    } else {
-                      setCreatorShare(index, event.target.value)
-                    }
-                  }}
-                />
+                <div className="w-full relative">
+                  <input
+                    className={styles.inputArea}
+                    value={address}
+                    disabled={index === 0}
+                    placeholder={'Enter wallet address'}
+                    onChange={event => {
+                      setCreatorAddress(index, event.target.value)
+                    }}
+                  />
+                  <div className="absolute right-[10px] top-[12px]">
+                    {(() => {
+                      try {
+                        if (index > 0 && address.length > 0) new PublicKey(address)
+                        validCheckAddress(index, true)
+                        return null
+                      } catch (e) {
+                        validCheckAddress(index, false)
+                        return <Image src={ErrorIcon} alt="" width={24} height={24} />
+                      }
+                    })()}
+                  </div>
+                </div>
+                {creatorList.length > 1 && (
+                  <input
+                    className={styles.inputPros}
+                    value={share}
+                    placeholder={'100'}
+                    onChange={event => {
+                      let pros = validDigits(event.target.value)
+                      if (pros === '') {
+                        setCreatorShare(index, '')
+                      } else {
+                        setCreatorShare(index, event.target.value)
+                      }
+                    }}
+                  />
+                )}
               </div>
               <div className="w-[20px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
-              {(() => {
-                try {
-                  if (index > 0) new PublicKey(address)
-                  return null
-                } catch (e) {
-                  console.error(`could not construct public key: ${address}`)
-                  // TODO: show warning icon next to input
-                  // return <WarningIcon tooltip="" />
-                }
-              })()}
             </div>
           )
         })}
       </div>
+      {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
       <div className="max-w-[575px] w-full pr-[35px]">
         <div className={styles.button} onClick={() => addAnotherCreator()}>
           <CrossPlusIcon />
@@ -195,7 +233,7 @@ const Step03SingleNFTSection = props => {
             />
           </div>
           <div>
-            {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
+            {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 || !enableMintBtn ? (
               <Button
                 width={viewport === '2xl' ? 124 : 117}
                 height={viewport === '2xl' ? 53 : 46}
@@ -215,13 +253,13 @@ const Step03SingleNFTSection = props => {
           </div>
         </div>
       </div>
-      <Alert
+      {/* <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
         }}
         data={alertData}
-      />
+      /> */}
     </div>
   ) : (
     <div className="w-full">
