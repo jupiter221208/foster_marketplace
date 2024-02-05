@@ -33,7 +33,6 @@ import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import { useViewport } from 'utils'
-import { getDisplayUserName } from 'utils/strings'
 
 // images and icons
 
@@ -341,9 +340,7 @@ const SingleNft = () => {
   const [creatorList, setCreatorList] = useState<Array<{ address: string; share: string }>>([])
   useEffect(() => {
     try {
-      setCreatorList([
-        { address: getDisplayUserName(mx.identity().publicKey.toBase58()) + ' (your address)', share: '100' },
-      ])
+      setCreatorList([{ address: mx.identity().publicKey.toBase58(), share: '100' }])
     } catch (e) {
       console.warn(`could not fetch metaplex identity: ${e}`)
     }
@@ -423,8 +420,8 @@ const SingleNft = () => {
           uri: metadataUri,
           name: trimmedNftName,
           sellerFeeBasisPoints: royalties * 100,
-          creators: creatorList.map(({ address, share }, index) => ({
-            address: index == 0 ? publicKey : new PublicKey(address),
+          creators: creatorList.map(({ address, share }) => ({
+            address: new PublicKey(address),
             share: parseInt(share),
             verified: address == publicKey.toBase58(),
           })),

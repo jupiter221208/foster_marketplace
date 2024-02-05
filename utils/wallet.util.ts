@@ -78,3 +78,13 @@ export function getShortAddress(publicKey: PublicKey | null) {
 
   return (base58 && base58.slice(0, 3) + '***' + base58.slice(-3)) || ''
 }
+
+export function isValidPublicKey(address: string | PublicKey | null): boolean {
+  if (!address) return false
+  try {
+    new PublicKey(address)
+    return true
+  } catch (e) {
+    return false
+  }
+}

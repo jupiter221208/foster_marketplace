@@ -13,6 +13,8 @@ import { getMyCollectionNFTs } from 'utils/nfts.utils'
 // custom functions
 import { useViewport } from 'utils'
 import { validDigits } from 'utils/helpers'
+import { getDisplayUserName } from 'utils/strings'
+import { isValidPublicKey } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'
@@ -42,7 +44,6 @@ const Step03SingleNFTSection = props => {
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
-  let addressCheck = [true, true, true, true, true]
 
   let alertData = [
     {
@@ -118,8 +119,6 @@ const Step03SingleNFTSection = props => {
       creator.share = sharePros
     })
     setCreatorList(list)
-
-    addressCheck[index] = true
   }
 
   const setCreatorAddress = (index, value) => {
@@ -136,21 +135,6 @@ const Step03SingleNFTSection = props => {
 
   const createSingleNFT = () => {
     createNft()
-  }
-
-  const setValidCheckAddress = (index, flag) => {
-    addressCheck[index] = flag
-  }
-
-  const validCheckAddress = () => {
-    let check = false
-    for (let i = 0; i < 5; i++) {
-      if (addressCheck[i] === false) {
-        check = true
-        break
-      }
-    }
-    return check
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -182,25 +166,18 @@ const Step03SingleNFTSection = props => {
                 <div className="w-full relative">
                   <input
                     className={styles.inputArea}
-                    value={address}
+                    value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
                     disabled={index === 0}
                     placeholder={'Enter wallet address'}
                     onChange={event => {
                       setCreatorAddress(index, event.target.value)
                     }}
                   />
-                  <div className="absolute right-[10px] top-[12px]">
-                    {(() => {
-                      try {
-                        if (index > 0 && address.length > 0) new PublicKey(address)
-                        setValidCheckAddress(index, true)
-                        return null
-                      } catch (e) {
-                        setValidCheckAddress(index, false)
-                        return <Image src={ErrorIcon} alt="" width={24} height={24} />
-                      }
-                    })()}
-                  </div>
+                  {isValidPublicKey(address) ? null : (
+                    <div className="absolute right-[10px] top-[12px]">
+                      <Image src={ErrorIcon} alt="" width={24} height={24} />
+                    </div>
+                  )}
                 </div>
                 {creatorList.length > 1 && (
                   <input
@@ -257,7 +234,7 @@ const Step03SingleNFTSection = props => {
             parseInt(royalties) < 0 ||
             parseInt(royalties) > 10 ||
             !enableMintBtn ||
-            validCheckAddress() ? (
+            creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
               <Button
                 width={viewport === '2xl' ? 124 : 117}
                 height={viewport === '2xl' ? 53 : 46}
@@ -319,25 +296,18 @@ const Step03SingleNFTSection = props => {
               <div className="w-full relative">
                 <input
                   className={styles.inputArea}
-                  value={address}
+                  value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
                   placeholder={'Enter wallet address'}
                   disabled={index === 0}
                   onChange={event => {
                     setCreatorAddress(index, event.target.value)
                   }}
                 />
-                <div className="absolute right-[10px] top-[15px]">
-                  {(() => {
-                    try {
-                      if (index > 0) new PublicKey(address)
-                      setValidCheckAddress(index, true)
-                      return null
-                    } catch (e) {
-                      setValidCheckAddress(index, false)
-                      return <Image src={ErrorIcon} alt="" width={20} height={20} />
-                    }
-                  })()}
-                </div>
+                {isValidPublicKey(address) ? null : (
+                  <div className="absolute right-[10px] top-[15px]">
+                    return <Image src={ErrorIcon} alt="" width={20} height={20} />
+                  </div>
+                )}
               </div>
               {creatorList.length > 1 && (
                 <input
@@ -395,7 +365,7 @@ const Step03SingleNFTSection = props => {
         parseInt(royalties) < 0 ||
         parseInt(royalties) > 10 ||
         !enableMintBtn ||
-        validCheckAddress() ? (
+        creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
           <Button
             fullWidth
             height={45}
