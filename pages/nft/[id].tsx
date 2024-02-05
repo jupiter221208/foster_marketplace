@@ -19,7 +19,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
+import { determineCategory, getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -119,6 +119,17 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       const result = await getNftFromDAS(nftDetail.address)
 
+      result.auction = null
+      result.marketplaceInfo = {
+        likes: null,
+        shares: null,
+        saves: null,
+        liked: null,
+        saved: null,
+        shared: null,
+        merchHubEnabled: null,
+      }
+
       if (result) {
         setNftInfo(result)
         setHasLoading(false)
@@ -180,6 +191,17 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     if (!nftDetail) return
 
     const result = await getNftFromDAS(nftDetail.address)
+
+    result.auction = null
+    result.marketplaceInfo = {
+      likes: null,
+      shares: null,
+      saves: null,
+      liked: null,
+      saved: null,
+      shared: null,
+      merchHubEnabled: null,
+    }
 
     if (result) {
       setNftInfo(result)
@@ -368,7 +390,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       symbol: nftDataFromDas.content.metadata.symbol,
       sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
       json: {
-        category: nftDataFromDas.category,
+        category: determineCategory(nftDataFromDas.content.files),
         image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
         animation_url: nftDataFromDas.content?.files?.[1]?.uri,
         name: nftDataFromDas.content?.metadata?.name,

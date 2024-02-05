@@ -333,17 +333,6 @@ export async function getNftFromDAS(address): Promise<NftData> {
     })
     const { result } = await response.json()
 
-    result.auction = null
-    result.marketplaceInfo = {
-      likes: null,
-      shares: null,
-      saves: null,
-      liked: null,
-      saved: null,
-      shared: null,
-      merchHubEnabled: null,
-    }
-
     return result
   } catch (error) {
     console.log('Error while fetching nft: ', error)
