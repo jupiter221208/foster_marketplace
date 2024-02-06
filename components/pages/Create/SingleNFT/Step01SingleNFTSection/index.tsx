@@ -70,7 +70,7 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>
+          <div className={`${styles.subTitle} mt-10`}>
             Art <span>*</span>
           </div>
           <div className="mt-5">
@@ -97,7 +97,7 @@ const Step01SingleNFTSection = props => {
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
-                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
@@ -136,7 +136,7 @@ const Step01SingleNFTSection = props => {
                     <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
-                        <p className={styles.subTitle}>Upload Here</p>
+                        <p className={styles.uploadText}>Upload Here</p>
                         <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>
@@ -179,7 +179,7 @@ const Step01SingleNFTSection = props => {
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <UploadGreenIcon alt="" />
-                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>
                       Supported File Formats
                       <br />
@@ -228,7 +228,7 @@ const Step01SingleNFTSection = props => {
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
                         <UploadGreenIcon alt="" />
-                        <p className={styles.subTitle}>Upload Here</p>
+                        <p className={styles.uploadText}>Upload Here</p>
                         <p className={styles.text}>
                           Supported File Formats
                           <br />

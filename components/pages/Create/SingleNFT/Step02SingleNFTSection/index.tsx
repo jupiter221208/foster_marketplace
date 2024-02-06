@@ -35,7 +35,7 @@ const Step02SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-10`}>
         NFT Name <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-5">
@@ -68,7 +68,7 @@ const Step02SingleNFTSection = props => {
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.mobileSubTitle} mt-5`}>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
         NFT Name <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-4">
@@ -82,7 +82,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setNftName(limit(value, 32))}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
         Description <span>*</span>
       </div>
       <div className="w-full mt-5">
@@ -96,7 +96,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(value)}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
         Categories <span>*</span>
       </div>
       <div className="w-full mt-4">

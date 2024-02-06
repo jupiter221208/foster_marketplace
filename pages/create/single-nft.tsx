@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
@@ -41,7 +41,6 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // call apis
-import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 
 // styles
@@ -181,7 +180,6 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              // windowWidth = screenWidth - 32 - 8
               windowWidth = screenWidth
               break
           }
@@ -256,7 +254,6 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              // windowWidth = screenWidth - 32 - 8
               windowWidth = screenWidth
               break
           }
@@ -330,16 +327,24 @@ const SingleNft = () => {
     }
   }, [nftName, description, categoryList])
 
-  // step 3
-  const [royalties, setRoyalties] = useState(0)
-  const [collection, setCollection] = useState(null)
-
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
   const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
   const { refreshToken } = useAuthentication()
+
+  // step 3
+  const [royalties, setRoyalties] = useState(0)
+  const [collection, setCollection] = useState(null)
+  const [creatorList, setCreatorList] = useState<Array<{ address: string; share: string }>>([])
+  useEffect(() => {
+    try {
+      setCreatorList([{ address: mx.identity().publicKey.toBase58(), share: '100' }])
+    } catch (e) {
+      console.warn(`could not fetch metaplex identity: ${e}`)
+    }
+  }, [mx])
 
   const createNft = async () => {
     try {
@@ -406,6 +411,7 @@ const SingleNft = () => {
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
+      let publicKey = mx.identity().publicKey
       let nftMint = Keypair.generate()
       let createNftOperation = await mx
         .nfts()
@@ -414,6 +420,11 @@ const SingleNft = () => {
           uri: metadataUri,
           name: trimmedNftName,
           sellerFeeBasisPoints: royalties * 100,
+          creators: creatorList.map(({ address, share }) => ({
+            address: new PublicKey(address),
+            share: parseInt(share),
+            verified: address == publicKey.toBase58(),
+          })),
           useNewMint: nftMint,
           collection: collection?.mintAddress,
         })
@@ -724,6 +735,8 @@ const SingleNft = () => {
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
                         setCollection={setCollection}
+                        creatorList={creatorList}
+                        setCreatorList={setCreatorList}
                         disabledNextButton={disabledNextButton}
                         createNft={() => createNft()}
                         isMinting={isMinting}
@@ -738,11 +751,11 @@ const SingleNft = () => {
                             label="Back"
                             onClick={() => handleChangeCurrentStep(currentStep - 1)}
                             backgroundColor={'transparent'}
-                            borderColor={'var(--back-btn-border-mobile)'}
-                            borderWidth={1}
+                            borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                            borderWidth={2}
                             color="var(--main-bg-color)"
                             width={viewport === '2xl' ? 124 : 117}
-                            height={viewport === '2xl' ? 53 : 46}
+                            height={viewport === '2xl' ? 53 : 45}
                           />
                         ) : (
                           <div />
@@ -751,17 +764,21 @@ const SingleNft = () => {
                           (disabledNextButton ? (
                             <Button
                               width={viewport === '2xl' ? 124 : 117}
-                              height={viewport === '2xl' ? 53 : 46}
+                              height={viewport === '2xl' ? 53 : 45}
                               label="Next Step"
                               disabled={disabledNextButton}
-                              backgroundColor="#888A8E"
+                              backgroundColor="var(--second-home-bg)"
+                              color="rgba(var(--main-bg-color-rgb), 0.5)"
                             />
                           ) : coverImageProcessing ? (
                             <LoadingButton width={viewport === '2xl' ? 124 : 117} />
                           ) : (
                             <GradientButton
                               width={viewport === '2xl' ? 124 : 117}
+                              height={viewport === '2xl' ? 53 : 45}
                               label="Next Step"
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
                               onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
                             />
                           ))}
@@ -775,11 +792,6 @@ const SingleNft = () => {
         : currentStep !== 4 && (
             // mobile part
             <div className="g-container mb-[47px]">
-              {/* stepper part */}
-              {/* <div className="w-full">
-                <Stepper currentStep={currentStep} />
-              </div> */}
-
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
                   <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
@@ -838,7 +850,7 @@ const SingleNft = () => {
                   </div>
                 )}
 
-                {nftArt !== null && (
+                {nftArt !== null && currentStep === 1 && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="w-full flex justify-between">
                       {currentStep === 1 &&
@@ -955,8 +967,11 @@ const SingleNft = () => {
                 <Step03SingleNFTSection
                   createNft={() => createNft()}
                   royalties={royalties}
-                  setCollection={setCollection}
                   setRoyalties={value => setRoyalties(value)}
+                  setCollection={setCollection}
+                  creatorList={creatorList}
+                  setCreatorList={setCreatorList}
+                  isMinting={isMinting}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   handleChangeCurrentStep={() =>
@@ -974,8 +989,11 @@ const SingleNft = () => {
                         fullWidth
                         label="Next Step"
                         disabled={disabledNextButton}
-                        backgroundColor="#888A8E"
+                        backgroundColor="var(--second-home-bg)"
+                        color="rgba(var(--main-bg-color-rgb), 0.5)"
                         height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
                       />
                     </div>
                   ) : (
@@ -983,8 +1001,12 @@ const SingleNft = () => {
                       <GradientButton
                         fullWidth
                         label="Next Step"
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
                         onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                         height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
                       />
                     </div>
                   ))}
@@ -999,8 +1021,9 @@ const SingleNft = () => {
                         height="45px"
                         backgroundColor="transparent"
                         color="var(--main-bg-color)"
-                        borderColor="var(--back-btn-border-mobile)"
-                        borderWidth={1}
+                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                        borderWidth={2}
+                        fontSize={16}
                       />
                     </div>
                     <div className="col-span-1">
@@ -1010,8 +1033,11 @@ const SingleNft = () => {
                             fullWidth
                             label="Next Step"
                             disabled={disabledNextButton}
-                            backgroundColor="#888A8E"
+                            backgroundColor="var(--second-home-bg)"
+                            color="rgba(var(--main-bg-color-rgb), 0.5)"
                             height="45px"
+                            fontSize={16}
+                            fontFamily="Muli-SemiBold"
                           />
                         </div>
                       ) : (
@@ -1021,6 +1047,10 @@ const SingleNft = () => {
                             label="Next Step"
                             onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                             height="45px"
+                            fontSize={16}
+                            fontFamily="Muli-SemiBold"
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
                           />
                         </div>
                       )}
