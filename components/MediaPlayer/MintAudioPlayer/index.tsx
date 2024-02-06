@@ -1,16 +1,11 @@
 import React, { useEffect } from 'react'
 
 // components
-import IconButton from 'components/Button/IconButton'
 import useAudioPlayer from './useAudioPlayer'
 import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import PlayWhiteIcon from 'assets/icons/play-video.svg'
-import PauseWhiteIcon from 'assets/icons/pause-video.svg'
 
 const MintAudioPlayer = props => {
   const { src } = props

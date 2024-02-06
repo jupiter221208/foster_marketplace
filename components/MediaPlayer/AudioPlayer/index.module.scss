@@ -30,13 +30,9 @@
   bottom: 0;
   display: flex;
   justify-content: center;
-  background: rgba(var(--background-dark-color), 0.6);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  padding: 20px 20px;
   @media (min-width: 1024px) {
     background: transparent;
-    padding: 30px 56px 30px 26px;
+    padding: 30px 56px 30px 56px;
   }
 }
 .errorMessage {
