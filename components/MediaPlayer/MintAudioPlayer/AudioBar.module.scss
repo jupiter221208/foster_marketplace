@@ -28,9 +28,9 @@
       position: relative;
       height: 16px;
       width: 16px;
-      border: 2px solid var(--background-dark-color);
+      // border: 2px solid var(--background-dark-color);
       border-radius: 50%;
-      background-color: #378287;
+      background-color: var(--main-icon-color);
     }
   }
 }

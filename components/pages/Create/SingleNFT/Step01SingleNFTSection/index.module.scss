@@ -157,6 +157,9 @@
   }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color);
+  }
 }
 
 .uploadText {
