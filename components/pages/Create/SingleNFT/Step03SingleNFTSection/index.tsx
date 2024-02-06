@@ -155,7 +155,7 @@ const Step03SingleNFTSection = props => {
       <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
       <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
 
-      <div className="max-w-[575px] max-h-[350px] w-full mt-[15px]">
+      <div className="max-w-[575px] max-h-[370px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
           return (
             <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">

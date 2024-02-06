@@ -199,30 +199,31 @@ const SingleNft = () => {
       } else if (nftArt[0].type === 'video/mp4') {
         const type = nftArt[0].type.split('/')[0]
         setNftType(type)
-        if (type === 'video') {
-          setCoverImageProcessing(true)
-          let canvas = document.createElement('canvas')
-          let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
-          hidden_video.src = URL.createObjectURL(nftArt[0])
+        setCoverImageProcessing(true)
+        let canvas = document.createElement('canvas')
+        let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+        hidden_video.src = URL.createObjectURL(nftArt[0])
 
-          hidden_video.addEventListener('seeked', function () {
-            canvas.width = hidden_video.videoWidth
-            canvas.height = hidden_video.videoHeight
+        hidden_video.addEventListener('seeked', function () {
+          canvas.width = hidden_video.videoWidth
+          canvas.height = hidden_video.videoHeight
 
-            let ctx = canvas.getContext('2d')
-            ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
+          let ctx = canvas.getContext('2d')
+          ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
 
-            canvas.toBlob(blob => {
-              setNftImage(URL.createObjectURL(blob))
-              setCoverImageProcessing(false)
-            })
+          canvas.toBlob(blob => {
+            setNftImage(URL.createObjectURL(blob))
+            setCoverImageProcessing(false)
           })
-          hidden_video.currentTime = 5
-        }
+        })
+        hidden_video.currentTime = 5
       } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
         setNftUrl(path)
+      } else {
+        const type = nftArt[0].type.split('/')[0]
+        setNftType(type)
       }
     }
   }, [nftArt])
