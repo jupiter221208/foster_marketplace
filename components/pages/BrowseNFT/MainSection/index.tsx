@@ -956,6 +956,12 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
+      {nftType.includes('audio') && (
+        <div className={`${styles.nftAudioBG} lg:block hidden`}>
+          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+          <div className={styles.overlay} />
+        </div>
+      )}
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -981,8 +987,11 @@ const MainSection = ({
                 {/* <div className={styles.mobileImageBackground} /> */}
               </div>
             ) : nftType.includes('audio') ? (
-              <div className={styles.audioArea}>
-                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+              <div className={styles.mobileImageArea}>
+                <img src={nftCoverUrl} alt="" className="w-full" />
+                <div className={styles.audioMobileArea}>
+                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                </div>
               </div>
             ) : nftType.includes('video') ? (
               <div className={styles.videoArea}>
@@ -1054,23 +1063,19 @@ const MainSection = ({
               </div>
             </div>
           ) : nftType.includes('audio') ? (
-            <div className={styles.blurBackground}>
-              {nftAssetUrl && (
-                <>
-                  <div className="absolute inset-0">
+            <div className="w-full h-full flex justify-center items-center">
+              <div className={styles.audioBackground}>
+                {nftAssetUrl && (
+                  <div className="w-[403px] h-[415px] rounded-[35px] overflow-hidden">
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                    {/* <div
-                      className={styles.fullScreenMode}
-                      onClick={() => setFullScreenView({ type: 'image', url: nftCoverUrl })}
-                    >
-                      <Image src={FullScreenModeIcon} alt="" />
-                    </div> */}
                   </div>
-                </>
-              )}
-              <div className={styles.blurImage} />
-              <div className={styles.audioArea}>
-                <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                )}
+                <div className={styles.audioNftName}>{nftName}</div>
+                <div className={styles.audioCreatorName}>{getDisplayUserName(nftCreatorname)}</div>
+
+                <div className={styles.audioArea}>
+                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                </div>
               </div>
             </div>
           ) : nftType.includes('video') ? (
@@ -1130,8 +1135,12 @@ const MainSection = ({
           ) : (
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap">
-                <div className="w-full flex flex-wrap justify-between items-center">
-                  <div className="flex items-center gap-[10px] lg:gap-[20px]">
+                <div
+                  className={`w-full flex flex-wrap ${
+                    nftType.includes('audio') ? 'justify-end' : 'justify-between'
+                  } items-center`}
+                >
+                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
                     {hasLoading ? (
                       <div className={`${styles.skeletonLoader} ${styles.ellipseArea}`}></div>
                     ) : (
@@ -1151,7 +1160,7 @@ const MainSection = ({
                     {hasLoading ? (
                       <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-3xl`}></div>
                     ) : (
-                      <div className="cursor-pointer flex gap-[10px] items-center">
+                      <div className="cursor-pointer flex gap-[10px] items-center  mr-[20px] lg:mr-[20px]">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
                             alt=""
@@ -1172,7 +1181,9 @@ const MainSection = ({
                           />
                         )}
 
-                        {merchHover && <div className={styles.infoText}>Foster Studio</div>}
+                        {!nftType.includes('audio') && merchHover && (
+                          <div className={styles.infoText}>Foster Studio</div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1229,37 +1240,39 @@ const MainSection = ({
                     className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
                   ></div>
                 ) : (
-                  <>
-                    <div className="w-full flex mt-[15px] lg:mt-[28px]">
-                      <div className={styles.title}>{nftName}</div>
-                    </div>
-
-                    <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
-                      <div className="flex gap-1 lg:gap-2">
-                        <div className={styles.grayText}>Created by</div>
-                        <Link href={`/${nftCreatorname}`} passHref>
-                          <a>
-                            <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                              {getDisplayUserName(nftCreatorname)}
-                            </div>
-                          </a>
-                        </Link>
+                  (!nftType.includes('audio') || viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                    <>
+                      <div className="w-full flex mt-[15px] lg:mt-[28px]">
+                        <div className={styles.title}>{nftName}</div>
                       </div>
 
-                      {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                      <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
                         <div className="flex gap-1 lg:gap-2">
-                          <div className={styles.grayText}>Fostered by</div>
-                          <Link href={`/${nftOwnerUsername}`} passHref>
+                          <div className={styles.grayText}>Created by</div>
+                          <Link href={`/${nftCreatorname}`} passHref>
                             <a>
-                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                                {getDisplayUserName(nftOwnerUsername)}
+                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
+                                {getDisplayUserName(nftCreatorname)}
                               </div>
                             </a>
                           </Link>
                         </div>
-                      )}
-                    </div>
-                  </>
+
+                        {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                          <div className="flex gap-1 lg:gap-2">
+                            <div className={styles.grayText}>Fostered by</div>
+                            <Link href={`/${nftOwnerUsername}`} passHref>
+                              <a>
+                                <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                                  {getDisplayUserName(nftOwnerUsername)}
+                                </div>
+                              </a>
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )
                 )}
                 {hasLoading ? (
                   <div
@@ -1841,18 +1854,6 @@ const MainSection = ({
       </div>
 
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
-
-      {/* <StartAuctionModal
-        data={{
-          mintAddress: new PublicKey(nftDetail.address),
-          name: nftName,
-          json: nftDetail.json,
-        }}
-        open={showStartAuctionModal}
-        onSuccess={nft => handleSuccessAuction(nft)}
-        onStartProgress={() => handleStartProgress()}
-        onClose={() => setShowStartAuctionModal(false)}
-      /> */}
 
       <ListNFTModal
         data={{
