@@ -453,7 +453,7 @@ const SingleNft = () => {
           categories: category.slice(0, -1),
           asset_type: nftType === 'image/gif' ? 'image' : nftType,
           cover_image_url: imageUrl,
-          asset_url: animationUrl ?? '',
+          asset_url: animationUrl ?? imageUrl,
           collection_id: collection?.mintAddress.toBase58(),
         })
         .then(
