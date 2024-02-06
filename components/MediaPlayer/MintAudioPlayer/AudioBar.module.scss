@@ -1,16 +1,28 @@
 @import 'assets/scss/variable.module.scss';
 
+.container {
+  width: 100%;
+  background: rgba(var(--background-main-color-rgb), 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 12px 23px;
+  @media (min-width: 1024px) {
+    border-radius: 15px;
+    padding: 18px 23px;
+  }
+}
+
+.time {
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+}
+
 .bar {
   user-select: none;
   width: 100%;
   display: flex;
   align-items: center;
-
-  .bar__time {
-    color: var(--text-gray-200-color);
-    font-family: 'Muli-Regular';
-    font-size: 12px;
-  }
 
   .bar__progress {
     flex: 1;
@@ -28,7 +40,6 @@
       position: relative;
       height: 16px;
       width: 16px;
-      // border: 2px solid var(--background-dark-color);
       border-radius: 50%;
       background-color: var(--main-icon-color);
     }
