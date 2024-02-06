@@ -3,27 +3,16 @@
 .container {
   width: 30px;
   height: 30px;
-  @media (min-width: 1024px) {
-    width: 46px;
-    height: 46px;
-  }
+  margin-top: 4px;
+  margin-left: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-image: url('../../../assets/icons/crop-gray-46x46.svg');
-  // &:hover {
-  //   @media (min-width: 1024px) {
-  //     background-image: url('../../../assets/icons/crop-green-46x46.svg');
-  //   }
-  // }
-  background-repeat: no-repeat;
-  background-size: 30px 30px;
-  @media (min-width: 1024px) {
-    background-size: 46px 46px;
-  }
-  transition: background-image 0.2s;
-  transition-timing-function: ease-in-out;
+}
+
+.dimensionIcon {
+  fill: var(--main-bg-color);
 }
 
 .menuBlur {

@@ -704,7 +704,7 @@ const SingleNft = () => {
                               <div className={styles.glbNftImageSection}>
                                 <img className="w-full aspect-square" src={nftImage} alt="" />
                                 <button onClick={() => setNftImage('')}>
-                                  <TrashBin /> Remove Cover Image
+                                  <TrashBin className={styles.trashIcon} /> Remove Cover Image
                                 </button>
                               </div>
                             )}
@@ -864,7 +864,7 @@ const SingleNft = () => {
                       )}
                       {currentStep === 1 && (
                         <IconButtonWithSVG
-                          icon={<TrashBin />}
+                          icon={<TrashBin className={styles.trashIcon} />}
                           onClick={() => handleDeleteNftArt()}
                           backgroundColor="transparent"
                           width="32px"
