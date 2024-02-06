@@ -4,7 +4,6 @@ import React from 'react'
 import * as moment from 'moment'
 import momentDurationFormatSetup from 'moment-duration-format'
 import PlayWhiteIcon from 'assets/icons/play-video-big.svg?component'
-import PlayWhiteMobileIcon from 'assets/icons/play-video-medium.svg?component'
 import PauseWhiteIcon from 'assets/icons/pause-video-big.svg?component'
 
 import styles from './AudioBar.module.scss'
@@ -48,20 +47,13 @@ const Bar = props => {
     <div className={styles.container}>
       <div className="w-full flex justify-around items-center h-[31px] lg:h-[45px] lg:mb-[25px] mb-[20px] px-[10px] lg:px-[30px]">
         <span className={styles.time}>{formatDuration(curTime)}</span>
-        <div className="hidden lg:block">
-          <IconButtonWithSVG
-            icon={playing ? <PauseWhiteIcon /> : <PlayWhiteIcon />}
-            onClick={() => onPlay()}
-            backgroundColor="transparent"
-          />
-        </div>
-        <div className="block lg:hidden">
-          <IconButtonWithSVG
-            icon={playing ? <PauseWhiteIcon /> : <PlayWhiteMobileIcon />}
-            onClick={() => onPlay()}
-            backgroundColor="transparent"
-          />
-        </div>
+
+        <IconButtonWithSVG
+          icon={playing ? <PauseWhiteIcon /> : <PlayWhiteIcon />}
+          onClick={() => onPlay()}
+          backgroundColor="transparent"
+        />
+
         <span className={styles.time}>{formatDuration(duration)}</span>
       </div>
 

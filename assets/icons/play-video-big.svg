@@ -1,3 +1,6 @@
-<svg data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
-  <path id="Play_Icon" data-name="Play Icon" d="M19.817,5.367a3,3,0,0,1,5.367,0L42.829,40.658A3,3,0,0,1,40.146,45H4.854a3,3,0,0,1-2.683-4.342Z" transform="translate(45) rotate(90)" />
+<svg id="Component_2301_1" data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_21307" data-name="Rectangle 21307" width="30" height="30" fill="none"/>
+  <g id="Buttons" transform="translate(1.226 1)">
+    <path id="Play_Icon" data-name="Play Icon" d="M11.317,5.367a3,3,0,0,1,5.367,0l9.146,18.292A3,3,0,0,1,23.146,28H4.854a3,3,0,0,1-2.683-4.342Z" transform="translate(27.775 0) rotate(90)" />
+  </g>
 </svg>

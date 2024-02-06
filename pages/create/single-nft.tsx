@@ -529,8 +529,7 @@ const SingleNft = () => {
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
                 <div className={styles.leftContainer}>
-                  <div className={`${styles.title} w-full`}>Artwork Preview</div>
-                  <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+                  <div className="w-full flex flex-wrap justify-center z-10 mt-[10px]">
                     {nftType === 'vr' && nftUrl ? (
                       <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
                         <ModelViewer
@@ -609,11 +608,6 @@ const SingleNft = () => {
                           <>&nbsp;</>
                         )}
                         {currentStep === 1 ? (
-                          // <IconButton
-                          //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                          //   onClick={() => handleDeleteNftArt()}
-                          //   backgroundColor="transparent"
-                          // />
                           <IconButtonWithSVG
                             icon={<TrashBin className={styles.trashIcon} />}
                             onClick={() => handleDeleteNftArt()}
@@ -870,7 +864,7 @@ const SingleNft = () => {
                       )}
                       {currentStep === 1 && (
                         <IconButtonWithSVG
-                          icon={<TrashBin className={styles.trashIcon} />}
+                          icon={<TrashBin />}
                           onClick={() => handleDeleteNftArt()}
                           backgroundColor="transparent"
                           width="32px"

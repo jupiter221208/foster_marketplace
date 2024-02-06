@@ -1,4 +1,7 @@
-<svg id="Component_2300_1" data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="29" viewBox="0 0 22 29">
-  <rect id="Rectangle_21304" data-name="Rectangle 21304" width="6" height="29" rx="3" />
-  <rect id="Rectangle_21305" data-name="Rectangle 21305" width="6" height="29" rx="3" transform="translate(16)" />
+<svg id="Component_2301_2" data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <rect id="Rectangle_21307" data-name="Rectangle 21307" width="30" height="30" fill="none"/>
+  <g id="Component_2302" data-name="Component 2302" transform="translate(5 1)">
+    <rect id="Rectangle_21304" data-name="Rectangle 21304" width="6" height="28" rx="3" />
+    <rect id="Rectangle_21305" data-name="Rectangle 21305" width="6" height="28" rx="3" transform="translate(15)" />
+  </g>
 </svg>

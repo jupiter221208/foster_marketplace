@@ -18,7 +18,7 @@ const MintAudioPlayer = props => {
   }, [src])
 
   return (
-    <div className="absolute bottom-0 lg:bottom-2 left-0 lg:left-[53px] right-0 lg:right-[53px] z-10">
+    <div className="absolute bottom-0 lg:bottom-[45px] left-0 lg:left-[53px] right-0 lg:right-[53px] z-10">
       <div className="">
         <audio id="audio">
           <source src={src} />
