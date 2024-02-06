@@ -6,6 +6,7 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -14,6 +15,7 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import ModelViewer from 'components/ModelViewer'
 
 const HeroCardMobile = props => {
   const { data } = props
@@ -40,6 +42,8 @@ const HeroCardMobile = props => {
     }, 2000)
   }, [])
 
+  const { width, height } = useResizeDetector()
+
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
@@ -58,6 +62,15 @@ const HeroCardMobile = props => {
             className="w-full h-full object-cover"
             loading="lazy"
           />
+        ) : data.asset_type.includes('vr') ? (
+          <div className={`aspect-square w-full h-full`}>
+            <ModelViewer
+              path={data.asset_url ?? data.cover_image_url}
+              width={window.innerWidth}
+              height={(window.innerWidth * 304) / 345}
+              orbitLimited
+            />
+          </div>
         ) : (
           <img
             src={
@@ -90,7 +103,7 @@ const HeroCardMobile = props => {
             {(data.asset_url === null || data.asset_url === '') &&
             (data.cover_image_url === null || data.cover_image_url === '') ? (
               <div></div>
-            ) : data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
+            ) : data.asset_type.includes('image') ? (
               <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
@@ -109,6 +122,16 @@ const HeroCardMobile = props => {
                 //   setLoaded(true)
                 // }}
               />
+            ) : data.asset_type.includes('vr') ? (
+              <div className={`relative aspect-square w-full h-full`}>
+                <ModelViewer
+                  path={data.asset_url ?? data.cover_image_url}
+                  width={window.innerWidth - 32}
+                  height={((window.innerWidth - 32) * 304) / 345}
+                  orbitLimited
+                />
+                <div className="w-full h-full absolute inset-0" />
+              </div>
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
