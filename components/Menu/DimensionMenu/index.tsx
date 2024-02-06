@@ -4,6 +4,7 @@ import React, { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
 // styles
+import DimensionIcon from 'assets/icons/crop-gray-46x46.svg?component'
 import styles from './index.module.scss'
 
 const DimensionMenu = props => {
@@ -13,7 +14,9 @@ const DimensionMenu = props => {
     <div className="relative flex items-center">
       <Menu>
         <Menu.Button>
-          <div className={styles.container} />
+          <div className={styles.container}>
+            <DimensionIcon className={styles.dimensionIcon} />
+          </div>
         </Menu.Button>
 
         <Transition
