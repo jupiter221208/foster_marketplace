@@ -78,9 +78,11 @@
 
 .audioArea {
   width: calc(100% + 32px);
+  height: calc(100vh - 100px - 60px);
   margin-left: -16px;
   @media (min-width: 1024px) {
-    height: calc(100vh - 100px - 60px);
+    width: 100%;
+    margin-left: 0px;  
   }
   display: flex;
   justify-content: center;
