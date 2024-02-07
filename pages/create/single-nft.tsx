@@ -316,12 +316,7 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    let count = 0
-    categoryList.map(item => {
-      if (item.checked === true) count++
-    })
-
-    if (nftName !== '' && description !== '' && count !== 0) {
+    if (nftName !== '' && description !== '') {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
