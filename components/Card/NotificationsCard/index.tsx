@@ -227,6 +227,11 @@ const NotificationsCard = props => {
     else return DefaultAvatar.src
   }
 
+  function isLinkedNft(notification_type) {
+    if (notification_type === 'won' || notification_type === 'no_winner' || notification_type === 'outbid') return true
+    return false
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -249,13 +254,29 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <Image
-                        src={getUserProfileImage(elem)}
-                        alt=""
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                        className="w-full h-full rounded-full object-cover"
-                      />
+                      {isLinkedNft(elem.notification_type) ? (
+                        <Link href={`/nft/${elem.reference_token_id}`} passHref>
+                          <a>
+                            <div className="w-full h-full flex justify-center items-center">
+                              <Image
+                                src={getUserProfileImage(elem)}
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
+                      ) : (
+                        <Image
+                          src={getUserProfileImage(elem)}
+                          alt=""
+                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                          className="w-full h-full rounded-full object-cover"
+                        />
+                      )}
                     </div>
 
                     <div className="block items-start">
