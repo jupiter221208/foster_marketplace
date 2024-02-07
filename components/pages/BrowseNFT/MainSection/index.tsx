@@ -166,6 +166,7 @@ const MainSection = ({
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
+  const [tokenAccountInfo, setTokenAccountInfo] = useState(null)
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<string>(null)
   const [startTime, setStartTime] = useState<string>(null)
@@ -461,7 +462,7 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-      
+
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
@@ -473,21 +474,19 @@ const MainSection = ({
       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
 
       setNameLoading(false)
-
+      setTokenAccountInfo(tokenAccount)
     })()
   }, [nftDetail])
 
-
   useEffect(() => {
+    if (!tokenAccountInfo) return
+
     let auctionListenerHandle: number | null = null
     ;(async () => {
       if (!nftDetail) return
       setLoading(true)
 
-      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-      setSellerAddress(tokenAccount.owner)
-
-      if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
+      if (tokenAccountInfo.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
@@ -538,11 +537,15 @@ const MainSection = ({
           }
           let auctionListing = await fetchAuctionListing(
             mx,
-            tokenAccount.owner,
-            tokenAccount.address,
-            tokenAccount.mint
+            tokenAccountInfo.owner,
+            tokenAccountInfo.address,
+            tokenAccountInfo.mint
           )
-          let [listingConfig] = await getListingConfig(tokenAccount.owner, tokenAccount.address, tokenAccount.mint)
+          let [listingConfig] = await getListingConfig(
+            tokenAccountInfo.owner,
+            tokenAccountInfo.address,
+            tokenAccountInfo.mint
+          )
 
           await handleAuctionData(auctionListing)
           auctionListenerHandle = await mx.connection.onAccountChange(
@@ -561,7 +564,7 @@ const MainSection = ({
         if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
       }
     })()
-  }, [nftDetail])
+  }, [tokenAccountInfo])
 
   useEffect(() => {
     ;(async () => {
