@@ -278,7 +278,6 @@ const Step01CollectionSection = props => {
     if (
       collectionName !== '' &&
       description !== '' &&
-      count > 0 &&
       count <= 3 &&
       coverCroppedImage !== undefined &&
       bannerCroppedImage !== undefined
@@ -619,7 +618,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>
-                    Categories (max. 3) <span>*</span>
+                    Categories (optional)
                   </div>
                   <div className="w-full mt-5">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />

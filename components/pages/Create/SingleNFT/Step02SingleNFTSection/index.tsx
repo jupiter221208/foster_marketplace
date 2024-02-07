@@ -59,9 +59,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-[30px]`}>
-        Categories (max. 3) <span>*</span>
-      </div>
+      <div className={`${styles.subTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-5">
         <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       </div>
