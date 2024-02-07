@@ -94,9 +94,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(value)}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-        Categories <span>*</span>
-      </div>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">

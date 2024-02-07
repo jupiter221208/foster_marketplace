@@ -924,7 +924,7 @@ const Step01CollectionSection = props => {
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>
-              Categories <span>*</span>
+              Categories (optional)
             </div>
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
