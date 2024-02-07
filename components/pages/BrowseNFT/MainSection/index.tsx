@@ -1063,10 +1063,10 @@ const MainSection = ({
               </div>
             </div>
           ) : nftType.includes('audio') ? (
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-start items-center pl-[120px]">
               <div className={styles.audioBackground}>
                 {nftAssetUrl && (
-                  <div className="w-[403px] h-[415px] rounded-[35px] overflow-hidden">
+                  <div className="w-[390px] h-[390px] rounded-[35px] overflow-hidden">
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                   </div>
                 )}
@@ -1113,7 +1113,7 @@ const MainSection = ({
           )}
         </div>
 
-        <div className="col-span-2 lg:col-span-1 z-10">
+        <div className={`col-span-2 lg:col-span-1 z-10 ${nftType.includes('audio') ? 'pr-[50px]' : ''}`}>
           {showAuctionDetail ? (
             <div className="ml-[0px] lg:ml-[50px]">
               <AuctionDetail
@@ -1156,35 +1156,40 @@ const MainSection = ({
                         )}
                       </div>
                     )}
-
-                    {hasLoading ? (
-                      <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-3xl`}></div>
+                    {nftType.includes('audio') ? (
+                      <div />
                     ) : (
-                      <div className="cursor-pointer flex gap-[10px] items-center  mr-[20px] lg:mr-[20px]">
-                        {merchToggle ? (
-                          <MerchToggleEnabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setRemoveMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
+                      <>
+                        {hasLoading ? (
+                          <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-3xl`}></div>
                         ) : (
-                          <MerchToggleDisabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setCreateMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        )}
+                          <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
+                            {merchToggle ? (
+                              <MerchToggleEnabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setRemoveMerchModal(true)
+                                }}
+                                onMouseEnter={() => setMerchHover(true)}
+                                onMouseLeave={() => setMerchHover(false)}
+                              />
+                            ) : (
+                              <MerchToggleDisabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setCreateMerchModal(true)
+                                }}
+                                onMouseEnter={() => setMerchHover(true)}
+                                onMouseLeave={() => setMerchHover(false)}
+                              />
+                            )}
 
-                        {!nftType.includes('audio') && merchHover && (
-                          <div className={styles.infoText}>Foster Studio</div>
+                            {!nftType.includes('audio') && merchHover && (
+                              <div className={styles.infoText}>Foster Studio</div>
+                            )}
+                          </div>
                         )}
-                      </div>
+                      </>
                     )}
                   </div>
 
@@ -1235,44 +1240,46 @@ const MainSection = ({
                     )}
                   </div>
                 </div>
-                {hasLoading ? (
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
-                  ></div>
-                ) : (
-                  (!nftType.includes('audio') || viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-                    <>
-                      <div className="w-full flex mt-[15px] lg:mt-[28px]">
-                        <div className={styles.title}>{nftName}</div>
-                      </div>
-
-                      <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
-                        <div className="flex gap-1 lg:gap-2">
-                          <div className={styles.grayText}>Created by</div>
-                          <Link href={`/${nftCreatorname}`} passHref>
-                            <a>
-                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                                {getDisplayUserName(nftCreatorname)}
-                              </div>
-                            </a>
-                          </Link>
+                {(!nftType.includes('audio') || viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                  <>
+                    {hasLoading ? (
+                      <div
+                        className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
+                      ></div>
+                    ) : (
+                      <>
+                        <div className="w-full flex mt-[15px] lg:mt-[28px]">
+                          <div className={styles.title}>{nftName}</div>
                         </div>
 
-                        {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                        <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
                           <div className="flex gap-1 lg:gap-2">
-                            <div className={styles.grayText}>Fostered by</div>
-                            <Link href={`/${nftOwnerUsername}`} passHref>
+                            <div className={styles.grayText}>Created by</div>
+                            <Link href={`/${nftCreatorname}`} passHref>
                               <a>
-                                <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                                  {getDisplayUserName(nftOwnerUsername)}
+                                <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
+                                  {getDisplayUserName(nftCreatorname)}
                                 </div>
                               </a>
                             </Link>
                           </div>
-                        )}
-                      </div>
-                    </>
-                  )
+
+                          {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                            <div className="flex gap-1 lg:gap-2">
+                              <div className={styles.grayText}>Fostered by</div>
+                              <Link href={`/${nftOwnerUsername}`} passHref>
+                                <a>
+                                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                                    {getDisplayUserName(nftOwnerUsername)}
+                                  </div>
+                                </a>
+                              </Link>
+                            </div>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </>
                 )}
                 {hasLoading ? (
                   <div
