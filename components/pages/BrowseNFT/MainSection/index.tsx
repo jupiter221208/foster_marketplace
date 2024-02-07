@@ -1113,7 +1113,13 @@ const MainSection = ({
           )}
         </div>
 
-        <div className={`col-span-2 lg:col-span-1 z-10 ${nftType.includes('audio') ? 'pr-[50px]' : ''}`}>
+        <div
+          className={`col-span-2 lg:col-span-1 z-10 ${
+            nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+              ? 'pr-[50px]'
+              : ''
+          }`}
+        >
           {showAuctionDetail ? (
             <div className="ml-[0px] lg:ml-[50px]">
               <AuctionDetail
