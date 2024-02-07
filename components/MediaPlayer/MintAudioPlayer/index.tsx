@@ -5,11 +5,12 @@ import useAudioPlayer from './useAudioPlayer'
 import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
 
 // custom functions
-import { useViewport } from 'utils'
+
+// styles
+import styles from './index.module.scss'
 
 const MintAudioPlayer = props => {
   const { src } = props
-  const viewport = useViewport()
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()
 
   useEffect(() => {
@@ -24,13 +25,15 @@ const MintAudioPlayer = props => {
           <source src={src} />
           Your browser does not support the <code>audio</code> element.
         </audio>
-        <AudioBar
-          playing={playing}
-          onPlay={() => setPlaying(!playing)}
-          curTime={curTime}
-          duration={duration}
-          onTimeUpdate={time => setClickedTime(time)}
-        />
+        <div className={styles.audioBG}>
+          <AudioBar
+            playing={playing}
+            onPlay={() => setPlaying(!playing)}
+            curTime={curTime}
+            duration={duration}
+            onTimeUpdate={time => setClickedTime(time)}
+          />
+        </div>
       </div>
     </div>
   )

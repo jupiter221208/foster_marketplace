@@ -5,10 +5,52 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px);
     padding-top: 30px;
   }
+}
+
+.nftAudioBG {
+  position: absolute;
+  inset: 0px;
+  overflow: hidden;
+  width: 100%;
+  z-index: 10;
+  padding-left: 16px;
+  padding-right: 16px;
+  @media (min-width: 640px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  @media (min-width: 768px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  @media (min-width: 1024px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  @media (min-width: 1280px) {
+    width: calc(100% + 240px);
+    margin-left: -120px;
+    margin-right: -120px;
+  }
+  @media (min-width: 1536px) {
+    width: calc(100% + 500px);
+    margin-left: -250px;
+    margin-right: -250px;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--background-main-color-rgb), 0.75);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  z-index: 1
 }
 
 .loadingBackground {
@@ -23,6 +65,16 @@
   align-items: center;
   overflow: hidden;
   z-index: 1;
+}
+
+.audioBackground {
+  width: 440px;
+  height: 650px;
+  border-radius: 35px;
+  background: var(--background-main-color);
+  padding: 25px;
+  margin-top: -30px;
+  z-index: 10;
 }
 
 .blurBackground {
@@ -77,18 +129,45 @@
 }
 
 .audioArea {
-  width: calc(100% + 32px);
-  height: calc(100vh - 100px - 60px);
-  margin-left: -16px;
-  @media (min-width: 1024px) {
-    width: 100%;
-    max-width: 535px;
-    margin-left: 0px;  
-  }
+  width: 100%;
+  margin-left: 0px;  
+  height: 75px;
+  margin-top: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10;
+}
+
+.audioMobileArea {
+  width: 100%;
+  background: rgba(var(--background-main-color-rgb), 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 10;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+.audioNftName {
+  margin-top: 22px;
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  color: var(--text-gray-200-color);
+  margin-left: 20px;
+}
+
+.audioCreatorName {
+  margin-top: 5px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  color: var(--main-icon-color);
+  margin-left: 20px;
 }
 
 .descriptionTitle {
@@ -542,6 +621,10 @@
   background: var(--place-bid-color);
 }
 
+.audioNftBG {
+  background: var(--background-main-color) !important;
+}
+
 .auctionBG {
   position: absolute;
   display: flex;
@@ -784,7 +867,6 @@
   height: 100%;
   border-radius: 12px;
   box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
-  background: var(--place-bid-color);
 }
 .subContainer {
   width: 100%;
@@ -793,11 +875,13 @@
 }
 .mainContainer {
   width: 100%;
+  background: var(--place-bid-color);
   max-height: 110px;
   height: 100%;
   overflow-y: auto;
-  border-radius: 12px;
-  margin-top: 15px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding-top: 10px;
   @media (min-width: 1024px) {
     max-height: 125px;
   }
@@ -806,7 +890,8 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  background: var(--background-main-color);
+  // background: var(--background-main-color);
+  background: transparent;
   border-radius: 12px 12px 0px 0px;
   align-items: center;
   color: var(--text-gray-200-color);

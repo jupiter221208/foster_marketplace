@@ -7,14 +7,14 @@
 @font-face {
   font-family: 'Muli-Light';
   src: url('../fonts/muli/Muli-Light.ttf');
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Muli-Regular';
   src: url('../fonts/muli/Muli-Regular.ttf');
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -1713,7 +1713,7 @@ h6 {
 [data-name='share-icon'] {
   fill: var(--main-bg-color);
   [data-fill='a'] {
-    fill: var(--social-bg-color);
+    fill: var(--main-bg-color);
   }
 }
 
