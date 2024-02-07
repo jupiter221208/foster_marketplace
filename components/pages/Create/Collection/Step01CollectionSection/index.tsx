@@ -606,7 +606,7 @@ const Step01CollectionSection = props => {
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
-                      label="From 0 to 10%"
+                      label01="From 0 to 10%"
                       min="0"
                       onChange={value => {
                         let royal = validDigits(value)
@@ -915,7 +915,7 @@ const Step01CollectionSection = props => {
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
-                label="From 0 to 10%"
+                label01="From 0 to 10%"
                 min={0}
                 onChange={value => {
                   let royal = validDigits(value)

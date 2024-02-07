@@ -116,10 +116,12 @@ const MainSection = ({ onChange, heroValue }) => {
       <div className="g-container w-full h-full z-10">
         <div className="w-full">
           <div className="mt-[100px] lg:mt-[90px]">
-            <div className={styles.text}>
-              Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
+            <div className="w-full lg:block hidden">
+              <div className={styles.text}>
+                Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
+              </div>
+              <div className={`${styles.slug} lg:flex hidden`}>Fashion & Fulfillment</div>
             </div>
-            <div className={`${styles.slug} lg:flex hidden`}>Fashion & Fulfillment</div>
             <div className="mt-[25px] gap-[20px] hidden lg:flex">
               <GradientButton
                 backgroundColor01="var(--hero-artist-color)"

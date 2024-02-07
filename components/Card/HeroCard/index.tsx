@@ -10,6 +10,7 @@ import { getDisplayUserName } from 'utils/strings'
 import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -18,6 +19,7 @@ import styles from './index.module.scss'
 import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
+import ModelViewer from 'components/ModelViewer'
 
 const HeroCard = props => {
   const { data } = props
@@ -35,6 +37,8 @@ const HeroCard = props => {
   const gotoNftDetailPage = () => {
     dispatch({ type: 'set', isLoading: true })
   }
+
+  const { width, height } = useResizeDetector()
 
   return (
     <div className={styles.container}>
@@ -58,7 +62,7 @@ const HeroCard = props => {
 
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
+          {data.asset_type.includes('image') ? (
             <Link href={`/nft/${data.token_id}`} passHref>
               <a>
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
@@ -80,6 +84,26 @@ const HeroCard = props => {
                       }}
                       loading="lazy"
                     />
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              </a>
+            </Link>
+          ) : data.asset_type.includes('vr') ? (
+            <Link href={`/nft/${data.token_id}`} passHref>
+              <a>
+                <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                  {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                    <div className="w-full h-full relative">
+                      <ModelViewer
+                        path={data.asset_url ?? data.cover_image_url}
+                        width={width}
+                        height={height}
+                        orbitLimited
+                      />
+                      <div className="w-full h-full absolute inset-0" />
+                    </div>
                   ) : (
                     <div></div>
                   )}

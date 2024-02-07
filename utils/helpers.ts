@@ -291,7 +291,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-bg-color', '#F3F2F0')
     doc.style.setProperty('--accordion-second-row-bg', '#FFF')
     doc.style.setProperty('--artwork-bg-color', '#F3F2F0')
-    doc.style.setProperty('--artwork-bg-mobile-color', '#202427')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#DDDCDC')
     doc.style.setProperty('--clipboard-btn-color', '#C8C9CF')
     doc.style.setProperty('--step-circle-mobile-color', '#202427')
     doc.style.setProperty('--dimension-bg-color', '239, 240, 247')
@@ -571,6 +571,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-card-bg', '#ECEBEA')
     doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(243, 242, 240, 0)')
     doc.style.setProperty('--explore-tab-border', '#202427')
+    doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -896,5 +897,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-card-bg', '#212121')
     doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(27, 27, 27, 0)')
     doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
+    doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
   }
 }
