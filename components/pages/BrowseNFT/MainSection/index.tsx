@@ -1143,7 +1143,9 @@ const MainSection = ({
               <div className="w-full flex flex-wrap">
                 <div
                   className={`w-full flex flex-wrap ${
-                    nftType.includes('audio') ? 'justify-end' : 'justify-between'
+                    nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                      ? 'justify-end'
+                      : 'justify-between'
                   } items-center`}
                 >
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
@@ -1467,7 +1469,13 @@ const MainSection = ({
                   <>
                     {!isEnded && (
                       <div className={`mt-6 w-full`}>
-                        <div className={styles.auctionContainer}>
+                        <div
+                          className={`${styles.auctionContainer} ${
+                            nftType.includes('audio') &&
+                            (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') &&
+                            styles.audioNftBG
+                          }`}
+                        >
                           <AuctionCard
                             currentPrice={nftCurrentPrice}
                             reservePrice={nftReservePrice}
@@ -1651,7 +1659,13 @@ const MainSection = ({
                       <div className={styles.selectedTab}>
                         <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                       </div>
-                      <div className={styles.mainContainer}>
+                      <div
+                        className={`${styles.mainContainer} ${
+                          nftType.includes('audio') &&
+                          (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') &&
+                          styles.audioNftBG
+                        }`}
+                      >
                         {activeTab === 0 && (
                           <div className="w-full flex flex-wrap flex-column space-between px-[35px] gap-6">
                             {nftDescription ? (
