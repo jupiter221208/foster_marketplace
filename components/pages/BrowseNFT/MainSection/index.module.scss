@@ -881,9 +881,11 @@
   overflow-y: auto;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  padding-top: 10px;
+  padding-top: 15px;
+  padding-bottom: 10px;
   @media (min-width: 1024px) {
-    max-height: 125px;
+    height: 125px;
+    max-height: 160px;
   }
 }
 .selectedTab {
