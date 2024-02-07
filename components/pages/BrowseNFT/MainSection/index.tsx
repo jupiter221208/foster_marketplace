@@ -275,6 +275,7 @@ const MainSection = ({
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
+  const [nameLoading, setNameLoading] = useState(true)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -458,11 +459,9 @@ const MainSection = ({
   }, [nftInfo, setLiveAuction])
 
   useEffect(() => {
-    let auctionListenerHandle: number | null = null
     ;(async () => {
       if (!nftDetail) return
-      setLoading(true)
-
+      
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
@@ -472,6 +471,21 @@ const MainSection = ({
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+
+      setNameLoading(false)
+
+    })()
+  }, [nftDetail])
+
+
+  useEffect(() => {
+    let auctionListenerHandle: number | null = null
+    ;(async () => {
+      if (!nftDetail) return
+      setLoading(true)
+
+      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+      setSellerAddress(tokenAccount.owner)
 
       if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
@@ -1254,7 +1268,7 @@ const MainSection = ({
                 </div>
                 {(!nftType.includes('audio') || viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
                   <>
-                    {hasLoading ? (
+                    {nameLoading ? (
                       <div
                         className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
                       ></div>
