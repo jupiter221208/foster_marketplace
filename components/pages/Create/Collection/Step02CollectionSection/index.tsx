@@ -313,7 +313,7 @@ const Step02CollectionSection = props => {
                 </div>
               )}
 
-              <div className="w-full flex justify-center mt-[90px]">
+              <div className="w-full flex justify-center mt-[40px]">
                 <div className={styles.grayText}>
                   {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
                   &nbsp;uploaded files
@@ -716,7 +716,11 @@ const Step02CollectionSection = props => {
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle}`}>Collection Files (max. 25) *</div>
+            <div
+              className={`${styles.subTitle} ${selectedCollectionFile?.type === 'audio' ? '-mt-[10px]' : 'mt-[20px]'}`}
+            >
+              Collection Files (max. 25) *
+            </div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
