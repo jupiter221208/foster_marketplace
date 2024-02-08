@@ -68,12 +68,8 @@
 }
 
 .audioBackground {
-  width: 440px;
-  height: 650px;
-  border-radius: 35px;
-  background: var(--background-main-color);
-  padding: 25px;
-  margin-top: -30px;
+  width: auto;
+  height: auto;
   z-index: 10;
 }
 
@@ -129,7 +125,7 @@
 }
 
 .audioArea {
-  width: 100%;
+  width: 394px;
   margin-left: 0px;  
   height: 75px;
   margin-top: 30px;
@@ -305,7 +301,7 @@
     padding: 38px 40px 38px 40px;
   }
   @media (min-width: 1536px) {
-    padding: 30px 60px;
+    padding: 30px 0px 30px 60px;
   }
 
   // background: var(--nft-detail-bg);
