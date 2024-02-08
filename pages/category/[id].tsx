@@ -132,16 +132,3 @@ export default Category
 Category.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  }
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: PopularCategoryList.map(({ query }) => ({ params: { id: query } })),
-    fallback: true,
-  }
-}

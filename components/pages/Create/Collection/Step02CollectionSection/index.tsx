@@ -54,6 +54,7 @@ const Step02CollectionSection = props => {
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [addMoreClicked, setAddMoreClicked] = useState(false)
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -189,8 +190,9 @@ const Step02CollectionSection = props => {
       setDisabledNextButton(true)
     }
 
-    if (collectionFiles.length > 0) {
+    if (collectionFiles.length > 0 && addMoreClicked === true) {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
+      setAddMoreClicked(false)
     }
   }, [collectionFiles])
 
@@ -596,6 +598,7 @@ const Step02CollectionSection = props => {
                     <div
                       className="flex mt-[20px]"
                       onClick={() => {
+                        setAddMoreClicked(true)
                         dropzoneNftEl.current.click()
                       }}
                     >
@@ -974,6 +977,7 @@ const Step02CollectionSection = props => {
             <div
               className="flex mt-[20px]"
               onClick={() => {
+                setAddMoreClicked(true)
                 dropzoneNftEl.current.click()
               }}
             >
