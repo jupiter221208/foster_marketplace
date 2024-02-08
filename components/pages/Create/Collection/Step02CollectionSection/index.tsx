@@ -30,10 +30,13 @@ import styles from './index.module.scss'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
 import { useResizeDetector } from 'react-resize-detector'
+import OutlineButton from 'components/Button/OutlineButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step02CollectionSection = props => {
   const {
     currentStep,
+    coverImageProcessing,
     coverCroppedImage,
     onChangeCurrentStep,
     collectionFiles,
@@ -313,7 +316,7 @@ const Step02CollectionSection = props => {
                 </div>
               )}
 
-              <div className="w-full flex justify-center mt-[40px]">
+              <div className="w-full flex justify-center mt-[50px]">
                 <div className={styles.grayText}>
                   {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
                   &nbsp;uploaded files
@@ -608,20 +611,27 @@ const Step02CollectionSection = props => {
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-10 w-full flex justify-end">
-                  <button
-                    className={styles.nextStep}
-                    disabled={disabledNextButton}
-                    style={{
-                      color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                      background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                    }}
-                    onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                  >
-                    Next Step
-                  </button>
+                  {coverImageProcessing ? (
+                    <LoadingButton width={224} height={56} />
+                  ) : (
+                    <button
+                      className={styles.nextStep}
+                      disabled={disabledNextButton}
+                      style={{
+                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                      }}
+                      onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                    >
+                      Next Step
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
+          </div>
+          <div>
+            <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
           </div>
         </div>
       ) : (
@@ -974,17 +984,21 @@ const Step02CollectionSection = props => {
           )}
           <div className="w-full flex justify-end my-10">
             <div className="w-[161px] mr-[16px]">
-              <button
-                className={styles.nextStep}
-                disabled={disabledNextButton}
-                style={{
-                  color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                  background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                }}
-                onClick={() => handleChangeCurrentStep(currentStep + 1)}
-              >
-                Next Step
-              </button>
+              {coverImageProcessing ? (
+                <LoadingButton width={161} height={45} />
+              ) : (
+                <button
+                  className={styles.nextStep}
+                  disabled={disabledNextButton}
+                  style={{
+                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                  }}
+                  onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                >
+                  Next Step
+                </button>
+              )}
             </div>
           </div>
         </div>
