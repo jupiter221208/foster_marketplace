@@ -506,7 +506,8 @@ const Step02CollectionSection = props => {
                                 <div className={styles.glbNftImageSection}>
                                   <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
                                   <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
-                                    <TrashBin /> Remove Cover Image
+                                    <TrashBin />
+                                    &nbsp;Remove Cover Image
                                   </button>
                                 </div>
                               )}
@@ -952,11 +953,14 @@ const Step02CollectionSection = props => {
                         </div>
 
                         {item.nftCoverImage && (
-                          <div className={styles.glbNftImageSection}>
-                            <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
-                            <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
-                              <TrashBin /> Remove Cover Image
-                            </button>
+                          <div className="w-full flex justify-center">
+                            <div className={styles.glbNftImageSection}>
+                              <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
+                              <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
+                                <TrashBin />
+                                &nbsp;Remove Cover Image
+                              </button>
+                            </div>
                           </div>
                         )}
                       </>
