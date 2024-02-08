@@ -10,7 +10,7 @@ import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
 import styles from './index.module.scss'
 
 const MintAudioPlayer = props => {
-  const { src } = props
+  const { src, type = 'single' } = props
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()
 
   useEffect(() => {
@@ -19,13 +19,17 @@ const MintAudioPlayer = props => {
   }, [src])
 
   return (
-    <div className="absolute bottom-0 lg:bottom-[45px] left-0 lg:left-[53px] right-0 lg:right-[53px] z-10">
+    <div
+      className={`absolute bottom-0 ${
+        type === 'single' ? 'lg:bottom-[45px]' : 'lg:bottom-[15px]'
+      } left-0 lg:left-[53px] right-0 lg:right-[53px] z-10`}
+    >
       <div className="">
         <audio id="audio">
           <source src={src} />
           Your browser does not support the <code>audio</code> element.
         </audio>
-        <div className={styles.audioBG}>
+        <div className={type === 'single' ? styles.audioBG : styles.mintAudioBG}>
           <AudioBar
             playing={playing}
             onPlay={() => setPlaying(!playing)}

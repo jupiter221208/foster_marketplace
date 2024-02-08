@@ -10,12 +10,8 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import DimensionMenu from 'components/Menu/DimensionMenu'
-import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
-import GradientButton from 'components/Button/GradientButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // Icons
@@ -26,18 +22,11 @@ import TrashBin from 'assets/icons/trash-bin.svg?component'
 // custom functions
 import { useViewport } from 'utils'
 
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-import TrashGrayIcon from 'assets/icons/trash-gray.svg'
-import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
-
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
 import { useResizeDetector } from 'react-resize-detector'
@@ -127,8 +116,8 @@ const Step02CollectionSection = props => {
         width = screenWidth
         break
     }
-    if (width > 672) {
-      setArtWidth(672)
+    if (width > 600) {
+      setArtWidth(600)
     } else {
       setArtWidth(width)
     }
@@ -244,11 +233,24 @@ const Step02CollectionSection = props => {
                           alt=""
                           className="w-full h-full object-cover z-0"
                         />
-                        <div className={styles.blurView} />
+                        <div className={styles.blurView}>
+                          {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
+                            <div className="w-full h-full max-w-[450px] max-h-[450px] rounded-[30px]">
+                              <img
+                                src={
+                                  selectedCollectionFile.croppedImage !== ''
+                                    ? selectedCollectionFile.croppedImage
+                                    : URL.createObjectURL(selectedCollectionFile.file)
+                                }
+                                alt=""
+                                className="w-full h-full object-cover z-0 rounded-[30px]"
+                              />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
-                    {(selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio') ||
-                      ('vr' && <div className={styles.blurImage} />)}
+
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                       <video controls className="w-full h-full z-10" id="video">
                         <source
@@ -273,7 +275,7 @@ const Step02CollectionSection = props => {
                         />
                       )
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
-                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
+                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} type="collection" />
                     ) : (
                       selectedCollectionFile !== undefined &&
                       selectedCollectionFile.type !== 'vr' && (
