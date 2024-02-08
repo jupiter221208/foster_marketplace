@@ -64,11 +64,11 @@ const HeroCardMobile = props => {
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
-            <ModelViewer
-              path={data.asset_url ?? data.cover_image_url}
-              width={window.innerWidth}
-              height={(window.innerWidth * 304) / 345}
-              orbitLimited
+            <img
+              src={data.cover_image_url}
+              alt=""
+              className="w-full h-full object-cover"
+              onClick={() => gotoNftDetailPage()}
             />
           </div>
         ) : (
@@ -144,10 +144,6 @@ const HeroCardMobile = props => {
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
-                    // loading="lazy"
-                    // onLoad={() => {
-                    //   setLoaded(true)
-                    // }}
                   />
                 ) : (
                   <Image
