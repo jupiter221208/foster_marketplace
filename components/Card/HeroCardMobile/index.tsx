@@ -124,13 +124,17 @@ const HeroCardMobile = props => {
               />
             ) : data.asset_type.includes('vr') ? (
               <div className={`relative aspect-square w-full h-full`}>
-                <ModelViewer
+                {/* <ModelViewer
                   path={data.asset_url ?? data.cover_image_url}
                   width={window.innerWidth - 32}
                   height={((window.innerWidth - 32) * 304) / 345}
                   orbitLimited
+                /> */}
+                <img
+                  src={data.cover_image_url}
+                  alt=""
+                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                 />
-                <div className="w-full h-full absolute inset-0" />
               </div>
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">

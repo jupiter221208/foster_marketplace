@@ -188,16 +188,11 @@ const Step02CollectionSection = props => {
       }
       setDisabledNextButton(true)
     }
-    console.log(collectionFiles, addMoreClicked, '==============collectionFiles==========')
     if (collectionFiles.length > 0 && addMoreClicked === true) {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
       setAddMoreClicked(false)
     }
   }, [collectionFiles])
-
-  useEffect(() => {
-    if (addMoreClicked) dropzoneNftEl.current.click()
-  }, [addMoreClicked])
 
   // form validate
   const handleFormValidate = () => {}
@@ -343,6 +338,7 @@ const Step02CollectionSection = props => {
                   <div className="mt-5">
                     <Dropzone
                       onDropAccepted={acceptedFiles => {
+                        setAddMoreClicked(true)
                         acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('unknown')
                       }}
                       onDropRejected={rejectedFiles => {
@@ -602,6 +598,7 @@ const Step02CollectionSection = props => {
                       className="flex mt-[20px]"
                       onClick={() => {
                         setAddMoreClicked(true)
+                        dropzoneNftEl.current.click()
                       }}
                     >
                       <section className={styles.dropzone}>
@@ -740,6 +737,7 @@ const Step02CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
+                  setAddMoreClicked(true)
                   acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('uknown')
                 }}
                 onDropRejected={rejectedFiles => {
@@ -980,6 +978,7 @@ const Step02CollectionSection = props => {
               className="flex mt-[20px]"
               onClick={() => {
                 setAddMoreClicked(true)
+                dropzoneNftEl.current.click()
               }}
             >
               <section className={styles.dropzone}>
