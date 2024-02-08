@@ -21,7 +21,7 @@ const MintAudioPlayer = props => {
   return (
     <div
       className={`absolute bottom-0 ${
-        type === 'single' ? 'lg:bottom-[45px]' : 'lg:bottom-[15px]'
+        type === 'single' ? 'lg:bottom-[45px]' : 'lg:bottom-[10px]'
       } left-0 lg:left-[53px] right-0 lg:right-[53px] z-10`}
     >
       <div className="">
