@@ -30,7 +30,6 @@ import styles from './index.module.scss'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
 import { useResizeDetector } from 'react-resize-detector'
-import OutlineButton from 'components/Button/OutlineButton'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const Step02CollectionSection = props => {
@@ -189,12 +188,16 @@ const Step02CollectionSection = props => {
       }
       setDisabledNextButton(true)
     }
-
+    console.log(collectionFiles, addMoreClicked, '==============collectionFiles==========')
     if (collectionFiles.length > 0 && addMoreClicked === true) {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
       setAddMoreClicked(false)
     }
   }, [collectionFiles])
+
+  useEffect(() => {
+    if (addMoreClicked) dropzoneNftEl.current.click()
+  }, [addMoreClicked])
 
   // form validate
   const handleFormValidate = () => {}
@@ -599,7 +602,6 @@ const Step02CollectionSection = props => {
                       className="flex mt-[20px]"
                       onClick={() => {
                         setAddMoreClicked(true)
-                        dropzoneNftEl.current.click()
                       }}
                     >
                       <section className={styles.dropzone}>
@@ -978,7 +980,6 @@ const Step02CollectionSection = props => {
               className="flex mt-[20px]"
               onClick={() => {
                 setAddMoreClicked(true)
-                dropzoneNftEl.current.click()
               }}
             >
               <section className={styles.dropzone}>

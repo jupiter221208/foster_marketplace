@@ -96,11 +96,20 @@ const HeroCard = props => {
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
                   {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                     <div className="w-full h-full relative">
-                      <ModelViewer
+                      {/* <ModelViewer
                         path={data.asset_url ?? data.cover_image_url}
                         width={width}
                         height={height}
                         orbitLimited
+                      /> */}
+                      <img
+                        src={data.cover_image_url}
+                        alt=""
+                        className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                        onLoad={() => {
+                          setLoaded(true)
+                        }}
+                        loading="lazy"
                       />
                       <div className="w-full h-full absolute inset-0" />
                     </div>

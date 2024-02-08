@@ -699,7 +699,8 @@ const SingleNft = () => {
                               <div className={styles.glbNftImageSection}>
                                 <img className="w-full aspect-square" src={nftImage} alt="" />
                                 <button onClick={() => setNftImage('')}>
-                                  <TrashBin className={styles.trashIcon} /> Remove Cover Image
+                                  <TrashBin />
+                                  &nbsp;Remove Cover Image
                                 </button>
                               </div>
                             )}
@@ -930,7 +931,8 @@ const SingleNft = () => {
                         <div className={styles.glbNftImageSection}>
                           <img className="w-full aspect-square" src={nftImage} alt="" />
                           <button onClick={() => setNftImage('')}>
-                            <TrashBin /> Remove Cover Image
+                            <TrashBin />
+                            &nbsp;Remove Cover Image
                           </button>
                         </div>
                       )}
