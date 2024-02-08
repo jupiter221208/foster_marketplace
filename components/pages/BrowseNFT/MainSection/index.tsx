@@ -463,7 +463,10 @@ const MainSection = ({
     ;(async () => {
       if (!nftDetail) return
 
+      console.timeEnd('id: getNFTTokenAccount')
+      console.time('id: getNFTTokenAccount')
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+      console.timeEnd('id: getNFTTokenAccount')
       setSellerAddress(tokenAccount.owner)
 
       let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
@@ -485,17 +488,18 @@ const MainSection = ({
     ;(async () => {
       if (!nftDetail) return
       setLoading(true)
-      console.time('id')
 
       if (tokenAccountInfo.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
+        console.timeEnd('id: GpaBuilder')
+        console.time('id: GpaBuilder')
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
           .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
           .where(168, Buffer.from([0])) // purchaseReceipt == null
           .where(195, Buffer.from([0])) // canceledAt == null
           .getAndMap(account => toListingReceiptAccount(account))
-
+        console.timeEnd('id: GpaBuilder')
         if (openListings.length != 1) {
           console.warn(`irregular number of listing recipts for ${nftDetail.address}`)
           console.warn(JSON.parse(JSON.stringify(openListings)))
@@ -505,7 +509,10 @@ const MainSection = ({
         if (listingReceipt) {
           // if (!connected) setIsOwnNft(false)
           setLoadListing(true)
+          console.timeEnd('id: loadAuctionHouse')
+          console.time('id: loadAuctionHouse')
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
+          console.timeEnd('id: loadAuctionHouse')
           let listing = toLazyListing(listingReceipt, auctionHouse)
           let {
             tradeStateAddress,
@@ -517,8 +524,10 @@ const MainSection = ({
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
-
+          console.timeEnd('id: populateLazyListingsWithAssets')
+          console.time('id: populateLazyListingsWithAssets')
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
+          console.timeEnd('id: populateLazyListingsWithAssets')
           let listingAsset = listingAssets[0]
           let { asset, sellerAddress, price } = listingAsset
           let listingData = {
@@ -536,17 +545,24 @@ const MainSection = ({
           if (!connected) {
             setIsOwnNft(false)
           }
+          console.timeEnd('id: fetchAuctionListing')
+          console.time('id: fetchAuctionListing')
           let auctionListing = await fetchAuctionListing(
             mx,
             tokenAccountInfo.owner,
             tokenAccountInfo.address,
             tokenAccountInfo.mint
           )
+          console.timeEnd('id: fetchAuctionListing')
+
+          console.timeEnd('id: getListingConfig')
+          console.time('id: getListingConfig')
           let [listingConfig] = await getListingConfig(
             tokenAccountInfo.owner,
             tokenAccountInfo.address,
             tokenAccountInfo.mint
           )
+          console.timeEnd('id: getListingConfig')
 
           await handleAuctionData(auctionListing)
           auctionListenerHandle = await mx.connection.onAccountChange(
@@ -556,7 +572,6 @@ const MainSection = ({
           )
         }
       }
-      console.timeEnd('id')
       setLoading(false)
 
       dispatch({ type: 'set', isLoading: false })
@@ -1088,11 +1103,11 @@ const MainSection = ({
             <div className="w-full h-full flex justify-start items-center">
               <div className={styles.audioBackground}>
                 {nftAssetUrl && (
-                  <div className="w-[550px] h-[550px] rounded-[35px] overflow-hidden">
+                  <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                   </div>
                 )}
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center mb-[30px]">
                   <div className={styles.audioArea}>
                     <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
                   </div>
