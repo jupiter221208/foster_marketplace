@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -20,7 +20,7 @@ const CollectionSwiperSection = props => {
       <div className="w-full z-10">
         <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
           {collections.map((item, index) => (
-            <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+            <div className="col-span-12 lg:col-span-4 xl:col-span-3" key={index}>
               <TrendingCollectionCard
                 collectionID={item.collection_id}
                 image={item.cover_image}
@@ -30,6 +30,14 @@ const CollectionSwiperSection = props => {
                 avatar={item.artist_profile_picture}
                 key={index}
               />
+              {/* <CollectionCard
+                image={item.cover_image}
+                nftName={item.collection_name}
+                artistName={item.artist_username}
+                mintAddress={item.artist_id}
+                icon={item.artist_profile_picture}
+                link={`/collection/${item.collection_id}`}
+              /> */}
             </div>
           ))}
         </div>
