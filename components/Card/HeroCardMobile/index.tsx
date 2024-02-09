@@ -64,12 +64,7 @@ const HeroCardMobile = props => {
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
-            <ModelViewer
-              path={data.asset_url ?? data.cover_image_url}
-              width={window.innerWidth}
-              height={(window.innerWidth * 304) / 345}
-              orbitLimited
-            />
+            <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
           </div>
         ) : (
           <img
@@ -124,13 +119,20 @@ const HeroCardMobile = props => {
               />
             ) : data.asset_type.includes('vr') ? (
               <div className={`relative aspect-square w-full h-full`}>
-                <ModelViewer
+                {/* <ModelViewer
                   path={data.asset_url ?? data.cover_image_url}
                   width={window.innerWidth - 32}
                   height={((window.innerWidth - 32) * 304) / 345}
                   orbitLimited
+                /> */}
+                <img
+                  src={data.cover_image_url}
+                  alt=""
+                  width={550}
+                  height={772}
+                  className="w-full h-full object-cover rounded-[24px]"
+                  onClick={() => gotoNftDetailPage()}
                 />
-                <div className="w-full h-full absolute inset-0" />
               </div>
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
@@ -140,10 +142,6 @@ const HeroCardMobile = props => {
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
-                    // loading="lazy"
-                    // onLoad={() => {
-                    //   setLoaded(true)
-                    // }}
                   />
                 ) : (
                   <Image
@@ -194,7 +192,7 @@ const HeroCardMobile = props => {
           </div>
         </div>
       </div>
-      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
+      {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
         <div className={styles.avatarArea}>
           <div className={styles.avatar} onClick={() => gotoAristPage()}>
             {!profileLoaded && (
@@ -205,13 +203,7 @@ const HeroCardMobile = props => {
               </div>
             )}
             <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
+              src={data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'}
               alt=""
               width={60}
               height={60}

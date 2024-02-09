@@ -8,14 +8,18 @@ import styles from './index.module.scss'
 import TabItem from './TabItem'
 
 const Tab01 = props => {
-  const { tabList, onChange } = props
-
+  const { tabList, onChange, type = 'image' } = props
   return (
     <HTab.Group>
       <HTab.List className="flex">
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
-            <TabItem item={item} onChange={onChange} className={styles.activeTab} />
+            <TabItem
+              item={item}
+              onChange={onChange}
+              type={type}
+              // className={type === 'image' ? styles.activeTab : styles.activeAudioTab}
+            />
           </HTab>
         ))}
       </HTab.List>

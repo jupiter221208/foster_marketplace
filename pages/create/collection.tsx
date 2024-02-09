@@ -31,12 +31,12 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Collection = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const isLoading = useSelector<any>(state => state.isLoading)
-  const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionMintName = useSelector(state => (state as any).collectionMintName)
@@ -44,6 +44,7 @@ const Collection = () => {
   const [screenLoaded, setScreenLoaded] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [coverImageProcessing, setCoverImageProcessing] = useState(false)
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -176,6 +177,7 @@ const Collection = () => {
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       } else if (item.type.split('/')[0] === 'video') {
+        setCoverImageProcessing(true)
         let canvas = document.createElement('canvas')
         let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
         hidden_video.src = URL.createObjectURL(item)
@@ -189,6 +191,7 @@ const Collection = () => {
 
           canvas.toBlob(blob => {
             object.croppedImage = URL.createObjectURL(blob)
+            setCoverImageProcessing(false)
           })
         })
         hidden_video.currentTime = 5
@@ -296,14 +299,17 @@ const Collection = () => {
         assetFile = imageFile
         imageFile = {
           type: 'image/png',
-          // url: coverImageUrl,
           url: croppedImage,
         }
       } else if (metadata.properties.category === 'video') {
         assetFile = imageFile
+        let image = await fetch(croppedImage).then(r => r.blob())
+        const metaplexFile = toMetaplexFile(await image.arrayBuffer(), 'image.png', {
+          contentType: 'image/png',
+        })
         imageFile = {
           type: 'image/png',
-          url: croppedImage,
+          url: await storage.upload(metaplexFile),
         }
       } else if (metadata.properties.category === 'vr') {
         assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
@@ -359,6 +365,10 @@ const Collection = () => {
         coverUrl = metadata.image
       } else if (assetType === 'video') {
         assetUrl = metadata.animation_url
+        coverUrl = metadata.image
+      } else if (assetType === 'vr') {
+        assetUrl = metadata.animation_url
+        coverUrl = metadata.image
       } else {
         assetUrl = metadata.image
       }
@@ -436,6 +446,7 @@ const Collection = () => {
             coverCroppedImage={coverCroppedImage}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionFiles={collectionFiles}
+            coverImageProcessing={coverImageProcessing}
             addCoverImageToFile={addCoverImageToFile}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
@@ -453,7 +464,6 @@ const Collection = () => {
           <Step03CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
@@ -469,12 +479,7 @@ const Collection = () => {
           />
         )}
       </div>
-      <ProgressingModal open={isLoading && screenLoaded} />
-      {/* <CollectionMintProgressingModal
-        open={isCollectionMinting}
-        collectionFiles={collectionFiles}
-        uploadedCount={uploadedCount}
-      /> */}
+      <FullScreenLoadingModal open={screenLoaded && isLoading} />
       <Alert
         open={showAlert}
         close={() => {

@@ -29,7 +29,6 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
-import ArtistLayout from 'components/Layout/ArtistLayout'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
@@ -110,17 +109,19 @@ const Category = () => {
             <></>
           )}
         </div>
-        <div className="flex justify-center">
-          <div className="g-container">
-            <TrendingCollectionSection category={cateQuery} loop={false} />
-            <MostPopularSection category={cateQuery} />
-            <MarketplaceReleaseSection category={cateQuery} />
-            <LiveAuctionSection category={cateQuery} fromPage={'category'} />
-            <FreshMintSection category={cateQuery} />
-            <PopularCategorySection type="category" />
+        {cateQuery.length > 0 && (
+          <div className="flex justify-center">
+            <div className="g-container">
+              <div className="w-full h-[70px]" />
+              <TrendingCollectionSection category={cateQuery} loop={false} />
+              <MostPopularSection category={cateQuery} />
+              <MarketplaceReleaseSection category={cateQuery} />
+              <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+              <FreshMintSection category={cateQuery} />
+              <PopularCategorySection type="category" />
+            </div>
           </div>
-        </div>
-
+        )}
         <FullScreenLoadingModal open={isLoading} />
       </div>
     </div>
@@ -131,17 +132,4 @@ export default Category
 
 Category.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
-}
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  }
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: PopularCategoryList.map(({ query }) => ({ params: { id: query } })),
-    fallback: true,
-  }
 }

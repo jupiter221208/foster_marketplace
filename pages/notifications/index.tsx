@@ -24,7 +24,7 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
 import LoadingModal from 'components/Modal/LoadingModal'

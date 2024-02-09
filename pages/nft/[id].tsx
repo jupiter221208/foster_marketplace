@@ -71,7 +71,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const { profileInfo } = useAuthentication()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
-  const [hasLoading, setHasLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
 
   useEffect(() => {
@@ -119,7 +118,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       if (connected) {
         await nftsAPI.getDetail(nftDetail.address).then(
           (response: any) => {
-            setHasLoading(false)
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
@@ -127,14 +125,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               }
             }
           },
-          error => {
-            setHasLoading(false)
-          }
+          error => {}
         )
       } else {
         await nftsAPI.get(nftDetail.address).then(
           (response: any) => {
-            setHasLoading(false)
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
@@ -142,9 +137,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               }
             }
           },
-          error => {
-            setHasLoading(false)
-          }
+          error => {}
         )
       }
     }
@@ -238,7 +231,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
-                    hasLoading={hasLoading}
                     setShowAuctionSection={enable => setShowAuctionSection(enable)}
                   />
                 </div>
