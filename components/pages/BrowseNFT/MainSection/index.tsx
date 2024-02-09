@@ -140,7 +140,6 @@ const MainSection = ({
   enableMerch,
   setCollectionName,
   fullScreen,
-  hasLoading,
   setShowAuctionSection,
 }: MainSectionProps) => {
   const viewport = useViewport()
@@ -160,7 +159,8 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
-  const [auctionPriceLoaded, setAuctionPriceLoaded] = useState(false)
+  const [loadedNftDetail, setLoadedNftDetail] = useState(false)
+  const [loadedNftInfo, setLoadedNftInfo] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
@@ -380,6 +380,7 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
+      setLoadedNftInfo(true)
     }
   }, [nftInfo])
 
@@ -458,6 +459,8 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
+
+      setLoadedNftDetail(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
@@ -984,7 +987,11 @@ const MainSection = ({
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            nftType.includes('vr') ? (
+            !loadedNftDetail ? (
+              <div
+                className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full max-h-[250px]`}
+              ></div>
+            ) : nftType.includes('vr') ? (
               nftAssetUrl ? (
                 <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
                   <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
@@ -1037,6 +1044,10 @@ const MainSection = ({
             ) : (
               <></>
             )
+          ) : !loadedNftDetail ? (
+            <div
+              className={`${styles.skeletonLoader} ${styles.blurBackground} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
+            ></div>
           ) : nftType.includes('vr') && !fullScreen ? (
             <div className={styles.blurBackground}>
               <div className={styles.blurImage} />
@@ -1191,7 +1202,7 @@ const MainSection = ({
                   </div>
 
                   <div className="inline">
-                    {hasLoading ? (
+                    {!loadedNftInfo ? (
                       <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
                     ) : (
                       <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
