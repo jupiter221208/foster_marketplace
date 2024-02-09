@@ -48,7 +48,11 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
           {children}
         </main>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <PrimaryFooter />}
+        {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+          <PrimaryFooter />
+        ) : (
+          <div className="w-full h-[100px]" />
+        )}
         {connected && profileSetup && <ProfileSetupModal />}
       </>
     </div>

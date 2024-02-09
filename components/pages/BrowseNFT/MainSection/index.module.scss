@@ -47,7 +47,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(var(--background-main-color-rgb), 0.75);
+  background: rgba(var(--background-main-color-rgb), 0.9);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   z-index: 1
@@ -68,12 +68,8 @@
 }
 
 .audioBackground {
-  width: 440px;
-  height: 650px;
-  border-radius: 35px;
-  background: var(--background-main-color);
-  padding: 25px;
-  margin-top: -30px;
+  width: auto;
+  height: auto;
   z-index: 10;
 }
 
@@ -129,7 +125,7 @@
 }
 
 .audioArea {
-  width: 100%;
+  width: 394px;
   margin-left: 0px;  
   height: 75px;
   margin-top: 30px;
@@ -305,7 +301,7 @@
     padding: 38px 40px 38px 40px;
   }
   @media (min-width: 1536px) {
-    padding: 30px 60px;
+    padding: 30px 0px 30px 60px;
   }
 
   // background: var(--nft-detail-bg);
@@ -622,7 +618,15 @@
 }
 
 .audioNftBG {
-  background: var(--background-main-color) !important;
+  // background: var(--background-main-color) !important;
+  background: transparent !important;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25)
+}
+
+.audioNftDescBG {
+  background: rgba(var(--audio-nft-bgr-rgb), 0.5) !important;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .auctionBG {
@@ -881,9 +885,11 @@
   overflow-y: auto;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  padding-top: 10px;
+  padding-top: 15px;
+  padding-bottom: 10px;
   @media (min-width: 1024px) {
-    max-height: 125px;
+    height: 125px;
+    max-height: 160px;
   }
 }
 .selectedTab {

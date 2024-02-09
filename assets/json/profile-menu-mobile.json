@@ -1,5 +1,5 @@
 [
-  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "type": "avatar", "path": "/" },
+  { "id": 0, "icon": "/images/dashboard-avatar.png", "label": "Profile", "type": "avatar", "path": "/" },
   { "id": 1, "icon": "", "label": "Dashboard", "type": "dashboard", "path": "/dashboard" },
   { "id": 2, "icon": "", "label": "Merch Hub", "type": "merch", "path": "/merch-logs" },
   { "id": 3, "icon": "", "label": "Notifications", "type": "notifications", "path": "/notifications" },

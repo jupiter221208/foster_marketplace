@@ -59,9 +59,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-[30px]`}>
-        Categories (max. 3) <span>*</span>
-      </div>
+      <div className={`${styles.subTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-5">
         <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       </div>
@@ -96,9 +94,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(value)}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-        Categories <span>*</span>
-      </div>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">

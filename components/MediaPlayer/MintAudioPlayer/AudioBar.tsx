@@ -62,7 +62,7 @@ const Bar = props => {
           id="bar__progress"
           className={styles.bar__progress}
           style={{
-            background: `linear-gradient(to right, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.5) 0)`,
+            background: `linear-gradient(to right, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
           }}
           onMouseDown={e => handleTimeDrag(e)}
         >

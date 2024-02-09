@@ -52,6 +52,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -316,12 +317,7 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    let count = 0
-    categoryList.map(item => {
-      if (item.checked === true) count++
-    })
-
-    if (nftName !== '' && description !== '' && count !== 0) {
+    if (nftName !== '' && description !== '') {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
@@ -470,7 +466,6 @@ const SingleNft = () => {
       console.error(error)
     } finally {
       setIsMinting(false)
-      // dispatch({ type: 'set', isLoading: false })
     }
   }
 
@@ -479,7 +474,13 @@ const SingleNft = () => {
     switch (step) {
       case 1:
         if (nftArt !== null) {
-          if (nftType !== 'audio') {
+          if (nftType === 'vr') {
+            if (nftImage !== '' || nftCover !== null) {
+              setDisabledNextButton(false)
+            } else {
+              setDisabledNextButton(true)
+            }
+          } else if (nftType !== 'audio') {
             setDisabledNextButton(false)
           } else {
             if (nftImage !== '') {
@@ -703,8 +704,14 @@ const SingleNft = () => {
                             {nftImage && (
                               <div className={styles.glbNftImageSection}>
                                 <img className="w-full aspect-square" src={nftImage} alt="" />
-                                <button onClick={() => setNftImage('')}>
-                                  <TrashBin className={styles.trashIcon} /> Remove Cover Image
+                                <button
+                                  onClick={() => {
+                                    setNftImage('')
+                                    setNftCover(null)
+                                  }}
+                                >
+                                  <TrashBin />
+                                  &nbsp;Remove Cover Image
                                 </button>
                               </div>
                             )}
@@ -935,7 +942,8 @@ const SingleNft = () => {
                         <div className={styles.glbNftImageSection}>
                           <img className="w-full aspect-square" src={nftImage} alt="" />
                           <button onClick={() => setNftImage('')}>
-                            <TrashBin /> Remove Cover Image
+                            <TrashBin />
+                            &nbsp;Remove Cover Image
                           </button>
                         </div>
                       )}
@@ -1093,7 +1101,7 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
-      <ProgressingModal open={screenLoaded && isLoading} />
+      <FullScreenLoadingModal open={screenLoaded && isLoading} />
     </div>
   )
 }

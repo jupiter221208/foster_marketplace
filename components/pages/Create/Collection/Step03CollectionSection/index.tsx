@@ -29,7 +29,6 @@ const Step03CollectionSection = props => {
   const {
     currentStep,
     onChangeCurrentStep,
-    coverCroppedImage,
     collectionMintName,
     collectionFiles,
     bannerCroppedImage,

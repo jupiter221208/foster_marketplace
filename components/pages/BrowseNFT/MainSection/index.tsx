@@ -19,7 +19,6 @@ import {
   Filler,
   Legend,
 } from 'chart.js'
-import faker from 'faker'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
@@ -128,7 +127,6 @@ export interface MainSectionProps {
   enableMerch: any
   setCollectionName: any
   fullScreen: boolean
-  hasLoading: any
   setShowAuctionSection: any
 }
 
@@ -141,7 +139,6 @@ const MainSection = ({
   enableMerch,
   setCollectionName,
   fullScreen,
-  hasLoading,
   setShowAuctionSection,
 }: MainSectionProps) => {
   const viewport = useViewport()
@@ -161,11 +158,13 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
-  const [auctionPriceLoaded, setAuctionPriceLoaded] = useState(false)
+  const [loadedNftDetail, setLoadedNftDetail] = useState(false)
+  const [loadedNftInfo, setLoadedNftInfo] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
+  const [tokenAccountInfo, setTokenAccountInfo] = useState(null)
   const [highBidder, setHighBidder] = useState('')
   const [endTime, setEndTime] = useState<string>(null)
   const [startTime, setStartTime] = useState<string>(null)
@@ -206,19 +205,19 @@ const MainSection = ({
     viewport === 'xs' || viewport === 'sm' || viewport === 'md'
       ? ['12/21', '1/22', '2/22', '3/22']
       : ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
-  const data = {
-    labels,
-    datasets: [
-      {
-        fill: true,
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
-        borderColor: 'rgba(90, 195,186, 0.16)',
-        backgroundColor: 'rgba(90, 195,186, 0.16)',
-        height: '100px',
-        width: '150px',
-      },
-    ],
-  }
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       fill: true,
+  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
+  //       borderColor: 'rgba(90, 195,186, 0.16)',
+  //       backgroundColor: 'rgba(90, 195,186, 0.16)',
+  //       height: '100px',
+  //       width: '150px',
+  //     },
+  //   ],
+  // }
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -270,11 +269,13 @@ const MainSection = ({
   const [nftListingData, setNftListingData] = useState(null)
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
+  const [loadedActivity, setLoadedActivity] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
+  const [nameLoading, setNameLoading] = useState(true)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -378,6 +379,7 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
+      setLoadedNftInfo(true)
     }
   }, [nftInfo])
 
@@ -454,14 +456,10 @@ const MainSection = ({
   )
 
   useEffect(() => {
-    if (nftInfo && setLiveAuction) setAuctionPriceLoaded(true)
-  }, [nftInfo, setLiveAuction])
-
-  useEffect(() => {
-    let auctionListenerHandle: number | null = null
     ;(async () => {
       if (!nftDetail) return
-      setLoading(true)
+
+      setLoadedNftDetail(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
@@ -473,7 +471,20 @@ const MainSection = ({
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
 
-      if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
+      setNameLoading(false)
+      setTokenAccountInfo(tokenAccount)
+    })()
+  }, [nftDetail])
+
+  useEffect(() => {
+    if (!tokenAccountInfo) return
+
+    let auctionListenerHandle: number | null = null
+    ;(async () => {
+      if (!nftDetail) return
+      setLoading(true)
+
+      if (tokenAccountInfo.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
@@ -481,7 +492,6 @@ const MainSection = ({
           .where(168, Buffer.from([0])) // purchaseReceipt == null
           .where(195, Buffer.from([0])) // canceledAt == null
           .getAndMap(account => toListingReceiptAccount(account))
-
         if (openListings.length != 1) {
           console.warn(`irregular number of listing recipts for ${nftDetail.address}`)
           console.warn(JSON.parse(JSON.stringify(openListings)))
@@ -503,7 +513,6 @@ const MainSection = ({
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
-
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
           let listingAsset = listingAssets[0]
           let { asset, sellerAddress, price } = listingAsset
@@ -522,13 +531,19 @@ const MainSection = ({
           if (!connected) {
             setIsOwnNft(false)
           }
+
           let auctionListing = await fetchAuctionListing(
             mx,
-            tokenAccount.owner,
-            tokenAccount.address,
-            tokenAccount.mint
+            tokenAccountInfo.owner,
+            tokenAccountInfo.address,
+            tokenAccountInfo.mint
           )
-          let [listingConfig] = await getListingConfig(tokenAccount.owner, tokenAccount.address, tokenAccount.mint)
+
+          let [listingConfig] = await getListingConfig(
+            tokenAccountInfo.owner,
+            tokenAccountInfo.address,
+            tokenAccountInfo.mint
+          )
 
           await handleAuctionData(auctionListing)
           auctionListenerHandle = await mx.connection.onAccountChange(
@@ -538,7 +553,18 @@ const MainSection = ({
           )
         }
       }
+      setLoading(false)
 
+      dispatch({ type: 'set', isLoading: false })
+
+      return () => {
+        if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
+      }
+    })()
+  }, [tokenAccountInfo])
+
+  useEffect(() => {
+    ;(async () => {
       if (nftDetail.collection?.verified)
         try {
           let collectionMint = new PublicKey(nftDetail.collection.address)
@@ -557,17 +583,12 @@ const MainSection = ({
         response => {
           let dateSorted = response.sort(compareDate)
           setActivityList(dateSorted)
+          setLoadedActivity(true)
         },
-        error => {}
+        error => {
+          setLoadedActivity(true)
+        }
       )
-
-      setLoading(false)
-
-      dispatch({ type: 'set', isLoading: false })
-
-      return () => {
-        if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
-      }
     })()
   }, [nftDetail])
 
@@ -965,7 +986,7 @@ const MainSection = ({
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            hasLoading ? (
+            !loadedNftDetail ? (
               <div
                 className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full max-h-[250px]`}
               ></div>
@@ -1022,7 +1043,7 @@ const MainSection = ({
             ) : (
               <></>
             )
-          ) : hasLoading ? (
+          ) : !loadedNftDetail ? (
             <div
               className={`${styles.skeletonLoader} ${styles.blurBackground} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
             ></div>
@@ -1063,18 +1084,17 @@ const MainSection = ({
               </div>
             </div>
           ) : nftType.includes('audio') ? (
-            <div className="w-full h-full flex justify-start items-center pl-[120px]">
+            <div className="w-full h-full flex justify-start items-center">
               <div className={styles.audioBackground}>
                 {nftAssetUrl && (
-                  <div className="w-[390px] h-[390px] rounded-[35px] overflow-hidden">
+                  <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                   </div>
                 )}
-                <div className={styles.audioNftName}>{nftName}</div>
-                <div className={styles.audioCreatorName}>{getDisplayUserName(nftCreatorname)}</div>
-
-                <div className={styles.audioArea}>
-                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                <div className="w-full flex justify-center mb-[30px]">
+                  <div className={styles.audioArea}>
+                    <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1113,13 +1133,7 @@ const MainSection = ({
           )}
         </div>
 
-        <div
-          className={`col-span-2 lg:col-span-1 z-10 ${
-            nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-              ? 'pr-[50px]'
-              : ''
-          }`}
-        >
+        <div className="col-span-2 lg:col-span-1 z-10">
           {showAuctionDetail ? (
             <div className="ml-[0px] lg:ml-[50px]">
               <AuctionDetail
@@ -1141,68 +1155,53 @@ const MainSection = ({
           ) : (
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap">
-                <div
-                  className={`w-full flex flex-wrap ${
-                    nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-                      ? 'justify-end'
-                      : 'justify-between'
-                  } items-center`}
-                >
+                <div className="w-full flex flex-wrap justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    {hasLoading ? (
-                      <div className={`${styles.skeletonLoader} ${styles.ellipseArea}`}></div>
-                    ) : (
-                      <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                          <div className={styles.ellipseArea}>
-                            <ThreeEllipseMobileIcon alt="" />
-                          </div>
-                        ) : (
-                          <div className={styles.ellipseArea}>
-                            <ThreeEllipseIcon alt="" />
-                          </div>
-                        )}
-                      </div>
-                    )}
+                    <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <div className={styles.ellipseArea}>
+                          <ThreeEllipseMobileIcon alt="" />
+                        </div>
+                      ) : (
+                        <div className={styles.ellipseArea}>
+                          <ThreeEllipseIcon alt="" />
+                        </div>
+                      )}
+                    </div>
+
                     {nftType.includes('audio') ? (
                       <div />
                     ) : (
-                      <>
-                        {hasLoading ? (
-                          <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-3xl`}></div>
+                      <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
+                        {merchToggle ? (
+                          <MerchToggleEnabledIcon
+                            alt=""
+                            onClick={() => {
+                              if (isCreatedNft) setRemoveMerchModal(true)
+                            }}
+                            onMouseEnter={() => setMerchHover(true)}
+                            onMouseLeave={() => setMerchHover(false)}
+                          />
                         ) : (
-                          <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
-                            {merchToggle ? (
-                              <MerchToggleEnabledIcon
-                                alt=""
-                                onClick={() => {
-                                  if (isCreatedNft) setRemoveMerchModal(true)
-                                }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
-                              />
-                            ) : (
-                              <MerchToggleDisabledIcon
-                                alt=""
-                                onClick={() => {
-                                  if (isCreatedNft) setCreateMerchModal(true)
-                                }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
-                              />
-                            )}
-
-                            {!nftType.includes('audio') && merchHover && (
-                              <div className={styles.infoText}>Foster Studio</div>
-                            )}
-                          </div>
+                          <MerchToggleDisabledIcon
+                            alt=""
+                            onClick={() => {
+                              if (isCreatedNft) setCreateMerchModal(true)
+                            }}
+                            onMouseEnter={() => setMerchHover(true)}
+                            onMouseLeave={() => setMerchHover(false)}
+                          />
                         )}
-                      </>
+
+                        {!nftType.includes('audio') && merchHover && (
+                          <div className={styles.infoText}>Foster Studio</div>
+                        )}
+                      </div>
                     )}
                   </div>
 
                   <div className="inline">
-                    {hasLoading ? (
+                    {!loadedNftInfo ? (
                       <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
                     ) : (
                       <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
@@ -1248,94 +1247,86 @@ const MainSection = ({
                     )}
                   </div>
                 </div>
-                {(!nftType.includes('audio') || viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-                  <>
-                    {hasLoading ? (
-                      <div
-                        className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
-                      ></div>
-                    ) : (
-                      <>
-                        <div className="w-full flex mt-[15px] lg:mt-[28px]">
-                          <div className={styles.title}>{nftName}</div>
-                        </div>
 
-                        <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
-                          <div className="flex gap-1 lg:gap-2">
-                            <div className={styles.grayText}>Created by</div>
-                            <Link href={`/${nftCreatorname}`} passHref>
-                              <a>
-                                <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                                  {getDisplayUserName(nftCreatorname)}
-                                </div>
-                              </a>
-                            </Link>
-                          </div>
-
-                          {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                            <div className="flex gap-1 lg:gap-2">
-                              <div className={styles.grayText}>Fostered by</div>
-                              <Link href={`/${nftOwnerUsername}`} passHref>
-                                <a>
-                                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                                    {getDisplayUserName(nftOwnerUsername)}
-                                  </div>
-                                </a>
-                              </Link>
-                            </div>
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
-                {hasLoading ? (
+                {nameLoading ? (
                   <div
-                    className={`${styles.skeletonLoader} ${styles.collectionContainer} w-[200px] h-[40px] mt-[15px] rounded-full`}
+                    className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
                   ></div>
                 ) : (
-                  <div className={styles.collectionContainer}>
-                    {nftCollectionUrl.length > 0 && (
-                      <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                        <div className={styles.collectionText}>Collection</div>
-                        <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                  <>
+                    <div className="w-full flex mt-[15px] lg:mt-[28px]">
+                      <div className={styles.title}>{nftName}</div>
+                    </div>
+
+                    <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
+                      <div className="flex gap-1 lg:gap-2">
+                        <div className={styles.grayText}>Created by</div>
+                        <Link href={`/${nftCreatorname}`} passHref>
                           <a>
-                            <div className={styles.collectionName}>
-                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                                <Image
-                                  src={nftCollectionImage}
-                                  alt=""
-                                  width={25}
-                                  height={25}
-                                  className="object-cover rounded-[4px]"
-                                />
-                              )}
-                              {nftCollectionName}
+                            <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
+                              {getDisplayUserName(nftCreatorname)}
                             </div>
                           </a>
                         </Link>
                       </div>
-                    )}
-                    {editionDetail && (
-                      <div className={styles.editionContainer}>
-                        <div className="w-full flex justify-between">
-                          <div className={styles.editionTitle}>Token Type</div>
-                          <div className={styles.editionValue}>
-                            {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+
+                      {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                        <div className="flex gap-1 lg:gap-2">
+                          <div className={styles.grayText}>Fostered by</div>
+                          <Link href={`/${nftOwnerUsername}`} passHref>
+                            <a>
+                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                                {getDisplayUserName(nftOwnerUsername)}
+                              </div>
+                            </a>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+
+                <div className={styles.collectionContainer}>
+                  {nftCollectionUrl.length > 0 && (
+                    <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                      <div className={styles.collectionText}>Collection</div>
+                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                        <a>
+                          <div className={styles.collectionName}>
+                            {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                              <Image
+                                src={nftCollectionImage}
+                                alt=""
+                                width={25}
+                                height={25}
+                                className="object-cover rounded-[4px]"
+                              />
+                            )}
+                            {nftCollectionName}
                           </div>
-                        </div>
-                        <div className="w-full flex justify-between mt-[15px]">
-                          <div className={styles.editionTitle}>Editon Number</div>
-                          <div className={styles.editionValue}>{editionDetail['number']}</div>
-                        </div>
-                        <div className="w-full flex justify-between mt-[15px]">
-                          <div className={styles.editionTitle}>Edition Supply</div>
-                          <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                        </a>
+                      </Link>
+                    </div>
+                  )}
+                  {editionDetail && (
+                    <div className={styles.editionContainer}>
+                      <div className="w-full flex justify-between">
+                        <div className={styles.editionTitle}>Token Type</div>
+                        <div className={styles.editionValue}>
+                          {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
                         </div>
                       </div>
-                    )}
-                  </div>
-                )}
+                      <div className="w-full flex justify-between mt-[15px]">
+                        <div className={styles.editionTitle}>Editon Number</div>
+                        <div className={styles.editionValue}>{editionDetail['number']}</div>
+                      </div>
+                      <div className="w-full flex justify-between mt-[15px]">
+                        <div className={styles.editionTitle}>Edition Supply</div>
+                        <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="w-full flex flex-wrap">
@@ -1483,12 +1474,11 @@ const MainSection = ({
                             startTime={startTime}
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
-                            auctionLoaded={auctionPriceLoaded}
                           />
 
                           {showPlaceBidButton &&
                             !isOwnNft &&
-                            (loading || !auctionPriceLoaded ? (
+                            (loading ? (
                               <div className="w-full pl-[20px] pr-[20px] mb-[16px]">
                                 <div className="w-full flex justify-center">
                                   <div
@@ -1652,18 +1642,26 @@ const MainSection = ({
                 )}
 
                 <div className={'mt-6 w-full h-[180px] lg:h-[200px] relative'}>
-                  {hasLoading ? (
+                  {!loadedActivity ? (
                     <div className={`${styles.skeletonLoader} ${styles.activityContainer}`}></div>
                   ) : (
                     <div className={styles.activityContainer}>
                       <div className={styles.selectedTab}>
-                        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                        <SelectedTab
+                          tabList={tabList}
+                          onChange={item => handleSelectedTab(item)}
+                          type={
+                            nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                              ? 'audio'
+                              : 'image'
+                          }
+                        />
                       </div>
                       <div
                         className={`${styles.mainContainer} ${
                           nftType.includes('audio') &&
                           (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') &&
-                          styles.audioNftBG
+                          styles.audioNftDescBG
                         }`}
                       >
                         {activeTab === 0 && (

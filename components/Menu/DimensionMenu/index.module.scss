@@ -39,8 +39,8 @@
 }
 
 .menuItem {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
@@ -54,11 +54,11 @@
   border: 1px solid transparent;
   &:hover {
     @media (min-width: 1024px) {
-      color: var(--brand-01-color);
+      color: var(--brand-09-color);
     }
   }
 }
 
 .selectedMenuItem {
-  color: var(--brand-01-color);
+  color: var(--brand-09-color);
 }

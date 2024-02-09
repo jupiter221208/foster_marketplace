@@ -7,12 +7,15 @@ import { Tab as HTab } from '@headlessui/react'
 import styles from './index.module.scss'
 
 const TabItem = props => {
-  const { item, onChange } = props
+  const { item, onChange, type } = props
   const [hover, setHover] = useState(false)
+
   return (
     <div className="relative">
       <button
-        className={`${styles.container} ${item.selected ? styles.activeTab : styles.activeTab1}`}
+        className={`${styles.container} ${
+          item.selected ? (type === 'image' ? styles.activeTab : styles.activeAudioTab) : styles.activeTab1
+        }`}
         onClick={() => onChange(item)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
