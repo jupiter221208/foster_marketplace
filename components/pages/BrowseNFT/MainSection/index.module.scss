@@ -47,7 +47,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(var(--background-main-color-rgb), 0.75);
+  background: rgba(var(--background-main-color-rgb), 0.9);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   z-index: 1
@@ -618,7 +618,15 @@
 }
 
 .audioNftBG {
-  background: var(--background-main-color) !important;
+  // background: var(--background-main-color) !important;
+  background: transparent !important;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25)
+}
+
+.audioNftDescBG {
+  background: rgba(var(--background-main-color-rgb), 0.5) !important;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .auctionBG {

@@ -1647,13 +1647,21 @@ const MainSection = ({
                   ) : (
                     <div className={styles.activityContainer}>
                       <div className={styles.selectedTab}>
-                        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                        <SelectedTab
+                          tabList={tabList}
+                          onChange={item => handleSelectedTab(item)}
+                          type={
+                            nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                              ? 'audio'
+                              : 'image'
+                          }
+                        />
                       </div>
                       <div
                         className={`${styles.mainContainer} ${
                           nftType.includes('audio') &&
                           (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') &&
-                          styles.audioNftBG
+                          styles.audioNftDescBG
                         }`}
                       >
                         {activeTab === 0 && (
