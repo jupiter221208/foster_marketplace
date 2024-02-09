@@ -288,27 +288,6 @@ const Step01CollectionSection = props => {
     }
   }, [collectionName, description, coverCroppedImage, bannerCroppedImage, coverImage, bannerImage, categoryList, royalties])
 
-  // form validate
-  // useEffect(() => {
-  //   let count = 0
-  //   categoryList.map(item => {
-  //     if (item.checked === true) count++
-  //   })
-  //   if (
-  //     collectionName !== '' &&
-  //     description !== '' &&
-  //     count <= 3 &&
-  //     bannerImage !== undefined &&
-  //     coverImage !== undefined &&
-  //     royalties >= 0 &&
-  //     royalties <= 10
-  //   ) {
-  //     setDisabledNextButton(false)
-  //   } else {
-  //     setDisabledNextButton(true)
-  //   }
-  // }, [collectionName, description, categoryList, coverImage, bannerImage])
-
   const [bannerHelper, setBannerHelper] = useState(false)
   const [coverHelper, setCoverHelper] = useState(false)
 

@@ -212,28 +212,30 @@ const HeroCard = props => {
 
       <div className={styles.infoBox}>
         <div className={styles.avatarArea}>
-          {data.artist_profile_picture === '' && (
+          {data.artist_profile_picture === null && (
             <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
-          {data.artist_profile_picture &&
-            data.artist_profile_picture !== '' &&
-            data.artist_profile_picture !== undefined && (
-              <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <Link href={`/${data.artist_username}`} passHref>
-                  <a>
-                    <img
-                      src={data.artist_profile_picture}
-                      alt=""
-                      className={`${styles.noSelect} rounded-full`}
-                      loading="lazy"
-                      onLoad={() => {
-                        setProfieLoaded(true)
-                      }}
-                    />
-                  </a>
-                </Link>
-              </div>
-            )}
+          {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
+            <div className={styles.avatar} onClick={() => gotoAristPage()}>
+              <Link href={`/${data.artist_username}`} passHref>
+                <a>
+                  <img
+                    src={
+                      data.artist_profile_picture.length > 0
+                        ? data.artist_profile_picture
+                        : 'images/dashboard-avatar.png'
+                    }
+                    alt=""
+                    className={`${styles.noSelect} rounded-full`}
+                    loading="lazy"
+                    onLoad={() => {
+                      setProfieLoaded(true)
+                    }}
+                  />
+                </a>
+              </Link>
+            </div>
+          )}
           <div className={styles.nftNames}>
             {data.nft_name === '' ? (
               <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>

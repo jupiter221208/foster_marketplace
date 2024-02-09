@@ -192,7 +192,7 @@ const HeroCardMobile = props => {
           </div>
         </div>
       </div>
-      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
+      {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
         <div className={styles.avatarArea}>
           <div className={styles.avatar} onClick={() => gotoAristPage()}>
             {!profileLoaded && (
@@ -203,13 +203,7 @@ const HeroCardMobile = props => {
               </div>
             )}
             <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
+              src={data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'}
               alt=""
               width={60}
               height={60}

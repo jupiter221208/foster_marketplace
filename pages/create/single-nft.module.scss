@@ -241,9 +241,10 @@
   margin-top: 20px;
   display: flex;
   gap: 24px;
+  font-family: 'Muli-Regular';
   font-size: 14px;
   @media (min-width: 1024px) {
-  font-size: 16px;
+    font-size: 16px;
   }
   button {
     @media (max-width: 1024px) {

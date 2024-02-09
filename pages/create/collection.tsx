@@ -31,6 +31,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -478,12 +479,7 @@ const Collection = () => {
           />
         )}
       </div>
-      <ProgressingModal open={isLoading && screenLoaded} />
-      {/* <CollectionMintProgressingModal
-        open={isCollectionMinting}
-        collectionFiles={collectionFiles}
-        uploadedCount={uploadedCount}
-      /> */}
+      <FullScreenLoadingModal open={screenLoaded && isLoading} />
       <Alert
         open={showAlert}
         close={() => {
