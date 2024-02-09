@@ -127,7 +127,6 @@ export interface MainSectionProps {
   enableMerch: any
   setCollectionName: any
   fullScreen: boolean
-  hasLoading: any
   setShowAuctionSection: any
 }
 
