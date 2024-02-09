@@ -271,6 +271,7 @@ const MainSection = ({
   const [nftListingData, setNftListingData] = useState(null)
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
+  const [loadedActivity, setLoadedActivity] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
   const [removeMerchModal, setRemoveMerchModal] = useState(false)
@@ -585,8 +586,11 @@ const MainSection = ({
         response => {
           let dateSorted = response.sort(compareDate)
           setActivityList(dateSorted)
+          setLoadedActivity(true)
         },
-        error => {}
+        error => {
+          setLoadedActivity(true)
+        }
       )
     })()
   }, [nftDetail])
@@ -1649,7 +1653,7 @@ const MainSection = ({
                 )}
 
                 <div className={'mt-6 w-full h-[180px] lg:h-[200px] relative'}>
-                  {hasLoading ? (
+                  {!loadedActivity ? (
                     <div className={`${styles.skeletonLoader} ${styles.activityContainer}`}></div>
                   ) : (
                     <div className={styles.activityContainer}>
