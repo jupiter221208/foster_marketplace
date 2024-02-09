@@ -269,13 +269,19 @@ const NotificationsCard = props => {
                           </a>
                         </Link>
                       ) : (
-                        <Image
-                          src={getUserProfileImage(elem)}
-                          alt=""
-                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                          className="w-full h-full rounded-full object-cover"
-                        />
+                        <Link href={`/${elem.reference_username}`} passHref>
+                          <a>
+                            <div className="w-full h-full flex justify-center items-center">
+                              <Image
+                                src={getUserProfileImage(elem)}
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
                       )}
                     </div>
 

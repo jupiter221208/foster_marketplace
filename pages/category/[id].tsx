@@ -29,7 +29,6 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
-import ArtistLayout from 'components/Layout/ArtistLayout'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
@@ -113,6 +112,7 @@ const Category = () => {
         {cateQuery.length > 0 && (
           <div className="flex justify-center">
             <div className="g-container">
+              <div className="w-full h-[70px]" />
               <TrendingCollectionSection category={cateQuery} loop={false} />
               <MostPopularSection category={cateQuery} />
               <MarketplaceReleaseSection category={cateQuery} />
