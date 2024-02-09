@@ -19,7 +19,6 @@ import {
   Filler,
   Legend,
 } from 'chart.js'
-import faker from 'faker'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
@@ -455,10 +454,6 @@ const MainSection = ({
     },
     [minBidIncrement]
   )
-
-  useEffect(() => {
-    if (nftInfo && setLiveAuction) setAuctionPriceLoaded(true)
-  }, [nftInfo, setLiveAuction])
 
   useEffect(() => {
     ;(async () => {
@@ -1152,55 +1147,46 @@ const MainSection = ({
               <div className="w-full flex flex-wrap">
                 <div className="w-full flex flex-wrap justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    {hasLoading ? (
-                      <div className={`${styles.skeletonLoader} ${styles.ellipseArea}`}></div>
-                    ) : (
-                      <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                          <div className={styles.ellipseArea}>
-                            <ThreeEllipseMobileIcon alt="" />
-                          </div>
-                        ) : (
-                          <div className={styles.ellipseArea}>
-                            <ThreeEllipseIcon alt="" />
-                          </div>
-                        )}
-                      </div>
-                    )}
+                    <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <div className={styles.ellipseArea}>
+                          <ThreeEllipseMobileIcon alt="" />
+                        </div>
+                      ) : (
+                        <div className={styles.ellipseArea}>
+                          <ThreeEllipseIcon alt="" />
+                        </div>
+                      )}
+                    </div>
+
                     {nftType.includes('audio') ? (
                       <div />
                     ) : (
-                      <>
-                        {hasLoading ? (
-                          <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-3xl`}></div>
+                      <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
+                        {merchToggle ? (
+                          <MerchToggleEnabledIcon
+                            alt=""
+                            onClick={() => {
+                              if (isCreatedNft) setRemoveMerchModal(true)
+                            }}
+                            onMouseEnter={() => setMerchHover(true)}
+                            onMouseLeave={() => setMerchHover(false)}
+                          />
                         ) : (
-                          <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
-                            {merchToggle ? (
-                              <MerchToggleEnabledIcon
-                                alt=""
-                                onClick={() => {
-                                  if (isCreatedNft) setRemoveMerchModal(true)
-                                }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
-                              />
-                            ) : (
-                              <MerchToggleDisabledIcon
-                                alt=""
-                                onClick={() => {
-                                  if (isCreatedNft) setCreateMerchModal(true)
-                                }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
-                              />
-                            )}
-
-                            {!nftType.includes('audio') && merchHover && (
-                              <div className={styles.infoText}>Foster Studio</div>
-                            )}
-                          </div>
+                          <MerchToggleDisabledIcon
+                            alt=""
+                            onClick={() => {
+                              if (isCreatedNft) setCreateMerchModal(true)
+                            }}
+                            onMouseEnter={() => setMerchHover(true)}
+                            onMouseLeave={() => setMerchHover(false)}
+                          />
                         )}
-                      </>
+
+                        {!nftType.includes('audio') && merchHover && (
+                          <div className={styles.infoText}>Foster Studio</div>
+                        )}
+                      </div>
                     )}
                   </div>
 
@@ -1290,53 +1276,47 @@ const MainSection = ({
                   </>
                 )}
 
-                {hasLoading ? (
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.collectionContainer} w-[200px] h-[40px] mt-[15px] rounded-full`}
-                  ></div>
-                ) : (
-                  <div className={styles.collectionContainer}>
-                    {nftCollectionUrl.length > 0 && (
-                      <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                        <div className={styles.collectionText}>Collection</div>
-                        <Link href={`/collection/${nftCollectionAddress}`} passHref>
-                          <a>
-                            <div className={styles.collectionName}>
-                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                                <Image
-                                  src={nftCollectionImage}
-                                  alt=""
-                                  width={25}
-                                  height={25}
-                                  className="object-cover rounded-[4px]"
-                                />
-                              )}
-                              {nftCollectionName}
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-                    )}
-                    {editionDetail && (
-                      <div className={styles.editionContainer}>
-                        <div className="w-full flex justify-between">
-                          <div className={styles.editionTitle}>Token Type</div>
-                          <div className={styles.editionValue}>
-                            {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                <div className={styles.collectionContainer}>
+                  {nftCollectionUrl.length > 0 && (
+                    <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                      <div className={styles.collectionText}>Collection</div>
+                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                        <a>
+                          <div className={styles.collectionName}>
+                            {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                              <Image
+                                src={nftCollectionImage}
+                                alt=""
+                                width={25}
+                                height={25}
+                                className="object-cover rounded-[4px]"
+                              />
+                            )}
+                            {nftCollectionName}
                           </div>
-                        </div>
-                        <div className="w-full flex justify-between mt-[15px]">
-                          <div className={styles.editionTitle}>Editon Number</div>
-                          <div className={styles.editionValue}>{editionDetail['number']}</div>
-                        </div>
-                        <div className="w-full flex justify-between mt-[15px]">
-                          <div className={styles.editionTitle}>Edition Supply</div>
-                          <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                        </a>
+                      </Link>
+                    </div>
+                  )}
+                  {editionDetail && (
+                    <div className={styles.editionContainer}>
+                      <div className="w-full flex justify-between">
+                        <div className={styles.editionTitle}>Token Type</div>
+                        <div className={styles.editionValue}>
+                          {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
                         </div>
                       </div>
-                    )}
-                  </div>
-                )}
+                      <div className="w-full flex justify-between mt-[15px]">
+                        <div className={styles.editionTitle}>Editon Number</div>
+                        <div className={styles.editionValue}>{editionDetail['number']}</div>
+                      </div>
+                      <div className="w-full flex justify-between mt-[15px]">
+                        <div className={styles.editionTitle}>Edition Supply</div>
+                        <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="w-full flex flex-wrap">
@@ -1484,12 +1464,11 @@ const MainSection = ({
                             startTime={startTime}
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
-                            auctionLoaded={auctionPriceLoaded}
                           />
 
                           {showPlaceBidButton &&
                             !isOwnNft &&
-                            (loading || !auctionPriceLoaded ? (
+                            (loading ? (
                               <div className="w-full pl-[20px] pr-[20px] mb-[16px]">
                                 <div className="w-full flex justify-center">
                                   <div
