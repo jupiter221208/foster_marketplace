@@ -133,7 +133,9 @@ const HeroCardMobile = props => {
                 <img
                   src={data.cover_image_url}
                   alt=""
-                  className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                  width={550}
+                  height={772}
+                  className="w-full h-full object-cover rounded-[24px]"
                 />
               </div>
             ) : data.asset_type.includes('video') ? (

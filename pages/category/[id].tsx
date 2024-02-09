@@ -110,17 +110,18 @@ const Category = () => {
             <></>
           )}
         </div>
-        <div className="flex justify-center">
-          <div className="g-container">
-            <TrendingCollectionSection category={cateQuery} loop={false} />
-            <MostPopularSection category={cateQuery} />
-            <MarketplaceReleaseSection category={cateQuery} />
-            <LiveAuctionSection category={cateQuery} fromPage={'category'} />
-            <FreshMintSection category={cateQuery} />
-            <PopularCategorySection type="category" />
+        {cateQuery.length > 0 && (
+          <div className="flex justify-center">
+            <div className="g-container">
+              <TrendingCollectionSection category={cateQuery} loop={false} />
+              <MostPopularSection category={cateQuery} />
+              <MarketplaceReleaseSection category={cateQuery} />
+              <LiveAuctionSection category={cateQuery} fromPage={'category'} />
+              <FreshMintSection category={cateQuery} />
+              <PopularCategorySection type="category" />
+            </div>
           </div>
-        </div>
-
+        )}
         <FullScreenLoadingModal open={isLoading} />
       </div>
     </div>

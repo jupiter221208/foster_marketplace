@@ -176,7 +176,9 @@ const Step02CollectionSection = props => {
   useEffect(() => {
     let count = 0
     collectionFiles.forEach((item, index) => {
-      if (item.croppedImage !== '' && item.name !== '') {
+      if (item.type === 'vr') {
+        if (item.nftCoverImage !== null && item.name !== '') count++
+      } else if (item.croppedImage !== '' && item.name !== '') {
         count++
       }
     })
@@ -216,14 +218,18 @@ const Step02CollectionSection = props => {
         />
       )}
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="relative flex min-h-screen">
+        <div className="relative w-full flex min-h-screen">
           {/* left part */}
           <div className="flex-[50%] g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Artwork Preview</div>
+              <div className="w-full">
+                <div className={styles.title} style={{ width: artWidth }}>
+                  Artwork Preview
+                </div>
+              </div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
-                <div className="w-full flex justify-center z-10">
+                <div className="w-full flex justify-start z-10">
                   <div ref={ref} className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
                       <div className="absolute inset-0 flex justify-center items-center">
@@ -316,8 +322,8 @@ const Step02CollectionSection = props => {
                 </div>
               )}
 
-              <div className="w-full flex justify-center mt-[50px]">
-                <div className={styles.grayText}>
+              <div className="w-full flex justify-start mt-[50px]">
+                <div className={styles.grayText} style={{ width: artWidth, textAlign: 'center' }}>
                   {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
                   &nbsp;uploaded files
                 </div>
