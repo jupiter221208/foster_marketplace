@@ -64,12 +64,7 @@ const HeroCardMobile = props => {
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
-            <img
-              src={data.cover_image_url}
-              alt=""
-              className="w-full h-full object-cover"
-              onClick={() => gotoNftDetailPage()}
-            />
+            <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
           </div>
         ) : (
           <img
@@ -136,6 +131,7 @@ const HeroCardMobile = props => {
                   width={550}
                   height={772}
                   className="w-full h-full object-cover rounded-[24px]"
+                  onClick={() => gotoNftDetailPage()}
                 />
               </div>
             ) : data.asset_type.includes('video') ? (
