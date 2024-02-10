@@ -139,11 +139,9 @@ const DashboardNFTCard = props => {
                   )
                 ) : assetType?.includes('vr') ? (
                   coverImage !== null && coverImage !== '' ? (
-                    <Image src={coverImage} layout="fill" />
-                  ) : image !== null && image !== '' ? (
-                    <Image src={image} layout="fill" />
+                    <Image src={coverImage} layout="fill" className="w-full h-full object-cover" />
                   ) : (
-                    <p>Could not NFT cover</p>
+                    <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                   )
                 ) : assetType?.includes('audio') ? (
                   coverImage !== null && coverImage !== '' ? (

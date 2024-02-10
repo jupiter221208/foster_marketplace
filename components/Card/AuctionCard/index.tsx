@@ -14,7 +14,7 @@ import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
 
 const AuctionCard = props => {
-  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted, auctionLoaded } = props
+  const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
@@ -31,7 +31,7 @@ const AuctionCard = props => {
         clearTimeout(timer)
       }
     }
-  }, [startTime, endTime, auctionLoaded])
+  }, [startTime, endTime])
 
   const getStartTime = () => {
     let startDate = new Date(startTime)

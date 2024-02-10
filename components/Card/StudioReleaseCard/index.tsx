@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import Link from 'next/link'
 
 // next components
 import Image from 'next/image'
@@ -12,29 +9,39 @@ import { useViewport } from 'utils'
 // images and icons
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import StudioSelectionColor from 'components/StudioSelectionColor'
-import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import ColorType from 'assets/json/print/color.json'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
 
-const DashboardNFTCard = props => {
-  const { token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
+const StudioReleaseCard = props => {
+  const { type, token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
   const viewport = useViewport()
-  const dispatch = useDispatch()
   const { solToUsdRate } = useSolToUsdRate()
-  const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [apparelList, setApparelList] = useState(null)
   const [imagePath, setImagepath] = useState('')
-  const [color, setColor] = useState({
-    id: 0,
-    name: '#000000',
-    type: 'black',
-    asset_url: '/images/apparel-color-black.png',
-  })
+  const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
+
+  useEffect(() => {
+    if (Math.floor(Math.random() * 1000) % 2 === 0) {
+      setColor({
+        id: 0,
+        name: '#000000',
+        type: 'black',
+        asset_url: '/images/apparel-color-black.png',
+      })
+    } else {
+      setColor({
+        id: 1,
+        name: '#fff',
+        type: 'white',
+        asset_url: '/images/apparel-color-white.png',
+      })
+    }
+  }, [image])
 
   useEffect(() => {
     if (image) {
@@ -50,7 +57,7 @@ const DashboardNFTCard = props => {
 
   useEffect(() => {
     if (color && apparelList) {
-      switch (color.type) {
+      switch (color?.type) {
         case 'black':
           setImagepath(apparelList.black.image.front)
           break
@@ -70,7 +77,7 @@ const DashboardNFTCard = props => {
   }, [color])
 
   useEffect(() => {
-    switch (color.type) {
+    switch (color?.type) {
       case 'black':
         setColorNumber(1)
         break
@@ -111,15 +118,31 @@ const DashboardNFTCard = props => {
           )}
         </div>
       </div>
-
-      <div className={styles.apparelTitle}>
-        <div className={styles.overText}>{nftName}</div>
-        <div>
-          {apparelList?.name === "Women's Short Sleeve"
-            ? 'Womens T-Shirt'
-            : apparelList?.name === 'Youth Short Sleeve'
-            ? 'Youth T-Shirt'
-            : apparelList?.name}
+      <div className="w-full flex justify-center">
+        <div className={styles.apparelTitle}>
+          {viewport === 'xs' && type !== 'trending' ? (
+            <div className="w-full">
+              <div>{nftName}</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex">
+              <div>{nftName}&nbsp;</div>
+              <div>
+                {apparelList?.name === "Women's Short Sleeve"
+                  ? 'Womens T-Shirt'
+                  : apparelList?.name === 'Youth Short Sleeve'
+                  ? 'Youth T-Shirt'
+                  : apparelList?.name}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.nftName}>{userName}</div>
@@ -154,4 +177,4 @@ const DashboardNFTCard = props => {
   )
 }
 
-export default DashboardNFTCard
+export default StudioReleaseCard

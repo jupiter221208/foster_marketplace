@@ -35,7 +35,7 @@ const Step02SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-10`}>
         NFT Name <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-5">
@@ -59,16 +59,14 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-[30px]`}>
-        Categories (max. 3) <span>*</span>
-      </div>
+      <div className={`${styles.subTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-5">
         <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       </div>
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.mobileSubTitle} mt-5`}>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
         NFT Name <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-4">
@@ -82,7 +80,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setNftName(limit(value, 32))}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>
         Description <span>*</span>
       </div>
       <div className="w-full mt-5">
@@ -96,9 +94,7 @@ const Step02SingleNFTSection = props => {
           onChange={value => setDescription(value)}
         />
       </div>
-      <div className={`${styles.mobileSubTitle} mt-5`}>
-        Categories <span>*</span>
-      </div>
+      <div className={`${styles.mobileSubTitle} mt-[30px]`}>Categories (optional)</div>
       <div className="w-full mt-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">

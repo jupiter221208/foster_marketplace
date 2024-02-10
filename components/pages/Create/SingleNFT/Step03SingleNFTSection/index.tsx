@@ -6,30 +6,82 @@ import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 
 // solana
+import { PublicKey } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
 // custom functions
 import { useViewport } from 'utils'
+import { validDigits } from 'utils/helpers'
+import { getDisplayUserName } from 'utils/strings'
+import { isValidPublicKey } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
-import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
 import LoadingButton from 'components/Button/LoadingButton'
-import { validDigits } from 'utils/helpers'
+import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
+import TrashIcon from 'assets/icons/trash-icon.svg?component'
 
 const Step03SingleNFTSection = props => {
-  const { royalties, setRoyalties, setCollection, disabledNextButton, createNft, isMinting, onBack } = props
+  const {
+    royalties,
+    setRoyalties,
+    setCollection,
+    creatorList,
+    setCreatorList,
+    disabledNextButton,
+    createNft,
+    isMinting,
+    onBack,
+  } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
+  const [showAlert, setShowAlert] = useState(false)
+  const [enableMintBtn, setEnableMintBtn] = useState(false)
 
+  let alertData = [
+    {
+      id: 0,
+      title: 'Percentage Error',
+      description: `The sum of percentage should be 100%.`,
+      type: 'warning',
+    },
+  ]
   const [collectionList, setCollectionList] = useState([])
+
   useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
+
+  useEffect(() => {
+    if (creatorList.length === 0) return
+
+    if (creatorList.length === 1 && creatorList[0].address === '') {
+      setShowAlert(false)
+      setEnableMintBtn(true)
+      return
+    }
+
+    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
+    if (totalShares === 100) {
+      setShowAlert(false)
+      setEnableMintBtn(true)
+    } else {
+      setShowAlert(true)
+      setEnableMintBtn(false)
+    }
+
+    for (let i = 0; i < creatorList.length; i++) {
+      let creator = creatorList[i]
+      if (creator.address.length === 0) {
+        setEnableMintBtn(false)
+        break
+      }
+    }
+  }, [creatorList])
 
   const chooseCollection = index => {
     if (index >= 0) {
@@ -41,9 +93,50 @@ const Step03SingleNFTSection = props => {
     }
   }
 
+  const addAnotherCreator = () => {
+    if (creatorList.length === 5) return
+
+    let newList = []
+    let count = creatorList.length
+    let sharePros = Math.floor(100 / (count + 1)).toString()
+    creatorList.map(creator => {
+      creator.share = sharePros
+      newList.push(creator)
+    })
+    newList.push({ address: '', share: sharePros, valid: true })
+    setCreatorList(newList)
+  }
+
+  const removeCreator = index => {
+    let list = [...creatorList]
+    list.splice(index, 1)
+    let count = list.length
+    let sharePros = Math.floor(100 / count).toString()
+    list.map(creator => {
+      creator.share = sharePros
+    })
+    setCreatorList(list)
+  }
+
+  const setCreatorAddress = (index, value) => {
+    let list = [...creatorList]
+    list[index].address = value
+    setCreatorList(list)
+  }
+
+  const setCreatorShare = (index, value) => {
+    let list = [...creatorList]
+    list[index].share = value
+    setCreatorList(list)
+  }
+
+  const createSingleNFT = () => {
+    createNft()
+  }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>
+      <div className={`${styles.subTitle} mt-10`}>
         Royalties <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-5">
@@ -59,6 +152,56 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
+      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
+      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
+
+      <div className="max-w-[575px] max-h-[370px] w-full mt-[15px]">
+        {creatorList.map(({ address, share }, index) => {
+          return (
+            <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">
+              <div className="w-full max-w-[540px] flex gap-[18px]">
+                <div className="w-full relative">
+                  <input
+                    className={styles.inputArea}
+                    value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
+                    disabled={index === 0}
+                    placeholder={'Enter wallet address'}
+                    onChange={event => {
+                      setCreatorAddress(index, event.target.value)
+                    }}
+                  />
+                  {isValidPublicKey(address) ? null : (
+                    <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
+                  )}
+                </div>
+                {creatorList.length > 1 && (
+                  <input
+                    className={styles.inputPros}
+                    value={share}
+                    placeholder={'100'}
+                    onChange={event => {
+                      let pros = validDigits(event.target.value)
+                      if (pros === '') {
+                        setCreatorShare(index, '')
+                      } else {
+                        setCreatorShare(index, event.target.value)
+                      }
+                    }}
+                  />
+                )}
+              </div>
+              <div className="w-[20px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
+            </div>
+          )
+        })}
+      </div>
+      {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
+      <div className="max-w-[575px] w-full pr-[35px]">
+        <div className={styles.button} onClick={() => addAnotherCreator()}>
+          <CrossPlusIcon />
+          Add another wallet
+        </div>
+      </div>
       {/* <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
         <SelectCollectionMenu
@@ -67,41 +210,59 @@ const Step03SingleNFTSection = props => {
           onClick={index => chooseCollection(index)}
         />
       </div> */}
-      <div className="w-full flex justify-end mt-[300px]">
+      <div className="w-full flex justify-end mt-[50px]">
         <div className="flex gap-10">
           <div>
             <Button
               label="Back"
               onClick={() => onBack()}
               backgroundColor={'transparent'}
-              borderColor={'var(--back-btn-border-mobile)'}
-              borderWidth={1}
+              borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+              borderWidth={2}
               color="var(--main-bg-color)"
               width={viewport === '2xl' ? 124 : 117}
               height={viewport === '2xl' ? 53 : 46}
             />
           </div>
           <div>
-            {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
+            {royalties === '' ||
+            parseInt(royalties) < 0 ||
+            parseInt(royalties) > 10 ||
+            !enableMintBtn ||
+            creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
               <Button
                 width={viewport === '2xl' ? 124 : 117}
                 height={viewport === '2xl' ? 53 : 46}
-                label="Mint NFT"
+                label="Mint"
                 disabled={disabledNextButton}
-                backgroundColor="#888A8E"
+                backgroundColor="var(--second-home-bg)"
+                color="rgba(var(--main-bg-color-rgb), 0.5)"
               />
             ) : isMinting ? (
               <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
             ) : (
-              <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={() => createNft()} />
+              <GradientButton
+                width={viewport === '2xl' ? 124 : 117}
+                label="Mint"
+                onClick={() => createSingleNFT()}
+                backgroundColor01="var(--main-icon-color)"
+                backgroundColor02="var(--main-icon-color)"
+              />
             )}
           </div>
         </div>
       </div>
+      {/* <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      /> */}
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-5`}>
+      <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-4">
@@ -119,6 +280,57 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
+      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
+      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
+      <div className="max-w-[540px] max-h-[350px] w-full mt-[18px]">
+        {creatorList.map(({ address, share }, index) => {
+          return (
+            <div key={index} className="flex gap-[10px] mb-[20px] items-center">
+              <div className="w-full relative">
+                <input
+                  className={styles.inputArea}
+                  value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
+                  placeholder={'Enter wallet address'}
+                  disabled={index === 0}
+                  onChange={event => {
+                    setCreatorAddress(index, event.target.value)
+                  }}
+                />
+                {isValidPublicKey(address) ? null : (
+                  <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
+                  // <div className="absolute right-[10px] top-[15px]">
+                  //   <Image src={ErrorIcon} alt="" width={20} height={20} />
+                  // </div>
+                )}
+              </div>
+              {creatorList.length > 1 && (
+                <input
+                  className={styles.inputPros}
+                  value={share}
+                  placeholder={'100'}
+                  onChange={event => {
+                    let share = validDigits(event.target.value)
+                    if (share === '') {
+                      setCreatorShare(index, '')
+                    } else {
+                      setCreatorShare(index, event.target.value)
+                    }
+                  }}
+                />
+              )}
+              {creatorList.length > 1 && (
+                <div className="w-[24px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+      {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
+      <div className={styles.button} onClick={() => addAnotherCreator()}>
+        <CrossPlusIcon />
+        Add another wallet
+      </div>
+
       {/* <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
         <SelectCollectionMenu
@@ -127,26 +339,57 @@ const Step03SingleNFTSection = props => {
           onClick={index => chooseCollection(index)}
         />
       </div> */}
-      <div className="w-full flex gap-2 mt-20">
+      <div className="w-full flex gap-2 mt-[100px]">
         <Button
           label="Back"
           fullWidth
           onClick={() => onBack()}
           backgroundColor={'transparent'}
-          borderColor={'var(--back-btn-border-mobile)'}
-          borderWidth={1}
+          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+          borderWidth={2}
           color="var(--main-bg-color)"
-          height={40}
+          fontFamily="Muli-SemiBold"
+          height={45}
+          fontSize={16}
         />
 
-        {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
-          <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
+        {royalties === '' ||
+        parseInt(royalties) < 0 ||
+        parseInt(royalties) > 10 ||
+        !enableMintBtn ||
+        creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
+          <Button
+            fullWidth
+            height={45}
+            label="Mint"
+            disabled={disabledNextButton}
+            backgroundColor="var(--second-home-bg)"
+            color="rgba(var(--main-bg-color-rgb), 0.5)"
+            fontFamily="Muli-SemiBold"
+            fontSize={16}
+          />
         ) : isMinting ? (
-          <LoadingButton fullWidth height={40} />
+          <LoadingButton fullWidth height={45} />
         ) : (
-          <GradientButton label="Mint NFT" onClick={() => createNft()} fullWidth />
+          <GradientButton
+            label="Mint"
+            onClick={() => createSingleNFT()}
+            fullWidth
+            height={45}
+            backgroundColor01="var(--main-icon-color)"
+            backgroundColor02="var(--main-icon-color)"
+            fontSize={16}
+            fontFamily="Muli-SemiBold"
+          />
         )}
       </div>
+      {/* <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      /> */}
     </div>
   )
 }

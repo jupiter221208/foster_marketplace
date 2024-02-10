@@ -40,12 +40,12 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             {data.json?.category === 'vr' || data.json?.properties?.category === 'vr' ? (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  {data?.json.animation_url ? (
+                  {data?.json?.image ? (
+                    <img src={data?.json?.image} alt="" className="w-full h-full object-cover" />
+                  ) : data?.json.animation_url ? (
                     <>
                       <ModelViewer path={data?.json.animation_url} orbitLimited />
                     </>
-                  ) : data?.json?.image ? (
-                    <img src={data?.json?.image} alt="" className="w-full h-full object-cover" />
                   ) : (
                     <h1>Could not load NFT.</h1>
                   )}

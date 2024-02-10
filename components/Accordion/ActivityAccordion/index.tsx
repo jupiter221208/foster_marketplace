@@ -43,11 +43,6 @@ const ActivityAccordion = ({ data }) => {
     openedRef.current = clickedButton
   }
 
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
-  }
-
   const getUserName = item => {
     let user = ''
     switch (item.action_type) {

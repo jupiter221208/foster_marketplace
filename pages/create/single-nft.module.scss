@@ -119,7 +119,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
 }
 
 .descriptionText {
@@ -241,7 +241,11 @@
   margin-top: 20px;
   display: flex;
   gap: 24px;
-
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
   button {
     @media (max-width: 1024px) {
       width: 100%;
@@ -254,18 +258,24 @@
   button:first-child {
     display: flex;
     gap: 0.5rem;
-    padding: 16px 21px;
+    padding: 16px 12px;
     align-items: center;
     justify-content: center;
+    @media (min-width: 1024px) {
+      padding: 16px 21px;
+    }
   }
   button:nth-child(2) {
     label {
       display: flex;
       gap: 0.5rem;
-      padding: 16px 21px;
+      padding: 16px 12px;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      @media (min-width: 1024px) {
+        padding: 16px 21px;
+      }
     }
   }
   button:disabled {
@@ -295,5 +305,6 @@
 
 .trashIcon {
   fill: none;
-  stroke: var(--primary-btn-bg-right);
+  stroke: var(--main-bg-color);
+  stroke-width: 2px;
 }

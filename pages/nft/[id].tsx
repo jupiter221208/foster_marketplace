@@ -82,7 +82,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const { profileInfo } = useAuthentication()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
-  const [hasLoading, setHasLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
 
   useEffect(() => {
@@ -108,14 +107,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
-
         let params = {
           nftName,
           nftCoverUrl,
           mintAddress,
-          category: item.category,
-          subCategory: item.sub_type,
-          base: item.base,
+          category: item?.category,
+          subCategory: item?.sub_type,
+          base: item?.base,
         }
         setMerchData(params)
         setOpenMerchPage(true)
@@ -127,47 +125,30 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
-
-      const result = await getNftFromDAS(nftDetail.address)
-
-      result.auction = null
-      result.marketplaceInfo = {
-        likes: null,
-        shares: null,
-        saves: null,
-        liked: null,
-        saved: null,
-        shared: null,
-        merchHubEnabled: null,
-      }
-
-      if (result) {
-        setNftInfo(result)
-        setHasLoading(false)
-
-        let nftsApiData
-        if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
-        else nftsApiData = await nftsAPI.get(nftDetail.address)
-
-        if (!isString(nftsApiData) && nftsApiData) {
-          setNftInfo(prev => {
-            let newObject = { ...prev }
-            newObject.auction = nftsApiData.auction
-            newObject.marketplaceInfo = {
-              likes: nftsApiData.likes,
-              shares: nftsApiData.shares,
-              saves: nftsApiData.saves,
-              liked: nftsApiData.liked,
-              saved: nftsApiData.saved,
-              shared: nftsApiData.shared,
-              merchHubEnabled: nftsApiData.merch_hub_enabled,
+      if (connected) {
+        await nftsAPI.getDetail(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
             }
-            return newObject
-          })
-          if (nftsApiData.creator_address !== null) {
-            setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
-          }
-        }
+          },
+          error => {}
+        )
+      } else {
+        await nftsAPI.get(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
+            }
+          },
+          error => {}
+        )
       }
     }
     fetchData()
@@ -291,7 +272,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
-                    hasLoading={hasLoading}
                     setShowAuctionSection={enable => setShowAuctionSection(enable)}
                   />
                 </div>

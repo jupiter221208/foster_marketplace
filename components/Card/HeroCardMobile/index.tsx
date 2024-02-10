@@ -6,6 +6,7 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -14,6 +15,7 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import ModelViewer from 'components/ModelViewer'
 
 const HeroCardMobile = ({ data }) => {
   const router = useRouter()
@@ -39,6 +41,8 @@ const HeroCardMobile = ({ data }) => {
     }, 2000)
   }, [])
 
+  const { width, height } = useResizeDetector()
+
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
@@ -57,6 +61,10 @@ const HeroCardMobile = ({ data }) => {
             className="w-full h-full object-cover"
             loading="lazy"
           />
+        ) : data.asset_type.includes('vr') ? (
+          <div className={`aspect-square w-full h-full`}>
+            <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
+          </div>
         ) : (
           <img
             src={
@@ -89,7 +97,7 @@ const HeroCardMobile = ({ data }) => {
             {(data.asset_url === null || data.asset_url === '') &&
             (data.cover_image_url === null || data.cover_image_url === '') ? (
               <div></div>
-            ) : data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
+            ) : data.asset_type.includes('image') ? (
               <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
@@ -108,6 +116,23 @@ const HeroCardMobile = ({ data }) => {
                 //   setLoaded(true)
                 // }}
               />
+            ) : data.asset_type.includes('vr') ? (
+              <div className={`relative aspect-square w-full h-full`}>
+                {/* <ModelViewer
+                  path={data.asset_url ?? data.cover_image_url}
+                  width={window.innerWidth - 32}
+                  height={((window.innerWidth - 32) * 304) / 345}
+                  orbitLimited
+                /> */}
+                <img
+                  src={data.cover_image_url}
+                  alt=""
+                  width={550}
+                  height={772}
+                  className="w-full h-full object-cover rounded-[24px]"
+                  onClick={() => gotoNftDetailPage()}
+                />
+              </div>
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
@@ -116,10 +141,6 @@ const HeroCardMobile = ({ data }) => {
                     alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
-                    // loading="lazy"
-                    // onLoad={() => {
-                    //   setLoaded(true)
-                    // }}
                   />
                 ) : (
                   <Image
@@ -170,7 +191,7 @@ const HeroCardMobile = ({ data }) => {
           </div>
         </div>
       </div>
-      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
+      {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
         <div className={styles.avatarArea}>
           <div className={styles.avatar} onClick={() => gotoAristPage()}>
             {!profileLoaded && (
@@ -181,13 +202,7 @@ const HeroCardMobile = ({ data }) => {
               </div>
             )}
             <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
+              src={data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'}
               alt=""
               width={60}
               height={60}

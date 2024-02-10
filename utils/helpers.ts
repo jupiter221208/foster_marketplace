@@ -291,7 +291,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-bg-color', '#F3F2F0')
     doc.style.setProperty('--accordion-second-row-bg', '#FFF')
     doc.style.setProperty('--artwork-bg-color', '#F3F2F0')
-    doc.style.setProperty('--artwork-bg-mobile-color', '#202427')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#DDDCDC')
     doc.style.setProperty('--clipboard-btn-color', '#C8C9CF')
     doc.style.setProperty('--step-circle-mobile-color', '#202427')
     doc.style.setProperty('--dimension-bg-color', '239, 240, 247')
@@ -521,6 +521,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--g-right-container-bg', '#F3F2F0')
     doc.style.setProperty('--deposit-disabled-color', '#5F6165')
     doc.style.setProperty('--nav-divider-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--hero-bg-color', 'linear-gradient(to bottom, rgba(243, 242, 240, 0), rgba(243, 242, 240, 1)')
     doc.style.setProperty('--profile-setup-bg', '#1A1A1A')
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
@@ -570,6 +571,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-card-bg', '#ECEBEA')
     doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(243, 242, 240, 0)')
     doc.style.setProperty('--explore-tab-border', '#202427')
+    doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
+    doc.style.setProperty('--audio-nft-bgr-rgb', '245, 244, 242')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -895,5 +898,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-card-bg', '#212121')
     doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(27, 27, 27, 0)')
     doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
+    doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
+    doc.style.setProperty('--audio-nft-bgr-rgb', '51, 51, 51')
+
   }
 }

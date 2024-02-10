@@ -10,6 +10,7 @@ import { getDisplayUserName } from 'utils/strings'
 import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -18,6 +19,7 @@ import styles from './index.module.scss'
 import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
+import ModelViewer from 'components/ModelViewer'
 
 const HeroCard = ({ data }) => {
   const viewport = useViewport()
@@ -34,6 +36,8 @@ const HeroCard = ({ data }) => {
   const gotoNftDetailPage = () => {
     dispatch({ type: 'set', isLoading: true })
   }
+
+  const { width, height } = useResizeDetector()
 
   return (
     <div className={styles.container}>
@@ -57,7 +61,7 @@ const HeroCard = ({ data }) => {
 
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type.includes('image') || data.asset_type.includes('vr') ? (
+          {data.asset_type.includes('image') ? (
             <Link href={`/nft/${data.token_id}`} passHref>
               <a>
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
@@ -79,6 +83,35 @@ const HeroCard = ({ data }) => {
                       }}
                       loading="lazy"
                     />
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              </a>
+            </Link>
+          ) : data.asset_type.includes('vr') ? (
+            <Link href={`/nft/${data.token_id}`} passHref>
+              <a>
+                <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                  {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                    <div className="w-full h-full relative">
+                      {/* <ModelViewer
+                        path={data.asset_url ?? data.cover_image_url}
+                        width={width}
+                        height={height}
+                        orbitLimited
+                      /> */}
+                      <img
+                        src={data.cover_image_url}
+                        alt=""
+                        className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                        onLoad={() => {
+                          setLoaded(true)
+                        }}
+                        loading="lazy"
+                      />
+                      <div className="w-full h-full absolute inset-0" />
+                    </div>
                   ) : (
                     <div></div>
                   )}
@@ -178,28 +211,30 @@ const HeroCard = ({ data }) => {
 
       <div className={styles.infoBox}>
         <div className={styles.avatarArea}>
-          {data.artist_profile_picture === '' && (
+          {data.artist_profile_picture === null && (
             <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
-          {data.artist_profile_picture &&
-            data.artist_profile_picture !== '' &&
-            data.artist_profile_picture !== undefined && (
-              <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <Link href={`/${data.artist_username}`} passHref>
-                  <a>
-                    <img
-                      src={data.artist_profile_picture}
-                      alt=""
-                      className={`${styles.noSelect} rounded-full`}
-                      loading="lazy"
-                      onLoad={() => {
-                        setProfieLoaded(true)
-                      }}
-                    />
-                  </a>
-                </Link>
-              </div>
-            )}
+          {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
+            <div className={styles.avatar} onClick={() => gotoAristPage()}>
+              <Link href={`/${data.artist_username}`} passHref>
+                <a>
+                  <img
+                    src={
+                      data.artist_profile_picture.length > 0
+                        ? data.artist_profile_picture
+                        : 'images/dashboard-avatar.png'
+                    }
+                    alt=""
+                    className={`${styles.noSelect} rounded-full`}
+                    loading="lazy"
+                    onLoad={() => {
+                      setProfieLoaded(true)
+                    }}
+                  />
+                </a>
+              </Link>
+            </div>
+          )}
           <div className={styles.nftNames}>
             {data.nft_name === '' ? (
               <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>

@@ -54,7 +54,7 @@ const MarketplaceReleaseSection = props => {
   useEffect(() => {
     merchAPI.getArtworkMerchHub(seed, page, perPage).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setArtworkList(response)
+        setArtworkList(response.filter(item => item.nft.asset_url !== ''))
       }
     }),
       error => {

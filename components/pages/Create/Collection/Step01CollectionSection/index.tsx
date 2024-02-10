@@ -278,7 +278,6 @@ const Step01CollectionSection = props => {
     if (
       collectionName !== '' &&
       description !== '' &&
-      count > 0 &&
       count <= 3 &&
       coverCroppedImage !== undefined &&
       bannerCroppedImage !== undefined
@@ -287,29 +286,7 @@ const Step01CollectionSection = props => {
     } else {
       setDisabledNextButton(true)
     }
-  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, categoryList])
-
-  // form validate
-  useEffect(() => {
-    let count = 0
-    categoryList.map(item => {
-      if (item.checked === true) count++
-    })
-    if (
-      collectionName !== '' &&
-      description !== '' &&
-      count > 0 &&
-      count <= 3 &&
-      bannerImage !== undefined &&
-      coverImage !== undefined &&
-      royalties >= 0 &&
-      royalties <= 10
-    ) {
-      setDisabledNextButton(false)
-    } else {
-      setDisabledNextButton(true)
-    }
-  }, [collectionName, description, categoryList, coverImage, bannerImage, royalties])
+  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, coverImage, bannerImage, categoryList, royalties])
 
   const [bannerHelper, setBannerHelper] = useState(false)
   const [coverHelper, setCoverHelper] = useState(false)
@@ -606,7 +583,7 @@ const Step01CollectionSection = props => {
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
-                      label="From 0 to 10%"
+                      label01="From 0 to 10%"
                       min="0"
                       onChange={value => {
                         let royal = validDigits(value)
@@ -619,7 +596,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>
-                    Categories (max. 3) <span>*</span>
+                    Categories (optional)
                   </div>
                   <div className="w-full mt-5">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
@@ -915,7 +892,7 @@ const Step01CollectionSection = props => {
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
-                label="From 0 to 10%"
+                label01="From 0 to 10%"
                 min={0}
                 onChange={value => {
                   let royal = validDigits(value)
@@ -926,7 +903,7 @@ const Step01CollectionSection = props => {
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>
-              Categories <span>*</span>
+              Categories (optional)
             </div>
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">

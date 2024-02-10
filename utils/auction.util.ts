@@ -27,6 +27,7 @@ import {
   type LazyListing,
   type LazyBid,
   type Metadata,
+  type SendAndConfirmTransactionResponse,
   type TransactionBuilder,
 } from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
@@ -111,23 +112,34 @@ export async function loadAuctionHouse(
   return auctionHousePromise
 }
 
-export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number) {
+export async function listNFT(
+  mx: Metaplex,
+  nftAddress: PublicKey,
+  price: number
+): Promise<SendAndConfirmTransactionResponse | null> {
   try {
     const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-    const listedNFT = await mx
-      .auctionHouse()
-      .list({
+    const { response } = await mx.auctionHouse().list(
+      {
         auctionHouse,
         mintAccount: nftAddress,
         price: lamports(price),
-      })
+      },
+      {
+        commitment: 'single',
+        confirmOptions: {
+          commitment: 'single',
+          maxRetries: 5,
+        },
+      }
+    )
 
-    if (listedNFT) return true
+    return response
   } catch (e) {
-    console.log(e)
+    console.error(e)
+    return null
   }
-  return false
 }
 
 export async function getProgramAccounts(mx: Metaplex, filters: any) {

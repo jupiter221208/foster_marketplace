@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -70,7 +69,7 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>
+          <div className={`${styles.subTitle} mt-10`}>
             Art <span>*</span>
           </div>
           <div className="mt-5">
@@ -97,7 +96,7 @@ const Step01SingleNFTSection = props => {
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
-                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
@@ -105,7 +104,7 @@ const Step01SingleNFTSection = props => {
               )}
             </Dropzone>
           </div>
-          <div className="mt-[20px] h-[54px] flex items-center">
+          {/* <div className="mt-[20px] h-[54px] flex items-center">
             <div
               className="h-[54px] flex justify-center items-center cursor-pointer"
               onMouseEnter={() => setInfoFocus(true)}
@@ -116,10 +115,12 @@ const Step01SingleNFTSection = props => {
             {infoFocus && (
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
-          </div>
+          </div> */}
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
+              <div className={`${styles.subTitle} mt-20`}>
+                Audio Cover <span>*</span>
+              </div>
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
@@ -129,15 +130,15 @@ const Step01SingleNFTSection = props => {
                     handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
-                        <p className={styles.subTitle}>Upload Here</p>
-                        <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
+                        <p className={styles.uploadText}>Upload Here</p>
+                        <p className={styles.text}>Supported File Formats .png .jpeg</p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>
                     </section>
@@ -150,7 +151,7 @@ const Step01SingleNFTSection = props => {
       ) : (
         <div className="w-full">
           {nftType === 'audio' && (
-            <div className={`${styles.subTitle} mt-20`}>
+            <div className={`${styles.subTitle} mt-5`}>
               Art <span>*</span>
             </div>
           )}
@@ -179,7 +180,7 @@ const Step01SingleNFTSection = props => {
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <UploadGreenIcon alt="" />
-                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>
                       Supported File Formats
                       <br />
@@ -190,7 +191,7 @@ const Step01SingleNFTSection = props => {
                 </section>
               )}
             </Dropzone>
-            <div className="mt-[12px] h-[30px] flex items-center">
+            {/* <div className="mt-[12px] h-[30px] flex items-center">
               <div
                 className="w-[25px] flex justify-center items-center cursor-pointer"
                 onClick={() => {
@@ -200,17 +201,18 @@ const Step01SingleNFTSection = props => {
                   }, 2000)
                 }}
               >
-                {/* <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" /> */}
                 {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
               </div>
               {infoFocus && (
                 <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
               )}
-            </div>
+            </div> */}
           </div>
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
+              <div className={`${styles.subTitle} mt-10`}>
+                Audio Cover <span>*</span>
+              </div>
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
@@ -220,19 +222,19 @@ const Step01SingleNFTSection = props => {
                     handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
                         <UploadGreenIcon alt="" />
-                        <p className={styles.subTitle}>Upload Here</p>
+                        <p className={styles.uploadText}>Upload Here</p>
                         <p className={styles.text}>
                           Supported File Formats
                           <br />
-                          .png .jpeg .gif
+                          .png .jpeg
                         </p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>

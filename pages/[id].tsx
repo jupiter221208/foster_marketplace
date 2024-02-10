@@ -60,7 +60,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [fullScreenMode, setFullScreenMode] = useState(false)
   const [artistCurrentPage, setArtistCurrentPage] = useState(1)
   const [artistRowCount, setArtistRowCount] = useState(12)
-  const [artistTotalCount, setArtistTotalCount] = useState(0)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
   const [collectorTotalCount, setCollectorTotalCount] = useState(0)
