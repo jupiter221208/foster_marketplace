@@ -62,12 +62,6 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  // console.log('1', nftDetail)
-  // console.log('2', nftDataFromDas)
-  // console.log('3', editionData)
-  // console.log('4', edition)
-  // console.log('5', nftDetailLl)
-  // console.log(editionData)
   const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
@@ -181,48 +175,30 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const reloadNftData = async () => {
     if (!nftDetail) return
-
-    const result = await getNftFromDAS(nftDetail.address)
-
-    result.auction = null
-    result.marketplaceInfo = {
-      likes: null,
-      shares: null,
-      saves: null,
-      liked: null,
-      saved: null,
-      shared: null,
-      merchHubEnabled: null,
-    }
-
-    if (result) {
-      setNftInfo(result)
-      setHasLoading(false)
-
-      let nftsApiData
-      if (connected) nftsApiData = await nftsAPI.getDetail(nftDetail.address)
-      else nftsApiData = await nftsAPI.get(nftDetail.address)
-
-      if (!isString(nftsApiData) && nftsApiData) {
-        setNftInfo(prev => {
-          let newObject = { ...prev }
-          newObject.auction = nftsApiData.auction
-          newObject.marketplaceInfo = {
-            likes: nftsApiData.likes,
-            shares: nftsApiData.shares,
-            saves: nftsApiData.saves,
-            liked: nftsApiData.liked,
-            saved: nftsApiData.saved,
-            shared: nftsApiData.shared,
-            merchHubEnabled: nftsApiData.merch_hub_enabled,
+    if (connected) {
+      await nftsAPI.getDetail(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
           }
-
-          return newObject
-        })
-        if (nftsApiData.creator_address !== null) {
-          setArtistInfo({ address: nftsApiData.creator_address, name: nftsApiData.creator_username })
-        }
-      }
+        },
+        error => {}
+      )
+    } else {
+      await nftsAPI.get(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
+          }
+        },
+        error => {}
+      )
     }
   }
 
@@ -366,7 +342,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
     const nftDataFromDas = await getNftFromDAS(query.id)
-    const nftDetailLl = await metaplex.nfts().findByMint({ mintAddress })
     const editionData: any = await toOriginalOrPrintEditionAccount(
       await metaplex.rpc().getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
     )
