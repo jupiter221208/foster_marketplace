@@ -6,7 +6,12 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
+import {
+  Metaplex,
+  toOriginalEditionAccount,
+  OriginalEditionAccountData,
+  toOriginalOrPrintEditionAccount,
+} from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -57,6 +62,12 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+  // console.log('1', nftDetail)
+  // console.log('2', nftDataFromDas)
+  // console.log('3', editionData)
+  // console.log('4', edition)
+  // console.log('5', nftDetailLl)
+  // console.log(editionData)
   const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
@@ -361,7 +372,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     res.setHeader('cache-control', 'max-age=1800, s-maxage=3600')
   }
 
-  let mintAddress
+  let mintAddress: PublicKey
   try {
     mintAddress = new PublicKey(query.id)
   } catch (e: any) {
@@ -374,14 +385,28 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
-    const nftDataFromDas = await getNftFromDAS(mintAddress)
+    const nftDataFromDas = await getNftFromDAS(query.id)
+    const nftDetailLl = await metaplex.nfts().findByMint({ mintAddress })
+    const editionData: any = await toOriginalOrPrintEditionAccount(
+      await metaplex.rpc().getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
+    )
+    const edition = {
+      address: editionData?.address || editionData?.publicKey,
+      number: editionData?.data?.edition,
+      parent: editionData?.data?.parent,
+      maxSupply: editionData?.data?.maxSupply,
+      supply: editionData?.data?.supply,
+    }
 
     const metadataAddress = await metaplex.nfts().pdas().metadata({ mint: mintAddress })
 
     let nftDetail: NftApiData = {
       address: query.id,
       collection: {
-        address: nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value || undefined,
+        address:
+          nftDataFromDas.grouping.length > 0
+            ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
+            : undefined,
         verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
       },
       creators: nftDataFromDas.creators,
@@ -398,20 +423,30 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
         sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
         attributes: nftDataFromDas.content.metadata.attributes,
       },
+      edition,
     }
 
-    if (nftDetail.model != 'NonFungible') throw new Error('expected NonFungible')
+    const fungibleTypes = ['NonFungible', 'NonFungibleEdition']
+    if (!fungibleTypes.includes(nftDetail.model)) throw new Error('expected NonFungible')
 
     let editionDetail = null
     let originalEditionDetail = null
-    // if ('parent' in nftDetail.edition) {
-    //   originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
-    //   editionDetail = {
-    //     number: nftDetail.edition.number.toNumber(),
-    //     supply: originalEditionDetail.supply.toNumber(),
-    //     maxSupply: originalEditionDetail.maxSupply?.toNumber(),
-    //   }
-    // }
+    try {
+      if ('parent' in nftDetail.edition) {
+        originalEditionDetail = toOriginalEditionAccount(
+          await metaplex.rpc().getAccount(new PublicKey(nftDetail.edition.parent))
+        ).data
+        editionDetail = {
+          number:
+            typeof nftDetail.edition.number === 'string' ? Number(nftDetail.edition.number) : nftDetail.edition.number,
+          supply: originalEditionDetail.supply.toNumber(),
+          maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+        }
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
     return {
       nftDetail,
       editionDetail,

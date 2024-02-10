@@ -351,7 +351,7 @@ export function determineCategory(files: determineCategoryType) {
   if (files.length > 1) {
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
-        category = file.mime.split('/')[0]
+        category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime.split('/')[0]
       }
     })
   } else {

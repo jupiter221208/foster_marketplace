@@ -206,6 +206,13 @@ export interface NftApiData {
   model: string
   symbol: string
   sellerFeeBasisPoints: number
+  edition: {
+    address: string
+    parent: string
+    number: number | string
+    maxSupply: number | string
+    supply: number | string
+  }
   json?: {
     name?: string
     symbol?: string
