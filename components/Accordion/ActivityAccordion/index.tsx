@@ -97,6 +97,11 @@ const ActivityAccordion = ({ data }) => {
     return type
   }
 
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link}`)
+  }
+
   return (
     <div className="w-full flex flex-wrap gap-[10px]">
       {data.map((item, index) => (
