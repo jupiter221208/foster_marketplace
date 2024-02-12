@@ -14,12 +14,7 @@ const Tab01 = props => {
       <HTab.List className="flex">
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
-            <TabItem
-              item={item}
-              onChange={onChange}
-              type={type}
-              // className={type === 'image' ? styles.activeTab : styles.activeAudioTab}
-            />
+            <TabItem item={item} onChange={onChange} type={type} />
           </HTab>
         ))}
       </HTab.List>
