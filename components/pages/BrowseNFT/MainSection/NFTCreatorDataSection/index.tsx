@@ -22,7 +22,7 @@ const NFTCreatorDataSection = props => {
   }
 
   return (
-    <Suspense fallback={<Loading />}>
+    <div>
       {nameLoading ? (
         <div
           className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[15px] lg:mt-[28px] rounded-full`}
@@ -60,11 +60,8 @@ const NFTCreatorDataSection = props => {
           </div>
         </>
       )}
-    </Suspense>
+    </div>
   )
 }
 
-function Loading() {
-  return <div></div>
-}
 export default NFTCreatorDataSection

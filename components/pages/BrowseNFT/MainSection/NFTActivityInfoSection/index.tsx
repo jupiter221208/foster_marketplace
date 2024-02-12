@@ -47,7 +47,7 @@ const NFTActivityInfoSection = props => {
   }
 
   return (
-    <Suspense fallback={<Loading />}>
+    <div>
       <div className={styles.activityContainer}>
         <div className={styles.selectedTab}>
           <SelectedTab
@@ -271,11 +271,8 @@ const NFTActivityInfoSection = props => {
             })}
         </div>
       </div>
-    </Suspense>
+    </div>
   )
 }
 
-function Loading() {
-  return <div className={`${styles.skeletonLoader} ${styles.activityContainer}`}></div>
-}
 export default NFTActivityInfoSection

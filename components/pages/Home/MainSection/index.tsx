@@ -102,10 +102,10 @@ const MainSection = () => {
       <div className="w-full z-10 items-center relative">
         <div className="flex lg:hidden w-[calc(100%+32px)]">
           <div className={styles.heroMobileSection}>
-            <div className={styles.contentArea}>
+            {/* <div className={styles.contentArea}>
               <div className={styles.mobileTitle}>Home to Creators Around the World</div>
               <div className={styles.mobileText}>Pushing the Boundaries of Digital Art on Solana</div>
-            </div>
+            </div> */}
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
@@ -122,7 +122,7 @@ const MainSection = () => {
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
                       <HeroCardMobile data={item} />
-                      <div className={styles.overlay} />
+                      {/* <div className={styles.overlay} /> */}
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -170,7 +170,7 @@ const MainSection = () => {
           </div>
         </div>
 
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
@@ -193,7 +193,7 @@ const MainSection = () => {
           </div>
         ) : (
           <></>
-        )}
+        )} */}
 
         {/* <div className={styles.leftEllipse}>
           <EllipseBlue />
