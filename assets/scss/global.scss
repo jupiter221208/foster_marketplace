@@ -1669,7 +1669,7 @@ h6 {
 }
 
 [data-name='merch-toggle-disabled'] {
-  fill: var(--merch-disabled-icon-bg);
+  fill: rgba(var(--main-bg-color-rgb), 0.1);
   stroke: var(--merch-disabled-icon-bg);
   [data-fill='a'] {
     fill: var(--merch-disabled-icon-color);
