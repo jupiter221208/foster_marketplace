@@ -1,4 +1,4 @@
 [
-  { "id": 0, "label": "Description", "value": "Description" },
-  { "id": 1, "label": "History", "value": "History" }
+  { "id": 0, "label": "Description", "value": "Description", "selected": true },
+  { "id": 1, "label": "History", "value": "History", "selected": false}
 ]

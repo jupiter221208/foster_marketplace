@@ -207,15 +207,23 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
         else setIsVisibleFetchingCreated(false)
-        if (reset === true) setCreatedNfts(response.nfts)
-        else setCreatedNfts([...createdNfts, ...response.nfts])
 
+        let newNfts = []
+        if (reset === true) newNfts = response.nfts
+        else {
+          newNfts = [...createdNfts, ...response.nfts]
+        }
+        var filteredNfts = newNfts.filter(
+          (arr, index, self) =>
+            index === self.findIndex(t => t.nft_name === arr.nft_name && t.asset_url === arr.asset_url)
+        )
+        setCreatedNfts(filteredNfts)
         setArtistCurrentPage(current_page)
         setCollections(response.collections)
 
         if (categoryList.length === 0) setCategoryList(response.categories)
 
-        fetchNftData(response.nfts)
+        fetchNftData(filteredNfts)
       },
       error => {
         setIsLoaded(true)

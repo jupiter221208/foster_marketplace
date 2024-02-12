@@ -9,6 +9,10 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  &:focus {
+    outline: none;
+  }
 }
 
 .preLoaderView {

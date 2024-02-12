@@ -1,0 +1,85 @@
+@import 'assets/scss/variable.module.scss';
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
+  @media (min-width: 640px) {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  @media (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  color: var(--text-gray-200-color);
+}
+
+.grayText {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.greenText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: var(--main-icon-color);
+  &:hover {
+    @media (min-width: 1024px) {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+.skeletonLoader:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

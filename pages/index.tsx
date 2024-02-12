@@ -71,7 +71,7 @@ const Home = () => {
         </div>
       </div>
       {/* <PopularCategorySection type="home" /> */}
-      <div className={styles.otherBG}>
+      <div className={styles.liveAuctionBG}>
         <div className="g-container">
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>

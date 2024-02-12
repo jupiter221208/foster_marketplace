@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
@@ -30,7 +30,6 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
@@ -109,14 +108,13 @@ import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
 import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
-import TabList from 'assets/json/browse-nft/auction-list.json'
-import SelectedTab from 'components/Tab/SelectedTab'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import Link from 'next/link'
-import { getDisplayUserName } from 'utils/strings'
 import AuctionDetail from '../AuctionDetail'
+import NFTActivityInfoSection from './NFTActivityInfoSection'
+import NFTCreatorDataSection from './NFTCreatorDataSection'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -174,7 +172,6 @@ const MainSection = ({
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
-  // const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -198,8 +195,6 @@ const MainSection = ({
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
-  const [activeTab, setActiveTab] = useState<any>(0)
-  const [tabList, setTabList] = useState<any[]>(TabList)
 
   const labels =
     viewport === 'xs' || viewport === 'sm' || viewport === 'md'
@@ -955,24 +950,6 @@ const MainSection = ({
     }
   }
 
-  useEffect(() => {
-    let array: any[] = []
-    TabList.map(item => {
-      let object: any = item
-      if (item.id === activeTab) {
-        object.selected = true
-      } else {
-        object.selected = false
-      }
-      array.push(object)
-    })
-    setTabList(array)
-  }, [activeTab])
-
-  const handleSelectedTab = item => {
-    setActiveTab(item.id)
-  }
-
   const { width, height, ref } = useResizeDetector()
 
   return (
@@ -1247,44 +1224,12 @@ const MainSection = ({
                     )}
                   </div>
                 </div>
-
-                {nameLoading ? (
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
-                  ></div>
-                ) : (
-                  <>
-                    <div className="w-full flex mt-[15px] lg:mt-[28px]">
-                      <div className={styles.title}>{nftName}</div>
-                    </div>
-
-                    <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
-                      <div className="flex gap-1 lg:gap-2">
-                        <div className={styles.grayText}>Created by</div>
-                        <Link href={`/${nftCreatorname}`} passHref>
-                          <a>
-                            <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                              {getDisplayUserName(nftCreatorname)}
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-
-                      {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                        <div className="flex gap-1 lg:gap-2">
-                          <div className={styles.grayText}>Fostered by</div>
-                          <Link href={`/${nftOwnerUsername}`} passHref>
-                            <a>
-                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                                {getDisplayUserName(nftOwnerUsername)}
-                              </div>
-                            </a>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
+                <NFTCreatorDataSection
+                  nftName={nftName}
+                  nftCreatorname={nftCreatorname}
+                  nftOwnerUsername={nftOwnerUsername}
+                  nameLoading={nameLoading}
+                />
 
                 <div className={styles.collectionContainer}>
                   {nftCollectionUrl.length > 0 && (
@@ -1642,235 +1587,16 @@ const MainSection = ({
                 )}
 
                 <div className={'mt-6 w-full h-[180px] lg:h-[200px] relative'}>
-                  {!loadedActivity ? (
-                    <div className={`${styles.skeletonLoader} ${styles.activityContainer}`}></div>
-                  ) : (
-                    <div className={styles.activityContainer}>
-                      <div className={styles.selectedTab}>
-                        <SelectedTab
-                          tabList={tabList}
-                          onChange={item => handleSelectedTab(item)}
-                          type={
-                            nftType.includes('audio') && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-                              ? 'audio'
-                              : 'image'
-                          }
-                        />
-                      </div>
-                      <div
-                        className={`${styles.mainContainer} ${
-                          nftType.includes('audio') &&
-                          (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') &&
-                          styles.audioNftDescBG
-                        }`}
-                      >
-                        {activeTab === 0 && (
-                          <div className="w-full flex flex-wrap flex-column space-between px-[35px] gap-6">
-                            {nftDescription ? (
-                              <div className={styles.whiteDescription}>{nftDescription}</div>
-                            ) : (
-                              <div className={styles.whiteDescription}>
-                                No description was detected for this artwork.{' '}
-                              </div>
-                            )}
-
-                            <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
-                              <div className="flex flex-wrap flex-col gap-2">
-                                <div className={styles.categories}>Categories</div>
-                                {nftCategories && nftCategories.length > 0 ? (
-                                  <div className="flex flex-row">
-                                    {nftCategories.map((item, index) => (
-                                      <SmallCategoryChip data={item} key={index} />
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <div className="flex flex-row">
-                                    <SmallCategoryChip data={['N/A']} />
-                                  </div>
-                                )}
-                              </div>
-                              <div className="flex flex-col gap-2 text-center">
-                                <div className={styles.whiteRoyalties}>Royalties</div>
-                                <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        {activeTab === 1 &&
-                          activityList.map((item, index) => {
-                            let date = new Date(item.created_at)
-
-                            let dateString = date.toLocaleDateString('en-GB', {
-                              day: '2-digit',
-                              month: 'short',
-                              year: 'numeric',
-                            })
-
-                            let timeString = date
-                              .toLocaleTimeString('en-GB', {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: false,
-                              })
-                              .replace(/:\d{2}\s/, ' ')
-
-                            let formattedDate = `${dateString} • ${timeString}`
-
-                            return (
-                              <div className={styles.subContainer} key={index}>
-                                <div className="w-full flex flex-col">
-                                  {item.action_type === 'AuctionWon' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.reference_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.reference_username)}
-                                      </span>
-                                      <span>&nbsp;has won the auction</span>
-                                    </div>
-                                  ) : item.action_type === 'AuctionStarted' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.owner_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.owner_username)}
-                                      </span>
-                                      <span>&nbsp;published an auction</span>
-                                    </div>
-                                  ) : item.action_type === 'AuctionCancelled' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.owner_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.owner_username)}
-                                      </span>
-                                      <span>&nbsp;cancelled auction</span>
-                                    </div>
-                                  ) : item.action_type === 'ListingAdded' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.owner_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.owner_username)}
-                                      </span>
-                                      <span>&nbsp;listed artwork for sale</span>
-                                    </div>
-                                  ) : item.action_type === 'ListingUpdated' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.owner_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.owner_username)}
-                                      </span>
-                                      <span>&nbsp;updated listing</span>
-                                    </div>
-                                  ) : item.action_type === 'ListingCancelled' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.owner_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.owner_username)}
-                                      </span>
-                                      <span>&nbsp;removed listing</span>
-                                    </div>
-                                  ) : item.action_type === 'OfferCancelled' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.reference_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.reference_username)}
-                                      </span>
-                                      <span>&nbsp;cancelled their offer</span>
-                                    </div>
-                                  ) : item.action_type === 'OfferMade' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.reference_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.reference_username)}
-                                      </span>
-                                      <span>&nbsp;made an offer</span>
-                                    </div>
-                                  ) : item.action_type === 'BidPlaced' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.reference_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.reference_username)}
-                                      </span>
-                                      <span>&nbsp;placed a bid</span>
-                                    </div>
-                                  ) : item.action_type === 'QuickBuy' ? (
-                                    <div className={styles.actionType}>
-                                      <span
-                                        className={styles.userName}
-                                        onClick={() => {
-                                          router.push(`/${item.reference_username}`)
-                                        }}
-                                      >
-                                        {getDisplayUserName(item.reference_username)}
-                                      </span>
-                                      <span>&nbsp;purchased artwork</span>
-                                    </div>
-                                  ) : (
-                                    ''
-                                  )}
-                                  <div className={styles.dateValue}>{formattedDate}</div>
-                                </div>
-                                <div className="w-fit-content flex flex-col">
-                                  {item.action_type === 'ListingCancelled' ||
-                                  item.action_type === 'OfferCancelled' ||
-                                  item.action_type === 'AuctionCancelled' ? (
-                                    <></>
-                                  ) : (
-                                    <>
-                                      <div className="w-fit-content h-4 lg:h-[25px] flex flex-row justify-end items-center">
-                                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                          <SolanaLogoMobileIcon alt="" />
-                                        ) : (
-                                          <SolanaLogoIcon className="mt-[2px]" alt="" />
-                                        )}
-                                        <div className={styles.userName}>&nbsp;{item.amount}</div>
-                                      </div>
-                                      <div className={styles.usdValue}>
-                                        ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
-                                      </div>
-                                    </>
-                                  )}
-                                </div>
-                              </div>
-                            )
-                          })}
-                      </div>
-                    </div>
-                  )}
+                  <div className={styles.activityContainer}>
+                    <NFTActivityInfoSection
+                      nftType={nftType}
+                      nftDescription={nftDescription}
+                      nftCategories={nftCategories}
+                      nftRoyalties={nftRoyalties}
+                      activityList={activityList}
+                      loadedActivity={loadedActivity}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
