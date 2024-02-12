@@ -11,18 +11,18 @@
 
 .imageBG {
   width: 100%;
-  min-height: 680px;
+  height: 680px;
   @media (min-width: 440px) {
-    min-height: 750px;
+    height: 750px;
   }
   @media (min-width: 516px) {
-    min-height: 800px;
+    height: 800px;
   }
   @media (min-width: 516px) {
-    min-height: 720px;
+    height: 720px;
   }
   @media (min-width: 768px) {
-    min-height: 820px;
+    height: 820px;
   }
   position: relative;
   z-index: 0;
@@ -45,7 +45,7 @@
   left: 0px;
   bottom: 0px;
   width: 100%;
-  height: 100px;
+  height: 100%;
   background: linear-gradient(to bottom, transparent, var(--stats-accordion-bg));
   z-index: 0;
 }
@@ -210,8 +210,18 @@
   display: flex;
   align-items: center;
   margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
+.bottomSection {
+  width: 100%;
+  height: 97px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: linear-gradient(to bottom, transparent, var(--background-main-color));
+}
 .priceName {
   font-family: 'Muli-Light';
   font-size: 12px;

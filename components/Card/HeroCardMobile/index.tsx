@@ -79,10 +79,9 @@ const HeroCardMobile = props => {
             loading="lazy"
           />
         )}
-        <div className={styles.overlayMask} />
       </div>
-      <div className="absolute top-[0px] left-[15px] right-[15px] bottom-[0px] z-10">
-        <div className="mt-[120px] z-10">
+      <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
+        <div className="px-[15px] mt-[120px] z-10">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
               {!loaded && (
@@ -180,7 +179,7 @@ const HeroCardMobile = props => {
             </div>
           </div>
         </div>
-        <div className="w-full flex justify-between h-[46px] mt-[11px] px-[23px]">
+        <div className="w-full flex justify-between h-[46px] mt-[11px] px-[38px]">
           <div className="mt-[2px]">
             <div className={styles.nftName}>{data.nft_name}</div>
             <div className={styles.creatorName}>{data.artist_username}</div>
@@ -215,7 +214,7 @@ const HeroCardMobile = props => {
             </div>
           </div>
         </div>
-        <div className="w-full h-[97px]" />
+        <div className={styles.bottomSection} />
       </div>
     </div>
   )
