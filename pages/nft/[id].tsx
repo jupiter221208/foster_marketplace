@@ -45,7 +45,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import { NftData, NftApiData } from 'types/nft'
+import { NftData, NftApiData, MasterEditionType } from 'types/nft'
 
 export interface EditionDetail {
   number: number
@@ -342,9 +342,9 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
     const nftDataFromDas = await getNftFromDAS(query.id)
-    const editionData: any = await toOriginalOrPrintEditionAccount(
+    const editionData = (await toOriginalOrPrintEditionAccount(
       await metaplex.rpc().getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
-    )
+    )) as unknown as MasterEditionType
     const edition = {
       address: editionData?.address || editionData?.publicKey,
       number: editionData?.data?.edition,
@@ -381,8 +381,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       edition,
     }
 
-    const fungibleTypes = ['NonFungible', 'NonFungibleEdition']
-    if (!fungibleTypes.includes(nftDetail.model)) throw new Error('expected NonFungible')
+    if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
 
     let editionDetail = null
     let originalEditionDetail = null

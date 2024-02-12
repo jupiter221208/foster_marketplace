@@ -1322,7 +1322,7 @@ const MainSection = ({
                       </div>
                       <div className="w-full flex justify-between mt-[15px]">
                         <div className={styles.editionTitle}>Edition Supply</div>
-                        <div className={styles.editionValue}>{editionDetail?.supply}</div>
+                        <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                       </div>
                     </div>
                   )}
