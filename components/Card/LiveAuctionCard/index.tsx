@@ -166,6 +166,14 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 </div>
+              ) : data.cover_image_url ? (
+                <ImageWithAuction
+                  src={data.cover_image_url}
+                  onClick={onClick}
+                  layout="fill"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
               ) : (
                 <ImageWithAuction
                   src={data.asset_url}

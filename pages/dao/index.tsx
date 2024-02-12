@@ -6,7 +6,7 @@ import Head from 'next/head'
 // solana
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 
 // components
@@ -20,25 +20,26 @@ import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
+import { NftData } from 'types/nft'
 
 const Dao = () => {
   const { connected } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
 
-  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+  const [nfts, setNfts] = useState([])
 
   useEffect(() => {
     ;(async () => {
       if (connected) {
-        let nfts = await getMyNFTs(metaplex)
+        let nfts: any = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
         setNfts(nfts)
       }
     })()
   }, [metaplex, connected])
 
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
+  const [turkyNfts, setTurkeyNfts] = useState<NftData[] | null>(null)
   useEffect(() => {
     setTurkeyNfts(
       nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))

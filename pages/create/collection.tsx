@@ -30,6 +30,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { NftData } from 'types/nft'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 

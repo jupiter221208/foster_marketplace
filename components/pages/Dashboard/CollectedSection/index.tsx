@@ -14,12 +14,13 @@ import userAPI from 'apis/user'
 import CollectionCard from 'components/Card/CollectionCard'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const CollectedSection = props => {
   const { onClickItem } = props
 
-  const [nftList, setNFTList] = useState([])
-  const [allNftList, setAllNFTList] = useState([])
+  const [nftList, setNFTList] = useState<NftData[]>([])
+  const [allNftList, setAllNFTList] = useState<NftData[]>([])
   const [loading, setLoading] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [isFetching, setIsFetching] = useState(false)

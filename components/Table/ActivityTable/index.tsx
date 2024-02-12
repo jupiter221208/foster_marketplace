@@ -16,9 +16,14 @@ import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
 import Link from 'next/link'
+import { ActivityAPIData } from 'types/nft'
 
-const ActivityTable = props => {
-  const { data, type } = props
+type ActivityTableTypes = {
+  data: ActivityAPIData[]
+  type: any
+}
+
+const ActivityTable = ({ data, type }: ActivityTableTypes) => {
   const dispatch = useDispatch()
 
   const getUserName = item => {

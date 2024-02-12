@@ -2,23 +2,20 @@ import { Metaplex } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import collectionsAPI from 'apis/collections'
 import { getListedNFTs } from './auction.util'
+import { NftData } from 'types/nft'
 
 export async function getCollectionByAddress(mx: Metaplex, address: string) {
   try {
-    const nft = await mx
-      .nfts()
-      .findByMint({
-        mintAddress: new PublicKey(address),
-      })
+    const nft = await mx.nfts().findByMint({
+      mintAddress: new PublicKey(address),
+    })
 
     let collection = { ...nft, nfts: [] }
 
     const nfts = (
-      await mx
-        .nfts()
-        .findAllByCreator({
-          creator: collection.creators[0].address,
-        })
+      await mx.nfts().findAllByCreator({
+        creator: collection.creators[0].address,
+      })
     ).filter(nft => nft.collection?.verified && nft.collection?.address.toBase58() === address)
 
     const listedNFTs = await getListedNFTs(mx)
@@ -130,4 +127,27 @@ export async function getEACollectionInfo(eaCollectionUrl: string): Promise<EACo
     collectionInfo.assets[asset] = new URL(collectionInfo.assets[asset], 'https://images-cdn.exchange.art/').toString()
 
   return collectionInfo
+}
+
+export async function getCollectionFromDAS(address) {
+  const response = await fetch(process.env.PROVIDER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 'my-id',
+      method: 'getAssetsByGroup',
+      params: {
+        groupKey: 'collection',
+        groupValue: address,
+        page: 1,
+        limit: 1000,
+      },
+    }),
+  })
+  const { result } = await response.json()
+
+  return result.items
 }

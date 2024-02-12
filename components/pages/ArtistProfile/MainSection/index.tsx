@@ -100,7 +100,7 @@ const MainSection = prop => {
   useEffect(() => {
     if (publicKey?.toBase58() === artistInfo?.wallet_id) {
       const isVisibleBannerBoard = localStorage.getItem('isVisibleBannerBoard')
-      if (isVisibleBannerBoard === 'true') {
+      if (isVisibleBannerBoard !== 'false') {
         setShowBannerBoard(true)
       }
     }
@@ -213,7 +213,7 @@ const MainSection = prop => {
       fetchData(croppedBanner)
       setUpdateBanner(false)
       const isVisibleSocialBoard = localStorage.getItem('isVisibleSocialBoard')
-      if (isVisibleSocialBoard === 'true') {
+      if (isVisibleSocialBoard !== 'false') {
         setTimeout(() => {
           setShowSocialBoard(true)
         }, 1000)
@@ -369,7 +369,7 @@ const MainSection = prop => {
                     backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
                       inputBannerFile.current.click()
                     }}
                   />

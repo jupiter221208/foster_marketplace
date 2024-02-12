@@ -17,8 +17,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
-const HeroCardMobile = props => {
-  const { data } = props
+const HeroCardMobile = ({ data }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)

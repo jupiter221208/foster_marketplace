@@ -22,9 +22,9 @@ import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/h
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { NftData } from 'types/nft'
 
-const ActivityAccordion = props => {
-  const { data } = props
+const ActivityAccordion = ({ data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
@@ -97,6 +97,11 @@ const ActivityAccordion = props => {
     return type
   }
 
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link}`)
+  }
+
   return (
     <div className="w-full flex flex-wrap gap-[10px]">
       {data.map((item, index) => (
@@ -132,17 +137,25 @@ const ActivityAccordion = props => {
                       </div>
                       <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                     </div>
-                    {isAmountExisting(item.action_type) && (
-                      <div>
-                        <div className="flex justify-center items-center gap-[5px] mb-[3px]">
-                          <SolanaLogoIcon />
-                          <div className={styles.text}>{parseFloat(item.amount).toFixed(2)}</div>
-                        </div>
-                        <div className={`${styles.date} text-end`}>
-                          ${(parseFloat(item.amount) * solToUsdRate).toFixed(2)}
-                        </div>
-                      </div>
-                    )}
+                  </div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.title}>Buyer</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => {
+                        if (isBuyerExisting(item.action_type)) {
+                          gotoUserDetail(getBuyerName(item))
+                        }
+                      }}
+                    >
+                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                    </div>
+                  </div>
+                  <div className={styles.secondRow}>
+                    <div className={styles.title}>Seller</div>
+                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
+                      {getOwnerName(item)}
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>

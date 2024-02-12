@@ -27,6 +27,7 @@ import styles from './index.module.scss'
 import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -37,7 +38,7 @@ const MarketplaceReleaseSection = props => {
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
   const [refresh, setRefresh] = useState(new Date())
-  const [artworkList, setArtworkList] = useState<any[]>([])
+  const [artworkList, setArtworkList] = useState<NftData[]>([])
   const [loading, setLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -103,7 +104,7 @@ const MarketplaceReleaseSection = props => {
             <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
               {artworkList.map((item: any, index) => (
                 <SwiperSlide key={index}>
-                  <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+                  <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
                     <NFTCard
                       image={item.nft.asset_url}
                       token_id={item.nft.token_id}

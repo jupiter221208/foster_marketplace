@@ -23,6 +23,7 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 import SubTabSection from 'components/pages/ArtistProfile/SubTabSection'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import AboutSection from 'components/pages/ArtistProfile/AboutSection'
+import { NftData } from 'types/nft'
 
 const TabSection = props => {
   const {
@@ -108,7 +109,7 @@ const TabSection = props => {
     setActiveTab(item.id)
   }
 
-  const [showCollections, setShowCollections] = useState([])
+  const [showCollections, setShowCollections] = useState<NftData[]>([])
   const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
@@ -152,7 +153,7 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="relative w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
+      <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
         <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       <div className={styles.divider} />

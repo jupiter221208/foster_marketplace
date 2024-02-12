@@ -35,6 +35,7 @@ import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
 import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
 
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
+import { NftData } from 'types/nft'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -42,7 +43,7 @@ const MainSection = () => {
   const dispatch = useDispatch()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
-  const [heroList, setHeroList] = useState<any[]>(HeroEmptyList)
+  const [heroList, setHeroList] = useState(HeroEmptyList as any)
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
