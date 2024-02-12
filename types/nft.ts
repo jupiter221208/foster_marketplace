@@ -1,6 +1,3 @@
-import { Pda } from '@metaplex-foundation/js'
-import { BN } from '@project-serum/anchor'
-
 export interface NftData {
   mintAddress?: string
   metadataAddress?: string
@@ -203,11 +200,10 @@ export interface NftApiData {
     verified: boolean
   }
   creators: NftCreator[]
-  metadataAddress: Pda
+  metadataAddress: string
   model: string
   symbol: string
   sellerFeeBasisPoints: number
-  edition: Edition
   json?: {
     name?: string
     symbol?: string
@@ -231,37 +227,5 @@ export interface NftApiData {
       [key: string]: unknown
     }
     [key: string]: unknown
-  }
-}
-
-export interface Edition {
-  address: string | undefined | Pda
-  parent: string | undefined
-  number: string | undefined
-  maxSupply: string | undefined | BN
-  supply: string | undefined | BN
-}
-
-export interface MasterEditionType {
-  address: string | undefined
-  owner: string | undefined
-  publicKey: string | Pda
-  executable: boolean
-  exists: boolean
-  rentEpoch: number
-  space: number
-  lamports: {
-    basisPoints: string | BN
-    currency: {
-      decimals: number
-      symbol: string
-    }
-  }
-  data: {
-    edition: string | undefined
-    key: number
-    parent: string | undefined
-    supply: string | undefined | BN
-    maxSupply: string | undefined | BN
   }
 }

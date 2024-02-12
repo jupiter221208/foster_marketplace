@@ -6,12 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import {
-  Metaplex,
-  toOriginalEditionAccount,
-  OriginalEditionAccountData,
-  toOriginalOrPrintEditionAccount,
-} from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, toOriginalOrPrintEditionAccount } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -45,7 +40,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import { NftData, NftApiData, MasterEditionType } from 'types/nft'
+import { NftData, NftApiData } from 'types/nft'
 
 export interface EditionDetail {
   number: number
@@ -56,7 +51,6 @@ export interface EditionDetail {
 export interface BrowseNFTProps {
   nftDetail?: NftApiData
   editionDetail?: EditionDetail
-  originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
   error?: string
 }
@@ -342,19 +336,8 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
     const nftDataFromDas = await getNftFromDAS(query.id)
-    const editionData = (await toOriginalOrPrintEditionAccount(
-      await metaplex.rpc().getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
-    )) as unknown as MasterEditionType
-    const edition = {
-      address: editionData?.address || editionData?.publicKey,
-      number: editionData?.data?.edition,
-      parent: editionData?.data?.parent,
-      maxSupply: editionData?.data?.maxSupply,
-      supply: editionData?.data?.supply,
-    }
 
-    const metadataAddress = await metaplex.nfts().pdas().metadata({ mint: mintAddress })
-
+    let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
     let nftDetail: NftApiData = {
       address: query.id,
       collection: {
@@ -365,7 +348,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
         verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
       },
       creators: nftDataFromDas.creators,
-      metadataAddress,
+      metadataAddress: metadataAddress.toBase58(),
       model: nftDataFromDas.content?.metadata?.token_standard,
       symbol: nftDataFromDas.content.metadata.symbol,
       sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
@@ -378,23 +361,24 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
         sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
         attributes: nftDataFromDas.content.metadata.attributes,
       },
-      edition,
     }
 
     if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
 
-    let editionDetail = null
-    let originalEditionDetail = null
+    let editionDetail: EditionDetail | undefined = undefined
+    const { data: editionData } = await metaplex
+      .rpc()
+      .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
+      .then(toOriginalOrPrintEditionAccount)
     try {
-      if ('parent' in nftDetail.edition) {
-        originalEditionDetail = await toOriginalEditionAccount(
-          await metaplex.rpc().getAccount(new PublicKey(nftDetail.edition.parent))
-        ).data
+      if ('parent' in editionData) {
+        let {
+          data: { maxSupply, supply },
+        } = await metaplex.rpc().getAccount(editionData.parent).then(toOriginalEditionAccount)
         editionDetail = {
-          number:
-            typeof nftDetail.edition.number === 'string' ? Number(nftDetail.edition.number) : nftDetail.edition.number,
-          supply: originalEditionDetail.supply.toNumber(),
-          maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+          number: Number(editionData.edition),
+          supply: Number(supply),
+          maxSupply: maxSupply && Number(maxSupply),
         }
       }
     } catch (error) {
@@ -404,7 +388,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     return {
       nftDetail,
       editionDetail,
-      originalEditionDetail,
       mintAddress,
     }
   } catch (e: any) {
