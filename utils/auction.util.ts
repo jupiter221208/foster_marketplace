@@ -459,7 +459,8 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
   }))
 
   // set max request entires to 100 for public devnet rpc, 500 otherwise
-  let MAX_BATCH_REQUEST_ENTRIES = mx.connection.rpcEndpoint.includes('api.devnet.solana.com') ? 100 : 500
+  // let MAX_BATCH_REQUEST_ENTRIES = mx.connection.rpcEndpoint.includes('api.devnet.solana.com') ? 100 : 500
+  let MAX_BATCH_REQUEST_ENTRIES = 10
   let batchResponse = []
   while (batchRequest.length > 0)
     batchResponse.push(
