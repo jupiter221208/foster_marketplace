@@ -386,36 +386,7 @@
   color: var(--text-gray-200-color);
 }
 
-.title {
-  font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 30px;
-  @media (min-width: 640px) {
-    font-size: 28px;
-    line-height: 36px;
-  }
-  @media (min-width: 768px) {
-    font-size: 32px;
-    line-height: 40px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 30px;
-    line-height: 36px;
-  }
 
-  color: var(--text-gray-200-color);
-}
-
-.grayText {
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
-}
 
 .collectionText {
   font-family: 'Muli-Regular';
@@ -425,53 +396,6 @@
     font-size: 14px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
-}
-
-.greenText {
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
-    font-size: 18px;
-    line-height: 24px;
-  }
-  color: var(--main-icon-color);
-  &:hover {
-    @media (min-width: 1024px) {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-  }
-}
-
-.whiteDescription {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
-}
-
-.greenRoyalties {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 24px;
-    font-family: 'Muli-SemiBold';
-  }
-  color: var(--main-icon-color);
-}
-
-.whiteRoyalties {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
@@ -623,11 +547,7 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25)
 }
 
-.audioNftDescBG {
-  background: rgba(var(--audio-nft-bgr-rgb), 0.5) !important;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
-}
+
 
 .auctionBG {
   position: absolute;
@@ -865,43 +785,7 @@
     margin: 12px 9px;
   }
 }
-.activityContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
-}
-.subContainer {
-  width: 100%;
-  display: flex;
-  padding: 10px 25px 10px 25px;
-}
-.mainContainer {
-  width: 100%;
-  background: var(--place-bid-color);
-  max-height: 110px;
-  height: 100%;
-  overflow-y: auto;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-  padding-top: 15px;
-  padding-bottom: 10px;
-  @media (min-width: 1024px) {
-    height: 125px;
-    max-height: 160px;
-  }
-}
-.selectedTab {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  // background: var(--background-main-color);
-  background: transparent;
-  border-radius: 12px 12px 0px 0px;
-  align-items: center;
-  color: var(--text-gray-200-color);
-}
+
 .tabTitle {
   display: flex;
   align-items: center;
@@ -910,46 +794,7 @@
   color: var(--background-light-color);
   cursor: pointer;
 }
-.userName {
-  font-size: 14px;
-  font-family: 'Muli-Bold';
-  color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    font-family: 'Muli-Bold';
-  }
-  cursor: pointer;
-}
-.actionType {
-  font-size: 14px;
-  font-family: 'Muli-Regular';
-  color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    font-family: 'Muli-Regular';
-  }
-}
-.dateValue {
-  display: flex;
-  font-size: 12px;
-  font-family: 'Muli-Light';
-  color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    font-family: 'Muli-Light';
-  }
-}
-.usdValue {
-  display: flex;
-  font-size: 12px;
-  font-family: 'Muli-Light';
-  color: var(--text-gray-200-color);
-  justify-content: end;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    font-family: 'Muli-Light';
-  }
-}
+
 .minText {
   font-size: 12px;
   font-family: 'Muli-Light';
@@ -969,14 +814,6 @@
   color: var(--place-bid-minvalue-color);
 }
 
-.categories {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
-}
 .collectionContainer {
   display: flex;
   flex-direction: column;

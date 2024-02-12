@@ -15,6 +15,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const StudioReleaseCard = props => {
   const { type, token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
@@ -122,7 +123,7 @@ const StudioReleaseCard = props => {
         <div className={styles.apparelTitle}>
           {viewport === 'xs' && type !== 'trending' ? (
             <div className="w-full">
-              <div>{nftName}</div>
+              <div>{getDisplayUserName(nftName)}</div>
               <div>
                 {apparelList?.name === "Women's Short Sleeve"
                   ? 'Womens T-Shirt'
@@ -133,7 +134,7 @@ const StudioReleaseCard = props => {
             </div>
           ) : (
             <div className="w-full flex">
-              <div>{nftName}&nbsp;</div>
+              <div>{getDisplayUserName(nftName)}&nbsp;</div>
               <div>
                 {apparelList?.name === "Women's Short Sleeve"
                   ? 'Womens T-Shirt'
