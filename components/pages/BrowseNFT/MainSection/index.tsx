@@ -1313,16 +1313,16 @@ const MainSection = ({
                       <div className="w-full flex justify-between">
                         <div className={styles.editionTitle}>Token Type</div>
                         <div className={styles.editionValue}>
-                          {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                          {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
                         </div>
                       </div>
                       <div className="w-full flex justify-between mt-[15px]">
                         <div className={styles.editionTitle}>Editon Number</div>
-                        <div className={styles.editionValue}>{editionDetail['number']}</div>
+                        <div className={styles.editionValue}>{Number(editionDetail?.number)}</div>
                       </div>
                       <div className="w-full flex justify-between mt-[15px]">
                         <div className={styles.editionTitle}>Edition Supply</div>
-                        <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                        <div className={styles.editionValue}>{editionDetail?.supply}</div>
                       </div>
                     </div>
                   )}
