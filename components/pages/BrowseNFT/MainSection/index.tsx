@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState, useMemo } from 'react'
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
@@ -112,9 +112,9 @@ import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import Link from 'next/link'
-import { getDisplayUserName } from 'utils/strings'
 import AuctionDetail from '../AuctionDetail'
 import NFTActivityInfoSection from './NFTActivityInfoSection'
+import NFTCreatorDataSection from './NFTCreatorDataSection'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -172,7 +172,6 @@ const MainSection = ({
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
-  // const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -1225,44 +1224,12 @@ const MainSection = ({
                     )}
                   </div>
                 </div>
-
-                {nameLoading ? (
-                  <div
-                    className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[300px] h-[22px] mt-[15px] lg:mt-[28px] rounded-full`}
-                  ></div>
-                ) : (
-                  <>
-                    <div className="w-full flex mt-[15px] lg:mt-[28px]">
-                      <div className={styles.title}>{nftName}</div>
-                    </div>
-
-                    <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
-                      <div className="flex gap-1 lg:gap-2">
-                        <div className={styles.grayText}>Created by</div>
-                        <Link href={`/${nftCreatorname}`} passHref>
-                          <a>
-                            <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
-                              {getDisplayUserName(nftCreatorname)}
-                            </div>
-                          </a>
-                        </Link>
-                      </div>
-
-                      {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                        <div className="flex gap-1 lg:gap-2">
-                          <div className={styles.grayText}>Fostered by</div>
-                          <Link href={`/${nftOwnerUsername}`} passHref>
-                            <a>
-                              <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                                {getDisplayUserName(nftOwnerUsername)}
-                              </div>
-                            </a>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
+                <NFTCreatorDataSection
+                  nftName={nftName}
+                  nftCreatorname={nftCreatorname}
+                  nftOwnerUsername={nftOwnerUsername}
+                  nameLoading={nameLoading}
+                />
 
                 <div className={styles.collectionContainer}>
                   {nftCollectionUrl.length > 0 && (
