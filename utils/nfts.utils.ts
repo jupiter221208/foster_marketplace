@@ -315,8 +315,8 @@ export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo> 
   return { likes, shares, saves, liked, saved, sharedSocial }
 }
 
-export async function getNftFromDAS(address): Promise<NftData> {
-  try {
+export async function getNftFromDAS(address, maxRetries = 3): Promise<NftData> {
+  for (let i = 0; i < maxRetries; i++) {
     const response = await fetch(process.env.PROVIDER_URL, {
       method: 'POST',
       headers: {
@@ -332,11 +332,17 @@ export async function getNftFromDAS(address): Promise<NftData> {
       }),
     })
     const { result } = await response.json()
-
-    return result
-  } catch (error) {
-    console.log('Error while fetching nft: ', error)
+    if (result) {
+      return result
+    }
+    console.log(`Attempt ${i + 1} did not return data.`)
+    // If this isn't the last attempt, wait 1 second before trying again
+    if (i < maxRetries - 1) {
+      await new Promise(resolve => setTimeout(resolve, 1000))
+    }
   }
+  console.error('Failed to fetch NFT data after', maxRetries, 'attempts')
+  return undefined
 }
 
 type determineCategoryType = {

@@ -332,38 +332,46 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     }
   }
 
+  let nftDetail
+
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
-    const nftDataFromDas = await getNftFromDAS(query.id)
+    let nftDataFromDas = await getNftFromDAS(query.id)
 
-    let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
-    let nftDetail: NftApiData = {
-      address: query.id,
-      collection: {
-        address:
-          nftDataFromDas.grouping.length > 0
-            ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
-            : undefined,
-        verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
-      },
-      creators: nftDataFromDas.creators,
-      metadataAddress: metadataAddress.toBase58(),
-      model: nftDataFromDas.content?.metadata?.token_standard,
-      symbol: nftDataFromDas.content.metadata.symbol,
-      sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
-      json: {
-        category: determineCategory(nftDataFromDas.content.files),
-        image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
-        animation_url: nftDataFromDas.content?.files?.[1]?.uri,
-        name: nftDataFromDas.content?.metadata?.name,
-        description: nftDataFromDas.content?.metadata?.description,
-        sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
-        attributes: nftDataFromDas.content.metadata.attributes,
-      },
+    if (nftDataFromDas) {
+      let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
+      nftDetail = {
+        address: query.id,
+        collection: {
+          address:
+            nftDataFromDas.grouping.length > 0
+              ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
+              : undefined,
+          verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
+        },
+        creators: nftDataFromDas.creators,
+        metadataAddress: metadataAddress.toBase58(),
+        model: nftDataFromDas.content?.metadata?.token_standard,
+        symbol: nftDataFromDas.content.metadata.symbol,
+        sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
+        json: {
+          category: determineCategory(nftDataFromDas.content.files),
+          image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
+          animation_url: nftDataFromDas.content?.files?.[1]?.uri,
+          name: nftDataFromDas.content?.metadata?.name,
+          description: nftDataFromDas.content?.metadata?.description,
+          sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
+          attributes: nftDataFromDas.content.metadata.attributes,
+        },
+      }
+
+      if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
+    } else {
+      nftDetail = await metaplex.nfts().findByMint({ mintAddress })
+
+      if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
     }
-
-    if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
 
     let editionDetail: EditionDetail | undefined = undefined
     const { data: editionData } = await metaplex
