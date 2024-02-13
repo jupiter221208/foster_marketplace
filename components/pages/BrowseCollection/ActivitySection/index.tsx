@@ -87,28 +87,6 @@ const ActivitySection = props => {
             />
           </div>
         )}
-        {/* <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={1}
-          spaceBetween={4}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="showNavigationSwiper"
-          // loop
-        >
-          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-            ? activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityTable data={item} type={'collection'} />
-                </SwiperSlide>
-              ))
-            : activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityAccordion data={item} />
-                </SwiperSlide>
-              ))}
-        </Swiper> */}
       </div>
     </section>
   )

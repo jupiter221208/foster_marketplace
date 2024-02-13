@@ -138,7 +138,7 @@ const ActivityAccordion = ({ data }) => {
                       <div className={styles.date}>{getLocalDate(item.created_at)}</div>
                     </div>
                   </div>
-                  <div className={styles.firstRow}>
+                  <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div
                       className={styles.text}
@@ -148,10 +148,10 @@ const ActivityAccordion = ({ data }) => {
                         }
                       }}
                     >
-                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
                     </div>
                   </div>
-                  <div className={styles.secondRow}>
+                  <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
                       {getOwnerName(item)}
