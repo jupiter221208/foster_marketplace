@@ -37,8 +37,6 @@ const StartAuctionModal = props => {
 
   const { width, height, ref } = useResizeDetector()
 
-  console.log(data)
-
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
