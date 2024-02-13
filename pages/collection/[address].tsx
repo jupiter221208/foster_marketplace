@@ -103,9 +103,16 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                 list_price: data.list_price,
               }
             })
-
-            setNfts(newNftsArr)
-            fetchNftData(result)
+            var filteredNfts = newNftsArr.filter(
+              (arr, index, self) =>
+                index ===
+                self.findIndex(
+                  t =>
+                    t.content.json_uri === arr.content.json_uri && t.content.metadata.name === arr.content.metadata.name
+                )
+            )
+            setNfts(filteredNfts)
+            fetchNftData(filteredNfts)
           }
 
           setHasLoading(false)
