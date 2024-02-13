@@ -123,16 +123,7 @@
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
-  line-height: 18px;
   color: $text-gray-200-color;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 36px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 22px;
-    line-height: 36px;
-  }
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -192,7 +183,6 @@
 }
 
 .creatorName {
-  margin-top: 5px;
   font-family: 'Muli-Light';
   font-size: 14px;
   color: var(--main-icon-color);
