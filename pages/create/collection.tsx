@@ -12,7 +12,6 @@ import SuccessMintCollectionSection from 'components/pages/Create/Collection/Suc
 import Step01CollectionSection from 'components/pages/Create/Collection/Step01CollectionSection'
 import Step02CollectionSection from 'components/pages/Create/Collection/Step02CollectionSection'
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 
 // json

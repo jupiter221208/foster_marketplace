@@ -79,7 +79,7 @@
 
 .firstRow {
   width: 100%;
-  height: 60px;
+  height: 80px;
   padding: 20px 20px;
   display: flex;
   justify-content: space-between;
@@ -134,4 +134,20 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: start;
   margin-top: 2px;
+}
+
+.userName {
+  font-size: 14px;
+  font-family: 'Muli-Bold';
+  margin-top: -2px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.usdValue {
+  display: flex;
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
+  justify-content: end;
 }
