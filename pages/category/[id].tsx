@@ -111,8 +111,7 @@ const Category = () => {
         </div>
         {cateQuery.length > 0 && (
           <div className="flex justify-center">
-            <div className="g-container">
-              <div className="w-full h-[70px]" />
+            <div className="g-container pt-[30px] lg:pt-[70px]">
               <TrendingCollectionSection category={cateQuery} loop={false} />
               <MostPopularSection category={cateQuery} />
               <MarketplaceReleaseSection category={cateQuery} />
