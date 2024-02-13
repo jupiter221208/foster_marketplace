@@ -217,7 +217,7 @@ const SingleNft = () => {
           })
         })
         hidden_video.currentTime = 5
-      } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
+      } else if (nftArt[0].type === 'model/gltf-binary') {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
         setNftUrl(path)
