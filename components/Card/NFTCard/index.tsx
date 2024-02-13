@@ -100,12 +100,12 @@ const DashboardNFTCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <Link href={`${window.origin}/nft/${token_id}`} passHref>
-            <a>
-              <div className={styles.imageContent}>
-                {assetType?.includes('video') ? (
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <div className="w-full relative flex justify-center items-center overflow-hidden">
+          {assetType?.includes('video') ? (
+            <div className={styles.imageContent}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <div className="w-full relative flex justify-center items-center overflow-hidden">
+                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <a className="w-full h-full relative">
                       <div className="w-full h-full relative">
                         <video
                           ref={videoRef}
@@ -120,65 +120,80 @@ const DashboardNFTCard = props => {
                           </div>
                         )}
                       </div>
-
-                      <div
-                        className={styles.playButton}
-                        onClick={e => {
-                          e.nativeEvent.stopImmediatePropagation()
-                          setPlay(!play)
-                          togglePlayPause()
-                        }}
-                      >
-                        <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                          <Image src={play ? PauseVideoIcon : PlayVideoIcon} width={18} height={18} alt="" />
-                        </div>
-                      </div>
+                    </a>
+                  </Link>
+                  <div
+                    className={styles.playButton}
+                    onClick={e => {
+                      e.nativeEvent.stopImmediatePropagation()
+                      setPlay(!play)
+                      togglePlayPause()
+                    }}
+                  >
+                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                      <Image src={play ? PauseVideoIcon : PlayVideoIcon} width={18} height={18} alt="" />
                     </div>
-                  ) : (
+                  </div>
+                </div>
+              ) : (
+                <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <a>
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                <source src=${image} type="video/mp4" /></video>`,
+        <source src=${image} type="video/mp4" /></video>`,
                       }}
                       onClick={() => onClick()}
                     />
-                  )
-                ) : assetType?.includes('vr') ? (
-                  coverImage !== null && coverImage !== '' ? (
-                    <Image src={coverImage} layout="fill" className="w-full h-full object-cover" />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                  )
-                ) : assetType?.includes('audio') ? (
-                  coverImage !== null && coverImage !== '' ? (
+                  </a>
+                </Link>
+              )}
+            </div>
+          ) : (
+            <Link href={`${window.origin}/nft/${token_id}`} passHref>
+              <a>
+                <div className={styles.imageContent}>
+                  {assetType?.includes('vr') ? (
+                    coverImage !== null && coverImage !== '' ? (
+                      <Image src={coverImage} layout="fill" className="w-full h-full object-cover" />
+                    ) : (
+                      <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                    )
+                  ) : assetType?.includes('audio') ? (
+                    coverImage !== null && coverImage !== '' ? (
+                      <ImageWithFallback
+                        src={coverImage}
+                        onClick={onClick}
+                        layout="fill"
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={DefaultNftBG}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        onClick={() => onClick()}
+                      />
+                    )
+                  ) : coverImage !== null && coverImage !== '' ? (
                     <ImageWithFallback
                       src={coverImage}
                       onClick={onClick}
                       layout="fill"
                       alt=""
-                      className="w-full h-full object-cover"
+                      className={styles.imageNft}
                     />
+                  ) : image !== null && image !== '' ? (
+                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
                   ) : (
-                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
-                  )
-                ) : coverImage !== null && coverImage !== '' ? (
-                  <ImageWithFallback
-                    src={coverImage}
-                    onClick={onClick}
-                    layout="fill"
-                    alt=""
-                    className={styles.imageNft}
-                  />
-                ) : image !== null && image !== '' ? (
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                ) : (
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                )}
-              </div>
-            </a>
-          </Link>
-
+                    <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                  )}
+                </div>
+              </a>
+            </Link>
+          )}
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
