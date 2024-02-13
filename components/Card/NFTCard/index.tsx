@@ -106,13 +106,20 @@ const DashboardNFTCard = props => {
                 {assetType?.includes('video') ? (
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                     <div className="w-full relative flex justify-center items-center overflow-hidden">
-                      <video
-                        ref={videoRef}
-                        src={image}
-                        loop
-                        muted
-                        className="w-full h-full object-cover overflow-hidden"
-                      />
+                      <div className="w-full h-full relative">
+                        <video
+                          ref={videoRef}
+                          src={image}
+                          loop
+                          muted
+                          className="w-full h-full object-cover overflow-hidden"
+                        />
+                        {!play && (
+                          <div className="absolute inset-0">
+                            <img src={coverImage} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                      </div>
 
                       <div
                         className={styles.playButton}
