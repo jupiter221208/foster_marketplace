@@ -244,9 +244,9 @@ const MainSection = ({
 
   const cdnPrefix = 'https://cdn.helius-rpc.com/cdn-cgi/image//'
   const nftType: string = (nftDetail.json?.category as string) ?? 'image'
-  const nftCoverUrl = nftDetail.json?.image.replace(cdnPrefix, '') ?? DefaultNftBG.src
-  const nftAnimationUrl: string = nftDetail.json?.animation_url as string
-  const nftAssetUrl = nftAnimationUrl?.replace(cdnPrefix, '')
+  const coverUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(cdnPrefix, '') : coverUrl
+  const nftAssetUrl: string = nftDetail.json?.animation_url as string
   const nftName = nftDetail.json?.name ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
