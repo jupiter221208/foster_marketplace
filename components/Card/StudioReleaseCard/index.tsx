@@ -122,7 +122,19 @@ const StudioReleaseCard = props => {
       <div className="w-full flex justify-center">
         <div className={styles.apparelTitle}>
           <div className="w-full">
-            <div>{getDisplayUserName(nftName)}</div>
+            <div className="flex justify-center mx-[20px]">
+              <div
+                className={`${styles.overText} ${
+                  type === 'release'
+                    ? viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? 'max-w-[140px]'
+                      : 'max-w-[250px]'
+                    : ''
+                }`}
+              >
+                {getDisplayUserName(nftName)}
+              </div>
+            </div>
             <div>
               {apparelList?.name === "Women's Short Sleeve"
                 ? 'Womens T-Shirt'
