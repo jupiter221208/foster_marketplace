@@ -138,14 +138,15 @@ const DashboardNFTCard = props => {
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
-                    <div
-                      className="w-full"
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-        <source src=${image} type="video/mp4" /></video>`,
-                      }}
-                      onClick={() => onClick()}
-                    />
+                    <div className="w-full h-full" onClick={() => onClick()}>
+                      <video
+                        ref={videoRef}
+                        src={image}
+                        loop
+                        muted
+                        className="w-full h-full object-cover overflow-hidden"
+                      />
+                    </div>
                   </a>
                 </Link>
               )}
