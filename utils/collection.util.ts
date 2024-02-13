@@ -151,3 +151,22 @@ export async function getCollectionFromDAS(address) {
 
   return result.items
 }
+
+export async function getNftData(id) {
+  const response = await fetch(process.env.PROVIDER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 'my-id',
+      method: 'getAsset',
+      params: {
+        id,
+      },
+    }),
+  })
+  const { result } = await response.json()
+  return result
+}

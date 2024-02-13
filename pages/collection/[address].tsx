@@ -23,7 +23,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { getCollectionFromDAS, getEACollectionInfo } from 'utils/collection.util'
+import { getCollectionFromDAS, getEACollectionInfo, getNftData } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -284,6 +284,12 @@ BrowseCollection.getInitialProps = async function ({ req, query }): Promise<Brow
         created_at: '',
       }
     }
+
+    // Get collection metadata
+    const { content } = await getNftData(collectionId)
+    publicCollectionData.collection_name = content.metadata.name
+    publicCollectionData.description = content.metadata.description
+    publicCollectionData.cover_image = content.links.image
 
     return {
       publicCollectionData,
