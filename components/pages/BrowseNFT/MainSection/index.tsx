@@ -1147,9 +1147,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('audio') || (nftType.includes('image') && nftCoverUrl.includes('ext=gif')) ? (
-                      <div />
-                    ) : (
+                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') ? (
                       <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
@@ -1160,7 +1158,7 @@ const MainSection = ({
                             onMouseEnter={() => setMerchHover(true)}
                             onMouseLeave={() => setMerchHover(false)}
                           />
-                        ) : (
+                        ) : isCreatedNft ? (
                           <MerchToggleDisabledIcon
                             alt=""
                             onClick={() => {
@@ -1169,12 +1167,16 @@ const MainSection = ({
                             onMouseEnter={() => setMerchHover(true)}
                             onMouseLeave={() => setMerchHover(false)}
                           />
+                        ) : (
+                          <></>
                         )}
 
                         {!nftType.includes('audio') && merchHover && (
                           <div className={styles.infoText}>Foster Studio</div>
                         )}
                       </div>
+                    ) : (
+                      <></>
                     )}
                   </div>
 

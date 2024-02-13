@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { Fragment, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -13,13 +12,7 @@ import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useResizeDetector } from 'react-resize-detector'
-
-// images
-import AudioPlayerBackground from 'assets/images/audio-player.png'
-
-// solana
 
 // styles
 import styles from './index.module.scss'
@@ -27,8 +20,6 @@ import PlayVideoIcon from 'assets/icons/play-video.svg'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
-  const viewport = useViewport()
-  const dispatch = useDispatch()
   const [play, setPlay] = useState(true)
 
   const closeModal = () => {
@@ -36,7 +27,6 @@ const StartAuctionModal = props => {
   }
 
   const { width, height, ref } = useResizeDetector()
-
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -72,11 +62,7 @@ const StartAuctionModal = props => {
                     <div className={styles.imageArea}>
                       {data?.category === 'vr' ? (
                         <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
-                          {data?.animation_url ? (
-                            <>
-                              <ModelViewer path={data?.animation_url} width={width} height={height} orbitLimited />
-                            </>
-                          ) : data?.image ? (
+                          {data?.image ? (
                             <img
                               src={data?.image}
                               alt=""

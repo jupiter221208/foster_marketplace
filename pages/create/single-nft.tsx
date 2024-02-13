@@ -24,7 +24,6 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -52,7 +51,6 @@ import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import { NftData } from 'types/nft'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const SingleNft = () => {
