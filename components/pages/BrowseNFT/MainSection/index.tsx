@@ -251,7 +251,6 @@ const MainSection = ({
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
-
   const mintAddress = nftDetail.address.toString()
   const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
 
@@ -1148,7 +1147,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('audio') ? (
+                    {nftType.includes('audio') || (nftType.includes('image') && nftCoverUrl.includes('ext=gif')) ? (
                       <div />
                     ) : (
                       <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
