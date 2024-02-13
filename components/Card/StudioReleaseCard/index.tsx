@@ -121,29 +121,16 @@ const StudioReleaseCard = props => {
       </div>
       <div className="w-full flex justify-center">
         <div className={styles.apparelTitle}>
-          {viewport === 'xs' && type !== 'trending' ? (
-            <div className="w-full">
-              <div>{getDisplayUserName(nftName)}</div>
-              <div>
-                {apparelList?.name === "Women's Short Sleeve"
-                  ? 'Womens T-Shirt'
-                  : apparelList?.name === 'Youth Short Sleeve'
-                  ? 'Youth T-Shirt'
-                  : apparelList?.name}
-              </div>
+          <div className="w-full">
+            <div>{getDisplayUserName(nftName)}</div>
+            <div>
+              {apparelList?.name === "Women's Short Sleeve"
+                ? 'Womens T-Shirt'
+                : apparelList?.name === 'Youth Short Sleeve'
+                ? 'Youth T-Shirt'
+                : apparelList?.name}
             </div>
-          ) : (
-            <div className="w-full flex">
-              <div>{getDisplayUserName(nftName)}&nbsp;</div>
-              <div>
-                {apparelList?.name === "Women's Short Sleeve"
-                  ? 'Womens T-Shirt'
-                  : apparelList?.name === 'Youth Short Sleeve'
-                  ? 'Youth T-Shirt'
-                  : apparelList?.name}
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
       <div className={styles.nftName}>{userName}</div>
