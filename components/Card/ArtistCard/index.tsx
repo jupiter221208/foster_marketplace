@@ -10,6 +10,7 @@ import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getDisplayUserName } from 'utils/strings'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props
@@ -46,7 +47,7 @@ const ArtistCard = props => {
                 />
               </div>
 
-              <div className={styles.name}>{username.length > 20 ? username.slice(0, 20) + '...' : username}</div>
+              <div className={styles.name}>{getDisplayUserName(username)}</div>
             </div>
           ) : (
             <div>
@@ -62,7 +63,7 @@ const ArtistCard = props => {
               </div>
 
               <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>
-                {username.length > 20 ? username.slice(0, 20) + '...' : username}
+                {getDisplayUserName(username)}
               </div>
             </div>
           )}
