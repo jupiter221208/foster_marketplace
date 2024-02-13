@@ -203,9 +203,8 @@
   font-size: 12px;
   line-height: 12px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Regular';
-    font-size: 18px;
-    line-height: 36px;
+    font-size: 14px;
+    line-height: 24px;
   }
   letter-spacing: 0;
   color: var(--primary-btn-bg-right);
@@ -230,16 +229,15 @@
 }
 
 .price {
-  font-family: 'Muli-Bold';
-  font-size: 12px;
-  line-height: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 13px;
+  line-height: 13px;
   margin-left: 3px;
   margin-top: -2px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    margin-top: 0px;
+    margin-top: -2px;
     margin-left: 7px;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 24px;
   }
   letter-spacing: 0;
@@ -247,25 +245,25 @@
 }
 
 .day {
-  font-family: 'Muli-Light';
-  font-size: 10px;
+  font-family: 'Muli-Regular';
+  font-size: 13px;
   line-height: 13px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
-    font-size: 22px;
+    font-size: 18px;
     line-height: 24px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .timeValue {
-  font-family: 'Muli-Bold';
-  font-size: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 13px;
   line-height: 13px;
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 22px;
+    font-family: 'Muli-Regular';
+    font-size: 18px;
     line-height: 24px;
   }
 }

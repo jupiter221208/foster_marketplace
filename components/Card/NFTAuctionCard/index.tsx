@@ -221,7 +221,7 @@ const NFTAuctionCard = props => {
               </div>
             </div>
             <div className="w-full flex justify-between items-center mt-[5px]">
-              <div className="flex justify-center items-center">
+              <div className="flex justify-center items-center mt-[2px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />
                 ) : (
