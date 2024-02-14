@@ -56,7 +56,6 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  console.log(nftDetail)
   const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
