@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -92,7 +91,6 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
@@ -187,7 +185,18 @@ const LiveAuctionCard = props => {
           </a>
         </Link>
       </div>
-
+      <div className={styles.profileContainer}>
+        <div>
+          <div className={styles.nftName}>{data?.nft_name}</div>
+          <div className={styles.artistName}>{data?.artist_username}</div>
+        </div>
+        <img
+          src={data?.artist_profile_picture}
+          onClick={() => {}}
+          alt=""
+          className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+        />
+      </div>
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
           <div>
