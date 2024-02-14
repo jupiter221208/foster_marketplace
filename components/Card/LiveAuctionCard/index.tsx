@@ -187,15 +187,27 @@ const LiveAuctionCard = props => {
       </div>
       <div className={styles.profileContainer}>
         <div>
-          <div className={styles.nftName}>{data?.nft_name}</div>
-          <div className={styles.artistName}>{data?.artist_username}</div>
+          <Link href={`/nft/${data.token_id}`} passHref>
+            <a>
+              <div className={styles.nftName}>{data?.nft_name}</div>
+            </a>
+          </Link>
+          <Link href={`/${data.artist_username}`} passHref>
+            <a>
+              <div className={styles.artistName}>{data?.artist_username}</div>
+            </a>
+          </Link>
         </div>
-        <img
-          src={data?.artist_profile_picture}
-          onClick={() => {}}
-          alt=""
-          className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
-        />
+        <Link href={`/${data.artist_username}`} passHref>
+          <a>
+            <img
+              src={data?.artist_profile_picture}
+              onClick={() => {}}
+              alt=""
+              className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+            />
+          </a>
+        </Link>
       </div>
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
