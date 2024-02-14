@@ -208,7 +208,7 @@ const PrimaryHeader = () => {
       <div
         className={`${styles.blurContainer} ${
           isScrollingTop ? 'top-0' : '-top-28'
-        } flex justify-center transition-all lg:block hidden`}
+        }  justify-center transition-all lg:flex hidden`}
       >
         <nav className="w-full max-w-[1750px] relative">
           <div className="absolute inset-0 w-full flex justify-center items-center">
