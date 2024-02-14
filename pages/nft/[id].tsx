@@ -56,6 +56,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+  console.log(nftDetail)
   const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
@@ -374,11 +375,12 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     }
 
     let editionDetail: EditionDetail | undefined = undefined
-    const { data: editionData } = await metaplex
-      .rpc()
-      .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
-      .then(toOriginalOrPrintEditionAccount)
     try {
+      const { data: editionData } = await metaplex
+        .rpc()
+        .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
+        .then(toOriginalOrPrintEditionAccount)
+
       if ('parent' in editionData) {
         let {
           data: { maxSupply, supply },
