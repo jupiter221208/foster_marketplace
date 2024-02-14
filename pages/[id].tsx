@@ -179,6 +179,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         else setMerchNfts([...merchNfts, ...response])
 
         setMerchCurrentPage(current_page)
+        fetchNftData(response)
       },
       error => {
         setIsLoaded(true)
@@ -257,6 +258,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         else setCollectedNfts([...collectedNfts, ...response.nfts])
 
         setCollectorCurrentPage(current_page)
+        fetchNftData(response.nfts)
       },
       error => {
         setIsLoaded(true)
