@@ -13,15 +13,21 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getDisplayUserName } from 'utils/strings'
+import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import { NftData } from 'types/nft'
 import ModelViewer from 'components/ModelViewer'
 
-const MyNFTCard = props => {
-  const { data, onClickStartAuction, onClickListNFT } = props
+type MyNFTCardTypes = {
+  data: NftData
+  onClick?: any
+  onClickStartAuction: (item: NftData) => void
+  onClickListNFT: (item: NftData) => void
+}
+
+const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
   const dispatch = useDispatch()
-  const { width, height, ref } = useResizeDetector()
 
   return (
     <div className={styles.container}>
@@ -31,7 +37,7 @@ const MyNFTCard = props => {
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json.category === 'vr' || data.json.properties?.category === 'vr' ? (
+            {data.json?.category === 'vr' || data.json?.properties?.category === 'vr' ? (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   {data?.json?.image ? (
@@ -45,23 +51,19 @@ const MyNFTCard = props => {
                   )}
                 </div>
               </div>
-            ) : data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+            ) : data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.animation_url} type="video/mp4" /></video>`,
                 }}
               />
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   <img
-                    src={
-                      data.json.image === undefined || data.json.image === null
-                        ? AudioPlayerBackground.src
-                        : data.json.image
-                    }
-                    alt={data.json.name || data.name}
+                    src={data.image || AudioPlayerBackground.src}
+                    alt={data.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -73,12 +75,10 @@ const MyNFTCard = props => {
 
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.json.name || data.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>
-            {getDisplayUserName(data.creators[0].address.toString()) || 'No Artist'}
-          </div>
+          <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton

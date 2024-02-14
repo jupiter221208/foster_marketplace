@@ -121,29 +121,28 @@ const StudioReleaseCard = props => {
       </div>
       <div className="w-full flex justify-center">
         <div className={styles.apparelTitle}>
-          {viewport === 'xs' && type !== 'trending' ? (
-            <div className="w-full">
-              <div>{getDisplayUserName(nftName)}</div>
-              <div>
-                {apparelList?.name === "Women's Short Sleeve"
-                  ? 'Womens T-Shirt'
-                  : apparelList?.name === 'Youth Short Sleeve'
-                  ? 'Youth T-Shirt'
-                  : apparelList?.name}
+          <div className="w-full">
+            <div className="flex justify-center mx-[20px]">
+              <div
+                className={`${styles.overText} ${
+                  type === 'release'
+                    ? viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? 'max-w-[140px]'
+                      : 'max-w-[250px]'
+                    : ''
+                }`}
+              >
+                {getDisplayUserName(nftName)}
               </div>
             </div>
-          ) : (
-            <div className="w-full flex">
-              <div>{getDisplayUserName(nftName)}&nbsp;</div>
-              <div>
-                {apparelList?.name === "Women's Short Sleeve"
-                  ? 'Womens T-Shirt'
-                  : apparelList?.name === 'Youth Short Sleeve'
-                  ? 'Youth T-Shirt'
-                  : apparelList?.name}
-              </div>
+            <div>
+              {apparelList?.name === "Women's Short Sleeve"
+                ? 'Womens T-Shirt'
+                : apparelList?.name === 'Youth Short Sleeve'
+                ? 'Youth T-Shirt'
+                : apparelList?.name}
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div className={styles.nftName}>{userName}</div>

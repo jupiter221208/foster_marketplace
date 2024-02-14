@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import { DashboardAPIData } from 'types/nft'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -33,8 +34,8 @@ const MarketplaceReleaseSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
-  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
+  const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<DashboardAPIData[]>([])
+  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<DashboardAPIData[]>([])
   const [page, setPage] = useState(1)
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -95,8 +96,8 @@ const MarketplaceReleaseSection = props => {
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
-          {marketplaceReleaseList.map((item: any, index) => (
-            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+          {marketplaceReleaseList.map((item, index) => (
+            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
               <NFTCard
                 image={item.asset_url}
                 token_id={item.token_id}

@@ -31,6 +31,7 @@ import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
 import { useResizeDetector } from 'react-resize-detector'
 import LoadingButton from 'components/Button/LoadingButton'
+import { limit } from 'utils/strings'
 
 const Step02CollectionSection = props => {
   const {
@@ -446,15 +447,15 @@ const Step02CollectionSection = props => {
                             </div>
                             <div>
                               <Input
-                                value={item.name}
+                                value={limit(item.name, 32)}
                                 placeholder="Give your art name"
-                                label=""
+                                label01={item.file?.name}
+                                label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                                 fullWidth
-                                onChange={value => onChangeCollectionName(item, value)}
+                                onChange={value => onChangeCollectionName(item, limit(value, 32))}
                                 height="46px"
                               />
                             </div>
-                            <div className={styles.fileName}>{item.file?.name}</div>
                           </div>
                           <div className="flex-1 block h-[120px]">
                             <div className={`mb-2 ${styles.subTitle}`}>Description</div>
@@ -904,15 +905,15 @@ const Step02CollectionSection = props => {
                       </div>
                       <div>
                         <Input
-                          value={item.name}
+                          value={limit(item.name, 32)}
                           placeholder="Give your art name"
-                          label=""
+                          label01={item.file?.name}
+                          label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                           fullWidth
-                          onChange={value => onChangeCollectionName(item, value)}
+                          onChange={value => onChangeCollectionName(item, limit(value, 32))}
                           height="46px"
                         />
                       </div>
-                      <div className={styles.fileName}>{item.file?.name}</div>
                     </div>
                     <div className="flex-1 block h-[120px]">
                       <div className={`mb-2 ${styles.subTitle}`}>Description</div>

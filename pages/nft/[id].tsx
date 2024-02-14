@@ -6,8 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, toOriginalOrPrintEditionAccount } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -20,7 +19,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
+import { determineCategory, getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -41,6 +40,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
+import { NftData, NftApiData } from 'types/nft'
 
 export interface EditionDetail {
   number: number
@@ -49,22 +49,21 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: Nft
+  nftDetail?: NftApiData
   editionDetail?: EditionDetail
-  originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
   error?: string
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = nftDetail?.json?.properties?.category as string
+  const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
   const categories = getNFTCategories(nftDetail)
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
-  const [nftInfo, setNftInfo] = useState(null)
+  const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
@@ -92,7 +91,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     if (detailShow === true) {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
-        const nftName = (nftDetail?.name || nftDetail.json?.name) ?? 'No name found'
+        const nftName = nftDetail.json?.name ?? 'No name found'
         const nftCoverUrl = nftDetail.json?.image ?? ''
         const mintAddress = nftDetail.address.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
@@ -114,7 +113,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
-
       if (connected) {
         await nftsAPI.getDetail(nftDetail.address).then(
           (response: any) => {
@@ -144,9 +142,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     fetchData()
   }, [nftDetail, profileInfo])
 
-  const collectionId = nftDetail?.collection?.address.toString()
+  const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
 
-  let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
+  let nftName = nftDetail?.json?.name ?? ''
   if (editionDetail) {
     let { number, supply, maxSupply } = editionDetail
     let supplyInfo = `#${number}/${supply}`
@@ -169,20 +167,33 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     setNftCoverUrl(url)
   }
 
-  const reloadNftData = () => {
+  const reloadNftData = async () => {
     if (!nftDetail) return
-    setNftInfo(null)
-    nftsAPI.getDetail(nftDetail.address).then(
-      (response: any) => {
-        if (!isString(response)) {
-          setNftInfo(response)
-          if (response.creator_address !== null) {
-            setArtistInfo({ address: response.creator_address, name: response.creator_username })
+    if (connected) {
+      await nftsAPI.getDetail(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
           }
-        }
-      },
-      error => {}
-    )
+        },
+        error => {}
+      )
+    } else {
+      await nftsAPI.get(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
+          }
+        },
+        error => {}
+      )
+    }
   }
 
   const [merchToggle, setMerchToggle] = useState(false)
@@ -304,14 +315,14 @@ BrowseNFT.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
-BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
+BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTProps> {
   // set cache headers
   if (res) {
     // cache for 30m, shared cache for 1h
     res.setHeader('cache-control', 'max-age=1800, s-maxage=3600')
   }
 
-  let mintAddress
+  let mintAddress: PublicKey
   try {
     mintAddress = new PublicKey(query.id)
   } catch (e: any) {
@@ -321,25 +332,71 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
     }
   }
 
+  let nftDetail
+
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
-    let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
-    if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
 
-    let editionDetail = null
-    let originalEditionDetail = null
-    if ('parent' in nftDetail.edition) {
-      originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
-      editionDetail = {
-        number: nftDetail.edition.number.toNumber(),
-        supply: originalEditionDetail.supply.toNumber(),
-        maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+    let nftDataFromDas = await getNftFromDAS(query.id)
+
+    if (nftDataFromDas) {
+      let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
+      nftDetail = {
+        address: query.id,
+        collection: {
+          address:
+            nftDataFromDas.grouping.length > 0
+              ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
+              : undefined,
+          verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
+        },
+        creators: nftDataFromDas.creators,
+        metadataAddress: metadataAddress.toBase58(),
+        model: nftDataFromDas.content?.metadata?.token_standard,
+        symbol: nftDataFromDas.content.metadata.symbol,
+        sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
+        json: {
+          category: determineCategory(nftDataFromDas.content.files),
+          image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
+          animation_url: nftDataFromDas.content?.files?.[1]?.uri,
+          name: nftDataFromDas.content?.metadata?.name,
+          description: nftDataFromDas.content?.metadata?.description,
+          sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
+          attributes: nftDataFromDas.content.metadata.attributes,
+        },
       }
+
+      if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
+    } else {
+      nftDetail = await metaplex.nfts().findByMint({ mintAddress })
+
+      if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
     }
+
+    let editionDetail: EditionDetail | undefined = undefined
+    try {
+      const { data: editionData } = await metaplex
+        .rpc()
+        .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
+        .then(toOriginalOrPrintEditionAccount)
+
+      if ('parent' in editionData) {
+        let {
+          data: { maxSupply, supply },
+        } = await metaplex.rpc().getAccount(editionData.parent).then(toOriginalEditionAccount)
+        editionDetail = {
+          number: Number(editionData.edition),
+          supply: Number(supply),
+          maxSupply: maxSupply && Number(maxSupply),
+        }
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
     return {
       nftDetail,
       editionDetail,
-      originalEditionDetail,
       mintAddress,
     }
   } catch (e: any) {

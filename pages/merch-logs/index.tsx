@@ -43,6 +43,7 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
+import { NftData } from 'types/nft'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -270,20 +271,20 @@ const MerchActivity = () => {
       item =>
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
-        (item.json?.properties?.category ?? 'image') === 'image' &&
-        item.creators.some(({ address }) => publicKey.equals(address))
+        (item.category ?? 'image') === 'image' &&
+        item.creators.some(({ address }) => publicKey?.toString() === address)
     )
 
-    let tokenIds = eligibleNfts.map(nft => ('mint' in nft ? nft.mint.address : nft.mintAddress))
-
-    let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
+    let nftStatus = await NftAPI.enableAllMerchHub({
+      tokenIds: eligibleNfts.map(({ mintAddress }) => mintAddress),
+    })
     if (!nftStatus) return
     let disabledNfts = eligibleNfts
-      .filter((_, index) => !nftStatus[tokenIds[index].toBase58()])
-      .map(nft => ({
-        nft_name: nft.name,
-        token_id: ('mint' in nft ? nft.mint.address : nft.mintAddress).toBase58(),
-        asset_url: nft.json?.image,
+      .filter(({ mintAddress }, index) => !nftStatus[mintAddress.toString()])
+      .map(({ mintAddress, name, image }, index) => ({
+        nft_name: name,
+        token_id: mintAddress.toString(),
+        asset_url: image,
       }))
     setDisabledItems(disabledNfts)
 

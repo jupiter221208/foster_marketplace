@@ -23,16 +23,17 @@ import nftAPI from 'apis/nfts'
 import collectionAPI from 'apis/collections'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const FavoriteSection = () => {
   const router = useRouter()
 
   const dispatch = useDispatch()
 
-  const [nftList, setNftList] = useState([])
-  const [allNftList, setAllNftList] = useState([])
-  const [collectionList, setCollectionList] = useState([])
-  const [allCollectionList, setAllCollectionList] = useState([])
+  const [nftList, setNftList] = useState<NftData[]>([])
+  const [allNftList, setAllNftList] = useState<NftData[]>([])
+  const [collectionList, setCollectionList] = useState<NftData[]>([])
+  const [allCollectionList, setAllCollectionList] = useState<NftData[]>([])
 
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)

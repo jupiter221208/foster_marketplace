@@ -64,6 +64,7 @@ const ProfileMenuItem = props => {
               </div>
             </div>
           )}
+
           <Link href={`/${username}`}>
             <a>
               <span className={styles.username}>{getDisplayUserName(username)}</span>

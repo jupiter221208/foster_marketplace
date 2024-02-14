@@ -25,6 +25,7 @@ import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { NftData } from 'types/nft'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -33,17 +34,19 @@ const MyNFTSection = props => {
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
-  const [allNftList, setAllNftList] = useState<any>([])
-  const [allList, setAllList] = useState<any>([])
-  const [filteredList, setFilteredList] = useState<any>([])
+  const [allNftList, setAllNftList] = useState<NftData[]>([])
+
+  const [allList, setAllList] = useState<NftData[]>([])
+  const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
     setLoading(true)
-    let nfts = await getMyNFTs(mx)
-    let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
+    let nfts: any = await getMyNFTs(mx)
+    setAllList(nfts)
+    let validNfts = nfts.filter(item => item.creators?.length > 0 && !item.collectionDetails)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
     setLoading(false)
@@ -55,7 +58,7 @@ const MyNFTSection = props => {
     }
   }, [mx, connection, publicKey, isGetMyNFTs])
 
-  const [nftList, setNFTList] = useState([])
+  const [nftList, setNFTList] = useState<NftData[]>([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
@@ -108,12 +111,11 @@ const MyNFTSection = props => {
     let list = []
 
     let allList = myNftList as any[]
-    setAllList(allList)
     allList.forEach(item => {
       let created = false
       let creators = item.creators
       creators.forEach(creator => {
-        if (creator.address.toBase58() === publicKey.toBase58()) {
+        if (publicKey && creator.address.toString() === publicKey.toString()) {
           created = true
           return
         }
@@ -130,7 +132,7 @@ const MyNFTSection = props => {
   }, [myNftList, active])
 
   useEffect(() => {
-    let new_list = filteredList as any[]
+    let new_list = filteredList as NftData[]
     if (new_list.length > rowCount) setIsVisibleFetching(true)
     setNFTList(new_list.slice(0, rowCount))
   }, [filteredList])
@@ -200,18 +202,17 @@ const MyNFTSection = props => {
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList.map((item, index) => (
-            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <MyNFTCard
-                data={item}
-                publicKey={publicKey}
-                onClickStartAuction={item => {
-                  handleStartAuction(item)
-                }}
-                onClickListNFT={item => handleListNFT(item)}
-              />
-            </div>
-          ))}
+          nftList
+            .filter(item => item.image !== undefined || null)
+            .map((item, index) => (
+              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+                <MyNFTCard
+                  data={item}
+                  onClickStartAuction={(item: NftData) => handleStartAuction(item)}
+                  onClickListNFT={(item: NftData) => handleListNFT(item)}
+                />
+              </div>
+            ))}
         <div className="col-span-12">
           <LoadingModal open={loading} />
         </div>

@@ -23,32 +23,17 @@ import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import Link from 'next/link'
+import { ListingsAPIData } from 'types/nft'
 
-export interface ListedNFTCardData {
-  address: PublicKey
-  name: string
-  uri: string
-  sellerAddress: PublicKey
-  tradeStateAddress: PublicKey
-  price: number
-  creatorAddress: string
-  startTime?: number
-  endTime?: number
-  highestBid?: {
-    buyer_address: string
-    amount: string
-  }
-}
-
-export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
+export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
-  data: ListedNFTCardData
+  data: ListingsAPIData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
   onActionClick: (data: ListedNFTCardDataWithJson) => void
-  cancelAuction: (data: ListedNFTCardData) => void
-  finalizeSale: (data: ListedNFTCardData) => void
+  cancelAuction: any
+  finalizeSale: any
 }
 
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
@@ -69,7 +54,19 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     return false
   }, [endTime])
 
-  const [assetJson, setAssetJson] = useState<JsonMetadata>({})
+  const [assetJson, setAssetJson] =
+    useState<{
+      name: string
+      image: string
+      description: string
+      category: string
+      animation_url: string
+      attributes: { trait_type: string; value: string }[]
+      properties: {
+        category: string
+      }
+    }>()
+
   useEffect(() => {
     if (!uri) return
     try {

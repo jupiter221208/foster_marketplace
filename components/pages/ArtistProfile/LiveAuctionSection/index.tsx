@@ -28,6 +28,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
+import { NftData } from 'types/nft'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -35,7 +36,7 @@ const LiveAuctionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
+  const [liveAuctionList, setLiveAuctionList] = useState<NftData[]>([])
   const [active, setActive] = useState<any>(1)
   const [cardLoop, setCardLoop] = useState(true)
   const [type, setType] = useState('recent_started')

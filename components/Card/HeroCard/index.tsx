@@ -21,8 +21,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import ModelViewer from 'components/ModelViewer'
 
-const HeroCard = props => {
-  const { data } = props
+const HeroCard = ({ data }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()

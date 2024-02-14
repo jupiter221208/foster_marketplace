@@ -24,7 +24,6 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -218,7 +217,7 @@ const SingleNft = () => {
           })
         })
         hidden_video.currentTime = 5
-      } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
+      } else if (nftArt[0].type === 'model/gltf-binary') {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
         setNftUrl(path)
@@ -277,8 +276,8 @@ const SingleNft = () => {
   }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
-  const [nftName, setNftName] = useState<any>('')
-  const [description, setDescription] = useState<any>('')
+  const [nftName, setNftName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [showCategoryList, setShowCategoryList] = useState<boolean>(false)
 
@@ -328,7 +327,7 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
-  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
+  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>()
   const { refreshToken } = useAuthentication()
 
   // step 3
@@ -353,8 +352,8 @@ const SingleNft = () => {
         .filter(({ checked }) => checked)
         .map(({ name }) => ({ trait_type: 'category', value: name }))
 
-      let trimmedNftName = nftName.trim()
-      let trimmedDescription = description.trim()
+      let trimmedNftName: string = nftName.trim()
+      let trimmedDescription: string = description.trim()
       const metadata: JsonMetadata = {
         name: trimmedNftName,
         description: trimmedDescription,

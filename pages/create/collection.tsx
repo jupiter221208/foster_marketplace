@@ -12,7 +12,6 @@ import SuccessMintCollectionSection from 'components/pages/Create/Collection/Suc
 import Step01CollectionSection from 'components/pages/Create/Collection/Step01CollectionSection'
 import Step02CollectionSection from 'components/pages/Create/Collection/Step02CollectionSection'
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 
 // json
@@ -30,6 +29,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { NftData } from 'types/nft'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 

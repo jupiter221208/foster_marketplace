@@ -75,7 +75,7 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
-import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
+import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
 // call apis
@@ -110,14 +110,14 @@ import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
 import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
-import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import Link from 'next/link'
+import { NftApiData } from 'types/nft'
 import AuctionDetail from '../AuctionDetail'
 import NFTActivityInfoSection from './NFTActivityInfoSection'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 
 export interface MainSectionProps {
-  nftDetail: Nft
+  nftDetail: NftApiData
   editionDetail: any
   nftInfo: any
   setFullScreenView: any
@@ -242,17 +242,17 @@ const MainSection = ({
     }
   }, [isEnded, isStarted])
 
-  const nftType: string =
-    (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
-  const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  const cdnPrefix = 'https://cdn.helius-rpc.com/cdn-cgi/image//'
+  const nftType: string = (nftDetail.json?.category as string) ?? 'image'
+  const coverUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(cdnPrefix, '') : coverUrl
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-  const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
+  const nftName = nftDetail.json?.name ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
-
   const mintAddress = nftDetail.address.toString()
-  const nftCollectionAddress = nftDetail.collection?.address.toString()
+  const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftCollectionUrl, setNftCollectionUrl] = useState('')
@@ -459,7 +459,12 @@ const MainSection = ({
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
-      let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+      const creators = nftDetail.creators.map(c => ({
+        ...c,
+        address: new PublicKey(c.address),
+      }))
+
+      let createAddress = getNFTArtistPublicKey({ creators })
       let { username: creatorName } = await usersAPI.get(createAddress)
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
@@ -623,7 +628,12 @@ const MainSection = ({
 
     setSellerAddress(tokenAccount.owner)
 
-    let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+    const creators = nftDetail.creators.map(c => ({
+      ...c,
+      address: new PublicKey(c.address),
+    }))
+
+    let createAddress = getNFTArtistPublicKey({ creators })
     let { username: creatorName } = await usersAPI.get(createAddress)
     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
@@ -700,15 +710,18 @@ const MainSection = ({
     }
   }
 
-  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
+  const onCancelList = async ({ address, tradeStateAddress }: { address: string; tradeStateAddress: string }) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await cancelList(mx, tradeStateAddress)
+      const tradeStateAddressKey =
+        typeof tradeStateAddress === 'string' ? new PublicKey(tradeStateAddress) : tradeStateAddress
+
+      const result = await cancelList(mx, tradeStateAddressKey)
       if (result) {
         setNftPrice(0)
-        listingsAPI.unlistNft(address.toBase58()).then(response => {
+        listingsAPI.unlistNft(address.toString()).then(response => {
           if (response) {
             setAlertData([
               {
@@ -737,7 +750,7 @@ const MainSection = ({
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
@@ -994,28 +1007,16 @@ const MainSection = ({
             ) : nftType.includes('video') ? (
               <div className={styles.videoArea}>
                 <div className={styles.mobileVideoThumb}>
-                  <img src={nftCoverUrl} alt="" />
-                  {play && (
-                    <div
-                      className="w-full h-full absolute flex items-center"
-                      onClick={() => {
-                        if (play) setPlay(false)
-                      }}
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                          <source src=${nftAssetUrl} type="video/mp4" /></video>`,
-                      }}
-                    />
-                  )}
+                  <video
+                    autoPlay
+                    src={nftAssetUrl}
+                    loop
+                    playsInline
+                    controls
+                    controlsList="nodownload"
+                    className="w-full h-full object-cover overflow-hidden"
+                  />
                 </div>
-
-                {!play && (
-                  <div className={styles.playButton}>
-                    <div className="w-[22px] h-[18px] flex justify-end">
-                      <Image src={PlayVideoIcon} width={18} height={18} alt="" onClick={() => setPlay(!play)} />
-                    </div>
-                  </div>
-                )}
               </div>
             ) : (
               <></>
@@ -1083,7 +1084,7 @@ const MainSection = ({
                     <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                   </div>
                   <div className={styles.videoArea}>
-                    <video controls autoPlay loop className="max-w-full max-h-full">
+                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                       <source type="video/mp4" src={nftAssetUrl} />
                     </video>
                   </div>
@@ -1091,7 +1092,7 @@ const MainSection = ({
               ) : (
                 <>
                   <div className={styles.videoArea}>
-                    <video controls autoPlay loop className="max-w-full max-h-full">
+                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                       <source type="video/mp4" src={nftAssetUrl} />
                     </video>
                   </div>
@@ -1146,9 +1147,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('audio') ? (
-                      <div />
-                    ) : (
+                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') ? (
                       <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
@@ -1159,7 +1158,7 @@ const MainSection = ({
                             onMouseEnter={() => setMerchHover(true)}
                             onMouseLeave={() => setMerchHover(false)}
                           />
-                        ) : (
+                        ) : isCreatedNft ? (
                           <MerchToggleDisabledIcon
                             alt=""
                             onClick={() => {
@@ -1168,12 +1167,16 @@ const MainSection = ({
                             onMouseEnter={() => setMerchHover(true)}
                             onMouseLeave={() => setMerchHover(false)}
                           />
+                        ) : (
+                          <></>
                         )}
 
                         {!nftType.includes('audio') && merchHover && (
                           <div className={styles.infoText}>Foster Studio</div>
                         )}
                       </div>
+                    ) : (
+                      <></>
                     )}
                   </div>
 
@@ -1258,16 +1261,16 @@ const MainSection = ({
                       <div className="w-full flex justify-between">
                         <div className={styles.editionTitle}>Token Type</div>
                         <div className={styles.editionValue}>
-                          {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                          {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
                         </div>
                       </div>
                       <div className="w-full flex justify-between mt-[15px]">
                         <div className={styles.editionTitle}>Editon Number</div>
-                        <div className={styles.editionValue}>{editionDetail['number']}</div>
+                        <div className={styles.editionValue}>{Number(editionDetail?.number)}</div>
                       </div>
                       <div className="w-full flex justify-between mt-[15px]">
                         <div className={styles.editionTitle}>Edition Supply</div>
-                        <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                        <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                       </div>
                     </div>
                   )}

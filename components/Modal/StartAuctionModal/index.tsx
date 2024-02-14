@@ -1,5 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { Fragment, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -13,13 +12,7 @@ import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useResizeDetector } from 'react-resize-detector'
-
-// images
-import AudioPlayerBackground from 'assets/images/audio-player.png'
-
-// solana
 
 // styles
 import styles from './index.module.scss'
@@ -27,8 +20,6 @@ import PlayVideoIcon from 'assets/icons/play-video.svg'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
-  const viewport = useViewport()
-  const dispatch = useDispatch()
   const [play, setPlay] = useState(true)
 
   const closeModal = () => {
@@ -36,7 +27,6 @@ const StartAuctionModal = props => {
   }
 
   const { width, height, ref } = useResizeDetector()
-
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -65,25 +55,16 @@ const StartAuctionModal = props => {
             <Dialog.Panel className={styles.modalView}>
               <div className="w-[50%] lg:block hidden">
                 <div className="w-full flex justify-center">
-                  <div className={styles.nftName}>{data?.json?.name}</div>
+                  <div className={styles.nftName}>{data?.name}</div>
                 </div>
                 <div className="w-full h-full flex justify-center mt-[50px] px-[100px]">
                   <div className={styles.nftArea}>
                     <div className={styles.imageArea}>
-                      {data?.json?.category === 'vr' || data?.json?.properties?.category === 'vr' ? (
-                        <div className={`${styles.imageArea} w-full h-full`}>
-                          {data?.json?.animation_url ? (
-                            <>
-                              <ModelViewer
-                                path={data?.json?.animation_url}
-                                width={width}
-                                height={height}
-                                orbitLimited
-                              />
-                            </>
-                          ) : data?.json?.image ? (
+                      {data?.category === 'vr' ? (
+                        <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                          {data?.image ? (
                             <img
-                              src={data?.json?.image}
+                              src={data?.image}
                               alt=""
                               className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                             />
@@ -91,16 +72,16 @@ const StartAuctionModal = props => {
                             <h1>Could not load NFT.</h1>
                           )}
                         </div>
-                      ) : data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
+                      ) : data?.category === 'video' ? (
                         <div className={styles.videoArea}>
                           <video controls autoPlay loop className="max-w-full max-h-full">
-                            <source type="video/mp4" src={data?.json.animation_url} />
+                            <source type="video/mp4" src={data?.animation_url} />
                           </video>
                         </div>
                       ) : (
                         <img
-                          src={data?.json?.image || AudioPlayerBackground.src}
-                          alt={data?.json?.name || data?.name}
+                          src={data?.image}
+                          alt={data?.name}
                           className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                         />
                       )}
@@ -109,30 +90,30 @@ const StartAuctionModal = props => {
                 </div>
               </div>
               <div className="w-full lg:hidden block">
-                {data?.json?.category === 'vr' || data?.json?.properties?.category === 'vr' ? (
-                  data?.json.animation_url ? (
+                {data?.category === 'vr' ? (
+                  data?.animation_url ? (
                     <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                      <ModelViewer path={data?.json?.animation_url} width={width} height={height} orbitLimited />
+                      <ModelViewer path={data?.animation_url} width={width} height={height} orbitLimited />
                     </div>
-                  ) : data?.json?.image ? (
+                  ) : data?.image ? (
                     <div className={styles.mobileImageArea}>
-                      <img src={data?.json?.image} alt="" className="w-full" />
+                      <img src={data?.image} alt="" className="w-full" />
                     </div>
                   ) : (
                     <h1>Could not load NFT.</h1>
                   )
-                ) : data?.json?.category === 'image' || data?.json?.properties?.category === 'image' ? (
+                ) : data?.category === 'image' ? (
                   <div className={styles.mobileImageArea}>
-                    <img src={data?.json?.image} alt="" className="w-full" />
+                    <img src={data?.image} alt="" className="w-full" />
                   </div>
-                ) : data?.json?.category === 'audio' || data?.json?.properties?.category === 'audio' ? (
+                ) : data?.category === 'audio' ? (
                   <div>
-                    <AudioPlayer src={data?.json.animation_url} cover={data?.json?.image} />
+                    <AudioPlayer src={data?.animation_url} cover={data?.image} />
                   </div>
-                ) : data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
+                ) : data?.category === 'video' ? (
                   <div className={styles.videoArea}>
                     <div className={styles.mobileVideoThumb}>
-                      <img src={data?.json?.image} alt="" />
+                      <img src={data?.image} alt="" />
                       {play && (
                         <div
                           className="w-full h-full absolute flex items-center"
@@ -141,7 +122,7 @@ const StartAuctionModal = props => {
                           }}
                           dangerouslySetInnerHTML={{
                             __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                          <source src=${data?.json.animation_url} type="video/mp4" /></video>`,
+                          <source src=${data.animation_url} type="video/mp4" /></video>`,
                           }}
                         />
                       )}

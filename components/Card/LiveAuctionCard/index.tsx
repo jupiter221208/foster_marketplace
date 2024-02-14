@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -92,7 +91,6 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
@@ -166,6 +164,14 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 </div>
+              ) : data.cover_image_url ? (
+                <ImageWithAuction
+                  src={data.cover_image_url}
+                  onClick={onClick}
+                  layout="fill"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
               ) : (
                 <ImageWithAuction
                   src={data.asset_url}
@@ -179,7 +185,30 @@ const LiveAuctionCard = props => {
           </a>
         </Link>
       </div>
-
+      <div className={styles.profileContainer}>
+        <div>
+          <Link href={`/nft/${data.token_id}`} passHref>
+            <a>
+              <div className={styles.nftName}>{data?.nft_name}</div>
+            </a>
+          </Link>
+          <Link href={`/${data.artist_username}`} passHref>
+            <a>
+              <div className={styles.artistName}>{data?.artist_username}</div>
+            </a>
+          </Link>
+        </div>
+        <Link href={`/${data.artist_username}`} passHref>
+          <a>
+            <img
+              src={data?.artist_profile_picture}
+              onClick={() => {}}
+              alt=""
+              className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+            />
+          </a>
+        </Link>
+      </div>
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
           <div>

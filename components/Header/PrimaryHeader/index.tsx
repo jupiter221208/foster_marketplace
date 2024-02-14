@@ -19,6 +19,7 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
+import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
@@ -43,8 +44,10 @@ import styles from './index.module.scss'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import Link from 'next/link'
+import { getShortAddress } from 'utils/wallet.util'
 
 const PrimaryHeader = () => {
+  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
@@ -114,7 +117,6 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
-      fetch(`/${profileInfo.username.replaceAll(' ', '%20')}`).then(e => e.text())
     }
   }, [profileInfo])
 
@@ -178,6 +180,7 @@ const PrimaryHeader = () => {
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
+      // router.push(item.path)
       if (item.type === 'collection_nft') {
         dispatch({ type: 'set', mintCollectionStep: 1 })
       }
@@ -202,149 +205,144 @@ const PrimaryHeader = () => {
 
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
-      <div className="hidden lg:flex">
-        <div
-          className={`${styles.blurContainer} ${
-            isScrollingTop ? 'top-0' : '-top-28'
-          } flex justify-center transition-all`}
-        >
-          <nav className="w-full max-w-[1750px] relative">
-            <div className="absolute inset-0 w-full flex justify-center items-center">
-              <SearchBox
-                value={searchKeyword}
-                placeholder="Search"
-                onChange={value => setSearchKeyword(value)}
-                searchList={searchList}
-                onClick={() => handleClear()}
-                onClose={() => handleClose()}
-              />
-            </div>
-            <div className="w-full h-full flex justify-between px-6">
-              <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
-                <div className="cursor-pointer mr-[14px]" onClick={() => handleGotoHomepage()}>
-                  <FosterLogo className={styles.logoIcon} />
-                </div>
-                <Link href={'/studio'} passHref>
-                  <a>
-                    <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                      Studio
-                    </div>
-                  </a>
-                </Link>
+      <div
+        className={`${styles.blurContainer} ${
+          isScrollingTop ? 'top-0' : '-top-28'
+        }  justify-center transition-all lg:flex hidden`}
+      >
+        <nav className="w-full max-w-[1750px] relative">
+          <div className="absolute inset-0 w-full flex justify-center items-center">
+            <SearchBox
+              value={searchKeyword}
+              placeholder="Search"
+              onChange={value => setSearchKeyword(value)}
+              searchList={searchList}
+              onClick={() => handleClear()}
+              onClose={() => handleClose()}
+            />
+          </div>
 
-                <div>
-                  <ExploreMenu
-                    label="Explore"
-                    activeList={activeList}
-                    filterList={filterList}
-                    categoryList={categoryList}
-                    performerList={performerList}
-                  />
-                </div>
-
-                <div>
-                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-                </div>
+          <div className="w-full h-full flex justify-between px-6">
+            <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
+              <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
+                <FosterLogo className={styles.logoIcon} />
               </div>
 
-              <div className="flex items-center my-auto min-w-max z-[10001]">
-                <div className="flex">
-                  {connected && (
-                    <>
-                      <div className="flex flex-row">
-                        <div>
-                          <WalletButton />
-                        </div>
-                        <div
-                          className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
-                          onClick={() => {
-                            dispatch({ type: 'set', activeTab: 4 })
-                            router.push(`/merch-logs`)
-                          }}
-                        >
-                          <ShoppingCartIcon alt="" />
-                        </div>
-                        <div
-                          className={`${styles.iconArea} flex relative cursor-pointer`}
-                          onClick={() => router.push('/notifications')}
-                        >
-                          <NotificationIcon alt="" />
-                        </div>
+              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                Studio
+              </div>
+
+              <div>
+                <ExploreMenu
+                  label="Explore"
+                  activeList={activeList}
+                  filterList={filterList}
+                  categoryList={categoryList}
+                  performerList={performerList}
+                />
+              </div>
+
+              <div>
+                <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+              </div>
+            </div>
+
+            <div className="flex items-center my-auto min-w-max z-[10001]">
+              <div className="flex">
+                {connected && (
+                  <>
+                    <div className="flex flex-row">
+                      <div>
+                        <WalletButton />
                       </div>
-                    </>
-                  )}
-
-                  {connected && isNewNotification && (
-                    <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
-                      <Lottie animationData={NotifyAlarmIcon} loop={true} />
+                      <div
+                        className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
+                        onClick={() => {
+                          dispatch({ type: 'set', activeTab: 4 })
+                          router.push(`/merch-logs`)
+                        }}
+                      >
+                        <ShoppingCartIcon alt="" />
+                      </div>
+                      <div
+                        className={`${styles.iconArea} flex relative cursor-pointer`}
+                        onClick={() => router.push('/notifications')}
+                      >
+                        <NotificationIcon alt="" />
+                      </div>
                     </div>
-                  )}
-                </div>
+                  </>
+                )}
 
-                <div className="min-w-fit">
-                  <ProfileMenu
-                    avatar={profileInfo?.profile_picture}
-                    wallet={profileInfo?.wallet_id}
-                    username={profileInfo?.username ?? ''}
-                    menuList={profileMenuList}
-                    onSelect={item => router.push(item.path)}
-                    connectWalletStatus={connected}
-                    lightMode={lightMode}
-                    handleThemeMode={handleThemeMode}
-                  />
-                </div>
-
-                {!connected && (
-                  <button className="ml-6" onClick={() => handleThemeMode()}>
-                    {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-                  </button>
+                {connected && isNewNotification && (
+                  <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                    <Lottie animationData={NotifyAlarmIcon} loop={true} />
+                  </div>
                 )}
               </div>
+
+              <div className="min-w-fit">
+                <ProfileMenu
+                  avatar={profileInfo?.profile_picture}
+                  wallet={getShortAddress(profileInfo?.wallet_id)}
+                  username={profileInfo?.username ?? ''}
+                  menuList={profileMenuList}
+                  onSelect={item => router.push(item.path)}
+                  connectWalletStatus={connected}
+                  lightMode={lightMode}
+                  handleThemeMode={handleThemeMode}
+                />
+              </div>
+
+              {!connected && (
+                <button className="ml-7" onClick={() => handleThemeMode()}>
+                  {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+                </button>
+              )}
             </div>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
-      <div className="flex lg:hidden">
-        <div
-          className={`${
-            isScrollTop && router.pathname === '/' ? styles.mobileNonBlurContainer : styles.mobileBlurContainer
-          } ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
-          // className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
-        >
-          {isScrollingTop && (
-            <div className={styles.mobileContainer}>
-              <div className="g-container flex justify-between items-center">
-                <div className="flex">
-                  <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                    <FosterNavLogo width={101} height={23} />
-                  </div>
+
+      <div
+        className={`${
+          isScrollTop && router.pathname === '/' ? styles.mobileNonBlurContainer : styles.mobileBlurContainer
+        } ${isScrollingTop ? 'top-0' : '-top-28'} transition-all block lg:hidden`}
+        // className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
+      >
+        {isScrollingTop && (
+          <div className={styles.mobileContainer}>
+            <div className="g-container flex justify-between items-center">
+              <div className="flex">
+                <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
+                  <FosterNavLogo width={101} height={23} />
                 </div>
-                <div className="flex">
-                  <div className="w-[39px] h-[39px] flex justify-center items-center">
-                    <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
-                  </div>
-                  <div>
-                    <IconButtonWithSVG
-                      icon={
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
-                          <path
-                            id="bars-2"
-                            d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
-                            transform="translate(-2 -6)"
-                            fill="var(--mint-btn-bg-1)"
-                          />
-                        </svg>
-                      }
-                      onClick={() => handleOpenMobileMenu()}
-                      backgroundColor="transparent"
-                    />
-                  </div>
+              </div>
+              <div className="flex">
+                <div className="w-[39px] h-[39px] flex justify-center items-center">
+                  <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+                </div>
+                <div>
+                  <IconButtonWithSVG
+                    icon={
+                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="13.2" viewBox="0 0 22 13.2">
+                        <path
+                          id="bars-2"
+                          d="M3.1,8.2H22.9a1.1,1.1,0,1,0,0-2.2H3.1a1.1,1.1,0,1,0,0,2.2ZM22.9,17H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Zm0-5.5H3.1a1.1,1.1,0,0,0,0,2.2H22.9a1.1,1.1,0,1,0,0-2.2Z"
+                          transform="translate(-2 -6)"
+                          fill="var(--mint-btn-bg-1)"
+                        />
+                      </svg>
+                    }
+                    onClick={() => handleOpenMobileMenu()}
+                    backgroundColor="transparent"
+                  />
                 </div>
               </div>
             </div>
-          )}
-          {!isScrollTop && <div className={styles.divider} />}
-        </div>
+          </div>
+        )}
+        <div className={styles.divider} />
       </div>
     </div>
   )

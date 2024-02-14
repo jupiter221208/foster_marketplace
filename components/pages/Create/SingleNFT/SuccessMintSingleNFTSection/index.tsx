@@ -256,6 +256,8 @@ const SuccessMintSingleNFTSection = props => {
           mintAddress: nftAddress,
           name: nftName,
           json: nftMetadata,
+          category: nftType,
+          image: nftImage,
         }}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}

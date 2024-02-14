@@ -11,18 +11,15 @@
 
 .imageBG {
   width: 100%;
-  height: 680px;
+  height: 650px;
   @media (min-width: 440px) {
-    height: 750px;
+    height: 710px;
   }
   @media (min-width: 516px) {
-    height: 800px;
-  }
-  @media (min-width: 516px) {
-    height: 720px;
+    height: 760px;
   }
   @media (min-width: 768px) {
-    height: 820px;
+    height: 800px;
   }
   position: relative;
   z-index: 0;
@@ -123,16 +120,7 @@
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
-  line-height: 18px;
   color: $text-gray-200-color;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 36px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 22px;
-    line-height: 36px;
-  }
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -192,7 +180,6 @@
 }
 
 .creatorName {
-  margin-top: 5px;
   font-family: 'Muli-Light';
   font-size: 14px;
   color: var(--main-icon-color);
@@ -229,7 +216,7 @@
 }
 
 .priceValue {
-  font-family: 'Muli-SemilBold';
+  font-family: 'Muli-SemiBold';
   font-size: 18px;
   color: var(--main-bg-color);
 }
