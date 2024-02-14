@@ -25,6 +25,8 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 import Lottie from 'lottie-react'
 import LoadingIcon from 'assets/lottery/loader-new.json'
+import { Fade } from 'react-slideshow-image'
+import 'react-slideshow-image/dist/styles.css'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -33,9 +35,11 @@ import HeroCardMobile from 'components/Card/HeroCardMobile'
 
 import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
 import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-large.svg?component'
+import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-large.svg?component'
 
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
-import { NftData } from 'types/nft'
+import HeroNewCard from 'components/Card/HeroNewCard'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -132,18 +136,42 @@ const MainSection = () => {
           </div>
         </div>
         <div className="hidden lg:flex">
-          <div
-            className="w-full relative"
-            style={{
-              width: '100%',
-              marginLeft: '0px',
-            }}
-          >
-            <div className="w-full relative" id="heroSwiper">
+          <div className="w-full h-[592px] relative">
+            <div className="absolute w-full h-[590px] inset-0">
+              <Fade
+                duration={3000}
+                transitionDuration={600}
+                pauseOnHover={false}
+                autoplay={true}
+                prevArrow={
+                  <div className={`${styles.arrowBG} ml-[150px]`}>
+                    <ArrowLeftGreenIcon alt="" />
+                  </div>
+                }
+                nextArrow={
+                  <div className={`${styles.arrowBG} mr-[150px]`}>
+                    <ArrowRightGreenIcon alt="" />
+                  </div>
+                }
+              >
+                {heroList.map((item, index) => {
+                  return (
+                    <div id={index} className="min-w-full w-full each-fade">
+                      <HeroNewCard data={item} />
+                    </div>
+                  )
+                })}
+              </Fade>
+            </div>
+            <div className={styles.heroBorder} />
+          </div>
+          {/* <div className="w-full relative" id="heroSwiper">
               <Swiper
-                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
-                spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
+                // navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                // slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
+                // spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
+                navigation={true}
+                slidesPerView={1}
                 centeredSlides={true}
                 loop
                 pagination={{
@@ -158,17 +186,16 @@ const MainSection = () => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-            </div>
-            {heroCardOpacity === 0 && (
-              <div className="absolute inset-0 flex justify-center items-center">
-                <div className={styles.loadingText}>
-                  <div className="flex items-center w-[200px]">
-                    <Lottie animationData={LoadingIcon} loop={true} />
-                  </div>
+            </div> */}
+          {heroCardOpacity === 0 && (
+            <div className="absolute inset-0 flex justify-center items-center">
+              <div className={styles.loadingText}>
+                <div className="flex items-center w-[200px]">
+                  <Lottie animationData={LoadingIcon} loop={true} />
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

@@ -64,6 +64,7 @@
     "react-redux": "^8.0.2",
     "react-resize-detector": "^9.1.0",
     "react-share": "^4.4.1",
+    "react-slideshow-image": "^4.3.0",
     "react-spinners": "^0.13.4",
     "react-tooltip": "^5.7.3",
     "redux": "^4.2.0",

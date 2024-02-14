@@ -23,6 +23,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -148,14 +149,31 @@ const LiveAuctionSection = props => {
   return showSection ? (
     <section className={styles.container}>
       {fromPage !== 'profile' && (
-        <div className="w-full lg:w-auto flex items-center gap-4 lg:gap-8 mb-[0px] lg:mb-[50px]">
-          <div className={`w-full flex justify-center items-center z-10`}>
-            <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
+        <div className="w-full lg:hidden block flex justify-between items-center">
+          <div className={styles.title}>Live Auctions</div>
+          <div className="flex gap-[8px] items-center">
+            <div
+              className={styles.seeMore}
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 1 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+            >
+              See More
+            </div>
+            <ArrowRightGreenIcon alt="" />
           </div>
         </div>
       )}
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          {fromPage !== 'profile' && (
+            <div className={`lg:block hidden`}>
+              <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+            </div>
+          )}
           <div className="hidden lg:flex w-full h-[54px] ml-[18px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
@@ -280,7 +298,7 @@ const LiveAuctionSection = props => {
           </Swiper>
         )}
       </div>
-      {fromPage !== 'profile' && (
+      {/* {fromPage !== 'profile' && (
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
@@ -297,7 +315,7 @@ const LiveAuctionSection = props => {
             />
           </div>
         </div>
-      )}
+      )} */}
     </section>
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />

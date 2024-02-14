@@ -1,0 +1,125 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 590px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--background-main-color-rgb), 0.85);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+}
+
+.cardArea {
+  width: 50%;
+  height: 493px;
+  // border: 2px dashed #707070;
+  // background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='#707070' stroke-width='4' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23707070' stroke-width='2' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageArea {
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 27px;
+  @media (min-width: 1280px) {
+    width: 60x;
+    height: 60px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1400px) {
+    width: 66px;
+    height: 66px;
+    border-radius: 33px;
+  }
+}
+
+.nftNames {
+  max-width: 200px;
+  color: var(--pagination-down-icon);
+  p:first-child {
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+    @media (min-width: 1280px) {
+      font-size: 18px;
+    }
+    @media (min-width: 1400px) {
+      font-size: 22px;
+    }
+  }
+  p:nth-child(2) {
+    font-family: 'Muli-Light';
+    font-size: 16px;
+    @media (min-width: 1280px) {
+      font-size: 16px;
+    }
+    @media (min-width: 1400px) {
+      font-size: 18px;
+    }
+    color: rgba(var(--main-bg-color-rgb), 0.9);
+  }
+}
+
+.listedFor {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9) 
+}
+
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  @media (min-width: 1280px) {
+    font-size: 22px;
+  }
+  color: var(--text-gray-200-color) 
+}
+
+
+.skeletonLoader:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
