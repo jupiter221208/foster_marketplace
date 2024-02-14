@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Navigation } from 'swiper'
+import { Pagination } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -142,6 +142,7 @@ const MainSection = () => {
                 duration={3000}
                 transitionDuration={600}
                 pauseOnHover={false}
+                canSwipe={true}
                 autoplay={true}
                 prevArrow={
                   <div className={`${styles.arrowBG} ml-[150px]`}>
