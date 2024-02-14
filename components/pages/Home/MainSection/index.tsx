@@ -156,7 +156,7 @@ const MainSection = () => {
               >
                 {heroList.map((item, index) => {
                   return (
-                    <div id={index} className="min-w-full w-full each-fade">
+                    <div key={index} className="min-w-full w-full each-fade">
                       <HeroNewCard data={item} />
                     </div>
                   )
