@@ -78,7 +78,6 @@ const HeroCardMobile = ({ data }) => {
             loading="lazy"
           />
         )}
-        <div className={styles.overlay} />
       </div>
       <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
         <div className="px-[15px] mt-[120px] z-10">
