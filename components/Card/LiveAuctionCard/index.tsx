@@ -128,11 +128,14 @@ const LiveAuctionCard = props => {
                         className="w-full h-full object-contain"
                       />
                     ) : (
-                      <div className="w-full h-full relative">
-                        <video id="hidden_video" muted className=" w-full h-full object-contain overflow-hidden">
-                          <source src={data.asset_url} type="video/mp4" />
-                        </video>
-                      </div>
+                      <div
+                        className="w-full h-full absolute"
+                        dangerouslySetInnerHTML={{
+                          __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+              <source src=${data.asset_url} type="video/mp4" /></video>`,
+                        }}
+                        onClick={() => onClick()}
+                      />
                     )}
                   </a>
                 </Link>
