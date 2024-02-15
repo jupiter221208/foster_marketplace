@@ -28,13 +28,12 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [loaded, setLoaded] = useState(false)
-  const [videoCoverImage, setVideoCoverImage] = useState('')
 
   useEffect(() => {
     if (
-      (data.asset_type.includes('video') && viewport === 'xs') ||
-      viewport === 'sm' ||
-      (viewport === 'md' && data.cover_image_url == null)
+      data.asset_type.includes('video') &&
+      (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
+      data.cover_image_url == null
     ) {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
