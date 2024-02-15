@@ -28,13 +28,19 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [loaded, setLoaded] = useState(false)
+  const [videoCoverImage, setVideoCoverImage] = useState('')
 
   useEffect(() => {
-    if ((data.asset_type.includes('video') && viewport === 'xs') || viewport === 'sm' || viewport === 'md') {
+    if (
+      (data.asset_type.includes('video') && viewport === 'xs') ||
+      viewport === 'sm' ||
+      (viewport === 'md' && data.cover_image_url == null)
+    ) {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
     }
   }, [data])
+
   const calculateAuctionTimeLeft = endDate => {
     let difference = getTimeDifference(endDate)
     let timeLeft = {}
@@ -123,17 +129,16 @@ const LiveAuctionCard = props => {
                         className="w-full h-full object-contain"
                       />
                     ) : (
-                      //         <div
-                      //           className="w-full h-full absolute"
-                      //           dangerouslySetInnerHTML={{
-                      //             __html: `<video muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-                      // <source src=${data.asset_url} type="video/mp4" /></video>`,
-                      //           }}
-                      //           onClick={() => onClick()}
-                      //         />
-                      <video id="hidden_video" muted className="w-full h-full object-contain overflow-hidden">
-                        <source src={data.asset_url} type="video/mp4" />
-                      </video>
+                      <div className="w-full h-full relative">
+                        <video
+                          id="hidden_video"
+                          muted
+                          webkit-playsinline
+                          className=" w-full h-full object-contain overflow-hidden"
+                        >
+                          <source src={data.asset_url} type="video/mp4" />
+                        </video>
+                      </div>
                     )}
                   </a>
                 </Link>
