@@ -129,12 +129,7 @@ const LiveAuctionCard = props => {
                       />
                     ) : (
                       <div className="w-full h-full relative">
-                        <video
-                          id="hidden_video"
-                          muted
-                          webkit-playsinline
-                          className=" w-full h-full object-contain overflow-hidden"
-                        >
+                        <video id="hidden_video" muted className=" w-full h-full object-contain overflow-hidden">
                           <source src={data.asset_url} type="video/mp4" />
                         </video>
                       </div>
