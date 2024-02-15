@@ -29,6 +29,7 @@ import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { getTimeDifference } from 'utils/helpers'
+import Link from 'next/link'
 
 const NFTAuctionCard = props => {
   const {
@@ -150,33 +151,37 @@ const NFTAuctionCard = props => {
             {assetType?.includes('video') ? (
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div className="w-full relative flex justify-center items-center overflow-hidden">
-                  {play ? (
-                    <div
-                      className="w-full h-full absolute"
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <a className="w-full h-full relative">
+                      {play ? (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
-                      }}
-                      onClick={() => onClick()}
-                    />
-                  ) : coverImage != null && coverImage !== '' ? (
-                    <Image
-                      src={coverImage}
-                      alt=""
-                      layout="fill"
-                      className="w-full h-full object-cover"
-                      onClick={() => onClick()}
-                    />
-                  ) : (
-                    <div
-                      className="w-full h-full absolute"
-                      dangerouslySetInnerHTML={{
-                        __html: `<video id="hidden_video" loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                          }}
+                          onClick={() => onClick()}
+                        />
+                      ) : coverImage != null && coverImage !== '' ? (
+                        <Image
+                          src={coverImage}
+                          alt=""
+                          layout="fill"
+                          className="w-full h-full object-cover"
+                          onClick={() => onClick()}
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video id="hidden_video" loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
-                      }}
-                      onClick={() => onClick()}
-                    />
-                  )}
+                          }}
+                          onClick={() => onClick()}
+                        />
+                      )}
+                    </a>
+                  </Link>
                   <div className={styles.playButton}>
                     <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
                       <Image
@@ -190,33 +195,63 @@ const NFTAuctionCard = props => {
                   </div>
                 </div>
               ) : (
-                <div
-                  className="w-full"
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <a>
+                    <div
+                      className="w-full"
+                      dangerouslySetInnerHTML={{
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,
-                  }}
-                  onClick={() => onClick()}
-                />
+                      }}
+                      onClick={() => onClick()}
+                    />
+                  </a>
+                </Link>
               )
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
-                <ImageWithFallback
-                  src={coverImage}
-                  onClick={onClick}
-                  layout="fill"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <a className="w-full h-full">
+                    <ImageWithFallback
+                      src={coverImage}
+                      onClick={onClick}
+                      layout="fill"
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </a>
+                </Link>
               ) : (
-                <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <a>
+                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                  </a>
+                </Link>
               )
             ) : coverImage != null && coverImage !== '' ? (
-              <ImageWithFallback src={coverImage} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a className="w-full h-full">
+                  <ImageWithFallback
+                    src={coverImage}
+                    onClick={onClick}
+                    layout="fill"
+                    alt=""
+                    className={styles.imageNft}
+                  />
+                </a>
+              </Link>
             ) : image !== null && image !== '' ? (
-              <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a className="w-full h-full">
+                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                </a>
+              </Link>
             ) : (
-              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a className="w-full h-full">
+                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                </a>
+              </Link>
             )}
           </div>
           {showHideButton === true && (
