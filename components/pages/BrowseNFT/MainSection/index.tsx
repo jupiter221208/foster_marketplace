@@ -573,6 +573,7 @@ const MainSection = ({
       if (nftDetail.collection) {
         const collectionMetadata = await getNftFromDAS(nftDetail.collection.address)
         if (collectionMetadata) {
+          setCollectionName(collectionMetadata.content.metadata.name)
           setNftCollectionImage(collectionMetadata.content.links.image)
           setNftCollectionName(collectionMetadata.content.metadata.name)
         }
