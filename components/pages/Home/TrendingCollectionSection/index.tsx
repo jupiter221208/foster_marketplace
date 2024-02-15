@@ -18,7 +18,6 @@ import 'swiper/css/navigation'
 // import Marquee from 'react-fast-marquee'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 // custom functions
@@ -26,6 +25,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -107,8 +107,22 @@ const TrendingCollectionSection = props => {
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10 lg:mt-[5px]">
+              <div className="w-full flex justify-between items-center z-10 lg:mt-[5px]">
                 <div className={styles.title}>Trending Collections</div>
+                <div className="flex gap-[8px] items-center">
+                  <div
+                    className={styles.seeMore}
+                    onClick={() => {
+                      dispatch({ type: 'set', exploreTab: 1 })
+                      dispatch({ type: 'set', collectionSort: 'trending' })
+                      dispatch({ type: 'set', collectionCategory: category })
+                      router.push('/explore')
+                    }}
+                  >
+                    See More
+                  </div>
+                  <ArrowRightGreenIcon alt="" />
+                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending&nbsp;Collections</div>
@@ -239,11 +253,6 @@ const TrendingCollectionSection = props => {
                 }
                 modules={[Autoplay, Lazy, Navigation]}
                 className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
-                // loop={trendingList.length < 3 ? false : loop}
-                // autoplay={{
-                //   delay: 5000,
-                //   disableOnInteraction: false,
-                // }}
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>
@@ -259,57 +268,9 @@ const TrendingCollectionSection = props => {
                   </SwiperSlide>
                 ))}
               </Swiper>
-              // <Marquee
-              //   gradient={false}
-              //   pauseOnHover={false}
-              //   pauseOnClick={true}
-              //   speed={
-              //     viewport === 'xs'
-              //       ? 40
-              //       : viewport === 'sm'
-              //       ? 50
-              //       : viewport === 'md'
-              //       ? 60
-              //       : viewport === 'lg'
-              //       ? 70
-              //       : viewport === 'xl'
-              //       ? 90
-              //       : 110
-              //   }
-              // >
-              // <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
-              //   {trendingList.map((item: any, index) => (
-              //     <TrendingCollectionCard
-              //       collectionID={item.collection_id}
-              //       image={item.cover_image}
-              //       collectionName={item.collection_name}
-              //       artistName={item.artist_username}
-              //       nftCount={item.number_in_collections}
-              //       avatar={item.artist_profile_picture}
-              //       key={index}
-              //     />
-              //   ))}
-              // </div>
-              // </Marquee>
             )}
           </div>
         )}
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 1 })
-                dispatch({ type: 'set', collectionSort: 'trending' })
-                dispatch({ type: 'set', collectionCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
-          </div>
-        </div>
       </section>
     )
   )

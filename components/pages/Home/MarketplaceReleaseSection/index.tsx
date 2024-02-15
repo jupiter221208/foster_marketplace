@@ -7,14 +7,12 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
@@ -22,6 +20,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -77,8 +76,22 @@ const MarketplaceReleaseSection = props => {
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
+              <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>New Releases</div>
+                <div className="flex gap-[8px] items-center">
+                  <div
+                    className={styles.seeMore}
+                    onClick={() => {
+                      dispatch({ type: 'set', exploreTab: 0 })
+                      dispatch({ type: 'set', availabilityFilter: 0 })
+                      dispatch({ type: 'set', artworkCategory: category })
+                      router.push('/explore')
+                    }}
+                  >
+                    See More
+                  </div>
+                  <ArrowRightGreenIcon alt="" />
+                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Releases</div>
@@ -114,22 +127,6 @@ const MarketplaceReleaseSection = props => {
               />
             </div>
           ))}
-        </div>
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
-          </div>
         </div>
       </section>
     )

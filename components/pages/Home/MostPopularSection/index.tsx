@@ -21,7 +21,7 @@ import NFTCard from 'components/Card/NFTCard'
 import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -67,8 +67,22 @@ const MostPopularSection = props => {
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-center items-center z-10">
+              <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>Most Popular</div>
+                <div className="flex gap-[8px] items-center">
+                  <div
+                    className={styles.seeMore}
+                    onClick={() => {
+                      dispatch({ type: 'set', artworkSort: 'popular' })
+                      dispatch({ type: 'set', exploreTab: 0 })
+                      dispatch({ type: 'set', artworkCategory: category })
+                      router.push('/explore')
+                    }}
+                  >
+                    See More
+                  </div>
+                  <ArrowRightGreenIcon alt="" />
+                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
@@ -95,10 +109,6 @@ const MostPopularSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className={mostPopularList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
             loop={cardLoop}
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
           >
             {mostPopularList.map((item: any, index) => (
               <SwiperSlide key={index}>
@@ -121,22 +131,6 @@ const MostPopularSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-        <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', artworkSort: 'popular' })
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
-          </div>
         </div>
       </section>
     )
