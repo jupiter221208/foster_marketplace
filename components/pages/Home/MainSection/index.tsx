@@ -146,7 +146,19 @@ const MainSection = () => {
                 return (
                   <div key={index} className="w-full each-fade">
                     <HeroCardMobile data={item} />
-                    <div className={styles.overlay} />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: '0px',
+                        top: '0px',
+                        width: '100%',
+                        height: '100%',
+                        background: 'var(--hero-overlay-color)',
+                        backdropFilter: 'blur(12px)',
+                        WebkitBackdropFilter: 'blur(12px)',
+                        zIndex: '0',
+                      }}
+                    />
                   </div>
                 )
               })}
