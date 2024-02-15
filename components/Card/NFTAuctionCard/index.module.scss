@@ -5,19 +5,15 @@
   height: 100%;
   background: var(--background-main-color);
   border-radius: 17px;
-  border: 1px solid var(--nft-border-color);
   @media (min-width: 1024px) {
-    border-radius: 30px;
-  }
-  @media (min-width: 1536px) {
     border-radius: 30px;
   }
   cursor: pointer;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
-  @media (min-width: 1024px) {
-    box-shadow: 0px 0px 10px rgba(32, 36, 39, 0.1);
-    border-radius: 30px;
-  }
+  // box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  // @media (min-width: 1024px) {
+  //   box-shadow: 0px 0px 10px rgba(32, 36, 39, 0.1);
+  //   border-radius: 30px;
+  // }
 }
 
 .hideBtnArea {
@@ -134,7 +130,10 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  padding-top: 77.108%; /* 166:128 Aspect Ratio */
+  @media (min-width: 1024px) {
+  padding-top: 88.022%; /* 359:316 Aspect Ratio */
+  }
 }
 
 .imageContent {
@@ -151,18 +150,66 @@
   overflow: hidden;
 }
 
+.nftData {
+  width: 100%;
+  padding: 7px 10px;
+  @media (min-width: 1024px) {
+    padding: 8px 23px 12px 23px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nftName {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1440px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 22px;
+    line-height: 36px;
+  }
+}
+
+.artistName {
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  color: var(--main-icon-color);
+  margin-top: 2px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 4px;
+  }
+  @media (min-width: 1440px) {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 4px;
+  }
+}
+
 .imageInfo {
   position: relative;
   width: 100%;
-  margin-top: 7px;
   display: flex;
   flex: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0px 16px 16px 16px;
+  padding: 9px 10px 11px 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
   @media (min-width: 1024px) {
-    margin-top: 15px;
-    padding: 0px 24px 24px 24px;
+    padding: 20px 24px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
   }
 }
 
@@ -200,10 +247,11 @@
 
 .currentBid {
   font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 10px;
+  line-height: 13px;
   @media (min-width: 1024px) {
-    font-size: 14px;
+    font-family: 'Muli-Regular';
+    font-size: 16px;
     line-height: 24px;
   }
   letter-spacing: 0;
@@ -213,31 +261,22 @@
   text-overflow: ellipsis;
 }
 
-.artistName {
-  font-family: 'Muli-Regular';
-  font-size: 10px;
-  line-height: 14px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 36px;
-  }
-  letter-spacing: 0;
-  color: var(--main-icon-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .price {
-  font-family: 'Muli-Regular';
-  font-size: 13px;
-  line-height: 13px;
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 16px;
   margin-left: 3px;
   margin-top: -2px;
   @media (min-width: 1024px) {
-    margin-top: -2px;
-    margin-left: 7px;
+    margin-top: -3px;
+    margin-left: 5px;
     font-size: 18px;
+    line-height: 22px;
+  }
+  @media (min-width: 1440px) {
+    margin-top: -4px;
+    margin-left: 7px;
+    font-size: 20px;
     line-height: 24px;
   }
   letter-spacing: 0;
@@ -246,24 +285,32 @@
 
 .day {
   font-family: 'Muli-Regular';
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 12px;
+  line-height: 16px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
     font-size: 18px;
+    line-height: 22px;
+  }
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 20px;
     line-height: 24px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .timeValue {
-  font-family: 'Muli-Regular';
-  font-size: 13px;
-  line-height: 13px;
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 16px;
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-family: 'Muli-Regular';
     font-size: 18px;
+    line-height: 22px;
+  }
+  @media (min-width: 1440px) {
+    font-size: 20px;
     line-height: 24px;
   }
 }

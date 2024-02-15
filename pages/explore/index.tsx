@@ -640,6 +640,8 @@ const Explore = () => {
                       <div className={`col-span-6 z-10 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'}`} key={index}>
                         {selectedAvailability.value === 'timed' ? (
                           <NFTAuctionCard
+                            nftName={item.name}
+                            artistName={item.creator}
                             image={item.image}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
@@ -654,6 +656,8 @@ const Explore = () => {
                         ) : selectedAvailability.value === 'all' ? (
                           isAvailableAuctionCard(item) ? (
                             <NFTAuctionCard
+                              nftName={item.name}
+                              artistName={item.creator}
                               image={item.image}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}

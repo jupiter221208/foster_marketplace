@@ -33,6 +33,8 @@ import Link from 'next/link'
 
 const NFTAuctionCard = props => {
   const {
+    nftName,
+    artistName,
     token_id,
     image,
     currentBid,
@@ -265,10 +267,17 @@ const NFTAuctionCard = props => {
             </div>
           )}
         </div>
+        <div className={styles.nftData}>
+          <div>
+            <div className={styles.nftName}>{nftName}</div>
+            <div className={styles.artistName}>{artistName}</div>
+          </div>
+          <div>&nbsp;</div>
+        </div>
         <div className={styles.imageInfo}>
           <div className="w-full">
-            <div className="flex items-center justify-between mt-[2px]">
-              <div className="w-full flex justify-between">
+            <div className="flex items-center justify-between">
+              <div className="w-full flex justify-between items-center mt-[-2px]">
                 <div className={styles.currentBid}>{currentBid === null ? 'Reserve' : 'Current'}</div>
                 <div className={styles.currentBid}>Ends In</div>
               </div>
@@ -282,18 +291,18 @@ const NFTAuctionCard = props => {
                 )}
                 <div className={styles.price}>{currentBid === null ? reservePrice : currentBid}</div>
               </div>
-              <div className="flex gap-[5px]">
+              <div className="flex gap-[4px] mt-[-1px]">
                 {endDate.day > 0 && (
-                  <div className="flex gap-[2px]">
+                  <div className="flex gap-[3px]">
                     <div className={styles.timeValue}>{endDate.day}</div>
                     <div className={styles.day}>d</div>
                   </div>
                 )}
-                <div className="flex gap-[2px]">
+                <div className="flex gap-[3px]">
                   <div className={styles.timeValue}>{endDate.hour}</div>
                   <div className={styles.day}>h</div>
                 </div>
-                <div className="flex gap-[2px]">
+                <div className="flex gap-[3px]">
                   <div className={styles.timeValue}>{endDate.minute}</div>
                   <div className={styles.day}>m</div>
                 </div>
