@@ -19,9 +19,6 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMultipleAccountsInfoBatched } from 'utils'
-import { lamports, toMetadata, toMetadataAccount } from '@metaplex-foundation/js'
-import { PublicKey } from '@solana/web3.js'
 import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
@@ -49,38 +46,7 @@ const MyNFTSection = props => {
     setLoading(true)
     let nfts: any = await getMyNFTs(mx)
     setAllList(nfts)
-    let validNfts = nfts.filter(item => item.creators?.length > 0)
-
-    // fetch metadata accounts for nfts:
-    // - that don't have a collection set
-    // - aren't set as a collection in one of the returned nfts
-    let collectionSet = new Set<string>(
-      validNfts.map(({ collection }) => collection?.address).filter(address => address)
-    )
-    let metadataAddresses = nfts
-      .map(({ mintAddress, collection }) =>
-        !collection && !collectionSet.has(mintAddress)
-          ? mx
-              .nfts()
-              .pdas()
-              .metadata({ mint: new PublicKey(mintAddress) })
-          : null
-      )
-      .filter((address): address is PublicKey => address)
-    let metadataAccountDatas = await getMultipleAccountsInfoBatched(mx.connection, metadataAddresses)
-    let metadataAccounts = metadataAccountDatas.map((accountInfo, index) =>
-      toMetadata(
-        toMetadataAccount({
-          ...accountInfo,
-          publicKey: metadataAddresses[index],
-          lamports: lamports(accountInfo.lamports),
-        })
-      )
-    )
-    for (let { mintAddress, collectionDetails } of metadataAccounts)
-      if (collectionDetails) collectionSet.add(mintAddress.toBase58())
-    validNfts = validNfts.filter(({ mintAddress }) => !collectionSet.has(mintAddress))
-
+    let validNfts = nfts.filter(item => item.creators?.length > 0 && !item.collectionDetails)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
     setLoading(false)
