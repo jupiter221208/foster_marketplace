@@ -53,6 +53,17 @@ const NFTAuctionCard = props => {
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
 
   useEffect(() => {
+    if (
+      assetType.includes('video') &&
+      (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
+      coverImage === null
+    ) {
+      let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+      hidden_video.currentTime = 3
+    }
+  }, [assetType])
+
+  useEffect(() => {
     getIntervalTime()
 
     const timer = setInterval(() => {
@@ -157,7 +168,14 @@ const NFTAuctionCard = props => {
                       onClick={() => onClick()}
                     />
                   ) : (
-                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                    <div
+                      className="w-full h-full absolute"
+                      dangerouslySetInnerHTML={{
+                        __html: `<video id="hidden_video" loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                    <source src=${image} type="video/mp4" /></video>`,
+                      }}
+                      onClick={() => onClick()}
+                    />
                   )}
                   <div className={styles.playButton}>
                     <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>

@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react'
-import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 
@@ -103,35 +102,39 @@ const DashboardNFTCard = props => {
           {assetType?.includes('video') ? (
             <div className={styles.imageContent}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center overflow-hidden">
+                <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
                   <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                    <a className="w-full h-full relative">
-                      <div className="w-full h-full relative">
-                        <video
-                          ref={videoRef}
-                          src={image}
-                          loop
-                          muted
-                          className="w-full h-full object-cover overflow-hidden"
+                    <a className="w-full h-full">
+                      {play ? (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
+                          }}
                         />
-                        {!play && (
-                          <div className="absolute inset-0">
-                            <img src={coverImage} alt="" className="w-full h-full object-cover" />
-                          </div>
-                        )}
-                      </div>
+                      ) : coverImage != null && coverImage !== '' ? (
+                        <img src={coverImage} alt="" className="w-full h-full object-contain" />
+                      ) : (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
+                          }}
+                        />
+                      )}
                     </a>
                   </Link>
-                  <div
-                    className={styles.playButton}
-                    onClick={e => {
-                      e.nativeEvent.stopImmediatePropagation()
-                      setPlay(!play)
-                      togglePlayPause()
-                    }}
-                  >
+                  <div className={styles.playButton}>
                     <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                      <Image src={play ? PauseVideoIcon : PlayVideoIcon} width={18} height={18} alt="" />
+                      <Image
+                        src={play ? PauseVideoIcon : PlayVideoIcon}
+                        width={18}
+                        height={18}
+                        alt=""
+                        onClick={() => setPlay(!play)}
+                      />
                     </div>
                   </div>
                 </div>
