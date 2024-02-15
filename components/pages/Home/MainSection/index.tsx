@@ -105,32 +105,6 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        {/* <div className="flex lg:hidden w-[calc(100%+32px)]">
-          <div className={styles.heroMobileSection}>
-            <div className="w-full relative" id="heroSwiperMobile">
-              {heroList.length !== 0 && (
-                <Swiper
-                  slidesPerView={1}
-                  spaceBetween={20}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  centeredSlides={true}
-                  modules={[Pagination]}
-                  className={'heroSwiperMobile'}
-                  loop
-                >
-                  {heroList.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <HeroCardMobile data={item} />
-                      <div className={styles.overlay} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              )}
-            </div>
-          </div>
-        </div> */}
         <div className="flex lg:hidden w-[calc(100%+32px)]">
           <div className="w-full -ml-[16px]">
             <Fade
@@ -146,7 +120,6 @@ const MainSection = () => {
                 return (
                   <div key={index} className="w-full each-fade">
                     <HeroCardMobile data={item} />
-                    <div className={styles.overlay} />
                   </div>
                 )
               })}
@@ -184,28 +157,6 @@ const MainSection = () => {
             </div>
             <div className={styles.heroBorder} />
           </div>
-          {/* <div className="w-full relative" id="heroSwiper">
-              <Swiper
-                // navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                // slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
-                // spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
-                navigation={true}
-                slidesPerView={1}
-                centeredSlides={true}
-                loop
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination, Navigation]}
-                className={`heroNavigationSwiper opacity-${heroCardOpacity}`}
-              >
-                {heroList.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <HeroCard data={item} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div> */}
           {heroCardOpacity === 0 && (
             <div className="absolute inset-0 flex justify-center items-center">
               <div className={styles.loadingText}>
@@ -216,38 +167,6 @@ const MainSection = () => {
             </div>
           )}
         </div>
-
-        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
-            <div className="w-full flex justify-center gap-8">
-              <GradientButton
-                width={88}
-                fontSize={16}
-                fontFamily="Muli-SemiBold"
-                label="Explore"
-                onClick={() => router.push('/explore')}
-              />
-              <OutlineButton
-                label="Create"
-                borderWidth={2}
-                width={88}
-                fontSize={16}
-                fontFamily="Muli-SemiBold"
-                borderColor={'var(--see-more-border)'}
-                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
-              />
-            </div>
-          </div>
-        ) : (
-          <></>
-        )} */}
-
-        {/* <div className={styles.leftEllipse}>
-          <EllipseBlue />
-        </div>
-        <div className={styles.rightEllipse}>
-          <EllipseGreen />
-        </div> */}
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
