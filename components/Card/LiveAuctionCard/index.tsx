@@ -155,7 +155,7 @@ const LiveAuctionCard = props => {
               <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
                 <a>
                   <div
-                    className="w-full"
+                    className="w-full h-full"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
