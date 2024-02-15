@@ -7,11 +7,12 @@ import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
 import { useViewport } from 'utils'
 import uploadFileToS3 from 'apis/aws'
-import { dataURLtoFile } from 'utils/helpers'
+import { CDN_PREFIX, dataURLtoFile } from 'utils/helpers'
 import { useRouter } from 'next/router'
 
 const ApparelSection = props => {
   const { canvasId, nftName, apparel, nftCoverUrl, finishEditing, saveImage } = props
+  const coverUrl = nftCoverUrl.replace(CDN_PREFIX, '')
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const [isDrawing, setIsDrawing] = useState(false)
@@ -106,7 +107,7 @@ const ApparelSection = props => {
       newCanvas.item(0).selectable = false
       setTimeout(() => {
         new fabric.Image.fromURL(
-          nftCoverUrl,
+          coverUrl,
           img => {
             const { width, height } = img.getOriginalSize()
             if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {

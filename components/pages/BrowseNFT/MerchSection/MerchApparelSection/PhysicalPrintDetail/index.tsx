@@ -51,9 +51,8 @@ const PhysicalPrintDetail = props => {
   })
   const [color, setColor] = useState({
     id: 0,
-    name: '#FFFFFF',
+    name: '#E2E3E8',
     type: 'white',
-    asset_url: '/images/apparel-color-white.png',
   })
   const dispatch = useDispatch()
   const router = useRouter()

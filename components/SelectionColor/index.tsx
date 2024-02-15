@@ -22,7 +22,8 @@ const SelectionColor = props => {
             className={`${item.type === selected ? styles.selected : styles.normal}`}
             onClick={() => onSelect(item)}
           >
-            <img src={item.asset_url} className="w-full h-full" />
+            {/* <img src={item.asset_url} className="w-full h-full" /> */}
+            <div style={{ background: item.name, width: '100%', height: '100%', borderRadius: '33px' }} />
           </div>
         ))}
       </div>
