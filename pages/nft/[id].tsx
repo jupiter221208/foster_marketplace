@@ -6,9 +6,13 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { toNftOriginalEdition } from '@metaplex-foundation/js'
-import type { NftOriginalEdition } from '@metaplex-foundation/js'
-import { Metaplex, toOriginalEditionAccount, toOriginalOrPrintEditionAccount } from '@metaplex-foundation/js'
+import type { NftOriginalEdition, NftPrintEdition } from '@metaplex-foundation/js'
+import {
+  Metaplex,
+  toOriginalEditionAccount,
+  toOriginalOrPrintEditionAccount,
+  toNftOriginalEdition,
+} from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -389,37 +393,29 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
 
     let editionDetail: EditionDetail | undefined = undefined
     try {
-      let originalEdition: NftOriginalEdition | null
-      let print = null
-      if (nftDetail.edition.isOriginal == false) {
-        originalEdition = await metaplex
-          .rpc()
-          .getAccount(nftDetail.edition.parent)
-          .then(toOriginalEditionAccount)
-          .then(toNftOriginalEdition)
-        print = {
-          number: nftDetail.edition.number.toNumber(),
-        }
-      } else originalEdition = nftDetail.edition
-
-      const { data: editionData } = await metaplex
+      const { data: nftEdition } = await metaplex
         .rpc()
         .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
         .then(toOriginalOrPrintEditionAccount)
 
-      if ('parent' in editionData) {
-        let {
-          data: { maxSupply, supply },
-        } = await metaplex.rpc().getAccount(editionData.parent).then(toOriginalEditionAccount)
-        editionDetail = {
-          print: { number: Number(editionData.edition) },
-          supply: Number(supply),
-          maxSupply: maxSupply && Number(maxSupply),
-          isOriginal: originalEdition.isOriginal,
-          isSingleNft: maxSupply === 0,
-          isOpenEdition: maxSupply === null,
-          isLimitedEdition: Number(maxSupply) > 0,
-        }
+      let originalEdition: NftOriginalEdition
+      let print: NftPrintEdition | null = null
+      if ('parent' in nftEdition) {
+        print = nftEdition
+        ;({ data: originalEdition } = await metaplex
+          .rpc()
+          .getAccount(editionData.parent)
+          .then(toOriginalEditionAccount))
+      } else originalEdition = nftEdition
+
+      editionDetail = {
+        print: print?.edition && { number: Number(print.edition) },
+        supply: Number(originalEdition.supply),
+        maxSupply: originalEdition.maxSupply && Number(originalEdition.maxSupply),
+        isOriginal: originalEdition.isOriginal,
+        isSingleNft: originalEdition.maxSupply === 0,
+        isOpenEdition: originalEdition.maxSupply === null,
+        isLimitedEdition: Number(originalEdition.maxSupply) > 0,
       }
     } catch (error) {
       console.error(error)
