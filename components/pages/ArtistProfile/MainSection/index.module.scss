@@ -7,9 +7,7 @@
   width: 100%;
   justify-content: center;
   margin-top: 16px;
-  margin-bottom: 28px;
   @media (min-width: 1024px) {
-    margin-bottom: 35px;
     margin-top: 0px;
   }
 }
@@ -102,7 +100,7 @@
   width: calc(100% + 32px);
   margin-left: -16px;
   margin-right: -16px;
-  margin-top: -96px;
+  margin-top: -16px;
   @media (min-width: 1024px) {
     width: 100%;
     margin: 0px;
@@ -280,4 +278,79 @@
     height: 46px;
     border-radius: 23px;
   }
+}
+
+.skeletonLoader:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.bannerBoard {
+  position: absolute;
+  bottom: 17px;
+  right: 140px;
+  background: rgba(var(--social-share-bg-rgb), 0.4);
+  border-radius: 30px;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  width: calc(100% - 56px);
+  height: 150px;
+  left: 28px;
+  right: 28px;
+  top: 16px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  @media (min-width: 1024px) {
+    width: 480px;
+    height: 136px;
+    padding: 16px 21px;
+    bottom: 17px;
+    left: auto;
+    top: auto;
+    right: 140px;
+  }
+  z-index: 10001;
+}
+
+.boardTitle {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.boardText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  margin-top: 4px;
 }

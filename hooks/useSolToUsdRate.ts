@@ -23,9 +23,11 @@ export function useSolToUsdRate() {
     setLocalSolToUsdRate(rate)
     return rate
   }
-  if (solToUsdRate === 0) refreshValue()
 
   useEffect(() => {
+    // trigger the first refresh only on the client
+    if (solToUsdRate === 0) refreshValue()
+
     // refresh rate every 10 minutes
     if (useCount <= 0) {
       refreshIntervalId = setInterval(refreshValue, 10 * 60 * 1000)
@@ -41,8 +43,13 @@ export function useSolToUsdRate() {
     }
   }, [])
 
+  function solToUsdWithSlippage(slippage = 0.02) {
+    return localSolToUsdRate * (1 - slippage)
+  }
+
   return {
     solToUsdRate: localSolToUsdRate,
     refreshValue,
+    solToUsdWithSlippage,
   }
 }

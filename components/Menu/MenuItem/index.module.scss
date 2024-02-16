@@ -1,11 +1,11 @@
 @import 'assets/scss/variable.module.scss';
 
 .menuItem {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
@@ -14,10 +14,24 @@
   align-items: center;
   white-space: nowrap;
   border: 1px solid transparent;
+
   &:hover {
-    @media (min-width: 1024px) {
-      background-color: var(--profile-menu-item-bg);
-      // border: 1px solid var(--dropdown-menu-hover-border);
-    }
+    color: var(--main-icon-color);
+  }
+  &:hover .iconStroke {
+    stroke: var(--main-icon-color);
+  }
+  &:hover .iconFill {
+    fill: var(--main-icon-color);
+  }
+  .iconStroke {
+    overflow: visible;
+    stroke: var(--main-bg-color);
+  }
+  .iconFill {
+    margin-top: 5px;
+    transform: scale(1);
+    overflow: visible;
+    fill: var(--main-bg-color);
   }
 }

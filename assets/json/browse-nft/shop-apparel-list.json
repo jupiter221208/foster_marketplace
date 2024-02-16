@@ -2,78 +2,85 @@
   {
     "id": 0,
     "name": "Hoodie",
-    "start_price": "26.85",
+    "start_price": "34.00",
     "asset_url": "/images/shop-apparel-hoodie.png",
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
     "base": "Hoodie",
-    "top": 10
+    "top": 10,
+    "description": "Beat the cold with this premium pullover hoodie. Made with 80% Cotton and 20% Polyester, this pullover is double stitched for durability. Pick one in your favorite color to match your style."
   },
   {
     "id": 1,
     "name": "Short Sleeve",
-    "start_price": "18.95",
+    "start_price": "24.00",
     "asset_url": "/images/shop-apparel-shortsleeve.png",
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
     "base": "T-Shirt",
-    "top": 25
+    "top": 25,
+    "description": "This classic unisex short sleeve tee has ribbed knit collars to bolster shaping, soft cotton and quality print. Pick one in your favorite color to match your style."
   },
   {
     "id": 2,
     "name": "Sweatshirt",
-    "start_price": "23.25",
+    "start_price": "32.00",
     "asset_url": "/images/shop-apparel-sweatshirt.png",
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
     "base": "Sweatshirt",
-    "top": 10
+    "top": 10,
+    "description": "Made with 85% organic ring-spun cotton and 15% recycled polyester, this unisex sweatshirt provides a cozy feeling that’s great for daily wear. Pick one in your favorite color to match your style."
   },
   {
     "id": 3,
     "name": "Long Sleeve",
-    "start_price": "23.30",
+    "start_price": "25.30",
     "asset_url": "/images/shop-apparel-longsleeve.png",
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
     "base": "Long Sleeve",
-    "top": 10
+    "top": 10,
+    "description": "This premium long sleeve is made with 100% airlume combed and ring-spun cotton. The shoulders have taping for better fit and dual side seams to hold the garment’s shape overtime."
   },
   {
     "id": 4,
     "name": "Women's Short Sleeve",
-    "start_price": "19.79",
+    "start_price": "23.00",
     "asset_url": "/images/shop-apparel-women-shortsleeve.png",
     "category": "apparel",
     "type": "",
     "sub_type": "women",
     "base": "T-Shirt",
-    "top": 25
+    "top": 25,
+    "description": "Made with 100% combed and ring-spun cotton in a feminine fit that is as stylish as it is comfy. The ribbed knitting makes the collar highly elastic while the twill tape on the shoulder seams stabilizes the back of the shirt and prevents stretching."
   },
   {
     "id": 5,
     "name": "Youth Short Sleeve",
-    "start_price": "27.20",
+    "start_price": "24.00",
     "asset_url": "/images/shop-apparel-youth-shortsleeve.png",
     "category": "apparel",
     "type": "",
     "sub_type": "youth",
     "base": "T-Shirt",
-    "top": 25
+    "top": 25,
+    "description": "This youth short sleeved tee maximizes comfort all day long. The ring-spun cotton makes it perfect for displaying custom artwork. Pick one in your kids favorite color to match his or her style."
   },
   {
     "id": 6,
     "name": "Youth Hoodie",
-    "start_price": "27.30",
+    "start_price": "31.00",
     "asset_url": "/images/shop-apparel-youth-hoodie.png",
     "category": "apparel",
     "type": "",
     "sub_type": "youth",
     "base": "Hoodie",
-    "top": 10
+    "top": 10,
+    "description": "Kids will love this custom youth hoodie. Made with three-panel fleece lining, this pullover is double stitched for durability. Pick one in your kids favorite color to match his or her style."
   }
 ]

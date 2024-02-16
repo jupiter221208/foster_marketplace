@@ -8,7 +8,6 @@ import Head from 'next/head'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -16,6 +15,7 @@ import styles from './index.module.scss'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'
+
 // redux
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -23,12 +23,15 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
+import { getCollectionFromDAS, getEACollectionInfo, getNftData } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import { useViewport } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
+import { parseCookies } from 'utils'
 import TabSection from './TabSection'
+import EASection from './EASection'
+import { NftData } from 'types/nft'
+import { determineCategory } from 'utils/nfts.utils'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -38,18 +41,18 @@ type BrowseCollectionProps = {
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
-  useAuthentication()
-  const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
-  const [collectionData, setCollectionData] = useState(publicCollectionData)
-  const [nfts, setNfts] = useState([])
+  const [collectionData, setCollectionData] = useState()
+  const [nfts, setNfts] = useState<NftData[]>([])
   const [loaded, setLoaded] = useState(false)
-  const address = collectionData?.collection_id
-  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
-  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
+  const address = publicCollectionData?.collection_id
+
+  const [hasloading, setHasLoading] = useState(false)
+  const [showEAPreview, setShowEAPreview] = useState(false)
+  const [importMintList, setImportMintList] = useState<string[]>([])
 
   useEffect(() => {
     setTimeout(
@@ -60,21 +63,60 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
     ;(async () => {
+      setCollectionData(publicCollectionData)
+      dispatch({ type: 'set', isLoading: false })
+
       if (!address) return
       try {
         setLoaded(false)
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) setNfts(collectionNfts)
+        setHasLoading(true)
 
-        // if (isLoggedIn()) {
-        //   let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
-        //   setOtherList(otherCollections)
-        // }
+        const result = await getCollectionFromDAS(address)
+
+        if (result) {
+          let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+          let sortedCollectionNfts = result
+            .map(r => {
+              return collectionNfts.find(nft => nft.token_id === r.id)
+            })
+            .filter(nft => nft !== undefined)
+
+          if (sortedCollectionNfts && result) {
+            let newNftsArr: NftData[] = [...result]
+
+            newNftsArr.map((data, index) => {
+              newNftsArr[index].category = determineCategory(data.content.files)
+            })
+
+            sortedCollectionNfts.map((data, index) => {
+              newNftsArr[index].mintAddress = data.token_id
+              newNftsArr[index].creators[0].artist_username = data.artist_username
+              newNftsArr[index].auction = {
+                current_bid: data.current_bid,
+                start_time: data.start_time,
+                end_time: data.end_time,
+                list_price: data.list_price,
+              }
+            })
+            var filteredNfts = newNftsArr.filter(
+              (arr, index, self) =>
+                index ===
+                self.findIndex(
+                  t =>
+                    t.content.json_uri === arr.content.json_uri && t.content.metadata.name === arr.content.metadata.name
+                )
+            )
+            setNfts(filteredNfts)
+            fetchNftData(filteredNfts)
+          }
+
+          setHasLoading(false)
+        }
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -83,6 +125,47 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     })()
   }, [address, publicCollectionData])
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
+
+  const handleCollectionImport = async ({ eaUrl, mintList }) => {
+    if (eaUrl)
+      try {
+        let { mints } = await getEACollectionInfo(eaUrl)
+        setImportMintList(mints)
+      } catch (e: any) {
+        console.error(`could not fetch EA collection info: ${e?.message}`)
+        // TODO: show error
+        return
+      }
+    else setImportMintList(Array.from(new Set(mintList)))
+
+    setShowEAPreview(true)
+  }
+
+  const successImporting = () => {
+    collectionsAPI.getCollectionNft(address).then(
+      response => {
+        setNfts(response)
+        setShowEAPreview(false)
+      },
+      error => {}
+    )
+  }
+
   useEffect(() => {
     ;(async () => {
       if (!connected || !loginAndRefresh) return
@@ -90,19 +173,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     })()
   }, [connected, loginAndRefresh])
 
-  let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
-  let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
-  let collectionDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
-
-  useEffect(() => {
-    if (activeListingLoaded && liveAuctionLoaded) {
-      setTimeout(() => {
-        dispatch({ type: 'set', isLoading: false })
-      }, 1000)
-    }
-  }, [activeListingLoaded, liveAuctionLoaded])
-
+  let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`
+  let collectionImageUrl = getAbsoluteOgUrl(publicCollectionData?.cover_image ?? DefaultNftBG.src)
+  let collectionDescription = publicCollectionData?.description ?? ''
   return (
     <div className="w-full">
       <Head>
@@ -122,20 +195,34 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
-        <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} loaded={loaded} />
-        <div className="w-full flex justify-center">
-          <div className="g-container">
-            <TabSection
-              nfts={nfts}
-              collectionId={address}
-              collectionName={collectionData?.collection_name}
-              wallet={collectionData?.minter_id}
-              artistName={collectionData?.artist_username}
-              setActiveListingLoaded={setActiveListingLoaded}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
-            />
+        {showEAPreview ? (
+          <EASection
+            mintList={importMintList}
+            setMintList={setImportMintList}
+            onBack={() => setShowEAPreview(false)}
+            onSuccess={() => successImporting()}
+            coverUrl={publicCollectionData?.cover_image}
+          />
+        ) : (
+          <div className="w-full">
+            <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} />
+            <div className="w-full flex justify-center">
+              <div className="g-container">
+                <TabSection
+                  nfts={nfts}
+                  collectionId={address}
+                  minter={publicCollectionData?.minter_id}
+                  collectionName={publicCollectionData?.collection_name}
+                  coverUrl={publicCollectionData?.cover_image}
+                  artistName={publicCollectionData?.artist_username}
+                  description={publicCollectionData?.description}
+                  categories={publicCollectionData?.categories}
+                  handleCollectionImport={handleCollectionImport}
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>
@@ -151,16 +238,17 @@ BrowseCollection.getLayout = function getLayout(page) {
 BrowseCollection.getInitialProps = async function ({ req, query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
 
-  let cookies = req ? req.headers.cookie || '' : document.cookie
-  let token = cookies ? cookies.split('token=')[1] : ''
+  let documentCookie = typeof document == 'undefined' ? undefined : document.cookie
+  let cookies = parseCookies(req?.headers.cookie ?? documentCookie ?? '')
+  let token = cookies.token
 
   let publicCollectionData
   try {
-    if (token && token.length > 0) {
+    if (token) {
       publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}`, {
         headers: {
           accept: 'application/json',
-          Authorization: `Bearer ${token}`,
+          authorization: `Bearer ${token}`,
         },
       })
         .then(r => r.json())
@@ -196,6 +284,12 @@ BrowseCollection.getInitialProps = async function ({ req, query }): Promise<Brow
         created_at: '',
       }
     }
+
+    // Get collection metadata
+    const { content } = await getNftData(collectionId)
+    publicCollectionData.collection_name = content.metadata.name
+    publicCollectionData.description = content.metadata.description
+    publicCollectionData.cover_image = content.links.image
 
     return {
       publicCollectionData,

@@ -8,7 +8,6 @@ import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
 import ListedNFTSection from 'components/pages/Dashboard/ListedNFTSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
-import CollectedSection from 'components/pages/Dashboard/CollectedSection'
 import MyCollectionSection from 'components/pages/Dashboard/MyCollectionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
@@ -19,7 +18,6 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
-import DetailCollectedSection from '../DetailCollectedSection'
 
 const TabSection = () => {
   const router = useRouter()
@@ -78,32 +76,6 @@ const TabSection = () => {
           <ActivitySection />
         </div>
       )}
-      {/* {activeTab === 3 && (
-        <div className="w-full flex flex-wrap">
-          {detailCollection ? (
-            <div className="w-full z-10">
-              <div className="w-full flex justify-end">
-                <div
-                  className={styles.return}
-                  onClick={() => {
-                    setDetailCollection(false)
-                  }}
-                >
-                  Return
-                </div>
-              </div>
-              <DetailCollectedSection collectionId={collectionId}></DetailCollectedSection>
-            </div>
-          ) : (
-            <CollectedSection
-              onClickItem={collectionId => {
-                setCollectionId(collectionId)
-                setDetailCollection(true)
-              }}
-            />
-          )}
-        </div>
-      )} */}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
           <CollectedSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />

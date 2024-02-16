@@ -4,10 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
-// third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -23,6 +20,7 @@ import styles from './index.module.scss'
 // api
 import dashboardAPI from 'apis/dashboard'
 import NFTCard from 'components/Card/NFTCard'
+import { DashboardAPIData } from 'types/nft'
 
 const ActiveListingSection = props => {
   const { artist = '', fromPage = '', loadCompleted = null } = props
@@ -31,30 +29,82 @@ const ActiveListingSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [exploreList, setExploreList] = useState([])
+  const [exploreList, setExploreList] = useState<DashboardAPIData[]>([])
+  const [page, setPage] = useState(1)
+
+  const [isMounted, setIsMounted] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [rowCount, setRowCount] = useState(8)
 
   useEffect(() => {
-    if (artist.length === 0) return
-
-    dashboardAPI.getMarketplaceReleases('', artist).then(response => {
+    dashboardAPI.getMarketplaceReleases('', artist, page, 8).then(response => {
       if (loadCompleted) loadCompleted()
+      setIsMounted(true)
+      setIsFetching(false)
 
-      if (response !== null && response !== undefined && response.length !== 0) {
-        let lists = []
-        response.forEach(item => {
-          if (item.asset_url.length > 0) lists.push(item)
-        })
-        setExploreList(lists)
-      } else {
-        setExploreList([])
-      }
-    }),
-      error => {
-        if (loadCompleted) loadCompleted()
+      if (response.length === rowCount) {
+        setIsFetching(true)
+        setIsVisibleFetching(true)
+      } else setIsVisibleFetching(false)
+      setExploreList([...exploreList, ...response])
+    })
+    error => {
+      if (loadCompleted) loadCompleted()
+      setIsMounted(true)
+      setIsFetching(false)
+      setIsVisibleFetching(false)
 
-        console.log(error)
-      }
+      console.log(error)
+    }
   }, [artist])
+
+  const getExploreList = nextpage => {
+    dashboardAPI.getMarketplaceReleases('', artist, nextpage, 8).then(response => {
+      if (loadCompleted) loadCompleted()
+      setIsMounted(true)
+      setIsFetching(false)
+
+      if (response.length === rowCount) setIsVisibleFetching(true)
+      else setIsVisibleFetching(false)
+      setExploreList([...exploreList, ...response])
+
+      fetchNftData(response)
+    })
+    error => {
+      if (loadCompleted) loadCompleted()
+      setIsMounted(true)
+      setIsFetching(false)
+      setIsVisibleFetching(false)
+      console.log(error)
+    }
+  }
+
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
+
+  useEffect(() => {
+    if (isFetching) {
+      setTimeout(() => {
+        const nextpage = page + 1
+        setPage(nextpage)
+        getExploreList(nextpage)
+      }, 2000)
+    }
+  }, [isFetching])
 
   return (
     exploreList.length !== 0 && (
@@ -69,73 +119,35 @@ const ActiveListingSection = props => {
             className={`${
               fromPage === 'profile' ? 'justify-start' : 'justify-center'
             } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
-          >
-            <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-              Active Listings
-            </div>
-          </div>
+          ></div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          {exploreList.length > 4 ? (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="listingNavigationSwiper"
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-            >
-              {exploreList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                    <NFTCard
-                      token_id={item.token_id}
-                      image={item.asset_url}
-                      nftName={item.nft_name}
-                      assetType={item.asset_type}
-                      coverImage={item.cover_image_url}
-                      artistName={item.artist_username}
-                      collectionName={item.collection_name}
-                      price={item.list_price}
-                      onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
-                        router.push(`/nft/${item.token_id}`)
-                      }}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
-              {exploreList.map((item, index) => (
-                <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
-                  <NFTCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+            {exploreList.map((item, index) => (
+              <div key={index}>
+                <NFTCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  artistName={item.artist_username}
+                  collectionName={item.collection_name}
+                  price={item.list_price}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/nft/${item.token_id}`)
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
+        {isMounted && isVisibleFetching && (
+          <div className="w-full mt-[20px]">
+            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          </div>
+        )}
       </section>
     )
   )

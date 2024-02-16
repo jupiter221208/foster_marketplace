@@ -28,9 +28,9 @@ const CreatorSearchSection = props => {
               label="Completed"
               onClick={() => handleChangeActive(0)}
               fontFamily={'Muli-SemiBold'}
-              color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
-              backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+              color={active === 0 ? '#1A1A1A' : '#979EA2'}
+              backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
+              backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
               gradientDirection="bottom"
               width={100}
               boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -39,9 +39,9 @@ const CreatorSearchSection = props => {
               label="Pending"
               onClick={() => handleChangeActive(1)}
               fontFamily={'Muli-SemiBold'}
-              color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
-              backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+              color={active === 1 ? '#1A1A1A' : '#979EA2'}
+              backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
+              backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
               gradientDirection="bottom"
               width={100}
               boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -50,9 +50,9 @@ const CreatorSearchSection = props => {
               label="All"
               onClick={() => handleChangeActive(2)}
               fontFamily={'Muli-SemiBold'}
-              color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
-              backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+              color={active === 2 ? '#1A1A1A' : '#979EA2'}
+              backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
+              backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
               gradientDirection="bottom"
               width={80}
               boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}

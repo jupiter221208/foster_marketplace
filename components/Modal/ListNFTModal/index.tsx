@@ -45,20 +45,35 @@ const ListNFTModal = props => {
 
     await refreshToken()
 
-    const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
+    const result = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
+    let listingResponse = null
     if (result) {
-      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
-        onClose('listed', price)
-        setShowLoading(false)
-      }),
-        error => {
-          console.log(error)
+      // retry upto 3 times
+      for (let i = 0; i < 3 && listingResponse == null; i++)
+        try {
+          await mx.rpc().confirmTransaction(
+            result.signature,
+            {
+              blockhash: result.blockhash,
+              lastValidBlockHeight: result.lastValidBlockHeight,
+            },
+            'processed'
+          )
+          listingResponse = await listingsAPI.listNft(data.mintAddress.toString(), { amount: price })
+        } catch (e) {
+          console.error(`failed to post listing: attempt ${i + 1} of 3: ${(e as Error)?.message}`)
+          console.error(e)
         }
+
+      onClose('listed', price)
       dispatch({ type: 'set', isGetListedNFTs: false })
-      // setListStatus(true)
-    } else {
-      setShowLoading(false)
     }
+
+    if (!result || !listingResponse) {
+      // TODO: show error to user
+    }
+
+    setShowLoading(false)
   }
 
   return (

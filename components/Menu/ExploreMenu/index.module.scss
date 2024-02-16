@@ -12,12 +12,14 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   opacity: 0.8;
+  &:hover {
+    color: #95dbd5;
+  }
 }
 
 .menuArea {
   position: fixed;
   top: 105px;
-  right: 15vw;
   width: 800px;
   height: 360px;
   padding: 8px;
@@ -44,8 +46,9 @@
 }
 
 .text {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-family: 'Muli-Regular' !important;
+  font-size: 16px !important;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   &:hover {
     opacity: 0.7;
   }

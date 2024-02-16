@@ -290,7 +290,7 @@ const DaoLandingPage = props => {
           <div className={styles.landingTitle}>
             CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus
             DAO members can vote on proposals.
-            <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>10 Turkeys</span>
+            <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>1 Turkey</span>
             &nbsp;is required to submit proposals.
           </div>
           <div className={styles.treasuryContainer}>

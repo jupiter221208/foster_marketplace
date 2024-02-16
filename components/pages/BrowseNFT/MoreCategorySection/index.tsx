@@ -40,18 +40,37 @@ const MoreCategorySection = props => {
       dashboardAPI.getTrendingCollections(categories[0], 'week').then(
         response => {
           if (response instanceof Array) setCollectionList(response)
+          fetchCollectionListData(response)
         },
         error => {}
       )
     }
   }, [categories])
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchCollectionListData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/collection/${data.collection_id}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
+
   return (
     collectionList.length > 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Category</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              {categories.length > 0 && `More from ${categories[0]}`}
+            </div>
           </div>
           <div className="hidden lg:flex">
             <SeeMoreButton
@@ -72,7 +91,7 @@ const MoreCategorySection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
+            className={collectionList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
@@ -87,10 +106,7 @@ const MoreCategorySection = props => {
                     category={categories}
                     artistName={item.artist_username}
                     mintAddress={item.collection_id}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/collection/${item.collection_id}`)
-                    }}
+                    link={`/collection/${item.collection_id}`}
                   />
                 </div>
               </SwiperSlide>

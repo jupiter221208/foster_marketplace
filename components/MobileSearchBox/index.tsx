@@ -72,7 +72,7 @@ const MobileSearchBox = () => {
     <div className={styles.menu}>
       <SearchBox
         value={searchKeyword}
-        placeholder="Search Marketplace"
+        placeholder="Search"
         onChange={value => setSearchKeyword(value)}
         searchList={searchData}
         onClick={() => handleClear()}

@@ -7,7 +7,7 @@ import TableSections from './TableSection'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -23,6 +23,8 @@ import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
+SwiperCore.use([Navigation])
 
 const CreatorsSection = props => {
   const { creators } = props
@@ -59,7 +61,6 @@ const CreatorsSection = props => {
         setList(creators)
         setTotalCount(12)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [creators])
@@ -73,6 +74,7 @@ const CreatorsSection = props => {
   useEffect(() => {
     if (!isMounted) return
     setSearchLoading(true)
+    setIsVisibleFetching(false)
     getCreatorData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
@@ -117,47 +119,54 @@ const CreatorsSection = props => {
         </div>
       )}
 
-      {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 2
-                : viewport === 'sm'
-                ? 2.5
-                : viewport === 'md'
-                ? 3
-                : viewport === 'lg'
-                ? 3
-                : viewport === 'xl'
-                ? screenWidth >= 1400
-                  ? 4
-                  : 3.7
-                : viewport === '2xl'
-                ? screenWidth >= 1768
-                  ? 5
-                  : 4
-                : 3
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-          >
-            {list.map((item, index) => (
-              <SwiperSlide key={index}>
-                <StatsArtistCard data={item} type="creators" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
+      {!loading &&
+        (list.length === 0 ? (
+          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+        ) : (
+          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
+            <Swiper
+              navigation={true}
+              slidesPerView={
+                viewport === 'xs'
+                  ? 2
+                  : viewport === 'sm'
+                  ? 2.5
+                  : viewport === 'md'
+                  ? 3
+                  : viewport === 'lg'
+                  ? 3
+                  : viewport === 'xl'
+                  ? screenWidth >= 1400
+                    ? 4
+                    : 3.7
+                  : viewport === '2xl'
+                  ? screenWidth >= 1768
+                    ? 5
+                    : 4
+                  : 3
+              }
+              spaceBetween={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32
+              }
+              modules={[Autoplay, Lazy, Navigation]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              className={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                  ? 'noScrollNavigationSwiper'
+                  : 'auctionNavigationSwiper'
+              }
+            >
+              {list.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <StatsArtistCard data={item} type="creators" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ))}
 
       {!loading && (
         <SearchSection
@@ -181,9 +190,11 @@ const CreatorsSection = props => {
         </div>
       )}
 
+      {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
+
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
     </div>

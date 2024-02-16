@@ -6,7 +6,7 @@ import Head from 'next/head'
 // solana
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 
 // components
@@ -25,6 +25,7 @@ import { useRouter } from 'next/router'
 import { isExpiredDate } from 'utils/helpers'
 import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { NftData } from 'types/nft'
 
 const Dao = () => {
   const router = useRouter()
@@ -34,7 +35,8 @@ const Dao = () => {
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+  const [nfts, setNfts] = useState([])
+
   const { id } = router.query
   const paramId = id + ''
   const params = paramId.toString().split('proposal')
@@ -44,7 +46,7 @@ const Dao = () => {
     ;(async () => {
       setIsLoading(true)
       if (connected) {
-        let nfts = await getMyNFTs(metaplex)
+        let nfts: any = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
         setNfts(nfts)
       }
@@ -52,7 +54,7 @@ const Dao = () => {
     })()
   }, [metaplex, connected])
 
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
+  const [turkyNfts, setTurkeyNfts] = useState<NftData[] | null>(null)
   useEffect(() => {
     setTurkeyNfts(
       nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))

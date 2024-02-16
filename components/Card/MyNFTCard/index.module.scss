@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background: var(--collection-card-bg);
+  background: var(--background-main-color);
   border-radius: 17px;
   border: 1px solid var(--nft-border-color);
   padding: 8px;
@@ -12,12 +12,12 @@
   @media (min-width: 1024px) {
     border-radius: 30px;
     padding: 15px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
   }
   @media (min-width: 1536px) {
     padding: 19px;
     border-radius: 30px;
   }
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
   cursor: pointer;
 }
 
@@ -100,6 +100,15 @@
   position: relative;
   padding-top: 100%; /* 345:304 Aspect Ratio */
 }
+.vrArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
 
 .imageContent {
   position: absolute;
@@ -108,4 +117,36 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.skeletonLoaderOuterBox {
+  background: var(--background-main-color);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.skeletonLoader:empty {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }

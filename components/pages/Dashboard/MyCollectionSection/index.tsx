@@ -18,6 +18,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const MyCollectionSection = () => {
   const router = useRouter()
@@ -29,7 +30,7 @@ const MyCollectionSection = () => {
   const [rowCount, setRowCount] = useState(12)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [myCollections, setMyCollections] = useState([])
+  const [myCollections, setMyCollections] = useState<NftData[]>([])
   useEffect(() => {
     const getCollections = async () => {
       const collections = await getMyCollections(mx)
@@ -78,10 +79,10 @@ const MyCollectionSection = () => {
                 nftName={item.json?.name}
                 category={getCategory(item.json?.attributes)}
                 artistAddress={item.creators[0]?.address.toString()}
-                mintAddress={item.mintAddress.toBase58()}
+                mintAddress={item.mintAddress.toString()}
+                link={`/collection/${item.mintAddress.toString()}`}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/collection/${item.mintAddress.toString()}`)
                 }}
               />
             </div>
@@ -96,7 +97,7 @@ const MyCollectionSection = () => {
         <LoadingModal open={!isCollectionLoaded} />
       </div>
       {isCollectionLoaded && collections.length === 0 && (
-        <div className="mt-[35px] lg:mt-[65px]">
+        <div className="mt-[30px] lg:mt-[35px]">
           <NoDataSection
             title="No collections were created"
             description="This tab displays the collections you have created on Foster Marketplace"

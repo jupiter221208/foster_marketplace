@@ -11,6 +11,7 @@ import TrendingIcon from 'assets/icons/stats-trending.svg'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const StatsMarketplaceCard = props => {
   const { data, index } = props
@@ -43,7 +44,7 @@ const StatsMarketplaceCard = props => {
           </div>
         </div>
         <div className="absolute bottom-0">
-          <div className={styles.artistName}>{data.name}</div>
+          <div className={styles.artistName}>{getDisplayUserName(data.name)}</div>
         </div>
       </div>
     </div>

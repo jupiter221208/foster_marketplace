@@ -32,11 +32,16 @@ const initialState = {
   unhideNftToken: '',
   markAsRead: false,
   expiryDate: 0,
-  showConnectAlert: false,
   loginSignedFlag: false,
   printImageUrl: '',
   merchData: null,
-  firstLoaded: false,
+  firstLoaded: true,
+  activeTab: 0,
+  isAddToCart: false,
+  mintCollectionStep: 1,
+  collectionMintAddress: '',
+  collectionMintName: '',
+  collectionCoverUrl: ''
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

@@ -68,7 +68,13 @@ const ShopApparelSection = props => {
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
                   {type === 'apparel' ? (
-                    <ShopCard data={item} nftCoverUrl={nftDetail.json?.image ?? ''} onClick={() => openPage(item)} />
+                    <ShopCard
+                      data={item}
+                      nftCoverUrl={nftDetail.json?.image ?? ''}
+                      onClick={() => {
+                        openPage(item)
+                      }}
+                    />
                   ) : (
                     <WallArtCard data={item} onClick={() => openPage(item)} />
                   )}

@@ -17,6 +17,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
+import { getDisplayUserName } from 'utils/strings'
 
 const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
@@ -61,36 +62,14 @@ const SearchBox = props => {
           </div>
         ) : (
           <div className={styles.iconArea} onClick={() => onClick()}>
-            {value !== '' ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '12' : '16'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '12' : '16'}
-                viewBox="0 0 8.635 8.634"
-              >
-                <path
-                  id="times-7"
-                  d="M11.326,10.312c0-1.542,3.091-3.084,3.091-3.084A.722.722,0,1,0,13.4,6.207L10.312,9.3,7.228,6.207A.722.722,0,1,0,6.207,7.228l2.508,2.5.583.582L6.207,13.4a.722.722,0,1,0,1.021,1.021l3.084-3.091L13.4,14.417A.722.722,0,1,0,14.417,13.4S11.326,11.854,11.326,10.312Z"
-                  transform="translate(-5.994 -5.996)"
-                  fill="var(--text-gray-200-color)"
-                  opacity="0.6"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '12' : '16'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '12' : '16'}
-                viewBox="0 0 22.017 22"
-              >
-                <path
-                  id="search-32"
-                  d="M23.687,22.124,19.6,18.076A9.9,9.9,0,1,0,18.076,19.6l4.049,4.049a1.093,1.093,0,1,0,1.562-1.529ZM11.9,19.6a7.7,7.7,0,1,1,7.7-7.7,7.7,7.7,0,0,1-7.7,7.7Z"
-                  transform="translate(-1.979 -1.979)"
-                  fill="var(--text-gray-200-color)"
-                />
-              </svg>
-            )}
+            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={0.7}>
+              <path
+                id="search-32"
+                d="M23.687,22.124,19.6,18.076A9.9,9.9,0,1,0,18.076,19.6l4.049,4.049a1.093,1.093,0,1,0,1.562-1.529ZM11.9,19.6a7.7,7.7,0,1,1,7.7-7.7,7.7,7.7,0,0,1-7.7,7.7Z"
+                transform="translate(-1.979 -1.979)"
+                fill="var(--text-gray-200-color)"
+              />
+            </svg>
           </div>
         )}
 
@@ -153,13 +132,13 @@ const SearchBox = props => {
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                 </div>
               </div>
             ))}
           </div>
           {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Member</div>}
+          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Profile</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
               <div
@@ -186,7 +165,7 @@ const SearchBox = props => {
                     />
                   )}
                 </div>
-                <div className={styles.text}>{item.name}</div>
+                <div className={styles.text}>{getDisplayUserName(item.name)}</div>
               </div>
             ))}
           </div>
@@ -210,7 +189,7 @@ const SearchBox = props => {
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                 </div>
               </div>
             ))}

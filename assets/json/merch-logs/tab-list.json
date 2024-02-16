@@ -2,5 +2,6 @@
   { "id": 0, "label": "My Studio", "value": "enabled", "disabled": false },
   { "id": 1, "label": "Eligible Artwork", "value": "disabled", "disabled": false },
   { "id": 2, "label": "Purchases", "value": "purchases", "disabled": false },
-  { "id": 3, "label": "Sales", "value": "sales", "disabled": false }
+  { "id": 3, "label": "Sales", "value": "sales", "disabled": false },
+  { "id": 4, "label": "Shopping Cart", "value": "add to cart", "disabled": false }
 ]

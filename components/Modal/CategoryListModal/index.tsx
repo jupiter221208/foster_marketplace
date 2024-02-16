@@ -17,7 +17,7 @@ const CategoryListModal = props => {
       <div className={styles.container}>
         <div className="w-full h-[68px] flex justify-between items-center">
           <div>Categories</div>
-          <IconButtonWithSVG
+          {/* <IconButtonWithSVG
             icon={
               <div className="mr-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17.323" height="17.321" viewBox="0 0 17.323 17.321">
@@ -32,7 +32,7 @@ const CategoryListModal = props => {
             }
             onClick={() => onClick()}
             backgroundColor="transparent"
-          />
+          /> */}
         </div>
         <div className={styles.content}>
           <Checkbox categoryList={categoryList} onChange={index => onChange(index)} direction="rtl" />

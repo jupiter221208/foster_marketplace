@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
+import { useRouter } from 'next/router'
 
 // components
 
@@ -24,40 +26,70 @@ import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
 import OutlineButton from 'components/Button/OutlineButton'
+import SizeChartModal from 'components/Modal/SizeChartModal'
 
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory, base } = props
+  const { onBack, onPrint, onShipping, onAddCart, data, setData, nftName, nftCoverUrl, subCategory, base } = props
   const viewport = useViewport()
+  const { solToUsdRate } = useSolToUsdRate()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState(null)
   const [print, setPrint] = useState({
     id: 0,
-    name: 'Front',
+    name: 'Front Side',
     type: 'front',
   })
   const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({
-    id: 3,
+    id: 2,
     name: 'L',
   })
   const [color, setColor] = useState({
     id: 0,
-    name: '#FFFFFF',
+    name: '#E2E3E8',
     type: 'white',
-    asset_url: '/images/apparel-color-white.png',
   })
+  const dispatch = useDispatch()
+  const router = useRouter()
+  const id = router.query.id
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
+  const [tableModal, setTableModal] = useState(false)
   const [cost, setCost] = useState('----')
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
+  const apparelColor = useSelector<any>(state => state.apparelColor)
+  const shippingDetail = useSelector<any>(state => state.shippingDetail)
+  const printImageUrl = useSelector<any>(state => state.printImageUrl)
+  const isAddToCart = useSelector(state => (state as any).isAddToCart)
+
+  useEffect(() => {
+    const defaulteColor = apparelColor as number
+    if (
+      defaulteColor !== undefined &&
+      defaulteColor !== null &&
+      defaulteColor !== -1 &&
+      defaulteColor < ColorType.length
+    ) {
+      setColor(ColorType[defaulteColor])
+      dispatch({ type: 'set', apparelColor: -1 })
+    }
+  }, [apparelColor])
+
+  useEffect(() => {
+    if (shippingDetail) {
+      onShipping(data)
+      dispatch({ type: 'set', shippingDetail: false })
+    }
+  }, [shippingDetail])
 
   useEffect(() => {
     window.scrollTo({
@@ -89,6 +121,13 @@ const PhysicalPrintDetail = props => {
     if (gender.hasOwnProperty('id')) {
       let genderType = gender.type
       let newApparelType = []
+
+      if (genderType === 'youth') {
+        setSize({
+          id: 2,
+          name: 'YM',
+        })
+      }
       ApparelType.map(item => {
         if (item.hasOwnProperty(genderType)) newApparelType.push(item)
       })
@@ -103,11 +142,11 @@ const PhysicalPrintDetail = props => {
         setData(null)
       } else {
         setQuality({ name: '', type: '' })
-        setPrint({ id: 0, name: 'Front', type: 'front' })
+        setPrint({ id: 0, name: 'Front Side', type: 'front' })
         setCost('----')
         onPrint('')
         setPreviewApparel('')
-        setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
+        // setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
       }
     } else {
       setEnabled(false)
@@ -190,6 +229,50 @@ const PhysicalPrintDetail = props => {
     }
     return ''
   }
+  const getApparelDescription = () => {
+    if (apparel) {
+      let type = gender.type
+      let name = apparel?.name
+      let description = apparel?.description
+      let list = apparelList.filter(item => item.base === name && item.sub_type == type)
+      if (list.length > 0) return list[0].description
+      else return description
+    }
+    return ''
+  }
+  const handleSaveData = () => {
+    let data = { apparel, gender, color, print, quality, size, quantity, cost }
+    onAddCart(data)
+  }
+
+  useEffect(() => {
+    if (printImageUrl && isAddToCart) {
+      let existingData = JSON.parse(localStorage.getItem('data')) || []
+      if (!Array.isArray(existingData)) {
+        existingData = []
+      }
+
+      let data = {
+        previewApparel,
+        apparel,
+        gender,
+        color,
+        print,
+        quality,
+        size,
+        quantity,
+        cost,
+        id,
+        nftCoverUrl,
+        nftName,
+        printImageUrl,
+      }
+      existingData.push(data)
+      localStorage.setItem('data', JSON.stringify(existingData))
+      dispatch({ type: 'set', isAddToCart: false })
+      dispatch({ type: 'set', printImageUrl: null })
+    }
+  }, [printImageUrl, isAddToCart])
 
   return (
     <section className={styles.container}>
@@ -216,9 +299,7 @@ const PhysicalPrintDetail = props => {
           {getApparelName()}&nbsp;<div className={styles.nftName}>({nftName})</div>
         </div>
       </div>
-      <div className={styles.description}>
-        Select the side of apparel you would like to place the print, fabric color, and quality.
-      </div>
+      <div className={styles.description}>{getApparelDescription()}</div>
       {/* <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'GENDER:' : 'Gender:'}
@@ -238,14 +319,19 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[25px]">
         <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
-      <div className="w-full mt-[25px]">
+      {/* <div className="w-full mt-[25px]">
         <Selection label={'Quality:'} data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
-      </div>
+      </div> */}
       <div className="w-full mt-[25px]">
         <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
       </div>
       <div className="w-full mt-[35px] lg:mt-[25px]">
-        <Selection label={'Size:'} data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
+        <Selection
+          label={'Size:'}
+          data={SizeType[`${gender?.type}`] == undefined ? [] : SizeType[`${gender?.type}`]}
+          selected={size?.name}
+          onSelect={item => setSize(item)}
+        />
       </div>
       <div className="w-full mt-[25px] block lg:flex">
         <div className={styles.quantity}>Quantity:</div>
@@ -260,6 +346,19 @@ const PhysicalPrintDetail = props => {
           />
         </div>
       </div>
+      <div className="w-full mt-[25px] block flex flex-row items-center gap-2">
+        <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+          Size Chart
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+          <path
+            id="angle-down-9"
+            d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+            transform="translate(-6.754 -8.879)"
+            fill="var(--chevron-up-icon-color)"
+          />
+        </svg>
+      </div>
       <div className="w-full mt-[30px] lg:mt-[160px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
         <div className="flex ml-[10px] lg:ml-[20px] items-center">
@@ -267,15 +366,17 @@ const PhysicalPrintDetail = props => {
           <div className={styles.separator}></div>
           <div className="flex gap-[10px] items-center">
             <SolanaLogoIcon alt="" />
-            <div className={styles.price}>{cost === '----' ? '----' : (parseFloat(cost) / 14.7).toFixed(2)}</div>
+            <div className={styles.price}>
+              {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
+            </div>
           </div>
         </div>
       </div>
 
       <div className="w-full mt-[30px] flex gap-[30px]">
         <OutlineButton
-          label="Back"
-          onClick={onBack}
+          label="Add to Cart"
+          onClick={() => handleSaveData()}
           fullWidth
           fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
@@ -285,7 +386,7 @@ const PhysicalPrintDetail = props => {
 
         <GradientButton
           disabled={!enabled}
-          label="Next"
+          label="Buy Now"
           fontFamily="Muli-SemiBold"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
@@ -297,6 +398,7 @@ const PhysicalPrintDetail = props => {
           }}
         />
       </div>
+      <SizeChartModal open={tableModal} title={getApparelName()} onClose={() => setTableModal(false)} />
     </section>
   )
 }

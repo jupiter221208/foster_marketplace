@@ -9,6 +9,7 @@ import MerchStepper from 'components/MerchStepper'
 
 import styles from './index.module.scss'
 import PhysicalShippingMethod from '../PhysicalShippingMethod'
+import { useViewport } from 'utils'
 
 const MerchApparelSection = props => {
   const {
@@ -33,6 +34,8 @@ const MerchApparelSection = props => {
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [totalCost, setTotalCost] = useState(null)
+  const viewport = useViewport()
+
   return (
     <section className={styles.container}>
       <div className="w-full mb-[45px] lg:flex hidden">
@@ -51,10 +54,22 @@ const MerchApparelSection = props => {
           }}
           onShipping={item => {
             setPrintData(item)
-            setOpenPrintDetail(false)
-            setOpenShippingDetail(true)
-            setFinishEditing(true)
+            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+              setTimeout(() => {
+                setOpenPrintDetail(false)
+                setOpenShippingDetail(true)
+              }, 2000)
+            } else {
+              setOpenPrintDetail(false)
+              setOpenShippingDetail(true)
+              setFinishEditing(true)
+            }
             setCurrentStep(2)
+          }}
+          onAddCart={item => {
+            setPrintData(item)
+            dispatch({ type: 'set', isAddToCart: true })
+            setFinishEditing(true)
           }}
           data={printData}
           subCategory={subCategory}

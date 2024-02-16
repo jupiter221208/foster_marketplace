@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -26,6 +25,8 @@ import Radio from 'components/Radio'
 import Input from 'components/Input'
 import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
+
+type File = { type: string; path: string }
 
 const Step01SingleNFTSection = props => {
   const { nftType, setNftArt, setNftCover, type, setEditionType, setMaxSupply } = props
@@ -80,11 +81,35 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>Art *</div>
+          <div className={`${styles.subTitle} mt-10`}>
+            Art <span>*</span>
+          </div>
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
-                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
+                let newFile = undefined
+                if (acceptedFiles[0].type === '' && /\.glb$/.test((acceptedFiles[0] as unknown as File).path)) {
+                  // Assuming 'oldFile' is the existing File object
+                  const oldFile = acceptedFiles[0]
+
+                  // Read the old file as ArrayBuffer
+                  const reader = new FileReader()
+                  reader.onload = function (event) {
+                    // Create a new File object with the old file's data but a new MIME type
+                    const file = new File([event.target.result], oldFile.name, { type: 'model/gltf-binary' })
+                    newFile = [file]
+                    // Now 'newFile' is a File object with the same data as 'oldFile' but a MIME type of 'model/gltf-binary'
+
+                    // Use newFile here
+                    acceptedFiles.length !== 0
+                      ? setNftArt(newFile ? newFile : acceptedFiles)
+                      : handleShowAlert('nft', 'unknown')
+                  }
+                  reader.readAsArrayBuffer(oldFile)
+                } else {
+                  // Handle the case where the file type is not '' and does not end with .glb
+                  acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
+                }
               }}
               onDropRejected={rejectedFiles => {
                 handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
@@ -96,6 +121,7 @@ const Step01SingleNFTSection = props => {
                 'video/mp4': [],
                 'audio/mpeg': [],
                 'audio/wav': [],
+                'model/gltf-binary': ['.glb'],
               }}
               maxFiles={1}
               maxSize={31457280}
@@ -104,15 +130,15 @@ const Step01SingleNFTSection = props => {
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
-                    <p className={styles.subTitle}>Upload Here</p>
-                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif</p>
+                    <p className={styles.uploadText}>Upload Here</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
                 </section>
               )}
             </Dropzone>
           </div>
-          <div className="mt-[20px] h-[54px] flex items-center">
+          {/* <div className="mt-[20px] h-[54px] flex items-center">
             <div
               className="h-[54px] flex justify-center items-center cursor-pointer"
               onMouseEnter={() => setInfoFocus(true)}
@@ -123,7 +149,7 @@ const Step01SingleNFTSection = props => {
             {infoFocus && (
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
-          </div>
+            </div>*/}
           {type !== 0 && (
             <>
               <div className={styles.editionTitle}>Edition type *</div>
@@ -167,25 +193,49 @@ const Step01SingleNFTSection = props => {
           )}
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
+              <div className={`${styles.subTitle} mt-20`}>
+                Audio Cover <span>*</span>
+              </div>
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
-                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
+                    let newFile = undefined
+                    if (acceptedFiles[0].type === '' && /\.glb$/.test((acceptedFiles[0] as unknown as File).path)) {
+                      // Assuming 'oldFile' is the existing File object
+                      const oldFile = acceptedFiles[0]
+
+                      // Read the old file as ArrayBuffer
+                      const reader = new FileReader()
+                      reader.onload = function (event) {
+                        // Create a new File object with the old file's data but a new MIME type
+                        const file = new File([event.target.result], oldFile.name, { type: 'model/gltf-binary' })
+                        newFile = [file]
+                        // Now 'newFile' is a File object with the same data as 'oldFile' but a MIME type of 'model/gltf-binary'
+
+                        // Use newFile here
+                        acceptedFiles.length !== 0
+                          ? setNftArt(newFile ? newFile : acceptedFiles)
+                          : handleShowAlert('audio', 'unknown')
+                      }
+                      reader.readAsArrayBuffer(oldFile)
+                    } else {
+                      // Handle the case where the file type is not '' and does not end with .glb
+                      acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
+                    }
                   }}
                   onDropRejected={rejectedFiles => {
                     handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
-                        <p className={styles.subTitle}>Upload Here</p>
-                        <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
+                        <p className={styles.uploadText}>Upload Here</p>
+                        <p className={styles.text}>Supported File Formats .png .jpeg</p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>
                     </section>
@@ -197,7 +247,11 @@ const Step01SingleNFTSection = props => {
         </div>
       ) : (
         <div className="w-full">
-          {nftType === 'audio' && <div className={`${styles.subTitle} mt-20`}>Art *</div>}
+          {nftType === 'audio' && (
+            <div className={`${styles.subTitle} mt-5`}>
+              Art <span>*</span>
+            </div>
+          )}
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
@@ -213,6 +267,7 @@ const Step01SingleNFTSection = props => {
                 'video/mp4': [],
                 'audio/mpeg': [],
                 'audio/wav': [],
+                'model/gltf-binary': ['.glb'],
               }}
               maxFiles={1}
               maxSize={31457280}
@@ -222,18 +277,18 @@ const Step01SingleNFTSection = props => {
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <UploadGreenIcon alt="" />
-                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>
                       Supported File Formats
                       <br />
-                      .png .jpeg .mp4 and .gif
+                      .png .jpeg .mp4 .gif .glb
                     </p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
                 </section>
               )}
             </Dropzone>
-            <div className="mt-[12px] h-[30px] flex items-center">
+            {/* <div className="mt-[12px] h-[30px] flex items-center">
               <div
                 className="w-[25px] flex justify-center items-center cursor-pointer"
                 onClick={() => {
@@ -243,13 +298,12 @@ const Step01SingleNFTSection = props => {
                   }, 2000)
                 }}
               >
-                {/* <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" /> */}
                 {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
               </div>
               {infoFocus && (
                 <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
               )}
-            </div>
+            </div> */}
           </div>
           {type !== 0 && (
             <>
@@ -293,7 +347,9 @@ const Step01SingleNFTSection = props => {
           )}
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
+              <div className={`${styles.subTitle} mt-10`}>
+                Audio Cover <span>*</span>
+              </div>
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
@@ -303,19 +359,19 @@ const Step01SingleNFTSection = props => {
                     handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
                         <UploadGreenIcon alt="" />
-                        <p className={styles.subTitle}>Upload Here</p>
+                        <p className={styles.uploadText}>Upload Here</p>
                         <p className={styles.text}>
                           Supported File Formats
                           <br />
-                          .png .jpeg and .gif
+                          .png .jpeg
                         </p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>

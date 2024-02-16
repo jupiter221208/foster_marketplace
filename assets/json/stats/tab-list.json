@@ -2,6 +2,5 @@
   { "id": 0, "label": "Artworks", "value": "Artworks", "disabled": false, "coming_soon": false },
   { "id": 1, "label": "Collections", "value": "Collections", "disabled": false, "coming_soon": false },
   { "id": 2, "label": "Creators", "value": "Creators", "disabled": false, "coming_soon": false },
-  { "id": 3, "label": "Collectors", "value": "Collectors", "disabled": false, "coming_soon": false },
-  { "id": 4, "label": "Marketplace", "value": "Marketplace", "disabled": true, "coming_soon": true }
+  { "id": 3, "label": "Collectors", "value": "Collectors", "disabled": false, "coming_soon": false }
 ]

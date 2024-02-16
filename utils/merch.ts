@@ -6,8 +6,11 @@ import {
 } from '@solana/spl-token'
 import { type Metaplex, sol, token, toMetadata, toMetadataAccount } from '@metaplex-foundation/js'
 
+import { type ShipStationShipment } from 'apis/merch'
+import { addUrlSearchParams } from 'utils'
+
 export const MERCH_FOSTER_ADDRESS = new PublicKey('BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT')
-export const MERCH_MADDIES_ADDRESS = new PublicKey('GhByFEmT6mGm9PCz6bNg7tQ76BkXEpSEkBGAYsBYQbwx')
+export const MERCH_MADDIES_ADDRESS = new PublicKey('A5TdavAYJ45hQyz8B7u6AAjFe8KyXKqWSnygU3YbhKVU')
 
 export const USDC_ADDRESS = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
 export const USDC_DECIMALS = 6
@@ -29,9 +32,21 @@ export function getShippingServiceName(code: string): string {
   return SHIPPING_SERVICE_NAMES[code] ?? code
 }
 
+export function getTrackingUrl({ serviceCode, trackingNumber }: ShipStationShipment): string {
+  if (serviceCode.startsWith('usps_'))
+    return addUrlSearchParams('https://tools.usps.com/go/TrackConfirmAction.action', {
+      tLabels: trackingNumber,
+    }).toString()
+  else if (serviceCode.startsWith('ups_'))
+    return addUrlSearchParams('https://www.ups.com/track', { tracknum: trackingNumber }).toString()
+
+  console.warn(`unknown shipping service: ${serviceCode}, tracking number: ${trackingNumber}`)
+  return '#'
+}
+
 export interface CreatePaymentTransactionArgs {
   metaplex: Metaplex
-  nftAddress: string
+  sellerShares: Record<string, number>
   usdAmounts: {
     maddiesAmount: number
     fosterAmount: number
@@ -50,34 +65,20 @@ function addTransferAmount(amountSplits: Map<string, number>, addressOrKey: stri
 
 export async function createPaymentTransaction({
   metaplex,
-  nftAddress,
+  sellerShares,
   usdAmounts: { maddiesAmount, fosterAmount, artistAmount },
   solToUsdRate,
   currency,
 }: CreatePaymentTransactionArgs): Promise<Transaction> {
-  if (currency == 'sol') {
-    maddiesAmount /= solToUsdRate
-    fosterAmount /= solToUsdRate
-    artistAmount /= solToUsdRate
-  }
+  let conversionRate = currency == 'usdc' ? 1 : solToUsdRate
 
   let amountSplits = new Map<string, number>()
-  addTransferAmount(amountSplits, MERCH_MADDIES_ADDRESS, maddiesAmount)
-  addTransferAmount(amountSplits, MERCH_FOSTER_ADDRESS, fosterAmount)
+  addTransferAmount(amountSplits, MERCH_MADDIES_ADDRESS, maddiesAmount / conversionRate)
+  addTransferAmount(amountSplits, MERCH_FOSTER_ADDRESS, fosterAmount / conversionRate)
 
-  let metadataAddress = metaplex
-    .nfts()
-    .pdas()
-    .metadata({ mint: new PublicKey(nftAddress) })
-  let metadataAccountInfo = await metaplex.rpc().getAccount(metadataAddress)
-  if (!metadataAccountInfo.exists)
-    throw new Error(`metadata account does not exist for mint ${nftAddress}: ${metadataAddress}`)
-  let metadata = toMetadata(toMetadataAccount(metadataAccountInfo))
-
-  if (metadata.creators)
-    for (let { address, share } of metadata.creators) {
-      addTransferAmount(amountSplits, address, (share * artistAmount) / 100)
-    }
+  for (let [address, share] of Object.entries(sellerShares)) {
+    addTransferAmount(amountSplits, address, share / conversionRate)
+  }
 
   let identity = metaplex.identity()
   let instructions: TransactionInstruction[][] = []
@@ -105,7 +106,7 @@ export async function createPaymentTransaction({
       let ixs: TransactionInstruction[] = []
       if (!ataAccountInfos[i])
         ixs.push(createAssociatedTokenAccountInstruction(identity.publicKey, ataAddresses[i], address, USDC_ADDRESS))
-      ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, amount))
+      ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, Math.floor(amount)))
       instructions.push(ixs)
     }
   } else throw new Error(`unsupported currency: ${currency}`)

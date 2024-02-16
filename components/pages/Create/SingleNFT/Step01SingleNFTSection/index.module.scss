@@ -157,6 +157,24 @@
   }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color);
+  }
+}
+
+.uploadText {
+  font-family: 'Muli-Bold';
+  font-size: 15px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  span {
+    color: var(--main-icon-color);
+  }
 }
 
 .text {

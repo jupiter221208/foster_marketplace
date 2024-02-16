@@ -1,66 +1,66 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 
 // next components
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 // icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+
 // styles
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
-import { useViewport } from 'utils'
+import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
-  const router = useRouter()
   const dispatch = useDispatch()
-  const viewport = useViewport()
-
   return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        dispatch({ type: 'set', isLoading: true })
-        if (type === 'artworks') {
-          router.push(`/nft/${data.mint_address}`)
-        } else {
-          router.push(`/collection/${data.collection_address}`)
-        }
-      }}
-    >
-      <div className={styles.imageArea}>
-        <ImageWithFallback
-          src={type === 'artworks' ? data.asset_url : data.cover_image}
-          alt=""
-          layout="fill"
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <div className={styles.dataContainer}>
-        <div className={styles.dataGradientBgView} />
-        <div className={styles.dataContentView}>
-          <div className={styles.nftName}>{type === 'artworks' ? data.asset_name : data.collection_name}</div>
-          <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
-            <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
-            <div className="flex gap-[4px] items-center">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ?
-                <SolanaLogoMobileIcon alt="" />
-                :
-                <SolanaLogoIcon alt="" />
-              }
-              <div className={styles.value}>
-                {type === 'artworks' ? parseFloat(data.amount).toFixed(2) : parseFloat(data.total_sales).toFixed(2)}
+    <Link href={type === 'artworks' ? `/nft/${data.mint_address}` : `/collection/${data.collection_address}`} passHref>
+      <a>
+        <div
+          className={styles.container}
+          onClick={() => {
+            dispatch({ type: 'set', isLoading: true })
+          }}
+        >
+          <div className={styles.imageArea}>
+            <ImageWithFallback
+              src={type === 'artworks' ? data.asset_url : data.cover_image}
+              alt=""
+              layout="fill"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className={styles.dataContainer}>
+            <div className={styles.dataGradientBgView} />
+            <div className={styles.dataContentView}>
+              <div className={styles.nftName}>{type === 'artworks' ? data.asset_name : data.collection_name}</div>
+              <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
+                <div className={styles.saleName}>
+                  {type === 'artworks'
+                    ? data.minter_username.length > 0
+                      ? data.minter_username
+                      : getDisplayUserName(data.minter_address)
+                    : data.creator_username.length > 0
+                    ? data.creator_username
+                    : getDisplayUserName(data.creator_address)}
+                </div>
+                {/* <div className="flex gap-[4px] items-center">
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                    <SolanaLogoMobileIcon alt="" />
+                  ) : (
+                    <SolanaLogoIcon alt="" />
+                  )}
+                  <div className={styles.value}>
+                    {type === 'artworks' ? parseFloat(data.amount).toFixed(2) : parseFloat(data.total_sales).toFixed(2)}
+                  </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </a>
+    </Link>
   )
 }
 

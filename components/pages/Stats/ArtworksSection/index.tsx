@@ -4,11 +4,9 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-import { useDispatch } from 'react-redux'
-
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -28,6 +26,7 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+SwiperCore.use([Navigation])
 
 const ArtworksSection = props => {
   const { artworks } = props
@@ -56,7 +55,6 @@ const ArtworksSection = props => {
         setScreenWidth(window.innerWidth)
         setList(artworks)
         setIsMounted(true)
-        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [artworks])
@@ -77,6 +75,7 @@ const ArtworksSection = props => {
   useEffect(() => {
     if (!isMounted) return
     setSearchLoading(true)
+    setIsVisibleFetching(false)
     getArtworkData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
@@ -120,47 +119,54 @@ const ArtworksSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-      {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.2
-                : viewport === 'sm'
-                ? 2.5
-                : viewport === 'md'
-                ? 2.9
-                : viewport === 'lg'
-                ? 2.5
-                : viewport === 'xl'
-                ? screenWidth >= 1300
-                  ? 3
-                  : 2.8
-                : viewport === '2xl'
-                ? screenWidth >= 1768
-                  ? 4
-                  : 3.5
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-          >
-            {list.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <StatsCollectionCard key={index} data={item} type="artworks" />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
+      {!loading &&
+        (list.length === 0 ? (
+          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+        ) : (
+          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+            <Swiper
+              navigation={true}
+              slidesPerView={
+                viewport === 'xs'
+                  ? 1.3
+                  : viewport === 'sm'
+                  ? 2.5
+                  : viewport === 'md'
+                  ? 2.9
+                  : viewport === 'lg'
+                  ? 2.5
+                  : viewport === 'xl'
+                  ? screenWidth >= 1300
+                    ? 3
+                    : 2.8
+                  : viewport === '2xl'
+                  ? screenWidth >= 1768
+                    ? 4
+                    : 3.5
+                  : 4
+              }
+              spaceBetween={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 10 : 25
+              }
+              modules={[Autoplay, Lazy, Navigation]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              className={
+                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                  ? 'noScrollNavigationSwiper'
+                  : 'auctionNavigationSwiper'
+              }
+            >
+              {list.map((item: any, index) => (
+                <SwiperSlide key={index}>
+                  <StatsCollectionCard key={index} data={item} type="artworks" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ))}
 
       {!loading && (
         <SearchSection
@@ -183,6 +189,8 @@ const ArtworksSection = props => {
           <TableSections data={list} />
         </div>
       )}
+
+      {!loading && !searchLoading && list.length === 0 && <div className={styles.result}>No results found</div>}
 
       {isMounted && isVisibleFetching && (
         <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">

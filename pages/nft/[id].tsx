@@ -6,8 +6,9 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toNftOriginalEdition, toOriginalEditionAccount } from '@metaplex-foundation/js'
-import type { Sft, Nft, NftOriginalEdition } from '@metaplex-foundation/js'
+import { toNftOriginalEdition } from '@metaplex-foundation/js'
+import type { NftOriginalEdition } from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, toOriginalOrPrintEditionAccount } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -20,10 +21,9 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
+import { determineCategory, getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
@@ -35,15 +35,15 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
-import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
-import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ProvenanceSection from 'components/pages/BrowseNFT/ProvenanceSection'
+import ModelViewer from 'components/ModelViewer'
+import { NftData, NftApiData } from 'types/nft'
 
 export interface EditionDetail {
   supply: number
@@ -58,26 +58,28 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: Nft
+  nftDetail?: NftApiData
   editionDetail?: EditionDetail
   mintAddress?: PublicKey
   error?: string
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = nftDetail?.json?.properties?.category as string
+  const nftType = (nftDetail?.json?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
+  const apparelType = useSelector<any>(state => state.apparelType)
+  const detailShow = useSelector<any>(state => state.detailShow)
   const categories = getNFTCategories(nftDetail)
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
-  const [nftInfo, setNftInfo] = useState(null)
+  const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
-  const viewport = useViewport()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
+  const [showAuctionSection, setShowAuctionSection] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -88,7 +90,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
@@ -96,9 +98,89 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [isLoading])
 
   useEffect(() => {
+    if (detailShow === true) {
+      if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
+        const nftName = nftDetail.json?.name ?? 'No name found'
+        const nftCoverUrl = nftDetail.json?.image ?? ''
+        const mintAddress = nftDetail.address.toString()
+        const item = ShopApparelList.find(apparel => apparel.name === apparelType)
+        let params = {
+          nftName,
+          nftCoverUrl,
+          mintAddress,
+          category: item?.category,
+          subCategory: item?.sub_type,
+          base: item?.base,
+        }
+        setMerchData(params)
+        setOpenMerchPage(true)
+        dispatch({ type: 'set', detailShow: false })
+      }
+    }
+  }, [detailShow, apparelType])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!nftDetail) return
+      if (connected) {
+        await nftsAPI.getDetail(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
+            }
+          },
+          error => {}
+        )
+      } else {
+        await nftsAPI.get(nftDetail.address).then(
+          (response: any) => {
+            if (!isString(response)) {
+              setNftInfo(response)
+              if (response.creator_address !== null) {
+                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              }
+            }
+          },
+          error => {}
+        )
+      }
+    }
+    fetchData()
+  }, [nftDetail, profileInfo])
+
+  const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
+
+  let nftName = nftDetail?.json?.name ?? ''
+  const nftUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  if (editionDetail) {
+    let { print, supply, maxSupply } = editionDetail
+    let supplyInfo = `#${print?.number}/${supply}`
+    if (supply !== maxSupply) supplyInfo = `edition ${print?.number}/${supply}, max ${maxSupply ?? '\u221e'}`
+    nftName = `${nftName} (${supplyInfo})`
+  }
+  let nftTitle = `${nftName} | Foster Marketplace`
+  let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
+
+  let nftDescription = nftDetail?.json?.description ?? ''
+
+  const [nftCoverUrl, setNftCoverUrl] = useState()
+  const [fullScreen, setFullScreen] = useState(false)
+  const setFullScreenView = url => {
+    window.scrollTo({
+      top: 0,
+    })
+    document.body.style.overflow = 'hidden'
+    setFullScreen(true)
+    setNftCoverUrl(url)
+  }
+
+  const reloadNftData = async () => {
     if (!nftDetail) return
     if (connected) {
-      nftsAPI.getDetail(nftDetail.address).then(
+      await nftsAPI.getDetail(nftDetail.address).then(
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
@@ -110,7 +192,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     } else {
-      nftsAPI.get(nftDetail.address).then(
+      await nftsAPI.get(nftDetail.address).then(
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
@@ -122,54 +204,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     }
-  }, [nftDetail, profileInfo])
-
-  const collectionId = nftDetail?.collection?.address.toString()
-
-  let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
-  const nftUrl = nftDetail.json?.image ?? DefaultNftBG.src
-
-  if (editionDetail) {
-    let { supply, maxSupply, print } = editionDetail
-    let supplyInfo = `original, ${supply} of ${maxSupply ?? '\u221e'} printed`
-    if (print) {
-      if (supply !== maxSupply) supplyInfo = `edition ${print.number}/${supply}, max ${maxSupply ?? '\u221e'}`
-      else supplyInfo = `#${print.number}/${supply}`
-    }
-    nftName = `${nftName} (${supplyInfo})`
-  }
-  let nftTitle = `${nftName} | Foster Marketplace`
-  let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
-
-  let nftDescription =
-    'Home to creators, collectors, and curators around the world.\n' +
-    'Pushing the boundaries of digital art on Solana.'
-
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
-  const [fullScreen, setFullScreen] = useState(false)
-  const setFullScreenView = url => {
-    window.scrollTo({
-      top: 0,
-    })
-    document.body.style.overflow = 'hidden'
-    setFullScreen(true)
-    setNftCoverUrl(url)
-  }
-
-  const reloadNftData = () => {
-    if (!nftDetail) return
-    setNftInfo(null)
-    nftsAPI.getDetail(nftDetail.address).then(
-      (response: any) => {
-        if (!isString(response)) {
-          setNftInfo(response)
-          if (response.creator_address !== null) {
-            setArtistInfo({ address: response.creator_address, name: response.creator_username })
-          }
-        }
-      },
-      error => {}
-    )
   }
 
   const [merchToggle, setMerchToggle] = useState(false)
@@ -217,12 +251,15 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     reloadNftData={reloadNftData}
                     enableMerch={setMerchToggle}
                     setCollectionName={setCollectionName}
+                    fullScreen={fullScreen}
+                    setShowAuctionSection={enable => setShowAuctionSection(enable)}
                   />
                 </div>
               </div>
             )}
-
-            {merchToggle ? (
+            {showAuctionSection ? (
+              <></>
+            ) : merchToggle ? (
               <div className={styles.centerScreen}>
                 <div className="g-container">
                   <ShopApparelSection
@@ -235,19 +272,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       setOpenMerchPage(true)
                     }}
                   />
-                  <ShopApparelSection
-                    title="Shop Wall Art"
-                    type="wall"
-                    nftDetail={nftDetail}
-                    shopApparelList={ShopWallartlList}
-                    openMerchPage={data => {
-                      setMerchData(data)
-                      setOpenMerchPage(true)
-                    }}
-                  />
                 </div>
               </div>
-            ) : editionDetail.maxSupply !== 0 ? (
+            ) : editionDetail?.maxSupply !== 0 ? (
               <div className="g-container">
                 <ProvenanceSection nftUrl={nftUrl} />
               </div>
@@ -256,7 +283,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <div className="g-container">
                   <div>
                     {collectionId && (
-                      <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />
+                      <MoreCollectionSection
+                        collectionId={collectionId}
+                        collectionName={collectionName}
+                        mintAddress={nftDetail.address.toString()}
+                      />
                     )}
                     {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
                     <MoreCategorySection categories={categories} />
@@ -270,7 +301,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
       {fullScreen && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          {nftType?.includes('vr') ? (
+            <ModelViewer path={nftCoverUrl} fullScreen width={innerWidth} height={innerHeight} />
+          ) : (
+            <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          )}
           <div
             className={styles.closeScreen}
             onClick={() => {
@@ -295,7 +330,13 @@ BrowseNFT.getLayout = function getLayout(page) {
 }
 
 BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTProps> {
-  let mintAddress
+  // set cache headers
+  if (res) {
+    // cache for 30m, shared cache for 1h
+    res.setHeader('cache-control', 'max-age=1800, s-maxage=3600')
+  }
+
+  let mintAddress: PublicKey
   try {
     mintAddress = new PublicKey(query.id)
   } catch (e: any) {
@@ -305,33 +346,83 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     }
   }
 
+  let nftDetail
+
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
-    let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
-    if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
 
-    let originalEdition: NftOriginalEdition | null
-    let print = null
-    if (nftDetail.edition.isOriginal == false) {
-      originalEdition = await metaplex
-        .rpc()
-        .getAccount(nftDetail.edition.parent)
-        .then(toOriginalEditionAccount)
-        .then(toNftOriginalEdition)
-      print = {
-        number: nftDetail.edition.number.toNumber(),
+    let nftDataFromDas = await getNftFromDAS(query.id)
+
+    if (nftDataFromDas) {
+      let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
+      nftDetail = {
+        address: query.id,
+        collection: {
+          address:
+            nftDataFromDas.grouping.length > 0
+              ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
+              : undefined,
+          verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
+        },
+        creators: nftDataFromDas.creators,
+        metadataAddress: metadataAddress.toBase58(),
+        model: nftDataFromDas.content?.metadata?.token_standard,
+        symbol: nftDataFromDas.content.metadata.symbol,
+        sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
+        json: {
+          category: determineCategory(nftDataFromDas.content.files),
+          image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
+          animation_url: nftDataFromDas.content?.files?.[1]?.uri,
+          name: nftDataFromDas.content?.metadata?.name,
+          description: nftDataFromDas.content?.metadata?.description,
+          sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
+          attributes: nftDataFromDas.content.metadata.attributes,
+        },
       }
-    } else originalEdition = nftDetail.edition
 
-    let maxSupply = originalEdition.maxSupply?.toNumber()
-    let editionDetail: EditionDetail = {
-      supply: originalEdition.supply.toNumber(),
-      maxSupply,
-      print,
-      isOriginal: originalEdition.isOriginal,
-      isSingleNft: maxSupply === 0,
-      isOpenEdition: maxSupply === null,
-      isLimitedEdition: maxSupply > 0,
+      if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
+    } else {
+      nftDetail = await metaplex.nfts().findByMint({ mintAddress })
+
+      if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
+    }
+
+    let editionDetail: EditionDetail | undefined = undefined
+    try {
+      let originalEdition: NftOriginalEdition | null
+      let print = null
+      if (nftDetail.edition.isOriginal == false) {
+        originalEdition = await metaplex
+          .rpc()
+          .getAccount(nftDetail.edition.parent)
+          .then(toOriginalEditionAccount)
+          .then(toNftOriginalEdition)
+        print = {
+          number: nftDetail.edition.number.toNumber(),
+        }
+      } else originalEdition = nftDetail.edition
+
+      const { data: editionData } = await metaplex
+        .rpc()
+        .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
+        .then(toOriginalOrPrintEditionAccount)
+
+      if ('parent' in editionData) {
+        let {
+          data: { maxSupply, supply },
+        } = await metaplex.rpc().getAccount(editionData.parent).then(toOriginalEditionAccount)
+        editionDetail = {
+          print: { number: Number(editionData.edition) },
+          supply: Number(supply),
+          maxSupply: maxSupply && Number(maxSupply),
+          isOriginal: originalEdition.isOriginal,
+          isSingleNft: maxSupply === 0,
+          isOpenEdition: maxSupply === null,
+          isLimitedEdition: Number(maxSupply) > 0,
+        }
+      }
+    } catch (error) {
+      console.error(error)
     }
 
     return {

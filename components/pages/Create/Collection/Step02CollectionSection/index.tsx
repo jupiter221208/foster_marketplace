@@ -10,37 +10,37 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import DimensionMenu from 'components/Menu/DimensionMenu'
-import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
-import GradientButton from 'components/Button/GradientButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+
+// Icons
+import ImageIcon from 'assets/icons/image-icon.svg?component'
+import ShareIcon from 'assets/icons/share-icon.svg?component'
+import TrashBin from 'assets/icons/trash-bin.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-import TrashGrayIcon from 'assets/icons/trash-gray.svg'
-import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import ModelViewer from 'components/ModelViewer'
+import { useResizeDetector } from 'react-resize-detector'
+import LoadingButton from 'components/Button/LoadingButton'
+import { limit } from 'utils/strings'
 
 const Step02CollectionSection = props => {
   const {
     currentStep,
+    coverImageProcessing,
     coverCroppedImage,
     onChangeCurrentStep,
     collectionFiles,
+    addCoverImageToFile,
     onChangeCollectionFiles,
     onRemoveCollectionFile,
     onChangeCollectionName,
@@ -54,6 +54,7 @@ const Step02CollectionSection = props => {
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [addMoreClicked, setAddMoreClicked] = useState(false)
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -119,8 +120,8 @@ const Step02CollectionSection = props => {
         width = screenWidth
         break
     }
-    if (width > 672) {
-      setArtWidth(672)
+    if (width > 620) {
+      setArtWidth(620)
     } else {
       setArtWidth(width)
     }
@@ -129,9 +130,6 @@ const Step02CollectionSection = props => {
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
-  // const [showMore, setShowMore] = useState(false)
-  // const [collectionFilesCount, setCollectionFilesCount] = useState(0)
-  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -179,7 +177,9 @@ const Step02CollectionSection = props => {
   useEffect(() => {
     let count = 0
     collectionFiles.forEach((item, index) => {
-      if (item.croppedImage !== '' && item.name !== '') {
+      if (item.type === 'vr') {
+        if (item.nftCoverImage !== null && item.name !== '') count++
+      } else if (item.croppedImage !== '' && item.name !== '') {
         count++
       }
     })
@@ -191,25 +191,49 @@ const Step02CollectionSection = props => {
       }
       setDisabledNextButton(true)
     }
+    if (collectionFiles.length > 0 && addMoreClicked === true) {
+      handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
+      setAddMoreClicked(false)
+    }
   }, [collectionFiles])
 
   // form validate
   const handleFormValidate = () => {}
 
+  const { width, height, ref } = useResizeDetector()
+  const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
+
   return (
-    <div className="w-full">
+    <div className="w-full flex justify-center">
+      {selectedCollectionFile && selectedCollectionFile.nftCoverImage && selectedCollectionFile.type === 'vr' && (
+        <NftImageEditorModal
+          open={openCoverImageEditorModal}
+          close={() => setOpenCoverImageEditorModal(false)}
+          nftImage={[selectedCollectionFile.nftCoverImage]}
+          getCroppedImage={croppedImage => {
+            addCoverImageToFile(selectedCollectionFile, croppedImage)
+            setOpenCoverImageEditorModal(false)
+          }}
+          dimension={{ value: [1920, 1920] }}
+        />
+      )}
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="relative w-full grid grid-cols-12 gap-0">
+        <div className="relative w-full flex min-h-screen">
           {/* left part */}
-          <div className="col-span-12 lg:col-span-6 g-left-container">
+          <div className="flex-[50%] g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Artwork Preview</div>
+              <div className="w-full">
+                <div className={styles.title} style={{ width: artWidth }}>
+                  Artwork Preview
+                </div>
+              </div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
-                <div className="w-full flex justify-center z-10">
-                  <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
-                    <div className="absolute inset-0 flex justify-center items-center">
-                      {selectedCollectionFile !== undefined && (
+                <div className="w-full flex justify-start z-10">
+                  <div ref={ref} className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                    {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
+                      <div className="absolute inset-0 flex justify-center items-center">
                         <img
                           src={
                             selectedCollectionFile.croppedImage !== ''
@@ -219,11 +243,28 @@ const Step02CollectionSection = props => {
                           alt=""
                           className="w-full h-full object-cover z-0"
                         />
-                      )}
-                    </div>
-                    {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio' && (
-                      <div className={styles.blurImage} />
+                        <div className={styles.blurView}>
+                          {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
+                            <div className="w-full h-full max-w-[450px] max-h-[450px] rounded-[30px]">
+                              <div className={styles.coverImageArea}>
+                                <div className={styles.coverImageContent}>
+                                  <img
+                                    src={
+                                      selectedCollectionFile.croppedImage !== ''
+                                        ? selectedCollectionFile.croppedImage
+                                        : URL.createObjectURL(selectedCollectionFile.file)
+                                    }
+                                    alt=""
+                                    className="w-full h-full object-cover z-0 rounded-[30px]"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     )}
+
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                       <video controls className="w-full h-full z-10" id="video">
                         <source
@@ -232,10 +273,26 @@ const Step02CollectionSection = props => {
                         />
                         Your browser does not support the video tag.
                       </video>
+                    ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
+                      selectedCollectionFile.url && (
+                        <ModelViewer
+                          path={selectedCollectionFile.url}
+                          width={width}
+                          height={height}
+                          getSnapshot={{
+                            onSnapshot: image => {
+                              addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
+                              setTakeSnapshotStatus(false)
+                            },
+                            status: takeSnapshotStatus,
+                          }}
+                        />
+                      )
                     ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
-                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
+                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} type="collection" />
                     ) : (
-                      selectedCollectionFile !== undefined && (
+                      selectedCollectionFile !== undefined &&
+                      selectedCollectionFile.type !== 'vr' && (
                         <img
                           src={
                             selectedCollectionFile.croppedImage !== ''
@@ -263,90 +320,11 @@ const Step02CollectionSection = props => {
                   ) : (
                     <>&nbsp;</>
                   )}
-                  {selectedCollectionFile !== undefined && (
-                    // <IconButton
-                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                    //   onClick={() => {
-                    //     onRemoveCollectionFile(selectedCollectionFile)
-                    //     setSelectedCollectionFile(undefined)
-                    //   }}
-                    //   backgroundColor="transparent"
-                    // />
-                    <IconButtonWithSVG
-                      icon={
-                        <svg
-                          id="Group_52015"
-                          data-name="Group 52015"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="46"
-                          height="46"
-                          viewBox="0 0 46 46"
-                        >
-                          <g
-                            id="Icon_feather-trash-2"
-                            data-name="Icon feather-trash-2"
-                            transform="translate(12.378 10.643)"
-                          >
-                            <path
-                              id="Path_105833"
-                              data-name="Path 105833"
-                              d="M4.5,9H26.743"
-                              transform="translate(-4.5 -4.057)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105834"
-                              data-name="Path 105834"
-                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                              transform="translate(-5.029 -3)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105835"
-                              data-name="Path 105835"
-                              d="M15,16.5v7.414"
-                              transform="translate(-6.35 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105836"
-                              data-name="Path 105836"
-                              d="M21,16.5v7.414"
-                              transform="translate(-7.407 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                          </g>
-                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
-                        </svg>
-                      }
-                      onClick={() => {
-                        onRemoveCollectionFile(selectedCollectionFile)
-                        setSelectedCollectionFile(undefined)
-                      }}
-                      backgroundColor="transparent"
-                    />
-                  )}
                 </div>
               )}
 
-              <div className="w-full flex justify-center mt-[90px]">
-                <div className={styles.grayText}>
+              <div className="w-full flex justify-start mt-[50px]">
+                <div className={styles.grayText} style={{ width: artWidth, textAlign: 'center' }}>
                   {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
                   &nbsp;uploaded files
                 </div>
@@ -354,17 +332,20 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+          <div className="flex-[50%] g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full">
+                {/* <div className="w-full">
                   <CollectionStepper currentStep={currentStep} />
-                </div>
+                </div> */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[76px]`}>Collection Files (max. 25) *</div>
+                  <div className={`${styles.subTitle} lg:mt-[110px]`}>
+                    Collection Files (max. 25) <span>*</span>
+                  </div>
                   <div className="mt-5">
                     <Dropzone
                       onDropAccepted={acceptedFiles => {
+                        setAddMoreClicked(true)
                         acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('unknown')
                       }}
                       onDropRejected={rejectedFiles => {
@@ -377,6 +358,7 @@ const Step02CollectionSection = props => {
                         'video/mp4': [],
                         'audio/mpeg': [],
                         'audio/wav': [],
+                        'model/gltf-binary': ['.glb'],
                       }}
                       maxFiles={25}
                       maxSize={31457280}
@@ -389,7 +371,7 @@ const Step02CollectionSection = props => {
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
-                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .gif and .mp3</p>
+                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .gif .mp3 .glb</p>
                             <p className={styles.greenText}>Max File Size 30mb</p>
                           </div>
                         </section>
@@ -401,95 +383,146 @@ const Step02CollectionSection = props => {
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
-                        className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                        className="flex my-10 gap-4 cursor-pointer"
                         key={index}
                         onClick={() => handleSelectedCollectionFile(item)}
                       >
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.greenText
-                              : styles.text
-                          }
-                        >
-                          {index + 1}
+                        <div className="flex">
+                          <div
+                            className={`mt-5 mr-4 ${
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                ? styles.greenText
+                                : styles.text
+                            }`}
+                          >
+                            {index + 1}
+                          </div>
+
+                          <div
+                            className={
+                              selectedCollectionFile !== undefined &&
+                              selectedCollectionFile.file.path === item.file.path
+                                ? styles.selectedImage
+                                : styles.nonSelectedImage
+                            }
+                          >
+                            {item.type === 'video' ? (
+                              <video loop autoPlay className="w-full h-full" id="video">
+                                <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                                Your browser does not support the video tag.
+                              </video>
+                            ) : item.type === 'vr' && !item.nftCoverImage ? (
+                              <p className={styles.tapToView}>Click to Preview</p>
+                            ) : (
+                              <NextImage
+                                src={
+                                  item.type === 'vr' && item.nftCoverImage
+                                    ? item.nftCoverImage
+                                    : item.croppedImage !== ''
+                                    ? item.croppedImage
+                                    : URL.createObjectURL(item.file)
+                                }
+                                alt=""
+                                width={
+                                  selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                    ? 64
+                                    : 68
+                                }
+                                height={
+                                  selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                    ? 64
+                                    : 68
+                                }
+                                objectFit="cover"
+                                className="rounded-lg"
+                              />
+                            )}
+                          </div>
                         </div>
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.selectedImage
-                              : styles.nonSelectedImage
-                          }
-                        >
-                          {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full h-full" id="video">
-                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                              Your browser does not support the video tag.
-                            </video>
-                          ) : (
-                            <NextImage
-                              src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                              alt=""
-                              width={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              height={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              objectFit="cover"
-                              className="rounded-lg"
-                            />
+
+                        <div className="w-full">
+                          <div className="flex-1 block h-[120px]">
+                            <div className={`mb-2 ${styles.subTitle}`}>
+                              NFT Name <span>*</span>
+                            </div>
+                            <div>
+                              <Input
+                                value={limit(item.name, 32)}
+                                placeholder="Give your art name"
+                                label01={item.file?.name}
+                                label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
+                                fullWidth
+                                onChange={value => onChangeCollectionName(item, limit(value, 32))}
+                                height="46px"
+                              />
+                            </div>
+                          </div>
+                          <div className="flex-1 block h-[120px]">
+                            <div className={`mb-2 ${styles.subTitle}`}>Description</div>
+                            <div>
+                              <Textarea
+                                value={item.description}
+                                placeholder="Add a short description..."
+                                fullWidth
+                                onChange={value => onChangeCollectionDescription(item, value)}
+                                height="90px"
+                                maxHeight="150px"
+                              />
+                            </div>
+                          </div>
+
+                          {item.type === 'vr' && (
+                            <>
+                              <div className={styles.coverImgMsg}>
+                                <h6>
+                                  Cover Photo <span>*</span>
+                                </h6>
+                                <p>
+                                  Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+                                </p>
+                              </div>
+                              <div className={styles.coverBtnBox}>
+                                <button
+                                  disabled={item.nftCoverImage !== null}
+                                  onClick={() => setTakeSnapshotStatus(true)}
+                                >
+                                  <ImageIcon /> Take Snapshot
+                                </button>
+                                <button disabled={item.nftCoverImage !== null}>
+                                  <label htmlFor="fileInput">
+                                    <ShareIcon /> Upload Photo
+                                  </label>
+                                </button>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  id="fileInput"
+                                  onClick={e => e.stopPropagation()}
+                                  onChange={e => {
+                                    const file = e.target.files[0]
+                                    if (file && file.type.startsWith('image/')) {
+                                      addCoverImageToFile(selectedCollectionFile, file)
+                                      setOpenCoverImageEditorModal(true)
+                                    } else {
+                                      alert('Please select an image file.')
+                                    }
+                                  }}
+                                />
+                              </div>
+
+                              {item.nftCoverImage && (
+                                <div className={styles.glbNftImageSection}>
+                                  <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
+                                  <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
+                                    <TrashBin />
+                                    &nbsp;Remove Cover Image
+                                  </button>
+                                </div>
+                              )}
+                            </>
                           )}
                         </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            NFT Name *
-                          </div>
-                          <div>
-                            <Input
-                              value={item.name}
-                              placeholder="Give your art name"
-                              label=""
-                              fullWidth
-                              onChange={value => onChangeCollectionName(item, value)}
-                              height="46px"
-                            />
-                          </div>
-                          <div className={styles.fileName}>{item.file?.name}</div>
-                        </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            Description
-                          </div>
-                          <div>
-                            <Textarea
-                              value={item.description}
-                              placeholder="Add a short description..."
-                              fullWidth
-                              onChange={value => onChangeCollectionDescription(item, value)}
-                              height="90px"
-                            />
-                          </div>
-                        </div>
-                        {/* <IconButton
-                          icon={TrashGrayIcon}
-                          onClick={() => onRemoveCollectionFile(item)}
-                          backgroundColor="transparent"
-                          iconWidth={24}
-                          iconHeight={24}
-                        /> */}
+
                         <IconButtonWithSVG
                           icon={
                             <svg
@@ -571,6 +604,7 @@ const Step02CollectionSection = props => {
                     <div
                       className="flex mt-[20px]"
                       onClick={() => {
+                        setAddMoreClicked(true)
                         dropzoneNftEl.current.click()
                       }}
                     >
@@ -586,49 +620,50 @@ const Step02CollectionSection = props => {
                   )}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
-                  {disabledNextButton ? (
-                    <Button
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
-                    />
+                <div className="absolute bottom-10 w-full flex justify-end">
+                  {coverImageProcessing ? (
+                    <LoadingButton width={224} height={56} />
                   ) : (
-                    <GradientButton
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
+                    <button
+                      className={styles.nextStep}
                       disabled={disabledNextButton}
-                      gradientDirection="bottom"
+                      style={{
+                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                      }}
                       onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                    />
+                    >
+                      Next Step
+                    </button>
                   )}
                 </div>
               </div>
             </div>
           </div>
+          <div>
+            <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
+          </div>
         </div>
       ) : (
         // mobile part
-        <div className="g-container mt-[26px] mb-[47px]">
+        <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          <div className="w-full">
+          {/* <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
-          </div>
+          </div> */}
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
+          <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
-            <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+            <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
               <div className="w-full flex justify-center">
                 <div
+                  ref={ref}
                   className={styles.imageArea}
                   style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                 >
-                  <div className="absolute inset-0 flex justify-center items-center">
-                    {selectedCollectionFile !== undefined && (
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
+                    <div className="absolute inset-0 flex justify-center items-center">
                       <img
                         src={
                           selectedCollectionFile.croppedImage !== ''
@@ -638,9 +673,24 @@ const Step02CollectionSection = props => {
                         alt=""
                         className="w-full h-full object-contain"
                       />
-                    )}
-                  </div>
-                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
+                    </div>
+                  )}
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'vr' ? (
+                    selectedCollectionFile.url && (
+                      <ModelViewer
+                        path={selectedCollectionFile.url}
+                        width={width}
+                        height={height}
+                        getSnapshot={{
+                          onSnapshot: image => {
+                            addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
+                            setTakeSnapshotStatus(false)
+                          },
+                          status: takeSnapshotStatus,
+                        }}
+                      />
+                    )
+                  ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                     <video controls className="w-full h-full z-10" id="video">
                       <source
                         src={URL.createObjectURL(selectedCollectionFile.file)}
@@ -680,99 +730,21 @@ const Step02CollectionSection = props => {
                   ) : (
                     <>&nbsp;</>
                   )}
-                  {selectedCollectionFile !== undefined && (
-                    // <IconButton
-                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                    //   onClick={() => {
-                    //     onRemoveCollectionFile(selectedCollectionFile)
-                    //     setSelectedCollectionFile(undefined)
-                    //   }}
-                    //   backgroundColor="transparent"
-                    //   width="24px"
-                    //   height="24px"
-                    // />
-                    <IconButtonWithSVG
-                      icon={
-                        <svg
-                          id="Group_52015"
-                          data-name="Group 52015"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="46"
-                          height="46"
-                          viewBox="0 0 46 46"
-                        >
-                          <g
-                            id="Icon_feather-trash-2"
-                            data-name="Icon feather-trash-2"
-                            transform="translate(12.378 10.643)"
-                          >
-                            <path
-                              id="Path_105833"
-                              data-name="Path 105833"
-                              d="M4.5,9H26.743"
-                              transform="translate(-4.5 -4.057)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105834"
-                              data-name="Path 105834"
-                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                              transform="translate(-5.029 -3)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105835"
-                              data-name="Path 105835"
-                              d="M15,16.5v7.414"
-                              transform="translate(-6.35 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105836"
-                              data-name="Path 105836"
-                              d="M21,16.5v7.414"
-                              transform="translate(-7.407 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                          </g>
-                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
-                        </svg>
-                      }
-                      onClick={() => {
-                        onRemoveCollectionFile(selectedCollectionFile)
-                        setSelectedCollectionFile(undefined)
-                      }}
-                      backgroundColor="transparent"
-                      iconWidth={24}
-                      iconHeight={24}
-                    />
-                  )}
                 </div>
               )}
             </div>
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-[46px]`}>Collection Files (max. 25) *</div>
+            <div
+              className={`${styles.subTitle} ${selectedCollectionFile?.type === 'audio' ? '-mt-[10px]' : 'mt-[20px]'}`}
+            >
+              Collection Files (max. 25) *
+            </div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
+                  setAddMoreClicked(true)
                   acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('uknown')
                 }}
                 onDropRejected={rejectedFiles => {
@@ -785,6 +757,7 @@ const Step02CollectionSection = props => {
                   'video/mp4': [],
                   'audio/mpeg': [],
                   'audio/wav': [],
+                  'model/gltf-binary': ['.glb'],
                 }}
                 maxFiles={25}
                 maxSize={31457280}
@@ -800,7 +773,7 @@ const Step02CollectionSection = props => {
                       <p className={styles.text}>
                         Supported File Formats
                         <br />
-                        .png .jpeg .mp4 and .gif
+                        .png .jpeg .mp4 .gif .mp3 .glb
                       </p>
                       <p className={styles.greenText}>Max File Size 30mb</p>
                     </div>
@@ -814,48 +787,46 @@ const Step02CollectionSection = props => {
             {collectionFiles.length !== 0 &&
               collectionFiles.map((item, index) => (
                 <div
-                  className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
+                  className="my-[30px] gap-4 cursor-pointer"
                   key={index}
                   onClick={() => handleSelectedCollectionFile(item)}
                 >
-                  <div className="w-full flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.selectedImage
-                            : styles.nonSelectedImage
-                        }
-                      >
-                        {item.type === 'video' ? (
-                          <video loop autoPlay className="w-full h-full" id="video">
-                            <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : (
-                          <NextImage
-                            src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                            alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            objectFit="cover"
-                            className="rounded-lg"
-                          />
-                        )}
-                      </div>
-                      <div className={styles.fileName}>{item.file?.name}</div>
+                  <div className="flex justify-between mb-8">
+                    <div
+                      className={
+                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                          ? styles.selectedImage
+                          : styles.nonSelectedImage
+                      }
+                    >
+                      {item.type === 'video' ? (
+                        <video loop autoPlay className="w-full h-full" id="video">
+                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : item.type === 'vr' && !item.nftCoverImage ? (
+                        <p className={styles.tapToView}>Click to Preview</p>
+                      ) : (
+                        <NextImage
+                          src={
+                            item.type === 'vr' && item.nftCoverImage
+                              ? item.nftCoverImage
+                              : item.croppedImage !== ''
+                              ? item.croppedImage
+                              : URL.createObjectURL(item.file)
+                          }
+                          alt=""
+                          width={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          height={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          objectFit="cover"
+                          className="rounded-lg"
+                        />
+                      )}
                     </div>
-                    {/* <IconButton
-                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
-                      onClick={() => onRemoveCollectionFile(item)}
-                      backgroundColor="transparent"
-                      iconWidth={24}
-                      iconHeight={24}
-                    /> */}
 
                     <IconButtonWithSVG
                       icon={
@@ -927,48 +898,83 @@ const Step02CollectionSection = props => {
                     />
                   </div>
 
-                  <div className="w-full block">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.greenText
-                          : styles.text
-                      }
-                    >
-                      NFT Name *
+                  <div className="w-full">
+                    <div className="flex-1 block h-[120px]">
+                      <div className={`mb-2 ${styles.subTitle}`}>
+                        NFT Name <span>*</span>
+                      </div>
+                      <div>
+                        <Input
+                          value={limit(item.name, 32)}
+                          placeholder="Give your art name"
+                          label01={item.file?.name}
+                          label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
+                          fullWidth
+                          onChange={value => onChangeCollectionName(item, limit(value, 32))}
+                          height="46px"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <Input
-                        value={item.name}
-                        placeholder="Give your art name"
-                        backgroundColor={'var(--input-bg)'}
-                        label=""
-                        fullWidth
-                        onChange={value => onChangeCollectionName(item, value)}
-                        height="46px"
-                      />
+                    <div className="flex-1 block h-[120px]">
+                      <div className={`mb-2 ${styles.subTitle}`}>Description</div>
+                      <div>
+                        <Textarea
+                          value={item.description}
+                          placeholder="Add a short description..."
+                          fullWidth
+                          onChange={value => onChangeCollectionDescription(item, value)}
+                          height="90px"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="w-full block h-[120px]">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.greenText
-                          : styles.text
-                      }
-                    >
-                      Description
-                    </div>
-                    <div>
-                      <Textarea
-                        value={item.description}
-                        placeholder="Add a short description..."
-                        backgroundColor={'var(--input-bg)'}
-                        fullWidth
-                        onChange={value => onChangeCollectionDescription(item, value)}
-                        height="90px"
-                      />
-                    </div>
+
+                    {item.type === 'vr' && (
+                      <>
+                        <div className={styles.coverImgMsg}>
+                          <h6>
+                            Cover Photo <span>*</span>
+                          </h6>
+                          <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                        </div>
+                        <div className={styles.coverBtnBox}>
+                          <button disabled={item.nftCoverImage !== null} onClick={() => setTakeSnapshotStatus(true)}>
+                            <ImageIcon /> Take Snapshot
+                          </button>
+                          <button disabled={item.nftCoverImage !== null}>
+                            <label htmlFor="fileInput">
+                              <ShareIcon /> Upload Photo
+                            </label>
+                          </button>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            id="fileInput"
+                            onClick={e => e.stopPropagation()}
+                            onChange={e => {
+                              const file = e.target.files[0]
+                              if (file && file.type.startsWith('image/')) {
+                                addCoverImageToFile(selectedCollectionFile, file)
+                                setOpenCoverImageEditorModal(true)
+                              } else {
+                                alert('Please select an image file.')
+                              }
+                            }}
+                          />
+                        </div>
+
+                        {item.nftCoverImage && (
+                          <div className="w-full flex justify-center">
+                            <div className={styles.glbNftImageSection}>
+                              <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
+                              <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
+                                <TrashBin />
+                                &nbsp;Remove Cover Image
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </div>
                 </div>
               ))}
@@ -978,6 +984,7 @@ const Step02CollectionSection = props => {
             <div
               className="flex mt-[20px]"
               onClick={() => {
+                setAddMoreClicked(true)
                 dropzoneNftEl.current.click()
               }}
             >
@@ -991,27 +998,21 @@ const Step02CollectionSection = props => {
             </div>
           )}
           <div className="w-full flex justify-end my-10">
-            <div className="w-[161px]">
-              {disabledNextButton ? (
-                <Button
-                  label="Next Step"
-                  height={viewport === '2xl' ? 53 : 46}
-                  fullWidth
-                  disabled={disabledNextButton}
-                  backgroundColor={'#888A8E'}
-                />
+            <div className="w-[161px] mr-[16px]">
+              {coverImageProcessing ? (
+                <LoadingButton width={161} height={45} />
               ) : (
-                <GradientButton
-                  height={viewport === '2xl' ? 53 : 46}
-                  label="Next Step"
-                  fullWidth
+                <button
+                  className={styles.nextStep}
                   disabled={disabledNextButton}
-                  gradientDirection="bottom"
-                  backgroundColor01={'var(--mint-btn-bg-1)'}
-                  backgroundColor02={'var(--mint-btn-bg-2)'}
-                  color={'var(--mint-btn-color)'}
+                  style={{
+                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                  }}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                />
+                >
+                  Next Step
+                </button>
               )}
             </div>
           </div>

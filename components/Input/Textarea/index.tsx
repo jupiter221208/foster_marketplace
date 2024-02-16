@@ -22,6 +22,7 @@ const Textarea = props => {
     color = '',
     width = '',
     height = '',
+    maxHeight = '',
   } = props
   return (
     <div className="w-full">
@@ -39,6 +40,7 @@ const Textarea = props => {
         style={{
           width: fullWidth ? '100%' : width,
           height: height,
+          maxHeight: maxHeight,
           background: backgroundColor,
           fontSize: fontSize,
           color: color,

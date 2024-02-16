@@ -1,7 +1,13 @@
 import * as moment from 'moment'
 
+export const validDigits = (n) => {
+  return n.replace(/[^0-9.]+/g, '')
+}
+
+export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
-  let difference = getTimeDifference(endDate)
+  
+  let difference = getTimeDifferenceWithAuction(endDate)
   let timeLeft = {}
 
   if (difference > 0) {
@@ -29,6 +35,14 @@ export const getTimeDifference = endTime => {
   let endListingTime = new Date(endTime)
   let offset = endListingTime.getTimezoneOffset() * 60 * 1000
   let endLocalTime = endListingTime.getTime() - offset
+  let nowDate = new Date().getTime()
+  let difference = endLocalTime - nowDate
+  return difference
+}
+
+export const getTimeDifferenceWithAuction = endTime => {
+  let endListingTime = new Date(endTime)
+  let endLocalTime = endListingTime.getTime()
   let nowDate = new Date().getTime()
   let difference = endLocalTime - nowDate
   return difference
@@ -149,7 +163,7 @@ export const formattedAmount = value => {
   if (length === 0) {
     value = '0' + value
   }
-  length = value.toString().split('.')[1].length
+  length = value.toString().split('.')[1]?.length
   if (length > 1) return parseFloat(value).toFixed(2)
   else return value
 }
@@ -196,7 +210,7 @@ export const copyClipboardAlert = identifier => {
 export const getOwnerName = item => {
   if (item.owner_username !== null && item.owner_username !== '') return item.owner_username
 
-  if (item.owner_address !== null) return item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)
+  if (item.owner_address !== null) return item.owner_address
 
   return 'N/A'
 }
@@ -205,7 +219,7 @@ export const getBuyerName = item => {
   if (item.reference_username !== null && item.reference_username !== '') return item.reference_username
 
   if (item.reference_address !== null)
-    return item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+    return item.reference_address
 
   return 'N/A'
 }
@@ -258,7 +272,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
-    doc.style.setProperty('--nav-bg-color', 'rgba(255, 255, 255, 0.75)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(243, 242, 240, 0.75)')
     doc.style.setProperty('--nav-bg-shadow', 'rgba(32, 36, 39, 0.4)')
     doc.style.setProperty('--second-home-bg', '#FFF')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
@@ -278,7 +292,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-bg-color', '#F3F2F0')
     doc.style.setProperty('--accordion-second-row-bg', '#FFF')
     doc.style.setProperty('--artwork-bg-color', '#F3F2F0')
-    doc.style.setProperty('--artwork-bg-mobile-color', '#202427')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#DDDCDC')
     doc.style.setProperty('--clipboard-btn-color', '#C8C9CF')
     doc.style.setProperty('--step-circle-mobile-color', '#202427')
     doc.style.setProperty('--dimension-bg-color', '239, 240, 247')
@@ -287,9 +301,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-01-color', '149, 219, 213')
     doc.style.setProperty('--switch-02-color', '43,43,43')
     doc.style.setProperty('--menu-bg-color', '#F3F2F0')
+    doc.style.setProperty('--category-bg-color', '#F3F2F0')
     doc.style.setProperty('--time-slog-bg', '#FFF')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
-    doc.style.setProperty('--hero-artist-color', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--hero-artist-color', 'rgba(255, 255, 255, 1)')
     doc.style.setProperty('--twitter-text-color', '#eff0f6')
     doc.style.setProperty('--twitter-btn-color1', '#202427')
     doc.style.setProperty('--twitter-btn-color2', '#202427')
@@ -307,6 +322,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#202427')
     doc.style.setProperty('--follow-text-color', '#202427')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to right, #4C706C, #95DBD5)')
+    doc.style.setProperty(
+      '--hero-bg-color',
+      'linear-gradient(to bottom, rgba(243, 242, 240, 0), rgba(243, 242, 240, 1)'
+    )
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #eff0f6, #78787B)')
     doc.style.setProperty('--artist-switch-bg', '#CBCDD2')
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
@@ -330,7 +349,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-section-border', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color-rgb', '239, 240, 247')
-    doc.style.setProperty('--outline-btn-border', '#202427')
     doc.style.setProperty('--ellipse-btn-shadow', 'rgba(32, 36, 39, 0.3)')
     doc.style.setProperty('--nft-detail-bg', '#CBCDD2')
     doc.style.setProperty('--nft-detail-border', '#C5C7CC')
@@ -341,7 +359,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-color', '#95dbd5')
     doc.style.setProperty('--follow-box-shadow', 'rgba(32, 36, 39, 0.3)')
     doc.style.setProperty('--read-more-bg', 'rgba(180, 180, 180, 0.9)')
-    doc.style.setProperty('--datepicker-bg-color', 'rgba(239, 240, 247, 0.8)')
+    doc.style.setProperty('--datepicker-bg-color', '#F3F2F0')
     doc.style.setProperty('--datepicker-button-bg', 'rgba(239, 240, 247, 1)')
     doc.style.setProperty('--datepicker-date-bg', 'rgba(255, 255, 255, 1)')
     doc.style.setProperty('--price-input-bg', '#DEDEE4')
@@ -454,6 +472,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
     doc.style.setProperty('--social-bg-color', '#FFFFFF')
+    doc.style.setProperty('--wallet-detail-bg', '#FFFFFF')
     doc.style.setProperty('--shipping-board-bg', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
     doc.style.setProperty('--address-btn-bg-color', '#FFF')
@@ -472,7 +491,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(255, 255, 255, 0.5')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(243, 242, 240, 0.85)')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
     doc.style.setProperty('--live-auction-card', '#FFF')
@@ -502,19 +521,22 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-treasury-bg', '#FFF')
     doc.style.setProperty('--g-right-container-bg', '#F3F2F0')
     doc.style.setProperty('--deposit-disabled-color', '#5F6165')
-    doc.style.setProperty('--nav-divider-color', '#CCCDD4')
-    doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #F5F5F8, #202427)')
+    doc.style.setProperty('--nav-divider-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--hero-bg-color', 'linear-gradient(to bottom, rgba(243, 242, 240, 0), rgba(243, 242, 240, 1)')
+    doc.style.setProperty('--profile-setup-bg', '#1A1A1A')
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
-    doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
+    doc.style.setProperty('--profile-setup-left-bg', '#242424')
     doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--fade-loader-color', '#202427')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--time-slot-deselect-color', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--back-btn-bg-color', '255, 255, 255')
     doc.style.setProperty('--merch-mobile-squre-bg', '#202427')
-    doc.style.setProperty('--scroll-bar-thumb', '#F3F2F0')
+    doc.style.setProperty('--scroll-bar-thumb', '#202427')
+    doc.style.setProperty('--scroll-bar-bg', '#BFBFBE')
     doc.style.setProperty('--merch-disabled-icon-bg', '#FFF')
     doc.style.setProperty('--merch-disabled-icon-color', '#202427')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
@@ -524,6 +546,35 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#FFFFFF')
     doc.style.setProperty('--nft-type-box-hover', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--size-chart-modal-title', '#F3F2F0')
+    doc.style.setProperty('--table-header-color', '#573A01')
+    doc.style.setProperty('--order-table-color', 'rgba(32, 36, 39, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#FFFFFF')
+    doc.style.setProperty('--selected-tab-color', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--place-bid-color', '#EBEAE8')
+    doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--selected-tab-border-color', '#DDDCDC')
+    doc.style.setProperty('--place-bid-minimum-color', '#242424')
+    doc.style.setProperty('--place-bid-minvalue-color', '#242424')
+    doc.style.setProperty('--view-item-btn-color', '#202427')
+    doc.style.setProperty('--ellipse-blue', '#202427')
+    doc.style.setProperty('--ellipse-green', '#202427')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(32, 36, 39, 0.15)')
+    doc.style.setProperty('--liveauction-bg-color', 'rgba(32, 36, 39, 0.03)')
+    doc.style.setProperty('--single-title-color', '#FFFFFF')
+    doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #C1C1C1, #DADADA)')
+    doc.style.setProperty('--solrplex-icon-color', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--collection-type-card-color', '#202427')
+    doc.style.setProperty('--connection-type-bg', '#FFFFFF')
+    doc.style.setProperty('--create-collection-color', 'rgba(255, 255, 255, 0.6)')
+    doc.style.setProperty('--create-collection-btn', 'rgba(32, 36, 39, 0.8)')
+    doc.style.setProperty('--import-ea-border-color', '255, 255, 255')
+    doc.style.setProperty('--collection-desc-bg-color', '#F3F2F0')
+    doc.style.setProperty('--hero-card-bg', '#ECEBEA')
+    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(243, 242, 240, 0)')
+    doc.style.setProperty('--explore-tab-border', '#202427')
+    doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
+    doc.style.setProperty('--audio-nft-bgr-rgb', '245, 244, 242')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -577,9 +628,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '55, 130, 135')
     doc.style.setProperty('--switch-02-color', '12, 65, 68')
-    doc.style.setProperty('--menu-bg-color', '#121212')
+    doc.style.setProperty('--menu-bg-color', '#1a1a1a')
+    doc.style.setProperty('--category-bg-color', '#242424')
     doc.style.setProperty('--time-slog-bg', '#1a1a1a')
-    doc.style.setProperty('--menu-footer-color', '#2b2f32')
+    doc.style.setProperty('--menu-footer-color', '#1a1a1a')
     doc.style.setProperty('--hero-artist-color', '#95dbd5')
     doc.style.setProperty('--twitter-text-color', '#202427')
     doc.style.setProperty('--twitter-btn-color1', '#95DBD5')
@@ -599,14 +651,15 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#95dbd5')
     doc.style.setProperty('--follow-text-color', '#95dbd5')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
+    doc.style.setProperty('--hero-bg-color', 'linear-gradient(to bottom, rgba(26, 26, 26, 0), rgba(26, 26, 26, 1)')
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
     doc.style.setProperty('--artist-switch-bg', '#202427')
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--mobile-sort-bg', '#121212')
     doc.style.setProperty('--search-bg-color', 'rgba(239, 240, 247, 0.1)')
-    doc.style.setProperty('--main-search-bg-color', '#121212')
+    doc.style.setProperty('--main-search-bg-color', '#1a1a1a')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #1B1B1B, #121212')
-    doc.style.setProperty('--menu-item-open-bg', '#202427')
+    doc.style.setProperty('--menu-item-open-bg', '#242424')
     doc.style.setProperty('--search-category-color', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--menu-item-open-color', 'rgba(239, 240, 247, 1)')
     doc.style.setProperty('--menu-item-border', 'rgba(239, 240, 247, 0.1)')
@@ -622,7 +675,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-section-border', '#202427')
     doc.style.setProperty('--gradient-btn-color', '#202427')
     doc.style.setProperty('--gradient-btn-color-rgb', '32, 36, 39')
-    doc.style.setProperty('--outline-btn-border', '#95dbd5')
     doc.style.setProperty('--ellipse-btn-shadow', '#95dbd5')
     doc.style.setProperty('--nft-detail-bg', '#121212')
     doc.style.setProperty('--nft-detail-border', 'rgba(239, 240, 247, 0.1)')
@@ -633,9 +685,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
     doc.style.setProperty('--read-more-bg', 'rgba(18, 18, 18, 0.8)')
-    doc.style.setProperty('--datepicker-bg-color', 'rgba(32, 36, 39, 0.9)')
+    doc.style.setProperty('--datepicker-bg-color', '#1A1A1A')
     doc.style.setProperty('--datepicker-button-bg', 'rgba(32, 36, 39, 1)')
-    doc.style.setProperty('--datepicker-date-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--datepicker-date-bg', '#242424')
     doc.style.setProperty('--price-input-bg', '#121212')
     doc.style.setProperty('--modal-terms-service', '#9db2b4')
     doc.style.setProperty('--step-text-color', '#202427')
@@ -749,6 +801,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
     doc.style.setProperty('--social-bg-color', '#2b2b2b')
+    doc.style.setProperty('--wallet-detail-bg', '#242424')
     doc.style.setProperty('--shipping-board-bg', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--nft-border-color', '#292929')
     doc.style.setProperty('--address-btn-bg-color', '#2B2B2B')
@@ -766,7 +819,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(26, 26, 26, 0.5)')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(26, 26, 26, 0.85)')
     doc.style.setProperty('--hide-nft-border-color', '#95dbd5')
     doc.style.setProperty('--category-chip-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--live-auction-card', '#1b1b1b')
@@ -780,7 +833,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--share-icon-bg', '#2B2B2B')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #121212, #173639)')
-    doc.style.setProperty('--outline-btn-border', '#95dbd5')
+    doc.style.setProperty('--outline-btn-border', 'rgba(239, 240, 246, 0.25)')
     doc.style.setProperty('--report-menu-bg', 'rgba(18, 18, 18, 0.5)')
     doc.style.setProperty('--stats-label-bg', '#1B1B1B')
     doc.style.setProperty(
@@ -798,18 +851,20 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-bg', 'transparent')
     doc.style.setProperty('--dao-treasury-bg', '#242424')
     doc.style.setProperty('--deposit-disabled-color', '#E2E6EA')
-    doc.style.setProperty('--nav-divider-color', '#292929')
-    doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #264e51, #131516)')
+    doc.style.setProperty('--nav-divider-color', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--profile-setup-bg', '#1A1A1A')
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', 'linear-gradient(300deg, #4a9791 55%, #202427 100%)')
-    doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #121212, #173538)')
+    doc.style.setProperty('--profile-setup-left-bg', '#242424')
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
     doc.style.setProperty('--fade-loader-color', '#63D6CD')
     doc.style.setProperty('--time-slot-bg', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--time-slot-deselect-color', 'rgba(239, 240, 247, 1)')
     doc.style.setProperty('--merch-mobile-squre-bg', '#1b1b1b')
     doc.style.setProperty('--scroll-bar-thumb', '#95dbd5')
+    doc.style.setProperty('--scroll-bar-bg', '#505052')
     doc.style.setProperty('--merch-disabled-icon-bg', '#2B2B2B')
     doc.style.setProperty('--merch-disabled-icon-color', '#eff0f6')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(239, 240, 247, 0.75)')
@@ -819,5 +874,35 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#2F2F2F')
     doc.style.setProperty('--nft-type-box-hover', 'rgba(149, 219, 213, 0.25)')
+    doc.style.setProperty('--size-chart-modal-title', '#242424')
+    doc.style.setProperty('--table-header-color', '#242424')
+    doc.style.setProperty('--order-table-color', 'rgba(239, 240, 246, 0.02)')
+    doc.style.setProperty('--toggle-bg-color', '#95DBD5')
+    doc.style.setProperty('--selected-tab-color', 'rgba(150, 163, 236, 0.05)')
+    doc.style.setProperty('--selected-tab-border-color', '#303030')
+    doc.style.setProperty('--place-bid-color', '#232323')
+    doc.style.setProperty('--place-bid-shadow-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--place-bid-minimum-color', '#95DBD5')
+    doc.style.setProperty('--place-bid-minvalue-color', '#eff0f6')
+    doc.style.setProperty('--view-item-btn-color', '#242424')
+    doc.style.setProperty('--ellipse-blue', '#5C8CCE')
+    doc.style.setProperty('--ellipse-green', '#95dbd5')
+    doc.style.setProperty('--notification-shadow-color', 'rgba(0, 0, 0, 0.16)')
+    doc.style.setProperty('--liveauction-bg-color', 'rgba(239, 240, 246, 0.03)')
+    doc.style.setProperty('--single-title-color', '#202427')
+    doc.style.setProperty('--connect-wallet-color', 'linear-gradient(to right, #242424, #1F1F1F)')
+    doc.style.setProperty('--solrplex-icon-color', 'rgba(149, 219, 213, 0.05)')
+    doc.style.setProperty('--collection-type-card-color', '#1a1a1a')
+    doc.style.setProperty('--connection-type-bg', '#95dbd5')
+    doc.style.setProperty('--create-collection-color', 'rgba(239, 240, 246, 0.6)')
+    doc.style.setProperty('--create-collection-btn', 'rgba(36, 36, 36, 0.8)')
+    doc.style.setProperty('--import-ea-border-color', '239, 240, 246')
+    doc.style.setProperty('--collection-desc-bg-color', '#2F2F2F')
+    doc.style.setProperty('--hero-card-bg', '#212121')
+    doc.style.setProperty('--hero-avatar-bg-rgb', 'rgba(27, 27, 27, 0)')
+    doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
+    doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
+    doc.style.setProperty('--audio-nft-bgr-rgb', '51, 51, 51')
+
   }
 }

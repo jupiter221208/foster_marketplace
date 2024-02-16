@@ -1,0 +1,51 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  display: block;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+.selected {
+  width: 30px;
+  height: 30px;
+  border-radius: 33px;
+  border: 1px solid var(--main-icon-color);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.labelText {
+  font-family: 'Muli-Bold';
+}
+
+.normal {
+  width: 30px;
+  height: 30px;
+  border-radius: 33px;
+  border-width: 0px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.selectedMobile {
+  width: 25px;
+  height: 25px;
+  border-radius: 33px;
+  border: 1px solid var(--main-icon-color);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.normalMobile {
+  width: 25px;
+  height: 25px;
+  border-radius: 33px;
+  border-width: 0px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  cursor: pointer;
+  overflow: hidden;
+}

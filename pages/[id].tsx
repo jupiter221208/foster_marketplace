@@ -11,10 +11,8 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import MainSection from 'components/pages/ArtistProfile/MainSection'
-// import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import HeaderImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -27,11 +25,10 @@ import styles from './id.module.scss'
 import artistsAPI from 'apis/artists'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
-import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import TabSection from './profile/TabSection'
+import { ArtistsAPIData } from 'types/nft'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -42,10 +39,8 @@ interface ArtistProfileProps {
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
   useAuthentication()
   const { connected, publicKey } = useWallet()
-  const viewport = useViewport()
 
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
@@ -53,31 +48,32 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistStatsInfo, setArtistStatsInfo] = useState<any>({})
   const [collectorStatsInfo, setCollectorStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
-  const [createdNfts, setCreatedNfts] = useState<any>([])
-  const [collectedNfts, setCollectedNfts] = useState<any>([])
-  const [merchNfts, setMerchNfts] = useState<any>([])
-  const [collections, setCollections] = useState<any>([])
+  const [createdNfts, setCreatedNfts] = useState<ArtistsAPIData[]>([])
+  const [collectedNfts, setCollectedNfts] = useState<ArtistsAPIData[]>([])
+  const [merchNfts, setMerchNfts] = useState<ArtistsAPIData[]>([])
+  const [collections, setCollections] = useState([])
   const [artistEnable, setArtistEnable] = useState(true)
+  const [merchEnable, setMerchEnable] = useState(false)
+  const [collectorEnable, setCollectorEnable] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
   const [artistCurrentPage, setArtistCurrentPage] = useState(1)
   const [artistRowCount, setArtistRowCount] = useState(12)
-  const [artistTotalCount, setArtistTotalCount] = useState(0)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
   const [collectorTotalCount, setCollectorTotalCount] = useState(0)
   const [merchCurrentPage, setMerchCurrentPage] = useState(1)
   const [merchRowCount, setMerchRowCount] = useState(12)
-  const [merchTotalCount, setMerchTotalCount] = useState(0)
-  const [artistToEnd, setArtistToEnd] = useState(false)
-  const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
   const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
   const [isFetchingCreated, setIsFetchingCreated] = useState(false)
   const [isVisibleFetchingCreated, setIsVisibleFetchingCreated] = useState(false)
+  const [isFetchingMerch, setIsFetchingMerch] = useState(false)
+  const [isVisibleFetchingMerch, setIsVisibleFetchingMerch] = useState(false)
   const [isFetchingCollected, setIsFetchingCollected] = useState(false)
   const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
+  const [hasLoading, setHasLoading] = useState(true)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -102,16 +98,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: false })
   }, [])
-
-  useEffect(() => {
-    if (createdNfts !== null && createdNfts !== undefined && isLoading) {
-      setTimeout(() => {
-        dispatch({ type: 'set', isLoading: false })
-      }, 1000)
-    }
-  }, [createdNfts])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -124,24 +112,29 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [hideNftToken])
 
   useEffect(() => {
-    ;(async () => {
+    ;async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
-      getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
-    })()
+      await getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
+      await getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
+      await getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
+    }
   }, [connected, loginAndRefresh, publicArtistData])
 
   const reloadPage = () => {
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
     getCollectorData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
+    getMerchNftData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
   }
 
   const handleNextPage = () => {
     if (artistEnable) {
       const nextPage = artistCurrentPage + 1
       getArtistData(artistPublicKey, artistRowCount, nextPage)
-    } else {
+    } else if (merchEnable) {
+      const nextPage = merchCurrentPage + 1
+      getMerchNftData(artistPublicKey, merchRowCount, nextPage)
+    } else if (collectorEnable) {
       const nextPage = collectorCurrentPage + 1
       getCollectorData(artistPublicKey, collectorRowCount, nextPage)
     }
@@ -172,28 +165,37 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setCategoryList([])
   }
 
-  const getMerchNftData = (id, row_count, current_page, refresh = false) => {
-    if (artistToEnd) return
-    setMerchNfts([])
+  const getMerchNftData = (id, row_count, current_page, refresh = false, reset = false) => {
     artistsAPI.getMerchNfts(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        setIsFetchingMerch(false)
         if (isString(response)) return
-        setMerchNfts(response)
+
+        if (response.length === merchRowCount) setIsVisibleFetchingMerch(true)
+        else setIsVisibleFetchingMerch(false)
+
+        if (reset === true) setMerchNfts(response)
+        else setMerchNfts([...merchNfts, ...response])
+
+        setMerchCurrentPage(current_page)
+        fetchNftData(response)
       },
       error => {
         setIsLoaded(true)
+        setIsFetchingMerch(false)
+        setIsVisibleFetchingMerch(false)
         console.log(error)
       }
     )
   }
 
   const getArtistData = (id, row_count, current_page, refresh = false, reset = false) => {
-    if (artistToEnd) return
-
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        setHasLoading(false)
+
         setIsFetchingCreated(false)
         if (isString(response)) return
         let artist = response.artist
@@ -208,21 +210,26 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
         else setIsVisibleFetchingCreated(false)
 
-        if (reset === true) setCreatedNfts(response.nfts)
-        else setCreatedNfts([...createdNfts, ...response.nfts])
-
-        setArtistCurrentPage(current_page)
-        setArtistTotalCount(response.total_nfts)
-        if (response.nfts.length < row_count) {
-          setArtistToEnd(true)
+        let newNfts = []
+        if (reset === true) newNfts = response.nfts
+        else {
+          newNfts = [...createdNfts, ...response.nfts]
         }
-
+        var filteredNfts = newNfts.filter(
+          (arr, index, self) =>
+            index === self.findIndex(t => t.nft_name === arr.nft_name && t.asset_url === arr.asset_url)
+        )
+        setCreatedNfts(filteredNfts)
+        setArtistCurrentPage(current_page)
         setCollections(response.collections)
 
         if (categoryList.length === 0) setCategoryList(response.categories)
+
+        fetchNftData(filteredNfts)
       },
       error => {
         setIsLoaded(true)
+        setHasLoading(false)
         setIsFetchingCreated(false)
         setIsVisibleFetchingCreated(false)
       }
@@ -230,12 +237,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getCollectorData = (id, row_count, current_page, refresh = false, reset = false) => {
-    if (collectorToEnd) return
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
         setIsFetchingCollected(false)
-
         if (isString(response)) return
         let artist = response.collector
         if (refresh && artist) {
@@ -253,9 +258,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         else setCollectedNfts([...collectedNfts, ...response.nfts])
 
         setCollectorCurrentPage(current_page)
-        if (response.nfts.length < row_count) {
-          setCollectorToEnd(true)
-        }
+        fetchNftData(response.nfts)
       },
       error => {
         setIsLoaded(true)
@@ -265,12 +268,29 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     )
   }
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  const fetchNftData = nfts => {
+    if (nfts.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < nfts.length; index++) {
+          let data = nfts[index]
+          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          if (index % 3 == 2) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }
+
   useEffect(() => {
     if (!artistPublicKey) return
+    setHasLoading(true)
     resetData()
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
     getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
-    getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true)
+    getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -279,8 +299,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   let artistName = `${artistInfo?.username} | Foster Marketplace`
   let artistImageUrl = getAbsoluteOgUrl(artistInfo?.profile_picture ?? DefaultNftBG.src)
-  let artistDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+  let artistDescription = artistInfo?.bio ?? ''
 
   return (
     <div className="w-full">
@@ -308,6 +327,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setFullScreenView={setFullScreenView}
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
+          hasLoading={hasLoading}
         />
         <div className="w-full flex justify-center">
           <div className="g-container">
@@ -317,11 +337,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
+              description={artistDescription}
+              categoryList={categoryList}
               isOwn={isOwn}
               isLoaded={isLoaded}
               handleNextPage={() => handleNextPage()}
               reloadPage={reloadPage}
               setArtistEnable={setArtistEnable}
+              setMerchEnable={setMerchEnable}
+              setCollectorEnable={setCollectorEnable}
               artistStatsInfo={artistStatsInfo}
               collectorStatsInfo={collectorStatsInfo}
               setActiveListingLoaded={setActiveListingLoaded}
@@ -332,6 +356,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               isVisibleFetchingCollected={isVisibleFetchingCollected}
               isFetchingCollected={isFetchingCollected}
               setIsFetchingCollected={setIsFetchingCollected}
+              isVisibleFetchingMerch={isVisibleFetchingMerch}
+              isFetchingMerch={isFetchingMerch}
+              setIsFetchingMerch={setIsFetchingMerch}
             />
           </div>
         </div>
@@ -355,8 +382,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           </div>
         )}
       </div>
-
-      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

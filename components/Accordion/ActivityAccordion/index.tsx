@@ -10,22 +10,25 @@ import { Disclosure } from '@headlessui/react'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
 // json
 
 // styles
 import styles from './index.module.scss'
-import { getDateString } from 'utils/strings'
+import { getDateString, getDisplayUserName } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { getBuyerName, getOwnerName } from 'utils/helpers'
+import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { NftData } from 'types/nft'
 
-const ActivityAccordion = props => {
-  const { data } = props
+const ActivityAccordion = ({ data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const { solToUsdRate } = useSolToUsdRate()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -39,6 +42,60 @@ const ActivityAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
+  }
+  console.log(data, '=============data==============')
+  const getUserName = item => {
+    let user = ''
+    switch (item.action_type) {
+      case 'AuctionStarted':
+      case 'AuctionCancelled':
+      case 'ListingAdded':
+      case 'ListingCancelled':
+        user = getOwnerName(item)
+        break
+      case 'OfferMade':
+      case 'OfferCancelled':
+      case 'QuickBuy':
+      case 'AuctionWon':
+      case 'BidPlaced':
+        user = getBuyerName(item)
+        break
+    }
+    return user
+  }
+
+  const getActionType = item => {
+    let type = ''
+    switch (item.action_type) {
+      case 'AuctionStarted':
+        type = 'published an auction'
+        break
+      case 'AuctionCancelled':
+        type = 'canceled an auction'
+        break
+      case 'ListingAdded':
+        type = 'listed'
+        break
+      case 'ListingCancelled':
+        type = 'canceled listing'
+        break
+      case 'OfferMade':
+        type = 'made an offer'
+        break
+      case 'OfferCancelled':
+        type = 'canceled an offer'
+        break
+      case 'QuickBuy':
+        type = 'purchased'
+        break
+      case 'AuctionWon':
+        type = 'won an auction'
+        break
+      case 'BidPlaced':
+        type = 'placed a bid'
+        break
+    }
+    return type
   }
 
   const gotoUserDetail = link => {
@@ -74,17 +131,26 @@ const ActivityAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Time</div>
-                    <div className={styles.text}>{getDateString(item.created_at)}</div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Amount</div>
-                    <div className="flex gap-[4px] items-center">
-                      <SolanaLogoIcon alt="" />
-                      <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
+                    <div className="w-full flex justify-between">
+                      <div>
+                        <div className="flex gap-[4px] mb-[5px]">
+                          <div className={styles.title}>{getDisplayUserName(getUserName(item))}</div>
+                          <div className={styles.text}>{getActionType(item)}</div>
+                        </div>
+                        <div className={styles.date}>{getLocalDate(item.created_at)}</div>
+                      </div>
+                      <div>
+                        <div className="w-fit-content h-[22px] mb-[2px] flex flex-row justify-end items-center">
+                          <SolanaLogoMobileIcon alt="" />
+                          <div className={styles.userName}>&nbsp;{item.amount}</div>
+                        </div>
+                        <div className={styles.usdValue}>
+                          ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className={styles.firstRow}>
+                  {/* <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div
                       className={styles.text}
@@ -94,15 +160,15 @@ const ActivityAccordion = props => {
                         }
                       }}
                     >
-                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
                     </div>
                   </div>
-                  <div className={styles.secondRow}>
+                  <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
                       {getOwnerName(item)}
                     </div>
-                  </div>
+                  </div> */}
                 </Disclosure.Panel>
               </>
             )}

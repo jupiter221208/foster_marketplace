@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useResizeDetector } from 'react-resize-detector'
 
 // next components
-// import Image from 'next/image'
+import Link from 'next/link'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -13,40 +15,66 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import { NftData } from 'types/nft'
 
-const MyNFTCard = props => {
-  const { data, onClick, onClickStartAuction, onClickListNFT, active } = props
+type MyNFTCardTypes = {
+  data: NftData
+  onClick?: any
+  onClickStartAuction: (item: NftData) => void
+  onClickListNFT: (item: NftData) => void
+  active: any
+}
+
+const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT, active }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setImageLoading(true)
+  }, [data])
+
+  console.log(data)
 
   return (
     <div className={styles.container}>
-      <div className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden" onClick={() => onClick(data)}>
-        {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
+      <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
+        <a>
           <div
-            dangerouslySetInnerHTML={{
-              __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
-            }}
-          />
-        ) : (
-          <div className={styles.imageArea}>
-            <div className={styles.imageContent}>
-              <img
-                src={
-                  data.json.image === undefined || data.json.image === null
-                    ? AudioPlayerBackground.src
-                    : data.json.image
-                }
-                alt={data.json.name || data.name}
-                className="w-full h-full object-cover"
+            className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
+            onClick={() => dispatch({ type: 'set', isLoading: true })}
+          >
+            {data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${data.animation_url} type="video/mp4" /></video>`,
+                }}
               />
-            </div>
+            ) : (
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  {imageLoading && (
+                    <div className={styles.skeletonLoaderOuterBox}>
+                      <div className={styles.skeletonLoader} />
+                    </div>
+                  )}
+                  <img
+                    src={data.image || data.animation_url || AudioPlayerBackground.src}
+                    alt={data.name}
+                    className="w-full h-full object-cover"
+                    onLoad={() => setImageLoading(false)}
+                  />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </a>
+      </Link>
+
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.json.name || data.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>

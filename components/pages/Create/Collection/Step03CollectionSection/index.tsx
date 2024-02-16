@@ -7,10 +7,6 @@ import Image from 'next/image'
 import Lottie from 'lottie-react'
 
 // components
-import CollectionStepper from 'components/Stepper/CollectionStepper'
-import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
-import GradientButton from 'components/Button/GradientButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 
@@ -18,9 +14,6 @@ import Textarea from 'components/Input/Textarea'
 import { useViewport } from 'utils'
 
 // images and icons
-import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
@@ -29,12 +22,14 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
+import { FadeLoader } from 'react-spinners'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step03CollectionSection = props => {
   const {
     currentStep,
     onChangeCurrentStep,
-    coverCroppedImage,
+    collectionMintName,
     collectionFiles,
     bannerCroppedImage,
     readFilesAndUplaod,
@@ -52,9 +47,13 @@ const Step03CollectionSection = props => {
   }
 
   const uploadArtworks = () => {
-    // setStartUpload(true)
+    setStartUpload(true)
     readFilesAndUplaod()
   }
+
+  useEffect(() => {
+    if (uploadedCount === collectionFiles.length) setStartUpload(false)
+  })
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
@@ -73,9 +72,6 @@ const Step03CollectionSection = props => {
     }
   }, [collectionFiles])
 
-  // const [showMore, setShowMore] = useState(false)
-  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
-
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   return (
@@ -85,65 +81,20 @@ const Step03CollectionSection = props => {
           {/* left part */}
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Review Collection</div>
+              <div className={`${styles.title} w-full`}>{collectionMintName}</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className={styles.bannerImageArea}>
-                  {bannerCroppedImage !== undefined && (
-                    <Image
-                      src={bannerCroppedImage}
-                      alt=""
-                      width={758}
-                      height={194}
-                      layout="responsive"
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
-                  )}
-                  <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
-                    <div className={styles.coverImageArea}>
-                      <Image
-                        src={coverCroppedImage}
-                        alt=""
-                        width={160}
-                        height={160}
-                        layout="responsive"
-                        objectFit="cover"
-                        className="rounded-[6px]"
-                      />
-                    </div>
-                  </div>
+                  <Image
+                    src={bannerCroppedImage}
+                    alt=""
+                    width={640}
+                    height={640}
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-[20px]"
+                  />
                 </div>
-              </div>
-              <div className={`w-full flex justify-center items-center mt-[195px] mb-5 ${styles.subTitle}`}>
-                Collection Artworks
-              </div>
-              <div className={styles.uploadedImageArea}>
-                {collectionFiles.map((item, index) => (
-                  <div key={index} className="w-[100px] h-[100px]">
-                    {item.type === 'video' ? (
-                      <div className="w-full h-full flex justify-center items-center">
-                        <video loop autoPlay className="w-full h-full" id="video">
-                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
-                    ) : (
-                      <Image
-                        src={item.croppedImage}
-                        alt=""
-                        width={100}
-                        height={100}
-                        layout="responsive"
-                        objectFit="cover"
-                        className="rounded-[12px]"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-              <div className={`w-full flex justify-start items-center my-2 z-10 ${styles.grayText}`}>
-                Files Uploaded: {collectionFiles.length}
               </div>
             </div>
           </div>
@@ -151,119 +102,8 @@ const Step03CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
+                <div className={styles.reviewCollection}>Review Collection Items</div>
                 <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
-                </div>
-                <div className="w-full mt-[70px]">
-                  {/* {showMore &&
-                    subCollectionFiles !== undefined &&
-                    subCollectionFiles.length !== 0 &&
-                    subCollectionFiles.map((item, index) => (
-                      <div
-                        className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                        key={index}
-                        onClick={() => setSelectedCollectionFile(item)}
-                      >
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.greenText
-                              : styles.text
-                          }
-                        >
-                          {index + 1}
-                        </div>
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.selectedImage
-                              : styles.nonSelectedImage
-                          }
-                        >
-                          {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full h-full" id="video">
-                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                              Your browser does not support the video tag.
-                            </video>
-                          ) : (
-                            <Image
-                              src={item.croppedImage}
-                              alt=""
-                              width={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              height={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              objectFit="cover"
-                              className="rounded-lg"
-                            />
-                          )}
-                        </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            NFT Name *
-                          </div>
-                          <div>
-                            <Input
-                              value={item.name}
-                              placeholder="Give your art name"
-                              label=""
-                              fullWidth
-                              onChange={() => {}}
-                              height="46px"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            Description
-                          </div>
-                          <div>
-                            <Textarea
-                              value={item.description}
-                              placeholder="Add a short description..."
-                              fullWidth
-                              onChange={() => {}}
-                              height="90px"
-                            />
-                          </div>
-                        </div>
-                        {startUpload && (
-                          <div className="absolute -right-20 top-10 w-10 h-10">
-                            {index < uploadedCount ? (
-                              <Lottie animationData={CheckLottery} loop={true} />
-                            ) : (
-                              <Lottie animationData={LoaderLottery} loop={true} />
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
-                    <div className="w-full flex justify-center">
-                      <IconButton
-                        icon={ArrowDownGreenIcon}
-                        onClick={() => setShowMore(false)}
-                        backgroundColor="transparent"
-                        iconWidth={32}
-                        iconHeight={32}
-                      />
-                    </div>
-                  )} */}
-
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
@@ -295,7 +135,7 @@ const Step03CollectionSection = props => {
                             </video>
                           ) : (
                             <Image
-                              src={item.croppedImage}
+                              src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                               alt=""
                               width={
                                 selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
@@ -324,6 +164,8 @@ const Step03CollectionSection = props => {
                               placeholder="Give your art name"
                               label=""
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="46px"
                             />
@@ -344,6 +186,8 @@ const Step03CollectionSection = props => {
                               value={item.description}
                               placeholder="Add a short description..."
                               fullWidth
+                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="90px"
                             />
@@ -351,10 +195,15 @@ const Step03CollectionSection = props => {
                         </div>
                         {startUpload && (
                           <div className="absolute -right-20 top-10 w-10 h-10">
-                            {index < uploadedCount ? (
+                            {/* {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (
                               <Lottie animationData={LoaderLottery} loop={true} />
+                            )} */}
+                            {index < uploadedCount ? (
+                              <Lottie animationData={CheckLottery} loop={true} />
+                            ) : (
+                              <FadeLoader margin="0" height={10} speedMultiplier={1} color="#63D6CD" />
                             )}
                           </div>
                         )}
@@ -362,31 +211,36 @@ const Step03CollectionSection = props => {
                     ))}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-between">
-                  <OutlineButton
-                    label="Back"
-                    onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                    width={viewport === '2xl' ? 124 : 117}
-                    height={viewport === '2xl' ? 53 : 46}
-                    borderWidth={2}
-                  />
-                  {disabledNextButton ? (
-                    <Button
-                      width={viewport === '2xl' ? 208 : 161}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Mint Collection"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
+                <div className="absolute bottom-0 w-full flex justify-end">
+                  <div className="flex gap-10">
+                    <OutlineButton
+                      label="Back"
+                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                      width={120}
+                      height={53}
+                      borderWidth={2}
                     />
-                  ) : (
-                    <GradientButton
-                      width={viewport === '2xl' ? 208 : 161}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Mint Collection"
-                      gradientDirection="bottom"
-                      onClick={() => uploadArtworks()}
-                    />
-                  )}
+                    {startUpload ? (
+                      <LoadingButton
+                        width={120}
+                        height={53}
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                      />
+                    ) : (
+                      <button
+                        className={styles.mintCollection}
+                        disabled={disabledNextButton}
+                        style={{
+                          color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                          background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                        }}
+                        onClick={() => uploadArtworks()}
+                      >
+                        Mint
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -394,154 +248,34 @@ const Step03CollectionSection = props => {
         </div>
       ) : (
         // mobile part
-        <div className="g-container mt-[26px] mb-[47px]">
+        <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          <div className="w-full">
+          {/* <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
-          </div>
-          <div className={`${styles.title} w-full`}>Collection Preview</div>
+          </div> */}
+          <div className={`${styles.title} w-full`}>{collectionMintName}</div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             {/* banner part */}
-            <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+            <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
               <div className={styles.bannerImageArea}>
                 {bannerCroppedImage !== undefined && (
                   <Image
                     src={bannerCroppedImage}
                     alt=""
-                    width={758}
-                    height={194}
+                    width={256}
+                    height={256}
                     layout="responsive"
                     objectFit="cover"
-                    className="rounded-[20px]"
                   />
                 )}
-                <div className="absolute left-0 -bottom-[50px] w-full flex justify-center">
-                  <div className={styles.coverImageArea}>
-                    <Image
-                      src={coverCroppedImage}
-                      alt=""
-                      width={86}
-                      height={86}
-                      layout="responsive"
-                      objectFit="cover"
-                      className="rounded-[6px]"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} w-full flex justify-center mt-20`}>Collection Artworks</div>
-            <div className={`${styles.grayText} w-full flex justify-center my-2`}>
-              Files Uploaded: {collectionFiles.length}
-            </div>
             <div className="w-full mt-[70px]">
-              {/* {showMore &&
-                subCollectionFiles !== undefined &&
-                subCollectionFiles.length !== 0 &&
-                subCollectionFiles.map((item, index) => (
-                  <div
-                    className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
-                    key={index}
-                    onClick={() => setSelectedCollectionFile(item)}
-                  >
-                    <div className="w-full flex justify-between items-center">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.selectedImage
-                            : styles.nonSelectedImage
-                        }
-                      >
-                        {item.type === 'video' ? (
-                          <video loop autoPlay className="w-full h-full" id="video">
-                            <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : (
-                          <Image
-                            src={item.croppedImage}
-                            alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            objectFit="cover"
-                            className="rounded-lg"
-                          />
-                        )}
-                      </div>
-                      {startUpload && (
-                        <div className="w-10 h-10">
-                          {index < uploadedCount ? (
-                            <Lottie animationData={CheckLottery} loop={true} />
-                          ) : (
-                            <Lottie animationData={LoaderLottery} loop={true} />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        NFT Name *
-                      </div>
-                      <div>
-                        <Input
-                          value={item.name}
-                          placeholder="Give your art name"
-                          label=""
-                          fullWidth
-                          onChange={() => {}}
-                          height="46px"
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        Description
-                      </div>
-                      <div>
-                        <Textarea
-                          value={item.description}
-                          placeholder="Add a short description..."
-                          fullWidth
-                          onChange={() => {}}
-                          height="90px"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
-                <div className="w-full flex justify-center">
-                  <IconButton
-                    icon={ArrowDownGreenIcon}
-                    onClick={() => setShowMore(false)}
-                    backgroundColor="transparent"
-                    iconWidth={32}
-                    iconHeight={32}
-                  />
-                </div>
-              )} */}
-
               {/* {!showMore && */}
               {collectionFiles.length !== 0 &&
                 collectionFiles.map((item, index) => (
@@ -565,7 +299,7 @@ const Step03CollectionSection = props => {
                           </video>
                         ) : (
                           <Image
-                            src={item.croppedImage}
+                            src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                             alt=""
                             width={
                               selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
@@ -604,7 +338,6 @@ const Step03CollectionSection = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          backgroundColor={'var(--input-bg)'}
                           onChange={() => {}}
                           height="46px"
                         />
@@ -624,7 +357,6 @@ const Step03CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          backgroundColor={'var(--input-bg)'}
                           fullWidth
                           onChange={() => {}}
                           height="90px"
@@ -637,43 +369,30 @@ const Step03CollectionSection = props => {
           </div>
           <div className="w-full flex justify-between my-10">
             {/* button group part */}
-            <div className="w-full grid grid-cols-2 gap-5">
-              <div className="col-span-1">
+            <div className="w-full flex justify-between">
+              <div>
                 <OutlineButton
                   label="Back"
                   onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                  fullWidth
+                  width={175}
                   height="45px"
                   // color="#EFF0F6"
                   borderWidth={2}
                   // borderColor="#5AC3BA"
                 />
               </div>
-              <div className="col-span-1">
-                {disabledNextButton ? (
-                  <div className="w-full">
-                    <Button
-                      fullWidth
-                      label="Mint Collection"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
-                      height="45px"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full">
-                    <GradientButton
-                      fullWidth
-                      label="Mint Collection"
-                      gradientDirection="bottom"
-                      backgroundColor01={'var(--mint-btn-bg-1)'}
-                      backgroundColor02={'var(--mint-btn-bg-2)'}
-                      color={'var(--mint-btn-color)'}
-                      onClick={() => uploadArtworks()}
-                      height="45px"
-                    />
-                  </div>
-                )}
+              <div>
+                <button
+                  className={styles.mintCollection}
+                  disabled={disabledNextButton}
+                  style={{
+                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                  }}
+                  onClick={() => uploadArtworks()}
+                >
+                  Mint
+                </button>
               </div>
             </div>
           </div>

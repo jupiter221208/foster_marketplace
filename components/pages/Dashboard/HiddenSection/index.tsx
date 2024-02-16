@@ -15,14 +15,15 @@ import userAPI from 'apis/user'
 import LoadingModal from 'components/Modal/LoadingModal'
 import DashboardNFTCard from 'components/Card/NFTCard'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { DashboardAPIData } from 'types/nft'
 
 const HiddenSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const unhideNftToken = useSelector(state => (state as any).unhideNftToken)
 
-  const [nftList, setNftList] = useState([])
-  const [allNftList, setAllNftList] = useState([])
+  const [nftList, setNftList] = useState<DashboardAPIData[]>([])
+  const [allNftList, setAllNftList] = useState<DashboardAPIData[]>([])
   const [loading, setLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -37,7 +38,7 @@ const HiddenSection = () => {
   const getHiddenNftData = () => {
     userAPI.getHiddenNFT().then(
       response => {
-        setAllNftList(response)
+        setAllNftList(response.filter(item => item.nft_name !== ''))
         setLoading(false)
       },
       error => {

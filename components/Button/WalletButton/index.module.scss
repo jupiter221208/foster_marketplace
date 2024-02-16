@@ -4,7 +4,7 @@
   width: 100%;
   height: 49px;
   border-radius: 12px;
-  background: linear-gradient(110deg, #121212, #202427);
+  background: var(--connect-wallet-color);
   box-shadow: 0px 3px 6px rgba(18, 18, 18, 0.4);
 
   gap: 13px;
@@ -13,7 +13,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 
   display: flex;
   justify-content: center;
@@ -34,13 +34,6 @@
 }
 
 .connectedContainer {
-  min-width: 100px;
-  width: 100px;
-  height: 49px;
-  // border-radius: 12px;
-  // background: var(--connected-wallet-bg);
-  padding-left: 20px;
-  padding-right: 20px;
   gap: 13px;
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -50,7 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0.8;
+  // opacity: 0.8;
   // &:not([disabled]):hover {
   //   box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
   // }
@@ -207,4 +200,18 @@
 .depositWithdraw {
   background: var(--social-bg-color);
   border-radius: 16px;
+}
+
+.iconArea {
+  width: 46px;
+  aspect-ratio: 1/1;
+  margin-right: 20px;
+  border-radius: 50px;
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  * {
+    fill: var(--main-bg-color);
+  }
 }

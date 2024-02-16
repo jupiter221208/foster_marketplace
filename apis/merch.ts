@@ -75,11 +75,34 @@ export interface ShipStationOrderItemOption {
   value: string
 }
 
-export interface TrackingItem {
-  tracking_number: string
-  delivery_date: string
-  fulfillment_service_code: string
-  fulfillment_provider_code: string
+export interface ShipStationShipment {
+  shipment_id: number
+  createDate: string
+  shipDate: string
+  shipmentCost: number
+  insuranceCost: number
+  trackingNumber: string
+  isReturnLabel: boolean
+  batchNumber?: string
+
+  carrierCode: string
+  serviceCode: string
+  packageCode: string
+  confirmation: string
+  warehouseId: number
+
+  voided: boolean
+  voidDate?: string
+  marketplaceNotified: boolean
+  notifyerrorMessage?: string
+
+  dimensions?: JSON
+
+  insuranceOptions?: JSON
+  advancedOptions?: JSON
+  shipmentItems?: JSON
+  labelData?: JSON
+  formData?: JSON
 }
 
 export interface OrderData {
@@ -94,11 +117,11 @@ export interface OrderData {
     artist_commission: number
     tax_amount: number
     shipping_amount: number
-    seller_shares: any
+    seller_shares: Record<string, number>
     buyer_address: string
   }
   ssorder: ShipStationOrder
-  fulfillment?: TrackingItem
+  shipment?: ShipStationShipment
 }
 
 export function prepareCart(data) {
@@ -149,6 +172,36 @@ export async function getOrderStats() {
   })
 }
 
+export async function getRecentOrders() {
+  return client.get(API_URL + 'v1/merch/orders/recent').then(response => {
+    return response?.data
+  })
+}
+
+export async function getRecentlyEnabledNfts(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/recently-enabled-nfts?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
+export async function getArtistsMerchHub(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/artists-with-merch-hub?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
+export async function getArtworkMerchHub(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/nfts-with-merch-hub?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
 export default {
   prepareCart,
   checkout,
@@ -158,4 +211,8 @@ export default {
   getBuyerOrder,
   getSellerOrder,
   getOrderStats,
+  getRecentOrders,
+  getRecentlyEnabledNfts,
+  getArtistsMerchHub,
+  getArtworkMerchHub,
 }

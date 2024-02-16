@@ -15,6 +15,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { useRouter } from 'next/router'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectorsAccordion = props => {
   const { data } = props
@@ -60,7 +61,7 @@ const CollectorsAccordion = props => {
                     </div>
                     <div className="block">
                       <div className={styles.subTitle} onClick={() => router.push(`/${item.collector_name}`)}>
-                        {item.collector_name}
+                        {getDisplayUserName(item.collector_name)}
                       </div>
                       <div className="flex gap-2 mt-1 items-center">
                         <div className={styles.priceText}>Total Purchases</div>

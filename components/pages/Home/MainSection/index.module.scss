@@ -2,53 +2,51 @@
 
 .container {
   margin-top: -80px;
-  margin-bottom: 60px;
   height: auto;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    margin-bottom: 0px;
-    height: calc(100vh - 100px);
+    height: 590px;
   }
-
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 32px;
-  position: relative;
 }
 
-.topLeftEllipse {
+.leftEllipse {
   position: absolute;
-  width: 2021px;
-  height: 2021px;
-  top: -956px;
-  left: -1950px;
-  @media (min-width: 1024px) {
-    width: 2021px;
-    height: 2021px;
-    top: -856px;
-    left: -850px;
+  top: -200px;
+  left: -180px;
+  scale: 0.9;
+  opacity: 0.69;
+  svg defs radialGradient stop {
+    stop-color: var(--ellipse-blue);
   }
-  z-index: 0;
-  opacity: 0.25;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
-.topRightEllipse {
+.loadingText {
+  display: flex;
+  gap: 20px;
+  color: var(--main-icon-color);
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+}
+
+.rightEllipse {
   position: absolute;
-  width: 652px;
-  height: 652px;
-  top: -32px;
-  right: -245px;
-  @media (min-width: 1024px) {
-    width: 1705px;
-    height: 1705px;
-    top: 0px;
-    right: -440px;
+  top: -50px;
+  right: -50px;
+  scale: 0.9;
+  opacity: 0.2;
+  svg defs radialGradient stop {
+    stop-color: var(--ellipse-green);
   }
-  z-index: 0;
-  opacity: 0.25;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .alpha {
@@ -125,23 +123,38 @@
   }
 }
 
+.heroMobileSection {
+  width: 100%;
+  margin-left: -16px;
+}
+
 .heroGreen {
   display: flex;
   align-items: center;
 }
 
+.heroBorder {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
+  z-index: 10;
+}
+
 .mobileTitle {
   color: var(--text-gray-200-color);
-  font-family: 'Muli-SemiBold';
+  font-family: 'BebasKai';
   font-size: 26px;
   line-height: 32px;
   text-align: center;
 }
 
 .mobileText {
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   font-family: 'Muli-Light';
-  font-size: 18px;
+  font-size: 15px;
   line-height: 24px;
   text-align: center;
   margin-top: 5px;
@@ -162,7 +175,7 @@
 .text {
   width: 100%;
   margin-top: 10px;
-  font-family: 'Muli-Bold';
+  font-family: 'BebasKai';
   font-size: 18px;
   line-height: 36px;
   text-align: center;
@@ -195,12 +208,12 @@
 .slug {
   margin-top: 9px;
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 15px;
   text-align: center;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 10px;
     padding-left: 0px;
     padding-right: 0px;
   }
@@ -246,8 +259,9 @@
   z-index: 2;
   position: absolute;
   left: 0;
-  top: 110px;
+  top: 130px;
   right: 0;
+  margin-top: -15px;
 }
 
 .cardTitle {
@@ -277,9 +291,9 @@
 
 .leftSide {
   position: absolute;
-  width: 26vw;
+  width: 10vw;
   height: 100%;
-  background: linear-gradient(to right, var(--background-main-color) 10%, transparent 100%);
+  background: linear-gradient(to right, var(--background-main-color) 5%, transparent 30%);
   left: 0;
   top: 0;
   z-index: 10;
@@ -287,10 +301,59 @@
 
 .rightSide {
   position: absolute;
-  width: 26vw;
+  width: 10vw;
   height: 100%;
-  background: linear-gradient(to left, var(--background-main-color) 15%, transparent 100%);
+  background: linear-gradient(to left, var(--background-main-color) 5%, transparent 30%);
   right: 0;
   top: 0;
   z-index: 10;
+}
+
+.arrowBG {
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(#eff0f6, 0.25);
+  background: var(--second-home-bg);
+  border-radius: 29px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skeletonLoader:empty {
+  min-width: 1000px;
+  min-height: 575px;
+  border-radius: 1rem;
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
 }

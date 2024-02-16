@@ -1,4 +1,6 @@
 import { Fragment } from 'react'
+import { useViewport } from 'utils'
+import { useDispatch } from 'react-redux'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -14,12 +16,9 @@ import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // custom functions
-import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -27,6 +26,7 @@ import GradientButtonWithSVG from 'components/Button/GradientButtonWithSVG'
 
 const CreateNFTModal = props => {
   const { open, close } = props
+  const dispatch = useDispatch()
   const viewport = useViewport()
   const router = useRouter()
   const { connected } = useWallet()
@@ -91,8 +91,8 @@ const CreateNFTModal = props => {
                         label="Single"
                         width={180}
                         height={49}
-                        backgroundColor01={'var(--single-nft-btn-bg-1)'}
-                        backgroundColor02={'var(--single-nft-btn-bg-2)'}
+                        backgroundColor01={'var(--main-icon-color)'}
+                        backgroundColor02={'var(--main-icon-color)'}
                         icon={
                           <svg
                             id="Component_2333_2"
@@ -106,7 +106,7 @@ const CreateNFTModal = props => {
                               id="Rectangle_1732"
                               data-name="Rectangle 1732"
                               fill="none"
-                              stroke="var(--single-nft-btn-color)"
+                              stroke="var(--single-title-color)"
                               strokeWidth="2"
                             >
                               <rect width="20" height="20" rx="3" stroke="none" />
@@ -118,7 +118,7 @@ const CreateNFTModal = props => {
                               y2="8"
                               transform="translate(10 6)"
                               fill="none"
-                              stroke="var(--single-nft-btn-color)"
+                              stroke="var(--single-title-color)"
                               strokeLinecap="round"
                               strokeWidth="2"
                             />
@@ -128,7 +128,7 @@ const CreateNFTModal = props => {
                               y2="8.121"
                               transform="translate(13.883 9.596) rotate(90)"
                               fill="none"
-                              stroke="var(--single-nft-btn-color)"
+                              stroke="var(--single-title-color)"
                               strokeLinecap="round"
                               strokeWidth="2"
                             />
@@ -137,28 +137,79 @@ const CreateNFTModal = props => {
                         onClick={() => handleClickButton('/create/single-nft')}
                         gradientDirection="right"
                         fontSize="18px"
-                        color={'var(--single-nft-btn-color)'}
+                        color={'var(--single-title-color)'}
                       />
 
-                      <OutlineButton
+                      <GradientButtonWithSVG
                         label="Collection"
                         width={180}
                         height={49}
-                        icon={AddWhiteIcon}
-                        onClick={() => handleClickButton('/create/collection')}
-                        backgroundColor="#202427"
-                        color="#95DBD5"
-                        fontSize="18px"
-                        borderColor="#95DBD5"
+                        backgroundColor01={'transparent'}
+                        backgroundColor02={'transparent'}
+                        borderColor="var(--follow-btn-border-mobile)"
                         borderWidth="1px"
+                        icon={
+                          <svg
+                            id="Component_2334_2"
+                            data-name="Component 2334 – 2"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25.224"
+                            height="24.632"
+                            viewBox="0 0 25.224 24.632"
+                          >
+                            <g id="Component_2333_1" data-name="Component 2333 – 1">
+                              <g
+                                id="Rectangle_1732"
+                                data-name="Rectangle 1732"
+                                fill="none"
+                                stroke="var(--text-gray-200-color)"
+                                strokeWidth="2"
+                              >
+                                <rect width="20" height="20" rx="3" stroke="none" />
+                                <rect x="1" y="1" width="18" height="18" rx="2" fill="none" />
+                              </g>
+                              <line
+                                id="Line_298"
+                                data-name="Line 298"
+                                y2="8"
+                                transform="translate(10 6)"
+                                fill="none"
+                                stroke="var(--text-gray-200-color)"
+                                strokeLinecap="round"
+                                strokeWidth="2"
+                              />
+                              <line
+                                id="Line_299"
+                                data-name="Line 299"
+                                y2="8.121"
+                                transform="translate(13.883 9.596) rotate(90)"
+                                fill="none"
+                                stroke="var(--text-gray-200-color)"
+                                strokeLinecap="round"
+                                strokeWidth="2"
+                              />
+                            </g>
+                            <path
+                              id="primary"
+                              d="M12.889,21.827h7.739a3.1,3.1,0,0,0,3.1-3.1V9.444"
+                              transform="translate(0.5 1.805)"
+                              fill="none"
+                              stroke="var(--text-gray-200-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                          </svg>
+                        }
+                        onClick={() => handleClickButton('/create/single-nft')}
+                        gradientDirection="right"
+                        fontSize="18px"
+                        color={'var(--text-gray-200-color)'}
                       />
                     </div>
                   </div>
                 ) : (
                   <>
-                    <div className={styles.close} onClick={() => closeModal()}>
-                      <Image src={CloseWhiteIcon} alt="" width={17} height={17} />
-                    </div>
                     <div className="flex justify-center mt-[30px]">
                       <div className={styles.title}>Create</div>
                     </div>
@@ -174,11 +225,11 @@ const CreateNFTModal = props => {
                         width={221}
                         height={45}
                         onClick={() => handleClickButton('/create/single-nft')}
-                        backgroundColor01="#95DBD5"
-                        backgroundColor02="#4B6E6B"
+                        backgroundColor01={'var(--main-icon-color)'}
+                        backgroundColor02={'var(--main-icon-color)'}
                         // gradientDirection="right"
                         fontSize="16px"
-                        color="#202427"
+                        color={'var(--single-title-color'}
                       />
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">
@@ -186,13 +237,20 @@ const CreateNFTModal = props => {
                         label="Collection"
                         width={221}
                         height={45}
-                        onClick={() => handleClickButton('/create/collection')}
-                        backgroundColor="transparent"
-                        color="#95DBD5"
+                        onClick={() => {
+                          dispatch({ type: 'set', mintCollectionStep: 1 })
+                          dispatch({ type: 'set', collectionMintAddress: '' })
+                          dispatch({ type: 'set', collectionCoverUrl: '' })
+                          handleClickButton('/create/collection')
+                        }}
+                        color="var(--text-gray-200-color)"
                         fontSize="16px"
-                        borderColor="#95DBD5"
                         borderWidth="1px"
                       />
+                    </div>
+                    <div className={styles.divider}></div>
+                    <div className={styles.closeButton} onClick={() => close()}>
+                      Close
                     </div>
                   </>
                 )}

@@ -1,0 +1,57 @@
+.container {
+  z-index: 10;
+}
+
+.topic {
+  width: 100%;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+  @media (min-width: 1024px) {
+    width: auto;
+    font-size: 18px;
+    text-align: left;
+  }
+}
+
+.astro {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: var(--main-icon-color);
+}
+
+.description {
+  font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 8px;
+  @media (min-width: 1024px) {
+    margin-top: 9px;
+    font-size: 16px;
+    text-align: left;
+  }
+}
+
+.button {
+  font-family: 'Muli-Regular';
+  color: var(--main-icon-color);
+  font-size: 14px;
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  width: 160px;
+  height: 50px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 214px;
+    height: 60px;
+    gap: 12px;
+    font-size: 16px;
+  }
+  cursor: pointer;
+}

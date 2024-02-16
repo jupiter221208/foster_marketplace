@@ -23,16 +23,17 @@ import nftAPI from 'apis/nfts'
 import collectionAPI from 'apis/collections'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import { NftData } from 'types/nft'
 
 const FavoriteSection = () => {
   const router = useRouter()
 
   const dispatch = useDispatch()
 
-  const [nftList, setNftList] = useState([])
-  const [allNftList, setAllNftList] = useState([])
-  const [collectionList, setCollectionList] = useState([])
-  const [allCollectionList, setAllCollectionList] = useState([])
+  const [nftList, setNftList] = useState<NftData[]>([])
+  const [allNftList, setAllNftList] = useState<NftData[]>([])
+  const [collectionList, setCollectionList] = useState<NftData[]>([])
+  const [allCollectionList, setAllCollectionList] = useState<NftData[]>([])
 
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -163,9 +164,9 @@ const FavoriteSection = () => {
             label="Artwork"
             onClick={() => handleChangeActive(0)}
             fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+            color={active === 0 ? '#1A1A1A' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -174,9 +175,9 @@ const FavoriteSection = () => {
             label="Collections"
             onClick={() => handleChangeActive(1)}
             fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+            color={active === 1 ? '#1A1A1A' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -186,24 +187,27 @@ const FavoriteSection = () => {
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&
           !loading &&
-          nftList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <NFTCard
-                token_id={item.token_id}
-                image={item.asset_url}
-                nftName={item.nft_name}
-                assetType={item.asset_type}
-                coverImage={item.cover_image_url}
-                artistName={item.artist_username}
-                collectionName={item.collection_name}
-                price={item.list_price}
-                onClick={() => {
-                  router.push(`/nft/${item.token_id}`)
-                }}
-                unSave={() => unSaveNft(item.token_id)}
-              />
-            </div>
-          ))}
+          nftList.map(
+            (item: any, index) =>
+              item.nft_name && (
+                <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+                  <NFTCard
+                    token_id={item.token_id}
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
+                    artistName={item.artist_username}
+                    collectionName={item.collection_name}
+                    price={item.list_price}
+                    onClick={() => {
+                      router.push(`/nft/${item.token_id}`)
+                    }}
+                    unSave={() => unSaveNft(item.token_id)}
+                  />
+                </div>
+              )
+          )}
 
         {active === 1 &&
           !loading &&
@@ -214,10 +218,7 @@ const FavoriteSection = () => {
                 nftName={item.collection_name}
                 artistName={item.artist_username}
                 mintAddress={item.collection_id}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push(`/collection/${item.collection_id}`)
-                }}
+                link={`/collection/${item.collection_id}`}
                 unSave={() => unSaveCollection(item.collection_id)}
               />
             </div>

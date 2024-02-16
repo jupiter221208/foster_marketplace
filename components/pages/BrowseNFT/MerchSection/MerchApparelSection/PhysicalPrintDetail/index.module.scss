@@ -101,6 +101,19 @@
   color: var(--text-gray-200-color);
 }
 
+.sizeChart {
+  font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+  }
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+  &:hover {
+    color: var(--profile-active-border-color);
+  }
+}
+
 .subTotal {
   font-family: 'Muli-SemiBold';
   font-size: 18px;

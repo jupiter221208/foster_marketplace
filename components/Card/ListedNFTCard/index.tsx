@@ -16,38 +16,24 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 
 // styles
 import styles from './index.module.scss'
-import { getShortAddress, getPriceValue } from 'utils/strings'
+import { getPriceValue, getDisplayUserName } from 'utils/strings'
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import Link from 'next/link'
+import { ListingsAPIData } from 'types/nft'
 
-export interface ListedNFTCardData {
-  address: PublicKey
-  name: string
-  uri: string
-  sellerAddress: PublicKey
-  tradeStateAddress: PublicKey
-  price: number
-  creatorAddress: string
-  startTime?: number
-  endTime?: number
-  highestBid?: {
-    buyer_address: string
-    amount: string
-  }
-}
-
-export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
+export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
-  data: ListedNFTCardData
+  data: ListingsAPIData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
   onActionClick: (data: ListedNFTCardDataWithJson) => void
-  cancelAuction: (data: ListedNFTCardData) => void
-  finalizeSale: (data: ListedNFTCardData) => void
+  cancelAuction: any
+  finalizeSale: any
 }
 
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
@@ -68,7 +54,19 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     return false
   }, [endTime])
 
-  const [assetJson, setAssetJson] = useState<JsonMetadata>({})
+  const [assetJson, setAssetJson] =
+    useState<{
+      name: string
+      image: string
+      description: string
+      category: string
+      animation_url: string
+      attributes: { trait_type: string; value: string }[]
+      properties: {
+        category: string
+      }
+    }>()
+
   useEffect(() => {
     if (!uri) return
     try {
@@ -94,29 +92,33 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          {assetJson?.animation_url ? (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
-              }}
-            />
-          ) : (
-            <img
-              src={assetJson?.image}
-              alt=""
-              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-            />
-          )}
-        </div>
+        <Link href={`/nft/${address}`} passHref>
+          <a>
+            <div className={styles.imageContent}>
+              {assetJson?.properties?.category === 'audio' || assetJson?.properties?.category === 'video' ? (
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
+                  }}
+                />
+              ) : (
+                <img
+                  src={assetJson?.image}
+                  alt=""
+                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                />
+              )}
+            </div>
+          </a>
+        </Link>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
           <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
+          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <SolanaLogoIcon alt="" />
             <div className={styles.nftName}>{getPriceValue(price)}</div>
@@ -200,7 +202,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
+          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
           <div className="flex items-center gap-[6px]">
             <SolanaLogoMobileIcon alt="" />
             <div className={styles.price}>{getPriceValue(price)}</div>

@@ -43,7 +43,7 @@ const PrimaryFooter = () => {
               <Link href="/explore">Explore</Link>
             </div>
             <div className={styles.linkText}>
-              <Link href="/dao">Circus DAO</Link>
+              <Link href="/dao">Governance</Link>
             </div>
             <div className={styles.linkText}>
               <Link href="/resources">Resources</Link>
@@ -55,12 +55,12 @@ const PrimaryFooter = () => {
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>About</div>
             <div className={`${styles.linkText} !mt-[49px]`}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                Foster House
+              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
+                Foster Labs
               </a>
             </div>
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                 Turkey Circus
               </a>
             </div>
@@ -88,7 +88,11 @@ const PrimaryFooter = () => {
               </a>
             </div>
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+              <a
+                target="_blank"
+                href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
+                rel="noopener noreferrer"
+              >
                 Brand & Design
               </a>
             </div>
@@ -103,7 +107,7 @@ const PrimaryFooter = () => {
               </a>
             </div>
             <div className={styles.linkText}>
-              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
+              <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
@@ -185,7 +189,7 @@ const PrimaryFooter = () => {
                 <Link href="/explore">Explore</Link>
               </div>
               <div className={styles.linkText}>
-                <Link href="/dao">Circus DAO</Link>
+                <Link href="/dao">Governance</Link>
               </div>
               <div className={styles.linkText}>
                 <Link href="/resources">Resources</Link>
@@ -197,12 +201,12 @@ const PrimaryFooter = () => {
             <div className="w-full block justify-center text-center">
               <div className={styles.title}>About</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                  Foster House
+                <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
+                  Foster Labs
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+                <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
                   Turkey Circus
                 </a>
               </div>
@@ -230,7 +234,11 @@ const PrimaryFooter = () => {
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+                <a
+                  target="_blank"
+                  href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
+                  rel="noopener noreferrer"
+                >
                   Brand & Design
                 </a>
               </div>
@@ -245,7 +253,7 @@ const PrimaryFooter = () => {
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
+                <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
               </div>
             </div>
           </div>

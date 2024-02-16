@@ -1,0 +1,58 @@
+[
+  {
+    "id": 0,
+    "asset_url": "/images/hero/unisex.png",
+    "name": "UNISEX",
+    "type": "Unisex",
+    "bases": [
+      {
+        "name": "Tees",
+        "base": "Short Sleeve",
+        "selected": "true"
+      },
+      {
+        "name": "Long Sleeves",
+        "base": "Long Sleeve",
+        "selected": "false"
+      },
+      {
+        "name": "Hoodies",
+        "base": "Hoodie",
+        "selected": "false"
+      },
+      {
+        "name": "Crewnecks",
+        "base": "Sweatshirt",
+        "selected": "false"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "asset_url": "/images/hero/womens.png",
+    "name": "WOMENS",
+    "type": "Women",
+    "bases": [{
+      "name": "Tees",
+      "base": "Women's Short Sleeve",
+      "selected": "false"
+    }]
+  },
+  {
+    "id": 2,
+    "name": "YOUTH",
+    "asset_url": "/images/hero/youth.png",
+    "type": "Youth",
+    "bases": [
+      {
+        "name": "Tees",
+        "base": "Youth Short Sleeve",
+        "selected": "false"
+      },
+      {
+        "name": "Hoodies",
+        "base": "Youth Hoodie",
+        "selected": "false"
+      }]
+  }
+]

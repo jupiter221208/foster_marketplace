@@ -67,7 +67,9 @@ const AccordionProfileMenu = props => {
               ) : icon?.length > 0 ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : (
-                <Image src={AvatarImage} alt="" width={40} height={40} layout="responsive" objectFit="cover" />
+                <div className="w-[40px] h-[40px] rounded-full overflow-hidden">
+                  <Image src={AvatarImage} alt="" width={40} height={40} layout="responsive" objectFit="cover" />
+                </div>
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>

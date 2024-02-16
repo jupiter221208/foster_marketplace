@@ -24,9 +24,10 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
+import LoadingModal from 'components/Modal/LoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 const Notifications = () => {
@@ -39,6 +40,7 @@ const Notifications = () => {
   const [filterNotification, setFilterNotification] = useState<any[]>([])
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
   const [searchWord, setSearchWord] = useState('')
+  const [loading, setLoading] = useState(true)
   const viewport = useViewport()
   const { profileInfo } = useAuthentication()
 
@@ -130,6 +132,9 @@ const Notifications = () => {
 
     userAPI.getNotifications().then(
       response => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
         if (response !== null) {
           if (response.notifications.length > 0) {
             getNotifications([...response.notifications])
@@ -137,6 +142,7 @@ const Notifications = () => {
         }
       },
       error => {
+        setLoading(false)
         console.log(error)
       }
     )
@@ -300,7 +306,13 @@ const Notifications = () => {
                 Filter
               </div>
             </div>
-            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+            {loading ? (
+              <div className="mt-[140px] h-[540px] max-h-[540px]">
+                <LoadingModal open={loading} />
+              </div>
+            ) : (
+              <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+            )}
           </div>
         ) : (
           <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
@@ -309,9 +321,16 @@ const Notifications = () => {
                 <div className={styles.tabContainer}>
                   <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                 </div>
-                <div className="mt-[20px] h-[540px] max-h-[540px]">
-                  <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
-                </div>
+
+                {loading ? (
+                  <div className="mt-[140px] h-[540px] max-h-[540px]">
+                    <LoadingModal open={loading} />
+                  </div>
+                ) : (
+                  <div className="mt-[20px] h-[540px] max-h-[540px]">
+                    <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-[45%] mt-[-20px]">

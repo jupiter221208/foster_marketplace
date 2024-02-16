@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -12,22 +12,21 @@ import Alert from 'components/Alert'
 import IconButton from 'components/Button/IconButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
-import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
+import { type EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
-import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
+import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
+import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -37,6 +36,8 @@ import styles from './index.module.scss'
 
 // call apis
 import uploadFileToS3API from 'apis/aws'
+import ImportEAModal from 'components/Modal/ImportEAModal'
+import { validDigits } from 'utils/helpers'
 
 const Step01CollectionSection = props => {
   const {
@@ -64,12 +65,14 @@ const Step01CollectionSection = props => {
   } = props
   const viewport = useViewport()
 
-  // const dropzoneBannerEl = useRef(null)
-  // const dropzoneCoverEl = useRef(null)
-
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [collectionType, setCollectionType] = useState('foster')
+  const [showEAModal, setShowEAModal] = useState(false)
+  const [eaImportUrl, setEAImportUrl] = useState('')
+  const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
+  const [eaTags, setEATags] = useState<string[]>([])
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -151,7 +154,7 @@ const Step01CollectionSection = props => {
 
   const uploadBannerFile = async (file: any, filename: string) => {
     const { url } = await uploadFileToS3API(file, filename)
-    setBannerAWSUrl(url + filename)
+    setBannerAWSUrl(url)
   }
 
   useEffect(() => {
@@ -166,13 +169,13 @@ const Step01CollectionSection = props => {
         uploadCoverfile(file, filename)
       }
       fetchData(coverCroppedImage)
-      setUpdateBannerImage(false)
+      setUpdateCoverImage(false)
     }
   }, [updateCoverImage])
 
   const uploadCoverfile = async (file: any, filename: string) => {
     const { url } = await uploadFileToS3API(file, filename)
-    setCoverAWSUrl(url + filename)
+    setCoverAWSUrl(url)
   }
 
   const [showCategoryList, setShowCategoryList] = useState(false)
@@ -200,6 +203,72 @@ const Step01CollectionSection = props => {
     onChangeCategoryList(array)
   }
 
+  const importEACollection = async url => {
+    setShowEAModal(false)
+    setEAImportUrl(url)
+
+    try {
+      let collectionInfo = await getEACollectionInfo(url)
+      setEACollectionInfo(collectionInfo)
+
+      let { name, description, primaryCategory, secondaryCategory, tags = [] } = collectionInfo.info
+
+      let eaTags = [primaryCategory, secondaryCategory, ...tags]
+      let eaTagSet = new Set(eaTags.filter(tag => typeof tag == 'string').map(tag => tag.toLowerCase()))
+      let checkedCount = 0
+      let fosterCategories = [...categoryList]
+      for (let category of fosterCategories)
+        if (eaTagSet.has(category.name.toLowerCase()) && checkedCount < 3) {
+          category.checked = true
+          checkedCount++
+        }
+      onChangeCategoryList(fosterCategories)
+
+      onChangeCollectionName(name)
+      onChangeDescription(description)
+      setEATags(eaTags)
+
+      let { thumbnailPath, bannerPath } = collectionInfo.assets
+      let coverName = thumbnailPath.match(/[^\/]*$/)?.[0] || 'cover.png'
+      let bannerName = bannerPath.match(/[^\/]*$/)?.[0] || 'banner.png'
+      let [coverBlob, bannerBlob] = await Promise.all([
+        fetch(thumbnailPath)
+          .then(r => r.blob())
+          .catch(e => e),
+        fetch(bannerPath)
+          .then(r => r.blob())
+          .catch(e => e),
+      ])
+
+      if (coverBlob instanceof Blob)
+        onChangeCoverImage([
+          new File([coverBlob], coverName, {
+            type: coverBlob.type,
+          }),
+        ])
+      else {
+        console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
+        // TODO: show error message
+      }
+
+      await new Promise(resolve => setTimeout(resolve, 1))
+
+      if (bannerBlob instanceof Blob)
+        onChangeBannerImage([
+          new File([bannerBlob], bannerName, {
+            type: bannerBlob.type,
+          }),
+        ])
+      else {
+        console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
+        // TODO: show error message
+      }
+    } catch (e) {
+      console.error(e)
+      // TODO: show error message
+    }
+  }
+
   useEffect(() => {
     let count = 0
     categoryList.map(item => {
@@ -209,7 +278,6 @@ const Step01CollectionSection = props => {
     if (
       collectionName !== '' &&
       description !== '' &&
-      count > 0 &&
       count <= 3 &&
       coverCroppedImage !== undefined &&
       bannerCroppedImage !== undefined
@@ -218,29 +286,7 @@ const Step01CollectionSection = props => {
     } else {
       setDisabledNextButton(true)
     }
-  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, categoryList])
-
-  // form validate
-  useEffect(() => {
-    let count = 0
-    categoryList.map(item => {
-      if (item.checked === true) count++
-    })
-    if (
-      collectionName !== '' &&
-      description !== '' &&
-      count > 0 &&
-      count <= 3 &&
-      bannerImage !== undefined &&
-      coverImage !== undefined &&
-      royalties >= 0 &&
-      royalties <= 10
-    ) {
-      setDisabledNextButton(false)
-    } else {
-      setDisabledNextButton(true)
-    }
-  }, [collectionName, description, categoryList, coverImage, bannerImage, royalties])
+  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, coverImage, bannerImage, categoryList, royalties])
 
   const [bannerHelper, setBannerHelper] = useState(false)
   const [coverHelper, setCoverHelper] = useState(false)
@@ -324,7 +370,7 @@ const Step01CollectionSection = props => {
                                     // onClick={() => {
                                     //   dropzoneBannerEl?.current?.open()
                                     // }}
-                                    backgroundColor="rgba(55, 130, 135, 0.3)"
+                                    backgroundColor="#242424"
                                     borderColor="transparent"
                                     borderRadius="100%"
                                   />
@@ -420,7 +466,7 @@ const Step01CollectionSection = props => {
                                       iconHeight={15}
                                       icon={EditorGreenIcon}
                                       onClick={() => {}}
-                                      backgroundColor="rgba(55, 130, 135, 0.3)"
+                                      backgroundColor="#242424"
                                       borderColor="transparent"
                                       borderRadius="100%"
                                     />
@@ -476,12 +522,33 @@ const Step01CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
+                <div className="w-full flex justify-center">
+                  {/* <CollectionStepper currentStep={currentStep} /> */}
+                  <div className={styles.collectionTypeSection}>
+                    <div
+                      className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
+                      onClick={() => setCollectionType('foster')}
+                    >
+                      <FosterLogoSmall />
+                      Create New Collection
+                    </div>
+                    <div
+                      className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
+                      onClick={() => {
+                        setCollectionType('ea')
+                        setShowEAModal(true)
+                      }}
+                    >
+                      <EAImportIcon />
+                      Import EA Series
+                    </div>
+                  </div>
                 </div>
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[75px]`}>Collection Name *</div>
+                  <div className={`${styles.subTitle} mt-[30px]`}>
+                    Collection Name <span>*</span>
+                  </div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
                       value={limit(collectionName, 30)}
@@ -491,7 +558,9 @@ const Step01CollectionSection = props => {
                       onChange={value => onChangeCollectionName(limit(value, 30))}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Description *</div>
+                  <div className={`${styles.subTitle} mt-10`}>
+                    Description <span>*</span>
+                  </div>
                   <div className="w-full mt-5">
                     <Textarea
                       value={limit(description, 1000)}
@@ -506,25 +575,29 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                    Royalties <span>*</span>
+                  </div>
 
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
-                      label="From 0 to 10%"
-                      type="number"
+                      label01="From 0 to 10%"
                       min="0"
                       onChange={value => {
-                        if (value > 10) {
+                        let royal = validDigits(value)
+                        if (royal > 10) {
                           onChangeRoyalties(10)
                         } else {
-                          onChangeRoyalties(Math.floor(value))
+                          onChangeRoyalties(Math.floor(royal))
                         }
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Categories (max. 3) *</div>
+                  <div className={`${styles.subTitle} mt-10`}>
+                    Categories (optional)
+                  </div>
                   <div className="w-full mt-5">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
@@ -532,23 +605,20 @@ const Step01CollectionSection = props => {
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <div />
-                  {disabledNextButton ? (
-                    <Button
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      backgroundColor="#888A8E"
-                    />
-                  ) : (
-                    <GradientButton
-                      width={viewport === '2xl' ? 184 : 175}
-                      height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
-                      disabled={disabledNextButton}
-                      onClick={() => mintCollection()}
-                    />
-                  )}
+
+                  <button
+                    className={styles.createCollection}
+                    disabled={disabledNextButton} //disabledNextButton
+                    style={{
+                      color: disabledNextButton ? "var(--create-collection-color)" : "var(--twitter-text-color)",
+                      background: disabledNextButton ? "var(--create-collection-btn)" : "var(--main-icon-color)"
+                    }}
+                    onClick={() => {
+                      mintCollection()
+                    }}
+                  >
+                    Create Collection
+                  </button>
                 </div>
               </div>
             </div>
@@ -559,7 +629,27 @@ const Step01CollectionSection = props => {
         <div className="g-container mt-[26px] mb-[47px]">
           {/* CollectionStepper part */}
           <div className="w-full">
-            <CollectionStepper currentStep={currentStep} />
+            {/* <CollectionStepper currentStep={currentStep} /> */}
+            <div className={styles.collectionTypeSection}>
+              <div
+                className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
+                onClick={() => setCollectionType('foster')}
+              >
+                <FosterLogoSmall />
+                <div className="lg:block hidden">Create New Collection</div>
+                <div className="lg:hidden block">New Collection</div>
+              </div>
+              <div
+                className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
+                onClick={() => {
+                  setShowEAModal(true)
+                  setCollectionType('ea')
+                }}
+              >
+                <EAImportIcon />
+                Import EA Series
+              </div>
+            </div>
           </div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
@@ -650,7 +740,7 @@ const Step01CollectionSection = props => {
                                 iconHeight={15}
                                 icon={EditorGreenIcon}
                                 onClick={() => {}}
-                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                backgroundColor="#242424"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />
@@ -755,7 +845,7 @@ const Step01CollectionSection = props => {
                                 iconHeight={15}
                                 icon={EditorGreenIcon}
                                 onClick={() => {}}
-                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                backgroundColor="#242424"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />
@@ -772,45 +862,49 @@ const Step01CollectionSection = props => {
 
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Collection Name <span>*</span>
+            </div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
                 value={limit(collectionName, 30)}
                 placeholder="Give your art name"
-                backgroundColor={'var(--input-bg)'}
                 label01="Max Characters 30"
                 label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
                 onChange={value => onChangeCollectionName(limit(value, 30))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Description *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Description <span>*</span>
+            </div>
             <div className="w-full mt-5">
               <Textarea
-                value={limit(description, 1000)}
-                backgroundColor={'var(--input-bg)'}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
+            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+              Royalties <span>*</span>
+            </div>
             <div className="max-w-[370px] w-full mt-5">
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
-                label="From 0 to 10%"
-                backgroundColor={'var(--input-bg)'}
-                type="number"
+                label01="From 0 to 10%"
                 min={0}
                 onChange={value => {
-                  if (value > 10) {
+                  let royal = validDigits(value)
+                  if (royal > 10) {
                     onChangeRoyalties(10)
-                  } else onChangeRoyalties(Math.floor(value))
+                  } else onChangeRoyalties(Math.floor(royal))
                 }}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Categories *</div>
+            <div className={`${styles.subTitle} mt-5`}>
+              Categories (optional)
+            </div>
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
@@ -839,30 +933,28 @@ const Step01CollectionSection = props => {
 
           <div className="w-full flex justify-between my-10">
             {/* button group part */}
-            {disabledNextButton ? (
-              <div className="w-full">
-                <Button
-                  fullWidth
-                  label="Next Step"
-                  disabled={disabledNextButton}
-                  backgroundColor="#888A8E"
-                  height="45px"
-                />
-              </div>
-            ) : (
-              <div className="w-full">
-                <GradientButton
-                  fullWidth
-                  label="Next Step"
-                  disabled={disabledNextButton}
-                  onClick={() => mintCollection()}
-                  height="45px"
-                />
-              </div>
-            )}
+            <div className="w-full">
+              <GradientButton
+                fullWidth
+                backgroundColor01="var(--view-item-btn-color)"
+                backgroundColor02="var(--view-item-btn-color)"
+                color="var(--create-collection-color)"
+                borderWidth="1px"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                label="Create Collection"
+                disabled={disabledNextButton} //disabledNextButton
+                onClick={() => {
+                  if (collectionType === 'foster') mintCollection('foster', '')
+                  else mintCollection('ea', eaImportUrl)
+                }}
+                height="45px"
+              />
+            </div>
           </div>
         </div>
       )}
+
+      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
 
       <Alert
         open={showAlert}

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -20,13 +18,14 @@ import ActivityAPI from 'apis/activity'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NoDataSection from 'components/pages/Dashboard/NoDataSection'
+import { ActivityAPIData } from 'types/nft'
 
 const ActivitySection = props => {
   const { collectionId } = props
   const [loading, setLoading] = useState(false)
   const viewport = useViewport()
-  const [allList, setAllList] = useState<any[]>([])
-  const [activityList, setActivityList] = useState<any[]>([])
+  const [allList, setAllList] = useState<ActivityAPIData[]>([])
+  const [activityList, setActivityList] = useState<ActivityAPIData[]>([])
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -61,7 +60,7 @@ const ActivitySection = props => {
   }, [isFetching])
 
   return (
-    <section className="w-full mt-6 lg:mt-12">
+    <section className="w-full mt-6 lg:mt-2">
       <div className="w-full z-10">
         {loading === false ? (
           <div className="col-span-12">
@@ -83,33 +82,11 @@ const ActivitySection = props => {
         ) : (
           <div className="mt-[40px] lg:mt-[110px]">
             <NoDataSection
-              title="No activity history available"
-              description="This tab displays a log of all your activity on Foster Marketplace"
+              title="No collection activity found"
+              description="This tab displays a log of the collection activity on Foster Marketplace"
             />
           </div>
         )}
-        {/* <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={1}
-          spaceBetween={4}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="showNavigationSwiper"
-          // loop
-        >
-          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-            ? activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityTable data={item} type={'collection'} />
-                </SwiperSlide>
-              ))
-            : activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityAccordion data={item} />
-                </SwiperSlide>
-              ))}
-        </Swiper> */}
       </div>
     </section>
   )

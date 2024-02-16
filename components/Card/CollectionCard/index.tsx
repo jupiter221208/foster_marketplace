@@ -3,61 +3,82 @@ import { useDispatch } from 'react-redux'
 // next component
 
 // custom components
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, collectionName, onClick, unSave = null } = props
+  const { image, nftName, link, artistName, collectionName, unSave = null } = props
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageArea} onClick={() => onClick()}>
-        <div className={styles.imageContent}>
-          <div className="w-full h-full overflow-hidden">
-            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-              <img src={image} alt="" className="w-full h-full object-cover rounded-[10px] lg:rounded-[20px]" />
-            </ReactPlaceholder>
-            {!loaded && (
-              <img
-                src={image}
-                alt=""
-                className="w-full h-full object-cover"
-                onLoad={() => {
-                  setLoaded(true)
-                }}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
-        <div className="w-full flex justify-start items-center">
-          <div className={styles.nftName}>{nftName}</div>
-        </div>
-        <div className="w-full flex justify-start items-center">
-          <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-        </div>
-      </div>
-      {unSave !== null && (
-        <div className="mt-[10px]">
-          <GradientButton
-            fullWidth
-            label="Unsave"
+      <Link href={link} passHref>
+        <a>
+          <div
+            className={styles.imageArea}
             onClick={() => {
               dispatch({ type: 'set', isLoading: true })
-
-              unSave()
             }}
-          />
+          >
+            <div className={styles.imageContent}>
+              <div className="w-full h-full overflow-hidden">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <img src={image} alt="" className="w-full h-full object-cover" />
+                </ReactPlaceholder>
+                {!loaded && (
+                  <img
+                    src={image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </a>
+      </Link>
+
+      <div className={styles.imageInfo}>
+        <div className="w-full flex justify-start items-center">
+          <Link href={link} passHref>
+            <a>
+              <div className={styles.nftName}>{nftName}</div>
+            </a>
+          </Link>
         </div>
-      )}
+        <div className="w-full flex justify-start items-center">
+          <Link href={`/${artistName || collectionName}`} passHref>
+            <a>
+              <div className={styles.artistName}>
+                {getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}
+              </div>
+            </a>
+          </Link>
+        </div>
+        {unSave !== null && (
+          <div className="mt-[10px]">
+            <GradientButton
+              fullWidth
+              label="Unsave"
+              onClick={() => {
+                dispatch({ type: 'set', isLoading: true })
+
+                unSave()
+              }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

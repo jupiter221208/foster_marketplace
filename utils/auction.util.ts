@@ -27,6 +27,7 @@ import {
   type LazyListing,
   type LazyBid,
   type Metadata,
+  type SendAndConfirmTransactionResponse,
   type TransactionBuilder,
 } from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
@@ -111,23 +112,34 @@ export async function loadAuctionHouse(
   return auctionHousePromise
 }
 
-export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number) {
+export async function listNFT(
+  mx: Metaplex,
+  nftAddress: PublicKey,
+  price: number
+): Promise<SendAndConfirmTransactionResponse | null> {
   try {
     const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-    const listedNFT = await mx
-      .auctionHouse()
-      .list({
+    const { response } = await mx.auctionHouse().list(
+      {
         auctionHouse,
         mintAccount: nftAddress,
         price: lamports(price),
-      })
+      },
+      {
+        commitment: 'single',
+        confirmOptions: {
+          commitment: 'single',
+          maxRetries: 5,
+        },
+      }
+    )
 
-    if (listedNFT) return true
+    return response
   } catch (e) {
-    console.log(e)
+    console.error(e)
+    return null
   }
-  return false
 }
 
 export async function getProgramAccounts(mx: Metaplex, filters: any) {
@@ -272,29 +284,42 @@ export async function buyNFT(
   const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
   try {
-    const listing = await mx
+    const listing = await mx.auctionHouse().findListingByTradeState({
+      auctionHouse,
+      tradeStateAddress: new PublicKey(tradeStateAddress),
+    })
+
+    const operation = await mx
       .auctionHouse()
-      .findListingByTradeState({
+      .builders()
+      .buy({
         auctionHouse,
-        tradeStateAddress: new PublicKey(tradeStateAddress), //TradeState
+        listing,
       })
 
-    const receipt = await offerNFT(mx, mintAddress, price)
-    if(!receipt)
-      throw new Error(`could not place bid on ${mintAddress} for ${price}`)
-    const bid = await mx
-      .auctionHouse()
-      .findBidByReceipt({
-        auctionHouse,
-        receiptAddress: receipt,
-        loadJsonMetadata: false,
-      })
+    let publicKey = mx.identity().publicKey
+    let escrowPaymentAccount = mx.auctionHouse().pdas().buyerEscrow({
+      auctionHouse: auctionHouse.address,
+      buyer: publicKey,
+    })
+    let currentBalance = (await mx.connection.getBalance(escrowPaymentAccount)) / LAMPORTS_PER_SOL
+    let { offer_wallet_lock } = await usersAPI.getLockupValues()
+    let delta = offer_wallet_lock + price + 0.001 - currentBalance
+    if (delta > 0)
+      operation.prepend(
+        mx
+          .auctionHouse()
+          .builders()
+          .depositToBuyerAccount({
+            auctionHouse,
+            amount: sol(delta),
+          })
+      )
+    console.log({ offer_wallet_lock, price, currentBalance, delta })
 
-    if (bid.price.basisPoints.toNumber() >= listing.price.basisPoints.toNumber()) {
-      await mx.auctionHouse().executeSale({ auctionHouse, bid, listing })
+    await operation.sendAndConfirm(mx)
 
-      return true
-    }
+    return true
   } catch (error) {
     console.log(error)
   }
@@ -434,7 +459,7 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
   }))
 
   // set max request entires to 100 for public devnet rpc, 500 otherwise
-  let MAX_BATCH_REQUEST_ENTRIES = mx.connection.rpcEndpoint.includes('api.devnet.solana.com') ? 100 : 500
+  let MAX_BATCH_REQUEST_ENTRIES = 10
   let batchResponse = []
   while (batchRequest.length > 0)
     batchResponse.push(

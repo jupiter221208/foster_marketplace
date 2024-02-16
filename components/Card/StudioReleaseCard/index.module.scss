@@ -1,0 +1,155 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  background: var(--background-main-color);
+  border-radius: 17px;
+  padding: 9px;
+  @media (min-width: 1024px) {
+    padding: 15px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1536px) {
+    padding: 19px;
+    border-radius: 30px;
+  }
+  cursor: pointer;
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
+  @media (min-width: 1024px) {
+    border-radius: 30px;
+  }
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 321:378 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  @media (min-width: 1024px) {
+    border-radius: 24px;
+  }
+  overflow: hidden;
+}
+
+.imageNft {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 0 auto;
+  transition: transform 0.2s;
+  @media (min-width: 1024px) {
+    max-width: 600px;
+    border-radius: 24px;
+    padding: 10px !important;
+  }
+}
+
+.artistName {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: var(--main-icon-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 12px;
+  margin-left: 3px;
+  margin-top: -2px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    margin-top: 0px;
+    margin-left: 7px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+.nftImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apparelTitle {
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    font-family: 'Muli-SemiBold';
+    margin-top: -10px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.nftName {
+  display: flex;
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  justify-content: center;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 14px;
+  }
+  color: var(--wallet-active-text);
+}
+
+.costDivider {
+  display: flex;
+  width: 1px;
+  height: 15px;
+  background: rgba(var(--text-gray-200-color-rgb), 0.15);
+  margin-left: 10px;
+  align-items: center;
+}
+
+.cost {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.dollar {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  color: var(--primary-btn-bg-right);
+}
+
+.overText {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

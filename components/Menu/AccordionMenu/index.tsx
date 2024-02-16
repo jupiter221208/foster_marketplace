@@ -26,6 +26,7 @@ import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
 import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
 import SettingsIcon from 'assets/icons/setting-icon.svg?component'
 import MerchIcon from 'assets/icons/merch-icon.svg?component'
+import StudioIcon from 'public/icons/merch-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -42,6 +43,10 @@ const AccordionMenu = props => {
     if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
 
     if (type != 'create') dispatch({ type: 'set', isLoading: true })
+
+    if (item.type === 'collection_nft') {
+      dispatch({ type: 'set', mintCollectionStep: 1 })
+    }
 
     router.push(item.path)
   }
@@ -81,6 +86,8 @@ const AccordionMenu = props => {
                 <StatsIcon />
               ) : type === 'dao' ? (
                 <DAOIcon />
+              ) : type === 'studio' ? (
+                <StudioIcon />
               ) : type === 'resources' ? (
                 <ResourceIcon />
               ) : type === 'notifications' ? (

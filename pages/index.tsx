@@ -6,11 +6,8 @@ import { useEffect } from 'react'
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/Home/MainSection'
-import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection'
-import MostPopularSection from 'components/pages/Home/MostPopularSection'
 import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
-import FreshMintSection from 'components/pages/Home/FreshMintSection'
 import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
@@ -24,9 +21,8 @@ import { useDetectRouterPath } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
-import MaintenancePage from './maintenance'
 
 import styles from './index.module.scss'
 
@@ -66,12 +62,12 @@ const Home = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <div className="g-container">
+        <div className="max-w-[1920px] w-full px-4 lg:px-0">
           <MainSection />
         </div>
       </div>
       {/* <PopularCategorySection type="home" /> */}
-      <div className={styles.otherBG}>
+      <div className={styles.liveAuctionBG}>
         <div className="g-container">
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
@@ -101,4 +97,8 @@ export default Home
 
 Home.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
+}
+
+export function getStaticProps() {
+  return { props: {} }
 }

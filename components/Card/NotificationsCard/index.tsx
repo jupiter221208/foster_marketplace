@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // next components
@@ -20,10 +19,11 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
+import Link from 'next/link'
+import { getDisplayUserName } from 'utils/strings'
 
 const NotificationsCard = props => {
   const { data, onClickMarkAsRead } = props
-  const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
 
@@ -186,16 +186,12 @@ const NotificationsCard = props => {
     return show
   }
 
-  const gotoUserPage = wallet => {
-    router.push(`/${wallet}`)
-  }
-
   const gotoDetailPage = notification => {
     const type = notification.notification_type
+    let route_path = '/'
     switch (type) {
       case 'offer':
-        dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=6&filter=1`)
+        route_path = `/dashboard?tab=6&filter=1`
         break
       case 'bid':
       case 'save_nft':
@@ -203,22 +199,19 @@ const NotificationsCard = props => {
       case 'sale':
       case 'outbid':
       case 'purchase':
-        dispatch({ type: 'set', isLoading: true })
-        router.push(`/nft/${notification.reference_token_id}`)
+        route_path = `/nft/${notification.reference_token_id}`
         break
       case 'save_collection':
-        dispatch({ type: 'set', isLoading: true })
-        router.push(`/collection/${notification.reference_token_id}`)
+        route_path = `/collection/${notification.reference_token_id}`
         break
       case 'winner':
-        dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=1&filter=1`)
+        route_path = `/dashboard?tab=1&filter=1`
         break
       case 'no_winner':
-        dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=1&filter=1`)
+        route_path = `/dashboard?tab=1&filter=1`
         break
     }
+    return route_path
   }
 
   function getUserProfileImage(elem) {
@@ -234,8 +227,9 @@ const NotificationsCard = props => {
     else return DefaultAvatar.src
   }
 
-  function gotoNFTPage(elem) {
-    router.push(`/nft/${elem.reference_token_id}`)
+  function isLinkedNft(notification_type) {
+    if (notification_type === 'won' || notification_type === 'no_winner' || notification_type === 'outbid') return true
+    return false
   }
 
   return (
@@ -260,35 +254,72 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <Image
-                        src={getUserProfileImage(elem)}
-                        alt=""
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                        className="w-full h-full rounded-full object-cover"
-                      />
+                      {isLinkedNft(elem.notification_type) ? (
+                        <Link href={`/nft/${elem.reference_token_id}`} passHref>
+                          <a>
+                            <div className="w-full h-full flex justify-center items-center">
+                              <Image
+                                src={getUserProfileImage(elem)}
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
+                      ) : (
+                        <Link href={`/${elem.reference_username}`} passHref>
+                          <a>
+                            <div className="w-full h-full flex justify-center items-center">
+                              <Image
+                                src={getUserProfileImage(elem)}
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                                className="w-full h-full rounded-full object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
+                      )}
                     </div>
 
                     <div className="block items-start">
                       <p className="max-w-[450px]">
                         {fromUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
-                            {elem.reference_username}&nbsp;
-                          </span>
+                          <Link href={`/${elem.reference_username}`} passHref>
+                            <a>
+                              <span className={styles.username}>
+                                {getDisplayUserName(elem.reference_username)}&nbsp;
+                              </span>
+                            </a>
+                          </Link>
                         )}
 
                         <span className={styles.type}>{getNotificationType(elem)}</span>
 
                         {fromEndUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
-                            &nbsp;{elem.reference_username}
-                          </span>
+                          <Link href={`/${elem.reference_username}`} passHref>
+                            <a>
+                              <span className={styles.username}>
+                                &nbsp;{getDisplayUserName(elem.reference_username)}
+                              </span>
+                            </a>
+                          </Link>
                         )}
                       </p>
                       {elem.notification_type === 'offer' && (
-                        <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
-                          {getViewDetail(elem)}
-                        </div>
+                        <Link href={`${gotoDetailPage(elem)}`} passHref>
+                          <a>
+                            <div
+                              className={styles.viewDetails}
+                              onClick={() => dispatch({ type: 'set', isLoading: true })}
+                            >
+                              {getViewDetail(elem)}
+                            </div>
+                          </a>
+                        </Link>
                       )}
                     </div>
                   </div>
@@ -298,7 +329,8 @@ const NotificationsCard = props => {
                         label="Follow"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
-                        gradientDirection="bottom"
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'follow')}
@@ -315,19 +347,23 @@ const NotificationsCard = props => {
                       />
                     ) : (
                       isShowAvatar(elem) && (
-                        <div className={styles.assetUrl} onClick={() => gotoNFTPage(elem)}>
-                          <Image
-                            src={
-                              elem.reference_asset_url !== null && elem.reference_asset_url !== ''
-                                ? elem.reference_asset_url
-                                : DefaultAvatar
-                            }
-                            alt=""
-                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                            className="rounded-[8px] lg:rounded-[8px] object-cover"
-                          />
-                        </div>
+                        <Link href={`/nft/${elem.reference_token_id}`} passHref>
+                          <a>
+                            <div className={styles.assetUrl}>
+                              <Image
+                                src={
+                                  elem.reference_asset_url !== null && elem.reference_asset_url !== ''
+                                    ? elem.reference_asset_url
+                                    : DefaultAvatar
+                                }
+                                alt=""
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                                className="rounded-[8px] lg:rounded-[8px] object-cover"
+                              />
+                            </div>
+                          </a>
+                        </Link>
                       )
                     )}
                   </div>

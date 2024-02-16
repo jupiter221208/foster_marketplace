@@ -1,4 +1,5 @@
 import client from './client'
+import { addNonEmptySearchParams } from 'utils'
 
 const API_URL = process.env.BACKEND_URL
 
@@ -10,18 +11,16 @@ class Dashboard {
   }
 
   getTopRatedArtists(period) {
-    return client.get(API_URL + 'v1/dashboard/top-rated-artists?period=' + period).then(response => {
-      return response?.data
-    })
+    return client
+      .get(addNonEmptySearchParams(API_URL + 'v1/dashboard/top-rated-artists', { period }).toString())
+      .then(response => {
+        return response?.data
+      })
   }
 
   getFreshMints(category) {
     return client
-      .get(
-        API_URL +
-          'v1/dashboard/fresh-mints' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '')
-      )
+      .get(addNonEmptySearchParams(API_URL + 'v1/dashboard/fresh-mints', { category }).toString())
       .then(response => {
         return response?.data
       })
@@ -29,11 +28,7 @@ class Dashboard {
 
   getMostPopular(category) {
     return client
-      .get(
-        API_URL +
-          'v1/dashboard/most-popular' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '')
-      )
+      .get(addNonEmptySearchParams(API_URL + 'v1/dashboard/most-popular', { category }).toString())
       .then(response => {
         return response?.data
       })
@@ -42,42 +37,44 @@ class Dashboard {
   getTrendingCollections(category, period) {
     return client
       .get(
-        API_URL +
-          'v1/dashboard/trending-collections' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '') +
-          (period !== null && period?.length > 0 ? '?period=' + period : '')
+        addNonEmptySearchParams(API_URL + 'v1/dashboard/trending-collections', {
+          category,
+          period,
+        }).toString()
       )
       .then(response => {
         return response?.data ?? []
       })
   }
 
-  getMarketplaceReleases(category, artist) {
+  getMarketplaceReleases(category: string | null, artist: string | null, page?: number, per_page?: number) {
     return client
       .get(
-        API_URL +
-          'v1/dashboard/marketplace-releases' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '') +
-          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
+        addNonEmptySearchParams(API_URL + 'v1/dashboard/marketplace-releases', {
+          category,
+          artist,
+          page,
+          per_page,
+        }).toString()
       )
       .then(response => {
         return response?.data
       })
   }
 
-  getLiveAuctions(category, artist, mode) {
-    let url = category !== null && category?.length > 0 ? '?category=' + category : ''
-    if (artist !== null && artist?.length > 0) {
-      if (url.length > 0) url = url + '&artist=' + artist
-      else url = '?artist=' + artist
-    }
-    if (mode !== null && mode.length > 0) {
-      if (url.length > 0) url = url + '&mode=' + mode
-      else url = '?mode=' + mode
-    }
-    return client.get(API_URL + 'v1/dashboard/live-auctions' + url).then(response => {
-      return response?.data
-    })
+  getLiveAuctions(category: string | null, artist: string | null, mode: string | null, page?: number) {
+    return client
+      .get(
+        addNonEmptySearchParams(API_URL + 'v1/dashboard/live-auctions', {
+          category,
+          artist,
+          mode,
+          page,
+        }).toString()
+      )
+      .then(response => {
+        return response?.data
+      })
   }
 
   getNftPublic() {

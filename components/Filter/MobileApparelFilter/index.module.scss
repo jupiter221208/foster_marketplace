@@ -1,0 +1,41 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--collection-card-bg-rgb), 0.1);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.title {
+  width: 100%;
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
+
+.bottomArea {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: var(--stats-label-bg);
+  padding: 20px 30px 30px 30px;
+}
+
+.cancel {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+}

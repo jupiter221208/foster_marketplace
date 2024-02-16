@@ -11,7 +11,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, ensureMaxDecimals } from 'utils'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
 
@@ -19,6 +19,9 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
+import SolanaIcon from 'assets/icons/solana-logo.svg?component'
+import Lottie from 'lottie-react'
+import animationData from 'assets/lottery/shopping-lottie.json'
 
 // styles
 import styles from './index.module.scss'
@@ -35,6 +38,12 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
+import GradientButton from 'components/Button/GradientButton'
+import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
+import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import OutlineButton from 'components/Button/OutlineButton'
+import { NftData } from 'types/nft'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -42,8 +51,10 @@ const MerchActivity = () => {
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
-  const [activeTab, setActiveTab] = useState<any>(0)
+  const router = useRouter()
+  const [activeTab, setActiveTab] = useState<any>(defaultActiveTab)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
   const [purchases, setPurchases] = useState([])
@@ -71,9 +82,13 @@ const MerchActivity = () => {
   const [disableMerchModal, setDisableMerchModal] = useState(false)
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
+  const [array, setArray] = useState([])
+  const [cart, setCart] = useState([])
+  const [currentSelect, setCurrentSelect] = useState(0)
+  const [totalCost, setTotalCost] = useState(0)
+  const { solToUsdRate } = useSolToUsdRate()
 
   const [tokenId, setTokenId] = useState(false)
-
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
     if (!connected) {
@@ -118,8 +133,30 @@ const MerchActivity = () => {
     }
   }, [isFetching, publicKey])
 
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('data'))
+    setArray(storedData)
+    dispatch({ type: 'set', activeTab: 0 })
+  }, [])
+
+  const getcartList = () => {
+    const storedData = JSON.parse(localStorage.getItem('data'))
+    setArray(storedData)
+  }
+
   const handleSelectedTab = item => {
     setActiveTab(item.id)
+  }
+
+  const handleOnClick = () => {
+    const checkedData = []
+    cart.forEach(item => {
+      if (item.checked === true) checkedData.push(item)
+    })
+    if (checkedData.length > 0) {
+      localStorage.setItem('checked', JSON.stringify(checkedData))
+      router.push(`/shopping/`)
+    }
   }
 
   const getBuyerOrder = (page, rowCount) => {
@@ -234,20 +271,20 @@ const MerchActivity = () => {
       item =>
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
-        (item.json?.properties?.category ?? 'image') === 'image' &&
-        item.creators.some(({ address }) => publicKey.equals(address))
+        (item.category ?? 'image') === 'image' &&
+        item.creators.some(({ address }) => publicKey?.toString() === address)
     )
 
-    let tokenIds = eligibleNfts.map(nft => ('mint' in nft ? nft.mint.address : nft.mintAddress))
-
-    let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
+    let nftStatus = await NftAPI.enableAllMerchHub({
+      tokenIds: eligibleNfts.map(({ mintAddress }) => mintAddress),
+    })
     if (!nftStatus) return
     let disabledNfts = eligibleNfts
-      .filter((_, index) => !nftStatus[tokenIds[index].toBase58()])
-      .map(({ name, json }, index) => ({
+      .filter(({ mintAddress }, index) => !nftStatus[mintAddress.toString()])
+      .map(({ mintAddress, name, image }, index) => ({
         nft_name: name,
-        token_id: tokenIds[index].toBase58(),
-        asset_url: json?.image,
+        token_id: mintAddress.toString(),
+        asset_url: image,
       }))
     setDisabledItems(disabledNfts)
 
@@ -367,7 +404,7 @@ const MerchActivity = () => {
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <div className="w-full flex justify-between">
-              <div className={`${styles.title} z-10`}>Foster Studio Dashboard</div>
+              <div className={`${styles.title} z-10`}>Merch Hub</div>
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
@@ -381,7 +418,7 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px] mt-[15px]">
-              <div className={`${styles.title} z-10`}>Foster Studio Dashboard</div>
+              <div className={`${styles.title} z-10`}>Merch Hub</div>
               <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
@@ -459,6 +496,70 @@ const MerchActivity = () => {
                 type="sales"
                 isLoading={isVisibleSellerFetching}
               />
+            </div>
+          )}
+          {activeTab === 4 && (
+            <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
+              {array && array.length && array.length > 0 ? (
+                <>
+                  <div className="col-span-2">
+                    <ShoppingCartActivity
+                      data={array}
+                      getcartList={getcartList}
+                      cart={cart}
+                      setCart={setCart}
+                      setCurrentSelect={setCurrentSelect}
+                      currentSelect={currentSelect}
+                      setTotalCost={setTotalCost}
+                      totalCost={totalCost}
+                    />
+                  </div>
+                  <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
+                    <div className={styles.tableColor}>
+                      <div className="flex flex-row items-center justify-between">
+                        <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
+                        <div className="flex flex-row items-center">
+                          $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
+                          <div className={styles.costDivider} />
+                          <div className="flex ml-[5px] items-center">
+                            <SolanaIcon alt="" className="text-[20px]" />
+                            &nbsp;
+                            {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-full flex">
+                        <GradientButton
+                          label="Place Order"
+                          fullWidth
+                          disabled={currentSelect == 0}
+                          fontFamily="Muli-SemiBold"
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+                          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+                          onClick={() => handleOnClick()}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="lg:mt-[-100px] col-start-2 col-span-1">
+                  <Lottie animationData={animationData}></Lottie>
+                  <div className="mt-[-50px] mb-[250px] lg:mt-[-70px]">
+                    <div className={styles.lootieTitle}>Your cart is empty</div>
+                    <div className={styles.lootieSubTitle}>Explore studio and foster your flavor</div>
+                    <div className={styles.shopButton}>
+                      <OutlineButton
+                        width={145}
+                        backgroundColor={'var(--second-home-bg)'}
+                        borderColor={'var(--back-btn-border-mobile)'}
+                        label={'Shop Studio'}
+                        onClick={() => router.push('/studio/')}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {((activeTab === 0 && isVisibleEnabledFetching) ||

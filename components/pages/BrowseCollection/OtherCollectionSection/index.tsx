@@ -21,7 +21,6 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // api
 import SeeMoreButton from 'components/Button/SeeMoreButton'
@@ -64,10 +63,7 @@ const OtherCollectionSection = props => {
                 artistName={artistName}
                 artistAddress={artistId}
                 mintAddress={item.collection_id}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push(`/collection/${item.collection_id}`)
-                }}
+                link={`/collection/${item.collection_id}`}
               />
             </SwiperSlide>
           ))}
