@@ -4,6 +4,7 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
+export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
   let difference = getTimeDifferenceWithAuction(endDate)

@@ -35,7 +35,13 @@ import LoadingButton from 'components/Button/LoadingButton'
 // custom functions
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
-import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
+import {
+  getNFTCategories,
+  getNFTTokenAccount,
+  getNFTSocialInfo,
+  getNFTArtistPublicKey,
+  getNftFromDAS,
+} from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import {
   cancelListing,
@@ -255,7 +261,6 @@ const MainSection = ({
   const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
-  const [nftCollectionUrl, setNftCollectionUrl] = useState('')
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
   const [nftPrice, setNftPrice] = useState(0)
@@ -565,19 +570,14 @@ const MainSection = ({
 
   useEffect(() => {
     ;(async () => {
-      if (nftDetail.collection?.verified)
-        try {
-          let collectionMint = new PublicKey(nftDetail.collection.address)
-          let collectionMetadata = toMetadataAccount(
-            await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
-          )
-          setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
-          setCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
-          setNftCollectionUrl(collectionMetadata.data.data.uri.replace(/\0/g, ''))
-        } catch (e: any) {
-          console.error(`could not load collection name from chain: ${e.message}`)
-          console.error(e)
+      if (nftDetail.collection) {
+        const collectionMetadata = await getNftFromDAS(nftDetail.collection.address)
+        if (collectionMetadata) {
+          setCollectionName(collectionMetadata.content.metadata.name)
+          setNftCollectionImage(collectionMetadata.content.links.image)
+          setNftCollectionName(collectionMetadata.content.metadata.name)
         }
+      }
 
       activityAPI.getNFTActivity(mintAddress).then(
         response => {
@@ -592,12 +592,12 @@ const MainSection = ({
     })()
   }, [nftDetail])
 
-  useEffect(() => {
-    axios
-      .get(nftCollectionUrl)
-      .then(({ data }) => setNftCollectionImage(data?.image))
-      .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
-  }, [nftCollectionUrl])
+  // useEffect(() => {
+  //   axios
+  //     .get(nftCollectionUrl)
+  //     .then(({ data }) => setNftCollectionImage(data?.image))
+  //     .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
+  // }, [nftCollectionUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -1235,23 +1235,27 @@ const MainSection = ({
                 />
 
                 <div className={styles.collectionContainer}>
-                  {nftCollectionUrl.length > 0 && (
+                  {nftCollectionAddress && (
                     <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
                       <div className={styles.collectionText}>Collection</div>
                       <Link href={`/collection/${nftCollectionAddress}`} passHref>
                         <a>
-                          <div className={styles.collectionName}>
-                            {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                              <Image
-                                src={nftCollectionImage}
-                                alt=""
-                                width={25}
-                                height={25}
-                                className="object-cover rounded-[4px]"
-                              />
-                            )}
-                            {nftCollectionName}
-                          </div>
+                          {!(nftCollectionImage && nftCollectionName) ? (
+                            <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
+                          ) : (
+                            <div className={styles.collectionName}>
+                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                                <Image
+                                  src={nftCollectionImage}
+                                  alt=""
+                                  width={25}
+                                  height={25}
+                                  className="object-cover rounded-[4px]"
+                                />
+                              )}
+                              {nftCollectionName}
+                            </div>
+                          )}
                         </a>
                       </Link>
                     </div>

@@ -1,14 +1,12 @@
 [
   {
     "id": 0,
-    "name": "#FFFFFF",
-    "type": "white",
-    "asset_url": "/images/apparel-color-white.png"
+    "name": "#E2E3E8",
+    "type": "white"
   },
   {
     "id": 1,
-    "name": "#000000",
-    "type": "black",
-    "asset_url": "/images/apparel-color-black.png"
+    "name": "#010101",
+    "type": "black"
   }
 ]

@@ -2,7 +2,6 @@ import React from 'react'
 
 // styles
 import styles from './index.module.scss'
-import { getFirstUpperString } from 'utils/helpers'
 
 const StudioSelectionColor = props => {
   const { label, data, selected, onSelect, newStudio } = props
@@ -20,7 +19,7 @@ const StudioSelectionColor = props => {
                   onSelect(itemData)
                 }}
               >
-                <img src={itemData.asset_url} className="w-full h-full" />
+                <div style={{ background: itemData.name, width: '100%', height: '100%' }} />
               </div>
             ) : (
               <div
@@ -30,7 +29,7 @@ const StudioSelectionColor = props => {
                   onSelect(itemData)
                 }}
               >
-                <img src={itemData.asset_url} className="w-full h-full" />
+                <div style={{ background: itemData.name, width: '100%', height: '100%' }} />
               </div>
             )}
           </div>

@@ -9,7 +9,7 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 24px;
+  font-size: 20px;
   @media (min-width: 1024px) {
     font-size: 30px;
   }
@@ -23,11 +23,7 @@
 .seeMore {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
-  line-height: 14px;
-  margin-bottom: 4px;
-  letter-spacing: 1px;
   color: var(--text-gray-200-color);
-  cursor: pointer;
 }
 
 .slotBG {

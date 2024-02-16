@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useResizeDetector } from 'react-resize-detector'
 
@@ -16,7 +16,6 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
-import ModelViewer from 'components/ModelViewer'
 
 type MyNFTCardTypes = {
   data: NftData
@@ -27,7 +26,14 @@ type MyNFTCardTypes = {
 
 const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    setImageLoading(true)
+  }, [data])
+
+  console.log(data)
 
   return (
     <div className={styles.container}>
@@ -37,21 +43,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.json?.category === 'vr' || data.json?.properties?.category === 'vr' ? (
-              <div className={styles.imageArea}>
-                <div className={styles.imageContent}>
-                  {data?.json?.image ? (
-                    <img src={data?.json?.image} alt="" className="w-full h-full object-cover" />
-                  ) : data?.json.animation_url ? (
-                    <>
-                      <ModelViewer path={data?.json.animation_url} orbitLimited />
-                    </>
-                  ) : (
-                    <h1>Could not load NFT.</h1>
-                  )}
-                </div>
-              </div>
-            ) : data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
+            {data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
@@ -61,10 +53,16 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
+                  {imageLoading && (
+                    <div className={styles.skeletonLoaderOuterBox}>
+                      <div className={styles.skeletonLoader} />
+                    </div>
+                  )}
                   <img
-                    src={data.image || AudioPlayerBackground.src}
+                    src={data.image || data.animation_url || AudioPlayerBackground.src}
                     alt={data.name}
                     className="w-full h-full object-cover"
+                    onLoad={() => setImageLoading(false)}
                   />
                 </div>
               </div>

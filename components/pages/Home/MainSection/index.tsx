@@ -105,7 +105,7 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
-        {/* <div className="flex lg:hidden w-[calc(100%+32px)]">
+        <div className="flex lg:hidden w-[calc(100%+32px)]">
           <div className={styles.heroMobileSection}>
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
@@ -130,8 +130,8 @@ const MainSection = () => {
               )}
             </div>
           </div>
-        </div> */}
-        <div className="flex lg:hidden w-[calc(100%+32px)]">
+        </div>
+        {/* <div className="flex lg:hidden w-[calc(100%+32px)]">
           <div className="w-full -ml-[16px]">
             <Fade
               duration={3000}
@@ -152,7 +152,7 @@ const MainSection = () => {
               })}
             </Fade>
           </div>
-        </div>
+        </div> */}
         <div className="hidden lg:flex">
           <div className="w-full h-[592px] relative">
             <div className="absolute w-full h-[590px] inset-0">
