@@ -18,7 +18,7 @@ const Radio = props => {
   return data.map((item, index) => (
     <div
       key={index}
-      className="flex justify-start my-3 lg:my-4 gap-4 z-10 w-max"
+      className="flex justify-start my-3 lg:my-5 gap-4 z-10"
       style={{ backgroundColor: backgroundColor, borderRadius: borderRadius, padding: padding }}
     >
       {direction === 'ltr' && (
@@ -43,7 +43,7 @@ const Radio = props => {
         </label>
         {item.small_tip && (
           <label
-            className={`${styles.label} ${selected.id === item.id ? styles.selected : ''}`}
+            className={styles.tip}
             htmlFor={item.id}
             onClick={() => (item.disabled !== undefined && item.disabled ? {} : onChange(item))}
             style={{ opacity: item.disabled ? 0.5 : 1 }}

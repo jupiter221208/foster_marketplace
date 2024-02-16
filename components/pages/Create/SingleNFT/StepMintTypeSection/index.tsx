@@ -80,6 +80,9 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           </div>
         </div>
       </div>
+      <div className={styles.exchangeArt}>
+        Or, <span className={styles.underline}>import your series from Exchange Art</span>
+      </div>
     </div>
   )
 }
