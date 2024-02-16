@@ -43,7 +43,6 @@ const ActivityAccordion = ({ data }) => {
     }
     openedRef.current = clickedButton
   }
-  console.log(data, '=============data==============')
   const getUserName = item => {
     let user = ''
     switch (item.action_type) {

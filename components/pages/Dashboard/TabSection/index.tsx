@@ -18,6 +18,7 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import CollectedSection from '../CollectedSection'
 
 const TabSection = () => {
   const router = useRouter()

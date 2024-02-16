@@ -80,7 +80,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
-
+  console.log(editionDetail, '=================editionDetail============')
   useEffect(() => {
     setTimeout(
       () =>
@@ -154,7 +154,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
 
   let nftName = nftDetail?.json?.name ?? ''
-  const nftUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  const nftUrl = nftDetail?.json?.image ?? DefaultNftBG.src
   if (editionDetail) {
     let { print, supply, maxSupply } = editionDetail
     let supplyInfo = `#${print?.number}/${supply}`
