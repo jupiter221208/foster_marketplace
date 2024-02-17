@@ -1275,7 +1275,7 @@ const MainSection = ({
                   )}
                   {editionDetail && (
                     <div className={styles.editionContainer}>
-                      {nftInfo.printing > 0 &&
+                      {nftInfo?.printing > 0 &&
                         <div className="w-full flex justify-between mb-[8px]">
                           <div className={styles.editionTitle}>Mint Price</div>
                           <div className='flex gap-[8px] items-center'>
@@ -1339,10 +1339,11 @@ const MainSection = ({
                   ></div>
                 )}
                 {nftPrice > 0 && !liveAuction ? (
-                  nftInfo.printing ? (
-                    <div className="flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
+                  // nftInfo?.printing ? (
+                    true ? (
+                    <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
-                        <div className="flex flex-row justify-between">
+                        <div className="flex justify-between gap-[13px]">
                           <div className={styles.mintQty}>
                             <MintValueMinus />
                             <div className={styles.mintValue}>Qty:&nbsp;3</div>
