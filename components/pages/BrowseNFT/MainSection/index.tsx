@@ -56,6 +56,7 @@ import {
 import SolanaLogo from 'assets/icons/solana-logo.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaLogoMediumIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
 import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
@@ -1274,17 +1275,26 @@ const MainSection = ({
                   )}
                   {editionDetail && (
                     <div className={styles.editionContainer}>
+                      {nftInfo.printing > 0 &&
+                        <div className="w-full flex justify-between mb-[8px]">
+                          <div className={styles.editionTitle}>Mint Price</div>
+                          <div className='flex gap-[8px] items-center'>
+                          <SolanaLogoMediumIcon alt=""/>
+                          <div className={styles.editionValue}>{nftInfo.printing?.price}</div>
+                          </div>
+                        </div>
+                      }
                       <div className="w-full flex justify-between">
                         <div className={styles.editionTitle}>Token Type</div>
                         <div className={styles.editionValue}>
                           {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
                         </div>
                       </div>
-                      <div className="w-full flex justify-between mt-[15px]">
+                      <div className="w-full flex justify-between mt-[8px]">
                         <div className={styles.editionTitle}>Editon Number</div>
                         <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
                       </div>
-                      <div className="w-full flex justify-between mt-[15px]">
+                      <div className="w-full flex justify-between mt-[8px]">
                         <div className={styles.editionTitle}>Edition Supply</div>
                         <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                       </div>
@@ -1332,19 +1342,10 @@ const MainSection = ({
                   nftInfo.printing ? (
                     <div className="flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
-                        <div className="w-full flex justify-between">
-                          <div className={styles.masterTitle}>Mint Price</div>
-                          <div className={styles.masterValue}>
-                            <SolanaLogo />
-                            {nftInfo.printing.price}
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.masterContainer}>
                         <div className="flex flex-row justify-between">
-                          <div className="flex flex-row gap-2 items-center">
+                          <div className={styles.mintQty}>
                             <MintValueMinus />
-                            <div className={styles.mintValue}>3</div>
+                            <div className={styles.mintValue}>Qty:&nbsp;3</div>
                             <MintValuePlus />
                           </div>
                           <div className={styles.mintPrice}>
@@ -1352,6 +1353,7 @@ const MainSection = ({
                             &nbsp;1.50
                           </div>
                         </div>
+                        <div className='mt-[23px]'>
                         <GradientButton
                           fullWidth
                           label={'Mint Edition'}
@@ -1361,6 +1363,7 @@ const MainSection = ({
                           height={50}
                           disabled={!tradeStateAddress}
                         />
+                        </div>
                       </div>
                     </div>
                   ) : (
