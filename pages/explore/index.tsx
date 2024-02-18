@@ -639,7 +639,7 @@ const Explore = () => {
                     return (
                       <div
                         className={`col-span-6 z-10 ${
-                          showFilter ? 'lg:col-span-6 2xl:col-span-4' : 'lg:col-span-4 2xl:col-span-3'
+                          showFilter ? 'lg:col-span-6 3xl:col-span-4 ' : 'lg:col-span-4 2xl:col-span-3'
                         }`}
                         key={index}
                       >
