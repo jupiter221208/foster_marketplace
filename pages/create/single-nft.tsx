@@ -536,6 +536,7 @@ const SingleNft = () => {
                           path={nftUrl}
                           width={width}
                           height={height}
+                          preserveDrawingBuffer
                           getSnapshot={{
                             onSnapshot: image => {
                               setNftImage(URL.createObjectURL(image))
@@ -800,6 +801,7 @@ const SingleNft = () => {
                       path={nftUrl}
                       width={width}
                       height={height}
+                      preserveDrawingBuffer
                       getSnapshot={{
                         onSnapshot: image => {
                           setNftImage(URL.createObjectURL(image))

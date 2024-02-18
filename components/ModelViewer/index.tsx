@@ -15,6 +15,7 @@ const ModelViewer = ({
   orbitLimited = false,
   fullScreen = false,
   getSnapshot = { onSnapshot: url => {}, status: false },
+  preserveDrawingBuffer = false,
   onLoad = () => {},
 }) => {
   // State variables
@@ -31,7 +32,7 @@ const ModelViewer = ({
       setOldPath(path)
       setModelLoaded(false)
 
-      const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
+      const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer })
       newRenderer.setSize(width, height)
       newRenderer.setClearColor(0x000000, 0)
       setRenderer(newRenderer)
