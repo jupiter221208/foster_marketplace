@@ -1,0 +1,53 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  position: fixed;
+  inset: 0;
+  @media (min-width: 1024px) {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px) brightness(15px) opacity(0.9);
+    background: rgba(var(--background-main-color), 0.9);
+  }
+}
+
+.modalView {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--background-main-color);
+  @media (min-width: 1024px) {
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    max-width: 1172px;
+    height: auto;
+    border-radius: 30px;
+    padding: 55px 75px;
+  }
+}
+
+.artImage {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 35px;
+  @media (min-width: 1024px) {
+  width: 330px;
+  height: 330px;
+  min-width: 330px;
+  min-height: 330px;
+  border-radius: 35px;
+  }
+  overflow: hidden;
+}
+
+.artName {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  text-align: start;
+  color: var(--text-gray-200-color)
+}
+

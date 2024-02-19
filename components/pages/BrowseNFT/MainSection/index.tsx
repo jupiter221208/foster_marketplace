@@ -68,6 +68,7 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -115,6 +116,7 @@ import AuctionDetail from '../AuctionDetail'
 import NFTActivityInfoSection from './NFTActivityInfoSection'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
+import EditMetaModal from 'components/Modal/EditMetaModal'
 
 export interface MainSectionProps {
   nftDetail: NftApiData
@@ -186,6 +188,7 @@ const MainSection = ({
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [showNftMeta, setShowNftMeta] = useState(false)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
@@ -971,7 +974,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') ? (
+                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
                       <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
@@ -1001,6 +1004,11 @@ const MainSection = ({
                       </div>
                     ) : (
                       <></>
+                    )}
+                    {isCreatedNft && (
+                      <div onClick={() => setShowNftMeta(true)}>
+                        <EditNftMetaIcon alt="" />
+                      </div>
                     )}
                   </div>
 
@@ -1478,6 +1486,16 @@ const MainSection = ({
           close={() => setShowSaveModal(false)}
           type="saved"
           wallet={mintAddress}
+        />
+      )}
+
+      {showNftMeta && nftInfo && (
+        <EditMetaModal
+          open={showNftMeta}
+          close={() => setShowNftMeta(false)}
+          nftCover={nftCoverUrl}
+          data={editionDetail}
+          nftInfo={nftInfo}
         />
       )}
 
