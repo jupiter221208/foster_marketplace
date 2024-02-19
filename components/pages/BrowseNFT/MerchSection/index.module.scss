@@ -12,20 +12,6 @@
   }
 }
 
-.loadingBackground {
-  width: 100%;
-  @media (min-width: 1024px) {
-    height: calc(100vh - 100px - 60px);
-    border-radius: 27px;
-  }
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  z-index: 1;
-}
-
 .blurBackground {
   width: 100%;
   @media (min-width: 1024px) {
