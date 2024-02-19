@@ -76,7 +76,7 @@ import styles from './index.module.scss'
 import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
-import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
+import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
