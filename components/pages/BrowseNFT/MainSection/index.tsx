@@ -211,6 +211,7 @@ const MainSection = ({
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
+  const [mintQty, setMintQty] = useState(3)
 
   const labels =
     viewport === 'xs' || viewport === 'sm' || viewport === 'md'
@@ -1302,35 +1303,6 @@ const MainSection = ({
                   )}
                 </div>
               </div>
-
-              {/* {editionDetail && (editionDetail.isOpenEdition || editionDetail.isLimitedEdition) && (
-                <div className={styles.editionContainer}>
-                  <div className="w-full flex justify-between">
-                    <div className={styles.editionTitle}>Token Type</div>
-                    <div className={styles.editionValue}>
-                      {editionDetail.isLimitedEdition ? 'Limited Edition' : 'Open Edition'}
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[15px]">
-                    <div className={styles.editionTitle}>Edition Number</div>
-                    <div className={styles.editionValue}>{editionDetail.print?.number ?? 'Master Edition'}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[15px]">
-                    <div className={styles.editionTitle}>Total Supply</div>
-                    <div className={styles.editionValue}>{editionDetail.maxSupply ?? '\u221e'}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[15px]">
-                    <div className={styles.editionTitle}>Editions Printed</div>
-                    <div className={styles.editionValue}>{editionDetail.supply}</div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[15px]">
-                    <div className={styles.editionTitle}>Editions Remaining</div>
-                    <div className={styles.editionValue}>
-                      {editionDetail.maxSupply ? editionDetail.maxSupply - editionDetail.supply : '\u221e'}
-                    </div>
-                  </div>
-                </div>
-              )} */}
               
               <div className="w-full flex flex-wrap">
                 {loadListing && (
@@ -1339,18 +1311,26 @@ const MainSection = ({
                   ></div>
                 )}
                 {nftPrice > 0 && !liveAuction ? (
-                  // nftInfo?.printing ? (
-                    true ? (
+                  nftInfo?.printing ? (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
                         <div className="flex justify-between gap-[13px]">
                           <div className={styles.mintQty}>
-                            <MintValueMinus />
-                            <div className={styles.mintValue}>Qty:&nbsp;3</div>
+                            <div onClick={() => {
+                              if (mintQty > 0)
+                                setMintQty(mintQty - 1)
+                            }}>
+                              <MintValueMinus />
+                            </div>
+                            <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
+                            <div onClick={() => {
+                              setMintQty(mintQty + 1)
+                            }}>
                             <MintValuePlus />
+                            </div>
                           </div>
                           <div className={styles.mintPrice}>
-                            <SolanaLogo />
+                            <SolanaLogoIcon />
                             &nbsp;1.50
                           </div>
                         </div>
