@@ -1,5 +1,4 @@
 import React, { useEffect, useState, Fragment } from 'react'
-import { useRouter } from 'next/router'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -21,8 +20,6 @@ import GradientButton from 'components/Button/GradientButton'
 import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
 import Dropzone from 'react-dropzone'
-import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
-import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 // apis
 
@@ -75,10 +72,11 @@ const EditMetaModal = props => {
   }
 
   const updateMetadata = () => {
+    if (coverImageProcessing) return
     // web3 part for updating meta data
     close()
   }
-  console.log(assetType, assetUrl, '===============coverUrl===============')
+
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -126,9 +124,6 @@ const EditMetaModal = props => {
                         ) : assetType.includes('audio') ? (
                           <div className="w-full h-full z-10">
                             <img src={coverUrl} alt="" className="w-full h-full object-contain z-10" />
-                            <div className={styles.audioMobileArea}>
-                              <AudioPlayer src={assetUrl} />
-                            </div>
                           </div>
                         ) : (
                           <img src={coverUrl} alt="" className="w-full h-full object-cover" />
@@ -144,10 +139,6 @@ const EditMetaModal = props => {
                               'image/jpeg': [],
                               'image/png': [],
                               'image/gif': [],
-                              'video/mp4': [],
-                              'audio/mpeg': [],
-                              'audio/wav': [],
-                              'model/gltf-binary': ['.glb'],
                             }}
                             maxSize={31457280}
                           >
