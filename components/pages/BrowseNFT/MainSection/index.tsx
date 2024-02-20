@@ -325,21 +325,21 @@ const MainSection = ({
     setOpenProgressingModal(false)
   }
 
-  useEffect(() => {
-    ;(async () => {
-      if (profileInfo) {
-        let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
-          new PublicKey(nftDetail.address)
-        )
-        setLikeCount(likes)
-        setShareCount(shares)
-        setSaveCount(saves)
-        setLike(liked)
-        setSave(saved)
-        setShare(sharedSocial)
-      }
-    })()
-  }, [profileInfo])
+  // useEffect(() => {
+  //   ;(async () => {
+  //     if (profileInfo) {
+  //       let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
+  //         new PublicKey(nftDetail.address)
+  //       )
+  //       setLikeCount(likes)
+  //       setShareCount(shares)
+  //       setSaveCount(saves)
+  //       setLike(liked)
+  //       setSave(saved)
+  //       setShare(sharedSocial)
+  //     }
+  //   })()
+  // }, [profileInfo])
 
   useEffect(() => {
     if (nftInfo) {
@@ -1494,7 +1494,8 @@ const MainSection = ({
           open={showNftMeta}
           close={() => setShowNftMeta(false)}
           nftCover={nftCoverUrl}
-          data={editionDetail}
+          nftAsset={nftAssetUrl}
+          nftType={nftType}
           nftInfo={nftInfo}
         />
       )}

@@ -21,24 +21,50 @@ import GradientButton from 'components/Button/GradientButton'
 import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
 import Dropzone from 'react-dropzone'
-import NftImageEditorModal from '../NftImageEditorModal'
 
 // apis
 
 const EditMetaModal = props => {
-  const { open, close, data, nftCover, nftInfo } = props
-  const router = useRouter()
+  const { open, close, nftType, nftCover, nftAsset, nftInfo } = props
+  const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
   const [creatorList, setCreatorList] = useState([{ address: nftInfo.creator_address, share: '100' }])
   const [attributeList, setAttributeList] = useState([{ type: '', name: '' }])
-  const [imageUrl, setImageUrl] = useState(nftCover)
+  const [coverUrl, setCoverUrl] = useState(nftCover)
+  const [assetUrl, setAssetUrl] = useState(nftAsset)
   const [selectedFile, setSelectedFile] = useState<any>()
-  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
+  const [coverImageProcessing, setCoverImageProcessing] = useState(false)
 
   useEffect(() => {
     if (selectedFile !== null && selectedFile !== undefined) {
-      setImageUrl(URL.createObjectURL(selectedFile[0]))
+      let type = selectedFile[0].type
+      if (type.includes('image')) {
+        setAssetType('image')
+        setCoverUrl(URL.createObjectURL(selectedFile[0]))
+      } else if (type.includes('video')) {
+        setAssetType('video')
+        setAssetUrl(URL.createObjectURL(selectedFile[0]))
+
+        setCoverImageProcessing(true)
+        let canvas = document.createElement('canvas')
+        let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+        hidden_video.src = URL.createObjectURL(selectedFile[0])
+
+        hidden_video.addEventListener('seeked', function () {
+          canvas.width = hidden_video.videoWidth
+          canvas.height = hidden_video.videoHeight
+
+          let ctx = canvas.getContext('2d')
+          ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
+
+          canvas.toBlob(blob => {
+            setCoverUrl(URL.createObjectURL(blob))
+            setCoverImageProcessing(false)
+          })
+        })
+        hidden_video.currentTime = 5
+      }
     }
   }, [selectedFile])
 
@@ -83,7 +109,21 @@ const EditMetaModal = props => {
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
-                        <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                        {assetType.includes('video') ? (
+                          <video
+                            autoPlay
+                            src={assetUrl}
+                            loop
+                            playsInline
+                            controls
+                            controlsList="nodownload"
+                            className="w-full h-full object-cover overflow-hidden"
+                          />
+                        ) : assetType === 'image' ? (
+                          <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <></>
+                        )}
                         <div className="absolute bottom-[24px] right-[28px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
@@ -91,7 +131,15 @@ const EditMetaModal = props => {
                             }}
                             onDropRejected={rejectedFiles => {}}
                             maxFiles={1}
-                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            accept={{
+                              'image/jpeg': [],
+                              'image/png': [],
+                              'image/gif': [],
+                              'video/mp4': [],
+                              'audio/mpeg': [],
+                              'audio/wav': [],
+                              'model/gltf-binary': ['.glb'],
+                            }}
                             maxSize={31457280}
                           >
                             {({ getRootProps, getInputProps, open }) => (
@@ -233,6 +281,9 @@ const EditMetaModal = props => {
                           onClick={() => updateMetadata()}
                         />
                       </div>
+                    </div>
+                    <div>
+                      <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
                     </div>
                   </div>
                 </Dialog.Panel>
