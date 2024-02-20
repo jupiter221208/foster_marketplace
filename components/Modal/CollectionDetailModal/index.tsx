@@ -1,5 +1,4 @@
-import React, { useState, Fragment } from 'react'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState, Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -18,16 +17,29 @@ import EditImageIcon from 'assets/icons/edit-icon.svg?component'
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
+import Dropzone from 'react-dropzone'
 
 // apis
 
 const CollectionDetailModal = props => {
   const { open, close, data } = props
-  const router = useRouter()
   const [artName, setArtName] = useState(data.collection_name)
   const [artDesc, setArtDesc] = useState(data.description)
+  const [selectedFile, setSelectedFile] = useState<any>()
+  const [imageUrl, setImageUrl] = useState(data.cover_image)
+
+  useEffect(() => {
+    if (selectedFile !== null && selectedFile !== undefined) {
+      setImageUrl(URL.createObjectURL(selectedFile[0]))
+    }
+  }, [selectedFile])
 
   const closeModal = () => {
+    close()
+  }
+
+  const updateCollectionData = () => {
+    // web3 part
     close()
   }
 
@@ -63,9 +75,29 @@ const CollectionDetailModal = props => {
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
-                        <img src={data.cover_image} alt="" className="w-full h-full object-cover" />
-                        <div className="absolute w-[40px] h-[40px] right-[28px] bottom-[24px]">
-                          <EditImageIcon alt="" />
+                        <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                        <div className="absolute bottom-[24px] right-[28px] z-[1000]">
+                          <Dropzone
+                            onDrop={acceptedFiles => {
+                              acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                            }}
+                            onDropRejected={rejectedFiles => {}}
+                            maxFiles={1}
+                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            maxSize={31457280}
+                          >
+                            {({ getRootProps, getInputProps, open }) => (
+                              <section>
+                                <button onClick={open} style={{ display: 'none' }}>
+                                  open
+                                </button>
+                                <div {...getRootProps()}>
+                                  <input {...getInputProps()} />
+                                  <EditImageIcon alt="" />
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
                         </div>
                       </div>
                       <div className="w-full">
@@ -106,6 +138,7 @@ const CollectionDetailModal = props => {
                           backgroundColor01="var(--main-icon-color)"
                           backgroundColor02="var(--main-icon-color)"
                           label="Save"
+                          onClick={() => updateCollectionData()}
                         />
                       </div>
                     </div>
@@ -157,6 +190,7 @@ const CollectionDetailModal = props => {
                         backgroundColor01="var(--main-icon-color)"
                         backgroundColor02="var(--main-icon-color)"
                         label="Save"
+                        onClick={() => updateCollectionData()}
                       />
                     </div>
                   </div>

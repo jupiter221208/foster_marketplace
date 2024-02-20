@@ -975,7 +975,7 @@ const MainSection = ({
                     </div>
 
                     {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
-                      <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
+                      <div className="cursor-pointer flex gap-[10px] items-center">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
                             alt=""

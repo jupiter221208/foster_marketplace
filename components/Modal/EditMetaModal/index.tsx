@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -20,6 +20,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
+import Dropzone from 'react-dropzone'
+import NftImageEditorModal from '../NftImageEditorModal'
 
 // apis
 
@@ -30,8 +32,22 @@ const EditMetaModal = props => {
   const [artDesc, setArtDesc] = useState(nftInfo.description)
   const [creatorList, setCreatorList] = useState([{ address: nftInfo.creator_address, share: '100' }])
   const [attributeList, setAttributeList] = useState([{ type: '', name: '' }])
+  const [imageUrl, setImageUrl] = useState(nftCover)
+  const [selectedFile, setSelectedFile] = useState<any>()
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
+
+  useEffect(() => {
+    if (selectedFile !== null && selectedFile !== undefined) {
+      setImageUrl(URL.createObjectURL(selectedFile[0]))
+    }
+  }, [selectedFile])
 
   const closeModal = () => {
+    close()
+  }
+
+  const updateMetadata = () => {
+    // web3 part for updating meta data
     close()
   }
 
@@ -67,9 +83,29 @@ const EditMetaModal = props => {
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
-                        <img src={nftCover} alt="" className="w-full h-full object-cover" />
-                        <div className="absolute w-[40px] h-[40px] right-[28px] bottom-[24px]">
-                          <EditImageIcon alt="" />
+                        <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                        <div className="absolute bottom-[24px] right-[28px] z-[1000]">
+                          <Dropzone
+                            onDrop={acceptedFiles => {
+                              acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                            }}
+                            onDropRejected={rejectedFiles => {}}
+                            maxFiles={1}
+                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            maxSize={31457280}
+                          >
+                            {({ getRootProps, getInputProps, open }) => (
+                              <section>
+                                <button onClick={open} style={{ display: 'none' }}>
+                                  open
+                                </button>
+                                <div {...getRootProps()}>
+                                  <input {...getInputProps()} />
+                                  <EditImageIcon alt="" />
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
                         </div>
                       </div>
                       <div className="w-full">
@@ -126,6 +162,7 @@ const EditMetaModal = props => {
                           backgroundColor01="var(--main-icon-color)"
                           backgroundColor02="var(--main-icon-color)"
                           label="Save"
+                          onClick={() => updateMetadata()}
                         />
                       </div>
                     </div>
@@ -193,6 +230,7 @@ const EditMetaModal = props => {
                           backgroundColor01="var(--main-icon-color)"
                           backgroundColor02="var(--main-icon-color)"
                           label="Save"
+                          onClick={() => updateMetadata()}
                         />
                       </div>
                     </div>
