@@ -243,8 +243,8 @@ const PrimaryHeader = () => {
                   />
                 </div>
 
-                <div>
-                  <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+                <div className={styles.studioMenu} onClick={() => router.push('/create/single-nft')}>
+                  Create
                 </div>
               </div>
 

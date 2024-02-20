@@ -1,15 +1,17 @@
 import React from 'react'
 
-import styles from './index.module.scss'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
 import SingleMobileIcon from 'public/icons/single-mobile.svg?component'
 import SingleIcon from 'public/icons/single.svg?component'
 import EditionMobileIcon from 'public/icons/edition-mobile.svg?component'
 import EditionIcon from 'public/icons/edition.svg?component'
 import CollectionMobileIcon from 'public/icons/collection-mobile.svg?component'
 import CollectionIcon from 'public/icons/collection.svg?component'
+// styles
+import styles from './index.module.scss'
 
 const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType: any }) => {
+  const router = useRouter()
   return (
     <div className="w-full">
       <div className="flex flex-col items-center mt-[30px] lg:mt-[95px]">
@@ -61,8 +63,7 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           <div
             className={`${styles.singleTag} mt-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
-              setCurrentStep(1)
-              setType(1)
+              router.push('/create/collection')
             }}
           >
             <div className="flex h-full gap-[15px] lg:gap-[0px] lg:flex-col items-center">
