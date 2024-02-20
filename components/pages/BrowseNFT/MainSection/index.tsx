@@ -432,7 +432,7 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-
+      console.log(nftDetail, '==============nftDetail===============')
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
@@ -1497,6 +1497,8 @@ const MainSection = ({
           nftAsset={nftAssetUrl}
           nftType={nftType}
           nftInfo={nftInfo}
+          nftRoyalties={nftDetail.creators}
+          nftAttributes={nftDetail.json?.attributes}
         />
       )}
 

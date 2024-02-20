@@ -128,7 +128,7 @@ const CollectionDetailModal = props => {
                       <div className="flex gap-[30px]">
                         <OutlineButton
                           width={100}
-                          label="Canel"
+                          label="Cancel"
                           onClick={() => close()}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
@@ -179,7 +179,7 @@ const CollectionDetailModal = props => {
                       <OutlineButton
                         fullWidth
                         height={45}
-                        label="Canel"
+                        label="Cancel"
                         onClick={() => close()}
                         borderWidth={2}
                         borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}

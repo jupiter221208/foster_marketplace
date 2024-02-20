@@ -66,9 +66,9 @@ const AttributeInputBox = props => {
                 />
               </div>
 
-              {attributeList.length > 1 && (
-                <div className="w-[24px]">{index > 0 && <TrashIcon onClick={() => removeAttribute(index)} />}</div>
-              )}
+              <div className="w-[24px]">
+                <TrashIcon onClick={() => removeAttribute(index)} />
+              </div>
             </div>
           )
         })}

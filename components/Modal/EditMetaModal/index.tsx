@@ -24,16 +24,24 @@ import Dropzone from 'react-dropzone'
 // apis
 
 const EditMetaModal = props => {
-  const { open, close, nftType, nftCover, nftAsset, nftInfo } = props
+  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes } = props
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
-  const [creatorList, setCreatorList] = useState([{ address: nftInfo.creator_address, share: '100' }])
-  const [attributeList, setAttributeList] = useState([{ type: '', name: '' }])
+  const [creatorList, setCreatorList] = useState(nftRoyalties)
+  const [attributeList, setAttributeList] = useState([])
   const [coverUrl, setCoverUrl] = useState(nftCover)
   const [assetUrl, setAssetUrl] = useState(nftAsset)
   const [selectedFile, setSelectedFile] = useState<any>()
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
+
+  useEffect(() => {
+    let list = []
+    nftAttributes.map(item => {
+      list.push({ type: item.trait_type, name: item.value })
+    })
+    setAttributeList(list)
+  }, [nftAttributes])
 
   useEffect(() => {
     if (selectedFile !== null && selectedFile !== undefined) {
@@ -200,7 +208,7 @@ const EditMetaModal = props => {
                       <div className="flex gap-[30px]">
                         <OutlineButton
                           width={100}
-                          label="Canel"
+                          label="Cancel"
                           onClick={() => close()}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
@@ -309,7 +317,7 @@ const EditMetaModal = props => {
                         <OutlineButton
                           fullWidth
                           height={45}
-                          label="Canel"
+                          label="Cancel"
                           onClick={() => close()}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
