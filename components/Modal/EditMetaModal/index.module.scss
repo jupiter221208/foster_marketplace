@@ -64,3 +64,27 @@
   padding-left: 20px;
   padding-right: 20px;
 }
+
+.roaylties {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  text-align: start;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+.inputArea {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: start;
+  border-radius: 12px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  color:var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  outline: none;
+  padding: 15px 24px;
+}

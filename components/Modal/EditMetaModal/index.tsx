@@ -24,10 +24,11 @@ import Dropzone from 'react-dropzone'
 // apis
 
 const EditMetaModal = props => {
-  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes } = props
+  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
+  const [artRoyalty, setArtRoyalty] = useState(creatorRoyalty)
   const [creatorList, setCreatorList] = useState(nftRoyalties)
   const [attributeList, setAttributeList] = useState([])
   const [coverUrl, setCoverUrl] = useState(nftCover)
@@ -189,10 +190,19 @@ const EditMetaModal = props => {
                     </div>
                     <div className="w-full flex mt-[44px] justify-between">
                       <div className="w-[50%]">
+                        <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
+                        <input
+                          className={`${styles.inputArea} mb-[30px]`}
+                          value={artRoyalty + '%'}
+                          placeholder={'10%'}
+                          onChange={event => {
+                            setArtRoyalty(event.target.value.replace('%', ''))
+                          }}
+                        />
                         <WalletInputBox
                           creatorList={creatorList}
                           setCreatorList={setCreatorList}
-                          label="Creator Royalties"
+                          label="Royalty Split"
                         />
                       </div>
                       <div className="w-[45%]">
@@ -204,7 +214,7 @@ const EditMetaModal = props => {
                       </div>
                     </div>
 
-                    <div className="w-full flex justify-end mt-[80px]">
+                    <div className="w-full flex justify-end mt-[50px]">
                       <div className="flex gap-[30px]">
                         <OutlineButton
                           width={100}
@@ -306,10 +316,19 @@ const EditMetaModal = props => {
                         />
                       </div>
                       <div className="w-full mt-[30px]">
+                        <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
+                        <input
+                          className={`${styles.inputArea} mb-[30px]`}
+                          value={artRoyalty + '%'}
+                          placeholder={'10%'}
+                          onChange={event => {
+                            setArtRoyalty(event.target.value.replace('%', ''))
+                          }}
+                        />
                         <WalletInputBox
                           creatorList={creatorList}
                           setCreatorList={setCreatorList}
-                          label="Creator Royalties"
+                          label="Royalty Split"
                         />
                       </div>
 

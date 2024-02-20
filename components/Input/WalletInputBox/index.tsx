@@ -55,7 +55,7 @@ const WalletInputBox = props => {
 
   return (
     <div className="w-full">
-      <div className={styles.roaylties}>Creator Royalties</div>
+      <div className={styles.roaylties}>{label}</div>
       <div className="w-full max-h-[350px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
           return (

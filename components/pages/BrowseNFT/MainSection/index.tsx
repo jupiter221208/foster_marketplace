@@ -1497,6 +1497,7 @@ const MainSection = ({
           nftAsset={nftAssetUrl}
           nftType={nftType}
           nftInfo={nftInfo}
+          creatorRoyalty={nftRoyalties}
           nftRoyalties={nftDetail.creators}
           nftAttributes={nftDetail.json?.attributes}
         />
