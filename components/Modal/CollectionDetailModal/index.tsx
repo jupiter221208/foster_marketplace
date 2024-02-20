@@ -36,11 +36,9 @@ const CollectionDetailModal = props => {
   const { storage } = useLocalWalletBundlr()
   const [artName, setArtName] = useState(data.collection_name)
   const [artDesc, setArtDesc] = useState(data.description)
-  const [selectedFile, setSelectedFile] = useState<any>()
+  const [selectedFile, setSelectedFile] = useState<any>(null)
   const [imageUrl, setImageUrl] = useState(data.cover_image)
   const [loading, setLoading] = useState(false)
-
-  console.log(data, '=============data===========')
 
   useEffect(() => {
     if (selectedFile !== null && selectedFile !== undefined) {
@@ -57,7 +55,7 @@ const CollectionDetailModal = props => {
     setLoading(true)
 
     let chainNft = await metaplex.nfts().findByMint({
-      mintAddress: new PublicKey(data.address),
+      mintAddress: new PublicKey(data.collection_id),
     })
 
     let needsJsonUpload = false
