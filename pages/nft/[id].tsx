@@ -85,7 +85,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
-  console.log(editionDetail, '=================editionDetail============')
+
   useEffect(() => {
     setTimeout(
       () =>
