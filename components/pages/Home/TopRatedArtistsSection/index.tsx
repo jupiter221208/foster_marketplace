@@ -105,12 +105,13 @@ const TopRatedArtistsSection = () => {
             </div>
           </div>
         ) : (
-          <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
+          <div></div>
         )}
       </div>
-      <div className="w-full flex justify-between items-center z-10 mt-[0px] lg:mt-[50px]">
+      <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="w-full hidden lg:flex h-[54px]">
+          <div className="w-full hidden gap-16 lg:flex h-[54px]">
+            <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
             <div className={styles.slotBG}>
               <TimeSlotButton
                 label="24 hrs"
