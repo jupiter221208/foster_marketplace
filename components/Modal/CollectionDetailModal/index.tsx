@@ -3,6 +3,12 @@ import React, { useEffect, useState, Fragment } from 'react'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
+// web3 part
+import { useMetaplex } from 'hooks/useMetaplex'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { PublicKey } from '@solana/web3.js'
+import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+
 // next components
 import Input from 'components/Input'
 
@@ -18,15 +24,23 @@ import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import Dropzone from 'react-dropzone'
+import LoadingButton from 'components/Button/LoadingButton'
+import { useRouter } from 'next/router'
 
 // apis
 
 const CollectionDetailModal = props => {
   const { open, close, data } = props
+  const router = useRouter()
+  const { metaplex } = useMetaplex()
+  const { storage } = useLocalWalletBundlr()
   const [artName, setArtName] = useState(data.collection_name)
   const [artDesc, setArtDesc] = useState(data.description)
   const [selectedFile, setSelectedFile] = useState<any>()
   const [imageUrl, setImageUrl] = useState(data.cover_image)
+  const [loading, setLoading] = useState(false)
+
+  console.log(data, '=============data===========')
 
   useEffect(() => {
     if (selectedFile !== null && selectedFile !== undefined) {
@@ -38,9 +52,65 @@ const CollectionDetailModal = props => {
     close()
   }
 
-  const updateCollectionData = () => {
+  const updateCollectionData = async () => {
     // web3 part
-    close()
+    setLoading(true)
+
+    let chainNft = await metaplex.nfts().findByMint({
+      mintAddress: new PublicKey(data.address),
+    })
+
+    let needsJsonUpload = false
+    let oldJson = chainNft.json ?? {}
+    let newJson = structuredClone(oldJson)
+    newJson.properties ??= {}
+    newJson.properties.files ??= []
+
+    if (artName != oldJson.name) {
+      newJson.name = artName
+      needsJsonUpload = true
+    }
+    if (artDesc != oldJson.description) {
+      newJson.description = artDesc
+      needsJsonUpload = true
+    }
+   
+    let updateInput: UpdateNftInput = { nftOrSft: chainNft }
+    if (artName != chainNft.name) updateInput.name = artName
+
+    if (selectedFile !== null) {
+      let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
+      let newImageUrl = await storage.upload(metaplexFile)
+      for (let file of newJson.properties.files)
+        if (file.url == newJson.image) {
+          file.url = newImageUrl
+          file.type = metaplexFile.contentType
+        }
+      if (newJson.properties.files.length == 0)
+        newJson.properties.files.push({
+          url: newImageUrl,
+          type: metaplexFile.contentType,
+        })
+      newJson.image = newImageUrl
+      needsJsonUpload = true
+    }
+
+    if (needsJsonUpload) updateInput.uri = await storage.uploadJson(newJson)
+
+    if (Object.keys(updateInput).length > 1) {
+      try {
+        console.log('updating nft:', updateInput)
+        await metaplex.nfts().update(updateInput)
+        setTimeout(() => {
+          router.reload()
+        }, 3000)
+      } catch {
+        setLoading(false)
+      }
+    } else {
+      close('cancel')
+      setLoading(false)
+    }
   }
 
   return (
@@ -128,18 +198,24 @@ const CollectionDetailModal = props => {
                       <div className="flex gap-[30px]">
                         <OutlineButton
                           width={100}
+                          height={45}
                           label="Cancel"
                           onClick={() => close()}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                         />
-                        <GradientButton
-                          width={100}
-                          backgroundColor01="var(--main-icon-color)"
-                          backgroundColor02="var(--main-icon-color)"
-                          label="Save"
-                          onClick={() => updateCollectionData()}
-                        />
+                         {loading ?
+                          <LoadingButton width={100} height={45}/>
+                          :
+                          <GradientButton
+                            width={100}
+                            height={45}
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            label="Save"
+                            onClick={() => updateCollectionData()}
+                          />
+                         }
                       </div>
                     </div>
                   </div>
@@ -184,6 +260,9 @@ const CollectionDetailModal = props => {
                         borderWidth={2}
                         borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                       />
+                       {loading ?
+                          <LoadingButton fullWidth height={45}/>
+                          :
                       <GradientButton
                         fullWidth
                         height={45}
@@ -192,6 +271,7 @@ const CollectionDetailModal = props => {
                         label="Save"
                         onClick={() => updateCollectionData()}
                       />
+                       }
                     </div>
                   </div>
                 </Dialog.Panel>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react'
+import { useRouter } from 'next/router'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -30,10 +31,10 @@ import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 const EditMetaModal = props => {
   const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
-
+  const router = useRouter()
   const { metaplex } = useMetaplex()
   const { storage } = useLocalWalletBundlr()
-
+  
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
@@ -188,8 +189,7 @@ const EditMetaModal = props => {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
         setTimeout(() => {
-          close('update')
-          setLoading(false)
+          router.reload()
         }, 3000)
       } catch {
         setLoading(false)
@@ -336,7 +336,7 @@ const EditMetaModal = props => {
                           width={100}
                           height={45}
                           label="Cancel"
-                          onClick={() => close()}
+                          onClick={() => close('cancel')}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                         />
@@ -459,7 +459,7 @@ const EditMetaModal = props => {
                           fullWidth
                           height={45}
                           label="Cancel"
-                          onClick={() => close()}
+                          onClick={() => close('cancel')}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                         />
