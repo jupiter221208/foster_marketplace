@@ -48,7 +48,7 @@ const AttributeInputBox = props => {
                 <input
                   className={styles.inputArea}
                   value={type}
-                  placeholder={'Enter the Type'}
+                  placeholder={'Attribute Type'}
                   onChange={event => {
                     setAttributeType(index, event.target.value)
                   }}
@@ -59,7 +59,7 @@ const AttributeInputBox = props => {
                 <input
                   className={styles.attPros}
                   value={name}
-                  placeholder={'Enter the Name'}
+                  placeholder={'Attribute Name'}
                   onChange={event => {
                     setAttributeName(index, event.target.value)
                   }}

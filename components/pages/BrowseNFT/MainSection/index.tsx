@@ -432,7 +432,7 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-      console.log(nftDetail, '==============nftDetail===============')
+
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
@@ -1005,11 +1005,11 @@ const MainSection = ({
                     ) : (
                       <></>
                     )}
-                    {/* {isCreatedNft && ( */}
-                    <div onClick={() => setShowNftMeta(true)}>
-                      <EditNftMetaIcon alt="" />
-                    </div>
-                    {/* )} */}
+                    {isCreatedNft && (
+                      <div onClick={() => setShowNftMeta(true)}>
+                        <EditNftMetaIcon alt="" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="inline">
@@ -1492,7 +1492,10 @@ const MainSection = ({
       {showNftMeta && nftInfo && (
         <EditMetaModal
           open={showNftMeta}
-          close={() => setShowNftMeta(false)}
+          close={status => {
+            if (status === 'update') router.reload()
+            setShowNftMeta(false)
+          }}
           nftCover={nftCoverUrl}
           nftAsset={nftAssetUrl}
           nftType={nftType}

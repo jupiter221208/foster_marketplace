@@ -9,6 +9,7 @@ import Input from 'components/Input'
 // custom components
 import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
+import LoadingButton from 'components/Button/LoadingButton'
 
 // resources
 import EditImageIcon from 'assets/icons/edit-icon.svg?component'
@@ -41,8 +42,9 @@ const EditMetaModal = props => {
   const [attributeList, setAttributeList] = useState<{ type: string; name: string }[]>([])
   const [coverUrl, setCoverUrl] = useState(nftCover)
   const [assetUrl, setAssetUrl] = useState(nftAsset)
-  const [selectedFile, setSelectedFile] = useState<any>()
+  const [selectedFile, setSelectedFile] = useState<any>(null)
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     let list = []
@@ -85,11 +87,14 @@ const EditMetaModal = props => {
   }, [selectedFile])
 
   const closeModal = () => {
-    close()
+    close('cancel')
   }
 
   const updateMetadata = async () => {
     if (coverImageProcessing) return
+
+    setLoading(true)
+
     let chainNft = await metaplex.nfts().findByMint({
       mintAddress: new PublicKey(nftInfo.address),
     })
@@ -143,8 +148,8 @@ const EditMetaModal = props => {
     let newRoyalty = Math.floor(parseFloat(artRoyalty) * 100)
     if (newRoyalty != chainNft.sellerFeeBasisPoints) updateInput.sellerFeeBasisPoints = newRoyalty
 
-    if (/* nft image changed */ false) {
-      let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile)
+    if (selectedFile !== null) {
+      let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
       let newImageUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.image) {
@@ -179,11 +184,18 @@ const EditMetaModal = props => {
     if (needsJsonUpload) updateInput.uri = await storage.uploadJson(newJson)
 
     if (Object.keys(updateInput).length > 1) {
-      console.log('updating nft:', updateInput)
-      let signature = await metaplex.nfts().update(updateInput)
+      try {
+        console.log('updating nft:', updateInput)
+        await metaplex.nfts().update(updateInput)
+        close('update')
+        setLoading(false)
+      } catch {
+        setLoading(false)
+      }
+    } else {
+      close('cancel')  
+      setLoading(false)  
     }
-
-    close()
   }
 
   return (
@@ -320,18 +332,24 @@ const EditMetaModal = props => {
                       <div className="flex gap-[30px]">
                         <OutlineButton
                           width={100}
+                          height={45}
                           label="Cancel"
                           onClick={() => close()}
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                         />
-                        <GradientButton
-                          width={100}
-                          backgroundColor01="var(--main-icon-color)"
-                          backgroundColor02="var(--main-icon-color)"
-                          label="Save"
-                          onClick={() => updateMetadata()}
-                        />
+                        {loading ?
+                          <LoadingButton width={100} height={45}/>
+                        :
+                          <GradientButton
+                            width={100}
+                            height={45}
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            label="Save"
+                            onClick={() => updateMetadata()}
+                          />
+                        }
                       </div>
                     </div>
                   </div>
@@ -443,14 +461,18 @@ const EditMetaModal = props => {
                           borderWidth={2}
                           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                         />
-                        <GradientButton
-                          fullWidth
-                          height={45}
-                          backgroundColor01="var(--main-icon-color)"
-                          backgroundColor02="var(--main-icon-color)"
-                          label="Save"
-                          onClick={() => updateMetadata()}
-                        />
+                        {loading ? 
+                          <LoadingButton fullWidth height={45}/>
+                          :
+                          <GradientButton
+                            fullWidth
+                            height={45}
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            label="Save"
+                            onClick={() => updateMetadata()}
+                          />
+                        }
                       </div>
                     </div>
                     <div>
