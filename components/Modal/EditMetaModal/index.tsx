@@ -46,7 +46,7 @@ const EditMetaModal = props => {
 
   useEffect(() => {
     let list = []
-    nftAttributes.map(item => {
+    nftAttributes?.map(item => {
       list.push({ type: item.trait_type, name: item.value })
     })
     setAttributeList(list)
@@ -289,7 +289,7 @@ const EditMetaModal = props => {
                       </div>
                     </div>
                     <div className="w-full flex mt-[44px] justify-between">
-                      <div className="w-[50%]">
+                      <div className="w-[15%]">
                         <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
                         <input
                           className={`${styles.inputArea} mb-[30px]`}
@@ -299,13 +299,15 @@ const EditMetaModal = props => {
                             setArtRoyalty(event.target.value.replace('%', ''))
                           }}
                         />
+                      </div>
+                      <div className="w-[40%]">
                         <WalletInputBox
                           creatorList={creatorList}
                           setCreatorList={setCreatorList}
                           label="Royalty Split"
                         />
                       </div>
-                      <div className="w-[45%]">
+                      <div className="w-[35%]">
                         <AttributeInputBox
                           attributeList={attributeList}
                           setAttributeList={setAttributeList}

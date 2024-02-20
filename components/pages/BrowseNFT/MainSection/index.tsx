@@ -1005,11 +1005,11 @@ const MainSection = ({
                     ) : (
                       <></>
                     )}
-                    {isCreatedNft && (
-                      <div onClick={() => setShowNftMeta(true)}>
-                        <EditNftMetaIcon alt="" />
-                      </div>
-                    )}
+                    {/* {isCreatedNft && ( */}
+                    <div onClick={() => setShowNftMeta(true)}>
+                      <EditNftMetaIcon alt="" />
+                    </div>
+                    {/* )} */}
                   </div>
 
                   <div className="inline">
