@@ -46,7 +46,7 @@ const NFTAssetSection = props => {
           <div className={styles.mobileImageArea}>
             <img src={nftCoverUrl} alt="" className="w-full" />
             <div className={styles.audioMobileArea}>
-              <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
+              <AudioPlayer src={nftAssetUrl} />
             </div>
           </div>
         ) : nftType.includes('video') ? (

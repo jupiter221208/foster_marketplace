@@ -21,6 +21,8 @@ import GradientButton from 'components/Button/GradientButton'
 import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
 import Dropzone from 'react-dropzone'
+import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
+import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 // apis
 
@@ -76,7 +78,7 @@ const EditMetaModal = props => {
     // web3 part for updating meta data
     close()
   }
-
+  console.log(assetType, assetUrl, '===============coverUrl===============')
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -119,10 +121,17 @@ const EditMetaModal = props => {
                             controlsList="nodownload"
                             className="w-full h-full object-cover overflow-hidden"
                           />
-                        ) : assetType === 'image' ? (
+                        ) : assetType.includes('image') ? (
                           <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                        ) : assetType.includes('audio') ? (
+                          <div className="w-full h-full z-10">
+                            <img src={coverUrl} alt="" className="w-full h-full object-contain z-10" />
+                            <div className={styles.audioMobileArea}>
+                              <AudioPlayer src={assetUrl} />
+                            </div>
+                          </div>
                         ) : (
-                          <></>
+                          <img src={coverUrl} alt="" className="w-full h-full object-cover" />
                         )}
                         <div className="absolute bottom-[24px] right-[28px] z-[1000]">
                           <Dropzone
