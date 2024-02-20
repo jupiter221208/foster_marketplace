@@ -21,16 +21,24 @@ import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
 import Dropzone from 'react-dropzone'
 
-// apis
+// web3
+import { PublicKey } from '@solana/web3.js'
+import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 const EditMetaModal = props => {
   const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
+
+  const { metaplex } = useMetaplex()
+  const { storage } = useLocalWalletBundlr()
+
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
   const [artRoyalty, setArtRoyalty] = useState(creatorRoyalty)
   const [creatorList, setCreatorList] = useState(nftRoyalties)
-  const [attributeList, setAttributeList] = useState([])
+  const [attributeList, setAttributeList] = useState<{ type: string; name: string }[]>([])
   const [coverUrl, setCoverUrl] = useState(nftCover)
   const [assetUrl, setAssetUrl] = useState(nftAsset)
   const [selectedFile, setSelectedFile] = useState<any>()
@@ -80,9 +88,101 @@ const EditMetaModal = props => {
     close()
   }
 
-  const updateMetadata = () => {
+  const updateMetadata = async () => {
     if (coverImageProcessing) return
-    // web3 part for updating meta data
+    let chainNft = await metaplex.nfts().findByMint({
+      mintAddress: new PublicKey(nftInfo.address),
+    })
+
+    let needsJsonUpload = false
+    let oldJson = chainNft.json ?? {}
+    let newJson = structuredClone(oldJson)
+    newJson.properties ??= {}
+    newJson.properties.files ??= []
+
+    if (artName != oldJson.name) {
+      newJson.name = artName
+      needsJsonUpload = true
+    }
+    if (artDesc != oldJson.description) {
+      newJson.description = artDesc
+      needsJsonUpload = true
+    }
+    if (
+      attributeList.length != oldJson.attributes?.length ||
+      attributeList.some(({ type, name }, index) => {
+        let chainAttribute = oldJson.attributes[index]
+        return type != chainAttribute.trait_type || name != chainAttribute.value
+      })
+    ) {
+      newJson.attributes = attributeList.map(({ type, name }) => ({
+        trait_type: type,
+        value: name,
+      }))
+      needsJsonUpload = true
+    }
+
+    let updateInput: UpdateNftInput = { nftOrSft: chainNft }
+    if (artName != chainNft.name) updateInput.name = artName
+    if (
+      creatorList.length != chainNft.creators.length ||
+      creatorList.some((creator, index) => {
+        let chainCreator = chainNft.creators[index]
+        return creator.address != chainCreator.address.toBase58() || creator.share != chainCreator.share
+      })
+    ) {
+      let verifiedMap = {}
+      for (let { address, verified } of chainNft.creators) verifiedMap[address.toBase58()] = verified
+      updateInput.creators = creatorList.map(({ address, share }) => ({
+        address: new PublicKey(address),
+        share,
+        verified: verifiedMap[address] ?? false,
+      }))
+    }
+
+    let newRoyalty = Math.floor(parseFloat(artRoyalty) * 100)
+    if (newRoyalty != chainNft.sellerFeeBasisPoints) updateInput.sellerFeeBasisPoints = newRoyalty
+
+    if (/* nft image changed */ false) {
+      let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile)
+      let newImageUrl = await storage.upload(metaplexFile)
+      for (let file of newJson.properties.files)
+        if (file.url == newJson.image) {
+          file.url = newImageUrl
+          file.type = metaplexFile.contentType
+        }
+      if (newJson.properties.files.length == 0)
+        newJson.properties.files.push({
+          url: newImageUrl,
+          type: metaplexFile.contentType,
+        })
+      newJson.image = newImageUrl
+      needsJsonUpload = true
+    }
+    if (/* nft asset changed */ false) {
+      let metaplexFile = await toMetaplexFileFromBrowser(/* nft asset file */ selectedFile)
+      let newAnimationUrl = await storage.upload(metaplexFile)
+      for (let file of newJson.properties.files)
+        if (file.url == newJson.animation_url) {
+          file.url = newAnimationUrl
+          file.type = metaplexFile.contentType
+        }
+      if (newJson.properties.files.length == 0)
+        newJson.properties.files.push({
+          url: newAnimationUrl,
+          type: metaplexFile.contentType,
+        })
+      newJson.animation_url = newAnimationUrl
+      needsJsonUpload = true
+    }
+
+    if (needsJsonUpload) updateInput.uri = await storage.uploadJson(newJson)
+
+    if (Object.keys(updateInput).length > 1) {
+      console.log('updating nft:', updateInput)
+      let signature = await metaplex.nfts().update(updateInput)
+    }
+
     close()
   }
 
