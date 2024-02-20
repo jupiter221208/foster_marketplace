@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 const NFTAssetSection = props => {
   const { nftType, nftAssetUrl, nftCoverUrl, fullScreen, setFullScreenView } = props
   const viewport = useViewport()
-
   const { width, height, ref } = useResizeDetector()
 
   return (
@@ -29,7 +28,7 @@ const NFTAssetSection = props => {
         nftType.includes('vr') ? (
           nftAssetUrl ? (
             <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-              <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
+              <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
             </div>
           ) : nftCoverUrl ? (
             <div className={styles.mobileImageArea}>
@@ -72,7 +71,7 @@ const NFTAssetSection = props => {
           <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
             {nftAssetUrl ? (
               <>
-                <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
+                <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
                 <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
                   <Image src={FullScreenModeIcon} alt="" />
                 </div>
