@@ -147,7 +147,7 @@ const EditMetaModal = props => {
                                 <button onClick={open} style={{ display: 'none' }}>
                                   open
                                 </button>
-                                <div {...getRootProps()}>
+                                <div {...getRootProps()} style={{ outline: 'none' }}>
                                   <input {...getInputProps()} />
                                   <EditImageIcon alt="" />
                                 </div>
@@ -218,9 +218,51 @@ const EditMetaModal = props => {
                   {/* Mobile */}
                   <div className="block lg:hidden g-container">
                     <div className={`${styles.artImage} mt-[56px]`}>
-                      <img src={nftCover} alt="" className="w-full h-full object-cover" />
+                      {assetType.includes('video') ? (
+                        <video
+                          autoPlay
+                          src={assetUrl}
+                          loop
+                          playsInline
+                          controls
+                          controlsList="nodownload"
+                          className="w-full h-full object-cover overflow-hidden"
+                        />
+                      ) : assetType.includes('image') ? (
+                        <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                      ) : assetType.includes('audio') ? (
+                        <div className="w-full h-full z-10">
+                          <img src={coverUrl} alt="" className="w-full h-full object-contain z-10" />
+                        </div>
+                      ) : (
+                        <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                      )}
                       <div className="absolute w-[30px] h-[30px] right-[17px] bottom-[19px]">
-                        <EditImageIcon alt="" />
+                        <Dropzone
+                          onDrop={acceptedFiles => {
+                            acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                          }}
+                          onDropRejected={rejectedFiles => {}}
+                          maxFiles={1}
+                          accept={{
+                            'image/jpeg': [],
+                            'image/png': [],
+                            'image/gif': [],
+                          }}
+                          maxSize={31457280}
+                        >
+                          {({ getRootProps, getInputProps, open }) => (
+                            <section>
+                              <button onClick={open} style={{ display: 'none' }}>
+                                open
+                              </button>
+                              <div {...getRootProps()} style={{ outline: 'none' }}>
+                                <input {...getInputProps()} />
+                                <EditImageIcon alt="" />
+                              </div>
+                            </section>
+                          )}
+                        </Dropzone>
                       </div>
                     </div>
                     <div className="w-full mt-[30px]">
