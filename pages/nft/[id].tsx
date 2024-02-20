@@ -401,19 +401,20 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
 
       let originalEdition: OriginalEditionAccountData
       let print: PrintEditionAccountData | null = null
+
       if ('parent' in nftEdition) {
         print = nftEdition
         ;({ data: originalEdition } = await metaplex.rpc().getAccount(nftEdition.parent).then(toOriginalEditionAccount))
-      } else originalEdition = nftEdition
-
-      editionDetail = {
-        print: print?.edition && { number: Number(print.edition) },
-        supply: Number(originalEdition.supply),
-        maxSupply: originalEdition.maxSupply && Number(originalEdition.maxSupply),
-        isOriginal: ![Key.MasterEditionV1, Key.MasterEditionV2].includes(originalEdition.key),
-        isSingleNft: originalEdition.maxSupply === 0,
-        isOpenEdition: originalEdition.maxSupply === null,
-        isLimitedEdition: Number(originalEdition.maxSupply) > 0,
+      } else {
+        editionDetail = {
+          print: print?.edition && { number: Number(print.edition) },
+          supply: Number(originalEdition.supply),
+          maxSupply: originalEdition.maxSupply && Number(originalEdition.maxSupply),
+          isOriginal: ![Key.MasterEditionV1, Key.MasterEditionV2].includes(originalEdition.key),
+          isSingleNft: originalEdition.maxSupply === 0,
+          isOpenEdition: originalEdition.maxSupply === null,
+          isLimitedEdition: Number(originalEdition.maxSupply) > 0,
+        }
       }
     } catch (error) {
       console.error(error)
