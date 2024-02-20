@@ -15,12 +15,10 @@ import CollectionFilter from 'components/Filter/CollectionFilter'
 import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
-import Select from 'components/Select'
 import Tab from 'components/Tab'
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
-import OutlineButton from 'components/Button/OutlineButton'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
@@ -43,7 +41,6 @@ import FilterGreenIcon from 'assets/icons/filter-icon-green.svg?component'
 import styles from './index.module.scss'
 
 // solana
-import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // apis
@@ -53,7 +50,6 @@ import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
 import GradientButton from 'components/Button/GradientButton'
-import Link from 'next/link'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
@@ -440,22 +436,6 @@ const Explore = () => {
     else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount, true)
   }
 
-  const selectRowCount = count => {
-    setRowCount(count)
-    if (exploreTab === 0)
-      getExploreNFTData(
-        currentPage,
-        categoryList,
-        selectedAvailability,
-        selectedMedium,
-        selectedMarket,
-        selectedSort,
-        count
-      )
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, count)
-    else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, count)
-  }
-
   const onMobileFilter = async params => {
     let categoryList = params['category']
     let newCateList = JSON.parse(JSON.stringify(categoryList))
@@ -615,7 +595,7 @@ const Explore = () => {
         </div>
         <div className={styles.contentArea}>
           {showFilter && (
-            <div className="block max-w-[324px] min-w-[324px] w-full mr-[100px]">
+            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[50px] xl:mr-[100px] md:mr-[0px]">
               {exploreTab === 0 && (
                 <NFTFilter
                   selectedAvailability={selectedAvailability}
@@ -637,9 +617,15 @@ const Explore = () => {
                 {nftList.length !== 0 &&
                   nftList?.map((item, index) => {
                     return (
-                      <div className={`col-span-6 z-10 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'}`} key={index}>
+                      <div
+                        className={`col-span-6 z-10 ${
+                          showFilter ? 'lg:col-span-6 3xl:col-span-4 ' : 'lg:col-span-4 2xl:col-span-3'
+                        }`}
+                        key={index}
+                      >
                         {selectedAvailability.value === 'timed' ? (
                           <NFTAuctionCard
+                            token_id={item.token_id}
                             nftName={item.name}
                             artistName={item.creator}
                             image={item.image}
@@ -656,6 +642,7 @@ const Explore = () => {
                         ) : selectedAvailability.value === 'all' ? (
                           isAvailableAuctionCard(item) ? (
                             <NFTAuctionCard
+                              token_id={item.token_id}
                               nftName={item.name}
                               artistName={item.creator}
                               image={item.image}

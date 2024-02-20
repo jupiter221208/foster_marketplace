@@ -23,7 +23,6 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
-import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -66,12 +65,10 @@ import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?compon
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
-import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
-import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
+import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -80,12 +77,11 @@ import styles from './index.module.scss'
 import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
-import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
+import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
 // call apis
-import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
@@ -96,7 +92,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { compareDate, getTimeDifferenceWithAuction } from 'utils/helpers'
+import { CDN_PREFIX, compareDate, getTimeDifferenceWithAuction } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -112,15 +108,15 @@ import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
-import ModelViewer from 'components/ModelViewer'
 import PriceInput from 'components/Input/PriceInput'
-import { useResizeDetector } from 'react-resize-detector'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import Link from 'next/link'
 import { NftApiData } from 'types/nft'
 import AuctionDetail from '../AuctionDetail'
 import NFTActivityInfoSection from './NFTActivityInfoSection'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
+import NFTAssetSection from './NFTAssetSection'
+import EditMetaModal from 'components/Modal/EditMetaModal'
 
 export interface MainSectionProps {
   nftDetail: NftApiData
@@ -162,7 +158,6 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
-  const [loadedNftDetail, setLoadedNftDetail] = useState(false)
   const [loadedNftInfo, setLoadedNftInfo] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
@@ -193,32 +188,14 @@ const MainSection = ({
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [showNftMeta, setShowNftMeta] = useState(false)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
-  const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
-
-  const labels =
-    viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-      ? ['12/21', '1/22', '2/22', '3/22']
-      : ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       fill: true,
-  //       data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
-  //       borderColor: 'rgba(90, 195,186, 0.16)',
-  //       backgroundColor: 'rgba(90, 195,186, 0.16)',
-  //       height: '100px',
-  //       width: '150px',
-  //     },
-  //   ],
-  // }
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -248,10 +225,9 @@ const MainSection = ({
     }
   }, [isEnded, isStarted])
 
-  const cdnPrefix = 'https://cdn.helius-rpc.com/cdn-cgi/image//'
   const nftType: string = (nftDetail.json?.category as string) ?? 'image'
   const coverUrl = nftDetail.json?.image ?? DefaultNftBG.src
-  const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(cdnPrefix, '') : coverUrl
+  const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(CDN_PREFIX, '') : coverUrl
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
   const nftName = nftDetail.json?.name ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
@@ -349,21 +325,21 @@ const MainSection = ({
     setOpenProgressingModal(false)
   }
 
-  useEffect(() => {
-    ;(async () => {
-      if (profileInfo) {
-        let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
-          new PublicKey(nftDetail.address)
-        )
-        setLikeCount(likes)
-        setShareCount(shares)
-        setSaveCount(saves)
-        setLike(liked)
-        setSave(saved)
-        setShare(sharedSocial)
-      }
-    })()
-  }, [profileInfo])
+  // useEffect(() => {
+  //   ;(async () => {
+  //     if (profileInfo) {
+  //       let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
+  //         new PublicKey(nftDetail.address)
+  //       )
+  //       setLikeCount(likes)
+  //       setShareCount(shares)
+  //       setSaveCount(saves)
+  //       setLike(liked)
+  //       setSave(saved)
+  //       setShare(sharedSocial)
+  //     }
+  //   })()
+  // }, [profileInfo])
 
   useEffect(() => {
     if (nftInfo) {
@@ -428,8 +404,6 @@ const MainSection = ({
         minBidIncrement: minBidIncrementBN,
         reservePrice,
         highestBid: { amount },
-        timeExtPeriod,
-        timeExtDelta,
       } = auctionListing
       let minBidInc = parseFloat(minBidIncrementBN.toString()) / LAMPORTS_PER_SOL
       let reservedPrice = parseFloat(reservePrice.toString()) / LAMPORTS_PER_SOL
@@ -458,8 +432,6 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-
-      setLoadedNftDetail(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
@@ -504,7 +476,6 @@ const MainSection = ({
 
         let listingReceipt = openListings[0]
         if (listingReceipt) {
-          // if (!connected) setIsOwnNft(false)
           setLoadListing(true)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
           let listing = toLazyListing(listingReceipt, auctionHouse)
@@ -591,13 +562,6 @@ const MainSection = ({
       )
     })()
   }, [nftDetail])
-
-  // useEffect(() => {
-  //   axios
-  //     .get(nftCollectionUrl)
-  //     .then(({ data }) => setNftCollectionImage(data?.image))
-  //     .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
-  // }, [nftCollectionUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -914,13 +878,7 @@ const MainSection = ({
     }
   }
 
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-  }
-
   const handleSuccessAuction = nftName => {
-    // reloadNftData()
-
     setAlertData([
       {
         id: 0,
@@ -931,8 +889,6 @@ const MainSection = ({
     ])
 
     setTimeout(() => {
-      // setShowAuctionDetail(false)
-      // setShowAuctionSection(false)
       setShowAlert(true)
     }, 1000)
   }
@@ -963,8 +919,6 @@ const MainSection = ({
     }
   }
 
-  const { width, height, ref } = useResizeDetector()
-
   return (
     <div className={styles.container}>
       {nftType.includes('audio') && (
@@ -975,140 +929,13 @@ const MainSection = ({
       )}
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            !loadedNftDetail ? (
-              <div
-                className={`${styles.skeletonLoader} ${styles.mobileImageArea} aspect-square w-full max-h-[250px]`}
-              ></div>
-            ) : nftType.includes('vr') ? (
-              nftAssetUrl ? (
-                <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                  <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
-                </div>
-              ) : nftCoverUrl ? (
-                <div className={styles.mobileImageArea}>
-                  <img src={nftCoverUrl} alt="" className="w-full" />
-                </div>
-              ) : (
-                <h1>Could not load NFT.</h1>
-              )
-            ) : nftType.includes('image') ? (
-              <div className={styles.mobileImageArea}>
-                <img src={nftCoverUrl} alt="" className="w-full" />
-                {/* <div className={styles.mobileImageBackground} /> */}
-              </div>
-            ) : nftType.includes('audio') ? (
-              <div className={styles.mobileImageArea}>
-                <img src={nftCoverUrl} alt="" className="w-full" />
-                <div className={styles.audioMobileArea}>
-                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
-                </div>
-              </div>
-            ) : nftType.includes('video') ? (
-              <div className={styles.videoArea}>
-                <div className={styles.mobileVideoThumb}>
-                  <video
-                    autoPlay
-                    src={nftAssetUrl}
-                    loop
-                    playsInline
-                    controls
-                    controlsList="nodownload"
-                    className="w-full h-full object-cover overflow-hidden"
-                  />
-                </div>
-              </div>
-            ) : (
-              <></>
-            )
-          ) : !loadedNftDetail ? (
-            <div
-              className={`${styles.skeletonLoader} ${styles.blurBackground} lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1 rounded-[24px]`}
-            ></div>
-          ) : nftType.includes('vr') && !fullScreen ? (
-            <div className={styles.blurBackground}>
-              <div className={styles.blurImage} />
-              <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
-                {nftAssetUrl ? (
-                  <>
-                    <ModelViewer path={nftAssetUrl} width={width} height={height} orbitLimited />
-                    <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
-                      <Image src={FullScreenModeIcon} alt="" />
-                    </div>
-                  </>
-                ) : nftCoverUrl ? (
-                  <img
-                    src={nftCoverUrl}
-                    alt=""
-                    className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
-                  />
-                ) : (
-                  <h1>Could not load NFT.</h1>
-                )}
-              </div>
-            </div>
-          ) : nftType.includes('image') ? (
-            <div className={styles.blurBackground}>
-              <div className={styles.blurImage} />
-              <div className={styles.imageArea}>
-                <img
-                  src={nftCoverUrl}
-                  alt=""
-                  className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
-                />
-                <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-                  <Image src={FullScreenModeIcon} alt="" />
-                </div>
-              </div>
-            </div>
-          ) : nftType.includes('audio') ? (
-            <div className="w-full h-full flex justify-start items-center">
-              <div className={styles.audioBackground}>
-                {nftAssetUrl && (
-                  <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
-                    <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                  </div>
-                )}
-                <div className="w-full flex justify-center mb-[30px]">
-                  <div className={styles.audioArea}>
-                    <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : nftType.includes('video') ? (
-            <div className={styles.blurBackground}>
-              {nftAssetUrl ? (
-                <>
-                  <div className="absolute inset-0">
-                    <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                  </div>
-                  <div className={styles.videoArea}>
-                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
-                      <source type="video/mp4" src={nftAssetUrl} />
-                    </video>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={styles.videoArea}>
-                    <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
-                      <source type="video/mp4" src={nftAssetUrl} />
-                    </video>
-                  </div>
-                  {!nftAssetUrl && (
-                    <div className={styles.errorMessage}>
-                      <ErrorMessageIcon />
-                      <div>Video File Missing</div>
-                    </div>
-                  )}
-                </>
-              )}
-              <div className={styles.blurImage} />
-            </div>
-          ) : (
-            <></>
-          )}
+          <NFTAssetSection
+            nftType={nftType}
+            nftAssetUrl={nftAssetUrl}
+            nftCoverUrl={nftCoverUrl}
+            fullScreen={fullScreen}
+            setFullScreenView={setFullScreenView}
+          />
         </div>
 
         <div className="col-span-2 lg:col-span-1 z-10">
@@ -1147,8 +974,8 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') ? (
-                      <div className="cursor-pointer flex gap-[10px] items-center mr-[20px]">
+                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
+                      <div className="cursor-pointer flex gap-[10px] items-center">
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
                             alt=""
@@ -1177,6 +1004,11 @@ const MainSection = ({
                       </div>
                     ) : (
                       <></>
+                    )}
+                    {isCreatedNft && (
+                      <div onClick={() => setShowNftMeta(true)}>
+                        <EditNftMetaIcon alt="" />
+                      </div>
                     )}
                   </div>
 
@@ -1654,6 +1486,23 @@ const MainSection = ({
           close={() => setShowSaveModal(false)}
           type="saved"
           wallet={mintAddress}
+        />
+      )}
+
+      {showNftMeta && nftInfo && (
+        <EditMetaModal
+          open={showNftMeta}
+          close={status => {
+            if (status === 'update') router.reload()
+            setShowNftMeta(false)
+          }}
+          nftCover={nftCoverUrl}
+          nftAsset={nftAssetUrl}
+          nftType={nftType}
+          nftInfo={nftInfo}
+          creatorRoyalty={nftRoyalties}
+          nftRoyalties={nftDetail.creators}
+          nftAttributes={nftDetail.json?.attributes}
         />
       )}
 
