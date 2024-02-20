@@ -187,8 +187,10 @@ const EditMetaModal = props => {
       try {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
-        close('update')
-        setLoading(false)
+        setTimeout(() => {
+          close('update')
+          setLoading(false)
+        }, 3000)
       } catch {
         setLoading(false)
       }
