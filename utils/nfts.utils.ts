@@ -347,7 +347,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     return null
   }
 
-  let { content } = dasResponse
+  let { content, grouping, royalty, creators } = dasResponse
   let image = content.links.image
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
@@ -374,11 +374,11 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
       image: imageCdn,
     },
 
-    sellerFeeBasisPoints: content.royalty.basis_points,
-    creators: content.creators,
+    sellerFeeBasisPoints: royalty.basis_points,
+    creators,
     attributes: content.metadata.attributes,
 
-    collection: content.grouping
+    collection: grouping
       .filter(({ group_key }) => group_key == 'collection')
       .map(({ group_value }) => ({
         address: group_value,
