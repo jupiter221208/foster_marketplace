@@ -55,10 +55,10 @@ const HeroCardMobile = ({ data }) => {
                   : '/images/banner.png'
               })`,
               width: '100vw',
-              height: '100vh',
+              height: '100%',
               backgroundSize: 'cover',
-              filter: 'blur(30px) opacity(0.2) brightness(120%)',
-              WebkitFilter: 'blur(30px)',
+              filter: 'blur(20px) opacity(0.2) brightness(110%)',
+              WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
             }}
           />
         ) : (
@@ -72,10 +72,10 @@ const HeroCardMobile = ({ data }) => {
                   : '/images/banner.png'
               })`,
               width: '100vw',
-              height: '100vh',
+              height: '100%',
               backgroundSize: 'cover',
-              filter: 'blur(30px) opacity(0.2) brightness(120%)',
-              WebkitFilter: 'blur(30px)',
+              filter: 'blur(20px) opacity(0.2) brightness(110%)',
+              WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
             }}
           />
         )}
