@@ -47,33 +47,31 @@ const HeroCardMobile = ({ data }) => {
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
         ) : data.asset_type.includes('video') || data.asset_type.includes('vr') ? (
-          <div
+          <Image
+            src={
+              data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                ? data.cover_image_url
+                : '/images/banner.png'
+            }
+            alt=""
+            layout="fill"
             style={{
-              backgroundImage: `url(${
-                data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                  ? data.cover_image_url
-                  : '/images/banner.png'
-              })`,
-              width: '100vw',
-              height: '100%',
-              backgroundSize: 'cover',
               filter: 'blur(20px) opacity(0.2) brightness(110%)',
               WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
             }}
           />
         ) : (
-          <div
+          <Image
+            src={
+              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                ? data.asset_url
+                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                ? data.cover_image_url
+                : '/images/banner.png'
+            }
+            alt=""
+            layout="fill"
             style={{
-              backgroundImage: `url(${
-                data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                  ? data.asset_url
-                  : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                  ? data.cover_image_url
-                  : '/images/banner.png'
-              })`,
-              width: '100vw',
-              height: '100%',
-              backgroundSize: 'cover',
               filter: 'blur(20px) opacity(0.2) brightness(110%)',
               WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
             }}
