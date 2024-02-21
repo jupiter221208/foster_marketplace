@@ -52,7 +52,6 @@ import {
 } from 'utils/auctioneer.util'
 
 // images and icons
-import SolanaLogo from 'assets/icons/solana-logo.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import SolanaLogoMediumIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
@@ -75,7 +74,6 @@ import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
-import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 
 // styles
@@ -157,7 +155,6 @@ const MainSection = ({
   const { id } = router.query
   const dispatch = useDispatch()
   const { refreshToken } = useAuthentication()
-  const { profileInfo } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -264,6 +261,7 @@ const MainSection = ({
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
+  const [editionType, setEditionType] = useState('normal')
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -445,9 +443,27 @@ const MainSection = ({
   )
 
   useEffect(() => {
+    if (editionDetail) {
+      if (editionDetail.isOriginal === true) {
+        if (editionDetail.maxSupply === null)
+          setEditionType('open')
+        else if (editionDetail.maxSupply === 0)
+          setEditionType('normal')
+        else if (editionDetail.maxSupply > 0)
+          setEditionType('limit')
+      } else {
+        if (editionDetail.supply === 0)
+          setEditionType('normal')
+        else
+          setEditionType('print')
+      }
+    }
+  }, [editionDetail])
+
+  useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-
+      console.log(editionDetail, '=======================editionDetail======================')
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setSellerAddress(tokenAccount.owner)
 
@@ -1107,7 +1123,7 @@ const MainSection = ({
                       </Link>
                     </div>
                   )}
-                  {editionDetail && (
+                  {editionDetail && editionType !== 'normal' && (
                     <div className={styles.editionContainer}>
                       {nftInfo?.printing > 0 &&
                         <div className="w-full flex justify-between mb-[8px]">
@@ -1125,8 +1141,8 @@ const MainSection = ({
                         </div>
                       </div>
                       <div className="w-full flex justify-between mt-[8px]">
-                        <div className={styles.editionTitle}>Editon Number</div>
-                        <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
+                        <div className={styles.editionTitle}>Edition Number</div>
+                        <div className={styles.editionValue}>{editionDetail?.print ? Number(editionDetail?.print?.number) : 'Master Edition'}</div>
                       </div>
                       <div className="w-full flex justify-between mt-[8px]">
                         <div className={styles.editionTitle}>Edition Supply</div>
@@ -1144,7 +1160,7 @@ const MainSection = ({
                   ></div>
                 )}
                 {nftPrice > 0 && !liveAuction ? (
-                  nftInfo?.printing ? (
+                  nftInfo?.printing ? (  
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
                         <div className="flex justify-between gap-[13px]">
