@@ -267,7 +267,6 @@ const SuccessMintSingleNFTSection = props => {
           name: nftName,
           category: nftType,
           image: nftImage,
-          animation_url: 0, // TODO: pass animation url correctly
         }}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}
