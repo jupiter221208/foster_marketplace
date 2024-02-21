@@ -62,8 +62,6 @@ const ModelViewer = ({
       dracoLoader.setDecoderConfig({ type: 'js' })
       loader.setDRACOLoader(dracoLoader)
       async function loadModel(path) {
-        // Add a delay of 3 seconds
-        await new Promise(resolve => setTimeout(resolve, 3000))
         const data = await fetch(path).then(r => r.arrayBuffer())
         loader.parse(data, '', gltf => {
           scene.add(gltf.scene)
