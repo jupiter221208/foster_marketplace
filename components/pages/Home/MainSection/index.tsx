@@ -14,8 +14,6 @@ import 'swiper/css/pagination'
 import { useDispatch, useSelector } from 'react-redux'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
-import HeroCard from 'components/Card/HeroCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // custom functions
@@ -42,15 +40,10 @@ import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 import HeroNewCard from 'components/Card/HeroNewCard'
 
 const MainSection = () => {
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [heroList, setHeroList] = useState(HeroEmptyList as any)
-  const [artworkCnt, setArtworkCnt] = useState()
-  const [collectionCnt, setCollectionCnt] = useState()
-  const [nftCnt, setNftCnt] = useState()
   const [heroCardOpacity, setHeroCardOpacity] = useState(0)
 
   const handleCloseCreateNFTModal = () => {
@@ -131,28 +124,6 @@ const MainSection = () => {
             </div>
           </div>
         </div>
-        {/* <div className="flex lg:hidden w-[calc(100%+32px)]">
-          <div className="w-full -ml-[16px]">
-            <Fade
-              duration={3000}
-              transitionDuration={600}
-              pauseOnHover={false}
-              canSwipe={true}
-              autoplay={true}
-              prevArrow={<></>}
-              nextArrow={<></>}
-            >
-              {heroList.map((item, index) => {
-                return (
-                  <div key={index} className="w-full each-fade">
-                    <HeroCardMobile data={item} />
-                    <div className={styles.overlay} />
-                  </div>
-                )
-              })}
-            </Fade>
-          </div>
-        </div> */}
         <div className="hidden lg:flex">
           <div className="w-full h-[592px] relative">
             <div className="absolute w-full h-[590px] inset-0">
@@ -184,28 +155,6 @@ const MainSection = () => {
             </div>
             <div className={styles.heroBorder} />
           </div>
-          {/* <div className="w-full relative" id="heroSwiper">
-              <Swiper
-                // navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                // slidesPerView={viewport === 'lg' || viewport === 'xl' ? 1.2 : 1.4}
-                // spaceBetween={viewport === 'lg' || viewport === 'xl' ? -20 : -40}
-                navigation={true}
-                slidesPerView={1}
-                centeredSlides={true}
-                loop
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination, Navigation]}
-                className={`heroNavigationSwiper opacity-${heroCardOpacity}`}
-              >
-                {heroList.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <HeroCard data={item} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div> */}
           {heroCardOpacity === 0 && (
             <div className="absolute inset-0 flex justify-center items-center">
               <div className={styles.loadingText}>
@@ -216,38 +165,6 @@ const MainSection = () => {
             </div>
           )}
         </div>
-
-        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full  flex justify-center lg:justify-end lg:mt-[20px]">
-            <div className="w-full flex justify-center gap-8">
-              <GradientButton
-                width={88}
-                fontSize={16}
-                fontFamily="Muli-SemiBold"
-                label="Explore"
-                onClick={() => router.push('/explore')}
-              />
-              <OutlineButton
-                label="Create"
-                borderWidth={2}
-                width={88}
-                fontSize={16}
-                fontFamily="Muli-SemiBold"
-                borderColor={'var(--see-more-border)'}
-                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
-              />
-            </div>
-          </div>
-        ) : (
-          <></>
-        )} */}
-
-        {/* <div className={styles.leftEllipse}>
-          <EllipseBlue />
-        </div>
-        <div className={styles.rightEllipse}>
-          <EllipseGreen />
-        </div> */}
       </div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>

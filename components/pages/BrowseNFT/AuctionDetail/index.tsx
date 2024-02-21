@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // third party components

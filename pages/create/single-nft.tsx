@@ -163,7 +163,6 @@ const SingleNft = () => {
           let array = dimensionList
           array[0].value = [width, height]
           setDimensionList(array)
-          const ratio = height / width
 
           let windowWidth = 0
           switch (viewport) {
@@ -238,7 +237,6 @@ const SingleNft = () => {
           let array = dimensionList
           array[0].value = [width, height]
           setDimensionList(array)
-          const ratio = height / width
 
           let windowWidth = 0
           switch (viewport) {
@@ -344,7 +342,6 @@ const SingleNft = () => {
 
   const createNft = async () => {
     try {
-      // dispatch({ type: 'set', isLoading: true })
       setIsMinting(true)
       await refreshToken()
 
@@ -1060,20 +1057,6 @@ const SingleNft = () => {
                     </div>
                   </div>
                 )}
-                {/* {currentStep === 3 && (
-                  <div className="w-[161px]">
-                    <Button
-                      label="Back"
-                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                      fullWidth
-                      height="45px"
-                      backgroundColor="transparent"
-                      color="var(--main-bg-color)"
-                      borderColor="var(--back-btn-border-mobile)"
-                      borderWidth={1}
-                    />
-                  </div>
-                )} */}
               </div>
             </div>
           )}
