@@ -28,6 +28,7 @@ import { PublicKey } from '@solana/web3.js'
 import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { validDigits } from 'utils/helpers'
 
 const EditMetaModal = props => {
   const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
@@ -310,7 +311,9 @@ const EditMetaModal = props => {
                           value={artRoyalty + '%'}
                           placeholder={'10%'}
                           onChange={event => {
-                            setArtRoyalty(event.target.value.replace('%', ''))
+                            let value = validDigits(event.target.value)
+                            if (value > 100) value = 100
+                            setArtRoyalty(value)
                           }}
                         />
                       </div>
@@ -425,7 +428,7 @@ const EditMetaModal = props => {
                           placeholder="Give your art name"
                           label01="Max Characters 1000"
                           label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
-                          onChange={value => setArtName(limit(value, 1000))}
+                          onChange={value => setArtDesc(limit(value, 1000))}
                         />
                       </div>
                     </div>
@@ -444,7 +447,9 @@ const EditMetaModal = props => {
                           value={artRoyalty + '%'}
                           placeholder={'10%'}
                           onChange={event => {
-                            setArtRoyalty(event.target.value.replace('%', ''))
+                            let value = validDigits(event.target.value)
+                            if (value > 100) value = 100
+                            setArtRoyalty(value)
                           }}
                         />
                         <WalletInputBox
