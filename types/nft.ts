@@ -16,11 +16,11 @@ export interface NftData {
   animation_url?: string
   original?: {
     image?: string
-    animationUrl?: string
+    animation_url?: string
   }
   optimized?: {
     image?: string
-    animationUrl?: string
+    animation_url?: string
   }
 
   sellerFeeBasisPoints?: number

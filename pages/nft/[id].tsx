@@ -19,7 +19,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { determineCategory, getNFTCategories, getNftFromDAS, NFTArtistInfo } from 'utils/nfts.utils'
+import { determineCategory, getNFTCategories, getNftFromDAS, getNftFromRpc, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -49,7 +49,7 @@ export interface EditionDetail {
 }
 
 export interface BrowseNFTProps {
-  nftDetail?: NftApiData
+  nftDetail?: NftData
   editionDetail?: EditionDetail
   mintAddress?: PublicKey
   error?: string
@@ -91,9 +91,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     if (detailShow === true) {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
-        const nftName = nftDetail.json?.name ?? 'No name found'
-        const nftCoverUrl = nftDetail.json?.image ?? ''
-        const mintAddress = nftDetail.address.toString()
+        const nftName = nftDetail.name ?? 'No name found'
+        const nftCoverUrl = nftDetail.image ?? ''
+        const mintAddress = nftDetail.mintAddress.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
         let params = {
           nftName,
@@ -114,7 +114,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     const fetchData = async () => {
       if (!nftDetail) return
       if (connected) {
-        await nftsAPI.getDetail(nftDetail.address).then(
+        await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
               setNftInfo(response)
@@ -126,7 +126,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       } else {
-        await nftsAPI.get(nftDetail.address).then(
+        await nftsAPI.get(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
               setNftInfo(response)
@@ -170,7 +170,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const reloadNftData = async () => {
     if (!nftDetail) return
     if (connected) {
-      await nftsAPI.getDetail(nftDetail.address).then(
+      await nftsAPI.getDetail(nftDetail.mintAddress).then(
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
@@ -182,7 +182,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     } else {
-      await nftsAPI.get(nftDetail.address).then(
+      await nftsAPI.get(nftDetail.mintAddress).then(
         (response: any) => {
           if (!isString(response)) {
             setNftInfo(response)
@@ -272,7 +272,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       <MoreCollectionSection
                         collectionId={collectionId}
                         collectionName={collectionName}
-                        mintAddress={nftDetail.address.toString()}
+                        mintAddress={nftDetail.mintAddress.toString()}
                       />
                     )}
                     {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
@@ -337,41 +337,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
   try {
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
-    let nftDataFromDas = await getNftFromDAS(query.id)
-
-    if (nftDataFromDas) {
-      let metadataAddress = metaplex.nfts().pdas().metadata({ mint: mintAddress })
-      nftDetail = {
-        address: query.id,
-        collection: {
-          address:
-            nftDataFromDas.grouping.length > 0
-              ? nftDataFromDas.grouping.find(v => v.group_key === 'collection')?.group_value
-              : undefined,
-          verified: Boolean(nftDataFromDas.grouping?.find(v => v.group_key === 'collection')?.group_value),
-        },
-        creators: nftDataFromDas.creators,
-        metadataAddress: metadataAddress.toBase58(),
-        model: nftDataFromDas.content?.metadata?.token_standard,
-        symbol: nftDataFromDas.content.metadata.symbol,
-        sellerFeeBasisPoints: nftDataFromDas.royalty.basis_points,
-        json: {
-          category: determineCategory(nftDataFromDas.content.files),
-          image: nftDataFromDas.content?.files?.[0]?.cdn_uri || nftDataFromDas.content?.files?.[0]?.uri,
-          animation_url: nftDataFromDas.content?.files?.[1]?.uri,
-          name: nftDataFromDas.content?.metadata?.name,
-          description: nftDataFromDas.content?.metadata?.description,
-          sellerFeeBasisPoints: nftDataFromDas.royalty?.basis_points,
-          attributes: nftDataFromDas.content.metadata.attributes,
-        },
-      }
-
-      if (!nftDetail.model.includes('NonFungible')) throw new Error('expected NonFungible')
-    } else {
-      nftDetail = await metaplex.nfts().findByMint({ mintAddress })
-
-      if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
-    }
+    let nftDetail = (await getNftFromDAS(metaplex, query.id)) ?? (await getNftFromRpc(metaplex, query.id))
 
     let editionDetail: EditionDetail | undefined = undefined
     try {

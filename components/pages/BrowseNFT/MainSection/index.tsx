@@ -111,7 +111,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import PriceInput from 'components/Input/PriceInput'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import Link from 'next/link'
-import { NftApiData } from 'types/nft'
+import { type NftData } from 'types/nft'
 import AuctionDetail from '../AuctionDetail'
 import NFTActivityInfoSection from './NFTActivityInfoSection'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
@@ -119,7 +119,7 @@ import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
 
 export interface MainSectionProps {
-  nftDetail: NftApiData
+  nftDetail: NftData
   editionDetail: any
   nftInfo: any
   setFullScreenView: any
@@ -233,7 +233,7 @@ const MainSection = ({
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
-  const mintAddress = nftDetail.address.toString()
+  const mintAddress = nftDetail.mintAddress.toString()
   const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
@@ -433,7 +433,7 @@ const MainSection = ({
     ;(async () => {
       if (!nftDetail) return
 
-      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
       const creators = nftDetail.creators.map(c => ({
@@ -470,7 +470,7 @@ const MainSection = ({
           .where(195, Buffer.from([0])) // canceledAt == null
           .getAndMap(account => toListingReceiptAccount(account))
         if (openListings.length != 1) {
-          console.warn(`irregular number of listing recipts for ${nftDetail.address}`)
+          console.warn(`irregular number of listing recipts for ${nftDetail.mintAddress}`)
           console.warn(JSON.parse(JSON.stringify(openListings)))
         }
 
@@ -542,7 +542,7 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (nftDetail.collection) {
-        const collectionMetadata = await getNftFromDAS(nftDetail.collection.address)
+        const collectionMetadata = await getNftFromDAS(mx, nftDetail.collection.address)
         if (collectionMetadata) {
           setCollectionName(collectionMetadata.content.metadata.name)
           setNftCollectionImage(collectionMetadata.content.links.image)
@@ -565,7 +565,7 @@ const MainSection = ({
 
   const processFinalizeSale = async () => {
     let data = {
-      address: new PublicKey(nftDetail.address),
+      address: new PublicKey(nftDetail.mintAddress),
       sellerAddress,
       price: nftCurrentPrice * LAMPORTS_PER_SOL,
       highestBid: { buyer_address: highBidder },
@@ -588,7 +588,7 @@ const MainSection = ({
   }
 
   const reloadCreatorOwnerName = async () => {
-    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
 
     setSellerAddress(tokenAccount.owner)
 
@@ -943,7 +943,7 @@ const MainSection = ({
             <div className="ml-[0px] lg:ml-[50px]">
               <AuctionDetail
                 data={{
-                  mintAddress: new PublicKey(nftDetail.address),
+                  mintAddress: new PublicKey(nftDetail.mintAddress),
                   name: nftName,
                   json: nftDetail.json,
                 }}
@@ -1447,7 +1447,7 @@ const MainSection = ({
 
       <ListNFTModal
         data={{
-          mintAddress: new PublicKey(nftDetail.address),
+          mintAddress: new PublicKey(nftDetail.mintAddress),
           name: nftName,
           json: nftDetail.json,
         }}
