@@ -127,14 +127,14 @@ const ListedNFTSection = props => {
     if (mx && !isGetListedNFTs) setMyListedNFTs()
   }, [mx, isGetListedNFTs])
 
-  const onCancelList = async ({ address, tradeStateAddress }) => {
+  const onCancelList = async ({ address, tradeStateAddress }: ListingsAPIData) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await cancelList(mx, tradeStateAddress)
+      const result = await cancelList(mx, new PublicKey(tradeStateAddress))
       if (result) {
-        listingsAPI.unlistNft(address.toBase58()).then(response => {
+        listingsAPI.unlistNft(address).then(response => {
           if (response) {
             setAlertData([
               {
@@ -167,14 +167,14 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }: ListingsAPIData, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await updateList(mx, address, tradeStateAddress, price)
+      const result = await updateList(mx, new PublicKey(address), new PublicKey(tradeStateAddress), price)
       if (result) {
-        listingsAPI.updateNft(address.toBase58(), { amount: (price / 1000000000).toString() }).then(
+        listingsAPI.updateNft(address, { amount: (price / 1000000000).toString() }).then(
           response => {
             if (response) {
               setAlertData([

@@ -21,8 +21,21 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 import { useViewport } from 'utils'
 
-const StartAuctionModal = props => {
-  const { data, open, onSuccess, onClose, onStartProgress } = props
+interface StartAuctionModalProps {
+  data: {
+    mintAddress: string
+    name?: string
+    image?: string
+    animation_url?: string
+    category?: string
+  }
+  open: boolean
+  onSuccess: (name: string) => void
+  onClose: () => void
+  onStartProgress: () => void
+}
+
+const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: StartAuctionModalProps) => {
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 

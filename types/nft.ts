@@ -150,11 +150,11 @@ export interface DashboardAPIData {
 }
 
 export interface ListingsAPIData {
-  address?: string
+  address: string
   name?: string
   uri?: string
   sellerAddress?: string
-  tradeStateAddress?: string
+  tradeStateAddress: string
   price?: number
   creatorAddress?: string
   startTime?: number

@@ -500,7 +500,7 @@ const MainSection = ({
             tradeStateAddress,
             price: Number(price.basisPoints.toString()),
             creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
-            json: nftDetail.json,
+            category: nftDetail.category,
           }
           setNftListingData(listingData)
         } else {
@@ -942,11 +942,7 @@ const MainSection = ({
           {showAuctionDetail ? (
             <div className="ml-[0px] lg:ml-[50px]">
               <AuctionDetail
-                data={{
-                  mintAddress: new PublicKey(nftDetail.mintAddress),
-                  name: nftName,
-                  json: nftDetail.json,
-                }}
+                data={nftDetail}
                 onSuccess={nft => handleSuccessAuction(nft)}
                 onRefreshPage={() => {
                   router.reload()
