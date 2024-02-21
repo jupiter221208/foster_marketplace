@@ -169,7 +169,7 @@ const CollectionDetailModal = props => {
                         </div>
                       </div>
                       <div className="w-full">
-                        <div className={styles.artName}>Artwork Name</div>
+                        <div className={styles.artName}>Collection Name</div>
                         <div className="w-full mt-[15px]">
                           <Input
                             value={limit(artName, 32)}
@@ -179,7 +179,7 @@ const CollectionDetailModal = props => {
                             onChange={value => setArtName(limit(value, 32))}
                           />
                         </div>
-                        <div className={`${styles.artName} mt-[40px]`}>Artwork Description</div>
+                        <div className={`${styles.artName} mt-[40px]`}>Collection Description</div>
                         <div className="w-full mt-[15px]">
                           <Textarea
                             value={limit(artDesc, 1000)}
@@ -226,7 +226,7 @@ const CollectionDetailModal = props => {
                       </div>
                     </div>
                     <div className="w-full mt-[30px]">
-                      <div className={styles.artName}>Artwork Name</div>
+                      <div className={styles.artName}>Collection Name</div>
                       <div className="w-full mt-[15px]">
                         <Input
                           height={47}
@@ -237,7 +237,7 @@ const CollectionDetailModal = props => {
                           onChange={value => setArtName(limit(value, 32))}
                         />
                       </div>
-                      <div className={`${styles.artName} mt-[30px]`}>Artwork Description</div>
+                      <div className={`${styles.artName} mt-[30px]`}>Collection Description</div>
                       <div className="w-full mt-[15px]">
                         <Textarea
                           height={140}
