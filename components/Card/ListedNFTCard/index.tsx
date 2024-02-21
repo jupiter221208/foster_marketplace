@@ -89,13 +89,15 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     }
   }
 
+  console.log(assetJson?.image)
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <Link href={`/nft/${address}`} passHref>
           <a>
             <div className={styles.imageContent}>
-              {assetJson?.properties?.category === 'audio' || assetJson?.properties?.category === 'video' ? (
+              {assetJson?.properties?.category === 'video' ? (
                 <div
                   dangerouslySetInnerHTML={{
                     __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
