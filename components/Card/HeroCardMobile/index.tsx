@@ -55,10 +55,6 @@ const HeroCardMobile = ({ data }) => {
             }
             alt=""
             layout="fill"
-            style={{
-              filter: 'blur(20px) opacity(0.2) brightness(110%)',
-              WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
-            }}
           />
         ) : (
           <Image
@@ -71,10 +67,10 @@ const HeroCardMobile = ({ data }) => {
             }
             alt=""
             layout="fill"
-            style={{
-              filter: 'blur(20px) opacity(0.2) brightness(110%)',
-              WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
-            }}
+            // style={{
+            //   filter: 'blur(20px) opacity(0.2) brightness(110%)',
+            //   WebkitFilter: 'blur(20px) opacity(0.2) brightness(110%)',
+            // }}
           />
         )}
       </div>
@@ -93,7 +89,7 @@ const HeroCardMobile = ({ data }) => {
               (data.cover_image_url === null || data.cover_image_url === '') ? (
                 <div></div>
               ) : data.asset_type.includes('image') ? (
-                <img
+                <Image
                   src={
                     data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                       ? data.asset_url
@@ -104,29 +100,31 @@ const HeroCardMobile = ({ data }) => {
                       : '/images/banner.png'
                   }
                   alt=""
+                  layout="fill"
+                  objectFit="cover"
                   width={550}
                   height={772}
-                  className="w-full h-full object-cover"
                   onClick={() => gotoNftDetailPage()}
                 />
               ) : data.asset_type.includes('vr') ? (
                 <div className={`relative aspect-square w-full h-full`}>
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
+                    objectFit="cover"
                     width={550}
                     height={772}
-                    className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
                 </div>
               ) : data.asset_type.includes('video') ? (
                 <div className="w-full h-full relative flex justify-center items-center overflow-hidden">
                   {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <img
+                    <Image
                       src={data.cover_image_url}
-                      alt=""
-                      className="w-full h-full object-cover"
+                      layout="fill"
+                      objectFit="cover"
                       onClick={() => gotoNftDetailPage()}
                     />
                   ) : (
@@ -134,7 +132,7 @@ const HeroCardMobile = ({ data }) => {
                       src={DefaultNftBG}
                       alt=""
                       layout="fill"
-                      className="w-full h-full object-cover"
+                      objectFit="cover"
                       onClick={() => onClick()}
                       onLoadingComplete={() => {
                         setLoaded(true)
@@ -144,10 +142,11 @@ const HeroCardMobile = ({ data }) => {
                 </div>
               ) : data.asset_type.includes('audio') ? (
                 data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
-                    className="w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                     onClick={() => gotoNftDetailPage()}
                   />
                 ) : (
