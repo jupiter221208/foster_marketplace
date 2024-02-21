@@ -162,13 +162,7 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
               )}
 
               <div className={styles.rightPanel}>
-                <AuctionDetail
-                  data={data}
-                  onSuccess={onSuccess}
-                  onStartProgress={onStartProgress}
-                  onClose={onClose}
-                  onRefreshPage={() => {}}
-                />
+                <AuctionDetail data={data} onSuccess={onSuccess} onClose={onClose} onRefreshPage={() => {}} />
               </div>
             </Dialog.Panel>
           </Transition.Child>
