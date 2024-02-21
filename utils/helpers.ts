@@ -251,6 +251,29 @@ export const compareDate = (a, b) => {
   return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
 }
 
+export const optimizeCdnUrl = (urlString: string, options?: Record<string, string | number>): string => {
+  let url = new URL(urlString)
+  try {
+    if (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image//')) {
+      let assetUrl = url.pathname.substring('/cdn-cgi/image//'.length)
+      let parameters = Object.entries(options ?? {})
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([k, v]) => k + '=' + v.toString())
+        .join(',')
+      if (new URL(assetUrl).hostname == 'arweave.net') url.pathname = `/cdn-cgi/image/${parameters}/${assetUrl}`
+    }
+  } catch (e: any) {
+    console.error(`could not optimize cdn url: ${urlString}: ${e?.message}`)
+  }
+  return url.toString()
+}
+
+export const optimizeCdnUrlOgImage = (urlString: string): string =>
+  optimizeCdnUrl(urlString, {
+    quality: 100,
+    width: 1200,
+  })
+
 export const setColorTheme = lightMode => {
   const doc = document.documentElement
   if (lightMode) {

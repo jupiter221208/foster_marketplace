@@ -39,7 +39,7 @@ import MerchTabList from 'assets/json/browse-nft/merch-list.json'
 
 import nftsAPI from 'apis/nfts'
 import activityAPI from 'apis/activity'
-import { isString, compareDate } from 'utils/helpers'
+import { isString, compareDate, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
@@ -171,7 +171,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
-  let nftImageUrl = getAbsoluteOgUrl(nftDetail?.image ?? DefaultNftBG.src)
+  let nftImageUrl = optimizeCdnUrlOgImage(getAbsoluteOgUrl(nftDetail?.image ?? DefaultNftBG.src))
 
   let nftDescription = nftDetail?.description ?? ''
 
