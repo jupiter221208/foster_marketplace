@@ -6,6 +6,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 import React, { useState, useEffect, useRef } from 'react'
+import styles from './index.module.scss'
 
 const ModelViewer = ({
   path,
@@ -14,14 +15,14 @@ const ModelViewer = ({
   orbitLimited = false,
   fullScreen = false,
   getSnapshot = { onSnapshot: url => {}, status: false },
+  preserveDrawingBuffer = false,
+  onLoad = () => {},
 }) => {
   // State variables
   const [renderer, setRenderer] = useState(null)
-  const [scene, setScene] = useState(null)
   const [camera, setCamera] = useState(null)
-  const [controls, setControls] = useState(null)
-  const [model, setModel] = useState(null)
   const [oldPath, setOldPath] = useState('')
+  const [modelLoaded, setModelLoaded] = useState(false)
 
   const divRef = useRef<HTMLDivElement>()
 
@@ -29,14 +30,14 @@ const ModelViewer = ({
   useEffect(() => {
     if (path !== oldPath) {
       setOldPath(path)
+      setModelLoaded(false)
 
-      const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
+      const newRenderer = new WebGLRenderer({ alpha: true, preserveDrawingBuffer })
       newRenderer.setSize(width, height)
       newRenderer.setClearColor(0x000000, 0)
       setRenderer(newRenderer)
 
       const scene = new Scene()
-      setScene(scene)
 
       const camera = new PerspectiveCamera(75, width / height, 0.1, 1000)
       setCamera(camera)
@@ -47,7 +48,6 @@ const ModelViewer = ({
         controls.minPolarAngle = 0.5
         controls.maxPolarAngle = 2.5
       }
-      setControls(controls)
 
       const render = () => {
         controls.update()
@@ -62,8 +62,9 @@ const ModelViewer = ({
       dracoLoader.setDecoderConfig({ type: 'js' })
       loader.setDRACOLoader(dracoLoader)
       loader.loadAsync(path).then(gltf => {
-        setModel(gltf)
         scene.add(gltf.scene)
+        setModelLoaded(true)
+        onLoad()
 
         const bbox = new Box3().setFromObject(gltf.scene)
         const center = bbox.getCenter(new Vector3())
@@ -112,7 +113,14 @@ const ModelViewer = ({
     if (divRef.current && renderer) divRef.current.appendChild(renderer.domElement)
   }, [divRef.current, renderer])
 
-  return <div ref={divRef} />
+  return (
+    <div className="relative">
+      <div className={`${styles.skeletonContainer} ${modelLoaded && styles.hide}`}>
+        <div className={styles.skeletonLoader} style={{ width, height }} />
+      </div>
+      <div ref={divRef} />
+    </div>
+  )
 }
 
 export default ModelViewer

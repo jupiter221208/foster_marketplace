@@ -1687,6 +1687,13 @@ h6 {
   fill: var(--secondary-button-border);
 }
 
+[data-name='edit-edition'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.1);
+  [data-fill='a'] {
+    stroke: var(--main-bg-color);
+  }
+}
+
 [data-name='menu-item-merch-hover'] {
   fill: var(--secondary-button-border);
   stroke: var(--secondary-button-border);

@@ -26,8 +26,6 @@ import Input from 'components/Input'
 import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
-type File = { type: string; path: string }
-
 const Step01SingleNFTSection = props => {
   const { nftType, setNftArt, setNftCover, type, setEditionType, setMaxSupply } = props
 
@@ -83,29 +81,7 @@ const Step01SingleNFTSection = props => {
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
-                let newFile = undefined
-                if (acceptedFiles[0].type === '' && /\.glb$/.test((acceptedFiles[0] as unknown as File).path)) {
-                  // Assuming 'oldFile' is the existing File object
-                  const oldFile = acceptedFiles[0]
-
-                  // Read the old file as ArrayBuffer
-                  const reader = new FileReader()
-                  reader.onload = function (event) {
-                    // Create a new File object with the old file's data but a new MIME type
-                    const file = new File([event.target.result], oldFile.name, { type: 'model/gltf-binary' })
-                    newFile = [file]
-                    // Now 'newFile' is a File object with the same data as 'oldFile' but a MIME type of 'model/gltf-binary'
-
-                    // Use newFile here
-                    acceptedFiles.length !== 0
-                      ? setNftArt(newFile ? newFile : acceptedFiles)
-                      : handleShowAlert('nft', 'unknown')
-                  }
-                  reader.readAsArrayBuffer(oldFile)
-                } else {
-                  // Handle the case where the file type is not '' and does not end with .glb
-                  acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
-                }
+                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
               }}
               onDropRejected={rejectedFiles => {
                 handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
@@ -208,29 +184,7 @@ const Step01SingleNFTSection = props => {
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
-                    let newFile = undefined
-                    if (acceptedFiles[0].type === '' && /\.glb$/.test((acceptedFiles[0] as unknown as File).path)) {
-                      // Assuming 'oldFile' is the existing File object
-                      const oldFile = acceptedFiles[0]
-
-                      // Read the old file as ArrayBuffer
-                      const reader = new FileReader()
-                      reader.onload = function (event) {
-                        // Create a new File object with the old file's data but a new MIME type
-                        const file = new File([event.target.result], oldFile.name, { type: 'model/gltf-binary' })
-                        newFile = [file]
-                        // Now 'newFile' is a File object with the same data as 'oldFile' but a MIME type of 'model/gltf-binary'
-
-                        // Use newFile here
-                        acceptedFiles.length !== 0
-                          ? setNftArt(newFile ? newFile : acceptedFiles)
-                          : handleShowAlert('audio', 'unknown')
-                      }
-                      reader.readAsArrayBuffer(oldFile)
-                    } else {
-                      // Handle the case where the file type is not '' and does not end with .glb
-                      acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
-                    }
+                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
                   }}
                   onDropRejected={rejectedFiles => {
                     handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)

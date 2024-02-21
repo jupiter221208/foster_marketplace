@@ -222,7 +222,7 @@ const SingleNft = () => {
           })
         })
         hidden_video.currentTime = 5
-      } else if (nftArt[0].type === 'model/gltf-binary') {
+      } else if (nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path)) {
         const path = URL.createObjectURL(nftArt[0])
         setNftType('vr')
         setNftUrl(path)
@@ -405,10 +405,9 @@ const SingleNft = () => {
       ]
       if (animationFile)
         metadata.properties.files.push({
-          type: animationFile.contentType,
+          type: metadata.properties.category === 'vr' ? 'vr' : animationFile.contentType,
           url: metadata.animation_url,
         })
-
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
@@ -550,6 +549,7 @@ const SingleNft = () => {
                           path={nftUrl}
                           width={width}
                           height={height}
+                          preserveDrawingBuffer
                           getSnapshot={{
                             onSnapshot: image => {
                               setNftImage(URL.createObjectURL(image))
@@ -821,6 +821,7 @@ const SingleNft = () => {
                       path={nftUrl}
                       width={width}
                       height={height}
+                      preserveDrawingBuffer
                       getSnapshot={{
                         onSnapshot: image => {
                           setNftImage(URL.createObjectURL(image))
