@@ -19,7 +19,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
-import { determineCategory, getNFTCategories, getNftFromDAS, getNftFromRpc, NFTArtistInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNftFromDAS, getNftFromRpc, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -142,7 +142,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     fetchData()
   }, [nftDetail, profileInfo])
 
-  const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
+  const collectionId = nftDetail?.collection?.address?.toString()
 
   let nftName = nftDetail?.name ?? ''
   if (editionDetail) {

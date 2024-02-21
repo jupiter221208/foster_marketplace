@@ -117,7 +117,7 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
   return metadatas
     .filter(metadata => metadata != null)
-    .map(({ name, creators, collection, collectionDetails, json }, index) => {
+    .map(({ address, name, creators, collection, collectionDetails, json }, index) => {
       const creatorsInfo = creators
         ? creators.map(c => ({
             address: c.address.toBase58(),
@@ -135,6 +135,7 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
       return {
         mintAddress: tokenAccounts[index].mint?.toString(),
+        metadataAddress: address.toBase58(),
         name: name || json?.name,
         description: json?.description,
         image: json?.image,
@@ -214,7 +215,13 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
     // let supply = supply.print_current_supply
 
     return {
-      mintAddress: new PublicKey(id)?.toString(),
+      mintAddress: new PublicKey(id).toString(),
+      metadataAddress: mx
+        .nfts()
+        .pdas()
+        .metadata({ mint: new PublicKey(id) })
+        .toBase58(),
+
       name: content.metadata.name,
       symbol: content.metadata.symbol,
       description: content.metadata.description,
@@ -229,7 +236,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         image: imageCdn,
       },
 
-      category: '',
+      category: determineCategory(content.files),
       creators: creators.map(({ address, share, verified }) => ({
         address: new PublicKey(address)?.toString(),
         share,
@@ -352,6 +359,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
   let image = content.links.image
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
+  let category = determineCategory(content.files)
   return {
     mintAddress: address,
     metadataAddress: metaplex
@@ -365,7 +373,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     description: content.metadata.description,
     uri: content.json_uri,
 
-    image,
+    image: imageCdn ?? image,
     animation_url,
     original: {
       image,
@@ -377,6 +385,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
 
     sellerFeeBasisPoints: royalty.basis_points,
     creators,
+    category,
     attributes: content.metadata.attributes,
 
     collection: grouping
@@ -388,7 +397,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
 
     content,
     properties: {
-      category: '',
+      category,
       files: content.files.map(({ mime, uri }) => ({ type: mime, uri })),
     },
   }

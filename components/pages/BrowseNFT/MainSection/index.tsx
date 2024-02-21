@@ -225,16 +225,16 @@ const MainSection = ({
     }
   }, [isEnded, isStarted])
 
-  const nftType: string = (nftDetail.json?.category as string) ?? 'image'
-  const coverUrl = nftDetail.json?.image ?? DefaultNftBG.src
+  const nftType: string = (nftDetail.category as string) ?? 'image'
+  const coverUrl = nftDetail?.image ?? DefaultNftBG.src
   const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(CDN_PREFIX, '') : coverUrl
-  const nftAssetUrl: string = nftDetail.json?.animation_url as string
-  const nftName = nftDetail.json?.name ?? 'No name found'
-  const nftDescription = nftDetail.json?.description ?? ''
+  const nftAssetUrl: string = nftDetail?.animation_url as string
+  const nftName = nftDetail?.name ?? 'No name found'
+  const nftDescription = nftDetail?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
   const mintAddress = nftDetail.mintAddress.toString()
-  const nftCollectionAddress = nftDetail.collection?.address && nftDetail.collection?.address.toString()
+  const nftCollectionAddress = nftDetail.collection?.address?.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftCollectionImage, setNftCollectionImage] = useState('')
@@ -1446,11 +1446,7 @@ const MainSection = ({
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
       <ListNFTModal
-        data={{
-          mintAddress: new PublicKey(nftDetail.mintAddress),
-          name: nftName,
-          json: nftDetail.json,
-        }}
+        data={nftDetail}
         open={showListNFTModal}
         onClose={(status: string, price) => {
           setShowListNFTModal(false)
@@ -1502,7 +1498,7 @@ const MainSection = ({
           nftInfo={nftInfo}
           creatorRoyalty={nftRoyalties}
           nftRoyalties={nftDetail.creators}
-          nftAttributes={nftDetail.json?.attributes}
+          nftAttributes={nftDetail?.attributes}
         />
       )}
 

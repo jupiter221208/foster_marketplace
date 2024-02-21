@@ -1,6 +1,6 @@
 export interface NftData {
-  mintAddress?: string
-  metadataAddress?: string
+  mintAddress: string
+  metadataAddress: string
   tokenAccount?: {
     address?: string
     delegate?: string | null

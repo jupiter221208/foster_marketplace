@@ -245,9 +245,9 @@ const SuccessMintSingleNFTSection = props => {
       />
       <ListNFTModal
         data={{
-          mintAddress: nftAddress,
+          mintAddress: nftAddress.toBase58(),
           name: nftName,
-          json: nftMetadata,
+          image: nftImage,
         }}
         open={showListNFTModal}
         onClose={(status: string) => {
