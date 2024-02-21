@@ -56,7 +56,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
-  const nftType = (nftDetail?.json?.category as string) ?? 'image'
+  const nftType = (nftDetail?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
@@ -144,7 +144,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const collectionId = nftDetail?.collection?.address && nftDetail?.collection?.address?.toString()
 
-  let nftName = nftDetail?.json?.name ?? ''
+  let nftName = nftDetail?.name ?? ''
   if (editionDetail) {
     let { number, supply, maxSupply } = editionDetail
     let supplyInfo = `#${number}/${supply}`
@@ -152,9 +152,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
-  let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
+  let nftImageUrl = getAbsoluteOgUrl(nftDetail?.image ?? DefaultNftBG.src)
 
-  let nftDescription = nftDetail?.json?.description ?? ''
+  let nftDescription = nftDetail?.description ?? ''
 
   const [nftCoverUrl, setNftCoverUrl] = useState()
   const [fullScreen, setFullScreen] = useState(false)
