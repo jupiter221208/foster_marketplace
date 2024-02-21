@@ -61,25 +61,32 @@ const ModelViewer = ({
       dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/')
       dracoLoader.setDecoderConfig({ type: 'js' })
       loader.setDRACOLoader(dracoLoader)
-      loader.loadAsync(path).then(gltf => {
-        scene.add(gltf.scene)
-        setModelLoaded(true)
-        onLoad()
+      async function loadModel(path) {
+        // Add a delay of 3 seconds
+        await new Promise(resolve => setTimeout(resolve, 3000))
+        const data = await fetch(path).then(r => r.arrayBuffer())
+        loader.parse(data, '', gltf => {
+          scene.add(gltf.scene)
+          setModelLoaded(true)
+          onLoad()
 
-        const bbox = new Box3().setFromObject(gltf.scene)
-        const center = bbox.getCenter(new Vector3())
-        const size = bbox.getSize(new Vector3())
+          const bbox = new Box3().setFromObject(gltf.scene)
+          const center = bbox.getCenter(new Vector3())
+          const size = bbox.getSize(new Vector3())
 
-        camera.position.set(0, 0, Math.max(size.x, size.y, size.z) * 1.5)
-        controls.target.set(center.x, center.y, center.z)
-        controls.update()
+          camera.position.set(0, 0, Math.max(size.x, size.y, size.z) * 1.5)
+          controls.target.set(center.x, center.y, center.z)
+          controls.update()
 
-        const ambientLight = new AmbientLight(0x404040, 20)
-        scene.add(ambientLight)
+          const ambientLight = new AmbientLight(0x404040, 20)
+          scene.add(ambientLight)
 
-        const directionalLight = new DirectionalLight(0xffffff, 5)
-        scene.add(directionalLight)
-      })
+          const directionalLight = new DirectionalLight(0xffffff, 5)
+          scene.add(directionalLight)
+        })
+      }
+
+      loadModel(path)
 
       return () => {
         // Dispose of resources
