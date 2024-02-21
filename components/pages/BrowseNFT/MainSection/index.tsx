@@ -204,7 +204,7 @@ const MainSection = ({
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
-  const [mintQty, setMintQty] = useState(3)
+  const [mintQty, setMintQty] = useState(1)
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -445,17 +445,13 @@ const MainSection = ({
   useEffect(() => {
     if (editionDetail) {
       if (editionDetail.isOriginal === true) {
-        if (editionDetail.maxSupply === null)
-          setEditionType('open')
-        else if (editionDetail.maxSupply === 0)
-          setEditionType('normal')
-        else if (editionDetail.maxSupply > 0)
-          setEditionType('limit')
-      } else {
-        if (editionDetail.supply === 0)
-          setEditionType('normal')
-        else
-          setEditionType('print')
+        setEditionType('normal')
+      } else if (editionDetail.isOpenEdition === true) {
+        setEditionType('open')
+      } else if (editionDetail.isLimitedEdition === true) {
+        setEditionType('limit')
+      } else if (editionDetail.print !== null) {
+        setEditionType('print')
       }
     }
   }, [editionDetail])
@@ -518,6 +514,8 @@ const MainSection = ({
             },
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
+          if (editionType === 'open' || editionType === 'limit')
+            setPrice((parseFloat(basisPoints.toString()) / 10 ** decimals).toFixed(2))
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
@@ -1125,12 +1123,12 @@ const MainSection = ({
                   )}
                   {editionDetail && editionType !== 'normal' && (
                     <div className={styles.editionContainer}>
-                      {nftInfo?.printing > 0 &&
+                      {nftPrice > 0 &&
                         <div className="w-full flex justify-between mb-[8px]">
                           <div className={styles.editionTitle}>Mint Price</div>
                           <div className='flex gap-[8px] items-center'>
                           <SolanaLogoMediumIcon alt=""/>
-                          <div className={styles.editionValue}>{nftInfo.printing?.price}</div>
+                          <div className={styles.editionValue}>{nftPrice}</div>
                           </div>
                         </div>
                       }
@@ -1160,7 +1158,7 @@ const MainSection = ({
                   ></div>
                 )}
                 {nftPrice > 0 && !liveAuction ? (
-                  nftInfo?.printing ? (  
+                  editionType === 'open' || editionType === 'limit' ? (  
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
                         <div className="flex justify-between gap-[13px]">
@@ -1173,6 +1171,10 @@ const MainSection = ({
                             </div>
                             <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
                             <div onClick={() => {
+                              if (editionDetail.maxSupply !== null) {
+                                if (mintQty + 1 > editionDetail.maxSupply)
+                                  return
+                              }
                               setMintQty(mintQty + 1)
                             }}>
                             <MintValuePlus />
@@ -1180,7 +1182,24 @@ const MainSection = ({
                           </div>
                           <div className={styles.mintPrice}>
                             <SolanaLogoIcon />
-                            &nbsp;1.50
+                            <PriceInput
+                              value={price}
+                              placeholder="0"
+                              backgroundColor={'transparent'}
+                              fullWidth
+                              min={0}
+                              margin
+                              height={
+                                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
+                              }
+                              onChange={value => {
+                                if (value < 0) {
+                                  setPrice('')
+                                } else {
+                                  setPrice(value)
+                                }
+                              }}
+                            />
                           </div>
                         </div>
                         <div className='mt-[23px]'>

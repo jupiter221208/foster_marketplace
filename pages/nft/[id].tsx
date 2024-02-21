@@ -406,7 +406,8 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
         print = nftEdition
         ;({ data: originalEdition } = await metaplex.rpc().getAccount(nftEdition.parent).then(toOriginalEditionAccount))
       } else originalEdition = nftEdition
-
+      console.log(nftEdition, '==========nftEdition=========\n\n')
+      console.log(originalEdition, '==========originalEdition=========\n\n')
       editionDetail = {
         print: print?.edition && { number: Number(print.edition) },
         supply: Number(originalEdition.supply),
