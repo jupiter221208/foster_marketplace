@@ -6,7 +6,6 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -47,35 +46,37 @@ const HeroCardMobile = ({ data }) => {
         {(data.asset_url === null || data.asset_url === '') &&
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
-        ) : data.asset_type.includes('video') ? (
-          <img
-            src={
-              data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            alt=""
-            // height={680}
-            className="w-full h-full object-cover"
-            loading="lazy"
+        ) : data.asset_type.includes('video') || data.asset_type.includes('vr') ? (
+          <div
+            style={{
+              backgroundImage: `url(${
+                data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                  ? data.cover_image_url
+                  : '/images/banner.png'
+              })`,
+              width: '100vw',
+              height: '100vh',
+              backgroundSize: 'cover',
+              filter: 'blur(30px) opacity(0.2) brightness(120%)',
+              WebkitFilter: 'blur(30px)',
+            }}
           />
-        ) : data.asset_type.includes('vr') ? (
-          <div className={`aspect-square w-full h-full`}>
-            <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
-          </div>
         ) : (
-          <img
-            src={
-              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                ? data.asset_url
-                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            alt=""
-            // height={680}
-            className="w-full h-full object-cover"
-            loading="lazy"
+          <div
+            style={{
+              backgroundImage: `url(${
+                data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                  ? data.asset_url
+                  : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                  ? data.cover_image_url
+                  : '/images/banner.png'
+              })`,
+              width: '100vw',
+              height: '100vh',
+              backgroundSize: 'cover',
+              filter: 'blur(30px) opacity(0.2) brightness(120%)',
+              WebkitFilter: 'blur(30px)',
+            }}
           />
         )}
       </div>
