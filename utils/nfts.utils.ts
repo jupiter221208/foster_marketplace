@@ -59,7 +59,8 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
 
 export function shouldUseDas(metaplex: Metaplex): boolean {
   let rpcEndpoint = metaplex.connection.rpcEndpoint
-  return new URL(rpcEndpoint).hostname.endsWith('helius.xyz')
+  let hostname = new URL(rpcEndpoint).hostname
+  return hostname.endsWith('helius.xyz') || hostname.endsWith('helius-rpc.com')
 }
 
 export function assertDasSupported(metaplex: Metaplex): void {
