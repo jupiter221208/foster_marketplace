@@ -450,7 +450,6 @@ type determineCategoryType = {
 
 export function determineCategory(files: determineCategoryType) {
   let category: string
-
   if (files.length > 1) {
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
@@ -458,7 +457,11 @@ export function determineCategory(files: determineCategoryType) {
       }
     })
   } else {
-    category = files[0].mime.split('/')[0]
+    if (files.length === 0) {
+      category = 'image'
+    } else {
+      category = files[0].mime.split('/')[0]
+    }
   }
 
   return category || 'image'

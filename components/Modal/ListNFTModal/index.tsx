@@ -13,7 +13,7 @@ import Image from 'next/image'
 import PriceInput from 'components/Input/PriceInput'
 
 // images
-import AudioPlayerBackground from 'assets/images/audio-player.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -163,7 +163,11 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                         }}
                       />
                     ) : (
-                      <img src={data?.image} alt={data?.name} className="w-full aspect-[321/321] object-cover" />
+                      <img
+                        src={data?.image || DefaultNftBG.src}
+                        alt={data ? data.name : 'nft image'}
+                        className="w-full aspect-[321/321] object-cover"
+                      />
                     )}
                   </div>
                   <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.name}</div>
@@ -246,7 +250,7 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                     />
                   ) : (
                     <img
-                      src={data?.image || AudioPlayerBackground.src}
+                      src={data?.image || DefaultNftBG.src}
                       alt={data?.name}
                       className="w-full aspect-[321/321] object-cover mt-[25px] rounded-[16px]"
                     />
