@@ -1335,7 +1335,7 @@ const MainSection = ({
                       </div>
                     )}
                   </>
-                ) : !loading && nftInfo && connected ? (
+                ) : !loading && nftInfo ? (
                   isOwnNft === true ? (
                     <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
                       <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
@@ -1351,7 +1351,7 @@ const MainSection = ({
                         Start&nbsp;Auction
                       </div>
                     </div>
-                  ) : isOwnNft === false ? (
+                  ) : isOwnNft === false || isOwnNft === null ? (
                     <div className="w-full flex gap-[20px] mt-[20px]">
                       <button
                         className={styles.outlineBtn}
