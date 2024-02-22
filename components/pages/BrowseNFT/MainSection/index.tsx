@@ -1206,7 +1206,7 @@ const MainSection = ({
                           {showPlaceBidButton &&
                             !isOwnNft &&
                             (loading ? (
-                              <div className="w-full pl-[20px] pr-[20px] mb-[16px]">
+                              <div className="w-full mt-[15px] mb-[16px]">
                                 <div className="w-full flex justify-center">
                                   <div
                                     className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
@@ -1220,15 +1220,14 @@ const MainSection = ({
                                     <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                   </>
                                 ) : (
-                                  <div className="relative">
-                                    <div className="w-full flex justify-center">
+                                  <div className="relative mt-[5px] lg:mt-[15px]">
+                                    <div className="w-full flex justify-center px-[18px] lg:px-[0px]">
                                       <PriceInput
                                         value={price}
                                         placeholder="Enter Bid amount"
                                         backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                                         fullWidth
                                         min={0}
-                                        margin
                                         height={
                                           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
                                         }
@@ -1277,7 +1276,7 @@ const MainSection = ({
                                         </div>
                                       )}
                                     </div>
-                                    <div className="w-full flex items-center justify-between px-[18px] mb-[10px] mt-[4px]">
+                                    <div className="w-full flex items-center justify-between mb-[10px] lg:px-0 px-[18px]">
                                       <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                                       {endPhaseDuration > 0 && (
                                         <div
@@ -1305,7 +1304,7 @@ const MainSection = ({
                                       )}
                                     </div>
                                     {auctionInfoFocus && (
-                                      <div className="absolute w-full flex justify-end">
+                                      <div className="absolute w-full flex justify-end top-[10px]">
                                         <div className={styles.auctionInfoText}>
                                           <div className={styles.auctionInfoTitle}>End Phase</div>
                                           Auction uses
