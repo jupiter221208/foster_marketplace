@@ -59,9 +59,9 @@
   justify-content: space-between;
   width: 100%;
   height: auto;
-  background: rgba(var(--main-bg-color-rgb), 0.02);
   overflow: hidden;
   @media (min-width: 1024px) {
+    background: rgba(var(--main-bg-color-rgb), 0.02);
     min-height: calc(100vh - 100px - 80px);
   }
 
