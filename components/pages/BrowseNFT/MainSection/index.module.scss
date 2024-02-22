@@ -485,3 +485,9 @@
 .greenText {
   color: var(--main-icon-color);
 }
+
+.overflow_visible_for_children {
+  * {
+    overflow: visible;
+  }
+}
