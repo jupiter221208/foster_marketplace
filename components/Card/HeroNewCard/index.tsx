@@ -36,7 +36,11 @@ const HeroNewCard = ({ data }) => {
 
   return (
     <div className={styles.container}>
-      <img src={data.asset_url} alt="" className="w-full h-full inset-0" />
+      <img
+        src={data.asset_url}
+        onError={e => data.cover_image_url && ((e.target as HTMLImageElement).src = data.cover_image_url)}
+        className="w-full h-full inset-0"
+      />
       <div className={styles.overlay} />
       <div className="g-container absolute inset-0 flex justify-center items-center">
         <div className={styles.cardArea}>
