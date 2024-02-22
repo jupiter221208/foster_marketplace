@@ -17,6 +17,7 @@ import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSect
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
+import SelectedTab from 'components/Tab/SelectedTab'
 
 // custom functions
 import { getNFTCategories, getNftFromDAS, getNftFromRpc, NFTArtistInfo } from 'utils/nfts.utils'
@@ -33,14 +34,19 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import TabList from 'assets/json/browse-nft/auction-list.json'
+import MerchTabList from 'assets/json/browse-nft/merch-list.json'
 
 import nftsAPI from 'apis/nfts'
-import { isString } from 'utils/helpers'
+import activityAPI from 'apis/activity'
+import { isString, compareDate } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import { NftData, NftApiData } from 'types/nft'
+import { useViewport } from 'utils'
+import NFTActivityInfoSection from 'components/pages/BrowseNFT/MainSection/NFTActivityInfoSection'
 
 export interface EditionDetail {
   number: number
@@ -56,6 +62,7 @@ export interface BrowseNFTProps {
 }
 
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+  const viewport = useViewport()
   const nftType = (nftDetail?.category as string) ?? 'image'
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
@@ -71,6 +78,10 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
+  const [merchToggle, setMerchToggle] = useState(false)
+  const [activeTab, setActiveTab] = useState<any>(0)
+  const [tabList, setTabList] = useState<any[]>(TabList)
+  const [activityList, setActivityList] = useState([])
 
   useEffect(() => {
     setTimeout(
@@ -138,6 +149,14 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       }
+
+      activityAPI.getNFTActivity(nftDetail.mintAddress).then(
+        response => {
+          let dateSorted = response.sort(compareDate)
+          setActivityList(dateSorted)
+        },
+        error => {}
+      )
     }
     fetchData()
   }, [nftDetail, profileInfo])
@@ -196,7 +215,26 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     }
   }
 
-  const [merchToggle, setMerchToggle] = useState(false)
+  const handleSelectedTab = item => {
+    setActiveTab(item.id)
+  }
+
+  useEffect(() => {
+    let array: any[] = []
+    let list
+    if (merchToggle) list = MerchTabList
+    else list = TabList
+    list.map(item => {
+      let object: any = item
+      if (item.id === activeTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+  }, [activeTab, merchToggle])
 
   return (
     <div className="w-full h-full">
@@ -247,26 +285,16 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 </div>
               </div>
             )}
-            {showAuctionSection ? (
-              <></>
-            ) : merchToggle ? (
-              <div className={styles.centerScreen}>
-                <div className="g-container">
-                  <ShopApparelSection
-                    title="Shop Apparel"
-                    type="apparel"
-                    nftDetail={nftDetail}
-                    shopApparelList={ShopApparelList}
-                    openMerchPage={data => {
-                      setMerchData(data)
-                      setOpenMerchPage(true)
-                    }}
-                  />
-                </div>
+
+            <div className={`g-container ${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
+              <div className={styles.selectedTab}>
+                <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                <div className={styles.selectedTabBorder} />
               </div>
-            ) : (
-              <div className={styles.centerScreen}>
-                <div className="g-container">
+              <div className={styles.mainContainer}>
+                {activeTab === 0 ? (
+                  <NFTActivityInfoSection activityList={activityList} />
+                ) : activeTab === 1 ? (
                   <div>
                     {collectionId && (
                       <MoreCollectionSection
@@ -278,9 +306,22 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
                     <MoreCategorySection categories={categories} />
                   </div>
-                </div>
+                ) : (
+                  merchToggle && (
+                    <ShopApparelSection
+                      title="Shop Apparel"
+                      type="apparel"
+                      nftDetail={nftDetail}
+                      shopApparelList={ShopApparelList}
+                      openMerchPage={data => {
+                        setMerchData(data)
+                        setOpenMerchPage(true)
+                      }}
+                    />
+                  )
+                )}
               </div>
-            )}
+            </div>
           </div>
         )}
       </div>
