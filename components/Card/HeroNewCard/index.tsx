@@ -167,7 +167,7 @@ const HeroNewCard = ({ data }) => {
             ) : (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
-                  <p>{data.nft_name}</p>
+                  <p className="min-w-max">{data.nft_name}</p>
                 </a>
               </Link>
             )}
