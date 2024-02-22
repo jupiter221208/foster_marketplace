@@ -53,6 +53,7 @@ import GradientButton from 'components/Button/GradientButton'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
+import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 
 const Explore = () => {
   const router = useRouter()
@@ -656,6 +657,19 @@ const Explore = () => {
                               }}
                               price={item.price}
                             />
+                          ) : !item.end_time && item.price ? (
+                            <ListedNftCardExplore
+                              nftName={item.name}
+                              token_id={item.token_id}
+                              artistName={item.creator}
+                              image={item.image}
+                              price={item.price}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                              }}
+                            />
                           ) : (
                             <NFTCard
                               token_id={item.token_id}
@@ -671,6 +685,19 @@ const Explore = () => {
                               price={item.price}
                             />
                           )
+                        ) : !item.end_time && item.price ? (
+                          <ListedNftCardExplore
+                            nftName={item.name}
+                            token_id={item.token_id}
+                            artistName={item.creator}
+                            image={item.image}
+                            price={item.price}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                            }}
+                          />
                         ) : (
                           <NFTCard
                             token_id={item.token_id}
@@ -682,7 +709,6 @@ const Explore = () => {
                             collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
-                              router.push(item.url)
                             }}
                             price={item.price}
                           />
