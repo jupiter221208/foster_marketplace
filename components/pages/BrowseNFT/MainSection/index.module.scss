@@ -234,11 +234,20 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
   color: var(--main-bg-color);
   margin: 10px 18px;
+  text-align: center;
   @media (min-width: 1024px) {
+    margin: 0px;
     height: 53px;
     margin-top: 15px;
     border-radius: 12px;
-    font-size: 20px;
+    font-size: 14px;
+    font-family: 'Muli-SemiBold';
+  }
+  @media (min-width: 1440px) {
+    font-size: 16px;
+  }
+  @media (min-width: 1600px) {
+    font-size: 18px;
   }
 }
 
