@@ -408,42 +408,31 @@
 }
 
 .categories {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  font-family: 'Muli-Light';
+  font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .whiteDescription {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 18px;
   color: var(--text-gray-200-color);
 }
 
 .greenRoyalties {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 13px;
-    line-height: 16px;
-    font-family: 'Muli-SemiBold';
-  }
   padding: 5px 16px;
   color: var(--text-gray-200-color);
 }
 
 .whiteRoyalties {
-  font-family: 'Muli-Light';
-  font-size: 12px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  font-family: 'Muli-Regular';
+  font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .skeletonLoader:empty {
@@ -492,5 +481,5 @@
 }
 
 .bg_text_gray_025 {
-  background: rgba(var(--text-gray-200-color-rgb), 0.25);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
 }
