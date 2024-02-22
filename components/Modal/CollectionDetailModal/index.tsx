@@ -28,6 +28,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { useRouter } from 'next/router'
 
 // apis
+import collectionsAPI from 'apis/collections'
 
 const CollectionDetailModal = props => {
   const { open, close, data } = props
@@ -75,10 +76,10 @@ const CollectionDetailModal = props => {
    
     let updateInput: UpdateNftInput = { nftOrSft: chainNft }
     if (artName != chainNft.name) updateInput.name = artName
-
+    let newImageUrl = ''
     if (selectedFile !== null) {
       let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
-      let newImageUrl = await storage.upload(metaplexFile)
+      newImageUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.image) {
           file.url = newImageUrl
@@ -100,8 +101,26 @@ const CollectionDetailModal = props => {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
 
-
+        let params = {
+          collectionName: artName,
+          description: artDesc
+        }
         
+        if (newImageUrl.length > 0) {
+          params["coverImage"] = newImageUrl
+        }
+       
+        await collectionsAPI
+        .updateCollection(data.collection_id, params)
+        .then(
+          response => {
+            console.log(response)
+          },
+          error => {
+            console.log(error)
+            setLoading(false)
+          }
+        )
         setTimeout(() => {
           router.reload()
         }, 3000)

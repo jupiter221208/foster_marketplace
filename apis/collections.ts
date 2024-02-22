@@ -12,7 +12,7 @@ class Collections {
   }
 
   updateCollection(collection_id, collectionInfo) {
-    return client.post(API_URL + 'v1/collections/' + collection_id, collectionInfo).then(response => {
+    return client.patch(API_URL + 'v1/collections/' + collection_id, collectionInfo).then(response => {
       return response.data
     })
   }
