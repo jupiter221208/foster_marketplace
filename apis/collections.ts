@@ -11,6 +11,12 @@ class Collections {
     })
   }
 
+  updateCollection(collection_id, collectionInfo) {
+    return client.post(API_URL + 'v1/collections/' + collection_id, collectionInfo).then(response => {
+      return response.data
+    })
+  }
+
   getCollection(collection_id) {
     return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
       return response.data

@@ -200,8 +200,8 @@ const EditMetaModal = props => {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
         let params = {
-          nft_name: artName,
-          asset_type: nftType
+          nftName: artName,
+          assetType: nftType
         }
         if (categoryList.length > 0) {
           let category = ''
@@ -211,7 +211,10 @@ const EditMetaModal = props => {
           params["categories"] = category.slice(0, -1)
         }
         if (newImageUrl.length > 0) {
-          params["cover_image_url"] = newImageUrl
+          params["coverImageUrl"] = newImageUrl
+          if (nftType === 'image') {
+            params["assetUrl"] = newImageUrl
+          }
         }
         if (royaltyChanged) {
           params["royalties"] = newRoyalty.toString()

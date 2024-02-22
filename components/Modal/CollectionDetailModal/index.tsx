@@ -99,6 +99,9 @@ const CollectionDetailModal = props => {
       try {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
+
+
+        
         setTimeout(() => {
           router.reload()
         }, 3000)
