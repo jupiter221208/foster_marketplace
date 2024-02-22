@@ -10,7 +10,7 @@ const Tab01 = props => {
   const { tabList, onChange } = props
   return (
     <HTab.Group>
-      <HTab.List className="flex">
+      <HTab.List className="flex overflow-x-scroll">
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
             <TabItem item={item} onChange={onChange} />

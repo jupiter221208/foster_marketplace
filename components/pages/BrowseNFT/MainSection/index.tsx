@@ -551,6 +551,18 @@ const MainSection = ({
     }
   }
 
+  // Short description feature
+  const [isTruncated, setIsTruncated] = useState(true)
+  const [tempNftDescription, setTempNftDescription] = useState('')
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 160) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 160
+  useEffect(() => {
+    setTempNftDescription(nftDescription)
+  }, [nftDescription])
+  function toggleIsTruncated() {
+    setIsTruncated(!isTruncated)
+  }
+
   const reloadCreatorOwnerName = async () => {
     let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
 
@@ -955,7 +967,9 @@ const MainSection = ({
                     </div>
 
                     {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
-                      <div className="cursor-pointer flex gap-[10px] items-center">
+                      <div
+                        className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
+                      >
                         {merchToggle ? (
                           <MerchToggleEnabledIcon
                             alt=""
@@ -1082,9 +1096,16 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className="w-full max-h-[212px] mt-[28px]">
+                <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
                   {nftDescription ? (
-                    <div className={styles.whiteDescription}>{nftDescription}</div>
+                    <div className={styles.whiteDescription}>
+                      {processedNftDescription}
+                      {shouldShowReadMore && (
+                        <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                          {isTruncated ? '... Read more' : ' Show less'}
+                        </span>
+                      )}
+                    </div>
                   ) : (
                     <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
                   )}
@@ -1109,7 +1130,9 @@ const MainSection = ({
                   </div>
                   <div className="flex flex-col gap-2 text-center">
                     <div className={styles.whiteRoyalties}>Royalties</div>
-                    <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
+                    <div className={`${styles.greenRoyalties} ${styles.bg_text_gray_025} rounded-3xl`}>
+                      {nftRoyalties}%
+                    </div>
                   </div>
                 </div>
 

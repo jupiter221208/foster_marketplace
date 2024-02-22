@@ -189,7 +189,7 @@ const HeroNewCard = ({ data }) => {
           </div>
         </div>
         <div className="h-full flex items-center">
-          <div className={styles.listedFor}>Listed For</div>
+          <div className={styles.listedFor}>Listed for</div>
           <div className="mt-1 ml-[9px]">
             <SolanaIcon alt="" />
           </div>

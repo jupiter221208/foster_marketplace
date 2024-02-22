@@ -176,3 +176,13 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
+
+.label {
+  color: rgb(var(--text-gray-200-color-rgb), 0.9);
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  @media (max-width: 1024px) {
+    font-family: 'Muli-Light';
+    font-size: 10px;
+  }
+}
