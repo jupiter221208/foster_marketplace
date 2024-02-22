@@ -1,24 +1,18 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  padding-left: 6px;
-  padding-right: 6px;
-  height: 21px;
-  font-size: 12px;
-  line-height: 21px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 16px;
+  padding: 5px 16px;
+  color: var(--text-gray-200-color);
   margin-right: 6px;
   @media (min-width: 1024px) {
-    padding-left: 10px;
-    padding-right: 10px;
     height: 25px;
-    font-size: 12px;
-    line-height: 24px;
     margin-right: 8px;
   }
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   border-radius: 16px;
-  font-family: 'Muli-SemiBold';
   display: flex;
   align-items: center;
   justify-content: center;
