@@ -274,7 +274,7 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
 }
 
 export function getNFTCategories(nft): string[] {
-  return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
+  return nft?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 
 export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): PublicKey | null {
@@ -360,6 +360,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
   let category = determineCategory(content.files)
+  console.log('DAS: ', content.metadata.attributes)
   return {
     mintAddress: address,
     metadataAddress: metaplex
