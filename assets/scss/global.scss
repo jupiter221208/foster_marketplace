@@ -334,6 +334,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: Mulish;
+  background-color: #242424;
 }
 
 h1 {
@@ -1686,6 +1687,13 @@ h6 {
   fill: var(--secondary-button-border);
 }
 
+[data-name='edit-edition'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.1);
+  [data-fill='a'] {
+    stroke: var(--main-bg-color);
+  }
+}
+
 [data-name='menu-item-merch-hover'] {
   fill: var(--secondary-button-border);
   stroke: var(--secondary-button-border);
@@ -1738,6 +1746,13 @@ h6 {
 
 [data-name='main-color-icon'] {
   fill: var(--main-bg-color);
+}
+
+[data-name='fullscreen-icon'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.03);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
+  }
 }
 
 [data-name='main-stroke-icon'] {

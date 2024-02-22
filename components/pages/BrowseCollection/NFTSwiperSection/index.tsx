@@ -22,8 +22,15 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { NftData } from 'types/nft'
 
-const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
+type NFTSwiperSectionTypes = {
+  nfts: NftData[]
+  collectionName: string
+  showHideButton: any
+}
+
+const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSectionTypes) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -37,7 +44,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
 
   useEffect(() => {
     if (nfts) {
-      const listeNfts = nfts.filter(item => item.list_price != null)
+      const listeNfts = nfts.filter(item => item.auction?.list_price != null)
       setQuickBuyNfts(listeNfts)
 
       setNFTList(nfts.slice(0, rowCount))
@@ -114,19 +121,19 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
             {nftList.map((item, index) => (
               <div className="col-span-6 lg:col-span-3" key={index}>
                 <NFTCard
-                  token_id={item.token_id}
-                  image={item.asset_url}
-                  nftName={item.nft_name}
-                  assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
-                  artistName={item.artist_username}
+                  token_id={item.id}
+                  image={item.content.files[1]?.uri}
+                  nftName={item.content.metadata.name}
+                  assetType={item.category}
+                  coverImage={item.content.files[0]?.cdn_uri || item.content.files[0]?.uri || item.content.links.image}
+                  artistName={item.creators[0].artist_username}
                   collectionName={collectionName}
-                  artistId={item.artist_id}
-                  price={item.list_price}
+                  artistId={item.creators[0].address}
+                  price={item.auction?.list_price}
                   showHideButton={showHideButton}
                   onClick={() => {
-                    let token_id = item.mintAddress
-                    if (token_id === null || token_id === undefined) token_id = item.token_id
+                    let token_id = item.id
+                    if (token_id === null || token_id === undefined) token_id = item.id
                     if (token_id !== null && token_id !== undefined) {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/nft/${token_id.toString()}`)

@@ -6,7 +6,6 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
@@ -17,8 +16,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
-const HeroCardMobile = props => {
-  const { data } = props
+const HeroCardMobile = ({ data }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)

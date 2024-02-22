@@ -23,13 +23,15 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { getEACollectionInfo } from 'utils/collection.util'
+import { getCollectionFromDAS, getEACollectionInfo, getNftData } from 'utils/collection.util'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import { parseCookies } from 'utils'
 import TabSection from './TabSection'
 import EASection from './EASection'
+import { NftData } from 'types/nft'
+import { determineCategory } from 'utils/nfts.utils'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -44,14 +46,13 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [collectionData, setCollectionData] = useState()
-  const [nfts, setNfts] = useState([])
+  const [nfts, setNfts] = useState<NftData[]>([])
   const [loaded, setLoaded] = useState(false)
   const address = publicCollectionData?.collection_id
 
   const [hasloading, setHasLoading] = useState(false)
   const [showEAPreview, setShowEAPreview] = useState(false)
   const [importMintList, setImportMintList] = useState<string[]>([])
-
   useEffect(() => {
     setTimeout(
       () =>
@@ -72,13 +73,49 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       try {
         setLoaded(false)
         setHasLoading(true)
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) {
-          setNfts(collectionNfts)
-          fetchNftData(collectionNfts)
-        }
 
-        setHasLoading(false)
+        const result = await getCollectionFromDAS(address)
+
+        if (result) {
+          let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+          let sortedCollectionNfts = result
+            .map(r => {
+              return collectionNfts.find(nft => nft.token_id === r.id)
+            })
+            .filter(nft => nft !== undefined)
+
+          if (sortedCollectionNfts && result) {
+            let newNftsArr: NftData[] = [...result]
+
+            newNftsArr.map((data, index) => {
+              newNftsArr[index].category = determineCategory(data.content.files)
+            })
+
+            sortedCollectionNfts.map((data, index) => {
+              newNftsArr[index].mintAddress = data.token_id
+              newNftsArr[index].creators[0].artist_username = data.artist_username
+              newNftsArr[index].auction = {
+                current_bid: data.current_bid,
+                start_time: data.start_time,
+                end_time: data.end_time,
+                list_price: data.list_price,
+              }
+            })
+            var filteredNfts = newNftsArr.filter(
+              (arr, index, self) =>
+                index ===
+                self.findIndex(
+                  t =>
+                    t.content.json_uri === arr.content.json_uri && t.content.metadata.name === arr.content.metadata.name
+                )
+            )
+            setNfts(filteredNfts)
+            fetchNftData(filteredNfts)
+          }
+
+          setHasLoading(false)
+        }
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -94,7 +131,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       ;(async () => {
         for (let index = 0; index < nfts.length; index++) {
           let data = nfts[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
+          fetch(`/nft/${data.id}`).then(e => e.text())
           if (index % 3 == 2) {
             await sleep(1000)
           }
@@ -246,6 +283,12 @@ BrowseCollection.getInitialProps = async function ({ req, query }): Promise<Brow
         created_at: '',
       }
     }
+
+    // Get collection metadata
+    const { content } = await getNftData(collectionId)
+    publicCollectionData.collection_name = content.metadata.name
+    publicCollectionData.description = content.metadata.description
+    publicCollectionData.cover_image = content.links.image
 
     return {
       publicCollectionData,

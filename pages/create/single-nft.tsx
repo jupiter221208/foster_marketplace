@@ -24,7 +24,6 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -164,7 +163,6 @@ const SingleNft = () => {
           let array = dimensionList
           array[0].value = [width, height]
           setDimensionList(array)
-          const ratio = height / width
 
           let windowWidth = 0
           switch (viewport) {
@@ -239,7 +237,6 @@ const SingleNft = () => {
           let array = dimensionList
           array[0].value = [width, height]
           setDimensionList(array)
-          const ratio = height / width
 
           let windowWidth = 0
           switch (viewport) {
@@ -277,8 +274,8 @@ const SingleNft = () => {
   }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
-  const [nftName, setNftName] = useState<any>('')
-  const [description, setDescription] = useState<any>('')
+  const [nftName, setNftName] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [showCategoryList, setShowCategoryList] = useState<boolean>(false)
 
@@ -328,7 +325,7 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
-  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
+  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>()
   const { refreshToken } = useAuthentication()
 
   // step 3
@@ -345,7 +342,6 @@ const SingleNft = () => {
 
   const createNft = async () => {
     try {
-      // dispatch({ type: 'set', isLoading: true })
       setIsMinting(true)
       await refreshToken()
 
@@ -353,8 +349,8 @@ const SingleNft = () => {
         .filter(({ checked }) => checked)
         .map(({ name }) => ({ trait_type: 'category', value: name }))
 
-      let trimmedNftName = nftName.trim()
-      let trimmedDescription = description.trim()
+      let trimmedNftName: string = nftName.trim()
+      let trimmedDescription: string = description.trim()
       const metadata: JsonMetadata = {
         name: trimmedNftName,
         description: trimmedDescription,
@@ -401,10 +397,9 @@ const SingleNft = () => {
       ]
       if (animationFile)
         metadata.properties.files.push({
-          type: animationFile.contentType,
+          type: metadata.properties.category === 'vr' ? 'vr' : animationFile.contentType,
           url: metadata.animation_url,
         })
-
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
@@ -537,6 +532,7 @@ const SingleNft = () => {
                           path={nftUrl}
                           width={width}
                           height={height}
+                          preserveDrawingBuffer
                           getSnapshot={{
                             onSnapshot: image => {
                               setNftImage(URL.createObjectURL(image))
@@ -801,6 +797,7 @@ const SingleNft = () => {
                       path={nftUrl}
                       width={width}
                       height={height}
+                      preserveDrawingBuffer
                       getSnapshot={{
                         onSnapshot: image => {
                           setNftImage(URL.createObjectURL(image))
@@ -1060,20 +1057,6 @@ const SingleNft = () => {
                     </div>
                   </div>
                 )}
-                {/* {currentStep === 3 && (
-                  <div className="w-[161px]">
-                    <Button
-                      label="Back"
-                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                      fullWidth
-                      height="45px"
-                      backgroundColor="transparent"
-                      color="var(--main-bg-color)"
-                      borderColor="var(--back-btn-border-mobile)"
-                      borderWidth={1}
-                    />
-                  </div>
-                )} */}
               </div>
             </div>
           )}

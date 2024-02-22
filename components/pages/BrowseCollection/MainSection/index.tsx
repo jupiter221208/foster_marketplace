@@ -34,6 +34,7 @@ import collectionAPI from 'apis/collections'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
 
 const MainSection = props => {
   const { nfts, data, publicKey, hasloading } = props
@@ -57,6 +58,8 @@ const MainSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [banner, setBanner] = useState<any>()
+  const [editCollection, setEditCollection] = useState(false)
+
   useEffect(() => {
     if (data) {
       setTotalVolume(data.total_volume)
@@ -81,7 +84,7 @@ const MainSection = props => {
     let prices = []
     if (nfts)
       nfts.forEach(nft => {
-        if (nft.list_price) prices.push(parseFloat(nft.list_price))
+        if (nft?.auction?.list_price) prices.push(parseFloat(nft.auction.list_price))
       })
     setFloorPrice(prices.length === 0 ? 0 : Math.min.apply(Math, prices))
   }, [nfts])
@@ -247,7 +250,19 @@ const MainSection = props => {
                     />
                   </div>
                 )}
-                {publicKey?.toBase58() !== data?.minter_id && (
+                {publicKey?.toBase58() === data?.minter_id ? (
+                  <div className="ml-[24px]">
+                    <OutlineButton
+                      width={100}
+                      height={45}
+                      borderRadius={12}
+                      borderWidth={2}
+                      borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+                      label="Edit"
+                      onClick={() => setEditCollection(true)}
+                    />
+                  </div>
+                ) : (
                   <div className="w-[100px] overflow-hidden rounded-[12px] ml-[24px]">
                     {saved ? (
                       hasloading ? (
@@ -379,7 +394,19 @@ const MainSection = props => {
                       </div>
                     )}
 
-                    {publicKey?.toBase58() !== data?.minter_id && (
+                    {publicKey?.toBase58() === data?.minter_id ? (
+                      <div className="ml-[14px]">
+                        <OutlineButton
+                          width={67}
+                          height={29}
+                          borderRadius={8}
+                          borderWidth={1}
+                          borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+                          label="Edit"
+                          onClick={() => setEditCollection(true)}
+                        />
+                      </div>
+                    ) : (
                       <div className="w-[70px] overflow-hidden rounded-[6px] ml-[11px] lg:ml-[24px]">
                         {saved ? (
                           hasloading ? (
@@ -520,6 +547,10 @@ const MainSection = props => {
           message={'Check out this collection on @foster_protocol #fostermarketplace'}
           url={`/collection/${data?.collection_id}`}
         />
+      )}
+
+      {editCollection && (
+        <CollectionDetailModal open={editCollection} close={() => setEditCollection(false)} data={data} />
       )}
     </div>
   )

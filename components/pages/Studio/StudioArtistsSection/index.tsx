@@ -24,6 +24,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import Artist from 'assets/images/dashboard-avatar.png'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -71,8 +72,23 @@ const TopRatedArtistsSection = () => {
       <div className="w-full flex justify-between items-center z-10 mb-[30px]">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex justify-center items-center z-10">
+            <div className="w-full flex justify-between items-center z-10">
               <div className={styles.title}>Studio Artists</div>
+              <div className="flex gap-[8px] items-center">
+                <div
+                  className={styles.seeMore}
+                  onClick={() => {
+                    setSeed(Math.random())
+                    setRefresh(new Date())
+                    setLoading(true)
+                    setIsFetching(true)
+                    setIsVisibleFetching(true)
+                  }}
+                >
+                  See More
+                </div>
+                <ArrowRightGreenIcon alt="" />
+              </div>
             </div>
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Studio&nbsp;Artists</div>
@@ -122,11 +138,6 @@ const TopRatedArtistsSection = () => {
             initialSlide={5}
             modules={[Autoplay, Lazy, Navigation]}
             className={artistsList.length > 5 ? 'artistNavigationSwiper' : 'noScrollNavigationSwiper'}
-            // loop
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
           >
             <div>
               {artistsList.length !== 0 &&
@@ -152,20 +163,6 @@ const TopRatedArtistsSection = () => {
             </div>
           </Swiper>
         )}
-      </div>
-      <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
-        <div className="w-full max-w-[242px] z-10">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => {
-              setSeed(Math.random())
-              setRefresh(new Date())
-            }}
-            borderColor={'var(--see-more-border)'}
-            height="40px"
-          />
-        </div>
       </div>
       {loading && isVisibleFetching && (
         <div className="w-full mt-[-100px]">

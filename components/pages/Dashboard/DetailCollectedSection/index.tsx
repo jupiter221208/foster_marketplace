@@ -11,14 +11,15 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import NFTCard from 'components/Card/NFTCard'
+import { NftData } from 'types/nft'
 
 const DetailCollectedSection = props => {
   const { collectionId } = props
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const [nftList, setNFTList] = useState([])
-  const [allNftList, setAllNftList] = useState([])
+  const [nftList, setNFTList] = useState<NftData[]>([])
+  const [allNftList, setAllNftList] = useState<NftData[]>([])
 
   useEffect(() => {
     if (collectionId !== null) {

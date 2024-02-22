@@ -4,6 +4,7 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
+export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
   let difference = getTimeDifferenceWithAuction(endDate)
@@ -490,7 +491,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(243, 242, 240, 0.5')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(243, 242, 240, 0.85)')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
     doc.style.setProperty('--live-auction-card', '#FFF')
@@ -817,7 +818,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(26, 26, 26, 0.5)')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(26, 26, 26, 0.85)')
     doc.style.setProperty('--hide-nft-border-color', '#95dbd5')
     doc.style.setProperty('--category-chip-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--live-auction-card', '#1b1b1b')

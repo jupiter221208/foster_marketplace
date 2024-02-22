@@ -369,7 +369,7 @@ const MainSection = prop => {
                     backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
+                      localStorage.setItem('isVisibleSocialBoard', 'false')
                       inputBannerFile.current.click()
                     }}
                   />

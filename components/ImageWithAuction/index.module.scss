@@ -10,7 +10,8 @@
 .card img {
   width: auto !important;
   height: auto !important;
-  min-width: auto !important;
-  min-height: auto !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
   box-shadow: 0px 0px 30px rgba(#000000, 0.25);
 }

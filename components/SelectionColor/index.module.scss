@@ -20,11 +20,12 @@
   width: 120px;
   color: var(--text-gray-200-color);
 }
+
 .selected {
   width: 66px;
   height: 66px;
   border-radius: 33px;
-  border: 3px solid var(--main-icon-color);
+  border: 1px solid var(--main-icon-color);
   cursor: pointer;
   overflow: hidden;
 }
@@ -40,4 +41,5 @@
   border-width: 0px;
   cursor: pointer;
   overflow: hidden;
+  border: 1px solid rgb(var(--main-bg-color-rgb), 0.25);
 }

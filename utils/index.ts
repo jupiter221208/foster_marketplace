@@ -3,7 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { useDispatch } from 'react-redux'
 
-import { type Connection, type TransactionInstruction, Transaction } from '@solana/web3.js'
+import type { AccountInfo, Connection, GetMultipleAccountsConfig, TransactionInstruction } from '@solana/web3.js'
+import { PublicKey, Transaction } from '@solana/web3.js'
 
 export const useViewport = () => {
   const [viewport, setViewport] = useState('lg')
@@ -181,4 +182,51 @@ export async function splitIntoTransactions(instructions: TransactionInstruction
   }
 
   return transactions
+}
+
+export function splitArray<T>(array: T[], size: number): T[][] {
+  array = [...array]
+  let chunks = []
+  while (array.length > 0) chunks.push(array.splice(0, size))
+  return chunks
+}
+
+export async function getMultipleAccountsInfoBatched(
+  connection: Connection,
+  publicKeys: PublicKey[],
+  config?: GetMultipleAccountsConfig
+): Promise<(AccountInfo<Buffer> | null)[]> {
+  let batches = splitArray(publicKeys, 100).map((keys, index) => ({
+    jsonrpc: '2.0',
+    id: index,
+    method: 'getMultipleAccounts',
+    params: [
+      keys,
+      {
+        ...(config ?? {}),
+        encoding: 'base64',
+      },
+    ],
+  }))
+
+  let response = await fetch(connection.rpcEndpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(batches),
+  }).then(r => r.json())
+
+  return response
+    .sort((a, b) => a.id - b.id)
+    .flatMap(({ result: { value } }) => value)
+    .map(account => {
+      if (!account) return null
+      return {
+        executable: account.executable,
+        lamports: account.lamports,
+        owner: new PublicKey(account.owner),
+        data: Buffer.from(account.data[0], 'base64'),
+      }
+    })
 }

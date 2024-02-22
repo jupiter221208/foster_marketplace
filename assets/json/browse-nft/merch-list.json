@@ -1,0 +1,5 @@
+[
+  { "id": 0, "label": "History", "value": "History", "selected": false},
+  { "id": 1, "label": "Discover More", "value": "Discover More", "selected": true },
+  { "id": 2, "label": "Shop Merch", "value": "Shop Merch", "selected": true }
+]

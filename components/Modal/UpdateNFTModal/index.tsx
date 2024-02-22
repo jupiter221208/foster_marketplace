@@ -16,9 +16,20 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
-const UpdateNFTModal = props => {
-  const { data, open, onClose, onCancelList, onUpdatePrice } = props
+export interface UpdateNFTModalProps<T> {
+  data: {
+    category: string
+    name: string
+    animation_url?: string
+    image?: string
+  } & T
+  open: boolean
+  onClose: () => void
+  onCancelList: (data: T) => void
+  onUpdatePrice: (data: T, price: number) => void
+}
 
+const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }: UpdateNFTModalProps<T>) => {
   const closeModal = () => {
     setPrice(null)
     onClose()
@@ -75,17 +86,17 @@ const UpdateNFTModal = props => {
                   </svg>
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                {data?.properties?.category === 'audio' || data?.properties?.category === 'video' ? (
+                {['video'].includes(data?.category) ? (
                   <div
                     className="mt-[10px]"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
                     }}
                   />
                 ) : (
                   <img
-                    src={data?.json?.image ?? AudioPlayerBackground.src}
+                    src={data?.image ?? AudioPlayerBackground.src}
                     alt={data?.name}
                     className="w-full aspect-[321/321] mx-[30px] object-cover mt-[10px] lg:mt-[20px] rounded-[20px]"
                   />

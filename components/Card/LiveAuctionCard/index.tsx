@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -13,7 +12,6 @@ import { formattedAmount, getTimeDifference } from 'utils/helpers'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
-import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
@@ -30,6 +28,17 @@ const LiveAuctionCard = props => {
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
   const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    if (
+      data.asset_type.includes('video') &&
+      (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
+      data.cover_image_url == null
+    ) {
+      let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+      hidden_video.currentTime = 3
+    }
+  }, [data])
 
   const calculateAuctionTimeLeft = endDate => {
     let difference = getTimeDifference(endDate)
@@ -92,16 +101,15 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-          <a>
-            <div className={styles.imageContent}>
-              {data.asset_type.includes('video') ? (
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+        <div className={styles.imageContent}>
+          {data.asset_type.includes('video') ? (
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+                <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                  <a className="w-full h-full">
                     {play ? (
                       <div
                         className="w-full h-full absolute"
@@ -120,37 +128,46 @@ const LiveAuctionCard = props => {
                         className="w-full h-full object-contain"
                       />
                     ) : (
-                      <Image
-                        src={DefaultNftBG}
-                        alt=""
-                        layout="fill"
-                        className="w-full h-full object-contain"
+                      <div
+                        className="w-full h-full absolute"
+                        dangerouslySetInnerHTML={{
+                          __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+              <source src=${data.asset_url} type="video/mp4" /></video>`,
+                        }}
                         onClick={() => onClick()}
                       />
                     )}
-                    <div className={styles.playButton}>
-                      <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                        <Image
-                          src={play ? PauseVideoIcon : PlayVideoIcon}
-                          width={18}
-                          height={18}
-                          alt=""
-                          onClick={() => setPlay(!play)}
-                        />
-                      </div>
-                    </div>
+                  </a>
+                </Link>
+                <div className={styles.playButton}>
+                  <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                    <Image
+                      src={play ? PauseVideoIcon : PlayVideoIcon}
+                      width={18}
+                      height={18}
+                      alt=""
+                      onClick={() => setPlay(!play)}
+                    />
                   </div>
-                ) : (
+                </div>
+              </div>
+            ) : (
+              <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                <a>
                   <div
-                    className="w-full"
+                    className="w-full h-full"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
                     onClick={() => onClick()}
                   />
-                )
-              ) : data.asset_type.includes('audio') ? (
+                </a>
+              </Link>
+            )
+          ) : data.asset_type.includes('audio') ? (
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
                 <div className="w-full h-full">
                   {!loaded && (
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
@@ -166,7 +183,23 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 </div>
-              ) : (
+              </a>
+            </Link>
+          ) : data.cover_image_url ? (
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
+                <ImageWithAuction
+                  src={data.cover_image_url}
+                  onClick={onClick}
+                  layout="fill"
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </a>
+            </Link>
+          ) : (
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
                 <ImageWithAuction
                   src={data.asset_url}
                   onClick={onClick}
@@ -174,12 +207,35 @@ const LiveAuctionCard = props => {
                   alt=""
                   className="w-full h-full object-contain"
                 />
-              )}
-            </div>
+              </a>
+            </Link>
+          )}
+        </div>
+      </div>
+      <div className={styles.profileContainer}>
+        <div>
+          <Link href={`/nft/${data.token_id}`} passHref>
+            <a>
+              <div className={styles.nftName}>{data?.nft_name}</div>
+            </a>
+          </Link>
+          <Link href={`/${data.artist_username}`} passHref>
+            <a>
+              <div className={styles.artistName}>{data?.artist_username}</div>
+            </a>
+          </Link>
+        </div>
+        <Link href={`/${data.artist_username}`} passHref>
+          <a>
+            <img
+              src={data?.artist_profile_picture}
+              onClick={() => {}}
+              alt=""
+              className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+            />
           </a>
         </Link>
       </div>
-
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
           <div>

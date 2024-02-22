@@ -79,6 +79,11 @@ class Nfts {
       return response.data
     })
   }
+  update(token_id, nftInfo) {
+    return client.patch(API_URL + 'v1/nfts/' + token_id, nftInfo).then(response => {
+      return response.data
+    })
+  }
   get(token_id) {
     return client.get(API_URL + 'v1/nfts/public/' + token_id).then(response => {
       return response.data
