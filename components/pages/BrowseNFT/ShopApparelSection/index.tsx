@@ -32,8 +32,8 @@ const ShopApparelSection = props => {
 
   const openPage = item => {
     const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
-    const nftCoverUrl = nftDetail.json?.image ?? ''
-    const mintAddress = nftDetail.address.toString()
+    const nftCoverUrl = nftDetail.image ?? ''
+    const mintAddress = nftDetail.mintAddress
     let params = {
       nftName,
       nftCoverUrl,
@@ -70,7 +70,7 @@ const ShopApparelSection = props => {
                   {type === 'apparel' ? (
                     <ShopCard
                       data={item}
-                      nftCoverUrl={nftDetail.json?.image ?? ''}
+                      nftCoverUrl={nftDetail.image ?? ''}
                       onClick={() => {
                         openPage(item)
                       }}
