@@ -18,10 +18,15 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 export interface UpdateNFTModalProps<T> {
   data: {
-    name?: string
-    image?: string
-    animation_url?: string
-    category?: string
+    json?: {
+      name?: string
+      image?: string
+      animation_url?: string
+      category?: string
+      properties?: {
+        category?: string
+      }
+    }
   } & T
   open: boolean
   onClose: () => void
@@ -86,22 +91,22 @@ const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }
                   </svg>
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                {['audio', 'video'].includes(data?.category) ? (
+                {['video'].includes(data?.json.properties.category) ? (
                   <div
                     className="mt-[10px]"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.json?.animation_url} type="video/mp4" /></video>`,
                     }}
                   />
                 ) : (
                   <img
-                    src={data?.image ?? AudioPlayerBackground.src}
-                    alt={data?.name}
+                    src={data?.json?.image ?? AudioPlayerBackground.src}
+                    alt={data?.json?.name}
                     className="w-full aspect-[321/321] mx-[30px] object-cover mt-[10px] lg:mt-[20px] rounded-[20px]"
                   />
                 )}
-                <div className={`${styles.nftName} mt-4 w-full`}>{data?.name}</div>
+                <div className={`${styles.nftName} mt-4 w-full`}>{data?.json?.name}</div>
                 <div className={styles.priceArea}>
                   <PriceInput
                     value={price}
