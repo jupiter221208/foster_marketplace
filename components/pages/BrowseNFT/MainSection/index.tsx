@@ -551,6 +551,17 @@ const MainSection = ({
     }
   }
 
+  // Short description feature
+  const [isTruncated, setIsTruncated] = useState(true)
+  const [shortNftDescription, setShortNftDescription] = useState('')
+  const resultString = isTruncated ? shortNftDescription.slice(0, 160) : shortNftDescription
+  useEffect(() => {
+    setShortNftDescription(nftDescription)
+  }, [nftDescription])
+  function toggleIsTruncated() {
+    setIsTruncated(!isTruncated)
+  }
+
   const reloadCreatorOwnerName = async () => {
     let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
 
@@ -1082,9 +1093,14 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className="w-full max-h-[212px] mt-[28px]">
+                <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
                   {nftDescription ? (
-                    <div className={styles.whiteDescription}>{nftDescription}</div>
+                    <div className={styles.whiteDescription}>
+                      {resultString}
+                      <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                        {isTruncated ? '... Read more' : ' Show less'}
+                      </span>
+                    </div>
                   ) : (
                     <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
                   )}
