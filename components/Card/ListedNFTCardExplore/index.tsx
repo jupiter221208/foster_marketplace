@@ -181,7 +181,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         <div className={styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center justify-between">
-              <div className={styles.currentBid}>Fixed Price</div>
+              <div className={styles.label}>Fixed Price</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[5px]">
               <div className="flex justify-center items-center mt-[2px]">
