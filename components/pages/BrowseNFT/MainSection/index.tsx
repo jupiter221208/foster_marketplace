@@ -1202,7 +1202,18 @@ const MainSection = ({
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
                           />
-
+                          {isOwnNft === true ? (
+                            <div className="p-[15px] lg:p-0 lg:mt-[15px]">
+                              <button
+                                className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
+                                onClick={() => nftCurrentPrice === 0 && cancelAuction()}
+                              >
+                                Cancel Auction
+                              </button>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
                           {showPlaceBidButton &&
                             !isOwnNft &&
                             (loading ? (
