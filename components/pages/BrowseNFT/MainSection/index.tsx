@@ -553,10 +553,11 @@ const MainSection = ({
 
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
-  const [shortNftDescription, setShortNftDescription] = useState('')
-  const resultString = isTruncated ? shortNftDescription.slice(0, 160) : shortNftDescription
+  const [tempNftDescription, setTempNftDescription] = useState('')
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 160) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 160
   useEffect(() => {
-    setShortNftDescription(nftDescription)
+    setTempNftDescription(nftDescription)
   }, [nftDescription])
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
@@ -1096,10 +1097,12 @@ const MainSection = ({
                 <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
                   {nftDescription ? (
                     <div className={styles.whiteDescription}>
-                      {resultString}
-                      <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                        {isTruncated ? '... Read more' : ' Show less'}
-                      </span>
+                      {processedNftDescription}
+                      {shouldShowReadMore && (
+                        <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                          {isTruncated ? '... Read more' : ' Show less'}
+                        </span>
+                      )}
                     </div>
                   ) : (
                     <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
