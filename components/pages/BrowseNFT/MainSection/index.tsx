@@ -1130,7 +1130,9 @@ const MainSection = ({
                   </div>
                   <div className="flex flex-col gap-2 text-center">
                     <div className={styles.whiteRoyalties}>Royalties</div>
-                    <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
+                    <div className={`${styles.greenRoyalties} ${styles.bg_text_gray_025} rounded-3xl`}>
+                      {nftRoyalties}%
+                    </div>
                   </div>
                 </div>
 
