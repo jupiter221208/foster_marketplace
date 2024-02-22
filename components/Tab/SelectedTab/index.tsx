@@ -4,17 +4,16 @@ import React, { Fragment } from 'react'
 import { Tab as HTab } from '@headlessui/react'
 
 // styles
-import styles from './index.module.scss'
 import TabItem from './TabItem'
 
 const Tab01 = props => {
-  const { tabList, onChange, type = 'image' } = props
+  const { tabList, onChange } = props
   return (
     <HTab.Group>
-      <HTab.List className="flex">
+      <HTab.List className="flex overflow-x-scroll">
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
-            <TabItem item={item} onChange={onChange} type={type} />
+            <TabItem item={item} onChange={onChange} />
           </HTab>
         ))}
       </HTab.List>

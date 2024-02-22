@@ -1748,6 +1748,13 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='fullscreen-icon'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.03);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
+  }
+}
+
 [data-name='main-stroke-icon'] {
   stroke: var(--main-bg-color);
 }

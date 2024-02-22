@@ -1,6 +1,6 @@
 export interface NftData {
-  mintAddress?: string
-  metadataAddress?: string
+  mintAddress: string
+  metadataAddress: string
   tokenAccount?: {
     address?: string
     delegate?: string | null
@@ -16,11 +16,11 @@ export interface NftData {
   animation_url?: string
   original?: {
     image?: string
-    animationUrl?: string
+    animation_url?: string
   }
   optimized?: {
     image?: string
-    animationUrl?: string
+    animation_url?: string
   }
 
   sellerFeeBasisPoints?: number
@@ -150,11 +150,11 @@ export interface DashboardAPIData {
 }
 
 export interface ListingsAPIData {
-  address?: string
+  address: string
   name?: string
   uri?: string
   sellerAddress?: string
-  tradeStateAddress?: string
+  tradeStateAddress: string
   price?: number
   creatorAddress?: string
   startTime?: number

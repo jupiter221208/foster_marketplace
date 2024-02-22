@@ -18,7 +18,7 @@ import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 
 const StudioReleaseCard = props => {
-  const { type, token_id, image, userName, nftName, coverImage = '', onClick, nftImage } = props
+  const { type = 'release', token_id, image, userName = '', nftName, coverImage = '', onClick, nftImage } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
@@ -145,7 +145,7 @@ const StudioReleaseCard = props => {
           </div>
         </div>
       </div>
-      <div className={styles.nftName}>{userName}</div>
+      {userName.length > 0 && <div className={styles.nftName}>{userName}</div>}
       <div className="flex flex-row mt-[5px] items-center justify-center">
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className={styles.cost}>

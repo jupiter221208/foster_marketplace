@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // third party components
@@ -28,14 +27,23 @@ import styles from './index.module.scss'
 import AuctionsAPI from 'apis/auctions'
 
 // solana
+import { PublicKey } from '@solana/web3.js'
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const AuctionDetail = props => {
-  const { data, onSuccess, onClose, onRefreshPage } = props
+export interface AuctionDetailProps {
+  data: {
+    mintAddress: string
+    name?: string
+  }
+  onSuccess: (name: string) => void
+  onClose: () => void
+  onRefreshPage?: () => void
+}
 
+const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetailProps) => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -86,7 +94,7 @@ const AuctionDetail = props => {
       setIsLoading(true)
       const { auction } = await startAuction(
         mx,
-        data.mintAddress,
+        new PublicKey(data.mintAddress),
         startDate,
         endDate,
         Number(reservePrice),
@@ -111,9 +119,9 @@ const AuctionDetail = props => {
         end_phase_bid_increment: parseFloat(endBidIncrement),
       }).then(res => {
         if (res) {
-          onSuccess(data?.json?.name)
+          onSuccess(data?.name)
           // setIsLoading(false)
-          onRefreshPage()
+          onRefreshPage?.()
         }
       })
     } catch (e: any) {

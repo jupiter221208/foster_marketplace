@@ -1,14 +1,5 @@
 @import 'assets/scss/variable.module.scss';
 
-.topLeftEllipse {
-  position: absolute;
-  top: -1160px;
-  left: -1160px;
-  z-index: 0;
-  opacity: 0.25;
-}
-
-// left part
 .leftContainer {
   width: 100%;
   height: fit-content;
@@ -303,24 +294,6 @@
   }
   letter-spacing: 0;
   color: var(--main-icon-color);
-}
-
-.defaultCoverLight {
-  width: 160px;
-  height: 160px;
-  border-radius: 10px;
-  background: rgba($background-dark-color, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.defaultCoverLightMobile {
-  width: 98px;
-  height: 98px;
-  border-radius: 10px;
-  background: rgba($background-dark-color, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .chooseCategory {

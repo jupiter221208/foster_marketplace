@@ -6,7 +6,6 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'

@@ -128,7 +128,17 @@ const SuccessMintSingleNFTSection = props => {
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
               Your NFT has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/nft/' + nftAddress}>
+              <a
+                className={styles.mintLinkText}
+                href={'/nft/' + nftAddress}
+                onClick={e => {
+                  e.preventDefault()
+                  dispatch({ type: 'set', isLoading: true })
+                  setTimeout(() => {
+                    window.location.href = (e.target as HTMLAnchorElement).href
+                  }, 3000)
+                }}
+              >
                 NFT page
               </a>
             </div>
@@ -235,9 +245,9 @@ const SuccessMintSingleNFTSection = props => {
       />
       <ListNFTModal
         data={{
-          mintAddress: nftAddress,
+          mintAddress: nftAddress.toBase58(),
           name: nftName,
-          json: nftMetadata,
+          image: nftImage,
         }}
         open={showListNFTModal}
         onClose={(status: string) => {
@@ -255,7 +265,6 @@ const SuccessMintSingleNFTSection = props => {
         data={{
           mintAddress: nftAddress,
           name: nftName,
-          json: nftMetadata,
           category: nftType,
           image: nftImage,
         }}

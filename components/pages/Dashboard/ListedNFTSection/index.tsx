@@ -34,6 +34,15 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { ListingsAPIData } from 'types/nft'
 
+type SelectedDataType = {
+  category: string
+  name: string
+  animation_url: string
+  image: string
+  address: string
+  tradeStateAddress: string
+}
+
 const ListedNFTSection = props => {
   const { filter } = props
 
@@ -44,9 +53,16 @@ const ListedNFTSection = props => {
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
-  const [selectedData, setSelectedData] = useState<ListingsAPIData>()
-  const handleSelectData = (item: ListingsAPIData) => {
-    setSelectedData(item)
+  const [selectedData, setSelectedData] = useState<SelectedDataType>()
+  const handleSelectData = item => {
+    setSelectedData({
+      category: item?.json.properties.category,
+      name: item?.name,
+      animation_url: item?.json.animation_url,
+      image: item?.json.image,
+      address: item.address.toString(),
+      tradeStateAddress: item.tradeStateAddress.toString(),
+    })
     setShowListNFTModal(true)
   }
 
@@ -127,14 +143,14 @@ const ListedNFTSection = props => {
     if (mx && !isGetListedNFTs) setMyListedNFTs()
   }, [mx, isGetListedNFTs])
 
-  const onCancelList = async ({ address, tradeStateAddress }) => {
+  const onCancelList = async ({ address, tradeStateAddress }: ListingsAPIData) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await cancelList(mx, tradeStateAddress)
+      const result = await cancelList(mx, new PublicKey(tradeStateAddress))
       if (result) {
-        listingsAPI.unlistNft(address.toBase58()).then(response => {
+        listingsAPI.unlistNft(address).then(response => {
           if (response) {
             setAlertData([
               {
@@ -167,14 +183,14 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress }, price: number) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }: ListingsAPIData, price: number) => {
     setOpenProgressingModal(true)
     try {
       await refreshToken()
 
-      const result = await updateList(mx, address, tradeStateAddress, price)
+      const result = await updateList(mx, new PublicKey(address), new PublicKey(tradeStateAddress), price)
       if (result) {
-        listingsAPI.updateNft(address.toBase58(), { amount: (price / 1000000000).toString() }).then(
+        listingsAPI.updateNft(address, { amount: (price / 1000000000).toString() }).then(
           response => {
             if (response) {
               setAlertData([

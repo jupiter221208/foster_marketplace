@@ -53,7 +53,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [hasloading, setHasLoading] = useState(false)
   const [showEAPreview, setShowEAPreview] = useState(false)
   const [importMintList, setImportMintList] = useState<string[]>([])
-  console.log(publicCollectionData, '=======================publicCollectionData==============')
   useEffect(() => {
     setTimeout(
       () =>

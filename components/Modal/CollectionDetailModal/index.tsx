@@ -28,6 +28,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { useRouter } from 'next/router'
 
 // apis
+import collectionsAPI from 'apis/collections'
 
 const CollectionDetailModal = props => {
   const { open, close, data } = props
@@ -75,10 +76,10 @@ const CollectionDetailModal = props => {
    
     let updateInput: UpdateNftInput = { nftOrSft: chainNft }
     if (artName != chainNft.name) updateInput.name = artName
-
+    let newImageUrl = ''
     if (selectedFile !== null) {
       let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
-      let newImageUrl = await storage.upload(metaplexFile)
+      newImageUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.image) {
           file.url = newImageUrl
@@ -99,6 +100,27 @@ const CollectionDetailModal = props => {
       try {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
+
+        let params = {
+          collectionName: artName,
+          description: artDesc
+        }
+        
+        if (newImageUrl.length > 0) {
+          params["coverImage"] = newImageUrl
+        }
+       
+        await collectionsAPI
+        .updateCollection(data.collection_id, params)
+        .then(
+          response => {
+            console.log(response)
+          },
+          error => {
+            console.log(error)
+            setLoading(false)
+          }
+        )
         setTimeout(() => {
           router.reload()
         }, 3000)
@@ -169,7 +191,7 @@ const CollectionDetailModal = props => {
                         </div>
                       </div>
                       <div className="w-full">
-                        <div className={styles.artName}>Artwork Name</div>
+                        <div className={styles.artName}>Collection Name</div>
                         <div className="w-full mt-[15px]">
                           <Input
                             value={limit(artName, 32)}
@@ -179,7 +201,7 @@ const CollectionDetailModal = props => {
                             onChange={value => setArtName(limit(value, 32))}
                           />
                         </div>
-                        <div className={`${styles.artName} mt-[40px]`}>Artwork Description</div>
+                        <div className={`${styles.artName} mt-[40px]`}>Collection Description</div>
                         <div className="w-full mt-[15px]">
                           <Textarea
                             value={limit(artDesc, 1000)}
@@ -226,7 +248,7 @@ const CollectionDetailModal = props => {
                       </div>
                     </div>
                     <div className="w-full mt-[30px]">
-                      <div className={styles.artName}>Artwork Name</div>
+                      <div className={styles.artName}>Collection Name</div>
                       <div className="w-full mt-[15px]">
                         <Input
                           height={47}
@@ -237,7 +259,7 @@ const CollectionDetailModal = props => {
                           onChange={value => setArtName(limit(value, 32))}
                         />
                       </div>
-                      <div className={`${styles.artName} mt-[30px]`}>Artwork Description</div>
+                      <div className={`${styles.artName} mt-[30px]`}>Collection Description</div>
                       <div className="w-full mt-[15px]">
                         <Textarea
                           height={140}
