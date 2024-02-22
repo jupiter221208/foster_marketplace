@@ -360,7 +360,6 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
   let category = determineCategory(content.files)
-  console.log('DAS: ', content.metadata.attributes)
   return {
     mintAddress: address,
     metadataAddress: metaplex

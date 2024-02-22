@@ -34,6 +34,15 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { ListingsAPIData } from 'types/nft'
 
+type SelectedDataType = {
+  category: string
+  name: string
+  animation_url: string
+  image: string
+  address: string
+  tradeStateAddress: string
+}
+
 const ListedNFTSection = props => {
   const { filter } = props
 
@@ -44,9 +53,16 @@ const ListedNFTSection = props => {
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
-  const [selectedData, setSelectedData] = useState<ListingsAPIData>()
-  const handleSelectData = (item: ListingsAPIData) => {
-    setSelectedData(item)
+  const [selectedData, setSelectedData] = useState<SelectedDataType>()
+  const handleSelectData = item => {
+    setSelectedData({
+      category: item?.json.properties.category,
+      name: item?.name,
+      animation_url: item?.json.animation_url,
+      image: item?.json.image,
+      address: item.address.toString(),
+      tradeStateAddress: item.tradeStateAddress.toString(),
+    })
     setShowListNFTModal(true)
   }
 

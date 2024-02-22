@@ -500,7 +500,9 @@ const MainSection = ({
             tradeStateAddress,
             price: Number(price.basisPoints.toString()),
             creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
-            category: nftDetail.category,
+            category: nftType,
+            animation_url: nftAssetUrl,
+            image: nftCoverUrl,
           }
           setNftListingData(listingData)
         } else {
