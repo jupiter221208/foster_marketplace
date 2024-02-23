@@ -180,7 +180,7 @@ const HeroCardMobile = ({ data }) => {
           </div>
         </div>
         <div className="w-full h-[170px]">
-          <div className="w-full flex justify-center mt-[37px]">
+          <div className={styles.nftNameContainer}>
             <div className={styles.nftName}>{data.nft_name}</div>
           </div>
           <div className="w-full flex justify-center">
