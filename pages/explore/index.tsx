@@ -15,7 +15,7 @@ import CollectionFilter from 'components/Filter/CollectionFilter'
 import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
-import Tab from 'components/Tab'
+import SelectedTab from 'components/Tab/SelectedTab'
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
@@ -551,11 +551,12 @@ const Explore = () => {
           <div className={styles.tabBorder} />
         </div>
         <div className="w-full lg:hidden block">
-          <div className={styles.tabContainer}>
-            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+          <div className={styles.selectedTab}>
+            <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+            <div className={styles.selectedTabBorder} />
           </div>
 
-          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
+          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-4">
             {exploreTab !== 2 && (
               <GradientButton
                 label="Filter"

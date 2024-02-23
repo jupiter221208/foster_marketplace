@@ -1160,7 +1160,7 @@ const MainSection = ({
                     </div>
 
                     {(isOwnNft === false || isOwnNft === null) && (
-                      <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-6 lg:gap-[15px]">
+                      <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                         {tradeStateAddress ? (
                           <button
                             className={styles.primaryBtn}
