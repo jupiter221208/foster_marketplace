@@ -45,6 +45,7 @@ const MainSection = () => {
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [heroList, setHeroList] = useState(HeroEmptyList as any)
   const [heroCardOpacity, setHeroCardOpacity] = useState(0)
+  const [heroIndex, setHeroIndex] = useState(0)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -95,6 +96,16 @@ const MainSection = () => {
     }
   }, [heroList])
 
+  const gotoNftPage = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/nft/${heroList[heroIndex].token_id}`)
+  }
+
+  const gotoAristPage = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${heroList[heroIndex].artist_username}`)
+  }
+
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full z-10 items-center relative">
@@ -103,30 +114,21 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
-                  // slidesPerView={1}
-                  // spaceBetween={20}
-                  // effect={'fade'}
-                  // pagination={{
-                  //   clickable: true,
-                  // }}
-                  // centeredSlides={true}
-                  // modules={[Pagination, Navigation, EffectFade]}
-                  // className={'heroSwiperMobile'}
-                  // loop
                   spaceBetween={20}
                   effect={'fade'}
-                  // navigation={true}
                   pagination={{
                     clickable: true,
                   }}
-                  centeredSlides={true}
                   modules={[EffectFade, Navigation, Pagination]}
                   className={'heroSwiperMobile'}
                   loop
+                  onActiveIndexChange={swiperCore => {
+                    setHeroIndex(swiperCore.activeIndex - 1)
+                  }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <HeroCardMobile data={item} />
+                      <HeroCardMobile data={item} gotoNftDetailPage={gotoNftPage} gotoAristPage={gotoAristPage} />
                       <div className={styles.overlay} />
                     </SwiperSlide>
                   ))}
