@@ -1,0 +1,59 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: auto;
+  height: 45px;
+  padding: 7px 0px;
+  @media (min-width: 1024px) {
+    padding: 9px 0px;
+  }
+  gap: 8px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  top: 20px;
+  @media (min-width: 1024px) {
+    top: 50px;
+  }
+  right: 0px;
+  background: rgba(var(--collection-card-bg-rgb), 0.7);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border-radius: 15px;
+  width: 226px;
+  padding: 10px 25px;  
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.menuItem {
+  width: 100%;
+  
+  
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  
+
+  // display: flex;
+  // justify-content: flex-start;
+  // align-items: center;
+  // font-family: 'Muli-Bold';
+  // font-size: 14px;
+  // line-height: 24px;
+  // color: var(--text-gray-200-color);
+}

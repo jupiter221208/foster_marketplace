@@ -242,10 +242,30 @@ const CollectionDetailModal = props => {
                   {/* Mobile */}
                   <div className="block lg:hidden g-container">
                     <div className={`${styles.artImage} mt-[56px]`}>
-                      <img src={data.cover_image} alt="" className="w-full h-full object-cover" />
-                      <div className="absolute w-[40px] h-[40px] right-[17px] bottom-[19px]">
-                        <EditImageIcon alt="" />
-                      </div>
+                      <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                      <div className="absolute right-[17px] bottom-[19px] z-[1000]">
+                          <Dropzone
+                            onDrop={acceptedFiles => {
+                              acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                            }}
+                            onDropRejected={rejectedFiles => {}}
+                            maxFiles={1}
+                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            maxSize={31457280}
+                          >
+                            {({ getRootProps, getInputProps, open }) => (
+                              <section>
+                                <button onClick={open} style={{ display: 'none' }}>
+                                  open
+                                </button>
+                                <div {...getRootProps()}>
+                                  <input {...getInputProps()} />
+                                  <EditImageIcon alt="" />
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
+                        </div>
                     </div>
                     <div className="w-full mt-[30px]">
                       <div className={styles.artName}>Collection Name</div>

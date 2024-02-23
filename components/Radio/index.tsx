@@ -4,16 +4,7 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const Radio = props => {
-  const {
-    data,
-    selected,
-    onChange,
-    direction = 'ltr',
-    backgroundColor = '',
-    borderRadius = '',
-    padding = '',
-    gap = '',
-  } = props
+  const { data, selected, onChange, direction = 'ltr', backgroundColor = '', borderRadius = '', padding = '' } = props
 
   return data.map((item, index) => (
     <div
