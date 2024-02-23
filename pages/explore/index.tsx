@@ -550,13 +550,13 @@ const Explore = () => {
           </div>
           <div className={styles.tabBorder} />
         </div>
-        <div className="w-full lg:hidden block">
+        <div className="w-full lg:hidden block mt-[30px]">
           <div className={styles.selectedTab}>
             <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
             <div className={styles.selectedTabBorder} />
           </div>
 
-          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-4">
+          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-[15px] mt-[15px]">
             {exploreTab !== 2 && (
               <GradientButton
                 label="Filter"
