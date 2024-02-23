@@ -750,7 +750,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--browse-nft-blur-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--resource-card-bg', '#2B2B2B')
     doc.style.setProperty('--resource-card-default-bg', '#121212')
-    doc.style.setProperty('--home-swiper-bg', '#95dbd5')
+    doc.style.setProperty('--home-swiper-bg', '#9E9DA0')
     doc.style.setProperty('--explore-btn-bg-1', '#5ac3ba')
     doc.style.setProperty('--explore-btn-bg-2', '#378287')
     doc.style.setProperty('--home-hero-title', '#eff0f6')

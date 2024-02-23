@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper'
+import { EffectFade, Navigation, Pagination } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -103,13 +103,24 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiperMobile">
               {heroList.length !== 0 && (
                 <Swiper
-                  slidesPerView={1}
+                  // slidesPerView={1}
+                  // spaceBetween={20}
+                  // effect={'fade'}
+                  // pagination={{
+                  //   clickable: true,
+                  // }}
+                  // centeredSlides={true}
+                  // modules={[Pagination, Navigation, EffectFade]}
+                  // className={'heroSwiperMobile'}
+                  // loop
                   spaceBetween={20}
+                  effect={'fade'}
+                  // navigation={true}
                   pagination={{
                     clickable: true,
                   }}
                   centeredSlides={true}
-                  modules={[Pagination]}
+                  modules={[EffectFade, Navigation, Pagination]}
                   className={'heroSwiperMobile'}
                   loop
                 >
