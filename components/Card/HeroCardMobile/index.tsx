@@ -11,27 +11,16 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
-const HeroCardMobile = ({ data }) => {
+const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
-
-  const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${data.artist_username}`)
-  }
-
-  const gotoNftDetailPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/nft/${data.token_id}`)
-  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -72,7 +61,6 @@ const HeroCardMobile = ({ data }) => {
                 : '/images/banner.png'
             }
             alt=""
-            // height={680}
             className="w-full h-full object-cover"
             loading="lazy"
           />
@@ -184,9 +172,9 @@ const HeroCardMobile = ({ data }) => {
             <div className={styles.nftName}>{data.nft_name}</div>
           </div>
           <div className="w-full flex justify-center">
-            <div className="flex gap-[7px] mt-[8px]">
+            <div className="flex gap-[7px] mt-[8px]" onClick={() => gotoAristPage()}>
               {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
-                <div className={styles.avatarArea} onClick={() => gotoAristPage()}>
+                <div className={styles.avatarArea}>
                   {!profileLoaded && (
                     <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
                       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">

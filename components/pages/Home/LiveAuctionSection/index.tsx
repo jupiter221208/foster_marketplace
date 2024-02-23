@@ -21,16 +21,17 @@ import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 // custom functions
 import { useViewport } from 'utils'
 
+// resources
+import TimeList from 'assets/json/home/time-list.json'
+
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
-import OutlineButton from 'components/Button/OutlineButton'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { DashboardAPIData } from 'types/nft'
+import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -46,6 +47,7 @@ const LiveAuctionSection = props => {
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
+  const [period, setPeriod] = useState(TimeList[1])
 
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
@@ -148,121 +150,31 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      {fromPage !== 'profile' && (
-        <div className="w-full lg:hidden block flex justify-between items-center">
-          <div className={styles.title}>Live Auctions</div>
-          <div className="flex gap-[8px] items-center">
-            <div
-              className={styles.seeMore}
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            >
-              See More
-            </div>
-            <ArrowRightGreenIcon alt="" />
-          </div>
-        </div>
-      )}
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          {fromPage !== 'profile' && (
-            <div className={`lg:block hidden`}>
-              <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
-            </div>
-          )}
-          <div className="hidden lg:flex w-full h-[54px] ml-[18px] z-10">
-            <div className={styles.slotBG}>
-              <TimeSlotButton
-                label="Starting Soon"
-                onClick={() => handleChangeActive(0)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={140}
-                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="New"
-                onClick={() => handleChangeActive(1)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={86}
-                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="Ending Soon"
-                onClick={() => handleChangeActive(2)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 2 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={140}
-                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="hidden lg:flex z-10">
-          {fromPage !== 'profile' && (
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            />
-          )}
-        </div>
-      </div>
-      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
-        <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Starting Soon"
-            onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={124}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+      <div className="w-full flex justify-between items-center z-10 ml-[5px]">
+        <div>
+          <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+          <HomeFilterMenu
+            label={period['label']}
+            data={TimeList}
+            selectedItem={period}
+            setSelectedItem={item => {
+              setPeriod(item)
+              handleChangeActive(item.id)
+            }}
           />
-          <TimeSlotButton
-            label="New"
-            onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={86}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-          <TimeSlotButton
-            label="Ending Soon"
-            onClick={() => handleChangeActive(2)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 2 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={124}
-            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+        </div>
+        <div className="z-10">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 1 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
           />
         </div>
       </div>
-      <div className="w-full mt-[30px] lg:mt-[40px] z-10">
+      <div className="w-full mt-[20px] lg:mt-[30px] z-10">
         {isLoading ? (
           <div className="w-full h-[400px] flex justify-center">
             <div className="w-[500px] h-[40px]">

@@ -23,10 +23,10 @@
   }
   border-radius: 12px;
 
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: var(--main-icon-color);
 
   &:hover {
     @media (min-width: 1024px) {

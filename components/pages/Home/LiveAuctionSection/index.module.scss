@@ -2,7 +2,9 @@
 
 .container {
   position: relative;
-  padding-top: 30px;
+  @media (min-width: 1024px) {
+    padding-top: 30px;
+  }
   padding-bottom: 30px;
   width: 100%;
 }
@@ -11,7 +13,7 @@
   font-family: 'Muli-Bold';
   font-size: 20px;
   @media (min-width: 1024px) {
-    font-size: 30px;
+    font-size: 24px;
   }
   color: var(--text-gray-200-color);
 }
@@ -40,7 +42,7 @@
   font-family: 'Muli-Bold';
   font-size: 20px;
   @media (min-width: 1024px) {
-    font-size: 30px;
+    font-size: 24px;
   }
   color: var(--text-gray-200-color);
 }

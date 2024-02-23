@@ -237,8 +237,8 @@
 }
 
 .bidName {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
   line-height: 15px;
   text-align: center;
   @media (min-width: 1024px) {
@@ -254,12 +254,12 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: var(--primary-btn-bg-right);
+  color: rgba(var(--text-gray-200-color-rgb), 0.85);
 }
 
 .bidTime {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
   line-height: 15px;
   text-align: right;
   @media (min-width: 1024px) {
@@ -275,7 +275,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: var(--primary-btn-bg-right);
+  color: rgba(var(--text-gray-200-color-rgb), 0.85);
 }
 
 .bidCount {
@@ -328,6 +328,7 @@
   justify-content: center;
   font-family: 'Muli-Bold';
   font-size: 16px;
+  gap: 1px;
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 20px;
