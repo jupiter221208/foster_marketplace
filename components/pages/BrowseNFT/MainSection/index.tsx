@@ -1076,24 +1076,6 @@ const MainSection = ({
                       </Link>
                     </div>
                   )}
-                  {editionDetail && (
-                    <div className={styles.editionContainer}>
-                      <div className="w-full flex justify-between">
-                        <div className={styles.editionTitle}>Token Type</div>
-                        <div className={styles.editionValue}>
-                          {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
-                        </div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[15px]">
-                        <div className={styles.editionTitle}>Editon Number</div>
-                        <div className={styles.editionValue}>{Number(editionDetail?.number)}</div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[15px]">
-                        <div className={styles.editionTitle}>Edition Supply</div>
-                        <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                      </div>
-                    </div>
-                  )}
                 </div>
 
                 <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
@@ -1113,7 +1095,25 @@ const MainSection = ({
               </div>
 
               <div className="w-full flex flex-wrap mt-10 lg:mt-0">
-                <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4 mb-">
+                {editionDetail && (
+                  <div className={styles.editionContainer}>
+                    <div className={styles.editionFirstRow}>
+                      <div className={styles.editionTitle}>Token Type</div>
+                      <div className={styles.editionValue}>
+                        {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
+                      </div>
+                    </div>
+                    <div className={styles.editionSecondRow}>
+                      <div className={styles.editionTitle}>Editon Remaining</div>
+                      <div className={styles.edition}>{Number(editionDetail?.number)}</div>
+                    </div>
+                    <div className={styles.editionFirstRow}>
+                      <div className={styles.editionTitle}>Total Supply</div>
+                      <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
+                    </div>
+                  </div>
+                )}
+                <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
                   <div className="flex flex-wrap flex-col gap-2">
                     <div className={styles.categories}>Categories</div>
                     {nftCategories && nftCategories.length > 0 ? (
