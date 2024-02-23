@@ -15,7 +15,6 @@ import Radio from 'components/Radio'
 
 const HomeFilterMenu = props => {
   const { label, data, selectedItem, setSelectedItem } = props
-  console.log(selectedItem, '==========selectedItem==========')
   return (
     <div className="relative mt-[4px]">
       <Menu>

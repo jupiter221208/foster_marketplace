@@ -32,21 +32,15 @@ import { NftData } from 'types/nft'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
   const [liveAuctionList, setLiveAuctionList] = useState<NftData[]>([])
-  const [active, setActive] = useState<any>(1)
-  const [cardLoop, setCardLoop] = useState(true)
-  const [type, setType] = useState('recent_started')
   const [isLoaded, setIsLoaded] = useState(false)
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
   const [rowCount, setRowCount] = useState(8)
-  const [lists, setLists] = useState([])
-
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -58,22 +52,6 @@ const LiveAuctionSection = props => {
       setIsLoading(false)
       setIsMounted(true)
       setIsFetching(false)
-
-      // response.forEach(item => {
-      //   if (!isExpired(item.end_time)) {
-      //     if (item.asset_url.length > 0) {
-      //       if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
-      //         if (item.asset_type === 'video') {
-      //           if (item.cover_image_url?.length > 0) lists.push(item)
-      //         } else {
-      //           lists.push(item)
-      //         }
-      //       } else {
-      //         lists.push(item)
-      //       }
-      //     }
-      //   }
-      // })
 
       if (response.length === rowCount) {
         setIsVisibleFetching(true)

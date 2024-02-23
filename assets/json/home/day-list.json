@@ -1,0 +1,18 @@
+[
+    {
+        "id": 0,
+        "label": "24 hrs"
+    },
+    {
+        "id": 1,
+        "label": "7 days"
+    },
+    {
+        "id": 2,
+        "label": "30 days"
+    },
+    {
+        "id": 3,
+        "label": "All Time"
+    }
+]

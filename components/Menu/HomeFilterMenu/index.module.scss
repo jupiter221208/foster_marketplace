@@ -5,6 +5,7 @@
   height: 45px;
   padding: 7px 0px;
   @media (min-width: 1024px) {
+    font-size: 18px;
     padding: 9px 0px;
   }
   gap: 8px;
@@ -25,11 +26,10 @@
 
 .menuArea {
   position: absolute;
-  top: 20px;
+  top: 40px;
   @media (min-width: 1024px) {
     top: 50px;
   }
-  right: 0px;
   background: rgba(var(--collection-card-bg-rgb), 0.7);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);

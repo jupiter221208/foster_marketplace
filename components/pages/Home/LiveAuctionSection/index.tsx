@@ -26,12 +26,10 @@ import TimeList from 'assets/json/home/time-list.json'
 
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { DashboardAPIData } from 'types/nft'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 

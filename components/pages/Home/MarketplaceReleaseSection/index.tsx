@@ -74,30 +74,8 @@ const MarketplaceReleaseSection = props => {
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-between items-center z-10">
-                <div className={styles.title}>New Releases</div>
-                <div className="flex gap-[8px] items-center">
-                  <div
-                    className={styles.seeMore}
-                    onClick={() => {
-                      dispatch({ type: 'set', exploreTab: 0 })
-                      dispatch({ type: 'set', availabilityFilter: 0 })
-                      dispatch({ type: 'set', artworkCategory: category })
-                      router.push('/explore')
-                    }}
-                  >
-                    See More
-                  </div>
-                  <ArrowRightGreenIcon alt="" />
-                </div>
-              </div>
-            ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Releases</div>
-            )}
-          </div>
-          <div className="hidden lg:flex z-10">
+          <div className={`${styles.title}`}>New Releases</div>
+          <div>
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
