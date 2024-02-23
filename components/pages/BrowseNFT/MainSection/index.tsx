@@ -1104,11 +1104,11 @@ const MainSection = ({
                       </div>
                     </div>
                     <div className={styles.editionSecondRow}>
-                      <div className={styles.editionTitle}>Editon Remaining</div>
+                      <div className={styles.editionTitle}>Edition Number</div>
                       <div className={styles.edition}>{Number(editionDetail?.number)}</div>
                     </div>
                     <div className={styles.editionFirstRow}>
-                      <div className={styles.editionTitle}>Total Supply</div>
+                      <div className={styles.editionTitle}>Edition Supply</div>
                       <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                     </div>
                   </div>
