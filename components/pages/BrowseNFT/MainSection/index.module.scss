@@ -252,24 +252,34 @@
 
 .editionContainer {
   width: 100%;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
-  border-radius: 20px;
-  padding: 10px 25px 10px 25px;
-  margin-top: 30px;
-  @media (min-width: 1280px) {
-    width: 50%;
-  }
+  margin-bottom: 26px;
+}
+
+.editionFirstRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.editionSecondRow {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 16px;
+  background: var(--background-main-color);
 }
 
 .editionTitle {
   font-family: 'Muli-Light';
-  font-size: 18px;
+  font-size: 16px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .editionValue {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 16px;
   color: var(--text-gray-200-color);
 }
 
