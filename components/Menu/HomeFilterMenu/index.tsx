@@ -16,7 +16,7 @@ import Radio from 'components/Radio'
 const HomeFilterMenu = props => {
   const { label, data, selectedItem, setSelectedItem } = props
   return (
-    <div className="relative mt-[4px]">
+    <div className="relative">
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
