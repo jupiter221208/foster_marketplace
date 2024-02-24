@@ -112,7 +112,7 @@ const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }
                 </div>
                 <div className="w-full mt-[15px] lg:mt-[30px]">
                   <GradientButton
-                    label="Update Price"
+                    label="Enter new listing price"
                     fullWidth
                     // gradientDirection="right"
                     // backgroundColor01="#34706B"
