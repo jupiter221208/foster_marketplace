@@ -185,8 +185,8 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                       <LoadingButton fullWidth />
                     ) : (
                       <GradientButton
-                        disabled={parseFloat(price ?? '0') <= 0}
-                        label="List"
+                        disabled={parseFloat(price ?? '0') <= 0 || price === ''}
+                        label={parseFloat(price ?? '0') <= 0 || price === '' ? 'Enter listing price' : 'List'}
                         fontSize={18}
                         fullWidth
                         onClick={() => handleListNFTClick()}
