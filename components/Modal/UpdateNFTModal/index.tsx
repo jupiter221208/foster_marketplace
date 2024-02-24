@@ -105,14 +105,14 @@ const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }
                 <div className={styles.priceArea}>
                   <PriceInput
                     value={price}
-                    placeholder="Enter price value"
+                    placeholder="Enter new listing price"
                     fullWidth
                     onChange={value => setPrice(value)}
                   />
                 </div>
                 <div className="w-full mt-[15px] lg:mt-[30px]">
                   <GradientButton
-                    label="Enter new listing price"
+                    label="Update Price"
                     fullWidth
                     // gradientDirection="right"
                     // backgroundColor01="#34706B"
