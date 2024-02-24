@@ -44,9 +44,15 @@ const MyNFTSection = props => {
   const { metaplex: mx } = useMetaplex()
   const loadMyNFTs = async () => {
     setLoading(true)
-    let nfts: any = await getMyNFTs(mx)
+    let nfts = await getMyNFTs(mx)
     setAllList(nfts)
-    let validNfts = nfts.filter(item => item.creators?.length > 0 && !item.collectionDetails)
+    let validNfts = nfts.filter(
+      item =>
+        !item.tokenAccount?.delegate &&
+        !item.tokenAccount?.isFrozen &&
+        item.creators?.length > 0 &&
+        !item.collectionDetails
+    )
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
     setLoading(false)
