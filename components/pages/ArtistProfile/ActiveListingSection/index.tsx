@@ -47,7 +47,7 @@ const ActiveListingSection = props => {
         setIsFetching(true)
         setIsVisibleFetching(true)
       } else setIsVisibleFetching(false)
-      setExploreList([...exploreList, ...response])
+      setExploreList([...response])
     })
     error => {
       if (loadCompleted) loadCompleted()
@@ -67,7 +67,7 @@ const ActiveListingSection = props => {
 
       if (response.length === rowCount) setIsVisibleFetching(true)
       else setIsVisibleFetching(false)
-      setExploreList([...exploreList, ...response])
+      setExploreList([...response])
 
       fetchNftData(response)
     })
