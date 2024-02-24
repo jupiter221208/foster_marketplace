@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -10,15 +9,15 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import OutlineButton from 'components/Button/OutlineButton'
 
 // custom functions
 import { useDetectRouterPath } from 'utils'
 
 // images and icons
-import LogoTextIcon from 'assets/icons/logo-text-01.svg'
-import BG404 from 'assets/images/404.png'
-import LogoIcon from 'assets/icons/foster-green.svg'
+import LogoIcon from 'assets/icons/logo-gray-big.svg?component'
+import LogoText from 'assets/icons/logo-text-01-dark.svg?component'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
 
 // styles
 import styles from './404.module.scss'
@@ -37,37 +36,26 @@ const Custom404Page = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="g-container">
-        <div className="abolute inset-0 z-0">
-          <Image src={BG404} alt="" layout="fill" objectFit="cover" className="z-0" />
+        <div className="pt-[70px]">
+          <LogoText />
         </div>
-        <div className="relative w-full block text-center items-center">
-          <div className="w-full h-[100px] flex justify-start items-center">
-            <Image
-              src={LogoTextIcon}
-              width={170}
-              height={40}
-              alt=""
-              className="cursor-pointer"
-              onClick={() => {
-                router.push('/')
-              }}
-            />
-          </div>
-          <div className={styles.title}>404</div>
-          <div className={styles.text}>It looks like you wandered away to an abandoned tent...</div>
-          <div className="w-full flex justify-center mt-[90px]">
-            <div className="w-full max-w-[290px]">
-              <OutlineButton
-                label="Back To Circus"
-                icon={LogoIcon}
-                color="#9CEDD6"
-                fontSize="18px"
-                onClick={() => {
-                  router.push('/')
-                }}
-                height="57px"
-                fullWidth
-              />
+
+        <div className="mt-[50px] lg:mt-[96px] min-h-full min-w-full relative">
+          <article className="absolute z-20 w-full flex flex-col items-center lg:block">
+            <h1 className={styles.title}>404 - Page Not Found</h1>
+            <p className={styles.text}>It looks like you've wandered away from the circus.</p>
+            <button className={styles.button}>Back to Home</button>
+          </article>
+
+          <div className={styles.iconBox}>
+            <div className="relative">
+              <div className={styles.iconLogoBox}>
+                <LogoIcon />
+              </div>
+              <div className={styles.ellipseBox}>
+                <EllipseBlue />
+                <EllipseGreen />
+              </div>
             </div>
           </div>
         </div>

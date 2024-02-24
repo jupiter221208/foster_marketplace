@@ -3,23 +3,92 @@
 .container {
   background-color: var(--background-black-color);
   min-height: 100vh;
-  position: relative;
+  overflow: hidden;
 }
 
 .title {
-  font-family: 'Muli-ExtraBold';
-  font-size: 108px;
-  @media (min-width: 1024px) {
-    font-size: 308px;
+  font-family: 'BebasKai';
+  font-size: 80px;
+  letter-spacing: 5px;
+  color: var(--twitter-text-color);
+
+  @media (max-width: 1024px) {
+    font-size: 34px;
+    text-align: center;
   }
-  color: var(--brand-11-color);
 }
 
 .text {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  @media (min-width: 1024px) {
-    font-size: 32px;
+  font-family: 'Muli-Regular';
+  font-size: 22px;
+  margin-top: 30px;
+  color: rgb(var(--main-bg-color-rgb), 0.8);
+
+  @media (max-width: 1024px) {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 0px;
   }
-  color: var(--text-gray-200-color);
+}
+
+.button {
+  margin-top: 57px;
+  padding: 0.7em 1.35em;
+  border: solid 1px rgb(var(--main-bg-color-rgb), 0.25);
+  border-radius: 12px;
+  max-width: max-content;
+
+  @media (max-width: 1024px) {
+    margin-top: 30px;
+  }
+}
+
+.iconBox {
+  position: absolute;
+  right: 600px;
+  @media (max-width: 1024px) {
+    position: relative;
+    right: 0;
+  }
+  @media (max-width: 685px) {
+    right: 150px;
+  }
+}
+
+.iconLogoBox {
+  position: absolute;
+  svg {
+    position: relative;
+    opacity: 0.8;
+    width: 547px;
+    @media (max-width: 1024px) {
+      width: 350px;
+      bottom: -250px;
+      right: -170px;
+    }
+  }
+}
+.ellipseBox {
+  position: absolute;
+
+  svg {
+    position: relative;
+    top: -250px;
+    left: -300px;
+    opacity: 0.8;
+    @media (max-width: 1024px) {
+      opacity: 0.4;
+      top: -200px;
+    }
+  }
+  svg:nth-child(2) {
+    position: relative;
+    top: -1300px;
+    left: -160px;
+    opacity: 0.4;
+    @media (max-width: 1024px) {
+      opacity: 0.2;
+      top: -1200px;
+    }
+  }
 }
