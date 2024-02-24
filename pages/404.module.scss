@@ -14,7 +14,7 @@
   font-weight: 100;
 
   @media (max-width: 1024px) {
-    font-size: 34px;
+    font-size: 30px;
     text-align: center;
   }
 }
@@ -52,7 +52,19 @@
     right: 0;
   }
   @media (max-width: 685px) {
+    right: 80px;
+  }
+  @media (max-width: 500px) {
+    right: 145px;
+  }
+  @media (max-width: 415px) {
     right: 150px;
+  }
+  @media (max-width: 391px) {
+    right: 165px;
+  }
+  @media (max-width: 376px) {
+    right: 175px;
   }
 }
 
