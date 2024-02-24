@@ -36,7 +36,7 @@ const Custom404Page = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="g-container">
-        <div className="pt-[70px]">
+        <div className="lg:pt-[70px] pt-4">
           <LogoText />
         </div>
 
@@ -44,7 +44,9 @@ const Custom404Page = () => {
           <article className="absolute z-20 w-full flex flex-col items-center lg:block">
             <h1 className={styles.title}>404 - Page Not Found</h1>
             <p className={styles.text}>It looks like you have wandered away from the circus.</p>
-            <button className={styles.button}>Back to Home</button>
+            <button className={styles.button} onClick={() => router.push('/')}>
+              Back to Home
+            </button>
           </article>
 
           <div className={styles.iconBox}>
