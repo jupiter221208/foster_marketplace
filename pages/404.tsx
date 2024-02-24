@@ -43,7 +43,7 @@ const Custom404Page = () => {
         <div className="mt-[50px] lg:mt-[96px] min-h-full min-w-full relative">
           <article className="absolute z-20 w-full flex flex-col items-center lg:block">
             <h1 className={styles.title}>404 - Page Not Found</h1>
-            <p className={styles.text}>It looks like you've wandered away from the circus.</p>
+            <p className={styles.text}>It looks like you have wandered away from the circus.</p>
             <button className={styles.button}>Back to Home</button>
           </article>
 
