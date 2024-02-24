@@ -30,6 +30,7 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
+import { getShortName } from 'utils/strings'
 
 type ListedNftCardExploreTypes = {
   nftName: string
@@ -171,7 +172,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
           </div>
           <div className={styles.nftData}>
             <div>
-              <div className={styles.nftName}>{nftName}</div>
+              <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
               <div className={styles.artistName}>{artistName}</div>
             </div>
             <div>&nbsp;</div>

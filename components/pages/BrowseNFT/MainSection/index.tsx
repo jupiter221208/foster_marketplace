@@ -1084,7 +1084,7 @@ const MainSection = ({
                       {processedNftDescription}
                       {shouldShowReadMore && (
                         <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                          {isTruncated ? '... Read more' : ' Show less'}
+                          {isTruncated ? '... Expand' : ' Collapse'}
                         </span>
                       )}
                     </div>

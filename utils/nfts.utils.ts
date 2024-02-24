@@ -246,7 +246,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       collection,
       collectionDetails,
       tokenAccount: {
-        delegate: ownership.delegated?.toString(),
+        delegate: ownership.delegate?.toString(),
         isFrozen: ownership.frozen,
       },
     }

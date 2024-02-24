@@ -174,7 +174,7 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                   <div className="w-full mt-[20px] lg:mt-12">
                     <PriceInput
                       value={price}
-                      placeholder="Enter fixed-price for listing"
+                      placeholder="Enter listing price"
                       backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                       fullWidth
                       onChange={value => setPrice(value)}
@@ -185,7 +185,7 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                       <LoadingButton fullWidth />
                     ) : (
                       <GradientButton
-                        disabled={parseFloat(price ?? '0') <= 0}
+                        disabled={parseFloat(price ?? '0') <= 0 || price === ''}
                         label="List"
                         fontSize={18}
                         fullWidth
