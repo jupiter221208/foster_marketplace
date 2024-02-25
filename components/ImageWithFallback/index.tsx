@@ -4,15 +4,28 @@ import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const ImageWithFallback = props => {
-  const { src, onClick, setImageLoaded, ...rest } = props
+  const { src, onClick, setImageLoaded, originalSrc = null, ...rest } = props
   const [isNextImage, setIsNextImage] = useState(true)
   const [loaded, setLoaded] = useState(false)
+  const [currentSrc, setCurrentSrc] = useState(src)
 
   useEffect(() => {
     if (setImageLoaded !== undefined && loaded === true) {
       setImageLoaded(loaded)
     }
   }, [loaded])
+
+  useEffect(() => {
+    if (originalSrc) {
+      console.log('hell')
+      const img = new window.Image()
+      img.src = src
+      img.onload = () => setCurrentSrc(src)
+      img.onerror = () => {
+        setCurrentSrc(originalSrc)
+      }
+    }
+  }, [originalSrc])
 
   return (
     <div className="w-full h-full overflow-hidden" onClick={onClick}>
@@ -22,14 +35,14 @@ const ImageWithFallback = props => {
       {isNextImage ? (
         <Image
           {...rest}
-          src={src}
+          src={currentSrc}
           onLoadingComplete={() => setLoaded(true)}
-          onError={() => {
+          onError={e => {
             setIsNextImage(false)
           }}
         />
       ) : (
-        <img {...rest} src={src} onLoad={() => setLoaded(true)} />
+        <img {...rest} src={currentSrc} onLoad={() => setLoaded(true)} />
       )}
     </div>
   )
