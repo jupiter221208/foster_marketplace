@@ -211,8 +211,12 @@
   align-items: center;
 }
 
-.placeBidEnabledColor .placeBidDisabledColor {
+.placeBidEnabledColor {
   color: #eff0f6;
+}
+
+.placeBidDisabledColor {
+  color: rgb(239, 240, 246, 0.5);
 }
 
 .highBidText {
