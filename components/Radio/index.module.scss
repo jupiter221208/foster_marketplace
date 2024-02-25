@@ -62,10 +62,13 @@
   flex: 1;
   cursor: pointer;
   font-family: 'Muli-Regular';
-  font-size: 20px;
+  font-size: 16px;
   line-height: 25px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   letter-spacing: 0;
+}
+.label:hover {
+  color: rgba(var(--text-gray-200-color-rgb), 1);
 }
 
 .selected {

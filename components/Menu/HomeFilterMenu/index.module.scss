@@ -59,7 +59,7 @@
     margin-bottom: 8px;
   }
   *:not(:last-child) {
-    border-bottom: 1px solid rgb(239, 240, 246, 0.1); /* Change color as needed */
+    border-bottom: 1px solid rgb(var(--main-bg-color-rgb), 0.1); /* Change color as needed */
     padding: 0 0 8px 0;
   }
 }
