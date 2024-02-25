@@ -1255,7 +1255,7 @@ const MainSection = ({
                                   </>
                                 ) : (
                                   <div className="relative mt-[5px] lg:mt-[15px]">
-                                    <div className="w-full flex justify-center px-[18px] lg:px-[0px]">
+                                    <div className="w-full flex justify-center">
                                       <PriceInput
                                         value={price}
                                         placeholder="Enter Bid amount"
@@ -1310,7 +1310,7 @@ const MainSection = ({
                                         </div>
                                       )}
                                     </div>
-                                    <div className="w-full flex items-center justify-between mb-[10px] lg:px-0 px-[18px]">
+                                    <div className="w-full flex items-center justify-between mb-[10px]">
                                       <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                                       {endPhaseDuration > 0 && (
                                         <div

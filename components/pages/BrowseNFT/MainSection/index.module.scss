@@ -153,9 +153,6 @@
 .auctionContainer {
   width: 100%;
   height: auto;
-  padding: 5px;
-  border-radius: 12px;
-  background: var(--place-bid-color);
   @media (min-width: 1024px) {
     background: transparent;
     padding: 0px;
@@ -169,7 +166,7 @@
 
 .placeBidBG {
   width: auto;
-  margin: 6px 18px;
+  margin: 6px 0;
   border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   @media (min-width: 1024px) {
