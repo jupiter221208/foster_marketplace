@@ -21,9 +21,6 @@ const NFTAssetSection = props => {
   const { width, height, ref } = useResizeDetector()
   const [currentImageUrl, setCurrentImageUrl] = useState(nftCoverUrl)
 
-  console.log('hello from here')
-  console.log(currentImageUrl)
-
   useEffect(() => {
     if (nftType.includes('image')) {
       const img = new window.Image()
