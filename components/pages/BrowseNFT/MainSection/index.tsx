@@ -1115,7 +1115,7 @@ const MainSection = ({
                     </div>
                   </div>
                 )}
-                <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
+                <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
                   <div className="flex flex-wrap flex-col gap-2">
                     <div className={styles.categories}>Categories</div>
                     {nftCategories && nftCategories.length > 0 ? (
@@ -1130,11 +1130,9 @@ const MainSection = ({
                       </div>
                     )}
                   </div>
-                  <div className="flex flex-col gap-2 text-center">
+                  <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
                     <div className={styles.whiteRoyalties}>Royalties</div>
-                    <div className={`${styles.greenRoyalties} ${styles.bg_text_gray_025} rounded-3xl`}>
-                      {nftRoyalties}%
-                    </div>
+                    <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
                   </div>
                 </div>
 
