@@ -1091,7 +1091,7 @@ const MainSection = ({
                       )}
                     </div>
                   ) : (
-                    <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
+                    <></>
                   )}
                 </div>
               </div>
@@ -1116,20 +1116,23 @@ const MainSection = ({
                   </div>
                 )}
                 <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
-                  <div className="flex flex-wrap flex-col gap-2">
-                    <div className={styles.categories}>Categories</div>
-                    {nftCategories && nftCategories.length > 0 ? (
-                      <div className="flex flex-wrap gap-2">
-                        {nftCategories.map((item, index) => (
-                          <SmallCategoryChip data={item} key={index} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-row">
-                        <SmallCategoryChip data={['N/A']} />
-                      </div>
-                    )}
-                  </div>
+                  {nftCategories && nftCategories.length > 0 && (
+                    <div className="flex flex-wrap flex-col gap-2">
+                      <div className={styles.categories}>Categories</div>
+                      {nftCategories && nftCategories.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {nftCategories.map((item, index) => (
+                            <SmallCategoryChip data={item} key={index} />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="flex flex-row">
+                          <SmallCategoryChip data={['N/A']} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
                     <div className={styles.whiteRoyalties}>Royalties</div>
                     <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
