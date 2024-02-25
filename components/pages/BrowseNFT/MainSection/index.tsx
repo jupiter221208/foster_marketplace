@@ -904,7 +904,7 @@ const MainSection = ({
           <div className={styles.overlay} />
         </div>
       )}
-      <div className="w-full flex flex-wrap justify-between gap-[30px] lg:gap-0">
+      <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
         <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
           <NFTAssetSection
             nftType={nftType}
@@ -1012,7 +1012,7 @@ const MainSection = ({
                     {!loadedNftInfo ? (
                       <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
                     ) : (
-                      <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                      <div className="flex gap-[15px] sm:gap-1 xs:gap-1 md:gap-3">
                         <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
                           <Image
                             src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
@@ -1143,9 +1143,10 @@ const MainSection = ({
                     className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
                   ></div>
                 )}
+
                 {nftPrice > 0 && !liveAuction ? (
                   <>
-                    <div className="w-full flex gap-2 mt-[20px] lg:mt-[0px]">
+                    <div className={`w-full flex gap-2 mt-[20px] lg:mt-[0px] ${styles.border_top}`}>
                       <div className={styles.fixedPrice}>Listed&nbsp;for</div>
                       <div className="w-full flex items-center">
                         <div className="flex items-center mt-[3px]">
@@ -1215,7 +1216,7 @@ const MainSection = ({
                 ) : liveAuction === true ? (
                   <>
                     {!isEnded && (
-                      <div className={`mt-6 lg:mt-0 w-full`}>
+                      <div className={`mt-6 lg:mt-0 w-full ${styles.border_top}`}>
                         <div className={styles.auctionContainer}>
                           <AuctionCard
                             currentPrice={nftCurrentPrice}
