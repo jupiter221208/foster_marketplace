@@ -175,7 +175,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   let nftDescription = nftDetail?.description ?? ''
 
-  const [nftCoverUrl, setNftCoverUrl] = useState()
+  const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreen, setFullScreen] = useState(false)
   const setFullScreenView = url => {
     window.scrollTo({
@@ -331,7 +331,14 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           {nftType?.includes('vr') ? (
             <ModelViewer path={nftCoverUrl} fullScreen width={innerWidth} height={innerHeight} />
           ) : (
-            <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+            <img
+              src={nftCoverUrl}
+              onError={() => {
+                setNftCoverUrl(nftDetail?.original?.image)
+              }}
+              alt=""
+              className="w-full h-full max-w-full max-h-full object-contain"
+            />
           )}
           <div
             className={styles.closeScreen}
