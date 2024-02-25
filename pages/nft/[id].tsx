@@ -267,7 +267,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             </div>
           </div>
         ) : (
-          <div className="z-10 mb-[100px] lg:mb-[0px]">
+          <div className="z-10">
             {nftDetail && (
               <div className={styles.mainBG}>
                 <div className="g-container">
