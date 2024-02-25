@@ -219,6 +219,7 @@ const MainSection = ({
   const nftType: string = (nftDetail.category as string) ?? 'image'
   const coverUrl = nftDetail?.image ?? DefaultNftBG.src
   const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(CDN_PREFIX, '') : coverUrl
+  const originalCoverUrl = nftDetail.original.image
   const nftAssetUrl: string = nftDetail?.animation_url as string
   const nftName = nftDetail?.name ?? 'No name found'
   const nftDescription = nftDetail?.description ?? ''
@@ -909,6 +910,7 @@ const MainSection = ({
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
             nftCoverUrl={nftCoverUrl}
+            originalCoverUrl={originalCoverUrl}
             fullScreen={fullScreen}
           />
           {!nftType.includes('audio') && (
