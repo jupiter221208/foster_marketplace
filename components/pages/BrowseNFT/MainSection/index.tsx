@@ -1119,7 +1119,7 @@ const MainSection = ({
                   <div className="flex flex-wrap flex-col gap-2">
                     <div className={styles.categories}>Categories</div>
                     {nftCategories && nftCategories.length > 0 ? (
-                      <div className="flex flex-row">
+                      <div className="flex flex-wrap gap-2">
                         {nftCategories.map((item, index) => (
                           <SmallCategoryChip data={item} key={index} />
                         ))}
@@ -1263,7 +1263,7 @@ const MainSection = ({
                                         fullWidth
                                         min={0}
                                         height={
-                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
+                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'
                                         }
                                         onChange={value => {
                                           if (value < 0) {
