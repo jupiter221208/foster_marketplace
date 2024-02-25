@@ -219,6 +219,7 @@ const MainSection = ({
   const nftType: string = (nftDetail.category as string) ?? 'image'
   const coverUrl = nftDetail?.image ?? DefaultNftBG.src
   const nftCoverUrl = coverUrl.includes('=gif') ? coverUrl.replace(CDN_PREFIX, '') : coverUrl
+  const originalCoverUrl = nftDetail.original.image
   const nftAssetUrl: string = nftDetail?.animation_url as string
   const nftName = nftDetail?.name ?? 'No name found'
   const nftDescription = nftDetail?.description ?? ''
@@ -903,12 +904,13 @@ const MainSection = ({
           <div className={styles.overlay} />
         </div>
       )}
-      <div className="w-full flex flex-wrap justify-between gap-[30px] lg:gap-0">
+      <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
         <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
             nftCoverUrl={nftCoverUrl}
+            originalCoverUrl={originalCoverUrl}
             fullScreen={fullScreen}
           />
           {!nftType.includes('audio') && (
@@ -1010,7 +1012,7 @@ const MainSection = ({
                     {!loadedNftInfo ? (
                       <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
                     ) : (
-                      <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                      <div className="flex gap-[15px] sm:gap-1 xs:gap-1 md:gap-3">
                         <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
                           <Image
                             src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
@@ -1089,7 +1091,7 @@ const MainSection = ({
                       )}
                     </div>
                   ) : (
-                    <div className={styles.whiteDescription}>No description was detected for this artwork. </div>
+                    <></>
                   )}
                 </div>
               </div>
@@ -1113,26 +1115,27 @@ const MainSection = ({
                     </div>
                   </div>
                 )}
-                <div className="w-full flex justify-between gap-2 lg:gap-3 xl:gap-4">
-                  <div className="flex flex-wrap flex-col gap-2">
-                    <div className={styles.categories}>Categories</div>
-                    {nftCategories && nftCategories.length > 0 ? (
-                      <div className="flex flex-row">
-                        {nftCategories.map((item, index) => (
-                          <SmallCategoryChip data={item} key={index} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-row">
-                        <SmallCategoryChip data={['N/A']} />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-2 text-center">
-                    <div className={styles.whiteRoyalties}>Royalties</div>
-                    <div className={`${styles.greenRoyalties} ${styles.bg_text_gray_025} rounded-3xl`}>
-                      {nftRoyalties}%
+                <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
+                  {nftCategories && nftCategories.length > 0 && (
+                    <div className="flex flex-wrap flex-col gap-2">
+                      <div className={styles.categories}>Categories</div>
+                      {nftCategories && nftCategories.length > 0 ? (
+                        <div className="flex flex-wrap gap-2">
+                          {nftCategories.map((item, index) => (
+                            <SmallCategoryChip data={item} key={index} />
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="flex flex-row">
+                          <SmallCategoryChip data={['N/A']} />
+                        </div>
+                      )}
                     </div>
+                  )}
+
+                  <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
+                    <div className={styles.whiteRoyalties}>Royalties</div>
+                    <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
                   </div>
                 </div>
 
@@ -1143,9 +1146,10 @@ const MainSection = ({
                     className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
                   ></div>
                 )}
+
                 {nftPrice > 0 && !liveAuction ? (
                   <>
-                    <div className="w-full flex gap-2 mt-[20px] lg:mt-[0px]">
+                    <div className={`w-full flex gap-2 mt-[20px] lg:mt-[0px] ${styles.border_top}`}>
                       <div className={styles.fixedPrice}>Listed&nbsp;for</div>
                       <div className="w-full flex items-center">
                         <div className="flex items-center mt-[3px]">
@@ -1215,7 +1219,7 @@ const MainSection = ({
                 ) : liveAuction === true ? (
                   <>
                     {!isEnded && (
-                      <div className={`mt-6 lg:mt-0 w-full`}>
+                      <div className={`mt-6 lg:mt-0 w-full ${styles.border_top}`}>
                         <div className={styles.auctionContainer}>
                           <AuctionCard
                             currentPrice={nftCurrentPrice}
@@ -1226,7 +1230,7 @@ const MainSection = ({
                             setIsStarted={setIsStarted}
                           />
                           {isOwnNft === true ? (
-                            <div className="p-[15px] lg:p-0 lg:mt-[15px]">
+                            <div className="py-[15px] lg:py-0 lg:mt-[15px]">
                               <button
                                 className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
                                 onClick={() => nftCurrentPrice === 0 && cancelAuction()}
@@ -1255,7 +1259,7 @@ const MainSection = ({
                                   </>
                                 ) : (
                                   <div className="relative mt-[5px] lg:mt-[15px]">
-                                    <div className="w-full flex justify-center px-[18px] lg:px-[0px]">
+                                    <div className="w-full flex justify-center">
                                       <PriceInput
                                         value={price}
                                         placeholder="Enter Bid amount"
@@ -1263,7 +1267,7 @@ const MainSection = ({
                                         fullWidth
                                         min={0}
                                         height={
-                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
+                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'
                                         }
                                         onChange={value => {
                                           if (value < 0) {
@@ -1310,7 +1314,7 @@ const MainSection = ({
                                         </div>
                                       )}
                                     </div>
-                                    <div className="w-full flex items-center justify-between mb-[10px] lg:px-0 px-[18px]">
+                                    <div className="w-full flex items-center justify-between mb-[10px]">
                                       <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
                                       {endPhaseDuration > 0 && (
                                         <div

@@ -4,15 +4,15 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 16px;
-  padding: 5px 16px;
+  padding: 4.5px 9.5px;
   color: var(--text-gray-200-color);
   margin-right: 6px;
   @media (min-width: 1024px) {
     height: 25px;
     margin-right: 8px;
   }
-  background: rgba(var(--main-bg-color-rgb), 0.05);
-  border-radius: 16px;
+  border: solid 1px rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;

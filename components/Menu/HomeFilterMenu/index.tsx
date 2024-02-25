@@ -38,7 +38,7 @@ const HomeFilterMenu = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem}>
-                  <Radio data={data} selected={selectedItem} onChange={item => setSelectedItem(item)} />
+                  <Radio data={data} selected={selectedItem} direction="" onChange={item => setSelectedItem(item)} />
                 </div>
               )}
             </Menu.Item>
