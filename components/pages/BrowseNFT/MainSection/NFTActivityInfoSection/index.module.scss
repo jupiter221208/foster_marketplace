@@ -1,92 +1,91 @@
 @import 'assets/scss/variable.module.scss';
 
 .activityContainer {
-    width: 100%;
-    height: 100%;
-  }
+  width: 100%;
+  height: 100%;
+}
 
-  .subContainer {
-    width: 100%;
-    display: flex;
-    padding: 10px 25px 10px 25px;
-  }
+.subContainer {
+  width: 100%;
+  display: flex;
+  padding: 11px 0;
+}
 
-  .actionType {
-    font-size: 14px;
+.actionType {
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
     font-family: 'Muli-Regular';
-    color: var(--text-gray-200-color);
-    @media (min-width: 1024px) {
-      font-size: 18px;
-      font-family: 'Muli-Regular';
-    }
   }
+}
 
-  .userName {
-    font-size: 14px;
+.userName {
+  font-size: 14px;
+  font-family: 'Muli-Bold';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
     font-family: 'Muli-Bold';
-    color: var(--text-gray-200-color);
-    @media (min-width: 1024px) {
-      font-size: 18px;
-      font-family: 'Muli-Bold';
-    }
-    cursor: pointer;
   }
+  cursor: pointer;
+}
 
-  .dateValue {
-    display: flex;
-    font-size: 12px;
+.dateValue {
+  display: flex;
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 14px;
     font-family: 'Muli-Light';
-    color: var(--text-gray-200-color);
-    @media (min-width: 1024px) {
-      font-size: 14px;
-      font-family: 'Muli-Light';
-    }
   }
+}
 
-  .usdValue {
-    display: flex;
-    font-size: 12px;
+.usdValue {
+  display: flex;
+  font-size: 12px;
+  font-family: 'Muli-Light';
+  color: var(--text-gray-200-color);
+  justify-content: end;
+  @media (min-width: 1024px) {
+    font-size: 14px;
     font-family: 'Muli-Light';
-    color: var(--text-gray-200-color);
-    justify-content: end;
-    @media (min-width: 1024px) {
-      font-size: 14px;
-      font-family: 'Muli-Light';
-    }
+  }
+}
+
+.skeletonLoader:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
   }
 
-  .skeletonLoader:empty {
-    display: block;
-    background-color: var(--main-bg-color) !important;
-    border-color: var(--main-bg-color) !important;
-    animation-name: skeletonAnimation;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-  
-    &.others {
-      height: 453px;
-    }
-  
-    &.prod-name {
-      height: 20px;
-    }
-  
-    &.prod-description {
-      width: 80%;
-      height: calc(100% - 30px);
-    }
+  &.prod-name {
+    height: 20px;
   }
-  
-  @keyframes skeletonAnimation {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 0.2;
-    }
-    100% {
-      opacity: 0.6;
-    }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
   }
-  
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

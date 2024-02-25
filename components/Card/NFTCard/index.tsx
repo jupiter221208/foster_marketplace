@@ -40,6 +40,7 @@ const DashboardNFTCard = props => {
     image,
     nftName,
     coverImage = '',
+    originalCoverImage = '',
     artistName,
     collectionName,
     assetType,
@@ -178,13 +179,21 @@ const DashboardNFTCard = props => {
                   ) : coverImage !== null && coverImage !== '' ? (
                     <ImageWithFallback
                       src={coverImage}
+                      originalSrc={originalCoverImage}
                       onClick={onClick}
                       layout="fill"
                       alt=""
                       className={styles.imageNft}
                     />
                   ) : image !== null && image !== '' ? (
-                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                    <ImageWithFallback
+                      src={image}
+                      originalSrc={originalCoverImage}
+                      onClick={onClick}
+                      layout="fill"
+                      alt=""
+                      className={styles.imageNft}
+                    />
                   ) : (
                     <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                   )}
