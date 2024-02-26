@@ -266,14 +266,15 @@ const NFTAuctionCard = props => {
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
             </div>
           )}
-        </div>
-        <div className={styles.nftData}>
-          <div>
-            <div className={styles.nftName}>{nftName}</div>
-            <div className={styles.artistName}>{artistName}</div>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{nftName}</div>
+              <div className={styles.artistName}>{artistName}</div>
+            </div>
+            <div>&nbsp;</div>
           </div>
-          <div>&nbsp;</div>
         </div>
+
         <div className={styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center justify-between">

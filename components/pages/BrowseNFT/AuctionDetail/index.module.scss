@@ -99,27 +99,6 @@
   color: var(--text-gray-200-color);
 }
 
-.nftName {
-  font-family: 'Muli-Bold';
-  font-size: 17px;
-  @media (min-width: 1024px) {
-    font-size: 22px;
-  }
-  line-height: 22px;
-  text-align: center;
-  letter-spacing: 0px;
-  color: var(--text-gray-200-color);
-}
-
-.text {
-  font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 24px;
-  text-align: center;
-  letter-spacing: 0px;
-  color: var(--brand-06-color);
-}
-
 .datePicker {
   width: 100%;
   max-width: 125px;
@@ -149,25 +128,6 @@
   text-align: start;
 }
 
-.termLabel {
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 24px;
-  color: var(--text-gray-200-color);
-  text-align: center;
-  @media (max-width: 1024px) {
-    margin-bottom: 130px;
-  }
-}
-
-.termService {
-  font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 24px;
-  color: var(--modal-terms-service);
-  text-align: start;
-}
-
 .dateFont {
   font-family: 'Muli-Regular';
   font-size: 12px;
@@ -184,10 +144,6 @@
   font-size: 12px;
   line-height: 24px;
   color: var(--text-gray-200-color);
-}
-
-.linkText {
-  color: var(--brand-06-color);
 }
 
 .auctionStart {

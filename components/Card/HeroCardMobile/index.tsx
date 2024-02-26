@@ -6,33 +6,21 @@ import Image from 'next/image'
 // custom functions
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
-const HeroCardMobile = ({ data }) => {
+const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
-
-  const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${data.artist_username}`)
-  }
-
-  const gotoNftDetailPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/nft/${data.token_id}`)
-  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,14 +61,13 @@ const HeroCardMobile = ({ data }) => {
                 : '/images/banner.png'
             }
             alt=""
-            // height={680}
             className="w-full h-full object-cover"
             loading="lazy"
           />
         )}
       </div>
       <div className="absolute top-[0px] left-[0px] right-[0px] bottom-[0px] z-10">
-        <div className="px-[15px] mt-[120px] z-10">
+        <div className="px-[15px] mt-[110px] z-10">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
               {!loaded && (
@@ -94,24 +81,26 @@ const HeroCardMobile = ({ data }) => {
               (data.cover_image_url === null || data.cover_image_url === '') ? (
                 <div></div>
               ) : data.asset_type.includes('image') ? (
-                <img
-                  src={
-                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                      ? data.asset_url
-                      : data.cover_image_url !== '' &&
-                        data.cover_image_url !== null &&
-                        data.cover_image_url !== undefined
-                      ? data.cover_image_url
-                      : '/images/banner.png'
-                  }
-                  alt=""
-                  width={550}
-                  height={772}
-                  className="w-full h-full object-cover"
-                  onClick={() => gotoNftDetailPage()}
-                />
+                <div className="w-full h-full flex justify-center">
+                  <img
+                    src={
+                      data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                        ? data.asset_url
+                        : data.cover_image_url !== '' &&
+                          data.cover_image_url !== null &&
+                          data.cover_image_url !== undefined
+                        ? data.cover_image_url
+                        : '/images/banner.png'
+                    }
+                    alt=""
+                    width={550}
+                    height={772}
+                    className="w-auto h-auto max-w-full max-h-full object-contain"
+                    onClick={() => gotoNftDetailPage()}
+                  />
+                </div>
               ) : data.asset_type.includes('vr') ? (
-                <div className={`relative aspect-square w-full h-full`}>
+                <div className="relative aspect-square w-full h-full">
                   <img
                     src={data.cover_image_url}
                     alt=""
@@ -127,7 +116,7 @@ const HeroCardMobile = ({ data }) => {
                     <img
                       src={data.cover_image_url}
                       alt=""
-                      className="w-full h-full object-cover"
+                      className="w-auto h-auto max-w-full max-h-full object-contain"
                       onClick={() => gotoNftDetailPage()}
                     />
                   ) : (
@@ -178,33 +167,39 @@ const HeroCardMobile = ({ data }) => {
             </div>
           </div>
         </div>
-        <div className="w-full flex justify-between h-[46px] mt-[11px] px-[38px]">
-          <div className="mt-[2px]">
+        <div className="w-full h-[170px]">
+          <div className={styles.nftNameContainer}>
             <div className={styles.nftName}>{data.nft_name}</div>
-            <div className={styles.creatorName}>{data.artist_username}</div>
           </div>
-          {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
-            <div className={styles.avatarArea} onClick={() => gotoAristPage()}>
-              {!profileLoaded && (
-                <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
+          <div className="w-full flex justify-center">
+            <div className="flex gap-[7px] mt-[8px]" onClick={() => gotoAristPage()}>
+              {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
+                <div className={styles.avatarArea}>
+                  {!profileLoaded && (
+                    <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
+                    </div>
+                  )}
+                  <img
+                    src={
+                      data.artist_profile_picture.length > 0
+                        ? data.artist_profile_picture
+                        : 'images/dashboard-avatar.png'
+                    }
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="rounded-full"
+                  />
                 </div>
               )}
-              <img
-                src={
-                  data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'
-                }
-                alt=""
-                width={44}
-                height={44}
-                className="rounded-full"
-              />
+              <div className={styles.creatorName}>{data.artist_username}</div>
             </div>
-          )}
+          </div>
         </div>
-        <div className={styles.listingArea}>
+        {/* <div className={styles.listingArea}>
           <div className="ml-[24px]">
             <div className={styles.priceName}>Price</div>
             <div className="w-full flex gap-[7px] items-center mt-[">
@@ -212,7 +207,7 @@ const HeroCardMobile = ({ data }) => {
               <div className={styles.priceValue}>{data.list_price}</div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className={styles.bottomSection} />
       </div>
     </div>

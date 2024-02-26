@@ -246,7 +246,7 @@
     rgba(32, 36, 39, 0.5) 100%
   );
   --resource-card-default-bg: #202427;
-  --home-swiper-bg: #5ac3ba;
+  --home-swiper-bg: #9E9DA0;
   --explore-btn-bg-1: #5ac3ba;
   --explore-btn-bg-2: #378287;
   --home-hero-title: #eff0f6;
@@ -1746,6 +1746,13 @@ h6 {
 
 [data-name='main-color-icon'] {
   fill: var(--main-bg-color);
+}
+
+[data-name='fullscreen-icon'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.03);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
+  }
 }
 
 [data-name='main-stroke-icon'] {

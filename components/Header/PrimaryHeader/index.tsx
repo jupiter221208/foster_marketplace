@@ -32,7 +32,7 @@ import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?componen
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
-import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
+import ExploreMenuList from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
@@ -235,10 +235,10 @@ const PrimaryHeader = () => {
               <div>
                 <ExploreMenu
                   label="Explore"
-                  activeList={activeList}
-                  filterList={filterList}
-                  categoryList={categoryList}
-                  performerList={performerList}
+                  activeList={ExploreMenuList.activeList}
+                  filterList={ExploreMenuList.filterList}
+                  categoryList={ExploreMenuList.categoryList}
+                  performerList={ExploreMenuList.performerList}
                 />
               </div>
 

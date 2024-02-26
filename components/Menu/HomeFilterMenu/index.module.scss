@@ -1,0 +1,65 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: auto;
+  height: 45px;
+  padding: 7px 0px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    padding: 9px 0px;
+  }
+  gap: 8px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  top: 40px;
+  @media (min-width: 1024px) {
+    top: 50px;
+  }
+  background: rgba(var(--collection-card-bg-rgb), 0.7);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  border-radius: 15px;
+  width: 226px;
+  padding: 10px 25px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+
+  *:first-child {
+    padding-top: 8px;
+  }
+  *:last-child {
+    margin-bottom: 8px;
+  }
+  *:not(:last-child) {
+    border-bottom: 1px solid rgb(var(--main-bg-color-rgb), 0.1); /* Change color as needed */
+    padding: 0 0 8px 0;
+  }
+}

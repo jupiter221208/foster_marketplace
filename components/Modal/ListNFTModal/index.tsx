@@ -13,14 +13,14 @@ import Image from 'next/image'
 import PriceInput from 'components/Input/PriceInput'
 
 // images
-import AudioPlayerBackground from 'assets/images/audio-player.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
 // solana
-import { LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { listNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -30,10 +30,21 @@ import listingsAPI from 'apis/listings'
 import LoadingButton from 'components/Button/LoadingButton'
 import { useAuthentication } from 'hooks/useAuthentication'
 
-const ListNFTModal = props => {
-  const { data, open, onClose } = props
+interface ListNFTModalProps {
+  data: {
+    mintAddress: string
+    name?: string
+    image?: string
+    animation_url?: string
+    category?: string
+  }
+  open: boolean
+  onClose: (status: string, price: string) => void
+}
+
+const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
   const dispatch = useDispatch()
-  const [price, setPrice] = useState<string>()
+  const [price, setPrice] = useState<string>('')
   const [listStatus, setListStatus] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
@@ -45,7 +56,7 @@ const ListNFTModal = props => {
 
     await refreshToken()
 
-    const result = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
+    const result = await listNFT(mx, new PublicKey(data.mintAddress), parseFloat(price) * LAMPORTS_PER_SOL)
     let listingResponse = null
     if (result) {
       // retry upto 3 times
@@ -144,26 +155,26 @@ const ListNFTModal = props => {
                   </div>
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-[20px] lg:mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                    {data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
+                    {data?.category === 'video' ? (
                       <div
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.json?.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
                         }}
                       />
                     ) : (
                       <img
-                        src={data?.json?.image || AudioPlayerBackground.src}
-                        alt={data?.json?.name || data?.name}
+                        src={data?.image || DefaultNftBG.src}
+                        alt={data ? data.name : 'nft image'}
                         className="w-full aspect-[321/321] object-cover"
                       />
                     )}
                   </div>
-                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.json?.name || data?.name}</div>
+                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.name}</div>
                   <div className="w-full mt-[20px] lg:mt-12">
                     <PriceInput
                       value={price}
-                      placeholder="Enter fixed-price for listing"
+                      placeholder="Enter listing price"
                       backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                       fullWidth
                       onChange={value => setPrice(value)}
@@ -174,7 +185,7 @@ const ListNFTModal = props => {
                       <LoadingButton fullWidth />
                     ) : (
                       <GradientButton
-                        disabled={parseFloat(price ?? '0') <= 0}
+                        disabled={parseFloat(price ?? '0') <= 0 || price === ''}
                         label="List"
                         fontSize={18}
                         fullWidth
@@ -229,22 +240,18 @@ const ListNFTModal = props => {
                       </g>
                     </svg>
                   </div>
-                  {data?.json?.category === 'video' || data?.json?.properties?.category === 'video' ? (
+                  {data?.category === 'video' ? (
                     <div
                       className="mt-[25px]"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.json?.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
                       }}
                     />
                   ) : (
                     <img
-                      src={
-                        data?.json?.image === undefined || data?.json?.image === null
-                          ? AudioPlayerBackground.src
-                          : data?.json?.image
-                      }
-                      alt={data?.json.name || data?.name}
+                      src={data?.image || DefaultNftBG.src}
+                      alt={data?.name}
                       className="w-full aspect-[321/321] object-cover mt-[25px] rounded-[16px]"
                     />
                   )}

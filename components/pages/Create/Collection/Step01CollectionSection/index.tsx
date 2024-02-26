@@ -523,7 +523,6 @@ const Step01CollectionSection = props => {
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full flex justify-center">
-                  {/* <CollectionStepper currentStep={currentStep} /> */}
                   <div className={styles.collectionTypeSection}>
                     <div
                       className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
@@ -908,12 +907,6 @@ const Step01CollectionSection = props => {
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
-                  {/* <GradientButton
-                    fullWidth
-                    label="Choose Category"
-                    onClick={() => setShowCategoryList(true)}
-                    height="45px"
-                  /> */}
                   <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
                     Choose Category
                   </div>

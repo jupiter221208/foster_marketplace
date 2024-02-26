@@ -60,7 +60,7 @@ const TabSection = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [artworkType, setArtworkType] = useState('listed')
+  const [artworkType, setArtworkType] = useState('created')
 
   useEffect(() => {
     setTimeout(() => {

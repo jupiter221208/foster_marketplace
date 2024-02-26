@@ -28,6 +28,10 @@ import { PublicKey } from '@solana/web3.js'
 import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { validDigits } from 'utils/helpers'
+
+// api
+import nftsAPI from 'apis/nfts'
 
 const EditMetaModal = props => {
   const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
@@ -114,6 +118,7 @@ const EditMetaModal = props => {
       newJson.description = artDesc
       needsJsonUpload = true
     }
+    let categoryList = []
     if (
       attributeList.length != oldJson.attributes?.length ||
       attributeList.some(({ type, name }, index) => {
@@ -121,10 +126,11 @@ const EditMetaModal = props => {
         return type != chainAttribute.trait_type || name != chainAttribute.value
       })
     ) {
-      newJson.attributes = attributeList.map(({ type, name }) => ({
+      categoryList = attributeList.map(({ type, name }) => ({
         trait_type: type,
         value: name,
       }))
+      newJson.attributes  = categoryList
       needsJsonUpload = true
     }
 
@@ -147,11 +153,16 @@ const EditMetaModal = props => {
     }
 
     let newRoyalty = Math.floor(parseFloat(artRoyalty) * 100)
-    if (newRoyalty != chainNft.sellerFeeBasisPoints) updateInput.sellerFeeBasisPoints = newRoyalty
+    let royaltyChanged = false
+    if (newRoyalty != chainNft.sellerFeeBasisPoints) {
+      updateInput.sellerFeeBasisPoints = newRoyalty
+      royaltyChanged = true
+    }
 
+    let newImageUrl = '';
     if (selectedFile !== null) {
       let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
-      let newImageUrl = await storage.upload(metaplexFile)
+      newImageUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.image) {
           file.url = newImageUrl
@@ -188,6 +199,37 @@ const EditMetaModal = props => {
       try {
         console.log('updating nft:', updateInput)
         await metaplex.nfts().update(updateInput)
+        let params = {
+          nftName: artName,
+          assetType: nftType
+        }
+        if (categoryList.length > 0) {
+          let category = ''
+          categoryList.filter(item => item.trait_type === "category").forEach(item => {
+            category += item.value + ','
+          })
+          params["categories"] = category.slice(0, -1)
+        }
+        if (newImageUrl.length > 0) {
+          params["coverImageUrl"] = newImageUrl
+          if (nftType === 'image') {
+            params["assetUrl"] = newImageUrl
+          }
+        }
+        if (royaltyChanged) {
+          params["royalties"] = newRoyalty.toString()
+        }
+        await nftsAPI
+        .update(nftInfo.address, params)
+        .then(
+          response => {
+            console.log(response)
+          },
+          error => {
+            console.log(error)
+            setLoading(false)
+          }
+        )
         setTimeout(() => {
           router.reload()
         }, 3000)
@@ -310,7 +352,9 @@ const EditMetaModal = props => {
                           value={artRoyalty + '%'}
                           placeholder={'10%'}
                           onChange={event => {
-                            setArtRoyalty(event.target.value.replace('%', ''))
+                            let value = validDigits(event.target.value)
+                            if (value > 100) value = 100
+                            setArtRoyalty(value)
                           }}
                         />
                       </div>
@@ -425,7 +469,7 @@ const EditMetaModal = props => {
                           placeholder="Give your art name"
                           label01="Max Characters 1000"
                           label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
-                          onChange={value => setArtName(limit(value, 1000))}
+                          onChange={value => setArtDesc(limit(value, 1000))}
                         />
                       </div>
                     </div>
@@ -444,7 +488,9 @@ const EditMetaModal = props => {
                           value={artRoyalty + '%'}
                           placeholder={'10%'}
                           onChange={event => {
-                            setArtRoyalty(event.target.value.replace('%', ''))
+                            let value = validDigits(event.target.value)
+                            if (value > 100) value = 100
+                            setArtRoyalty(value)
                           }}
                         />
                         <WalletInputBox

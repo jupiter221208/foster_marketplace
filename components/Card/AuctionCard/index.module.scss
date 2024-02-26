@@ -6,10 +6,9 @@
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 12px;
-  padding: 8px 18px;
+  padding: 8px 0;
   @media (min-width: 1024px) {
-    padding-top: 9px;
-    padding-bottom: 10px;
+    padding: 0;
   }
 }
 
@@ -44,6 +43,14 @@
   font-size: 16px;
   line-height: 16px;
   @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1680px) {
     font-size: 20px;
     line-height: 25px;
   }
@@ -57,10 +64,20 @@
   line-height: 16px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-family: 'Muli-Regular';
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1680px) {
+    font-family: 'Muli-Regular';
     font-size: 20px;
     line-height: 25px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .priceText {
@@ -68,6 +85,14 @@
   font-family: 'Muli-Bold';
   font-size: 16px;
   @media (min-width: 1024px) {
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    padding-bottom: 2px;
+  }
+  @media (min-width: 1680px) {
     font-size: 20px;
     padding-bottom: 2px;
   }

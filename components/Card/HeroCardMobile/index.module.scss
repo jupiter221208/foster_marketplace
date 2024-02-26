@@ -12,19 +12,18 @@
 .imageBG {
   width: 100%;
   height: 680px;
-  @media (min-width: 440px) {
-    height: 750px;
-  }
-  @media (min-width: 516px) {
-    height: 800px;
-  }
-  @media (min-width: 516px) {
-    height: 720px;
-  }
-  @media (min-width: 768px) {
-    height: 820px;
-  }
   position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--hero-overlay-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 0;
 }
 
@@ -40,19 +39,18 @@
 
 .imageArea {
   position: relative;
-  padding-top: 90.069%; /* 345:304 Aspect Ratio */
-  @media (min-width: 414px) {
-    padding-top: 85%; /* 550:400 Aspect Ratio */
-  }
-  @media (min-width: 640px) {
-    padding-top: 72.727%; /* 550:400 Aspect Ratio */
-  }
-  @media (min-width: 768px) {
-    padding-top: 90.09%; /* 550:500 Aspect Ratio */
-  }
-  @media (min-width: 1024px) {
-    padding-top: 140.36%; /* 550:720 Aspect Ratio */
-  }
+  width: 100%;
+  height: 400px;
+  // padding-top: 115.942%; /* 345:400 Aspect Ratio */
+  // @media (min-width: 640px) {
+  //   padding-top: 72.727%; /* 550:400 Aspect Ratio */
+  // }
+  // @media (min-width: 768px) {
+  //   padding-top: 90.09%; /* 550:500 Aspect Ratio */
+  // }
+  // @media (min-width: 1024px) {
+  //   padding-top: 140.36%; /* 550:720 Aspect Ratio */
+  // }
 }
 
 .imageContent {
@@ -60,22 +58,28 @@
   inset: 0;
   justify-content: center;
   align-items: center;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  margin-left: 1px;
-  margin-right: 1px;
   overflow: hidden;
-  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
+  // box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
+  // background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23707070' stroke-width='2' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")
 }
 
 .avatarArea {
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
   z-index: 10;
   overflow: hidden;
 }
 
+.nftNameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  @media (min-width: 414px) {
+    margin-top: 37px;
+  }
+}
 .cardArea {
   position: absolute;
   bottom: 8px;
@@ -110,8 +114,8 @@
 
 .nftName {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  color: $text-gray-200-color;
+  font-size: 22px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -173,7 +177,7 @@
 .creatorName {
   font-family: 'Muli-Light';
   font-size: 14px;
-  color: var(--main-icon-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .listingArea {
@@ -194,12 +198,13 @@
 
 .bottomSection {
   width: 100%;
-  height: 97px;
+  height: 1px;
   position: absolute;
   bottom: 0px;
   left: 0px;
-  background: linear-gradient(to bottom, transparent, var(--background-main-color));
+  background: rgba(var(--main-bg-color-rgb), 0.1)
 }
+
 .priceName {
   font-family: 'Muli-Light';
   font-size: 12px;

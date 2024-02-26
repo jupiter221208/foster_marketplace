@@ -34,8 +34,6 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT, active }: MyNFTC
     setImageLoading(true)
   }, [data])
 
-  console.log(data)
-
   return (
     <div className={styles.container}>
       <Link href={`/nft/${data.mintAddress.toString()}`} passHref>

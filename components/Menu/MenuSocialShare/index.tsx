@@ -17,7 +17,7 @@ import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
 import ShareBlackDesktopIcon from 'assets/icons/share-black-desktop.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -98,7 +98,6 @@ const MenuSocialShare = ({
                 <Image src={vote ? icon02 : icon01} alt="" />
               </div>
             )}
-            {/* <div className={styles.text}>{voteCount}</div> */}
           </div>
         </Menu.Button>
 
@@ -111,11 +110,10 @@ const MenuSocialShare = ({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className={styles.menuArea}>
+          <Menu.Items className={type === 'nft' ? styles.menuAreaNft : styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
-                  {/* <Image src={FileCopyIcon} alt="" /> */}
                   <FileCopyIcon alt="" />
                   Copy to Clipboard
                 </div>

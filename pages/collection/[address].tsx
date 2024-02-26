@@ -53,7 +53,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [hasloading, setHasLoading] = useState(false)
   const [showEAPreview, setShowEAPreview] = useState(false)
   const [importMintList, setImportMintList] = useState<string[]>([])
-  console.log(publicCollectionData, '=======================publicCollectionData==============')
   useEffect(() => {
     setTimeout(
       () =>
@@ -111,6 +110,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                     t.content.json_uri === arr.content.json_uri && t.content.metadata.name === arr.content.metadata.name
                 )
             )
+
+            filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
             setNfts(filteredNfts)
             fetchNftData(filteredNfts)
           }

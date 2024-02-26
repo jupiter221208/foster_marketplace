@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // next components
 import { useRouter } from 'next/router'
@@ -21,7 +21,6 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -31,9 +30,7 @@ import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-import IGHoverIcon from 'assets/icons/instagram-hover.svg'
-import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
-import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
+
 import Alert from 'components/Alert'
 
 // styles
@@ -296,9 +293,7 @@ const MainSection = () => {
               </div>
             </div>
             <div className={styles.bottomSection}>
-              <div className={styles.artistName}>
-                {getDisplayUserName(profileName)}
-              </div>
+              <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
             </div>
             <div className="relative flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
               <div className="relative">

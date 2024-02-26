@@ -87,6 +87,8 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
     }
   }, [isFetching])
 
+  console.log(nftList)
+
   return (
     nftList !== undefined && (
       <section className={styles.container}>
@@ -125,7 +127,8 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                   image={item.content.files[1]?.uri}
                   nftName={item.content.metadata.name}
                   assetType={item.category}
-                  coverImage={item.content.files[0].cdn_uri || item.content.files[0].uri || item.content.links.image}
+                  coverImage={item.content.files[0]?.cdn_uri || item.content.files[0]?.uri || item.content.links.image}
+                  originalCoverImage={item.content.links.image}
                   artistName={item.creators[0].artist_username}
                   collectionName={collectionName}
                   artistId={item.creators[0].address}

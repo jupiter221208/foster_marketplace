@@ -59,7 +59,8 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
 
 export function shouldUseDas(metaplex: Metaplex): boolean {
   let rpcEndpoint = metaplex.connection.rpcEndpoint
-  return new URL(rpcEndpoint).hostname.endsWith('helius.xyz')
+  let hostname = new URL(rpcEndpoint).hostname
+  return hostname.endsWith('helius.xyz') || hostname.endsWith('helius-rpc.com')
 }
 
 export function assertDasSupported(metaplex: Metaplex): void {
@@ -116,7 +117,7 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
 
   return metadatas
     .filter(metadata => metadata != null)
-    .map(({ name, creators, collection, collectionDetails, json }, index) => {
+    .map(({ address, name, creators, collection, collectionDetails, json }, index) => {
       const creatorsInfo = creators
         ? creators.map(c => ({
             address: c.address.toBase58(),
@@ -132,11 +133,9 @@ export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
           }
         : null
 
-      console.log(collection)
-      console.log(collectionInfo)
-
       return {
         mintAddress: tokenAccounts[index].mint?.toString(),
+        metadataAddress: address.toBase58(),
         name: name || json?.name,
         description: json?.description,
         image: json?.image,
@@ -216,7 +215,13 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
     // let supply = supply.print_current_supply
 
     return {
-      mintAddress: new PublicKey(id)?.toString(),
+      mintAddress: new PublicKey(id).toString(),
+      metadataAddress: mx
+        .nfts()
+        .pdas()
+        .metadata({ mint: new PublicKey(id) })
+        .toBase58(),
+
       name: content.metadata.name,
       symbol: content.metadata.symbol,
       description: content.metadata.description,
@@ -231,7 +236,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         image: imageCdn,
       },
 
-      category: '',
+      category: determineCategory(content.files),
       creators: creators.map(({ address, share, verified }) => ({
         address: new PublicKey(address)?.toString(),
         share,
@@ -241,7 +246,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       collection,
       collectionDetails,
       tokenAccount: {
-        delegate: ownership.delegated?.toString(),
+        delegate: ownership.delegate?.toString(),
         isFrozen: ownership.frozen,
       },
     }
@@ -269,7 +274,7 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
 }
 
 export function getNFTCategories(nft): string[] {
-  return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
+  return nft?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 
 export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): PublicKey | null {
@@ -315,9 +320,12 @@ export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo> 
   return { likes, shares, saves, liked, saved, sharedSocial }
 }
 
-export async function getNftFromDAS(address, maxRetries = 3): Promise<NftData> {
+export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetries = 3): Promise<NftData> {
+  assertDasSupported(metaplex)
+
+  let dasResponse = null
   for (let i = 0; i < maxRetries; i++) {
-    const response = await fetch(process.env.PROVIDER_URL, {
+    const response = await fetch(metaplex.connection.rpcEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -333,7 +341,8 @@ export async function getNftFromDAS(address, maxRetries = 3): Promise<NftData> {
     })
     const { result } = await response.json()
     if (result) {
-      return result
+      dasResponse = result
+      break
     }
     console.log(`Attempt ${i + 1} did not return data.`)
     // If this isn't the last attempt, wait 1 second before trying again
@@ -341,8 +350,96 @@ export async function getNftFromDAS(address, maxRetries = 3): Promise<NftData> {
       await new Promise(resolve => setTimeout(resolve, 1000))
     }
   }
-  console.error('Failed to fetch NFT data after', maxRetries, 'attempts')
-  return undefined
+  if (!dasResponse) {
+    console.error('Failed to fetch NFT data after', maxRetries, 'attempts')
+    return null
+  }
+
+  let { content, grouping, royalty, creators } = dasResponse
+  let image = content.links.image
+  let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
+  let animation_url = content.links.animation_url
+  let category = determineCategory(content.files)
+  return {
+    mintAddress: address,
+    metadataAddress: metaplex
+      .nfts()
+      .pdas()
+      .metadata({ mint: new PublicKey(address) })
+      .toBase58(),
+
+    name: content.metadata.name,
+    symbol: content.metadata.symbol,
+    description: content.metadata.description,
+    uri: content.json_uri,
+
+    image: imageCdn ?? image,
+    animation_url,
+    original: {
+      image,
+      animation_url,
+    },
+    optimized: {
+      image: imageCdn,
+    },
+
+    sellerFeeBasisPoints: royalty.basis_points,
+    creators,
+    category,
+    attributes: content.metadata.attributes,
+
+    collection: grouping
+      .filter(({ group_key }) => group_key == 'collection')
+      .map(({ group_value }) => ({
+        address: group_value,
+        verified: true,
+      }))[0],
+
+    content,
+    properties: {
+      category,
+      files: content.files.map(({ mime, uri }) => ({ type: mime, uri })),
+    },
+  }
+}
+
+export async function getNftFromRpc(metaplex, address: string): Promise<NftData> {
+  let nft = await metaplex.nfts().findByMint({ mintAddress: new PublicKey(address) })
+
+  return {
+    mintAddress: address,
+    metadataAddress: nft.metadataAddress.toBase58(),
+
+    name: nft.name,
+    symbol: nft.symbol,
+    description: nft.json?.description,
+    uri: nft.uri,
+
+    image: nft.json?.image,
+    animation_url: nft.json?.animation_url,
+    original: {
+      image: nft.json?.image,
+      animation_url: nft.json?.animation_url,
+    },
+
+    sellerFeeBasisPoints: nft.sellerFeeBasisPoints,
+    creators: nft.creators.map(({ address, share, verified }) => ({
+      address: address.toBase58(),
+      share,
+      verified,
+    })),
+    attributes: nft?.json?.attributes ?? [],
+
+    collection: nft.collection?.verified
+      ? {
+          address: nft.collection.address.toBase58(),
+          verified: true,
+        }
+      : undefined,
+
+    json: nft.json,
+    properties: nft.json?.properties,
+  }
 }
 
 type determineCategoryType = {
@@ -353,7 +450,6 @@ type determineCategoryType = {
 
 export function determineCategory(files: determineCategoryType) {
   let category: string
-
   if (files.length > 1) {
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
@@ -361,7 +457,11 @@ export function determineCategory(files: determineCategoryType) {
       }
     })
   } else {
-    category = files[0].mime.split('/')[0]
+    if (files.length === 0) {
+      category = 'image'
+    } else {
+      category = files[0].mime.split('/')[0]
+    }
   }
 
   return category || 'image'

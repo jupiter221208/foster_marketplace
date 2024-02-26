@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "label": "Starting Soon"
+  },
+  {
+    "id": 1,
+    "label": "Recently Started"
+  },
+  {
+    "id": 2,
+    "label": "Ending Soon"
+  }
+]

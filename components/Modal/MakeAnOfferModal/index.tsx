@@ -26,7 +26,7 @@ const MakeAnOfferModal = props => {
   const [minimumOffer50, setMinimumOffer50] = useState<any>(94.5)
   const [biddingWalletBalance, setBiddingWalletBalance] = useState<any>(0)
   const [errorMessage, setErrorMessage] = useState<any>('')
-  const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(true)
+  const [offerBtnDisabled, setOfferBtnDisabled] = useState(false)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
   useEffect(() => {

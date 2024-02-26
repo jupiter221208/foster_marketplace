@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next component
-import Image from 'next/image'
 
 import { useViewport } from 'utils'
 import { useResizeDetector } from 'react-resize-detector'
@@ -11,16 +10,27 @@ import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 // resources
-import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 const NFTAssetSection = props => {
-  const { nftType, nftAssetUrl, nftCoverUrl, fullScreen, setFullScreenView } = props
+  const { nftType, nftAssetUrl, nftCoverUrl, originalCoverUrl, fullScreen } = props
   const viewport = useViewport()
   const { width, height, ref } = useResizeDetector()
+  const [currentImageUrl, setCurrentImageUrl] = useState(nftCoverUrl)
+
+  useEffect(() => {
+    if (nftType.includes('image')) {
+      const img = new window.Image()
+      img.src = nftCoverUrl
+      img.onload = () => setCurrentImageUrl(nftCoverUrl)
+      img.onerror = () => {
+        setCurrentImageUrl(originalCoverUrl)
+      }
+    }
+  }, [nftCoverUrl, originalCoverUrl])
 
   return (
     <div>
@@ -39,7 +49,7 @@ const NFTAssetSection = props => {
           )
         ) : nftType.includes('image') ? (
           <div className={styles.mobileImageArea}>
-            <img src={nftCoverUrl} alt="" className="w-full" />
+            <img src={currentImageUrl} alt="" className="w-full" />
           </div>
         ) : nftType.includes('audio') ? (
           <div className={styles.mobileImageArea}>
@@ -72,9 +82,6 @@ const NFTAssetSection = props => {
             {nftAssetUrl ? (
               <>
                 <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
-                <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftAssetUrl)}>
-                  <Image src={FullScreenModeIcon} alt="" />
-                </div>
               </>
             ) : nftCoverUrl ? (
               <img
@@ -86,23 +93,22 @@ const NFTAssetSection = props => {
               <h1>Could not load NFT.</h1>
             )}
           </div>
+          <div className={styles.borderView} />
         </div>
       ) : nftType.includes('image') ? (
         <div className={styles.blurBackground}>
           <div className={styles.blurImage} />
           <div className={styles.imageArea}>
             <img
-              src={nftCoverUrl}
+              src={currentImageUrl}
               alt=""
               className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
             />
-            <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-              <Image src={FullScreenModeIcon} alt="" />
-            </div>
           </div>
+          <div className={styles.borderView} />
         </div>
       ) : nftType.includes('audio') ? (
-        <div className="w-full h-full flex justify-start items-center">
+        <div className="w-full h-full flex justify-center items-center">
           <div className={styles.audioBackground}>
             {nftAssetUrl && (
               <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">

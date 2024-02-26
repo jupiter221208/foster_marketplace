@@ -23,15 +23,15 @@ import { useViewport } from 'utils'
 
 // images and icons
 import Artist from 'assets/images/dashboard-avatar.png'
+import DayList from 'assets/json/home/day-list.json'
 
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
+import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -41,6 +41,7 @@ const TopRatedArtistsSection = () => {
   const [artistsList, setArtistsList] = useState<any[]>([])
   const [active, setActive] = useState<any>(2)
   const [isLoading, setIsLoading] = useState(false)
+  const [period, setPeriod] = useState(DayList[2])
 
   useEffect(() => {
     getTopRatedArtistsFromServer('month')
@@ -86,135 +87,27 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-center">
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full flex justify-between items-center z-10">
-            <div className={styles.title}>Trending Artists</div>
-            <div className="flex gap-[8px] items-center">
-              <div
-                className={styles.seeMore}
-                onClick={() => {
-                  dispatch({ type: 'set', exploreTab: 2 })
-                  dispatch({ type: 'set', artistSort: 'top' })
-                  router.push('/explore')
-                }}
-              >
-                See More
-              </div>
-              <ArrowRightGreenIcon alt="" />
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
       <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="w-full hidden gap-16 lg:flex h-[54px]">
-            <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
-            <div className={styles.slotBG}>
-              <TimeSlotButton
-                label="24 hrs"
-                onClick={() => handleChangeActive(0)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={86}
-                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="7 days"
-                onClick={() => handleChangeActive(1)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={86}
-                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="30 days"
-                onClick={() => handleChangeActive(2)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 2 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={100}
-                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="All Time"
-                onClick={() => handleChangeActive(3)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 3 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 3 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 3 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={100}
-                boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-            </div>
-          </div>
+        <div>
+          <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
+          <HomeFilterMenu
+            label={period['label']}
+            data={DayList}
+            selectedItem={period}
+            setSelectedItem={item => {
+              setPeriod(item)
+              handleChangeActive(item.id)
+            }}
+          />
         </div>
-        <div className="hidden lg:flex z-10">
+
+        <div>
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })
               dispatch({ type: 'set', artistSort: 'top' })
               router.push('/explore')
             }}
-          />
-        </div>
-      </div>
-      <div className="w-full block lg:hidden h-[54px] mt-[15px]">
-        <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="24 hrs"
-            onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={86}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-          <TimeSlotButton
-            label="7 days"
-            onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={86}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-          <TimeSlotButton
-            label="30 days"
-            onClick={() => handleChangeActive(2)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 2 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={86}
-            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-          <TimeSlotButton
-            label="All Time"
-            onClick={() => handleChangeActive(3)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 3 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 3 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 3 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={86}
-            boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

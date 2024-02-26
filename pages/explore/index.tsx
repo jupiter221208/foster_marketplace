@@ -15,7 +15,7 @@ import CollectionFilter from 'components/Filter/CollectionFilter'
 import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
-import Tab from 'components/Tab'
+import SelectedTab from 'components/Tab/SelectedTab'
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
@@ -53,6 +53,7 @@ import GradientButton from 'components/Button/GradientButton'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
+import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 
 const Explore = () => {
   const router = useRouter()
@@ -549,12 +550,13 @@ const Explore = () => {
           </div>
           <div className={styles.tabBorder} />
         </div>
-        <div className="w-full lg:hidden block">
-          <div className={styles.tabContainer}>
-            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+        <div className="w-full lg:hidden block mt-[30px]">
+          <div className={styles.selectedTab}>
+            <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+            <div className={styles.selectedTabBorder} />
           </div>
 
-          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
+          <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-[15px] mt-[15px]">
             {exploreTab !== 2 && (
               <GradientButton
                 label="Filter"
@@ -656,6 +658,19 @@ const Explore = () => {
                               }}
                               price={item.price}
                             />
+                          ) : !item.end_time && item.price ? (
+                            <ListedNftCardExplore
+                              nftName={item.name}
+                              token_id={item.token_id}
+                              artistName={item.creator}
+                              image={item.image}
+                              price={item.price}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                              }}
+                            />
                           ) : (
                             <NFTCard
                               token_id={item.token_id}
@@ -671,6 +686,19 @@ const Explore = () => {
                               price={item.price}
                             />
                           )
+                        ) : !item.end_time && item.price ? (
+                          <ListedNftCardExplore
+                            nftName={item.name}
+                            token_id={item.token_id}
+                            artistName={item.creator}
+                            image={item.image}
+                            price={item.price}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                            }}
+                          />
                         ) : (
                           <NFTCard
                             token_id={item.token_id}
@@ -682,7 +710,6 @@ const Explore = () => {
                             collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
-                              router.push(item.url)
                             }}
                             price={item.price}
                           />

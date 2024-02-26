@@ -83,3 +83,11 @@ export const getDateString = date => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
   return diffDays + ' days '
 }
+
+export function getShortName(name, limit) {
+  if (name.length > limit) {
+    return name.substring(0, limit) + '...'
+  } else {
+    return name
+  }
+}
