@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -37,6 +37,9 @@ interface ListNFTModalProps {
     image?: string
     animation_url?: string
     category?: string
+    original?: {
+      image?: string
+    }
   }
   open: boolean
   onClose: (status: string, price: string) => void
@@ -85,6 +88,28 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
     }
 
     setShowLoading(false)
+  }
+
+  const [nftImage, setNftImage] = useState(data?.image)
+  const [imgErrorCount, setImgErrorCount] = useState(0)
+
+  useEffect(() => {
+    if (data?.image) {
+      setNftImage(data.image)
+      setImgErrorCount(0)
+    }
+  }, [data?.image])
+
+  const handleImageError = e => {
+    setImgErrorCount(prevCount => {
+      const newCount = prevCount + 1
+      if (newCount === 1) {
+        setNftImage(() => data.original.image || '')
+      } else if (newCount === 2) {
+        setNftImage(DefaultNftBG.src)
+      }
+      return newCount
+    })
   }
 
   return (
@@ -164,9 +189,10 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                       />
                     ) : (
                       <img
-                        src={data?.image || DefaultNftBG.src}
+                        src={nftImage}
                         alt={data ? data.name : 'nft image'}
                         className="w-full aspect-[321/321] object-cover"
+                        onError={handleImageError}
                       />
                     )}
                   </div>
