@@ -1,0 +1,126 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background-color: var(--datepicker-date-bg);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  @media (min-width: 1024px) {
+    overflow: unset;
+    display: flex;  
+  } 
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}
+
+.nftName {
+  font-family: 'Muli-Bold';
+  font-size: 32px;
+  color: var(--text-gray-200-color);
+  margin-top: 72px;
+  width: 100%;
+  text-align: center;
+}
+
+.nftArea {
+  max-width: 700px;
+  max-height: 700px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+}
+
+.rightPanel {
+  width: 100%;
+  height: auto;
+  padding: 0px 16px 30px 16px;
+  margin-top: 35px;
+  @media (min-width: 1024px) {
+    width: 50%;
+    margin-top: 0px;
+    background: var(--background-main-color);
+    padding: 70px 100px 70px 60px;
+  }
+}
+
+.imageArea {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+  // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
+}
+
+.videoArea {
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  @media (min-width: 1024px) {
+    margin-left: 0px;
+    height: calc(100vh - 100px - 60px);
+    border-radius: 27px;
+    border: 1px solid rgba(var(--background-light-color), 0.1);
+    display: flex;
+    align-items: center;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  overflow: hidden;
+  position: relative;
+}
+
+.mobileImageArea {
+  width: calc(100% + 32px);
+  left: -16px;
+  // max-height: 400px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+}
+
+.mobileVideoThumb {
+  width: calc(100% + 32px);
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+}
+
+.mobileImageBackground {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 3px 6px #000000cc;
+}

@@ -21,11 +21,12 @@ type MyNFTCardTypes = {
   data: NftData
   onClick?: any
   onClickStartAuction: (item: NftData) => void
+  onClickListEdition: (item: NftData) => void
   onClickListNFT: (item: NftData) => void
   active: any
 }
 
-const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT, active }: MyNFTCardTypes) => {
+const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListNFT, active }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
   const dispatch = useDispatch()
@@ -114,7 +115,9 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT, active }: MyNFTC
           </div>
         ) : (
           <div className="w-full hidden lg:flex justify-between items-center mt-4">
-            <GradientButton label="List Edition" fullWidth />
+            <div className={styles.listEditionBtn} onClick={() => onClickListEdition(data)}>
+              List Edition
+            </div>
           </div>
         )}
 

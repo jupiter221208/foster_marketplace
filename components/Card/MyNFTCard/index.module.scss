@@ -119,6 +119,23 @@
   overflow: hidden;
 }
 
+.listEditionBtn {
+  width: 100%;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  border: 1px solid var(--nft-border-color);
+  background: var(--stats-accordion-bg);
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    height: 50px;
+  }
+}
+
 .skeletonLoaderOuterBox {
   background: var(--background-main-color);
   position: absolute;

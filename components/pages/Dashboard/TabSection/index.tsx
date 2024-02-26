@@ -19,6 +19,7 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 // styles
 import styles from './index.module.scss'
 import CollectedSection from '../CollectedSection'
+import DashboardTab from '../../../Tab/DashboardTab'
 
 const TabSection = () => {
   const router = useRouter()
@@ -59,9 +60,11 @@ const TabSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-auto">
-        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+      <div className={styles.selectedTab}>
+        <DashboardTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+        <div className={styles.selectedTabBorder} />
       </div>
+
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <MyNFTSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />

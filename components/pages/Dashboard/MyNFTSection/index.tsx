@@ -26,8 +26,8 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
 
-import { useAuthentication } from 'hooks/useAuthentication'
 import { useViewport } from 'utils'
+import ListEditionModal from 'components/Modal/ListEditionModal'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -69,6 +69,7 @@ const MyNFTSection = props => {
   const [nftList, setNFTList] = useState<NftData[]>([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  const [showListEditionModal, setShowListEditionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -78,15 +79,23 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
-  const { refreshToken } = useAuthentication()
 
   const handleStartAuction = item => {
     setSelectedData(item)
     setShowStartAuctionModal(true)
   }
 
+  const handleListEdition = item => {
+    setSelectedData(item)
+    setShowListEditionModal(true)
+  }
+
   const handleStartProgress = () => {
     setOpenProgressingModal(true)
+  }
+
+  const handleSuccessListEdition = nftName => {
+    setOpenProgressingModal(false)
   }
 
   const handleSuccessAuction = nftName => {
@@ -119,16 +128,6 @@ const MyNFTSection = props => {
   useEffect(() => {
     let list = []
     let allList = myNftList as any[]
-    // allList.forEach(nft => {
-    //   let isSingleNft = nft.edition?.isOriginal == true ? nft.edition?.maxSupply == 0 : true
-    //   let isOpenEdition = nft.edition?.isOriginal == true && nft.edition?.maxSupply === null
-    //   let isLimitedEdition = nft.edition?.isOriginal == true && nft.edition?.maxSupply?.gt(0)
-    //   if (active === 0 && isSingleNft) {
-    //     list.push(nft)
-    //   } else if (active === 1 && isOpenEdition) {
-    //     list.push(nft)
-    //   } else if (active === 2 && isLimitedEdition) {
-    //     list.push(nft)
     allList.forEach(item => {
       let created = false
       let creators = item.creators
@@ -185,40 +184,29 @@ const MyNFTSection = props => {
     <section className={styles.container}>
       {!loading && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
-          <div className="w-full lg:w-auto flex h-[54px] mt-[15px] z-10">
+          <div className="w-full lg:w-auto flex h-[54px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
-                label="Single"
+                label="1 of 1"
                 onClick={() => setActive(0)}
                 fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
+                color={active === 0 ? '#95dbd5' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
-                width={160}
+                width={100}
                 boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
-                label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Open ED.' : 'Open Edition'}
+                label={'Editions'}
                 onClick={() => setActive(1)}
                 fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
+                color={active === 1 ? '#95dbd5' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
-                width={160}
+                width={100}
                 boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Limited ED.' : 'Limited Edition'}
-                onClick={() => setActive(2)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
-                gradientDirection="bottom"
-                width={160}
-                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
             </div>
           </div>
@@ -234,6 +222,7 @@ const MyNFTSection = props => {
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}
+                  onClickListEdition={(item: NftData) => handleListEdition(item)}
                   onClickListNFT={(item: NftData) => handleListNFT(item)}
                   active={active}
                 />
@@ -267,12 +256,20 @@ const MyNFTSection = props => {
       />
 
       <ProgressingModal open={openProgressingModal} />
+
       <StartAuctionModal
         data={selectedData}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
+      />
+
+      <ListEditionModal
+        data={selectedData}
+        open={showListEditionModal}
+        onSuccess={nft => handleSuccessListEdition(nft)}
+        onClose={() => setShowListEditionModal(false)}
       />
 
       <ListNFTModal
