@@ -46,6 +46,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
 
   useEffect(() => {
     setImageLoading(true)
+    setNftImage(data.image)
   }, [data])
 
   return (
