@@ -9,7 +9,7 @@ import Link from 'next/link'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import AudioPlayerBackground from 'assets/images/audio-player.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -38,7 +38,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
       if (newCount === 1) {
         setNftImage(() => data.original.image || '')
       } else if (newCount === 2) {
-        setNftImage(AudioPlayerBackground.src)
+        setNftImage(DefaultNftBG.src)
       }
       return newCount
     })

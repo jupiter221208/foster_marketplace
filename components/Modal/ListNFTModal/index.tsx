@@ -94,7 +94,7 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
   const [imgErrorCount, setImgErrorCount] = useState(0)
 
   useEffect(() => {
-    if (data.image) {
+    if (data?.image) {
       setNftImage(data.image)
       setImgErrorCount(0)
     }
