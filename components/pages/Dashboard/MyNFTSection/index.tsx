@@ -190,7 +190,7 @@ const MyNFTSection = props => {
                 label="1 of 1"
                 onClick={() => setActive(0)}
                 fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#95dbd5' : '#979EA2'}
+                color={active === 0 ? 'var(--main-icon-color)' : '#979EA2'}
                 backgroundColor01={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
@@ -201,7 +201,7 @@ const MyNFTSection = props => {
                 label={'Editions'}
                 onClick={() => setActive(1)}
                 fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#95dbd5' : '#979EA2'}
+                color={active === 1 ? 'var(--main-icon-color)' : '#979EA2'}
                 backgroundColor01={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
