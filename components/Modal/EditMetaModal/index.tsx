@@ -23,6 +23,9 @@ import WalletInputBox from 'components/Input/WalletInputBox'
 import AttributeInputBox from 'components/Input/AttributetInputBox'
 import Dropzone from 'react-dropzone'
 
+// images
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
+
 // web3
 import { PublicKey } from '@solana/web3.js'
 import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
@@ -32,12 +35,14 @@ import { validDigits } from 'utils/helpers'
 
 // api
 import nftsAPI from 'apis/nfts'
+import { useViewport } from 'utils'
 
 const EditMetaModal = props => {
-  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty } = props
+  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty, originalCoverUrl } = props
   const router = useRouter()
   const { metaplex } = useMetaplex()
   const { storage } = useLocalWalletBundlr()
+  const viewport = useViewport()
   
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
@@ -242,6 +247,30 @@ const EditMetaModal = props => {
     }
   }
 
+  const [nftImage, setNftImage] = useState(coverUrl)
+  const [imgErrorCount, setImgErrorCount] = useState(0)
+
+  useEffect(() => {
+    if (coverUrl) {
+      setNftImage(coverUrl)
+      setImgErrorCount(0)
+    }
+  }, [coverUrl])
+
+  const handleImageError = e => {
+    setImgErrorCount(prevCount => {
+      const newCount = prevCount + 1
+      if (newCount === 1) {
+        setNftImage(() => originalCoverUrl)
+      } else if (newCount === 2) {
+        setNftImage(DefaultNftBG.src)
+      }
+      return newCount
+    })
+  }
+
+  console.log(viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+  
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -270,7 +299,7 @@ const EditMetaModal = props => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className={styles.modalView}>
-                  {/* Desktop */}
+                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
@@ -285,13 +314,13 @@ const EditMetaModal = props => {
                             className="w-full h-full object-cover overflow-hidden"
                           />
                         ) : assetType.includes('image') ? (
-                          <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
                         ) : assetType.includes('audio') ? (
                           <div className="w-full h-full z-10">
-                            <img src={coverUrl} alt="" className="w-full h-full object-contain z-10" />
+                            <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-contain z-10" />
                           </div>
                         ) : (
-                          <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
                         )}
                         <div className="absolute bottom-[24px] right-[28px] z-[1000]">
                           <Dropzone
@@ -398,8 +427,8 @@ const EditMetaModal = props => {
                         }
                       </div>
                     </div>
-                  </div>
-                  {/* Mobile */}
+                  </div> : 
+                  
                   <div className="block lg:hidden g-container">
                     <div className={`${styles.artImage} mt-[56px]`}>
                       {assetType.includes('video') ? (
@@ -413,13 +442,13 @@ const EditMetaModal = props => {
                           className="w-full h-full object-cover overflow-hidden"
                         />
                       ) : assetType.includes('image') ? (
-                        <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                        <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
                       ) : assetType.includes('audio') ? (
                         <div className="w-full h-full z-10">
-                          <img src={coverUrl} alt="" className="w-full h-full object-contain z-10" />
+                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-contain z-10" />
                         </div>
                       ) : (
-                        <img src={coverUrl} alt="" className="w-full h-full object-cover" />
+                        <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
                       )}
                       <div className="absolute w-[30px] h-[30px] right-[17px] bottom-[19px]">
                         <Dropzone
@@ -526,7 +555,9 @@ const EditMetaModal = props => {
                     <div>
                       <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
                     </div>
-                  </div>
+                  </div>}
+                  
+                  
                 </Dialog.Panel>
               </Transition.Child>
             </div>

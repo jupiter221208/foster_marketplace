@@ -1458,6 +1458,7 @@ const MainSection = ({
             setShowNftMeta(false)
           }}
           nftCover={nftCoverUrl}
+          originalCoverUrl={originalCoverUrl}
           nftAsset={nftAssetUrl}
           nftType={nftType}
           nftInfo={nftInfo}
