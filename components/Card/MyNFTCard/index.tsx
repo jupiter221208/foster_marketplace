@@ -28,6 +28,21 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
   const [blurMode, setBlurMode] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
   const dispatch = useDispatch()
+  const [nftImage, setNftImage] = useState(data.image)
+
+  const [imgErrorCount, setImgErrorCount] = useState(0)
+
+  const handleImageError = e => {
+    setImgErrorCount(prevCount => {
+      const newCount = prevCount + 1
+      if (newCount === 1) {
+        setNftImage(() => data.original.image || '')
+      } else if (newCount === 2) {
+        setNftImage(AudioPlayerBackground.src)
+      }
+      return newCount
+    })
+  }
 
   useEffect(() => {
     setImageLoading(true)
@@ -57,8 +72,9 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
                     </div>
                   )}
                   <img
-                    src={data.image || data.animation_url || AudioPlayerBackground.src}
+                    src={nftImage}
                     alt={data.name}
+                    onError={handleImageError}
                     className="w-full h-full object-cover"
                     onLoad={() => setImageLoading(false)}
                   />
