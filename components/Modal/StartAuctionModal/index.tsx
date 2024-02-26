@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -17,7 +17,7 @@ import { useResizeDetector } from 'react-resize-detector'
 // styles
 import styles from './index.module.scss'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
-import AudioPlayerBackground from 'assets/images/audio-player.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 import { useViewport } from 'utils'
 
@@ -28,6 +28,9 @@ interface StartAuctionModalProps {
     image?: string
     animation_url?: string
     category?: string
+    original?: {
+      image?: string
+    }
   }
   open: boolean
   onSuccess: (name: string) => void
@@ -36,11 +39,34 @@ interface StartAuctionModalProps {
 }
 
 const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: StartAuctionModalProps) => {
+  console.log(data)
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 
   const closeModal = () => {
     onClose()
+  }
+
+  const [nftImage, setNftImage] = useState(data?.image)
+  const [imgErrorCount, setImgErrorCount] = useState(0)
+
+  useEffect(() => {
+    if (data?.image) {
+      setNftImage(data.image)
+      setImgErrorCount(0)
+    }
+  }, [data?.image])
+
+  const handleImageError = e => {
+    setImgErrorCount(prevCount => {
+      const newCount = prevCount + 1
+      if (newCount === 1) {
+        setNftImage(() => data.original.image || '')
+      } else if (newCount === 2) {
+        setNftImage(DefaultNftBG.src)
+      }
+      return newCount
+    })
   }
 
   const { width, height, ref } = useResizeDetector()
@@ -83,7 +109,7 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                             {data?.animation_url ? (
                               <ModelViewer width={width} height={height} path={data.animation_url} orbitLimited />
                             ) : data?.image ? (
-                              <img src={data?.image} alt="" className="w-full" />
+                              <img src={nftImage} onError={handleImageError} alt="" className="w-full" />
                             ) : (
                               <h1>Could not load NFT.</h1>
                             )}
@@ -100,7 +126,8 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                           </div>
                         ) : (
                           <img
-                            src={data?.image}
+                            src={nftImage}
+                            onError={handleImageError}
                             alt={data?.name}
                             className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
                           />
@@ -118,14 +145,14 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                       </div>
                     ) : data?.image ? (
                       <div className={styles.mobileImageArea}>
-                        <img src={data?.image} alt="" className="w-full" />
+                        <img src={nftImage} onError={handleImageError} alt="" className="w-full" />
                       </div>
                     ) : (
                       <h1>Could not load NFT.</h1>
                     )
                   ) : data?.category === 'image' ? (
                     <div className={styles.mobileImageArea}>
-                      <img src={data?.image} alt="" className="w-full" />
+                      <img onError={handleImageError} src={nftImage} alt="" className="w-full" />
                     </div>
                   ) : data?.category === 'audio' ? (
                     <div>
