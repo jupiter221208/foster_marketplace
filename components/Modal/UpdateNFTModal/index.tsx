@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,7 +10,8 @@ import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 
-import AudioPlayerBackground from 'assets/images/audio-player.png'
+// images
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -22,6 +23,9 @@ export interface UpdateNFTModalProps<T> {
     name: string
     animation_url?: string
     image?: string
+    original?: {
+      image?: string
+    }
   } & T
   open: boolean
   onClose: () => void
@@ -36,6 +40,28 @@ const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }
   }
 
   const [price, setPrice] = useState()
+
+  const [nftImage, setNftImage] = useState(data?.image)
+  const [imgErrorCount, setImgErrorCount] = useState(0)
+
+  useEffect(() => {
+    if (data?.image) {
+      setNftImage(data.image)
+      setImgErrorCount(0)
+    }
+  }, [data?.image])
+
+  const handleImageError = e => {
+    setImgErrorCount(prevCount => {
+      const newCount = prevCount + 1
+      if (newCount === 1) {
+        setNftImage(() => data.original.image || '')
+      } else if (newCount === 2) {
+        setNftImage(DefaultNftBG.src)
+      }
+      return newCount
+    })
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -96,7 +122,8 @@ const UpdateNFTModal = <T,>({ data, open, onClose, onCancelList, onUpdatePrice }
                   />
                 ) : (
                   <img
-                    src={data?.image ?? AudioPlayerBackground.src}
+                    src={nftImage}
+                    onError={handleImageError}
                     alt={data?.name}
                     className="w-full aspect-[321/321] mx-[30px] object-cover mt-[10px] lg:mt-[20px] rounded-[20px]"
                   />

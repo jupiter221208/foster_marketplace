@@ -477,6 +477,9 @@ const MainSection = ({
             category: nftType,
             animation_url: nftAssetUrl,
             image: nftCoverUrl,
+            original: {
+              image: originalCoverUrl,
+            },
           }
           setNftListingData(listingData)
         } else {
