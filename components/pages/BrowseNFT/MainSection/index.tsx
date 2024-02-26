@@ -477,6 +477,9 @@ const MainSection = ({
             category: nftType,
             animation_url: nftAssetUrl,
             image: nftCoverUrl,
+            original: {
+              image: originalCoverUrl,
+            },
           }
           setNftListingData(listingData)
         } else {
@@ -1455,6 +1458,7 @@ const MainSection = ({
             setShowNftMeta(false)
           }}
           nftCover={nftCoverUrl}
+          originalCoverUrl={originalCoverUrl}
           nftAsset={nftAssetUrl}
           nftType={nftType}
           nftInfo={nftInfo}
