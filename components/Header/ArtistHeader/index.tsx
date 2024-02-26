@@ -243,7 +243,16 @@ const PrimaryHeader = () => {
                   />
                 </div>
 
-                <div className={styles.studioMenu} onClick={() => router.push('/create/single-nft')}>
+                <div
+                  className={styles.studioMenu}
+                  onClick={() => {
+                    if (!connected) {
+                      setVisible(true)
+                      return
+                    }
+                    router.push('/create/single-nft')
+                  }}
+                >
                   Create
                 </div>
               </div>
