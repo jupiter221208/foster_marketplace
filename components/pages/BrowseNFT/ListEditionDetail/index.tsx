@@ -400,23 +400,25 @@ const ListEditionDetail = ({ data, onSuccess, onClose }: ListEditionDetailProps)
               </div>
             </div>
             <div className="w-auto mt-[15px] flex gap-[10px]">
-              <Input
-                value={buyLimit}
-                placeholder="10"
-                backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                borderRadius="9px"
-                min={0}
-                onChange={value => {
-                  let limit = validDigits(value)
-                  if (limit < 0) {
-                    setBuyLimit('')
-                  } else {
-                    setBuyLimit(limit)
-                  }
-                }}
-              />
+              <div>
+                <Input
+                  value={buyLimit}
+                  placeholder="10"
+                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                  borderRadius="9px"
+                  min={0}
+                  onChange={value => {
+                    let limit = validDigits(value)
+                    if (limit < 0) {
+                      setBuyLimit('')
+                    } else {
+                      setBuyLimit(limit)
+                    }
+                  }}
+                />
+              </div>
               <div className={styles.mintsWallet}>Mints/Wallet</div>
             </div>
           </div>
