@@ -6,10 +6,10 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: 0px;
   margin-bottom: 28px;
   @media (min-width: 1024px) {
-    margin-top: 32px;
+    margin-top: 0px;
     margin-bottom: 53px;
   }
 }
@@ -44,39 +44,41 @@
 }
 
 .bannerImage {
-  width: 100%;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  margin-right: -16px;
+  @media (min-width: 1024px) {
+    width: calc(100% + 300px);
+    margin-left: -150px;
+    margin-right: -150px;
+  }
   position: relative;
 }
 
 .bottomSection {
-  width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 24px;
+  margin-top: 16px;
   @media (max-width: 375px) {
-    margin-top: 16px;
+    margin-top: 4px;
   }
 }
 
 .artistName {
-  width: 100%;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 29px;
+  margin-top: 4px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 32px;
     line-height: 44px;
   }
-  text-align: center;
   letter-spacing: 0px;
   color: var(--text-gray-200-color);
 }
 
 .description {
   width: 100%;
-  text-align: center;
   font-family: 'Muli-Regular';
   font-size: 14px;
   @media (min-width: 1024px) {

@@ -348,29 +348,40 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
+      <div className="w-full lg:w-[300px] flex h-[54px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
-            label="Fixed-Price"
+            label="Buy&nbsp;Now"
             onClick={() => handleChangeActive(0)}
             fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
+            color={active === 0 ? 'var(--main-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
-            width={160}
+            width={100}
             boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
-            label="Live&nbsp;Auction"
+            label="Auction"
             onClick={() => handleChangeActive(1)}
             fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
+            color={active === 1 ? 'var(--main-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
-            width={160}
+            width={90}
             boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="Live&nbsp;Editions"
+            onClick={() => handleChangeActive(2)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 2 ? 'var(--main-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            backgroundColor02={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={110}
+            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

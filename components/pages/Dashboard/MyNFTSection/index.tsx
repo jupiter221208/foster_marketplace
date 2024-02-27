@@ -195,6 +195,7 @@ const MyNFTSection = props => {
                 backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
                 width={100}
+                fullWidth={viewport === 'sm' || viewport === 'md' || viewport === 'xs' ? true : false}
                 boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
@@ -206,6 +207,7 @@ const MyNFTSection = props => {
                 backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
                 gradientDirection="bottom"
                 width={100}
+                fullWidth={viewport === 'sm' || viewport === 'md' || viewport === 'xs' ? true : false}
                 boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
             </div>

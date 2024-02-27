@@ -31,6 +31,11 @@ import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
+import TwitterWhiteMobileIcon from 'assets/icons/twitter-white.svg?component'
+import IGWhiteMobileIcon from 'assets/icons/instagram-green-small.svg?component'
+import LandMobileIcon from 'assets/icons/land-icon-mobile.svg?component'
+import SolrPlexMobileIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
+
 import Alert from 'components/Alert'
 
 // styles
@@ -230,7 +235,7 @@ const MainSection = () => {
           alt=""
           width={1620}
           height={480}
-          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+          className="w-full object-cover"
         />
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <div className={styles.iconBlurView}>
@@ -257,85 +262,62 @@ const MainSection = () => {
         </div>
       </div>
       <div className="w-full z-10">
-        <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-          <div className="col-span-3" />
-          <div className="col-span-6 justify-center">
-            <div className="w-full flex justify-center">
-              <div className="w-content relative">
-                <DashboardArtistCard
-                  image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
-                />
-                <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
-                  <div className={styles.iconProfileBlurView}>
-                    <IconButton
-                      icon={
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
-                      }
-                      onClick={() => inputAvatarFile.current.click()}
-                      backgroundColor={'transparent'}
-                      borderRadius="100%"
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                      iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                      iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                      disabled={avatarUploadingToS3}
-                    />
-                  </div>
-                  <input
-                    type="file"
-                    id="avatar-file"
-                    accept="image/png, image/jpeg, image/gif"
-                    ref={inputAvatarFile}
-                    style={{ display: 'none' }}
-                    onChange={event => handleChangeAvatar(event)}
+        <div className="w-full flex justify-between">
+          <div className="mt-[-40px] lg:mt-[-76px] ">
+            <div className="relative">
+              <DashboardArtistCard
+                image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+              />
+              <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
+                <div className={styles.iconProfileBlurView}>
+                  <IconButton
+                    icon={
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
+                    }
+                    onClick={() => inputAvatarFile.current.click()}
+                    backgroundColor={'transparent'}
+                    borderRadius="100%"
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    disabled={avatarUploadingToS3}
                   />
                 </div>
-              </div>
-            </div>
-            <div className={styles.bottomSection}>
-              <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
-            </div>
-            <div className="relative flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
-              <div className="relative">
-                <AddressButton
-                  label={shortAddress}
-                  onClick={() => {
-                    copyToClipboard(publicKey?.toBase58() || '')
-                    copyClipboardAlert('wallet-address-mobile')
-                  }}
+                <input
+                  type="file"
+                  id="avatar-file"
+                  accept="image/png, image/jpeg, image/gif"
+                  ref={inputAvatarFile}
+                  style={{ display: 'none' }}
+                  onChange={event => handleChangeAvatar(event)}
                 />
-                <CopyClipboardChip identifier="wallet-address-mobile" />
-              </div>
-            </div>
-            <div className="hidden lg:flex justify-center mt-[16px]">
-              <div className="relative">
-                <AddressButton
-                  label={shortAddress}
-                  onClick={() => {
-                    copyToClipboard(publicKey?.toBase58() || '')
-                    copyClipboardAlert('wallet-address')
-                  }}
-                />
-                <CopyClipboardChip identifier="wallet-address" />
-              </div>
-            </div>
-            <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
-              <div>
-                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
               </div>
             </div>
           </div>
-          <div className="col-span-3 flex justify-end">
-            <div className="flex lg:hidden justify-center mt-[-45px]">
+
+          <div className="hidden lg:flex gap-[10px] mt-[30px]">
+            <div>
+              <IconButtonWithSVG
+                icon={
+                  <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
+                    <path
+                      id="setting-8"
+                      d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
+                      transform="translate(-1.857 -1.999)"
+                      fill="var(--text-gray-200-color)"
+                    />
+                  </svg>
+                }
+                onClick={() => router.push('/settings')}
+                backgroundColor="transparent"
+                borderColor="#ECEEF4"
+              />
+            </div>
+          </div>
+
+          <div className="lg:hidden col-span-3 flex justify-end">
+            <div className="flex lg:hidden justify-center mt-[15px]">
               <div>
                 <IconButtonWithSVG
                   icon={
@@ -357,7 +339,54 @@ const MainSection = () => {
                 />
               </div>
             </div>
-            <div className="hidden lg:flex gap-[10px]">
+          </div>
+        </div>
+        <div>
+          <div>
+            <div className={styles.bottomSection}>
+              <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
+              <div className="lg:hidden flex items-center ml-[5px]">
+                <div>
+                  <SocialButton icon={<IGWhiteMobileIcon />} onClick={() => window.open(instagramUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<TwitterWhiteMobileIcon />} onClick={() => window.open(twitterUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<LandMobileIcon />} onClick={() => window.open(threelandUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<SolrPlexMobileIcon />} onClick={() => window.open(solrPlexUrl)} />
+                </div>
+              </div>
+            </div>
+            <div className="relative flex lg:hidden mt-[3px] gap-[10px]">
+              <div className="relative">
+                <AddressButton
+                  label={shortAddress}
+                  onClick={() => {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                    copyClipboardAlert('wallet-address-mobile')
+                  }}
+                />
+                <CopyClipboardChip identifier="wallet-address-mobile" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="hidden lg:flex mt-[16px] items-center">
+            <div className="relative">
+              <AddressButton
+                label={shortAddress}
+                onClick={() => {
+                  copyToClipboard(publicKey?.toBase58() || '')
+                  copyClipboardAlert('wallet-address')
+                }}
+              />
+              <CopyClipboardChip identifier="wallet-address" />
+            </div>
+            <div className="flex justify-center ml-[5px]">
               <div>
                 <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
               </div>
@@ -370,30 +399,11 @@ const MainSection = () => {
               <div>
                 <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
               </div>
-              <div>
-                <IconButtonWithSVG
-                  icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
-                      <path
-                        id="setting-8"
-                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
-                        transform="translate(-1.857 -1.999)"
-                        fill="var(--text-gray-200-color)"
-                      />
-                    </svg>
-                  }
-                  onClick={() => router.push('/settings')}
-                  backgroundColor="transparent"
-                  borderColor="#ECEEF4"
-                />
-              </div>
             </div>
           </div>
         </div>
-        <div className="flex justify-center w-full mt-[32px]">
-          <div className="max-w-[734px]">
-            <div className={styles.description}>{profileInfo?.bio}</div>
-          </div>
+        <div className="max-w-[734px] mt-[30px]">
+          <div className={styles.description}>{profileInfo?.bio}</div>
         </div>
       </div>
       <NftImageEditorModal

@@ -72,17 +72,17 @@ const TabSection = () => {
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
-          <ListedNFTSection filter={filter} />
+          <CollectedSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
         </div>
       )}
       {activeTab === 2 && (
         <div className="w-full flex flex-wrap">
-          <ActivitySection />
+          <ListedNFTSection filter={filter} />
         </div>
       )}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
-          <CollectedSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
+          <ActivitySection />
         </div>
       )}
       {activeTab === 4 && (
