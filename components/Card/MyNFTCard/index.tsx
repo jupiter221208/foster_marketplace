@@ -115,9 +115,14 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
           </div>
         ) : (
           <div className="w-full hidden lg:flex justify-between items-center mt-4">
-            <div className={styles.listEditionBtn} onClick={() => onClickListEdition(data)}>
-              List Edition
-            </div>
+            <GradientButton
+              label="List Edition"
+              onClick={() => onClickListEdition(data)}
+              height="50px"
+              fontSize="18px"
+              fullWidth
+              borderRadius={10}
+            />
           </div>
         )}
 
@@ -141,9 +146,14 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
           </div>
         ) : (
           <div className="w-full flex lg:hidden justify-between items-center mt-4">
-            <div className={styles.listEditionBtn} onClick={() => onClickListEdition(data)}>
-              List Edition
-            </div>
+            <GradientButton
+              label="List Edition"
+              onClick={() => onClickListEdition(data)}
+              height="26px"
+              fontSize="10px"
+              fullWidth
+              borderRadius={6}
+            />
           </div>
         )}
       </div>

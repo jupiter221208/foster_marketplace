@@ -98,10 +98,7 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
             <Dialog.Panel className={styles.modalView}>
               {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
                 <div className="w-[50%] lg:block hidden">
-                  <div className="w-full flex justify-center">
-                    <div className={styles.nftName}>{data?.name}</div>
-                  </div>
-                  <div className="w-full h-full flex justify-center mt-[50px] px-[100px]">
+                  <div className="w-full h-full flex justify-center items-center px-[100px]">
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>
                         {data?.category === 'vr' ? (

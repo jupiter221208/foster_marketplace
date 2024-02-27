@@ -31,6 +31,7 @@ import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface ListEditionDetailProps {
   data: {
@@ -114,7 +115,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   return (
     <div className="w-full">
       <div className={styles.container}>
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-between">
+          <div className={styles.title}>List Edition</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">
               <BackIcon />
@@ -123,7 +125,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        <div className="w-full">
+        <div className="w-full mt-[10px]">
           <div className={styles.auctionStart}>
             Mint Price <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -431,14 +433,13 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         {isLoading ? (
           <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
         ) : (
-          <button
-            className={styles.startAuction}
-            disabled={buttonDisabled}
-            style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+          <GradientButton
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+            label="List Edition"
+            borderWidth={1}
             onClick={() => handleListEdition()}
-          >
-            List Edition
-          </button>
+          />
         )}
       </div>
     </div>

@@ -30,7 +30,7 @@
   &:hover {
     @media (min-width: 1024px) {
       color: #1A1A1A !important;
-      background: #95dbd5 !important;
+      background: var(--hero-artist-color) !important;
     }
   }
 

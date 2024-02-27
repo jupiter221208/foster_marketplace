@@ -120,7 +120,8 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: 15px;
-  background: var(--second-home-bg);
+  border: 1px solid rgba(#eff0f6, 0.1);
+  color: var(--text-gray-200-color);
   padding: 30px;
 }
 .subTotal {
