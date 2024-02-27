@@ -4,10 +4,6 @@ import { useDispatch } from 'react-redux'
 // next components
 import { useRouter } from 'next/router'
 
-// third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -17,6 +13,8 @@ import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
+
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -127,8 +125,13 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                   image={item.content.files[1]?.uri}
                   nftName={item.content.metadata.name}
                   assetType={item.category}
-                  coverImage={item.content.files[0]?.cdn_uri || item.content.files[0]?.uri || item.content.links.image}
-                  originalCoverImage={item.content.links.image}
+                  coverImage={
+                    item.content.files[0]?.cdn_uri ||
+                    item.content.files[0]?.uri ||
+                    item.content.links.image ||
+                    DefaultNftBG.src
+                  }
+                  fallBack={item.content.links.image || DefaultNftBG.src}
                   artistName={item.creators[0].artist_username}
                   collectionName={collectionName}
                   artistId={item.creators[0].address}
