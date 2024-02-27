@@ -119,7 +119,6 @@ import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
 
-import { type EditionDetail } from 'pages/nft/[id]'
 import GradientButton from 'components/Button/GradientButton'
 
 export interface MainSectionProps {
@@ -255,6 +254,7 @@ const MainSection = ({
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
   const [editionType, setEditionType] = useState('normal')
+  const [editionParentType, setEditionParentType] = useState('child')
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -291,9 +291,7 @@ const MainSection = ({
     setOpenProgressingModal(false)
   }
 
-  const mintEdition = () => {
-
-  }
+  const mintEdition = () => {}
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -424,14 +422,25 @@ const MainSection = ({
       if (editionDetail.isOriginal === true) {
         setEditionType('normal')
       } else if (editionDetail.isOpenEdition === true) {
-        setEditionType('open')
+        if (editionDetail.number === null || editionDetail.number === undefined) setEditionType('master_oe')
+        else setEditionType('open')
       } else if (editionDetail.isLimitedEdition === true) {
-        setEditionType('limit')
+        if (editionDetail.number === null || editionDetail.number === undefined) setEditionType('master_le')
+        else setEditionType('limit')
       } else if (editionDetail.print !== null) {
         setEditionType('print')
       }
     }
   }, [editionDetail])
+
+  const getTokenTypeString = () => {
+    let type = 'Open Edition'
+    if (editionType === 'open') type = 'Open Edition'
+    else if (editionType === 'limit') type = 'Limit Edition'
+    else if (editionType === 'master_oe') type = 'Master OE'
+    else if (editionType === 'master_le') type = 'Master LE'
+    return type
+  }
 
   useEffect(() => {
     ;(async () => {
@@ -1154,34 +1163,50 @@ const MainSection = ({
                   )}
                 </div>
               </div>
-              
 
               <div className="w-full flex flex-wrap mt-10 lg:mt-0">
                 {editionDetail && (
                   <div className={styles.editionContainer}>
-                    {nftPrice > 0 &&
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Mint Price</div>
-                          <div className='flex gap-[8px] items-center'>
-                            <SolanaLogoMediumIcon alt=""/>
-                            <div className={styles.editionValue}>{nftPrice}</div>
-                          </div>
+                    {nftPrice > 0 && (
+                      <div className={styles.editionSecondRow}>
+                        <div className={styles.editionTitle}>Mint Price</div>
+                        <div className="flex gap-[8px] items-center">
+                          <SolanaLogoMediumIcon alt="" />
+                          <div className={styles.editionValue}>{nftPrice}</div>
                         </div>
-                      }
+                      </div>
+                    )}
                     <div className={styles.editionFirstRow}>
                       <div className={styles.editionTitle}>Token Type</div>
-                      <div className={styles.editionValue}>
-                        {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
+                      <div className={styles.editionValue}>{getTokenTypeString()}</div>
+                    </div>
+                    {editionType === 'master_le' ? (
+                      <div>
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Edition Remaning</div>
+                          <div className={styles.edition}>
+                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
+                          </div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Total Supply</div>
+                          <div className={styles.edition}>{Number(editionDetail?.maxSupply)}</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.editionSecondRow}>
-                      <div className={styles.editionTitle}>Edition Number</div>
-                      <div className={styles.edition}>{Number(editionDetail?.number)}</div>
-                    </div>
-                    <div className={styles.editionFirstRow}>
-                      <div className={styles.editionTitle}>Edition Supply</div>
-                      <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                    </div>
+                    ) : editionType !== 'master_oe' ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Edition Number</div>
+                          <div className={styles.edition}>{Number(editionDetail?.number)}</div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Edition Supply</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
                 <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
@@ -1217,26 +1242,28 @@ const MainSection = ({
                 )}
 
                 {nftPrice > 0 && !liveAuction ? (
-                  editionType === 'open' || editionType === 'limit' ? (  
+                  editionType === 'open' || editionType === 'limit' ? (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
                         <div className="flex justify-between gap-[13px]">
                           <div className={styles.mintQty}>
-                            <div onClick={() => {
-                              if (mintQty > 0)
-                                setMintQty(mintQty - 1)
-                            }}>
+                            <div
+                              onClick={() => {
+                                if (mintQty > 0) setMintQty(mintQty - 1)
+                              }}
+                            >
                               <MintValueMinus />
                             </div>
                             <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
-                            <div onClick={() => {
-                              if (editionDetail.maxSupply !== null) {
-                                if (mintQty + 1 > editionDetail.maxSupply)
-                                  return
-                              }
-                              setMintQty(mintQty + 1)
-                            }}>
-                            <MintValuePlus />
+                            <div
+                              onClick={() => {
+                                if (editionDetail.maxSupply !== null) {
+                                  if (mintQty + 1 > editionDetail.maxSupply) return
+                                }
+                                setMintQty(mintQty + 1)
+                              }}
+                            >
+                              <MintValuePlus />
                             </div>
                           </div>
                           <div className={styles.mintPrice}>
@@ -1248,9 +1275,7 @@ const MainSection = ({
                               fullWidth
                               min={0}
                               margin
-                              height={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'
-                              }
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
                               onChange={value => {
                                 if (value < 0) {
                                   setPrice('')
@@ -1261,73 +1286,73 @@ const MainSection = ({
                             />
                           </div>
                         </div>
-                        <div className='mt-[23px]'>
-                        <GradientButton
-                          fullWidth
-                          label={'Mint Edition'}
-                          direction="rtl"
-                          onClick={() => mintEdition()}
-                          fontFamily="Muli-SemiBold"
-                          height={50}
-                          disabled={!tradeStateAddress}
-                        />
+                        <div className="mt-[23px]">
+                          <GradientButton
+                            fullWidth
+                            label={'Mint Edition'}
+                            direction="rtl"
+                            onClick={() => mintEdition()}
+                            fontFamily="Muli-SemiBold"
+                            height={50}
+                            disabled={!tradeStateAddress}
+                          />
                         </div>
                       </div>
                     </div>
                   ) : (
-                  <>
-                    <div className={`w-full flex gap-2 mt-[20px] lg:mt-[0px] ${styles.border_top}`}>
-                      <div className={styles.fixedPrice}>Listed&nbsp;for</div>
-                      <div className="w-full flex items-center">
-                        <div className="flex items-center mt-[3px]">
-                          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                            <SolanaLogoMobileIcon alt="" />
+                    <>
+                      <div className={`w-full flex gap-2 mt-[20px] lg:mt-[0px] ${styles.border_top}`}>
+                        <div className={styles.fixedPrice}>Listed&nbsp;for</div>
+                        <div className="w-full flex items-center">
+                          <div className="flex items-center mt-[3px]">
+                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                              <SolanaLogoMobileIcon alt="" />
+                            ) : (
+                              <SolanaLogoIcon alt="" />
+                            )}
+                          </div>
+                          <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
+                        </div>
+                      </div>
+
+                      {(isOwnNft === false || isOwnNft === null) && (
+                        <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
+                          {tradeStateAddress ? (
+                            <button
+                              className={styles.primaryBtn}
+                              disabled={!tradeStateAddress}
+                              onClick={() => quickBuy()}
+                            >
+                              Buy Now
+                            </button>
                           ) : (
-                            <SolanaLogoIcon alt="" />
+                            <LoadingButton />
                           )}
-                        </div>
-                        <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
-                      </div>
-                    </div>
-
-                    {(isOwnNft === false || isOwnNft === null) && (
-                      <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
-                        {tradeStateAddress ? (
                           <button
-                            className={styles.primaryBtn}
-                            disabled={!tradeStateAddress}
-                            onClick={() => quickBuy()}
+                            className={styles.outlineBtn}
+                            onClick={() => {
+                              if (!connected) {
+                                setVisible(true)
+                                return
+                              }
+                              setOpenOfferModal(true)
+                            }}
                           >
-                            Buy Now
+                            Make Offer
                           </button>
-                        ) : (
-                          <LoadingButton />
-                        )}
-                        <button
-                          className={styles.outlineBtn}
-                          onClick={() => {
-                            if (!connected) {
-                              setVisible(true)
-                              return
-                            }
-                            setOpenOfferModal(true)
-                          }}
-                        >
-                          Make Offer
-                        </button>
-                      </div>
-                    )}
-
-                    {isOwnNft === true ? (
-                      <div className="w-full flex content-none mt-[20px]">
-                        <div className={styles.primaryBtn} onClick={() => setShowUpdateListNFTModal(true)}>
-                          Delist or Update
                         </div>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </>
+                      )}
+
+                      {isOwnNft === true ? (
+                        <div className="w-full flex content-none mt-[20px]">
+                          <div className={styles.primaryBtn} onClick={() => setShowUpdateListNFTModal(true)}>
+                            Delist or Update
+                          </div>
+                        </div>
+                      ) : (
+                        <></>
+                      )}
+                    </>
                   )
                 ) : endTime !== null &&
                   getTimeDifferenceWithAuction(endTime) < 0 &&
