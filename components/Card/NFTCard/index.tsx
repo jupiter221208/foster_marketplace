@@ -241,6 +241,12 @@ const DashboardNFTCard = props => {
               <GradientButton
                 fullWidth
                 label="Unsave"
+                color="var(--text-gray-200-color)"
+                backgroundColor01="var(--stats-accordion-bg)"
+                backgroundColor02="var(--stats-accordion-bg)"
+                borderColor="var(--nft-border-color)"
+                fontFamily="Muli-SemiBold"
+                borderRadius="10"
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   unSave()

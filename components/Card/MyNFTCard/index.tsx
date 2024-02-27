@@ -102,7 +102,12 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
               onClick={() => onClickStartAuction(data)}
               height="40px"
               fontSize="14px"
+              color="var(--text-gray-200-color)"
+              backgroundColor01="var(--stats-accordion-bg)"
+              backgroundColor02="var(--stats-accordion-bg)"
+              borderColor="var(--nft-border-color)"
               fontFamily="Muli-SemiBold"
+              borderRadius={10}
             />
             <SecondaryButton
               backgroundColor="transparent"
@@ -128,6 +133,10 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
               onClick={() => onClickStartAuction(data)}
               height="26px"
               fontSize="10px"
+              color="var(--text-gray-200-color)"
+              backgroundColor01="var(--stats-accordion-bg)"
+              backgroundColor02="var(--stats-accordion-bg)"
+              borderColor="var(--nft-border-color)"
               borderRadius="6px"
               fontFamily="Muli-SemiBold"
             />

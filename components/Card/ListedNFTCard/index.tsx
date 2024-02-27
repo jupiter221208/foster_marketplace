@@ -135,7 +135,12 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               fontSize="16px"
               paddingLeft="37px"
               paddingRight="37px"
-              gradientDirection="right"
+              color="var(--text-gray-200-color)"
+              backgroundColor01="var(--stats-accordion-bg)"
+              backgroundColor02="var(--stats-accordion-bg)"
+              borderColor="var(--nft-border-color)"
+              borderRadius="10px"
+              fontFamily="Muli-SemiBold"
               fullWidth
             />
           ) : (
@@ -149,6 +154,12 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     fontSize="16px"
                     paddingLeft="37px"
                     paddingRight="37px"
+                    color="var(--text-gray-200-color)"
+                    backgroundColor01="var(--stats-accordion-bg)"
+                    backgroundColor02="var(--stats-accordion-bg)"
+                    borderColor="var(--nft-border-color)"
+                    borderRadius="10px"
+                    fontFamily="Muli-SemiBold"
                     fullWidth
                   />
                 ) : (
@@ -173,6 +184,12 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   fontSize="16px"
                   paddingLeft="37px"
                   paddingRight="37px"
+                  color="var(--text-gray-200-color)"
+                  backgroundColor01="var(--stats-accordion-bg)"
+                  backgroundColor02="var(--stats-accordion-bg)"
+                  borderColor="var(--nft-border-color)"
+                  borderRadius="10px"
+                  fontFamily="Muli-SemiBold"
                   fullWidth
                 />
               )}
@@ -222,6 +239,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               paddingLeft="7px"
               paddingRight="7px"
               borderRadius="6px"
+              color="var(--text-gray-200-color)"
+              backgroundColor01="var(--stats-accordion-bg)"
+              backgroundColor02="var(--stats-accordion-bg)"
+              borderColor="var(--nft-border-color)"
+              fontFamily="Muli-SemiBold"
             />
           ) : (
             <>
@@ -236,6 +258,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     paddingLeft="7px"
                     paddingRight="7px"
                     borderRadius="6px"
+                    color="var(--text-gray-200-color)"
+                    backgroundColor01="var(--stats-accordion-bg)"
+                    backgroundColor02="var(--stats-accordion-bg)"
+                    borderColor="var(--nft-border-color)"
+                    fontFamily="Muli-SemiBold"
                   />
                 ) : (
                   <Button
@@ -261,6 +288,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   paddingLeft="7px"
                   paddingRight="7px"
                   borderRadius="6px"
+                  color="var(--text-gray-200-color)"
+                  backgroundColor01="var(--stats-accordion-bg)"
+                  backgroundColor02="var(--stats-accordion-bg)"
+                  borderColor="var(--nft-border-color)"
+                  fontFamily="Muli-SemiBold"
                 />
               )}
             </>
