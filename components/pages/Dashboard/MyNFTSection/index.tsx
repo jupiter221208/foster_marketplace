@@ -140,7 +140,7 @@ const MyNFTSection = props => {
       if (active === 0) {
         if (created) list.push(item)
       } else {
-        if (!created) list.push(item)
+        if (created) list.push(item)
       }
     })
 

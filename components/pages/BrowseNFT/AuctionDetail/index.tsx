@@ -120,6 +120,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
       }).then(res => {
         if (res) {
           onSuccess(data?.name)
+          dispatch({ type: 'set', isGetListedNFTs: false })
           // setIsLoading(false)
           onRefreshPage?.()
         }

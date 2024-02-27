@@ -1,88 +1,135 @@
 import React, { useState, useEffect } from 'react'
 
-// components
-import Pagination from 'components/Button/Pagination'
-import LoadingModal from 'components/Modal/LoadingModal'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMetaplex } from 'hooks/useMetaplex'
 
+// components
+import LoadingModal from 'components/Modal/LoadingModal'
 // json
 
 // styles
 import styles from './index.module.scss'
 
 // api
-import userAPI from 'apis/user'
-import CollectionCard from 'components/Card/CollectionCard'
 import NoDataSection from '../NoDataSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { NftData } from 'types/nft'
+import MyNFTCard from 'components/Card/MyNFTCard'
+
+import ListNFTModal from 'components/Modal/ListNFTModal'
+import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import StartAuctionModal from 'components/Modal/StartAuctionModal'
 
 const CollectedSection = props => {
-  const { onClickItem } = props
+  const { changeActiveTab } = props
+
+  const myNftList = useSelector<any>(state => state.myNftList)
+  const { publicKey } = useWallet()
+  const { metaplex: mx } = useMetaplex()
+  const dispatch = useDispatch()
 
   const [nftList, setNFTList] = useState<NftData[]>([])
-  const [allNftList, setAllNFTList] = useState<NftData[]>([])
   const [loading, setLoading] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [isFetching, setIsFetching] = useState(false)
-  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
-  const [rowCount, setRowCount] = useState(12)
+  const [selectedData, setSelectedData] = useState()
+  const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  const [showListNFTModal, setShowListNFTModal] = useState(false)
+  const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState<boolean>(false)
+
+  const loadMyNFTs = async () => {
+    setLoading(true)
+    let nfts = await getMyNFTs(mx)
+    let validNfts = nfts.filter(
+      item =>
+        !item.tokenAccount?.delegate &&
+        !item.tokenAccount?.isFrozen &&
+        item.creators?.length > 0 &&
+        !item.collectionDetails
+    )
+    dispatch({ type: 'set', isGetMyNFTs: true })
+    dispatch({ type: 'set', myNftList: validNfts })
+    setLoading(false)
+  }
 
   useEffect(() => {
     setLoading(true)
-    userAPI.getCollected().then(
-      response => {
-        if (response !== null && response.length > 0) {
-          setAllNFTList(response)
+
+    let list = []
+    let allList = myNftList as any[]
+    allList.forEach(item => {
+      let created = false
+      let creators = item.creators
+      creators.forEach(creator => {
+        if (publicKey && creator.address.toString() === publicKey.toString()) {
+          created = true
+          return
         }
-        setLoading(false)
-        setTimeout(() => {
-          setIsLoaded(true)
-        }, 500)
+      })
+
+      if (!created) list.push(item)
+    })
+
+    setNFTList(list)
+    setLoading(false)
+  }, [myNftList])
+
+  const handleStartProgress = () => {
+    setOpenProgressingModal(true)
+  }
+
+  const handleStartAuction = item => {
+    setSelectedData(item)
+    setShowStartAuctionModal(true)
+  }
+
+  const handleListNFT = item => {
+    setSelectedData(item)
+    setShowListNFTModal(true)
+  }
+
+  const handleSuccessAuction = nftName => {
+    loadMyNFTs()
+
+    setOpenProgressingModal(false)
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Auction Published!',
+        description: `You've successfully published an auction for ${nftName}`,
+        type: 'success',
       },
-      error => {
-        setLoading(false)
-        setIsLoaded(true)
-        console.log(error)
-      }
-    )
-  }, [])
+    ])
 
-  useEffect(() => {
-    if (allNftList.length > rowCount) setIsVisibleFetching(true)
-    setNFTList(allNftList.slice(0, rowCount))
-  }, [allNftList])
-
-  useEffect(() => {
-    if (isFetching) {
-      setIsFetching(false)
-      if (nftList.length + rowCount > allNftList.length) {
-        setNFTList([...nftList, ...allNftList.slice(nftList.length, allNftList.length)])
-        setIsVisibleFetching(false)
-      } else {
-        setNFTList([...nftList, ...allNftList.slice(nftList.length, nftList.length + rowCount)])
-        setIsVisibleFetching(true)
-      }
-    }
-  }, [isFetching])
+    setTimeout(() => {
+      setShowStartAuctionModal(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 1000)
+    }, 1000)
+  }
 
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[0px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {!loading &&
-          nftList.map((item: any, index) => (
-            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <CollectionCard
-                image={item.cover_image}
-                nftName={item.collection_name}
-                artistName={item.artist_username}
-                collectionName={item.collection_name}
-                mintAddress={item.artist_id}
-                icon={item.artist_profile_picture}
-                key={index}
-                link={`/collection/${item.collection_id}`}
-              />
-            </div>
-          ))}
+          nftList
+            .filter(item => item.image !== undefined || null)
+            .map((item, index) => (
+              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+                <MyNFTCard
+                  data={item}
+                  onClickStartAuction={(item: NftData) => handleStartAuction(item)}
+                  onClickListEdition={(item: NftData) => {}}
+                  onClickListNFT={(item: NftData) => handleListNFT(item)}
+                  active={0}
+                />
+              </div>
+            ))}
         <div className="col-span-12">
           <LoadingModal open={loading} />
         </div>
@@ -95,16 +142,38 @@ const CollectedSection = props => {
           />
         </div>
       )}
-      {!loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
-        </div>
-      )}
-      {/* {allNftList.length > 0 && (
-        <div className="w-full flex justify-end">
-          <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
-        </div>
-      )} */}
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
+
+      <ProgressingModal open={openProgressingModal} />
+
+      <StartAuctionModal
+        data={selectedData}
+        open={showStartAuctionModal}
+        onSuccess={nft => handleSuccessAuction(nft)}
+        onStartProgress={() => handleStartProgress()}
+        onClose={() => setShowStartAuctionModal(false)}
+      />
+
+      <ListNFTModal
+        data={selectedData}
+        open={showListNFTModal}
+        onClose={(status: string) => {
+          setShowListNFTModal(false)
+          if (status === 'listed') {
+            loadMyNFTs()
+            changeActiveTab(2)
+          } else if (status === 'list-close') {
+            loadMyNFTs()
+          }
+        }}
+      />
     </section>
   )
 }
