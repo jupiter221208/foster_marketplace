@@ -124,9 +124,6 @@ const MainSection = ({ onChange, heroValue }) => {
             </div>
             <div className="mt-[25px] gap-[20px] hidden lg:flex">
               <GradientButton
-                backgroundColor01="var(--hero-artist-color)"
-                backgroundColor02="var(--hero-artist-color)"
-                color="#1A1A1A"
                 width={150}
                 height={50}
                 label="Start Earning"
@@ -171,9 +168,6 @@ const MainSection = ({ onChange, heroValue }) => {
           </div>
           <div className="w-full mt-[58px] flex gap-[20px] block lg:hidden">
             <GradientButton
-              backgroundColor01="var(--hero-artist-color)"
-              backgroundColor02="var(--hero-artist-color)"
-              color="#1A1A1A"
               fontSize={16}
               fontFamily="Muli-SemiBold"
               fullWidth

@@ -1314,7 +1314,6 @@ const MainSection = ({
                             label={'Mint Edition'}
                             direction="rtl"
                             onClick={() => mintEdition()}
-                            fontFamily="Muli-SemiBold"
                             height={50}
                             disabled={!tradeStateAddress}
                           />

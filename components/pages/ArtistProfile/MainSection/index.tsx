@@ -365,8 +365,6 @@ const MainSection = prop => {
                     border={12}
                     fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
                       localStorage.setItem('isVisibleSocialBoard', 'false')
@@ -738,10 +736,7 @@ const MainSection = prop => {
                     width={78}
                     height={37}
                     border={12}
-                    fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
                       localStorage.setItem('isVisibleBannerBoard', 'false')
@@ -775,10 +770,7 @@ const MainSection = prop => {
                     width={78}
                     height={37}
                     border={12}
-                    fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowSocialBoard(false)
                       localStorage.setItem('isVisibleSocialBoard', 'false')

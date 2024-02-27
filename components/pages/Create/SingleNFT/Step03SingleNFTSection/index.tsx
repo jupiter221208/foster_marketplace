@@ -241,13 +241,7 @@ const Step03SingleNFTSection = props => {
             ) : isMinting ? (
               <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
             ) : (
-              <GradientButton
-                width={viewport === '2xl' ? 124 : 117}
-                label="Mint"
-                onClick={() => createSingleNFT()}
-                backgroundColor01="var(--main-icon-color)"
-                backgroundColor02="var(--main-icon-color)"
-              />
+              <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint" onClick={() => createSingleNFT()} />
             )}
           </div>
         </div>
@@ -376,8 +370,6 @@ const Step03SingleNFTSection = props => {
             onClick={() => createSingleNFT()}
             fullWidth
             height={45}
-            backgroundColor01="var(--main-icon-color)"
-            backgroundColor02="var(--main-icon-color)"
             fontSize={16}
             fontFamily="Muli-SemiBold"
           />

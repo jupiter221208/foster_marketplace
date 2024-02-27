@@ -329,8 +329,6 @@ const NotificationsCard = props => {
                         label="Follow"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'follow')}
@@ -341,7 +339,6 @@ const NotificationsCard = props => {
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
-                        // color="#95DBD5"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'following')}
                       />

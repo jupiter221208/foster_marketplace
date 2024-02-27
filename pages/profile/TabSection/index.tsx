@@ -161,19 +161,6 @@ const TabSection = props => {
       {activeTab === 0 && (
         <div className="w-full">
           <div className="w-full flex overflow-x-scroll no-scrollbar mt-5 gap-2 lg:gap-4">
-            {/* <TimeSlotButton
-              label="All"
-              width={50}
-              height={42}
-              fontFamily={'Muli-Regular'}
-              color={artworkType === 'all' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              onClick={() => {
-                setArtworkType('all')
-              }}
-            /> */}
-
             <TimeSlotButton
               label="Quick&nbsp;Buy"
               height={42}
