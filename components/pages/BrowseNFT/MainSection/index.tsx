@@ -447,8 +447,8 @@ const MainSection = ({
     let type = 'Open Edition'
     if (editionType === 'open') type = 'Open Edition'
     else if (editionType === 'limit') type = 'Limited Edition'
-    else if (editionType === 'master_oe') type = 'Master OE'
-    else if (editionType === 'master_le') type = 'Master LE'
+    else if (editionType === 'master_oe') type = 'Open Edition'
+    else if (editionType === 'master_le') type = 'Limited Edition'
     return type
   }
 
@@ -1196,30 +1196,36 @@ const MainSection = ({
                     {editionType === 'master_le' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Total Supply</div>
-                          <div className={styles.edition}>{Number(editionDetail?.maxSupply)}</div>
+                          <div className={styles.editionTitle}>Edition Number</div>
+                          <div className={styles.edition}>Master Edition</div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Editions Remaining</div>
+                          <div className={styles.editionValue}>
+                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
+                          </div>
                         </div>
                       </div>
                     ) : editionType === 'master_oe' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Total Supply</div>
-                          <div className={styles.edition}>{Number(editionDetail?.maxSupply)}</div>
+                          <div className={styles.editionTitle}>Edition Number</div>
+                          <div className={styles.editionValue}>Master Edition</div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Editions Remaining</div>
+                          <div className={styles.editionValue}>Unlimited</div>
                         </div>
                       </div>
                     ) : (
                       <div>
                         <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.edition}>{Number(editionDetail?.print?.number)}</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
                         </div>
                         <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Mints</div>
-                          <div className={styles.editionValue}>
-                            {editionType === 'limit'
-                              ? Number(editionDetail?.supply) + ' / ' + Number(editionDetail?.maxSupply)
-                              : Number(editionDetail?.supply) + ' / ' + 'infinite'}
-                          </div>
+                          <div className={styles.editionTitle}>Editions Minted</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                         </div>
                       </div>
                     )}
