@@ -40,7 +40,7 @@ const DashboardNFTCard = props => {
     image,
     nftName,
     coverImage = '',
-    originalCoverImage = '',
+    fallBack = '',
     artistName,
     collectionName,
     assetType,
@@ -179,7 +179,7 @@ const DashboardNFTCard = props => {
                   ) : coverImage !== null && coverImage !== '' ? (
                     <ImageWithFallback
                       src={coverImage}
-                      originalSrc={originalCoverImage}
+                      originalSrc={fallBack}
                       onClick={onClick}
                       layout="fill"
                       alt=""
@@ -188,7 +188,7 @@ const DashboardNFTCard = props => {
                   ) : image !== null && image !== '' ? (
                     <ImageWithFallback
                       src={image}
-                      originalSrc={originalCoverImage}
+                      originalSrc={fallBack}
                       onClick={onClick}
                       layout="fill"
                       alt=""
