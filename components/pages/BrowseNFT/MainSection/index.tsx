@@ -120,6 +120,7 @@ import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
 
 import GradientButton from 'components/Button/GradientButton'
+import ListEditionDetail from '../ListEditionDetail'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -174,6 +175,7 @@ const MainSection = ({
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
+  const [showListEditionDetail, setShowListEditionDetail] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -254,7 +256,6 @@ const MainSection = ({
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
   const [editionType, setEditionType] = useState('normal')
-  const [editionParentType, setEditionParentType] = useState('child')
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -419,6 +420,7 @@ const MainSection = ({
 
   useEffect(() => {
     if (editionDetail) {
+      console.log(editionDetail, '============editionDetail============')
       if (editionDetail.isOriginal === true) {
         setEditionType('normal')
       } else if (editionDetail.isOpenEdition === true) {
@@ -429,9 +431,17 @@ const MainSection = ({
         else setEditionType('limit')
       } else if (editionDetail.print !== null) {
         setEditionType('print')
+      } else {
+        setEditionType('normal')
       }
     }
   }, [editionDetail])
+
+  const isNftEdition = () => {
+    if (editionType === 'open' || editionType === 'limit' || editionType === 'master_oe' || editionType === 'master_le')
+      return true
+    return false
+  }
 
   const getTokenTypeString = () => {
     let type = 'Open Edition'
@@ -898,6 +908,21 @@ const MainSection = ({
     }
   }
 
+  const handleSuccessListEdition = nftName => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Edition Listed!',
+        description: `You've successfully listed an edition for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowAlert(true)
+    }, 1000)
+  }
+
   const handleSuccessAuction = nftName => {
     setAlertData([
       {
@@ -980,7 +1005,20 @@ const MainSection = ({
         </div>
 
         <div className="w-full lg:w-[29%] z-10 ">
-          {showAuctionDetail ? (
+          {showListEditionDetail ? (
+            <div className="ml-[0px] lg:ml-[20px]">
+              <ListEditionDetail
+                data={nftDetail}
+                onSuccess={nft => handleSuccessListEdition(nft)}
+                onRefreshPage={() => {
+                  router.reload()
+                }}
+                onClose={() => {
+                  setShowListEditionDetail(false)
+                }}
+              />
+            </div>
+          ) : showAuctionDetail ? (
             <div className="ml-[0px] lg:ml-[20px]">
               <AuctionDetail
                 data={nftDetail}
@@ -1121,31 +1159,6 @@ const MainSection = ({
                       </Link>
                     </div>
                   )}
-                  {/* {editionDetail && editionType !== 'normal' && (
-                    <div className={styles.editionContainer}>
-                      {nftPrice > 0 &&
-                        <div className="w-full flex justify-between mb-[8px]">
-                          <div className={styles.editionTitle}>Mint Price</div>
-                          <div className='flex gap-[8px] items-center'>
-                          <SolanaLogoMediumIcon alt=""/>
-                          <div className={styles.editionValue}>{nftPrice}</div>
-                          </div>
-                        </div>
-                      }
-                      <div className="w-full flex justify-between">
-                        <div className={styles.editionTitle}>Token Type</div>
-                        <div className={styles.editionValue}>
-                          {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
-                        </div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[8px]">
-                        <div className={styles.editionTitle}>Edition Number</div>
-                        <div className={styles.editionValue}>{editionDetail?.print ? Number(editionDetail?.print?.number) : 'Master Edition'}</div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[8px]">
-                        <div className={styles.editionTitle}>Edition Supply</div>
-                        <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                      </div> */}
                 </div>
 
                 <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
@@ -1165,9 +1178,9 @@ const MainSection = ({
               </div>
 
               <div className="w-full flex flex-wrap mt-10 lg:mt-0">
-                {editionDetail && (
+                {editionDetail && isNftEdition() && (
                   <div className={styles.editionContainer}>
-                    {nftPrice > 0 && (
+                    {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
                       <div className={styles.editionSecondRow}>
                         <div className={styles.editionTitle}>Mint Price</div>
                         <div className="flex gap-[8px] items-center">
@@ -1183,18 +1196,17 @@ const MainSection = ({
                     {editionType === 'master_le' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Remaning</div>
-                          <div className={styles.edition}>
-                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
-                          </div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
                           <div className={styles.editionTitle}>Total Supply</div>
                           <div className={styles.edition}>{Number(editionDetail?.maxSupply)}</div>
                         </div>
                       </div>
-                    ) : editionType !== 'master_oe' ? (
-                      <div></div>
+                    ) : editionType === 'master_oe' ? (
+                      <div>
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Total Supply</div>
+                          <div className={styles.edition}>{Number(editionDetail?.maxSupply)}</div>
+                        </div>
+                      </div>
                     ) : (
                       <div>
                         <div className={styles.editionSecondRow}>
@@ -1517,19 +1529,29 @@ const MainSection = ({
                   </>
                 ) : !loading && nftInfo ? (
                   isOwnNft === true ? (
-                    <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
-                      <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
-                        List&nbsp;Artwork
-                      </div>
-                      <div
-                        className={styles.outlineBtn}
-                        onClick={() => {
-                          setShowAuctionDetail(true)
-                          setShowAuctionSection(true)
-                        }}
-                      >
-                        Start&nbsp;Auction
-                      </div>
+                    <div className="w-full">
+                      {editionType === 'master_le' || editionType === 'master_oe' ? (
+                        <div className="w-full mt-[20px]">
+                          <div className={styles.primaryBtn} onClick={() => setShowListEditionDetail(true)}>
+                            List&nbsp;Edition
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
+                          <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
+                            List&nbsp;Artwork
+                          </div>
+                          <div
+                            className={styles.outlineBtn}
+                            onClick={() => {
+                              setShowAuctionDetail(true)
+                              setShowAuctionSection(true)
+                            }}
+                          >
+                            Start&nbsp;Auction
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ) : isOwnNft === false || isOwnNft === null ? (
                     <div className="w-full flex gap-[20px] mt-[20px]">

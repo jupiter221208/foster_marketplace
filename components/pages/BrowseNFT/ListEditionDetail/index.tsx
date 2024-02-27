@@ -39,9 +39,10 @@ export interface ListEditionDetailProps {
   }
   onSuccess: (name: string) => void
   onClose: () => void
+  onRefreshPage?: () => void
 }
 
-const ListEditionDetail = ({ data, onSuccess, onClose }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
   const { refreshToken } = useAuthentication()
@@ -82,6 +83,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose }: ListEditionDetailProps)
   const handleListEdition = async () => {
     try {
       onSuccess(data?.name)
+      onRefreshPage?.()
     } catch (e: any) {
       setIsLoading(false)
     }
