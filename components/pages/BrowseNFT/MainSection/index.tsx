@@ -424,10 +424,10 @@ const MainSection = ({
       if (editionDetail.isOriginal === true) {
         setEditionType('normal')
       } else if (editionDetail.isOpenEdition === true) {
-        if (editionDetail.number === null || editionDetail.number === undefined) setEditionType('master_oe')
+        if (editionDetail.print === null || editionDetail.print === undefined) setEditionType('master_oe')
         else setEditionType('open')
       } else if (editionDetail.isLimitedEdition === true) {
-        if (editionDetail.number === null || editionDetail.number === undefined) setEditionType('master_le')
+        if (editionDetail.print === null || editionDetail.print === undefined) setEditionType('master_le')
         else setEditionType('limit')
       } else if (editionDetail.print !== null) {
         setEditionType('print')
@@ -446,7 +446,7 @@ const MainSection = ({
   const getTokenTypeString = () => {
     let type = 'Open Edition'
     if (editionType === 'open') type = 'Open Edition'
-    else if (editionType === 'limit') type = 'Limit Edition'
+    else if (editionType === 'limit') type = 'Limited Edition'
     else if (editionType === 'master_oe') type = 'Master OE'
     else if (editionType === 'master_le') type = 'Master LE'
     return type
@@ -1211,11 +1211,15 @@ const MainSection = ({
                       <div>
                         <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.edition}>{Number(editionDetail?.number)}</div>
+                          <div className={styles.edition}>{Number(editionDetail?.print?.number)}</div>
                         </div>
                         <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Supply</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
+                          <div className={styles.editionTitle}>Mints</div>
+                          <div className={styles.editionValue}>
+                            {editionType === 'limit'
+                              ? Number(editionDetail?.supply) + ' / ' + Number(editionDetail?.maxSupply)
+                              : Number(editionDetail?.supply) + ' / ' + 'infinite'}
+                          </div>
                         </div>
                       </div>
                     )}
