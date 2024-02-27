@@ -233,9 +233,7 @@ const MainSection = () => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          width={1620}
-          height={480}
-          className="w-full object-cover"
+          className="w-full h-full object-cover"
         />
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <div className={styles.iconBlurView}>

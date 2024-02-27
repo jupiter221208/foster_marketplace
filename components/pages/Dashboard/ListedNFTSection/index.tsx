@@ -348,7 +348,7 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full lg:w-[300px] flex h-[54px] z-10">
+      <div className="w-full lg:w-[346px] flex h-[54px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Buy&nbsp;Now"
@@ -358,7 +358,7 @@ const ListedNFTSection = props => {
             backgroundColor01={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
-            width={100}
+            width={120}
             boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
@@ -369,7 +369,7 @@ const ListedNFTSection = props => {
             backgroundColor01={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
-            width={90}
+            width={120}
             boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
@@ -380,7 +380,7 @@ const ListedNFTSection = props => {
             backgroundColor01={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             backgroundColor02={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
-            width={110}
+            width={120}
             boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
