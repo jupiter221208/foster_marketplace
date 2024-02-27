@@ -121,24 +121,32 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
           </div>
         )}
 
-        <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          <GradientButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-            fontFamily="Muli-SemiBold"
-          />
-          <SecondaryButton
-            label="List NFT"
-            onClick={() => onClickListNFT(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-            fontFamily="Muli-SemiBold"
-          />
-        </div>
+        {active === 0 ? (
+          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+            <GradientButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+              fontFamily="Muli-SemiBold"
+            />
+            <SecondaryButton
+              label="List NFT"
+              onClick={() => onClickListNFT(data)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+              fontFamily="Muli-SemiBold"
+            />
+          </div>
+        ) : (
+          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+            <div className={styles.listEditionBtn} onClick={() => onClickListEdition(data)}>
+              List Edition
+            </div>
+          </div>
+        )}
       </div>
 
       {blurMode && (

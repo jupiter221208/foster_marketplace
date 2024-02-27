@@ -207,16 +207,16 @@ const OfferSection = () => {
   }
 
   return (
-    <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="w-full flex lg:w-[350px] h-[54px] mt-[15px] z-10">
+    <section className="w-full mt-[16px] lg:mt-[50px] z-10">
+      <div className="w-full flex lg:w-[350px] h-[54px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Offers Made"
             onClick={() => setShownOfferType('made')}
             fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'made' ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
+            color={shownOfferType === 'made' ? 'var(--main-icon-color)' : '#979EA2'}
+            backgroundColor01={shownOfferType === 'made' ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'made' ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'made' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -225,9 +225,9 @@ const OfferSection = () => {
             label="Offers Received"
             onClick={() => setShownOfferType('received')}
             fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'received' ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
+            color={shownOfferType === 'received' ? 'var(--main-icon-color)' : '#979EA2'}
+            backgroundColor01={shownOfferType === 'received' ? 'var(--dashboard-toggle-color)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'received' ? 'var(--dashboard-toggle-color)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'received' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
