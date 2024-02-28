@@ -171,7 +171,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
-  let nftImageUrl = optimizeCdnUrlOgImage(getAbsoluteOgUrl(nftDetail?.image || DefaultNftBG.src)) || DefaultNftBG.src
+  let nftImageUrl = optimizeCdnUrlOgImage(getAbsoluteOgUrl(nftDetail?.image || DefaultNftBG.src))
 
   let nftDescription = nftDetail?.description ?? ''
 
