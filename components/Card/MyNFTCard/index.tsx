@@ -121,6 +121,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
               onClick={() => onClickListEdition(data)}
               height="50px"
               fontSize="18px"
+              borderWidth={1}
               fullWidth
               borderRadius={10}
             />
