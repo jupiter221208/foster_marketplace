@@ -391,7 +391,7 @@ const ListedNFTSection = props => {
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <ListedNFTCard
                 data={item}
-                type={active === 0 ? 'fixed' : 'auction'}
+                type={active === 0 ? 'fixed' : active === 1 ? 'auction' : 'edition'}
                 onClick={url => handleGotoDetailPage(url)}
                 onActionClick={item => handleSelectData(item)}
                 cancelAuction={cancelAuction}

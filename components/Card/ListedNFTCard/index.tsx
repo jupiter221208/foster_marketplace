@@ -24,12 +24,13 @@ import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import Link from 'next/link'
 import { ListingsAPIData } from 'types/nft'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
   data: ListingsAPIData
-  type: 'fixed' | 'auction'
+  type: 'fixed' | 'auction' | 'edition'
   onClick: (uri: string) => any
   onActionClick: (data: ListedNFTCardDataWithJson) => void
   cancelAuction: any
@@ -138,6 +139,16 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               borderRadius="10px"
               fullWidth
             />
+          ) : type === 'edition' ? (
+            <GradientButton
+              label={'Cancel Listing'}
+              onClick={() => {}}
+              height="48px"
+              fontSize="16px"
+              fullWidth
+              borderRadius="10px"
+              borderWidth="1px"
+            />
           ) : (
             <>
               {highestBid ? (
@@ -219,11 +230,21 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               label={'Update'}
               onClick={() => onActionClick({ ...data, json: assetJson })}
               fullWidth
-              height="26px"
-              fontSize="12px"
+              height="35px"
+              fontSize="14px"
               paddingLeft="7px"
               paddingRight="7px"
               borderRadius="6px"
+            />
+          ) : type === 'edition' ? (
+            <GradientButton
+              label={'Cancel Listing'}
+              onClick={() => {}}
+              height="35px"
+              fontSize="14px"
+              fullWidth
+              borderRadius="6px"
+              borderWidth="1px"
             />
           ) : (
             <>
@@ -233,8 +254,8 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     label={'Finalize Sale'}
                     onClick={() => processFinalizeSale()}
                     fullWidth
-                    height="26px"
-                    fontSize="12px"
+                    height="35px"
+                    fontSize="14px"
                     paddingLeft="7px"
                     paddingRight="7px"
                     borderRadius="6px"

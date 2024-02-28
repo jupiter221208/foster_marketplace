@@ -309,7 +309,7 @@ const MainSection = () => {
                 }
                 onClick={() => router.push('/settings')}
                 backgroundColor="transparent"
-                borderColor="#ECEEF4"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
               />
             </div>
           </div>
@@ -330,10 +330,10 @@ const MainSection = () => {
                   }
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
-                  borderColor="#ECEEF4"
-                  width="32px"
-                  height="32px"
-                  borderRadius="6px"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+                  width="40px"
+                  height="40px"
+                  borderRadius="10px"
                 />
               </div>
             </div>
@@ -343,7 +343,7 @@ const MainSection = () => {
           <div>
             <div className={styles.bottomSection}>
               <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
-              <div className="lg:hidden flex items-center ml-[5px]">
+              {/* <div className="lg:hidden flex items-center ml-[5px]">
                 <div>
                   <SocialButton icon={<IGWhiteMobileIcon />} onClick={() => window.open(instagramUrl)} />
                 </div>
@@ -356,7 +356,7 @@ const MainSection = () => {
                 <div>
                   <SocialButton icon={<SolrPlexMobileIcon />} onClick={() => window.open(solrPlexUrl)} />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="relative flex lg:hidden mt-[3px] gap-[10px]">
               <div className="relative">
@@ -384,7 +384,7 @@ const MainSection = () => {
               />
               <CopyClipboardChip identifier="wallet-address" />
             </div>
-            <div className="flex justify-center ml-[5px]">
+            {/* <div className="flex justify-center ml-[5px]">
               <div>
                 <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
               </div>
@@ -397,12 +397,12 @@ const MainSection = () => {
               <div>
                 <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="max-w-[734px] mt-[30px]">
+        {/* <div className="max-w-[734px] mt-[30px]">
           <div className={styles.description}>{profileInfo?.bio}</div>
-        </div>
+        </div> */}
       </div>
       <NftImageEditorModal
         open={openBannerEditorModal}
