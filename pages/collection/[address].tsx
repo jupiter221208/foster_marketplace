@@ -76,17 +76,27 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
         const result = await getCollectionFromDAS(address)
 
-        if (result) {
+        let filteredNfts = result.filter(
+          (arr, index, self) =>
+            index ===
+            self.findIndex(
+              t => t.content.json_uri === arr.content.json_uri || t.content.metadata.name === arr.content.metadata.name
+            )
+        )
+
+        filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
+
+        if (filteredNfts) {
           let collectionNfts = await collectionsAPI.getCollectionNft(address)
 
-          let sortedCollectionNfts = result
+          let sortedCollectionNfts = filteredNfts
             .map(r => {
               return collectionNfts.find(nft => nft.token_id === r.id)
             })
             .filter(nft => nft !== undefined)
 
-          if (sortedCollectionNfts && result) {
-            let newNftsArr: NftData[] = [...result]
+          if (sortedCollectionNfts && filteredNfts) {
+            let newNftsArr: NftData[] = [...filteredNfts]
 
             newNftsArr.map((data, index) => {
               newNftsArr[index].category = determineCategory(data.content.files)
@@ -102,18 +112,9 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                 list_price: data.list_price,
               }
             })
-            var filteredNfts = newNftsArr.filter(
-              (arr, index, self) =>
-                index ===
-                self.findIndex(
-                  t =>
-                    t.content.json_uri === arr.content.json_uri && t.content.metadata.name === arr.content.metadata.name
-                )
-            )
 
-            filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
-            setNfts(filteredNfts)
-            fetchNftData(filteredNfts)
+            setNfts(newNftsArr)
+            fetchNftData(newNftsArr)
           }
 
           setHasLoading(false)

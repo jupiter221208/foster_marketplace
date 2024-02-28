@@ -130,26 +130,37 @@ export async function getEACollectionInfo(eaCollectionUrl: string): Promise<EACo
 }
 
 export async function getCollectionFromDAS(address) {
-  const response = await fetch(process.env.PROVIDER_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 'my-id',
-      method: 'getAssetsByGroup',
-      params: {
-        groupKey: 'collection',
-        groupValue: address,
-        page: 1,
-        limit: 1000,
-      },
-    }),
-  })
-  const { result } = await response.json()
+  let nfts = []
+  let currentTotal = 1000
+  let currentPage = 1
 
-  return result.items
+  while (currentTotal >= 1000) {
+    const response = await fetch(process.env.PROVIDER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 'my-id',
+        method: 'getAssetsByGroup',
+        params: {
+          groupKey: 'collection',
+          groupValue: address,
+          page: currentPage,
+          limit: 1000,
+        },
+      }),
+    })
+    const { result } = await response.json()
+    nfts = [...nfts, ...result.items]
+    currentTotal = result.total
+    currentPage++
+  }
+
+  console.log('jehvfjhvefa', nfts)
+
+  return nfts
 }
 
 export async function getNftData(id) {
