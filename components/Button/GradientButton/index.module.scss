@@ -29,8 +29,8 @@
 
   &:hover {
     @media (min-width: 1024px) {
-      color: #1A1A1A !important;
-      background: var(--hero-artist-color) !important;
+      color: var(--primary-btn-color) !important;
+      background: var(--primary-btn-hover) !important;
     }
   }
 
