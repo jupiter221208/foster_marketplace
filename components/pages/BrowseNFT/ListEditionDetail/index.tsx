@@ -106,7 +106,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
     let disabled = false
 
     if (parseFloat(days) > 30) disabled = true
-    else if (durationType === 'custom' && parseFloat(hours) > 23) disabled = true
+    else if (durationType === 'custom' && (parseFloat(hours) > 23 || parseFloat(hours) === 0)) disabled = true
+    else if (durationType === 'custom' && days === '' && hours === '') disabled = true
     else if (mintPrice === undefined || mintPrice === '' || mintPrice === null) disabled = true
     else if (buyLimitType !== 'no' && buyLimit === '') disabled = true
     setButtonDisabled(disabled)
@@ -438,6 +439,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
             label="List Edition"
             borderWidth={1}
+            disabled={buttonDisabled}
+            opacity={buttonDisabled ? 0.5 : 1}
             onClick={() => handleListEdition()}
           />
         )}

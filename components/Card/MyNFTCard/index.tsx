@@ -154,6 +154,8 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
               fontSize="14px"
               fullWidth
               fontFamily="Muli-SemiBold"
+              backgroundColor="#242424"
+              color="#eff0f6"
               borderRadius={6}
             />
           </div>
