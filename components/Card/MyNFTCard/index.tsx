@@ -147,16 +147,14 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
           </div>
         ) : (
           <div className="w-full flex lg:hidden justify-between items-center mt-4">
-            <OutlineButton
+            <GradientButton
               label="List Edition"
               onClick={() => onClickListEdition(data)}
               height="35px"
               fontSize="14px"
               fullWidth
-              fontFamily="Muli-SemiBold"
-              backgroundColor="#242424"
-              color="#eff0f6"
               borderRadius={6}
+              borderWidth={1}
             />
           </div>
         )}
