@@ -435,7 +435,7 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[90px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10 h-[28px] lg:h-[76px] ">
+          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[45px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10 h-[28px] lg:h-[76px] ">
             <HouseStatsTab
               tabList={tabList}
               onChange={item => {

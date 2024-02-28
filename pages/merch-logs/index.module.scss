@@ -120,7 +120,7 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: 15px;
-  border: 1px solid rgba(#eff0f6, 0.1);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   color: var(--text-gray-200-color);
   padding: 30px;
 }

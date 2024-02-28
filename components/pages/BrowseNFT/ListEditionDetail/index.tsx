@@ -125,7 +125,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        <div className="w-full mt-[10px]">
+        <div className="w-full mt-[30px]">
           <div className={styles.auctionStart}>
             Mint Price <span className={styles.auctionAsterisk}>*</span>
           </div>
