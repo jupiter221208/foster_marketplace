@@ -158,8 +158,6 @@ export async function getCollectionFromDAS(address) {
     currentPage++
   }
 
-  console.log('jehvfjhvefa', nfts)
-
   return nfts
 }
 
