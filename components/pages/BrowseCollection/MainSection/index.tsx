@@ -72,12 +72,9 @@ const MainSection = props => {
   useEffect(() => {
     setItems(nfts?.length || 0)
 
-    let owners = []
-    if (nfts)
-      nfts.forEach(nft => {
-        owners.push(nft.ownership.owner)
-      })
-    setOwners([...new Set(owners)].length)
+    if (nfts) {
+      setOwners(new Set(nfts.map(nft => nft.ownership.owner)).size)
+    }
 
     let prices = []
     if (nfts)
