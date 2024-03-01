@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
@@ -21,10 +20,8 @@ import styles from './index.module.scss'
 //apis
 import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 SwiperCore.use([Navigation])
 
 const CollectorsSection = props => {
@@ -80,6 +77,7 @@ const CollectorsSection = props => {
   }, [period])
 
   const getCollectorData = (curPage, curDate, search, count, reset = false) => {
+    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCollector({
@@ -121,10 +119,16 @@ const CollectorsSection = props => {
         </div>
       )}
 
-      {!loading &&
-        (list.length === 0 ? (
-          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+      {list.length === 0 ? (
+        !searchLoading ? (
+          <div />
         ) : (
+          <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+            <LoadingModal open={searchLoading} />
+          </div>
+        )
+      ) : (
+        !loading && (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
               navigation={true}
@@ -168,7 +172,8 @@ const CollectorsSection = props => {
               ))}
             </Swiper>
           </div>
-        ))}
+        )
+      )}
 
       {!loading && (
         <SearchSection

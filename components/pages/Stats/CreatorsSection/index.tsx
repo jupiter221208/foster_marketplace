@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
@@ -23,7 +22,6 @@ import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 SwiperCore.use([Navigation])
 
 const CreatorsSection = props => {
@@ -36,7 +34,6 @@ const CreatorsSection = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [rowCount, setRowCount] = useState(12)
-  const [totalCount, setTotalCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
@@ -59,7 +56,6 @@ const CreatorsSection = props => {
       setTimeout(() => {
         setLoading(false)
         setList(creators)
-        setTotalCount(12)
         setIsMounted(true)
       }, 1000)
     }
@@ -79,6 +75,7 @@ const CreatorsSection = props => {
   }, [period])
 
   const getCreatorData = (curPage, curDate, search, count, reset = false) => {
+    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCreator({
@@ -121,7 +118,13 @@ const CreatorsSection = props => {
 
       {!loading &&
         (list.length === 0 ? (
-          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+          !searchLoading ? (
+            <div />
+          ) : (
+            <div className="w-full mb-0 lg:mb-20 h-[267px] lg:mt-[25px] lg:h-[406px]">
+              <LoadingModal open={searchLoading} />
+            </div>
+          )
         ) : (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
             <Swiper
