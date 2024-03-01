@@ -69,10 +69,6 @@ const MainSection = props => {
     }
   }, [data])
 
-  console.log(nfts)
-
-  console.log(data)
-
   useEffect(() => {
     setItems(nfts?.length || 0)
 
