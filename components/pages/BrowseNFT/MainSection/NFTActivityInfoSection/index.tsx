@@ -18,6 +18,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?compon
 
 // styles
 import styles from './index.module.scss'
+import Link from 'next/link'
 
 const NFTActivityInfoSection = props => {
   const { activityList } = props
@@ -51,122 +52,92 @@ const NFTActivityInfoSection = props => {
             <div className="w-full flex flex-col">
               {item.action_type === 'AuctionWon' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.reference_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.reference_username)}
-                  </span>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;has won the auction</span>
                 </div>
               ) : item.action_type === 'AuctionStarted' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.owner_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.owner_username)}
-                  </span>
+                  <Link href={`/${item.owner_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.owner_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;published an auction</span>
                 </div>
               ) : item.action_type === 'AuctionCancelled' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.owner_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.owner_username)}
-                  </span>
+                  <Link href={`/${item.owner_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.owner_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;cancelled auction</span>
                 </div>
               ) : item.action_type === 'ListingAdded' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.owner_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.owner_username)}
-                  </span>
+                  <Link href={`/${item.owner_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.owner_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;listed artwork for sale</span>
                 </div>
               ) : item.action_type === 'ListingUpdated' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.owner_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.owner_username)}
-                  </span>
+                  <Link href={`/${item.owner_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.owner_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;updated listing</span>
                 </div>
               ) : item.action_type === 'ListingCancelled' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.owner_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.owner_username)}
-                  </span>
+                  <Link href={`/${item.owner_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.owner_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;removed listing</span>
                 </div>
               ) : item.action_type === 'OfferCancelled' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.reference_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.reference_username)}
-                  </span>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;cancelled their offer</span>
                 </div>
               ) : item.action_type === 'OfferMade' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.reference_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.reference_username)}
-                  </span>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;made an offer</span>
                 </div>
               ) : item.action_type === 'BidPlaced' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.reference_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.reference_username)}
-                  </span>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;placed a bid</span>
                 </div>
               ) : item.action_type === 'QuickBuy' ? (
                 <div className={styles.actionType}>
-                  <span
-                    className={styles.userName}
-                    onClick={() => {
-                      router.push(`/${item.reference_username}`)
-                    }}
-                  >
-                    {getDisplayUserName(item.reference_username)}
-                  </span>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
                   <span>&nbsp;purchased artwork</span>
                 </div>
               ) : (
