@@ -80,6 +80,7 @@ const ArtworksSection = props => {
   }, [period])
 
   const getArtworkData = (curPage, curDate, search, count, reset = false) => {
+    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsArtwork({
@@ -121,7 +122,13 @@ const ArtworksSection = props => {
       )}
       {!loading &&
         (list.length === 0 ? (
-          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+          !searchLoading ? (
+            <div />
+          ) : (
+            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+              <LoadingModal open={searchLoading} />
+            </div>
+          )
         ) : (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper

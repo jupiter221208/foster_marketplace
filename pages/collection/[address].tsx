@@ -21,7 +21,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import collectionsAPI from 'apis/collections'
-import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { getCollectionFromDAS, getEACollectionInfo, getNftData } from 'utils/collection.util'
 
@@ -47,7 +46,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const [collectionData, setCollectionData] = useState()
   const [nfts, setNfts] = useState<NftData[]>([])
-  const [loaded, setLoaded] = useState(false)
   const address = publicCollectionData?.collection_id
 
   const [hasloading, setHasLoading] = useState(false)
@@ -71,7 +69,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
       if (!address) return
       try {
-        setLoaded(false)
         setHasLoading(true)
 
         const result = await getCollectionFromDAS(address)
@@ -122,7 +119,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       } catch (e: any) {
         console.error(e)
       } finally {
-        setLoaded(true)
       }
     })()
   }, [address, publicCollectionData])
