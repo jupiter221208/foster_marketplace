@@ -52,7 +52,7 @@ const StudioReleaseCard = props => {
 
   useEffect(() => {
     if (apparelList) {
-      setImagepath(apparelList.black.image.front)
+      setImagepath(apparelList.black.image.thumb)
     }
   }, [apparelList])
 
@@ -60,16 +60,10 @@ const StudioReleaseCard = props => {
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
-          setImagepath(apparelList.black.image.front)
+          setImagepath(apparelList.black.image.thumb)
           break
         case 'white':
-          setImagepath(apparelList.white.image.front)
-          break
-        case 'gray':
-          setImagepath(apparelList.gray.image.front)
-          break
-        case 'navy':
-          setImagepath(apparelList.navy.image.front)
+          setImagepath(apparelList.white.image.thumb)
           break
         default:
           break
@@ -109,7 +103,7 @@ const StudioReleaseCard = props => {
             <>
               <img src={imagePath} className={styles.imageNft} />
               <div className={styles.nftImage}>
-                <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                <div className="w-[25%] h-[25%] mt-[29%] flex justify-center items-center">
                   <img src={nftImage} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
                 </div>
               </div>

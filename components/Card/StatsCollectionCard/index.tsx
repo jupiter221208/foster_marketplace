@@ -45,16 +45,6 @@ const StatsCollectionCard = props => {
                     ? data.creator_username
                     : getDisplayUserName(data.creator_address)}
                 </div>
-                {/* <div className="flex gap-[4px] items-center">
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <SolanaLogoMobileIcon alt="" />
-                  ) : (
-                    <SolanaLogoIcon alt="" />
-                  )}
-                  <div className={styles.value}>
-                    {type === 'artworks' ? parseFloat(data.amount).toFixed(2) : parseFloat(data.total_sales).toFixed(2)}
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

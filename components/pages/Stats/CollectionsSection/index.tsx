@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
@@ -22,20 +21,17 @@ import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 SwiperCore.use([Navigation])
 
 const CollectionsSection = props => {
   const { collections } = props
 
-  const dispatch = useDispatch()
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
   const [isMounted, setIsMounted] = useState(false)
   const [list, setList] = useState<any[]>([])
   const [period, setPeriod] = useState('all')
   const [currentPage, setCurrentPage] = useState(0)
-  const [totalCount, setTotalCount] = useState(0)
   const [screenWidth, setScreenWidth] = useState(1920)
   const [rowCount, setRowCount] = useState(12)
   const [loading, setLoading] = useState(true)
@@ -53,7 +49,6 @@ const CollectionsSection = props => {
       setTimeout(() => {
         setLoading(false)
         setList(collections)
-        setTotalCount(12)
         setIsMounted(true)
       }, 1000)
     }
@@ -80,6 +75,7 @@ const CollectionsSection = props => {
   }, [period])
 
   const getCollectionData = (curPage, curDate, search, count, reset = false) => {
+    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCollection({
@@ -93,7 +89,6 @@ const CollectionsSection = props => {
         setSearchLoading(false)
         const nfts = response.filter(item => item.cover_image !== '')
         setCurrentPage(curPage)
-        setTotalCount(count * curPage + nfts.length)
         if (reset === true) setList(nfts)
         else setList([...list, ...nfts])
 
@@ -122,7 +117,13 @@ const CollectionsSection = props => {
 
       {!loading &&
         (list.length === 0 ? (
-          <div className="w-full mb-1 lg:mb-4 lg:mt-[25px]"></div>
+          !searchLoading ? (
+            <div />
+          ) : (
+            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+              <LoadingModal open={searchLoading} />
+            </div>
+          )
         ) : (
           <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
