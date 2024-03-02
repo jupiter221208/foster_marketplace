@@ -5,8 +5,18 @@ import {
   lamports,
   toMetadataAccount,
   toMetadata,
+  toOriginalOrPrintEditionAccount,
+  toOriginalEditionAccount,
 } from '@metaplex-foundation/js'
-import type { Creator, Metadata, JsonMetadata, Nft, Sft } from '@metaplex-foundation/js'
+import type {
+  Creator,
+  Metadata,
+  JsonMetadata,
+  Nft,
+  Sft,
+  OriginalEditionAccountData,
+  PrintEditionAccountData,
+} from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { TOKEN_PROGRAM_ID, unpackAccount, Account } from '@solana/spl-token'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
@@ -15,6 +25,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
+import { Key } from '@metaplex-foundation/mpl-token-metadata'
 import { NftData as NewNftData, NftCreator, NftData } from 'types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
@@ -190,7 +201,36 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
 
   let nonCompressedNfts = allNfts.filter(({ burnt, compression }) => !burnt && !compression.compressed)
 
-  return nonCompressedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
+  // Fetch NFTs Edition Data
+  const editionPdas = nonCompressedNfts.map(n =>
+    mx
+      .nfts()
+      .pdas()
+      .masterEdition({ mint: new PublicKey(n.id) })
+  )
+
+  const chunkedEditionPdas = chunkArray(editionPdas, 100)
+  const chunkedNfts = chunkArray(nonCompressedNfts, 100)
+
+  await Promise.all(
+    chunkedEditionPdas.map(async (chunk, index) => {
+      const editions = await mx.connection.getMultipleAccountsInfo(chunk)
+      const parsedEditions = editions.map(e => toOriginalEditionAccount(e as unknown as UnparsedAccount))
+
+      chunkedNfts[index] = chunkedNfts[index].map((n, i) => {
+        return {
+          ...n,
+          supply: {
+            max: parsedEditions[i].data.maxSupply ? Number(parsedEditions[i].data.maxSupply) : null,
+          },
+        }
+      })
+    })
+  )
+  const flattenedNfts = chunkedNfts.flat()
+
+  return flattenedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
+    console.log(supply)
     let image = content.links.image
     let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
     let animation_url = content.links.animation_url
@@ -249,6 +289,8 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         delegate: ownership.delegate?.toString(),
         isFrozen: ownership.frozen,
       },
+
+      supply,
     }
   })
 }
@@ -465,4 +507,12 @@ export function determineCategory(files: determineCategoryType) {
   }
 
   return category || 'image'
+}
+
+function chunkArray(array, chunkSize) {
+  let result = []
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize))
+  }
+  return result
 }
