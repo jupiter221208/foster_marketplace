@@ -39,7 +39,6 @@ interface StartAuctionModalProps {
 }
 
 const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: StartAuctionModalProps) => {
-  console.log(data)
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 

@@ -230,7 +230,6 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
   const flattenedNfts = chunkedNfts.flat()
 
   return flattenedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
-    console.log(supply)
     let image = content.links.image
     let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
     let animation_url = content.links.animation_url

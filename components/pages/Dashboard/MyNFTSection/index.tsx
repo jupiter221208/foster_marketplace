@@ -67,6 +67,7 @@ const MyNFTSection = props => {
   }, [mx, connection, publicKey, isGetMyNFTs])
 
   const [nftList, setNFTList] = useState<NftData[]>([])
+  const [filteredNfts, setFilteredNfts] = useState<NftData[]>([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListEditionModal, setShowListEditionModal] = useState(false)
@@ -167,6 +168,14 @@ const MyNFTSection = props => {
     }
   }, [isFetching])
 
+  useEffect(() => {
+    if (active === 0) {
+      setFilteredNfts(filteredList.filter(n => n?.supply?.max === 0))
+    } else if (active === 1) {
+      setFilteredNfts(filteredList.filter(n => n?.supply?.max > 0 || n?.supply?.max === null))
+    }
+  }, [filteredList])
+
   const searchNFT = key => {
     if (key === '') {
       setFilteredList(allNftList)
@@ -217,7 +226,7 @@ const MyNFTSection = props => {
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList
+          filteredNfts
             .filter(item => item.image !== undefined || null)
             .map((item, index) => (
               <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>

@@ -39,7 +39,6 @@ interface LisetEditionModalProps {
 }
 
 const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalProps) => {
-  console.log(data)
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 
