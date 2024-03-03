@@ -455,6 +455,39 @@ export async function getNftFromRpc(metaplex, address: string): Promise<NftData>
   }
 }
 
+export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promise<NftData[]> {
+  const masterEditionAddresses = nfts.map(n =>
+    mx
+      .nfts()
+      .pdas()
+      .masterEdition({ mint: new PublicKey(n.mintAddress) })
+  )
+  const masterEditions = await getMultipleAccountsInfoBatched(mx.connection, masterEditionAddresses)
+
+  for (let i = 0; i < nfts.length; i++) {
+    const masterEditionData = toOriginalOrPrintEditionAccount({
+      publicKey: masterEditionAddresses[i],
+      ...masterEditions[i],
+      lamports: lamports(masterEditions[i].lamports),
+    }).data
+    if ('maxSupply' in masterEditionData) {
+      nfts[i].supply = {
+        edition: 0,
+        current: 0,
+        max: masterEditionData.maxSupply ? Number(masterEditionData.maxSupply) : null,
+      }
+    } else {
+      nfts[i].supply = {
+        edition: Number(masterEditionData.edition),
+        current: 0,
+        max: null,
+      }
+    }
+  }
+
+  return nfts
+}
+
 type determineCategoryType = {
   uri: string
   mime: string
@@ -486,34 +519,4 @@ function chunkArray(array, chunkSize) {
     result.push(array.slice(i, i + chunkSize))
   }
   return result
-}
-
-export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promise<NftData[]> {
-  const editionPdas = nfts.map(n =>
-    mx
-      .nfts()
-      .pdas()
-      .masterEdition({ mint: new PublicKey(n.mintAddress) })
-  )
-
-  const chunkedEditionPdas = chunkArray(editionPdas, 100)
-  const chunkedNfts = chunkArray(nfts, 100)
-
-  await Promise.all(
-    chunkedEditionPdas.map(async (chunk, index) => {
-      const editions = await mx.connection.getMultipleAccountsInfo(chunk)
-      const parsedEditions = editions.map(e => toOriginalEditionAccount(e as unknown as UnparsedAccount))
-
-      chunkedNfts[index] = chunkedNfts[index].map((n, i) => {
-        return {
-          ...n,
-          supply: {
-            max: parsedEditions[i].data.maxSupply ? Number(parsedEditions[i].data.maxSupply) : null,
-          },
-        }
-      })
-    })
-  )
-  const flattenedNfts = chunkedNfts.flat()
-  return flattenedNfts
 }
