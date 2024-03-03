@@ -201,35 +201,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
 
   let nonCompressedNfts = allNfts.filter(({ burnt, compression }) => !burnt && !compression.compressed)
 
-  // Fetch NFTs Edition Data
-  const editionPdas = nonCompressedNfts.map(n =>
-    mx
-      .nfts()
-      .pdas()
-      .masterEdition({ mint: new PublicKey(n.id) })
-  )
-
-  const chunkedEditionPdas = chunkArray(editionPdas, 100)
-  const chunkedNfts = chunkArray(nonCompressedNfts, 100)
-
-  await Promise.all(
-    chunkedEditionPdas.map(async (chunk, index) => {
-      const editions = await mx.connection.getMultipleAccountsInfo(chunk)
-      const parsedEditions = editions.map(e => toOriginalEditionAccount(e as unknown as UnparsedAccount))
-
-      chunkedNfts[index] = chunkedNfts[index].map((n, i) => {
-        return {
-          ...n,
-          supply: {
-            max: parsedEditions[i].data.maxSupply ? Number(parsedEditions[i].data.maxSupply) : null,
-          },
-        }
-      })
-    })
-  )
-  const flattenedNfts = chunkedNfts.flat()
-
-  return flattenedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
+  return nonCompressedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
     let image = content.links.image
     let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
     let animation_url = content.links.animation_url
@@ -514,4 +486,34 @@ function chunkArray(array, chunkSize) {
     result.push(array.slice(i, i + chunkSize))
   }
   return result
+}
+
+export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promise<NftData[]> {
+  const editionPdas = nfts.map(n =>
+    mx
+      .nfts()
+      .pdas()
+      .masterEdition({ mint: new PublicKey(n.mintAddress) })
+  )
+
+  const chunkedEditionPdas = chunkArray(editionPdas, 100)
+  const chunkedNfts = chunkArray(nfts, 100)
+
+  await Promise.all(
+    chunkedEditionPdas.map(async (chunk, index) => {
+      const editions = await mx.connection.getMultipleAccountsInfo(chunk)
+      const parsedEditions = editions.map(e => toOriginalEditionAccount(e as unknown as UnparsedAccount))
+
+      chunkedNfts[index] = chunkedNfts[index].map((n, i) => {
+        return {
+          ...n,
+          supply: {
+            max: parsedEditions[i].data.maxSupply ? Number(parsedEditions[i].data.maxSupply) : null,
+          },
+        }
+      })
+    })
+  )
+  const flattenedNfts = chunkedNfts.flat()
+  return flattenedNfts
 }

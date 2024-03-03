@@ -18,7 +18,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMyNFTs } from 'utils/nfts.utils'
+import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -47,8 +47,9 @@ const MyNFTSection = props => {
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts = await getMyNFTs(mx)
-    setAllList(nfts)
-    let validNfts = nfts.filter(
+    const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
+    setAllList(nftsWithEditionData)
+    let validNfts = nftsWithEditionData.filter(
       item =>
         !item.tokenAccount?.delegate &&
         !item.tokenAccount?.isFrozen &&
@@ -128,7 +129,7 @@ const MyNFTSection = props => {
 
   useEffect(() => {
     let list = []
-    let allList = myNftList as any[]
+    let allList = myNftList as NftData[]
     allList.forEach(item => {
       let created = false
       let creators = item.creators
