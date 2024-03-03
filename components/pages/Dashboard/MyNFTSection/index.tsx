@@ -244,18 +244,12 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {isGetMyNFTs && allNftList.length === 0 && (
+      {filteredNfts.length === 0 && !loading && (
         <div className="mt-[30px] lg:mt-[30px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"
             description="This tab displays the NFTs you own without an active listing"
           />
-        </div>
-      )}
-
-      {!loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
 
