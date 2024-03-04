@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const CollectionSwiperSection = props => {
-  const { collections, showRemoveButton, removeCollection = null } = props
+  const { collections, showRemoveButton } = props
 
   return collections.length === 0 ? (
     <section className={styles.container}>
@@ -18,9 +18,9 @@ const CollectionSwiperSection = props => {
   ) : (
     <section className={styles.container}>
       <div className="w-full z-10">
-        <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
+        <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[45px] pb-[30px]">
           {collections.map((item, index) => (
-            <div className="col-span-12 lg:col-span-4 xl:col-span-3" key={index}>
+            <div className="col-span-12 lg:col-span-4 xl:col-span-4" key={index}>
               <TrendingCollectionCard
                 collectionID={item.collection_id}
                 image={item.cover_image}
@@ -30,7 +30,6 @@ const CollectionSwiperSection = props => {
                 avatar={item.artist_profile_picture}
                 key={index}
                 showRemoveButton={showRemoveButton}
-                removeCollection={removeCollection}
               />
             </div>
           ))}

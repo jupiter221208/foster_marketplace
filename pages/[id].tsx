@@ -41,6 +41,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
+  const removeCollectionId = useSelector(state => (state as any).removeCollectionId)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
@@ -117,6 +118,14 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       await getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
     }
   }, [connected, loginAndRefresh, publicArtistData])
+
+  useEffect(() => {
+    if (removeCollectionId.length > 0) {
+      let newCollections = collections.filter(item => item.collection_id !== removeCollectionId)
+      setCollections(newCollections)
+      dispatch({ type: 'set', removeCollectionId: '' })
+    }
+  }, [removeCollectionId])
 
   const reloadPage = () => {
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)

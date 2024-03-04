@@ -21,9 +21,6 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 // styles
 import styles from './index.module.scss'
 
-// apis
-import collectionAPI from 'apis/collections'
-
 const TabSection = props => {
   const {
     createdNfts,
@@ -100,7 +97,7 @@ const TabSection = props => {
       setMerchEnable(false)
       setCollectorEnable(false)
     }
-  }, [activeTab, artworkType])
+  }, [activeTab, artworkType, collections])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -147,18 +144,6 @@ const TabSection = props => {
       handleNextPage()
     }
   }, [isFetchingMerch])
-
-  const removeCollection = collectionId => {
-    collectionAPI.deleteCollection(collectionId).then(
-      response => {
-        if (response) {
-          let newCollections = showCollections.filter(item => item.collection_id !== collectionId)
-          setShowCollections(newCollections)
-        }
-      },
-      error => {}
-    )
-  }
 
   return (
     <div className={styles.container}>
@@ -279,11 +264,7 @@ const TabSection = props => {
 
       {activeTab === 1 && (
         <div className="w-full">
-          <CollectionSwiperSection
-            collections={showCollections}
-            showRemoveButton={isOwn}
-            removeCollection={removeCollection}
-          />
+          <CollectionSwiperSection collections={showCollections} showRemoveButton={isOwn} />
           {collections.length > 0 && isMounted && isVisibleFetching && (
             <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
           )}

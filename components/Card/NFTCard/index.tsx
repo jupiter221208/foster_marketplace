@@ -53,7 +53,6 @@ const DashboardNFTCard = props => {
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
-  const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
 

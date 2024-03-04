@@ -27,14 +27,14 @@
 
 .removeVisible {
   position: absolute;
-  left: 8px;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  left: 20px;
+  top: 27px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
   @media (min-width: 1024px) {
-    left: 20px;
-    top: 20px;
+    left: 39px;
+    top: 29px;
     width: 52px;
     height: 52px;
     border-radius: 26px;
@@ -43,9 +43,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(239, 240, 247, 0.15);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: rgba(26, 26, 26, 0.75);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .bidContentView {
@@ -246,4 +246,77 @@
   border-radius: 24px;
   border: 1px solid transparent;
   overflow: hidden;
+}
+
+.hideConfirm {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  border-radius: 17px;
+  @media (min-width: 1024px) {
+    border-radius: 24px;
+  }
+  background: rgba(#1a1a1a, 0.75);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+}
+
+.hideText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  padding: 0px 5px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 0px 20px;
+  }
+  color: $text-gray-200-color;
+  text-align: center;
+}
+
+.hideCancelButton {
+  width: 104px;
+  height: 40px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  background: transparent;
+  font-family: 'Muli-SemiBold';
+
+  color: $text-gray-200-color;
+  cursor: pointer;
+}
+
+.hideButton {
+  width: 106px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $brand-09-color;
+  cursor: pointer;
+}
+
+.hideButtonText {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  color: $background-dark-color;
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

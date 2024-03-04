@@ -42,14 +42,14 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  border: 2px solid var(--hide-nft-border-color);
+  border: 3px solid rgba($text-gray-200-color, 0.1);
   border-radius: 17px;
   @media (min-width: 1024px) {
     border-radius: 30px;
   }
-  background: rgba(#202427, 1);
-  // -webkit-backdrop-filter: blur(12px);
-  // backdrop-filter: blur(12px);
+  background: rgba(#1a1a1a, 0.75);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
 }
 
 .hideText {
@@ -62,7 +62,7 @@
     line-height: 24px;
     padding: 0px 40px;
   }
-  color: #eff0f6;
+  color: $text-gray-200-color;
   text-align: center;
 }
 
@@ -80,11 +80,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid $brand-09-color;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   background: transparent;
   font-family: 'Muli-SemiBold';
 
-  color: $brand-09-color;
+  color: $text-gray-200-color;
   cursor: pointer;
 }
 
@@ -100,7 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, $brand-12-color, $brand-09-color);
+  background: $brand-09-color;
   cursor: pointer;
 }
 
