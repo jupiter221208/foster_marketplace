@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const CollectionSwiperSection = props => {
-  const { collections } = props
+  const { collections, showRemoveButton, removeCollection = null } = props
 
   return collections.length === 0 ? (
     <section className={styles.container}>
@@ -29,15 +29,9 @@ const CollectionSwiperSection = props => {
                 nftCount={item.number_in_collections}
                 avatar={item.artist_profile_picture}
                 key={index}
+                showRemoveButton={showRemoveButton}
+                removeCollection={removeCollection}
               />
-              {/* <CollectionCard
-                image={item.cover_image}
-                nftName={item.collection_name}
-                artistName={item.artist_username}
-                mintAddress={item.artist_id}
-                icon={item.artist_profile_picture}
-                link={`/collection/${item.collection_id}`}
-              /> */}
             </div>
           ))}
         </div>

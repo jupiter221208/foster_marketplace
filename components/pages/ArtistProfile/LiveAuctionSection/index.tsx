@@ -31,7 +31,7 @@ import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { NftData } from 'types/nft'
 
 const LiveAuctionSection = props => {
-  const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
+  const { category, artist = '', fromPage = 'home' } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -48,7 +48,6 @@ const LiveAuctionSection = props => {
   const getLiveAuctionsFromServer = (category, artist, mode, nextpage) => {
     setIsLoading(true)
     dashboardAPI.getLiveAuctions(category, artist, mode, nextpage).then(response => {
-      if (setLiveAuctionLoaded) setLiveAuctionLoaded()
       setIsLoading(false)
       setIsMounted(true)
       setIsFetching(false)
@@ -65,7 +64,6 @@ const LiveAuctionSection = props => {
       }
     }),
       error => {
-        if (setLiveAuctionLoaded) setLiveAuctionLoaded()
         setIsMounted(true)
         setIsLoading(false)
         setIsFetching(false)

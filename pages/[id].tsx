@@ -62,11 +62,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistRowCount, setArtistRowCount] = useState(12)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
-  const [collectorTotalCount, setCollectorTotalCount] = useState(0)
   const [merchCurrentPage, setMerchCurrentPage] = useState(1)
   const [merchRowCount, setMerchRowCount] = useState(12)
-  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
-  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
   const [isFetchingCreated, setIsFetchingCreated] = useState(false)
   const [isVisibleFetchingCreated, setIsVisibleFetchingCreated] = useState(false)
   const [isFetchingMerch, setIsFetchingMerch] = useState(false)
@@ -249,7 +246,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setCollectorStatsInfo(response.stats)
-        setCollectorTotalCount(response.total_nfts)
 
         if (response.nfts.length === collectorRowCount) setIsVisibleFetchingCollected(true)
         else setIsVisibleFetchingCollected(false)
@@ -348,8 +344,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               setCollectorEnable={setCollectorEnable}
               artistStatsInfo={artistStatsInfo}
               collectorStatsInfo={collectorStatsInfo}
-              setActiveListingLoaded={setActiveListingLoaded}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
               isVisibleFetchingCreated={isVisibleFetchingCreated}
               isFetchingCreated={isFetchingCreated}
               setIsFetchingCreated={setIsFetchingCreated}

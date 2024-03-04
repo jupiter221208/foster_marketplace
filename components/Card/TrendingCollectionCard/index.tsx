@@ -1,26 +1,30 @@
 import React, { useState } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
-
-// next components
 import Link from 'next/link'
 
 // images and icons
+import TrashIcon from 'assets/icons/trash-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 // third party components
-import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const TrendingCollectionCard = props => {
-  const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const {
+    collectionID,
+    image,
+    collectionName,
+    artistName,
+    nftCount,
+    avatar,
+    showRemoveButton = false,
+    removeCollection = null,
+  } = props
   const viewport = useViewport()
   const [loaded, setLoaded] = useState(false)
 
@@ -45,6 +49,11 @@ const TrendingCollectionCard = props => {
             </div>
             <div className={styles.bidContainer}>
               <div className={styles.bidGradientBgView} />
+              {showRemoveButton && (
+                <div className={styles.removeVisible} onClick={() => removeCollection(collectionID)}>
+                  <TrashIcon alt="" />
+                </div>
+              )}
               <div className={styles.bidContentView}>
                 <div className="px-[15px] lg:px-[28px]">
                   <div className={styles.nftName}>{collectionName}</div>

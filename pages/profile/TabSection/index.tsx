@@ -4,6 +4,13 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import IconTab from 'components/Tab/IconTab'
+import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
+import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
+import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
+import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
+import LoadingComponent from 'pages/explore/LoadingComponent'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
+import AboutSection from 'components/pages/ArtistProfile/AboutSection'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
@@ -13,17 +20,9 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
-import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
-import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 
 // apis
-import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-import SubTabSection from 'components/pages/ArtistProfile/SubTabSection'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
-import AboutSection from 'components/pages/ArtistProfile/AboutSection'
-import { NftData } from 'types/nft'
+import collectionAPI from 'apis/collections'
 
 const TabSection = props => {
   const {
@@ -42,8 +41,6 @@ const TabSection = props => {
     setCollectorEnable,
     artistStatsInfo,
     collectorStatsInfo,
-    setActiveListingLoaded,
-    setLiveAuctionLoaded,
     isVisibleFetchingCreated,
     isFetchingCreated,
     setIsFetchingCreated,
@@ -109,7 +106,7 @@ const TabSection = props => {
     setActiveTab(item.id)
   }
 
-  const [showCollections, setShowCollections] = useState<NftData[]>([])
+  const [showCollections, setShowCollections] = useState([])
   const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
@@ -151,6 +148,18 @@ const TabSection = props => {
     }
   }, [isFetchingMerch])
 
+  const removeCollection = collectionId => {
+    collectionAPI.deleteCollection(collectionId).then(
+      response => {
+        if (response) {
+          let newCollections = showCollections.filter(item => item.collection_id !== collectionId)
+          setShowCollections(newCollections)
+        }
+      },
+      error => {}
+    )
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
@@ -161,19 +170,6 @@ const TabSection = props => {
       {activeTab === 0 && (
         <div className="w-full">
           <div className="w-full flex overflow-x-scroll no-scrollbar mt-5 gap-2 lg:gap-4">
-            {/* <TimeSlotButton
-              label="All"
-              width={50}
-              height={42}
-              fontFamily={'Muli-Regular'}
-              color={artworkType === 'all' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              onClick={() => {
-                setArtworkType('all')
-              }}
-            /> */}
-
             <TimeSlotButton
               label="Quick&nbsp;Buy"
               height={42}
@@ -244,14 +240,7 @@ const TabSection = props => {
             </div>
           )}
 
-          {artworkType === 'auction' && (
-            <LiveAuctionSection
-              category={''}
-              artist={wallet}
-              fromPage={'profile'}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
-            />
-          )}
+          {artworkType === 'auction' && <LiveAuctionSection category={''} artist={wallet} fromPage={'profile'} />}
 
           {artworkType === 'studio' && (
             <div className="w-full">
@@ -282,7 +271,7 @@ const TabSection = props => {
 
           {artworkType === 'listed' && (
             <div className="w-full">
-              <ActiveListingSection artist={wallet} fromPage={'profile'} loadCompleted={setActiveListingLoaded} />
+              <ActiveListingSection artist={wallet} fromPage={'profile'} />
             </div>
           )}
         </div>
@@ -290,7 +279,11 @@ const TabSection = props => {
 
       {activeTab === 1 && (
         <div className="w-full">
-          <CollectionSwiperSection collections={showCollections} />
+          <CollectionSwiperSection
+            collections={showCollections}
+            showRemoveButton={isOwn}
+            removeCollection={removeCollection}
+          />
           {collections.length > 0 && isMounted && isVisibleFetching && (
             <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
           )}
