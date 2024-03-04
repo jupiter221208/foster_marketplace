@@ -84,7 +84,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [activityList, setActivityList] = useState([])
-  const [showDiscoverMoreTab, setShowDiscoverMoreTab] = useState<boolean>(false)
 
   useEffect(() => {
     setTimeout(
@@ -246,7 +245,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
           if (response instanceof Array) {
-            setShowDiscoverMoreTab(true)
             let resData = response.filter(item => item.token_id !== collectionId)
             if (resData.length === 0) return
             if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
@@ -268,7 +266,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       collectionAPI.getOtherCollections(artistInfo.address).then(
         response => {
           if (response instanceof Array) {
-            setShowDiscoverMoreTab(true)
             setCollectionList(response)
           }
         },
@@ -285,7 +282,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       dashboardAPI.getTrendingCollections(categories[0], 'week').then(
         response => {
           if (response instanceof Array) {
-            setShowDiscoverMoreTab(true)
             setCategoryCollectionList(response)
           }
         },
@@ -295,7 +291,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }, [categories])
 
   useEffect(() => {
-    if (showDiscoverMoreTab) {
+    if (categoryCollectionList.length > 0 || collectionList.length > 0 || collectionNFTs.length > 0) {
       setTabList(prev => {
         if (prev.some(t => t.label === 'Discover More')) {
           return prev
@@ -306,7 +302,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     } else {
       setTabList(prev => prev.filter(t => t.label !== 'Discover More'))
     }
-  }, [showDiscoverMoreTab])
+  }, [categoryCollectionList, collectionList, collectionNFTs, connected])
 
   return (
     <div className="w-full h-full">
@@ -360,11 +356,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
             <div className={`g-container ${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
               <div className={styles.selectedTab}>
-                <SelectedTab
-                  tabList={tabList}
-                  onChange={item => handleSelectedTab(item)}
-                  showDiscoverMoreTab={showDiscoverMoreTab}
-                />
+                <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                 <div className={styles.selectedTabBorder} />
               </div>
               <div className={styles.mainContainer}>
