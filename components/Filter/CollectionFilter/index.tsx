@@ -37,6 +37,7 @@ const CollectionFilter = props => {
     <div className={styles.container}>
       <div className={styles.title}>Artist Verification</div>
       <Radio
+        gap={10}
         data={ArtistVerificationList}
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
