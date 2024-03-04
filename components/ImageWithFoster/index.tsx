@@ -19,7 +19,7 @@ const ImageWithFoster = props => {
           <div></div>
         </ReactPlaceholder>
       )}
-      <img {...rest} src={src} onLoad={() => setLoaded(true)} loading="lazy" alt="" />
+      <img {...rest} src={src} onLoad={() => setLoaded(false)} loading="lazy" alt="" />
     </div>
   )
 }
