@@ -125,7 +125,7 @@ const LiveAuctionCard = props => {
                         onClick={onClick}
                         layout="fill"
                         alt=""
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <div
