@@ -25,7 +25,6 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // api
-import collectionAPI from 'apis/collections'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreArtistSection = props => {
