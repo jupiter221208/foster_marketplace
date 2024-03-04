@@ -200,7 +200,7 @@ const NFTAuctionCard = props => {
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
                     <div
-                      className="w-full"
+                      className="w-full h-full"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,
@@ -307,7 +307,7 @@ const NFTAuctionCard = props => {
                   <div className={styles.timeValue}>{endDate.minute}</div>
                   <div className={styles.day}>m</div>
                 </div>
-                <div className="flex gap-[2px] hidden lg:flex">
+                <div className="flex gap-[2px]lg:flex">
                   <div className={styles.timeValue}>{endDate.second}</div>
                   <div className={styles.day}>s</div>
                 </div>

@@ -27,25 +27,15 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreCategorySection = props => {
-  const { categories } = props
+  const { categories, categoryCollectionList } = props
 
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [collectionList, setCollectionList] = useState([])
-
   useEffect(() => {
-    if (categories !== null && categories !== undefined && categories[0] !== undefined) {
-      dashboardAPI.getTrendingCollections(categories[0], 'week').then(
-        response => {
-          if (response instanceof Array) setCollectionList(response)
-          fetchCollectionListData(response)
-        },
-        error => {}
-      )
-    }
-  }, [categories])
+    fetchCollectionListData(categoryCollectionList)
+  }, [categoryCollectionList])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -64,7 +54,7 @@ const MoreCategorySection = props => {
   }
 
   return (
-    collectionList.length > 0 && (
+    categoryCollectionList.length > 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
@@ -91,13 +81,13 @@ const MoreCategorySection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={collectionList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+            className={categoryCollectionList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
             }}
           >
-            {collectionList.map((item, index) => (
+            {categoryCollectionList.map((item, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                   <CollectionCard
