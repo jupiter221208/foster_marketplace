@@ -12,86 +12,11 @@
   }
 }
 
-.topLeftEllipse {
-  position: absolute;
-  top: -250px;
-  left: -300px;
-  @media (min-width: 1024px) {
-    top: 458px;
-    left: -662px;
-  }
-  z-index: 0;
-  opacity: 0.25;
-}
-
 .bannerImage {
   position: relative;
   width: 100%;
   height: 436px;
   overflow: hidden;
-}
-
-.bottomMask {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  bottom: 0px;
-  background: var(--category-bottom-mask);
-}
-
-.switchArea {
-  position: relative;
-  max-width: 698px;
-  width: 100%;
-  height: 38px;
-  background: var(--artist-switch-bg);
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 24px;
-  }
-
-  border-radius: 10px;
-}
-
-.switchDisabled {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  color: var(--switch-disabled-color);
-  background: var(--artist-switch-bg);
-}
-
-.switchEnabled {
-  width: 100%;
-  height: 100%;
-  background: var(--artist-switch-color);
-  border-radius: 10px;
-  box-shadow: 0px 3px 6px rgba(#000, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--wallet-active-text);
-}
-
-.switchLeftEnabled {
-  width: 100%;
-  height: 100%;
-  background: var(--artist-switch-color);
-  border-radius: 10px;
-  box-shadow: 3px 3px 6px rgba(#000, 0.2);
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--wallet-active-text);
 }
 
 .headerImage {
@@ -104,23 +29,6 @@
   @media (min-width: 1024px) {
     width: 100%;
     margin: 0px;
-  }
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 78px;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--profile-banner-overlay), 0) 0%,
-    rgba(var(--profile-banner-overlay), 1) 100%
-  );
-  @media (min-width: 1024px) {
-    height: 230px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
   }
 }
 
@@ -140,130 +48,6 @@
     font-size: 18px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
-}
-
-.description {
-  width: 100%;
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  margin-top: 20px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    margin-top: 15px;
-  }
-  line-height: 24px;
-  color: var(--text-gray-200-color);
-}
-
-.readMore {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
-  text-decoration: underline;
-  color: var(--single-nft-btn-color);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.statesBack {
-  width: 100%;
-  background-color: transparent;
-  border-radius: 15px;
-  @media (min-width: 1024px) {
-    background-color: var(--activity-bg-color);
-    width: 100%;
-    padding: 15px 15px 15px 15px;
-  }
-  z-index: 10;
-}
-
-.statsArea {
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--stats-bg-color);
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.nftInfoLabel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 40px;
-    width: 100px;
-    height: 40px;
-    background-color: var(--stats-label-bg);
-    border-radius: 6px;
-  }
-  color: var(--text-gray-200-color);
-  overflow: hidden;
-}
-
-.nftInfoValue {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
-}
-
-.nftInfoLabelMobile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 40px;
-    width: 100px;
-    background-color: #17191a;
-    border-radius: 6px;
-  }
-  color: var(--text-gray-200-color);
-}
-
-.nftInfoValueMobile {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
-}
-
-.categoryList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 768px;
-  width: 100%;
-  gap: 14px;
-  @media (min-width: 1024px) {
-    gap: 20px;
-  }
-}
-
-.collectorProfile {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
-  color: var(--brand-09-color);
-  white-space: nowrap;
 }
 
 .iconBlurView {

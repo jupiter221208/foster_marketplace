@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 import { useWallet } from '@solana/wallet-adapter-react'

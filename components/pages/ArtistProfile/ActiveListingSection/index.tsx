@@ -11,9 +11,6 @@ import 'swiper/css/navigation'
 
 // components
 
-// custom functions
-import { useViewport } from 'utils'
-
 // styles
 import styles from './index.module.scss'
 
@@ -25,7 +22,6 @@ import { DashboardAPIData } from 'types/nft'
 const ActiveListingSection = props => {
   const { artist = '', fromPage = '' } = props
 
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
