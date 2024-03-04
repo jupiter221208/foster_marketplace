@@ -237,7 +237,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       symbol: content.metadata.symbol,
       description: content.metadata.description,
 
-      image: imageCdn ?? image,
+      image: imageCdn || image,
       animation_url,
       original: {
         image,
@@ -386,7 +386,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     description: content.metadata.description,
     uri: content.json_uri,
 
-    image: imageCdn ?? image,
+    image: imageCdn || image,
     animation_url,
     original: {
       image,

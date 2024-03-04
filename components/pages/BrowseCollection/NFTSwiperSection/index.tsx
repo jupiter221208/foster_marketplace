@@ -12,8 +12,6 @@ import 'swiper/css/navigation'
 import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
-import { useViewport } from 'utils'
-
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
@@ -29,10 +27,8 @@ type NFTSwiperSectionTypes = {
 }
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSectionTypes) => {
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -47,7 +43,6 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
 
       setNFTList(nfts.slice(0, rowCount))
       if (nfts.length > rowCount) setIsVisibleFetching(true)
-      setLoading(true)
     }
   }, [nfts])
 
@@ -59,7 +54,6 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       setNFTList(quickBuyNfts.slice(0, rowCount))
       if (quickBuyNfts.length > rowCount) setIsVisibleFetching(true)
     }
-    setLoading(true)
   }, [artworkType])
 
   useEffect(() => {
@@ -84,8 +78,6 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       }
     }
   }, [isFetching])
-
-  console.log(nftList)
 
   return (
     nftList !== undefined && (

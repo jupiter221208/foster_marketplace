@@ -441,7 +441,7 @@ const MyWalletSubMenu = props => {
                     <div
                       className={styles.viewActiveOffer}
                       onClick={() => {
-                        router.push(`/dashboard?tab=6`)
+                        router.push(`/dashboard?tab=5`)
                         dispatch({ type: 'set', isLoading: true })
                       }}
                     >

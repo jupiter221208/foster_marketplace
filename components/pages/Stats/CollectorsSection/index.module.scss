@@ -16,22 +16,6 @@
   color: var(--text-gray-200-color);
 }
 
-.prevButton {
-  position: absolute;
-  top: 40%;
-  z-index: 99;
-  left: -15px;
-  cursor: pointer;
-}
-
-.nextButton {
-  position: absolute;
-  top: 40%;
-  z-index: 99;
-  right: 0px;
-  cursor: pointer;
-}
-
 .result {
   display: flex;
   justify-content: center;
