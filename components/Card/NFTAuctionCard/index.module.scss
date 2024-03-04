@@ -51,19 +51,15 @@
     border-radius: 30px;
   }
   background: rgba(#202427, 1);
-  // -webkit-backdrop-filter: blur(12px);
-  // backdrop-filter: blur(12px);
 }
 
 .hideText {
-  font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  line-height: 13px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
   padding: 0px 5px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
-    padding: 0px 40px;
+    font-size: 16px;
+    padding: 0px 20px;
   }
   color: #eff0f6;
   text-align: center;

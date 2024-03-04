@@ -265,12 +265,11 @@
 }
 
 .hideText {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   padding: 0px 5px;
   @media (min-width: 1024px) {
     font-size: 16px;
-    line-height: 24px;
     padding: 0px 20px;
   }
   color: $text-gray-200-color;
