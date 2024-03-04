@@ -134,7 +134,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         <div className="mt-[15px] w-full">
           <PriceInput
             value={mintPrice}
-            placeholder="Set the reserve starting bid"
+            placeholder="Set the price of your editions"
             backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
             fullWidth
             type="number"
