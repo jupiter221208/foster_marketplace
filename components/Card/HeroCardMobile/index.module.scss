@@ -178,6 +178,8 @@
   font-family: 'Muli-Light';
   font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  display: flex;
+  align-items: center;
 }
 
 .listingArea {

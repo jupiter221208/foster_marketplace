@@ -85,7 +85,8 @@ const HeroNewCard = ({ data }) => {
                   <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                       <div className="w-full h-full relative">
-                        <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" loading="lazy" />
+                        {/* <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" loading="lazy" /> */}
+                        <ImageWithFoster src={data.cover_image_url} className="w-full h-full object-cover" />
                       </div>
                     ) : (
                       <div></div>
@@ -111,20 +112,7 @@ const HeroNewCard = ({ data }) => {
                 <Link href={`/nft/${data.token_id}`} passHref>
                   <a>
                     <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
-                      {!loaded && (
-                        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                          <div></div>
-                        </ReactPlaceholder>
-                      )}
-                      <img
-                        src={data.cover_image_url}
-                        alt=""
-                        className={`object-contain`}
-                        onLoad={() => {
-                          setLoaded(true)
-                        }}
-                        loading="lazy"
-                      />
+                      <ImageWithFoster src={data.cover_image_url} className="w-full h-full object-contain" />
                     </div>
                   </a>
                 </Link>
@@ -159,7 +147,7 @@ const HeroNewCard = ({ data }) => {
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
-                    <img
+                    {/* <img
                       src={
                         data.artist_profile_picture.length > 0
                           ? data.artist_profile_picture
@@ -168,6 +156,14 @@ const HeroNewCard = ({ data }) => {
                       alt=""
                       className="rounded-full"
                       loading="lazy"
+                    /> */}
+                    <ImageWithFoster
+                      src={
+                        data.artist_profile_picture.length > 0
+                          ? data.artist_profile_picture
+                          : 'images/dashboard-avatar.png'
+                      }
+                      className="rounded-full"
                     />
                   </a>
                 </Link>
