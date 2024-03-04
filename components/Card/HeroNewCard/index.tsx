@@ -7,8 +7,6 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 // custom functions
-import { useViewport } from 'utils'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // styles
@@ -20,8 +18,6 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 
 const HeroNewCard = ({ data }) => {
-  const viewport = useViewport()
-  const router = useRouter()
   const dispatch = useDispatch()
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
