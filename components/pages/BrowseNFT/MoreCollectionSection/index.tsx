@@ -27,33 +27,16 @@ import collectionAPI from 'apis/collections'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreCollectionSection = props => {
-  const { collectionId, collectionName = '', mintAddress } = props
+  const { collectionId, collectionName = '', collectionNFTs } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [nftList, setNftList] = useState([])
-  useEffect(() => {
-    if (collectionId !== null) {
-      collectionAPI.getCollectionNft(collectionId).then(
-        response => {
-          if (response instanceof Array) {
-            let resData = response.filter(item => item.token_id !== mintAddress)
-            if (resData.length === 0) return
-            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
-              setNftList(resData.filter(item => item.cover_image_url !== null))
-            } else {
-              setNftList(resData)
-            }
-            fetchNftData(resData)
-          }
-        },
-        error => {}
-      )
-    }
-  }, [collectionId])
-
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  useEffect(() => {
+    fetchNftData(collectionNFTs)
+  }, [collectionNFTs])
 
   const fetchNftData = nfts => {
     if (nfts.length > 0) {
@@ -69,7 +52,7 @@ const MoreCollectionSection = props => {
     }
   }
 
-  return nftList.length > 0 ? (
+  return collectionNFTs.length > 0 ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
@@ -92,13 +75,13 @@ const MoreCollectionSection = props => {
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
-          className={nftList.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+          className={collectionNFTs.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
           }}
         >
-          {nftList.map((item, index) => (
+          {collectionNFTs.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 <NFTCard
