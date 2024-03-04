@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const HeroNewCard = ({ data }) => {
   const dispatch = useDispatch()
@@ -46,7 +47,21 @@ const HeroNewCard = ({ data }) => {
                 <a>
                   <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                      <img
+                      // <img
+                      //   src={
+                      //     data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                      //       ? data.asset_url
+                      //       : data.cover_image_url !== '' &&
+                      //         data.cover_image_url !== null &&
+                      //         data.cover_image_url !== undefined
+                      //       ? data.cover_image_url
+                      //       : ''
+                      //   }
+                      //   alt=""
+                      //   className={`${styles.noSelect} w-auto h-auto max-w-full max-h-full object-contain`}
+                      //   loading="lazy"
+                      // />
+                      <ImageWithFoster
                         src={
                           data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                             ? data.asset_url
@@ -56,9 +71,7 @@ const HeroNewCard = ({ data }) => {
                             ? data.cover_image_url
                             : ''
                         }
-                        alt=""
                         className={`${styles.noSelect} w-auto h-auto max-w-full max-h-full object-contain`}
-                        loading="lazy"
                       />
                     ) : (
                       <div></div>
