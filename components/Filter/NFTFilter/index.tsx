@@ -53,7 +53,7 @@ const NFTFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.title} mt-[52px]`}>Availability</div>
+      <div className={`${styles.title}`}>Availability</div>
       <Radio
         data={AvailabilityList}
         gap={10}
