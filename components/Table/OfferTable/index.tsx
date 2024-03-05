@@ -42,7 +42,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   const [assetImageUrl, setAssetImageUrl] = useState<string>('')
   useEffect(() => {
     if (listing.asset.json?.image) return
-    setAssetImageUrl(DefaultNftBG.src)
 
     fetch(listing.asset.uri)
       .then(e => e.json())
@@ -59,7 +58,9 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
         <div className="h-[90px] flex justify-start items-center gap-[25px]">
           <div className="ml-[10px]">
             <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px] overflow-hidden rounded-[15px]">
-              <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[15px] object-cover" />
+              {assetImageUrl && (
+                <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[15px] object-cover" />
+              )}
             </div>
           </div>
           <div className="block">

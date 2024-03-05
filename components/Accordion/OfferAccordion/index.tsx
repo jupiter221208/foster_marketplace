@@ -84,7 +84,7 @@ const OfferAccordionItem = ({
             >
               <div className="flex items-center gap-x-4">
                 <div className={styles.imageArea}>
-                  <ImageWithFoster src={assetImageUrl} alt="" className="w-full h-full rounded-[4px]" />
+                  { assetImageUrl && <ImageWithFoster src={assetImageUrl} alt="" className="w-full h-full rounded-[4px]" />}
                 </div>
 
                 <div className="block">
