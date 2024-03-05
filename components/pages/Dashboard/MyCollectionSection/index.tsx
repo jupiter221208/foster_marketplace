@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
 
 // components
 import DashboardCollectionCard from 'components/Card/DashboardCollectionCard'
@@ -21,7 +20,6 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
 
 const MyCollectionSection = () => {
-  const router = useRouter()
   const dispatch = useDispatch()
 
   const [collections, setCollections] = useState([])
@@ -77,7 +75,6 @@ const MyCollectionSection = () => {
               <DashboardCollectionCard
                 image={item.json?.image}
                 nftName={item.json?.name}
-                category={getCategory(item.json?.attributes)}
                 artistAddress={item.creators[0]?.address.toString()}
                 mintAddress={item.mintAddress.toString()}
                 link={`/collection/${item.mintAddress.toString()}`}

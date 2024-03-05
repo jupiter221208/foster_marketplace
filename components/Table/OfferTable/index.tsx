@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
-
-// next components
-import Image from 'next/image'
 
 // web3
 import { PublicKey } from '@solana/web3.js'
@@ -15,9 +11,6 @@ import { getNFTOwner } from 'utils/nfts.utils'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
-// custom functions
-import { useViewport } from 'utils'
-
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -25,6 +18,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 // styles
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface OfferTableProps {
   data: LazyBidWithAsset[]
@@ -36,7 +30,6 @@ export interface OfferTableProps {
 type OfferTableRowProps = Omit<OfferTableProps, 'data'> & { listing: OfferTableProps['data'][number] }
 
 const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRowProps) => {
-  const viewport = useViewport()
   const { metaplex } = useMetaplex()
   const router = useRouter()
 
@@ -65,8 +58,8 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
       <td>
         <div className="h-[90px] flex justify-start items-center gap-[25px]">
           <div className="ml-[10px]">
-            <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px]">
-              <img src={assetImageUrl} alt="" className="w-full h-full rounded-[15px] object-cover" />
+            <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px] overflow-hidden rounded-[15px]">
+              <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[15px] object-cover" />
             </div>
           </div>
           <div className="block">
@@ -79,7 +72,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
       <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>
       <td className="text-center">
         <div className="flex justify-center gap-[5px] items-center">
-          {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
           <SolanaLogoIcon />
           {getPriceValue(listing.price.basisPoints.toNumber())}
         </div>
@@ -91,7 +83,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
             <OutlineButton
               label="Cancel"
               onClick={() => onCancel(listing)}
-              // background="transparent"
               color={'var(--checkbox-border-color)'}
               borderColor={'var(--checkbox-border-color)'}
               width="138px"
@@ -102,9 +93,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
               label="Accept"
               onClick={() => onAccept(listing)}
               gradientDirection="right"
-              // backgroundColor01="#172120"
-              // backgroundColor02="#2C5E5A"
-              // color="#95DBD5"
               width="138px"
               height="48px"
             />
@@ -123,8 +111,6 @@ const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) =>
           <th className="w-[25%]">
             <div className="text-start pl-[35px]">Name</div>
           </th>
-          {/* <th>Offer</th> */}
-          {/* <th>Listing</th> */}
           <th className="w-[20%]">Time</th>
           <th className="w-[20%]">Amount</th>
           <th className="w-[20%]">{offerType === 'made' ? 'Seller' : 'Buyer'}</th>

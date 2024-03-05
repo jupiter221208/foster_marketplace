@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 // next component
+import Link from 'next/link'
 
 // custom components
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
-
-// styles
-import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { getDisplayUserName, getShortAddress } from 'utils/strings'
-import Link from 'next/link'
+
+// styles
+import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const DashboardCollectionCard = props => {
-  const { image, nftName, link, category, artistAddress, mintAddress, onClick, unSave = null } = props
+  const { image, nftName, link, artistAddress, mintAddress, onClick, unSave = null } = props
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 
@@ -25,19 +26,7 @@ const DashboardCollectionCard = props => {
           <div className={styles.imageArea} onClick={() => onClick()}>
             <div className={styles.imageContent}>
               <div className="w-full h-full overflow-hidden">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img src={image} alt="" className="w-full h-full object-cover rounded-[10px] lg:rounded-[20px]" />
-                </ReactPlaceholder>
-                {!loaded && (
-                  <img
-                    src={image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    onLoad={() => {
-                      setLoaded(true)
-                    }}
-                  />
-                )}
+                <ImageWithFoster src={image} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -58,7 +47,6 @@ const DashboardCollectionCard = props => {
             label="Unsave"
             onClick={() => {
               dispatch({ type: 'set', isLoading: true })
-
               unSave()
             }}
           />

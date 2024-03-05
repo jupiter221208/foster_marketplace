@@ -16,9 +16,10 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const StudioReleaseCard = props => {
-  const { type = 'release', token_id, image, userName = '', nftName, coverImage = '', onClick, nftImage } = props
+  const { type = 'release', image, userName = '', nftName, onClick, nftImage } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
@@ -101,10 +102,10 @@ const StudioReleaseCard = props => {
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <img src={imagePath} className={styles.imageNft} />
+              <ImageWithFoster src={imagePath} className={styles.imageNft} showPlaceHolder={false} />
               <div className={styles.nftImage}>
                 <div className="w-[25%] h-[25%] mt-[29%] flex justify-center items-center">
-                  <img src={nftImage} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                  <ImageWithFoster src={nftImage} className="w-auto h-auto max-w-full max-h-full object-contain" />
                 </div>
               </div>
             </>

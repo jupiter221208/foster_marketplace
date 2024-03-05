@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { NftData } from 'types/nft'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ActivityAccordion = ({ data }) => {
   const dispatch = useDispatch()
@@ -119,7 +120,7 @@ const ActivityAccordion = ({ data }) => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageContainer}>
-                      <img src={item.asset_url} alt="" className="w-full h-full rounded-[4px] object-cover" />
+                      <ImageWithFoster src={item.asset_url} className="w-full h-full rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
@@ -149,25 +150,6 @@ const ActivityAccordion = ({ data }) => {
                       </div>
                     </div>
                   </div>
-                  {/* <div className={styles.secondRow}>
-                    <div className={styles.title}>Buyer</div>
-                    <div
-                      className={styles.text}
-                      onClick={() => {
-                        if (isBuyerExisting(item.action_type)) {
-                          gotoUserDetail(getBuyerName(item))
-                        }
-                      }}
-                    >
-                      {isBuyerExisting(item.action_type) ? getDisplayUserName(getBuyerName(item)) : 'N/A'}
-                    </div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Seller</div>
-                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getOwnerName(item)}
-                    </div>
-                  </div> */}
                 </Disclosure.Panel>
               </>
             )}

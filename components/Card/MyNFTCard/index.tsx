@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 type MyNFTCardTypes = {
   data: NftData
@@ -67,18 +68,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  {imageLoading && (
-                    <div className={styles.skeletonLoaderOuterBox}>
-                      <div className={styles.skeletonLoader} />
-                    </div>
-                  )}
-                  <img
-                    src={nftImage}
-                    alt={data.name}
-                    onError={handleImageError}
-                    className="w-full h-full object-cover"
-                    onLoad={() => setImageLoading(false)}
-                  />
+                  <ImageWithFoster src={nftImage} alt={data.name} className="w-full h-full object-cover" />
                 </div>
               </div>
             )}

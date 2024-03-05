@@ -117,11 +117,9 @@ const NewStudioReleasesSection = props => {
                 type={type}
                 image={heroValue.data}
                 nftImage={item.nft.asset_url}
-                token_id={item.nft.token_id}
                 nftName={item.nft.nft_name}
                 userName={item.artist.username}
                 assetType={item.asset_type}
-                coverImage={item.cover_image_url}
                 artistName={item.artist_username}
                 onClick={colorNumber => {
                   dispatch({ type: 'set', isLoading: true })
