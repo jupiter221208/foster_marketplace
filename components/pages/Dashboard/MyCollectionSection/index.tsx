@@ -18,6 +18,7 @@ import { getMyCollections } from 'utils/collection.util'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
+import CollectionCard from 'components/Card/CollectionCard'
 
 const MyCollectionSection = () => {
   const dispatch = useDispatch()
@@ -72,15 +73,11 @@ const MyCollectionSection = () => {
         {isCollectionLoaded &&
           myCollections.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>
-              <DashboardCollectionCard
+              <CollectionCard
                 image={item.json?.image}
                 nftName={item.json?.name}
-                artistAddress={item.creators[0]?.address.toString()}
-                mintAddress={item.mintAddress.toString()}
+                artistName={item.creators[0]?.address.toString()}
                 link={`/collection/${item.mintAddress.toString()}`}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                }}
               />
             </div>
           ))}
