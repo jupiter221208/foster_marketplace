@@ -102,7 +102,7 @@ const StudioReleaseCard = props => {
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <ImageWithFoster src={imagePath} className={styles.imageNft} showPlaceHolder={false} />
+              <img src={imagePath} className={styles.imageNft} />
               <div className={styles.nftImage}>
                 <div className="w-[25%] h-[25%] mt-[29%] flex justify-center items-center">
                   <ImageWithFoster src={nftImage} className="w-auto h-auto max-w-full max-h-full object-contain" />
