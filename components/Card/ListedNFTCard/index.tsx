@@ -107,10 +107,12 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 />
               ) : (
                 <div className="w-full h-full">
-                  <ImageWithFoster
-                    src={assetJson?.image}
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                  />
+                  {assetJson && (
+                    <ImageWithFoster
+                      src={assetJson?.image}
+                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    />
+                  )}
                 </div>
               )}
             </div>
