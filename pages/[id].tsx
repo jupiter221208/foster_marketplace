@@ -41,6 +41,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
+  const removeCollectionId = useSelector(state => (state as any).removeCollectionId)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
@@ -62,11 +63,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistRowCount, setArtistRowCount] = useState(12)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
-  const [collectorTotalCount, setCollectorTotalCount] = useState(0)
   const [merchCurrentPage, setMerchCurrentPage] = useState(1)
   const [merchRowCount, setMerchRowCount] = useState(12)
-  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
-  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
   const [isFetchingCreated, setIsFetchingCreated] = useState(false)
   const [isVisibleFetchingCreated, setIsVisibleFetchingCreated] = useState(false)
   const [isFetchingMerch, setIsFetchingMerch] = useState(false)
@@ -120,6 +118,14 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       await getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
     }
   }, [connected, loginAndRefresh, publicArtistData])
+
+  useEffect(() => {
+    if (removeCollectionId.length > 0) {
+      let newCollections = collections.filter(item => item.collection_id !== removeCollectionId)
+      setCollections(newCollections)
+      dispatch({ type: 'set', removeCollectionId: '' })
+    }
+  }, [removeCollectionId])
 
   const reloadPage = () => {
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
@@ -249,7 +255,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setCollectorStatsInfo(response.stats)
-        setCollectorTotalCount(response.total_nfts)
 
         if (response.nfts.length === collectorRowCount) setIsVisibleFetchingCollected(true)
         else setIsVisibleFetchingCollected(false)
@@ -348,8 +353,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               setCollectorEnable={setCollectorEnable}
               artistStatsInfo={artistStatsInfo}
               collectorStatsInfo={collectorStatsInfo}
-              setActiveListingLoaded={setActiveListingLoaded}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
               isVisibleFetchingCreated={isVisibleFetchingCreated}
               isFetchingCreated={isFetchingCreated}
               setIsFetchingCreated={setIsFetchingCreated}

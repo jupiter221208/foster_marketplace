@@ -45,6 +45,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface EditionDetail {
   number: number
@@ -246,11 +247,11 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       <SwiperSlide key={index}>
                         <div className={styles.blurBackground}>
                           <div className="absolute inset-0">
-                            <img src={item?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                            <ImageWithFoster src={item?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
                           </div>
                           <div className={styles.blurImage} />
                           <div style={{ zIndex: 10 }}>
-                            <img src={item?.printImageUrl} />
+                            <ImageWithFoster src={item?.printImageUrl} />
                           </div>
                         </div>
                       </SwiperSlide>
@@ -277,7 +278,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       </div>
       {fullScreen && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+          <ImageWithFoster src={nftCoverUrl} className="w-full h-full max-w-full max-h-full object-contain" />
           <div
             className={styles.closeScreen}
             onClick={() => {

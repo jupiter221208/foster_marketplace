@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -55,6 +55,7 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import nftsAPI from 'apis/nfts'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView, wallet, reloadPage, hasLoading } = prop
@@ -301,9 +302,8 @@ const MainSection = prop => {
         <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
       ) : (
         <div className={styles.bannerImage}>
-          <img
+          <ImageWithFoster
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
-            alt=""
             className="w-full h-full object-cover"
           />
           {isOwn && (
@@ -674,12 +674,8 @@ const MainSection = prop => {
         <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
       ) : (
         <div className={styles.headerImage}>
-          <img
+          <ImageWithFoster
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
-            alt=""
-            width={1620}
-            height={480}
-            loading="lazy"
             className="w-full h-full object-cover rounded-none"
           />
           {isOwn && (

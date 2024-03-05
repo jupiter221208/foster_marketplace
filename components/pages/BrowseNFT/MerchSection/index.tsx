@@ -10,6 +10,7 @@ import MerchApparelSection from './MerchApparelSection'
 import MerchWallArtSection from './MerchWallArtSection'
 import ApparelSection from './MerchApparelSection/ApparelSection'
 import WallSection from './MerchWallArtSection/WallSection'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchSection = props => {
   const { data, openNftPage } = props
@@ -31,7 +32,7 @@ const MerchSection = props => {
           <div className="col-span-2 lg:col-span-1 lg:flex hidden">
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <img src={data?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <ImageWithFoster src={data?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
 
@@ -49,7 +50,7 @@ const MerchSection = props => {
             <div className={styles.blurBackground}>
               {!wallArt && (
                 <div className="absolute inset-0">
-                  <img src={data?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  <ImageWithFoster src={data?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
                 </div>
               )}
               <div className={styles.blurImage} />

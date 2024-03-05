@@ -42,17 +42,21 @@
 
 .menuItem {
   width: 100%;
-  
-  
+
   transition: all 0.2s;
   transition-timing-function: ease-in-out;
-  
 
-  // display: flex;
-  // justify-content: flex-start;
-  // align-items: center;
-  // font-family: 'Muli-Bold';
-  // font-size: 14px;
-  // line-height: 24px;
-  // color: var(--text-gray-200-color);
+  display: flex;
+  flex-direction: column;
+
+  *:first-child {
+    padding-top: 8px;
+  }
+  *:last-child {
+    margin-bottom: 8px;
+  }
+  *:not(:last-child) {
+    border-bottom: 1px solid rgb(var(--main-bg-color-rgb), 0.1); /* Change color as needed */
+    padding: 0 0 8px 0;
+  }
 }

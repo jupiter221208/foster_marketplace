@@ -1,7 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
-
-// next components
-import Image from 'next/image'
+import React, { useRef } from 'react'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -13,9 +10,9 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { useRouter } from 'next/router'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CollectorsAccordion = props => {
   const { data } = props
@@ -51,11 +48,8 @@ const CollectorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <ImageWithFallback
+                      <ImageWithFoster
                         src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
-                        alt=""
-                        width={36}
-                        height={36}
                         className="rounded-full object-cover"
                       />
                     </div>

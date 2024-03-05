@@ -18,6 +18,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
@@ -125,7 +126,7 @@ const SearchBox = props => {
               >
                 <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
                   {item.image_url !== null && item.image_url !== '' ? (
-                    <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                    <ImageWithFoster src={item.image_url} className="object-cover w-full h-full" />
                   ) : (
                     <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
                   )}
@@ -152,7 +153,7 @@ const SearchBox = props => {
               >
                 <div className="w-[36px] h-[36px] mr-5">
                   {item.image_url.length > 0 ? (
-                    <img src={item.image_url} alt="" className="object-cover rounded-full w-full h-full" />
+                    <ImageWithFoster src={item.image_url} className="object-cover rounded-full w-full h-full" />
                   ) : (
                     <Image
                       src={DefaultAvatar}
@@ -185,7 +186,7 @@ const SearchBox = props => {
                 }}
               >
                 <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
-                  <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
+                  <ImageWithFoster src={item.image_url} className="object-cover rounded-[10px] w-full h-full" />
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>

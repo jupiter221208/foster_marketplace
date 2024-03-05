@@ -17,9 +17,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithAuction from 'components/ImageWithAuction'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const LiveAuctionCard = props => {
   const { data, onClick, setCardExpired } = props
@@ -27,7 +25,6 @@ const LiveAuctionCard = props => {
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (
@@ -120,11 +117,9 @@ const LiveAuctionCard = props => {
                         onClick={() => onClick()}
                       />
                     ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                      <ImageWithAuction
+                      <ImageWithFoster
                         src={data.cover_image_url}
                         onClick={onClick}
-                        layout="fill"
-                        alt=""
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -166,49 +161,28 @@ const LiveAuctionCard = props => {
               </Link>
             )
           ) : data.asset_type.includes('audio') ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <div className="w-full h-full">
-                  {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )}
-                  <Image
-                    src={data.cover_image_url}
-                    alt=""
-                    layout="fill"
-                    className="w-full h-full object-cover"
-                    onLoadingComplete={() => setLoaded(true)}
-                    onClick={() => onClick()}
-                  />
-                </div>
-              </a>
-            </Link>
+            <div className="w-full h-full">
+              <ImageWithFoster
+                link={`/nft/${data.token_id}`}
+                src={data.cover_image_url}
+                className="w-full h-full object-cover"
+                onClick={() => onClick()}
+              />
+            </div>
           ) : data.cover_image_url ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <ImageWithAuction
-                  src={data.cover_image_url}
-                  onClick={onClick}
-                  layout="fill"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </a>
-            </Link>
+            <ImageWithFoster
+              link={`/nft/${data.token_id}`}
+              src={data.cover_image_url}
+              onClick={onClick}
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <ImageWithAuction
-                  src={data.asset_url}
-                  onClick={onClick}
-                  layout="fill"
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
-              </a>
-            </Link>
+            <ImageWithFoster
+              link={`/nft/${data.token_id}`}
+              src={data.asset_url}
+              onClick={onClick}
+              className="w-full h-full object-cover"
+            />
           )}
         </div>
       </div>
@@ -227,10 +201,9 @@ const LiveAuctionCard = props => {
         </div>
         <Link href={`/${data.artist_username}`} passHref>
           <a>
-            <img
+            <ImageWithFoster
               src={data?.artist_profile_picture}
               onClick={() => {}}
-              alt=""
               className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
             />
           </a>

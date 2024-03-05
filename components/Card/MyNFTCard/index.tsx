@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 type MyNFTCardTypes = {
   data: NftData

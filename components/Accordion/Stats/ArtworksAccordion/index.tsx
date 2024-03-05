@@ -17,8 +17,8 @@ import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ArtworksAccordion = props => {
   const { data } = props
@@ -62,7 +62,7 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <ImageWithFallback src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
+                      <ImageWithFoster src={item.asset_url} className="rounded-[4px]" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle} onClick={() => router.push(`/nft/${item.mint_address}`)}>

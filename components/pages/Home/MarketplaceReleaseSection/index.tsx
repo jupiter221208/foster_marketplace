@@ -20,7 +20,6 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'

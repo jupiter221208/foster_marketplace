@@ -183,7 +183,6 @@ const MainSection = ({
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
-  const [infoFocus, setInfoFocus] = useState(false)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')

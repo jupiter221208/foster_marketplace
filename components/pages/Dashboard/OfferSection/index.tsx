@@ -80,7 +80,6 @@ const OfferSection = () => {
 
   useEffect(() => {
     ;(async () => {
-      // dispatch({ type: 'set', isLoading: true })
       setOfferLoaded(false)
       try {
         if (shownOfferType === 'made') await fetchOffersMade()

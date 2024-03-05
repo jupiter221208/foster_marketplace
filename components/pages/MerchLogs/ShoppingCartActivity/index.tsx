@@ -16,6 +16,7 @@ import 'swiper/css/navigation'
 // styles
 import styles from './index.module.scss'
 import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartActivity = props => {
   const { data, setCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } = props
@@ -124,7 +125,7 @@ const ShoppingCartActivity = props => {
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
                       <div className="w-[35%] h-[35%] flex ">
-                        <img src={item.printImageUrl} className="px-[50px] py-[50px]" alt="Item Image" />
+                        <ImageWithFoster src={item.printImageUrl} className="px-[50px] py-[50px]" />
                       </div>
                       <div className="w-full flex flex-col px-[100px] mt-[40px]">
                         <div className={`${styles.detail} text-right flex`}>Item Details</div>
@@ -178,7 +179,7 @@ const ShoppingCartActivity = props => {
                     <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
                   </div>
                   <div className="w-[100px] h-[100px] flex ml-[15px] mt-[10px]">
-                    <img src={item.printImageUrl} className="w-full h-full px-3 py-3" />
+                    <ImageWithFoster src={item.printImageUrl} className="w-full h-full px-3 py-3" />
                   </div>
                   <div className="flex flex-col px-[10px]">
                     <div className={styles.mobileContent}>

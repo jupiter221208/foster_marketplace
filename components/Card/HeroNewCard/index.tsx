@@ -7,8 +7,6 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 // custom functions
-import { useViewport } from 'utils'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // styles
@@ -17,14 +15,11 @@ import styles from './index.module.scss'
 // resources
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import ReactPlaceholder from 'react-placeholder/lib'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const HeroNewCard = ({ data }) => {
-  const viewport = useViewport()
-  const router = useRouter()
   const dispatch = useDispatch()
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(false)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -46,44 +41,39 @@ const HeroNewCard = ({ data }) => {
         <div className={styles.cardArea}>
           <div className={styles.imageArea}>
             {data.asset_type.includes('image') ? (
-              <Link href={`/nft/${data.token_id}`} passHref>
-                <a>
-                  <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
-                    {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                      <img
-                        src={
-                          data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                            ? data.asset_url
-                            : data.cover_image_url !== '' &&
-                              data.cover_image_url !== null &&
-                              data.cover_image_url !== undefined
-                            ? data.cover_image_url
-                            : ''
-                        }
-                        alt=""
-                        className={`${styles.noSelect} w-auto h-auto max-w-full max-h-full object-contain`}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
-                </a>
-              </Link>
+              <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
+                {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                  <ImageWithFoster
+                    link={`/nft/${data.token_id}`}
+                    src={
+                      data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                        ? data.asset_url
+                        : data.cover_image_url !== '' &&
+                          data.cover_image_url !== null &&
+                          data.cover_image_url !== undefined
+                        ? data.cover_image_url
+                        : ''
+                    }
+                    className="w-auto h-auto max-w-full max-h-full object-contain"
+                  />
+                ) : (
+                  <div></div>
+                )}
+              </div>
             ) : data.asset_type.includes('vr') ? (
-              <Link href={`/nft/${data.token_id}`} passHref>
-                <a>
-                  <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
-                    {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                      <div className="w-full h-full relative">
-                        <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
+              <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                  <div className="w-full h-full relative">
+                    <ImageWithFoster
+                      link={`/nft/${data.token_id}`}
+                      src={data.cover_image_url}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </a>
-              </Link>
+                ) : (
+                  <div></div>
+                )}
+              </div>
             ) : data.asset_type.includes('video') ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
@@ -99,32 +89,19 @@ const HeroNewCard = ({ data }) => {
               </Link>
             ) : data.asset_type.includes('audio') ? (
               data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                <Link href={`/nft/${data.token_id}`} passHref>
-                  <a>
-                    <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
-                      {!loaded && (
-                        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                          <div></div>
-                        </ReactPlaceholder>
-                      )}
-                      <img
-                        src={data.cover_image_url}
-                        alt=""
-                        className={`object-contain`}
-                        onLoad={() => {
-                          setLoaded(true)
-                        }}
-                        loading="lazy"
-                      />
-                    </div>
-                  </a>
-                </Link>
+                <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
+                  <ImageWithFoster
+                    link={`/nft/${data.token_id}`}
+                    src={data.cover_image_url}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               ) : (
                 <Image
                   src={DefaultNftBG}
                   alt=""
                   layout="fill"
-                  className={`${styles.noSelect} w-full h-full object-cover`}
+                  className="w-full h-full object-cover"
                   onClick={() => onClick()}
                 />
               )
@@ -148,20 +125,13 @@ const HeroNewCard = ({ data }) => {
             )}
             {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <Link href={`/${data.artist_username}`} passHref>
-                  <a>
-                    <img
-                      src={
-                        data.artist_profile_picture.length > 0
-                          ? data.artist_profile_picture
-                          : 'images/dashboard-avatar.png'
-                      }
-                      alt=""
-                      className="rounded-full"
-                      loading="lazy"
-                    />
-                  </a>
-                </Link>
+                <ImageWithFoster
+                  link={`/${data.artist_username}`}
+                  src={
+                    data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'
+                  }
+                  className="rounded-full"
+                />
               </div>
             )}
           </div>
