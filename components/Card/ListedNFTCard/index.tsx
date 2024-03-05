@@ -43,6 +43,8 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   const { metaplex: mx } = useMetaplex()
   const [deficiency, setDeficiency] = useState(0)
   const [deficencyModal, setDeficencyModal] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
+
   const isEnded = useMemo(() => {
     if (endTime) {
       let endListingTime = new Date(endTime)
@@ -104,10 +106,18 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   }}
                 />
               ) : (
-                <ImageWithFoster
-                  src={`${assetJson?.image}`}
-                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                />
+                <div className="w-full h-full">
+                  {imageLoading && (
+                    <div className={styles.skeletonLoaderOuterBox}>
+                      <div className={styles.skeletonLoader} />
+                    </div>
+                  )}
+                  <img
+                    src={assetJson?.image}
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    onLoad={() => setImageLoading(false)}
+                  />
+                </div>
               )}
             </div>
           </a>
