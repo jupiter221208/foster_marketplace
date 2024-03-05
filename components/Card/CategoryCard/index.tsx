@@ -1,14 +1,11 @@
 import React from 'react'
 
-// next components
-import Image from 'next/image'
-
 // custom functions
 import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFallback from 'components/ImageWithFallback'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CategoryCard = props => {
   const { image, name, type = 'image', onClick } = props
@@ -17,16 +14,9 @@ const CategoryCard = props => {
   return (
     <div className={styles.container} onClick={() => onClick()}>
       {type === 'image' ? (
-        <ImageWithFallback
-          src={image}
-          alt=""
-          width={359}
-          height={490}
-          layout="responsive"
-          className="w-full h-full rounded-[30px] object-cover"
-        />
+        <ImageWithFoster src={image} className="w-full h-full rounded-[30px] object-cover" />
       ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <ImageWithFallback src={image} alt="" layout="fill" className="rounded-[29px] object-cover" />
+        <ImageWithFoster src={image} className="rounded-[29px] object-cover" />
       ) : (
         <video autoPlay loop muted>
           <source type="video/mp4" src={image} />

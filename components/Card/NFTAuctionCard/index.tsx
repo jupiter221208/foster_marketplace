@@ -17,7 +17,6 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
 import { useDispatch } from 'react-redux'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'

@@ -1,8 +1,5 @@
 import React, { useRef } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // third party components
 import { Disclosure } from '@headlessui/react'
 
@@ -14,8 +11,8 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CreatorsAccordion = props => {
   const { data } = props
@@ -51,11 +48,8 @@ const CreatorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <ImageWithFallback
-                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
-                        alt=""
-                        width={36}
-                        height={36}
+                      <ImageWithFoster
+                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar.src}
                         className="rounded-full object-cover"
                       />
                     </div>

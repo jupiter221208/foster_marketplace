@@ -7,9 +7,6 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
