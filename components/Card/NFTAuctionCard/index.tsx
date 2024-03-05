@@ -11,22 +11,12 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?compone
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
-import HideIcon from 'assets/icons/hide-icon.svg?component'
-import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
-import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
-import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
-import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
-import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
-import UnhideSmallMobileIcon from 'assets/icons/unhide-small-icon-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
-import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
-import LoadingModal from 'components/Modal/LoadingModal'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
@@ -44,15 +34,10 @@ const NFTAuctionCard = props => {
     assetType,
     onClick,
     unSave = null,
-    showHideButton = false,
-    showUnhideButton = false,
   } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
-  const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
-  const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
 
   useEffect(() => {
@@ -117,32 +102,6 @@ const NFTAuctionCard = props => {
     endAuctionDate = { day, hour, minute, second: seconds }
 
     setEndDate(endAuctionDate)
-  }
-
-  const performHideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.hideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayHideConfirm(false)
-        dispatch({ type: 'set', hideNftToken: token_id })
-      },
-      error => {}
-    )
-  }
-
-  const performUnhideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.unhideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayUnhideConfirm(false)
-        dispatch({ type: 'set', unhideNftToken: token_id })
-      },
-      error => {}
-    )
   }
 
   return (
@@ -256,16 +215,6 @@ const NFTAuctionCard = props => {
               </Link>
             )}
           </div>
-          {showHideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
-            </div>
-          )}
-          {showUnhideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
-            </div>
-          )}
           <div className={styles.nftData}>
             <div>
               <div className={styles.nftName}>{nftName}</div>
@@ -328,83 +277,6 @@ const NFTAuctionCard = props => {
           </div>
         )}
       </div>
-      {displayHideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This action will hide the artwork from your profile page.
-                  <br />
-                  <br />
-                  Would you like to proceed?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performHideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Hide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {displayUnhideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This artwork is currently hidden from your profile page.
-                  <br />
-                  <br />
-                  Would you like to unhide it?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Unhide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   )
 }
