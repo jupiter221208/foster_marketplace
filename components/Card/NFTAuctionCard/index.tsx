@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const NFTAuctionCard = props => {
   const {
@@ -124,10 +125,8 @@ const NFTAuctionCard = props => {
                           onClick={() => onClick()}
                         />
                       ) : coverImage != null && coverImage !== '' ? (
-                        <Image
+                        <ImageWithFoster
                           src={coverImage}
-                          alt=""
-                          layout="fill"
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -171,17 +170,12 @@ const NFTAuctionCard = props => {
               )
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
-                <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a className="w-full h-full">
-                    <ImageWithFallback
-                      src={coverImage}
-                      onClick={onClick}
-                      layout="fill"
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </a>
-                </Link>
+                <ImageWithFoster
+                  link={`${window.origin}/nft/${token_id}`}
+                  src={coverImage}
+                  onClick={onClick}
+                  className="w-full h-full object-cover"
+                />
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
@@ -190,23 +184,21 @@ const NFTAuctionCard = props => {
                 </Link>
               )
             ) : coverImage != null && coverImage !== '' ? (
-              <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full">
-                  <ImageWithFallback
-                    src={coverImage}
-                    onClick={onClick}
-                    layout="fill"
-                    alt=""
-                    className={styles.imageNft}
-                  />
-                </a>
-              </Link>
+              <ImageWithFoster
+                link={`${window.origin}/nft/${token_id}`}
+                src={coverImage}
+                onClick={onClick}
+                layout="fill"
+                alt=""
+                className={styles.imageNft}
+              />
             ) : image !== null && image !== '' ? (
-              <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full">
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                </a>
-              </Link>
+              <ImageWithFoster
+                link={`${window.origin}/nft/${token_id}`}
+                src={image}
+                onClick={onClick}
+                className={styles.imageNft}
+              />
             ) : (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">
