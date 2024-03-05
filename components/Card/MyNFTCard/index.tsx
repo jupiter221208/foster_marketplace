@@ -68,7 +68,18 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  <img src={nftImage} alt={data.name} className="w-full h-full object-cover" />
+                  {imageLoading && (
+                    <div className={styles.skeletonLoaderOuterBox}>
+                      <div className={styles.skeletonLoader} />
+                    </div>
+                  )}
+                  <img
+                    src={nftImage}
+                    alt={data.name}
+                    onError={handleImageError}
+                    className="w-full h-full object-cover"
+                    onLoad={() => setImageLoading(false)}
+                  />
                 </div>
               </div>
             )}
