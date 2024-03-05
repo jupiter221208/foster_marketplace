@@ -2,3 +2,35 @@
 
 .container {
 }
+
+.skeletonLoaderOuterBox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .skeletonLoader:empty {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: var(--main-bg-color) !important;
+    border-color: var(--main-bg-color) !important;
+    animation-name: skeletonAnimation;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  @keyframes skeletonAnimation {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 0.05;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }
+
+  

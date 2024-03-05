@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
+
+// styles
+import styles from './index.module.scss'
 
 const ImageWithFoster = props => {
   const { src, link = '', onClick = null, originalSrc = null, showPlaceHolder = true, ...rest } = props
@@ -21,16 +22,10 @@ const ImageWithFoster = props => {
 
   return (
     <div className="w-full h-full" onClick={onClick}>
-      {showPlaceHolder && (
-        <ReactPlaceholder
-          showLoadingAnimation={true}
-          type="rect"
-          ready={loaded}
-          color="#202427"
-          style={{ marginRight: '0px' }}
-        >
-          <div></div>
-        </ReactPlaceholder>
+      {showPlaceHolder && !loaded && (
+        <div className={styles.skeletonLoaderOuterBox}>
+          <div className={styles.skeletonLoader} />
+        </div>
       )}
       {link.length > 0 ? (
         <Link href={link} passHref>
