@@ -2,6 +2,7 @@ import React from 'react'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartCheckoutTable = props => {
   const { data } = props
@@ -13,7 +14,7 @@ const ShoppingCartCheckoutTable = props => {
             <tr key={index}>
               <td>
                 <div className="w-full h-full">
-                  <img src={item.url} className="w-full h-full" />
+                  <ImageWithFoster src={item.url} className="w-full h-full" />
                 </div>
               </td>
               <td>
