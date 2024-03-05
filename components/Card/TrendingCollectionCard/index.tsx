@@ -74,14 +74,7 @@ const TrendingCollectionCard = props => {
             {avatar !== null && avatar.length > 0 && (
               <div className={styles.avatar}>
                 <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                  <img
-                    src={avatar}
-                    alt=""
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                    className="rounded-full"
-                    loading="lazy"
-                  />
+                  <ImageWithFoster src={avatar} className="rounded-full" loading="lazy" />
                 </div>
               </div>
             )}

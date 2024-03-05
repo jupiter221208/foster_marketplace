@@ -121,9 +121,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 </div>
               ) : data.asset_type.includes('audio') ? (
                 data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                  <img
+                  <ImageWithFoster
                     src={data.cover_image_url}
-                    alt=""
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
