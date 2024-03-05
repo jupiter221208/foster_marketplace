@@ -312,15 +312,18 @@ const ListedNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
-    if (active === 0) {
-      let new_list = fixedPriceNFTs as any[]
-      if (new_list.length > rowCount) setIsVisibleFetching(true)
-      setNFTList(new_list.slice(0, rowCount))
-    } else {
-      let new_list = liveAuctionNFTs as any[]
-      if (new_list.length > rowCount) setIsVisibleFetching(true)
-      setNFTList(new_list.slice(0, rowCount))
-    }
+    setNFTList([])
+    setTimeout(() => {
+      if (active === 0) {
+        let new_list = fixedPriceNFTs as any[]
+        if (new_list.length > rowCount) setIsVisibleFetching(true)
+        setNFTList(new_list.slice(0, rowCount))
+      } else {
+        let new_list = liveAuctionNFTs as any[]
+        if (new_list.length > rowCount) setIsVisibleFetching(true)
+        setNFTList(new_list.slice(0, rowCount))
+      }
+    }, 500)
   }, [fixedPriceNFTs, liveAuctionNFTs, active])
 
   useEffect(() => {

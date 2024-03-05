@@ -107,15 +107,9 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 />
               ) : (
                 <div className="w-full h-full">
-                  {imageLoading && (
-                    <div className={styles.skeletonLoaderOuterBox}>
-                      <div className={styles.skeletonLoader} />
-                    </div>
-                  )}
-                  <img
+                  <ImageWithFoster
                     src={assetJson?.image}
                     className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    onLoad={() => setImageLoading(false)}
                   />
                 </div>
               )}
