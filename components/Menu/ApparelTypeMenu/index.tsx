@@ -77,7 +77,12 @@ const ApparelTypeMenu = props => {
               <Menu.Item>
                 {({ active }) => (
                   <div className={styles.menuItem}>
-                    <Radio data={apparelTypes} selected={selectedType} onChange={item => onChangeType(item)} />
+                    <Radio
+                      data={apparelTypes}
+                      direction=""
+                      selected={selectedType}
+                      onChange={item => onChangeType(item)}
+                    />
                   </div>
                 )}
               </Menu.Item>
