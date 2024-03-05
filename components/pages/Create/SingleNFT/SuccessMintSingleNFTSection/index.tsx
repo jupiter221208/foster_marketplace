@@ -29,6 +29,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
@@ -78,17 +79,6 @@ const SuccessMintSingleNFTSection = props => {
     }, 1000)
   }
 
-  // useEffect(() => {
-  //   if (openProgressingModal) {
-  //     setTimeout(() => {
-  //       setOpenProgressingModal(false)
-  //       setTimeout(() => {
-  //         setShowAlert(true)
-  //       }, 1000)
-  //     }, 3000)
-  //   }
-  // }, [openProgressingModal])
-
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -97,7 +87,7 @@ const SuccessMintSingleNFTSection = props => {
             {nftType === 'image' ? (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                 {nftImage !== '' && artWidth !== 0 ? (
-                  <img src={nftImage} alt="" className="w-full h-full object-contain" />
+                  <ImageWithFoster src={nftImage} className="w-full h-full object-contain" />
                 ) : (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                 )}
@@ -113,11 +103,11 @@ const SuccessMintSingleNFTSection = props => {
                   <div className="z-10">
                     <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                     {nftImage !== '' && artWidth !== 0 && (
-                      <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                      <ImageWithFoster src={nftImage} className="w-full h-full object-contain z-10" />
                     )}
                   </div>
                 ) : nftImage !== '' && artWidth !== 0 ? (
-                  <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
+                  <ImageWithFoster src={nftImage} className="w-full h-full rounded-[6px] object-contain" />
                 ) : (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                 )}
@@ -177,7 +167,7 @@ const SuccessMintSingleNFTSection = props => {
                 {nftType === 'image' ? (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                     {nftImage !== '' && artWidth !== 0 && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full object-contain" />
+                      <ImageWithFoster src={nftImage} className="w-full h-full object-contain" />
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                     )}
@@ -193,11 +183,11 @@ const SuccessMintSingleNFTSection = props => {
                       <div className="z-10">
                         <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                         {nftImage !== '' && artWidth !== 0 && (
-                          <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                          <ImageWithFoster src={nftImage} className="w-full h-full object-contain z-10" />
                         )}
                       </div>
                     ) : nftImage !== '' && artWidth !== 0 && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full object-contain" />
+                      <ImageWithFoster src={nftImage} className="w-full h-full object-contain" />
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                     )}
