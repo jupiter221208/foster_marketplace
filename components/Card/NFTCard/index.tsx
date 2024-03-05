@@ -31,7 +31,6 @@ import GradientButton from 'components/Button/GradientButton'
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 

@@ -11,6 +11,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props
@@ -30,21 +31,7 @@ const ArtistCard = props => {
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div>
               <div className={styles.avatar}>
-                {!loaded && (
-                  <div className="w-full h-full overflow-hidden rounded-full">
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  </div>
-                )}
-                <Image
-                  src={image}
-                  alt=""
-                  width={226}
-                  height={226}
-                  className="rounded-full"
-                  onLoadingComplete={() => setLoaded(true)}
-                />
+                <ImageWithFoster src={image} className="rounded-full" />
               </div>
 
               <div className={styles.name}>{getDisplayUserName(username)}</div>
@@ -52,14 +39,7 @@ const ArtistCard = props => {
           ) : (
             <div>
               <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
-                <ImageWithFallback
-                  src={image}
-                  onClick={onClick}
-                  width={226}
-                  height={226}
-                  alt=""
-                  className="w-full h-full rounded-full object-cover"
-                />
+                <ImageWithFoster src={image} onClick={onClick} className="rounded-full object-cover" />
               </div>
 
               <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>

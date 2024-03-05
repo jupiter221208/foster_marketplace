@@ -11,10 +11,10 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CollectionCard = props => {
   const { image, nftName, link, artistName, collectionName, unSave = null } = props
-  const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 
   return (
@@ -29,19 +29,7 @@ const CollectionCard = props => {
           >
             <div className={styles.imageContent}>
               <div className="w-full h-full overflow-hidden">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img src={image} alt="" className="w-full h-full object-cover" />
-                </ReactPlaceholder>
-                {!loaded && (
-                  <img
-                    src={image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    onLoad={() => {
-                      setLoaded(true)
-                    }}
-                  />
-                )}
+                <ImageWithFoster src={image} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

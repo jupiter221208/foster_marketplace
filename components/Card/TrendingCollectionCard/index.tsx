@@ -19,6 +19,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 // apis
 import collectionAPI from 'apis/collections'
 import LoadingModal from 'components/Modal/LoadingModal'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar, showRemoveButton = false } = props
@@ -45,22 +46,8 @@ const TrendingCollectionCard = props => {
     <div className={styles.container}>
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">
         <div className={styles.imageArea}>
-          {!loaded && (
-            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-              <div></div>
-            </ReactPlaceholder>
-          )}
-          <Link href={`/collection/${collectionID}`}>
-            <a>
-              <img
-                src={image}
-                alt=""
-                className="w-full h-full object-cover"
-                loading="lazy"
-                onLoad={() => setLoaded(true)}
-              />
-            </a>
-          </Link>
+          <ImageWithFoster link={`/collection/${collectionID}`} src={image} className="w-full h-full object-cover" />
+
           {showRemoveButton && (
             <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
               <div className="hidden lg:block">

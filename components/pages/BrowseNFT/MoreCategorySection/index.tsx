@@ -23,7 +23,6 @@ import CollectionCard from 'components/Card/CollectionCard'
 import styles from './index.module.scss'
 
 // api
-import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreCategorySection = props => {
