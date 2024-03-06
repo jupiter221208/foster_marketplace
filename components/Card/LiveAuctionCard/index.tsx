@@ -161,28 +161,40 @@ const LiveAuctionCard = props => {
               </Link>
             )
           ) : data.asset_type.includes('audio') ? (
-            <div className="w-full h-full">
-              <ImageWithFoster
-                link={`/nft/${data.token_id}`}
-                src={data.cover_image_url}
-                className="w-full h-full object-cover"
-                onClick={() => onClick()}
-              />
-            </div>
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
+                <div className="w-full h-full">
+                  <ImageWithFoster
+                    src={data.cover_image_url}
+                    width={504}
+                    className="w-full h-full object-cover"
+                    onClick={() => onClick()}
+                  />
+                </div>
+              </a>
+            </Link>
           ) : data.cover_image_url ? (
-            <ImageWithFoster
-              link={`/nft/${data.token_id}`}
-              src={data.cover_image_url}
-              onClick={onClick}
-              className="w-full h-full object-cover"
-            />
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
+                <ImageWithFoster
+                  src={data.cover_image_url}
+                  width={504}
+                  onClick={onClick}
+                  className="w-full h-full object-cover"
+                />
+              </a>
+            </Link>
           ) : (
-            <ImageWithFoster
-              link={`/nft/${data.token_id}`}
-              src={data.asset_url}
-              onClick={onClick}
-              className="w-full h-full object-cover"
-            />
+            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <a>
+                <ImageWithFoster
+                  src={data.asset_url}
+                  width={504}
+                  onClick={onClick}
+                  className="w-full h-full object-cover"
+                />
+              </a>
+            </Link>
           )}
         </div>
       </div>
@@ -204,7 +216,9 @@ const LiveAuctionCard = props => {
             <ImageWithFoster
               src={data?.artist_profile_picture}
               onClick={() => {}}
-              className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
+              className="lg:w-[56px] w-[44px] rounded-full"
             />
           </a>
         </Link>

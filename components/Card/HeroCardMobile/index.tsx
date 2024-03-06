@@ -12,8 +12,6 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
@@ -22,12 +20,15 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
+  const [width, setWidth] = useState(375)
 
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true)
       setProfileLoaded(true)
     }, 2000)
+
+    setWidth(window.innerWidth)
   }, [])
 
   return (
@@ -36,18 +37,19 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
         {(data.asset_url === null || data.asset_url === '') &&
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
-        ) : data.asset_type.includes('video') ? (
+        ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
           <ImageWithFoster
             src={
               data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
                 ? data.cover_image_url
                 : '/images/banner.png'
             }
+            width={width}
             className="w-full h-full object-cover"
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
-            <ImageWithFoster src={data.cover_image_url} className="w-full h-full object-cover" />
+            <ImageWithFoster src={data.cover_image_url} width={width} className="w-full h-full object-cover" />
           </div>
         ) : (
           <ImageWithFoster
@@ -58,7 +60,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 ? data.cover_image_url
                 : '/images/banner.png'
             }
-            className="w-full h-full object-cover"
+            width={width}
+            className={`w-[${width}px] h-full object-cover`}
           />
         )}
       </div>
@@ -103,6 +106,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                   {data.cover_image_url != null && data.cover_image_url !== '' ? (
                     <ImageWithFoster
                       src={data.cover_image_url}
+                      width={550}
+                      height={772}
                       className="w-auto h-auto max-w-full max-h-full object-contain"
                       onClick={() => gotoNftDetailPage()}
                     />
@@ -123,6 +128,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 data.cover_image_url !== null && data.cover_image_url !== '' ? (
                   <ImageWithFoster
                     src={data.cover_image_url}
+                    width={550}
+                    height={772}
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />

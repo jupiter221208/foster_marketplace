@@ -111,12 +111,11 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               )
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
-                <ImageWithFoster
-                  link={`${window.origin}/nft/${token_id}`}
-                  src={coverImage}
-                  onClick={onClick}
-                  className="w-full h-full object-cover"
-                />
+                <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <a>
+                    <ImageWithFoster src={coverImage} onClick={onClick} className="w-full h-full object-cover" />
+                  </a>
+                </Link>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
@@ -125,19 +124,17 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </Link>
               )
             ) : coverImage != null && coverImage !== '' ? (
-              <ImageWithFoster
-                link={`${window.origin}/nft/${token_id}`}
-                src={coverImage}
-                onClick={onClick}
-                className={styles.imageNft}
-              />
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a>
+                  <ImageWithFoster src={coverImage} onClick={onClick} className={styles.imageNft} />
+                </a>
+              </Link>
             ) : image !== null && image !== '' ? (
-              <ImageWithFoster
-                link={`${window.origin}/nft/${token_id}`}
-                src={image}
-                onClick={onClick}
-                className={styles.imageNft}
-              />
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a>
+                  <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
+                </a>
+              </Link>
             ) : (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">

@@ -41,39 +41,49 @@ const HeroNewCard = ({ data }) => {
         <div className={styles.cardArea}>
           <div className={styles.imageArea}>
             {data.asset_type.includes('image') ? (
-              <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
-                {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                  <ImageWithFoster
-                    link={`/nft/${data.token_id}`}
-                    src={
-                      data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                        ? data.asset_url
-                        : data.cover_image_url !== '' &&
-                          data.cover_image_url !== null &&
-                          data.cover_image_url !== undefined
-                        ? data.cover_image_url
-                        : ''
-                    }
-                    className="w-auto h-auto max-w-full max-h-full object-contain"
-                  />
-                ) : (
-                  <div></div>
-                )}
-              </div>
-            ) : data.asset_type.includes('vr') ? (
-              <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
-                {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                  <div className="w-full h-full relative">
-                    <ImageWithFoster
-                      link={`/nft/${data.token_id}`}
-                      src={data.cover_image_url}
-                      className="w-full h-full object-cover"
-                    />
+              <Link href={`/nft/${data.token_id}`} passHref>
+                <a>
+                  <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
+                    {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                      <ImageWithFoster
+                        src={
+                          data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                            ? data.asset_url
+                            : data.cover_image_url !== '' &&
+                              data.cover_image_url !== null &&
+                              data.cover_image_url !== undefined
+                            ? data.cover_image_url
+                            : ''
+                        }
+                        width={400}
+                        height={400}
+                        className="w-auto h-auto max-w-full max-h-full object-contain"
+                      />
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
+                </a>
+              </Link>
+            ) : data.asset_type.includes('vr') ? (
+              <Link href={`/nft/${data.token_id}`} passHref>
+                <a>
+                  <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                    {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                      <div className="w-full h-full relative">
+                        <ImageWithFoster
+                          src={data.cover_image_url}
+                          className="w-full h-full object-cover"
+                          width={400}
+                          height={400}
+                        />
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                </a>
+              </Link>
             ) : data.asset_type.includes('video') ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
@@ -89,13 +99,18 @@ const HeroNewCard = ({ data }) => {
               </Link>
             ) : data.asset_type.includes('audio') ? (
               data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
-                  <ImageWithFoster
-                    link={`/nft/${data.token_id}`}
-                    src={data.cover_image_url}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                <Link href={`/nft/${data.token_id}`} passHref>
+                  <a>
+                    <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
+                      <ImageWithFoster
+                        src={data.cover_image_url}
+                        className="w-full h-full object-contain"
+                        width={400}
+                        height={400}
+                      />
+                    </div>
+                  </a>
+                </Link>
               ) : (
                 <Image
                   src={DefaultNftBG}
@@ -125,13 +140,20 @@ const HeroNewCard = ({ data }) => {
             )}
             {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <ImageWithFoster
-                  link={`/${data.artist_username}`}
-                  src={
-                    data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'
-                  }
-                  className="rounded-full"
-                />
+                <Link href={`/${data.artist_username}`} passHref>
+                  <a>
+                    <ImageWithFoster
+                      src={
+                        data.artist_profile_picture.length > 0
+                          ? data.artist_profile_picture
+                          : 'images/dashboard-avatar.png'
+                      }
+                      width={60}
+                      height={60}
+                      className="rounded-full"
+                    />
+                  </a>
+                </Link>
               </div>
             )}
           </div>
