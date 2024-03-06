@@ -45,7 +45,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 : '/images/banner.png'
             }
             width={width}
-            className={`w-[${width}px] h-full object-cover`}
+            className="w-full h-full object-cover"
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
@@ -87,7 +87,6 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                     alt=""
                     width={550}
                     height={772}
-                    showPlaceHolder={false}
                     className="w-auto h-auto max-w-full max-h-full object-contain"
                     onClick={() => gotoNftDetailPage()}
                   />
@@ -131,7 +130,6 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                     src={data.cover_image_url}
                     width={550}
                     height={772}
-                    showPlaceHolder={false}
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
