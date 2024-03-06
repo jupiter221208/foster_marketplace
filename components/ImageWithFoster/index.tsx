@@ -38,7 +38,6 @@ const ImageWithFoster = ({
   onClick,
   onLoad,
   onError,
-  className = '',
   ...rest
 }: ImageWithFosterProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -73,7 +72,6 @@ const ImageWithFoster = ({
           }}
           loading="lazy"
           onError={handleError}
-          className={className}
         />
       </div>
     </div>
