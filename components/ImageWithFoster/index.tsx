@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
-  if (!urlString || urlString[0] == '/') return null
+  if (!urlString || !urlString.match(/^https?:\/\//i)) return null
   // only optimize arweave.com urls
   const url = new URL(urlString)
   if (!url.hostname.match(/^([^.]+.)?arweave\.net$/i)) return null
