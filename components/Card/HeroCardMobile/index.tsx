@@ -36,7 +36,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
         {(data.asset_url === null || data.asset_url === '') &&
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
-        ) : data.asset_type.includes('video') ? (
+        ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
           <ImageWithFoster
             src={
               data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
