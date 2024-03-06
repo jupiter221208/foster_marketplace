@@ -50,7 +50,6 @@ const ImageWithFoster = ({
   const [currentSrcIndex, setCurrentSrcIndex] = useState<number>(0)
 
   function handleError(e) {
-    setLoaded(true)
     let newIndex = currentSrcIndex + 1
     if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
     else return onError?.(e)
