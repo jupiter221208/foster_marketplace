@@ -69,7 +69,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
-  const categories = getNFTCategories(nftDetail)
+  const [categories, setCategories] = useState(getNFTCategories(nftDetail))
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState<NftData>()
