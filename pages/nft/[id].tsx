@@ -372,7 +372,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                         mintAddress={nftDetail.mintAddress.toString()}
                       />
                     )}
-                    {connected && artistInfo && collectionList && (
+                    {artistInfo && collectionList && (
                       <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
                     )}
                     <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
