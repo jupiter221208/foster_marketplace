@@ -187,7 +187,6 @@ const NFTAuctionCard = props => {
                 link={`${window.origin}/nft/${token_id}`}
                 src={coverImage}
                 onClick={onClick}
-                layout="fill"
                 alt=""
                 className={styles.imageNft}
               />
