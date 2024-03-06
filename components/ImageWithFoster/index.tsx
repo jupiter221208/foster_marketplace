@@ -27,17 +27,9 @@ const ImageWithFoster = props => {
           <div className={styles.skeletonLoader} />
         </div>
       )}
-      {link.length > 0 ? (
-        <Link href={link} passHref>
-          <a className="w-full h-full flex justify-center items-center">
-            <img {...rest} src={currentSrc} onLoad={() => setLoaded(true)} loading="lazy" alt="" />
-          </a>
-        </Link>
-      ) : (
-        <div className="w-full h-full flex justify-center items-center">
-          <img {...rest} src={currentSrc} onLoad={() => setLoaded(true)} loading="lazy" alt="" />
-        </div>
-      )}
+      <div className="w-full h-full flex justify-center items-center">
+        <img {...rest} src={currentSrc} onLoad={() => setLoaded(true)} loading="lazy" alt="" />
+      </div>
     </div>
   )
 }
