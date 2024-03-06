@@ -45,7 +45,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 : '/images/banner.png'
             }
             width={width}
-            className="w-full h-full object-cover"
+            className={`w-[${width}px] h-full object-cover`}
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
@@ -61,7 +61,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 : '/images/banner.png'
             }
             width={width}
-            className="w-full h-full object-cover"
+            className={`w-[${width}px] h-full object-cover`}
           />
         )}
       </div>
