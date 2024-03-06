@@ -58,6 +58,11 @@ const ImageWithFoster = ({
 
   return (
     <div className="w-full h-full" onClick={onClick}>
+      {showPlaceHolder && !loaded && (
+        <div className={styles.skeletonLoaderOuterBox}>
+          <div className={styles.skeletonLoader} />
+        </div>
+      )}
       <div className="w-full h-full flex justify-center items-center">
         <img
           {...rest}
