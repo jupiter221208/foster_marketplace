@@ -44,12 +44,15 @@ const TrendingCollectionCard = props => {
     <div className={styles.container}>
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">
         <div className={styles.imageArea}>
-          <ImageWithFoster
-            link={`/collection/${collectionID}`}
-            src={image}
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 504}
-            className="w-full h-full object-cover"
-          />
+          <Link href={`/collection/${collectionID}`} passHref>
+            <a>
+              <ImageWithFoster
+                src={image}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 504}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          </Link>
 
           {showRemoveButton && (
             <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
