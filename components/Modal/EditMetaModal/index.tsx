@@ -41,9 +41,9 @@ const EditMetaModal = props => {
   const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty, originalCoverUrl } = props
   const router = useRouter()
   const { metaplex } = useMetaplex()
-  const { storage } = useLocalWalletBundlr()
+  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const viewport = useViewport()
-  
+
   const [assetType, setAssetType] = useState(nftType)
   const [artName, setArtName] = useState(nftInfo.name)
   const [artDesc, setArtDesc] = useState(nftInfo.description)
@@ -135,7 +135,7 @@ const EditMetaModal = props => {
         trait_type: type,
         value: name,
       }))
-      newJson.attributes  = categoryList
+      newJson.attributes = categoryList
       needsJsonUpload = true
     }
 
@@ -164,9 +164,15 @@ const EditMetaModal = props => {
       royaltyChanged = true
     }
 
-    let newImageUrl = '';
+    let newImageUrl = ''
     if (selectedFile !== null) {
-      let metaplexFile = await toMetaplexFileFromBrowser(/* nft image file */ selectedFile[0])
+      let metaplexFile = await toMetaplexFileFromBrowser(selectedFile[0])
+
+      // fund local wallet for storage
+      let metadataCost = await storage.getUploadPriceForBytes(JSON.stringify(newJson).length + 800)
+      let imageCost = await storage.getUploadPriceForFile(metaplexFile)
+      await ensureLocalWalletBalance(metadataCost.basisPoints.add(imageCost.basisPoints))
+
       newImageUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.image) {
@@ -183,6 +189,12 @@ const EditMetaModal = props => {
     }
     if (/* nft asset changed */ false) {
       let metaplexFile = await toMetaplexFileFromBrowser(/* nft asset file */ selectedFile)
+
+      // fund local wallet for storage
+      let metadataCost = await storage.getUploadPriceForBytes(JSON.stringify(newJson).length + 800)
+      let assetCost = await storage.getUploadPriceForFile(metaplexFile)
+      await ensureLocalWalletBalance(metadataCost.basisPoints.add(assetCost.basisPoints))
+
       let newAnimationUrl = await storage.upload(metaplexFile)
       for (let file of newJson.properties.files)
         if (file.url == newJson.animation_url) {
@@ -198,7 +210,11 @@ const EditMetaModal = props => {
       needsJsonUpload = true
     }
 
-    if (needsJsonUpload) updateInput.uri = await storage.uploadJson(newJson)
+    if (needsJsonUpload) {
+      let metadataCost = await storage.getUploadPriceForBytes(JSON.stringify(newJson).length + 100)
+      await ensureLocalWalletBalance(metadataCost.basisPoints)
+      updateInput.uri = await storage.uploadJson(newJson)
+    }
 
     if (Object.keys(updateInput).length > 1) {
       try {
@@ -206,27 +222,21 @@ const EditMetaModal = props => {
         await metaplex.nfts().update(updateInput)
         let params = {
           nftName: artName,
-          assetType: nftType
+          assetType: nftType,
         }
         if (categoryList.length > 0) {
-          let category = ''
-          categoryList.filter(item => item.trait_type === "category").forEach(item => {
-            category += item.value + ','
-          })
-          params["categories"] = category.slice(0, -1)
+          params['categories'] = categoryList.filter(({ trait_type }) => trait_type === 'category').join(',')
         }
         if (newImageUrl.length > 0) {
-          params["coverImageUrl"] = newImageUrl
+          params['coverImageUrl'] = newImageUrl
           if (nftType === 'image') {
-            params["assetUrl"] = newImageUrl
+            params['assetUrl'] = newImageUrl
           }
         }
         if (royaltyChanged) {
-          params["royalties"] = newRoyalty.toString()
+          params['royalties'] = newRoyalty.toString()
         }
-        await nftsAPI
-        .update(nftInfo.address, params)
-        .then(
+        await nftsAPI.update(nftInfo.address, params).then(
           response => {
             console.log(response)
           },
@@ -242,8 +252,8 @@ const EditMetaModal = props => {
         setLoading(false)
       }
     } else {
-      close('cancel')  
-      setLoading(false)  
+      close('cancel')
+      setLoading(false)
     }
   }
 
