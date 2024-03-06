@@ -28,7 +28,7 @@ const ArtistCard = props => {
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div>
               <div className={styles.avatar}>
-                <ImageWithFoster src={image} className="rounded-full" />
+                <ImageWithFoster src={image} width={150} className="rounded-full" />
               </div>
 
               <div className={styles.name}>{getDisplayUserName(username)}</div>
@@ -36,7 +36,7 @@ const ArtistCard = props => {
           ) : (
             <div>
               <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
-                <ImageWithFoster src={image} onClick={onClick} className="rounded-full object-cover" />
+                <ImageWithFoster src={image} width={210} onClick={onClick} className="rounded-full object-cover" />
               </div>
 
               <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>

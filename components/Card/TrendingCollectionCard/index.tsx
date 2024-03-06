@@ -13,8 +13,6 @@ import styles from './index.module.scss'
 
 // third party components
 import { useViewport } from 'utils'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 // apis
 import collectionAPI from 'apis/collections'
@@ -46,7 +44,12 @@ const TrendingCollectionCard = props => {
     <div className={styles.container}>
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">
         <div className={styles.imageArea}>
-          <ImageWithFoster link={`/collection/${collectionID}`} src={image} className="w-full h-full object-cover" />
+          <ImageWithFoster
+            link={`/collection/${collectionID}`}
+            src={image}
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 504}
+            className="w-full h-full object-cover"
+          />
 
           {showRemoveButton && (
             <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
@@ -74,7 +77,7 @@ const TrendingCollectionCard = props => {
             {avatar !== null && avatar.length > 0 && (
               <div className={styles.avatar}>
                 <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                  <ImageWithFoster src={avatar} className="rounded-full" loading="lazy" />
+                  <ImageWithFoster src={avatar} width={44} className="rounded-full" loading="lazy" />
                 </div>
               </div>
             )}

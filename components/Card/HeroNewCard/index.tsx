@@ -54,6 +54,8 @@ const HeroNewCard = ({ data }) => {
                         ? data.cover_image_url
                         : ''
                     }
+                    width={400}
+                    height={400}
                     className="w-auto h-auto max-w-full max-h-full object-contain"
                   />
                 ) : (
@@ -68,6 +70,8 @@ const HeroNewCard = ({ data }) => {
                       link={`/nft/${data.token_id}`}
                       src={data.cover_image_url}
                       className="w-full h-full object-cover"
+                      width={400}
+                      height={400}
                     />
                   </div>
                 ) : (
@@ -94,6 +98,8 @@ const HeroNewCard = ({ data }) => {
                     link={`/nft/${data.token_id}`}
                     src={data.cover_image_url}
                     className="w-full h-full object-contain"
+                    width={400}
+                    height={400}
                   />
                 </div>
               ) : (
@@ -130,6 +136,8 @@ const HeroNewCard = ({ data }) => {
                   src={
                     data.artist_profile_picture.length > 0 ? data.artist_profile_picture : 'images/dashboard-avatar.png'
                   }
+                  width={60}
+                  height={60}
                   className="rounded-full"
                 />
               </div>
