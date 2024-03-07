@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useState } from 'react'
 
 // styles
 import styles from './index.module.scss'
@@ -49,25 +49,27 @@ const ImageWithFoster = ({
   const srcUrls = [heliusUrl, src, originalSrc].filter(url => url)
   const [currentSrcIndex, setCurrentSrcIndex] = useState<number>(0)
 
-  function handleError(e) {
-    let newIndex = currentSrcIndex + 1
-    if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
-    else return onError?.(e)
-  }
+  const handleLoad = useCallback(
+    e => {
+      setLoaded(true)
+      return onLoad?.(e)
+    },
+    [onLoad]
+  )
+
+  const handleError = useCallback(
+    e => {
+      let newIndex = currentSrcIndex + 1
+      if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
+      else return onError?.(e)
+    },
+    [srcUrls, currentSrcIndex, onError]
+  )
 
   return (
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
-        <img
-          {...rest}
-          src={srcUrls[currentSrcIndex]}
-          onLoad={e => {
-            setLoaded(true)
-            return onLoad?.(e)
-          }}
-          loading="lazy"
-          onError={handleError}
-        />
+        <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
       </div>
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
         <div
