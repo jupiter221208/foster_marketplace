@@ -105,7 +105,7 @@ const NFTCard = props => {
                           }}
                         />
                       ) : coverImage != null && coverImage !== '' ? (
-                        <ImageWithFoster width={175} src={coverImage} alt="" className="w-full h-full object-contain" />
+                        <ImageWithFoster width={175} src={coverImage} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div
                           className="w-full h-full absolute"
