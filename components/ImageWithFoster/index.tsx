@@ -57,15 +57,7 @@ const ImageWithFoster = ({
 
   return (
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
-      <div
-        className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
-          loaded ? 'invisible' : 'visible'
-        }`}
-      >
-        <div className={styles.skeletonLoader} />
-      </div>
-
-      <div className="w-full h-full flex justify-center items-center absolute top-0">
+      <div className="w-full h-full flex justify-center items-center z-1000">
         <img
           {...rest}
           src={srcUrls[currentSrcIndex]}
@@ -76,6 +68,15 @@ const ImageWithFoster = ({
           loading="lazy"
           onError={handleError}
         />
+      </div>
+      <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
+        <div
+          className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
+            loaded ? 'invisible' : 'visible'
+          }`}
+        >
+          <div className={styles.skeletonLoader} />
+        </div>
       </div>
     </div>
   )
