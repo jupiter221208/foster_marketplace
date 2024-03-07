@@ -65,7 +65,7 @@ const ImageWithFoster = ({
         <div className={styles.skeletonLoader} />
       </div>
 
-      <div className="w-full h-full flex justify-center items-center absolute top-0">
+      <div className="w-full h-full flex justify-center items-center">
         <img
           {...rest}
           src={srcUrls[currentSrcIndex]}
