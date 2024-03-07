@@ -93,7 +93,7 @@ const NFTCard = props => {
           {assetType?.includes('video') ? (
             <div className={styles.imageContent}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+                <div className="w-full relative flex justify-center items-center rounded-t-[24px] overflow-hidden">
                   <Link href={`${window.origin}/nft/${token_id}`} passHref>
                     <a className="w-full h-full">
                       {play ? (

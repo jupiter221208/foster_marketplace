@@ -148,7 +148,7 @@ const LiveAuctionCard = props => {
               </div>
             ) : (
               <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <div
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{
