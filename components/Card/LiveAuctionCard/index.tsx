@@ -104,7 +104,7 @@ const LiveAuctionCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+              <div className="w-full relative flex justify-center items-center rounded-t-[24px] overflow-hidden">
                 <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
                   <a className="w-full h-full">
                     {play ? (
