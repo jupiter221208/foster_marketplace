@@ -162,20 +162,18 @@ const LiveAuctionCard = props => {
             )
           ) : data.asset_type.includes('audio') ? (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <div className="w-full h-full">
-                  <ImageWithFoster
-                    src={data.cover_image_url}
-                    width={504}
-                    className="w-full h-full object-cover"
-                    onClick={() => onClick()}
-                  />
-                </div>
+              <a className="w-full h-full">
+                <ImageWithFoster
+                  src={data.cover_image_url}
+                  width={504}
+                  className="w-full h-full object-cover"
+                  onClick={() => onClick()}
+                />
               </a>
             </Link>
           ) : data.cover_image_url ? (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
+              <a className="w-full h-full">
                 <ImageWithFoster
                   src={data.cover_image_url}
                   width={504}
@@ -186,7 +184,7 @@ const LiveAuctionCard = props => {
             </Link>
           ) : (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
+              <a className="w-full h-full">
                 <ImageWithFoster
                   src={data.asset_url}
                   width={504}
