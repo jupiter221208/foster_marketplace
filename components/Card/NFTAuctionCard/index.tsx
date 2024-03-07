@@ -175,7 +175,7 @@ const NFTAuctionCard = props => {
                     <ImageWithFoster
                       src={coverImage}
                       onClick={onClick}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       className="w-full h-full object-cover"
                     />
                   </a>
@@ -192,7 +192,7 @@ const NFTAuctionCard = props => {
                 <a>
                   <ImageWithFoster
                     src={coverImage}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     onClick={onClick}
                     alt=""
                     className={styles.imageNft}
@@ -204,7 +204,7 @@ const NFTAuctionCard = props => {
                 <a>
                   <ImageWithFoster
                     src={image}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     onClick={onClick}
                     className={styles.imageNft}
                   />

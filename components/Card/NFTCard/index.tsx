@@ -145,11 +145,7 @@ const NFTCard = props => {
                 <div className={styles.imageContent}>
                   {assetType?.includes('vr') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster
-                        src={coverImage}
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
-                        className={styles.imageNft}
-                      />
+                      <ImageWithFoster src={coverImage} width={504} className={styles.imageNft} />
                     ) : (
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                     )
@@ -167,7 +163,7 @@ const NFTCard = props => {
                   ) : coverImage !== null && coverImage !== '' ? (
                     <ImageWithFoster
                       src={coverImage}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                      width={504}
                       originalSrc={fallBack}
                       onClick={onClick}
                       className={styles.imageNft}
@@ -175,7 +171,7 @@ const NFTCard = props => {
                   ) : image !== null && image !== '' ? (
                     <ImageWithFoster
                       src={image}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                      width={504}
                       originalSrc={fallBack}
                       onClick={onClick}
                       className={styles.imageNft}

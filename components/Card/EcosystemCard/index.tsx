@@ -33,11 +33,7 @@ const EcosystemCard = props => {
           <div className="relative flex">
             <div className="w-full overflow-hidden">
               {data.artist.banner_picture ? (
-                <ImageWithFoster
-                  src={data.artist.banner_picture}
-                  width={480}
-                  className="w-full h-[172px] object-cover"
-                />
+                <ImageWithFoster src={data.artist.banner_picture} className="w-full h-[172px] object-cover" />
               ) : (
                 <Image src={BannerImage} alt="" width={480} height={172} layout="responsive" objectFit="cover" />
               )}
@@ -45,11 +41,7 @@ const EcosystemCard = props => {
             <div className={styles.avatarArea}>
               <div className="w-full flex justify-center itmes-cneter rounded-full overflow-hidden">
                 {data.artist.profile_picture ? (
-                  <ImageWithFoster
-                    src={data.artist.profile_picture}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 136}
-                    className="rounded-full"
-                  />
+                  <ImageWithFoster src={data.artist.profile_picture} className="rounded-full" />
                 ) : (
                   <div className="w-full flex justify-center itmes-cneter rounded-full overflow-hidden bg-tansparent">
                     <Image

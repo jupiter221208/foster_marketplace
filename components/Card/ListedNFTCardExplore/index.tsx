@@ -116,7 +116,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                   <a>
                     <ImageWithFoster
                       src={coverImage}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       onClick={onClick}
                       className="w-full h-full object-cover"
                     />
@@ -134,7 +134,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 <a>
                   <ImageWithFoster
                     src={coverImage}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     onClick={onClick}
                     className={styles.imageNft}
                   />
@@ -151,7 +151,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 <a className="w-full h-full">
                   <Image
                     src={DefaultNftBG}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 400}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     className={styles.imageNft}
                     onClick={() => onClick()}
                   />
