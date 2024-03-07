@@ -116,8 +116,6 @@ const MyNFTSection = props => {
   useEffect(() => {
     let list = []
 
-    setFilteredList([])
-
     let allList = myNftList as any[]
     allList.forEach(item => {
       let created = false
@@ -135,9 +133,7 @@ const MyNFTSection = props => {
       }
     })
 
-    setTimeout(() => {
-      setFilteredList(list)
-    }, 500)
+    setFilteredList(list)
     setAllNftList(list)
   }, [myNftList, active])
 
