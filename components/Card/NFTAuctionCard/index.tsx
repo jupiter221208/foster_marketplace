@@ -126,6 +126,7 @@ const NFTAuctionCard = props => {
                       ) : coverImage != null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
+                          width={200}
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -171,7 +172,12 @@ const NFTAuctionCard = props => {
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
-                    <ImageWithFoster src={coverImage} onClick={onClick} className="w-full h-full object-cover" />
+                    <ImageWithFoster
+                      src={coverImage}
+                      onClick={onClick}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                      className="w-full h-full object-cover"
+                    />
                   </a>
                 </Link>
               ) : (
@@ -184,13 +190,24 @@ const NFTAuctionCard = props => {
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a>
-                  <ImageWithFoster src={coverImage} onClick={onClick} alt="" className={styles.imageNft} />
+                  <ImageWithFoster
+                    src={coverImage}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                    onClick={onClick}
+                    alt=""
+                    className={styles.imageNft}
+                  />
                 </a>
               </Link>
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a>
-                  <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
+                  <ImageWithFoster
+                    src={image}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                    onClick={onClick}
+                    className={styles.imageNft}
+                  />
                 </a>
               </Link>
             ) : (

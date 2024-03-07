@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useCallback, useState } from 'react'
 
 // styles
 import styles from './index.module.scss'
+import Image from 'next/image'
 
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
   if (!urlString || !urlString.match(/^https?:\/\//i)) return null
@@ -49,30 +50,36 @@ const ImageWithFoster = ({
   const srcUrls = [heliusUrl, src, originalSrc].filter(url => url)
   const [currentSrcIndex, setCurrentSrcIndex] = useState<number>(0)
 
-  function handleError(e) {
-    let newIndex = currentSrcIndex + 1
-    if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
-    else return onError?.(e)
-  }
+  const handleLoad = useCallback(
+    e => {
+      setLoaded(true)
+      return onLoad?.(e)
+    },
+    [onLoad]
+  )
+
+  const handleError = useCallback(
+    e => {
+      let newIndex = currentSrcIndex + 1
+      if (newIndex < srcUrls.length) setCurrentSrcIndex(newIndex)
+      else return onError?.(e)
+    },
+    [srcUrls, currentSrcIndex, onError]
+  )
 
   return (
-    <div className="w-full h-full" onClick={onClick}>
-      {showPlaceHolder && !loaded && (
-        <div className={styles.skeletonLoaderOuterBox}>
+    <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
+      <div className="w-full h-full flex justify-center items-center z-1000">
+        <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
+      </div>
+      <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
+        <div
+          className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
+            loaded || !showPlaceHolder ? 'invisible' : 'visible'
+          }`}
+        >
           <div className={styles.skeletonLoader} />
         </div>
-      )}
-      <div className="w-full h-full flex justify-center items-center">
-        <img
-          {...rest}
-          src={srcUrls[currentSrcIndex]}
-          onLoad={e => {
-            setLoaded(true)
-            return onLoad?.(e)
-          }}
-          loading="lazy"
-          onError={handleError}
-        />
       </div>
     </div>
   )
