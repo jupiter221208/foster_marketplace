@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 // styles
 import styles from './index.module.scss'
+import Image from 'next/image'
 
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
   if (!urlString || !urlString.match(/^https?:\/\//i)) return null
@@ -31,7 +32,7 @@ const ImageWithFoster = ({
   originalSrc = null,
   showPlaceHolder = true,
 
-  quality = 75,
+  quality = 50,
   width,
   height,
 
