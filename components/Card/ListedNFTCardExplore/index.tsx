@@ -68,6 +68,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                       ) : coverImage != null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
+                          width={200}
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -113,7 +114,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a>
-                    <ImageWithFoster src={coverImage} onClick={onClick} className="w-full h-full object-cover" />
+                    <ImageWithFoster
+                      src={coverImage}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                      onClick={onClick}
+                      className="w-full h-full object-cover"
+                    />
                   </a>
                 </Link>
               ) : (
@@ -126,7 +132,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a>
-                  <ImageWithFoster src={coverImage} onClick={onClick} className={styles.imageNft} />
+                  <ImageWithFoster
+                    src={coverImage}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                    onClick={onClick}
+                    className={styles.imageNft}
+                  />
                 </a>
               </Link>
             ) : image !== null && image !== '' ? (
@@ -138,7 +149,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                  <Image
+                    src={DefaultNftBG}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                    className={styles.imageNft}
+                    onClick={() => onClick()}
+                  />
                 </a>
               </Link>
             )}
