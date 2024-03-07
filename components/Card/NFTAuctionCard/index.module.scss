@@ -95,18 +95,18 @@
   flex: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 9px 10px 11px 10px;
+  padding: 9px 10px 10px 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: rgba(var(--main-bg-color-rgb), 0.05);
   border-bottom-right-radius: 17px;
   border-bottom-left-radius: 17px;
   @media (min-width: 1024px) {
-    padding: 20px 24px;
+    padding: 27px 24px;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
   }
   @media (min-width: 1440px) {
-    padding: 18px 18px;
+    padding: 27px 24px;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
   }
