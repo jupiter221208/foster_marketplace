@@ -1060,7 +1060,7 @@ const MainSection = ({
                       <div className={styles.collectionText}>Collection</div>
                       <Link href={`/collection/${nftCollectionAddress}`} passHref>
                         <a>
-                          {!(nftCollectionImage && nftCollectionName) ? (
+                          {!(nftCollectionImage || nftCollectionName) ? (
                             <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
                           ) : (
                             <div className={styles.collectionName}>

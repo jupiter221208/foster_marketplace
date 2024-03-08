@@ -110,6 +110,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   {assetJson && (
                     <ImageWithFoster
                       src={assetJson?.image}
+                      width={360}
                       className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                     />
                   )}
@@ -200,7 +201,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          <ImageWithFoster src={assetJson?.image} className="w-full h-full rounded-[10px] object-cover" />
+          <ImageWithFoster width={200} src={assetJson?.image} className="w-full h-full rounded-[10px] object-cover" />
         </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">

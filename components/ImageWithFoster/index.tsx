@@ -4,18 +4,36 @@ import React, { useCallback, useState } from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
 
+function shouldUseHeliusCdn(url: URL): boolean {
+  let hostname = url.hostname
+  if (hostname == 'cdn.helius-rpc.com') return false
+
+  // return hostname.match(/^([^.]+.)?arweave\.net$/i)
+  return true
+}
+
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
   if (!urlString || !urlString.match(/^https?:\/\//i)) return null
-  // only optimize arweave.com urls
-  const url = new URL(urlString)
-  if (!url.hostname.match(/^([^.]+.)?arweave\.net$/i)) return null
+
+  // unwrap cdn urls
+  let url = new URL(urlString)
+  while (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image/')) {
+    try {
+      url = new URL(decodeURIComponent(url.pathname.match(/(?<=\/cdn-cgi\/image\/[^\/]*\/).*$/)[0]))
+    } catch (e: any) {
+      console.error(`could not decode url: ${url.toString()}, original: ${urlString}: ${e?.message}`)
+      return null
+    }
+  }
+
+  if (!shouldUseHeliusCdn(url)) return null
 
   let parameters = Object.entries(options)
     .filter(([, v]) => v !== undefined && v !== null)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([k, v]) => k + '=' + v.toString())
     .join(',')
-  return `https://cdn.helius-rpc.com/cdn-cgi/image/${parameters}/${encodeURIComponent(urlString)}`
+  return `https://cdn.helius-rpc.com/cdn-cgi/image/${parameters}/${encodeURIComponent(url.toString())}`
 }
 
 export type ImageWithFosterProps = {
@@ -24,6 +42,8 @@ export type ImageWithFosterProps = {
   quality?: number
   originalSrc?: string | null
   showPlaceHolder?: boolean
+  useNextImage?: boolean
+  placeholder?: 'blur' | 'empty'
 } & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 
 const ImageWithFoster = ({
@@ -32,13 +52,14 @@ const ImageWithFoster = ({
   originalSrc = null,
   showPlaceHolder = true,
 
-  quality = 75,
+  quality = 50,
   width,
   height,
 
   onClick,
   onLoad,
   onError,
+  useNextImage = false,
   ...rest
 }: ImageWithFosterProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -70,7 +91,18 @@ const ImageWithFoster = ({
   return (
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
-        <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
+        {useNextImage || heliusUrl != srcUrls[currentSrcIndex] ? (
+          <Image
+            src={srcUrls[currentSrcIndex]}
+            onLoad={handleLoad}
+            loading="lazy"
+            layout="fill"
+            onError={handleError}
+            {...rest}
+          />
+        ) : (
+          <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
+        )}
       </div>
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
         <div

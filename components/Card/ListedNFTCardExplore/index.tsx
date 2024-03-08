@@ -113,7 +113,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
+                  <a className="w-full h-full">
                     <ImageWithFoster
                       src={coverImage}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
@@ -131,7 +131,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               )
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <ImageWithFoster
                     src={coverImage}
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
@@ -142,7 +142,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               </Link>
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
                 </a>
               </Link>

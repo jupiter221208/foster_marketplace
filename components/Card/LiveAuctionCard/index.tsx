@@ -211,7 +211,7 @@ const LiveAuctionCard = props => {
         </div>
         <Link href={`/${data.artist_username}`} passHref>
           <a>
-            <ImageWithFoster
+            <img
               src={data?.artist_profile_picture}
               onClick={() => {}}
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}

@@ -253,7 +253,7 @@ const WallSection = props => {
         <div className="w-full h-full top-0 absolute flex justify-center items-center">
           <div className="w-full">
             <div className="w-full flex justify-center">
-              <FadeLoader color="#95dbd5" width="6" height="12" />
+              <FadeLoader color="#95dbd5" width="6px" height="12px" />
             </div>
 
             <div className={styles.progressText}>

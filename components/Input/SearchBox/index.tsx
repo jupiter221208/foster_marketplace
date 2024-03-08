@@ -126,7 +126,7 @@ const SearchBox = props => {
               >
                 <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
                   {item.image_url !== null && item.image_url !== '' ? (
-                    <ImageWithFoster src={item.image_url} className="object-cover w-full h-full" />
+                    <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
                   ) : (
                     <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
                   )}
@@ -153,7 +153,11 @@ const SearchBox = props => {
               >
                 <div className="w-[36px] h-[36px] mr-5">
                   {item.image_url.length > 0 ? (
-                    <ImageWithFoster src={item.image_url} className="object-cover rounded-full w-full h-full" />
+                    <ImageWithFoster
+                      width={50}
+                      src={item.image_url}
+                      className="object-cover rounded-full w-full h-full"
+                    />
                   ) : (
                     <Image
                       src={DefaultAvatar}
@@ -186,7 +190,11 @@ const SearchBox = props => {
                 }}
               >
                 <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
-                  <ImageWithFoster src={item.image_url} className="object-cover rounded-[10px] w-full h-full" />
+                  <ImageWithFoster
+                    src={item.image_url}
+                    width={50}
+                    className="object-cover rounded-[10px] w-full h-full"
+                  />
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
