@@ -206,8 +206,8 @@ const MyNFTSection = props => {
         {!loading &&
           nftList
             .filter(item => item.image !== undefined || null)
-            .map((item, index) => (
-              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            .map(item => (
+              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={item.mintAddress}>
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}
