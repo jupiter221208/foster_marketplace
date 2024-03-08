@@ -25,30 +25,17 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // api
-import collectionAPI from 'apis/collections'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreArtistSection = props => {
-  const { artistInfo } = props
+  const { artistInfo, collectionList } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [collectionList, setCollectionList] = useState([])
-
   useEffect(() => {
-    if (artistInfo !== null && artistInfo.address.length > 0) {
-      collectionAPI.getOtherCollections(artistInfo.address).then(
-        response => {
-          if (response instanceof Array) {
-            setCollectionList(response)
-            fetchCollectionData(response)
-          }
-        },
-        error => {}
-      )
-    }
-  }, [artistInfo])
+    fetchCollectionData(collectionList)
+  }, [collectionList])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 

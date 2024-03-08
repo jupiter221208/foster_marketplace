@@ -198,8 +198,10 @@ const Explore = () => {
 
     switch (exploreTab) {
       case 0:
+        setIsVisibleFetching(true)
+        setNftList([])
         getExploreNFTData(
-          nftCurrentPage,
+          0,
           categoryList,
           selectedAvailability,
           selectedMedium,
@@ -210,7 +212,7 @@ const Explore = () => {
         )
         break
       case 1:
-        getExploreCollectionData(collectionCurrentPage, categoryList, selectedSort, rowCount, true)
+        getExploreCollectionData(0, categoryList, selectedSort, rowCount, true)
         break
       case 2:
         getExploreArtistData(ecosystemCurrentPage, selectedSort, rowCount, true)
@@ -235,8 +237,6 @@ const Explore = () => {
       page = 0
     }
 
-    if (nftList.length === 0) dispatch({ type: 'set', isLoading: true })
-
     ExploreAPI.getExploreNFT({
       categories: categoryLabel.length === 0 ? null : categoryLabel,
       availability: availability.value,
@@ -249,6 +249,8 @@ const Explore = () => {
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
+        if (response.length === 0) return
+
         let nfts = []
         if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
@@ -318,8 +320,6 @@ const Explore = () => {
       }
     })
 
-    if (collectionList.length === 0) dispatch({ type: 'set', isLoading: true })
-
     let page = curPage
     if (reset === true) {
       page = 0
@@ -337,6 +337,9 @@ const Explore = () => {
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
+
+        if (response.length === 0) return
+
         if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
         const collections = response.map(nft => {
@@ -402,6 +405,8 @@ const Explore = () => {
   }
 
   const handleNextPage = () => {
+    if (nftList.length === 0) return
+
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
 
@@ -433,8 +438,10 @@ const Explore = () => {
         rowCount,
         true
       )
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, rowCount, true)
-    else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount, true)
+    else if (exploreTab === 1) {
+      setCollectionList([])
+      getExploreCollectionData(currentPage, categoryList, selectedSort, rowCount, true)
+    } else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount, true)
   }
 
   const onMobileFilter = async params => {

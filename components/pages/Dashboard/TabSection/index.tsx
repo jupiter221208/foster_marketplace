@@ -37,7 +37,6 @@ const TabSection = () => {
 
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [detailCollection, setDetailCollection] = useState<boolean>(false)
-  const [collectionId, setCollectionId] = useState(null)
 
   useEffect(() => {
     let array: any[] = []

@@ -17,7 +17,6 @@ const ImageWithFallback = props => {
 
   useEffect(() => {
     if (originalSrc) {
-      console.log('hell')
       const img = new window.Image()
       img.src = src
       img.onload = () => setCurrentSrc(src)

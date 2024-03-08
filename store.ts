@@ -30,6 +30,7 @@ const initialState = {
   loginAndRefresh: false,
   hideNftToken: '',
   unhideNftToken: '',
+  removeCollectionId: '',
   markAsRead: false,
   expiryDate: 0,
   loginSignedFlag: false,

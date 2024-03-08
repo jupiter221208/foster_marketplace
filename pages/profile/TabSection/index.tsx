@@ -4,6 +4,13 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import IconTab from 'components/Tab/IconTab'
+import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
+import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
+import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
+import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
+import LoadingComponent from 'pages/explore/LoadingComponent'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
+import AboutSection from 'components/pages/ArtistProfile/AboutSection'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
@@ -13,17 +20,6 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import LiveAuctionSection from 'components/pages/ArtistProfile/LiveAuctionSection'
-import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
-import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
-
-// apis
-import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-import SubTabSection from 'components/pages/ArtistProfile/SubTabSection'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
-import AboutSection from 'components/pages/ArtistProfile/AboutSection'
-import { NftData } from 'types/nft'
 
 const TabSection = props => {
   const {
@@ -42,8 +38,6 @@ const TabSection = props => {
     setCollectorEnable,
     artistStatsInfo,
     collectorStatsInfo,
-    setActiveListingLoaded,
-    setLiveAuctionLoaded,
     isVisibleFetchingCreated,
     isFetchingCreated,
     setIsFetchingCreated,
@@ -103,13 +97,13 @@ const TabSection = props => {
       setMerchEnable(false)
       setCollectorEnable(false)
     }
-  }, [activeTab, artworkType])
+  }, [activeTab, artworkType, collections])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
 
-  const [showCollections, setShowCollections] = useState<NftData[]>([])
+  const [showCollections, setShowCollections] = useState([])
   const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
@@ -231,14 +225,7 @@ const TabSection = props => {
             </div>
           )}
 
-          {artworkType === 'auction' && (
-            <LiveAuctionSection
-              category={''}
-              artist={wallet}
-              fromPage={'profile'}
-              setLiveAuctionLoaded={setLiveAuctionLoaded}
-            />
-          )}
+          {artworkType === 'auction' && <LiveAuctionSection category={''} artist={wallet} fromPage={'profile'} />}
 
           {artworkType === 'studio' && (
             <div className="w-full">
@@ -269,7 +256,7 @@ const TabSection = props => {
 
           {artworkType === 'listed' && (
             <div className="w-full">
-              <ActiveListingSection artist={wallet} fromPage={'profile'} loadCompleted={setActiveListingLoaded} />
+              <ActiveListingSection artist={wallet} fromPage={'profile'} />
             </div>
           )}
         </div>
@@ -277,7 +264,7 @@ const TabSection = props => {
 
       {activeTab === 1 && (
         <div className="w-full">
-          <CollectionSwiperSection collections={showCollections} />
+          <CollectionSwiperSection collections={showCollections} showRemoveButton={isOwn} />
           {collections.length > 0 && isMounted && isVisibleFetching && (
             <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
           )}

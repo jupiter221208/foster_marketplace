@@ -31,10 +31,10 @@ import GradientButton from 'components/Button/GradientButton'
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
-const DashboardNFTCard = props => {
+const NFTCard = props => {
   const {
     token_id,
     image,
@@ -53,7 +53,6 @@ const DashboardNFTCard = props => {
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
-  const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
 
@@ -87,15 +86,6 @@ const DashboardNFTCard = props => {
 
   const videoRef = useRef<HTMLVideoElement>()
 
-  const togglePlayPause = () => {
-    const video = videoRef.current
-    if (video.paused) {
-      video.play()
-    } else {
-      video.pause()
-    }
-  }
-
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
@@ -103,7 +93,7 @@ const DashboardNFTCard = props => {
           {assetType?.includes('video') ? (
             <div className={styles.imageContent}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+                <div className="w-full relative flex justify-center items-center rounded-t-[24px] overflow-hidden">
                   <Link href={`${window.origin}/nft/${token_id}`} passHref>
                     <a className="w-full h-full">
                       {play ? (
@@ -115,7 +105,7 @@ const DashboardNFTCard = props => {
                           }}
                         />
                       ) : coverImage != null && coverImage !== '' ? (
-                        <img src={coverImage} alt="" className="w-full h-full object-contain" />
+                        <ImageWithFoster width={200} src={coverImage} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div
                           className="w-full h-full absolute"
@@ -155,18 +145,21 @@ const DashboardNFTCard = props => {
                 <div className={styles.imageContent}>
                   {assetType?.includes('vr') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <Image src={coverImage} layout="fill" className="w-full h-full object-cover" />
+                      <ImageWithFoster
+                        src={coverImage}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                        className={styles.imageNft}
+                      />
                     ) : (
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                     )
                   ) : assetType?.includes('audio') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFallback
+                      <ImageWithFoster
                         src={coverImage}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                         onClick={onClick}
-                        layout="fill"
-                        alt=""
-                        className="w-full h-full object-cover"
+                        className={styles.imageNft}
                       />
                     ) : (
                       <Image
@@ -177,21 +170,19 @@ const DashboardNFTCard = props => {
                       />
                     )
                   ) : coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFallback
+                    <ImageWithFoster
                       src={coverImage}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       originalSrc={fallBack}
                       onClick={onClick}
-                      layout="fill"
-                      alt=""
                       className={styles.imageNft}
                     />
                   ) : image !== null && image !== '' ? (
-                    <ImageWithFallback
+                    <ImageWithFoster
                       src={image}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       originalSrc={fallBack}
                       onClick={onClick}
-                      layout="fill"
-                      alt=""
                       className={styles.imageNft}
                     />
                   ) : (
@@ -333,4 +324,4 @@ const DashboardNFTCard = props => {
   )
 }
 
-export default DashboardNFTCard
+export default NFTCard

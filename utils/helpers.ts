@@ -252,7 +252,7 @@ export const compareDate = (a, b) => {
 }
 
 export const optimizeCdnUrl = (urlString: string, options?: Record<string, string | number>): string => {
-  let url = new URL(urlString)
+  let url = new URL(urlString, 'https://fostermarketplace.com')
   try {
     if (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image//')) {
       let assetUrl = url.pathname.substring('/cdn-cgi/image//'.length)

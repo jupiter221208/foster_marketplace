@@ -15,6 +15,7 @@ import BannerImage from 'assets/images/avatar-banner.png'
 // styles
 import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const EcosystemCard = props => {
   const { data } = props
@@ -31,26 +32,23 @@ const EcosystemCard = props => {
         >
           <div className="relative flex">
             <div className="w-full overflow-hidden">
-              <Image
-                src={data.artist.banner_picture ?? BannerImage}
-                alt=""
-                width={480}
-                height={172}
-                layout="responsive"
-                objectFit="cover"
-              />
+              {data.artist.banner_picture ? (
+                <ImageWithFoster
+                  width={480}
+                  src={data.artist.banner_picture}
+                  className="w-full h-[172px] object-cover"
+                />
+              ) : (
+                <Image src={BannerImage} alt="" width={480} height={172} layout="responsive" objectFit="cover" />
+              )}
             </div>
             <div className={styles.avatarArea}>
               <div className="w-full flex justify-center itmes-cneter rounded-full overflow-hidden">
                 {data.artist.profile_picture ? (
-                  <Image
+                  <ImageWithFoster
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 136}
                     src={data.artist.profile_picture}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'xl' ? 100 : 136}
-                    height={
-                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'xl' ? 100 : 136
-                    }
                     className="rounded-full"
-                    alt=""
                   />
                 ) : (
                   <div className="w-full flex justify-center itmes-cneter rounded-full overflow-hidden bg-tansparent">

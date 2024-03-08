@@ -55,6 +55,8 @@ import ModelViewer from 'components/ModelViewer'
 import { NftData, NftApiData } from 'types/nft'
 import { useViewport } from 'utils'
 import NFTActivityInfoSection from 'components/pages/BrowseNFT/MainSection/NFTActivityInfoSection'
+import collectionAPI from 'apis/collections'
+import dashboardAPI from 'apis/dashboard'
 
 export interface EditionDetail {
   supply: number
@@ -81,7 +83,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
-  const categories = getNFTCategories(nftDetail)
+  const [categories, setCategories] = useState(getNFTCategories(nftDetail))
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState<NftData>()
@@ -250,6 +252,72 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     setTabList(array)
   }, [activeTab, merchToggle])
 
+  // more collection nfts
+  const [collectionNFTs, setCollectionNFTs] = useState([])
+  useEffect(() => {
+    if (collectionId !== null) {
+      collectionAPI.getCollectionNft(collectionId).then(
+        response => {
+          if (response instanceof Array) {
+            let resData = response.filter(item => item.token_id !== collectionId)
+            if (resData.length === 0) return
+            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+              setCollectionNFTs(resData.filter(item => item.cover_image_url !== null))
+            } else {
+              setCollectionNFTs(resData)
+            }
+          }
+        },
+        error => {}
+      )
+    }
+  }, [collectionId])
+
+  // artist collections
+  const [collectionList, setCollectionList] = useState([])
+  useEffect(() => {
+    if (artistInfo !== null && artistInfo.address) {
+      collectionAPI.getOtherCollections(artistInfo.address).then(
+        response => {
+          if (response instanceof Array) {
+            setCollectionList(response)
+          }
+        },
+        error => {}
+      )
+    }
+  }, [artistInfo])
+
+  // category collection list
+  const [categoryCollectionList, setCategoryCollectionList] = useState([])
+
+  useEffect(() => {
+    if (categories !== null && categories !== undefined && categories[0] !== undefined) {
+      dashboardAPI.getTrendingCollections(categories[0], 'week').then(
+        response => {
+          if (response instanceof Array) {
+            setCategoryCollectionList(response)
+          }
+        },
+        error => {}
+      )
+    }
+  }, [categories])
+
+  useEffect(() => {
+    if (categoryCollectionList.length > 0 || collectionList.length > 0 || collectionNFTs.length > 0) {
+      setTabList(prev => {
+        if (prev.some(t => t.label === 'Discover More')) {
+          return prev
+        } else {
+          return [...prev, { id: 1, label: 'Discover More', value: 'Discover More', selected: false }]
+        }
+      })
+    } else {
+      setTabList(prev => prev.filter(t => t.label !== 'Discover More'))
+    }
+  }, [categoryCollectionList, collectionList, collectionNFTs, connected])
+
   return (
     <div className="w-full h-full">
       <Head>
@@ -310,15 +378,18 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   <NFTActivityInfoSection activityList={activityList} />
                 ) : activeTab === 1 ? (
                   <div>
-                    {collectionId && (
+                    {collectionId && collectionNFTs && (
                       <MoreCollectionSection
+                        collectionNFTs={collectionNFTs}
                         collectionId={collectionId}
                         collectionName={collectionName}
                         mintAddress={nftDetail.mintAddress.toString()}
                       />
                     )}
-                    {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-                    <MoreCategorySection categories={categories} />
+                    {artistInfo && collectionList && (
+                      <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
+                    )}
+                    <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
                   </div>
                 ) : (
                   merchToggle && (

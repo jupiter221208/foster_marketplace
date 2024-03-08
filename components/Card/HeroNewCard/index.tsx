@@ -7,8 +7,6 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 // custom functions
-import { useViewport } from 'utils'
-import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // styles
@@ -17,14 +15,11 @@ import styles from './index.module.scss'
 // resources
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import ReactPlaceholder from 'react-placeholder/lib'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const HeroNewCard = ({ data }) => {
-  const viewport = useViewport()
-  const router = useRouter()
   const dispatch = useDispatch()
   const onClick = () => {}
-  const [loaded, setLoaded] = useState(false)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -36,9 +31,11 @@ const HeroNewCard = ({ data }) => {
 
   return (
     <div className={styles.container}>
-      <img
+      <ImageWithFoster
         src={data.asset_url}
-        onError={e => data.cover_image_url && ((e.target as HTMLImageElement).src = data.cover_image_url)}
+        originalSrc={data.cover_image_url}
+        showPlaceHolder={false}
+        width={1280}
         className="w-full h-full inset-0"
       />
       <div className={styles.overlay} />
@@ -50,7 +47,7 @@ const HeroNewCard = ({ data }) => {
                 <a>
                   <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
-                      <img
+                      <ImageWithFoster
                         src={
                           data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                             ? data.asset_url
@@ -60,9 +57,9 @@ const HeroNewCard = ({ data }) => {
                             ? data.cover_image_url
                             : ''
                         }
-                        alt=""
-                        className={`${styles.noSelect} w-auto h-auto max-w-full max-h-full object-contain`}
-                        loading="lazy"
+                        width={400}
+                        height={400}
+                        className="w-auto h-auto max-w-full max-h-full object-contain"
                       />
                     ) : (
                       <div></div>
@@ -76,7 +73,12 @@ const HeroNewCard = ({ data }) => {
                   <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                       <div className="w-full h-full relative">
-                        <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" loading="lazy" />
+                        <ImageWithFoster
+                          src={data.cover_image_url}
+                          className="w-full h-full object-cover"
+                          width={400}
+                          height={400}
+                        />
                       </div>
                     ) : (
                       <div></div>
@@ -102,19 +104,11 @@ const HeroNewCard = ({ data }) => {
                 <Link href={`/nft/${data.token_id}`} passHref>
                   <a>
                     <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
-                      {!loaded && (
-                        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                          <div></div>
-                        </ReactPlaceholder>
-                      )}
-                      <img
+                      <ImageWithFoster
                         src={data.cover_image_url}
-                        alt=""
-                        className={`object-contain`}
-                        onLoad={() => {
-                          setLoaded(true)
-                        }}
-                        loading="lazy"
+                        className="w-full h-full object-contain"
+                        width={400}
+                        height={400}
                       />
                     </div>
                   </a>
@@ -124,7 +118,7 @@ const HeroNewCard = ({ data }) => {
                   src={DefaultNftBG}
                   alt=""
                   layout="fill"
-                  className={`${styles.noSelect} w-full h-full object-cover`}
+                  className="w-full h-full object-cover"
                   onClick={() => onClick()}
                 />
               )
@@ -150,15 +144,15 @@ const HeroNewCard = ({ data }) => {
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
-                    <img
+                    <ImageWithFoster
                       src={
                         data.artist_profile_picture.length > 0
                           ? data.artist_profile_picture
                           : 'images/dashboard-avatar.png'
                       }
-                      alt=""
+                      width={60}
+                      height={60}
                       className="rounded-full"
-                      loading="lazy"
                     />
                   </a>
                 </Link>

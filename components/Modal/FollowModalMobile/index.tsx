@@ -28,6 +28,7 @@ import FollowSearchBox from 'components/Input/FollowSearchBox'
 import FollowTab from 'components/Tab/FollowTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const FollowModalMobile = props => {
   const { open, close, ownWallet, type, wallet, username } = props
@@ -209,7 +210,10 @@ const FollowModalMobile = props => {
                               <div className="flex gap-3 items-center">
                                 <div className={styles.avatarArea}>
                                   {item.profile_picture !== null && item.profile_picture.length > 0 ? (
-                                    <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                    <ImageWithFoster
+                                      src={item.profile_picture}
+                                      className="w-[34px] h-[34px] rounded-full"
+                                    />
                                   ) : (
                                     <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
                                       <Image src={DefaultAvatar} alt="" />
@@ -261,7 +265,10 @@ const FollowModalMobile = props => {
                               <div className="flex gap-3 items-center">
                                 <div className={styles.avatarArea}>
                                   {item.profile_picture !== null && item.profile_picture.length > 0 ? (
-                                    <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                    <ImageWithFoster
+                                      src={item.profile_picture}
+                                      className="w-[34px] h-[34px] rounded-full"
+                                    />
                                   ) : (
                                     <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
                                       <Image src={DefaultAvatar} alt="" />

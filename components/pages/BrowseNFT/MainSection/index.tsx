@@ -195,7 +195,6 @@ const MainSection = ({
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
-  const [infoFocus, setInfoFocus] = useState(false)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
@@ -1139,7 +1138,7 @@ const MainSection = ({
                       <div className={styles.collectionText}>Collection</div>
                       <Link href={`/collection/${nftCollectionAddress}`} passHref>
                         <a>
-                          {!(nftCollectionImage && nftCollectionName) ? (
+                          {!(nftCollectionImage || nftCollectionName) ? (
                             <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
                           ) : (
                             <div className={styles.collectionName}>

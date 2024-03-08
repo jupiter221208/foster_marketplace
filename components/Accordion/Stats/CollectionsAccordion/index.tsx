@@ -1,9 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
 
 // next components
-import Image from 'next/image'
-import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
@@ -15,8 +13,8 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFallback from 'components/ImageWithFallback'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CollectionsAccordion = props => {
   const { data } = props
@@ -53,13 +51,7 @@ const CollectionsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <ImageWithFallback
-                        src={item.cover_image}
-                        alt=""
-                        width={52}
-                        height={52}
-                        className="rounded-[4px] object-cover"
-                      />
+                      <ImageWithFoster src={item.cover_image} className="rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
                       <div
