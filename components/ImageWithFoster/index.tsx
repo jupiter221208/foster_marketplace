@@ -5,7 +5,9 @@ import styles from './index.module.scss'
 import Image from 'next/image'
 
 function shouldUseHeliusCdn(url: URL): boolean {
-  // let hostname = url.hostname
+  let hostname = url.hostname
+  if (hostname == 'cdn.helius-rpc.com') return false
+
   // return hostname.match(/^([^.]+.)?arweave\.net$/i)
   return true
 }
