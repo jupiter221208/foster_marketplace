@@ -87,7 +87,7 @@ const LiveAuctionSection = props => {
         let lists = []
         response.forEach(item => {
           if (!isExpired(item.end_time)) {
-            if (item.asset_url.length > 0) {
+            if (item.asset_url.length > 0 && item.artist_username?.length > 0 && item.artist_profile_picture !== null) {
               if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
                 if (item.asset_type === 'video') {
                   if (item.cover_image_url?.length > 0) lists.push(item)
