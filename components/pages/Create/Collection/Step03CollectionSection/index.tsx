@@ -203,7 +203,7 @@ const Step03CollectionSection = props => {
                             {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (
-                              <FadeLoader margin="0" height={10} speedMultiplier={1} color="#63D6CD" />
+                              <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
                             )}
                           </div>
                         )}
