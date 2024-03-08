@@ -17,8 +17,14 @@ function useHeliusCdn(urlString: string | null, options: Record<string, string |
 
   // unwrap cdn urls
   let url = new URL(urlString)
-  while (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image/'))
-    url = new URL(decodeURIComponent(url.pathname.match(/(?<=\/cdn-cgi\/image\/[^\/]*\/).*$/)[0]))
+  while (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image/')) {
+    try {
+      url = new URL(decodeURIComponent(url.pathname.match(/(?<=\/cdn-cgi\/image\/[^\/]*\/).*$/)[0]))
+    } catch (e: any) {
+      console.error(`could not decode url: ${url.toString()}, original: ${urlString}: ${e?.message}`)
+      return null
+    }
+  }
 
   if (!shouldUseHeliusCdn(url)) return null
 
@@ -85,7 +91,7 @@ const ImageWithFoster = ({
   return (
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
-        {(useNextImage || heliusUrl != srcUrls[currentSrcIndex]) ? (
+        {useNextImage || heliusUrl != srcUrls[currentSrcIndex] ? (
           <Image
             src={srcUrls[currentSrcIndex]}
             onLoad={handleLoad}
