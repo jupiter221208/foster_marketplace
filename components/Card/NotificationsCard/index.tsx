@@ -21,6 +21,7 @@ import styles from './index.module.scss'
 import artistsAPI from 'apis/artists'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const NotificationsCard = props => {
   const { data, onClickMarkAsRead } = props
@@ -258,12 +259,9 @@ const NotificationsCard = props => {
                         <Link href={`/nft/${elem.reference_token_id}`} passHref>
                           <a>
                             <div className="w-full h-full flex justify-center items-center">
-                              <Image
+                              <ImageWithFoster
                                 src={getUserProfileImage(elem)}
-                                alt=""
-                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                                className="w-full h-full rounded-full object-cover"
+                                className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] w-full h-full rounded-full object-cover"
                               />
                             </div>
                           </a>
@@ -272,12 +270,9 @@ const NotificationsCard = props => {
                         <Link href={`/${elem.reference_username}`} passHref>
                           <a>
                             <div className="w-full h-full flex justify-center items-center">
-                              <Image
+                              <ImageWithFoster
                                 src={getUserProfileImage(elem)}
-                                alt=""
-                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
-                                className="w-full h-full rounded-full object-cover"
+                                className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-full object-cover"
                               />
                             </div>
                           </a>
@@ -350,16 +345,13 @@ const NotificationsCard = props => {
                         <Link href={`/nft/${elem.reference_token_id}`} passHref>
                           <a>
                             <div className={styles.assetUrl}>
-                              <Image
+                              <ImageWithFoster
                                 src={
                                   elem.reference_asset_url !== null && elem.reference_asset_url !== ''
                                     ? elem.reference_asset_url
-                                    : DefaultAvatar
+                                    : DefaultAvatar.src
                                 }
-                                alt=""
-                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                                className="rounded-[8px] lg:rounded-[8px] object-cover"
+                                className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-[8px] lg:rounded-[8px] object-cover"
                               />
                             </div>
                           </a>

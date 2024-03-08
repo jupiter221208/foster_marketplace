@@ -171,7 +171,7 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && allNftList.length > 0 && (
+      {!loading && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
           <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
             <div className={styles.slotBG}>
@@ -206,8 +206,8 @@ const MyNFTSection = props => {
         {!loading &&
           nftList
             .filter(item => item.image !== undefined || null)
-            .map((item, index) => (
-              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            .map(item => (
+              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={item.mintAddress}>
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}

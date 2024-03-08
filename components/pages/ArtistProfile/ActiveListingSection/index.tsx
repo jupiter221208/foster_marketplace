@@ -11,9 +11,6 @@ import 'swiper/css/navigation'
 
 // components
 
-// custom functions
-import { useViewport } from 'utils'
-
 // styles
 import styles from './index.module.scss'
 
@@ -23,9 +20,8 @@ import NFTCard from 'components/Card/NFTCard'
 import { DashboardAPIData } from 'types/nft'
 
 const ActiveListingSection = props => {
-  const { artist = '', fromPage = '', loadCompleted = null } = props
+  const { artist = '', fromPage = '' } = props
 
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -39,7 +35,6 @@ const ActiveListingSection = props => {
 
   useEffect(() => {
     dashboardAPI.getMarketplaceReleases('', artist, page, 8).then(response => {
-      if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)
 
@@ -50,7 +45,6 @@ const ActiveListingSection = props => {
       setExploreList([...exploreList, ...response])
     })
     error => {
-      if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)
       setIsVisibleFetching(false)
@@ -61,7 +55,6 @@ const ActiveListingSection = props => {
 
   const getExploreList = nextpage => {
     dashboardAPI.getMarketplaceReleases('', artist, nextpage, 8).then(response => {
-      if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)
 
@@ -72,7 +65,6 @@ const ActiveListingSection = props => {
       fetchNftData(response)
     })
     error => {
-      if (loadCompleted) loadCompleted()
       setIsMounted(true)
       setIsFetching(false)
       setIsVisibleFetching(false)

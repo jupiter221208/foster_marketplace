@@ -29,6 +29,7 @@ import { useRouter } from 'next/router'
 
 // apis
 import collectionsAPI from 'apis/collections'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const CollectionDetailModal = props => {
   const { open, close, data } = props
@@ -165,7 +166,7 @@ const CollectionDetailModal = props => {
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
-                        <img src={imageUrl} alt="" className="w-full h-full object-cover" />
+                      <ImageWithFoster src={imageUrl} alt="" className="w-full h-full object-cover" />
                         <div className="absolute bottom-[24px] right-[28px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {

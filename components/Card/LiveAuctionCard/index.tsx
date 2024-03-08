@@ -17,9 +17,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithAuction from 'components/ImageWithAuction'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const LiveAuctionCard = props => {
   const { data, onClick, setCardExpired } = props
@@ -27,7 +25,6 @@ const LiveAuctionCard = props => {
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (
@@ -107,25 +104,23 @@ const LiveAuctionCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
+              <div className="w-full relative flex justify-center items-center rounded-t-[24px] overflow-hidden">
                 <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
                   <a className="w-full h-full">
                     {play ? (
                       <div
                         className="w-full h-full absolute"
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                         }}
                         onClick={() => onClick()}
                       />
                     ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                      <ImageWithAuction
+                      <ImageWithFoster
                         src={data.cover_image_url}
                         onClick={onClick}
-                        layout="fill"
-                        alt=""
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <div
@@ -153,11 +148,11 @@ const LiveAuctionCard = props => {
               </div>
             ) : (
               <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <div
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
                     onClick={() => onClick()}
@@ -167,45 +162,34 @@ const LiveAuctionCard = props => {
             )
           ) : data.asset_type.includes('audio') ? (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <div className="w-full h-full">
-                  {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )}
-                  <Image
-                    src={data.cover_image_url}
-                    alt=""
-                    layout="fill"
-                    className="w-full h-full object-contain"
-                    onLoadingComplete={() => setLoaded(true)}
-                    onClick={() => onClick()}
-                  />
-                </div>
+              <a className="w-full h-full">
+                <ImageWithFoster
+                  src={data.cover_image_url}
+                  width={504}
+                  className="w-full h-full object-cover"
+                  onClick={() => onClick()}
+                />
               </a>
             </Link>
           ) : data.cover_image_url ? (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <ImageWithAuction
+              <a className="w-full h-full">
+                <ImageWithFoster
                   src={data.cover_image_url}
+                  width={504}
                   onClick={onClick}
-                  layout="fill"
-                  alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </a>
             </Link>
           ) : (
             <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a>
-                <ImageWithAuction
+              <a className="w-full h-full">
+                <ImageWithFoster
                   src={data.asset_url}
+                  width={504}
                   onClick={onClick}
-                  layout="fill"
-                  alt=""
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover"
                 />
               </a>
             </Link>
@@ -230,8 +214,9 @@ const LiveAuctionCard = props => {
             <img
               src={data?.artist_profile_picture}
               onClick={() => {}}
-              alt=""
-              className="w-[44px] h-[44px] lg:w-[56px] lg:h-[56px] rounded-full"
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
+              className="lg:w-[56px] w-[44px] rounded-full"
             />
           </a>
         </Link>

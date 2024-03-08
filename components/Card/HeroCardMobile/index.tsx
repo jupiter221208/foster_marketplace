@@ -12,8 +12,7 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const router = useRouter()
@@ -21,12 +20,15 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
+  const [width, setWidth] = useState(375)
 
   useEffect(() => {
     setTimeout(() => {
       setLoaded(true)
       setProfileLoaded(true)
     }, 2000)
+
+    setWidth(window.innerWidth)
   }, [])
 
   return (
@@ -35,24 +37,22 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
         {(data.asset_url === null || data.asset_url === '') &&
         (data.cover_image_url === null || data.cover_image_url === '') ? (
           <div></div>
-        ) : data.asset_type.includes('video') ? (
-          <img
+        ) : data.asset_type.includes('video') || data.asset_type.includes('audio') ? (
+          <ImageWithFoster
             src={
               data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
                 ? data.cover_image_url
                 : '/images/banner.png'
             }
-            alt=""
-            // height={680}
+            width={width}
             className="w-full h-full object-cover"
-            loading="lazy"
           />
         ) : data.asset_type.includes('vr') ? (
           <div className={`aspect-square w-full h-full`}>
-            <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
+            <ImageWithFoster src={data.cover_image_url} width={width} className="w-full h-full object-cover" />
           </div>
         ) : (
-          <img
+          <ImageWithFoster
             src={
               data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                 ? data.asset_url
@@ -60,9 +60,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 ? data.cover_image_url
                 : '/images/banner.png'
             }
-            alt=""
-            className="w-full h-full object-cover"
-            loading="lazy"
+            width={width}
+            className={`w-[${width}px] h-full object-cover`}
           />
         )}
       </div>
@@ -70,19 +69,12 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
         <div className="px-[15px] mt-[110px] z-10">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
-              {!loaded && (
-                <div className="w-full h-full">
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
-                </div>
-              )}
               {(data.asset_url === null || data.asset_url === '') &&
               (data.cover_image_url === null || data.cover_image_url === '') ? (
                 <div></div>
               ) : data.asset_type.includes('image') ? (
                 <div className="w-full h-full flex justify-center">
-                  <img
+                  <ImageWithFoster
                     src={
                       data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                         ? data.asset_url
@@ -101,9 +93,8 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 </div>
               ) : data.asset_type.includes('vr') ? (
                 <div className="relative aspect-square w-full h-full">
-                  <img
+                  <ImageWithFoster
                     src={data.cover_image_url}
-                    alt=""
                     width={550}
                     height={772}
                     className="w-full h-full object-cover"
@@ -113,9 +104,10 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
               ) : data.asset_type.includes('video') ? (
                 <div className="w-full h-full relative flex justify-center items-center overflow-hidden">
                   {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                    <img
+                    <ImageWithFoster
                       src={data.cover_image_url}
-                      alt=""
+                      width={550}
+                      height={772}
                       className="w-auto h-auto max-w-full max-h-full object-contain"
                       onClick={() => gotoNftDetailPage()}
                     />
@@ -134,9 +126,10 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                 </div>
               ) : data.asset_type.includes('audio') ? (
                 data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                  <img
+                  <ImageWithFoster
                     src={data.cover_image_url}
-                    alt=""
+                    width={550}
+                    height={772}
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
@@ -175,20 +168,12 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
             <div className="flex gap-[7px] mt-[8px]" onClick={() => gotoAristPage()}>
               {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
                 <div className={styles.avatarArea}>
-                  {!profileLoaded && (
-                    <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">
-                        <div></div>
-                      </ReactPlaceholder>
-                    </div>
-                  )}
-                  <img
+                  <ImageWithFoster
                     src={
                       data.artist_profile_picture.length > 0
                         ? data.artist_profile_picture
                         : 'images/dashboard-avatar.png'
                     }
-                    alt=""
                     width={44}
                     height={44}
                     className="rounded-full"
@@ -199,15 +184,6 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
             </div>
           </div>
         </div>
-        {/* <div className={styles.listingArea}>
-          <div className="ml-[24px]">
-            <div className={styles.priceName}>Price</div>
-            <div className="w-full flex gap-[7px] items-center mt-[">
-              <SolanaLogoIcon alt="" />
-              <div className={styles.priceValue}>{data.list_price}</div>
-            </div>
-          </div>
-        </div> */}
         <div className={styles.bottomSection} />
       </div>
     </div>

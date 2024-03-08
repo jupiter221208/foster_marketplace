@@ -24,8 +24,6 @@ type ActivityTableTypes = {
 }
 
 const ActivityTable = ({ data, type }: ActivityTableTypes) => {
-  const dispatch = useDispatch()
-
   const getUserName = item => {
     let user = ''
     switch (item.action_type) {

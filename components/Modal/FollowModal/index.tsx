@@ -26,6 +26,7 @@ import NegativeButton from 'components/Button/NegativeButton'
 import FollowTab from 'components/Tab/FollowTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const FollowModal = props => {
   const { open, close, ownWallet, type, wallet } = props
@@ -177,7 +178,10 @@ const FollowModal = props => {
                               <div className="flex gap-3 lg:gap-[25px] items-center">
                                 <div className={styles.avatarArea}>
                                   {item.profile_picture !== null && item.profile_picture.length > 0 ? (
-                                    <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                    <ImageWithFoster
+                                      src={item.profile_picture}
+                                      className="w-[50px] h-[50px] rounded-full"
+                                    />
                                   ) : (
                                     <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
                                       <Image src={DefaultAvatar} alt="" />

@@ -312,15 +312,18 @@ const ListedNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
-    if (active === 0) {
-      let new_list = fixedPriceNFTs as any[]
-      if (new_list.length > rowCount) setIsVisibleFetching(true)
-      setNFTList(new_list.slice(0, rowCount))
-    } else {
-      let new_list = liveAuctionNFTs as any[]
-      if (new_list.length > rowCount) setIsVisibleFetching(true)
-      setNFTList(new_list.slice(0, rowCount))
-    }
+    setNFTList([])
+    setTimeout(() => {
+      if (active === 0) {
+        let new_list = fixedPriceNFTs as any[]
+        if (new_list.length > rowCount) setIsVisibleFetching(true)
+        setNFTList(new_list.slice(0, rowCount))
+      } else {
+        let new_list = liveAuctionNFTs as any[]
+        if (new_list.length > rowCount) setIsVisibleFetching(true)
+        setNFTList(new_list.slice(0, rowCount))
+      }
+    }, 500)
   }, [fixedPriceNFTs, liveAuctionNFTs, active])
 
   useEffect(() => {
@@ -376,8 +379,8 @@ const ListedNFTSection = props => {
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList.map((item, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+          nftList.map(item => (
+            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={item.address}>
               <ListedNFTCard
                 data={item}
                 type={active === 0 ? 'fixed' : 'auction'}

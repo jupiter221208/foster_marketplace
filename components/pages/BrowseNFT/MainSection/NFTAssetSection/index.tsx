@@ -14,6 +14,7 @@ import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const NFTAssetSection = props => {
   const { nftType, nftAssetUrl, nftCoverUrl, originalCoverUrl, fullScreen } = props
@@ -42,18 +43,18 @@ const NFTAssetSection = props => {
             </div>
           ) : nftCoverUrl ? (
             <div className={styles.mobileImageArea}>
-              <img src={nftCoverUrl} alt="" className="w-full" />
+              <ImageWithFoster src={nftCoverUrl} showPlaceHolder={false} className="w-full" />
             </div>
           ) : (
             <h1>Could not load NFT.</h1>
           )
         ) : nftType.includes('image') ? (
           <div className={styles.mobileImageArea}>
-            <img src={currentImageUrl} alt="" className="w-full" />
+            <ImageWithFoster src={currentImageUrl} showPlaceHolder={false} className="w-full" />
           </div>
         ) : nftType.includes('audio') ? (
           <div className={styles.mobileImageArea}>
-            <img src={nftCoverUrl} alt="" className="w-full" />
+            <ImageWithFoster src={nftCoverUrl} showPlaceHolder={false} className="w-full" />
             <div className={styles.audioMobileArea}>
               <AudioPlayer src={nftAssetUrl} />
             </div>
@@ -84,9 +85,9 @@ const NFTAssetSection = props => {
                 <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
               </>
             ) : nftCoverUrl ? (
-              <img
+              <ImageWithFoster
+                showPlaceHolder={false}
                 src={nftCoverUrl}
-                alt=""
                 className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
               />
             ) : (
@@ -99,9 +100,9 @@ const NFTAssetSection = props => {
         <div className={styles.blurBackground}>
           <div className={styles.blurImage} />
           <div className={styles.imageArea}>
-            <img
+            <ImageWithFoster
               src={currentImageUrl}
-              alt=""
+              showPlaceHolder={false}
               className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
             />
           </div>
@@ -112,7 +113,11 @@ const NFTAssetSection = props => {
           <div className={styles.audioBackground}>
             {nftAssetUrl && (
               <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
-                <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <ImageWithFoster
+                  src={nftCoverUrl}
+                  showPlaceHolder={false}
+                  className="min-w-full min-h-full object-cover"
+                />
               </div>
             )}
             <div className="w-full flex justify-center mb-[30px]">
@@ -127,7 +132,11 @@ const NFTAssetSection = props => {
           {nftAssetUrl ? (
             <>
               <div className="absolute inset-0">
-                <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <ImageWithFoster
+                  src={nftCoverUrl}
+                  showPlaceHolder={false}
+                  className="min-w-full min-h-full object-cover"
+                />
               </div>
               <div className={styles.videoArea}>
                 <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">

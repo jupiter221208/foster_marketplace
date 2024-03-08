@@ -9,9 +9,7 @@ import { useDispatch } from 'react-redux'
 // components
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
-import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
-import FilterButton from 'components/Button/FilterButton'
 import NoDataSection from '../NoDataSection'
 
 // styles
@@ -244,10 +242,6 @@ const FavoriteSection = () => {
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
-      {/* <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
-        {active === 1 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
-      </div> */}
     </section>
   )
 }

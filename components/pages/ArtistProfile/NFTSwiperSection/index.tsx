@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -9,9 +9,6 @@ import { useRouter } from 'next/router'
 import NFTCard from 'components/Card/NFTCard'
 import { FadeLoader } from 'react-spinners'
 
-// custom functions
-import { useViewport } from 'utils'
-
 // styles
 import styles from './index.module.scss'
 
@@ -20,7 +17,6 @@ import { useDispatch } from 'react-redux'
 
 const NFTSwiperSection = props => {
   const { nfts, showHideButton, isLoaded } = props
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -28,7 +24,7 @@ const NFTSwiperSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">
         <div className="w-full flex justify-center">
-          <FadeLoader color="var(--fade-loader-color)" width="6" height="12" />
+          <FadeLoader color="var(--fade-loader-color)" width="6px" height="12px" />
         </div>
       </div>
     </section>

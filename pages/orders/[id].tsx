@@ -11,6 +11,7 @@ import styles from './index.module.scss'
 import MerchStepper from 'components/MerchStepper'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const OrderSection = props => {
   const router = useRouter()
@@ -49,17 +50,17 @@ const OrderSection = props => {
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
                 <div className="">
-                  <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  <ImageWithFoster src={coverUrl} className="min-w-full min-h-full object-cover" />
                 </div>
                 <div className={styles.blurImage} />
                 <div className="absolute w-full h-full flex items-center justify-center">
-                  <img src={previewUrl} alt="" className="w-[60%] h-auto object-cover" />
+                  <ImageWithFoster src={previewUrl} className="w-[60%] h-auto object-cover" />
                 </div>
               </div>
             ) : merchType === 'wallart' ? (
               <div className={styles.blurBackground}>
                 <div className="w-full h-full">
-                  <img src={previewUrl} alt="" className="w-full h-full object-cover" />
+                  <ImageWithFoster src={previewUrl} className="w-full h-full object-cover" />
                 </div>
               </div>
             ) : (

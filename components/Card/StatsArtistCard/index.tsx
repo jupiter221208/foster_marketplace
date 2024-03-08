@@ -13,9 +13,8 @@ import styles from './index.module.scss'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
-import ImageWithFallback from 'components/ImageWithFallback'
-import { getDisplayUserName } from 'utils/strings'
-import { NftData } from 'types/nft'
+
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const StatsArtistCard = props => {
   const { data, type } = props
@@ -33,7 +32,7 @@ const StatsArtistCard = props => {
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
           <div className="w-full h-full overflow-hidden rounded-full">
-            <ImageWithFallback
+            <ImageWithFoster
               src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar.src}
               alt=""
               width={180}

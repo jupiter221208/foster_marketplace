@@ -51,16 +51,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.activeImageArea {
-  width: 54px;
-  height: 54px;
-  background-color: #707070;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow: hidden;
 }
 
 .firstRow {

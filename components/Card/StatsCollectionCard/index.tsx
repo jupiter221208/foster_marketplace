@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFallback from 'components/ImageWithFallback'
 import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
@@ -24,10 +24,8 @@ const StatsCollectionCard = props => {
           }}
         >
           <div className={styles.imageArea}>
-            <ImageWithFallback
+            <ImageWithFoster
               src={type === 'artworks' ? data.asset_url : data.cover_image}
-              alt=""
-              layout="fill"
               className="w-full h-full object-cover"
             />
           </div>

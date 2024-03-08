@@ -1,26 +1,12 @@
-import ImageWithFallback from 'components/ImageWithFallback'
-import Image from 'next/image'
-import React, { useState } from 'react'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
-
-// custom functions
-import { useViewport } from 'utils'
+import React from 'react'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const ActivityTableItem = props => {
   const { url } = props
-  const viewport = useViewport()
-  const [loaded, setLoaded] = useState(false)
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
-      <img
-        src={url}
-        alt=""
-        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-        className="w-full h-full object-cover rounded-[8px] cursor-pointer"
-      />
+    <div className="w-full h-full flex justify-center items-center overflow-hidden rounded-[8px]">
+      <ImageWithFoster src={url} className="w-full h-full object-cover rounded-[8px] cursor-pointer" />
     </div>
   )
 }

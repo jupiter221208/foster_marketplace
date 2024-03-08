@@ -11,26 +11,13 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?compone
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
-import HideIcon from 'assets/icons/hide-icon.svg?component'
-import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
-import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
-import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
-import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
-import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
-import UnhideSmallMobileIcon from 'assets/icons/unhide-small-icon-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
 
-import nftAPI from 'apis/nfts'
-import { useDispatch } from 'react-redux'
-import LoadingModal from 'components/Modal/LoadingModal'
-import ImageWithFallback from 'components/ImageWithFallback'
-import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
 import { getShortName } from 'utils/strings'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 type ListedNftCardExploreTypes = {
   nftName: string
@@ -79,10 +66,9 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                           onClick={() => onClick()}
                         />
                       ) : coverImage != null && coverImage !== '' ? (
-                        <Image
+                        <ImageWithFoster
                           src={coverImage}
-                          alt=""
-                          layout="fill"
+                          width={200}
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -128,11 +114,10 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a className="w-full h-full">
-                    <ImageWithFallback
+                    <ImageWithFoster
                       src={coverImage}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       onClick={onClick}
-                      layout="fill"
-                      alt=""
                       className="w-full h-full object-cover"
                     />
                   </a>
@@ -147,11 +132,10 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">
-                  <ImageWithFallback
+                  <ImageWithFoster
                     src={coverImage}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     onClick={onClick}
-                    layout="fill"
-                    alt=""
                     className={styles.imageNft}
                   />
                 </a>
@@ -159,13 +143,18 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                  <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
                 </a>
               </Link>
             ) : (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="w-full h-full">
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                  <Image
+                    src={DefaultNftBG}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                    className={styles.imageNft}
+                    onClick={() => onClick()}
+                  />
                 </a>
               </Link>
             )}

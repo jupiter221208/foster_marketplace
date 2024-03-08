@@ -66,7 +66,6 @@ const MobileMenu = () => {
       if (profileInfo.username) {
         setProfileName(profileInfo.username)
       }
-      console.log(profileInfo.profile_picture, '=========profileInfo.profile_picture==========')
       setProfileImage(profileInfo.profile_picture)
     }
   }, [profileInfo])
