@@ -171,7 +171,7 @@ const NFTAuctionCard = props => {
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
+                  <a className="w-full h-full">
                     <ImageWithFoster
                       src={coverImage}
                       onClick={onClick}
@@ -189,7 +189,7 @@ const NFTAuctionCard = props => {
               )
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <ImageWithFoster
                     src={coverImage}
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
@@ -201,7 +201,7 @@ const NFTAuctionCard = props => {
               </Link>
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a>
+                <a className="w-full h-full">
                   <ImageWithFoster
                     src={image}
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}

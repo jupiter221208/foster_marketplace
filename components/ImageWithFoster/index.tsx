@@ -40,7 +40,7 @@ const ImageWithFoster = ({
   originalSrc = null,
   showPlaceHolder = true,
 
-  quality = 75,
+  quality = 100,
   width,
   height,
 

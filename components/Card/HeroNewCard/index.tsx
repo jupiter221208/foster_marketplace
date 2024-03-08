@@ -31,9 +31,11 @@ const HeroNewCard = ({ data }) => {
 
   return (
     <div className={styles.container}>
-      <img
+      <ImageWithFoster
         src={data.asset_url}
-        onError={e => data.cover_image_url && ((e.target as HTMLImageElement).src = data.cover_image_url)}
+        originalSrc={data.cover_image_url}
+        showPlaceHolder={false}
+        width={1280}
         className="w-full h-full inset-0"
       />
       <div className={styles.overlay} />
