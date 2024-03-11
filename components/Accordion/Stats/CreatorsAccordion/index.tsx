@@ -1,7 +1,11 @@
 import React, { useRef } from 'react'
 
+// next compoonent
+import Image from 'next/image'
+
 // third party components
 import { Disclosure } from '@headlessui/react'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
@@ -12,7 +16,6 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import { getDisplayUserName } from 'utils/strings'
-import ImageWithFoster from 'components/ImageWithFoster'
 
 const CreatorsAccordion = props => {
   const { data } = props
@@ -48,10 +51,11 @@ const CreatorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <ImageWithFoster
-                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar.src}
-                        className="rounded-full object-cover"
-                      />
+                      {item.pfp_url !== null && item.pfp_url !== '' ? (
+                        <ImageWithFoster src={item.pfp_url} className="rounded-full object-cover" />
+                      ) : (
+                        <Image src={DefaultAvatar} alt="" className="rounded-full object-cover" />
+                      )}
                     </div>
                     <div className="block">
                       <div className={styles.subTitle} onClick={() => router.push(`/${item.creator_name}`)}>
