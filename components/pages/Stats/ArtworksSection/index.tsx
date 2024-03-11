@@ -125,12 +125,12 @@ const ArtworksSection = props => {
           !searchLoading ? (
             <div />
           ) : (
-            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+            <div className="w-full mb-0 lg:mb-3 h-[293px] lg:mt-[25px] lg:h-[418px]">
               <LoadingModal open={searchLoading} />
             </div>
           )
         ) : (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+          <div className="w-full mb-0 lg:mb-3 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
               navigation={true}
               slidesPerView={
