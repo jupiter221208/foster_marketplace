@@ -610,8 +610,11 @@ const ProfileSection = prop => {
                   onClick={() => {
                     handleSaveUserInfo()
                   }}
+                  fontFamily="Muli-SemiBold"
+                  backgroundColor01="var(--primary-btn-bg-right)"
+                  backgroundColor02="var(--primary-btn-bg-right)"
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
+                  height={50}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
@@ -621,8 +624,11 @@ const ProfileSection = prop => {
                   label="Save"
                   disabled={true}
                   onClick={() => {}}
+                  fontFamily="Muli-SemiBold"
+                  backgroundColor01="var(--primary-btn-bg-right)"
+                  backgroundColor02="var(--primary-btn-bg-right)"
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
+                  height={50}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}

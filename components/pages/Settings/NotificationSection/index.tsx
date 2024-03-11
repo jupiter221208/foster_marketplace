@@ -10,12 +10,13 @@ import styles from './index.module.scss'
 
 // call apis
 import notificationAPI from 'apis/notification'
+import { useViewport } from 'utils'
 
 const NotificationSection = prop => {
   const { success } = prop
-
+  const viewport = useViewport()
   const [oldSettings, setOldSettings] = useState({})
-  const [enableSave, setEnableSavle] = useState(false)
+  const [enableSave, setEnableSave] = useState(false)
   const [bidActivity, setBidActivity] = useState(false)
   const [bidAccepted, setBidAccepted] = useState(false)
   const [successfulSale, setSuccessfulSale] = useState(false)
@@ -52,11 +53,11 @@ const NotificationSection = prop => {
       oldSettings['notify_on_sale'] !== successfulSale ||
       oldSettings['notify_on_bid'] !== successfulBid
     ) {
-      setEnableSavle(true)
+      setEnableSave(true)
       return
     }
 
-    setEnableSavle(false)
+    setEnableSave(false)
   }, [bidActivity, bidAccepted, successfulSale, successfulBid])
 
   const handleSaveNotification = () => {
@@ -73,7 +74,7 @@ const NotificationSection = prop => {
         if (response !== null) {
           setOldSettings({ ...newSettings })
           success()
-          setEnableSavle(false)
+          setEnableSave(false)
         }
       },
       error => {
@@ -156,11 +157,14 @@ const NotificationSection = prop => {
                   handleSaveNotification()
                 }
               }}
-              height="53px"
+              disabled={!enableSave}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
+              height="50px"
+              backgroundColor01="var(--primary-btn-bg-right)"
+              backgroundColor02="var(--primary-btn-bg-right)"
               paddingLeft="41px"
               paddingRight="41px"
               fontSize="18px"
-              opacity={enableSave ? 1.0 : 0.7}
             />
           </div>
         </div>
