@@ -171,13 +171,15 @@ const CollectionsSection = props => {
         ))} */}
 
       {!loading && (
-        <SearchSection
-          placeholder={'Search by collection name'}
-          searchWord={searchWord}
-          setSearchWord={value => setSearchWord(value.toString())}
-          period={period}
-          setPeriod={setPeriod}
-        />
+        <div className="w-full mt-[25px]">
+          <SearchSection
+            placeholder={'Search by collection name'}
+            searchWord={searchWord}
+            setSearchWord={value => setSearchWord(value.toString())}
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </div>
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (

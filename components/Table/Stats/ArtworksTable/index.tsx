@@ -28,7 +28,7 @@ const ArtworksTable = props => {
   }
 
   return (
-    <table id={'StatsTable'} className="w-full table-auto">
+    <table id={'ArtworksTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
           <th className="w-[20%] text-start">
