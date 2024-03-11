@@ -416,7 +416,7 @@ const MerchActivity = () => {
                 <div className={styles.countBG}>
                   <div className="w-full">
                     <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
-                    <div className={styles.countValue}>ARTIST&nbsp;COMISSIONS</div>
+                    <div className={styles.countValue}>TOTAL&nbsp;COMISSIONS</div>
                   </div>
                 </div>
                 <div className={styles.countBG}>
