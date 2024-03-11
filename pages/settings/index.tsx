@@ -7,6 +7,7 @@ import Head from 'next/head'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ProfileSection from 'components/pages/Settings/ProfileSection'
 import NotificationSection from 'components/pages/Settings/NotificationSection'
+import SelectedTab from 'components/Tab/SelectedTab'
 import ReferralSection from 'components/pages/Settings/ReferralSection'
 import SecuritySection from 'components/pages/Settings/SecuritySection'
 import Alert from 'components/Alert'
@@ -20,9 +21,10 @@ import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
 import Tab01 from 'components/Tab/Tab01'
 import Tab from 'components/Tab'
 import StudioSection from 'components/pages/Settings/StudioSection'
+import IconTab from 'components/Tab/IconTab'
 
 const Settings = () => {
-  const [selectedTab, setSelectedTab] = useState(0)
+  const [activeTab, setActiveTab] = useState(0)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [tabList, setTabList] = useState<any[]>(TabList)
 
@@ -39,7 +41,7 @@ const Settings = () => {
     let array: any[] = []
     TabList.map(item => {
       let object: any = item
-      if (item.id === selectedTab) {
+      if (item.id === activeTab) {
         object.selected = true
       } else {
         object.selected = false
@@ -47,10 +49,10 @@ const Settings = () => {
       array.push(object)
     })
     setTabList(array)
-  }, [selectedTab])
+  }, [activeTab])
 
   const handleSelectedTab = item => {
-    setSelectedTab(item.id)
+    setActiveTab(item.id)
   }
 
   return (
@@ -64,11 +66,13 @@ const Settings = () => {
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
             {/* <div className={`mt-[32px] lg:mt-[100px] ${styles.subject}`}>Settings</div> */}
-            <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
-              <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
+            <div className="w-full mt-[32px] lg:mt-[50px] overflow-auto relative">
+              {/* <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} /> */}
+              <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+              <div className={styles.selectedTabBorder} />
             </div>
             <div className="w-full lg:w-[70%] mt-[30px] lg:mt-[50px]">
-              {selectedTab === 0 && (
+              {activeTab === 0 && (
                 <ProfileSection
                   success={() => {
                     setShowAlert(true)
@@ -77,7 +81,7 @@ const Settings = () => {
               )}
             </div>
             <div className="w-full lg:w-[85%]">
-              {selectedTab === 1 && (
+              {activeTab === 1 && (
                 <NotificationSection
                   success={() => {
                     setShowAlert(true)
