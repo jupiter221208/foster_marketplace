@@ -17,7 +17,8 @@ import { useMetaplex } from 'hooks/useMetaplex'
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import PreviewImage from 'assets/images/preview-image.png'
-import SolanaIcon from 'assets/icons/solana-logo.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+
 import Lottie from 'lottie-react'
 import animationData from 'assets/lottery/shopping-lottie.json'
 
@@ -512,11 +513,11 @@ const MerchActivity = () => {
                     <div className={styles.tableColor}>
                       <div className="flex flex-row items-center justify-between">
                         <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
-                        <div className="flex flex-row items-center">
+                        <div className={`${styles.subTotal} flex flex-row items-center`}>
                           $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
                           <div className={styles.costDivider} />
                           <div className="flex ml-[5px] items-center">
-                            <SolanaIcon alt="" className="text-[20px]" />
+                            <SolanaIcon alt="" className="text-[20px] mt-[4px]" />
                             &nbsp;
                             {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
                           </div>
