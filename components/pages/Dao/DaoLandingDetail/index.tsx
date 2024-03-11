@@ -36,7 +36,6 @@ import TabList from 'assets/json/dao/tab-list.json'
 import axios from 'axios'
 import TableSection from './TableSection'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
-import Tab from 'components/Tab'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
