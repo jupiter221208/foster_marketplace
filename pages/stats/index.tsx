@@ -6,8 +6,8 @@ import Head from 'next/head'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-
 import ArtworksSection from 'components/pages/Stats/ArtworksSection'
+import SelectedTab from 'components/Tab/SelectedTab'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -19,7 +19,6 @@ import PreviewImage from 'assets/images/preview-image.png'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
-import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import CreatorsSection from 'components/pages/Stats/CreatorsSection'
 import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import CollectionsSection from 'components/pages/Stats/CollectionsSection'
@@ -174,8 +173,8 @@ const Stats = () => {
       </Head>
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
-          <div className="relative mt-[10px] lg:mt-[24px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[56px] lg:h-[76px] ">
-            <HouseStatsTab
+          <div className="relative mt-[10px] lg:mt-[24px] w-full h-auto flex relative overflow-hidden  justify-between z-10">
+            <SelectedTab
               tabList={tabList}
               onChange={item => {
                 if (item.coming_soon === true) {
@@ -186,6 +185,8 @@ const Stats = () => {
                 } else handleSelectedTab(item)
               }}
             />
+            <div className={styles.selectedTabBorder} />
+
             {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && comingSoon && (
               <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
             )}

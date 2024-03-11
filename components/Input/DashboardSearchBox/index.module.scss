@@ -6,7 +6,7 @@
   padding-left: 16px;
   padding-right: 25px;
   border-radius: 12px;
-  background: var(--search-bg-color);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   @media (min-width: 1024px) {
     max-width: 490px;
     min-width: 200px;

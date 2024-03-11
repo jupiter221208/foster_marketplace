@@ -333,7 +333,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Mulish;
+  font-family: "Muli-Regular";
   background-color: #242424;
 }
 
@@ -972,205 +972,18 @@ h6 {
 }
 
 // ####################################################
-// ActivityTable
-
-#ActivityTable {
-  border-collapse: separate;
-  border-spacing: 0 2px;
-}
-
-#ActivityTable th {
-  border: 1px solid var(--activity-border-color);
-  border-style: solid none solid none;
-  padding: 4px;
-  background-color: var(--background-black-color);
-  height: 30px;
-
-  font-family: 'Muli-Bold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    height: 65px;
-
-    font-size: 14px;
-  }
-  @media (min-width: 1280px) {
-    height: 65px;
-
-    font-size: 15px;
-  }
-  @media (min-width: 1536px) {
-    height: 65px;
-
-    font-size: 16px;
-  }
-  line-height: 24px;
-  letter-spacing: 0;
-  color: $text-gray-200-color;
-}
-
-#ActivityTable th:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-left-style: solid;
-}
-
-#ActivityTable th:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-right-style: solid;
-}
-
-#ActivityTable tbody:before {
-  content: '@';
-  display: block;
-  line-height: 7px;
-  text-indent: -99999px;
-}
-
-#ActivityTable tr {
-  box-shadow: 0px 3px 6px var(--activity-box-color);
-  border-radius: 20px;
-}
-
-#ActivityTable td {
-  border: 1px solid var(--activity-border-color);
-  border-style: solid none solid none;
-  padding: 4px;
-  height: 70px;
-  background: var(--activity-bg-color);
-
-  font-family: 'Muli-Bold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 15px;
-    height: 90px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 16px;
-    height: 90px;
-  }
-
-  line-height: 24px;
-  letter-spacing: 0;
-  color: var(--activity-td-color);
-}
-
-#ActivityTable tr td:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-left-style: solid;
-}
-
-#ActivityTable tr td:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-right-style: solid;
-}
-
-// ####################################################
-// MerchNftTable
-#MerchNftTable {
-  border-collapse: separate;
-  border-spacing: 0 2px;
-}
-
-#MerchNftTable th {
-  border-style: solid none solid none;
-  padding: 4px;
-  background: var(--artwork-tbl-header-bg);
-  height: 30px;
-
-  font-family: 'Muli-SemiBold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    height: 65px;
-    font-size: 14px;
-  }
-
-  @media (min-width: 1536px) {
-    height: 65px;
-    font-size: 16px;
-  }
-  line-height: 24px;
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
-}
-#MerchNftTable th:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-left-style: solid;
-}
-
-#MerchNftTable th:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-right-style: solid;
-}
-
-#MerchNftTable td {
-  border-style: solid none solid none;
-  padding: 4px;
-  height: 70px;
-  background-color: transparent;
-  font-family: 'Muli-SemiBold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 16px;
-    height: 90px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-    height: 90px;
-  }
-  line-height: 24px;
-  letter-spacing: 0;
-}
-
-// ####################################################
 // ArtworksTable
 #ArtworksTable {
+  margin-top: 25px;
   border-collapse: separate;
-  border-spacing: 0 2px;
+  border-spacing: 0 19px;
 }
 
 #ArtworksTable th {
-  // border: 1px solid var(--artwork-table-border);
   border-style: solid none solid none;
   padding: 4px;
-  background: var(--artwork-tbl-header-bg);
   height: 30px;
 
-  font-family: 'Muli-SemiBold';
   font-size: 9px;
   @media (min-width: 640px) {
     font-size: 10px;
@@ -1179,29 +992,29 @@ h6 {
     font-size: 12px;
   }
   @media (min-width: 1024px) {
-    height: 65px;
+    height: 25px;
     font-size: 14px;
   }
-
   @media (min-width: 1536px) {
-    height: 65px;
     font-size: 16px;
   }
-  line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
-}
-#ArtworksTable th:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-left-style: solid;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  font-family: 'Muli-Regular';
+  font-weight: 400;
 }
 
-#ArtworksTable th:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border-right-style: solid;
-}
+// #ArtworksTable th:first-child {
+//   border-top-left-radius: 20px;
+//   border-bottom-left-radius: 20px;
+//   border-left-style: solid;
+// }
+
+// #ArtworksTable th:last-child {
+//   border-top-right-radius: 20px;
+//   border-bottom-right-radius: 20px;
+//   border-right-style: solid;
+// }
 
 #ArtworksTable tbody:before {
   content: '@';
@@ -1210,24 +1023,19 @@ h6 {
   text-indent: -99999px;
 }
 
-#ArtworksTable tr:hover {
+#ArtworksTable tbody tr:hover {
   color: var(--text-gray-200-color);
 }
-#ArtworksTable tr {
+#ArtworksTable tbody tr {
   color: var(--artwork-table-tr);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
+  border-radius: 20px;
 }
 
-// #ArtworksTable tr {
-//   &:hover {
-//     background: var(--background-dark-color);
-//     color: var(--brand-09-color);
-//   }
-// }
-
 #ArtworksTable td {
-  // border: 1px solid rgba(var(--white-color), 0.1);
   border-style: solid none solid none;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
   height: 70px;
   background-color: transparent;
   font-family: 'Muli-SemiBold';
@@ -1243,21 +1051,19 @@ h6 {
   }
   @media (min-width: 1280px) {
     font-size: 16px;
-    height: 90px;
+    height: 80px;
   }
   @media (min-width: 1536px) {
     font-size: 18px;
-    height: 90px;
   }
 
   line-height: 24px;
   letter-spacing: 0;
 }
 
-#ArtworksTable tr {
+#ArtworksTable tbody tr {
   &:hover {
     background: rgba(var(--main-bg-color-rgb), 0.05);
-    // color: var(--artwork-table-tr-hover-color);
   }
 }
 
@@ -1270,93 +1076,6 @@ h6 {
 #ArtworksTable tr td:last-child {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  border-right-style: solid;
-}
-
-// ####################################################
-// CheckoutTable
-#CheckoutTable {
-  border-collapse: separate;
-  border-spacing: 0 2px;
-}
-
-#CheckoutTable th {
-  border-style: solid none solid none;
-  padding: 4px;
-  background: var(--stats-bg-color);
-  height: 30px;
-
-  font-family: 'Muli-SemiBold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    height: 65px;
-    font-size: 14px;
-  }
-
-  @media (min-width: 1536px) {
-    height: 65px;
-    font-size: 16px;
-  }
-  line-height: 24px;
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
-}
-#CheckoutTable th:first-child {
-  border-left-style: solid;
-}
-
-#CheckoutTable th:last-child {
-  border-right-style: solid;
-}
-
-#CheckoutTable tr {
-  color: var(--artwork-table-tr);
-}
-
-#CheckoutTable td {
-  border-style: solid none solid none;
-  padding: 15px 30px 15px 30px;
-  height: 70px;
-  background-color: transparent;
-  font-family: 'Muli-SemiBold';
-  font-size: 9px;
-  @media (min-width: 640px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 12px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 16px;
-    height: 90px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-    height: 90px;
-  }
-
-  line-height: 24px;
-  letter-spacing: 0;
-}
-
-#CheckoutTable tr td:first-child {
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  border-left-style: solid;
-}
-
-#CheckoutTable tr td:last-child {
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
   border-right-style: solid;
 }
 

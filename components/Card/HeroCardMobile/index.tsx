@@ -13,6 +13,7 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ImageWithFoster from 'components/ImageWithFoster'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
   const router = useRouter()
@@ -168,16 +169,16 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
             <div className="flex gap-[7px] mt-[8px]" onClick={() => gotoAristPage()}>
               {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
                 <div className={styles.avatarArea}>
-                  <ImageWithFoster
-                    src={
-                      data.artist_profile_picture.length > 0
-                        ? data.artist_profile_picture
-                        : 'images/dashboard-avatar.png'
-                    }
-                    width={44}
-                    height={44}
-                    className="rounded-full"
-                  />
+                  {data.artist_profile_picture.length > 0 ? (
+                    <ImageWithFoster
+                      src={data.artist_profile_picture}
+                      width={44}
+                      height={44}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <Image src={DefaultAvatar} width={44} height={44} className="rounded-full" />
+                  )}
                 </div>
               )}
               <div className={styles.creatorName}>{data.artist_username}</div>

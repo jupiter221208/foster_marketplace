@@ -5,21 +5,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import Head from 'next/head'
 
 // components
-
+import SelectedTab from 'components/Tab/SelectedTab'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-
 import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
-import { useViewport, ensureMaxDecimals } from 'utils'
+import { useViewport } from 'utils'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
-import SolanaIcon from 'assets/icons/solana-logo.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+
 import Lottie from 'lottie-react'
 import animationData from 'assets/lottery/shopping-lottie.json'
 
@@ -32,7 +31,6 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import MerchAPI from 'apis/merch'
 import ArtistAPI from 'apis/artists'
 import NftAPI from 'apis/nfts'
-import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
@@ -43,7 +41,6 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
-import { NftData } from 'types/nft'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -72,7 +69,6 @@ const MerchActivity = () => {
   const [buyerPages, setBuyerPages] = useState(1)
   const [sellerPages, setSellerPages] = useState(1)
   const [enabledPages, setEnabledPages] = useState(1)
-  const [disabledPages, setDisabledPages] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
@@ -403,8 +399,7 @@ const MerchActivity = () => {
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <div className="w-full flex justify-between">
-              <div className={`${styles.title} z-10`}>Merch Hub</div>
+            <div className="w-full flex justify-end">
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
@@ -418,12 +413,11 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px] mt-[15px]">
-              <div className={`${styles.title} z-10`}>Merch Hub</div>
-              <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
+              <div className="flex gap-[5px] mt-[0px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
                     <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
-                    <div className={styles.countValue}>ARTIST&nbsp;COMISSIONS</div>
+                    <div className={styles.countValue}>TOTAL&nbsp;COMISSIONS</div>
                   </div>
                 </div>
                 <div className={styles.countBG}>
@@ -435,13 +429,14 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[90px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10 h-[28px] lg:h-[76px] ">
-            <HouseStatsTab
+          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[30px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
+            <SelectedTab
               tabList={tabList}
               onChange={item => {
                 handleSelectedTab(item)
               }}
             />
+            <div className={styles.selectedTabBorder} />
           </div>
 
           {activeTab === 0 && (
@@ -518,11 +513,11 @@ const MerchActivity = () => {
                     <div className={styles.tableColor}>
                       <div className="flex flex-row items-center justify-between">
                         <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
-                        <div className="flex flex-row items-center">
+                        <div className={`${styles.subTotal} flex flex-row items-center`}>
                           $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
                           <div className={styles.costDivider} />
                           <div className="flex ml-[5px] items-center">
-                            <SolanaIcon alt="" className="text-[20px]" />
+                            <SolanaIcon alt="" className="text-[20px] mt-[4px]" />
                             &nbsp;
                             {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
                           </div>
