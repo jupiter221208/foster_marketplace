@@ -429,7 +429,7 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[90px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
+          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[30px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
             <SelectedTab
               tabList={tabList}
               onChange={item => {
