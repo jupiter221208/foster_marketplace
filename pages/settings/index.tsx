@@ -65,9 +65,7 @@ const Settings = () => {
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
-            {/* <div className={`mt-[32px] lg:mt-[100px] ${styles.subject}`}>Settings</div> */}
             <div className="w-full mt-[32px] lg:mt-[50px] overflow-auto relative">
-              {/* <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} /> */}
               <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               <div className={styles.selectedTabBorder} />
             </div>

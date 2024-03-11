@@ -19,7 +19,6 @@ import PreviewImage from 'assets/images/preview-image.png'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
-import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import CreatorsSection from 'components/pages/Stats/CreatorsSection'
 import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import CollectionsSection from 'components/pages/Stats/CollectionsSection'

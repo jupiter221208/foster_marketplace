@@ -5,19 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import Head from 'next/head'
 
 // components
-
+import SelectedTab from 'components/Tab/SelectedTab'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-
 import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
-import { useViewport, ensureMaxDecimals } from 'utils'
+import { useViewport } from 'utils'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
 import SolanaIcon from 'assets/icons/solana-logo.svg?component'
 import Lottie from 'lottie-react'
@@ -32,7 +30,6 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import MerchAPI from 'apis/merch'
 import ArtistAPI from 'apis/artists'
 import NftAPI from 'apis/nfts'
-import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
@@ -43,7 +40,6 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
-import { NftData } from 'types/nft'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -72,7 +68,6 @@ const MerchActivity = () => {
   const [buyerPages, setBuyerPages] = useState(1)
   const [sellerPages, setSellerPages] = useState(1)
   const [enabledPages, setEnabledPages] = useState(1)
-  const [disabledPages, setDisabledPages] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
@@ -435,13 +430,14 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[90px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10 h-[28px] lg:h-[76px] ">
-            <HouseStatsTab
+          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[90px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
+            <SelectedTab
               tabList={tabList}
               onChange={item => {
                 handleSelectedTab(item)
               }}
             />
+            <div className={styles.selectedTabBorder} />
           </div>
 
           {activeTab === 0 && (

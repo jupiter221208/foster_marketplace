@@ -156,3 +156,12 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+.selectedTabBorder {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 1px;
+  background: #303030;
+}
