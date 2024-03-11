@@ -84,7 +84,7 @@ const NotificationSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-start">
         <div className={styles.content}>
           <div className="w-full mt-[10px] mb-12">
             <GreenLineCard

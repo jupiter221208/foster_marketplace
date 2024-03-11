@@ -218,7 +218,7 @@ const ProfileSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex">
         <div className={styles.content}>
           <div className={styles.innercontent}>
             <div>
@@ -401,7 +401,7 @@ const ProfileSection = prop => {
                 />
               </div>
             </div> */}
-            <div className="mt-[45px] lg:mt-[60px]">
+            {/* <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Verification Status</div>
             </div>
             <div className="w-[200%] mt-4 lg:mt-[18px] flex cursor-pointer">
@@ -425,7 +425,7 @@ const ProfileSection = prop => {
                   </div>
                 )}
                 {verificationStatus === 'unverified' && (
-                  <div /*Link href="/settings/user-verification"*/
+                  <div
                     onMouseEnter={() => {
                       setShowVerificationAlert(true)
                     }}
@@ -450,7 +450,7 @@ const ProfileSection = prop => {
                   <div className={styles.anotherWalletAlert}>This feature is not available but is coming soon.</div>
                 </div>
               )}
-            </div>
+            </div> */}
 
             {showVerificationAlert && (
               <div className="relative flex lg:hidden h-[40px]">
@@ -558,7 +558,7 @@ const ProfileSection = prop => {
               </div>
             )} */}
 
-            <div className="mt-[35px] lg:mt-[50px]">
+            {/* <div className="mt-[35px] lg:mt-[50px]">
               <div className={styles.subTitle}>Associated Wallets</div>
             </div>
             <div className="mt-4 lg:mt-8">
@@ -596,7 +596,7 @@ const ProfileSection = prop => {
                   <div className={styles.anotherWalletAlert}>This feature is not available but is coming soon.</div>
                 </div>
               )}
-            </div>
+            </div> */}
             {showLinkWalletAlert && (
               <div className="relative flex lg:hidden">
                 <div className={styles.anotherWalletAlertMobile}>This feature is not available but is coming soon.</div>
