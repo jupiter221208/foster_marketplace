@@ -120,7 +120,7 @@ const ArtworksSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-      {!loading &&
+      {/* {!loading &&
         (list.length === 0 ? (
           !searchLoading ? (
             <div />
@@ -173,16 +173,18 @@ const ArtworksSection = props => {
               ))}
             </Swiper>
           </div>
-        ))}
+        ))} */}
 
       {!loading && (
-        <SearchSection
-          placeholder={'Search by artwork name'}
-          searchWord={searchWord}
-          setSearchWord={value => setSearchWord(value.toString())}
-          period={period}
-          setPeriod={setPeriod}
-        />
+        <div className="w-full mt-[25px]">
+          <SearchSection
+            placeholder={'Search by artwork name'}
+            searchWord={searchWord}
+            setSearchWord={value => setSearchWord(value.toString())}
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </div>
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (

@@ -115,7 +115,7 @@ const CollectionsSection = props => {
         </div>
       )}
 
-      {!loading &&
+      {/* {!loading &&
         (list.length === 0 ? (
           !searchLoading ? (
             <div />
@@ -168,7 +168,7 @@ const CollectionsSection = props => {
               ))}
             </Swiper>
           </div>
-        ))}
+        ))} */}
 
       {!loading && (
         <SearchSection

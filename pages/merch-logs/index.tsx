@@ -398,8 +398,7 @@ const MerchActivity = () => {
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <div className="w-full flex justify-between">
-              <div className={`${styles.title} z-10`}>Merch Hub</div>
+            <div className="w-full flex justify-end">
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
@@ -413,8 +412,7 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px] mt-[15px]">
-              <div className={`${styles.title} z-10`}>Merch Hub</div>
-              <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
+              <div className="flex gap-[5px] mt-[0px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
                     <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
