@@ -603,7 +603,7 @@ const ProfileSection = prop => {
               </div>
             )}
 
-            <div className="mt-[60px] lg:mt-[61px] mb-[40px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
+            <div className="mt-[60px] lg:mt-[61px] mb-[140px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"

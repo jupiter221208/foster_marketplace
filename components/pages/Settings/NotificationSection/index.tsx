@@ -148,7 +148,7 @@ const NotificationSection = prop => {
               onChange={() => setFosterNewsletter(!fosterNewsletter)}
             />
           </div>
-          <div className="w-full flex justify-end mb-20">
+          <div className="w-full flex justify-end mb-[140px] lg:mb-20">
             <GradientButton
               label="Save"
               onClick={() => {
