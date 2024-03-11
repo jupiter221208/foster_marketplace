@@ -970,7 +970,10 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
+                    {nftType.includes('image') &&
+                    nftType !== 'image/gif' &&
+                    !nftCoverUrl.includes('ext=gif') &&
+                    (merchToggle || isCreatedNft) ? (
                       <div
                         className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
                       >
