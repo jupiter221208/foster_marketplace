@@ -15,7 +15,7 @@ const SearchSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-end gap-[20px]">
-        <div className="h-[42px] flex justify-between gap-[15px]">
+        <div className="h-[42px] flex justify-between gap-[10px] lg:gap-[15px]">
           <TimeSlotButton
             label="All"
             onClick={() => setPeriod('all')}
