@@ -89,15 +89,15 @@
 }
 
 .countValue {
-  font-family: 'Muli-SemiBold';
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  font-family: 'Muli-Regular';
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   font-size: 12px;
   line-height: 15px;
   margin-top: 2px;
   text-align: center;
   @media (min-width: 1024px) {
-    color: rgba(var(--text-gray-200-color-rgb), 0.9);
-    font-family: 'Muli-Bold';
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+    font-family: 'Muli-Regular';
     font-size: 18px;
     line-height: 23px;
     margin-top: 0px;
@@ -155,4 +155,13 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+.selectedTabBorder {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 1px;
+  background: #303030;
 }

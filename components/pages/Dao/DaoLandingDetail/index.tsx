@@ -8,7 +8,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // third party
-import Tab01 from 'components/Tab/Tab01'
+import SelectedTab from 'components/Tab/SelectedTab'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
@@ -19,9 +19,6 @@ import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-black.svg?component'
-import NotificationMobileIcon from 'assets/icons/notification-icon-black-mobile.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
-import ArrowLeftMobileIcon from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -29,7 +26,7 @@ import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
 import { trySendTransaction } from 'utils'
-import { getDateLabel, getTimeLabel } from 'utils/helpers'
+import { getDateLabel } from 'utils/helpers'
 import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
 
 // json
@@ -39,7 +36,6 @@ import TabList from 'assets/json/dao/tab-list.json'
 import axios from 'axios'
 import TableSection from './TableSection'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
-import Tab from 'components/Tab'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -263,20 +259,7 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="hidden lg:flex w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
-        <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
-      </div>
-
-      <div className="flex mt-[20px] lg:mt-[101px] items-center">
-        {/* <div className={styles.backBtn} onClick={onBack}>
-          <div className={styles.backEllipse}></div>
-          <div className="absolute inset-auto hidden lg:flex">
-            <ArrowLeftIcon />
-          </div>
-          <div className="absolute inset-auto flex lg:hidden">
-            <ArrowLeftMobileIcon />
-          </div>
-        </div> */}
+      <div className="flex mt-[20px] lg:mt-[40px] items-center">
         <div className={styles.backText}>Proposal {proposalDetail.id}</div>
         <div className="hidden lg:flex ml-[20px]">
           {proposalDetail.status === 'pending' ? (
@@ -296,6 +279,7 @@ const DaoLandingDetail = props => {
           )}
         </div>
       </div>
+
       <div className="flex mt-[6px] lg:mt-[25px] justify-between">
         <div className={styles.proposalText}>{proposalDetail.title}</div>
         <div className="hidden lg:flex">
@@ -304,6 +288,8 @@ const DaoLandingDetail = props => {
             fontSize={18}
             width={155}
             height={53}
+            backgroundColor01="var(--primary-btn-bg-right)"
+            backgroundColor02="var(--primary-btn-bg-right)"
             icon1={<NotificationIcon alt="" />}
             disabled={disabledVote}
             label="Cast&nbsp;Vote"
@@ -402,14 +388,14 @@ const DaoLandingDetail = props => {
         </div>
       </div>
 
-      <div className="lg:hidden flex w-full h-[50px] mt-[32px] overflow-auto">
-        {/* <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} /> */}
-        <Tab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+      <div className="relative w-full mt-[32px] lg:mt-[50px] overflow-auto">
+        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+        <div className={styles.selectedTabBorder} />
       </div>
 
       {activeTab === 0 ? (
         <div>
-          <div className="mt-[24px] lg:mt-[78px]">
+          <div className="mt-[24px] lg:mt-[40px]">
             <div className={styles.description}>Overview</div>
             <div className={styles.descriptionText}>{proposalDetail.overview}</div>
           </div>

@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ImageWithFoster from 'components/ImageWithFoster'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 const HeroNewCard = ({ data }) => {
   const dispatch = useDispatch()
@@ -144,16 +145,16 @@ const HeroNewCard = ({ data }) => {
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
-                    <ImageWithFoster
-                      src={
-                        data.artist_profile_picture.length > 0
-                          ? data.artist_profile_picture
-                          : 'images/dashboard-avatar.png'
-                      }
-                      width={60}
-                      height={60}
-                      className="rounded-full"
-                    />
+                    {data.artist_profile_picture.length > 0 ? (
+                      <ImageWithFoster
+                        src={data.artist_profile_picture}
+                        width={60}
+                        height={60}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <Image src={DefaultAvatar} width={60} height={60} className="rounded-full" />
+                    )}
                   </a>
                 </Link>
               </div>

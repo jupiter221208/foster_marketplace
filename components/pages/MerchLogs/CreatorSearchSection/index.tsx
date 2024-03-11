@@ -22,7 +22,7 @@ const CreatorSearchSection = props => {
         <div className="w-[500px] flex items-center gap-2 justify-between">
           <StatsSearchBox value={searchWord} placeholder={placeholder} onChange={value => setSearchWord(value)} />
         </div>
-        <div className="h-[54px] z-10">
+        <div className="h-[50px] z-10">
           <div className={styles.slotBG}>
             <TimeSlotButton
               label="Completed"

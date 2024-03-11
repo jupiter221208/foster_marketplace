@@ -120,17 +120,17 @@ const ArtworksSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-      {!loading &&
+      {/* {!loading &&
         (list.length === 0 ? (
           !searchLoading ? (
             <div />
           ) : (
-            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+            <div className="w-full mb-0 lg:mb-3 h-[293px] lg:mt-[25px] lg:h-[418px]">
               <LoadingModal open={searchLoading} />
             </div>
           )
         ) : (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+          <div className="w-full mb-0 lg:mb-3 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
               navigation={true}
               slidesPerView={
@@ -173,16 +173,18 @@ const ArtworksSection = props => {
               ))}
             </Swiper>
           </div>
-        ))}
+        ))} */}
 
       {!loading && (
-        <SearchSection
-          placeholder={'Search by artwork name'}
-          searchWord={searchWord}
-          setSearchWord={value => setSearchWord(value.toString())}
-          period={period}
-          setPeriod={setPeriod}
-        />
+        <div className="w-full mt-[25px]">
+          <SearchSection
+            placeholder={'Search by artwork name'}
+            searchWord={searchWord}
+            setSearchWord={value => setSearchWord(value.toString())}
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </div>
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (

@@ -345,14 +345,17 @@ const NotificationsCard = props => {
                         <Link href={`/nft/${elem.reference_token_id}`} passHref>
                           <a>
                             <div className={styles.assetUrl}>
-                              <ImageWithFoster
-                                src={
-                                  elem.reference_asset_url !== null && elem.reference_asset_url !== ''
-                                    ? elem.reference_asset_url
-                                    : DefaultAvatar.src
-                                }
-                                className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-[8px] lg:rounded-[8px] object-cover"
-                              />
+                              {elem.reference_asset_url !== null && elem.reference_asset_url !== '' ? (
+                                <ImageWithFoster
+                                  src={elem.reference_asset_url}
+                                  className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-[8px] lg:rounded-[8px] object-cover"
+                                />
+                              ) : (
+                                <Image
+                                  src={DefaultAvatar}
+                                  className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-[8px] lg:rounded-[8px] object-cover"
+                                />
+                              )}
                             </div>
                           </a>
                         </Link>

@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 const ShoppingCartCheckoutTable = props => {
   const { data } = props
   return (
-    <table id={'CheckoutTable'} className="w-full table-auto">
+    <table id={'ArtworksTable'} className="w-full table-auto">
       <tbody className={styles.tableColor}>
         {data.map((item, index) => {
           return (
