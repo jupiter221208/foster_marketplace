@@ -49,18 +49,6 @@ const DisplayPreferences = prop => {
               onChange={() => setDefaultProfile(!defaultProfile)}
             />
           </div>
-          {/* <div className="w-full flex justify-end mb-20">
-            <GradientButton
-              label="Save"
-              onClick={() => {
-                success()
-              }}
-              height="53px"
-              paddingLeft="41px"
-              paddingRight="41px"
-              fontSize="18px"
-            />
-          </div> */}
         </div>
       </div>
     </div>

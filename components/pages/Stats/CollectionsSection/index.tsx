@@ -50,6 +50,7 @@ const CollectionsSection = props => {
         setLoading(false)
         setList(collections)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collections])
@@ -75,7 +76,6 @@ const CollectionsSection = props => {
   }, [period])
 
   const getCollectionData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCollection({

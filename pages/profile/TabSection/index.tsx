@@ -159,9 +159,7 @@ const TabSection = props => {
               label="Quick&nbsp;Buy"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'listed' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              selected={artworkType === 'listed'}
               onClick={() => {
                 setArtworkType('listed')
               }}
@@ -171,9 +169,7 @@ const TabSection = props => {
               label="Live&nbsp;Auction"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'auction' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'auction' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'auction' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              selected={artworkType === 'auction'}
               onClick={() => {
                 setArtworkType('auction')
               }}
@@ -183,9 +179,7 @@ const TabSection = props => {
               label="Studio"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'studio' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'studio' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'studio' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              selected={artworkType === 'studio'}
               onClick={() => {
                 setArtworkType('studio')
               }}
@@ -195,9 +189,7 @@ const TabSection = props => {
               label="Created"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'created' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'created' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'created' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              selected={artworkType === 'created'}
               onClick={() => {
                 setArtworkType('created')
               }}
@@ -207,9 +199,7 @@ const TabSection = props => {
               label="Collected"
               height={42}
               fontFamily={'Muli-Regular'}
-              color={artworkType === 'collected' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-              backgroundColor01={artworkType === 'collected' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-              backgroundColor02={artworkType === 'collected' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+              selected={artworkType === 'collected'}
               onClick={() => {
                 setArtworkType('collected')
               }}

@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 import { FadeLoader } from 'react-spinners'
 import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -221,24 +222,15 @@ const Step03CollectionSection = props => {
                       borderWidth={2}
                     />
                     {startUpload ? (
-                      <LoadingButton
+                      <LoadingButton width={120} height={53} />
+                    ) : (
+                      <GradientButton
+                        label="Mint"
                         width={120}
                         height={53}
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
-                      />
-                    ) : (
-                      <button
-                        className={styles.mintCollection}
                         disabled={disabledNextButton}
-                        style={{
-                          color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                          background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                        }}
                         onClick={() => uploadArtworks()}
-                      >
-                        Mint
-                      </button>
+                      />
                     )}
                   </div>
                 </div>
@@ -250,9 +242,6 @@ const Step03CollectionSection = props => {
         // mobile part
         <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          {/* <div className="w-full">
-            <CollectionStepper currentStep={currentStep} />
-          </div> */}
           <div className={`${styles.title} w-full`}>{collectionMintName}</div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">

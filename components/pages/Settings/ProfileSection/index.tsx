@@ -611,8 +611,6 @@ const ProfileSection = prop => {
                     handleSaveUserInfo()
                   }}
                   fontFamily="Muli-SemiBold"
-                  backgroundColor01="var(--primary-btn-bg-right)"
-                  backgroundColor02="var(--primary-btn-bg-right)"
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={50}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
@@ -625,8 +623,6 @@ const ProfileSection = prop => {
                   disabled={true}
                   onClick={() => {}}
                   fontFamily="Muli-SemiBold"
-                  backgroundColor01="var(--primary-btn-bg-right)"
-                  backgroundColor02="var(--primary-btn-bg-right)"
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={50}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}

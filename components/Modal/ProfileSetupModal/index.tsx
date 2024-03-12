@@ -276,14 +276,7 @@ const ProfileSetupModal = () => {
                                 fullWidth
                                 onClick={() => updateUserName()}
                               />
-                              <GradientButton
-                                label="Save"
-                                backgroundColor01="#95DBD5"
-                                backgroundColor02="#95DBD5"
-                                color="#202427"
-                                fullWidth
-                                onClick={() => handleSaveUsermame()}
-                              />
+                              <GradientButton label="Save" fullWidth onClick={() => handleSaveUsermame()} />
                             </div>
                           </div>
                         </div>

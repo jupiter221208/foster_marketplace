@@ -57,7 +57,7 @@ const LandingTable = props => {
           <th>Category</th>
           <th>Author</th>
           <th className="w-[13%]"></th>
-          <th className="w-[10%]">Status</th>
+          <th className="w-[15%]">Status</th>
         </tr>
       </thead>
       <tbody>

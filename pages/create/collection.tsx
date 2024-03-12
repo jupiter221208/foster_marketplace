@@ -85,11 +85,13 @@ const Collection = () => {
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
+  const [isMinting, setIsMinting] = useState(false)
+
   const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
     try {
-      dispatch({ type: 'set', isLoading: true })
+      setIsMinting(true)
 
       await refreshToken()
       // TODO: calculate real file size
@@ -145,12 +147,16 @@ const Collection = () => {
           response => {
             router.push(`/collection/${collectionNft.mintAddress.toString()}`)
           },
-          error => {}
+          error => {
+            setIsMinting(false)
+          }
         )
+      } else {
+        setIsMinting(false)
       }
     } catch (e) {
+      setIsMinting(false)
       console.log(e)
-      dispatch({ type: 'set', isLoading: false })
     } finally {
     }
   }
@@ -438,6 +444,7 @@ const Collection = () => {
             mintCollection={() => {
               mintCollection()
             }}
+            isMinting={isMinting}
           />
         )}
         {currentStep === 2 && (

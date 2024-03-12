@@ -356,24 +356,14 @@ const ListedNFTSection = props => {
           <TimeSlotButton
             label="Fixed-Price"
             onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={active === 0}
             width={160}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="Live&nbsp;Auction"
             onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={active === 1}
             width={160}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

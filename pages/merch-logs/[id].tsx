@@ -16,13 +16,12 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
-import { getOrder, type OrderData, type ShipStationShipment } from 'apis/merch'
+import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
-import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 import GradientButton from 'components/Button/GradientButton'
 import { useAuthentication } from 'hooks/useAuthentication'
 
@@ -72,9 +71,9 @@ const MerchDetail = () => {
     let { order, ssorder, shipment } = orderData
 
     if (shipment) setTrackingDetails(shipment)
-    if(orderData?.ssorder.items.length === 1) {
+    if (orderData?.ssorder.items.length === 1) {
       let localData = JSON.parse(localStorage.getItem('data'))
-      
+
       let itemData = orderData?.ssorder.items[0]
       let options = itemData.options
       let nftName = findElement(options, 'name', 'nftName')
@@ -90,73 +89,72 @@ const MerchDetail = () => {
           quantity: itemData.quantity,
           product: itemData.name,
           size: size ? size['value'] : '',
-          color: color? color['value'] : '',
-          apparel: apparel? apparel['value']: ''
+          color: color ? color['value'] : '',
+          apparel: apparel ? apparel['value'] : '',
         }
         setItemDetails(itemDetails)
       }
-  
-      if(fosterUrlValue) {
+
+      if (fosterUrlValue) {
         setPreviewUrl(fosterUrlValue)
-        localData?.forEach((item) => {
+        localData?.forEach(item => {
           if (item.printImageUrl === fosterUrlValue) {
-            const index = localData.indexOf(item);
-            localData.splice(index, 1);
-            }
-          });
-        localStorage.setItem('data', JSON.stringify(localData));
-        } else {
+            const index = localData.indexOf(item)
+            localData.splice(index, 1)
+          }
+        })
+        localStorage.setItem('data', JSON.stringify(localData))
+      } else {
         setPreviewUrl(itemData.imageUrl)
       }
-
     } else {
       let localData = JSON.parse(localStorage.getItem('data'))
 
       let itemList = []
-      orderData.ssorder.items.forEach((itemData) => {
-        let options = itemData.options;
-        let nftName = findElement(options, 'name', 'nftName');
-        let size = findElement(options, 'name', 'size');
+      orderData.ssorder.items.forEach(itemData => {
+        let options = itemData.options
+        let nftName = findElement(options, 'name', 'nftName')
+        let size = findElement(options, 'name', 'size')
         let color = findElement(options, 'name', 'color')
         let fosterUrl = findElement(options, 'name', 'fosterUrl')
         let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
-        let quantity =  itemData.quantity
+        let quantity = itemData.quantity
         if (options) {
           let itemDetails = {
             quantity: quantity,
             print: nftName ? nftName['value'] : '',
             size: size ? size['value'] : '',
             color: color ? color['value'] : '',
-            fosterUrl : previewUrl,
-            apparel : apparel ? apparel['value'] : ''
-          };
+            fosterUrl: previewUrl,
+            apparel: apparel ? apparel['value'] : '',
+          }
           itemList.push(itemDetails)
         }
-      });
+      })
       setList(itemList)
-  
-      localData?.forEach((item) => {
-        itemList?.forEach((otherItem) => {
+
+      localData?.forEach(item => {
+        itemList?.forEach(otherItem => {
           if (item.printImageUrl === otherItem.fosterUrl) {
-            const index = localData.indexOf(item);
-            localData.splice(index, 1);
+            const index = localData.indexOf(item)
+            localData.splice(index, 1)
           }
-        });
-      });
-      
-      localStorage.setItem('data', JSON.stringify(localData));
+        })
+      })
+
+      localStorage.setItem('data', JSON.stringify(localData))
     }
-    
-    if(type === 'sales') {
+
+    if (type === 'sales') {
       let commissionData = Object.entries(order.seller_shares).map(([address, value]) => {
-        return { address, value };
-      });
-      
-      commissionData?.forEach((item) => {
-        if(item.address == publicKey?.toBase58()) {
+        return { address, value }
+      })
+
+      commissionData?.forEach(item => {
+        if (item.address == publicKey?.toBase58()) {
           const index = commissionData.indexOf(item)
-          setCommission(commissionData[index].value);
+          setCommission(commissionData[index].value)
         }
       })
 
@@ -176,10 +174,10 @@ const MerchDetail = () => {
         tax: order.tax_amount.toFixed(2),
         txId: order.transaction_id,
         paidBy: order.buyer_address,
-        commission: order.artist_commission.toFixed(2)
+        commission: order.artist_commission.toFixed(2),
       })
     }
-    
+
     setIsOwn(order.buyer_address === publicKey?.toBase58())
 
     let keys = Object.keys(order.seller_shares)
@@ -264,280 +262,421 @@ const MerchDetail = () => {
         <div className={styles.orderInfo}>
           <div>
             <div className={styles.infoTitle}>ORDER PLACED</div>
-            <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
-          </div>
-          <div>
-            <div className={styles.infoTitle}>TOTAL</div>
-            <div className={styles.infoValue}>${orderDetails?.total}</div>
-          </div>
-          <div>
-            <div className={styles.infoTitle}>SHIP TO</div>
-
             <div className={styles.infoValue}>
-              {orderDetails?.orderNumber === '' && !isOwn ? (
-                'Hidden for Buyer Safety'
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[100px] h-[40px] rounded-[8px]"></div>
               ) : (
-                <div>
-                  {orderDetails?.shipTo.street}
-                  <br />
-                  {orderDetails?.shipTo.city}
-                </div>
+                orderDetails?.orderPlaced
               )}
             </div>
           </div>
           <div>
-            <div className={styles.infoTitle}>SHIPPING METHOD</div>
+            <div className={styles.infoTitle}>TOTAL</div>
             <div className={styles.infoValue}>
-              {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[50px] h-[40px] rounded-[8px]"></div>
+              ) : (
+                '$' + orderDetails?.total
+              )}
             </div>
+          </div>
+          <div>
+            <div className={styles.infoTitle}>SHIP TO</div>
+
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
+            ) : (
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn ? (
+                  'Hidden for Buyer Safety'
+                ) : (
+                  <div>
+                    {orderDetails?.shipTo.street}
+                    <br />
+                    {orderDetails?.shipTo.city}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          <div>
+            <div className={styles.infoTitle}>SHIPPING METHOD</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
+            ) : (
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+              </div>
+            )}
           </div>
           <div>
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
-            <div className={`${styles.infoValue} text-right`}>
-              {orderDetails?.orderNumber === '' && !isOwn
-                ? 'Hidden for Buyer Safety'
-                : trackingDetails === null && connected
-                ? 'Pending Order Creation'
-                : trackingDetails?.trackingNumber}
-            </div>
-          </div>
-        </div>
-        {orderData?.ssorder.items.length === 1 ? (
-        <div className="w-full flex justify-between mt-[70px]">
-          <div className="w-[183px] h-[183px] object-cover">
-            <img src={previewUrl} alt="" />
-          </div>
-          <div>
-            <div className={styles.detailTitle}>Item Details</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;{
-            itemDetails?.size === 'S' || itemDetails?.size === 'YXS' ? 'Small':
-            itemDetails?.size === 'M' || itemDetails?.size === 'YS' ? 'Medium':
-            itemDetails?.size === 'L' || itemDetails?.size === 'YM' ? 'Large':
-            itemDetails?.size === 'XL' || itemDetails?.size === 'YL' ? 'X-Large':
-            itemDetails?.size === '2XL' || itemDetails?.size === 'YXL' ? '2X-Large': ''
-            }&nbsp;/&nbsp;{itemDetails?.color}</div>
-          </div>
-          <div>
-            <div className={styles.detailTitle}>Payment Details</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-            </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-            </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-            </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
-            </div>
-            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
-          </div>
-
-          <div>
-            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
-              <div>
-                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
-              </div>
-            ) : trackingDetails === null ? (
-              <div>
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Track package"
-                  disabled={true}
-                  backgroundColor="transparent"
-                  borderColor="var(--follow-btn-border-mobile)"
-                  borderWidth={1}
-                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                  width={335}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
             ) : (
-              <div>
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Track package"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
+              <div className={`${styles.infoValue} text-right`}>
+                {orderDetails?.orderNumber === '' && !isOwn
+                  ? 'Hidden for Buyer Safety'
+                  : trackingDetails === null && connected
+                  ? 'Pending Order Creation'
+                  : trackingDetails?.trackingNumber}
               </div>
             )}
-            <div className="mt-[12px]">
-              <a
-                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                  subject: helpTitle,
-                  body: helpBody,
-                })}`}
-              >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Get help"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </a>
-            </div>
-            <div className="mt-[12px]">
-              <a
-                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                  subject: reviewTitle,
-                  body: reviewBody,
-                })}`}
-              >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Write a product review"
-                  // onClick={() => {}}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </a>
-            </div>
           </div>
         </div>
-        ) : (
-        <div className="w-full flex mt-[70px] gap-20">
-          <div className={styles.orderContainer}>
-            <div className='flex flex-col gap-[37px] overflow-y-auto'>
-              {list && list.map((item, index) => (
-                <div key={index} className='flex flex-row justify-between w-full'>
-                  <div className="object-cover">
-                    <img src={item.fosterUrl} style={{height:'183px'}} alt="" />
-                  </div>
-                  <div className='w-1/2 flex flex-col justify-center'>
-                    <div className={styles.detailTitle}>Item Details</div>
-                    <div className={`mt-[20px] ${styles.detailOrderValue}`}>{item?.print}</div>
-                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>{item?.color}</div>
-                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>
-                      {item?.apparel} (
-                        {item?.size === 'S' || item?.size === 'YXS' ? 'Small' :
-                        item?.size === 'M' || item?.size === 'YS' ? 'Medium' :
-                        item?.size === 'L' || item?.size === 'YM' ? 'Large' :
-                        item?.size === 'XL' || item?.size === 'YL' ? 'X-Large' :
-                        item?.size === '2XL' || item?.size === 'YXL' ? '2X-Large' : ''}
-                      )
-                    </div>
-                    <div className={`mt-[9px] ${styles.detailOrderValue}`}>Qty: {item?.quantity}</div>
-                  </div>
+        {!orderData ? (
+          <div className="w-full flex justify-between mt-[70px]">
+            <div className="w-[183px] h-[183px] object-cover">
+              <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
+            </div>
+            <div>
+              <div className={styles.detailTitle}>Item Details</div>
+              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[9px]"></div>
+              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[9px]"></div>
+            </div>
+
+            <div>
+              <div className={styles.detailTitle}>Payment Details</div>
+              <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[15px]"></div>
+              <div className="skeletonLoaderBasic w-[50px] h-[20px] rounded-full mt-[15px]"></div>
+            </div>
+
+            <div>
+              {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+                <div>
+                  <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
                 </div>
-              ))}
+              ) : trackingDetails === null ? (
+                <div>
+                  <Button
+                    height="48px"
+                    fontSize="16px"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Track package"
+                    disabled={true}
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                    width={335}
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Track package"
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </div>
+              )}
+              <div className="mt-[12px]">
+                <a
+                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                    subject: helpTitle,
+                    body: helpBody,
+                  })}`}
+                >
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Get help"
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </a>
+              </div>
+              <div className="mt-[12px]">
+                <a
+                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                    subject: reviewTitle,
+                    body: reviewBody,
+                  })}`}
+                >
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    // onClick={() => {}}
+                    onClick={() => {}}
+                  />
+                </a>
+              </div>
             </div>
           </div>
-          <div className='flex w-1/2 justify-between'>
-          <div>
-            <div className={styles.detailTitle}>Payment Details</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+        ) : orderData?.ssorder.items.length === 1 ? (
+          <div className="w-full flex justify-between mt-[70px]">
+            <div className="w-[183px] h-[183px] object-cover">
+              {!orderData ? (
+                <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
+              ) : (
+                <img src={previewUrl} alt="" />
+              )}
             </div>
-            {type && type === 'sales' ? (
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
+            <div>
+              <div className={styles.detailTitle}>Item Details</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
+              <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
+              <div className={`mt-[9px] ${styles.detailValue}`}>
+                Product:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
+                {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                  ? 'Small'
+                  : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                  ? 'Medium'
+                  : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                  ? 'Large'
+                  : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                  ? 'X-Large'
+                  : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                  ? '2X-Large'
+                  : ''}
+                &nbsp;/&nbsp;{itemDetails?.color}
+              </div>
             </div>
-            ) : (
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-            </div>
-            )}
-            
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-            </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
-            </div>
-            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
-          </div>
 
-          <div>
-            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
-              <div>
-                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+            <div>
+              <div className={styles.detailTitle}>Payment Details</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
               </div>
-            ) : trackingDetails === null ? (
-              <div>
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Track package"
-                  disabled={true}
-                  backgroundColor="transparent"
-                  borderColor="var(--follow-btn-border-mobile)"
-                  borderWidth={1}
-                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
-                  width={335}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
               </div>
-            ) : (
-              <div>
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Track package"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
               </div>
-            )}
-            <div className="mt-[12px]">
-              <a
-                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                  subject: helpTitle,
-                  body: helpBody,
-                })}`}
-              >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Get help"
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </a>
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+              </div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
+              </div>
+              <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
             </div>
-            <div className="mt-[12px]">
-              <a
-                href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                  subject: reviewTitle,
-                  body: reviewBody,
-                })}`}
-              >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Write a product review"
-                  // onClick={() => {}}
-                  onClick={() => {
-                    window.location.href = 'mailto:admin@Fostermarketplace.app'
-                  }}
-                />
-              </a>
+
+            <div>
+              {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+                <div>
+                  <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+                </div>
+              ) : trackingDetails === null ? (
+                <div>
+                  <Button
+                    height="48px"
+                    fontSize="16px"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Track package"
+                    disabled={true}
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                    width={335}
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Track package"
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </div>
+              )}
+              <div className="mt-[12px]">
+                <a
+                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                    subject: helpTitle,
+                    body: helpBody,
+                  })}`}
+                >
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Get help"
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </a>
+              </div>
+              <div className="mt-[12px]">
+                <a
+                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                    subject: reviewTitle,
+                    body: reviewBody,
+                  })}`}
+                >
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    // onClick={() => {}}
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </a>
+              </div>
             </div>
           </div>
+        ) : (
+          <div className="w-full flex mt-[70px] gap-20">
+            <div className={styles.orderContainer}>
+              <div className="flex flex-col gap-[37px] overflow-y-auto">
+                {list &&
+                  list.map((item, index) => (
+                    <div key={index} className="flex flex-row justify-between w-full">
+                      <div className="object-cover">
+                        <img src={item.fosterUrl} style={{ height: '183px' }} alt="" />
+                      </div>
+                      <div className="w-1/2 flex flex-col justify-start">
+                        <div className={styles.detailTitle}>Item Details</div>
+                        <div className={`mt-[20px] ${styles.detailValue}`}>{item?.print}</div>
+                        <div className={`mt-[9px] ${styles.detailValue}`}>{item?.color}</div>
+                        <div className={`mt-[9px] ${styles.detailValue}`}>
+                          {item?.apparel} (
+                          {item?.size === 'S' || item?.size === 'YXS'
+                            ? 'Small'
+                            : item?.size === 'M' || item?.size === 'YS'
+                            ? 'Medium'
+                            : item?.size === 'L' || item?.size === 'YM'
+                            ? 'Large'
+                            : item?.size === 'XL' || item?.size === 'YL'
+                            ? 'X-Large'
+                            : item?.size === '2XL' || item?.size === 'YXL'
+                            ? '2X-Large'
+                            : ''}
+                          )
+                        </div>
+                        <div className={`mt-[9px] ${styles.detailValue}`}>Qty: {item?.quantity}</div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+            <div className="flex w-1/2 justify-between">
+              <div>
+                <div className={styles.detailTitle}>Payment Details</div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Payment&nbsp;Method:&nbsp;{paymentDetails?.method}
+                </div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+                </div>
+                {type && type === 'sales' ? (
+                  <div className={`mt-[15px] ${styles.detailValue}`}>
+                    Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
+                  </div>
+                ) : (
+                  <div className={`mt-[15px] ${styles.detailValue}`}>
+                    Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+                  </div>
+                )}
+
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+                </div>
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
+                </div>
+                <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+              </div>
+
+              <div>
+                {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+                  <div>
+                    <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+                  </div>
+                ) : trackingDetails === null ? (
+                  <div>
+                    <Button
+                      height="48px"
+                      fontSize="16px"
+                      paddingLeft="37px"
+                      paddingRight="37px"
+                      label="Track package"
+                      disabled={true}
+                      backgroundColor="transparent"
+                      borderColor="var(--follow-btn-border-mobile)"
+                      borderWidth={1}
+                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                      width={335}
+                      onClick={() => {
+                        window.location.href = 'mailto:admin@Fostermarketplace.app'
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Track package"
+                      onClick={() => {
+                        window.location.href = 'mailto:admin@Fostermarketplace.app'
+                      }}
+                    />
+                  </div>
+                )}
+                <div className="mt-[12px]">
+                  <a
+                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                      subject: helpTitle,
+                      body: helpBody,
+                    })}`}
+                  >
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Get help"
+                      onClick={() => {
+                        window.location.href = 'mailto:admin@Fostermarketplace.app'
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="mt-[12px]">
+                  <a
+                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                      subject: reviewTitle,
+                      body: reviewBody,
+                    })}`}
+                  >
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Write a product review"
+                      // onClick={() => {}}
+                      onClick={() => {
+                        window.location.href = 'mailto:admin@Fostermarketplace.app'
+                      }}
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
         )}
 
         <div className="w-full flex justify-center mt-[75px]">
@@ -555,23 +694,37 @@ const MerchDetail = () => {
           <div className="w-full flex justify-between">
             <div>
               <div className={styles.infoTitle}>ORDER PLACED</div>
-              <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
+              )}
             </div>
             <div className="text-end">
               <div className={styles.infoTitle}>TOTAL</div>
-              <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
+              ) : (
+                <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
+              )}
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIP TO</div>
-              {orderDetails?.orderNumber === '' && !isOwn ? (
-                <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
               ) : (
                 <div>
-                  <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-                  <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                  {orderDetails?.orderNumber === '' && !isOwn ? (
+                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                  ) : (
+                    <div>
+                      <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                      <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -580,88 +733,145 @@ const MerchDetail = () => {
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIPPING METHOD</div>
-              <div className={styles.infoValue}>
-                {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
-              </div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+              ) : (
+                <div className={styles.infoValue}>
+                  {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+                </div>
+              )}
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
-            <div className={styles.infoValue}>
-              {orderDetails?.orderNumber === '' && !isOwn
-                ? 'Hidden for Buyer Safety'
-                : trackingDetails === null && connected
-                ? 'Pending Order Creation'
-                : trackingDetails?.trackingNumber}
-            </div>
-          </div>
-        </div>
-        {orderData?.ssorder.items.length === 1 ? (
-        <div className={styles.tableColor}>
-          <div className="w-full flex">
-            <div className="w-[100px] h-auto object-cover ml-[15px]">
-              <img src={previewUrl} alt="" />
-            </div>
-          </div>
-          <div className="w-full text-right mt-[-10px]">
-            <div className={styles.detailValue}>{itemDetails?.print}</div>
-            <div className={styles.detailValue}>{itemDetails?.apparel}&nbsp;{`(${
-            itemDetails?.size === 'S' || itemDetails?.size === 'YXS' ? 'Small':
-            itemDetails?.size === 'M' || itemDetails?.size === 'YS' ? 'Medium':
-            itemDetails?.size === 'L' || itemDetails?.size === 'YM' ? 'Large':
-            itemDetails?.size === 'XL' || itemDetails?.size === 'YL' ? 'X-Large':
-            itemDetails?.size === '2XL' || itemDetails?.size === 'YXL' ? '2X-Large': ''})`}</div>
-            <div className={styles.detailValue}>{itemDetails?.color}</div>
-            <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
-          </div>
-        </div>
-        ) : (
-        <div className={styles.mobileContainer}>
-          <div className='flex flex-col overflow-y-auto'>
-            {list && list.map((item, index) => (
-              <div key={index} className={styles.tableColor}>
-                <div className="w-full flex">
-                  <div className="w-[100px] h-auto object-cover ml-[15px]">
-                    <img src={item.fosterUrl} alt="" />
-                  </div>
-                </div>
-                <div className="w-full text-right mt-[-10px]">
-                  <div className={styles.detailValue}>&nbsp;{item?.print}</div>
-                  <div className={styles.detailValue}>&nbsp;{item?.apparel}&nbsp;{`(${
-                  item?.size === 'S' || item?.size === 'YXS' ? 'Small':
-                  item?.size === 'M' || item?.size === 'YS' ? 'Medium':
-                  item?.size === 'L' || item?.size === 'YM' ? 'Large':
-                  item?.size === 'XL' || item?.size === 'YL' ? 'X-Large':
-                  item?.size === '2XL' || item?.size === 'YXL' ? '2X-Large': ''})`}</div>
-                  <div className={styles.detailValue}>&nbsp;{item?.color}</div>
-                  <div className={styles.detailValue}>&nbsp;Qty: {item?.quantity}</div>
-                </div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+            ) : (
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn
+                  ? 'Hidden for Buyer Safety'
+                  : trackingDetails === null && connected
+                  ? 'Pending Order Creation'
+                  : trackingDetails?.trackingNumber}
               </div>
-              ))
-            }
+            )}
           </div>
         </div>
+        {!orderData ? (
+          <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
+        ) : orderData?.ssorder.items.length === 1 ? (
+          <div className={styles.tableColor}>
+            <div className="w-full flex">
+              <div className="w-[100px] h-auto object-cover ml-[15px]">
+                <img src={previewUrl} alt="" />
+              </div>
+            </div>
+            <div className="w-full text-right mt-[-10px]">
+              <div className={styles.detailValue}>{itemDetails?.print}</div>
+              <div className={styles.detailValue}>
+                {itemDetails?.apparel}&nbsp;
+                {`(${
+                  itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                    ? 'Small'
+                    : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                    ? 'Medium'
+                    : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                    ? 'Large'
+                    : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                    ? 'X-Large'
+                    : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                    ? '2X-Large'
+                    : ''
+                })`}
+              </div>
+              <div className={styles.detailValue}>{itemDetails?.color}</div>
+              <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.mobileContainer}>
+            <div className="flex flex-col overflow-y-auto">
+              {list &&
+                list.map((item, index) => (
+                  <div key={index} className={styles.tableColor}>
+                    <div className="w-full flex">
+                      <div className="w-[100px] h-auto object-cover ml-[15px]">
+                        <img src={item.fosterUrl} alt="" />
+                      </div>
+                    </div>
+                    <div className="w-full text-right mt-[-10px]">
+                      <div className={styles.detailValue}>&nbsp;{item?.print}</div>
+                      <div className={styles.detailValue}>
+                        &nbsp;{item?.apparel}&nbsp;
+                        {`(${
+                          item?.size === 'S' || item?.size === 'YXS'
+                            ? 'Small'
+                            : item?.size === 'M' || item?.size === 'YS'
+                            ? 'Medium'
+                            : item?.size === 'L' || item?.size === 'YM'
+                            ? 'Large'
+                            : item?.size === 'XL' || item?.size === 'YL'
+                            ? 'X-Large'
+                            : item?.size === '2XL' || item?.size === 'YXL'
+                            ? '2X-Large'
+                            : ''
+                        })`}
+                      </div>
+                      <div className={styles.detailValue}>&nbsp;{item?.color}</div>
+                      <div className={styles.detailValue}>&nbsp;Qty: {item?.quantity}</div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
         )}
 
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
-          <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-          <div className={styles.detailValue}>
-            Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
-          </div>
-          {type && type === 'sales' ? (
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
+
+          {!orderDetails ? (
+            <div className="skeletonLoaderBasic w-[170px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
+            <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
+          )}
+          {!orderDetails ? (
+            <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
+            <div className={styles.detailValue}>
+              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
             </div>
+          )}
+          {type && type === 'sales' ? (
+            !orderDetails ? (
+              <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
             ) : (
+              <div className={`mt-[15px] ${styles.detailValue}`}>
+                Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
+              </div>
+            )
+          ) : !orderDetails ? (
+            <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
           )}
-          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
-          <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
-          <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+          {!orderDetails ? (
+            <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
+            <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
+          )}
+          {!orderDetails ? (
+            <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
+            <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
+          )}
+          {!orderDetails ? (
+            <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[8px]"></div>
+          ) : (
+            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+          )}
         </div>
         <div className="w-full mt-[45px] flex justify-center">
           <div className="flex">
