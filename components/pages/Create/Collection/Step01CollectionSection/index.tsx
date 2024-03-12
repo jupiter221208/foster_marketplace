@@ -615,19 +615,15 @@ const Step01CollectionSection = props => {
                   {isMinting ? (
                     <LoadingButton width={224} height={56} />
                   ) : (
-                    <button
-                      className={styles.createCollection}
-                      disabled={disabledNextButton} //disabledNextButton
-                      style={{
-                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                      }}
+                    <GradientButton
+                      label="Create Collection"
+                      width={224}
+                      height={56}
+                      disabled={disabledNextButton}
                       onClick={() => {
                         mintCollection()
                       }}
-                    >
-                      Create Collection
-                    </button>
+                    />
                   )}
                 </div>
               </div>
