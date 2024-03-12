@@ -13,8 +13,8 @@ const GradientButton = props => {
     fullWidth,
     color,
     backgroundColor,
-    backgroundColor01 = 'var(--primary-btn-bg-right)',
-    backgroundColor02 = 'var(--primary-btn-bg-left)',
+    backgroundColor01 = 'var(--primary-btn-bg)',
+    backgroundColor02 = 'var(--primary-btn-bg)',
     width = '',
     height = '',
     direction = 'ltr',
@@ -24,8 +24,8 @@ const GradientButton = props => {
     fontFamily = '',
     fontSize = '',
     borderRadius = '',
-    borderWidth = '',
-    borderColor = '',
+    borderWidth = '1px',
+    borderColor = 'var(--primary-btn-border)',
     disabled = false,
     paddingLeft = '',
     paddingRight = '',
@@ -42,7 +42,7 @@ const GradientButton = props => {
         width: fullWidth ? '100%' : width,
         color: color,
         background: backgroundColor
-          ? 'var(--primary-btn-bg-right)'
+          ? 'var(--primary-btn-bg)'
           : `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
         fontFamily: fontFamily,
