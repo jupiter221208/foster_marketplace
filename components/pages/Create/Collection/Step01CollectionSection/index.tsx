@@ -20,7 +20,7 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
-import { type EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
+import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -38,6 +38,7 @@ import styles from './index.module.scss'
 import uploadFileToS3API from 'apis/aws'
 import ImportEAModal from 'components/Modal/ImportEAModal'
 import { validDigits } from 'utils/helpers'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step01CollectionSection = props => {
   const {
@@ -62,6 +63,7 @@ const Step01CollectionSection = props => {
     categoryList,
     onChangeCategoryList,
     mintCollection,
+    isMinting,
   } = props
   const viewport = useViewport()
 
@@ -286,7 +288,16 @@ const Step01CollectionSection = props => {
     } else {
       setDisabledNextButton(true)
     }
-  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, coverImage, bannerImage, categoryList, royalties])
+  }, [
+    collectionName,
+    description,
+    coverCroppedImage,
+    bannerCroppedImage,
+    coverImage,
+    bannerImage,
+    categoryList,
+    royalties,
+  ])
 
   const [bannerHelper, setBannerHelper] = useState(false)
   const [coverHelper, setCoverHelper] = useState(false)
@@ -594,30 +605,30 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>
-                    Categories (optional)
-                  </div>
+                  <div className={`${styles.subTitle} mt-10`}>Categories (optional)</div>
                   <div className="w-full mt-5">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-between">
-                  <div />
-
-                  <button
-                    className={styles.createCollection}
-                    disabled={disabledNextButton} //disabledNextButton
-                    style={{
-                      color: disabledNextButton ? "var(--create-collection-color)" : "var(--twitter-text-color)",
-                      background: disabledNextButton ? "var(--create-collection-btn)" : "var(--main-icon-color)"
-                    }}
-                    onClick={() => {
-                      mintCollection()
-                    }}
-                  >
-                    Create Collection
-                  </button>
+                <div className="absolute bottom-0 w-full flex justify-end">
+                  {isMinting ? (
+                    <LoadingButton width={224} height={56} />
+                  ) : (
+                    <button
+                      className={styles.createCollection}
+                      disabled={disabledNextButton} //disabledNextButton
+                      style={{
+                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                      }}
+                      onClick={() => {
+                        mintCollection()
+                      }}
+                    >
+                      Create Collection
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -901,9 +912,7 @@ const Step01CollectionSection = props => {
                 }}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>
-              Categories (optional)
-            </div>
+            <div className={`${styles.subTitle} mt-5`}>Categories (optional)</div>
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
@@ -927,21 +936,23 @@ const Step01CollectionSection = props => {
           <div className="w-full flex justify-between my-10">
             {/* button group part */}
             <div className="w-full">
-              <GradientButton
-                fullWidth
-                backgroundColor01="var(--view-item-btn-color)"
-                backgroundColor02="var(--view-item-btn-color)"
-                color="var(--create-collection-color)"
-                borderWidth="1px"
-                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
-                label="Create Collection"
-                disabled={disabledNextButton} //disabledNextButton
-                onClick={() => {
-                  if (collectionType === 'foster') mintCollection('foster', '')
-                  else mintCollection('ea', eaImportUrl)
-                }}
-                height="45px"
-              />
+              {isMinting ? (
+                <LoadingButton fullWidth height={45} />
+              ) : (
+                <button
+                  className={styles.createCollection}
+                  disabled={disabledNextButton} //disabledNextButton
+                  style={{
+                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                  }}
+                  onClick={() => {
+                    mintCollection()
+                  }}
+                >
+                  Create Collection
+                </button>
+              )}
             </div>
           </div>
         </div>
