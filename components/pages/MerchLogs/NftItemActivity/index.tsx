@@ -40,7 +40,7 @@ const NftItemActivity = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full hidden lg:flex justify-between">
+      <div className="w-full hidden lg:flex justify-between pr-[50px]">
         {activities.length > 0 && (
           <SearchSection
             placeholder={'Search'}

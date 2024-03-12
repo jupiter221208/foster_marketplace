@@ -24,12 +24,13 @@ const MerchNftTable = props => {
         {data.map(item => {
           return (
             <tr key={item.token_id}>
-              <td className="flex items-center">
-                <div className="w-[45px] h-[45px] rounded-[8px] overflow-hidden">
-                  <MerchNftItem url={item.asset_url} />
+              <td className="">
+                <div className="flex items-center">
+                  <div className="w-[45px] h-[45px] rounded-[8px] overflow-hidden">
+                    <MerchNftItem url={item.asset_url} />
+                  </div>
+                  <div className={styles.itemName}>{item.nft_name}</div>
                 </div>
-
-                <div className={styles.itemName}>{item.nft_name}</div>
               </td>
               <td>
                 <div className="flex justify-center">
