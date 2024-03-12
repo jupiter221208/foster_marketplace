@@ -20,37 +20,25 @@ const SearchSection = props => {
             label="All"
             onClick={() => setPeriod('all')}
             fontFamily={'Muli-SemiBold'}
-            color={period === 'all' ? 'var(--background-main-color)' : '#979EA2'}
-            backgroundColor01={period === 'all' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            backgroundColor02={period === 'all' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            gradientDirection="bottom"
+            selected={period === 'all'}
           />
           <TimeSlotButton
             label="24 hrs"
             onClick={() => setPeriod('day')}
             fontFamily={'Muli-SemiBold'}
-            color={period === 'day' ? 'var(--background-main-color)' : '#979EA2'}
-            backgroundColor01={period === 'day' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            backgroundColor02={period === 'day' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            gradientDirection="bottom"
+            selected={period === 'day'}
           />
           <TimeSlotButton
             label="7 days"
             onClick={() => setPeriod('week')}
             fontFamily={'Muli-SemiBold'}
-            color={period === 'week' ? 'var(--background-main-color)' : '#979EA2'}
-            backgroundColor01={period === 'week' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            backgroundColor02={period === 'week' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            gradientDirection="bottom"
+            selected={period === 'week'}
           />
           <TimeSlotButton
             label="30 days"
             onClick={() => setPeriod('month')}
             fontFamily={'Muli-SemiBold'}
-            color={period === 'month' ? 'var(--background-main-color)' : '#979EA2'}
-            backgroundColor01={period === 'month' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            backgroundColor02={period === 'month' ? 'var(--main-icon-color)' : 'rgba(var(--main-bg-color-rgb), 0.05)'}
-            gradientDirection="bottom"
+            selected={period === 'month'}
           />
         </div>
       </div>

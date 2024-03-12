@@ -175,28 +175,8 @@ const MyNFTSection = props => {
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
           <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
             <div className={styles.slotBG}>
-              <TimeSlotButton
-                label="Created"
-                onClick={() => setActive(0)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={160}
-                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="Collected"
-                onClick={() => setActive(1)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={160}
-                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
+              <TimeSlotButton label="Created" onClick={() => setActive(0)} selected={active === 0} width={160} />
+              <TimeSlotButton label="Collected" onClick={() => setActive(1)} selected={active === 1} width={160} />
             </div>
           </div>
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />

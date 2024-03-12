@@ -158,27 +158,12 @@ const FavoriteSection = () => {
     <section className={styles.container}>
       <div className="w-full flex lg:w-[250px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Artwork"
-            onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={160}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
+          <TimeSlotButton label="Artwork" onClick={() => handleChangeActive(0)} selected={active === 0} width={160} />
           <TimeSlotButton
             label="Collections"
             onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={active === 1}
             width={160}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>
