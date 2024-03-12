@@ -14,10 +14,10 @@ const MerchNftTable = props => {
     <table id={'ArtworksTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
-          <th className="w-[80%] text-start">
+          <th className="text-start">
             <div className="ml-3">Artwork</div>
           </th>
-          <th>Action</th>
+          <th className="w-[250px]">Action</th>
         </tr>
       </thead>
       <tbody>

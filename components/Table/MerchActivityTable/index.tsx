@@ -33,7 +33,7 @@ const MerchActivityTable = props => {
           <th>Amount</th>
           <th>Transaction ID</th>
           <th>{type === 'purchases' ? 'Creator' : 'Buyer'}</th>
-          <th>Order Details</th>
+          <th className="w-[200px]">Order Details</th>
         </tr>
       </thead>
       <tbody>
