@@ -110,6 +110,7 @@ import AuctionDetail from '../AuctionDetail'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1316,6 +1317,8 @@ const MainSection = ({
                                           >
                                             Place Bid
                                           </div>
+                                          {/* <GradientButton
+                                          label="Place Bid" */}
                                         </div>
                                       )}
                                     </div>

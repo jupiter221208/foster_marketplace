@@ -775,8 +775,6 @@ const SingleNft = () => {
                               width={viewport === '2xl' ? 124 : 117}
                               height={viewport === '2xl' ? 53 : 45}
                               label="Next Step"
-                              backgroundColor01="var(--main-icon-color)"
-                              backgroundColor02="var(--main-icon-color)"
                               onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
                             />
                           ))}
@@ -1001,8 +999,6 @@ const SingleNft = () => {
                       <GradientButton
                         fullWidth
                         label="Next Step"
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
                         onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                         height="45px"
                         fontSize={16}
@@ -1049,8 +1045,6 @@ const SingleNft = () => {
                             height="45px"
                             fontSize={16}
                             fontFamily="Muli-SemiBold"
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
                           />
                         </div>
                       )}

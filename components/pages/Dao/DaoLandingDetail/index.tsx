@@ -288,8 +288,6 @@ const DaoLandingDetail = props => {
             fontSize={18}
             width={155}
             height={53}
-            backgroundColor01="var(--primary-btn-bg-right)"
-            backgroundColor02="var(--primary-btn-bg-right)"
             icon1={<NotificationIcon alt="" />}
             disabled={disabledVote}
             label="Cast&nbsp;Vote"

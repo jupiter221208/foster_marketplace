@@ -160,8 +160,6 @@ const NotificationSection = prop => {
               disabled={!enableSave}
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
               height="50px"
-              backgroundColor01="var(--primary-btn-bg-right)"
-              backgroundColor02="var(--primary-btn-bg-right)"
               paddingLeft="41px"
               paddingRight="41px"
               fontSize="18px"
