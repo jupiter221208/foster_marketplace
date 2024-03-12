@@ -80,7 +80,6 @@ const ArtworksSection = props => {
   }, [period])
 
   const getArtworkData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsArtwork({

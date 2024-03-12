@@ -75,7 +75,6 @@ const CollectionsSection = props => {
   }, [period])
 
   const getCollectionData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCollection({
