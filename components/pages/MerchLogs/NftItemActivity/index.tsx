@@ -40,7 +40,7 @@ const NftItemActivity = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:max-w-[760px] hidden lg:flex justify-between">
+      <div className="w-full hidden lg:flex justify-between">
         {activities.length > 0 && (
           <SearchSection
             placeholder={'Search'}
@@ -61,7 +61,7 @@ const NftItemActivity = props => {
       </div>
 
       {list.length > 0 && (
-        <div className="lg:max-w-[760px] w-full mt-[10px]">
+        <div className="w-full mt-[10px]">
           <TableSections data={list} type={type} action={action} actionAll={actionAll} />
         </div>
       )}

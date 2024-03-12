@@ -983,7 +983,6 @@ h6 {
   border-style: solid none solid none;
   padding: 4px;
   height: 30px;
-
   font-size: 9px;
   @media (min-width: 640px) {
     font-size: 10px;
@@ -1036,6 +1035,7 @@ h6 {
   border-style: solid none solid none;
   padding-left: 4px;
   padding-right: 4px;
+  margin-left: 20px;
   height: 70px;
   background-color: transparent;
   font-family: 'Muli-SemiBold';

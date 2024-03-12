@@ -25,19 +25,21 @@ const MerchNftTable = props => {
           return (
             <tr key={item.token_id}>
               <td className="flex items-center">
-                <div className="w-[70px] h-[70px] rounded-[15px] overflow-hidden">
-                  <MerchNftItem width={70} height={70} url={item.asset_url} />
+                <div className="w-[45px] h-[45px] rounded-[8px] overflow-hidden">
+                  <MerchNftItem url={item.asset_url} />
                 </div>
 
                 <div className={styles.itemName}>{item.nft_name}</div>
               </td>
               <td>
-                <GradientButton
-                  width={138}
-                  height={48}
-                  label={type === 'enabled' ? 'Disable' : 'Enable'}
-                  onClick={() => action(item.token_id)}
-                />
+                <div className="flex justify-center">
+                  <GradientButton
+                    width={138}
+                    height={48}
+                    label={type === 'enabled' ? 'Disable' : 'Enable'}
+                    onClick={() => action(item.token_id)}
+                  />
+                </div>
               </td>
             </tr>
           )
