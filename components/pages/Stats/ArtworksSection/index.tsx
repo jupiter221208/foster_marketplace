@@ -4,16 +4,9 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-// import Marquee from 'react-fast-marquee'
-import { useViewport } from 'utils'
 
 // json
 
@@ -26,11 +19,9 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-SwiperCore.use([Navigation])
 
 const ArtworksSection = props => {
   const { artworks } = props
-  const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
@@ -55,6 +46,7 @@ const ArtworksSection = props => {
         setScreenWidth(window.innerWidth)
         setList(artworks)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [artworks])

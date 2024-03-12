@@ -40,7 +40,7 @@ const CollectorsTable = props => {
       <tbody>
         {data.map((item, index) => {
           return (
-            <tr key={index}>
+            <tr key={item.collector_name}>
               <td>
                 <Link href={`/${item.collector_name}`} passHref>
                   <a>

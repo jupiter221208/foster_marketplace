@@ -50,6 +50,7 @@ const CollectionsSection = props => {
         setLoading(false)
         setList(collections)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collections])
