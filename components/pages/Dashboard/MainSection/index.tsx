@@ -25,16 +25,7 @@ import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
-
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
-import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
-import LandIcon from 'assets/icons/land-icon.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-
-import TwitterWhiteMobileIcon from 'assets/icons/twitter-white.svg?component'
-import IGWhiteMobileIcon from 'assets/icons/instagram-green-small.svg?component'
-import LandMobileIcon from 'assets/icons/land-icon-mobile.svg?component'
-import SolrPlexMobileIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-white-big.svg?component'
 
 import Alert from 'components/Alert'
 
@@ -48,6 +39,7 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
+import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -80,6 +72,34 @@ const MainSection = () => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [walletList, setWalletList] = useState([])
+  const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
+  const getPrefixUrl = (url: string) => {
+    let prefix = 'http'
+    if (url.substring(0, prefix.length) !== prefix) {
+      url = prefix + '://' + url
+    }
+    return url
+  }
+  const profileName = profileInfo?.username ? profileInfo?.username : ''
+  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
+  const siteUrl = profileInfo?.site_url ? getPrefixUrl(profileInfo?.site_url) : ''
+  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
+  const threelandUrl = profileInfo?.three_land_url ? getPrefixUrl(profileInfo?.three_land_url) : ''
+  const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
+
+  useEffect(() => {
+    let list = [
+      { id: 0, label: getShortAddress(publicKey) },
+      { id: 1, label: 'Twitter' },
+      { id: 2, label: 'Instagram' },
+      { id: 3, label: 'Website' },
+      { id: 4, label: '3.Land' },
+      { id: 5, label: 'Solarplex' },
+    ]
+    setWalletList(list)
+    setSelectedWallet(list[0])
+  }, [])
 
   useEffect(() => {
     if (
@@ -102,20 +122,6 @@ const MainSection = () => {
       setCroppedAvatar('')
     }
   }, [profileInfo])
-
-  const getPrefixUrl = (url: string) => {
-    let prefix = 'http'
-    if (url.substring(0, prefix.length) !== prefix) {
-      url = prefix + '://' + url
-    }
-    return url
-  }
-
-  const profileName = profileInfo?.username ? profileInfo?.username : ''
-  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
-  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
-  const threelandUrl = profileInfo?.three_land_url ? getPrefixUrl(profileInfo?.three_land_url) : ''
-  const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
 
   const showAlertModal = () => {
     setAlertData([
@@ -233,8 +239,15 @@ const MainSection = () => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-25"
         />
+        <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center">
+          <div>
+            <div className={styles.profileName}>{getDisplayUserName(profileName)}</div>
+            <div className={styles.dashboard}>Dashboard</div>
+          </div>
+        </div>
+
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <div className={styles.iconBlurView}>
             <IconButton
@@ -261,7 +274,7 @@ const MainSection = () => {
       </div>
       <div className="w-full z-10">
         <div className="w-full flex justify-between">
-          <div className="mt-[-40px] lg:mt-[-76px] ">
+          {/* <div className="mt-[-40px] lg:mt-[-76px] ">
             <div className="relative">
               <DashboardArtistCard
                 image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
@@ -292,10 +305,25 @@ const MainSection = () => {
                 />
               </div>
             </div>
+          </div> */}
+          <div className={styles.profileBtn} onClick={() => router.push(`/${profileName}`)}>
+            <div className="flex gap-[12px]">
+              <div className="flex gap-[8px] items-center">
+                <ArrowLeftIcon />
+                Profile
+              </div>
+              <div className={styles.avatar}>
+                <img
+                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+                  alt=""
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="hidden lg:flex gap-[10px] mt-[30px]">
-            <div>
+            <div className="flex gap-[15px]">
               <IconButtonWithSVG
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
@@ -310,6 +338,26 @@ const MainSection = () => {
                 onClick={() => router.push('/settings')}
                 backgroundColor="transparent"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+              />
+              <WalletFilterMenu
+                label={'Wallet & Socials'}
+                data={walletList}
+                selectedItem={selectedWallet}
+                setSelectedItem={item => {
+                  if (item.id === 0) {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                  } else if (item.id === 1) {
+                    window.open(twitterUrl)
+                  } else if (item.id === 2) {
+                    window.open(instagramUrl)
+                  } else if (item.id === 3) {
+                    window.open(siteUrl)
+                  } else if (item.id === 4) {
+                    window.open(threelandUrl)
+                  } else if (item.id === 5) {
+                    window.open(solrPlexUrl)
+                  }
+                }}
               />
             </div>
           </div>
@@ -341,9 +389,9 @@ const MainSection = () => {
         </div>
         <div>
           <div>
-            <div className={styles.bottomSection}>
-              <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
-              {/* <div className="lg:hidden flex items-center ml-[5px]">
+            {/* <div className={styles.bottomSection}> */}
+            {/* <div className={styles.artistName}>{getDisplayUserName(profileName)}</div> */}
+            {/* <div className="lg:hidden flex items-center ml-[5px]">
                 <div>
                   <SocialButton icon={<IGWhiteMobileIcon />} onClick={() => window.open(instagramUrl)} />
                 </div>
@@ -357,8 +405,8 @@ const MainSection = () => {
                   <SocialButton icon={<SolrPlexMobileIcon />} onClick={() => window.open(solrPlexUrl)} />
                 </div>
               </div> */}
-            </div>
-            <div className="relative flex lg:hidden mt-[3px] gap-[10px]">
+            {/* </div> */}
+            {/* <div className="relative flex lg:hidden mt-[3px] gap-[10px]">
               <div className="relative">
                 <AddressButton
                   label={shortAddress}
@@ -369,10 +417,10 @@ const MainSection = () => {
                 />
                 <CopyClipboardChip identifier="wallet-address-mobile" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div>
+        {/* <div>
           <div className="hidden lg:flex mt-[16px] items-center">
             <div className="relative">
               <AddressButton
@@ -384,22 +432,8 @@ const MainSection = () => {
               />
               <CopyClipboardChip identifier="wallet-address" />
             </div>
-            {/* <div className="flex justify-center ml-[5px]">
-              <div>
-                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
-              </div>
-            </div> */}
           </div>
-        </div>
+        </div> */}
         {/* <div className="max-w-[734px] mt-[30px]">
           <div className={styles.description}>{profileInfo?.bio}</div>
         </div> */}

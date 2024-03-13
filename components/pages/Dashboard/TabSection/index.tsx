@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // components
-import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
 import ListedNFTSection from 'components/pages/Dashboard/ListedNFTSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'

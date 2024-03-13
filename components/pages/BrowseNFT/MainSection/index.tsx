@@ -418,7 +418,6 @@ const MainSection = ({
 
   useEffect(() => {
     if (editionDetail) {
-      console.log(editionDetail, '============editionDetail============')
       if (editionDetail.isOriginal === true) {
         setEditionType('normal')
       } else if (editionDetail.isOpenEdition === true) {

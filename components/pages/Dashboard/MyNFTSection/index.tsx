@@ -22,17 +22,16 @@ import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
 
-import { useViewport } from 'utils'
 import ListEditionModal from 'components/Modal/ListEditionModal'
+import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
   const dispatch = useDispatch()
-  const viewport = useViewport()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
@@ -81,6 +80,11 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: '1 of 1' },
+    { id: 1, label: 'Editions' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1' })
 
   const handleStartAuction = item => {
     setSelectedData(item)
@@ -194,13 +198,22 @@ const MyNFTSection = props => {
     <section className={styles.container}>
       {!loading && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
-          <div className="w-full lg:w-auto flex h-[54px] z-10">
+          {/* <div className="w-full lg:w-auto flex h-[54px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton label="Created" onClick={() => setActive(0)} selected={active === 0} width={160} />
               <TimeSlotButton label="Collected" onClick={() => setActive(1)} selected={active === 1} width={160} />
             </div>
-          </div>
+          </div> */}
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setActive(item.id)
+            }}
+          />
         </div>
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
