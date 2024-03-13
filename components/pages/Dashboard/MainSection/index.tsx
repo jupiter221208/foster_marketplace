@@ -89,14 +89,12 @@ const MainSection = () => {
   const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
 
   useEffect(() => {
-    let list = [
-      { id: 0, label: getShortAddress(publicKey) },
-      { id: 1, label: 'Twitter' },
-      { id: 2, label: 'Instagram' },
-      { id: 3, label: 'Website' },
-      { id: 4, label: '3.Land' },
-      { id: 5, label: 'Solarplex' },
-    ]
+    let list = [{ id: 0, label: getShortAddress(publicKey), type: 'address' }]
+    if (twitterUrl.length > 0) list.push({ id: list.length, label: 'Twitter', type: 'twitter' })
+    if (instagramUrl.length > 0) list.push({ id: list.length, label: 'Instagram', type: 'instagram' })
+    if (siteUrl.length > 0) list.push({ id: list.length, label: 'Website', type: 'website' })
+    if (threelandUrl.length > 0) list.push({ id: list.length, label: '3.Land', type: 'land' })
+    if (solrPlexUrl.length > 0) list.push({ id: list.length, label: 'Solarplex', type: 'solar' })
     setWalletList(list)
     setSelectedWallet(list[0])
   }, [])
@@ -248,7 +246,7 @@ const MainSection = () => {
           </div>
         </div>
 
-        <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+        {/* <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <div className={styles.iconBlurView}>
             <IconButton
               icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
@@ -270,7 +268,7 @@ const MainSection = () => {
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
           />
-        </div>
+        </div> */}
       </div>
       <div className="w-full z-10">
         <div className="w-full flex justify-between">
@@ -344,17 +342,17 @@ const MainSection = () => {
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {
-                  if (item.id === 0) {
+                  if (item.type === 'address') {
                     copyToClipboard(publicKey?.toBase58() || '')
-                  } else if (item.id === 1) {
+                  } else if (item.type === 'twitter') {
                     window.open(twitterUrl)
-                  } else if (item.id === 2) {
+                  } else if (item.type === 'instagram') {
                     window.open(instagramUrl)
-                  } else if (item.id === 3) {
+                  } else if (item.type === 'website') {
                     window.open(siteUrl)
-                  } else if (item.id === 4) {
+                  } else if (item.type === 'land') {
                     window.open(threelandUrl)
-                  } else if (item.id === 5) {
+                  } else if (item.type === 'solar') {
                     window.open(solrPlexUrl)
                   }
                 }}

@@ -33,6 +33,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { ListingsAPIData } from 'types/nft'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 type SelectedDataType = {
   category: string
@@ -71,6 +72,12 @@ const ListedNFTSection = props => {
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
   const [rowCount, setRowCount] = useState(12)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Buy Now' },
+    { id: 1, label: 'Auction' },
+    { id: 2, label: 'Live Editions' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Buy Now' })
 
   useEffect(() => {
     if (filter !== undefined) {
@@ -351,8 +358,18 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full lg:w-[346px] flex h-[54px] z-10">
-        <div className={styles.slotBG}>
+      <div className="w-full flex justify-end z-10">
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setActive(item.id)
+          }}
+        />
+
+        {/* <div className={styles.slotBG}>
           <TimeSlotButton
             label="Buy&nbsp;Now"
             onClick={() => handleChangeActive(0)}
@@ -366,7 +383,7 @@ const ListedNFTSection = props => {
             selected={active === 2}
             width={120}
           />
-        </div>
+        </div> */}
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&

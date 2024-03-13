@@ -29,6 +29,7 @@ import usersAPI from 'apis/user'
 import styles from './index.module.scss'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -50,6 +51,12 @@ const OfferSection = () => {
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Offers Made', type: 'made' },
+    { id: 1, label: 'Offers Received', type: 'received' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Offers Made', type: 'made' })
 
   const dispatch = useDispatch()
 
@@ -207,8 +214,8 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-[16px] lg:mt-[30px] z-10">
-      <div className="w-full flex lg:w-[350px] h-[54px] z-10">
-        <div className={styles.slotBG}>
+      <div className="w-full flex justify-end z-10">
+        {/* <div className={styles.slotBG}>
           <TimeSlotButton
             label="Offers Made"
             onClick={() => setShownOfferType('made')}
@@ -221,7 +228,16 @@ const OfferSection = () => {
             selected={shownOfferType === 'received'}
             width={160}
           />
-        </div>
+        </div> */}
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setShownOfferType(item.type)
+          }}
+        />
       </div>
       {!offerLoaded ? (
         <div className="col-span-12 mt-10">

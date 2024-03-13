@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 // next components
+import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -15,6 +16,7 @@ import SolrPlexIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const WalletFilterMenu = props => {
   const { label, data, selectedItem, setSelectedItem } = props
@@ -44,25 +46,35 @@ const WalletFilterMenu = props => {
                   {data.map((item, index) => (
                     <div key={index} className="flex justify-between gap-[10px] lg:gap-4 z-10 h-[32px] items-center">
                       <div className="w-[24px] flex justify-center">
-                        {item.id === 0 ? (
+                        {item.type === 'address' ? (
                           <FileCopyIcon />
-                        ) : item.id === 1 ? (
+                        ) : item.type === 'twitter' ? (
                           <TwitterWhiteIcon />
-                        ) : item.id === 2 ? (
+                        ) : item.type === 'instagram' ? (
                           <IGWhiteIcon />
-                        ) : item.id === 3 ? (
+                        ) : item.type === 'website' ? (
                           <WebsiteIcon />
-                        ) : item.id === 4 ? (
+                        ) : item.type === 'land' ? (
                           <LandIcon />
-                        ) : item.id === 5 ? (
+                        ) : item.type === 'solar' ? (
                           <SolrPlexIcon />
                         ) : (
                           <></>
                         )}
                       </div>
-                      <label className={styles.label} onClick={() => setSelectedItem(item)}>
+                      <label
+                        className={styles.label}
+                        onClick={() => {
+                          if (item.type === 'address') {
+                            // copyClipboardAlert('wallet-address')
+                          }
+                          setSelectedItem(item)
+                        }}
+                      >
                         {item.label}
                       </label>
+
+                      {/* <CopyClipboardChip identifier="wallet-address" /> */}
                     </div>
                   ))}
                 </div>

@@ -122,16 +122,24 @@
 }
 
 .profileName {
-  font-family: 'Muli-Bold';
-  font-size: 30px;
-  color: #eff0f6;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 30px;
+  }
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .dashboard {
   font-family: 'Muli-Light';
-  font-size: 22px;
-  color: rgba(239, 240, 247, 0.8);
-  margin-top: 9px;
+  font-size: 16px;
+  margin-top: 3px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    margin-top: 9px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   text-align: center;
 }
