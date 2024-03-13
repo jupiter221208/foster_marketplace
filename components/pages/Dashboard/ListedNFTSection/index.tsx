@@ -33,6 +33,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { ListingsAPIData } from 'types/nft'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 type SelectedDataType = {
   category: string
@@ -71,6 +72,12 @@ const ListedNFTSection = props => {
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
   const [rowCount, setRowCount] = useState(12)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Buy Now' },
+    { id: 1, label: 'Auction' },
+    { id: 2, label: 'Live Editions' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Buy Now' })
 
   useEffect(() => {
     if (filter !== undefined) {
@@ -351,21 +358,32 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
-        <div className={styles.slotBG}>
+      <div className="w-full flex justify-end z-10">
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setActive(item.id)
+          }}
+        />
+
+        {/* <div className={styles.slotBG}>
           <TimeSlotButton
-            label="Fixed-Price"
+            label="Buy&nbsp;Now"
             onClick={() => handleChangeActive(0)}
             selected={active === 0}
             width={160}
           />
+          <TimeSlotButton label="Auction" onClick={() => handleChangeActive(1)} selected={active === 1} width={160} />
           <TimeSlotButton
-            label="Live&nbsp;Auction"
-            onClick={() => handleChangeActive(1)}
-            selected={active === 1}
-            width={160}
+            label="Live&nbsp;Editions"
+            onClick={() => handleChangeActive(2)}
+            selected={active === 2}
+            width={120}
           />
-        </div>
+        </div> */}
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
@@ -373,7 +391,7 @@ const ListedNFTSection = props => {
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={item.address}>
               <ListedNFTCard
                 data={item}
-                type={active === 0 ? 'fixed' : 'auction'}
+                type={active === 0 ? 'fixed' : active === 1 ? 'auction' : 'edition'}
                 onClick={url => handleGotoDetailPage(url)}
                 onActionClick={item => handleSelectData(item)}
                 cancelAuction={cancelAuction}

@@ -55,7 +55,7 @@ const NotificationsFilterModal = props => {
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Apply" onClick={() => onClickApply()} color="#202427" fullWidth />
+          <GradientButton label="Apply" onClick={() => onClickApply()} fullWidth />
         </div>
       </div>
     </div>

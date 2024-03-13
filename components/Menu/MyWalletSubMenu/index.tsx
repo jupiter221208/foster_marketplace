@@ -424,12 +424,7 @@ const MyWalletSubMenu = props => {
                           fullWidth
                           height="42px"
                           fontSize="14px"
-                          color="#CBCCD2"
-                          backgroundColor01="#121212"
-                          backgroundColor02="#121212"
-                          gradientDirection="bottom"
                           borderRadius="6px"
-                          borderColor="rgba(255, 255, 255, 0.1)"
                           onClick={() => {}}
                         />
                       ) : (
@@ -439,7 +434,6 @@ const MyWalletSubMenu = props => {
                           height="42px"
                           fontSize="14px"
                           borderRadius="6px"
-                          borderColor="rgba(255, 255, 255, 0.1)"
                           onClick={() => onClickOfferButton()}
                         />
                       )}
@@ -600,12 +594,7 @@ const MyWalletSubMenu = props => {
                           fullWidth
                           height="42px"
                           fontSize="14px"
-                          color="#CBCCD2"
-                          backgroundColor01="#121212"
-                          backgroundColor02="#121212"
-                          gradientDirection="bottom"
                           borderRadius="6px"
-                          borderColor="rgba(255, 255, 255, 0.1)"
                           onClick={() => {}}
                         />
                       ) : (
@@ -615,7 +604,6 @@ const MyWalletSubMenu = props => {
                           height="42px"
                           fontSize="14px"
                           borderRadius="6px"
-                          borderColor="rgba(255, 255, 255, 0.1)"
                           onClick={() => onClickBiddingButton()}
                         />
                       )}

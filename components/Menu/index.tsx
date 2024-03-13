@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Menu as HMenu, Transition } from '@headlessui/react'

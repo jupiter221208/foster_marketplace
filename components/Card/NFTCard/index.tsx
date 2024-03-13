@@ -232,6 +232,7 @@ const NFTCard = props => {
               <GradientButton
                 fullWidth
                 label="Unsave"
+                borderRadius="10"
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   unSave()

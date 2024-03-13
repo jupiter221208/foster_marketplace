@@ -22,10 +22,12 @@ type MyNFTCardTypes = {
   data: NftData
   onClick?: any
   onClickStartAuction: (item: NftData) => void
+  onClickListEdition: (item: NftData) => void
   onClickListNFT: (item: NftData) => void
+  active: any
 }
 
-const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes) => {
+const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListNFT, active }: MyNFTCardTypes) => {
   const [blurMode, setBlurMode] = useState(false)
   const [imageLoading, setImageLoading] = useState(true)
   const dispatch = useDispatch()
@@ -83,41 +85,69 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
         <div className="w-full flex items-center">
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
-        <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          <GradientButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="40px"
-            fontSize="14px"
-            fontFamily="Muli-SemiBold"
-          />
-          <SecondaryButton
-            backgroundColor="transparent"
-            label="List NFT"
-            onClick={() => onClickListNFT(data)}
-            height="40px"
-            fontSize="14px"
-            fontFamily="Muli-SemiBold"
-          />
-        </div>
-        <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          <GradientButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-            fontFamily="Muli-SemiBold"
-          />
-          <SecondaryButton
-            label="List NFT"
-            onClick={() => onClickListNFT(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-            fontFamily="Muli-SemiBold"
-          />
-        </div>
+        {active === 0 ? (
+          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+            <GradientButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="40px"
+              fontSize="14px"
+              borderRadius={10}
+            />
+            <SecondaryButton
+              backgroundColor="transparent"
+              label="List NFT"
+              onClick={() => onClickListNFT(data)}
+              height="40px"
+              fontSize="14px"
+              fontFamily="Muli-SemiBold"
+            />
+          </div>
+        ) : (
+          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+            <GradientButton
+              label="List Edition"
+              onClick={() => onClickListEdition(data)}
+              height="50px"
+              fontSize="18px"
+              borderWidth={1}
+              fullWidth
+              borderRadius={10}
+            />
+          </div>
+        )}
+
+        {active === 0 ? (
+          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+            <GradientButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+            />
+            <SecondaryButton
+              label="List NFT"
+              onClick={() => onClickListNFT(data)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+              fontFamily="Muli-SemiBold"
+            />
+          </div>
+        ) : (
+          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+            <GradientButton
+              label="List Edition"
+              onClick={() => onClickListEdition(data)}
+              height="35px"
+              fontSize="14px"
+              fullWidth
+              borderRadius={6}
+              borderWidth={1}
+            />
+          </div>
+        )}
       </div>
 
       {blurMode && (

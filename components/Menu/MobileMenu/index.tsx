@@ -24,7 +24,6 @@ import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
 import ExploreMenuList from 'assets/json/explore-mobile-menu.json'
-import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles
 import styles from './index.module.scss'
@@ -40,6 +39,7 @@ import { getDisplayUserName } from 'utils/strings'
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+
   const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
@@ -111,7 +111,8 @@ const MobileMenu = () => {
             <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" />
             <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
-            <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+            {/* <AccordionMenu label="Create" type="create" data={CreateMenuList} /> */}
+            <AccordionMenu label="Create" type="create" data={[]} path="/create/single-nft" />
             {/* <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" /> */}
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
@@ -244,7 +245,7 @@ const MobileMenu = () => {
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
             <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
-            <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+            <AccordionMenu label="Create" type="create" data={[]} path="connectWallet" />
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
             <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />

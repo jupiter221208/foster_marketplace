@@ -6,7 +6,14 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, toOriginalOrPrintEditionAccount } from '@metaplex-foundation/js'
+import type { OriginalEditionAccountData, PrintEditionAccountData } from '@metaplex-foundation/js'
+import {
+  Metaplex,
+  toOriginalEditionAccount,
+  toOriginalOrPrintEditionAccount,
+  toNftOriginalEdition,
+} from '@metaplex-foundation/js'
+import { Key } from '@metaplex-foundation/mpl-token-metadata'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -43,6 +50,7 @@ import { isString, compareDate, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
+import ProvenanceSection from 'components/pages/BrowseNFT/ProvenanceSection'
 import ModelViewer from 'components/ModelViewer'
 import { NftData, NftApiData } from 'types/nft'
 import { useViewport } from 'utils'
@@ -51,9 +59,15 @@ import collectionAPI from 'apis/collections'
 import dashboardAPI from 'apis/dashboard'
 
 export interface EditionDetail {
-  number: number
   supply: number
   maxSupply?: number
+  print?: {
+    number: number
+  }
+  isOriginal: boolean
+  isSingleNft: boolean
+  isOpenEdition: boolean
+  isLimitedEdition: boolean
 }
 
 export interface BrowseNFTProps {
@@ -167,9 +181,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   let nftName = nftDetail?.name ?? ''
   if (editionDetail) {
-    let { number, supply, maxSupply } = editionDetail
-    let supplyInfo = `#${number}/${supply}`
-    if (supply !== maxSupply) supplyInfo = `edition ${number}/${supply}, max ${maxSupply ?? '\u221e'}`
+    let { print, supply, maxSupply } = editionDetail
+    let supplyInfo = `#${print?.number}/${supply}`
+    if (supply !== maxSupply) supplyInfo = `edition ${print?.number}/${supply}, max ${maxSupply ?? '\u221e'}`
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
@@ -460,20 +474,26 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
 
     let editionDetail: EditionDetail | undefined = undefined
     try {
-      const { data: editionData } = await metaplex
+      const { data: nftEdition } = await metaplex
         .rpc()
         .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
         .then(toOriginalOrPrintEditionAccount)
 
-      if ('parent' in editionData) {
-        let {
-          data: { maxSupply, supply },
-        } = await metaplex.rpc().getAccount(editionData.parent).then(toOriginalEditionAccount)
-        editionDetail = {
-          number: Number(editionData.edition),
-          supply: Number(supply),
-          maxSupply: maxSupply && Number(maxSupply),
-        }
+      let originalEdition: OriginalEditionAccountData
+      let print: PrintEditionAccountData | null = null
+
+      if ('parent' in nftEdition) {
+        print = nftEdition
+        ;({ data: originalEdition } = await metaplex.rpc().getAccount(nftEdition.parent).then(toOriginalEditionAccount))
+      } else originalEdition = nftEdition
+      editionDetail = {
+        print: print?.edition && { number: Number(print.edition) },
+        supply: Number(originalEdition.supply),
+        maxSupply: originalEdition.maxSupply && Number(originalEdition.maxSupply),
+        isOriginal: ![Key.MasterEditionV1, Key.MasterEditionV2].includes(originalEdition.key),
+        isSingleNft: originalEdition.maxSupply === 0,
+        isOpenEdition: originalEdition.maxSupply === null,
+        isLimitedEdition: Number(originalEdition.maxSupply) > 0,
       }
     } catch (error) {
       console.error(error)

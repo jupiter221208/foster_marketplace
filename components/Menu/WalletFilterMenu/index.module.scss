@@ -1,0 +1,95 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: auto;
+  height: 40px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    height: 50px;
+  }
+  padding: 0px 12px;
+  gap: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  width: 150px;
+  top: 50px;
+  right: 0px;
+  @media (min-width: 1024px) {
+    width: 175px;
+    top: 60px;
+    padding: 10px 25px;
+  }
+  padding: 10px 15px;
+  background: rgba(var(--collection-card-bg-rgb), 0.7);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  border-radius: 10px;
+  
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.menuItem {
+  width: 100%;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  @media (min-width: 1024px) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  gap: 16px;
+  }
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}
+
+.label {
+  flex: 1;
+  cursor: pointer;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 20px;
+  @media (min-width:1024px) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  letter-spacing: 0;
+}
+
+.label:hover {
+  color: rgba(var(--text-gray-200-color-rgb), 1);
+}
+
+.selected {
+  color: rgba(var(--text-gray-200-color-rgb), 1) !important;
+}

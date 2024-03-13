@@ -365,8 +365,6 @@ const MainSection = prop => {
                     border={12}
                     fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
                       localStorage.setItem('isVisibleSocialBoard', 'false')
@@ -481,7 +479,6 @@ const MainSection = prop => {
                       height={45}
                       label="Following"
                       fontSize={18}
-                      borderColor="var(--follow-btn-border-mobile)"
                       borderWidth={2}
                       onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                     />
@@ -494,7 +491,6 @@ const MainSection = prop => {
                     height={45}
                     fontSize={18}
                     label="Follow"
-                    backgroundColor
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
                 )}
@@ -734,10 +730,7 @@ const MainSection = prop => {
                     width={78}
                     height={37}
                     border={12}
-                    fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowBannerBoard(false)
                       localStorage.setItem('isVisibleBannerBoard', 'false')
@@ -771,10 +764,7 @@ const MainSection = prop => {
                     width={78}
                     height={37}
                     border={12}
-                    fontFamily="Muli-SemiBold"
                     fontSize={14}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
                     onClick={() => {
                       setShowSocialBoard(false)
                       localStorage.setItem('isVisibleSocialBoard', 'false')
@@ -845,21 +835,17 @@ const MainSection = prop => {
                         fontSize={12}
                         borderRadius={8}
                         label="Following"
-                        borderColor="var(--follow-btn-border-mobile)"
                         onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                       />
                     )
                   ) : hasLoading ? (
                     <div className={`${styles.skeletonLoader} w-[80px] h-[29px] rounded-md`}></div>
                   ) : (
-                    <OutlineButton
+                    <GradientButton
                       width={80}
                       height={29}
                       fontSize={12}
                       label="Follow"
-                      borderColor="transparent"
-                      color="var(--twitter-text-color)"
-                      backgroundColor="var(--main-bg-color)"
                       borderRadius={8}
                       onClick={() => followArtist(artistInfo?.wallet_id)}
                     />

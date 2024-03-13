@@ -1,0 +1,21 @@
+[
+  {
+    "id": 0,
+    "value": 10,
+    "label": "10 editions"
+  },
+  {
+    "id": 1,
+    "value": 20,
+    "label": "20 editions"
+  },
+  {
+    "id": 2,
+    "value": 50,
+    "label": "50 editions"
+  },
+  {
+    "id": 3,
+    "label": "Custom"
+  }
+]

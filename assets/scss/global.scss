@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'Muli-Light';
   src: url('../fonts/muli/Muli-Light.ttf');
-  font-weight: 300;
+  font-weight: 100;
   font-style: normal;
 }
 
@@ -972,7 +972,7 @@ h6 {
 // ####################################################
 // ArtworksTable
 #ArtworksTable {
-  margin-top: 25px;
+  margin-top: 10px;
   border-collapse: separate;
   border-spacing: 0 19px;
 }
@@ -1378,7 +1378,7 @@ h6 {
 }
 
 [data-name='info-gray-small'] {
-  fill: rgba(var(--main-bg-color-rgb), 0.75);
+  fill: var(--main-icon-color);
 }
 
 

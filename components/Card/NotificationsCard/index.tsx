@@ -334,7 +334,6 @@ const NotificationsCard = props => {
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
-                        // color="#95DBD5"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'following')}
                       />

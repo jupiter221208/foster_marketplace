@@ -26,9 +26,8 @@ import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
 
 // styles
-import styles from './index.module.scss'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -50,6 +49,12 @@ const OfferSection = () => {
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Offers Made', type: 'made' },
+    { id: 1, label: 'Offers Received', type: 'received' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Offers Made', type: 'made' })
 
   const dispatch = useDispatch()
 
@@ -206,22 +211,17 @@ const OfferSection = () => {
   }
 
   return (
-    <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="w-full flex lg:w-[350px] h-[54px] mt-[15px] z-10">
-        <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Offers Made"
-            onClick={() => setShownOfferType('made')}
-            selected={shownOfferType === 'made'}
-            width={160}
-          />
-          <TimeSlotButton
-            label="Offers Received"
-            onClick={() => setShownOfferType('received')}
-            selected={shownOfferType === 'received'}
-            width={160}
-          />
-        </div>
+    <section className="w-full mt-[16px] lg:mt-[30px]">
+      <div className="w-full flex justify-end z-10">
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setShownOfferType(item.type)
+          }}
+        />
       </div>
       {!offerLoaded ? (
         <div className="col-span-12 mt-10">

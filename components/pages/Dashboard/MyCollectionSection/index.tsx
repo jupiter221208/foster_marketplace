@@ -42,6 +42,7 @@ const MyCollectionSection = () => {
 
   useEffect(() => {
     if (collections.length > 0) {
+      console.log(collections, '=============collections===========')
       setMyCollections(collections.slice(0, rowCount))
       if (collections.length > rowCount) setIsVisibleFetching(true)
     }
@@ -69,7 +70,7 @@ const MyCollectionSection = () => {
   }
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[0px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
         {isCollectionLoaded &&
           myCollections.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>

@@ -79,7 +79,7 @@ const HiddenSection = () => {
       {!loading && allNftList.length === 0 && (
         <div className={styles.comingSoon}>You don&apos;t have any hidden nfts.</div>
       )}
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[0px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {!loading &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>

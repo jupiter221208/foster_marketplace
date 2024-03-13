@@ -13,7 +13,7 @@ import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
 import { Keypair, PublicKey } from '@solana/web3.js'
-import { toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
+import { toBigNumber, toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -24,6 +24,8 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -79,7 +81,8 @@ const SingleNft = () => {
   }, [])
 
   // variables
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [type, setType] = useState()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -87,6 +90,8 @@ const SingleNft = () => {
     setCurrentStep(step)
   }
   // step 1
+  const [editionType, setEditionType] = useState(null)
+  const [maxNum, setMaxNum] = useState(10)
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>(null)
@@ -271,7 +276,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(1)
-  }, [nftArt, nftImage, nftType, nftCover])
+  }, [nftArt, nftImage, nftType, nftCover, editionType])
 
   // step 2
   const [nftName, setNftName] = useState<string>('')
@@ -403,6 +408,10 @@ const SingleNft = () => {
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
+      let maxSupply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') maxSupply = toBigNumber(maxNum)
+      else if (editionType?.name == 'Open Edition') maxSupply = null
+
       let publicKey = mx.identity().publicKey
       let nftMint = Keypair.generate()
       let createNftOperation = await mx
@@ -419,6 +428,7 @@ const SingleNft = () => {
           })),
           useNewMint: nftMint,
           collection: collection?.mintAddress,
+          maxSupply,
         })
       if (collection)
         createNftOperation.add(
@@ -520,7 +530,11 @@ const SingleNft = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-        ? currentStep !== 4 && (
+        ? currentStep !== 4 &&
+          (currentStep === 0 ? (
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
+          ) : (
+            // <div onClick={() => setCurrentStep(1)}>111</div>
             <div className="relative w-full grid grid-cols-12 gap-0">
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
@@ -643,9 +657,12 @@ const SingleNft = () => {
                     {currentStep === 1 && (
                       <>
                         <Step01SingleNFTSection
+                          type={type}
                           nftType={nftType}
+                          setEditionType={item => setEditionType(item)}
                           setNftArt={item => handleChangeNftArt(item)}
                           setNftCover={item => handleChangeNftCover(item)}
+                          setMaxSupply={value => setMaxNum(value)}
                         />
                         {nftType === 'vr' && (
                           <>
@@ -715,6 +732,7 @@ const SingleNft = () => {
                         )}
                       </>
                     )}
+
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
                         nftName={nftName}
@@ -784,9 +802,12 @@ const SingleNft = () => {
                 </div>
               </div>
             </div>
-          )
-        : currentStep !== 4 && (
-            // mobile part
+          ))
+        : currentStep !== 4 &&
+          // mobile part
+          (currentStep === 0 ? (
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
+          ) : (
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
@@ -881,9 +902,12 @@ const SingleNft = () => {
               {currentStep === 1 && (
                 <>
                   <Step01SingleNFTSection
+                    type={type}
                     nftType={nftType}
+                    setEditionType={item => setEditionType(item)}
                     setNftArt={item => handleChangeNftArt(item)}
                     setNftCover={item => handleChangeNftCover(item)}
+                    setMaxSupply={value => setMaxNum(value)}
                   />
                   {nftType === 'vr' && (
                     <>
@@ -1053,7 +1077,7 @@ const SingleNft = () => {
                 )}
               </div>
             </div>
-          )}
+          ))}
       <div>
         <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
       </div>
