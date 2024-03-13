@@ -97,7 +97,7 @@ const MainSection = () => {
     if (solrPlexUrl.length > 0) list.push({ id: list.length, label: 'Solarplex', type: 'solar' })
     setWalletList(list)
     setSelectedWallet(list[0])
-  }, [])
+  }, [publicKey, profileInfo])
 
   useEffect(() => {
     if (
@@ -240,10 +240,12 @@ const MainSection = () => {
           className="w-full h-full object-cover opacity-25"
         />
         <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center">
-          <div>
-            <div className={styles.profileName}>{getDisplayUserName(profileName)}</div>
-            <div className={styles.dashboard}>Dashboard</div>
-          </div>
+          {profileName.length > 0 && (
+            <div>
+              <div className={styles.profileName}>{getDisplayUserName(profileName)}</div>
+              <div className={styles.dashboard}>Dashboard</div>
+            </div>
+          )}
         </div>
 
         {/* <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
