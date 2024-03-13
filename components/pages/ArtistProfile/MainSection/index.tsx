@@ -492,7 +492,6 @@ const MainSection = prop => {
                     height={45}
                     fontSize={18}
                     label="Follow"
-                    backgroundColor
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
                 )}
@@ -849,9 +848,6 @@ const MainSection = prop => {
                       height={29}
                       fontSize={12}
                       label="Follow"
-                      borderColor="transparent"
-                      color="var(--twitter-text-color)"
-                      backgroundColor="var(--main-bg-color)"
                       borderRadius={8}
                       onClick={() => followArtist(artistInfo?.wallet_id)}
                     />
