@@ -843,7 +843,7 @@ const MainSection = prop => {
                   ) : hasLoading ? (
                     <div className={`${styles.skeletonLoader} w-[80px] h-[29px] rounded-md`}></div>
                   ) : (
-                    <OutlineButton
+                    <GradientButton
                       width={80}
                       height={29}
                       fontSize={12}
