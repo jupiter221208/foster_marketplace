@@ -13,7 +13,9 @@ const DashboardSearchBox = props => {
   const { value, placeholder, onChange, onClick } = props
   return (
     <div className={styles.container}>
-      <SearchGrayIcon className="cursor-pointer" onClick={() => onClick()} />
+      <div className="w-[20px]">
+        <SearchGrayIcon className="cursor-pointer" onClick={() => onClick()} />
+      </div>
       <input
         className={styles.inputArea}
         value={value}

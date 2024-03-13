@@ -307,8 +307,8 @@ const MainSection = () => {
             </div>
           </div> */}
           <div className={styles.profileBtn} onClick={() => router.push(`/${profileName}`)}>
-            <div className="flex gap-[12px]">
-              <div className="flex gap-[8px] items-center">
+            <div className="flex lg:gap-[12px] gap-[8px]">
+              <div className="flex gap-[6px] lg:gap-[8px] items-center">
                 <ArrowLeftIcon />
                 Profile
               </div>
@@ -322,8 +322,8 @@ const MainSection = () => {
             </div>
           </div>
 
-          <div className="hidden lg:flex gap-[10px] mt-[30px]">
-            <div className="flex gap-[15px]">
+          <div className="flex gap-[10px] mt-[30px]">
+            <div className="flex gap-[15px] items-center">
               <IconButtonWithSVG
                 icon={
                   <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
@@ -362,7 +362,7 @@ const MainSection = () => {
             </div>
           </div>
 
-          <div className="lg:hidden col-span-3 flex justify-end">
+          {/* <div className="lg:hidden col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center mt-[15px]">
               <div>
                 <IconButtonWithSVG
@@ -385,7 +385,7 @@ const MainSection = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div>
           <div>

@@ -22,11 +22,9 @@ import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
 
 import ListEditionModal from 'components/Modal/ListEditionModal'
-import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const MyNFTSection = props => {
@@ -198,12 +196,6 @@ const MyNFTSection = props => {
     <section className={styles.container}>
       {!loading && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
-          {/* <div className="w-full lg:w-auto flex h-[54px] z-10">
-            <div className={styles.slotBG}>
-              <TimeSlotButton label="Created" onClick={() => setActive(0)} selected={active === 0} width={160} />
-              <TimeSlotButton label="Collected" onClick={() => setActive(1)} selected={active === 1} width={160} />
-            </div>
-          </div> */}
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
           <DropdownFilterMenu
             label={selectedItem['label']}

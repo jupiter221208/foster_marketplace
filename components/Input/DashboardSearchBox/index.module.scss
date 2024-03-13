@@ -1,13 +1,14 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  width: 100%;
+  width: 220px;
   height: 50px;
-  padding-left: 16px;
-  padding-right: 25px;
+  padding-left: 25px;
+  padding-right: 0px;
   border-radius: 12px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
   @media (min-width: 1024px) {
+    width: 100%;
     max-width: 490px;
     min-width: 200px;
     padding-left: 20px;
@@ -20,8 +21,11 @@
 }
 
 .inputArea {
-  flex: 1;
-  margin-left: 20px;
+  margin-left: 10px;
+  @media (min-width: 1024px) {
+    margin-left: 20px;
+    flex: 1;
+  }
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
