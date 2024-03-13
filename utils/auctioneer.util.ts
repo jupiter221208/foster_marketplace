@@ -434,7 +434,14 @@ export async function placeBid(mx: Metaplex, mintAddress: PublicKey, sellerAddre
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
   tx.feePayer = publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(
+    tx,
+    {
+      commitment: 'single',
+      maxRetries: 5,
+    },
+    [mx.identity()]
+  )
 
   return {
     response,
