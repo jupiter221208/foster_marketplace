@@ -499,16 +499,15 @@ export function determineCategory(files: determineCategoryType) {
   if (files.length > 1) {
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
-        category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime.split('/')[0]
+        category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
       }
     })
   } else {
     if (files.length === 0) {
       category = 'image'
     } else {
-      category = files[0].mime.split('/')[0]
+      category = files[0].mime
     }
   }
-
   return category || 'image'
 }

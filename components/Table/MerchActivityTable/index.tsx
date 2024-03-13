@@ -33,13 +33,13 @@ const MerchActivityTable = props => {
           <th>Amount</th>
           <th>Transaction ID</th>
           <th>{type === 'purchases' ? 'Creator' : 'Buyer'}</th>
-          <th>Order Details</th>
+          <th className="w-[200px]">Order Details</th>
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => {
+        {data.map(item => {
           return (
-            <tr key={index}>
+            <tr key={item.transaction_id}>
               <td className="text-start">
                 <div className="ml-3">{item.id}</div>
               </td>

@@ -39,7 +39,7 @@ const CreatorsTable = props => {
       <tbody>
         {data.map((item, index) => {
           return (
-            <tr key={index}>
+            <tr key={item.creator_name}>
               <td>
                 <Link href={`/${item.creator_name}`} passHref>
                   <a>

@@ -118,9 +118,6 @@ const SellNFTModal = props => {
                         width={221}
                         height={45}
                         onClick={() => handleClickButton('list')}
-                        backgroundColor01="#4B6E6B"
-                        backgroundColor02="#95DBD5"
-                        gradientDirection="right"
                         fontSize="16px"
                         color="#202427"
                       />

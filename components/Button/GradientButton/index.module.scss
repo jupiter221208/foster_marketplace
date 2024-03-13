@@ -28,10 +28,8 @@
   color: var(--gradient-btn-color);
 
   &:hover {
-    @media (min-width: 1024px) {
-      color: var(--primary-btn-color) !important;
-      background: var(--primary-btn-hover) !important;
-    }
+    background: var(--place-bid-minimum-color) !important;
+    color: var(--time-slog-bg) !important
   }
 
   transition: box-shadow 0.2s;

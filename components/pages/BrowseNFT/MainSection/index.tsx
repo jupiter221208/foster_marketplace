@@ -118,7 +118,6 @@ import AuctionDetail from '../AuctionDetail'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
-
 import GradientButton from 'components/Button/GradientButton'
 import ListEditionDetail from '../ListEditionDetail'
 
@@ -1048,7 +1047,10 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') && !nftCoverUrl.includes('ext=gif') && (merchToggle || isCreatedNft) ? (
+                    {nftType.includes('image') &&
+                    nftType !== 'image/gif' &&
+                    !nftCoverUrl.includes('ext=gif') &&
+                    (merchToggle || isCreatedNft) ? (
                       <div
                         className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
                       >
@@ -1484,6 +1486,8 @@ const MainSection = ({
                                           >
                                             Place Bid
                                           </div>
+                                          {/* <GradientButton
+                                          label="Place Bid" */}
                                         </div>
                                       )}
                                     </div>

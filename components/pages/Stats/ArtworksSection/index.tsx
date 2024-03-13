@@ -4,16 +4,9 @@ import React, { useEffect, useState } from 'react'
 import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-// import Marquee from 'react-fast-marquee'
-import { useViewport } from 'utils'
 
 // json
 
@@ -26,11 +19,9 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-SwiperCore.use([Navigation])
 
 const ArtworksSection = props => {
   const { artworks } = props
-  const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
@@ -55,6 +46,7 @@ const ArtworksSection = props => {
         setScreenWidth(window.innerWidth)
         setList(artworks)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [artworks])
@@ -80,7 +72,6 @@ const ArtworksSection = props => {
   }, [period])
 
   const getArtworkData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsArtwork({
@@ -120,17 +111,17 @@ const ArtworksSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-      {!loading &&
+      {/* {!loading &&
         (list.length === 0 ? (
           !searchLoading ? (
             <div />
           ) : (
-            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
+            <div className="w-full mb-0 lg:mb-3 h-[293px] lg:mt-[25px] lg:h-[418px]">
               <LoadingModal open={searchLoading} />
             </div>
           )
         ) : (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
+          <div className="w-full mb-0 lg:mb-3 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
             <Swiper
               navigation={true}
               slidesPerView={
@@ -173,16 +164,18 @@ const ArtworksSection = props => {
               ))}
             </Swiper>
           </div>
-        ))}
+        ))} */}
 
       {!loading && (
-        <SearchSection
-          placeholder={'Search by artwork name'}
-          searchWord={searchWord}
-          setSearchWord={value => setSearchWord(value.toString())}
-          period={period}
-          setPeriod={setPeriod}
-        />
+        <div className="w-full mt-[25px]">
+          <SearchSection
+            placeholder={'Search by artwork name'}
+            searchWord={searchWord}
+            setSearchWord={value => setSearchWord(value.toString())}
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </div>
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (

@@ -59,6 +59,7 @@ const CollectorsSection = props => {
         setList(collectors)
         setTotalCount(12)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collectors])
@@ -77,7 +78,6 @@ const CollectorsSection = props => {
   }, [period])
 
   const getCollectorData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCollector({
@@ -119,7 +119,7 @@ const CollectorsSection = props => {
         </div>
       )}
 
-      {list.length === 0 ? (
+      {/* {list.length === 0 ? (
         !searchLoading ? (
           <div />
         ) : (
@@ -173,16 +173,18 @@ const CollectorsSection = props => {
             </Swiper>
           </div>
         )
-      )}
+      )} */}
 
       {!loading && (
-        <SearchSection
-          placeholder={'Search by collector name'}
-          searchWord={searchWord}
-          setSearchWord={value => setSearchWord(value.toString())}
-          period={period}
-          setPeriod={setPeriod}
-        />
+        <div className="w-full mt-[25px]">
+          <SearchSection
+            placeholder={'Search by collector name'}
+            searchWord={searchWord}
+            setSearchWord={value => setSearchWord(value.toString())}
+            period={period}
+            setPeriod={setPeriod}
+          />
+        </div>
       )}
 
       {!loading && searchLoading && !isVisibleFetching && (

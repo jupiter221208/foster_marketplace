@@ -32,6 +32,7 @@ import ModelViewer from 'components/ModelViewer'
 import { useResizeDetector } from 'react-resize-detector'
 import LoadingButton from 'components/Button/LoadingButton'
 import { limit } from 'utils/strings'
+import GradientButton from 'components/Button/GradientButton'
 
 const Step02CollectionSection = props => {
   const {
@@ -624,17 +625,13 @@ const Step02CollectionSection = props => {
                   {coverImageProcessing ? (
                     <LoadingButton width={224} height={56} />
                   ) : (
-                    <button
-                      className={styles.nextStep}
+                    <GradientButton
+                      label="Next Step"
+                      width={224}
+                      height={56}
                       disabled={disabledNextButton}
-                      style={{
-                        color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                        background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                      }}
                       onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                    >
-                      Next Step
-                    </button>
+                    />
                   )}
                 </div>
               </div>

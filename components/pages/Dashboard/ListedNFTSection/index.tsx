@@ -356,35 +356,15 @@ const ListedNFTSection = props => {
           <TimeSlotButton
             label="Buy&nbsp;Now"
             onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? 'var(--main-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={120}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+            selected={active === 0}
+            width={160}
           />
-          <TimeSlotButton
-            label="Auction"
-            onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? 'var(--main-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={120}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
+          <TimeSlotButton label="Auction" onClick={() => handleChangeActive(1)} selected={active === 1} width={160} />
           <TimeSlotButton
             label="Live&nbsp;Editions"
             onClick={() => handleChangeActive(2)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 2 ? 'var(--main-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            backgroundColor02={active === 2 ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={active === 2}
             width={120}
-            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

@@ -10,12 +10,13 @@ import styles from './index.module.scss'
 
 // call apis
 import notificationAPI from 'apis/notification'
+import { useViewport } from 'utils'
 
 const NotificationSection = prop => {
   const { success } = prop
-
+  const viewport = useViewport()
   const [oldSettings, setOldSettings] = useState({})
-  const [enableSave, setEnableSavle] = useState(false)
+  const [enableSave, setEnableSave] = useState(false)
   const [bidActivity, setBidActivity] = useState(false)
   const [bidAccepted, setBidAccepted] = useState(false)
   const [successfulSale, setSuccessfulSale] = useState(false)
@@ -52,11 +53,11 @@ const NotificationSection = prop => {
       oldSettings['notify_on_sale'] !== successfulSale ||
       oldSettings['notify_on_bid'] !== successfulBid
     ) {
-      setEnableSavle(true)
+      setEnableSave(true)
       return
     }
 
-    setEnableSavle(false)
+    setEnableSave(false)
   }, [bidActivity, bidAccepted, successfulSale, successfulBid])
 
   const handleSaveNotification = () => {
@@ -73,7 +74,7 @@ const NotificationSection = prop => {
         if (response !== null) {
           setOldSettings({ ...newSettings })
           success()
-          setEnableSavle(false)
+          setEnableSave(false)
         }
       },
       error => {
@@ -84,7 +85,7 @@ const NotificationSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-start">
         <div className={styles.content}>
           <div className="w-full mt-[10px] mb-12">
             <GreenLineCard
@@ -148,7 +149,7 @@ const NotificationSection = prop => {
               onChange={() => setFosterNewsletter(!fosterNewsletter)}
             />
           </div>
-          <div className="w-full flex justify-end mb-20">
+          <div className="w-full flex justify-end mb-[140px] lg:mb-20">
             <GradientButton
               label="Save"
               onClick={() => {
@@ -156,11 +157,12 @@ const NotificationSection = prop => {
                   handleSaveNotification()
                 }
               }}
-              height="53px"
+              disabled={!enableSave}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
+              height="50px"
               paddingLeft="41px"
               paddingRight="41px"
               fontSize="18px"
-              opacity={enableSave ? 1.0 : 0.7}
             />
           </div>
         </div>

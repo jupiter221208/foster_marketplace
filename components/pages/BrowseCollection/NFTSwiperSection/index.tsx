@@ -87,9 +87,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
             label="All"
             height={42}
             fontFamily={'Muli-Regular'}
-            color={artworkType === 'all' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-            backgroundColor01={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-            backgroundColor02={artworkType === 'all' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+            selected={artworkType === 'all'}
             width={80}
             onClick={() => {
               setArtworkType('all')
@@ -100,9 +98,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
             label="Quick&nbsp;Buy"
             height={42}
             fontFamily={'Muli-Regular'}
-            color={artworkType === 'listed' ? '#1A1A1A' : 'var(--time-slot-deselect-color)'}
-            backgroundColor01={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
-            backgroundColor02={artworkType === 'listed' ? 'var(--toggle-bg-color)' : 'var(--time-slot-bg)'}
+            selected={artworkType === 'listed'}
             onClick={() => {
               setArtworkType('listed')
             }}

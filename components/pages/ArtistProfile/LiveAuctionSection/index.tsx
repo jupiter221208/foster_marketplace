@@ -128,6 +128,8 @@ const LiveAuctionSection = props => {
             {liveAuctionList.map((item: any, index) => (
               <NFTAuctionCard
                 image={item.asset_url}
+                nftName={item.nft_name}
+                artistName={item.artist_username}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 currentBid={item.current_bid}

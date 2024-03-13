@@ -231,8 +231,6 @@ const CollectionDetailModal = props => {
                           <GradientButton
                             width={100}
                             height={45}
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
                             label="Save"
                             onClick={() => updateCollectionData()}
                           />

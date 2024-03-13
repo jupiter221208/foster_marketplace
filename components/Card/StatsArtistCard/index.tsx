@@ -15,6 +15,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 import ImageWithFoster from 'components/ImageWithFoster'
+import Image from 'next/image'
 
 const StatsArtistCard = props => {
   const { data, type } = props
@@ -32,13 +33,11 @@ const StatsArtistCard = props => {
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
           <div className="w-full h-full overflow-hidden rounded-full">
-            <ImageWithFoster
-              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar.src}
-              alt=""
-              width={180}
-              height={180}
-              className="rounded-[90px]"
-            />
+            {data.pfp_url !== null && data.pfp_url !== '' ? (
+              <ImageWithFoster src={data.pfp_url} alt="" width={180} height={180} className="rounded-[90px]" />
+            ) : (
+              <Image src={DefaultAvatar.src} alt="" width={180} height={180} className="rounded-[90px]" />
+            )}
           </div>
         </div>
       </div>

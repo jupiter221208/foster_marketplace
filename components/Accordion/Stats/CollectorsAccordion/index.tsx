@@ -13,6 +13,7 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
+import Image from 'next/image'
 
 const CollectorsAccordion = props => {
   const { data } = props
@@ -48,10 +49,11 @@ const CollectorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <ImageWithFoster
-                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
-                        className="rounded-full object-cover"
-                      />
+                      {item.pfp_url !== null && item.pfp_url !== '' ? (
+                        <ImageWithFoster src={item.pfp_url} className="rounded-full object-cover" />
+                      ) : (
+                        <Image src={DefaultAvatar} className="rounded-full object-cover" />
+                      )}
                     </div>
                     <div className="block">
                       <div className={styles.subTitle} onClick={() => router.push(`/${item.collector_name}`)}>

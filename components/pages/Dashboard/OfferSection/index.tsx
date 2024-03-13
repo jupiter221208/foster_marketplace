@@ -212,24 +212,14 @@ const OfferSection = () => {
           <TimeSlotButton
             label="Offers Made"
             onClick={() => setShownOfferType('made')}
-            fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'made' ? 'var(--main-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'made' ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'made' ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={shownOfferType === 'made'}
             width={160}
-            boxShadow={shownOfferType === 'made' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="Offers Received"
             onClick={() => setShownOfferType('received')}
-            fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'received' ? 'var(--main-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'received' ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'received' ? 'var(--dashboard-toggle-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={shownOfferType === 'received'}
             width={160}
-            boxShadow={shownOfferType === 'received' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

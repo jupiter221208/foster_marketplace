@@ -851,7 +851,7 @@ const MainSection = prop => {
                       label="Follow"
                       borderColor="transparent"
                       color="var(--twitter-text-color)"
-                      backgroundColor="var(--primary-btn-bg-right)"
+                      backgroundColor="var(--main-bg-color)"
                       borderRadius={8}
                       onClick={() => followArtist(artistInfo?.wallet_id)}
                     />
