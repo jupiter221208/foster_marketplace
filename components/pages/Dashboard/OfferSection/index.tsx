@@ -26,8 +26,6 @@ import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
 
 // styles
-import styles from './index.module.scss'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
@@ -215,20 +213,6 @@ const OfferSection = () => {
   return (
     <section className="w-full mt-[16px] lg:mt-[30px] z-10">
       <div className="w-full flex justify-end z-10">
-        {/* <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Offers Made"
-            onClick={() => setShownOfferType('made')}
-            selected={shownOfferType === 'made'}
-            width={160}
-          />
-          <TimeSlotButton
-            label="Offers Received"
-            onClick={() => setShownOfferType('received')}
-            selected={shownOfferType === 'received'}
-            width={160}
-          />
-        </div> */}
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}

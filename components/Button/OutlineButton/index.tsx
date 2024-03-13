@@ -9,10 +9,10 @@ import styles from './index.module.scss'
 const OutlineButton = props => {
   const {
     backgroundColor = '',
-    borderColor,
+    borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',
     borderRadius = '',
     borderWidth = 1,
-    color,
+    color = 'var(--text-gray-200-color)',
     direction = 'ltr',
     fontSize = '',
     fontFamily = '',
