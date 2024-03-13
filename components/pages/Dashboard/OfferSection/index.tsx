@@ -211,7 +211,7 @@ const OfferSection = () => {
   }
 
   return (
-    <section className="w-full mt-[16px] lg:mt-[30px] z-10">
+    <section className="w-full mt-[16px] lg:mt-[30px]">
       <div className="w-full flex justify-end z-10">
         <DropdownFilterMenu
           label={selectedItem['label']}

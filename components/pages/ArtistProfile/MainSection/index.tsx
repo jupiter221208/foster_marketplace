@@ -479,7 +479,6 @@ const MainSection = prop => {
                       height={45}
                       label="Following"
                       fontSize={18}
-                      borderColor="var(--follow-btn-border-mobile)"
                       borderWidth={2}
                       onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                     />
@@ -836,7 +835,6 @@ const MainSection = prop => {
                         fontSize={12}
                         borderRadius={8}
                         label="Following"
-                        borderColor="var(--follow-btn-border-mobile)"
                         onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                       />
                     )
