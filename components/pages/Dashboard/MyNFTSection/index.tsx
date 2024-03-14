@@ -195,7 +195,7 @@ const MyNFTSection = props => {
   return (
     <section className={styles.container}>
       {!loading && (
-        <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
+        <div className="w-full flex justify-between gap-[15px] items-center">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
           <DropdownFilterMenu
             label={selectedItem['label']}
