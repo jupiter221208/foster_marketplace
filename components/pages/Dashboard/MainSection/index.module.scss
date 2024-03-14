@@ -109,24 +109,26 @@
 }
 
 .avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 13px;
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  margin-top: -45px;
   @media (min-width: 1024px) {
-    width: 32px;
-    height: 32px;
-    border-radius: 16px;
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    margin-top: -80px;
   }
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   overflow: hidden
 }
 
 .profileName {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Bold';
   font-size: 24px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
-    font-size: 30px;
+    font-size: 36px;
   }
   color: var(--text-gray-200-color);
   text-align: center;

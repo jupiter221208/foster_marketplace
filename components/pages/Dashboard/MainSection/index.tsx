@@ -306,7 +306,7 @@ const MainSection = () => {
               </div>
             </div>
           </div> */}
-          <div className={styles.profileBtn} onClick={() => router.push(`/${profileName}`)}>
+          {/* <div className={styles.profileBtn} onClick={() => router.push(`/${profileName}`)}>
             <div className="flex lg:gap-[12px] gap-[8px]">
               <div className="flex gap-[6px] lg:gap-[8px] items-center">
                 <ArrowLeftIcon />
@@ -320,9 +320,15 @@ const MainSection = () => {
                 />
               </div>
             </div>
+          </div> */}
+          <div className={styles.avatar} onClick={() => router.push(`/${profileName}`)}>
+            <img
+              src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+              alt=""
+              className="w-full h-full object-cover rounded-full"
+            />
           </div>
-
-          <div className="flex gap-[10px] mt-[30px]">
+          <div className="flex gap-[10px] mt-[24px]">
             <div className="flex gap-[15px] items-center">
               <IconButtonWithSVG
                 icon={
