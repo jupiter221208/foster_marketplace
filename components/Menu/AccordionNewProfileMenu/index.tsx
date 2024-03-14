@@ -40,10 +40,10 @@ const AccordionNewProfileMenu = props => {
   return (
     <div className="w-full">
       {data.length !== 0 && (
-        <div className="w-full pl-[8px] pt-1 pb-1 text-sm text-gray-500">
+        <div className="w-full pl-[7px] pt-1 pb-1 text-sm text-gray-500">
           {data.map((item, index) => (
             <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
-              <div className="flex gap-[17px] items-center">
+              <div className="flex gap-[12px] items-center">
                 <div className="w-10 h-10 flex justify-center items-center">
                   {type === 'avatar' && item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">

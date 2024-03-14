@@ -192,7 +192,7 @@ const MobileMenu = () => {
             </div>
             <div className={styles.footerText}>
               <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Turkey Circus
+                Resources
               </a>
             </div>
             <div className={styles.footerText}>
@@ -303,7 +303,7 @@ const MobileMenu = () => {
                 href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
                 rel="noopener noreferrer"
               >
-                Whitepaper
+                Governance
               </a>
             </div>
             <div className={styles.footerText}>
@@ -313,7 +313,7 @@ const MobileMenu = () => {
             </div>
             <div className={styles.footerText}>
               <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Turkey Circus
+                Resources
               </a>
             </div>
             <div className={styles.footerText}>

@@ -124,7 +124,7 @@ const AccordionMenu = props => {
             {data.length > 0 && (open ? <DownIcon /> : <RightIcon />)}
           </Disclosure.Button>
           {data.length > 0 && (
-            <Disclosure.Panel className="px-4 pt-0 pb-2 text-sm text-gray-500">
+            <Disclosure.Panel className="px-[15px] pt-0 pb-2 text-sm text-gray-500">
               {data.map((item, index) => (
                 <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
                   <div className="w-[46px] h-[46px] flex justify-center items-center">

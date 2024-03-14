@@ -55,23 +55,18 @@
 
 .menuItem {
   font-family: 'Muli-Regular';
-  font-size: 14px;
+  font-size: 16px;
   line-height: 18px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
-  padding: 4px 8px;
-  gap: 4px;
+  padding: 4px 0px;
+  gap: 6px;
   cursor: pointer;
   border-radius: 12px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   white-space: nowrap;
-  &:hover {
-    @media (min-width: 1024px) {
-      background-color: rgba(var(--text-gray-200-color), 0.3);
-    }
-  }
 }
 
 .imageArea {
