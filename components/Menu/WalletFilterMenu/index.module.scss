@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 150px;
+  width: 155px;
   height: 40px;
   @media (min-width: 1024px) {
     width: 185px;
@@ -10,7 +10,7 @@
     padding: 0px 13px;
     font-family: 'Muli-Regular';
   }
-  padding: 0px 11px;
+  padding: 0px 13px;
   gap: 12px;
   font-family: 'Muli-SemiBold';
   font-size: 14px;
@@ -32,7 +32,7 @@
 
 .menuArea {
   position: absolute;
-  width: 150px;
+  width: 155px;
   top: 50px;
   right: 0px;
   @media (min-width: 1024px) {
