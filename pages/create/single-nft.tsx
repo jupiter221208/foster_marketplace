@@ -60,6 +60,7 @@ const SingleNft = () => {
   const dispatch = useDispatch()
 
   const isLoading = useSelector<any>(state => state.isLoading)
+  const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenLoaded, setScreenLoaded] = useState(false)
@@ -82,7 +83,7 @@ const SingleNft = () => {
 
   // variables
   const [currentStep, setCurrentStep] = useState(0)
-  const [type, setType] = useState()
+  const [type, setType] = useState<any>()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -102,6 +103,16 @@ const SingleNft = () => {
   const [nftImage, setNftImage] = useState('')
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
   const [nftUrl, setNftUrl] = useState<string>()
+
+  useEffect(() => {
+    if (createTab !== null) {
+      if (createTab === 0) setType(0)
+      else if (createTab === 1) setType(1)
+
+      setCurrentStep(1)
+      dispatch({ type: 'set', createTab: null })
+    }
+  }, [createTab])
 
   useEffect(() => {
     let width = 0
@@ -803,7 +814,8 @@ const SingleNft = () => {
               </div>
             </div>
           ))
-        : currentStep !== 4 &&
+        : createTab === null &&
+          currentStep !== 4 &&
           // mobile part
           (currentStep === 0 ? (
             <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />

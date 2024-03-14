@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "label": "Single Artwork",
+    "type": "stats_artwork",
+    "path": "/stats"
+  },
+  {
+    "id": 1,
+    "label": "Collections",
+    "type": "stats_collections",
+    "path": "/stats"
+  },
+  {
+    "id": 2,
+    "label": "Creators",
+    "type": "stats_creators",
+    "path": "/stats"
+  },
+  {
+    "id": 3,
+    "label": "Collectors",
+    "type": "stats_collectors",
+    "path": "/stats"
+  }
+]

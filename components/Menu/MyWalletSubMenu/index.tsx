@@ -227,7 +227,7 @@ const MyWalletSubMenu = props => {
         <>
           <Disclosure.Button className={open ? styles.openContainer : styles.container}>
             <div className="flex items-center">
-              {open ? <WalletGrayIcon /> : <WalletIcon />}
+              <WalletIcon />
 
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>

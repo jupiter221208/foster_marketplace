@@ -1,17 +1,23 @@
 [
-  {
-    "id": 0,
-    "icon": "/icons/dashboard-green.svg",
-    "label": "NFTs by Category",
-    "type": "nft_category",
-    "path": "/explore"
-  },
+  { "id": 0, "icon": "/icons/artist-green.svg", "label": "Artworks", "type": "nft_artist", "path": "/explore" },
   {
     "id": 1,
     "icon": "/icons/large-collection-green.svg",
-    "label": "NFTs by Collection",
+    "label": "Collections",
     "type": "nft_collection",
     "path": "/explore"
   },
-  { "id": 2, "icon": "/icons/artist-green.svg", "label": "NFTs by Artist", "type": "nft_artist", "path": "/explore" }
+  {
+    "id": 2,
+    "label": "Studio Merch",
+    "type": "merch",
+    "path": "/studio"
+  },
+  {
+    "id": 3,
+    "icon": "/icons/ecosystem-icon.svg",
+    "label": "Ecosystem",
+    "type": "nft_category",
+    "path": "/explore"
+  }  
 ]
