@@ -123,14 +123,16 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
             <GradientButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
+              width="97px"
               height="26px"
               fontSize="12px"
               borderRadius="6px"
             />
             <OutlineButton
-              label="List NFT"
+              label="List"
               onClick={() => onClickListNFT(data)}
               fontSize="12px"
+              width="43px"
               height="26px"
               borderRadius="6px"
               fontFamily="Muli-SemiBold"

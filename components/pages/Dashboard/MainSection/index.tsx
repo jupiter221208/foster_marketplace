@@ -321,12 +321,14 @@ const MainSection = () => {
               </div>
             </div>
           </div> */}
-          <div className={styles.avatar} onClick={() => router.push(`/${profileName}`)}>
-            <img
-              src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
-              alt=""
-              className="w-full h-full object-cover rounded-full"
-            />
+          <div className={styles.avatarArea} onClick={() => router.push(`/${profileName}`)}>
+            <div className="w-[90px] lg:w-[152px] rounded-full">
+              <img
+                src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+                alt=""
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
           </div>
           <div className="flex gap-[10px] mt-[24px]">
             <div className="flex gap-[15px] items-center">
@@ -341,9 +343,12 @@ const MainSection = () => {
                     />
                   </svg>
                 }
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
                 onClick={() => router.push('/settings')}
                 backgroundColor="transparent"
-                borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 25}
               />
               <WalletFilterMenu
                 label={'Wallet & Socials'}

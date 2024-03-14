@@ -3,10 +3,9 @@
 .btnArea {
   width: auto;
   height: 45px;
-  padding: 0px 20px;
   gap: 8px;
   border-radius: 16px;
-  background: var(--dropdown-filter-bg);
+  padding: 0px 10px;
   font-family: 'Muli-Regular';
   font-size: 14px;
   color: var(--text-gray-200-color);
@@ -14,7 +13,11 @@
   justify-content: space-between;
   align-items: center;
   outline: none;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1)
+  @media (min-width: 1024px) {
+    padding: 0px 20px;
+    background: var(--dropdown-filter-bg);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1)
+  }
 }
 
 .text {

@@ -108,18 +108,21 @@
   cursor: pointer;
 }
 
-.avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 45px;
-  margin-top: -45px;
+.avatarArea {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin-top: -50px;
   @media (min-width: 1024px) {
-    width: 160px;
-    height: 160px;
-    border-radius: 80px;
-    margin-top: -80px;
+    width: 162px;
+    height: 162px;
+    border-radius: 81px;
+    margin-top: -81px;
   }
-  // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: #121212;
   overflow: hidden
 }
 
