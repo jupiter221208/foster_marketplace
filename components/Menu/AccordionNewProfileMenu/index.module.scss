@@ -71,8 +71,10 @@
 }
 
 .imageArea {
-  width: 21px;
-  height: 21px;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  overflow: hidden;
 }
 
 .rightIcon {

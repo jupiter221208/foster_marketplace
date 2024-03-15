@@ -17,6 +17,7 @@ import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const AccordionNewProfileMenu = props => {
   const { icon, label, type = '', data, path = '', lightMode, logout, handleThemeMode } = props
@@ -46,7 +47,13 @@ const AccordionNewProfileMenu = props => {
                   {type === 'avatar' && item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">
                       <div className={styles.imageArea}>
-                        <Image src={icon ?? AvatarImage} alt="" width={21} height={21} className="rounded-full" />
+                        <ImageWithFoster
+                          src={icon}
+                          showPlaceHolder={false}
+                          alt=""
+                          width={100}
+                          className="w-[22px] h-[22px] rounded-full"
+                        />
                       </div>
                     </div>
                   ) : item.type === 'order' ? (
