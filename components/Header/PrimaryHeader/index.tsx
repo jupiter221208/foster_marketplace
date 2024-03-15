@@ -249,6 +249,7 @@ const PrimaryHeader = () => {
                     setVisible(true)
                     return
                   }
+                  dispatch({ type: 'set', createTab: null })
                   router.push('/create/single-nft')
                 }}
               >

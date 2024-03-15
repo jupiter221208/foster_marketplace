@@ -39,6 +39,7 @@ const CreateNFTModal = props => {
   const handleClickButton = (path: string) => {
     closeModal()
     if (connected) {
+      dispatch({ type: 'set', createTab: null })
       router.push(path)
     } else {
       setVisible(true)

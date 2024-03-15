@@ -224,7 +224,7 @@ const MainSection = props => {
                       iconWidth={40}
                       iconHeight={40}
                       onClick={() => inputBannerFile.current.click()}
-                      backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                      backgroundColor="transparent"
                       borderColor="transparent"
                       borderRadius="100%"
                       disabled={bannerUploadingToS3}
@@ -379,7 +379,7 @@ const MainSection = props => {
                         <IconButtonWithSVG
                           icon={<CameraWhiteIcon />}
                           onClick={() => inputBannerFile.current.click()}
-                          backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                          backgroundColor="transparent"
                           borderRadius="100%"
                           borderColor="transparent"
                           borderWidth={0}

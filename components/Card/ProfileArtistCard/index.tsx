@@ -65,7 +65,7 @@ const ProfileArtistCard = props => {
                     <IconButtonWithSVG
                       icon={<EditorGreenIcon />}
                       onClick={() => inputAvatarFile.current.click()}
-                      backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                      backgroundColor="transparent"
                       borderRadius="100%"
                       width={40}
                       height={40}

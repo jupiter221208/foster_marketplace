@@ -317,7 +317,7 @@ const MainSection = prop => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                    backgroundColor="transparent"
                     borderRadius="100%"
                     width={40}
                     height={40}
@@ -685,7 +685,7 @@ const MainSection = prop => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                    backgroundColor="transparent"
                     borderRadius="100%"
                     width={40}
                     height={40}
