@@ -267,6 +267,7 @@ const MerchActivity = () => {
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
         (item.category ?? 'image').includes('image') &&
+        item.category !== 'image/gif' &&
         item.creators.some(({ address }) => publicKey?.toString() === address)
     )
 
