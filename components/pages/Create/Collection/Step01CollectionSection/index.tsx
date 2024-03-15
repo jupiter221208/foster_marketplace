@@ -373,16 +373,13 @@ const Step01CollectionSection = props => {
                                 <div {...getRootProps()}>
                                   <input {...getInputProps()} />
                                   <IconButtonWithSVG
-                                    width={30}
-                                    height={30}
-                                    iconWidth={15}
-                                    iconHeight={15}
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
                                     icon={<EditorGreenIcon />}
                                     onClick={() => {}}
-                                    // onClick={() => {
-                                    //   dropzoneBannerEl?.current?.open()
-                                    // }}
-                                    backgroundColor="#242424"
+                                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                                     borderColor="transparent"
                                     borderRadius="100%"
                                   />
@@ -471,14 +468,14 @@ const Step01CollectionSection = props => {
                                 <section>
                                   <div {...getRootProps()}>
                                     <input {...getInputProps()} />
-                                    <IconButton
-                                      width={30}
-                                      height={30}
-                                      iconWidth={15}
-                                      iconHeight={15}
-                                      icon={EditorGreenIcon}
+                                    <IconButtonWithSVG
+                                      width={40}
+                                      height={40}
+                                      iconWidth={40}
+                                      iconHeight={40}
+                                      icon={<EditorGreenIcon />}
                                       onClick={() => {}}
-                                      backgroundColor="#242424"
+                                      backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                                       borderColor="transparent"
                                       borderRadius="100%"
                                     />
@@ -740,14 +737,14 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButton
-                                width={30}
-                                height={30}
-                                iconWidth={15}
-                                iconHeight={15}
-                                icon={EditorGreenIcon}
+                              <IconButtonWithSVG
+                                width={40}
+                                height={40}
+                                iconWidth={40}
+                                iconHeight={40}
+                                icon={<EditorGreenIcon />}
                                 onClick={() => {}}
-                                backgroundColor="#242424"
+                                backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />
@@ -845,14 +842,14 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButton
-                                width={30}
-                                height={30}
-                                iconWidth={15}
-                                iconHeight={15}
-                                icon={EditorGreenIcon}
+                              <IconButtonWithSVG
+                                width={40}
+                                height={40}
+                                iconWidth={40}
+                                iconHeight={40}
+                                icon={<EditorGreenIcon />}
                                 onClick={() => {}}
-                                backgroundColor="#242424"
+                                backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                                 borderColor="transparent"
                                 borderRadius="100%"
                               />

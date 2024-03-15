@@ -317,7 +317,7 @@ const MainSection = prop => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor={'var('}
+                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                     borderRadius="100%"
                     width={40}
                     height={40}
@@ -679,18 +679,18 @@ const MainSection = prop => {
             <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
-                  <IconButton
-                    icon={EditorGreenIcon}
+                  <IconButtonWithSVG
+                    icon={<EditorGreenIcon />}
                     onClick={() => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor={'transparent'}
+                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
                     borderRadius="100%"
-                    width={20}
-                    height={20}
-                    iconWidth={20}
-                    iconHeight={20}
+                    width={40}
+                    height={40}
+                    iconWidth={40}
+                    iconHeight={40}
                     disabled={bannerUploadingToS3}
                   />
                 </div>
