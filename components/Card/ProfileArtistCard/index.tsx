@@ -10,7 +10,7 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 import { validUrl } from 'utils/helpers'
 
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
@@ -21,6 +21,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 
 import IconButton from 'components/Button/IconButton'
 import { getDisplayUserName } from 'utils/strings'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const ProfileArtistCard = props => {
   const {
@@ -61,8 +62,8 @@ const ProfileArtistCard = props => {
               <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
                 <div className={styles.iconProfileBlurView}>
                   <div className="w-full h-full flex justify-center items-center">
-                    <IconButton
-                      icon={EditorGreenIcon}
+                    <IconButtonWithSVG
+                      icon={<EditorGreenIcon />}
                       onClick={() => inputAvatarFile.current.click()}
                       backgroundColor={'transparent'}
                       borderRadius="100%"

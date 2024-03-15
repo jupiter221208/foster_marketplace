@@ -25,9 +25,6 @@ import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SettingsIcon from 'assets/icons/settings-icon.svg?component'
 import SettingsMobileIcon from 'assets/icons/settings-mobile-icon.svg?component'
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
-import CameraWhiteIcon from 'assets/icons/camera-white.svg'
-import ArrowLeftIcon from 'assets/icons/arrow-left-white-big.svg?component'
 
 import Alert from 'components/Alert'
 

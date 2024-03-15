@@ -136,7 +136,7 @@ const MobileMenu = () => {
             <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
           </div>
         ) : (
-          <div>
+          <div className="w-full">
             <div className="w-full mb-[22px]">
               <div className="w-full h-[74px] flex justify-between items-center">
                 <div

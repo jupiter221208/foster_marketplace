@@ -23,7 +23,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
-import CameraWhiteIcon from 'assets/icons/editor-green.svg'
+import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
@@ -36,6 +36,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
 import ImageWithFoster from 'components/ImageWithFoster'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MainSection = props => {
   const { nfts, data, publicKey, hasloading } = props
@@ -216,8 +217,8 @@ const MainSection = props => {
               <div className="absolute right-7 bottom-7 cursor-pointer">
                 <div className={styles.iconBlurView}>
                   <div className="w-full h-full flex justify-center items-center">
-                    <IconButton
-                      icon={CameraWhiteIcon}
+                    <IconButtonWithSVG
+                      icon={<CameraWhiteIcon />}
                       onClick={() => inputBannerFile.current.click()}
                       backgroundColor={'transparent'}
                       borderRadius="100%"
