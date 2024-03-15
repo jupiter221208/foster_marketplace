@@ -25,8 +25,6 @@ const AccordionNewProfileMenu = props => {
   const dispatch = useDispatch()
 
   const handleClick = item => {
-    if (item.id === 0) return
-
     if (item.type === 'logout') {
       logout()
     } else {
@@ -42,8 +40,8 @@ const AccordionNewProfileMenu = props => {
       {data.length !== 0 && (
         <div className="w-full pl-[7px] pt-1 pb-1 text-sm text-gray-500">
           {data.map((item, index) => (
-            <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
-              <div className="flex gap-[12px] items-center">
+            <div key={index} className={styles.menuItem}>
+              <div className="flex gap-[12px] items-center" onClick={() => handleClick(item)}>
                 <div className="w-10 h-10 flex justify-center items-center">
                   {type === 'avatar' && item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">

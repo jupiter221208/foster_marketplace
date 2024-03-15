@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "label": "Single Artwork",
+    "label": "Artworks",
     "type": "stats_artwork",
     "path": "/stats"
   },

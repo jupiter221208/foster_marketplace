@@ -117,8 +117,8 @@ const MobileMenu = () => {
 
   return (
     <div className={styles.menu}>
-      {connected ? (
-        <div className={styles.container}>
+      <div className={styles.container}>
+        {connected ? (
           <div className="w-full flex flex-wrap gap-[10px]">
             <AccordionNewProfileMenu
               icon={profileImage}
@@ -130,253 +130,128 @@ const MobileMenu = () => {
               handleThemeMode={handleThemeMode}
             />
             <MyWalletSubMenu label="My Wallet" type="" />
-            {/* <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
-            <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
-            <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" /> */}
 
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
             <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
           </div>
-          {/* <div className="w-full mt-5">
-            <div
-              className={styles.logout}
-              onClick={() => {
-                setButtonClicked(true)
-                if (localStorage.getItem('walletName') === '"Phantom"') {
-                  localStorage.removeItem('walletName')
-                  ;(window as any).solana.disconnect()
-                } else disconnect()
-
-                localStorage.removeItem('token')
-                dispatch({ type: 'set', profileInfo: null })
-                localStorage.removeItem('expiryDate')
-                localStorage.removeItem('signature')
-                deleteCookie('token')
+        ) : (
+          <div>
+            <div className="w-full mb-[22px]">
+              <div className="w-full h-[74px] flex justify-between items-center">
+                <div
+                  className={styles.signIn}
+                  onClick={() => {
+                    setButtonClicked(true)
+                    setVisible(true)
+                  }}
+                >
+                  Sign in
+                </div>
+                <button className="ml-7" onClick={() => handleThemeMode()}>
+                  {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+                </button>
+              </div>
+              <div className={styles.signBorder} />
+            </div>
+            <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
+              <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
+              <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+              <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
+            </div>
+            <Alert
+              open={showAlert}
+              close={() => {
+                router.push('/')
+                setShowAlert(false)
               }}
+              data={alertData}
+            />
+          </div>
+        )}
+        <div className={styles.separator} />
+        <div className="w-full mt-[15px]">
+          <div className={styles.footerText}>
+            <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
+              About
+            </a>
+          </div>
+          <div className={styles.footerText}>
+            <a
+              target="_blank"
+              href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
+              rel="noopener noreferrer"
             >
-              <div>Logout</div>
-              <div className="flex items-center ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18.057" height="18.063" viewBox="0 0 18.057 18.063">
-                  <path
-                    id="sign-out-alt"
-                    d="M3.359,13.83a.9.9,0,0,1,1.21.406,7.225,7.225,0,1,0,0-6.412.909.909,0,1,1-1.626-.813,9.031,9.031,0,1,1,0,8.037.9.9,0,0,1,.415-1.219Zm-.452-3.7h8.661L9.491,8.06a.907.907,0,0,1,1.282-1.282l3.612,3.612a.934.934,0,0,1,0,1.282l-3.612,3.612A.907.907,0,1,1,9.491,14l2.077-2.068H2.908a.9.9,0,0,1,0-1.806Z"
-                    transform="translate(-2.005 -1.999)"
-                    fill="var(--logout-icon-color)"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div> */}
-
-          <div className={styles.separator} />
-          <div className="w-full mt-[15px]">
-            <div className={styles.footerText}>
-              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
-                About
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a
-                target="_blank"
-                href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
-                rel="noopener noreferrer"
-              >
-                Whitepaper
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                Community
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Resources
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                Terms of Service
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
-                Privacy Policy
-              </a>
-            </div>
+              Governance
+            </a>
           </div>
-          <div className={styles.allRights}>2023 Foster © All Rights Reserved</div>
-          <div className="flex flex-wrap mt-[15px] gap-[18px] justify-start mb-[100px]">
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<InstagramLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<DiscordLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<TwitterLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<GithubLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
+          <div className={styles.footerText}>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+              Community
+            </a>
           </div>
-          {/* connect wallet alert */}
-          <Alert
-            open={showAlert}
-            close={() => {
-              setShowAlert(false)
-              // handleLogin()
+          <div
+            className={styles.footerText}
+            onClick={() => {
+              dispatch({ type: 'set', openMobileMenu: false })
+              router.push('/resources')
             }}
-            data={alertData}
-          />
+          >
+            {/* <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer"> */}
+            Resources
+            {/* </a> */}
+          </div>
+          <div className={styles.footerText}>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+              Terms of Service
+            </a>
+          </div>
+          <div className={styles.footerText}>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+              Privacy Policy
+            </a>
+          </div>
         </div>
-      ) : (
-        <div className={styles.container}>
-          <div className="w-full mb-[22px]">
-            <div className="w-full h-[74px] flex justify-between items-center">
-              <div
-                className={styles.signIn}
-                onClick={() => {
-                  setButtonClicked(true)
-                  setVisible(true)
-                }}
-              >
-                Sign in
-              </div>
-              <button className="ml-7" onClick={() => handleThemeMode()}>
-                {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-              </button>
-            </div>
-            <div className={styles.signBorder} />
+        <div className={styles.allRights}>2023 Foster © All Rights Reserved</div>
+        <div className="flex flex-wrap mt-[15px] gap-[18px] justify-start mb-[100px]">
+          <div>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
+              <IconButtonWithSVG
+                backgroundColor="var(--social-bg-color)"
+                icon={<InstagramLightGreenIcon />}
+                onClick={() => {}}
+              />
+            </a>
           </div>
-          <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
-            {/* <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" /> */}
-            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
-            <AccordionMenu label="Create" type="create" data={CreateMenuList} />
-            <AccordionMenu label="Leaderboards" type="leaderboards" data={LeaderboardsList} />
-
-            {/* <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
-            <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
-            <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
-            <div className="w-full flex justify-end mt-[10px]" onClick={() => handleThemeMode()}>
-              {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-            </div> */}
+          <div>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
+              <IconButtonWithSVG
+                backgroundColor="var(--social-bg-color)"
+                icon={<DiscordLightGreenIcon />}
+                onClick={() => {}}
+              />
+            </a>
           </div>
-          {/* <div className="w-full flex items-end mt-5">
-            <WalletButton fullWidth />
-          </div> */}
-          <div className={styles.separator} />
-          <div className="w-full mt-[15px]">
-            <div className={styles.footerText}>
-              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
-                About
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a
-                target="_blank"
-                href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
-                rel="noopener noreferrer"
-              >
-                Governance
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                Community
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Resources
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                Terms of Service
-              </a>
-            </div>
-            <div className={styles.footerText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
-                Privacy Policy
-              </a>
-            </div>
+          <div>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
+              <IconButtonWithSVG
+                backgroundColor="var(--social-bg-color)"
+                icon={<TwitterLightGreenIcon />}
+                onClick={() => {}}
+              />
+            </a>
           </div>
-          <div className={styles.allRights}>2023 Foster © All Rights Reserved</div>
-          <div className="flex flex-wrap mt-[15px] gap-[18px] justify-start mb-[100px]">
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<InstagramLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<DiscordLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<TwitterLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
-            <div>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                <IconButtonWithSVG
-                  backgroundColor="var(--social-bg-color)"
-                  icon={<GithubLightGreenIcon />}
-                  onClick={() => {}}
-                />
-              </a>
-            </div>
+          <div>
+            <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
+              <IconButtonWithSVG
+                backgroundColor="var(--social-bg-color)"
+                icon={<GithubLightGreenIcon />}
+                onClick={() => {}}
+              />
+            </a>
           </div>
-          {/* disconnect wallet alert */}
-          <Alert
-            open={showAlert}
-            close={() => {
-              router.push('/')
-              setShowAlert(false)
-            }}
-            data={alertData}
-          />
         </div>
-      )}
+      </div>
     </div>
   )
 }
