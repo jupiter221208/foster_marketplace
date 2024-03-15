@@ -381,3 +381,11 @@
     font-size: 16px;
   }
 }
+.iconBlurView {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(var(--background-main-color-rgb), 0.75);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}

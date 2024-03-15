@@ -372,17 +372,21 @@ const Step01CollectionSection = props => {
                                 </button>
                                 <div {...getRootProps()}>
                                   <input {...getInputProps()} />
-                                  <IconButtonWithSVG
-                                    width={40}
-                                    height={40}
-                                    iconWidth={40}
-                                    iconHeight={40}
-                                    icon={<EditorGreenIcon />}
-                                    onClick={() => {}}
-                                    backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
-                                    borderColor="transparent"
-                                    borderRadius="100%"
-                                  />
+                                  <div className={styles.iconBlurView}>
+                                    <div className="w-full h-full flex justify-center items-center">
+                                      <IconButtonWithSVG
+                                        width={40}
+                                        height={40}
+                                        iconWidth={40}
+                                        iconHeight={40}
+                                        icon={<EditorGreenIcon />}
+                                        onClick={() => {}}
+                                        backgroundColor="transparent"
+                                        borderColor="transparent"
+                                        borderRadius="100%"
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
                               </section>
                             )}
@@ -468,17 +472,21 @@ const Step01CollectionSection = props => {
                                 <section>
                                   <div {...getRootProps()}>
                                     <input {...getInputProps()} />
-                                    <IconButtonWithSVG
-                                      width={40}
-                                      height={40}
-                                      iconWidth={40}
-                                      iconHeight={40}
-                                      icon={<EditorGreenIcon />}
-                                      onClick={() => {}}
-                                      backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
-                                      borderColor="transparent"
-                                      borderRadius="100%"
-                                    />
+                                    <div className={styles.iconBlurView}>
+                                      <div className="w-full h-full flex justify-center items-center">
+                                        <IconButtonWithSVG
+                                          width={40}
+                                          height={40}
+                                          iconWidth={40}
+                                          iconHeight={40}
+                                          icon={<EditorGreenIcon />}
+                                          onClick={() => {}}
+                                          backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                                          borderColor="transparent"
+                                          borderRadius="100%"
+                                        />
+                                      </div>
+                                    </div>
                                   </div>
                                 </section>
                               )}
@@ -737,17 +745,21 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButtonWithSVG
-                                width={40}
-                                height={40}
-                                iconWidth={40}
-                                iconHeight={40}
-                                icon={<EditorGreenIcon />}
-                                onClick={() => {}}
-                                backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
-                                borderColor="transparent"
-                                borderRadius="100%"
-                              />
+                              <div className={styles.iconBlurView}>
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <IconButtonWithSVG
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
+                                    icon={<EditorGreenIcon />}
+                                    onClick={() => {}}
+                                    backgroundColor="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </section>
                         )}
@@ -842,17 +854,21 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButtonWithSVG
-                                width={40}
-                                height={40}
-                                iconWidth={40}
-                                iconHeight={40}
-                                icon={<EditorGreenIcon />}
-                                onClick={() => {}}
-                                backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
-                                borderColor="transparent"
-                                borderRadius="100%"
-                              />
+                              <div className={styles.iconBlurView}>
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <IconButtonWithSVG
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
+                                    icon={<EditorGreenIcon />}
+                                    onClick={() => {}}
+                                    backgroundColor="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </section>
                         )}
