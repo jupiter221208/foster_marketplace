@@ -47,13 +47,17 @@ const AccordionNewProfileMenu = props => {
                   {type === 'avatar' && item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">
                       <div className={styles.imageArea}>
-                        <ImageWithFoster
-                          src={icon}
-                          showPlaceHolder={false}
-                          alt=""
-                          width={100}
-                          className="w-[22px] h-[22px] rounded-full"
-                        />
+                        {icon ? (
+                          <ImageWithFoster
+                            src={icon}
+                            showPlaceHolder={false}
+                            alt=""
+                            width={100}
+                            className="w-[22px] h-[22px] rounded-full"
+                          />
+                        ) : (
+                          <Image src={AvatarImage} alt="" width={22} height={22} className="rounded-full" />
+                        )}
                       </div>
                     </div>
                   ) : item.type === 'order' ? (
