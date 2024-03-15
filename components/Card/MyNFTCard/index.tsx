@@ -17,6 +17,7 @@ import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
+import OutlineButton from 'components/Button/OutlineButton'
 
 type MyNFTCardTypes = {
   data: NftData
@@ -94,7 +95,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
               fontSize="14px"
               borderRadius={10}
             />
-            <SecondaryButton
+            <OutlineButton
               backgroundColor="transparent"
               label="List NFT"
               onClick={() => onClickListNFT(data)}
@@ -122,15 +123,17 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
             <GradientButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
+              width="97px"
               height="26px"
-              fontSize="10px"
+              fontSize="12px"
               borderRadius="6px"
             />
-            <SecondaryButton
-              label="List NFT"
+            <OutlineButton
+              label="List"
               onClick={() => onClickListNFT(data)}
+              fontSize="12px"
+              width="43px"
               height="26px"
-              fontSize="10px"
               borderRadius="6px"
               fontFamily="Muli-SemiBold"
             />

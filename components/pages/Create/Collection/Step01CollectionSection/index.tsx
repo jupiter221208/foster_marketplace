@@ -23,7 +23,7 @@ import { useViewport, namePublicFile } from 'utils'
 import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
 import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
 import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
@@ -39,6 +39,7 @@ import uploadFileToS3API from 'apis/aws'
 import ImportEAModal from 'components/Modal/ImportEAModal'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const Step01CollectionSection = props => {
   const {
@@ -371,20 +372,21 @@ const Step01CollectionSection = props => {
                                 </button>
                                 <div {...getRootProps()}>
                                   <input {...getInputProps()} />
-                                  <IconButton
-                                    width={30}
-                                    height={30}
-                                    iconWidth={15}
-                                    iconHeight={15}
-                                    icon={EditorGreenIcon}
-                                    onClick={() => {}}
-                                    // onClick={() => {
-                                    //   dropzoneBannerEl?.current?.open()
-                                    // }}
-                                    backgroundColor="#242424"
-                                    borderColor="transparent"
-                                    borderRadius="100%"
-                                  />
+                                  <div className={styles.iconBlurView}>
+                                    <div className="w-full h-full flex justify-center items-center">
+                                      <IconButtonWithSVG
+                                        width={40}
+                                        height={40}
+                                        iconWidth={40}
+                                        iconHeight={40}
+                                        icon={<EditorGreenIcon />}
+                                        onClick={() => {}}
+                                        backgroundColor="transparent"
+                                        borderColor="transparent"
+                                        borderRadius="100%"
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
                               </section>
                             )}
@@ -470,17 +472,21 @@ const Step01CollectionSection = props => {
                                 <section>
                                   <div {...getRootProps()}>
                                     <input {...getInputProps()} />
-                                    <IconButton
-                                      width={30}
-                                      height={30}
-                                      iconWidth={15}
-                                      iconHeight={15}
-                                      icon={EditorGreenIcon}
-                                      onClick={() => {}}
-                                      backgroundColor="#242424"
-                                      borderColor="transparent"
-                                      borderRadius="100%"
-                                    />
+                                    <div className={styles.iconBlurView}>
+                                      <div className="w-full h-full flex justify-center items-center">
+                                        <IconButtonWithSVG
+                                          width={40}
+                                          height={40}
+                                          iconWidth={40}
+                                          iconHeight={40}
+                                          icon={<EditorGreenIcon />}
+                                          onClick={() => {}}
+                                          backgroundColor="rgba(var(--background-main-color-rgb), 0.75)"
+                                          borderColor="transparent"
+                                          borderRadius="100%"
+                                        />
+                                      </div>
+                                    </div>
                                   </div>
                                 </section>
                               )}
@@ -739,17 +745,21 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButton
-                                width={30}
-                                height={30}
-                                iconWidth={15}
-                                iconHeight={15}
-                                icon={EditorGreenIcon}
-                                onClick={() => {}}
-                                backgroundColor="#242424"
-                                borderColor="transparent"
-                                borderRadius="100%"
-                              />
+                              <div className={styles.iconBlurView}>
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <IconButtonWithSVG
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
+                                    icon={<EditorGreenIcon />}
+                                    onClick={() => {}}
+                                    backgroundColor="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </section>
                         )}
@@ -844,17 +854,21 @@ const Step01CollectionSection = props => {
                           <section>
                             <div {...getRootProps()}>
                               <input {...getInputProps()} />
-                              <IconButton
-                                width={30}
-                                height={30}
-                                iconWidth={15}
-                                iconHeight={15}
-                                icon={EditorGreenIcon}
-                                onClick={() => {}}
-                                backgroundColor="#242424"
-                                borderColor="transparent"
-                                borderRadius="100%"
-                              />
+                              <div className={styles.iconBlurView}>
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <IconButtonWithSVG
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
+                                    icon={<EditorGreenIcon />}
+                                    onClick={() => {}}
+                                    backgroundColor="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </section>
                         )}

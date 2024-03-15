@@ -262,12 +262,12 @@ const MerchActivity = () => {
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
     let nfts = await getMyNFTs(mx)
-
     let eligibleNfts = nfts.filter(
       item =>
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
-        (item.category ?? 'image') === 'image' &&
+        (item.category ?? 'image').includes('image') &&
+        item.category !== 'image/gif' &&
         item.creators.some(({ address }) => publicKey?.toString() === address)
     )
 

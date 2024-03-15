@@ -35,11 +35,6 @@
   position: fixed;
   top: 80px;
   left: 0;
-  // animation-name: menu_open;
-  // animation-duration: 0.8s;
-  // animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-  // animation-direction: alternate;
-  // overflow: hidden;
 }
 
 .menuClose {
@@ -136,17 +131,39 @@
 }
 
 .footerText {
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
-  font-family: 'Muli-SemiBold';
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  margin-top: 9px;
+  cursor: pointer;
+}
+
+.allRights {
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+  font-family: 'Muli-Light';
+  font-weight: 100;
   font-size: 16px;
   line-height: 20px;
   margin-top: 15px;
 }
 
-.allRights {
-  color: rgba(var(--text-gray-200-color-rgb), 0.6);
-  font-family: 'Muli-Regular';
+.signIn {
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
-  line-height: 20px;
-  margin-top: 15px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.signBorder {
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+
+.navBorder {
+  width: calc(100% + 32px);
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
 }

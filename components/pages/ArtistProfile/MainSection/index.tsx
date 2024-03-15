@@ -34,7 +34,7 @@ import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
@@ -56,6 +56,7 @@ import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import nftsAPI from 'apis/nfts'
 import ImageWithFoster from 'components/ImageWithFoster'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView, wallet, reloadPage, hasLoading } = prop
@@ -310,18 +311,18 @@ const MainSection = prop => {
             <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
-                  <IconButton
-                    icon={EditorGreenIcon}
+                  <IconButtonWithSVG
+                    icon={<EditorGreenIcon />}
                     onClick={() => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor={'transparent'}
+                    backgroundColor="transparent"
                     borderRadius="100%"
-                    width={20}
-                    height={20}
-                    iconWidth={20}
-                    iconHeight={20}
+                    width={40}
+                    height={40}
+                    iconWidth={40}
+                    iconHeight={40}
                     disabled={bannerUploadingToS3}
                   />
                 </div>
@@ -678,18 +679,18 @@ const MainSection = prop => {
             <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
               <div className={styles.iconBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
-                  <IconButton
-                    icon={EditorGreenIcon}
+                  <IconButtonWithSVG
+                    icon={<EditorGreenIcon />}
                     onClick={() => {
                       if (showBannerBoard || showSocialBoard) return
                       inputBannerFile.current.click()
                     }}
-                    backgroundColor={'transparent'}
+                    backgroundColor="transparent"
                     borderRadius="100%"
-                    width={20}
-                    height={20}
-                    iconWidth={20}
-                    iconHeight={20}
+                    width={40}
+                    height={40}
+                    iconWidth={40}
+                    iconHeight={40}
                     disabled={bannerUploadingToS3}
                   />
                 </div>
