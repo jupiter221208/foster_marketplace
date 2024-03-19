@@ -25,8 +25,8 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
-import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
-import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
+// import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
+// import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -40,6 +40,7 @@ import ImportEAModal from 'components/Modal/ImportEAModal'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import { useRouter } from 'next/router'
 
 const Step01CollectionSection = props => {
   const {
@@ -67,6 +68,7 @@ const Step01CollectionSection = props => {
     isMinting,
   } = props
   const viewport = useViewport()
+  const router = useRouter()
 
   const collectionKind = useSelector<any>(state => state.collectionKind)
 
@@ -977,7 +979,14 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
-      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
+      <ImportEAModal
+        open={showEAModal}
+        onClose={() => {
+          router.push('/create/single-nft')
+          // setShowEAModal(false)
+        }}
+        onImportUrl={importEACollection}
+      />
 
       <Alert
         open={showAlert}
