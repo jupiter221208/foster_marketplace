@@ -321,7 +321,7 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Collection Cover Image & Banner</div>
+              <div className={`${styles.title} w-full`}>Collection Preview</div>
               <div className="w-full mt-[57px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
@@ -578,11 +578,11 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
-                      value={limit(collectionName, 30)}
+                      value={limit(collectionName, 32)}
                       placeholder="Give your art name"
-                      label01="Max Characters 30"
-                      label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
-                      onChange={value => onChangeCollectionName(limit(value, 30))}
+                      label01="Max Characters 32"
+                      label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
+                      onChange={value => onChangeCollectionName(limit(value, 32))}
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>
@@ -897,11 +897,11 @@ const Step01CollectionSection = props => {
             </div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
-                value={limit(collectionName, 30)}
+                value={limit(collectionName, 32)}
                 placeholder="Give your art name"
-                label01="Max Characters 30"
-                label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
-                onChange={value => onChangeCollectionName(limit(value, 30))}
+                label01="Max Characters 32"
+                label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
+                onChange={value => onChangeCollectionName(limit(value, 32))}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>
