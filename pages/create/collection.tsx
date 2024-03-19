@@ -88,6 +88,7 @@ const Collection = () => {
   // step 2
   const [collectionFiles, setCollectionFiles] = useState<any[]>([])
   const [royalties, setRoyalties] = useState(0)
+  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
 
   const collectionNftMint = Keypair.generate()
@@ -117,15 +118,40 @@ const Collection = () => {
         image: coverImageUrl,
       })
 
-      const collectionNft = await mx.nfts().create({
-        useNewMint: collectionNftMint,
-        isCollection: true,
-        name: trimmedCollectionName,
-        uri: uri,
-        sellerFeeBasisPoints: royalties * 100,
-      })
+      let createNftOperation = new TransactionBuilder().add(
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitLimit({ units: 200_000 }),
+          signers: [],
+        },
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
+          signers: [],
+        }
+      )
 
-      if (collectionNft) {
+      createNftOperation.add(
+        await mx
+          .nfts()
+          .builders()
+          .create({
+            useNewMint: collectionNftMint,
+            isCollection: true,
+            name: trimmedCollectionName,
+            uri: uri,
+            sellerFeeBasisPoints: royalties * 100,
+          })
+      )
+
+      let response = null
+      for (let i = 0; !response && i < 3; i++)
+        try {
+          response = await createNftOperation.sendAndConfirm(mx)
+        } catch (e: any) {
+          console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
+          console.error(e)
+        }
+
+      if (response) {
         const categories = categoryList.filter(item => item.checked)
         let category = ''
         categories.forEach(item => {
@@ -133,7 +159,7 @@ const Collection = () => {
         })
 
         let collectionInfo = {
-          collection_id: collectionNft.mintAddress.toString(),
+          collection_id: collectionNftMint.publicKey.toString(),
           collection_name: collectionName.trim(),
           description: description.replaceAll('\n', ' ').trim(),
           banner_image: bannerAWSUrl,
@@ -144,7 +170,7 @@ const Collection = () => {
 
         collectionsAPI.mintCollection(collectionInfo).then(
           response => {
-            router.push(`/collection/${collectionNft.mintAddress.toString()}`)
+            router.push(`/collection/${collectionNftMint.publicKey.toString()}`)
           },
           error => {
             setIsMinting(false)
@@ -364,22 +390,12 @@ const Collection = () => {
           collection: collectionPublicKey,
         })
       )
-      // const createNftTransaction = await mx.nfts().builders().create({
-      //   useNewMint: nftKeypair,
-      //   uri: uri,
-      //   name,
-      //   sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
-      //   collection: collectionPublicKey,
-      // })
 
       const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
         mintAddress: nftKeypair.publicKey,
         collectionMintAddress: collectionPublicKey,
         isSizedCollection: true,
       })
-
-      // const combinedTransaction = createNftOperation.append(verifyCollectionTransaction)
-      // await combinedTransaction.sendAndConfirm(mx)
 
       createNftOperation.add(verifyCollectionTransaction)
 
