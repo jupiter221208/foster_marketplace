@@ -21,8 +21,14 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
-import { Keypair, PublicKey } from '@solana/web3.js'
-import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
+import {
+  CreateNftOutput,
+  JsonMetadata,
+  toMetaplexFile,
+  toMetaplexFileFromBrowser,
+  TransactionBuilder,
+} from '@metaplex-foundation/js'
 
 // images and icons
 
@@ -337,13 +343,34 @@ const Collection = () => {
       }
       const uri = await storage.uploadJson(metadata)
       const nftKeypair = Keypair.generate()
-      const createNftTransaction = await mx.nfts().builders().create({
-        useNewMint: nftKeypair,
-        uri: uri,
-        name,
-        sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
-        collection: collectionPublicKey,
-      })
+
+      let createNftOperation = new TransactionBuilder().add(
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitLimit({ units: 200_000 }),
+          signers: [],
+        },
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
+          signers: [],
+        }
+      )
+
+      createNftOperation.add(
+        await mx.nfts().builders().create({
+          useNewMint: nftKeypair,
+          uri: uri,
+          name,
+          sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+          collection: collectionPublicKey,
+        })
+      )
+      // const createNftTransaction = await mx.nfts().builders().create({
+      //   useNewMint: nftKeypair,
+      //   uri: uri,
+      //   name,
+      //   sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+      //   collection: collectionPublicKey,
+      // })
 
       const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
         mintAddress: nftKeypair.publicKey,
@@ -351,8 +378,21 @@ const Collection = () => {
         isSizedCollection: true,
       })
 
-      const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
-      await combinedTransaction.sendAndConfirm(mx)
+      // const combinedTransaction = createNftOperation.append(verifyCollectionTransaction)
+      // await combinedTransaction.sendAndConfirm(mx)
+
+      createNftOperation.add(verifyCollectionTransaction)
+
+      // retry upto 3x
+      // TODO: show user retry number
+      let response = null
+      for (let i = 0; !response && i < 3; i++)
+        try {
+          response = await createNftOperation.sendAndConfirm(mx)
+        } catch (e: any) {
+          console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
+          console.error(e)
+        }
 
       let assetUrl: any = ''
       let coverUrl: any = ''
