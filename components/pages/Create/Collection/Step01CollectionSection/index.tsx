@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -9,7 +10,6 @@ import { limit } from 'utils/strings'
 
 // components
 import Alert from 'components/Alert'
-import IconButton from 'components/Button/IconButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
 import Input from 'components/Input'
@@ -25,8 +25,8 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
-import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
-import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
+// import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
+// import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -40,6 +40,7 @@ import ImportEAModal from 'components/Modal/ImportEAModal'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import { useRouter } from 'next/router'
 
 const Step01CollectionSection = props => {
   const {
@@ -67,15 +68,25 @@ const Step01CollectionSection = props => {
     isMinting,
   } = props
   const viewport = useViewport()
+  const router = useRouter()
+
+  const collectionKind = useSelector<any>(state => state.collectionKind)
 
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [collectionType, setCollectionType] = useState('foster')
+  const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
   const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
+
+  useEffect(() => {
+    setCollectionType(collectionKind)
+    if (collectionKind === 'ea') {
+      setShowEAModal(true)
+    }
+  }, [collectionKind])
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -310,7 +321,7 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Collection Cover Image & Banner</div>
+              <div className={`${styles.title} w-full`}>Collection Preview</div>
               <div className="w-full mt-[57px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
@@ -539,7 +550,7 @@ const Step01CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full flex justify-center">
+                {/* <div className="w-full flex justify-center">
                   <div className={styles.collectionTypeSection}>
                     <div
                       className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
@@ -559,7 +570,7 @@ const Step01CollectionSection = props => {
                       Import EA Series
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* upload artwork part */}
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-[30px]`}>
@@ -567,11 +578,11 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
-                      value={limit(collectionName, 30)}
+                      value={limit(collectionName, 32)}
                       placeholder="Give your art name"
-                      label01="Max Characters 30"
-                      label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
-                      onChange={value => onChangeCollectionName(limit(value, 30))}
+                      label01="Max Characters 32"
+                      label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
+                      onChange={value => onChangeCollectionName(limit(value, 32))}
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>
@@ -640,8 +651,7 @@ const Step01CollectionSection = props => {
         // mobile part
         <div className="g-container mt-[26px] mb-[47px]">
           {/* CollectionStepper part */}
-          <div className="w-full">
-            {/* <CollectionStepper currentStep={currentStep} /> */}
+          {/* <div className="w-full">
             <div className={styles.collectionTypeSection}>
               <div
                 className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
@@ -662,7 +672,7 @@ const Step01CollectionSection = props => {
                 Import EA Series
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full relative z-10">
@@ -887,11 +897,11 @@ const Step01CollectionSection = props => {
             </div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
-                value={limit(collectionName, 30)}
+                value={limit(collectionName, 32)}
                 placeholder="Give your art name"
-                label01="Max Characters 30"
-                label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
-                onChange={value => onChangeCollectionName(limit(value, 30))}
+                label01="Max Characters 32"
+                label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
+                onChange={value => onChangeCollectionName(limit(value, 32))}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>
@@ -899,6 +909,7 @@ const Step01CollectionSection = props => {
             </div>
             <div className="w-full mt-5">
               <Textarea
+                value={limit(description, 1000)}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
@@ -968,7 +979,14 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
-      <ImportEAModal open={showEAModal} onClose={() => setShowEAModal(false)} onImportUrl={importEACollection} />
+      <ImportEAModal
+        open={showEAModal}
+        onClose={() => {
+          router.push('/create/single-nft')
+          // setShowEAModal(false)
+        }}
+        onImportUrl={importEACollection}
+      />
 
       <Alert
         open={showAlert}

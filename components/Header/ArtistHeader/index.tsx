@@ -211,7 +211,7 @@ const PrimaryHeader = () => {
             isScrollingTop ? 'top-0' : '-top-28'
           } flex justify-center transition-all`}
         >
-          <nav className="w-full max-w-[1750px] relative">
+          <nav className="w-full max-w-[1920px] relative">
             <div className="absolute inset-0 w-full flex justify-center items-center">
               <SearchBox
                 value={searchKeyword}
@@ -223,7 +223,7 @@ const PrimaryHeader = () => {
               />
             </div>
 
-            <div className="w-full h-full flex justify-between px-6">
+            <div className="w-full h-full flex justify-between g-container">
               <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
                 <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
                   <FosterLogo className={styles.logoIcon} />

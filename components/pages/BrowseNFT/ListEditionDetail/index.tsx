@@ -32,6 +32,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
+import { delegateEdition } from 'utils/editions'
 
 export interface ListEditionDetailProps {
   data: {
@@ -47,6 +48,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   const viewport = useViewport()
 
   const { refreshToken } = useAuthentication()
+  const { metaplex } = useMetaplex()
 
   const closeModal = () => {
     setBuyLimit('')
@@ -83,8 +85,27 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
   const handleListEdition = async () => {
     try {
+      setIsLoading(true)
+      // onRefreshPage?.()
+
+      let response = await delegateEdition({
+        metaplex,
+        mint: new PublicKey(data.mintAddress),
+        // TODO: generate keypair and send to backend
+        delegate: new PublicKey('3FVrkePokrBYhQKthGjpTr8MCsPAymTStHuPCsLZ6SLX'),
+      })
+
+      if (!response) {
+        // show error to user
+        setIsLoading(false)
+        return
+      }
+
       onSuccess(data?.name)
-      onRefreshPage?.()
+      setIsLoading(false)
+      onClose()
+
+      // TODO: send listing to backend with listing details
     } catch (e: any) {
       setIsLoading(false)
     }

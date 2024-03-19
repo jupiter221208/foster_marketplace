@@ -239,6 +239,7 @@ const CreateNFTModal = props => {
                           dispatch({ type: 'set', mintCollectionStep: 1 })
                           dispatch({ type: 'set', collectionMintAddress: '' })
                           dispatch({ type: 'set', collectionCoverUrl: '' })
+                          dispatch({ type: 'set', collectionKind: 'foster' })
                           handleClickButton('/create/collection')
                         }}
                         color="var(--text-gray-200-color)"

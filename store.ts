@@ -43,7 +43,8 @@ const initialState = {
   mintCollectionStep: 1,
   collectionMintAddress: '',
   collectionMintName: '',
-  collectionCoverUrl: ''
+  collectionCoverUrl: '',
+  collectionKind: 'foster'
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
