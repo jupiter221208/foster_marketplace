@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import SingleMobileIcon from 'public/icons/single-mobile.svg?component'
 import SingleIcon from 'public/icons/single.svg?component'
@@ -12,6 +12,7 @@ import styles from './index.module.scss'
 
 const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType: any }) => {
   const router = useRouter()
+  const dispatch = useDispatch()
   return (
     <div className="w-full">
       <div className="flex flex-col items-center mt-[30px] lg:mt-[95px]">
@@ -63,6 +64,7 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           <div
             className={`${styles.singleTag} mt-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
+              dispatch({ type: 'set', collectionKind: 'foster' })
               router.push('/create/collection')
             }}
           >
@@ -81,7 +83,13 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           </div>
         </div>
       </div>
-      <div className={styles.exchangeArt}>
+      <div
+        className={styles.exchangeArt}
+        onClick={() => {
+          dispatch({ type: 'set', collectionKind: 'ea' })
+          router.push('/create/collection')
+        }}
+      >
         Or, <span className={styles.underline}>import your series from Exchange Art</span>
       </div>
     </div>

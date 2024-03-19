@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -9,7 +10,6 @@ import { limit } from 'utils/strings'
 
 // components
 import Alert from 'components/Alert'
-import IconButton from 'components/Button/IconButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
 import Input from 'components/Input'
@@ -68,14 +68,23 @@ const Step01CollectionSection = props => {
   } = props
   const viewport = useViewport()
 
+  const collectionKind = useSelector<any>(state => state.collectionKind)
+
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [collectionType, setCollectionType] = useState('foster')
+  const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
   const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
+
+  useEffect(() => {
+    setCollectionType(collectionKind)
+    if (collectionKind === 'ea') {
+      setShowEAModal(true)
+    }
+  }, [collectionKind])
 
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -539,7 +548,7 @@ const Step01CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className="w-full flex justify-center">
+                {/* <div className="w-full flex justify-center">
                   <div className={styles.collectionTypeSection}>
                     <div
                       className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
@@ -559,7 +568,7 @@ const Step01CollectionSection = props => {
                       Import EA Series
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* upload artwork part */}
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-[30px]`}>
@@ -640,8 +649,7 @@ const Step01CollectionSection = props => {
         // mobile part
         <div className="g-container mt-[26px] mb-[47px]">
           {/* CollectionStepper part */}
-          <div className="w-full">
-            {/* <CollectionStepper currentStep={currentStep} /> */}
+          {/* <div className="w-full">
             <div className={styles.collectionTypeSection}>
               <div
                 className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
@@ -662,7 +670,7 @@ const Step01CollectionSection = props => {
                 Import EA Series
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full relative z-10">
@@ -899,6 +907,7 @@ const Step01CollectionSection = props => {
             </div>
             <div className="w-full mt-5">
               <Textarea
+                value={limit(description, 1000)}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}

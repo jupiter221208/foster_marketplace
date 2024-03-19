@@ -28,6 +28,7 @@ const AddSection = props => {
     dispatch({ type: 'set', collectionMintAddress: collectionId })
     dispatch({ type: 'set', collectionCoverUrl: coverUrl })
     dispatch({ type: 'set', collectionMintName: collectionName })
+    dispatch({ type: 'set', collectionKind: 'foster' })
     router.push('/create/collection')
   }
 

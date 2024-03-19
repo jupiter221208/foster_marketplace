@@ -29,7 +29,6 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFile, toMetaplexFileFromBrowse
 // call apis
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
-import { NftData } from 'types/nft'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
@@ -83,8 +82,6 @@ const Collection = () => {
   // step 2
   const [collectionFiles, setCollectionFiles] = useState<any[]>([])
   const [royalties, setRoyalties] = useState(0)
-  const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
 
   const collectionNftMint = Keypair.generate()
@@ -105,8 +102,6 @@ const Collection = () => {
       })
       let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
 
-      setCoverImageUrl(coverImageUrl)
-
       let trimmedCollectionName = collectionName.trim()
       let trimmedDescription = description.trim()
       const uri = await storage.uploadJson({
@@ -125,8 +120,6 @@ const Collection = () => {
       })
 
       if (collectionNft) {
-        setCollectionNft(collectionNft)
-
         const categories = categoryList.filter(item => item.checked)
         let category = ''
         categories.forEach(item => {
