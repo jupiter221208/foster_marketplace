@@ -105,10 +105,7 @@ const SingleNft = () => {
   const [nftUrl, setNftUrl] = useState<string>()
 
   useEffect(() => {
-    console.log(createTab, '===========createTab==================')
     if (createTab !== null) {
-      console.log(createTab, '===========createTab2==================')
-
       if (createTab === 0) setType(0)
       else if (createTab === 1) setType(1)
 

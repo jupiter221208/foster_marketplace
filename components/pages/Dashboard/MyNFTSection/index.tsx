@@ -99,7 +99,18 @@ const MyNFTSection = props => {
   }
 
   const handleSuccessListEdition = nftName => {
-    setOpenProgressingModal(false)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Edition Listed!',
+        description: `You've successfully listed an edition for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowAlert(true)
+    }, 500)
   }
 
   const handleSuccessAuction = nftName => {

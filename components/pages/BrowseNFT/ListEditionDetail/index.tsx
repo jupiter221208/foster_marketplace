@@ -85,8 +85,9 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
   const handleListEdition = async () => {
     try {
-      onSuccess(data?.name)
+      setIsLoading(true)
       // onRefreshPage?.()
+
       let response = await delegateEdition({
         metaplex,
         mint: new PublicKey(data.mintAddress),
@@ -96,8 +97,13 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
       if (!response) {
         // show error to user
+        setIsLoading(false)
         return
       }
+
+      onSuccess(data?.name)
+      setIsLoading(false)
+      onClose()
 
       // TODO: send listing to backend with listing details
     } catch (e: any) {

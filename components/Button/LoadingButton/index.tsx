@@ -13,8 +13,8 @@ import styles from './index.module.scss'
 const LoadingButton = props => {
   const {
     fullWidth,
-    backgroundColor01 = 'var(--primary-btn-bg)',
-    backgroundColor02 = 'var(--primary-btn-bg)',
+    backgroundColor01 = 'var(--place-bid-minimum-color)',
+    backgroundColor02 = 'var(--place-bid-minimum-color)',
     width = 160,
     height = 40,
     gradientDirection = 'left',
