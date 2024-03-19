@@ -12,7 +12,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { Keypair, PublicKey } from '@solana/web3.js'
+import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import { toBigNumber, toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -425,22 +425,34 @@ const SingleNft = () => {
 
       let publicKey = mx.identity().publicKey
       let nftMint = Keypair.generate()
-      let createNftOperation = await mx
-        .nfts()
-        .builders()
-        .create({
-          uri: metadataUri,
-          name: trimmedNftName,
-          sellerFeeBasisPoints: royalties * 100,
-          creators: creatorList.map(({ address, share }) => ({
-            address: new PublicKey(address),
-            share: parseInt(share),
-            verified: address == publicKey.toBase58(),
-          })),
-          useNewMint: nftMint,
-          collection: collection?.mintAddress,
-          maxSupply,
-        })
+      let createNftOperation = new TransactionBuilder().add(
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitLimit({ units: 200_000 }),
+          signers: [],
+        },
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitLimit({ microLamports: 500_000 }),
+          signers: [],
+        }
+      )
+      createNftOperation.add(
+        await mx
+          .nfts()
+          .builders()
+          .create({
+            uri: metadataUri,
+            name: trimmedNftName,
+            sellerFeeBasisPoints: royalties * 100,
+            creators: creatorList.map(({ address, share }) => ({
+              address: new PublicKey(address),
+              share: parseInt(share),
+              verified: address == publicKey.toBase58(),
+            })),
+            useNewMint: nftMint,
+            collection: collection?.mintAddress,
+            maxSupply,
+          })
+      )
       if (collection)
         createNftOperation.add(
           mx.nfts().builders().verifyCollection({
@@ -449,7 +461,16 @@ const SingleNft = () => {
           })
         )
 
-      await createNftOperation.sendAndConfirm(mx)
+      // retry upto 3x
+      // TODO: show user retry number
+      let response = null
+      for (let i = 0; !response && i < 3; i++)
+        try {
+          response = await createNftOperation.sendAndConfirm(mx)
+        } catch (e: any) {
+          console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
+          console.error(e)
+        }
 
       setNFTAddress(nftMint.publicKey)
 
