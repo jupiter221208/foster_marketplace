@@ -13,7 +13,7 @@ import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
 import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
-import { toBigNumber, toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
+import { toBigNumber, toMetaplexFile, JsonMetadata, TransactionBuilder } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -431,7 +431,7 @@ const SingleNft = () => {
           signers: [],
         },
         {
-          instruction: ComputeBudgetProgram.setComputeUnitLimit({ microLamports: 500_000 }),
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
           signers: [],
         }
       )
