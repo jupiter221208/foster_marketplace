@@ -44,6 +44,12 @@ const MyNFTSection = props => {
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts = await getMyNFTs(mx)
+    if (nfts.length === 0) {
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+      return
+    }
     const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
     setAllList(nftsWithEditionData)
     let validNfts = nftsWithEditionData.filter(
@@ -239,7 +245,7 @@ const MyNFTSection = props => {
         </div>
       </div>
       {filteredNfts.length === 0 && !loading && (
-        <div className="mt-[30px] lg:mt-[30px]">
+        <div className="mt-[30px] lg:mt-[20px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"
             description="This tab displays the NFTs you own without an active listing"

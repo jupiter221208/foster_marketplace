@@ -219,12 +219,12 @@ const FavoriteSection = () => {
               />
             </div>
           ))}
-        <div className="col-span-12">
+        <div className="col-span-12 mt-[-100px]">
           <LoadingModal open={loading} />
         </div>
       </div>
       {isLoaded && nftList.length === 0 && (
-        <div className="mt-[15px] lg:mt-[30px]">
+        <div className="mt-[15px] lg:mt-[25px]">
           <NoDataSection
             title={active === 0 ? "You don't have any saved artwork" : "You don't have any saved collections"}
             description={
