@@ -60,7 +60,7 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
                 <span className={styles.tagSubtitle}>Multiple editions of the same artwork</span>
               </div>
               <div className={styles.comingSoon}>
-                <span className={styles.tagTitle}>Coming Soon!</span>
+                <span className={styles.tagTitle}>Editions Coming Soon!</span>
               </div>
             </div>
           </div>
