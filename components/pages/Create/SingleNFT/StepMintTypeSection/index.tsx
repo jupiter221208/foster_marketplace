@@ -42,13 +42,13 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
             </div>
           </div>
           <div
-            className={`${styles.singleTag} mt-[12px] mb-[12px] sm:mt-[0px] sm:mb-[0px]`}
+            className={`${styles.noSingleTag} mt-[12px] mb-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
-              setCurrentStep(1)
-              setType(1)
+              // setCurrentStep(1)
+              // setType(1)
             }}
           >
-            <div className="flex h-full gap-[15px] lg:gap-[0px] lg:flex-col items-center">
+            <div className="relative flex h-full gap-[15px] lg:gap-[0px] lg:flex-col items-center">
               <div className="hidden lg:flex justify-center mt-[70px]">
                 <EditionIcon />
               </div>
@@ -58,6 +58,9 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
               <div className="lg:mt-[40px] mt-[-2px]">
                 <span className={styles.tagTitle}>Editions</span>
                 <span className={styles.tagSubtitle}>Multiple editions of the same artwork</span>
+              </div>
+              <div className={styles.comingSoon}>
+                <span className={styles.tagTitle}>Editions Coming Soon!</span>
               </div>
             </div>
           </div>

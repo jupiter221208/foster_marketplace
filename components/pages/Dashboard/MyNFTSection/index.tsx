@@ -85,10 +85,10 @@ const MyNFTSection = props => {
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
-    { id: 0, label: '1 of 1' },
-    { id: 1, label: 'Editions' },
+    { id: 0, label: '1 of 1', disabled: false },
+    { id: 1, label: 'Editions', disabled: true },
   ])
-  const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1' })
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1', disabled: false })
 
   const handleStartAuction = item => {
     setSelectedData(item)
