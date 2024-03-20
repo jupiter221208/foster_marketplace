@@ -465,6 +465,7 @@ export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promi
   const masterEditions = await getMultipleAccountsInfoBatched(mx.connection, masterEditionAddresses)
 
   for (let i = 0; i < nfts.length; i++) {
+    if (!masterEditions[i]) continue
     const masterEditionData = toOriginalOrPrintEditionAccount({
       publicKey: masterEditionAddresses[i],
       ...masterEditions[i],
