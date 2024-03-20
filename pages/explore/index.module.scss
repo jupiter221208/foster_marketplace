@@ -139,3 +139,12 @@
   height: 1px;
   background: #303030;
 }
+
+.result {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+}

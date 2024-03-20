@@ -249,7 +249,10 @@ const Explore = () => {
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
-        if (response.length === 0) return
+        if (response.length === 0) {
+          setIsVisibleFetching(false)
+          return
+        }
 
         let nfts = []
         if (response.length === rowCount) setIsVisibleFetching(true)
@@ -757,6 +760,10 @@ const Explore = () => {
             )}
             {isMounted && isVisibleFetching && (
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+            )}
+
+            {!isVisibleFetching && isMounted && exploreTab === 0 && nftList.length === 0 && (
+              <div className={styles.result}>No results found</div>
             )}
           </div>
         </div>
