@@ -33,7 +33,10 @@ const ActivitySection = () => {
 
   useEffect(() => {
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
-      if (response.length === 0) return
+      if (response.length === 0) {
+        setLoading(true)
+        return
+      }
       let tempItem: ActivityAPIData[] = []
       response.reverse().map((item, index) => {
         tempItem.push(item)
@@ -79,7 +82,7 @@ const ActivitySection = () => {
             )}
           </div>
         ) : (
-          <div className="mt-[40px] lg:mt-[110px]">
+          <div className="mt-[40px] lg:mt-[130px]">
             <NoDataSection
               title="No activity history available"
               description="This tab displays a log of all your activity on Foster Marketplace"

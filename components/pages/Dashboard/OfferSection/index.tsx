@@ -9,7 +9,6 @@ import OfferTable from 'components/Table/OfferTable'
 import OfferAccordion from 'components/Accordion/OfferAccordion'
 import Alert from 'components/Alert'
 import LoadingModal from 'components/Modal/LoadingModal'
-import FilterButton from 'components/Button/FilterButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -224,7 +223,7 @@ const OfferSection = () => {
         />
       </div>
       {!offerLoaded ? (
-        <div className="col-span-12 mt-10">
+        <div className="col-span-12 mt-[-60px]">
           <LoadingModal open={!offerLoaded} />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
@@ -246,7 +245,7 @@ const OfferSection = () => {
           )}
         </div>
       ) : (
-        <div className="mt-[35px] lg:mt-[85px]">
+        <div className="mt-[35px] lg:mt-[60px]">
           <NoDataSection
             title="You don't have any active offers right now"
             description="This tab shows any active offer you made or received on Foster Marketplace"
