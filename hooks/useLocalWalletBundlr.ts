@@ -1,5 +1,5 @@
 import type { PublicKey, Commitment } from "@solana/web3.js";
-import { Keypair, SystemProgram, Transaction } from "@solana/web3.js";
+import { ComputeBudgetProgram, Keypair, SystemProgram, Transaction } from "@solana/web3.js";
 import type { BigNumber, BigNumberValues } from "@metaplex-foundation/js";
 import {
   Metaplex,
@@ -68,6 +68,12 @@ export const useLocalWalletBundlr = () => {
     if (amountBn.lte(toBigNumber(0))) return "";
 
     let tx = new Transaction().add(
+      ComputeBudgetProgram.setComputeUnitLimit({
+        units: 500
+      }),
+      ComputeBudgetProgram.setComputeUnitPrice({
+        microLamports: 2_000_000
+      }),
       SystemProgram.transfer({
         fromPubkey: publicKey,
         toPubkey: keypair.publicKey,
