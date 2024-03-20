@@ -15,9 +15,9 @@ const ImportEAModal = props => {
   const closeModal = () => {
     onClose()
   }
-
+  const [showErrorValidUrl, setShowErrorValidUrl] = useState(false)
   const [url, setUrl] = useState('')
-
+  const EXCHANGE_ART_PREFIX = 'https://exchange.art/series/'
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -73,15 +73,21 @@ const ImportEAModal = props => {
                 <input
                   className={styles.inputArea}
                   value={url}
-                  placeholder={'https://exchange.art/series/'}
-                  onChange={event => setUrl(event.target.value)}
+                  placeholder={EXCHANGE_ART_PREFIX}
+                  onChange={event => {
+                    setShowErrorValidUrl(false)
+                    setUrl(event.target.value)
+                  }}
                 />
-
-                <div className="w-full mt-[20px] lg:mt-[15px]">
+                {showErrorValidUrl && <div className={styles.showErrorUrl}>The exchange art url is invalid.</div>}
+                <div className="w-full mt-[40px] lg:mt-[15px]">
                   <GradientButton
                     label="Import"
                     fullWidth
-                    onClick={() => onImportUrl(url)}
+                    onClick={() => {
+                      if (url.includes(EXCHANGE_ART_PREFIX) && url.length > EXCHANGE_ART_PREFIX.length) onImportUrl(url)
+                      else setShowErrorValidUrl(true)
+                    }}
                     disabled={url.length === 0}
                     backgroundColor="transparent"
                   />

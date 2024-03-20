@@ -292,9 +292,6 @@ const Step03SingleNFTSection = props => {
                 />
                 {isValidPublicKey(address) ? null : (
                   <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
-                  // <div className="absolute right-[10px] top-[15px]">
-                  //   <Image src={ErrorIcon} alt="" width={20} height={20} />
-                  // </div>
                 )}
               </div>
               {creatorList.length > 1 && (
@@ -325,14 +322,6 @@ const Step03SingleNFTSection = props => {
         Add another wallet
       </div>
 
-      {/* <div className="w-full mt-[54px]">
-        <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu
-          collections={collectionList}
-          name={selectedCollectionName}
-          onClick={index => chooseCollection(index)}
-        />
-      </div> */}
       <div className="w-full flex gap-2 mt-[100px]">
         <Button
           label="Back"
@@ -375,13 +364,6 @@ const Step03SingleNFTSection = props => {
           />
         )}
       </div>
-      {/* <Alert
-        open={showAlert}
-        close={() => {
-          setShowAlert(false)
-        }}
-        data={alertData}
-      /> */}
     </div>
   )
 }

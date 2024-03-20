@@ -27,13 +27,15 @@
   letter-spacing: 0;
   color: var(--gradient-btn-color);
 
+  transition: box-shadow 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+.hoverBtn {
   &:hover {
     @media (min-width: 1024px) {
       background: var(--place-bid-minimum-color) !important;
       color: var(--time-slog-bg) !important
     }
   }
-
-  transition: box-shadow 0.2s;
-  transition-timing-function: ease-in-out;
 }
