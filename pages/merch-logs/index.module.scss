@@ -5,8 +5,8 @@
   padding-top: 18px;
   padding-bottom: 30px;
   @media (min-width: 1024px) {
-    padding-top: 106px;
-    padding-bottom: 106px;
+    padding-top: 90px;
+    padding-bottom: 90px;
   }
 }
 
@@ -120,7 +120,8 @@
   flex-direction: column;
   justify-content: space-between;
   border-radius: 15px;
-  background: var(--second-home-bg);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--text-gray-200-color);
   padding: 30px;
 }
 .subTotal {

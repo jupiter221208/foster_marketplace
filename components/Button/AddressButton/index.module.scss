@@ -10,20 +10,20 @@
 
   height: 29px;
   font-size: 12px;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 6px;
+  padding-right: 6px;
   gap: 8px;
   background-color: transparent;
+  width: auto;
 
   @media (min-width: 1024px) {
-    width: auto;
     height: 34px;
     font-size: 14px;
     padding-left: 12px;
     padding-right: 12px;
     gap: 4px;
-    background-color: var(--address-btn-bg-color);
   }
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
 
   letter-spacing: 0;
   transition: opacity 0.2s;
@@ -33,7 +33,6 @@
 
 .label {
   border-radius: 6px;
-  background-color: var(--address-btn-bg-color);
   padding: 5px;
   color: var(--address-btn-color);
   @media (min-width: 1024px) {

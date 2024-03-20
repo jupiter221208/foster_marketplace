@@ -13,11 +13,11 @@
   height: 237px;
   border-radius: 0px;
   @media (min-width: 1024px) {
-    width: 392px;
-    height: 392px;
+    max-width: 392px;
+    max-height: 392px;
     border-radius: 12px;
   }
-  background-color: #474a4f;
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
   overflow: hidden;
   display: flex;
   justify-content: center;

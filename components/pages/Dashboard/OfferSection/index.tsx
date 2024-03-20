@@ -9,7 +9,6 @@ import OfferTable from 'components/Table/OfferTable'
 import OfferAccordion from 'components/Accordion/OfferAccordion'
 import Alert from 'components/Alert'
 import LoadingModal from 'components/Modal/LoadingModal'
-import FilterButton from 'components/Button/FilterButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -26,9 +25,8 @@ import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
 
 // styles
-import styles from './index.module.scss'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -50,6 +48,12 @@ const OfferSection = () => {
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Offers Made', type: 'made' },
+    { id: 1, label: 'Offers Received', type: 'received' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Offers Made', type: 'made' })
 
   const dispatch = useDispatch()
 
@@ -206,35 +210,20 @@ const OfferSection = () => {
   }
 
   return (
-    <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="w-full flex lg:w-[350px] h-[54px] mt-[15px] z-10">
-        <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Offers Made"
-            onClick={() => setShownOfferType('made')}
-            fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'made' ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'made' ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={160}
-            boxShadow={shownOfferType === 'made' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-          <TimeSlotButton
-            label="Offers Received"
-            onClick={() => setShownOfferType('received')}
-            fontFamily={'Muli-SemiBold'}
-            color={shownOfferType === 'received' ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'received' ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={160}
-            boxShadow={shownOfferType === 'received' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-        </div>
+    <section className="w-full mt-[16px] lg:mt-[30px]">
+      <div className="w-full flex justify-end z-10">
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setShownOfferType(item.type)
+          }}
+        />
       </div>
       {!offerLoaded ? (
-        <div className="col-span-12 mt-10">
+        <div className="col-span-12 mt-[-60px]">
           <LoadingModal open={!offerLoaded} />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
@@ -256,7 +245,7 @@ const OfferSection = () => {
           )}
         </div>
       ) : (
-        <div className="mt-[35px] lg:mt-[85px]">
+        <div className="mt-[35px] lg:mt-[60px]">
           <NoDataSection
             title="You don't have any active offers right now"
             description="This tab shows any active offer you made or received on Foster Marketplace"

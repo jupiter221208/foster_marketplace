@@ -224,7 +224,7 @@
     font-size: 18px;
     font-weight: 700;
     span {
-      color: var(--primary-btn-bg-right);
+      color: var(--main-bg-color);
     }
   }
 }
@@ -241,8 +241,8 @@
     @media (max-width: 1024px) {
       width: 100%;
     }
-    color: var(--primary-btn-bg-right);
-    fill: var(--primary-btn-bg-right);
+    color: var(--main-icon-color);
+    fill: var(--main-icon-color);
     background-color: rgba(var(--main-bg-color-rgb), 0.05);
     border-radius: 10px;
    
@@ -308,7 +308,7 @@
     margin: 1rem auto 0 auto;
     color: var(--main-bg-color);
     fill: none;
-    stroke: var(--primary-btn-bg-right);
+    stroke: var(--primary-btn-bg);
   }
 }
 

@@ -20,16 +20,22 @@ import styles from './index.module.scss'
 // resources
 import InfoGrayIcon from 'assets/icons/info-gray.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green.svg?component'
+import SwipRadio from 'components/Radio/SwipRadio'
+import Radio from 'components/Radio'
+import Input from 'components/Input'
+import EditionList from 'assets/json/single-nft/edition-type.json'
+import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
 const Step01SingleNFTSection = props => {
-  const { nftType, setNftArt, setNftCover } = props
+  const { nftType, setNftArt, setNftCover, type, setEditionType, setMaxSupply } = props
 
   const viewport = useViewport()
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [infoFocus, setInfoFocus] = useState(false)
-
+  const [edition, setEdition] = useState(2)
+  const [maxNum, setMaxNum] = useState(MaxNumberList[0])
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
       let description = ''
@@ -115,7 +121,61 @@ const Step01SingleNFTSection = props => {
             {infoFocus && (
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
-          </div> */}
+            </div>*/}
+          {type !== 0 && (
+            <div className="mt-[44px]">
+              <div className={styles.subTitle}>
+                Edition type <span>*</span>
+              </div>
+              <div className={styles.editionDescription}>Editions are created on-demand</div>
+              <SwipRadio
+                data={EditionList}
+                selected={edition}
+                onChange={item => {
+                  setEdition(item)
+                  setEditionType(item)
+                }}
+              />
+              {edition['id'] === 0 && (
+                <div className="mt-[45px]">
+                  <div className={styles.maxSupplyTitle}>
+                    Max Supply <span>*</span>
+                  </div>
+                  <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                  <div className="flex flex-wrap gap-[20px] justify-between mt-[16px] lg:mt-[25px]">
+                    {MaxNumberList.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`${maxNum.id === item.id ? styles.selectSupply : styles.noneSupply}`}
+                        onClick={() => {
+                          setMaxNum(item)
+                          setMaxSupply(item.value)
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
+                  {maxNum['id'] === 3 && (
+                    <div className="max-w-[450px] mt-[45px]">
+                      <div className={styles.maxTitle}>
+                        Custom Supply <span>*</span>
+                      </div>
+                      <div className="mt-[15px]">
+                        <Input
+                          onChange={value => {
+                            setMaxSupply(value)
+                          }}
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                        />
+                      </div>
+                      <div className={styles.max}>Provide of maxmium supply of editions</div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-20`}>
@@ -208,6 +268,70 @@ const Step01SingleNFTSection = props => {
               )}
             </div> */}
           </div>
+          {type !== 0 && (
+            <div className="mt-[38px]">
+              <div className={styles.subTitle}>
+                Edition type <span>*</span>
+              </div>
+              <div className={styles.editionDescription}>Editions are created on-demand</div>
+              <SwipRadio
+                data={EditionList}
+                selected={edition}
+                onChange={item => {
+                  setEdition(item)
+                  setEditionType(item)
+                }}
+              />
+              {edition['id'] === 0 && (
+                <div className="mt-[36px]">
+                  <div className={styles.maxSupplyTitle}>
+                    Max Supply <span>*</span>
+                  </div>
+                  <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                  <div className="flex flex-wrap gap-[20px] justify-between mt-[16px] lg:mt-[25px]">
+                    {MaxNumberList.map((item, index) => (
+                      <div
+                        key={index}
+                        className={`${maxNum.id === item.id ? styles.selectSupply : styles.noneSupply}`}
+                        onClick={() => {
+                          setMaxNum(item)
+                          setMaxSupply(item.value)
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                    ))}
+                  </div>
+                  {/* <div className="flex flex-row justify-between max-w-[450px]">
+                    <Radio
+                      data={MaxNumberList}
+                      selected={maxNum}
+                      onChange={item => {
+                        setMaxNum(item)
+                        setMaxSupply(item.value)
+                      }}
+                    />
+                  </div> */}
+                  {maxNum['id'] === 3 && (
+                    <div className="max-w-[450px] mt-[40px]">
+                      <div className={styles.maxTitle}>
+                        Custom Supply <span>*</span>
+                      </div>
+                      <div className="mt-[15px]">
+                        <Input
+                          onChange={value => {
+                            setMaxSupply(value)
+                          }}
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                        />
+                      </div>
+                      <span className={styles.max}>Provide of maxmium supply of editions</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-10`}>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 // import Lottie from 'lottie-react'
 
 // next components
-import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 // import Image from 'next/image'
 
@@ -19,18 +18,18 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMyNFTs } from 'utils/nfts.utils'
+import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
-import LoadingComponent from 'pages/explore/LoadingComponent'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
+
+import ListEditionModal from 'components/Modal/ListEditionModal'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
   const dispatch = useDispatch()
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
@@ -40,13 +39,20 @@ const MyNFTSection = props => {
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
-
   const { metaplex: mx } = useMetaplex()
+
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts = await getMyNFTs(mx)
-    setAllList(nfts)
-    let validNfts = nfts.filter(
+    if (nfts.length === 0) {
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
+      return
+    }
+    const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
+    setAllList(nftsWithEditionData)
+    let validNfts = nftsWithEditionData.filter(
       item =>
         !item.tokenAccount?.delegate &&
         !item.tokenAccount?.isFrozen &&
@@ -65,8 +71,10 @@ const MyNFTSection = props => {
   }, [mx, connection, publicKey, isGetMyNFTs])
 
   const [nftList, setNFTList] = useState<NftData[]>([])
+  const [filteredNfts, setFilteredNfts] = useState<NftData[]>([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  const [showListEditionModal, setShowListEditionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -76,14 +84,39 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: '1 of 1', disabled: false },
+    { id: 1, label: 'Editions', disabled: true },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1', disabled: false })
 
   const handleStartAuction = item => {
     setSelectedData(item)
     setShowStartAuctionModal(true)
   }
 
+  const handleListEdition = item => {
+    setSelectedData(item)
+    setShowListEditionModal(true)
+  }
+
   const handleStartProgress = () => {
     setOpenProgressingModal(true)
+  }
+
+  const handleSuccessListEdition = nftName => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Edition Listed!',
+        description: `You've successfully listed an edition for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowAlert(true)
+    }, 500)
   }
 
   const handleSuccessAuction = nftName => {
@@ -115,8 +148,7 @@ const MyNFTSection = props => {
 
   useEffect(() => {
     let list = []
-
-    let allList = myNftList as any[]
+    let allList = myNftList as NftData[]
     allList.forEach(item => {
       let created = false
       let creators = item.creators
@@ -129,7 +161,7 @@ const MyNFTSection = props => {
       if (active === 0) {
         if (created) list.push(item)
       } else {
-        if (!created) list.push(item)
+        if (created) list.push(item)
       }
     })
 
@@ -156,6 +188,14 @@ const MyNFTSection = props => {
     }
   }, [isFetching])
 
+  useEffect(() => {
+    if (active === 0) {
+      setFilteredNfts(filteredList.filter(n => n?.supply?.max === 0))
+    } else if (active === 1) {
+      setFilteredNfts(filteredList.filter(n => n?.supply?.max > 0 || n?.supply?.max === null))
+    }
+  }, [filteredList])
+
   const searchNFT = key => {
     if (key === '') {
       setFilteredList(allNftList)
@@ -172,46 +212,31 @@ const MyNFTSection = props => {
   return (
     <section className={styles.container}>
       {!loading && (
-        <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
-          <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
-            <div className={styles.slotBG}>
-              <TimeSlotButton
-                label="Created"
-                onClick={() => setActive(0)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={160}
-                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-              <TimeSlotButton
-                label="Collected"
-                onClick={() => setActive(1)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? '#1A1A1A' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-                gradientDirection="bottom"
-                width={160}
-                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-              />
-            </div>
-          </div>
+        <div className="w-full flex justify-between gap-[15px] items-center">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setActive(item.id)
+            }}
+          />
         </div>
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList
+          filteredNfts
             .filter(item => item.image !== undefined || null)
             .map(item => (
               <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={item.mintAddress}>
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}
+                  onClickListEdition={(item: NftData) => handleListEdition(item)}
                   onClickListNFT={(item: NftData) => handleListNFT(item)}
+                  active={active}
                 />
               </div>
             ))}
@@ -219,18 +244,12 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {isGetMyNFTs && allNftList.length === 0 && (
-        <div className="mt-[30px] lg:mt-[30px]">
+      {filteredNfts.length === 0 && !loading && (
+        <div className="mt-[30px] lg:mt-[20px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"
             description="This tab displays the NFTs you own without an active listing"
           />
-        </div>
-      )}
-
-      {!loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
 
@@ -250,6 +269,13 @@ const MyNFTSection = props => {
         onSuccess={nft => handleSuccessAuction(nft)}
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
+      />
+
+      <ListEditionModal
+        data={selectedData}
+        open={showListEditionModal}
+        onSuccess={nft => handleSuccessListEdition(nft)}
+        onClose={() => setShowListEditionModal(false)}
       />
 
       <ListNFTModal

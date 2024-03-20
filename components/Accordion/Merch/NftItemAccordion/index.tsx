@@ -32,7 +32,7 @@ const NftItemAccordion = props => {
     <div className="w-full flex flex-wrap gap-[10px]">
       <div className="w-full flex justify-center mb-[15px]">
         <OutlineButton
-          width={300}
+          fullWidth
           borderColor={'var(--back-btn-border-mobile)'}
           label={type === 'enabled' ? 'Disable All' : 'Enable All'}
           onClick={() => {
@@ -79,7 +79,7 @@ const NftItemAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <OutlineButton
-                      width={300}
+                      fullWidth
                       borderColor={'var(--back-btn-border-mobile)'}
                       label={type === 'enabled' ? 'Disable' : 'Enable'}
                       onClick={() => {

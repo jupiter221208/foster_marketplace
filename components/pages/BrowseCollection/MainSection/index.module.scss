@@ -174,12 +174,12 @@
 }
 
 .iconBlurView {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background: rgba(var(--background-dark-color-rgb), 0.6);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(var(--background-main-color-rgb), 0.75);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   @media (min-width: 1024px) {
     width: 46px;
     height: 46px;

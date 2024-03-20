@@ -7,57 +7,38 @@ import StatsSearchBox from 'components/Input/StatsSearchBox'
 
 // styles
 import styles from './index.module.scss'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const CreatorSearchSection = props => {
   const { placeholder, searchWord, setSearchWord, onFilter } = props
   const [active, setActive] = useState<any>(0)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Completed' },
+    { id: 1, label: 'Pending' },
+    { id: 2, label: 'All' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Completed' })
+
   const handleChangeActive = value => {
     setActive(value)
     onFilter(value)
   }
   return (
     <div className={styles.container}>
-      <div className="w-full flex flex-wrap justify-between gap-[20px] items-center">
-        <div className="w-[500px] flex items-center gap-2 justify-between">
+      <div className="w-full flex justify-between gap-[20px] items-center">
+        <div className="w-[200px] lg:w-[500px] flex items-center gap-2 justify-between">
           <StatsSearchBox value={searchWord} placeholder={placeholder} onChange={value => setSearchWord(value)} />
         </div>
-        <div className="h-[50px] z-10">
-          <div className={styles.slotBG}>
-            <TimeSlotButton
-              label="Completed"
-              onClick={() => handleChangeActive(0)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 0 ? '#1A1A1A' : '#979EA2'}
-              backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-              backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-              gradientDirection="bottom"
-              width={100}
-              boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-            />
-            <TimeSlotButton
-              label="Pending"
-              onClick={() => handleChangeActive(1)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 1 ? '#1A1A1A' : '#979EA2'}
-              backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-              backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-              gradientDirection="bottom"
-              width={100}
-              boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-            />
-            <TimeSlotButton
-              label="All"
-              onClick={() => handleChangeActive(2)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 2 ? '#1A1A1A' : '#979EA2'}
-              backgroundColor01={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-              backgroundColor02={active === 2 ? 'var(--toggle-bg-color)' : 'transparent'}
-              gradientDirection="bottom"
-              width={80}
-              boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-            />
-          </div>
+        <div>
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              handleChangeActive(item.id)
+            }}
+          />
         </div>
       </div>
     </div>

@@ -57,6 +57,7 @@ const CreatorsSection = props => {
         setLoading(false)
         setList(creators)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [creators])
@@ -75,7 +76,6 @@ const CreatorsSection = props => {
   }, [period])
 
   const getCreatorData = (curPage, curDate, search, count, reset = false) => {
-    setList([])
     let page = curPage
     if (reset === true) page = 0
     StatsAPI.getStatsCreator({

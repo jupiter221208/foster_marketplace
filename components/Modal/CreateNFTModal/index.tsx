@@ -39,6 +39,7 @@ const CreateNFTModal = props => {
   const handleClickButton = (path: string) => {
     closeModal()
     if (connected) {
+      dispatch({ type: 'set', createTab: null })
       router.push(path)
     } else {
       setVisible(true)
@@ -225,9 +226,6 @@ const CreateNFTModal = props => {
                         width={221}
                         height={45}
                         onClick={() => handleClickButton('/create/single-nft')}
-                        backgroundColor01={'var(--main-icon-color)'}
-                        backgroundColor02={'var(--main-icon-color)'}
-                        // gradientDirection="right"
                         fontSize="16px"
                         color={'var(--single-title-color'}
                       />
@@ -241,6 +239,7 @@ const CreateNFTModal = props => {
                           dispatch({ type: 'set', mintCollectionStep: 1 })
                           dispatch({ type: 'set', collectionMintAddress: '' })
                           dispatch({ type: 'set', collectionCoverUrl: '' })
+                          dispatch({ type: 'set', collectionKind: 'foster' })
                           handleClickButton('/create/collection')
                         }}
                         color="var(--text-gray-200-color)"

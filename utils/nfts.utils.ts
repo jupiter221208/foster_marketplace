@@ -5,8 +5,18 @@ import {
   lamports,
   toMetadataAccount,
   toMetadata,
+  toOriginalOrPrintEditionAccount,
+  toOriginalEditionAccount,
 } from '@metaplex-foundation/js'
-import type { Creator, Metadata, JsonMetadata, Nft, Sft } from '@metaplex-foundation/js'
+import type {
+  Creator,
+  Metadata,
+  JsonMetadata,
+  Nft,
+  Sft,
+  OriginalEditionAccountData,
+  PrintEditionAccountData,
+} from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { TOKEN_PROGRAM_ID, unpackAccount, Account } from '@solana/spl-token'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
@@ -15,6 +25,7 @@ import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
+import { Key } from '@metaplex-foundation/mpl-token-metadata'
 import { NftData as NewNftData, NftCreator, NftData } from 'types/nft'
 
 export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
@@ -249,6 +260,8 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         delegate: ownership.delegate?.toString(),
         isFrozen: ownership.frozen,
       },
+
+      supply,
     }
   })
 }
@@ -442,6 +455,40 @@ export async function getNftFromRpc(metaplex, address: string): Promise<NftData>
   }
 }
 
+export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promise<NftData[]> {
+  const masterEditionAddresses = nfts.map(n =>
+    mx
+      .nfts()
+      .pdas()
+      .masterEdition({ mint: new PublicKey(n.mintAddress) })
+  )
+  const masterEditions = await getMultipleAccountsInfoBatched(mx.connection, masterEditionAddresses)
+
+  for (let i = 0; i < nfts.length; i++) {
+    if (!masterEditions[i]) continue
+    const masterEditionData = toOriginalOrPrintEditionAccount({
+      publicKey: masterEditionAddresses[i],
+      ...masterEditions[i],
+      lamports: lamports(masterEditions[i].lamports),
+    }).data
+    if ('maxSupply' in masterEditionData) {
+      nfts[i].supply = {
+        edition: 0,
+        current: 0,
+        max: masterEditionData.maxSupply ? Number(masterEditionData.maxSupply) : null,
+      }
+    } else {
+      nfts[i].supply = {
+        edition: Number(masterEditionData.edition),
+        current: 0,
+        max: null,
+      }
+    }
+  }
+
+  return nfts
+}
+
 type determineCategoryType = {
   uri: string
   mime: string
@@ -450,7 +497,7 @@ type determineCategoryType = {
 
 export function determineCategory(files: determineCategoryType) {
   let category: string
-  if (files.length > 1) {
+  if (files.length > 1) {  
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
         category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
@@ -458,10 +505,10 @@ export function determineCategory(files: determineCategoryType) {
     })
   } else {
     if (files.length === 0) {
-      category = 'image'
+      category = 'uknown'
     } else {
       category = files[0].mime
     }
   }
-  return category || 'image'
+  return category || 'unknown'
 }

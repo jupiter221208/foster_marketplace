@@ -22,6 +22,7 @@ import collectionAPI from 'apis/collections'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -36,6 +37,11 @@ const FavoriteSection = () => {
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'Artwork' },
+    { id: 1, label: 'Collections' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Artwork' })
 
   const handleChangeActive = value => {
     setActive(value)
@@ -156,31 +162,23 @@ const FavoriteSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex lg:w-[250px] h-[54px] mt-[15px] z-10">
-        <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Artwork"
-            onClick={() => handleChangeActive(0)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 0 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
-            width={160}
-            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
+      <div className="w-full flex justify-end z-10">
+        {/* <TimeSlotButton label="Artwork" onClick={() => handleChangeActive(0)} selected={active === 0} width={160} />
           <TimeSlotButton
             label="Collections"
             onClick={() => handleChangeActive(1)}
-            fontFamily={'Muli-SemiBold'}
-            color={active === 1 ? '#1A1A1A' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--toggle-bg-color)' : 'transparent'}
-            gradientDirection="bottom"
+            selected={active === 1}
             width={160}
-            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
-          />
-        </div>
+          /> */}
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setActive(item.id)
+          }}
+        />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&
@@ -221,12 +219,12 @@ const FavoriteSection = () => {
               />
             </div>
           ))}
-        <div className="col-span-12">
+        <div className="col-span-12 mt-[-100px]">
           <LoadingModal open={loading} />
         </div>
       </div>
       {isLoaded && nftList.length === 0 && (
-        <div className="mt-[15px] lg:mt-[30px]">
+        <div className="mt-[15px] lg:mt-[25px]">
           <NoDataSection
             title={active === 0 ? "You don't have any saved artwork" : "You don't have any saved collections"}
             description={

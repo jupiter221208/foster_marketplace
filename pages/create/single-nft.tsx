@@ -12,8 +12,8 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { Keypair, PublicKey } from '@solana/web3.js'
-import { toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
+import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
+import { toBigNumber, toMetaplexFile, JsonMetadata, TransactionBuilder } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -24,6 +24,8 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -58,6 +60,7 @@ const SingleNft = () => {
   const dispatch = useDispatch()
 
   const isLoading = useSelector<any>(state => state.isLoading)
+  const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenLoaded, setScreenLoaded] = useState(false)
@@ -79,7 +82,8 @@ const SingleNft = () => {
   }, [])
 
   // variables
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [type, setType] = useState<any>()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -87,6 +91,8 @@ const SingleNft = () => {
     setCurrentStep(step)
   }
   // step 1
+  const [editionType, setEditionType] = useState(null)
+  const [maxNum, setMaxNum] = useState(10)
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>(null)
@@ -97,6 +103,16 @@ const SingleNft = () => {
   const [nftImage, setNftImage] = useState('')
   const [coverImageProcessing, setCoverImageProcessing] = useState(false)
   const [nftUrl, setNftUrl] = useState<string>()
+
+  useEffect(() => {
+    if (createTab !== null) {
+      if (createTab === 0) setType(0)
+      else if (createTab === 1) setType(1)
+
+      setCurrentStep(1)
+      dispatch({ type: 'set', createTab: null })
+    }
+  }, [createTab])
 
   useEffect(() => {
     let width = 0
@@ -271,7 +287,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(1)
-  }, [nftArt, nftImage, nftType, nftCover])
+  }, [nftArt, nftImage, nftType, nftCover, editionType])
 
   // step 2
   const [nftName, setNftName] = useState<string>('')
@@ -403,23 +419,40 @@ const SingleNft = () => {
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
+      let maxSupply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') maxSupply = toBigNumber(maxNum)
+      else if (editionType?.name == 'Open Edition') maxSupply = null
+
       let publicKey = mx.identity().publicKey
       let nftMint = Keypair.generate()
-      let createNftOperation = await mx
-        .nfts()
-        .builders()
-        .create({
-          uri: metadataUri,
-          name: trimmedNftName,
-          sellerFeeBasisPoints: royalties * 100,
-          creators: creatorList.map(({ address, share }) => ({
-            address: new PublicKey(address),
-            share: parseInt(share),
-            verified: address == publicKey.toBase58(),
-          })),
-          useNewMint: nftMint,
-          collection: collection?.mintAddress,
-        })
+      let createNftOperation = new TransactionBuilder().add(
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitLimit({ units: 200_000 }),
+          signers: [],
+        },
+        {
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
+          signers: [],
+        }
+      )
+      createNftOperation.add(
+        await mx
+          .nfts()
+          .builders()
+          .create({
+            uri: metadataUri,
+            name: trimmedNftName,
+            sellerFeeBasisPoints: royalties * 100,
+            creators: creatorList.map(({ address, share }) => ({
+              address: new PublicKey(address),
+              share: parseInt(share),
+              verified: address == publicKey.toBase58(),
+            })),
+            useNewMint: nftMint,
+            collection: collection?.mintAddress,
+            maxSupply,
+          })
+      )
       if (collection)
         createNftOperation.add(
           mx.nfts().builders().verifyCollection({
@@ -428,7 +461,16 @@ const SingleNft = () => {
           })
         )
 
-      await createNftOperation.sendAndConfirm(mx)
+      // retry upto 3x
+      // TODO: show user retry number
+      let response = null
+      for (let i = 0; !response && i < 3; i++)
+        try {
+          response = await createNftOperation.sendAndConfirm(mx)
+        } catch (e: any) {
+          console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
+          console.error(e)
+        }
 
       setNFTAddress(nftMint.publicKey)
 
@@ -513,14 +555,17 @@ const SingleNft = () => {
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full">
       <Head>
         <title>Foster Marketplace</title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-        ? currentStep !== 4 && (
+      <div className="lg:block hidden">
+        {currentStep !== 4 &&
+          (currentStep === 0 ? (
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
+          ) : (
             <div className="relative w-full grid grid-cols-12 gap-0">
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
@@ -643,9 +688,12 @@ const SingleNft = () => {
                     {currentStep === 1 && (
                       <>
                         <Step01SingleNFTSection
+                          type={type}
                           nftType={nftType}
+                          setEditionType={item => setEditionType(item)}
                           setNftArt={item => handleChangeNftArt(item)}
                           setNftCover={item => handleChangeNftCover(item)}
+                          setMaxSupply={value => setMaxNum(value)}
                         />
                         {nftType === 'vr' && (
                           <>
@@ -715,6 +763,7 @@ const SingleNft = () => {
                         )}
                       </>
                     )}
+
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
                         nftName={nftName}
@@ -775,8 +824,6 @@ const SingleNft = () => {
                               width={viewport === '2xl' ? 124 : 117}
                               height={viewport === '2xl' ? 53 : 45}
                               label="Next Step"
-                              backgroundColor01="var(--main-icon-color)"
-                              backgroundColor02="var(--main-icon-color)"
                               onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
                             />
                           ))}
@@ -786,9 +833,16 @@ const SingleNft = () => {
                 </div>
               </div>
             </div>
-          )
-        : currentStep !== 4 && (
-            // mobile part
+          ))}
+      </div>
+      {/* Mobile Part */}
+      <div className="lg:hidden block">
+        {createTab === null &&
+          currentStep !== 4 &&
+          // mobile part
+          (currentStep === 0 ? (
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
+          ) : (
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
@@ -883,9 +937,12 @@ const SingleNft = () => {
               {currentStep === 1 && (
                 <>
                   <Step01SingleNFTSection
+                    type={type}
                     nftType={nftType}
+                    setEditionType={item => setEditionType(item)}
                     setNftArt={item => handleChangeNftArt(item)}
                     setNftCover={item => handleChangeNftCover(item)}
+                    setMaxSupply={value => setMaxNum(value)}
                   />
                   {nftType === 'vr' && (
                     <>
@@ -1001,8 +1058,6 @@ const SingleNft = () => {
                       <GradientButton
                         fullWidth
                         label="Next Step"
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
                         onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                         height="45px"
                         fontSize={16}
@@ -1049,8 +1104,6 @@ const SingleNft = () => {
                             height="45px"
                             fontSize={16}
                             fontFamily="Muli-SemiBold"
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
                           />
                         </div>
                       )}
@@ -1059,7 +1112,8 @@ const SingleNft = () => {
                 )}
               </div>
             </div>
-          )}
+          ))}
+      </div>
       <div>
         <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
       </div>

@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // components
-import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
 import ListedNFTSection from 'components/pages/Dashboard/ListedNFTSection'
 import ActivitySection from 'components/pages/Dashboard/ActivitySection'
@@ -18,6 +17,8 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import CollectedSection from '../CollectedSection'
+import DashboardTab from '../../../Tab/DashboardTab'
 
 const TabSection = () => {
   const router = useRouter()
@@ -57,9 +58,11 @@ const TabSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-auto">
-        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+      <div className={styles.selectedTab}>
+        <DashboardTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+        <div className={styles.selectedTabBorder} />
       </div>
+
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <MyNFTSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
@@ -67,30 +70,35 @@ const TabSection = () => {
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
-          <ListedNFTSection filter={filter} />
+          <CollectedSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
         </div>
       )}
       {activeTab === 2 && (
         <div className="w-full flex flex-wrap">
-          <ActivitySection />
+          <ListedNFTSection filter={filter} />
         </div>
       )}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
-          <MyCollectionSection />
+          <ActivitySection />
         </div>
       )}
       {activeTab === 4 && (
         <div className="w-full flex flex-wrap">
-          <FavoriteSection />
+          <MyCollectionSection />
         </div>
       )}
       {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
-          <OfferSection />
+          <FavoriteSection />
         </div>
       )}
       {activeTab === 6 && (
+        <div className="w-full flex flex-wrap">
+          <OfferSection />
+        </div>
+      )}
+      {activeTab === 7 && (
         <div className="w-full flex flex-wrap">
           <HiddenSection />
         </div>

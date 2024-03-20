@@ -200,9 +200,6 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
                         width={120}
                         height={50}
                         label="Import"
-                        backgroundColor01="#95DBD5"
-                        backgroundColor02="#95DBD5"
-                        color="#202427"
                         onClick={() => onImport()}
                       />
                     )}
@@ -271,9 +268,6 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
                 fullWidth
                 height={45}
                 label="Import"
-                backgroundColor01="#95DBD5"
-                backgroundColor02="#95DBD5"
-                color="#202427"
                 onClick={() => onImport()}
               />
             )}

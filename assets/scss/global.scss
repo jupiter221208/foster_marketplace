@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'Muli-Light';
   src: url('../fonts/muli/Muli-Light.ttf');
-  font-weight: 300;
+  font-weight: 100;
   font-style: normal;
 }
 
@@ -322,8 +322,6 @@
   --category-bottom-mask: linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1));
   --stats-search-bg: #2b2b2b;
   --artwork-tbl-header-bg: linear-gradient(to bottom, #202427, #121212);
-  --primary-btn-bg-left: #4B6E6B;
-  --primary-btn-bg-right: #95DBD5;
   --auction-card-label: #95dbd5;
   --auction-card-bg: linear-gradient(to right, #4b6e6b, #95dbd5);
   --auction-card-color: #202427;
@@ -974,7 +972,7 @@ h6 {
 // ####################################################
 // ArtworksTable
 #ArtworksTable {
-  margin-top: 25px;
+  margin-top: 10px;
   border-collapse: separate;
   border-spacing: 0 19px;
 }
@@ -983,7 +981,6 @@ h6 {
   border-style: solid none solid none;
   padding: 4px;
   height: 30px;
-
   font-size: 9px;
   @media (min-width: 640px) {
     font-size: 10px;
@@ -1004,17 +1001,9 @@ h6 {
   font-weight: 400;
 }
 
-// #ArtworksTable th:first-child {
-//   border-top-left-radius: 20px;
-//   border-bottom-left-radius: 20px;
-//   border-left-style: solid;
-// }
-
-// #ArtworksTable th:last-child {
-//   border-top-right-radius: 20px;
-//   border-bottom-right-radius: 20px;
-//   border-right-style: solid;
-// }
+#ArtworksTable th:first-child {
+  padding-left: 45px;
+}
 
 #ArtworksTable tbody:before {
   content: '@';
@@ -1071,12 +1060,51 @@ h6 {
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-left-style: solid;
+  padding-left: 40px 
 }
 
 #ArtworksTable tr td:last-child {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-right-style: solid;
+}
+
+// ##########################################
+// skeleton
+
+.skeletonLoaderBasic:empty {
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+  &.others {
+    height: 453px;
+  }
+
+  &.prod-name {
+    height: 20px;
+  }
+
+  &.prod-description {
+    width: 80%;
+    height: calc(100% - 30px);
+  }
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.05;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
 
 // ####################################################
@@ -1350,7 +1378,7 @@ h6 {
 }
 
 [data-name='info-gray-small'] {
-  fill: rgba(var(--main-bg-color-rgb), 0.75);
+  fill: var(--main-icon-color);
 }
 
 

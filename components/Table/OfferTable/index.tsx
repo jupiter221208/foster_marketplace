@@ -81,14 +81,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
       <td className="">
         <div className="w-full flex justify-center">
           {offerType === 'made' ? (
-            <OutlineButton
-              label="Cancel"
-              onClick={() => onCancel(listing)}
-              color={'var(--checkbox-border-color)'}
-              borderColor={'var(--checkbox-border-color)'}
-              width="138px"
-              height="48px"
-            />
+            <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
           ) : (
             <GradientButton
               label="Accept"

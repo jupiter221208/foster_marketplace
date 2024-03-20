@@ -33,7 +33,10 @@ const ActivitySection = () => {
 
   useEffect(() => {
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
-      if (response.length === 0) return
+      if (response.length === 0) {
+        setLoading(true)
+        return
+      }
       let tempItem: ActivityAPIData[] = []
       response.reverse().map((item, index) => {
         tempItem.push(item)
@@ -59,7 +62,7 @@ const ActivitySection = () => {
   }, [isFetching])
 
   return (
-    <section className="w-full mt-6 lg:mt-12">
+    <section className="w-full mt-6 lg:mt-[0px]">
       <div className="w-full z-10">
         {loading === false ? (
           <div className="col-span-12">
@@ -79,7 +82,7 @@ const ActivitySection = () => {
             )}
           </div>
         ) : (
-          <div className="mt-[40px] lg:mt-[110px]">
+          <div className="mt-[40px] lg:mt-[130px]">
             <NoDataSection
               title="No activity history available"
               description="This tab displays a log of all your activity on Foster Marketplace"

@@ -23,13 +23,8 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
-import CameraWhiteIcon from 'assets/icons/camera-white.svg'
-
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
-import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
-import LandIcon from 'assets/icons/land-icon.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
+import SettingsIcon from 'assets/icons/settings-icon.svg?component'
+import SettingsMobileIcon from 'assets/icons/settings-mobile-icon.svg?component'
 
 import Alert from 'components/Alert'
 
@@ -43,6 +38,7 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
+import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -75,6 +71,32 @@ const MainSection = () => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [walletList, setWalletList] = useState([])
+  const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
+  const getPrefixUrl = (url: string) => {
+    let prefix = 'http'
+    if (url.substring(0, prefix.length) !== prefix) {
+      url = prefix + '://' + url
+    }
+    return url
+  }
+  const profileName = profileInfo?.username ? profileInfo?.username : ''
+  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
+  const siteUrl = profileInfo?.site_url ? getPrefixUrl(profileInfo?.site_url) : ''
+  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
+  const threelandUrl = profileInfo?.three_land_url ? getPrefixUrl(profileInfo?.three_land_url) : ''
+  const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
+
+  useEffect(() => {
+    let list = [{ id: 0, label: getShortAddress(publicKey), type: 'address' }]
+    if (twitterUrl.length > 0) list.push({ id: list.length, label: 'Twitter', type: 'twitter' })
+    if (instagramUrl.length > 0) list.push({ id: list.length, label: 'Instagram', type: 'instagram' })
+    if (siteUrl.length > 0) list.push({ id: list.length, label: 'Website', type: 'website' })
+    if (threelandUrl.length > 0) list.push({ id: list.length, label: '3.Land', type: 'land' })
+    if (solrPlexUrl.length > 0) list.push({ id: list.length, label: 'Solarplex', type: 'solar' })
+    setWalletList(list)
+    setSelectedWallet(list[0])
+  }, [publicKey, profileInfo])
 
   useEffect(() => {
     if (
@@ -97,20 +119,6 @@ const MainSection = () => {
       setCroppedAvatar('')
     }
   }, [profileInfo])
-
-  const getPrefixUrl = (url: string) => {
-    let prefix = 'http'
-    if (url.substring(0, prefix.length) !== prefix) {
-      url = prefix + '://' + url
-    }
-    return url
-  }
-
-  const profileName = profileInfo?.username ? profileInfo?.username : ''
-  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
-  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
-  const threelandUrl = profileInfo?.three_land_url ? getPrefixUrl(profileInfo?.three_land_url) : ''
-  const solrPlexUrl = profileInfo?.solarplex_url ? getPrefixUrl(profileInfo?.solarplex_url) : ''
 
   const showAlertModal = () => {
     setAlertData([
@@ -228,11 +236,18 @@ const MainSection = () => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          width={1620}
-          height={480}
-          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+          className="w-full h-full object-cover opacity-25"
         />
-        <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+        <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center">
+          {profileName.length > 0 && (
+            <div>
+              <div className={styles.profileName}>{getDisplayUserName(profileName)}</div>
+              <div className={styles.dashboard}>Dashboard</div>
+            </div>
+          )}
+        </div>
+
+        {/* <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <div className={styles.iconBlurView}>
             <IconButton
               icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
@@ -254,48 +269,151 @@ const MainSection = () => {
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
           />
-        </div>
+        </div> */}
       </div>
       <div className="w-full z-10">
-        <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-          <div className="col-span-3" />
-          <div className="col-span-6 justify-center">
-            <div className="w-full flex justify-center">
-              <div className="w-content relative">
-                <DashboardArtistCard
-                  image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
-                />
-                <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
-                  <div className={styles.iconProfileBlurView}>
-                    <IconButton
-                      icon={
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
-                      }
-                      onClick={() => inputAvatarFile.current.click()}
-                      backgroundColor={'transparent'}
-                      borderRadius="100%"
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                      iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                      iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                      disabled={avatarUploadingToS3}
-                    />
-                  </div>
-                  <input
-                    type="file"
-                    id="avatar-file"
-                    accept="image/png, image/jpeg, image/gif"
-                    ref={inputAvatarFile}
-                    style={{ display: 'none' }}
-                    onChange={event => handleChangeAvatar(event)}
+        <div className="w-full flex justify-between">
+          {/* <div className="mt-[-40px] lg:mt-[-76px] ">
+            <div className="relative">
+              <DashboardArtistCard
+                image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+              />
+              <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
+                <div className={styles.iconProfileBlurView}>
+                  <IconButton
+                    icon={
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
+                    }
+                    onClick={() => inputAvatarFile.current.click()}
+                    backgroundColor={'transparent'}
+                    borderRadius="100%"
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    disabled={avatarUploadingToS3}
                   />
                 </div>
+                <input
+                  type="file"
+                  id="avatar-file"
+                  accept="image/png, image/jpeg, image/gif"
+                  ref={inputAvatarFile}
+                  style={{ display: 'none' }}
+                  onChange={event => handleChangeAvatar(event)}
+                />
               </div>
             </div>
-            <div className={styles.bottomSection}>
-              <div className={styles.artistName}>{getDisplayUserName(profileName)}</div>
+          </div> */}
+          {/* <div className={styles.profileBtn} onClick={() => router.push(`/${profileName}`)}>
+            <div className="flex lg:gap-[12px] gap-[8px]">
+              <div className="flex gap-[6px] lg:gap-[8px] items-center">
+                <ArrowLeftIcon />
+                Profile
+              </div>
+              <div className={styles.avatar}>
+                <img
+                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+                  alt=""
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
             </div>
-            <div className="relative flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
+          </div> */}
+          <div className={styles.avatarArea} onClick={() => router.push(`/${profileName}`)}>
+            <div className="w-[90px] lg:w-[152px] rounded-full">
+              <img
+                src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+                alt=""
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
+          </div>
+          <div className="flex gap-[10px] mt-[24px]">
+            <div className="flex gap-[9px] lg:gap-[15px] items-center">
+              <IconButtonWithSVG
+                icon={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                    <SettingsMobileIcon />
+                  ) : (
+                    <SettingsIcon />
+                  )
+                }
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                onClick={() => router.push('/settings')}
+                backgroundColor="transparent"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 25}
+              />
+              <WalletFilterMenu
+                label={'Wallet & Socials'}
+                data={walletList}
+                selectedItem={selectedWallet}
+                setSelectedItem={item => {
+                  if (item.type === 'address') {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                  } else if (item.type === 'twitter') {
+                    window.open(twitterUrl)
+                  } else if (item.type === 'instagram') {
+                    window.open(instagramUrl)
+                  } else if (item.type === 'website') {
+                    window.open(siteUrl)
+                  } else if (item.type === 'land') {
+                    window.open(threelandUrl)
+                  } else if (item.type === 'solar') {
+                    window.open(solrPlexUrl)
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* <div className="lg:hidden col-span-3 flex justify-end">
+            <div className="flex lg:hidden justify-center mt-[15px]">
+              <div>
+                <IconButtonWithSVG
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
+                      <path
+                        id="setting-8"
+                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
+                        transform="translate(-1.857 -1.999)"
+                        fill="var(--text-gray-200-color)"
+                      />
+                    </svg>
+                  }
+                  onClick={() => router.push('/settings')}
+                  backgroundColor="transparent"
+                  borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
+                  width="40px"
+                  height="40px"
+                  borderRadius="10px"
+                />
+              </div>
+            </div>
+          </div> */}
+        </div>
+        <div>
+          <div>
+            {/* <div className={styles.bottomSection}> */}
+            {/* <div className={styles.artistName}>{getDisplayUserName(profileName)}</div> */}
+            {/* <div className="lg:hidden flex items-center ml-[5px]">
+                <div>
+                  <SocialButton icon={<IGWhiteMobileIcon />} onClick={() => window.open(instagramUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<TwitterWhiteMobileIcon />} onClick={() => window.open(twitterUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<LandMobileIcon />} onClick={() => window.open(threelandUrl)} />
+                </div>
+                <div>
+                  <SocialButton icon={<SolrPlexMobileIcon />} onClick={() => window.open(solrPlexUrl)} />
+                </div>
+              </div> */}
+            {/* </div> */}
+            {/* <div className="relative flex lg:hidden mt-[3px] gap-[10px]">
               <div className="relative">
                 <AddressButton
                   label={shortAddress}
@@ -306,95 +424,26 @@ const MainSection = () => {
                 />
                 <CopyClipboardChip identifier="wallet-address-mobile" />
               </div>
-            </div>
-            <div className="hidden lg:flex justify-center mt-[16px]">
-              <div className="relative">
-                <AddressButton
-                  label={shortAddress}
-                  onClick={() => {
-                    copyToClipboard(publicKey?.toBase58() || '')
-                    copyClipboardAlert('wallet-address')
-                  }}
-                />
-                <CopyClipboardChip identifier="wallet-address" />
-              </div>
-            </div>
-            <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
-              <div>
-                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
-              </div>
-            </div>
-          </div>
-          <div className="col-span-3 flex justify-end">
-            <div className="flex lg:hidden justify-center mt-[-45px]">
-              <div>
-                <IconButtonWithSVG
-                  icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
-                      <path
-                        id="setting-8"
-                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
-                        transform="translate(-1.857 -1.999)"
-                        fill="var(--text-gray-200-color)"
-                      />
-                    </svg>
-                  }
-                  onClick={() => router.push('/settings')}
-                  backgroundColor="transparent"
-                  borderColor="#ECEEF4"
-                  width="32px"
-                  height="32px"
-                  borderRadius="6px"
-                />
-              </div>
-            </div>
-            <div className="hidden lg:flex gap-[10px]">
-              <div>
-                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<LandIcon />} onClick={() => window.open(threelandUrl)} />
-              </div>
-              <div>
-                <SocialButton icon={<SolrPlexIcon />} onClick={() => window.open(solrPlexUrl)} />
-              </div>
-              <div>
-                <IconButtonWithSVG
-                  icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
-                      <path
-                        id="setting-8"
-                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
-                        transform="translate(-1.857 -1.999)"
-                        fill="var(--text-gray-200-color)"
-                      />
-                    </svg>
-                  }
-                  onClick={() => router.push('/settings')}
-                  backgroundColor="transparent"
-                  borderColor="#ECEEF4"
-                />
-              </div>
-            </div>
+            </div> */}
           </div>
         </div>
-        <div className="flex justify-center w-full mt-[32px]">
-          <div className="max-w-[734px]">
-            <div className={styles.description}>{profileInfo?.bio}</div>
+        {/* <div>
+          <div className="hidden lg:flex mt-[16px] items-center">
+            <div className="relative">
+              <AddressButton
+                label={shortAddress}
+                onClick={() => {
+                  copyToClipboard(publicKey?.toBase58() || '')
+                  copyClipboardAlert('wallet-address')
+                }}
+              />
+              <CopyClipboardChip identifier="wallet-address" />
+            </div>
           </div>
-        </div>
+        </div> */}
+        {/* <div className="max-w-[734px] mt-[30px]">
+          <div className={styles.description}>{profileInfo?.bio}</div>
+        </div> */}
       </div>
       <NftImageEditorModal
         open={openBannerEditorModal}

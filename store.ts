@@ -9,6 +9,7 @@ const initialState = {
   openMobileMenu: false,
   openMobileSearchBox: false,
   openConnectWallet: false,
+  createTab: 0,
   exploreTab: 0,
   availabilityFilter: 3,
   artworkSort: '',
@@ -42,7 +43,8 @@ const initialState = {
   mintCollectionStep: 1,
   collectionMintAddress: '',
   collectionMintName: '',
-  collectionCoverUrl: ''
+  collectionCoverUrl: '',
+  collectionKind: 'foster'
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 // third party components
 import { useDispatch } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
@@ -14,19 +16,22 @@ import ExploreIcon from 'assets/icons/explore-icon.svg?component'
 import ExploreGrayIcon from 'assets/icons/explore-gray.svg?component'
 import PlusIcon from 'assets/icons/plus-icon.svg?component'
 import PlusGrayIcon from 'assets/icons/plus-gray.svg?component'
+import LeaderboardsIcon from 'assets/icons/leaderboards-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon-menu.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon-menu.svg?component'
 import DAOIcon from 'assets/icons/dao-icon-menu.svg?component'
 import ResourceIcon from 'assets/icons/resource-icon-menu.svg?component'
-import NotificationIcon from 'assets/icons/notification-icon-menu.svg?component'
+import EcosystemIcon from 'assets/icons/ecosystem-icon.svg?component'
 import NftCategoryIcon from 'assets/icons/dashboard-icon.svg?component'
 import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
 import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
 import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
 import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
 import SettingsIcon from 'assets/icons/setting-icon.svg?component'
-import MerchIcon from 'assets/icons/merch-icon.svg?component'
+import MerchIcon from 'assets/icons/merch-menu-icon.svg?component'
 import StudioIcon from 'public/icons/merch-icon.svg?component'
+import CreatorIcon from 'assets/icons/creator-icon.svg?component'
+import CollectorIcon from 'assets/icons/collector-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -36,16 +41,39 @@ const AccordionMenu = props => {
 
   const router = useRouter()
   const dispatch = useDispatch()
+  const { setVisible } = useWalletModal()
+  const { connected } = useWallet()
 
   const handleClick = item => {
     dispatch({ type: 'set', openMobileMenu: false })
 
-    if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
+    if (type === 'explore') {
+      if (item.type === 'nft_artist') dispatch({ type: 'set', exploreTab: 0 })
+      else if (item.type === 'nft_collection') dispatch({ type: 'set', exploreTab: 1 })
+      else if (item.type === 'nft_category') dispatch({ type: 'set', exploreTab: 2 })
+    }
 
-    if (type != 'create') dispatch({ type: 'set', isLoading: true })
+    if (type === 'leaderboards') {
+      if (item.type === 'stats_artist') dispatch({ type: 'set', activeTab: 0 })
+      else if (item.type === 'stats_collections') dispatch({ type: 'set', activeTab: 1 })
+      else if (item.type === 'stats_creators') dispatch({ type: 'set', activeTab: 2 })
+      else if (item.type === 'stats_collectors') dispatch({ type: 'set', activeTab: 3 })
+    }
 
-    if (item.type === 'collection_nft') {
-      dispatch({ type: 'set', mintCollectionStep: 1 })
+    if (type != 'create') {
+      dispatch({ type: 'set', isLoading: true })
+    }
+
+    if (type === 'create') {
+      if (!connected) {
+        setVisible(true)
+        return
+      }
+      if (item.type === 'single_nft') dispatch({ type: 'set', createTab: 0 })
+      else if (item.type === 'edition') dispatch({ type: 'set', createTab: 1 })
+      else if (item.type === 'collection_nft') {
+        dispatch({ type: 'set', mintCollectionStep: 1 })
+      }
     }
 
     router.push(item.path)
@@ -53,8 +81,12 @@ const AccordionMenu = props => {
 
   const handleSoloMenuItemClick = () => {
     if (!data.length && path) {
-      dispatch({ type: 'set', openMobileMenu: false })
-      router.push(path)
+      if (path === 'connectWallet') {
+        setVisible(true)
+      } else {
+        dispatch({ type: 'set', openMobileMenu: false })
+        router.push(path)
+      }
     }
   }
   return (
@@ -69,17 +101,11 @@ const AccordionMenu = props => {
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : type === 'explore' ? (
-                open ? (
-                  <ExploreGrayIcon />
-                ) : (
-                  <ExploreIcon />
-                )
+                <ExploreIcon />
               ) : type === 'create' ? (
-                open ? (
-                  <PlusGrayIcon />
-                ) : (
-                  <PlusIcon />
-                )
+                <PlusIcon />
+              ) : type === 'leaderboards' ? (
+                <LeaderboardsIcon />
               ) : type === 'dashboard' ? (
                 <DashboardIcon />
               ) : type === 'stats' ? (
@@ -90,8 +116,6 @@ const AccordionMenu = props => {
                 <StudioIcon />
               ) : type === 'resources' ? (
                 <ResourceIcon />
-              ) : type === 'notifications' ? (
-                <NotificationIcon />
               ) : (
                 <Image src={open ? openIcon : icon} alt="" />
               )}
@@ -100,7 +124,7 @@ const AccordionMenu = props => {
             {data.length > 0 && (open ? <DownIcon /> : <RightIcon />)}
           </Disclosure.Button>
           {data.length > 0 && (
-            <Disclosure.Panel className="px-4 pt-0 pb-2 text-sm text-gray-500">
+            <Disclosure.Panel className="px-[15px] pt-0 pb-2 text-sm text-gray-500">
               {data.map((item, index) => (
                 <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
                   <div className="w-[46px] h-[46px] flex justify-center items-center">
@@ -118,22 +142,24 @@ const AccordionMenu = props => {
                       <div className="px-[10px] py-2">
                         <DashboardIcon />
                       </div>
-                    ) : item.type === 'notifications' ? (
-                      <div className="px-[10px] py-2">
-                        <NotificationIcon />
-                      </div>
                     ) : item.type === 'settings' ? (
                       <SettingsIcon />
                     ) : item.type === 'nft_category' ? (
-                      <NftCategoryIcon />
-                    ) : item.type === 'nft_collection' ? (
+                      <EcosystemIcon />
+                    ) : item.type === 'nft_collection' || item.type === 'stats_collections' ? (
                       <NftCollectionIcon />
-                    ) : item.type === 'nft_artist' ? (
+                    ) : item.type === 'nft_artist' || item.type === 'stats_artwork' ? (
                       <NftArtistIcon />
                     ) : item.type === 'single_nft' ? (
-                      <SingleNftIcon />
+                      <NftArtistIcon />
                     ) : item.type === 'collection_nft' ? (
-                      <CollectionNftIcon />
+                      <NftCollectionIcon />
+                    ) : item.type === 'edition' ? (
+                      <NftCategoryIcon />
+                    ) : item.type === 'stats_creators' ? (
+                      <CreatorIcon />
+                    ) : item.type === 'stats_collectors' ? (
+                      <CollectorIcon />
                     ) : (
                       <div className="w-10 h-10">
                         <Image src={item.icon} alt="" width={40} height={40} />
