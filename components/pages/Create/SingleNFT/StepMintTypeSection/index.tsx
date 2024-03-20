@@ -42,7 +42,7 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
             </div>
           </div>
           <div
-            className={`${styles.noSingleTag} mt-[12px] mb-[12px] sm:mt-[0px] sm:mb-[0px]`}
+            className={`${styles.singleTag} mt-[12px] mb-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
               setCurrentStep(1)
               setType(1)
