@@ -100,6 +100,31 @@ const LiveAuctionCard = props => {
   }
   return (
     <div className={styles.container}>
+      <div className={styles.profileContainer}>
+        <div>
+          <Link href={`/nft/${data.token_id}`} passHref>
+            <a>
+              <div className={styles.nftName}>{data?.nft_name}</div>
+            </a>
+          </Link>
+          <Link href={`/${data.artist_username}`} passHref>
+            <a>
+              <div className={styles.artistName}>{data?.artist_username}</div>
+            </a>
+          </Link>
+        </div>
+        <Link href={`/${data.artist_username}`} passHref>
+          <a>
+            <img
+              src={data?.artist_profile_picture}
+              onClick={() => {}}
+              width={44}
+              height={44}
+              className="w-[44px] rounded-full"
+            />
+          </a>
+        </Link>
+      </div>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
@@ -119,6 +144,7 @@ const LiveAuctionCard = props => {
                     ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
                       <ImageWithFoster
                         src={data.cover_image_url}
+                        width={300}
                         onClick={onClick}
                         className="w-full h-full object-cover"
                       />
@@ -165,7 +191,7 @@ const LiveAuctionCard = props => {
               <a className="w-full h-full">
                 <ImageWithFoster
                   src={data.cover_image_url}
-                  width={504}
+                  width={300}
                   className="w-full h-full object-cover"
                   onClick={() => onClick()}
                 />
@@ -176,7 +202,7 @@ const LiveAuctionCard = props => {
               <a className="w-full h-full">
                 <ImageWithFoster
                   src={data.cover_image_url}
-                  width={504}
+                  width={300}
                   onClick={onClick}
                   className="w-full h-full object-cover"
                 />
@@ -187,7 +213,7 @@ const LiveAuctionCard = props => {
               <a className="w-full h-full">
                 <ImageWithFoster
                   src={data.asset_url}
-                  width={504}
+                  width={300}
                   onClick={onClick}
                   className="w-full h-full object-cover"
                 />
@@ -196,31 +222,7 @@ const LiveAuctionCard = props => {
           )}
         </div>
       </div>
-      <div className={styles.profileContainer}>
-        <div>
-          <Link href={`/nft/${data.token_id}`} passHref>
-            <a>
-              <div className={styles.nftName}>{data?.nft_name}</div>
-            </a>
-          </Link>
-          <Link href={`/${data.artist_username}`} passHref>
-            <a>
-              <div className={styles.artistName}>{data?.artist_username}</div>
-            </a>
-          </Link>
-        </div>
-        <Link href={`/${data.artist_username}`} passHref>
-          <a>
-            <img
-              src={data?.artist_profile_picture}
-              onClick={() => {}}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 56}
-              className="lg:w-[56px] w-[44px] rounded-full"
-            />
-          </a>
-        </Link>
-      </div>
+
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
           <div>
