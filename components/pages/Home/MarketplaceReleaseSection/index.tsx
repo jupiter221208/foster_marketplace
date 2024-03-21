@@ -74,7 +74,7 @@ const MarketplaceReleaseSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
           <div className={`${styles.title}`}>New Releases</div>
-          <div>
+          <div className="lg:block hidden">
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
@@ -85,7 +85,7 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full grid grid-cols-12 gap-[10px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
           {marketplaceReleaseList.map((item, index) => (
             <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
               <NFTCard
