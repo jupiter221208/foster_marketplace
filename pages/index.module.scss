@@ -4,7 +4,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background: rgba(var(--main-bg-color-rgb), 0.02);
 }
 
 .liveAuctionBG {
@@ -12,7 +11,4 @@
   display: flex;
   justify-content: center;
   background: transparent;
-  @media (min-width: 1024px) {
-    background: rgba(var(--main-bg-color-rgb), 0.02);
-  }
 }
