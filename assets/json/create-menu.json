@@ -10,11 +10,5 @@
     "label": "Collection",
     "type": "collection_nft",
     "path": "/create/collection"
-  },
-  {
-    "id": 2,
-    "label": "Limited or Open Edition",
-    "type": "edition",
-    "path": "/create/single-nft"
   }
 ]
