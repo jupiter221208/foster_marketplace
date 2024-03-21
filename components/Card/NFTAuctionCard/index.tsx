@@ -218,6 +218,7 @@ const NFTAuctionCard = props => {
               </Link>
             )}
           </div>
+
           <div className={styles.nftData}>
             <div>
               <div className={styles.nftName}>{nftName}</div>

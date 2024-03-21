@@ -22,6 +22,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 type ListedNftCardExploreTypes = {
   nftName: string
   artistName: string
+  artistImage?: string
   token_id: string
   image: string
   coverImage?: string
@@ -31,7 +32,7 @@ type ListedNftCardExploreTypes = {
 }
 
 const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
-  const { nftName, artistName, token_id, image, coverImage = null, assetType, onClick, price } = props
+  const { nftName, artistName, artistImage, token_id, image, coverImage = null, assetType, onClick, price } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
 
@@ -49,6 +50,15 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
+        <div className={styles.nftData}>
+          <div>
+            <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
+            <div className={styles.artistName}>{artistName}</div>
+          </div>
+          <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+            <ImageWithFoster src={artistImage} width={44} className="rounded-full" />
+          </div>
+        </div>
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {assetType?.includes('video') ? (
@@ -98,7 +108,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </div>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
+                  <a className="w-full h-full flex items-center">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{
@@ -158,13 +168,6 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </a>
               </Link>
             )}
-          </div>
-          <div className={styles.nftData}>
-            <div>
-              <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
-              <div className={styles.artistName}>{artistName}</div>
-            </div>
-            <div>&nbsp;</div>
           </div>
         </div>
 
