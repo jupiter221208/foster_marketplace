@@ -89,9 +89,9 @@ const TopRatedArtistsSection = () => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div>
-          <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
+          {/* <div className={`${styles.title}`}>Trending&nbsp;Artists</div> */}
           <HomeFilterMenu
-            label={period['label']}
+            label="Trending Artists"
             data={DayList}
             selectedItem={period}
             setSelectedItem={item => {

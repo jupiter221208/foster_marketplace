@@ -152,9 +152,9 @@ const LiveAuctionSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
         <div>
-          <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+          {/* <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div> */}
           <HomeFilterMenu
-            label={period['label']}
+            label="Live Auctions"
             data={TimeList}
             selectedItem={period}
             setSelectedItem={item => {

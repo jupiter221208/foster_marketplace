@@ -109,9 +109,9 @@ const TrendingCollectionSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
           <div>
-            <div className={styles.title}>Trending&nbsp;Collections</div>
+            {/* <div className={styles.title}>Trending&nbsp;Collections</div> */}
             <HomeFilterMenu
-              label={period['label']}
+              label="Trending Collections"
               data={DayList}
               selectedItem={period}
               setSelectedItem={item => {
