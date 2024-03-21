@@ -85,9 +85,14 @@ const LiveAuctionSection = props => {
       setIsLoading(false)
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
+        console.log(response, '================response===========')
         response.forEach(item => {
           if (!isExpired(item.end_time)) {
-            if (item.asset_url.length > 0 && item.artist_username?.length > 0 && item.artist_profile_picture !== null) {
+            if (
+              (item.asset_url.length > 0 || item.cover_image_url.length > 0) &&
+              item.artist_username?.length > 0 &&
+              item.artist_profile_picture !== null
+            ) {
               if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
                 if (item.asset_type === 'video') {
                   if (item.cover_image_url?.length > 0) lists.push(item)
@@ -151,8 +156,7 @@ const LiveAuctionSection = props => {
   return showSection ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
-        <div>
-          {/* <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div> */}
+        <div className="lg:block hidden">
           <HomeFilterMenu
             label="Live Auctions"
             data={TimeList}
@@ -163,7 +167,19 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
-        <div className="z-10">
+        <div className="lg:hidden w-full flex justify-between items-center">
+          <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+          <HomeFilterMenu
+            label=""
+            data={TimeList}
+            selectedItem={period}
+            setSelectedItem={item => {
+              setPeriod(item)
+              handleChangeActive(item.id)
+            }}
+          />
+        </div>
+        <div className="z-10 lg:block hidden">
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 0 })
@@ -184,10 +200,8 @@ const LiveAuctionSection = props => {
         ) : (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 5}
+            spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 9 : viewport === 'lg' ? 29 : 29}
             modules={[Autoplay, Lazy, Navigation]}
             className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
             loop={cardLoop}

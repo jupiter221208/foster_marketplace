@@ -108,8 +108,7 @@ const TrendingCollectionSection = props => {
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
-          <div>
-            {/* <div className={styles.title}>Trending&nbsp;Collections</div> */}
+          <div className="lg:block hidden">
             <HomeFilterMenu
               label="Trending Collections"
               data={DayList}
@@ -120,7 +119,19 @@ const TrendingCollectionSection = props => {
               }}
             />
           </div>
-          <div>
+          <div className="lg:hidden w-full flex justify-between items-center">
+            <div className={styles.title}>Trending&nbsp;Collections</div>
+            <HomeFilterMenu
+              label=""
+              data={DayList}
+              selectedItem={period}
+              setSelectedItem={item => {
+                setPeriod(item)
+                handleChangeActive(item.id)
+              }}
+            />
+          </div>
+          <div className="lg:block hidden">
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 1 })

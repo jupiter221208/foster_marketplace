@@ -21,7 +21,9 @@ const HomeFilterMenu = props => {
         <Menu.Button>
           <div className={styles.btnArea}>
             {label}
-            <FilterIcon alt="" />
+            <div className="px-[8px]">
+              <FilterIcon alt="" />
+            </div>
           </div>
         </Menu.Button>
 
