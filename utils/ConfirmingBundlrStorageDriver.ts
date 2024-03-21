@@ -1,4 +1,4 @@
-import { type Connection, Transaction } from "@solana/web3.js";
+import { type Connection, ComputeBudgetProgram, Transaction } from "@solana/web3.js";
 import { BundlrStorageDriver } from "@metaplex-foundation/js";
 
 async function sleep(time) {
@@ -21,6 +21,14 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
 
       let currency = this as unknown as CurrencyInterface;
       let connection = await currency.getProvider();
+      data.add(
+        ComputeBudgetProgram.setComputeUnitLimit({
+          units: 500,
+        }),
+        ComputeBudgetProgram.setComputeUnitPrice({
+          microLamports: 2_000_000,
+        })
+      );
 
       let retryCount = 3;
       let signature: string | null = null;
