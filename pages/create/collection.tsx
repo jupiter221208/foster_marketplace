@@ -329,7 +329,7 @@ const Collection = () => {
 
       let imageFile = {
         type: file.type,
-        url: await storage.upload(await toMetaplexFileFromBrowser(file)),
+        uri: await storage.upload(await toMetaplexFileFromBrowser(file)),
       }
       let assetFile = null
 
@@ -337,7 +337,7 @@ const Collection = () => {
         assetFile = imageFile
         imageFile = {
           type: 'image/png',
-          url: croppedImage,
+          uri: croppedImage,
         }
       } else if (metadata.properties.category === 'video') {
         assetFile = imageFile
@@ -347,10 +347,10 @@ const Collection = () => {
         })
         imageFile = {
           type: 'image/png',
-          url: await storage.upload(metaplexFile),
+          uri: await storage.upload(metaplexFile),
         }
       } else if (metadata.properties.category === 'vr') {
-        assetFile = { type: 'vr', url: await storage.upload(await toMetaplexFileFromBrowser(file)) }
+        assetFile = { type: 'vr', uri: await storage.upload(await toMetaplexFileFromBrowser(file)) }
         if (nftCoverImage) {
           let image = nftCoverImage
 
@@ -363,15 +363,15 @@ const Collection = () => {
           })
           imageFile = {
             type: 'image/png',
-            url: await storage.upload(metaplexFile),
+            uri: await storage.upload(metaplexFile),
           }
         }
       }
 
-      metadata.image = imageFile.url
+      metadata.image = imageFile.uri
       metadata.properties.files = [imageFile]
       if (assetFile) {
-        metadata.animation_url = assetFile.url
+        metadata.animation_url = assetFile.uri
         metadata.properties.files.push(assetFile)
       }
       const uri = await storage.uploadJson(metadata)

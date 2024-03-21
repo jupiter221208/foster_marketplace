@@ -88,7 +88,7 @@ const CollectionDetailModal = props => {
         }
       if (newJson.properties.files.length == 0)
         newJson.properties.files.push({
-          url: newImageUrl,
+          uri: newImageUrl,
           type: metaplexFile.contentType,
         })
       newJson.image = newImageUrl
