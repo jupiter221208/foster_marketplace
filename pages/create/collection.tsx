@@ -142,10 +142,17 @@ const Collection = () => {
           })
       )
 
+      // retry upto 3x
+      // TODO: show user retry number
       let response = null
       for (let i = 0; !response && i < 3; i++)
         try {
-          response = await createNftOperation.sendAndConfirm(mx)
+          response = await createNftOperation.sendAndConfirm(mx, {
+            commitment: 'single',
+            maxRetries: 5,
+            skipPreflight: true,
+          })
+          await new Promise(resolve => setTimeout(resolve, 1000))
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
@@ -404,7 +411,12 @@ const Collection = () => {
       let response = null
       for (let i = 0; !response && i < 3; i++)
         try {
-          response = await createNftOperation.sendAndConfirm(mx)
+          response = await createNftOperation.sendAndConfirm(mx, {
+            commitment: 'single',
+            maxRetries: 5,
+            skipPreflight: true,
+          })
+          await new Promise(resolve => setTimeout(resolve, 1000))
         } catch (e: any) {
           console.error(`failed to mint: attempt ${i + 1} of 3: ${e?.message}`)
           console.error(e)
