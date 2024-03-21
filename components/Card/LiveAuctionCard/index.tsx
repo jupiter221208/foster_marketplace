@@ -225,8 +225,11 @@ const LiveAuctionCard = props => {
 
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
-          <div>
+          <div className="w-full flex justify-between">
             <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
+            <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+          </div>
+          <div>
             <div className={styles.bidCountContainer}>
               <div className="h-full">
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -244,7 +247,6 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
             <div className={styles.bidCountContainer}>
               {timeLeft && timeLeft['days'] !== '00' && (
                 <div>

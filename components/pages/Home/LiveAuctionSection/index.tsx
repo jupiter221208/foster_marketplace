@@ -200,8 +200,16 @@ const LiveAuctionSection = props => {
         ) : (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 5}
-            spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 9 : viewport === 'lg' ? 29 : 29}
+            slidesPerView={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                ? 1.07
+                : viewport === '2xl'
+                ? 5
+                : viewport === 'xl'
+                ? 4
+                : 3
+            }
+            spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 9 : viewport === 'lg' ? 20 : 20}
             modules={[Autoplay, Lazy, Navigation]}
             className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
             loop={cardLoop}

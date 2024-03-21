@@ -85,7 +85,7 @@ const Home = () => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <TrendingCollectionSection category={''} loop={true} />
-          <CreateSellNFTSection />
+          {/* <CreateSellNFTSection /> */}
           <FullScreenLoadingModal open={isLoading} />
         </div>
       </div>
