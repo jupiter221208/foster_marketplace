@@ -681,8 +681,10 @@ h6 {
 
 .auctionNavigationSwiper {
   padding-bottom: 15px !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  @media (min-width: 640px) {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
   .swiper-button-prev {
     border: solid 1px rgba(var(--main-bg-color-rgb), .25);
     display: flex;
