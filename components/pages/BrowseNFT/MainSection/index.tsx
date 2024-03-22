@@ -155,8 +155,7 @@ const MainSection = ({
   const [loading, setLoading] = useState<boolean>(true)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
-  const isLoading = useSelector<any>(state => state.isLoading)
-
+  
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
@@ -978,23 +977,14 @@ const MainSection = ({
       )}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
         <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
-          {isLoading ? (
-            <NFTAssetSection
-              nftType={nftType}
-              nftAssetUrl={''}
-              nftCoverUrl={''}
-              originalCoverUrl={''}
-              fullScreen={fullScreen}
-            />
-          ) : (
-            <NFTAssetSection
-              nftType={nftType}
-              nftAssetUrl={nftAssetUrl}
-              nftCoverUrl={nftCoverUrl}
-              originalCoverUrl={originalCoverUrl}
-              fullScreen={fullScreen}
-            />
-          )}
+          <NFTAssetSection
+            nftType={nftType}
+            nftAssetUrl={nftAssetUrl}
+            nftCoverUrl={nftCoverUrl}
+            originalCoverUrl={originalCoverUrl}
+            fullScreen={fullScreen}
+          />
+
           {!nftType.includes('audio') && (
             <div className="lg:flex hidden mt-[32px] w-full justify-between">
               <MenuSocialShare
