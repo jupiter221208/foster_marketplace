@@ -10,19 +10,15 @@ import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { EffectFade, Navigation, Pagination } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-// components
-import ArtistCard from 'components/Card/ArtistCard'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
-import Artist from 'assets/images/dashboard-avatar.png'
 import DayList from 'assets/json/home/day-list.json'
 
 // styles
@@ -32,6 +28,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
+import TrendingArtistCard from 'components/Card/TrendingArtistCard'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -87,7 +84,7 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
+      <div className="w-full flex justify-between items-center z-10 ">
         <div className="lg:block hidden">
           <HomeFilterMenu
             label="Trending Artists"
@@ -99,7 +96,7 @@ const TopRatedArtistsSection = () => {
             }}
           />
         </div>
-        <div className="lg:hidden w-full flex justify-between items-center">
+        <div className="lg:hidden w-full flex justify-between items-center g-container">
           <div className={styles.title}>Trending&nbsp;Artists</div>
           <HomeFilterMenu
             label=""
@@ -128,45 +125,21 @@ const TopRatedArtistsSection = () => {
               <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
             </div>
           </div>
-        ) : (
+        ) : viewport === 'xs' ? (
           <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 2
-                : viewport === 'sm'
-                ? 2.5
-                : viewport === 'md'
-                ? 3
-                : viewport === 'lg'
-                ? 3
-                : viewport === 'xl'
-                ? 4
-                : 5
-            }
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                ? 16
-                : viewport === 'lg'
-                ? 20
-                : viewport === 'xl'
-                ? 24
-                : 24
-            }
-            initialSlide={5}
-            modules={[Autoplay, Lazy, Navigation]}
-            className={artistsList.length > 5 ? 'artistNavigationSwiper' : 'noScrollNavigationSwiper'}
+            spaceBetween={20}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Navigation, Pagination]}
+            className={'heroSwiperMobile'}
+            loop
           >
             {artistsList.length !== 0 &&
               artistsList.map((item: any, index) => (
                 <SwiperSlide key={index}>
-                  <ArtistCard
-                    image={
-                      item.profile_picture !== null && item.profile_picture !== undefined && item.profile_picture !== ''
-                        ? item.profile_picture
-                        : Artist.src
-                    }
-                    username={item.username}
+                  <TrendingArtistCard
+                    artist={item}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
                       router.push('/' + item.username)
@@ -176,6 +149,21 @@ const TopRatedArtistsSection = () => {
                 </SwiperSlide>
               ))}
           </Swiper>
+        ) : (
+          <div className="w-full grid grid-cols-12 gap-[20px]">
+            {artistsList.map((item, index) => (
+              <div key={index} className="flex col-span-12 lg:col-span-6">
+                <TrendingArtistCard
+                  artist={item}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push('/' + item.username)
+                  }}
+                  key={index}
+                />
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </section>
