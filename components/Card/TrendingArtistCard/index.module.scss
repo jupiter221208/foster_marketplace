@@ -1,0 +1,49 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 171px;
+  @media (min-width: 1024px) {
+    height: 187px;
+  }
+  position: relative;
+}
+
+.containerHover {
+  box-shadow: 0px 0px 20px rgba(var(--main-icon-color-rgb), 0.4);
+}
+
+.name {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  @media (min-width: 640px) {
+    font-family: 'Muli-Bold';
+    font-size: 20px;
+  }
+}
+
+.bio {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 27px;
+  max-height: 66px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  padding: 0px 15px;
+  
+  @media (min-width: 640px) {
+    margin-top: 10px;
+    font-size: 16px;
+    max-height: 50px;
+    text-align: start;
+    padding: 0px;
+  }
+}
+
+.mobileContainer {
+  width: 100%;
+  height: 293px
+}

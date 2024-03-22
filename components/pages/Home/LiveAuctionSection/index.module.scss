@@ -11,10 +11,7 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 20px;
-  @media (min-width: 1024px) {
-    font-size: 24px;
-  }
+  font-size: 24px;
   color: var(--text-gray-200-color);
 }
 
@@ -33,15 +30,6 @@
     font-family: 'Muli-Bold';
     font-size: 20px;
     line-height: 24px;
-  }
-  color: var(--text-gray-200-color);
-}
-
-.title {
-  font-family: 'Muli-Bold';
-  font-size: 20px;
-  @media (min-width: 1024px) {
-    font-size: 24px;
   }
   color: var(--text-gray-200-color);
 }

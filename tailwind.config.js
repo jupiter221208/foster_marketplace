@@ -1,7 +1,12 @@
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        // Simple 20 column grid
+        '20': 'repeat(20, minmax(0, 1fr))',
+      }
+    },
     screens: {
       xs: '0px',
       // => @media (min-width: 640px) { ... }

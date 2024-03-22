@@ -24,7 +24,6 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
 import Chip from 'components/Chip'
@@ -408,13 +407,13 @@ const SingleNft = () => {
       metadata.properties.files = [
         {
           type: coverFile.contentType!,
-          url: metadata.image,
+          uri: metadata.image,
         },
       ]
       if (animationFile)
         metadata.properties.files.push({
           type: metadata.properties.category === 'vr' ? 'vr' : animationFile.contentType,
-          url: metadata.animation_url,
+          uri: metadata.animation_url.toString(),
         })
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)

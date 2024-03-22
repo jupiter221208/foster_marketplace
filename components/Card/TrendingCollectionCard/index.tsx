@@ -23,7 +23,6 @@ const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar, showRemoveButton = false } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const [loaded, setLoaded] = useState(false)
   const [displayRemoveConfirm, setDisplayRemoveConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -42,36 +41,38 @@ const TrendingCollectionCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className="relative w-full h-full rounded-[24px] overflow-hidden">
+      <div className="relative w-full h-full overflow-hidden">
         <div className={styles.imageArea}>
-          <Link href={`/collection/${collectionID}`} passHref>
-            <a>
-              <ImageWithFoster
-                src={image}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 504}
-                className="w-full h-full object-cover"
-              />
-            </a>
-          </Link>
+          <div className={styles.imageContent}>
+            <Link href={`/collection/${collectionID}`} passHref>
+              <a>
+                <ImageWithFoster
+                  src={image}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 390}
+                  className="w-full h-full object-cover"
+                />
+              </a>
+            </Link>
 
-          {showRemoveButton && (
-            <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
-              <div className="hidden lg:block">
-                <TrashIcon alt="" />
+            {showRemoveButton && (
+              <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
+                <div className="hidden lg:block">
+                  <TrashIcon alt="" />
+                </div>
+                <div className="block lg:hidden">
+                  <TrashMobileIcon alt="" />
+                </div>
               </div>
-              <div className="block lg:hidden">
-                <TrashMobileIcon alt="" />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div className={styles.bidContainer}>
-          <div className={styles.bidGradientBgView} />
+          {/* <div className={styles.bidGradientBgView} /> */}
           <div className={styles.bidContentView}>
-            <div className="px-[15px] lg:px-[28px]">
+            <div className="px-[15px] sm:px-[20px] lg:px-[28px]">
               <div className={styles.nftName}>{collectionName}</div>
-              <div className="flex mt-1">
+              <div className="flex mt-2">
                 <div className={styles.artistName}>{artistName || collectionName}</div>
                 <div className={styles.dotStyle}>&#183;</div>
                 <div className={styles.nftCount}>{nftCount} artworks</div>
@@ -79,8 +80,8 @@ const TrendingCollectionCard = props => {
             </div>
             {avatar !== null && avatar.length > 0 && (
               <div className={styles.avatar}>
-                <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                  <ImageWithFoster src={avatar} width={44} className="rounded-full" loading="lazy" />
+                <div className="lg:w-[56px] lg:min-w-[56px] lg:h-[56px] min-w-[45px] w-[45px] h-[45px] overflow-hidden rounded-full">
+                  <ImageWithFoster src={avatar} width={56} className="rounded-full" loading="lazy" />
                 </div>
               </div>
             )}

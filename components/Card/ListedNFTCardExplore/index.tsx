@@ -22,6 +22,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 type ListedNftCardExploreTypes = {
   nftName: string
   artistName: string
+  artistImage?: string
   token_id: string
   image: string
   coverImage?: string
@@ -31,7 +32,7 @@ type ListedNftCardExploreTypes = {
 }
 
 const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
-  const { nftName, artistName, token_id, image, coverImage = null, assetType, onClick, price } = props
+  const { nftName, artistName, artistImage, token_id, image, coverImage = null, assetType, onClick, price } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
 
@@ -98,7 +99,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </div>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
+                  <a className="w-full h-full flex items-center">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{
@@ -159,29 +160,23 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               </Link>
             )}
           </div>
-          <div className={styles.nftData}>
-            <div>
-              <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
-              <div className={styles.artistName}>{artistName}</div>
-            </div>
-            <div>&nbsp;</div>
-          </div>
         </div>
 
         <div className={styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center justify-between">
-              <div className={styles.label}>Fixed Price</div>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{getShortName(nftName, 16)}</div>
+              <div className={styles.artistName}>{artistName}</div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[5px]">
-              <div className="flex justify-center items-center mt-[2px]">
-                {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                  <SolanaLogoMobileIcon />
-                ) : (
-                  <SolanaLogoIcon />
-                )}
-                <div className={styles.price}>{price}</div>
-              </div>
+          </div>
+          <div className="flex justify-between items-center mt-[5px]">
+            <div className="flex justify-center items-center mt-[2px]">
+              {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                <SolanaLogoMobileIcon />
+              ) : (
+                <SolanaLogoIcon />
+              )}
+              <div className={styles.price}>{price}</div>
             </div>
           </div>
         </div>

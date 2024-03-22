@@ -10,7 +10,7 @@ import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { Autoplay, Lazy, Navigation, Pagination } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -34,6 +34,7 @@ import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { DashboardAPIData } from 'types/nft'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const TrendingCollectionSection = props => {
   const { category, loop } = props
@@ -108,10 +109,9 @@ const TrendingCollectionSection = props => {
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
-          <div>
-            <div className={styles.title}>Trending&nbsp;Collections</div>
+          <div className="sm:block hidden">
             <HomeFilterMenu
-              label={period['label']}
+              label="Trending Collections"
               data={DayList}
               selectedItem={period}
               setSelectedItem={item => {
@@ -120,7 +120,19 @@ const TrendingCollectionSection = props => {
               }}
             />
           </div>
-          <div>
+          <div className="sm:hidden w-full flex justify-between items-center">
+            <div className={styles.title}>Trending&nbsp;Collections</div>
+            <HomeFilterMenu
+              label=""
+              data={DayList}
+              selectedItem={period}
+              setSelectedItem={item => {
+                setPeriod(item)
+                handleChangeActive(item.id)
+              }}
+            />
+          </div>
+          <div className="sm:block hidden">
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 1 })
@@ -138,16 +150,28 @@ const TrendingCollectionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
+          <div
+            className="w-full relative mt-[20px] lg:mt-[34px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]"
+            id="trendArtistMobile"
+          >
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={viewport === 'xs' ? 1.1 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
-                spaceBetween={
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+                slidesPerView={
+                  viewport === 'xs' ? 1 : viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === '2xl' ? 4 : 3
                 }
-                modules={[Autoplay, Lazy, Navigation]}
-                className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
+                pagination={{
+                  clickable: true,
+                }}
+                spaceBetween={viewport === 'xs' ? 10 : 20}
+                modules={[Autoplay, Lazy, Navigation, Pagination]}
+                className={
+                  trendingList.length > 3
+                    ? viewport === 'xs'
+                      ? 'trendArtistMobile'
+                      : 'auctionNavigationSwiper'
+                    : 'noScrollNavigationSwiper'
+                }
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>
@@ -166,6 +190,23 @@ const TrendingCollectionSection = props => {
             )}
           </div>
         )}
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[-30px]">
+          <div className="w-full max-w-[300px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 1 })
+                dispatch({ type: 'set', collectionSort: 'trending' })
+                dispatch({ type: 'set', collectionCategory: category })
+                router.push('/explore')
+              }}
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
+            />
+          </div>
+        </div>
       </section>
     )
   )

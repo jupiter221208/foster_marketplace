@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -54,7 +55,7 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '', page, 13).then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.slice(5, response.length))
       }
@@ -74,7 +75,7 @@ const MarketplaceReleaseSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
           <div className={`${styles.title}`}>New Releases</div>
-          <div>
+          <div className="lg:block hidden">
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
@@ -85,9 +86,12 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
           {marketplaceReleaseList.map((item, index) => (
-            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
+            <div
+              key={index}
+              className="flex xs:col-span-1 sm:col-span-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4 items-center"
+            >
               <NFTCard
                 image={item.asset_url}
                 token_id={item.token_id}
@@ -104,6 +108,24 @@ const MarketplaceReleaseSection = props => {
               />
             </div>
           ))}
+        </div>
+
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[25px]">
+          <div className="w-full max-w-[300px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 0 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
+            />
+          </div>
         </div>
       </section>
     )

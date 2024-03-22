@@ -177,6 +177,7 @@ export interface ExploreAPIData {
   token_id: string
   name: string
   creator: string
+  artist_profile_picture: string
   collection_name: string
 }
 

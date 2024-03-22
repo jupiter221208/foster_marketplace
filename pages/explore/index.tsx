@@ -268,6 +268,7 @@ const Explore = () => {
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
                 creator: nft.artist_username,
+                artist_profile_picture: nft.artist_profile_picture,
                 url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
@@ -288,6 +289,7 @@ const Explore = () => {
               asset_type: nft.asset_type,
               cover_image_url: nft.cover_image_url,
               creator: nft.artist_username,
+              artist_profile_picture: nft.artist_profile_picture,
               url: `/nft/${nft.token_id}`,
               price: nft.list_price,
               current_bid: nft.current_bid,
@@ -673,6 +675,7 @@ const Explore = () => {
                               nftName={item.name}
                               token_id={item.token_id}
                               artistName={item.creator}
+                              artistImage={item.artist_profile_picture}
                               image={item.image}
                               price={item.price}
                               assetType={item.asset_type}
@@ -701,6 +704,7 @@ const Explore = () => {
                             nftName={item.name}
                             token_id={item.token_id}
                             artistName={item.creator}
+                            artistImage={item.artist_profile_picture}
                             image={item.image}
                             price={item.price}
                             assetType={item.asset_type}

@@ -4,14 +4,10 @@
   width: auto;
   height: 45px;
   padding: 7px 0px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    padding: 9px 0px;
-  }
-  gap: 8px;
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  gap: 7px;
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,11 +23,14 @@
 
 .menuArea {
   position: absolute;
-  top: 40px;
+  @media (max-width: 1023px) {
+    top: 40px;
+    right: 0px;
+  }
   @media (min-width: 1024px) {
     top: 50px;
   }
-  background: rgba(var(--collection-card-bg-rgb), 0.7);
+  background: rgba(var(--background-main-color-rgb), 0.8);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
   border-radius: 15px;
