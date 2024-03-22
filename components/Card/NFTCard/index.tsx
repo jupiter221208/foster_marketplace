@@ -104,7 +104,7 @@ const NFTCard = props => {
                 <source src=${image} type="video/mp4" /></video>`,
                           }}
                         />
-                      ) : coverImage != null && coverImage !== '' ? (
+                      ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
                         <ImageWithFoster width={200} src={coverImage} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div

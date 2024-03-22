@@ -100,15 +100,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
 
   useEffect(() => {
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        }),
-      500
-    )
-    dispatch({ type: 'set', isLoading: false })
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+      dispatch({ type: 'set', isLoading: false })
+    }, 500)
   }, [])
 
   useEffect(() => {
