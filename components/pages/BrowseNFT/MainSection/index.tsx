@@ -155,7 +155,7 @@ const MainSection = ({
   const [loading, setLoading] = useState<boolean>(true)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
-
+  
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
@@ -218,7 +218,6 @@ const MainSection = ({
       },
     ])
   }, [])
-
   useEffect(() => {
     if (isStarted && !isEnded) {
       setShowPlaceBIdButton(true)
@@ -985,6 +984,7 @@ const MainSection = ({
             originalCoverUrl={originalCoverUrl}
             fullScreen={fullScreen}
           />
+
           {!nftType.includes('audio') && (
             <div className="lg:flex hidden mt-[32px] w-full justify-between">
               <MenuSocialShare

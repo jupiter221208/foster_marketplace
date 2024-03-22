@@ -43,18 +43,18 @@ const NFTAssetSection = props => {
             </div>
           ) : nftCoverUrl ? (
             <div className={styles.mobileImageArea}>
-              <ImageWithFoster src={nftCoverUrl} showPlaceHolder={false} className="w-full" />
+              <ImageWithFoster src={nftCoverUrl} width={400} showPlaceHolder={false} className="w-full" />
             </div>
           ) : (
             <h1>Could not load NFT.</h1>
           )
         ) : nftType.includes('image') ? (
           <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={currentImageUrl} showPlaceHolder={false} className="w-full" />
+            <ImageWithFoster src={currentImageUrl} width={400} showPlaceHolder={false} className="w-full" />
           </div>
         ) : nftType.includes('audio') ? (
           <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={nftCoverUrl} showPlaceHolder={false} className="w-full" />
+            <ImageWithFoster src={nftCoverUrl} width={400} showPlaceHolder={false} className="w-full" />
             <div className={styles.audioMobileArea}>
               <AudioPlayer src={nftAssetUrl} />
             </div>
@@ -87,6 +87,7 @@ const NFTAssetSection = props => {
             ) : nftCoverUrl ? (
               <ImageWithFoster
                 showPlaceHolder={false}
+                width={900}
                 src={nftCoverUrl}
                 className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
               />
@@ -102,6 +103,7 @@ const NFTAssetSection = props => {
           <div className={styles.imageArea}>
             <ImageWithFoster
               src={currentImageUrl}
+              width={900}
               showPlaceHolder={false}
               className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
             />
@@ -115,6 +117,7 @@ const NFTAssetSection = props => {
               <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
                 <ImageWithFoster
                   src={nftCoverUrl}
+                  width={900}
                   showPlaceHolder={false}
                   className="min-w-full min-h-full object-cover"
                 />
@@ -134,6 +137,7 @@ const NFTAssetSection = props => {
               <div className="absolute inset-0">
                 <ImageWithFoster
                   src={nftCoverUrl}
+                  width={900}
                   showPlaceHolder={false}
                   className="min-w-full min-h-full object-cover"
                 />

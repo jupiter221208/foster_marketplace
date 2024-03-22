@@ -92,7 +92,10 @@ const MoreCollectionSection = props => {
                   artistName={item.artist_username}
                   collectionName={collectionName}
                   price={item.list_price}
-                  onClick={() => router.push(`/nft/${item.token_id}`)}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/nft/${item.token_id}`)
+                  }}
                 />
               </div>
             </SwiperSlide>

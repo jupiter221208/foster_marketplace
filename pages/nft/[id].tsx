@@ -100,14 +100,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
 
   useEffect(() => {
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        }),
-      500
-    )
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }, 500)
     dispatch({ type: 'set', isLoading: false })
   }, [])
 
@@ -137,9 +135,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     }
   }, [detailShow, apparelType])
 
+  const [key, setKey] = useState('')
+
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
+      setKey(nftDetail.mintAddress.toString())
       if (connected) {
         await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
@@ -354,6 +355,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               <div className={styles.mainBG}>
                 <div className="g-container">
                   <MainSection
+                    key={key}
                     nftDetail={nftDetail}
                     editionDetail={editionDetail}
                     nftInfo={nftInfo}
