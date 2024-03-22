@@ -50,15 +50,6 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
-        <div className={styles.nftData}>
-          <div>
-            <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
-            <div className={styles.artistName}>{artistName}</div>
-          </div>
-          <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-            <ImageWithFoster src={artistImage} width={44} className="rounded-full" />
-          </div>
-        </div>
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {assetType?.includes('video') ? (
@@ -172,19 +163,20 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         </div>
 
         <div className={styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center justify-between">
-              <div className={styles.label}>Fixed Price</div>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{getShortName(nftName, 16)}</div>
+              <div className={styles.artistName}>{artistName}</div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[5px]">
-              <div className="flex justify-center items-center mt-[2px]">
-                {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                  <SolanaLogoMobileIcon />
-                ) : (
-                  <SolanaLogoIcon />
-                )}
-                <div className={styles.price}>{price}</div>
-              </div>
+          </div>
+          <div className="flex justify-between items-center mt-[5px]">
+            <div className="flex justify-center items-center mt-[2px]">
+              {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                <SolanaLogoMobileIcon />
+              ) : (
+                <SolanaLogoIcon />
+              )}
+              <div className={styles.price}>{price}</div>
             </div>
           </div>
         </div>
