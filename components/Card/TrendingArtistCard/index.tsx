@@ -35,6 +35,30 @@ const TrendingArtistCard = props => {
                 showPlaceHolder={false}
               />
             </div>
+            <div className="absolute inset-0 w-full h-full">
+              <div className="w-full flex justify-center mt-[36px]">
+                <div className="min-w-[86px] min-h-[86px] w-[86px] h-[86px] overflow-hidden ">
+                  <ImageWithFoster
+                    src={
+                      artist.profile_picture !== null &&
+                      artist.profile_picture !== undefined &&
+                      artist.profile_picture !== ''
+                        ? artist.profile_picture
+                        : Artist.src
+                    }
+                    width={86}
+                    height={86}
+                    onClick={onClick}
+                    className="object-cover rounded-full"
+                    showPlaceHolder={false}
+                  />
+                </div>
+              </div>
+              <div className="w-full flex justify-center mt-[13px]">
+                <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
+              </div>
+              <div className={styles.bio}>{artist.bio}</div>
+            </div>
           </div>
         ) : (
           <div
