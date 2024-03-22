@@ -1,5 +1,6 @@
-import { type Connection, ComputeBudgetProgram, Transaction } from "@solana/web3.js";
 import { BundlrStorageDriver } from "@metaplex-foundation/js";
+import { SendTransactionOptions } from "@solana/wallet-adapter-base";
+import { ComputeBudgetProgram, Transaction, type Connection } from "@solana/web3.js";
 
 async function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -15,7 +16,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
       interface CurrencyInterface {
         getProvider(): Promise<Connection>;
         wallet: {
-          sendTransaction(data: Transaction, provider: Connection, options: any): Promise<string>;
+          sendTransaction(data: Transaction, provider: Connection, options: SendTransactionOptions): Promise<string>;
         };
       }
 
@@ -40,6 +41,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
         console.log(`attempting to send transaction: attempt ${i + 1} of ${retryCount}`);
         signature = await currency.wallet.sendTransaction(data, connection, {
           skipPreflight: true,
+          maxRetries: 5
         });
 
         try {
@@ -66,22 +68,25 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
                 `failed to post fund transaction ${signature} to bundlr: attempt ${i}`,
                 await response.text()
               );
-              await sleep(2000);
+              await sleep(1000);
             }
           }
 
-          // if tx failed once before, wait for 5s before returning
-          if (i !== 0) await sleep(5000);
+          // if tx failed once before, wait for 3s before returning
+          if (i !== 0) await sleep(3000);
 
           break;
         } catch (e) {
           if (i == retryCount - 1)
             console.error(`failed to confirm transaction ${signature}: retry attempts exceeded`, e);
-          else
+          else {
             console.warn(
               `failed to confirm transaction ${signature}: attempt ${i + 1} of ${retryCount}`,
               e
             );
+            // if transaction fails then wait for one second before retrying
+            await sleep(1000);
+          }
         }
       }
 
