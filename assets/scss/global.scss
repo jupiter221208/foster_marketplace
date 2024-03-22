@@ -1384,6 +1384,9 @@ h6 {
   [data-fill='a'] {
     fill: var(--logo-text-ballon);
   }
+  [data-fill='b'] {
+    fill: var(--logo-text-bottom);
+  }
 }
 
 [data-name='solrplex-icon'] {
