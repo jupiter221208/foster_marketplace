@@ -219,7 +219,7 @@ const MainSection = ({
       },
     ])
   }, [])
-
+  console.log(liveAuction, '==================liveAuction===========')
   useEffect(() => {
     if (isStarted && !isEnded) {
       setShowPlaceBIdButton(true)
