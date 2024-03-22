@@ -91,7 +91,8 @@ const MyWalletSubMenu = props => {
   )
 
   const onChangeOfferPrice = value => {
-    if (value < 0) {
+    let price = parseFloat(value)
+    if (price < 0) {
       setOfferPrice(0)
       setWalletAmount(0)
       return
@@ -101,9 +102,8 @@ const MyWalletSubMenu = props => {
       setWalletAmount('')
       return
     }
-    let price = parseFloat(value)
     setOfferPrice(price)
-    setWalletAmount(price)
+    setWalletAmount(value)
   }
 
   useEffect(() => {
@@ -136,7 +136,8 @@ const MyWalletSubMenu = props => {
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
 
   const onChangeBiddingPrice = value => {
-    if (value < 0) {
+    let price = parseFloat(value)
+    if (price < 0) {
       setBiddingPrice(0)
       setWalletAmount(0)
       return
@@ -146,9 +147,8 @@ const MyWalletSubMenu = props => {
       setWalletAmount('')
       return
     }
-    let price = parseFloat(value)
     setBiddingPrice(price)
-    setWalletAmount(price)
+    setWalletAmount(value)
   }
 
   useEffect(() => {
