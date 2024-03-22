@@ -217,11 +217,11 @@ const NFTCard = props => {
               </div>
               {price && (
                 <div className="flex justify-center items-center">
-                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                  {/* {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                     <SolanaLogoMobileIcon />
-                  ) : (
-                    <SolanaLogoIcon />
-                  )}
+                  ) : ( */}
+                  <SolanaLogoIcon />
+                  {/* )} */}
                   <div className={styles.price}>{formattedAmount(price)}</div>
                 </div>
               )}

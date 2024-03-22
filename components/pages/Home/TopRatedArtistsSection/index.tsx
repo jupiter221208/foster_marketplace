@@ -85,7 +85,7 @@ const TopRatedArtistsSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ">
-        <div className="lg:block hidden">
+        <div className="sm:block hidden">
           <HomeFilterMenu
             label="Trending Artists"
             data={DayList}
@@ -96,7 +96,7 @@ const TopRatedArtistsSection = () => {
             }}
           />
         </div>
-        <div className="lg:hidden w-full flex justify-between items-center g-container">
+        <div className="sm:hidden w-full flex justify-between items-center g-container">
           <div className={styles.title}>Trending&nbsp;Artists</div>
           <HomeFilterMenu
             label=""
@@ -108,7 +108,7 @@ const TopRatedArtistsSection = () => {
             }}
           />
         </div>
-        <div className="lg:block hidden">
+        <div className="sm:block hidden">
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })

@@ -23,7 +23,6 @@ const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar, showRemoveButton = false } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const [loaded, setLoaded] = useState(false)
   const [displayRemoveConfirm, setDisplayRemoveConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -71,7 +70,7 @@ const TrendingCollectionCard = props => {
         <div className={styles.bidContainer}>
           {/* <div className={styles.bidGradientBgView} /> */}
           <div className={styles.bidContentView}>
-            <div className="px-[15px] lg:px-[28px]">
+            <div className="px-[15px] sm:px-[20px] lg:px-[28px]">
               <div className={styles.nftName}>{collectionName}</div>
               <div className="flex mt-2">
                 <div className={styles.artistName}>{artistName || collectionName}</div>
@@ -81,7 +80,7 @@ const TrendingCollectionCard = props => {
             </div>
             {avatar !== null && avatar.length > 0 && (
               <div className={styles.avatar}>
-                <div className="lg:w-[56px] lg:h-[56px] w-[45px] h-[45px] overflow-hidden rounded-full">
+                <div className="lg:w-[56px] lg:min-w-[56px] lg:h-[56px] min-w-[45px] w-[45px] h-[45px] overflow-hidden rounded-full">
                   <ImageWithFoster src={avatar} width={56} className="rounded-full" loading="lazy" />
                 </div>
               </div>

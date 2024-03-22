@@ -108,7 +108,7 @@ const TrendingCollectionSection = props => {
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
-          <div className="lg:block hidden">
+          <div className="sm:block hidden">
             <HomeFilterMenu
               label="Trending Collections"
               data={DayList}
@@ -119,7 +119,7 @@ const TrendingCollectionSection = props => {
               }}
             />
           </div>
-          <div className="lg:hidden w-full flex justify-between items-center">
+          <div className="sm:hidden w-full flex justify-between items-center">
             <div className={styles.title}>Trending&nbsp;Collections</div>
             <HomeFilterMenu
               label=""
@@ -131,7 +131,7 @@ const TrendingCollectionSection = props => {
               }}
             />
           </div>
-          <div className="lg:block hidden">
+          <div className="sm:block hidden">
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 1 })
@@ -149,14 +149,14 @@ const TrendingCollectionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
+          <div className="w-full mt-[20px] lg:mt-[34px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]">
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                 slidesPerView={
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1 : viewport === '2xl' ? 4 : 3
+                  viewport === 'xs' ? 1 : viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === '2xl' ? 4 : 3
                 }
-                spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : 20}
+                spaceBetween={viewport === 'xs' ? 10 : 20}
                 modules={[Autoplay, Lazy, Navigation]}
                 className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
               >

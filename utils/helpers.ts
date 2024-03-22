@@ -4,17 +4,6 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
-export const validateFloatInput = (e) => {
-  let floatInput = e.target.value;
-  console.log(floatInput.match(/^[-]?\d*\.?\d*$/), '========floatInput.match(/^[-]?\d*\.?\d*$/)====')
-  // Allows numbers, a single dot, negative sign, and backspace for corrections
-  if (!floatInput.match(/^[-]?\d*\.?\d*$/)) {
-      // Disallow this input
-      e.target.value = floatInput.slice(0, -1);
-      return;
-  }
-}
-
 export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   

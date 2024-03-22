@@ -54,7 +54,7 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '', page, 13).then(response => {
+    dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.slice(5, response.length))
       }
@@ -85,9 +85,12 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid grid-cols-12 gap-[10px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
           {marketplaceReleaseList.map((item, index) => (
-            <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
+            <div
+              key={index}
+              className="flex xs:col-span-1 sm:col-span-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4 items-center"
+            >
               <NFTCard
                 image={item.asset_url}
                 token_id={item.token_id}

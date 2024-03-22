@@ -85,7 +85,7 @@ const LiveAuctionSection = props => {
       setIsLoading(false)
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
-        console.log(response, '================response===========')
+
         response.forEach(item => {
           if (!isExpired(item.end_time)) {
             if (
@@ -156,7 +156,7 @@ const LiveAuctionSection = props => {
   return showSection ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
-        <div className="lg:block hidden">
+        <div className="sm:block hidden">
           <HomeFilterMenu
             label="Live Auctions"
             data={TimeList}
@@ -167,7 +167,7 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
-        <div className="lg:hidden w-full flex justify-between items-center">
+        <div className="sm:hidden w-full flex justify-between items-center">
           <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
           <HomeFilterMenu
             label=""
@@ -179,7 +179,7 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
-        <div className="z-10 lg:block hidden">
+        <div className="z-10 sm:block hidden">
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 0 })
@@ -201,15 +201,19 @@ const LiveAuctionSection = props => {
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              viewport === 'xs'
                 ? 1.07
+                : viewport === 'sm' || viewport === 'md'
+                ? 2
                 : viewport === '2xl'
                 ? 5
                 : viewport === 'xl'
                 ? 4
-                : 3
+                : 4
             }
-            spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 9 : viewport === 'lg' ? 20 : 20}
+            spaceBetween={
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
+            }
             modules={[Autoplay, Lazy, Navigation]}
             className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
             loop={cardLoop}
