@@ -126,29 +126,31 @@ const TopRatedArtistsSection = () => {
             </div>
           </div>
         ) : viewport === 'xs' ? (
-          <Swiper
-            spaceBetween={20}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Navigation, Pagination]}
-            className={'heroSwiperMobile'}
-            loop
-          >
-            {artistsList.length !== 0 &&
-              artistsList.map((item: any, index) => (
-                <SwiperSlide key={index}>
-                  <TrendingArtistCard
-                    artist={item}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push('/' + item.username)
-                    }}
-                    key={index}
-                  />
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          <div className="w-full relative" id="trendArtistMobile">
+            <Swiper
+              spaceBetween={20}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Navigation, Pagination]}
+              className={'trendArtistMobile'}
+              loop
+            >
+              {artistsList.length !== 0 &&
+                artistsList.map((item: any, index) => (
+                  <SwiperSlide key={index}>
+                    <TrendingArtistCard
+                      artist={item}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push('/' + item.username)
+                      }}
+                      key={index}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
         ) : (
           <div className="w-full grid grid-cols-12 gap-[20px]">
             {artistsList.map((item, index) => (
