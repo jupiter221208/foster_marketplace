@@ -32,6 +32,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -236,9 +237,9 @@ const LiveAuctionSection = props => {
           </Swiper>
         )}
       </div>
-      {/* {fromPage !== 'profile' && (
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
+      {fromPage !== 'profile' && (
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[10px]">
+          <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"
               fullWidth
@@ -248,12 +249,13 @@ const LiveAuctionSection = props => {
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
             />
           </div>
         </div>
-      )} */}
+      )}
     </section>
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />

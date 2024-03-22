@@ -10,7 +10,7 @@ import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { Autoplay, Lazy, Navigation, Pagination } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -149,16 +149,28 @@ const TrendingCollectionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="w-full mt-[20px] lg:mt-[34px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]">
+          <div
+            className="w-full relative mt-[20px] lg:mt-[34px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]"
+            id="trendArtistMobile"
+          >
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                 slidesPerView={
                   viewport === 'xs' ? 1 : viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === '2xl' ? 4 : 3
                 }
+                pagination={{
+                  clickable: true,
+                }}
                 spaceBetween={viewport === 'xs' ? 10 : 20}
-                modules={[Autoplay, Lazy, Navigation]}
-                className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
+                modules={[Autoplay, Lazy, Navigation, Pagination]}
+                className={
+                  trendingList.length > 3
+                    ? viewport === 'xs'
+                      ? 'trendArtistMobile'
+                      : 'auctionNavigationSwiper'
+                    : 'noScrollNavigationSwiper'
+                }
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>

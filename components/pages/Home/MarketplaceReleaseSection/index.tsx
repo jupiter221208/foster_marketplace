@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -107,6 +108,24 @@ const MarketplaceReleaseSection = props => {
               />
             </div>
           ))}
+        </div>
+
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[25px]">
+          <div className="w-full max-w-[300px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 0 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
+            />
+          </div>
         </div>
       </section>
     )
