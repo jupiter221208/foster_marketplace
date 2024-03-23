@@ -118,7 +118,7 @@ const TopRatedArtistsSection = () => {
           />
         </div>
       </div>
-      <div className="w-full mt-[30px] lg:mt-[34px] z-10">
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         {isLoading ? (
           <div className="w-full h-[305px] flex justify-center">
             <div className="w-[500px] h-[40px]">
