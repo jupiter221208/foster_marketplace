@@ -30,7 +30,7 @@ const TrendingArtistCard = props => {
                 src={artist.banner_picture}
                 width={400}
                 height={293}
-                onClick={onClick}
+                onClick={() => {}}
                 className="w-full h-full object-cover"
                 showPlaceHolder={false}
               />
@@ -48,7 +48,7 @@ const TrendingArtistCard = props => {
                     }
                     width={86}
                     height={86}
-                    onClick={onClick}
+                    onClick={() => {}}
                     className="object-cover rounded-full"
                     showPlaceHolder={false}
                   />
@@ -63,7 +63,7 @@ const TrendingArtistCard = props => {
         ) : (
           <div
             className={`${styles.container} ${hover ? styles.containerHover : ''}`}
-            onClick={() => onClick()}
+            onClick={() => {}}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
@@ -72,7 +72,7 @@ const TrendingArtistCard = props => {
                 src={artist.banner_picture}
                 width={800}
                 height={190}
-                onClick={onClick}
+                onClick={() => {}}
                 className="w-full h-full object-cover"
                 showPlaceHolder={false}
               />
@@ -89,7 +89,7 @@ const TrendingArtistCard = props => {
                   }
                   width={123}
                   height={123}
-                  onClick={onClick}
+                  onClick={() => {}}
                   className="object-cover rounded-full"
                   showPlaceHolder={false}
                 />
@@ -98,11 +98,31 @@ const TrendingArtistCard = props => {
                 <div>
                   <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
                   <div className="flex gap-[10px] mt-[13px] items-center">
-                    {artist.twitter_url !== null && artist.twitter_url.length > 0 && <TwitterWhiteIcon />}
-                    {artist.ig_url !== null && artist.ig_url.length > 0 && <IGWhiteIcon />}
-                    {artist.site_url !== null && artist.site_url.length > 0 && <WebsiteIcon />}
-                    {artist.three_land_url !== null && artist.three_land_url.length > 0 && <LandIcon />}
-                    {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && <SolrPlexIcon />}
+                    {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
+                      <div onClick={() => window.open(artist.twitter_url)}>
+                        <TwitterWhiteIcon />
+                      </div>
+                    )}
+                    {artist.ig_url !== null && artist.ig_url.length > 0 && (
+                      <div onClick={() => window.open(artist.ig_url)}>
+                        <IGWhiteIcon />
+                      </div>
+                    )}
+                    {artist.site_url !== null && artist.site_url.length > 0 && (
+                      <div onClick={() => window.open(artist.site_url)}>
+                        <WebsiteIcon />
+                      </div>
+                    )}
+                    {artist.three_land_url !== null && artist.three_land_url.length > 0 && (
+                      <div onClick={() => window.open(artist.three_land_url)}>
+                        <LandIcon />
+                      </div>
+                    )}
+                    {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && (
+                      <div onClick={() => window.open(artist.solarplex_url)}>
+                        <SolrPlexIcon />
+                      </div>
+                    )}
                   </div>
                   <div className={styles.bio}>{artist.bio}</div>
                 </div>
