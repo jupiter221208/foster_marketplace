@@ -71,7 +71,7 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
 export function shouldUseDas(metaplex: Metaplex): boolean {
   let rpcEndpoint = metaplex.connection.rpcEndpoint
   let hostname = new URL(rpcEndpoint).hostname
-  return hostname.endsWith('helius.xyz') || hostname.endsWith('helius-rpc.com')
+  return hostname.endsWith('helius.xyz') || hostname.endsWith('helius-rpc.com') || hostname.endsWith('extrnode.com')
 }
 
 export function assertDasSupported(metaplex: Metaplex): void {
@@ -497,7 +497,7 @@ type determineCategoryType = {
 
 export function determineCategory(files: determineCategoryType) {
   let category: string
-  if (files.length > 1) {  
+  if (files.length > 1) {
     files.map((file, index) => {
       if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
         category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
