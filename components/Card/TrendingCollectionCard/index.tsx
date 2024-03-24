@@ -11,9 +11,6 @@ import TrashMobileIcon from 'assets/icons/trash-white-mobile.svg?component'
 // styles
 import styles from './index.module.scss'
 
-// third party components
-import { useViewport } from 'utils'
-
 // apis
 import collectionAPI from 'apis/collections'
 import LoadingModal from 'components/Modal/LoadingModal'
@@ -21,7 +18,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar, showRemoveButton = false } = props
-  const viewport = useViewport()
   const dispatch = useDispatch()
   const [displayRemoveConfirm, setDisplayRemoveConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -46,11 +42,7 @@ const TrendingCollectionCard = props => {
           <div className={styles.imageContent}>
             <Link href={`/collection/${collectionID}`} passHref>
               <a>
-                <ImageWithFoster
-                  src={image}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 375 : 390}
-                  className="w-full h-full object-cover"
-                />
+                <ImageWithFoster src={image} width={500} className="w-full h-full object-cover" />
               </a>
             </Link>
 

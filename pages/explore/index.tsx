@@ -685,14 +685,13 @@ const Explore = () => {
                               }}
                             />
                           ) : (
-                            <NFTCard
+                            <ListedNftCardExplore
                               token_id={item.token_id}
                               image={item.image}
                               nftName={item.name}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
-                              collectionName={item.collection_name}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
                               }}
@@ -714,14 +713,13 @@ const Explore = () => {
                             }}
                           />
                         ) : (
-                          <NFTCard
+                          <ListedNftCardExplore
                             token_id={item.token_id}
                             image={item.image}
                             nftName={item.name}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
-                            collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                             }}

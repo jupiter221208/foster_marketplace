@@ -165,20 +165,22 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         <div className={styles.imageInfo}>
           <div className={styles.nftData}>
             <div>
-              <div className={styles.nftName}>{getShortName(nftName, 16)}</div>
+              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
               <div className={styles.artistName}>{artistName}</div>
             </div>
           </div>
-          <div className="flex justify-between items-center mt-[5px]">
-            <div className="flex justify-center items-center mt-[2px]">
-              {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                <SolanaLogoMobileIcon />
-              ) : (
-                <SolanaLogoIcon />
-              )}
-              <div className={styles.price}>{price}</div>
+          {price && (
+            <div className="flex justify-between items-center mt-[5px]">
+              <div className="flex justify-center items-center mt-[2px]">
+                {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                  <SolanaLogoMobileIcon />
+                ) : (
+                  <SolanaLogoIcon />
+                )}
+                <div className={styles.price}>{price}</div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
