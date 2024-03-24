@@ -41,7 +41,7 @@ const TrendingCollectionCard = props => {
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             <Link href={`/collection/${collectionID}`} passHref>
-              <a>
+              <a className="w-full">
                 <ImageWithFoster src={image} width={500} className="w-full h-full object-cover" />
               </a>
             </Link>
