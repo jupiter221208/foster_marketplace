@@ -160,18 +160,9 @@ const TrendingCollectionSection = props => {
                 slidesPerView={
                   viewport === 'xs' ? 1 : viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === '2xl' ? 4 : 3
                 }
-                pagination={{
-                  clickable: true,
-                }}
                 spaceBetween={viewport === 'xs' ? 10 : 20}
-                modules={[Autoplay, Lazy, Navigation, Pagination]}
-                className={
-                  trendingList.length > 3
-                    ? viewport === 'xs'
-                      ? 'trendArtistMobile'
-                      : 'auctionNavigationSwiper'
-                    : 'noScrollNavigationSwiper'
-                }
+                modules={[Autoplay, Lazy, Navigation]}
+                className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>
@@ -190,7 +181,7 @@ const TrendingCollectionSection = props => {
             )}
           </div>
         )}
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[-30px]">
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[-80px]">
           <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"

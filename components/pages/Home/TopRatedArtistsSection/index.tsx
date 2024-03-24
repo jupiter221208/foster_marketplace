@@ -127,15 +127,7 @@ const TopRatedArtistsSection = () => {
           </div>
         ) : viewport === 'xs' ? (
           <div className="w-full relative" id="trendArtistMobile">
-            <Swiper
-              spaceBetween={20}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Navigation, Pagination]}
-              className={'trendArtistMobile'}
-              loop
-            >
+            <Swiper spaceBetween={20} modules={[Navigation]} className={'trendArtistMobile'} loop>
               {artistsList.length !== 0 &&
                 artistsList.map((item: any, index) => (
                   <SwiperSlide key={index}>
