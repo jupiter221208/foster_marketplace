@@ -20,6 +20,12 @@ const TrendingArtistCard = props => {
   const viewport = useViewport()
   const [hover, setHover] = useState(false)
 
+  const onClickSocialButton = (e, link) => {
+    e.preventDefault()
+    e.stopPropagation()
+    window.open(link)
+  }
+
   return (
     <Link href={`${window.origin}/${artist.username}`} passHref>
       <a className="w-full h-full">
@@ -99,27 +105,27 @@ const TrendingArtistCard = props => {
                   <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
                   <div className="flex gap-[10px] mt-[13px] items-center">
                     {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
-                      <div onClick={() => window.open(artist.twitter_url)}>
+                      <div onClick={e => onClickSocialButton(e, artist.twitter_url)}>
                         <TwitterWhiteIcon />
                       </div>
                     )}
                     {artist.ig_url !== null && artist.ig_url.length > 0 && (
-                      <div onClick={() => window.open(artist.ig_url)}>
+                      <div onClick={e => onClickSocialButton(e, artist.ig_url)}>
                         <IGWhiteIcon />
                       </div>
                     )}
                     {artist.site_url !== null && artist.site_url.length > 0 && (
-                      <div onClick={() => window.open(artist.site_url)}>
+                      <div onClick={e => onClickSocialButton(e, artist.site_url)}>
                         <WebsiteIcon />
                       </div>
                     )}
                     {artist.three_land_url !== null && artist.three_land_url.length > 0 && (
-                      <div onClick={() => window.open(artist.three_land_url)}>
+                      <div onClick={e => onClickSocialButton(e, artist.three_land_url)}>
                         <LandIcon />
                       </div>
                     )}
                     {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && (
-                      <div onClick={() => window.open(artist.solarplex_url)}>
+                      <div onClick={e => onClickSocialButton(e, artist.solarplex_url)}>
                         <SolrPlexIcon />
                       </div>
                     )}
