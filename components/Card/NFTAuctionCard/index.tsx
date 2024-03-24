@@ -244,7 +244,7 @@ const NFTAuctionCard = props => {
                 <div className={styles.currentBid}>Ends In</div>
               </div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[5px]">
+            <div className="w-full flex justify-between items-center mt-[8px]">
               <div className="flex justify-center items-center mt-[2px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />
@@ -268,7 +268,7 @@ const NFTAuctionCard = props => {
                   <div className={styles.timeValue}>{endDate.minute}</div>
                   <div className={styles.day}>m</div>
                 </div>
-                <div className="flex gap-[2px]lg:flex">
+                <div className="flex gap-[3px] lg:flex">
                   <div className={styles.timeValue}>{endDate.second}</div>
                   <div className={styles.day}>s</div>
                 </div>
