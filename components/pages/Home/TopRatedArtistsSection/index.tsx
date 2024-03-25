@@ -29,6 +29,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
 import TrendingArtistCard from 'components/Card/TrendingArtistCard'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -159,6 +160,22 @@ const TopRatedArtistsSection = () => {
             ))}
           </div>
         )}
+      </div>
+      <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[0px]">
+        <div className="w-full max-w-[300px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 2 })
+              dispatch({ type: 'set', artistSort: 'top' })
+              router.push('/explore')
+            }}
+            fontSize="16px"
+            height="41px"
+            borderRadius="8px"
+          />
+        </div>
       </div>
     </section>
   )
