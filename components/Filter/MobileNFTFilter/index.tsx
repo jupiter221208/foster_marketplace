@@ -53,7 +53,7 @@ const MobileNFTFilter = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <Disclosure defaultOpen={true}>
+        {/* <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between">
@@ -69,7 +69,7 @@ const MobileNFTFilter = props => {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
