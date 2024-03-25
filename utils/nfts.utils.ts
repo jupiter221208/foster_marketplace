@@ -1,6 +1,5 @@
 import {
   Metaplex,
-  TokenGpaBuilder,
   UnparsedAccount,
   lamports,
   toMetadataAccount,
@@ -18,7 +17,7 @@ import type {
   PrintEditionAccountData,
 } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
-import { TOKEN_PROGRAM_ID, unpackAccount, Account } from '@solana/spl-token'
+import { TOKEN_PROGRAM_ID, getAccount, unpackAccount, Account } from '@solana/spl-token'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
 import { getShortAddress } from 'utils/wallet.util'
 import { getMultipleAccountsInfoBatched } from 'utils'
@@ -28,44 +27,32 @@ import { bool } from 'aws-sdk/clients/signer'
 import { Key } from '@metaplex-foundation/mpl-token-metadata'
 import { NftData as NewNftData, NftCreator, NftData } from 'types/nft'
 
-export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
-  let tokenAccounts = await new TokenGpaBuilder(metaplex)
-    .whereMint(mintAddress)
-    .whereAmount(1)
-    .getAndMap(account =>
-      unpackAccount(account.publicKey, {
-        ...account,
-        lamports: parseInt(account.lamports.basisPoints.toString()),
-      })
-    )
-
-  if (tokenAccounts.length === 0) return null
-  else {
-    if (tokenAccounts.length > 1) {
-      console.warn(`unexpected number of token accounts for ${mintAddress}: ${tokenAccounts.length}`)
-      console.warn(tokenAccounts)
-    }
-    return tokenAccounts[0].owner
+export async function getNFTOwner(metaplex: Metaplex, mint: PublicKey): Promise<PublicKey | null> {
+  try {
+    let tokenAccount = await getNFTTokenAccount(metaplex, mint)
+    return tokenAccount.owner
+  } catch (e: any) {
+    console.warn(`could not fetch owner for ${mint}: ${e?.message ?? e}`)
+    return null
   }
 }
 
 export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): Promise<Account> {
-  let tokenAccounts = await new TokenGpaBuilder(metaplex)
-    .whereAmount(1)
-    .whereMint(mint)
-    .getAndMap(account =>
-      unpackAccount(account.publicKey, {
-        ...account,
-        lamports: parseInt(account.lamports.basisPoints.toString()),
-      })
-    )
+  let { value: largestAccounts } = await metaplex.connection.getTokenLargestAccounts(mint)
+  let ata = largestAccounts.find(({ amount }) => amount == '1')?.address
+  if (!ata) throw new Error(`could not find token owner for ${mint}`)
 
-  if (tokenAccounts.length !== 1) {
-    console.log(tokenAccounts)
-    throw new Error(`could not find token account for nft: ${mint}`)
-  }
+  return getAccount(metaplex.connection, ata)
+}
 
-  return tokenAccounts[0]
+export async function getTokenAccountsByOwner(
+  metaplex: Metaplex,
+  owner: PublicKey = metaplex.identity().publicKey
+): Promise<Account[]> {
+  let response = await metaplex.connection.getTokenAccountsByOwner(owner, {
+    programId: TOKEN_PROGRAM_ID,
+  })
+  return response.value.map(({ account, pubkey }) => unpackAccount(pubkey, account))
 }
 
 export function shouldUseDas(metaplex: Metaplex): boolean {
@@ -83,11 +70,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
 }
 
 export async function getMyNFTsMetaplex(mx: Metaplex): Promise<NftData[]> {
-  let tokenAccounts = await mx.connection
-    .getTokenAccountsByOwner(mx.identity().publicKey, {
-      programId: TOKEN_PROGRAM_ID,
-    })
-    .then(({ value }) => value.map(({ account, pubkey }) => unpackAccount(pubkey, account)))
+  let tokenAccounts = await getTokenAccountsByOwner(mx)
 
   let metadataAddresses = tokenAccounts.map(({ mint }) => mx.nfts().pdas().metadata({ mint }))
   let metadataAccountInfos = await getMultipleAccountsInfoBatched(mx.connection, metadataAddresses)

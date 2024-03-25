@@ -11,7 +11,6 @@ import {
   Metaplex,
   sol,
   lamports,
-  TokenGpaBuilder,
   GmaBuilder,
   isKeypairSigner,
   toAuctioneerAccount,
@@ -32,6 +31,7 @@ import {
 } from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 
+import { getNFTTokenAccount, getTokenAccountsByOwner } from 'utils/nfts.utils'
 import usersAPI from 'apis/user'
 
 export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
@@ -415,15 +415,7 @@ export async function populateLazyBidsWithAssets(
 export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]> {
   let auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-  let tokenAccounts = await new TokenGpaBuilder(mx)
-    .whereOwner(mx.identity().publicKey)
-    .whereAmount(1)
-    .getAndMap(account =>
-      unpackAccount(account.publicKey, {
-        ...account,
-        lamports: parseInt(account.lamports.basisPoints.toString()),
-      })
-    )
+  let tokenAccounts = await getTokenAccountsByOwner(mx)
 
   const bidReceiptDiscriminator = [186, 150, 141, 135, 59, 122, 39, 99]
   let batchRequest = tokenAccounts.map(({ mint }, index) => ({
@@ -559,12 +551,18 @@ export async function acceptOffer(mx: Metaplex, bid: LazyBid): Promise<boolean> 
         loadJsonMetadata: false,
       });
 
-    let [sellerToken] = await new TokenGpaBuilder(mx)
-      .whereMint(loadedBid.asset.mint.address)
-      .whereAmount(1)
-      .getAndMap(account => toToken(toTokenAccount(account)))
+    let sellerTokenLargestAccounts = await mx
+      .connection
+      .getTokenLargestAccounts(loadedBid.asset.mint.address)
+    let sellerTokenAta = sellerTokenLargestAccounts
+      .value
+      .find(({ amount }) => amount == '1')
+      ?.address
+    if (!sellerTokenAta)
+      throw new Error(`could not find token owner for ${loadedBid.asset.mint.address}`)
+    let sellerToken = toToken(toTokenAccount(await mx.rpc().getAccount(sellerTokenAta)))
 
-    console.log({loadedBid, sellerToken, operations})
+    console.log({ loadedBid, sellerToken, operations })
 
     // if matching listing exists, execute sale
     if (matchinglisting) {
