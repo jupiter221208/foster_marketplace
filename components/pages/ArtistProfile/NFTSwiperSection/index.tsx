@@ -14,6 +14,7 @@ import styles from './index.module.scss'
 
 // redux
 import { useDispatch } from 'react-redux'
+import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 
 const NFTSwiperSection = props => {
   const { nfts, showHideButton, isLoaded } = props

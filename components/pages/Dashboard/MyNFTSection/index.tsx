@@ -86,7 +86,7 @@ const MyNFTSection = props => {
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
     { id: 0, label: '1 of 1', disabled: false },
-    { id: 1, label: 'Editions', disabled: false },
+    { id: 1, label: 'Editions', disabled: true },
   ])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1', disabled: false })
 
