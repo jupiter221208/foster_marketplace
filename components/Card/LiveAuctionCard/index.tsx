@@ -231,12 +231,8 @@ const LiveAuctionCard = props => {
           </div>
           <div>
             <div className={styles.bidCountContainer}>
-              <div className="h-full">
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <SolanaLogoMobileIcon alt="" />
-                ) : (
-                  <SolanaLogoIcon alt="" />
-                )}
+              <div className="h-full mt-[2px]">
+                <SolanaLogoMobileIcon alt="" />
               </div>
               <div className={styles.bidCount}>
                 {data.current_bid !== null && data.current_bid > 0

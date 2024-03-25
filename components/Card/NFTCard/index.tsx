@@ -9,7 +9,7 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -215,7 +215,7 @@ const NFTCard = props => {
                 </Link>
               </div>
               {price && (
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center mt-[2px]">
                   {/* {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                     <SolanaLogoMobileIcon />
                   ) : ( */}
