@@ -612,7 +612,7 @@ const Explore = () => {
         </div>
         <div className={styles.contentArea}>
           {showFilter && (
-            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[50px] xl:mr-[100px] md:mr-[0px]">
+            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[20px] xl:mr-[50px] 3xl:mr-[100px] md:mr-[0px]">
               {exploreTab === 0 && (
                 <NFTFilter
                   selectedAvailability={selectedAvailability}
@@ -735,12 +735,12 @@ const Explore = () => {
               </div>
             )}
             {exploreTab === 1 && (
-              <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
+              <div className="w-full grid grid-cols-12 gap-x-3 lg:gap-x-6 gap-y-4 2xl:gap-x-10 xl:gap-y-8">
                 {collectionList.length !== 0 &&
                   collectionList.map((item, index) => (
                     <div
                       className={`col-span-12 ${
-                        showFilter ? 'xl:col-span-4' : 'sm:col-span-6 lg:col-span-4 2xl:col-span-3'
+                        showFilter ? 'lg:col-span-6 2xl:col-span-4' : 'sm:col-span-6 lg:col-span-4 2xl:col-span-3'
                       } z-10`}
                       key={index}
                     >
@@ -753,14 +753,6 @@ const Explore = () => {
                         nftCount={item.number_in_collections}
                         showRemoveButton={false}
                       />
-                      {/* <CollectionCard
-                        image={item.image}
-                        nftName={item.collectionName}
-                        artistName={item.artistName}
-                        collectionName={item.collectionName}
-                        price={item.price}
-                        link={`/collection/${item.collectionId}`}
-                      /> */}
                     </div>
                   ))}
               </div>
@@ -769,7 +761,7 @@ const Explore = () => {
               <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                 {ecosystemList.map((item, index) => (
                   <div
-                    className={`col-span-12 sm:col-span-6 ${showFilter ? '2xl:col-span-6' : '2xl:col-span-4'} z-10`}
+                    className={`col-span-12 md:col-span-6 ${showFilter ? '2xl:col-span-6' : '2xl:col-span-4'} z-10`}
                     key={index}
                   >
                     <EcosystemCard data={item} />

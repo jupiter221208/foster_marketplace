@@ -18,6 +18,13 @@
   height: 106px;
   border-radius: 53px;
   margin-left: 20px;
+  @media (min-width: 768px) {
+    bottom: -40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    padding: 4px;
+  }
   @media (min-width: 1024px) {
     bottom: -53px;
     width: 106px;
