@@ -208,7 +208,7 @@ const NFTCard = props => {
         <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
-              <div className={isHome ? styles.nftNameHome : styles.nftName}>{nftName}</div>
+              <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
               <div className={isHome ? styles.artistNameHome : styles.artistName}>

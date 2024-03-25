@@ -31,7 +31,7 @@ const TrendingArtistCard = props => {
       <a className="w-full h-full">
         {viewport === 'xs' ? (
           <div className={styles.mobileContainer}>
-            <div className="absolute inset-0 w-full h-full opacity-25">
+            <div className="absolute inset-0 w-full h-full opacity-[15%]">
               <ImageWithFoster
                 src={artist.banner_picture}
                 width={400}
@@ -73,7 +73,7 @@ const TrendingArtistCard = props => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <div className="absolute inset-0 w-full h-full opacity-25">
+            <div className="absolute inset-0 w-full h-full opacity-[15%]">
               <ImageWithFoster
                 src={artist.banner_picture}
                 width={800}
