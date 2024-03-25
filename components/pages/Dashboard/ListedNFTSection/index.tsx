@@ -75,7 +75,7 @@ const ListedNFTSection = props => {
   const [filterList, setFilterList] = useState([
     { id: 0, label: 'Buy Now' },
     { id: 1, label: 'Auction' },
-    { id: 2, label: 'Live Editions' },
+    { id: 2, label: 'Live Editions', disabled: true },
   ])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Buy Now' })
 
