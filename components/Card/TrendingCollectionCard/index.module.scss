@@ -224,6 +224,16 @@
     height: 56px;
     border-radius: 100%;
   }
+  @media (min-width: 1024px) {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+  }
+  @media (min-width: 1560px) {
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+  }
   // background: linear-gradient(to bottom, #95dbd5 0%, #4b6e6b 80%);
   background: transparent;
 }

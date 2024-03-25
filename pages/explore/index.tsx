@@ -738,7 +738,12 @@ const Explore = () => {
               <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                 {collectionList.length !== 0 &&
                   collectionList.map((item, index) => (
-                    <div className={`col-span-12 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
+                    <div
+                      className={`col-span-12 ${
+                        showFilter ? 'xl:col-span-4' : 'sm:col-span-6 lg:col-span-4 2xl:col-span-3'
+                      } z-10`}
+                      key={index}
+                    >
                       <TrendingCollectionCard
                         collectionID={item.collection_id}
                         image={item.image}
