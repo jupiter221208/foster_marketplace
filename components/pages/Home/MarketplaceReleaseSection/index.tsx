@@ -101,6 +101,7 @@ const MarketplaceReleaseSection = props => {
                 artistName={item.artist_username}
                 collectionName={item.collection_name}
                 price={item.list_price}
+                isHome={true}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.token_id}`)

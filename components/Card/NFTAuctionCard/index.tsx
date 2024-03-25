@@ -239,12 +239,12 @@ const NFTAuctionCard = props => {
         <div className={styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center justify-between">
-              <div className="w-full flex justify-between items-center mt-[-2px]">
+              <div className="w-full flex justify-between items-center">
                 <div className={styles.currentBid}>{currentBid === null ? 'Reserve' : 'Current'}</div>
                 <div className={styles.currentBid}>Ends In</div>
               </div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[5px]">
+            <div className="w-full flex justify-between items-center mt-[7px] sm:mt-[12px]">
               <div className="flex justify-center items-center mt-[2px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />
@@ -253,22 +253,22 @@ const NFTAuctionCard = props => {
                 )}
                 <div className={styles.price}>{currentBid === null ? reservePrice : currentBid}</div>
               </div>
-              <div className="flex gap-[4px] mt-[-1px]">
+              <div className="flex gap-[2px] mt-[-1px]">
                 {endDate.day > 0 && (
-                  <div className="flex gap-[3px]">
+                  <div className="flex">
                     <div className={styles.timeValue}>{endDate.day}</div>
                     <div className={styles.day}>d</div>
                   </div>
                 )}
-                <div className="flex gap-[3px]">
+                <div className="flex">
                   <div className={styles.timeValue}>{endDate.hour}</div>
                   <div className={styles.day}>h</div>
                 </div>
-                <div className="flex gap-[3px]">
+                <div className="flex">
                   <div className={styles.timeValue}>{endDate.minute}</div>
                   <div className={styles.day}>m</div>
                 </div>
-                <div className="flex gap-[2px]lg:flex">
+                <div className="flex lg:flex">
                   <div className={styles.timeValue}>{endDate.second}</div>
                   <div className={styles.day}>s</div>
                 </div>

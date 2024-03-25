@@ -23,8 +23,11 @@
 
 .imageArea {
   position: relative;
-  width: 100%;
-  padding-top: 109.47%;
+  width: 100%;  
+  padding-top: 110%;
+  @media (min-width: 640px) {
+    padding-top: 114.0%;
+  }
 }
 
 .imageContent {
@@ -37,12 +40,6 @@
 
 .nftData {
   width: 100%;
-  height: 50px;
-  padding: 7px 0px;
-  @media (min-width: 1024px) {
-    height: 80px;
-    padding: 19px 0px 15px 0px;
-  }
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,9 +63,10 @@
   font-weight: 100;
   font-size: 10px;
   color: var(--main-icon-color);
-  margin-top: 5px;
+  margin-top: 2px;
   @media (min-width: 640px) {
-    font-size: 14px;   
+    font-size: 14px;
+    margin-top: 8px;
   }
 }
 
@@ -78,8 +76,7 @@
   display: flex;
   flex: wrap;
   justify-content: space-between;
-  align-items: center;
-  padding: 9px 10px 8px 10px;
+  padding: 6px 10px;
   background: var(--background-main-color);
   @media (min-width: 640px) {
     height: 80px;
@@ -87,11 +84,11 @@
   }
   @media (min-width: 1440px) {
     height: 80px;
-    padding: 15px 20px 21px 20px;
+    padding: 15px 19px;
   }
   @media (min-width: 1680px) {
     height: 80px;
-    padding: 15px 24px 21px 24px;
+    padding: 15px 19px;
   }
 }
 
@@ -132,7 +129,7 @@
   font-size: 12px;
   line-height: 16px;
   margin-left: 3px;
-  margin-top: -2px;
+  margin-top: -3px;
   @media (min-width: 640px) {
     margin-top: -3px;
     margin-left: 5px;

@@ -9,7 +9,8 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -48,6 +49,7 @@ const NFTCard = props => {
     unSave = null,
     showHideButton = false,
     showUnhideButton = false,
+    isHome = false,
   } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -203,25 +205,29 @@ const NFTCard = props => {
           )}
         </div>
 
-        <div className={styles.imageInfo}>
+        <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
-              <div className={styles.nftName}>{nftName}</div>
+              <div className={isHome ? styles.nftNameHome : styles.nftName}>{nftName}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
-              <div className={styles.artistName}>
+              <div className={isHome ? styles.artistNameHome : styles.artistName}>
                 <Link href={`/${artistName || collectionName}`} passHref>
                   <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
                 </Link>
               </div>
               {price && (
-                <div className="flex justify-center items-center">
-                  {/* {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                    <SolanaLogoMobileIcon />
-                  ) : ( */}
-                  <SolanaLogoIcon />
-                  {/* )} */}
-                  <div className={styles.price}>{formattedAmount(price)}</div>
+                <div className="flex justify-center items-center mt-[2px]">
+                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                    isHome ? (
+                      <SolanaLogoIcon />
+                    ) : (
+                      <SolanaLogoMobileIcon />
+                    )
+                  ) : (
+                    <SolanaLogoIcon />
+                  )}
+                  <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
                 </div>
               )}
             </div>
