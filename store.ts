@@ -9,7 +9,7 @@ const initialState = {
   openMobileMenu: false,
   openMobileSearchBox: false,
   openConnectWallet: false,
-  createTab: 0,
+  createTab: null,
   exploreTab: 0,
   availabilityFilter: 3,
   artworkSort: '',
