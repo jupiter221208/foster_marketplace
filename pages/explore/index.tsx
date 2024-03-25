@@ -54,6 +54,7 @@ import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const Explore = () => {
   const router = useRouter()
@@ -268,6 +269,7 @@ const Explore = () => {
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
                 creator: nft.artist_username,
+                artist_profile_picture: nft.artist_profile_picture,
                 url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
@@ -288,6 +290,7 @@ const Explore = () => {
               asset_type: nft.asset_type,
               cover_image_url: nft.cover_image_url,
               creator: nft.artist_username,
+              artist_profile_picture: nft.artist_profile_picture,
               url: `/nft/${nft.token_id}`,
               price: nft.list_price,
               current_bid: nft.current_bid,
@@ -351,6 +354,8 @@ const Explore = () => {
             image: nft.cover_image,
             collectionName: nft.collection_name,
             artistName: nft.artist_username,
+            artist_profile_picture: nft.artist_profile_picture,
+            number_in_collections: nft.number_in_collections,
             url: `/collection?id=${nft.collection_id}`,
             mintAddress: nft.artist_id,
           }
@@ -607,7 +612,7 @@ const Explore = () => {
         </div>
         <div className={styles.contentArea}>
           {showFilter && (
-            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[50px] xl:mr-[100px] md:mr-[0px]">
+            <div className="block max-w-[324px] min-w-[324px] w-full lg:mr-[20px] xl:mr-[50px] 3xl:mr-[100px] md:mr-[0px]">
               {exploreTab === 0 && (
                 <NFTFilter
                   selectedAvailability={selectedAvailability}
@@ -673,6 +678,7 @@ const Explore = () => {
                               nftName={item.name}
                               token_id={item.token_id}
                               artistName={item.creator}
+                              artistImage={item.artist_profile_picture}
                               image={item.image}
                               price={item.price}
                               assetType={item.asset_type}
@@ -682,14 +688,13 @@ const Explore = () => {
                               }}
                             />
                           ) : (
-                            <NFTCard
+                            <ListedNftCardExplore
                               token_id={item.token_id}
                               image={item.image}
                               nftName={item.name}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
-                              collectionName={item.collection_name}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
                               }}
@@ -701,6 +706,7 @@ const Explore = () => {
                             nftName={item.name}
                             token_id={item.token_id}
                             artistName={item.creator}
+                            artistImage={item.artist_profile_picture}
                             image={item.image}
                             price={item.price}
                             assetType={item.asset_type}
@@ -710,14 +716,13 @@ const Explore = () => {
                             }}
                           />
                         ) : (
-                          <NFTCard
+                          <ListedNftCardExplore
                             token_id={item.token_id}
                             image={item.image}
                             nftName={item.name}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
-                            collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                             }}
@@ -730,17 +735,23 @@ const Explore = () => {
               </div>
             )}
             {exploreTab === 1 && (
-              <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
+              <div className="w-full grid grid-cols-12 gap-x-3 lg:gap-x-6 gap-y-4 2xl:gap-x-10 xl:gap-y-8">
                 {collectionList.length !== 0 &&
                   collectionList.map((item, index) => (
-                    <div className={`col-span-6 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
-                      <CollectionCard
+                    <div
+                      className={`col-span-12 ${
+                        showFilter ? 'lg:col-span-6 2xl:col-span-4' : 'sm:col-span-6 lg:col-span-4 2xl:col-span-3'
+                      } z-10`}
+                      key={index}
+                    >
+                      <TrendingCollectionCard
+                        collectionID={item.collection_id}
                         image={item.image}
-                        nftName={item.collectionName}
-                        artistName={item.artistName}
                         collectionName={item.collectionName}
-                        price={item.price}
-                        link={`/collection/${item.collectionId}`}
+                        artistName={item.artistName}
+                        avatar={item.artist_profile_picture}
+                        nftCount={item.number_in_collections}
+                        showRemoveButton={false}
                       />
                     </div>
                   ))}
@@ -750,7 +761,7 @@ const Explore = () => {
               <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                 {ecosystemList.map((item, index) => (
                   <div
-                    className={`col-span-12 sm:col-span-6 ${showFilter ? '2xl:col-span-6' : '2xl:col-span-4'} z-10`}
+                    className={`col-span-12 md:col-span-6 ${showFilter ? '2xl:col-span-6' : '2xl:col-span-4'} z-10`}
                     key={index}
                   >
                     <EcosystemCard data={item} />

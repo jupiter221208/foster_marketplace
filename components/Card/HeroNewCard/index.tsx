@@ -137,7 +137,7 @@ const HeroNewCard = ({ data }) => {
       </div>
       <div className="g-container absolute w-full h-[100px] left-[0px] bottom-[18px] flex justify-between">
         <div className="flex items-center">
-          <div className="ml-[10px] 2xl:ml-[18px]">
+          <div className="">
             {data.artist_profile_picture === null && (
               <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
             )}

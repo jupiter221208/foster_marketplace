@@ -32,6 +32,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import HomeFilterMenu from 'components/Menu/HomeFilterMenu'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -85,9 +86,14 @@ const LiveAuctionSection = props => {
       setIsLoading(false)
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
+
         response.forEach(item => {
           if (!isExpired(item.end_time)) {
-            if (item.asset_url.length > 0 && item.artist_username?.length > 0 && item.artist_profile_picture !== null) {
+            if (
+              (item.asset_url.length > 0 || item.cover_image_url.length > 0) &&
+              item.artist_username?.length > 0 &&
+              item.artist_profile_picture !== null
+            ) {
               if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
                 if (item.asset_type === 'video') {
                   if (item.cover_image_url?.length > 0) lists.push(item)
@@ -151,10 +157,9 @@ const LiveAuctionSection = props => {
   return showSection ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
-        <div>
-          <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+        <div className="sm:block hidden">
           <HomeFilterMenu
-            label={period['label']}
+            label="Live Auctions"
             data={TimeList}
             selectedItem={period}
             setSelectedItem={item => {
@@ -163,7 +168,19 @@ const LiveAuctionSection = props => {
             }}
           />
         </div>
-        <div className="z-10">
+        <div className="sm:hidden w-full flex justify-between items-center">
+          <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live&nbsp;Auctions</div>
+          <HomeFilterMenu
+            label=""
+            data={TimeList}
+            selectedItem={period}
+            setSelectedItem={item => {
+              setPeriod(item)
+              handleChangeActive(item.id)
+            }}
+          />
+        </div>
+        <div className="z-10 sm:block hidden">
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 0 })
@@ -184,9 +201,19 @@ const LiveAuctionSection = props => {
         ) : (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
+            slidesPerView={
+              viewport === 'xs'
+                ? 1.07
+                : viewport === 'sm' || viewport === 'md'
+                ? 2
+                : viewport === '2xl'
+                ? 5
+                : viewport === 'xl'
+                ? 4
+                : 4
+            }
             spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
@@ -210,9 +237,9 @@ const LiveAuctionSection = props => {
           </Swiper>
         )}
       </div>
-      {/* {fromPage !== 'profile' && (
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
+      {fromPage !== 'profile' && (
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[10px]">
+          <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"
               fullWidth
@@ -222,12 +249,13 @@ const LiveAuctionSection = props => {
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
             />
           </div>
         </div>
-      )} */}
+      )}
     </section>
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />

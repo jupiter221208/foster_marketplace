@@ -39,7 +39,7 @@ const EcosystemCard = props => {
                   className="w-full h-[172px] object-cover"
                 />
               ) : (
-                <Image src={BannerImage} alt="" width={480} height={172} layout="responsive" objectFit="cover" />
+                <img src={BannerImage.src} alt="" className="w-full h-[172px] object-cover" />
               )}
             </div>
             <div className={styles.avatarArea}>

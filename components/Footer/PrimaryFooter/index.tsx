@@ -28,94 +28,17 @@ const PrimaryFooter = () => {
 
   return (
     <div className={styles.container} data-testid="footer-container">
+      <div className={styles.border} />
       {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-        <div className="g-container flex flex-wrap justify-between gap-4 z-10">
+        <div className="g-container flex justify-between gap-4 z-10 py-[104px]">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer">
               <div onClick={() => router.push('/')}>
                 <LogoText01Icon alt="" />
               </div>
             </div>
-          </div>
-          <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>Sitemap</div>
-            <div className={`${styles.linkText} !mt-[49px]`}>
-              <Link href="/explore">Explore</Link>
-            </div>
-            <div className={styles.linkText}>
-              <Link href="/dao">Governance</Link>
-            </div>
-            <div className={styles.linkText}>
-              <Link href="/resources">Resources</Link>
-            </div>
-            <div className={styles.linkText}>
-              <Link href="/stats">House Stats</Link>
-            </div>
-          </div>
-          <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>About</div>
-            <div className={`${styles.linkText} !mt-[49px]`}>
-              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
-                Foster Labs
-              </a>
-            </div>
-            <div className={styles.linkText}>
-              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
-                Turkey Circus
-              </a>
-            </div>
-            {/* <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
-                Careers
-              </a>
-            </div> */}
-            <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                Terms of Service
-              </a>
-            </div>
-            <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
-                Privacy Policy
-              </a>
-            </div>
-          </div>
-          <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>Resources</div>
-            <div className={`${styles.linkText} !mt-[49px]`}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
-                Whitepaper
-              </a>
-            </div>
-            <div className={styles.linkText}>
-              <a
-                target="_blank"
-                href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
-                rel="noopener noreferrer"
-              >
-                Brand & Design
-              </a>
-            </div>
-            {/* <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
-                Development
-              </a>
-            </div> */}
-            <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                Community
-              </a>
-            </div>
-            <div className={styles.linkText}>
-              <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
-            </div>
-          </div>
-          <div className="max-w-[347px] block justify-start">
-            {/* <div className={styles.title}>Stay Connected</div>
-            <div className="mt-[29px]">
-              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-            </div> */}
-            <div className="flex flex-wrap mt-[0px] gap-5">
+
+            <div className="flex flex-wrap mt-[40px] gap-5">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
@@ -166,8 +89,85 @@ const PrimaryFooter = () => {
                 </a>
               </div>
             </div>
+
+            <div className={styles.greenText}>© 2024 Foster Marketplace. All Rights Reserved</div>
           </div>
-          <div className={styles.greenText}>© All Rights Reserved</div>
+          <div className="flex gap-[100px]">
+            <div className="max-w-[347px] block justify-start">
+              <div className={styles.title}>Sitemap</div>
+              <div className={`${styles.linkText} !mt-[34px]`}>
+                <Link href="/explore">Explore</Link>
+              </div>
+              <div className={styles.linkText}>
+                <Link href="/dao">Governance</Link>
+              </div>
+              <div className={styles.linkText}>
+                <Link href="/resources">Resources</Link>
+              </div>
+              <div className={styles.linkText}>
+                <Link href="/stats">Leaderboards</Link>
+              </div>
+            </div>
+            {/* <div className="max-w-[347px] block justify-start">
+            <div className={styles.title}>About</div>
+            <div className={`${styles.linkText} !mt-[49px]`}>
+              <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
+                Foster Labs
+              </a>
+            </div>
+            <div className={styles.linkText}>
+              <a target="_blank" href="https://circus.fostermarketplace.app/" rel="noopener noreferrer">
+                Turkey Circus
+              </a>
+            </div>           
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                Privacy Policy
+              </a>
+            </div>
+          </div> */}
+            <div className="max-w-[347px] block justify-start">
+              <div className={styles.title}>Resources</div>
+              <div className={`${styles.linkText} !mt-[34px]`}>
+                <a target="_blank" href="https://about.fostermarketplace.app/" rel="noopener noreferrer">
+                  About us
+                </a>
+              </div>
+              <div className={styles.linkText}>
+                <a
+                  target="_blank"
+                  href="https://foster-marketplace.gitbook.io/docs/v/brand-and-design-library/"
+                  rel="noopener noreferrer"
+                >
+                  Brand & Design
+                </a>
+              </div>
+              {/* <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
+                Development
+              </a>
+            </div> */}
+              {/* <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                Community
+              </a>
+            </div> */}
+              <div className={styles.linkText}>
+                <a href="mailto:admin@Fostermarketplace.app">Media Inquiries</a>
+              </div>
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                  Terms of Service
+                </a>
+              </div>
+            </div>
+          </div>
+          {/*<div className="max-w-[347px] block justify-start">
+             <div className={styles.title}>Stay Connected</div>
+            <div className="mt-[29px]">
+              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
+            </div> 
+          </div>*/}
         </div>
       ) : (
         <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
@@ -307,7 +307,7 @@ const PrimaryFooter = () => {
               </div>
             </div>
           </div>
-          <div className={styles.greenText}>© All Rights Reserved</div>
+          <div className={styles.greenText}>© 2024 Foster Marketplace. All Rights Reserved</div>
         </div>
       )}
     </div>

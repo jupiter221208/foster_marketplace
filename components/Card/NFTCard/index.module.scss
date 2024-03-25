@@ -6,11 +6,9 @@
   background: var(--background-main-color);
   border: 1px solid var(--nft-border-color);
   cursor: pointer;
-  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
-  border-radius: 17px;
-  @media (min-width: 1024px) {
-    border-radius: 30px;
-  }
+  // box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .hideBtnArea {
@@ -104,7 +102,7 @@
 }
 
 .hideButtonText {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 10px;
   @media (min-width: 1024px) {
     font-size: 14px;
@@ -126,21 +124,44 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  padding-top: 109.47%; /* 359:393 Aspect Ratio */
 }
 
-.imageInfo {
+.imageInfoHome {
   width: 100%;
   flex: wrap;
   position: relative;
-  margin-top: 5px;
   justify-content: space-between;
-  padding: 0px 16px 16px 16px;
-  @media (min-width: 1024px) {
-    margin-top: 15px;
-    padding: 0px 25px 25px 25px;
+  padding: 13px 20px;
+  @media (min-width: 640px) {
+    padding: 13px 20px;
+  }
+  @media (min-width: 768px) {
+    padding: 16px 21px;
   }
   background: transparent;
+}
+
+.imageInfo {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: wrap;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: var(--background-main-color);
+  @media (min-width: 640px) {
+    height: 80px;
+    padding: 15px 16px 21px 16px;
+  }
+  @media (min-width: 1440px) {
+    height: 80px;
+    padding: 15px 19px;
+  }
+  @media (min-width: 1680px) {
+    height: 80px;
+    padding: 15px 19px;
+  }
 }
 
 .imageContent {
@@ -148,10 +169,7 @@
   inset: 0;
   display: flex;
   justify-content: center;
-  border-radius: 17px 17px 0px 0px;
-  @media (min-width: 1024px) {
-    border-radius: 30px 30px 0px 0px;
-  }
+  
   overflow: hidden;
 }
 
@@ -160,16 +178,13 @@
   height: 100%;
   max-width: 400px;
   object-fit: cover;
-  border-radius: 17px 17px 0px 0px;
   margin: 0 auto;
   transition: transform 0.2s;
   @media (min-width: 1024px) {
     max-width: 600px;
-    border-radius: 30px 30px 0px 0px;
   }
   &:hover {
     @media (min-width: 1024px) {
-      border-radius: 30px;
       -ms-transform: scale(1.2);
       -webkit-transform: scale(1.2);
       transform: scale(1.2);
@@ -190,15 +205,15 @@
   backdrop-filter: blur(10px);
 }
 
-.nftName {
-  font-family: 'Muli-Bold';
-  font-size: 12px;
-  line-height: 14px;
-  margin-top: 2px;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 36px;
+.nftNameForHome {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
   }
+  margin-top: 0px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   white-space: nowrap;
@@ -206,16 +221,27 @@
   text-overflow: ellipsis;
 }
 
-.artistName {
-  font-family: 'Muli-Regular';
-  font-size: 10px;
-  line-height: 12px;
-  margin-top: 2px;
-  margin-right: 10px;
-  @media (min-width: 1024px) {
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  @media (min-width: 640px) {
     font-size: 16px;
-    line-height: 24px;
   }
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artistNameHome {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  @media (min-width: 640px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  margin-top: 10px;
   letter-spacing: 0;
   color: var(--main-icon-color);
   white-space: nowrap;
@@ -223,19 +249,47 @@
   text-overflow: ellipsis;
 }
 
-.price {
-  font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 12px;
-  margin-left: 3px;
+.artistName {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 10px;
+  color: var(--main-icon-color);
+  margin-top: 2px;
+  @media (min-width: 640px) {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+}
+
+.priceHome {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  line-height: 24px;
+  margin-left: 7px;
   margin-top: -2px;
-  @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    margin-top: 0px;
+  @media (min-width: 640px) {
+    margin-top: -2px;
     margin-left: 7px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 24px;
   }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: 3px;
+  margin-top: -3px;
+  @media (min-width: 640px) {
+    margin-top: -3px;
+    margin-left: 5px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+

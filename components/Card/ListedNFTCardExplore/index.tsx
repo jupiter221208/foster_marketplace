@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -22,6 +22,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 type ListedNftCardExploreTypes = {
   nftName: string
   artistName: string
+  artistImage?: string
   token_id: string
   image: string
   coverImage?: string
@@ -31,7 +32,7 @@ type ListedNftCardExploreTypes = {
 }
 
 const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
-  const { nftName, artistName, token_id, image, coverImage = null, assetType, onClick, price } = props
+  const { nftName, artistName, artistImage, token_id, image, coverImage = null, assetType, onClick, price } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
 
@@ -98,7 +99,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </div>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
+                  <a className="w-full h-full flex items-center">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{
@@ -159,21 +160,19 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               </Link>
             )}
           </div>
-          <div className={styles.nftData}>
-            <div>
-              <div className={styles.nftName}>{getShortName(nftName, 20)}</div>
-              <div className={styles.artistName}>{artistName}</div>
-            </div>
-            <div>&nbsp;</div>
-          </div>
         </div>
 
         <div className={styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center justify-between">
-              <div className={styles.label}>Fixed Price</div>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
+              <div className="w-full flex justify-between">
+                <div className={styles.artistName}>{artistName}</div>
+              </div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[5px]">
+          </div>
+          {price && (
+            <div className="h-full flex justify-between items-end mt-[18px] sm:mt-[0px] mb-[2px]">
               <div className="flex justify-center items-center mt-[2px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />
@@ -183,7 +182,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 <div className={styles.price}>{price}</div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -4,17 +4,6 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
-export const validateFloatInput = (e) => {
-  let floatInput = e.target.value;
-  console.log(floatInput.match(/^[-]?\d*\.?\d*$/), '========floatInput.match(/^[-]?\d*\.?\d*$/)====')
-  // Allows numbers, a single dot, negative sign, and backspace for corrections
-  if (!floatInput.match(/^[-]?\d*\.?\d*$/)) {
-      // Disallow this input
-      e.target.value = floatInput.slice(0, -1);
-      return;
-  }
-}
-
 export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
@@ -294,6 +283,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-icon-color', '#202427')
     doc.style.setProperty('--main-icon-color-rgb', '32, 36, 39')
     doc.style.setProperty('--g-left-container-bg', '#FFF')
+    doc.style.setProperty('--bg-new-color', '#EEEDEB')
     doc.style.setProperty('--background-main-color', '#F3F2F0')
     doc.style.setProperty('--background-main-color-rgb', '244, 243, 240')
     doc.style.setProperty('--background-black-color', '#202427')
@@ -500,6 +490,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 1)')
     doc.style.setProperty('--logo-text-color', '#202427')
     doc.style.setProperty('--logo-text-ballon', '#202427')
+    doc.style.setProperty('--logo-text-bottom', '#202427')
     doc.style.setProperty('--activity-tr-bg', '#F3F2F0')
     doc.style.setProperty('--banner-image-bg', '#505457')
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
@@ -622,6 +613,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
     doc.style.setProperty('--g-left-container-bg', '#1B1B1B')
     doc.style.setProperty('--g-right-container-bg', '#121212')
+    doc.style.setProperty('--bg-new-color', '#171717')
     doc.style.setProperty('--background-main-color', '#1a1a1a')
     doc.style.setProperty('--background-main-color-rgb', '26, 26, 26')
     doc.style.setProperty('--background-black-color', '#121212')
@@ -833,6 +825,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--logo-text-color', '#fff')
     doc.style.setProperty('--logo-text-ballon', '#95dbd5')
+    doc.style.setProperty('--logo-text-bottom', '#ADAEB2')
     doc.style.setProperty('--activity-tr-bg', '#2B2B2B')
     doc.style.setProperty('--banner-image-bg', '#ffffff')
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')

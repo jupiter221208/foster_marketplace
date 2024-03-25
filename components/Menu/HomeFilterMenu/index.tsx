@@ -1,11 +1,11 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment } from 'react'
 // next components
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import FilterIcon from 'assets/icons/down-arrow-icon.svg?component'
+import FilterIcon from 'assets/icons/filter-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -21,7 +21,9 @@ const HomeFilterMenu = props => {
         <Menu.Button>
           <div className={styles.btnArea}>
             {label}
-            <FilterIcon alt="" />
+            <div className="px-[8px]">
+              <FilterIcon alt="" />
+            </div>
           </div>
         </Menu.Button>
 

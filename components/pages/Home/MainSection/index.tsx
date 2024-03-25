@@ -147,12 +147,12 @@ const MainSection = () => {
                 canSwipe={true}
                 autoplay={true}
                 prevArrow={
-                  <div className={`${styles.arrowBG} ml-[150px]`}>
+                  <div className={`${styles.arrowBG} ml-[60px] xl:ml-[120px] 2xl:ml-[150px]`}>
                     <ArrowLeftGreenIcon alt="" />
                   </div>
                 }
                 nextArrow={
-                  <div className={`${styles.arrowBG} mr-[150px]`}>
+                  <div className={`${styles.arrowBG} mr-[60px] xl:mr-[120px] 2xl:mr-[150px]`}>
                     <ArrowRightGreenIcon alt="" />
                   </div>
                 }

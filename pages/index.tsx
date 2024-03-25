@@ -17,7 +17,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import PreviewImage from 'assets/images/preview-image.png'
 
 // custom functions
-import { useDetectRouterPath } from 'utils'
+import { useDetectRouterPath, useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // third party components
@@ -27,6 +27,7 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 const Home = () => {
+  const viewport = useViewport()
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
@@ -78,14 +79,20 @@ const Home = () => {
         </div>
       </div>
       <div className={styles.otherBG}>
-        <div className="g-container">
-          <TopRatedArtistsSection />
-        </div>
+        {viewport === 'xs' ? (
+          <div className="w-full">
+            <TopRatedArtistsSection />
+          </div>
+        ) : (
+          <div className="g-container">
+            <TopRatedArtistsSection />
+          </div>
+        )}
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
           <TrendingCollectionSection category={''} loop={true} />
-          <CreateSellNFTSection />
+          {/* <CreateSellNFTSection /> */}
           <FullScreenLoadingModal open={isLoading} />
         </div>
       </div>
