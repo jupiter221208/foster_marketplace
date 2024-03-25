@@ -54,6 +54,7 @@ import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const Explore = () => {
   const router = useRouter()
@@ -353,6 +354,8 @@ const Explore = () => {
             image: nft.cover_image,
             collectionName: nft.collection_name,
             artistName: nft.artist_username,
+            artist_profile_picture: nft.artist_profile_picture,
+            number_in_collections: nft.number_in_collections,
             url: `/collection?id=${nft.collection_id}`,
             mintAddress: nft.artist_id,
           }
@@ -735,15 +738,24 @@ const Explore = () => {
               <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                 {collectionList.length !== 0 &&
                   collectionList.map((item, index) => (
-                    <div className={`col-span-6 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
-                      <CollectionCard
+                    <div className={`col-span-12 ${showFilter ? 'xl:col-span-4' : 'xl:col-span-3'} z-10`} key={index}>
+                      <TrendingCollectionCard
+                        collectionID={item.collection_id}
+                        image={item.image}
+                        collectionName={item.collectionName}
+                        artistName={item.artistName}
+                        avatar={item.artist_profile_picture}
+                        nftCount={item.number_in_collections}
+                        showRemoveButton={false}
+                      />
+                      {/* <CollectionCard
                         image={item.image}
                         nftName={item.collectionName}
                         artistName={item.artistName}
                         collectionName={item.collectionName}
                         price={item.price}
                         link={`/collection/${item.collectionId}`}
-                      />
+                      /> */}
                     </div>
                   ))}
               </div>
