@@ -20,7 +20,7 @@ const CollectionSwiperSection = props => {
       <div className="w-full z-10">
         <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[45px] pb-[30px]">
           {collections.map((item, index) => (
-            <div className="col-span-12 lg:col-span-4 xl:col-span-4" key={index}>
+            <div className="col-span-12 lg:col-span-4 xl:col-span-3" key={index}>
               <TrendingCollectionCard
                 collectionID={item.collection_id}
                 image={item.cover_image}
