@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux'
 import { getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getDisplayUserName } from 'utils/strings'
 
 const NFTAuctionCard = props => {
   const {
@@ -229,7 +230,7 @@ const NFTAuctionCard = props => {
             <div className={styles.nftData}>
               <div>
                 <div className={styles.nftName}>{nftName}</div>
-                <div className={styles.artistName}>{artistName}</div>
+                <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
               </div>
               <div>&nbsp;</div>
             </div>
