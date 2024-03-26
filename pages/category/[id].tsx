@@ -117,7 +117,7 @@ const Category = () => {
               <MarketplaceReleaseSection category={cateQuery} />
               <LiveAuctionSection category={cateQuery} fromPage={'category'} />
               <FreshMintSection category={cateQuery} />
-              <PopularCategorySection type="category" />
+              {/* <PopularCategorySection type="category" /> */}
             </div>
           </div>
         )}
