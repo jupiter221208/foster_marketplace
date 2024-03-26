@@ -285,7 +285,7 @@ const MyNFTSection = props => {
           setShowListNFTModal(false)
           if (status === 'listed') {
             loadMyNFTs()
-            changeActiveTab(1)
+            changeActiveTab(2)
           } else if (status === 'list-close') {
             loadMyNFTs()
           }
