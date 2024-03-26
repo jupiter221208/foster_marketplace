@@ -87,10 +87,6 @@ const ListedNFTSection = props => {
     }
   }, [filter])
 
-  const handleChangeActive = value => {
-    setActive(value)
-  }
-
   const [loading, setLoading] = useState(false)
 
   const { metaplex: mx } = useMetaplex()
@@ -325,10 +321,18 @@ const ListedNFTSection = props => {
         let new_list = fixedPriceNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
-      } else {
+        setSelectedItem(filterList[0])
+      } else if (active === 1) {
         let new_list = liveAuctionNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setSelectedItem(filterList[1])
+      } else {
+        // active === 2
+        let new_list = liveAuctionNFTs as any[]
+        if (new_list.length > rowCount) setIsVisibleFetching(true)
+        setNFTList(new_list.slice(0, rowCount))
+        setSelectedItem(filterList[2])
       }
     }, 500)
   }, [fixedPriceNFTs, liveAuctionNFTs, active])
