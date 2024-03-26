@@ -88,7 +88,7 @@ const NFTCard = props => {
   const videoRef = useRef<HTMLVideoElement>()
 
   return (
-    <div className="w-full h-full relative p-[2px] lg:p-[3px]">
+    <div className="w-full h-full relative lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
           {assetType?.includes('video') ? (
