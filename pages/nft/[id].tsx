@@ -181,10 +181,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const collectionId = nftDetail?.collection?.address?.toString()
 
   let nftName = nftDetail?.name ?? ''
-  if (editionDetail?.maxSupply !== 0) {
+  if (!editionDetail.isSingleNft) {
     let { print, supply, maxSupply } = editionDetail
     let supplyInfo = `#${print?.number}/${supply}`
-    if (supply !== maxSupply) supplyInfo = `edition ${print?.number}/${supply}, max ${maxSupply ?? '\u221e'}`
+    if (editionDetail.isOriginal) supplyInfo = `max ${maxSupply ?? '\u221e'}`
+    else supplyInfo = `edition ${print?.number}/${supply}, max ${maxSupply ?? '\u221e'}`
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
