@@ -205,9 +205,6 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         size: 0,
       }
 
-    // let maxSupply = supply.print_max_supply
-    // let supply = supply.print_current_supply
-
     return {
       mintAddress: new PublicKey(id).toString(),
       metadataAddress: mx
@@ -244,7 +241,12 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         isFrozen: ownership.frozen,
       },
 
-      supply,
+      supply: supply && {
+        edition: supply.edition_number ?? null,
+        current: supply.print_current_supply ?? null,
+        max: supply.print_max_supply ?? null,
+        parent: supply.master_edition_mint ?? null,
+      },
     }
   })
 }
@@ -351,7 +353,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     return null
   }
 
-  let { content, grouping, royalty, creators } = dasResponse
+  let { content, grouping, royalty, creators, supply } = dasResponse
   let image = content.links.image
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
@@ -383,6 +385,13 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     creators,
     category,
     attributes: content.metadata.attributes,
+
+    supply: supply && {
+      edition: supply.edition_number ?? null,
+      current: supply.print_current_supply ?? null,
+      max: supply.print_max_supply ?? null,
+      parent: supply.master_edition_mint ?? null,
+    },
 
     collection: grouping
       .filter(({ group_key }) => group_key == 'collection')
@@ -459,12 +468,14 @@ export async function getEditionDataOfNFTs(nfts: NftData[], mx: Metaplex): Promi
         edition: 0,
         current: 0,
         max: masterEditionData.maxSupply ? Number(masterEditionData.maxSupply) : null,
+        parent: null,
       }
     } else {
       nfts[i].supply = {
         edition: Number(masterEditionData.edition),
         current: 0,
         max: null,
+        parent: null,
       }
     }
   }
