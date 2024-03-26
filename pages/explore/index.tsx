@@ -745,7 +745,7 @@ const Explore = () => {
                       key={index}
                     >
                       <TrendingCollectionCard
-                        collectionID={item.collection_id}
+                        collectionID={item.collectionId}
                         image={item.image}
                         collectionName={item.collectionName}
                         artistName={item.artistName}

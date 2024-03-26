@@ -122,7 +122,7 @@ const ExploreMenu = props => {
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
-                            dispatch({ type: 'set', isLoading: true })
+                            if (router.pathname !== '/stats') dispatch({ type: 'set', isLoading: true })
                             dispatch({ type: 'set', activeTab: index })
                             router.push('/stats')
                           }}
