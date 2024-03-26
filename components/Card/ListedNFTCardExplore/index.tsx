@@ -16,7 +16,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 
 import Link from 'next/link'
-import { getShortName } from 'utils/strings'
+import { getDisplayUserName, getShortName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 type ListedNftCardExploreTypes = {
@@ -167,7 +167,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             <div>
               <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
               <div className="w-full flex justify-between">
-                <div className={styles.artistName}>{artistName}</div>
+                <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
               </div>
             </div>
           </div>

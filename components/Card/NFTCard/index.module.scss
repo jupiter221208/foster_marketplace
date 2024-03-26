@@ -2,6 +2,9 @@
 
 .container {
   width: 100%;
+  @media (min-width: 640px) {
+    width: 100%;
+  }
   height: auto;
   background: var(--background-main-color);
   border: 1px solid var(--nft-border-color);
@@ -132,7 +135,7 @@
   flex: wrap;
   position: relative;
   justify-content: space-between;
-  padding: 13px 20px;
+  padding: 16px 23px;
   @media (min-width: 640px) {
     padding: 13px 20px;
   }
@@ -207,8 +210,8 @@
 
 .nftNameForHome {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 640px) {
     font-size: 16px;
     line-height: 20px;
@@ -235,8 +238,8 @@
 
 .artistNameHome {
   font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 640px) {
     font-size: 14px;
     line-height: 18px;
@@ -263,8 +266,8 @@
 
 .priceHome {
   font-family: 'Muli-SemiBold';
-  font-size: 22px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 23px;
   margin-left: 7px;
   margin-top: -2px;
   @media (min-width: 640px) {
