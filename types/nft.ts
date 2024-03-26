@@ -40,6 +40,7 @@ export interface NftData {
     edition: number | null
     current: number | null
     max: number | null
+    parent: string | null
   }
 
   content?: {

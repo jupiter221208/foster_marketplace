@@ -181,7 +181,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const collectionId = nftDetail?.collection?.address?.toString()
 
   let nftName = nftDetail?.name ?? ''
-  if (editionDetail) {
+  if (editionDetail?.maxSupply !== 0) {
     let { print, supply, maxSupply } = editionDetail
     let supplyInfo = `#${print?.number}/${supply}`
     if (supply !== maxSupply) supplyInfo = `edition ${print?.number}/${supply}, max ${maxSupply ?? '\u221e'}`
@@ -476,31 +476,14 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
 
     let nftDetail = (await getNftFromDAS(metaplex, query.id)) ?? (await getNftFromRpc(metaplex, query.id))
 
-    let editionDetail: EditionDetail | undefined = undefined
-    try {
-      const { data: nftEdition } = await metaplex
-        .rpc()
-        .getAccount(metaplex.nfts().pdas().masterEdition({ mint: mintAddress }))
-        .then(toOriginalOrPrintEditionAccount)
-
-      let originalEdition: OriginalEditionAccountData
-      let print: PrintEditionAccountData | null = null
-
-      if ('parent' in nftEdition) {
-        print = nftEdition
-        ;({ data: originalEdition } = await metaplex.rpc().getAccount(nftEdition.parent).then(toOriginalEditionAccount))
-      } else originalEdition = nftEdition
-      editionDetail = {
-        print: print?.edition && { number: Number(print.edition) },
-        supply: Number(originalEdition.supply),
-        maxSupply: originalEdition.maxSupply && Number(originalEdition.maxSupply),
-        isOriginal: ![Key.MasterEditionV1, Key.MasterEditionV2].includes(originalEdition.key),
-        isSingleNft: originalEdition.maxSupply === 0,
-        isOpenEdition: originalEdition.maxSupply === null,
-        isLimitedEdition: Number(originalEdition.maxSupply) > 0,
-      }
-    } catch (error) {
-      console.error(error)
+    let editionDetail: EditionDetail = {
+      print: nftDetail.supply?.edition && { number: nftDetail.supply?.edition },
+      supply: nftDetail.supply?.current,
+      maxSupply: nftDetail.supply?.max,
+      isOriginal: !nftDetail.supply?.parent,
+      isSingleNft: nftDetail.supply?.max === 0,
+      isOpenEdition: nftDetail.supply?.max == null,
+      isLimitedEdition: nftDetail.supply?.max > 0,
     }
 
     return {

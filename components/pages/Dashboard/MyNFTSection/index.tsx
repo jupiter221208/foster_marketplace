@@ -50,9 +50,9 @@ const MyNFTSection = props => {
       }, 1000)
       return
     }
-    const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
-    setAllList(nftsWithEditionData)
-    let validNfts = nftsWithEditionData.filter(
+    // const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
+    setAllList(nfts)
+    let validNfts = nfts.filter(
       item =>
         !item.tokenAccount?.delegate &&
         !item.tokenAccount?.isFrozen &&
