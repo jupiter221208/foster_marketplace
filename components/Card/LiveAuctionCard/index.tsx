@@ -9,9 +9,8 @@ import { useViewport } from 'utils'
 import { formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
@@ -116,13 +115,19 @@ const LiveAuctionCard = props => {
         </div>
         <Link href={`/${data.artist_username}`} passHref>
           <a>
-            <img
-              src={data?.artist_profile_picture}
-              onClick={() => {}}
-              width={44}
-              height={44}
-              className="w-[44px] rounded-full"
-            />
+            {data?.artist_profile_picture === undefined ||
+            data?.artist_profile_picture === null ||
+            data?.artist_profile_picture === '' ? (
+              <img src={DefaultAvatar.src} className="w-[44px] h-[44px] rounded-full" />
+            ) : (
+              <img
+                src={data?.artist_profile_picture}
+                onClick={() => {}}
+                width={44}
+                height={44}
+                className="w-[44px] rounded-full"
+              />
+            )}
           </a>
         </Link>
       </div>
