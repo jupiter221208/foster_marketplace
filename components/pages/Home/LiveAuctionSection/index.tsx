@@ -216,8 +216,13 @@ const LiveAuctionSection = props => {
               viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={cardLoop}
+            className={
+              liveAuctionList.length > 5
+                ? 'auctionNavigationSwiper'
+                : (viewport === 'lg' || viewport === 'xl') && liveAuctionList.length > 4
+                ? 'auctionNavigationSwiper'
+                : 'noScrollNavigationSwiper'
+            }
           >
             {liveAuctionList.map((item, index) => (
               <SwiperSlide key={index}>

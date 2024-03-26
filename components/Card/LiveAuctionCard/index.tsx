@@ -18,6 +18,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 // styles
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getDisplayUserName } from 'utils/strings'
 
 const LiveAuctionCard = props => {
   const { data, onClick, setCardExpired } = props
@@ -109,7 +110,7 @@ const LiveAuctionCard = props => {
           </Link>
           <Link href={`/${data.artist_username}`} passHref>
             <a>
-              <div className={styles.artistName}>{data?.artist_username}</div>
+              <div className={styles.artistName}>{getDisplayUserName(data?.artist_username)}</div>
             </a>
           </Link>
         </div>
