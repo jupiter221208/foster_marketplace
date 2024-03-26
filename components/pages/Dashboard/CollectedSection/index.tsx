@@ -105,6 +105,8 @@ const CollectedSection = props => {
       },
     ])
 
+    changeActiveTab(2)
+
     setTimeout(() => {
       setShowStartAuctionModal(false)
       setTimeout(() => {

@@ -143,7 +143,6 @@ const ListedNFTSection = props => {
       .filter(listing => listing != null)
     dispatch({ type: 'set', isGetListedNFTs: true })
     dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
-    console.log(liveAuction, '======liveAuction========')
     setLoading(false)
   }
 

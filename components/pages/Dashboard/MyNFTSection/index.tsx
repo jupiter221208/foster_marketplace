@@ -133,6 +133,8 @@ const MyNFTSection = props => {
       },
     ])
 
+    changeActiveTab(2)
+
     setTimeout(() => {
       setShowStartAuctionModal(false)
       setTimeout(() => {
