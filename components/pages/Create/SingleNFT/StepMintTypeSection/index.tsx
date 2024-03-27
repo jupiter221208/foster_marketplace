@@ -24,8 +24,8 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           <div
             className={styles.singleTag}
             onClick={() => {
-              // setCurrentStep(1)
-              // setType(0)
+              setCurrentStep(1)
+              setType(0)
             }}
           >
             <div className="flex h-full gap-[15px] lg:gap-[0px] lg:flex-col items-center">
@@ -44,8 +44,8 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           <div
             className={`${styles.singleTag} mt-[12px] mb-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
-              setCurrentStep(1)
-              setType(1)
+              // setCurrentStep(1)
+              // setType(1)
             }}
           >
             <div className="relative flex h-full gap-[15px] lg:gap-[0px] lg:flex-col items-center">
