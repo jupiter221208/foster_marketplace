@@ -252,7 +252,7 @@ const MainSection = ({
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
-  const [editionType, setEditionType] = useState('normal')
+  const [editionType, setEditionType] = useState<'normal' | 'master_le' | 'master_oe' | 'print'>('normal')
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -416,36 +416,24 @@ const MainSection = ({
   )
 
   useEffect(() => {
-    if (editionDetail) {
-      if (editionDetail.isOriginal === true) {
-        setEditionType('normal')
-      } else if (editionDetail.isOpenEdition === true) {
-        if (editionDetail.print === null || editionDetail.print === undefined) setEditionType('master_oe')
-        else setEditionType('open')
-      } else if (editionDetail.isLimitedEdition === true) {
-        if (editionDetail.print === null || editionDetail.print === undefined) setEditionType('master_le')
-        else setEditionType('limit')
-      } else if (editionDetail.print !== null) {
-        setEditionType('print')
-      } else {
-        setEditionType('normal')
-      }
-    }
+    if (!editionDetail) return
+
+    if (editionDetail.isSingleNft) setEditionType('normal')
+    else if (editionDetail.isOpenEdition) setEditionType('master_oe')
+    else if (editionDetail.isLimitedEdition) setEditionType('master_le')
+    else setEditionType('print')
   }, [editionDetail])
 
   const isNftEdition = () => {
-    if (editionType === 'open' || editionType === 'limit' || editionType === 'master_oe' || editionType === 'master_le')
-      return true
+    console.log({ editionType })
+    if (editionType === 'print' || editionType === 'master_oe' || editionType === 'master_le') return true
     return false
   }
 
   const getTokenTypeString = () => {
-    let type = 'Open Edition'
-    if (editionType === 'open') type = 'Open Edition'
-    else if (editionType === 'limit') type = 'Limited Edition'
-    else if (editionType === 'master_oe') type = 'Open Edition'
-    else if (editionType === 'master_le') type = 'Limited Edition'
-    return type
+    if (editionType === 'master_oe') return 'Open Edition'
+    else if (editionType === 'master_le') return 'Limited Edition'
+    else return 'Print'
   }
 
   useEffect(() => {
@@ -505,8 +493,6 @@ const MainSection = ({
             },
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
-          if (editionType === 'open' || editionType === 'limit')
-            setPrice((parseFloat(basisPoints.toString()) / 10 ** decimals).toFixed(2))
           setTradeStateAddress(tradeStateAddress.toBase58())
           setLoadListing(false)
           let listingAssets = await populateLazyListingsWithAssets(mx, [listing])
@@ -1271,7 +1257,7 @@ const MainSection = ({
                 )}
 
                 {nftPrice > 0 && !liveAuction ? (
-                  editionType === 'open' || editionType === 'limit' ? (
+                  editionType === 'master_oe' || editionType === 'master_le' ? (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                       <div className={styles.masterContainer}>
                         <div className="flex justify-between gap-[13px]">
