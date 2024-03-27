@@ -481,10 +481,10 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       print: nftDetail.supply?.edition && { number: nftDetail.supply?.edition },
       supply: nftDetail.supply?.current,
       maxSupply: nftDetail.supply?.max,
-      isOriginal: !nftDetail.supply?.parent,
+      isOriginal: !nftDetail.supply?.edition,
       isSingleNft: nftDetail.supply?.max === 0,
-      isOpenEdition: nftDetail.supply?.max == null,
-      isLimitedEdition: nftDetail.supply?.max > 0,
+      isOpenEdition: !nftDetail.supply?.edition && nftDetail.supply?.max == null,
+      isLimitedEdition: !nftDetail.supply?.edition && nftDetail.supply?.max > 0,
     }
 
     return {
