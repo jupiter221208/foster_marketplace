@@ -82,7 +82,7 @@ import styles from './index.module.scss'
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey, Transaction } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
@@ -92,6 +92,7 @@ import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 import AuctionAPI from 'apis/auctions'
+import { createPrint } from 'apis/editions'
 
 import { useWallets } from 'hooks/useWallets'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
@@ -289,7 +290,37 @@ const MainSection = ({
     setOpenProgressingModal(false)
   }
 
-  const mintEdition = () => {}
+  const mintEdition = async () => {
+    for (let i = 0; i < 5; i++)
+      try {
+        let printResponse = await createPrint({
+          mintAddress,
+          buyer: mx.identity().publicKey.toBase58(),
+        })
+
+        if (!printResponse.transaction) {
+          // TODO: show error to user
+          console.error(printResponse)
+          return
+        }
+
+        let tx = Transaction.from(Buffer.from(printResponse.transaction))
+        let txResponse = await mx.rpc().sendAndConfirmTransaction(
+          tx,
+          {
+            maxRetries: 5,
+            commitment: 'processed',
+          },
+          [mx.identity()]
+        )
+        console.log(txResponse)
+        console.log(`minted edition successfully: ${printResponse.editionMint}`)
+      } catch (e: any) {
+        console.error(`attempt ${i + 1} failed: {e?.message ?? e}`)
+        console.error(e)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
+  }
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -425,7 +456,6 @@ const MainSection = ({
   }, [editionDetail])
 
   const isNftEdition = () => {
-    console.log({ editionType })
     if (editionType === 'print' || editionType === 'master_oe' || editionType === 'master_le') return true
     return false
   }

@@ -117,7 +117,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           })
           await new Promise(resolve => setTimeout(resolve, 1000))
 
-          let printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
+          printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
           if (printDelegateAccount.exists) break
         } catch (e: any) {
           console.error(`delegating failed: ${e?.message ?? e}`)
@@ -136,6 +136,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
       // TODO: send listing to backend with listing details
     } catch (e: any) {
+      console.error(e)
       setIsLoading(false)
     }
   }

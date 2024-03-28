@@ -25,6 +25,13 @@ export interface CreatePrintResponse {
   transaction: string
 }
 
+export interface UpdateListingRequest {
+  price?: string
+  startTime?: string
+  endTime?: string
+  buyLimit?: number
+}
+
 export async function getListedMasterEditionInfo(mintAddress: string): Promise<ListedMasterEdition | null> {
   return client.get(API_URL + `v1/editions/${mintAddress}`).then(response => {
     return response.data.mintAddress ? response.data : null
@@ -48,6 +55,12 @@ export async function createPrint({
   buyer: string
 }): Promise<CreatePrintResponse> {
   return client.post(API_URL + `v1/editions/${mintAddress}/create-print`, { buyer }).then(response => {
+    return response.data
+  })
+}
+
+export async function updateListing({ mintAddress, ...data }: UpdateListingRequest & { mintAddress: string }) {
+  return client.patch(API_URL + `v1/editions/${mintAddress}`, data).then(response => {
     return response.data
   })
 }
