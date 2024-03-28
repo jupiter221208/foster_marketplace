@@ -493,8 +493,12 @@ export function determineCategory(files: determineCategoryType) {
   let category: string
   if (files.length > 1) {
     files.map((file, index) => {
-      if (index > 0 && (file.mime !== '' || file.mime !== undefined || file.mime !== null)) {
-        category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
+      if (index > 0 ) {
+        if (file.mime !== '' && file.mime !== undefined && file.mime !== null) {
+          category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
+        } else if (file.uri.includes('ext=glb')) {
+          category = 'vr'
+        }
       }
     })
   } else {
