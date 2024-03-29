@@ -256,7 +256,8 @@ const MainSection = ({
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
-  const [editionType, setEditionType] = useState<'normal' | 'master_le' | 'master_oe' | 'print'>('normal')
+  const [editionType, setEditionType] =
+    useState<'normal' | 'master_le' | 'master_oe' | 'print_le' | 'print_oe'>('normal')
   const [isEditionListing, setIsEditionListing] = useState(false)
   const [editionListingData, setEditionListingData] = useState<any>()
 
@@ -458,11 +459,11 @@ const MainSection = ({
   const getEditionListingStatus = () => {
     getListedMasterEditionInfo(nftDetail.mintAddress).then(
       response => {
-        console.log(response, '===========response')
         if (response && response.price.length > 0) {
           setIsEditionListing(true)
           setEditionListingData(response)
           setPrice(getPriceValue(Number(response.price)))
+          setNftPrice(parseFloat(getPriceValue(Number(response.price))))
         }
       },
       error => {}
@@ -471,26 +472,33 @@ const MainSection = ({
 
   useEffect(() => {
     if (!editionDetail) return
-
-    if (editionDetail.isSingleNft) setEditionType('normal')
-    else if (editionDetail.isOpenEdition) {
+    if (editionDetail.isSingleNft) {
+      if (editionDetail.isOriginal) setEditionType('normal')
+      else setEditionType('print_oe')
+    } else if (editionDetail.isOpenEdition) {
       setEditionType('master_oe')
       getEditionListingStatus()
     } else if (editionDetail.isLimitedEdition) {
       setEditionType('master_le')
       getEditionListingStatus()
-    } else setEditionType('print')
+    } else setEditionType('print_le')
   }, [editionDetail])
 
   const isNftEdition = () => {
-    if (editionType === 'print' || editionType === 'master_oe' || editionType === 'master_le') return true
+    if (
+      editionType === 'print_le' ||
+      editionType === 'print_oe' ||
+      editionType === 'master_oe' ||
+      editionType === 'master_le'
+    )
+      return true
     return false
   }
 
   const getTokenTypeString = () => {
-    if (editionType === 'master_oe') return 'Open Edition'
-    else if (editionType === 'master_le') return 'Limited Edition'
-    else return 'Print'
+    if (editionType === 'master_oe') return 'Master Edition'
+    else if (editionType === 'master_le') return 'Master Edition'
+    else return 'Printed Edition'
   }
 
   useEffect(() => {
@@ -1239,6 +1247,13 @@ const MainSection = ({
                         </div>
                       </div>
                     )}
+                    {editionType === 'print_le' ||
+                      (editionType === 'print_oe' && (
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Master Edition Address</div>
+                          <div className={styles.edition}>...</div>
+                        </div>
+                      ))}
                     <div className={styles.editionFirstRow}>
                       <div className={styles.editionTitle}>Token Type</div>
                       <div className={styles.editionValue}>{getTokenTypeString()}</div>
@@ -1246,10 +1261,14 @@ const MainSection = ({
                     {editionType === 'master_le' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.edition}>Master Edition</div>
+                          <div className={styles.editionTitle}>Edition Type</div>
+                          <div className={styles.edition}>Limited Edition</div>
                         </div>
                         <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Edition Minted</div>
+                          <div className={styles.edition}>{Number(editionDetail?.supply)}</div>
+                        </div>
+                        <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Editions Remaining</div>
                           <div className={styles.editionValue}>
                             {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
@@ -1267,17 +1286,38 @@ const MainSection = ({
                           <div className={styles.editionValue}>Unlimited</div>
                         </div>
                       </div>
-                    ) : (
+                    ) : editionType === 'print_le' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Edition Type</div>
+                          <div className={styles.editionValue}>Limited Edition</div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
                           <div className={styles.editionTitle}>Edition Number</div>
                           <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
                         </div>
-                        <div className={styles.editionFirstRow}>
+                        <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Editions Minted</div>
                           <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                         </div>
                       </div>
+                    ) : editionType === 'print_oe' ? (
+                      <div>
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Edition Type</div>
+                          <div className={styles.editionValue}>Open Edition</div>
+                        </div>
+                        <div className={styles.editionFirstRow}>
+                          <div className={styles.editionTitle}>Edition Number</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
+                        </div>
+                        <div className={styles.editionSecondRow}>
+                          <div className={styles.editionTitle}>Editions Minted</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div></div>
                     )}
                   </div>
                 )}
