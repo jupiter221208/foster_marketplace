@@ -314,7 +314,7 @@ const MainSection = ({
           return
         }
 
-        let tx = Transaction.from(Buffer.from(printResponse.transaction))
+        let tx = Transaction.from(Buffer.from(printResponse.transaction, 'base64'))
         let txResponse = await mx.rpc().sendAndConfirmTransaction(
           tx,
           {

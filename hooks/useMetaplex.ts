@@ -43,11 +43,14 @@ export const walletWithFee = (wallet: WalletAdapter): WalletAdapter => {
 };
 
 export const addComputeBudget = (tx: Transaction): Transaction => {
+  if (tx.signatures.some(({ signature }) => signature))
+    return tx;
+
   let hasComputeInstruction = false;
   for (let instruction of tx.instructions)
     if (instruction.programId.equals(ComputeBudgetProgram.programId)) {
       let ixType = ComputeBudgetInstruction.decodeInstructionType(instruction);
-      if (ixType == "SetComputeUnitLimit") {
+      if (ixType == "SetComputeUnitPrice") {
         hasComputeInstruction = true;
         break;
       }
