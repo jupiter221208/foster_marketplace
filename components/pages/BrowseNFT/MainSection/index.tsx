@@ -1367,6 +1367,7 @@ const MainSection = ({
                             <div
                               onClick={() => {
                                 if (mintQty > 0) setMintQty(mintQty - 1)
+                                setPrice((nftPrice * (mintQty - 1)).toFixed(2))
                               }}
                             >
                               <MintValueMinus />
@@ -1378,6 +1379,7 @@ const MainSection = ({
                                   if (mintQty + 1 > editionDetail.maxSupply) return
                                 }
                                 setMintQty(mintQty + 1)
+                                setPrice((nftPrice * (mintQty + 1)).toFixed(2))
                               }}
                             >
                               <MintValuePlus />
@@ -1411,6 +1413,7 @@ const MainSection = ({
                             color="var(--time-slog-bg)"
                             label={'Mint Edition'}
                             direction="rtl"
+                            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
                             onClick={() => mintEdition()}
                             height={50}
                             disabled={mintQty === 0}
