@@ -1,0 +1,201 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  // min-width: 300px;
+  // height: 460px;
+  background: var(--background-main-color);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  overflow: hidden;
+}
+
+.avatar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 18px;
+  @media (min-width: 1024px) {
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  @media (min-width: 1536px) {
+    top: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  background-color: rgba(#ffffff, 0.3);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.profileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px 13px 20px;
+}
+
+.bidContainer {
+  width: 100%;
+  overflow: hidden;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 13px 20px;
+  @media (min-width: 1440px) {
+    padding: 13px 20px;
+  }
+  @media (min-width: 1680px) {
+    padding: 16px 21px;
+  }
+}
+
+.bidGradientBgView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--header-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.bidContentView {
+  -webkit-transform: translate3d(0, 0, 0);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 508:383 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artistName {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  color: var(--main-icon-color);
+  font-weight: 100;
+  margin-top: 2px;
+}
+
+.priceName {
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  line-height: 10px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: var(--brand-03-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bidCountContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.endTimeContainer {
+  margin-left: 4px;
+}
+
+.bidName {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  font-weight: 100;
+  text-align: start;
+  color: rgba(var(--text-gray-200-color-rgb), 0.85);
+}
+
+.bidTime {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  text-align: right;
+  color: rgba(var(--text-gray-200-color-rgb), 0.85);
+}
+
+.bidCount {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  margin-left: 4px;
+  color: var(--text-gray-200-color);
+}
+
+.bidDesc {
+  display: flex;
+  justify-content: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.endTime {
+  display: flex;
+  justify-content: center;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  gap: 2px;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

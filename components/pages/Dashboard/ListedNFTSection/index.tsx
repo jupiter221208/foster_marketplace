@@ -26,6 +26,7 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
+import { getEditionList } from 'apis/editions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -115,7 +116,6 @@ const ListedNFTSection = props => {
       }))
       dispatch({ type: 'set', fixedPriceNFTs })
     }
-
     const listings = await auctionAPI.getListingsBySeller(mx.identity().publicKey.toBase58())
     const nfts = await mx
       .nfts()
@@ -137,6 +137,9 @@ const ListedNFTSection = props => {
           }
       )
       .filter(listing => listing != null)
+
+    const editions = await getEditionList(mx.identity().publicKey.toBase58())
+    console.log(editions, '====================editions==================')
     dispatch({ type: 'set', isGetListedNFTs: true })
     dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
     setLoading(false)

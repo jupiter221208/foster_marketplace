@@ -1241,19 +1241,20 @@ const MainSection = ({
                     {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
                       <div className={styles.editionSecondRow}>
                         <div className={styles.editionTitle}>Mint Price</div>
-                        <div className="flex gap-[8px] items-center">
-                          <SolanaLogoMediumIcon alt="" />
+                        <div className="flex gap-[6px] items-center">
+                          <div className="mt-[2px]">
+                            <SolanaLogoMobileIcon alt="" />
+                          </div>
                           <div className={styles.editionValue}>{nftPrice}</div>
                         </div>
                       </div>
                     )}
-                    {editionType === 'print_le' ||
-                      (editionType === 'print_oe' && (
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Master Edition Address</div>
-                          <div className={styles.edition}>...</div>
-                        </div>
-                      ))}
+                    {(editionType === 'print_le' || editionType === 'print_oe') && (
+                      <div className={styles.editionSecondRow}>
+                        <div className={styles.editionTitle}>Master Edition</div>
+                        <div className={styles.editionValue}>***</div>
+                      </div>
+                    )}
                     <div className={styles.editionFirstRow}>
                       <div className={styles.editionTitle}>Token Type</div>
                       <div className={styles.editionValue}>{getTokenTypeString()}</div>
@@ -1262,11 +1263,11 @@ const MainSection = ({
                       <div>
                         <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.edition}>Limited Edition</div>
+                          <div className={styles.editionValue}>Limited Edition</div>
                         </div>
                         <div className={styles.editionFirstRow}>
                           <div className={styles.editionTitle}>Edition Minted</div>
-                          <div className={styles.edition}>{Number(editionDetail?.supply)}</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                         </div>
                         <div className={styles.editionSecondRow}>
                           <div className={styles.editionTitle}>Editions Remaining</div>
@@ -1353,62 +1354,73 @@ const MainSection = ({
                   ></div>
                 )}
 
-                {isEditionListing && (isOwnNft === false || isOwnNft === null) && (
-                  <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
-                    <div className={styles.masterContainer}>
-                      <div className="flex justify-between gap-[13px]">
-                        <div className={styles.mintQty}>
-                          <div
-                            onClick={() => {
-                              if (mintQty > 0) setMintQty(mintQty - 1)
-                            }}
-                          >
-                            <MintValueMinus />
+                {isEditionListing ? (
+                  isOwnNft === true ? (
+                    <div className="w-full mt-[20px]">
+                      <GradientButton fullWidth label="Cancel Listing" onClick={() => {}} />
+                    </div>
+                  ) : (
+                    <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
+                      <div className={styles.masterContainer}>
+                        <div className="w-full flex justify-between gap-[12px]">
+                          <div className={styles.mintQty}>
+                            <div
+                              onClick={() => {
+                                if (mintQty > 0) setMintQty(mintQty - 1)
+                              }}
+                            >
+                              <MintValueMinus />
+                            </div>
+                            <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
+                            <div
+                              onClick={() => {
+                                if (editionDetail.maxSupply !== null) {
+                                  if (mintQty + 1 > editionDetail.maxSupply) return
+                                }
+                                setMintQty(mintQty + 1)
+                              }}
+                            >
+                              <MintValuePlus />
+                            </div>
                           </div>
-                          <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
-                          <div
-                            onClick={() => {
-                              if (editionDetail.maxSupply !== null) {
-                                if (mintQty + 1 > editionDetail.maxSupply) return
-                              }
-                              setMintQty(mintQty + 1)
-                            }}
-                          >
-                            <MintValuePlus />
+                          <div className={styles.mintPrice}>
+                            <SolanaLogoIcon />
+                            <PriceInput
+                              value={price}
+                              placeholder="0"
+                              backgroundColor={'transparent'}
+                              fullWidth
+                              min={0}
+                              margin
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
+                              onChange={value => {
+                                if (value < 0) {
+                                  setPrice('')
+                                } else {
+                                  setPrice(value)
+                                }
+                              }}
+                            />
                           </div>
                         </div>
-                        <div className={styles.mintPrice}>
-                          <SolanaLogoIcon />
-                          <PriceInput
-                            value={price}
-                            placeholder="0"
-                            backgroundColor={'transparent'}
+                        <div className="w-full mt-[15px]">
+                          <GradientButton
                             fullWidth
-                            min={0}
-                            margin
-                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
-                            onChange={value => {
-                              if (value < 0) {
-                                setPrice('')
-                              } else {
-                                setPrice(value)
-                              }
-                            }}
+                            backgroundColor01="var(--place-bid-minimum-color)"
+                            backgroundColor02="var(--place-bid-minimum-color)"
+                            color="var(--time-slog-bg)"
+                            label={'Mint Edition'}
+                            direction="rtl"
+                            onClick={() => mintEdition()}
+                            height={50}
+                            disabled={mintQty === 0}
                           />
                         </div>
                       </div>
-                      <div className="mt-[23px]">
-                        <GradientButton
-                          fullWidth
-                          label={'Mint Edition'}
-                          direction="rtl"
-                          onClick={() => mintEdition()}
-                          height={50}
-                          disabled={mintQty === 0}
-                        />
-                      </div>
                     </div>
-                  </div>
+                  )
+                ) : (
+                  <></>
                 )}
 
                 {nftPrice > 0 && !liveAuction ? (
@@ -1637,9 +1649,7 @@ const MainSection = ({
                     <div className="w-full">
                       {editionType === 'master_le' || editionType === 'master_oe' ? (
                         isEditionListing ? (
-                          <div className="w-full mt-[20px]">
-                            <GradientButton fullWidth label="Cancel Listing" onClick={() => {}} />
-                          </div>
+                          <></>
                         ) : (
                           <div className="w-full mt-[20px]">
                             <GradientButton

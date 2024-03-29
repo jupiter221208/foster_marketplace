@@ -38,6 +38,12 @@ export async function getListedMasterEditionInfo(mintAddress: string): Promise<L
   })
 }
 
+export async function getEditionList(mintAddress: string): Promise<[any] | null> {
+  return client.get(API_URL + `v1/editions/?owner=${mintAddress}`).then(response => {
+    return response.data
+  })
+}
+
 export async function listMasterEdition({
   mintAddress,
   ...data
