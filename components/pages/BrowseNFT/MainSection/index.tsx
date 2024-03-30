@@ -301,9 +301,11 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    for (let i = 0; i < 5; i++)
+    let printResponse
+    let txResponse
+    for (let i = 0; i < 5 && !txResponse?.confirmResponse; i++)
       try {
-        let printResponse = await createPrint({
+        printResponse = await createPrint({
           mintAddress,
           buyer: mx.identity().publicKey.toBase58(),
         })
@@ -315,7 +317,7 @@ const MainSection = ({
         }
 
         let tx = Transaction.from(Buffer.from(printResponse.transaction, 'base64'))
-        let txResponse = await mx.rpc().sendAndConfirmTransaction(
+        txResponse = await mx.rpc().sendAndConfirmTransaction(
           tx,
           {
             maxRetries: 5,
@@ -323,13 +325,21 @@ const MainSection = ({
           },
           [mx.identity()]
         )
-        console.log(txResponse)
-        console.log(`minted edition successfully: ${printResponse.editionMint}`)
       } catch (e: any) {
-        console.error(`attempt ${i + 1} failed: {e?.message ?? e}`)
+        console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
         await new Promise(resolve => setTimeout(resolve, 1000))
       }
+
+    console.log(txResponse)
+    if (txResponse) {
+      console.log(`minted edition successfully: ${printResponse.editionMint}`)
+      // TODO: show success popup
+    } else {
+      console.warn('mint failed')
+      console.log(printResponse)
+      // TODO: show error popup
+    }
   }
   const makeOffer = async price => {
     setOpenProgressingModal(true)
