@@ -204,7 +204,9 @@ const LiveAuctionSection = props => {
             slidesPerView={
               viewport === 'xs'
                 ? 1.07
-                : viewport === 'sm' || viewport === 'md'
+                : viewport === 'sm'
+                ? 1.92
+                : viewport === 'md'
                 ? 2
                 : viewport === '2xl'
                 ? 5

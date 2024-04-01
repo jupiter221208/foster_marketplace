@@ -86,7 +86,9 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <OpenEditionSection category={''} />
+        <div className="g-container ">
+          <OpenEditionSection category={''} />
+        </div>
       </div>
       <div className={styles.otherBG}>
         {viewport === 'xs' ? (

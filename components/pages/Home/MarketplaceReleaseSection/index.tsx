@@ -86,7 +86,7 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
           {marketplaceReleaseList.map((item, index) => (
             <div
               key={index}

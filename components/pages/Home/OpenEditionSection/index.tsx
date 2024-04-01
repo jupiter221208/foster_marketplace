@@ -34,7 +34,6 @@ const OpenEditionSection = props => {
   const dispatch = useDispatch()
 
   const [editionList, setEditionList] = useState<any>([])
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     getLimitedEditionsFromServer()
@@ -124,8 +123,8 @@ const OpenEditionSection = props => {
   return (
     editionList.length > 0 && (
       <section className={styles.container}>
-        <div className="g-container w-full flex justify-between items-center z-10 ml-[5px]">
-          <div className={styles.title}>Open&nbsp;Edition</div>
+        <div className="w-full flex justify-between items-center z-10 ml-[5px]">
+          <div className={styles.title}>Open&nbsp;Editions</div>
           <div className="z-10 sm:block hidden">
             <SeeMoreButton
               onClick={() => {
@@ -137,11 +136,11 @@ const OpenEditionSection = props => {
             />
           </div>
         </div>
-        <div className="w-full hidden lg:block mt-[20px] lg:mt-[30px] z-10">
+        <div className={`${styles.editionSwiper} lg:block hidden`}>
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={1.31}
-            spaceBetween={viewport === 'lg' || viewport === 'xl' ? 20 : 0}
+            slidesPerView={1.36}
+            spaceBetween={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 20 : 0}
             centeredSlides={true}
             loop
             modules={[Navigation]}
@@ -155,7 +154,7 @@ const OpenEditionSection = props => {
           </Swiper>
         </div>
         {/* Mobile */}
-        <div className="g-container w-full lg:hidden block mt-[20px] lg:mt-[30px] z-10">
+        <div className="w-full lg:hidden block mt-[20px] lg:mt-[30px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={viewport === 'xs' ? 1 : 2}

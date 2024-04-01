@@ -5,6 +5,7 @@
   @media (min-width: 1024px) {
     padding-top: 30px;
   }
+  padding-top: 30px;
   padding-bottom: 30px;
   width: 100%;
 }
@@ -50,4 +51,23 @@
   background: var(--time-slot-bg);
   padding: 0px 6px;
   z-index: 10;
+}
+
+.editionSwiper {
+  @media (min-width: 1024px) {
+    width: calc(100% + 120px);
+    margin-left: -60px;
+    margin-right: -60px;
+  }
+  @media (min-width: 1280px) {
+    width: calc(100% + 240px);
+    margin-left: -120px;
+    margin-right: -120px;
+  }
+  @media (min-width: 1536px) {
+    width: calc(100% + 300px);
+    margin-left: -150px;
+    margin-right: -150px;
+  }
+  margin-top: 30px;
 }
