@@ -9,7 +9,7 @@ import { useViewport } from 'utils'
 import { formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -20,9 +20,8 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName } from 'utils/strings'
 
 const LimitedEditionCard = props => {
-  const { data, onClick, setCardExpired } = props
+  const { data, onClick } = props
   const viewport = useViewport()
-  const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
 
@@ -37,67 +36,6 @@ const LimitedEditionCard = props => {
     }
   }, [data])
 
-  const calculateAuctionTimeLeft = endDate => {
-    let difference = getTimeDifference(endDate)
-    let timeLeft = {}
-
-    if (difference > 0) {
-      const seconds = Math.floor((difference / 1000) % 60)
-      const minutes = Math.floor((difference / 1000 / 60) % 60)
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-      timeLeft['seconds'] = (seconds < 10 && '0') + seconds + ''
-      timeLeft['minutes'] = (minutes < 10 && '0') + minutes + ''
-      timeLeft['hours'] = (hours < 10 && '0') + hours + ''
-      timeLeft['days'] = (days < 10 && '0') + days + ''
-    } else {
-      timeLeft = {
-        days: '00',
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
-      }
-    }
-
-    return timeLeft
-  }
-
-  useEffect(() => {
-    if (
-      data.start_time !== null &&
-      data.start_time !== undefined &&
-      data.end_time !== undefined &&
-      data.end_time !== null
-    ) {
-      setTimeLeft(calculateAuctionTimeLeft(getStartTime(data)))
-
-      const timer = setInterval(() => {
-        let timeLeft = calculateAuctionTimeLeft(getStartTime(data))
-        if (
-          timeLeft['days'] === '00' &&
-          timeLeft['hours'] === '00' &&
-          timeLeft['minutes'] === '00' &&
-          timeLeft['seconds'] === '00'
-        )
-          setCardExpired(data)
-        setTimeLeft(timeLeft)
-      }, 1000)
-
-      return () => clearTimeout(timer)
-    }
-  }, [data.start_time, data.end_time])
-
-  const getStartTime = data => {
-    let difference = getTimeDifference(data.start_time)
-
-    if (difference >= 0) {
-      setAuctionStarted(false)
-      return data.start_time
-    } else {
-      setAuctionStarted(true)
-      return data.end_time
-    }
-  }
   return (
     <div className={styles.container}>
       <div className={styles.profileContainer}>
@@ -118,14 +56,12 @@ const LimitedEditionCard = props => {
             {data?.artist_profile_picture === undefined ||
             data?.artist_profile_picture === null ||
             data?.artist_profile_picture === '' ? (
-              <img src={DefaultAvatar.src} className="w-[44px] h-[44px] rounded-full" />
+              <img src={DefaultAvatar.src} className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full" />
             ) : (
               <img
                 src={data?.artist_profile_picture}
                 onClick={() => {}}
-                width={44}
-                height={44}
-                className="w-[44px] rounded-full"
+                className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full"
               />
             )}
           </a>
@@ -232,50 +168,21 @@ const LimitedEditionCard = props => {
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>
           <div className="w-full flex justify-between">
-            <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
-            <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+            <div className={styles.bidName}>Price</div>
+            <div className={styles.bidTime}>Limited Edition</div>
           </div>
           <div>
             <div className={styles.bidCountContainer}>
               <div className="h-full mt-[2px]">
                 <SolanaLogoMobileIcon alt="" />
               </div>
-              <div className={styles.bidCount}>
-                {data.current_bid !== null && data.current_bid > 0
-                  ? formattedAmount(data.current_bid)
-                  : formattedAmount(data.reserve_price)}
-              </div>
+              <div className={styles.bidCount}>{formattedAmount(data.current_bid)}</div>
             </div>
           </div>
 
           <div>
             <div className={styles.bidCountContainer}>
-              {timeLeft && timeLeft['days'] !== '00' && (
-                <div>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['days']}
-                    <div className={styles.bidDesc}>D</div>
-                  </div>
-                </div>
-              )}
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['hours']}
-                  <div className={styles.bidDesc}>H</div>
-                </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['minutes']}
-                  <div className={styles.bidDesc}>M</div>
-                </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['seconds']}
-                  <div className={styles.bidDesc}>S</div>
-                </div>
-              </div>
+              <div className={styles.bidCount}>{data.supply + '/' + data.max_supply + ' left'}</div>
             </div>
           </div>
         </div>

@@ -25,6 +25,7 @@ import { useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
+import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
 
 const Home = () => {
   const viewport = useViewport()
@@ -76,6 +77,11 @@ const Home = () => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <MarketplaceReleaseSection category={''} />
+        </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <div className="g-container">
+          <LimitedEditionSection category={''} />
         </div>
       </div>
       <div className={styles.otherBG}>
