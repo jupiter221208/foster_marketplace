@@ -139,8 +139,13 @@ const ListedNFTSection = props => {
       )
       .filter(listing => listing != null)
 
+    dispatch({ type: 'set', isGetListedNFTs: true })
+    dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
+    setLoading(false)
+  }
+
+  const getLiveEditions = async () => {
     const editions = await getEditionList(mx.identity().publicKey.toBase58())
-    console.log(editions, '==========editions==========')
     let lists = []
     editions.map(item => {
       lists.push({
@@ -154,14 +159,13 @@ const ListedNFTSection = props => {
       })
     })
     setLiveEditions(lists)
-
-    dispatch({ type: 'set', isGetListedNFTs: true })
-    dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
-    setLoading(false)
   }
 
   useEffect(() => {
-    if (mx && !isGetListedNFTs) setMyListedNFTs()
+    if (mx) {
+      if (!isGetListedNFTs) setMyListedNFTs()
+      getLiveEditions()
+    }
   }, [mx, isGetListedNFTs])
 
   const onCancelList = async ({ address, tradeStateAddress }: ListingsAPIData) => {

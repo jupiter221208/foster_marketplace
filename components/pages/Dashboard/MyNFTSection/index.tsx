@@ -18,7 +18,8 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
+import { getEditionList } from 'apis/editions'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -34,7 +35,7 @@ const MyNFTSection = props => {
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
   const [allNftList, setAllNftList] = useState<NftData[]>([])
-
+  const [listedEdition, setListedEdition] = useState([])
   const [allList, setAllList] = useState<NftData[]>([])
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
@@ -61,12 +62,23 @@ const MyNFTSection = props => {
     )
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
+
     setLoading(false)
   }
 
+  const getListedNft = async () => {
+    const editions = await getEditionList(mx.identity().publicKey.toBase58())
+    let lists = []
+    editions.map(item => {
+      lists.push(item.nft.token_id)
+    })
+    setListedEdition(lists)
+  }
+
   useEffect(() => {
-    if (mx && connection && publicKey && !isGetMyNFTs) {
-      loadMyNFTs()
+    if (mx && connection && publicKey) {
+      if (!isGetMyNFTs) loadMyNFTs()
+      getListedNft()
     }
   }, [mx, connection, publicKey, isGetMyNFTs])
 
@@ -105,6 +117,8 @@ const MyNFTSection = props => {
   }
 
   const handleSuccessListEdition = nftName => {
+    getListedNft()
+
     setAlertData([
       {
         id: 0,
@@ -113,6 +127,8 @@ const MyNFTSection = props => {
         type: 'success',
       },
     ])
+
+    changeActiveTab(2)
 
     setTimeout(() => {
       setShowAlert(true)
@@ -194,9 +210,13 @@ const MyNFTSection = props => {
     if (active === 0) {
       setFilteredNfts(filteredList.filter(n => n?.supply?.max === 0))
     } else if (active === 1) {
-      setFilteredNfts(filteredList.filter(n => n?.supply?.max > 0 || n?.supply?.max === null))
+      setFilteredNfts(
+        filteredList.filter(
+          n => (n?.supply?.max > 0 || n?.supply?.max === null) && !listedEdition.includes(n.mintAddress)
+        )
+      )
     }
-  }, [filteredList])
+  }, [filteredList, listedEdition])
 
   const searchNFT = key => {
     if (key === '') {
