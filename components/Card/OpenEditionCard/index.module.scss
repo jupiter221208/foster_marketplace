@@ -59,10 +59,10 @@
   justify-content: space-between;
   z-index: 100;
   @media (min-width: 1024px) {
-    padding: 20px;
+    padding: 30px 45px;
   }
   @media (min-width: 1440px) {
-    padding: 30px 40px 30px 30px;
+    padding: 43px 60px;
   }
 }
 
@@ -102,34 +102,28 @@
   width: fit-content;
   display: flex;
   gap: 21px;
-  align-items: center;
-  background: var(--hero-avatar-bg-rgb);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
-  @media (min-width: 1024px) {
-    padding: 12px 18px 12px 15px;  
-    border-radius: 22px;
-  }
-  @media (min-width: 1440px) {
-    padding: 16px 24px 16px 20px;  
-    border-radius: 30px;
-  }
+  align-items: center;  
 }
 
 .nftNames {
-  color: var(--pagination-down-icon);
+  
   p:first-child {
     font-family: 'Muli-SemiBold';
-    font-size: 18px;
+    font-size: 20px;
     @media (min-width: 1440px) {
       font-size: 22px;
+      line-height: 30px;
     }
+    color: var(--text-gray-200-color);
   }
   p:nth-child(2) {
     font-family: 'Muli-Light';
     font-size: 16px;
+    margin-top: 2px;
     @media (min-width: 1440px) {
+      margin-top: 3px;
       font-size: 18px;
+      line-height: 23px;
     }
     color: rgba(var(--main-bg-color-rgb), 0.9);
   }
@@ -164,8 +158,8 @@
   width: 45px;
   height: 45px;
   @media (min-width: 1440px) {
-    width: 70px;
-    height: 70px;
+    width: 66px;
+    height: 66px;
   }
 }
 
@@ -173,13 +167,6 @@
   display: flex;
   gap: 16px;
   background: var(--hero-avatar-bg-rgb);
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
-  padding: 18px 20px;  
-  @media (min-width: 1440px) {
-    padding: 22px 26px;  
-  }
-  border-radius: 30px;
 }
 
 .firstBtn {
@@ -220,33 +207,38 @@
 
 .price {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 16px;
   @media (min-width: 1280px) {
-    font-size: 22px;
+    font-size: 16px;
   }
+  color: var(--text-gray-200-color) 
+}
+
+.priceLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8) 
+}
+
+.sold {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color) 
 }
 
 .priceBox {
   width: auto;
-  padding-left: 12px;
-  padding-right: 12px;
-  height: 40px;
-  @media (min-width: 1280px) {
-    height: 45px;
-  }
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
-  border-radius: 12px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
 .noSelect {
   user-select: none;
   box-shadow: 0px 3px 6px rgba(#000, 0.16);
-
 }
 
 .skeletonLoader:empty {

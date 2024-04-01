@@ -27,7 +27,7 @@ import styles from './index.module.scss'
 // call apis
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import OutlineButton from 'components/Button/OutlineButton'
-import LimitedEditionCard from 'components/Card/LimitedEditionCard'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
 
 const LimitedEditionSection = props => {
   const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
@@ -149,7 +149,7 @@ const LimitedEditionSection = props => {
             spaceBetween={
               viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
             }
-            modules={[Autoplay, Lazy, Navigation]}
+            modules={[Navigation]}
             className={
               editionList.length > 4
                 ? 'auctionNavigationSwiper'
@@ -160,15 +160,7 @@ const LimitedEditionSection = props => {
           >
             {editionList.map((item, index) => (
               <SwiperSlide key={index}>
-                <LimitedEditionCard
-                  data={item}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push('/nft/' + item.token_id)
-                  }}
-                  setCardExpired={item => {}}
-                  key={index}
-                />
+                <HomeEditionCard data={item} onClick={() => {}} key={index} />
               </SwiperSlide>
             ))}
           </Swiper>

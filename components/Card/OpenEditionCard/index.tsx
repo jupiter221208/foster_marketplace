@@ -10,13 +10,12 @@ import { getDisplayUserName } from 'utils/strings'
 import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 
@@ -92,12 +91,6 @@ const OpenEditionCard = ({ data }) => {
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
                   {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                     <div className="w-full h-full relative">
-                      {/* <ModelViewer
-                        path={data.asset_url ?? data.cover_image_url}
-                        width={width}
-                        height={height}
-                        orbitLimited
-                      /> */}
                       <img
                         src={data.cover_image_url}
                         alt=""
@@ -256,34 +249,38 @@ const OpenEditionCard = ({ data }) => {
           </div>
         </div>
 
-        <div className="w-full flex justify-end">
-          <div className="flex items-end">
-            {data.artist_username === '' ? (
-              <div className={`${styles.skeletonLoader} w-[270px] h-[40px] rounded-full`}></div>
-            ) : (
-              <div>
-                <div className={styles.btnBox}>
-                  <div className={styles.priceBox}>
-                    <div className="mt-1">
-                      <SolanaIcon alt="" />
-                    </div>
-                    <div className={styles.price}>{data.list_price}</div>
-                  </div>
+        <div className="w-full flex justify-between">
+          <div>
+            <div className={styles.priceLabel}>Open Edition</div>
+            <div className="mt-[12px] mb-[24px]">
+              <div className={styles.sold}>{data.supply + ' sold'}</div>
+            </div>
 
-                  <Link href={`/${data.artist_username}`} passHref>
-                    <a>
-                      <div className={styles.firstBtn}>Artist Profile</div>
-                    </a>
-                  </Link>
-
-                  <Link href={`/nft/${data.token_id}`} passHref>
-                    <a>
-                      <div className={styles.secondBtn}>View</div>
-                    </a>
-                  </Link>
-                </div>
+            <div className={styles.priceLabel}>Price</div>
+            <div className="flex gap-[6px] mt-[12px]">
+              <div className="mt-1">
+                <SolanaIcon alt="" />
               </div>
-            )}
+              <div className={styles.price}>{data.list_price}</div>
+            </div>
+          </div>
+
+          <div className="flex items-end">
+            <div>
+              <div className={styles.btnBox}>
+                <Link href={`/${data.artist_username}`} passHref>
+                  <a>
+                    <div className={styles.firstBtn}>Artist Profile</div>
+                  </a>
+                </Link>
+
+                <Link href={`/nft/${data.token_id}`} passHref>
+                  <a>
+                    <div className={styles.secondBtn}>View</div>
+                  </a>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import OpenEditionCard from 'components/Card/OpenEditionCard'
+import HomeEditionCard from 'components/Card/HomeEditionCard'
 
 const OpenEditionSection = props => {
   const { category } = props
@@ -52,7 +53,7 @@ const OpenEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -67,7 +68,7 @@ const OpenEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -82,7 +83,7 @@ const OpenEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -97,7 +98,7 @@ const OpenEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -112,7 +113,7 @@ const OpenEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -136,7 +137,7 @@ const OpenEditionSection = props => {
             />
           </div>
         </div>
-        <div className="w-full mt-[20px] lg:mt-[30px] z-10">
+        <div className="w-full hidden lg:block mt-[20px] lg:mt-[30px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={1.31}
@@ -149,6 +150,22 @@ const OpenEditionSection = props => {
             {editionList.map((item, index) => (
               <SwiperSlide key={index}>
                 <OpenEditionCard data={item} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        {/* Mobile */}
+        <div className="g-container w-full lg:hidden block mt-[20px] lg:mt-[30px] z-10">
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' ? 1 : 2}
+            spaceBetween={viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : 0}
+            modules={[Navigation]}
+            className={'heroNavigationSwiper'}
+          >
+            {editionList.map((item, index) => (
+              <SwiperSlide key={index}>
+                <HomeEditionCard data={item} type="open" />
               </SwiperSlide>
             ))}
           </Swiper>

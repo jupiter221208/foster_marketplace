@@ -19,11 +19,10 @@ import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName } from 'utils/strings'
 
-const LimitedEditionCard = props => {
-  const { data, onClick } = props
+const HomeEditionCard = props => {
+  const { data, type = 'limit', onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
-  const [auctionStarted, setAuctionStarted] = useState(true)
 
   useEffect(() => {
     if (
@@ -182,7 +181,11 @@ const LimitedEditionCard = props => {
 
           <div>
             <div className={styles.bidCountContainer}>
-              <div className={styles.bidCount}>{data.supply + '/' + data.max_supply + ' left'}</div>
+              {type === 'limit' ? (
+                <div className={styles.bidCount}>{data.supply + '/' + data.max_supply + ' left'}</div>
+              ) : (
+                <div className={styles.bidCount}>{data.supply + ' sold'}</div>
+              )}
             </div>
           </div>
         </div>
@@ -191,4 +194,4 @@ const LimitedEditionCard = props => {
   )
 }
 
-export default LimitedEditionCard
+export default HomeEditionCard
