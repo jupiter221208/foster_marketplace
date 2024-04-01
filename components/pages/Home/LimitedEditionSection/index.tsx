@@ -55,7 +55,7 @@ const LimitedEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -70,7 +70,7 @@ const LimitedEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -85,7 +85,7 @@ const LimitedEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -100,7 +100,7 @@ const LimitedEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -115,7 +115,7 @@ const LimitedEditionSection = props => {
         cover_image_url: '',
         asset_url:
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        current_bid: '2.0',
+        list_price: '2.0',
         supply: 8,
         max_supply: 10,
       },
@@ -127,16 +127,9 @@ const LimitedEditionSection = props => {
     editionList.length > 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10 ml-[5px]">
-          <div className={styles.title}>Live&nbsp;Auctions</div>
+          <div className={styles.title}>Limited&nbsp;Editions</div>
           <div className="z-10 sm:block hidden">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            />
+            <SeeMoreButton onClick={() => {}} />
           </div>
         </div>
         <div className="w-full mt-[20px] lg:mt-[30px] z-10">

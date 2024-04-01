@@ -71,7 +71,7 @@ const LimitedEditionCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center rounded-t-[24px] overflow-hidden">
+              <div className="w-full relative flex justify-center items-center overflow-hidden">
                 <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
                   <a className="w-full h-full">
                     {play ? (
@@ -176,7 +176,7 @@ const LimitedEditionCard = props => {
               <div className="h-full mt-[2px]">
                 <SolanaLogoMobileIcon alt="" />
               </div>
-              <div className={styles.bidCount}>{formattedAmount(data.current_bid)}</div>
+              <div className={styles.bidCount}>{formattedAmount(data.list_price)}</div>
             </div>
           </div>
 

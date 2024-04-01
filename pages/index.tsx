@@ -26,6 +26,7 @@ import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
 import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
+import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
 
 const Home = () => {
   const viewport = useViewport()
@@ -83,6 +84,9 @@ const Home = () => {
         <div className="g-container">
           <LimitedEditionSection category={''} />
         </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <OpenEditionSection category={''} />
       </div>
       <div className={styles.otherBG}>
         {viewport === 'xs' ? (
