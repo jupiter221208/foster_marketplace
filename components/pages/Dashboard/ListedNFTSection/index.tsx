@@ -31,10 +31,10 @@ import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { ListingsAPIData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import ListedEditionCard from 'components/Card/ListedEditionCard'
 
 type SelectedDataType = {
   category: string
@@ -71,6 +71,7 @@ const ListedNFTSection = props => {
   const isGetListedNFTs = useSelector<any>(state => state.isGetListedNFTs)
   const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
+  const [liveEditions, setLiveEditions] = useState([])
   const [active, setActive] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [filterList, setFilterList] = useState([
@@ -94,7 +95,7 @@ const ListedNFTSection = props => {
 
   const { updateSolBalance } = useWallets()
 
-  const [nftList, setNFTList] = useState<ListingsAPIData[]>([])
+  const [nftList, setNFTList] = useState<any>([])
 
   function getMintAddress(asset): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
@@ -139,7 +140,21 @@ const ListedNFTSection = props => {
       .filter(listing => listing != null)
 
     const editions = await getEditionList(mx.identity().publicKey.toBase58())
-    console.log(editions, '====================editions==================')
+    console.log(editions, '==========editions==========')
+    let lists = []
+    editions.map(item => {
+      lists.push({
+        address: item.nft.token_id,
+        price: Number(item.listedMasterEdition.price),
+        type: item.nft.type,
+        assetUrl: item.nft.asset_url,
+        coverUrl: item.nft.cover_image_url,
+        name: item.nft.nft_name,
+        creatorAddress: item.nft.owner_id,
+      })
+    })
+    setLiveEditions(lists)
+
     dispatch({ type: 'set', isGetListedNFTs: true })
     dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
     setLoading(false)
@@ -332,13 +347,13 @@ const ListedNFTSection = props => {
         setSelectedItem(filterList[1])
       } else {
         // active === 2
-        let new_list = liveAuctionNFTs as any[]
+        let new_list = liveEditions as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[2])
       }
     }, 500)
-  }, [fixedPriceNFTs, liveAuctionNFTs, active])
+  }, [fixedPriceNFTs, liveAuctionNFTs, liveEditions, active])
 
   useEffect(() => {
     if (isFetching) {
@@ -351,12 +366,20 @@ const ListedNFTSection = props => {
           setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
-      } else {
+      } else if (active === 1) {
         if (nftList.length + rowCount > liveAuctionNFTs.length) {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      } else {
+        if (nftList.length + rowCount > liveEditions.length) {
+          setNFTList([...nftList, ...liveEditions.slice(nftList.length, liveEditions.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNFTList([...nftList, ...liveEditions.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       }
@@ -375,35 +398,23 @@ const ListedNFTSection = props => {
             setActive(item.id)
           }}
         />
-
-        {/* <div className={styles.slotBG}>
-          <TimeSlotButton
-            label="Buy&nbsp;Now"
-            onClick={() => handleChangeActive(0)}
-            selected={active === 0}
-            width={160}
-          />
-          <TimeSlotButton label="Auction" onClick={() => handleChangeActive(1)} selected={active === 1} width={160} />
-          <TimeSlotButton
-            label="Live&nbsp;Editions"
-            onClick={() => handleChangeActive(2)}
-            selected={active === 2}
-            width={120}
-          />
-        </div> */}
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map(item => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={item.address}>
-              <ListedNFTCard
-                data={item}
-                type={active === 0 ? 'fixed' : active === 1 ? 'auction' : 'edition'}
-                onClick={url => handleGotoDetailPage(url)}
-                onActionClick={item => handleSelectData(item)}
-                cancelAuction={cancelAuction}
-                finalizeSale={finalizeSale}
-              />
+              {active === 0 || active === 1 ? (
+                <ListedNFTCard
+                  data={item}
+                  type={active === 0 ? 'fixed' : active === 1 ? 'auction' : 'edition'}
+                  onClick={url => handleGotoDetailPage(url)}
+                  onActionClick={item => handleSelectData(item)}
+                  cancelAuction={cancelAuction}
+                  finalizeSale={finalizeSale}
+                />
+              ) : (
+                <ListedEditionCard data={item} onClick={url => handleGotoDetailPage(url)} onCancelList={() => {}} />
+              )}
             </div>
           ))}
         <div className="col-span-12">
@@ -411,18 +422,24 @@ const ListedNFTSection = props => {
         </div>
       </div>
       {isGetListedNFTs &&
-        ((active === 0 && fixedPriceNFTs.length === 0) || (active === 1 && liveAuctionNFTs.length === 0)) && (
+        ((active === 0 && fixedPriceNFTs.length === 0) ||
+          (active === 1 && liveAuctionNFTs.length === 0) ||
+          (active === 2 && liveEditions.length === 0)) && (
           <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[20px]">
             <NoDataSection
               title={
                 active === 0
                   ? "You don't have any active fixed-price listings"
-                  : "You don't have any active live auctions"
+                  : active === 1
+                  ? "You don't have any active live auctions"
+                  : "You don't have any active live editions"
               }
               description={
                 active === 0
                   ? 'This tab displays your NFTs with an active fixed-price listing'
-                  : 'This tab displays your NFTs that are in a live auction'
+                  : active === 1
+                  ? 'This tab displays your NFTs that are in a live auction'
+                  : 'This tab displays your NFTs that are in a live editions'
               }
             />
           </div>
