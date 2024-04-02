@@ -65,7 +65,13 @@ const CreatorMerch = props => {
           <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
         </div>
         <div className="w-full mt-[30px] flex justify-between">
-          <div className={styles.profile} onClick={() => router.push(`/${userName}`)}>
+          <div
+            className={styles.profile}
+            onClick={() => {
+              let path = window.location.href
+              router.push(path.substring(0, path.lastIndexOf('/')))
+            }}
+          >
             <div>
               <LeftArrow />
             </div>
