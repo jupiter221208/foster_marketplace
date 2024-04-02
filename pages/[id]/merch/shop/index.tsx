@@ -66,9 +66,9 @@ const CreatorMerchShop = () => {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-20 gap gap-[11px] lg:gap-[20px] xl:gap-[30px]">
+      <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px]">
         {merchList.map((item, index) => (
-          <div className="col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+          <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
             <MerchShopCard data={item} />
           </div>
         ))}

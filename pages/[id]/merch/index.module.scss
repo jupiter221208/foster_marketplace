@@ -32,3 +32,48 @@
   left:0px;
   bottom:0px;
 }
+
+.profile {
+  width: 100px;
+  height: 43px;
+  border-radius: 30px;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  font-size: 18px;
+  line-height: 23px;
+  font-family: "Muli-Regular";
+  color: var(--text-gray-200-color);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+}
+
+.plus {
+  width: 43px;
+  height: 43px;
+  border-radius: 100%;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plusBG {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  background: rgba(var(--main-icon-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.share {
+  width: 43px;
+  height: 43px;
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

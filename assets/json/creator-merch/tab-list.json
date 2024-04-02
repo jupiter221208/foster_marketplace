@@ -1,8 +1,8 @@
 [
   {
     "id": 0,
-    "icon01": "/icons/list-ui-alt-green.svg",
-    "icon02": "/icons/list-ui-alt-gray.svg",
+    "icon01": "/icons/shop-cart-green.svg",
+    "icon02": "/icons/shop-cart-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
     "icon04": "/icons/list-ui-alt-gray-dark.svg",
     "label": "Shop",
@@ -10,8 +10,8 @@
   },
   {
     "id": 1,
-    "icon01": "/icons/collection-green.svg",
-    "icon02": "/icons/collection-gray.svg",
+    "icon01": "/icons/badge-green.svg",
+    "icon02": "/icons/badge-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
     "icon04": "/icons/collection-gray-dark.svg",
     "label": "Badges",
@@ -19,8 +19,8 @@
   },
   {
     "id": 2,
-    "icon01": "/icons/heart-rate-green.svg",
-    "icon02": "/icons/heart-rate-gray.svg",
+    "icon01": "/icons/star-icon-green.svg",
+    "icon02": "/icons/star-icon-gray.svg",
     "icon03": "/icons/heart-rate-gray-light.svg",
     "icon04": "/icons/heart-rate-gray-dark.svg",
     "label": "Reviews",
