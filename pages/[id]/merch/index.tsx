@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
+// next component
 import Image from 'next/image'
 
 //components
@@ -17,7 +20,9 @@ import TabList from 'assets/json/creator-merch/tab-list.json'
 // styles
 import styles from './index.module.scss'
 
-const CreatorMerch = () => {
+const CreatorMerch = props => {
+  const { userName } = props
+  const router = useRouter()
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
 
@@ -60,7 +65,7 @@ const CreatorMerch = () => {
           <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
         </div>
         <div className="w-full mt-[30px] flex justify-between">
-          <div className={styles.profile}>
+          <div className={styles.profile} onClick={() => router.push(`/${userName}`)}>
             <div>
               <LeftArrow />
             </div>

@@ -29,6 +29,12 @@ import { useViewport, namePublicFile } from 'utils'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import InstagramIcon from 'assets/icons/social-ig.svg?component'
+import TwitterIcon from 'assets/icons/social-twitter.svg?component'
+import WebSiteIcon from 'assets/icons/website-icon.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
+
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
@@ -451,6 +457,40 @@ const MainSection = prop => {
           </div>
 
           <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[33px] h-[33px] mt-[4px] mr-[20px] rounded-md`}></div>
+            ) : (
+              <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[20px]">
+                {refreshing ? (
+                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                ) : (
+                  <div onClick={() => refreshNFT()}>
+                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                  </div>
+                )}
+              </div>
+            )}
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] mr-[20px] rounded-md`}></div>
+            ) : (
+              <div className="mr-[20px]">
+                <div onClick={() => router.push(`/${artistInfo?.username}/merch`)}>
+                  <CreatorMerchIcon alt="" />
+                </div>
+              </div>
+            )}
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[40px] h-[40px] mt-[4px] mr-[20px] rounded-md`}></div>
+            ) : (
+              <div className="mr-[11px] ">
+                <MenuSocialShare
+                  type="image"
+                  vote={true}
+                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                  url={`/${artistInfo?.username}`}
+                />
+              </div>
+            )}
             {!isOwn && (
               <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
                 {!followLoaded && (
@@ -912,6 +952,15 @@ const MainSection = prop => {
                 </div>
               )}
             </div>
+            {hasLoading ? (
+              <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] mr-[10px] rounded-md`}></div>
+            ) : (
+              <div>
+                <div onClick={() => router.push(`/${artistInfo?.username}/merch`)}>
+                  <CreatorMerchIcon alt="" />
+                </div>
+              </div>
+            )}
             {hasLoading ? (
               <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] rounded-md`}></div>
             ) : (

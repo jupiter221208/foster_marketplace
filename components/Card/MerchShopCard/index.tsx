@@ -26,9 +26,7 @@ const MerchShopCard = props => {
       <Swiper
         navigation={true}
         spaceBetween={0}
-        // pagination={{
-        //   clickable: true,
-        // }}
+        pagination={true}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         className={'merchShopCardSwiper'}
         loop

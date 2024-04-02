@@ -1,0 +1,13 @@
+<svg data-name='share-icon' xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43">
+  <g id="Group_55440" data-name="Group 55440" transform="translate(-241 -170)">
+    <rect id="Rectangle_21269" data-name="Rectangle 21269" width="43" height="43" rx="10" transform="translate(241 170)" fill="rgba(239,240,246,0.05)"/>
+    <g id="noun-store-6345782" transform="translate(252.243 182.011)">
+      <path id="Path_108590" data-name="Path 108590" d="M36.529,74.987l-1.07,6.85a1.517,1.517,0,1,1-2.938-.714l1.428-4.283a2.722,2.722,0,0,1,2.581-1.854Z" transform="translate(-32.442 -74.987)" />
+      <path id="Path_108591" data-name="Path 108591" d="M278.623,81.351a1.549,1.549,0,1,0,3.079.239V75.006h-2.087Z" transform="translate(-274.155 -75.006)" />
+      <path id="Path_108592" data-name="Path 108592" d="M525,81.778V75h2.711v6.778a1.355,1.355,0,0,1-2.711,0Z" transform="translate(-516.094 -75)" />
+      <path id="Path_108593" data-name="Path 108593" d="M749.986,74.994v6.584a1.549,1.549,0,1,0,3.079-.239l-.991-6.345Z" transform="translate(-737.018 -74.994)" />
+      <path id="Path_108594" data-name="Path 108594" d="M942.447,81.85,941.377,75a2.722,2.722,0,0,1,2.581,1.854l1.428,4.283a1.517,1.517,0,1,1-2.938.714Z" transform="translate(-924.949 -75)" />
+      <path id="Path_108595" data-name="Path 108595" d="M149.984,542.1v9.553H166.25V542.1a2.874,2.874,0,0,1-1.626-1,2.9,2.9,0,0,1-4.421.086,2.711,2.711,0,0,1-4.171,0,2.9,2.9,0,0,1-4.421-.086,2.875,2.875,0,0,1-1.626,1Zm10.166,1.42a.678.678,0,0,0-.678.678V546.9a.678.678,0,0,0,.678.678h2.711a.678.678,0,0,0,.678-.678v-2.711a.678.678,0,0,0-.678-.678Zm-6.778,1.355a.678.678,0,0,0-.678.678v6.1h4.066v-6.1a.678.678,0,0,0-.678-.678Z" transform="translate(-147.86 -532.672)"  fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>
