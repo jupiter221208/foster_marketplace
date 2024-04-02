@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "icon01": "/icons/list-ui-alt-green.svg",
+    "icon02": "/icons/list-ui-alt-gray.svg",
+    "icon03": "/icons/list-ui-alt-gray-light.svg",
+    "icon04": "/icons/list-ui-alt-gray-dark.svg",
+    "label": "Shop",
+    "value": "Shop"
+  },
+  {
+    "id": 1,
+    "icon01": "/icons/collection-green.svg",
+    "icon02": "/icons/collection-gray.svg",
+    "icon03": "/icons/collection-gray-light.svg",
+    "icon04": "/icons/collection-gray-dark.svg",
+    "label": "Badges",
+    "value": "Badges"
+  },
+  {
+    "id": 2,
+    "icon01": "/icons/heart-rate-green.svg",
+    "icon02": "/icons/heart-rate-gray.svg",
+    "icon03": "/icons/heart-rate-gray-light.svg",
+    "icon04": "/icons/heart-rate-gray-dark.svg",
+    "label": "Reviews",
+    "value": "Reviews",
+    "coming_soon": false
+  }
+]
