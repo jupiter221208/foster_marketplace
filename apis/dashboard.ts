@@ -62,6 +62,21 @@ class Dashboard {
       })
   }
 
+  getListedEditions(category: string | null, artist: string | null, page?: number, per_page?: number) {
+    return client
+      .get(
+        addNonEmptySearchParams(API_URL + 'v1/dashboard/listed-editions', {
+          category,
+          artist,
+          page,
+          per_page,
+        }).toString()
+      )
+      .then(response => {
+        return response?.data
+      })
+  }
+
   getLiveAuctions(category: string | null, artist: string | null, mode: string | null, page?: number) {
     return client
       .get(

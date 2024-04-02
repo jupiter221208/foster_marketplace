@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // custom functions
 import { useViewport } from 'utils'
-import { formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
@@ -17,7 +16,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 // styles
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserName, getPriceValue } from 'utils/strings'
 
 const HomeEditionCard = props => {
   const { data, type = 'limit', onClick } = props
@@ -26,9 +25,9 @@ const HomeEditionCard = props => {
 
   useEffect(() => {
     if (
-      data.asset_type.includes('video') &&
+      data.assetType.includes('video') &&
       (viewport === 'xs' || viewport === 'sm' || viewport === 'md') &&
-      data.cover_image_url == null
+      data.coverImageUrl == null
     ) {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
@@ -39,26 +38,26 @@ const HomeEditionCard = props => {
     <div className={styles.container}>
       <div className={styles.profileContainer}>
         <div>
-          <Link href={`/nft/${data.token_id}`} passHref>
+          <Link href={`/nft/${data.tokenId}`} passHref>
             <a>
-              <div className={styles.nftName}>{data?.nft_name}</div>
+              <div className={styles.nftName}>{data?.nftName}</div>
             </a>
           </Link>
-          <Link href={`/${data.artist_username}`} passHref>
+          <Link href={`/${data.artistUsername}`} passHref>
             <a>
-              <div className={styles.artistName}>{getDisplayUserName(data?.artist_username)}</div>
+              <div className={styles.artistName}>{getDisplayUserName(data?.artistUsername)}</div>
             </a>
           </Link>
         </div>
-        <Link href={`/${data.artist_username}`} passHref>
+        <Link href={`/${data.artistUsername}`} passHref>
           <a>
-            {data?.artist_profile_picture === undefined ||
-            data?.artist_profile_picture === null ||
-            data?.artist_profile_picture === '' ? (
+            {data?.artistProfilePicture === undefined ||
+            data?.artistProfilePicture === null ||
+            data?.artistProfilePicture === '' ? (
               <img src={DefaultAvatar.src} className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full" />
             ) : (
               <img
-                src={data?.artist_profile_picture}
+                src={data?.artistProfilePicture}
                 onClick={() => {}}
                 className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full"
               />
@@ -68,23 +67,23 @@ const HomeEditionCard = props => {
       </div>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type.includes('video') ? (
+          {data.assetType.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full relative flex justify-center items-center overflow-hidden">
-                <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
                   <a className="w-full h-full">
                     {play ? (
                       <div
                         className="w-full h-full absolute"
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-              <source src=${data.asset_url} type="video/mp4" /></video>`,
+              <source src=${data.assetUrl} type="video/mp4" /></video>`,
                         }}
                         onClick={() => onClick()}
                       />
-                    ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
+                    ) : data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                       <ImageWithFoster
-                        src={data.cover_image_url}
+                        src={data.coverImageUrl}
                         width={500}
                         onClick={onClick}
                         className="max-w-full max-h-full object-cover"
@@ -94,7 +93,7 @@ const HomeEditionCard = props => {
                         className="w-full h-full absolute"
                         dangerouslySetInnerHTML={{
                           __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-              <source src=${data.asset_url} type="video/mp4" /></video>`,
+              <source src=${data.assetUrl} type="video/mp4" /></video>`,
                         }}
                         onClick={() => onClick()}
                       />
@@ -114,35 +113,35 @@ const HomeEditionCard = props => {
                 </div>
               </div>
             ) : (
-              <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+              <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
                 <a className="w-full h-full">
                   <div
                     className="w-full h-full"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                <source src=${data.asset_url} type="video/mp4" /></video>`,
+                <source src=${data.assetUrl} type="video/mp4" /></video>`,
                     }}
                     onClick={() => onClick()}
                   />
                 </a>
               </Link>
             )
-          ) : data.asset_type.includes('audio') ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+          ) : data.assetType.includes('audio') ? (
+            <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
               <a className="w-full h-full">
                 <ImageWithFoster
-                  src={data.cover_image_url}
+                  src={data.coverImageUrl}
                   width={500}
                   className="max-w-full max-h-full object-cover"
                   onClick={() => onClick()}
                 />
               </a>
             </Link>
-          ) : data.cover_image_url ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+          ) : data.coverImageUrl ? (
+            <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
               <a className="w-full h-full">
                 <ImageWithFoster
-                  src={data.cover_image_url}
+                  src={data.coverImageUrl}
                   width={500}
                   onClick={onClick}
                   className="max-w-full max-h-full object-cover"
@@ -150,10 +149,10 @@ const HomeEditionCard = props => {
               </a>
             </Link>
           ) : (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+            <Link href={`${window.origin}/nft/${data.tokenId}`} passHref>
               <a className="w-full h-full">
                 <ImageWithFoster
-                  src={data.asset_url}
+                  src={data.assetUrl}
                   width={500}
                   onClick={onClick}
                   className="max-w-full max-h-full object-cover"
@@ -175,16 +174,16 @@ const HomeEditionCard = props => {
               <div className="h-full mt-[2px]">
                 <SolanaLogoMobileIcon alt="" />
               </div>
-              <div className={styles.bidCount}>{formattedAmount(data.list_price)}</div>
+              <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>
             </div>
           </div>
 
           <div>
             <div className={styles.bidCountContainer}>
               {type === 'limit' ? (
-                <div className={styles.bidCount}>{data.supply + '/' + data.max_supply + ' left'}</div>
+                <div className={styles.bidCount}>{data.currentSupply + '/' + data.maxSupply + ' left'}</div>
               ) : (
-                <div className={styles.bidCount}>{data.supply + ' sold'}</div>
+                <div className={styles.bidCount}>{data.currentSupply + ' sold'}</div>
               )}
             </div>
           </div>

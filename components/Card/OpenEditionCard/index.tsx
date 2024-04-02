@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserName, getPriceValue } from 'utils/strings'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -57,19 +57,17 @@ const OpenEditionCard = ({ data }) => {
 
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type.includes('image') ? (
-            <Link href={`/nft/${data.token_id}`} passHref>
+          {data.assetType.includes('image') ? (
+            <Link href={`/nft/${data.tokenId}`} passHref>
               <a>
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
-                  {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                  {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
                     <img
                       src={
-                        data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                          ? data.asset_url
-                          : data.cover_image_url !== '' &&
-                            data.cover_image_url !== null &&
-                            data.cover_image_url !== undefined
-                          ? data.cover_image_url
+                        data.assetUrl !== '' && data.assetUrl !== null && data.assetUrl !== undefined
+                          ? data.assetUrl
+                          : data.coverImageUrl !== '' && data.coverImageUrl !== null && data.coverImageUrl !== undefined
+                          ? data.coverImageUrl
                           : ''
                       }
                       alt=""
@@ -85,14 +83,14 @@ const OpenEditionCard = ({ data }) => {
                 </div>
               </a>
             </Link>
-          ) : data.asset_type.includes('vr') ? (
-            <Link href={`/nft/${data.token_id}`} passHref>
+          ) : data.assetType.includes('vr') ? (
+            <Link href={`/nft/${data.tokenId}`} passHref>
               <a>
                 <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
-                  {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
+                  {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
                     <div className="w-full h-full relative">
                       <img
-                        src={data.cover_image_url}
+                        src={data.coverImageUrl}
                         alt=""
                         className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                         onLoad={() => {
@@ -108,11 +106,11 @@ const OpenEditionCard = ({ data }) => {
                 </div>
               </a>
             </Link>
-          ) : data.asset_type.includes('video') ? (
+          ) : data.assetType.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full xl:h-[418px] h-[300px] overflow-hidden">
-                {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <Link href={`/nft/${data.token_id}`} passHref>
+                {data.coverImageUrl != null && data.coverImageUrl !== '' ? (
+                  <Link href={`/nft/${data.tokenId}`} passHref>
                     <a>
                       <div className="w-full xl:h-[418px] h-[300px] " onClick={() => gotoNftDetailPage()}>
                         {!loaded && (
@@ -121,7 +119,7 @@ const OpenEditionCard = ({ data }) => {
                           </ReactPlaceholder>
                         )}
                         <img
-                          src={data.cover_image_url}
+                          src={data.coverImageUrl}
                           alt=""
                           className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                           onLoad={() => {
@@ -143,22 +141,22 @@ const OpenEditionCard = ({ data }) => {
                 )}
               </div>
             ) : (
-              <Link href={`/nft/${data.token_id}`} passHref>
+              <Link href={`/nft/${data.tokenId}`} passHref>
                 <a>
                   <div
                     className="w-full xl:h-[418px] h-[300px] object-contain"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] object-contain overflow-hidden">
-              <source src=${data.asset_url} type="video/mp4" /></video>`,
+              <source src=${data.assetUrl} type="video/mp4" /></video>`,
                     }}
                     onClick={() => gotoNftDetailPage()}
                   />
                 </a>
               </Link>
             )
-          ) : data.asset_type.includes('audio') ? (
-            data.cover_image_url !== null && data.cover_image_url !== '' ? (
-              <Link href={`/nft/${data.token_id}`} passHref>
+          ) : data.assetType.includes('audio') ? (
+            data.coverImageUrl !== null && data.coverImageUrl !== '' ? (
+              <Link href={`/nft/${data.tokenId}`} passHref>
                 <a>
                   <div className="w-full xl:h-[418px] h-[300px]" onClick={() => gotoNftDetailPage()}>
                     {!loaded && (
@@ -167,7 +165,7 @@ const OpenEditionCard = ({ data }) => {
                       </ReactPlaceholder>
                     )}
                     <img
-                      src={data.cover_image_url}
+                      src={data.coverImageUrl}
                       alt=""
                       className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
                       onLoad={() => {
@@ -201,18 +199,16 @@ const OpenEditionCard = ({ data }) => {
 
       <div className={styles.infoBox}>
         <div className={styles.avatarArea}>
-          {data.artist_profile_picture === null && (
+          {data.artistProfilePicture === null && (
             <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
-          {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
+          {data.artistProfilePicture !== null && data.artistProfilePicture !== undefined && (
             <div className={styles.avatar} onClick={() => gotoAristPage()}>
-              <Link href={`/${data.artist_username}`} passHref>
+              <Link href={`/${data.artistUsername}`} passHref>
                 <a>
                   <img
                     src={
-                      data.artist_profile_picture.length > 0
-                        ? data.artist_profile_picture
-                        : 'images/dashboard-avatar.png'
+                      data.artistProfilePicture.length > 0 ? data.artistProfilePicture : 'images/dashboard-avatar.png'
                     }
                     alt=""
                     className={`${styles.noSelect} rounded-full`}
@@ -226,22 +222,22 @@ const OpenEditionCard = ({ data }) => {
             </div>
           )}
           <div className={styles.nftNames}>
-            {data.nft_name === '' ? (
+            {data.nftName === '' ? (
               <div className={`${styles.skeletonLoader} w-[600px] h-[60px] rounded-full`}></div>
             ) : (
-              <Link href={`/nft/${data.token_id}`} passHref>
+              <Link href={`/nft/${data.tokenId}`} passHref>
                 <a>
-                  <p>{data.nft_name}</p>
+                  <p>{data.nftName}</p>
                 </a>
               </Link>
             )}
-            {data.nft_name === '' ? (
+            {data.nftName === '' ? (
               <div className={`${styles.skeletonLoader} w-[300px] h-[26px] rounded-full mt-4`}></div>
             ) : (
               <p>
-                <Link href={`/${data.artist_username}`} passHref>
+                <Link href={`/${data.artistUsername}`} passHref>
                   <a>
-                    <span>{getDisplayUserName(data.artist_username)}</span>
+                    <span>{getDisplayUserName(data.artistUsername)}</span>
                   </a>
                 </Link>
               </p>
@@ -253,7 +249,7 @@ const OpenEditionCard = ({ data }) => {
           <div>
             <div className={styles.priceLabel}>Open Edition</div>
             <div className="mt-[12px] mb-[24px]">
-              <div className={styles.sold}>{data.supply + ' sold'}</div>
+              <div className={styles.sold}>{data.currentSupply + ' sold'}</div>
             </div>
 
             <div className={styles.priceLabel}>Price</div>
@@ -261,20 +257,20 @@ const OpenEditionCard = ({ data }) => {
               <div className="">
                 <SolanaIcon alt="" />
               </div>
-              <div className={styles.price}>{data.list_price}</div>
+              <div className={styles.price}>{getPriceValue(Number(data.price))}</div>
             </div>
           </div>
 
           <div className="flex items-end">
             <div>
               <div className={styles.btnBox}>
-                <Link href={`/${data.artist_username}`} passHref>
+                <Link href={`/${data.artistUsername}`} passHref>
                   <a>
                     <div className={styles.firstBtn}>Artist Profile</div>
                   </a>
                 </Link>
 
-                <Link href={`/nft/${data.token_id}`} passHref>
+                <Link href={`/nft/${data.tokenId}`} passHref>
                   <a>
                     <div className={styles.secondBtn}>View</div>
                   </a>

@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper'
+import { Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -17,18 +17,18 @@ import 'swiper/css/navigation'
 import { useViewport } from 'utils'
 
 // resources
-
-// styles
-import styles from './index.module.scss'
-
-// call apis
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import OpenEditionCard from 'components/Card/OpenEditionCard'
 import HomeEditionCard from 'components/Card/HomeEditionCard'
 
+// styles
+import styles from './index.module.scss'
+
+// call apis
+
 const OpenEditionSection = props => {
-  const { category } = props
+  const { category, editions } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -36,89 +36,8 @@ const OpenEditionSection = props => {
   const [editionList, setEditionList] = useState<any>([])
 
   useEffect(() => {
-    getLimitedEditionsFromServer()
-  }, [])
-
-  const getLimitedEditionsFromServer = () => {
-    setEditionList([
-      {
-        id: 1,
-        nft_name: 'NFT NAME',
-        artist_username: 'Creator Name',
-        artist_profile_picture:
-          'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/e5ca6496-ceb0-4bb8-8c39-339ea5fed484.jpg',
-        asset_type: 'image/png',
-        token_id: 'CFGdWbDsBL3nHoMZUYyg9wyoTTJ1XFD1xSHbg3WsUvP8',
-        cover_image_url: '',
-        asset_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        list_price: '2.0',
-        supply: 8,
-        max_supply: 10,
-      },
-      {
-        id: 1,
-        nft_name: 'NFT NAME',
-        artist_username: 'Creator Name',
-        artist_profile_picture:
-          'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/e5ca6496-ceb0-4bb8-8c39-339ea5fed484.jpg',
-        asset_type: 'image/png',
-        token_id: 'CFGdWbDsBL3nHoMZUYyg9wyoTTJ1XFD1xSHbg3WsUvP8',
-        cover_image_url: '',
-        asset_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        list_price: '2.0',
-        supply: 8,
-        max_supply: 10,
-      },
-      {
-        id: 1,
-        nft_name: 'NFT NAME',
-        artist_username: 'Creator Name',
-        artist_profile_picture:
-          'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/e5ca6496-ceb0-4bb8-8c39-339ea5fed484.jpg',
-        asset_type: 'image/png',
-        token_id: 'CFGdWbDsBL3nHoMZUYyg9wyoTTJ1XFD1xSHbg3WsUvP8',
-        cover_image_url: '',
-        asset_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        list_price: '2.0',
-        supply: 8,
-        max_supply: 10,
-      },
-      {
-        id: 1,
-        nft_name: 'NFT NAME',
-        artist_username: 'Creator Name',
-        artist_profile_picture:
-          'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/e5ca6496-ceb0-4bb8-8c39-339ea5fed484.jpg',
-        asset_type: 'image/png',
-        token_id: 'CFGdWbDsBL3nHoMZUYyg9wyoTTJ1XFD1xSHbg3WsUvP8',
-        cover_image_url: '',
-        asset_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        list_price: '2.0',
-        supply: 8,
-        max_supply: 10,
-      },
-      {
-        id: 1,
-        nft_name: 'NFT NAME',
-        artist_username: 'Creator Name',
-        artist_profile_picture:
-          'https://foster-marketplace-dev.s3.us-east-2.amazonaws.com/e5ca6496-ceb0-4bb8-8c39-339ea5fed484.jpg',
-        asset_type: 'image/png',
-        token_id: 'CFGdWbDsBL3nHoMZUYyg9wyoTTJ1XFD1xSHbg3WsUvP8',
-        cover_image_url: '',
-        asset_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-        list_price: '2.0',
-        supply: 8,
-        max_supply: 10,
-      },
-    ])
-    return false
-  }
+    if (editions) setEditionList(editions.filter(item => item.maxSupply === null || item.maxSupply === '0'))
+  }, [editions])
 
   return (
     editionList.length > 0 && (
