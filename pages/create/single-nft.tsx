@@ -493,6 +493,9 @@ const SingleNft = () => {
           cover_image_url: imageUrl,
           asset_url: animationUrl ?? imageUrl,
           collection_id: collection?.mintAddress.toBase58(),
+          edition: editionType?.name == 'Open Edition' || editionType?.name == 'Limited Edition' ? 0 : null,
+          parent_nft: null,
+          max_supply: editionType?.name == 'Limited Edition' ? maxNum : null,
         })
         .then(
           response => {
