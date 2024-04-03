@@ -61,6 +61,10 @@ const NewCreatorMerch = () => {
         </div>
       </div>
       <div className="mt-[27px]">
+        <div className="w-full flex gap-[5px] mb-[15px]">
+          <div className={styles.fullfill}>Production & Fulfillment</div>
+          <div className={styles.asterisk}>*</div>
+        </div>
         <ProductionListMenu
           label={product.id === -1 ? 'Select who will handle production and fulfillment' : product.label}
           data={ProductList}
@@ -70,7 +74,17 @@ const NewCreatorMerch = () => {
           }}
         />
       </div>
-      <FosterProductSection />
+
+      <div className="mt-[32px]">
+        <div className="w-full flex gap-[5px] mb-[10px]">
+          <div className={styles.fullfill}>Select Apparel Item</div>
+          <div className={styles.asterisk}>*</div>
+        </div>
+        <div className={styles.chooseBase}>Choose a base to begin designing</div>
+        <div className="mt-[30px]">
+          <FosterProductSection />
+        </div>
+      </div>
     </div>
   )
 }
