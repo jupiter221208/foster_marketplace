@@ -64,7 +64,7 @@ const GradientButton = props => {
         ) : (
           <></>
         ))}
-      <div>{label}</div>
+      <div className="mt-[-4px]">{label}</div>
       {(direction === 'both' || direction === 'ltr') &&
         (icon1 !== '' ? (
           <div className="flex items-center ml-2 xl:ml-[15px]">{icon1}</div>
