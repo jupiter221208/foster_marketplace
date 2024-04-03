@@ -17,7 +17,7 @@ const ImageCard = props => {
     <div className="w-[130px] h-[130px]" onClick={() => onSelect(index)}>
       {image ? (
         <div className={isSelected ? styles.selected : styles.noSelect}>
-          <img src={image} alt="" className="max-w-full max-h-full object-contain" />
+          <img src={image} alt="" className="max-w-full max-h-full object-cover" />
           {isDelete && (
             <div className={styles.deleteArea}>
               <div onClick={() => setImage(null)}>Delete</div>
@@ -27,7 +27,9 @@ const ImageCard = props => {
       ) : (
         <Dropzone
           onDropAccepted={acceptedFiles => {
-            acceptedFiles.length !== 0 ? setImage(URL.createObjectURL(acceptedFiles[0])) : setImage(null)
+            if (acceptedFiles.length !== 0) {
+              setImage(URL.createObjectURL(acceptedFiles[0]))
+            } else setImage(null)
           }}
           onDropRejected={rejectedFiles => {
             setImage(null)
