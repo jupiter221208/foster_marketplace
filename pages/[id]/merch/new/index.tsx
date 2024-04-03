@@ -20,6 +20,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 import NewMerchStepper from 'components/NewMerchStepper'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
+import FosterProductSection from 'components/pages/MerchProduct/FosterProductSection'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
@@ -69,6 +70,7 @@ const NewCreatorMerch = () => {
           }}
         />
       </div>
+      <FosterProductSection />
     </div>
   )
 }
