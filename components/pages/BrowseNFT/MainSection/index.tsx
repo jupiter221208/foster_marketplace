@@ -202,6 +202,7 @@ const MainSection = ({
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
+  const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -301,6 +302,9 @@ const MainSection = ({
       setVisible(true)
       return
     }
+
+    setMintEditionLoading(true)
+
     let printResponse
     let txResponse
     for (let i = 0; i < 5 && !txResponse?.confirmResponse; i++)
@@ -328,17 +332,37 @@ const MainSection = ({
       } catch (e: any) {
         console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
+        setMintEditionLoading(false)
         await new Promise(resolve => setTimeout(resolve, 1000))
       }
 
+    setMintEditionLoading(false)
     console.log(txResponse)
     if (txResponse) {
       console.log(`minted edition successfully: ${printResponse.editionMint}`)
-      // TODO: show success popup
+
+      setAlertData([
+        {
+          id: 0,
+          title: 'Successful Mint!',
+          description: `You've successfully minted an edition`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      router.reload()
     } else {
-      console.warn('mint failed')
       console.log(printResponse)
-      // TODO: show error popup
+      setAlertData([
+        {
+          id: 0,
+          title: 'Mint Failed!',
+          description: `You've failed minting an edition`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
     }
   }
   const makeOffer = async price => {
@@ -1416,18 +1440,22 @@ const MainSection = ({
                           </div>
                         </div>
                         <div className="w-full mt-[15px]">
-                          <GradientButton
-                            fullWidth
-                            backgroundColor01="var(--place-bid-minimum-color)"
-                            backgroundColor02="var(--place-bid-minimum-color)"
-                            color="var(--time-slog-bg)"
-                            label={'Mint Edition'}
-                            direction="rtl"
-                            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
-                            onClick={() => mintEdition()}
-                            height={50}
-                            disabled={mintQty === 0}
-                          />
+                          {mintEditionLoading ? (
+                            <LoadingButton fullWidth height={50} />
+                          ) : (
+                            <GradientButton
+                              fullWidth
+                              backgroundColor01="var(--place-bid-minimum-color)"
+                              backgroundColor02="var(--place-bid-minimum-color)"
+                              color="var(--time-slog-bg)"
+                              label={'Mint Edition'}
+                              direction="rtl"
+                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
+                              onClick={() => mintEdition()}
+                              height={50}
+                              disabled={mintQty === 0}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
