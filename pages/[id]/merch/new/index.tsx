@@ -91,9 +91,11 @@ const NewCreatorMerch = () => {
           </div>
         </div>
       )}
-      <div className="mt-[27px]">
-        <MyProductSection />
-      </div>
+      {product.id === 1 && (
+        <div className="mt-[27px]">
+          <MyProductSection />
+        </div>
+      )}
     </div>
   )
 }
