@@ -21,6 +21,7 @@ import GradientButton from 'components/Button/GradientButton'
 import NewMerchStepper from 'components/NewMerchStepper'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
 import FosterProductSection from 'components/pages/MerchProduct/FosterProductSection'
+import MyProductSection from 'components/pages/MerchProduct/MyProductSection'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
@@ -42,6 +43,10 @@ const NewCreatorMerch = () => {
           color="var(--time-slog-bg)"
           fontFamily="Muli-Regular"
           fontSize={18}
+          onClick={() => {
+            let path = window.location.href
+            router.push(path.substring(0, path.lastIndexOf('/')))
+          }}
         />
         <div className="w-[50%]">
           <NewMerchStepper currentStep={currentStep} />
@@ -74,16 +79,20 @@ const NewCreatorMerch = () => {
           }}
         />
       </div>
-
-      <div className="mt-[32px]">
-        <div className="w-full flex gap-[5px] mb-[10px]">
-          <div className={styles.fullfill}>Select Apparel Item</div>
-          <div className={styles.asterisk}>*</div>
+      {product.id === 0 && (
+        <div className="mt-[32px]">
+          <div className="w-full flex gap-[5px] mb-[10px]">
+            <div className={styles.fullfill}>Select Apparel Item</div>
+            <div className={styles.asterisk}>*</div>
+          </div>
+          <div className={styles.chooseBase}>Choose a base to begin designing</div>
+          <div className="mt-[30px]">
+            <FosterProductSection />
+          </div>
         </div>
-        <div className={styles.chooseBase}>Choose a base to begin designing</div>
-        <div className="mt-[30px]">
-          <FosterProductSection />
-        </div>
+      )}
+      <div className="mt-[27px]">
+        <MyProductSection />
       </div>
     </div>
   )

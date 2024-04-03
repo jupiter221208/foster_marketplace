@@ -78,7 +78,13 @@ const CreatorMerch = props => {
             <div className="mt-[-2px]">Profile</div>
           </div>
           <div className="flex gap-[15px]">
-            <div className={styles.plus}>
+            <div
+              className={styles.plus}
+              onClick={() => {
+                let path = window.location.href
+                router.push(`${path}/new`)
+              }}
+            >
               <div className={styles.plusBG}>
                 <PlusIcon />
               </div>
