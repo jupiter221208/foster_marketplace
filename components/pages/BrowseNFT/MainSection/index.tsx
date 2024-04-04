@@ -67,8 +67,6 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
-import MintValuePlus from 'public/icons/mint-value-plus.svg?component'
-import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -124,6 +122,7 @@ import listingsAPI from 'apis/listings'
 import AuctionAPI from 'apis/auctions'
 import { getListedMasterEditionInfo } from 'apis/editions'
 import { getPriceValue } from 'utils/strings'
+import MintEditionCard from 'components/Card/MintEditionCard'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1395,67 +1394,21 @@ const MainSection = ({
                       <GradientButton fullWidth label="Cancel Listing" onClick={() => {}} />
                     </div>
                   ) : (
-                    <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
-                      <div className={styles.masterContainer}>
-                        <div className="w-full flex justify-between gap-[12px]">
-                          <div className={styles.mintQty}>
-                            <div
-                              onClick={() => {
-                                if (mintQty > 0) setMintQty(mintQty - 1)
-                                setPrice((nftPrice * (mintQty - 1)).toFixed(2))
-                              }}
-                            >
-                              <MintValueMinus />
-                            </div>
-                            <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
-                            <div
-                              onClick={() => {
-                                if (editionDetail.maxSupply !== null) {
-                                  if (mintQty + 1 > editionDetail.maxSupply) return
-                                }
-                                setMintQty(mintQty + 1)
-                                setPrice((nftPrice * (mintQty + 1)).toFixed(2))
-                              }}
-                            >
-                              <MintValuePlus />
-                            </div>
-                          </div>
-                          <div className={styles.mintPrice}>
-                            <SolanaLogoIcon />
-                            <PriceInput
-                              value={price}
-                              placeholder="0"
-                              backgroundColor={'transparent'}
-                              fullWidth
-                              min={0}
-                              margin
-                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
-                              onChange={value => {
-                                if (value < 0) {
-                                  setPrice('')
-                                } else {
-                                  setPrice(value)
-                                }
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="w-full mt-[15px]">
-                          {mintEditionLoading ? (
-                            <LoadingButton fullWidth height={50} />
-                          ) : (
-                            <GradientButton
-                              fullWidth
-                              label="Buy Now"
-                              direction="rtl"
-                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
-                              onClick={() => mintEdition()}
-                              height={50}
-                              disabled={mintQty === 0}
-                            />
-                          )}
-                        </div>
-                      </div>
+                    <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[10px]">
+                      <MintEditionCard
+                        price={price}
+                        maxSupply={editionDetail.maxSupply}
+                        endTime={endTime}
+                        startTime={startTime}
+                        setIsEnded={setIsEnded}
+                        setIsStarted={setIsStarted}
+                        nftPrice={nftPrice}
+                        setPrice={setPrice}
+                        mintQty={mintQty}
+                        setMintQty={setMintQty}
+                        mintEditionLoading={mintEditionLoading}
+                        mintEdition={mintEdition}
+                      />
                     </div>
                   )
                 ) : (
