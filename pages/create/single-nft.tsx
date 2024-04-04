@@ -1046,32 +1046,19 @@ const SingleNft = () => {
 
               <div className="w-full flex justify-between my-10">
                 {/* button group part */}
-                {currentStep === 1 &&
-                  (disabledNextButton ? (
-                    <div className="w-full">
-                      <Button
-                        fullWidth
-                        label="Next Step"
-                        disabled={disabledNextButton}
-                        backgroundColor="var(--second-home-bg)"
-                        color="rgba(var(--main-bg-color-rgb), 0.5)"
-                        height="45px"
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-full">
-                      <GradientButton
-                        fullWidth
-                        label="Next Step"
-                        onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                        height="45px"
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
-                      />
-                    </div>
-                  ))}
+                {currentStep === 1 && (
+                  <div className="w-full">
+                    <GradientButton
+                      fullWidth
+                      label="Next Step"
+                      onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                      height="45px"
+                      fontSize={16}
+                      fontFamily="Muli-SemiBold"
+                      disabled={disabledNextButton}
+                    />
+                  </div>
+                )}
                 {currentStep === 2 && (
                   <div className="w-full grid grid-cols-2 gap-5">
                     <div className="col-span-1">
@@ -1089,31 +1076,17 @@ const SingleNft = () => {
                       />
                     </div>
                     <div className="col-span-1">
-                      {disabledNextButton ? (
-                        <div className="w-full">
-                          <Button
-                            fullWidth
-                            label="Next Step"
-                            disabled={disabledNextButton}
-                            backgroundColor="var(--second-home-bg)"
-                            color="rgba(var(--main-bg-color-rgb), 0.5)"
-                            height="45px"
-                            fontSize={16}
-                            fontFamily="Muli-SemiBold"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-full">
-                          <GradientButton
-                            fullWidth
-                            label="Next Step"
-                            onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                            height="45px"
-                            fontSize={16}
-                            fontFamily="Muli-SemiBold"
-                          />
-                        </div>
-                      )}
+                      <div className="w-full">
+                        <GradientButton
+                          fullWidth
+                          label="Next Step"
+                          onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                          height="45px"
+                          fontSize={16}
+                          fontFamily="Muli-SemiBold"
+                          disabled={disabledNextButton}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}

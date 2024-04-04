@@ -31,11 +31,16 @@
   transition-timing-function: ease-in-out;
 }
 
+.disabledBtn {
+  background: rgba(var(--main-bg-color-rgb), 0.1), !important;
+  color:  rgba(var(--main-bg-color-rgb), 0.5) !important;
+}
+
 .hoverBtn {
   &:hover {
     @media (min-width: 1024px) {
-      background: var(--place-bid-minimum-color) !important;
-      color: var(--time-slog-bg) !important
+      background: var(--gradient-btn-hover-bg) !important;
+      color: var(--gradient-btn-hover-color) !important
     }
   }
 }

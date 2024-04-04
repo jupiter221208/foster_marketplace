@@ -274,7 +274,7 @@ const NFTEditionsCard = props => {
           <div className="w-full">
             <div className="flex items-center justify-between">
               <div className="w-full flex justify-between items-center">
-                <div className={styles.currentBid}>Current</div>
+                <div className={styles.currentBid}>Price</div>
                 <div className={styles.currentBid}>{maxSupply === null ? 'Open Edition' : 'Limited Edition'}</div>
               </div>
             </div>
