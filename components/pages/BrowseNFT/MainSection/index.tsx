@@ -1446,10 +1446,7 @@ const MainSection = ({
                           ) : (
                             <GradientButton
                               fullWidth
-                              backgroundColor01="var(--place-bid-minimum-color)"
-                              backgroundColor02="var(--place-bid-minimum-color)"
-                              color="var(--time-slog-bg)"
-                              label={'Mint Edition'}
+                              label="Buy Now"
                               direction="rtl"
                               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
                               onClick={() => mintEdition()}
