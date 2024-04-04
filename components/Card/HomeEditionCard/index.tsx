@@ -229,7 +229,9 @@ const HomeEditionCard = props => {
           <div>
             <div className={styles.bidCountContainer}>
               {type === 'limit' ? (
-                <div className={styles.bidCount}>{data.currentSupply + '/' + data.maxSupply + ' left'}</div>
+                <div className={styles.bidCount}>
+                  {data.maxSupply - data.currentSupply + '/' + data.maxSupply + ' left'}
+                </div>
               ) : (
                 <div className={styles.bidCount}>{data.currentSupply + ' sold'}</div>
               )}
