@@ -76,7 +76,7 @@ const OpenEditionSection = props => {
         <div className="w-full lg:hidden block mt-[20px] lg:mt-[30px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' ? 1 : 2}
+            slidesPerView={viewport === 'xs' ? 1.13 : 2}
             spaceBetween={viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : 0}
             modules={[Navigation]}
             className={'heroNavigationSwiper'}
