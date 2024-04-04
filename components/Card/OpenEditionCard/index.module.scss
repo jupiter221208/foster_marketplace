@@ -34,7 +34,7 @@
 }
 
 .imageArea {
-  background: var(--hero-card-bg);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   min-height: 575px;
   @media (max-width: 1600px) {
     min-height: 450px;
