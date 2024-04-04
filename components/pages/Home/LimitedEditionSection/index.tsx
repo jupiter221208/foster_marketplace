@@ -55,14 +55,14 @@ const LimitedEditionSection = props => {
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
               viewport === 'xs'
-                ? 1
+                ? 1.13
                 : viewport === 'sm' || viewport === 'md'
                 ? 2
                 : viewport === '2xl'
-                ? 4
+                ? 5
                 : viewport === 'xl'
-                ? 3
-                : 3
+                ? 4
+                : 4
             }
             spaceBetween={
               viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20

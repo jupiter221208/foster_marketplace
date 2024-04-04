@@ -711,8 +711,8 @@ h6 {
 
 .noScrollNavigationSwiper {
   padding-bottom: 15px !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   .swiper-button-prev {
     display: none;
   }
@@ -724,6 +724,8 @@ h6 {
 
 .auctionNavigationSwiper {
   padding-bottom: 15px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   @media (min-width: 640px) {
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -1440,6 +1442,10 @@ h6 {
 
 [data-name='solana-logo-dark'] {
   fill: var(--single-nft-btn-color);
+}
+
+[data-name='clock-sand-icon'] {
+  fill: var(--bg-95dbd5-707070);
 }
 
 [data-name='foster-logo-dark'] {

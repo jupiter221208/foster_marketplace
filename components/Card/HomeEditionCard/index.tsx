@@ -12,16 +12,19 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
+import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
+import { getTimeDifference } from 'utils/helpers'
 
 const HomeEditionCard = props => {
   const { data, type = 'limit', onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(null)
 
   useEffect(() => {
     if (
@@ -34,37 +37,81 @@ const HomeEditionCard = props => {
     }
   }, [data])
 
+  const calculateAuctionTimeLeft = endDate => {
+    let difference = getTimeDifference(endDate)
+    let timeLeft = {}
+
+    if (difference > 0) {
+      const seconds = Math.floor((difference / 1000) % 60)
+      const minutes = Math.floor((difference / 1000 / 60) % 60)
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      timeLeft['seconds'] = (seconds < 10 && '0') + seconds + ''
+      timeLeft['minutes'] = (minutes < 10 && '0') + minutes + ''
+      timeLeft['hours'] = (hours < 10 && '0') + hours + ''
+      timeLeft['days'] = (days < 10 && '0') + days + ''
+    } else {
+      timeLeft = {
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+      }
+    }
+
+    return timeLeft
+  }
+
+  useEffect(() => {
+    if (data.end_time !== undefined && data.end_time !== null) {
+      setTimeLeft(calculateAuctionTimeLeft(data.endTime))
+
+      const timer = setInterval(() => {
+        setTimeLeft(calculateAuctionTimeLeft(data.endTime))
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [data.end_time])
+
   return (
     <div className={styles.container}>
-      <div className={styles.profileContainer}>
-        <div>
-          <Link href={`/nft/${data.tokenId}`} passHref>
-            <a>
-              <div className={styles.nftName}>{data?.nftName}</div>
-            </a>
-          </Link>
-          <Link href={`/${data.artistUsername}`} passHref>
-            <a>
-              <div className={styles.artistName}>{getDisplayUserName(data?.artistUsername)}</div>
-            </a>
-          </Link>
-        </div>
-        <Link href={`/${data.artistUsername}`} passHref>
-          <a>
-            {data?.artistProfilePicture === undefined ||
-            data?.artistProfilePicture === null ||
-            data?.artistProfilePicture === '' ? (
-              <img src={DefaultAvatar.src} className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full" />
-            ) : (
-              <img
-                src={data?.artistProfilePicture}
-                onClick={() => {}}
-                className="w-[45px] sm:w-[56px] h-[45px] sm:h-[56px] rounded-full"
-              />
+      {data.end_time ? (
+        <div className={styles.timeSection}>
+          <ClockSandIcon />
+
+          <div className={styles.bidCountContainer}>
+            {timeLeft && timeLeft['days'] !== '00' && (
+              <div>
+                <div className={styles.endTime}>
+                  {timeLeft && timeLeft['days']}
+                  <div className={styles.bidDesc}>D</div>
+                </div>
+              </div>
             )}
-          </a>
-        </Link>
-      </div>
+            <div className={styles.endTimeContainer}>
+              <div className={styles.endTime}>
+                {timeLeft && timeLeft['hours']}
+                <div className={styles.bidDesc}>H</div>
+              </div>
+            </div>
+            <div className={styles.endTimeContainer}>
+              <div className={styles.endTime}>
+                {timeLeft && timeLeft['minutes']}
+                <div className={styles.bidDesc}>M</div>
+              </div>
+            </div>
+            <div className={styles.endTimeContainer}>
+              <div className={styles.endTime}>
+                {timeLeft && timeLeft['seconds']}
+                <div className={styles.bidDesc}>S</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.topSection} />
+      )}
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.assetType.includes('video') ? (
@@ -161,6 +208,32 @@ const HomeEditionCard = props => {
             </Link>
           )}
         </div>
+      </div>
+
+      <div className={styles.profileContainer}>
+        <div>
+          <Link href={`/nft/${data.tokenId}`} passHref>
+            <a>
+              <div className={styles.nftName}>{data?.nftName}</div>
+            </a>
+          </Link>
+          <Link href={`/${data.artistUsername}`} passHref>
+            <a>
+              <div className={styles.artistName}>{getDisplayUserName(data?.artistUsername)}</div>
+            </a>
+          </Link>
+        </div>
+        <Link href={`/${data.artistUsername}`} passHref>
+          <a>
+            {data?.artistProfilePicture === undefined ||
+            data?.artistProfilePicture === null ||
+            data?.artistProfilePicture === '' ? (
+              <img src={DefaultAvatar.src} className="w-[45px]  h-[45px] rounded-full" />
+            ) : (
+              <img src={data?.artistProfilePicture} onClick={() => {}} className="w-[45px] h-[45px] rounded-full" />
+            )}
+          </a>
+        </Link>
       </div>
 
       <div className={styles.bidContainer}>

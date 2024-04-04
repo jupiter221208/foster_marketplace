@@ -602,6 +602,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--explore-tab-border', '#202427')
     doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '245, 244, 242')
+    doc.style.setProperty('--bg-303030-FFF', '#FFF')
+    doc.style.setProperty('--bg-95dbd5-707070', '#707070')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -935,6 +937,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
     doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '51, 51, 51')
-
+    doc.style.setProperty('--bg-303030-FFF', '#303030')
+    doc.style.setProperty('--bg-95dbd5-707070', '#95dbd5')
   }
 }

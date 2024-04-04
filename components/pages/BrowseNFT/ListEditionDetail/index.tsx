@@ -87,16 +87,15 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   const handleListEdition = async () => {
     try {
       setIsLoading(true)
-      // onRefreshPage?.()
 
       let listing = await listMasterEdition({
         mintAddress: data.mintAddress,
         price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
-        // startTime?: string
-        // endTime?: string
-        // buyLimit?: number
+        startTime: startDate.toISOString().split('.')[0],
+        endTime: endDate.toISOString().split('.')[0],
+        buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       })
-
+      console.log(listing, '=========listing==========')
       let mint = new PublicKey(data.mintAddress)
       let owner = metaplex.identity().publicKey
       let delegate = new PublicKey(listing.authorityPublicKey)
