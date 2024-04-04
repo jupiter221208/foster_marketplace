@@ -160,7 +160,7 @@ const MintEditionCard = props => {
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
             onClick={() => mintEdition()}
             height={50}
-            disabled={mintQty === 0 || !auctionStarted}
+            disabled={mintQty === 0}
           />
         )}
       </div>
