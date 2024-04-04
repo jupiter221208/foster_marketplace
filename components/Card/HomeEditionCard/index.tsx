@@ -63,7 +63,7 @@ const HomeEditionCard = props => {
   }
 
   useEffect(() => {
-    if (data.end_time !== undefined && data.end_time !== null) {
+    if (data.endTime !== undefined && data.endTime !== null) {
       setTimeLeft(calculateAuctionTimeLeft(data.endTime))
 
       const timer = setInterval(() => {
@@ -72,39 +72,39 @@ const HomeEditionCard = props => {
 
       return () => clearTimeout(timer)
     }
-  }, [data.end_time])
+  }, [data.endTime])
 
   return (
     <div className={styles.container}>
-      {data.end_time ? (
+      {data.endTime ? (
         <div className={styles.timeSection}>
           <ClockSandIcon />
 
-          <div className={styles.bidCountContainer}>
+          <div className="flex items-center gap-[5px]">
             {timeLeft && timeLeft['days'] !== '00' && (
               <div>
                 <div className={styles.endTime}>
                   {timeLeft && timeLeft['days']}
-                  <div className={styles.bidDesc}>D</div>
+                  <div className={styles.bidDesc}>d</div>
                 </div>
               </div>
             )}
             <div className={styles.endTimeContainer}>
               <div className={styles.endTime}>
                 {timeLeft && timeLeft['hours']}
-                <div className={styles.bidDesc}>H</div>
+                <div className={styles.bidDesc}>h</div>
               </div>
             </div>
             <div className={styles.endTimeContainer}>
               <div className={styles.endTime}>
                 {timeLeft && timeLeft['minutes']}
-                <div className={styles.bidDesc}>M</div>
+                <div className={styles.bidDesc}>m</div>
               </div>
             </div>
             <div className={styles.endTimeContainer}>
               <div className={styles.endTime}>
                 {timeLeft && timeLeft['seconds']}
-                <div className={styles.bidDesc}>S</div>
+                <div className={styles.bidDesc}>s</div>
               </div>
             </div>
           </div>

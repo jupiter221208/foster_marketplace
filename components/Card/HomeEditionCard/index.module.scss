@@ -191,18 +191,16 @@
 
 .endTime {
   display: flex;
-  justify-content: center;
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
-  @media (min-width: 1680px) {
-    font-size: 16px;
-  }
   gap: 2px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.bidDesc {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
 }
