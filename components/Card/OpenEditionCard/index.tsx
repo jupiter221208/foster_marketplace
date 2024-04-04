@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
+import { getTimeDifference } from 'utils/helpers'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -18,13 +19,14 @@ import styles from './index.module.scss'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
+import GradientButton from 'components/Button/GradientButton'
 
 const OpenEditionCard = ({ data }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const [timeLeft, setTimeLeft] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const [profieLoaded, setProfieLoaded] = useState(false)
   const onClick = () => {}
 
   const gotoAristPage = () => {
@@ -34,6 +36,43 @@ const OpenEditionCard = ({ data }) => {
   const gotoNftDetailPage = () => {
     dispatch({ type: 'set', isLoading: true })
   }
+
+  const calculateAuctionTimeLeft = endDate => {
+    let difference = getTimeDifference(endDate)
+    let timeLeft = {}
+
+    if (difference > 0) {
+      const seconds = Math.floor((difference / 1000) % 60)
+      const minutes = Math.floor((difference / 1000 / 60) % 60)
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      timeLeft['seconds'] = (seconds < 10 && '0') + seconds + ''
+      timeLeft['minutes'] = (minutes < 10 && '0') + minutes + ''
+      timeLeft['hours'] = (hours < 10 && '0') + hours + ''
+      timeLeft['days'] = (days < 10 && '0') + days + ''
+    } else {
+      timeLeft = {
+        days: '00',
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+      }
+    }
+
+    return timeLeft
+  }
+
+  useEffect(() => {
+    if (data.endTime !== undefined && data.endTime !== null) {
+      setTimeLeft(calculateAuctionTimeLeft(data.endTime))
+
+      const timer = setInterval(() => {
+        setTimeLeft(calculateAuctionTimeLeft(data.endTime))
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [data.endTime])
 
   return (
     <div className={styles.container}>
@@ -213,9 +252,6 @@ const OpenEditionCard = ({ data }) => {
                     alt=""
                     className={`${styles.noSelect} rounded-full`}
                     loading="lazy"
-                    onLoad={() => {
-                      setProfieLoaded(true)
-                    }}
                   />
                 </a>
               </Link>
@@ -261,20 +297,43 @@ const OpenEditionCard = ({ data }) => {
             </div>
           </div>
 
-          <div className="flex items-end">
+          <div className="flex items-end jusitfy-end">
             <div>
-              <div className={styles.btnBox}>
-                <Link href={`/${data.artistUsername}`} passHref>
-                  <a>
-                    <div className={styles.firstBtn}>Artist Profile</div>
-                  </a>
-                </Link>
-
-                <Link href={`/nft/${data.tokenId}`} passHref>
-                  <a>
-                    <div className={styles.secondBtn}>View</div>
-                  </a>
-                </Link>
+              <div className="flex justify-end">
+                <div className={styles.priceLabel}>Edition Closes</div>
+              </div>
+              <div className="flex justify-end mt-[12px] mb-[29px]">
+                <div className="flex items-center gap-[1px] ">
+                  {timeLeft && timeLeft['days'] !== '00' && (
+                    <div>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['days']}
+                        <div className={styles.bidDesc}>d</div>
+                      </div>
+                    </div>
+                  )}
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['hours']}
+                      <div className={styles.bidDesc}>h</div>
+                    </div>
+                  </div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['minutes']}
+                      <div className={styles.bidDesc}>m</div>
+                    </div>
+                  </div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['seconds']}
+                      <div className={styles.bidDesc}>s</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <GradientButton label="Buy Edition" width={140} height={50} />
               </div>
             </div>
           </div>

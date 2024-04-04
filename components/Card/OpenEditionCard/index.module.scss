@@ -59,10 +59,10 @@
   justify-content: space-between;
   z-index: 100;
   @media (min-width: 1024px) {
-    padding: 30px 45px;
+    padding: 30px;
   }
   @media (min-width: 1440px) {
-    padding: 43px 60px;
+    padding: 43px 35px 30px 35px;
   }
 }
 
@@ -237,6 +237,34 @@
 .noSelect {
   user-select: none;
   box-shadow: 0px 3px 6px rgba(#000, 0.16);
+}
+
+.endTimeContainer {
+  margin-left: 4px;
+  @media (min-width: 1024px) {
+    margin-left: 2px;
+  }
+  @media (min-width: 1680px) {
+    margin-left: 4px;
+  }
+}
+
+.endTime {
+  display: flex;
+  gap: 2px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.bidDesc {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+
 }
 
 .skeletonLoader:empty {
