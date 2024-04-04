@@ -128,7 +128,7 @@ const MyNFTSection = props => {
       },
     ])
 
-    changeActiveTab(2)
+    changeActiveTab(2, 2)
 
     setTimeout(() => {
       setShowAlert(true)
@@ -149,7 +149,7 @@ const MyNFTSection = props => {
       },
     ])
 
-    changeActiveTab(2)
+    changeActiveTab(2, 0)
 
     setTimeout(() => {
       setShowStartAuctionModal(false)
@@ -307,7 +307,7 @@ const MyNFTSection = props => {
           setShowListNFTModal(false)
           if (status === 'listed') {
             loadMyNFTs()
-            changeActiveTab(2)
+            changeActiveTab(2, 0)
           } else if (status === 'list-close') {
             loadMyNFTs()
           }

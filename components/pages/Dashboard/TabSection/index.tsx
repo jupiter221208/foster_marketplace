@@ -23,7 +23,7 @@ import DashboardTab from '../../../Tab/DashboardTab'
 const TabSection = () => {
   const router = useRouter()
   const { tab, filter } = router.query
-
+  const [selectedFilter, setSelectedFilter] = useState<any>(filter)
   const [activeTab, setActiveTab] = useState<any>(0)
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const TabSection = () => {
   }, [activeTab])
 
   const handleSelectedTab = item => {
+    if (item.id === 2) setSelectedFilter(0)
     setActiveTab(item.id)
   }
 
@@ -65,7 +66,12 @@ const TabSection = () => {
 
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <MyNFTSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
+          <MyNFTSection
+            changeActiveTab={(selectedTab: number, selectedFilter: number) => {
+              setSelectedFilter(selectedFilter)
+              setActiveTab(selectedTab)
+            }}
+          />
         </div>
       )}
       {activeTab === 1 && (
@@ -75,7 +81,7 @@ const TabSection = () => {
       )}
       {activeTab === 2 && (
         <div className="w-full flex flex-wrap">
-          <ListedNFTSection filter={filter} />
+          <ListedNFTSection filter={selectedFilter} />
         </div>
       )}
       {activeTab === 3 && (
