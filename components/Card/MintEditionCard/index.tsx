@@ -31,7 +31,7 @@ const MintEditionCard = props => {
     mintEdition,
   } = props
   // const [timeLeft, setTimeLeft] = useState(null)
-  const [timeLeft, setTimeLeft] = useState<any>({ days: '02', hours: '11', minutes: '22', seconds: '33' })
+  const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
 
