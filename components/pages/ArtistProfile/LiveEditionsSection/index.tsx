@@ -129,7 +129,6 @@ const LiveEditionsSection = props => {
                 artistName={item.artistUsername}
                 assetType={item.assetType}
                 coverImage={item.coverImageUrl}
-                currentBid={1}
                 currentSupply={item.currentSupply}
                 maxSupply={item.maxSupply}
                 price={item.price}

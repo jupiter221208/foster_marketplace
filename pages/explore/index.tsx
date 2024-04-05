@@ -55,6 +55,7 @@ import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
+import NFTEditionsCard from 'components/Card/NFTEditionsCard'
 
 const Explore = () => {
   const router = useRouter()
@@ -106,7 +107,7 @@ const Explore = () => {
 
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[3])
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
   const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[4])
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
 
@@ -655,6 +656,37 @@ const Explore = () => {
                               dispatch({ type: 'set', isLoading: true })
                             }}
                             price={item.price}
+                          />
+                        ) : selectedAvailability.value === 'editions' ? (
+                          <NFTEditionsCard
+                            // token_id={item.token_id}
+                            // nftName={item.name}
+                            // artistName={item.creator}
+                            // image={item.image}
+                            // assetType={item.asset_type}
+                            // coverImage={item.cover_image_url}
+                            // currentBid={item.current_bid}
+                            // reservePrice={item.reserve_price}
+                            // endTime={item.end_time}
+                            // onClick={() => {
+                            //   dispatch({ type: 'set', isLoading: true })
+                            // }}
+                            // price={item.price}
+                            tokenId={item.token_id}
+                            image={item.image}
+                            nftName={item.name}
+                            artistName={item.creator}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            // currentSupply={item.currentSupply}
+                            // maxSupply={item.maxSupply}
+                            price={item.price}
+                            endTime={item.end_time}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                              // router.push('/nft/' + item.tokenId)
+                            }}
+                            key={index}
                           />
                         ) : selectedAvailability.value === 'all' ? (
                           isAvailableAuctionCard(item) ? (
