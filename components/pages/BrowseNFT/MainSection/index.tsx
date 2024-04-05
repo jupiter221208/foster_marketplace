@@ -123,6 +123,7 @@ import AuctionAPI from 'apis/auctions'
 import { getListedMasterEditionInfo } from 'apis/editions'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1467,7 +1468,7 @@ const MainSection = ({
                           ) : (
                             <LoadingButton />
                           )}
-                          <GradientButton
+                          <OutlineButton
                             label="Make Offer"
                             fullWidth
                             onClick={() => {
@@ -1617,7 +1618,9 @@ const MainSection = ({
                                         <GradientButton
                                           label="Place Bid"
                                           fullWidth
-                                          disabled={parseFloat(price) < parseFloat(minBidAmount.toFixed(2))}
+                                          disabled={
+                                            price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                          }
                                         />
                                       )}
                                     </div>
