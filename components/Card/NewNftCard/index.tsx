@@ -242,7 +242,7 @@ const NewNftCard = props => {
             <div className="w-full mt-[9px] sm:mt-[15px]">
               <GradientButton
                 fullWidth
-                label="UnHide"
+                label="Unhide"
                 fontSize={viewport === 'xs' ? 12 : 18}
                 borderRadius={viewport === 'xs' ? 5 : 10}
                 height={viewport === 'xs' ? 28 : 50}
