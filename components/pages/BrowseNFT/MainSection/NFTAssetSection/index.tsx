@@ -89,7 +89,7 @@ const NFTAssetSection = props => {
                 showPlaceHolder={false}
                 width={900}
                 src={nftCoverUrl}
-                className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                className="w-auto h-auto max-w-full max-h-full object-contain"
               />
             ) : (
               <h1>Could not load NFT.</h1>
@@ -105,7 +105,7 @@ const NFTAssetSection = props => {
               src={currentImageUrl}
               width={900}
               showPlaceHolder={false}
-              className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+              className="w-auto h-auto max-w-full max-h-full object-contain"
             />
           </div>
           <div className={styles.borderView} />
