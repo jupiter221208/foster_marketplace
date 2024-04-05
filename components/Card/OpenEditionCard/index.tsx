@@ -271,49 +271,54 @@ const OpenEditionCard = ({ data }) => {
               <div className={styles.price}>{getPriceValue(Number(data.price))}</div>
             </div>
           </div>
-
           <div className="flex items-end jusitfy-end">
             <div>
-              <div className="flex justify-end">
-                <div className={styles.priceLabel}>Edition Closes</div>
-              </div>
-              <div className="flex justify-end mt-[12px] mb-[29px]">
-                <div className="flex items-center gap-[2px] ">
-                  {timeLeft && timeLeft['days'] !== '00' && (
-                    <div>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['days']}
-                        <div className={styles.bidDesc}>d</div>
+              {data.endTime !== null && data.startTime !== data.endTime && (
+                <div>
+                  <div className="flex justify-end">
+                    <div className={styles.priceLabel}>Edition Closes</div>
+                  </div>
+                  <div className="flex justify-end mt-[12px] mb-[29px]">
+                    <div className="flex items-center gap-[2px] ">
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div>
+                          <div className={styles.endTime}>
+                            {timeLeft && timeLeft['days']}
+                            <div className={styles.bidDesc}>d</div>
+                          </div>
+                        </div>
+                      )}
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['hours']}
+                          <div className={styles.bidDesc}>h</div>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['hours']}
-                      <div className={styles.bidDesc}>h</div>
-                    </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['minutes']}
-                      <div className={styles.bidDesc}>m</div>
-                    </div>
-                  </div>
-                  <div className={styles.endTimeContainer}>
-                    <div className={styles.endTime}>
-                      {timeLeft && timeLeft['seconds']}
-                      <div className={styles.bidDesc}>s</div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['minutes']}
+                          <div className={styles.bidDesc}>m</div>
+                        </div>
+                      </div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['seconds']}
+                          <div className={styles.bidDesc}>s</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex justify-end">
-                <GradientButton
-                  label="Buy Edition"
-                  width={140}
-                  height={50}
-                  onClick={() => router.push(`/nft/${data.tokenId}`)}
-                />
+              )}
+              <div>
+                <div className="flex justify-end">
+                  <GradientButton
+                    label="Buy Edition"
+                    width={140}
+                    height={50}
+                    onClick={() => router.push(`/nft/${data.tokenId}`)}
+                  />
+                </div>
               </div>
             </div>
           </div>

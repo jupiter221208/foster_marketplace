@@ -5,15 +5,16 @@
   height: 100%;
   background: var(--background-main-color);
   border-radius: 10px;
-  border: 1px solid var(--nft-border-color);
-  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
   overflow: hidden;
 }
 
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  padding-top: 95.55%;
+  @media (min-width: 640px) {
+    padding-top: 103.78%; /* 345:304 Aspect Ratio */
+  }
   cursor: pointer;
 }
 
