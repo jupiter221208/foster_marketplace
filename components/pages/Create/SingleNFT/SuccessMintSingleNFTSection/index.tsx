@@ -117,7 +117,7 @@ const SuccessMintSingleNFTSection = props => {
           <div className="max-w-[800px] mt-[47px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
-              Your {nftName} has been minted successfully!
+              {nftName} has been minted successfully
               {/* <a
                 className={styles.mintLinkText}
                 href={'/nft/' + nftAddress}
@@ -157,7 +157,8 @@ const SuccessMintSingleNFTSection = props => {
                     height={50}
                     label="List Artwork"
                     backgroundColor="transparent"
-                    onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                    // onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                    onClick={() => router.push('/nft/' + nftAddress)}
                     borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                   />
                 </div>
@@ -207,7 +208,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
           <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>Your {nftName} has been minted successfully!</div>
+            <div className={styles.mintText}>{nftName} has been minted successfully</div>
             <div className="w-full flex flex-wrap justify-center gap-[12px] mt-[30px]">
               <div className="w-full">
                 <TwitterShareButton
@@ -226,7 +227,8 @@ const SuccessMintSingleNFTSection = props => {
                   label="List Artwork"
                   height="50px"
                   fontSize={16}
-                  onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                  // onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                  onClick={() => router.push('/nft/' + nftAddress)}
                   borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                 />
               </div>

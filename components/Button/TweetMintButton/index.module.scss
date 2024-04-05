@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  background: linear-gradient(to right, var(--twitter-btn-color1), var(--twitter-btn-color2));
+  background: linear-gradient(to right, var(--primary-btn-bg), var(--primary-btn-bg));
   border-radius: 12px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   font-family: 'Muli-SemiBold';
@@ -27,11 +27,12 @@
   }
 
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: var(--gradient-btn-color);
 
   &:hover {
     @media (min-width: 1024px) {
-      opacity: 0.8;
+      background: var(--gradient-btn-hover-bg) !important;
+      color: var(--gradient-btn-hover-color) !important
     }
   }
   transition: opacity 0.2s;
