@@ -184,7 +184,7 @@ const NewNftCard = props => {
               </a>
             </Link>
           )}
-          {showHideButton === true && (
+          {/* {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
             </div>
@@ -193,7 +193,7 @@ const NewNftCard = props => {
             <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
             </div>
-          )}
+          )} */}
         </div>
 
         <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
@@ -235,6 +235,18 @@ const NewNftCard = props => {
                   dispatch({ type: 'set', isLoading: true })
                   unSave()
                 }}
+              />
+            </div>
+          )}
+          {showUnhideButton && (
+            <div className="w-full mt-[9px] sm:mt-[15px]">
+              <GradientButton
+                fullWidth
+                label="UnHide"
+                fontSize={viewport === 'xs' ? 12 : 18}
+                borderRadius={viewport === 'xs' ? 5 : 10}
+                height={viewport === 'xs' ? 28 : 50}
+                onClick={() => setDisplayUnhideConfirm(true)}
               />
             </div>
           )}
