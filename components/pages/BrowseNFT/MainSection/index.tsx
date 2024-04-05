@@ -1458,17 +1458,27 @@ const MainSection = ({
                       {(isOwnNft === false || isOwnNft === null) && (
                         <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                           {tradeStateAddress ? (
-                            <button
-                              className={styles.primaryBtn}
+                            <GradientButton
+                              label="Buy Now"
+                              fullWidth
                               disabled={!tradeStateAddress}
                               onClick={() => quickBuy()}
-                            >
-                              Buy Now
-                            </button>
+                            />
                           ) : (
                             <LoadingButton />
                           )}
-                          <button
+                          <GradientButton
+                            label="Make Offer"
+                            fullWidth
+                            onClick={() => {
+                              if (!connected) {
+                                setVisible(true)
+                                return
+                              }
+                              setOpenOfferModal(true)
+                            }}
+                          />
+                          {/* <button
                             className={styles.outlineBtn}
                             onClick={() => {
                               if (!connected) {
@@ -1479,15 +1489,20 @@ const MainSection = ({
                             }}
                           >
                             Make Offer
-                          </button>
+                          </button> */}
                         </div>
                       )}
 
                       {isOwnNft === true ? (
                         <div className="w-full flex content-none mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowUpdateListNFTModal(true)}>
+                          <GradientButton
+                            label="Delist or Update"
+                            fullWidth
+                            onClick={() => setShowUpdateListNFTModal(true)}
+                          />
+                          {/* <div className={styles.primaryBtn} onClick={() => setShowUpdateListNFTModal(true)}>
                             Delist or Update
-                          </div>
+                          </div> */}
                         </div>
                       ) : (
                         <></>
@@ -1500,13 +1515,15 @@ const MainSection = ({
                   connected ? (
                   <div className="w-full mb-1 mt-5 lg:mt-4 lg:mb-5">
                     {nftCurrentPrice > 0 ? (
-                      <button className={styles.outlineBtn} onClick={() => processFinalizeSale()}>
-                        Finalize Sale
-                      </button>
+                      <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
                     ) : (
-                      <button className={styles.outlineBtn} onClick={() => cancelAuction()}>
-                        Cancel Auction
-                      </button>
+                      // <button className={styles.outlineBtn} onClick={() => processFinalizeSale()}>
+                      //   Finalize Sale
+                      // </button>
+                      <GradientButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
+                      // <button className={styles.outlineBtn} onClick={() => cancelAuction()}>
+                      //   Cancel Auction
+                      // </button>
                     )}
                   </div>
                 ) : liveAuction === true ? (
@@ -1524,12 +1541,18 @@ const MainSection = ({
                           />
                           {isOwnNft === true ? (
                             <div className="py-[15px] lg:py-0 lg:mt-[15px]">
-                              <button
+                              {/* <button
                                 className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
                                 onClick={() => nftCurrentPrice === 0 && cancelAuction()}
                               >
                                 Cancel Auction
-                              </button>
+                              </button> */}
+                              <GradientButton
+                                label="Cancel Auction"
+                                fullWidth
+                                onClick={() => nftCurrentPrice === 0 && cancelAuction()}
+                                disabled={nftCurrentPrice > 0}
+                              />
                             </div>
                           ) : (
                             <></>
@@ -1589,12 +1612,11 @@ const MainSection = ({
                                       }}
                                     >
                                       {auctionLoading ? (
-                                        <LoadingButton fullWidth height={51} />
+                                        <LoadingButton fullWidth />
                                       ) : (
                                         <GradientButton
                                           label="Place Bid"
                                           fullWidth
-                                          height={50}
                                           disabled={parseFloat(price) < parseFloat(minBidAmount.toFixed(2))}
                                         />
                                       )}
