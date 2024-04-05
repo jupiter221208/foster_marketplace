@@ -20,7 +20,10 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 103.78%; /* 321:378 Aspect Ratio */
+  padding-top: 95.55%;
+  @media (min-width: 640px) {
+    padding-top: 103.78%; /* 345:304 Aspect Ratio */
+  }
 }
 
 .bottomSection {

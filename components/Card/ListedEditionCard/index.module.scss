@@ -20,11 +20,17 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 103.78%; /* 321:378 Aspect Ratio */
+  padding-top: 95.55%;
+  @media (min-width: 640px) {
+    padding-top: 103.78%; /* 345:304 Aspect Ratio */
+  }
 }
 
 .bottomSection {
-  padding: 15px 20px;
+  padding: 7px 12px 12px 12px;
+  @media (min-width: 640px) {
+    padding: 15px 20px;
+  }
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;

@@ -80,7 +80,7 @@ const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardPro
           <ImageWithFoster width={200} src={coverUrl} className="w-full h-full object-cover" />
         </div>
       </div>
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
+      <div className={styles.bottomSection}>
         <div className="w-full flex justify-between items-center">
           <div className={styles.nftName}>{name}</div>
           <div className="flex items-center gap-[2px]">
@@ -91,7 +91,7 @@ const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardPro
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-center mt-[6px]]">
+        <div className="w-full flex justify-between items-center mt-[6px]">
           <GradientButton
             label={'Cancel Listing'}
             onClick={() => {}}

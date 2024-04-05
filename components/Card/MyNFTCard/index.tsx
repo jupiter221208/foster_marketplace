@@ -114,32 +114,32 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
         )}
 
         {active === 0 ? (
-          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+          <div className="w-full flex flex-wrap lg:hidden justify-between items-center mt-[6px] gap-[5px]">
             <GradientButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
-              width="97px"
-              height="26px"
+              fullWidth
+              height="28px"
               fontSize="12px"
-              borderRadius="6px"
+              borderRadius="5px"
             />
             <OutlineButton
-              label="List"
+              label="List Artwork"
               onClick={() => onClickListNFT(data)}
               fontSize="12px"
-              width="43px"
-              height="26px"
-              borderRadius="6px"
+              fullWidth
+              height="28px"
+              borderRadius="5px"
               fontFamily="Muli-SemiBold"
             />
           </div>
         ) : (
-          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+          <div className="w-full flex lg:hidden justify-between items-center mt-[8px] mb-[2px]">
             <GradientButton
               label="List Edition"
               onClick={() => onClickListEdition(data)}
-              height="35px"
-              fontSize="14px"
+              height="28px"
+              fontSize="12px"
               fullWidth
               borderRadius={6}
               borderWidth={1}
