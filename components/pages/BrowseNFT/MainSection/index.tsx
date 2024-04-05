@@ -121,7 +121,7 @@ import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 import AuctionAPI from 'apis/auctions'
 import { getListedMasterEditionInfo } from 'apis/editions'
-import { getPriceValue } from 'utils/strings'
+import { getDisplayUserName, getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
 
 export interface MainSectionProps {
@@ -241,7 +241,7 @@ const MainSection = ({
   const nftCategories = getNFTCategories(nftDetail)
   const mintAddress = nftDetail.mintAddress.toString()
   const nftCollectionAddress = nftDetail.collection?.address?.toString()
-
+  const supply = nftDetail.supply
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
@@ -352,7 +352,6 @@ const MainSection = ({
 
       router.reload()
     } else {
-      console.log(printResponse)
       setAlertData([
         {
           id: 0,
@@ -504,18 +503,34 @@ const MainSection = ({
   }
 
   useEffect(() => {
-    if (!editionDetail) return
-    if (editionDetail.isSingleNft) {
-      if (editionDetail.isOriginal) setEditionType('normal')
-      else setEditionType('print_oe')
-    } else if (editionDetail.isOpenEdition) {
-      setEditionType('master_oe')
-      getEditionListingStatus()
-    } else if (editionDetail.isLimitedEdition) {
-      setEditionType('master_le')
-      getEditionListingStatus()
-    } else setEditionType('print_le')
-  }, [editionDetail])
+    if (!supply) return
+    let type: any = 'normal'
+    if (supply.max === 0) {
+      type = 'normal'
+      setEditionType('normal')
+    } else if (supply.max === null) {
+      if (supply.parent === null) {
+        type = 'master_oe'
+        setEditionType('master_oe')
+        getEditionListingStatus()
+      } else {
+        type = 'print_oe'
+        setEditionType('print_oe')
+      }
+    } else if (supply.max > 0) {
+      if (supply.parent === null) {
+        type = 'master_le'
+        setEditionType('master_le')
+        getEditionListingStatus()
+      } else {
+        setEditionType('print_le')
+        type = 'print_le'
+      }
+    } else {
+      setEditionType('normal')
+      type = 'normal'
+    }
+  }, [supply])
 
   const isNftEdition = () => {
     if (
@@ -537,7 +552,6 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-      console.log(nftDetail, '=========nftDetail=============')
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
@@ -1285,8 +1299,15 @@ const MainSection = ({
                     )}
                     {(editionType === 'print_le' || editionType === 'print_oe') && (
                       <div className={styles.editionSecondRow}>
-                        <div className={styles.editionTitle}>Master Edition</div>
-                        <div className={styles.editionValue}>***</div>
+                        <div className={styles.editionTitle}>Master Edition Address</div>
+                        <div
+                          className={styles.editionValue}
+                          onClick={() => {
+                            router.push(`/nft/${supply.parent}`)
+                          }}
+                        >
+                          {getDisplayUserName(supply.parent)}
+                        </div>
                       </div>
                     )}
                     <div className={styles.editionFirstRow}>
@@ -1300,7 +1321,7 @@ const MainSection = ({
                           <div className={styles.editionValue}>Limited Edition</div>
                         </div>
                         <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Minted</div>
+                          <div className={styles.editionTitle}>Editions Minted</div>
                           <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                         </div>
                         <div className={styles.editionSecondRow}>
@@ -1313,12 +1334,12 @@ const MainSection = ({
                     ) : editionType === 'master_oe' ? (
                       <div>
                         <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>Master Edition</div>
+                          <div className={styles.editionTitle}>Edition Type</div>
+                          <div className={styles.editionValue}>Open Edition</div>
                         </div>
                         <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Remaining</div>
-                          <div className={styles.editionValue}>Unlimited</div>
+                          <div className={styles.editionTitle}>Editions Minted</div>
+                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
                         </div>
                       </div>
                     ) : editionType === 'print_le' ? (
