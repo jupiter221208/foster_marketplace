@@ -403,10 +403,10 @@ const ListedNFTSection = props => {
           }}
         />
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map(item => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={item.address}>
+            <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.address}>
               {active === 0 || active === 1 ? (
                 <ListedNFTCard
                   data={item}
