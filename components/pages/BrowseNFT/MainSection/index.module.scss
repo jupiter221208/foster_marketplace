@@ -61,8 +61,10 @@
   height: auto;
   overflow: hidden;
   @media (min-width: 1024px) {
-    background: rgba(var(--main-bg-color-rgb), 0.02);
+    background: var(--bg-1C1C1C-F3F2F0);
     min-height: calc(100vh - 100px - 80px);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    border-radius: 10px;
   }
 
   @media (min-width: 640px) {
