@@ -24,6 +24,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { NftData } from 'types/nft'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import { getTimeDifference } from 'utils/helpers'
 
 const LiveEditionsSection = props => {
   const { category, artist = '', fromPage = 'home' } = props
@@ -35,7 +36,7 @@ const LiveEditionsSection = props => {
   const [showSection, setShowSection] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
-  const [rowCount, setRowCount] = useState(8)
+  const [rowCount, setRowCount] = useState(20)
   const [isMounted, setIsMounted] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -48,11 +49,14 @@ const LiveEditionsSection = props => {
       setIsMounted(true)
       setIsFetching(false)
 
-      if (response.length === rowCount) {
-        setIsVisibleFetching(true)
-      } else setIsVisibleFetching(false)
-      setLiveAuctionList([...liveAuctionList, ...response])
-      fetchNftData(response)
+      // if (response.length === rowCount) {
+      //   setIsVisibleFetching(true)
+      // } else setIsVisibleFetching(false)
+
+      let liveData = response.filter(item => getTimeDifference(item.endTime) > 0)
+
+      setLiveAuctionList([...liveAuctionList, ...liveData])
+      fetchNftData(liveData)
 
       if (isLoaded === false) {
         setShowSection(true)
