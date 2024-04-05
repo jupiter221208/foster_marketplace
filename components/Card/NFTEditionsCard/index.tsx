@@ -28,7 +28,7 @@ const NFTEditionsCard = props => {
   const {
     nftName,
     artistName,
-    token_id,
+    tokenId,
     image,
     currentSupply,
     maxSupply,
@@ -118,7 +118,7 @@ const NFTEditionsCard = props => {
                 {assetType?.includes('video') ? (
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                     <div className="w-full relative flex justify-center items-center overflow-hidden">
-                      <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                      <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                         <a className="w-full h-full relative">
                           {play ? (
                             <div
@@ -161,7 +161,7 @@ const NFTEditionsCard = props => {
                       </div>
                     </div>
                   ) : (
-                    <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                       <a>
                         <div
                           className="w-full h-full"
@@ -176,7 +176,7 @@ const NFTEditionsCard = props => {
                   )
                 ) : assetType?.includes('audio') ? (
                   coverImage != null && coverImage !== '' ? (
-                    <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                       <a className="w-full h-full">
                         <ImageWithFoster
                           src={coverImage}
@@ -187,7 +187,7 @@ const NFTEditionsCard = props => {
                       </a>
                     </Link>
                   ) : (
-                    <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                       <a>
                         <Image
                           src={DefaultNftBG}
@@ -199,7 +199,7 @@ const NFTEditionsCard = props => {
                     </Link>
                   )
                 ) : coverImage != null && coverImage !== '' ? (
-                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                     <a className="w-full h-full">
                       <ImageWithFoster
                         src={coverImage}
@@ -211,7 +211,7 @@ const NFTEditionsCard = props => {
                     </a>
                   </Link>
                 ) : image !== null && image !== '' ? (
-                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                     <a className="w-full h-full">
                       <ImageWithFoster
                         src={image}
@@ -222,7 +222,7 @@ const NFTEditionsCard = props => {
                     </a>
                   </Link>
                 ) : (
-                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                  <Link href={`${window.origin}/nft/${tokenId}`} passHref>
                     <a className="w-full h-full">
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                     </a>

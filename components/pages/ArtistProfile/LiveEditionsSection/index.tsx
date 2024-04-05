@@ -119,6 +119,7 @@ const LiveEditionsSection = props => {
           <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
               <NFTEditionsCard
+                tokenId={item.tokenId}
                 image={item.assetUrl}
                 nftName={item.nftName}
                 artistName={item.artistUsername}
