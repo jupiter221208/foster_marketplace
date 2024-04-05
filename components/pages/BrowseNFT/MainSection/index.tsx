@@ -333,6 +333,7 @@ const MainSection = ({
         console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
         setMintEditionLoading(false)
+        if (e?.message == 'User rejected the request.') break
         await new Promise(resolve => setTimeout(resolve, 1000))
       }
 
