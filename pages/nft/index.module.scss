@@ -83,6 +83,10 @@
 .background {
   width: 100%;
   padding-bottom: 200px;
+  background: transparent;
+  @media (min-width: 1024px) {
+    background: var(--bg-1C1C1C-F3F2F0);
+  }
 }
 
 .selectedTab {

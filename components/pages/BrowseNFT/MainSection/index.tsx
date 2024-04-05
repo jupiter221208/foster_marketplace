@@ -1556,7 +1556,9 @@ const MainSection = ({
                                       <PriceInput
                                         value={price}
                                         placeholder="Enter Bid amount"
-                                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                        backgroundColor={'transparent'}
+                                        borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                                        borderWidth={1}
                                         fullWidth
                                         min={0}
                                         height={
@@ -1572,9 +1574,7 @@ const MainSection = ({
                                       />
                                     </div>
                                     <div
-                                      className={`${styles.placeBidBG} ${
-                                        isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                                      }`}
+                                      className={`${styles.placeBidBG}`}
                                       onClick={async () => {
                                         if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
                                           return
@@ -1591,22 +1591,12 @@ const MainSection = ({
                                       {auctionLoading ? (
                                         <LoadingButton fullWidth height={51} />
                                       ) : (
-                                        <div className="flex">
-                                          <div
-                                            className={`${styles.placeBidBtn} ${
-                                              isEnded ||
-                                              price === '' ||
-                                              price === '.' ||
-                                              parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                                ? styles.placeBidDisabledColor
-                                                : styles.placeBidEnabledColor
-                                            }`}
-                                          >
-                                            Place Bid
-                                          </div>
-                                          {/* <GradientButton
-                                          label="Place Bid" */}
-                                        </div>
+                                        <GradientButton
+                                          label="Place Bid"
+                                          fullWidth
+                                          height={50}
+                                          disabled={parseFloat(price) < parseFloat(minBidAmount.toFixed(2))}
+                                        />
                                       )}
                                     </div>
                                     <div className="w-full flex items-center justify-between mb-[10px]">
