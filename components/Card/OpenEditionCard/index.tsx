@@ -85,7 +85,7 @@ const OpenEditionCard = ({ data }) => {
                           : ''
                       }
                       alt=""
-                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain lg:p-[30px] 2xl:p-[45px]`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -112,7 +112,7 @@ const OpenEditionCard = ({ data }) => {
                         }}
                         loading="lazy"
                       />
-                      <div className="w-full h-full absolute inset-0" />
+                      <div className="w-full h-full absolute inset-0 lg:p-[30px] 2xl:p-[45px]" />
                     </div>
                   ) : (
                     <div></div>
