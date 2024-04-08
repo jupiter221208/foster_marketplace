@@ -1373,6 +1373,10 @@ h6 {
   }
 }
 
+[data-name='color-1a-ff'] {
+  --fill-color: var(--time-slog-bg);
+}
+
 [data-name='foster-enhanced-logo'] {
   --fill-color: var(--background-light-color);
 }

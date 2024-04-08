@@ -15,11 +15,11 @@
 }
 
 .disable {
-  background: #242424;
+  background: var(--second-home-bg);
   color:  rgba(var(--main-bg-color-rgb), 0.5);
 }
 
 .enable {
-  background: #95dbd5;
+  background: var(--main-icon-color);
   color:  var(--background-main-color);
 }
