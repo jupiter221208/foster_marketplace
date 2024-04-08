@@ -23,6 +23,7 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import NewNftCard from 'components/Card/NewNftCard'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -163,13 +164,6 @@ const FavoriteSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-end z-10">
-        {/* <TimeSlotButton label="Artwork" onClick={() => handleChangeActive(0)} selected={active === 0} width={160} />
-          <TimeSlotButton
-            label="Collections"
-            onClick={() => handleChangeActive(1)}
-            selected={active === 1}
-            width={160}
-          /> */}
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -180,14 +174,14 @@ const FavoriteSection = () => {
           }}
         />
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12">
         {active === 0 &&
           !loading &&
           nftList.map(
             (item: any, index) =>
               item.nft_name && (
-                <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-                  <NFTCard
+                <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+                  <NewNftCard
                     token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}

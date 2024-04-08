@@ -1,3 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" data-name="info-gray-small" width="25" height="25" viewBox="0 0 25 25">
+<!-- <svg xmlns="http://www.w3.org/2000/svg" data-name="info-gray-small" width="25" height="25" viewBox="0 0 25 25">
   <path id="noun-minus-6062617" d="M62.5,50A12.5,12.5,0,1,0,75,62.5,12.514,12.514,0,0,0,62.5,50Zm6.25,13.636H56.25a1.136,1.136,0,0,1,0-2.273h12.5a1.136,1.136,0,1,1,0,2.273Z" transform="translate(-50 -50)" opacity="0.8"/>
+</svg> -->
+<svg id="minus" xmlns="http://www.w3.org/2000/svg" width="21.34" height="21.34" viewBox="0 0 21.34 21.34">
+  <path id="noun-minus-6062617" d="M60.67,50A10.67,10.67,0,1,0,71.34,60.67,10.682,10.682,0,0,0,60.67,50ZM66,61.64H55.335a.97.97,0,0,1,0-1.94H66a.97.97,0,1,1,0,1.94Z" transform="translate(-50 -50)" fill="#59595b"/>
 </svg>

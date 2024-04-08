@@ -57,55 +57,52 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
     <div className={styles.container}>
       <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
         <a>
-          <div
-            className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
-            onClick={() => dispatch({ type: 'set', isLoading: true })}
-          >
-            {data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+          <div className="w-full overflow-hidden" onClick={() => dispatch({ type: 'set', isLoading: true })}>
+            <div className={active === 0 ? styles.imageArea : styles.imageAreaForEdition}>
+              <div className={styles.imageContent}>
+                {data.category.toString().includes('video') ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full object-cover">
                   <source src=${data.animation_url} type="video/mp4" /></video>`,
-                }}
-              />
-            ) : (
-              <div className={styles.imageArea}>
-                <div className={styles.imageContent}>
-                  <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
-                </div>
+                    }}
+                  />
+                ) : (
+                  <div>
+                    <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </a>
       </Link>
 
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
+      <div className={styles.bottomSection}>
         <div className="w-full flex items-center">
           <div className={styles.nftName}>{data.name}</div>
         </div>
-        <div className="w-full flex items-center">
+        {/* <div className="w-full flex items-center">
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
-        </div>
+        </div> */}
         {active === 0 ? (
-          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+          <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
             <GradientButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
-              height="40px"
-              fontSize="14px"
+              fullWidth
               borderRadius={10}
             />
             <OutlineButton
               backgroundColor="transparent"
-              label="List NFT"
+              fullWidth
+              label="List Artwork"
               onClick={() => onClickListNFT(data)}
-              height="40px"
-              fontSize="14px"
               fontFamily="Muli-SemiBold"
             />
           </div>
         ) : (
-          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+          <div className="w-full hidden lg:flex justify-between items-center mt-[15px]">
             <GradientButton
               label="List Edition"
               onClick={() => onClickListEdition(data)}
@@ -119,32 +116,32 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
         )}
 
         {active === 0 ? (
-          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+          <div className="w-full flex flex-wrap lg:hidden justify-between items-center mt-[6px] gap-[5px]">
             <GradientButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
-              width="97px"
-              height="26px"
+              fullWidth
+              height="28px"
               fontSize="12px"
-              borderRadius="6px"
+              borderRadius="5px"
             />
             <OutlineButton
-              label="List"
+              label="List Artwork"
               onClick={() => onClickListNFT(data)}
               fontSize="12px"
-              width="43px"
-              height="26px"
-              borderRadius="6px"
+              fullWidth
+              height="28px"
+              borderRadius="5px"
               fontFamily="Muli-SemiBold"
             />
           </div>
         ) : (
-          <div className="w-full flex lg:hidden justify-between items-center mt-4">
+          <div className="w-full flex lg:hidden justify-between items-center mt-[8px] mb-[2px]">
             <GradientButton
               label="List Edition"
               onClick={() => onClickListEdition(data)}
-              height="35px"
-              fontSize="14px"
+              height="28px"
+              fontSize="12px"
               fullWidth
               borderRadius={6}
               borderWidth={1}

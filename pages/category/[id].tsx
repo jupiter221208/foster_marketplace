@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
 
 const Category = () => {
   const viewport = useViewport()
@@ -117,6 +118,7 @@ const Category = () => {
               <MarketplaceReleaseSection category={cateQuery} />
               <LiveAuctionSection category={cateQuery} fromPage={'category'} />
               <FreshMintSection category={cateQuery} />
+              <LimitedEditionSection />
               {/* <PopularCategorySection type="category" /> */}
             </div>
           </div>

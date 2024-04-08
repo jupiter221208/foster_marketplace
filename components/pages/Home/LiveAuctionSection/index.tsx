@@ -203,8 +203,10 @@ const LiveAuctionSection = props => {
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
               viewport === 'xs'
-                ? 1.07
-                : viewport === 'sm' || viewport === 'md'
+                ? 1.13
+                : viewport === 'sm'
+                ? 1.92
+                : viewport === 'md'
                 ? 2
                 : viewport === '2xl'
                 ? 5

@@ -18,7 +18,8 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getEditionDataOfNFTs, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
+import { getEditionList } from 'apis/editions'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -34,7 +35,7 @@ const MyNFTSection = props => {
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
   const [allNftList, setAllNftList] = useState<NftData[]>([])
-
+  const [listedEdition, setListedEdition] = useState([])
   const [allList, setAllList] = useState<NftData[]>([])
   const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
@@ -61,12 +62,23 @@ const MyNFTSection = props => {
     )
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: validNfts })
+
     setLoading(false)
   }
 
+  const getListedNft = async () => {
+    const editions = await getEditionList(mx.identity().publicKey.toBase58())
+    let lists = []
+    editions.map(item => {
+      lists.push(item.nft.token_id)
+    })
+    setListedEdition(lists)
+  }
+
   useEffect(() => {
-    if (mx && connection && publicKey && !isGetMyNFTs) {
-      loadMyNFTs()
+    if (mx && connection && publicKey) {
+      if (!isGetMyNFTs) loadMyNFTs()
+      getListedNft()
     }
   }, [mx, connection, publicKey, isGetMyNFTs])
 
@@ -86,7 +98,7 @@ const MyNFTSection = props => {
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
     { id: 0, label: '1 of 1', disabled: false },
-    { id: 1, label: 'Editions', disabled: true },
+    { id: 1, label: 'Editions', disabled: false },
   ])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: '1 of 1', disabled: false })
 
@@ -105,6 +117,8 @@ const MyNFTSection = props => {
   }
 
   const handleSuccessListEdition = nftName => {
+    getListedNft()
+
     setAlertData([
       {
         id: 0,
@@ -113,6 +127,8 @@ const MyNFTSection = props => {
         type: 'success',
       },
     ])
+
+    changeActiveTab(2, 2)
 
     setTimeout(() => {
       setShowAlert(true)
@@ -133,7 +149,7 @@ const MyNFTSection = props => {
       },
     ])
 
-    changeActiveTab(2)
+    changeActiveTab(2, 0)
 
     setTimeout(() => {
       setShowStartAuctionModal(false)
@@ -194,9 +210,13 @@ const MyNFTSection = props => {
     if (active === 0) {
       setFilteredNfts(filteredList.filter(n => n?.supply?.max === 0))
     } else if (active === 1) {
-      setFilteredNfts(filteredList.filter(n => n?.supply?.max > 0 || n?.supply?.max === null))
+      setFilteredNfts(
+        filteredList.filter(
+          n => (n?.supply?.max > 0 || n?.supply?.max === null) && !listedEdition.includes(n.mintAddress)
+        )
+      )
     }
-  }, [filteredList])
+  }, [filteredList, listedEdition])
 
   const searchNFT = key => {
     if (key === '') {
@@ -227,12 +247,12 @@ const MyNFTSection = props => {
           />
         </div>
       )}
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {!loading &&
           filteredNfts
             .filter(item => item.image !== undefined || null)
             .map(item => (
-              <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={item.mintAddress}>
+              <div className="col-span-6 md:col-span-6 lg:col-span-3 2xl:col-span-3 gap-[45px]" key={item.mintAddress}>
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}
@@ -287,7 +307,7 @@ const MyNFTSection = props => {
           setShowListNFTModal(false)
           if (status === 'listed') {
             loadMyNFTs()
-            changeActiveTab(2)
+            changeActiveTab(2, 0)
           } else if (status === 'list-close') {
             loadMyNFTs()
           }

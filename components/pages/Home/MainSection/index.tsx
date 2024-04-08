@@ -28,14 +28,9 @@ import 'react-slideshow-image/dist/styles.css'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
-import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
-
-import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
-import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
 import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-large.svg?component'
 import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-large.svg?component'
-
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 import HeroNewCard from 'components/Card/HeroNewCard'
 

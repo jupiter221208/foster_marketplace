@@ -17,14 +17,14 @@ const TabItem = props => {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <div className="w-full h-full hidden lg:flex items-center w-[20px] h-[20px]">
+        {/* <div className="w-full h-full hidden lg:flex items-center w-[20px] h-[20px]">
           <img
             src={
               lightDarkMode ? (item.selected ? item.icon04 : item.icon03) : item.selected ? item.icon01 : item.icon02
             }
             alt=""
           />
-        </div>
+        </div> */}
         {item.label}
       </div>
     </div>

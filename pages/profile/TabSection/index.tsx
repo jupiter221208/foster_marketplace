@@ -20,6 +20,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import LiveEditionsSection from 'components/pages/ArtistProfile/LiveEditionsSection'
 
 const TabSection = props => {
   const {
@@ -204,6 +205,16 @@ const TabSection = props => {
                 setArtworkType('collected')
               }}
             />
+
+            <TimeSlotButton
+              label="Live Editions"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'editions'}
+              onClick={() => {
+                setArtworkType('editions')
+              }}
+            />
           </div>
 
           {artworkType === 'all' && (
@@ -249,6 +260,8 @@ const TabSection = props => {
               <ActiveListingSection artist={wallet} fromPage={'profile'} />
             </div>
           )}
+
+          {artworkType === 'editions' && <LiveEditionsSection category={''} artist={wallet} fromPage={'profile'} />}
         </div>
       )}
 

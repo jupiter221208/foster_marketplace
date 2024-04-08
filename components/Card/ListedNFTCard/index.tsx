@@ -12,7 +12,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -101,18 +101,14 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               {assetJson?.properties?.category === 'video' ? (
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
               <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
                   }}
                 />
               ) : (
                 <div className="w-full h-full">
                   {assetJson && (
-                    <ImageWithFoster
-                      src={assetJson?.image}
-                      width={360}
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    />
+                    <ImageWithFoster src={assetJson?.image} width={360} className="w-full h-full object-cover" />
                   )}
                 </div>
               )}
@@ -120,23 +116,21 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           </a>
         </Link>
       </div>
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
-        <div className="w-full flex items-center">
-          <div className={styles.nftName}>{name}</div>
-        </div>
+      <div className={styles.bottomSection}>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
-          <div className="flex items-center mt-2 gap-[6px]">
-            <SolanaLogoIcon alt="" />
-            <div className={styles.nftName}>{getPriceValue(price)}</div>
+          <div className={styles.nftName}>{name}</div>
+          <div className="flex items-center gap-[6px]">
+            <div className="mt-[4px]">
+              <SolanaLogoIcon alt="" />
+            </div>
+            <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
-        <div className="mt-[7px] w-full">
+        <div className="mt-[15px] w-full">
           {type === 'fixed' ? (
             <GradientButton
               label={'Update'}
               onClick={() => onActionClick({ ...data, json: assetJson })}
-              height="48px"
               fontSize="16px"
               paddingLeft="37px"
               paddingRight="37px"
@@ -147,7 +141,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
             <GradientButton
               label={'Cancel Listing'}
               onClick={() => {}}
-              height="48px"
               fontSize="16px"
               fullWidth
               borderRadius="10px"
@@ -160,7 +153,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   <GradientButton
                     label={'Finalize Sale'}
                     onClick={() => processFinalizeSale()}
-                    height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
                     paddingRight="37px"
@@ -170,7 +162,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 ) : (
                   <Button
                     width={'100%'}
-                    height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
                     paddingRight="37px"
@@ -185,7 +176,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 <GradientButton
                   label={'Cancel Auction'}
                   onClick={() => cancelAuction(data)}
-                  height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
                   paddingRight="37px"
@@ -213,41 +203,39 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          <ImageWithFoster width={200} src={assetJson?.image} className="w-full h-full rounded-[10px] object-cover" />
+          <ImageWithFoster width={200} src={assetJson?.image} className="w-full h-full object-cover" />
         </div>
       </div>
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
-        <div className="w-full flex items-center">
-          <div className={styles.nftName}>{name}</div>
-        </div>
+      <div className={styles.bottomSection}>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getDisplayUserName(creatorAddress)}</div>
-          <div className="flex items-center gap-[6px]">
-            <SolanaLogoMobileIcon alt="" />
+          <div className={styles.nftName}>{name}</div>
+          <div className="flex items-center gap-[2px]">
+            <div className="mt-[2px]">
+              <SolanaLogoMobileIcon alt="" />
+            </div>
             <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-center mt-2">
+        <div className="w-full flex justify-between items-center mt-[6px]">
           {type === 'fixed' ? (
             <GradientButton
               label={'Update'}
               onClick={() => onActionClick({ ...data, json: assetJson })}
               fullWidth
-              height="35px"
-              fontSize="14px"
-              paddingLeft="7px"
-              paddingRight="7px"
-              borderRadius="6px"
+              height="28px"
+              fontSize="12px"
+              borderRadius="5px"
+              borderWidth="1px"
             />
           ) : type === 'edition' ? (
             <GradientButton
               label={'Cancel Listing'}
               onClick={() => {}}
-              height="35px"
-              fontSize="14px"
+              height="28px"
+              fontSize="12px"
               fullWidth
-              borderRadius="6px"
+              borderRadius="5px"
               borderWidth="1px"
             />
           ) : (
@@ -257,17 +245,16 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   <GradientButton
                     label={'Finalize Sale'}
                     onClick={() => processFinalizeSale()}
+                    height="28px"
+                    fontSize="12px"
                     fullWidth
-                    height="35px"
-                    fontSize="14px"
-                    paddingLeft="7px"
-                    paddingRight="7px"
-                    borderRadius="6px"
+                    borderRadius="5px"
+                    borderWidth="1px"
                   />
                 ) : (
                   <Button
                     width={'100%'}
-                    height="26px"
+                    height="28px"
                     fontSize="12px"
                     paddingLeft="7px"
                     paddingRight="7px"
@@ -275,7 +262,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     disabled={true}
                     backgroundColor="#202427"
                     color="rgba(239,240, 246, 0.6)"
-                    borderRadius="6px"
+                    borderRadius="5px"
                   />
                 )
               ) : (
@@ -283,11 +270,10 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   fullWidth
                   label={'Cancel Auction'}
                   onClick={() => cancelAuction(data)}
-                  height="26px"
+                  height="28px"
                   fontSize="12px"
-                  paddingLeft="7px"
-                  paddingRight="7px"
-                  borderRadius="6px"
+                  borderRadius="5px"
+                  borderWidth="1px"
                 />
               )}
             </>

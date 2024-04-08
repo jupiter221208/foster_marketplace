@@ -1,0 +1,111 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  background: var(--background-main-color);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 95.55%;
+  @media (min-width: 640px) {
+    padding-top: 103.78%; /* 345:304 Aspect Ratio */
+  }
+}
+
+.bottomSection {
+  padding: 7px 12px 12px 12px;
+  @media (min-width: 640px) {
+    padding: 15px 20px;
+  }
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+
+.artistName {
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  line-height: 12px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: var(--main-icon-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.skeletonLoaderOuterBox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.skeletonLoader:empty {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: var(--main-bg-color) !important;
+  border-color: var(--main-bg-color) !important;
+  animation-name: skeletonAnimation;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes skeletonAnimation {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.05;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

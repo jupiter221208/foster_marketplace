@@ -5,30 +5,31 @@
   height: 100%;
   background: var(--background-main-color);
   border-radius: 10px;
-  border: 1px solid var(--nft-border-color);
-  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
   overflow: hidden;
 }
 
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  padding-top: 95.55%;
+  @media (min-width: 640px) {
+    padding-top: 103.78%; /* 345:304 Aspect Ratio */
+  }
   cursor: pointer;
 }
 
 .imageInfo {
   width: 100%;
-  margin-top: 5px;
   flex: wrap;
   justify-content: center;
   align-items: center;
-  padding: 0px 16px 16px 16px;
-  @media (min-width: 1024px) {
-    margin-top: 15px;
-    padding: 0px 25px 25px 25px;
+  padding: 7px 12px 12px 12px;
+  @media (min-width: 640px) {
+    padding: 15px 20px;
   }
-  background: transparent;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .imageContent {
@@ -42,35 +43,18 @@
 }
 
 .nftName {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 12px;
-  line-height: 16px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  @media (min-width: 640px) {
-    font-size: 12px;
-    line-height: 20px;
-  }
-  @media (min-width: 768px) {
-    font-size: 15px;
-    line-height: 24px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 28px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 20px;
-    line-height: 32px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 20px;
-    line-height: 36px;
-  }
-
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
 }
 
 .category {

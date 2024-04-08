@@ -24,15 +24,16 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 // backend
+import { listMasterEdition } from 'apis/editions'
 
 // solana
-import { PublicKey } from '@solana/web3.js'
+import { Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
-import { delegateEdition } from 'utils/editions'
+import { delegateEdition, findPrintDelegate } from 'utils/editions'
 
 export interface ListEditionDetailProps {
   data: {
@@ -86,16 +87,43 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   const handleListEdition = async () => {
     try {
       setIsLoading(true)
-      // onRefreshPage?.()
 
-      let response = await delegateEdition({
-        metaplex,
-        mint: new PublicKey(data.mintAddress),
-        // TODO: generate keypair and send to backend
-        delegate: new PublicKey('3FVrkePokrBYhQKthGjpTr8MCsPAymTStHuPCsLZ6SLX'),
+      let listing = await listMasterEdition({
+        mintAddress: data.mintAddress,
+        price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
+        startTime: startDate.toISOString().split('.')[0],
+        endTime: endDate.toISOString().split('.')[0],
+        buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
+      })
+      console.log(listing, '=========listing==========')
+      let mint = new PublicKey(data.mintAddress)
+      let owner = metaplex.identity().publicKey
+      let delegate = new PublicKey(listing.authorityPublicKey)
+      let printDelegateAddress = findPrintDelegate({
+        mint,
+        owner,
+        delegate,
       })
 
-      if (!response) {
+      let printDelegateAccount
+      for (let i = 0; i < 5; i++)
+        try {
+          console.log(`delegating master edition: attempt ${i + 1}`)
+          await delegateEdition({
+            metaplex,
+            mint,
+            delegate,
+          })
+          await new Promise(resolve => setTimeout(resolve, 1000))
+
+          printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
+          if (printDelegateAccount.exists) break
+        } catch (e: any) {
+          console.error(`delegating failed: ${e?.message ?? e}`)
+          console.error(e)
+        }
+
+      if (!printDelegateAccount.exists) {
         // show error to user
         setIsLoading(false)
         return
@@ -107,6 +135,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
       // TODO: send listing to backend with listing details
     } catch (e: any) {
+      console.error(e)
       setIsLoading(false)
     }
   }

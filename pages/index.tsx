@@ -1,7 +1,7 @@
 // next components
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -10,7 +10,6 @@ import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection
 import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
 import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
@@ -25,6 +24,11 @@ import { useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
+import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
+import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
+
+// api
+import dashboardAPI from 'apis/dashboard'
 
 const Home = () => {
   const viewport = useViewport()
@@ -38,9 +42,20 @@ const Home = () => {
     'Pushing the boundaries of digital art on Solana.'
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
+  const [editionList, setEditionList] = useState<any>([])
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
+
+    setEditionList([])
+    dashboardAPI.getListedEditions('', '', 1, 15).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        setEditionList(response)
+      }
+    }),
+      error => {
+        console.log(error)
+      }
   }, [])
 
   return (
@@ -76,6 +91,16 @@ const Home = () => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <MarketplaceReleaseSection category={''} />
+        </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <div className="g-container">
+          <LimitedEditionSection category={''} editions={editionList} />
+        </div>
+      </div>
+      <div className="w-full flex justify-center">
+        <div className="g-container ">
+          <OpenEditionSection category={''} editions={editionList} />
         </div>
       </div>
       <div className={styles.otherBG}>
