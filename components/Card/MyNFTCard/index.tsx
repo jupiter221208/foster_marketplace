@@ -58,20 +58,22 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
       <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
         <a>
           <div className="w-full overflow-hidden" onClick={() => dispatch({ type: 'set', isLoading: true })}>
-            {data.json?.category === 'video' || data.json?.properties?.category === 'video' ? (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full object-cover">
+            <div className={active === 0 ? styles.imageArea : styles.imageAreaForEdition}>
+              <div className={styles.imageContent}>
+                {data.category.toString().includes('video') ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full object-cover">
                   <source src=${data.animation_url} type="video/mp4" /></video>`,
-                }}
-              />
-            ) : (
-              <div className={active === 0 ? styles.imageArea : styles.imageAreaForEdition}>
-                <div className={styles.imageContent}>
-                  <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
-                </div>
+                    }}
+                  />
+                ) : (
+                  <div>
+                    <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </a>
       </Link>
