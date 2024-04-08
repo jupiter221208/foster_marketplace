@@ -88,7 +88,12 @@ const SingleNft = () => {
 
   const handleChangeCurrentStep = step => {
     handleFormValidate(step)
-    setCurrentStep(step)
+    console.log(step, '=================step===========')
+    if (step === 4) {
+      createNft()
+    } else {
+      setCurrentStep(step)
+    }
   }
   // step 1
   const [editionType, setEditionType] = useState(null)
@@ -506,7 +511,8 @@ const SingleNft = () => {
             console.log(error)
           }
         )
-      handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+      // handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+      setCurrentStep(4)
     } catch (error) {
       console.error(error)
     } finally {
@@ -551,7 +557,7 @@ const SingleNft = () => {
         }
         break
       case 3:
-        setDisabledNextButton(true)
+        setDisabledNextButton(false)
         break
       default:
         break
@@ -581,7 +587,9 @@ const SingleNft = () => {
                   nextDisabled={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   onNext={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                  loading={isMinting}
                 />
+                <div className={styles.border} />
               </div>
               <div className="relative w-full grid grid-cols-12 gap-0">
                 {/* left part */}

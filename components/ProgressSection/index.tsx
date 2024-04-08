@@ -12,9 +12,10 @@ import styles from './index.module.scss'
 import BackButton from 'components/Button/BackButton'
 import Stepper from 'components/Stepper'
 import NextButton from 'components/Button/NextButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const ProgressSection = props => {
-  const { onBack, onNext, nextDisabled, currentStep } = props
+  const { onBack, onNext, nextDisabled, currentStep, loading } = props
 
   return (
     <div className="w-full flex justify-between">
@@ -22,7 +23,11 @@ const ProgressSection = props => {
       <div className="w-[60%]">
         <Stepper currentStep={currentStep} />
       </div>
-      <NextButton onClick={onNext} disabled={nextDisabled} />
+      {loading ? (
+        <LoadingButton width={122} height={53} borderRadius={30} />
+      ) : (
+        <NextButton onClick={onNext} disabled={nextDisabled} />
+      )}
     </div>
   )
 }

@@ -212,7 +212,7 @@ const Step03SingleNFTSection = props => {
       </div> */}
       <div className="w-full flex justify-end mt-[50px]">
         <div className="flex gap-10">
-          <div>
+          {/* <div>
             <Button
               label="Back"
               onClick={() => onBack()}
@@ -223,8 +223,8 @@ const Step03SingleNFTSection = props => {
               width={viewport === '2xl' ? 124 : 117}
               height={viewport === '2xl' ? 53 : 46}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             {royalties === '' ||
             parseInt(royalties) < 0 ||
             parseInt(royalties) > 10 ||
@@ -243,7 +243,7 @@ const Step03SingleNFTSection = props => {
             ) : (
               <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint" onClick={() => createSingleNFT()} />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <Alert
