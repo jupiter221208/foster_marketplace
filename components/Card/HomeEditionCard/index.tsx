@@ -51,7 +51,7 @@ const HomeEditionCard = props => {
 
   return (
     <div className={styles.container}>
-      {data.endTime ? (
+      {data.endTime !== null && data.startTime !== data.endTime ? (
         <div className={styles.timeSection}>
           <ClockSandIcon />
 
