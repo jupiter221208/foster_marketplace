@@ -269,18 +269,18 @@ const Step03SingleNFTSection = props => {
         Add another wallet
       </div>
 
-      <div className="w-full flex gap-2 mt-[100px]">
+      <div className="w-full flex flex-wrap gap-[18px] mt-[100px]">
         <Button
           label="Back"
           fullWidth
           onClick={() => onBack()}
           backgroundColor={'transparent'}
           borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-          borderWidth={2}
+          borderWidth={1}
           color="var(--main-bg-color)"
           fontFamily="Muli-SemiBold"
-          height={45}
-          fontSize={16}
+          height={50}
+          fontSize={18}
         />
 
         {royalties === '' ||
@@ -290,21 +290,22 @@ const Step03SingleNFTSection = props => {
         creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
           <Button
             fullWidth
-            height={45}
-            label="Next Step"
+            height={50}
+            label="Next"
             disabled={disabledNextButton}
             backgroundColor="var(--second-home-bg)"
-            color="rgba(var(--main-bg-color-rgb), 0.5)"
+            color="rgba(var(--main-bg-color-rgb), 0.1)"
             fontFamily="Muli-SemiBold"
-            fontSize={16}
+            fontSize={18}
           />
         ) : (
           <GradientButton
-            label="Next Step"
+            label="Next"
             onClick={() => onNextStep()}
             fullWidth
-            height={45}
-            fontSize={16}
+            height={50}
+            fontSize={18}
+            borderColor="transparent"
             fontFamily="Muli-SemiBold"
           />
         )}

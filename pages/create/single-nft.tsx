@@ -948,28 +948,29 @@ const SingleNft = () => {
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
                         fullWidth
                         fontFamily="Muli-SemiBold"
-                        height="45px"
+                        height="50px"
                         backgroundColor="transparent"
                         color="var(--main-bg-color)"
-                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                        borderWidth={2}
-                        fontSize={16}
+                        borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                        borderWidth={1}
+                        fontSize={18}
                       />
                     </div>
                     <div className="w-full mt-[18px]">
                       <GradientButton
                         fullWidth
-                        label="Next Step"
+                        label="Next"
                         onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                        height="45px"
-                        fontSize={16}
+                        height="50px"
+                        fontSize={18}
                         fontFamily="Muli-SemiBold"
+                        borderColor="transparent"
                         disabled={disabledNextButton}
                       />
                     </div>
                   </div>
                 )}
-                {currentStep === 2 && (
+                {/* {currentStep === 2 && (
                   <div className="w-full grid grid-cols-2 gap-5">
                     <div>
                       <Button
@@ -998,7 +999,7 @@ const SingleNft = () => {
                       />
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           ))}

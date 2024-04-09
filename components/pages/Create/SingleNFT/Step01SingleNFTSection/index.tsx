@@ -197,7 +197,7 @@ const Step01SingleNFTSection = props => {
           )}
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-20`}>
+              <div className={`${styles.subTitle} mt-[30px]`}>
                 Audio Cover <span>*</span>
               </div>
               <div className="mt-5">
@@ -495,7 +495,7 @@ const Step01SingleNFTSection = props => {
           )}
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>
+              <div className={`${styles.subTitle} mt-[30px]`}>
                 Audio Cover <span>*</span>
               </div>
               <div className="mt-5">
@@ -531,22 +531,21 @@ const Step01SingleNFTSection = props => {
           )}
 
           <div className="w-full">
-            <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-              NFT Name <span>*</span>
+            <div className={`${styles.subTitle} mt-[30px]`}>
+              Artwork Name <span>*</span>
             </div>
-            <div className="max-w-[370px] w-full mt-4">
+            <div className="max-w-[370px] w-full mt-[15px]">
               <Input
                 value={limit(nftName, 32)}
                 placeholder="Give your art name"
                 color={'var(--text-gray-200-color)'}
-                backgroundColor={'var(--shipping-board-bg)'}
                 label01="Max Characters 32"
                 label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
                 onChange={value => setNftName(limit(value, 32))}
               />
             </div>
-            <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-              Description <span>*</span>
+            <div className={`${styles.subTitle} mt-[30px]`}>
+              Artwork Description <span>*</span>
             </div>
             <div className="w-full mt-5">
               <Textarea
@@ -554,7 +553,6 @@ const Step01SingleNFTSection = props => {
                 height={150}
                 placeholder="Add a short description..."
                 color={'var(--text-gray-200-color)'}
-                backgroundColor={'var(--shipping-board-bg)'}
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
                 onChange={value => setDescription(value)}
