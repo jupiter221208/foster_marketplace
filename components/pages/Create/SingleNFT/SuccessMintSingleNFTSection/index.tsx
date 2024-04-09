@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 // components
+import Lottie from 'lottie-react'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import OutlineButton from 'components/Button/OutlineButton'
 import LinkTextButton from 'components/Button/LinkTextButton'
-
 import TweetMintButton from 'components/Button/TweetMintButton'
 import MintOutlineButton from 'components/Button/MintOutlineButton'
+
+// resources
+import MintSuccessIcon from 'assets/lottery/mint-success.json'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -167,6 +170,9 @@ const SuccessMintSingleNFTSection = props => {
             {/* <div className="mt-[44px]">
               <LinkTextButton label="View on SolanaFM" link={explorerURL} />
             </div> */}
+          </div>
+          <div className="absolute inset-0">
+            <Lottie animationData={MintSuccessIcon} loop={false} />
           </div>
         </div>
       ) : (
