@@ -20,9 +20,10 @@ export interface ListMasterEditionRequest {
   buyLimit?: number
 }
 
-export interface CreatePrintResponse {
+export interface CreatePrintTransaction {
   editionMint: string
   transaction: string
+  editionNumber: number
 }
 
 export interface UpdateListingRequest {
@@ -55,12 +56,14 @@ export async function listMasterEdition({
 
 export async function createPrint({
   mintAddress,
-  buyer,
+  ...body
 }: {
   mintAddress: string
   buyer: string
-}): Promise<CreatePrintResponse> {
-  return client.post(API_URL + `v1/editions/${mintAddress}/create-print`, { buyer }).then(response => {
+  count?: number
+  editions?: number[]
+}): Promise<CreatePrintTransaction[]> {
+  return client.post(API_URL + `v1/editions/${mintAddress}/create-print`, body).then(response => {
     return response.data
   })
 }
