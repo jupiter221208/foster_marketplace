@@ -21,6 +21,7 @@ import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -533,7 +534,7 @@ const Step01SingleNFTSection = props => {
             <div className={`${styles.subTitle} mt-[30px]`}>
               Artwork Description <span>*</span>
             </div>
-            <div className="w-full mt-5">
+            <div className="w-full mt-[15px]">
               <Textarea
                 value={limit(description, 1000)}
                 height={150}
@@ -545,11 +546,13 @@ const Step01SingleNFTSection = props => {
                 onChange={value => setDescription(value)}
               />
             </div>
-            <div className="w-full mt-4">
+            <div className="w-full mt-[30px]">
               <div className="grid grid-cols-2 gap-5">
-                <div className="col-span-1">
-                  <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
-                    Category (optional)
+                <div className="col-span-2">
+                  <div className={styles.chooseCategory}>Category (optional)</div>
+                  <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
+                    <>Select up to three categories</>
+                    <ArrowDownIcon />
                   </div>
                 </div>
               </div>

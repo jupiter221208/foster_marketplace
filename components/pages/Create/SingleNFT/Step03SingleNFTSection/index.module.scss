@@ -22,7 +22,6 @@
   color:var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-size: 16px;
-    margin-top: 44px;
   }
 }
 
@@ -132,7 +131,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Muli-Reuglar';
+  font-family: 'Muli-Regular';
   font-size: 16px;
 }
 
@@ -145,7 +144,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Muli-Reuglar';
+  font-family: 'Muli-Regular';
   font-size: 16px;
   cursor: pointer;
 }

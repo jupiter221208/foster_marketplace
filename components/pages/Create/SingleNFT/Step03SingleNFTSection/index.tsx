@@ -148,7 +148,7 @@ const Step03SingleNFTSection = props => {
             }}
           />
           {edition['id'] === 0 && (
-            <div className="mt-[45px]">
+            <div className="mt-[30px]">
               <div className={styles.maxSupplyTitle}>
                 Max Supply <span>*</span>
               </div>

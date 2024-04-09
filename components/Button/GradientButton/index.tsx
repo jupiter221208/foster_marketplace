@@ -51,7 +51,7 @@ const GradientButton = props => {
         borderColor: borderColor,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
-        opacity: disabled ? 0.5 : opacity,
+        opacity: opacity,
       }}
     >
       {(direction === 'both' || direction === 'rtl') &&
