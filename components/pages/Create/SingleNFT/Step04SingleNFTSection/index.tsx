@@ -41,6 +41,7 @@ const Step04SingleNFTSection = props => {
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
+  const [displayCategory, setDisplayCategory] = useState(false)
 
   let alertData = [
     {
@@ -55,6 +56,17 @@ const Step04SingleNFTSection = props => {
   useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
+
+  useEffect(() => {
+    if (categoryList) {
+      let list = categoryList.filter((item, index) => item.checked === true)
+      if (list.length > 0) {
+        setDisplayCategory(true)
+      } else {
+        setDisplayCategory(false)
+      }
+    }
+  }, [categoryList])
 
   useEffect(() => {
     if (creatorList === null || creatorList.length === 0) return
@@ -86,6 +98,7 @@ const Step04SingleNFTSection = props => {
   const createSingleNFT = () => {
     createNft()
   }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
       <div className={styles.nftName}>{nftName}</div>
@@ -112,7 +125,7 @@ const Step04SingleNFTSection = props => {
         </div>
       )}
 
-      {categoryList && categoryList.length !== 0 && (
+      {categoryList && displayCategory && categoryList.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>
           <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
@@ -182,7 +195,7 @@ const Step04SingleNFTSection = props => {
         </div>
       )}
 
-      {categoryList && categoryList.length !== 0 && (
+      {categoryList && displayCategory && categoryList.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>
           <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
