@@ -28,8 +28,15 @@
   background-color: var(--main-icon-color);
 }
 
-.greenText {
+.boldText {
   font-family: 'Muli-Bold';
+}
+
+.regularText {
+  font-family: 'Muli-Regular';
+}
+
+.greenText {
   font-size: 12px;
   line-height: 15px;
   color: var(--main-icon-color);
@@ -37,13 +44,11 @@
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
-    // color: var(--brand-09-color);
   }
   letter-spacing: 0;
 }
 
 .grayText {
-  font-family: 'Muli-Regular';
   letter-spacing: 0;
   font-size: 12px;
   line-height: 15px;

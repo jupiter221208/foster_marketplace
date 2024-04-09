@@ -15,22 +15,22 @@ const Stepper = props => {
     <div className="w-full flex h-[66px] lg:h-[65px] flex-col justify-between">
       <div className={styles.container}>
         <div className="relative h-[30px] flex items-center">
-          {/* {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />} */}
-          <div className={`${styles.greenText} absolute top-[45px] -left-6 -right-16`}>Artwork&nbsp;Details</div>
+          <div
+            className={`${styles.greenText} ${
+              currentStep === 1 ? styles.boldText : styles.regularText
+            } absolute top-[45px] -left-6 -right-16`}
+          >
+            Artwork&nbsp;Details
+          </div>
         </div>
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />
 
         <div className="relative h-[30px] flex items-center">
-          {/* {currentStep === 1 ? (
-            <NextStepCircle step={2} />
-          ) : currentStep === 2 ? (
-            <CurrentStepCircle step={2} />
-          ) : (
-            <CompleteStepCirce />
-          )} */}
           <div
-            className={`${currentStep < 2 ? styles.grayText : styles.greenText} absolute top-[45px] -left-16 -right-16`}
+            className={`${currentStep < 2 ? styles.grayText : styles.greenText} ${
+              currentStep === 2 ? styles.boldText : styles.regularText
+            } absolute top-[45px] -left-16 -right-16`}
           >
             Additional&nbsp;details
           </div>
@@ -39,15 +39,10 @@ const Stepper = props => {
         <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />
 
         <div className="relative h-[30px] flex items-center">
-          {/* {currentStep === 1 || currentStep === 2 ? (
-            <NextStepCircle step={3} />
-          ) : currentStep === 3 ? (
-            <CurrentStepCircle step={3} />
-          ) : (
-            <CompleteStepCirce />
-          )} */}
           <div
-            className={`${currentStep < 3 ? styles.grayText : styles.greenText} absolute top-[45px] -left-16 -right-16`}
+            className={`${currentStep < 3 ? styles.grayText : styles.greenText}  ${
+              currentStep === 3 ? styles.boldText : styles.regularText
+            } absolute top-[45px] -left-16 -right-16`}
           >
             Review
           </div>

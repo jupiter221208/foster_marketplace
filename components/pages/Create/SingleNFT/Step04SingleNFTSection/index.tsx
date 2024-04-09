@@ -112,7 +112,7 @@ const Step04SingleNFTSection = props => {
         </div>
       )}
 
-      {categoryList?.length !== 0 && (
+      {categoryList && categoryList.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>
           <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
@@ -182,7 +182,7 @@ const Step04SingleNFTSection = props => {
         </div>
       )}
 
-      {categoryList?.length !== 0 && (
+      {categoryList && categoryList.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>
           <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">

@@ -668,7 +668,7 @@ const SingleNft = () => {
                         )}
 
                         {nftArt !== null ? (
-                          <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
+                          <div className="w-full mt-[5px] flex justify-between">
                             {currentStep === 1 &&
                             (nftType === 'image' ||
                               (nftType === 'audio' &&
