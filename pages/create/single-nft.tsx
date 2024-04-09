@@ -135,8 +135,8 @@ const SingleNft = () => {
         width = screenWidth
         break
     }
-    if (width > 672) {
-      setArtWidth(672)
+    if (width > 760) {
+      setArtWidth(760)
     } else {
       setArtWidth(width)
     }
@@ -273,8 +273,8 @@ const SingleNft = () => {
               windowWidth = screenWidth
               break
           }
-          if (windowWidth > 672) {
-            setArtWidth(672)
+          if (windowWidth > 760) {
+            setArtWidth(760)
           } else {
             setArtWidth(windowWidth)
           }
@@ -604,7 +604,7 @@ const SingleNft = () => {
                     <div className={styles.leftContainer}>
                       <div className={`relative w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
                         {nftType === 'vr' && nftUrl ? (
-                          <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                          <div ref={ref} className="max-w-[760px] w-full mx-auto aspect-square">
                             <ModelViewer
                               path={nftUrl}
                               width={width}
@@ -623,8 +623,10 @@ const SingleNft = () => {
                           <div
                             className={styles.artArea}
                             style={{
-                              width: artWidth,
-                              height: artWidth,
+                              width: 760,
+                              maxWidth: 760,
+                              height: 560,
+                              maxHeight: 560,
                             }}
                           >
                             {/* {nftImage !== '' && artWidth !== 0 && (
@@ -749,6 +751,7 @@ const SingleNft = () => {
                             setEditionType={item => setEditionType(item)}
                             setMaxSupply={value => setMaxNum(value)}
                             setCreatorList={setCreatorList}
+                            setDisabledNextButton={setDisabledNextButton}
                             disabledNextButton={disabledNextButton}
                             onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                             onBack={() => handleChangeCurrentStep(currentStep - 1)}
@@ -790,7 +793,7 @@ const SingleNft = () => {
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
-                  <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                  <div ref={ref} className="max-w-[760px] w-full mx-auto aspect-square">
                     <ModelViewer
                       path={nftUrl}
                       width={width}
@@ -926,6 +929,7 @@ const SingleNft = () => {
                   setCollection={setCollection}
                   creatorList={creatorList}
                   setCreatorList={setCreatorList}
+                  setDisabledNextButton={setDisabledNextButton}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
