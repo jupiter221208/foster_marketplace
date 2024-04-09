@@ -932,6 +932,9 @@ const SingleNft = () => {
 
               {currentStep === 3 && (
                 <Step04SingleNFTSection
+                  type={type}
+                  editionType={editionType}
+                  maxSupply={maxNum}
                   royalties={royalties}
                   creatorList={creatorList}
                   disabledNextButton={disabledNextButton}
