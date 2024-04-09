@@ -15,6 +15,7 @@ const LoadingButton = props => {
     fullWidth,
     backgroundColor01 = 'var(--place-bid-minimum-color)',
     backgroundColor02 = 'var(--place-bid-minimum-color)',
+    borderRadius = 12,
     width = 160,
     height = 40,
     gradientDirection = 'left',
@@ -27,6 +28,7 @@ const LoadingButton = props => {
       style={{
         width: fullWidth ? '100%' : width,
         height,
+        borderRadius,
         background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
       }}
     >

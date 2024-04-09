@@ -424,7 +424,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-left: 150px;
   }
-  background: var(--second-home-bg);
+  // background: var(--second-home-bg);
 }
 
 .g-right-container {
@@ -447,7 +447,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-right: 150px;
   }
-  background-color: var(--background-main-color);
+  // background-color: var(--background-main-color);
 }
 #heroSwiper .swiper .swiper-slide {
   transform: scale(0.9);
@@ -1371,6 +1371,10 @@ h6 {
       outline: none;
     }
   }
+}
+
+[data-name='color-1a-ff'] {
+  --fill-color: var(--time-slog-bg);
 }
 
 [data-name='foster-enhanced-logo'] {

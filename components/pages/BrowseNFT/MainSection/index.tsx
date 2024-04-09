@@ -305,30 +305,41 @@ const MainSection = ({
 
     setMintEditionLoading(true)
 
-    let printResponse
-    let txResponse
-    for (let i = 0; i < 5 && !txResponse?.confirmResponse; i++)
+    let editionsToPrint = undefined
+    let editionStatuses: Record<string, any> = {}
+    for (let i = 0; i < 5 && Object.keys(editionStatuses).length < mintQty; i++)
       try {
-        printResponse = await createPrint({
+        let printResponse = await createPrint({
           mintAddress,
           buyer: mx.identity().publicKey.toBase58(),
+          count: mintQty,
+          editions: editionsToPrint,
         })
 
-        if (!printResponse.transaction) {
-          // TODO: show error to user
-          console.error(printResponse)
-          return
-        }
+        if (printResponse.length == 0) break
 
-        let tx = Transaction.from(Buffer.from(printResponse.transaction, 'base64'))
-        txResponse = await mx.rpc().sendAndConfirmTransaction(
-          tx,
-          {
-            maxRetries: 5,
-            commitment: 'processed',
-          },
-          [mx.identity()]
+        editionsToPrint = printResponse.map(({ editionNumber }) => editionNumber)
+        let txs = printResponse.map(({ transaction }) => Transaction.from(Buffer.from(transaction, 'base64')))
+        let signedTransactions = await mx.identity().signAllTransactions(txs)
+
+        let results = await Promise.allSettled(
+          signedTransactions.map(async (tx, index) => {
+            let { editionNumber, editionMint } = printResponse[index]
+            let signature = await mx.connection.sendRawTransaction(tx.serialize(), {
+              maxRetries: 5,
+              preflightCommitment: 'processed',
+            })
+            await mx.connection.confirmTransaction(signature)
+            editionStatuses[editionNumber.toString()] = {
+              status: 'success',
+              signature,
+              editionMint,
+            }
+          })
         )
+        console.log('print transaction results', results)
+
+        break
       } catch (e: any) {
         console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
@@ -338,15 +349,15 @@ const MainSection = ({
       }
 
     setMintEditionLoading(false)
-    console.log(txResponse)
-    if (txResponse) {
-      console.log(`minted edition successfully: ${printResponse.editionMint}`)
+    console.log(editionsToPrint)
+    if (Object.keys(editionStatuses).length === mintQty) {
+      console.log('minted editions successfully', editionStatuses)
 
       setAlertData([
         {
           id: 0,
           title: 'Successful Mint!',
-          description: `You've successfully minted an edition`,
+          description: `You've successfully minted ${Object.keys(editionStatuses).length} editions`,
           type: 'success',
         },
       ])
@@ -357,8 +368,8 @@ const MainSection = ({
       setAlertData([
         {
           id: 0,
-          title: 'Mint Failed!',
-          description: `You've failed minting an edition`,
+          title: 'Mint Partially Succeeded!',
+          description: `You've failed minting some editions`,
           type: 'success',
         },
       ])

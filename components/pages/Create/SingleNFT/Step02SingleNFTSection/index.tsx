@@ -35,10 +35,10 @@ const Step02SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-10`}>
-        NFT Name <span>*</span>
+      <div className={`${styles.subTitle} mt-0`}>
+        Artwork Name <span>*</span>
       </div>
-      <div className="max-w-[370px] w-full mt-5">
+      <div className="max-w-[370px] w-full mt-[15px]">
         <Input
           value={limit(nftName, 32)}
           placeholder="Give your art name"
@@ -48,19 +48,21 @@ const Step02SingleNFTSection = props => {
         />
       </div>
       <div className={`${styles.subTitle} mt-[30px]`}>
-        Description <span>*</span>
+        Artwork Description <span>*</span>
       </div>
-      <div className="w-full mt-5">
+      <div className="w-full mt-[15px]">
         <Textarea
           value={limit(description, 1000)}
           color={'var(--text-gray-200-color)'}
+          placeholder="Add a short description..."
           label01="Max Characters 1000"
           label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
           onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-[30px]`}>Categories (optional)</div>
-      <div className="w-full mt-5">
+      <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+      <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+      <div className="w-full mt-[15px]">
         <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       </div>
     </div>
@@ -99,7 +101,7 @@ const Step02SingleNFTSection = props => {
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">
             <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
-              Choose Category
+              Category (optional)
             </div>
           </div>
         </div>
