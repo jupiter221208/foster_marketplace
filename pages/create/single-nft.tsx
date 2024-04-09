@@ -602,7 +602,7 @@ const SingleNft = () => {
                   {/* left part */}
                   <div className="relative col-span-12 lg:col-span-6 g-left-container">
                     <div className={styles.leftContainer}>
-                      <div className={`w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
+                      <div className={`relative w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
                         {nftType === 'vr' && nftUrl ? (
                           <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
                             <ModelViewer
@@ -627,12 +627,12 @@ const SingleNft = () => {
                               height: artWidth,
                             }}
                           >
-                            {nftImage !== '' && artWidth !== 0 && (
+                            {/* {nftImage !== '' && artWidth !== 0 && (
                               <div className="absolute inset-0 flex justify-center items-center">
                                 <img src={nftImage} alt="" className="w-full h-full object-cover" />
                               </div>
-                            )}
-                            {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />}
+                            )} */}
+                            {/* {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />} */}
                             {nftImage !== '' && artWidth !== 0 && (
                               <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                             )}
@@ -665,7 +665,7 @@ const SingleNft = () => {
                           </div>
                         )}
 
-                        {nftArt !== null && (
+                        {nftArt !== null ? (
                           <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                             {currentStep === 1 &&
                             (nftType === 'image' ||
@@ -691,6 +691,8 @@ const SingleNft = () => {
                               <>&nbsp;</>
                             )}
                           </div>
+                        ) : (
+                          <div className={styles.preview}>Preview will display here</div>
                         )}
                       </div>
                     </div>

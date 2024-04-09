@@ -127,7 +127,7 @@ const Step03SingleNFTSection = props => {
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
       {type !== 0 && (
-        <div className="mt-[44px]">
+        <div className="mb-[30px]">
           <div className={styles.subTitle}>
             Edition type <span>*</span>
           </div>
@@ -179,10 +179,10 @@ const Step03SingleNFTSection = props => {
           )}
         </div>
       )}
-      <div className={`${styles.subTitle} mt-10`}>
+      <div className={`${styles.subTitle}`}>
         Royalties <span>*</span>
       </div>
-      <div className="max-w-[370px] w-full mt-5">
+      <div className="max-w-[370px] w-full mt-[15px]">
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"
@@ -308,7 +308,7 @@ const Step03SingleNFTSection = props => {
       <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>
-      <div className="max-w-[370px] w-full mt-4">
+      <div className="max-w-[370px] w-full mt-[15px]">
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"

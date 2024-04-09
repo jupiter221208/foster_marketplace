@@ -126,6 +126,8 @@ const Step04SingleNFTSection = props => {
           value={royalties + '%'}
           width={65}
           height={27}
+          fontFamily={'Muli-SemiBold'}
+          fontSize={13}
           placeholder="Insert a royalty percentage"
           color={'var(--text-gray-200-color)'}
           onChange={() => {}}
