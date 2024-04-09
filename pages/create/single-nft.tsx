@@ -915,6 +915,9 @@ const SingleNft = () => {
 
               {currentStep === 2 && (
                 <Step03SingleNFTSection
+                  type={type}
+                  setEditionType={item => setEditionType(item)}
+                  setMaxSupply={value => setMaxNum(value)}
                   createNft={() => createNft()}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}

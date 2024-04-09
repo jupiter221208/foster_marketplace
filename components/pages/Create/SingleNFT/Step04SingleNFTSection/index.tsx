@@ -86,7 +86,6 @@ const Step04SingleNFTSection = props => {
   const createSingleNFT = () => {
     createNft()
   }
-
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
       <div className={styles.nftName}>{nftName}</div>

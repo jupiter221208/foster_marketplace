@@ -30,6 +30,7 @@ import styles from './index.module.scss'
 
 // resources
 import { limit } from 'utils/strings'
+import Chip from 'components/Chip'
 
 const Step01SingleNFTSection = props => {
   const {
@@ -547,6 +548,9 @@ const Step01SingleNFTSection = props => {
                     Category (optional)
                   </div>
                 </div>
+              </div>
+              <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
+                {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
               </div>
               {showCategoryList && (
                 <CategoryListModal
