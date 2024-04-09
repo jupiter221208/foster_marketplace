@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
+import SwipRadio from 'components/Radio/SwipRadio'
 
 // solana
-import { PublicKey } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
@@ -20,12 +20,16 @@ import { isValidPublicKey } from 'utils/wallet.util'
 import styles from './index.module.scss'
 
 // resources
-import LoadingButton from 'components/Button/LoadingButton'
 import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
+import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
+import EditionList from 'assets/json/single-nft/edition-type.json'
 
 const Step03SingleNFTSection = props => {
   const {
+    type,
+    setEditionType,
+    setMaxSupply,
     royalties,
     setRoyalties,
     setCollection,
@@ -37,9 +41,10 @@ const Step03SingleNFTSection = props => {
   } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
-  const [selectedCollectionName, setSelectedCollectionName] = useState(null)
+  const [edition, setEdition] = useState(2)
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
+  const [maxNum, setMaxNum] = useState(MaxNumberList[0])
 
   let alertData = [
     {
@@ -82,16 +87,6 @@ const Step03SingleNFTSection = props => {
     }
   }, [creatorList])
 
-  const chooseCollection = index => {
-    if (index >= 0) {
-      setCollection(collectionList[index])
-      setSelectedCollectionName(collectionList[index]?.name)
-    } else {
-      setCollection(null)
-      setSelectedCollectionName(null)
-    }
-  }
-
   const addAnotherCreator = () => {
     if (creatorList.length === 5) return
 
@@ -131,6 +126,59 @@ const Step03SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
+      {type !== 0 && (
+        <div className="mt-[44px]">
+          <div className={styles.subTitle}>
+            Edition type <span>*</span>
+          </div>
+          <div className={styles.editionDescription}>Editions are created on-demand</div>
+          <SwipRadio
+            data={EditionList}
+            selected={edition}
+            onChange={item => {
+              setEdition(item)
+              setEditionType(item)
+            }}
+          />
+          {edition['id'] === 0 && (
+            <div className="mt-[45px]">
+              <div className={styles.maxSupplyTitle}>
+                Max Supply <span>*</span>
+              </div>
+              <div className={styles.editionDescription}>The max number of copies that will be created</div>
+              <div className="flex flex-wrap gap-[20px] justify-between mt-[16px] lg:mt-[25px]">
+                {MaxNumberList.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`${maxNum.id === item.id ? styles.selectSupply : styles.noneSupply}`}
+                    onClick={() => {
+                      setMaxNum(item)
+                      setMaxSupply(item.value)
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+              {maxNum['id'] === 3 && (
+                <div className="max-w-[450px] mt-[45px]">
+                  <div className={styles.maxTitle}>
+                    Custom Supply <span>*</span>
+                  </div>
+                  <div className="mt-[15px]">
+                    <Input
+                      onChange={value => {
+                        setMaxSupply(value)
+                      }}
+                      placeholder="Provide of maxmium supply of editions"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <div className={`${styles.subTitle} mt-10`}>
         Royalties <span>*</span>
       </div>
@@ -203,6 +251,60 @@ const Step03SingleNFTSection = props => {
     </div>
   ) : (
     <div className="w-full">
+      {type !== 0 && (
+        <div className="mt-[38px]">
+          <div className={styles.subTitle}>
+            Edition type <span>*</span>
+          </div>
+          <div className={styles.editionDescription}>Editions are created on-demand</div>
+          <SwipRadio
+            data={EditionList}
+            selected={edition}
+            onChange={item => {
+              setEdition(item)
+              setEditionType(item)
+            }}
+          />
+          {edition['id'] === 0 && (
+            <div className="mt-[36px]">
+              <div className={styles.maxSupplyTitle}>
+                Max Supply <span>*</span>
+              </div>
+              <div className={styles.editionDescription}>The max number of copies that will be created</div>
+              <div className="flex flex-wrap gap-[20px] justify-between mt-[16px] lg:mt-[25px]">
+                {MaxNumberList.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`${maxNum.id === item.id ? styles.selectSupply : styles.noneSupply}`}
+                    onClick={() => {
+                      setMaxNum(item)
+                      setMaxSupply(item.value)
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))}
+              </div>
+
+              {maxNum['id'] === 3 && (
+                <div className="max-w-[450px] mt-[40px]">
+                  <div className={styles.maxTitle}>
+                    Custom Supply <span>*</span>
+                  </div>
+                  <div className="mt-[15px]">
+                    <Input
+                      onChange={value => {
+                        setMaxSupply(value)
+                      }}
+                      placeholder="Provide of maxmium supply of editions"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>

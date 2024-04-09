@@ -703,13 +703,10 @@ const SingleNft = () => {
                         {currentStep === 1 && (
                           <>
                             <Step01SingleNFTSection
-                              type={type}
                               nftType={nftType}
                               nftCover={nftCover}
-                              setEditionType={item => setEditionType(item)}
                               setNftArt={item => handleChangeNftArt(item)}
                               setNftCover={item => handleChangeNftCover(item)}
-                              setMaxSupply={value => setMaxNum(value)}
                               nftImage={nftImage}
                               setTakeSnapshotStatus={setTakeSnapshotStatus}
                               selectedDimension={selectedDimension}
@@ -742,10 +739,13 @@ const SingleNft = () => {
 
                         {currentStep === 2 && (
                           <Step03SingleNFTSection
+                            type={type}
                             royalties={royalties}
                             setRoyalties={value => setRoyalties(value)}
                             setCollection={setCollection}
                             creatorList={creatorList}
+                            setEditionType={item => setEditionType(item)}
+                            setMaxSupply={value => setMaxNum(value)}
                             setCreatorList={setCreatorList}
                             disabledNextButton={disabledNextButton}
                             onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
@@ -755,6 +755,9 @@ const SingleNft = () => {
 
                         {currentStep === 3 && (
                           <Step04SingleNFTSection
+                            type={type}
+                            editionType={editionType}
+                            maxSupply={maxNum}
                             nftName={nftName}
                             description={description}
                             categoryList={categoryList}
@@ -876,12 +879,9 @@ const SingleNft = () => {
               {currentStep === 1 && (
                 <>
                   <Step01SingleNFTSection
-                    type={type}
                     nftType={nftType}
-                    setEditionType={item => setEditionType(item)}
                     setNftArt={item => handleChangeNftArt(item)}
                     setNftCover={item => handleChangeNftCover(item)}
-                    setMaxSupply={value => setMaxNum(value)}
                     nftCover={nftCover}
                     nftImage={nftImage}
                     setTakeSnapshotStatus={setTakeSnapshotStatus}

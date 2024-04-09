@@ -23,6 +23,9 @@ import Chip from 'components/Chip'
 
 const Step04SingleNFTSection = props => {
   const {
+    type,
+    editionType,
+    maxSupply,
     nftName,
     description,
     categoryList,
@@ -92,6 +95,24 @@ const Step04SingleNFTSection = props => {
           <div className={styles.descriptionText}>{description}</div>
         </div>
       )}
+
+      {type !== 0 && (
+        <div>
+          <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Token Type</div>
+          <div className="w-[120px]">
+            <Chip data={{ name: editionType?.name }} key={0} />
+          </div>
+          {editionType?.name === 'Limited Edition' && (
+            <div>
+              <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div>
+              <div className="w-[100px]">
+                <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {categoryList?.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>
@@ -143,6 +164,23 @@ const Step04SingleNFTSection = props => {
           <div className={styles.descriptionText}>{description}</div>
         </div>
       )}
+      {type !== 0 && (
+        <div>
+          <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Token Type</div>
+          <div className="w-[120px]">
+            <Chip data={{ name: editionType?.name }} key={0} />
+          </div>
+          {editionType?.name === 'Limited Edition' && (
+            <div>
+              <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div>
+              <div className="w-[100px]">
+                <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {categoryList?.length !== 0 && (
         <div className="mt-[30px]">
           <div className={styles.categories}>Categories</div>

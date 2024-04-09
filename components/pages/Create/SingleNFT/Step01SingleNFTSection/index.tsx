@@ -11,6 +11,7 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Textarea from 'components/Input/Textarea'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
+import Input from 'components/Input'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -28,10 +29,6 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 // resources
-import SwipRadio from 'components/Radio/SwipRadio'
-import Input from 'components/Input'
-import EditionList from 'assets/json/single-nft/edition-type.json'
-import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 import { limit } from 'utils/strings'
 
 const Step01SingleNFTSection = props => {
@@ -42,9 +39,6 @@ const Step01SingleNFTSection = props => {
     nftCover,
     setNftArt,
     setNftCover,
-    type,
-    setEditionType,
-    setMaxSupply,
     setTakeSnapshotStatus,
     selectedDimension,
     nftName,
@@ -62,9 +56,6 @@ const Step01SingleNFTSection = props => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [infoFocus, setInfoFocus] = useState(false)
-  const [edition, setEdition] = useState(2)
-  const [maxNum, setMaxNum] = useState(MaxNumberList[0])
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
@@ -141,7 +132,7 @@ const Step01SingleNFTSection = props => {
             </Dropzone>
           </div>
 
-          {type !== 0 && (
+          {/* {type !== 0 && (
             <div className="mt-[44px]">
               <div className={styles.subTitle}>
                 Edition type <span>*</span>
@@ -194,7 +185,7 @@ const Step01SingleNFTSection = props => {
                 </div>
               )}
             </div>
-          )}
+          )} */}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-[30px]`}>
@@ -429,7 +420,7 @@ const Step01SingleNFTSection = props => {
               </>
             )}
           </div>
-          {type !== 0 && (
+          {/* {type !== 0 && (
             <div className="mt-[38px]">
               <div className={styles.subTitle}>
                 Edition type <span>*</span>
@@ -463,16 +454,7 @@ const Step01SingleNFTSection = props => {
                       </div>
                     ))}
                   </div>
-                  {/* <div className="flex flex-row justify-between max-w-[450px]">
-                    <Radio
-                      data={MaxNumberList}
-                      selected={maxNum}
-                      onChange={item => {
-                        setMaxNum(item)
-                        setMaxSupply(item.value)
-                      }}
-                    />
-                  </div> */}
+                 
                   {maxNum['id'] === 3 && (
                     <div className="max-w-[450px] mt-[40px]">
                       <div className={styles.maxTitle}>
@@ -492,7 +474,7 @@ const Step01SingleNFTSection = props => {
                 </div>
               )}
             </div>
-          )}
+          )} */}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-[30px]`}>
