@@ -7,27 +7,56 @@ import Dropzone from 'react-dropzone'
 
 // components
 import Alert from 'components/Alert'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import Textarea from 'components/Input/Textarea'
+import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
+import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
 import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
+import ImageIcon from 'assets/icons/image-icon.svg?component'
+import ShareIcon from 'assets/icons/share-icon.svg?component'
+import TrashBin from 'assets/icons/trash-bin.svg?component'
+
+// json
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
 
 // resources
-import InfoGrayIcon from 'assets/icons/info-gray.svg?component'
-import InfoGreenIcon from 'assets/icons/info-green.svg?component'
 import SwipRadio from 'components/Radio/SwipRadio'
-import Radio from 'components/Radio'
 import Input from 'components/Input'
 import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
+import { limit } from 'utils/strings'
 
 const Step01SingleNFTSection = props => {
-  const { nftType, setNftArt, setNftCover, type, setEditionType, setMaxSupply } = props
+  const {
+    nftType,
+    nftImage,
+    setNftImage,
+    nftCover,
+    setNftArt,
+    setNftCover,
+    type,
+    setEditionType,
+    setMaxSupply,
+    setTakeSnapshotStatus,
+    selectedDimension,
+    nftName,
+    setNftName,
+    description,
+    setDescription,
+    categoryList,
+    showCategoryList,
+    setShowCategoryList,
+    handleSelectCategory,
+    handleCancelCategory,
+  } = props
 
   const viewport = useViewport()
 
@@ -36,6 +65,7 @@ const Step01SingleNFTSection = props => {
   const [infoFocus, setInfoFocus] = useState(false)
   const [edition, setEdition] = useState(2)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
       let description = ''
@@ -75,10 +105,10 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-10`}>
-            Art <span>*</span>
+          <div className={`${styles.subTitle}`}>
+            Upload Art <span>*</span>
           </div>
-          <div className="mt-5">
+          <div className="mt-[21px]">
             <Dropzone
               onDropAccepted={acceptedFiles => {
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
@@ -110,18 +140,7 @@ const Step01SingleNFTSection = props => {
               )}
             </Dropzone>
           </div>
-          {/* <div className="mt-[20px] h-[54px] flex items-center">
-            <div
-              className="h-[54px] flex justify-center items-center cursor-pointer"
-              onMouseEnter={() => setInfoFocus(true)}
-              onMouseLeave={() => setInfoFocus(false)}
-            >
-              {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
-            </div>
-            {infoFocus && (
-              <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
-            )}
-            </div>*/}
+
           {type !== 0 && (
             <div className="mt-[44px]">
               <div className={styles.subTitle}>
@@ -207,6 +226,102 @@ const Step01SingleNFTSection = props => {
               </div>
             </>
           )}
+          {nftType === 'vr' && (
+            <>
+              <div className={styles.coverImgMsg}>
+                <h6>
+                  Cover Photo <span>*</span>
+                </h6>
+                <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+              </div>
+
+              <div className={styles.coverBtnBox}>
+                <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
+                  <ImageIcon /> Take Snapshot
+                </button>
+
+                <button disabled={nftImage !== ''}>
+                  <label htmlFor="fileInput">
+                    <ShareIcon /> Upload Photo
+                  </label>
+                </button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="fileInput"
+                  onChange={e => {
+                    const file = e.target.files[0]
+                    if (file && file.type.startsWith('image/')) {
+                      setNftCover(file)
+                      setOpenCoverImageEditorModal(true)
+                    } else {
+                      alert('Please select an image file.')
+                    }
+                  }}
+                />
+
+                {nftCover && (
+                  <NftImageEditorModal
+                    open={openCoverImageEditorModal}
+                    close={() => setOpenCoverImageEditorModal(false)}
+                    nftImage={nftType === 'vr' && [nftCover]}
+                    getCroppedImage={croppedImage => {
+                      setNftImage(croppedImage)
+                      setOpenCoverImageEditorModal(false)
+                    }}
+                    dimension={selectedDimension}
+                  />
+                )}
+              </div>
+
+              {nftImage && (
+                <div className={styles.glbNftImageSection}>
+                  <img className="w-full aspect-square" src={nftImage} alt="" />
+                  <button
+                    onClick={() => {
+                      setNftImage('')
+                      setNftCover(null)
+                    }}
+                  >
+                    <TrashBin />
+                    &nbsp;Remove Cover Image
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+          <div className="w-full">
+            <div className={`${styles.subTitle} mt-0`}>
+              Artwork Name <span>*</span>
+            </div>
+            <div className="max-w-[370px] w-full mt-[15px]">
+              <Input
+                value={limit(nftName, 32)}
+                placeholder="Give your art name"
+                label01="Max Characters 32"
+                label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+                onChange={value => setNftName(limit(value, 32))}
+              />
+            </div>
+            <div className={`${styles.subTitle} mt-[30px]`}>
+              Artwork Description <span>*</span>
+            </div>
+            <div className="w-full mt-[15px]">
+              <Textarea
+                value={limit(description, 1000)}
+                color={'var(--text-gray-200-color)'}
+                placeholder="Add a short description..."
+                label01="Max Characters 1000"
+                label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
+                onChange={value => setDescription(limit(value, 1000))}
+              />
+            </div>
+            <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+            <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+            <div className="w-full mt-[15px]">
+              <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+            </div>
+          </div>
         </div>
       ) : (
         <div className="w-full">
@@ -251,6 +366,65 @@ const Step01SingleNFTSection = props => {
                 </section>
               )}
             </Dropzone>
+            {nftType === 'vr' && (
+              <>
+                <div className={styles.coverImgMsg}>
+                  <h6>
+                    Cover Photo <span>*</span>
+                  </h6>
+                  <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                </div>
+
+                <div className={styles.coverBtnBox}>
+                  <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
+                    <ImageIcon /> Take Snapshot
+                  </button>
+
+                  <button disabled={nftImage !== ''}>
+                    <label htmlFor="fileInput">
+                      <ShareIcon /> Upload Photo
+                    </label>
+                  </button>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    id="fileInput"
+                    onChange={e => {
+                      const file = e.target.files[0]
+                      if (file && file.type.startsWith('image/')) {
+                        setNftCover(file)
+                        setOpenCoverImageEditorModal(true)
+                      } else {
+                        alert('Please select an image file.')
+                      }
+                    }}
+                  />
+
+                  {nftCover && (
+                    <NftImageEditorModal
+                      open={openCoverImageEditorModal}
+                      close={() => setOpenCoverImageEditorModal(false)}
+                      nftImage={nftType === 'vr' && [nftCover]}
+                      getCroppedImage={croppedImage => {
+                        setNftImage(croppedImage)
+                        setOpenCoverImageEditorModal(false)
+                      }}
+                      dimension={selectedDimension}
+                    />
+                  )}
+                </div>
+
+                {nftImage && (
+                  <div className={styles.glbNftImageSection}>
+                    <img className="w-full aspect-square" src={nftImage} alt="" />
+                    <button onClick={() => setNftImage('')}>
+                      <TrashBin />
+                      &nbsp;Remove Cover Image
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
             {/* <div className="mt-[12px] h-[30px] flex items-center">
               <div
                 className="w-[25px] flex justify-center items-center cursor-pointer"
@@ -267,6 +441,55 @@ const Step01SingleNFTSection = props => {
                 <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
               )}
             </div> */}
+            <div className="w-full">
+              <div className={`${styles.mobileSubTitle} mt-[30px]`}>
+                NFT Name <span>*</span>
+              </div>
+              <div className="max-w-[370px] w-full mt-4">
+                <Input
+                  value={limit(nftName, 32)}
+                  placeholder="Give your art name"
+                  color={'var(--text-gray-200-color)'}
+                  backgroundColor={'var(--shipping-board-bg)'}
+                  label01="Max Characters 32"
+                  label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+                  onChange={value => setNftName(limit(value, 32))}
+                />
+              </div>
+              <div className={`${styles.mobileSubTitle} mt-[30px]`}>
+                Description <span>*</span>
+              </div>
+              <div className="w-full mt-5">
+                <Textarea
+                  value={limit(description, 1000)}
+                  placeholder="Add a short description..."
+                  color={'var(--text-gray-200-color)'}
+                  backgroundColor={'var(--shipping-board-bg)'}
+                  label01="Max Characters 1000"
+                  label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
+                  onChange={value => setDescription(value)}
+                />
+              </div>
+              <div className={`${styles.mobileSubTitle} mt-[30px]`}>Categories (optional)</div>
+              <div className="w-full mt-4">
+                <div className="grid grid-cols-2 gap-5">
+                  <div className="col-span-1">
+                    <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
+                      Category (optional)
+                    </div>
+                  </div>
+                </div>
+                {showCategoryList && (
+                  <CategoryListModal
+                    data={CategoryList}
+                    categoryList={categoryList}
+                    onChange={index => handleSelectCategory(index)}
+                    onClick={() => setShowCategoryList(!showCategoryList)}
+                    onClickCancel={() => handleCancelCategory()}
+                  />
+                )}
+              </div>
+            </div>
           </div>
           {type !== 0 && (
             <div className="mt-[38px]">
