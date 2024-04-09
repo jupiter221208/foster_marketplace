@@ -50,6 +50,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
+import Step04SingleNFTSection from 'components/pages/Create/SingleNFT/Step04SingleNFTSection'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -506,7 +507,6 @@ const SingleNft = () => {
             console.log(error)
           }
         )
-      // handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
       setCurrentStep(4)
     } catch (error) {
       console.error(error)
@@ -587,19 +587,14 @@ const SingleNft = () => {
           ) : (
             <div className="w-full">
               <div className="w-full flex justify-center">
-                <div className="w-full g-container mt-[80px]">
+                <div className="w-full g-container mt-[66px]">
                   <ProgressSection
                     currentStep={currentStep}
                     nextDisabled={disabledNextButton}
                     onBack={() => handleChangeCurrentStep(currentStep - 1)}
-                    onNext={() =>
-                      handleChangeCurrentStep(
-                        currentStep === 1 ? currentStep + 2 : currentStep === 4 ? 4 : currentStep + 1
-                      )
-                    }
+                    onNext={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                     loading={isMinting}
                   />
-                  <div className={styles.border} />
                 </div>
               </div>
               <div className="w-full flex justify-center">
@@ -698,22 +693,6 @@ const SingleNft = () => {
                           </div>
                         )}
                       </div>
-                      <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
-                        {nftName}
-                      </div>
-                      {description !== '' && (
-                        <div
-                          className={`w-full flex flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}
-                        >
-                          <div className={`${styles.descriptionTitle} w-full`}>Description</div>
-                          <div className={styles.descriptionText}>{description}</div>
-                        </div>
-                      )}
-                      {categoryList.length !== 0 && (
-                        <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
-                          {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                        </div>
-                      )}
                     </div>
                   </div>
                   {/* right part */}
@@ -747,7 +726,7 @@ const SingleNft = () => {
                           </>
                         )}
 
-                        {currentStep === 2 && (
+                        {/* {currentStep === 2 && (
                           <Step02SingleNFTSection
                             nftName={nftName}
                             setNftName={value => setNftName(value)}
@@ -759,8 +738,9 @@ const SingleNft = () => {
                             handleSelectCategory={index => handleSelectCategory(index)}
                             handleCancelCategory={() => handleCancelCategory()}
                           />
-                        )}
-                        {currentStep === 3 && (
+                        )} */}
+
+                        {currentStep === 2 && (
                           <Step03SingleNFTSection
                             royalties={royalties}
                             setRoyalties={value => setRoyalties(value)}
@@ -768,50 +748,24 @@ const SingleNft = () => {
                             creatorList={creatorList}
                             setCreatorList={setCreatorList}
                             disabledNextButton={disabledNextButton}
+                            onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
+                            onBack={() => handleChangeCurrentStep(currentStep - 1)}
+                          />
+                        )}
+
+                        {currentStep === 3 && (
+                          <Step04SingleNFTSection
+                            nftName={nftName}
+                            description={description}
+                            categoryList={categoryList}
+                            royalties={royalties}
+                            creatorList={creatorList}
+                            disabledNextButton={disabledNextButton}
                             createNft={() => createNft()}
                             isMinting={isMinting}
                             onBack={() => handleChangeCurrentStep(currentStep - 1)}
                           />
                         )}
-                        <div className="w-full h-32" />
-                        <div className="absolute bottom-0 w-full flex justify-end">
-                          <div className="flex gap-10">
-                            {/* {currentStep === 2 ? (
-                            <Button
-                              label="Back"
-                              onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                              backgroundColor={'transparent'}
-                              borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                              borderWidth={2}
-                              color="var(--main-bg-color)"
-                              width={viewport === '2xl' ? 124 : 117}
-                              height={viewport === '2xl' ? 53 : 45}
-                            />
-                          ) : (
-                            <div />
-                          )} */}
-                            {/* {currentStep < 3 &&
-                            (disabledNextButton ? (
-                              <Button
-                                width={viewport === '2xl' ? 124 : 117}
-                                height={viewport === '2xl' ? 53 : 45}
-                                label="Next Step"
-                                disabled={disabledNextButton}
-                                backgroundColor="var(--second-home-bg)"
-                                color="rgba(var(--main-bg-color-rgb), 0.5)"
-                              />
-                            ) : coverImageProcessing ? (
-                              <LoadingButton width={viewport === '2xl' ? 124 : 117} />
-                            ) : (
-                              <GradientButton
-                                width={viewport === '2xl' ? 124 : 117}
-                                height={viewport === '2xl' ? 53 : 45}
-                                label="Next Step"
-                                onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                              />
-                            ))} */}
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -932,11 +886,20 @@ const SingleNft = () => {
                     nftImage={nftImage}
                     setTakeSnapshotStatus={setTakeSnapshotStatus}
                     selectedDimension={selectedDimension}
+                    nftName={nftName}
+                    setNftName={value => setNftName(value)}
+                    description={description}
+                    setDescription={value => setDescription(value)}
+                    categoryList={categoryList}
+                    showCategoryList={showCategoryList}
+                    setShowCategoryList={value => setShowCategoryList(value)}
+                    handleSelectCategory={index => handleSelectCategory(index)}
+                    handleCancelCategory={() => handleCancelCategory()}
                   />
                 </>
               )}
 
-              {currentStep === 2 && (
+              {/* {currentStep === 2 && (
                 <Step02SingleNFTSection
                   nftName={nftName}
                   setNftName={value => setNftName(value)}
@@ -948,9 +911,9 @@ const SingleNft = () => {
                   handleSelectCategory={index => handleSelectCategory(index)}
                   handleCancelCategory={() => handleCancelCategory()}
                 />
-              )}
+              )} */}
 
-              {currentStep === 3 && (
+              {currentStep === 2 && (
                 <Step03SingleNFTSection
                   createNft={() => createNft()}
                   royalties={royalties}
@@ -958,12 +921,20 @@ const SingleNft = () => {
                   setCollection={setCollection}
                   creatorList={creatorList}
                   setCreatorList={setCreatorList}
-                  isMinting={isMinting}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
-                  handleChangeCurrentStep={() =>
-                    handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-                  }
+                  onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
+                />
+              )}
+
+              {currentStep === 3 && (
+                <Step04SingleNFTSection
+                  royalties={royalties}
+                  creatorList={creatorList}
+                  disabledNextButton={disabledNextButton}
+                  createNft={() => createNft()}
+                  isMinting={isMinting}
+                  onBack={() => handleChangeCurrentStep(currentStep - 1)}
                 />
               )}
 
@@ -971,19 +942,6 @@ const SingleNft = () => {
                 {/* button group part */}
                 {currentStep === 1 && (
                   <div className="w-full">
-                    <GradientButton
-                      fullWidth
-                      label="Next Step"
-                      onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                      height="45px"
-                      fontSize={16}
-                      fontFamily="Muli-SemiBold"
-                      disabled={disabledNextButton}
-                    />
-                  </div>
-                )}
-                {currentStep === 2 && (
-                  <div className="w-full grid grid-cols-2 gap-5">
                     <div className="col-span-1">
                       <Button
                         label="Back"
@@ -998,18 +956,46 @@ const SingleNft = () => {
                         fontSize={16}
                       />
                     </div>
-                    <div className="col-span-1">
-                      <div className="w-full">
-                        <GradientButton
-                          fullWidth
-                          label="Next Step"
-                          onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                          height="45px"
-                          fontSize={16}
-                          fontFamily="Muli-SemiBold"
-                          disabled={disabledNextButton}
-                        />
-                      </div>
+                    <div className="w-full mt-[18px]">
+                      <GradientButton
+                        fullWidth
+                        label="Next Step"
+                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                        height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
+                        disabled={disabledNextButton}
+                      />
+                    </div>
+                  </div>
+                )}
+                {currentStep === 2 && (
+                  <div className="w-full grid grid-cols-2 gap-5">
+                    <div>
+                      <Button
+                        label="Back"
+                        onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                        fullWidth
+                        fontFamily="Muli-SemiBold"
+                        height="45px"
+                        backgroundColor="transparent"
+                        color="var(--main-bg-color)"
+                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                        borderWidth={2}
+                        fontSize={16}
+                      />
+                    </div>
+
+                    <div className="w-full mt-[18px]">
+                      <GradientButton
+                        fullWidth
+                        label="Next Step"
+                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                        height="45px"
+                        fontSize={16}
+                        fontFamily="Muli-SemiBold"
+                        disabled={disabledNextButton}
+                      />
                     </div>
                   </div>
                 )}

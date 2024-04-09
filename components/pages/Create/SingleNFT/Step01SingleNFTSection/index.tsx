@@ -308,6 +308,7 @@ const Step01SingleNFTSection = props => {
             </div>
             <div className="w-full mt-[15px]">
               <Textarea
+                height={150}
                 value={limit(description, 1000)}
                 color={'var(--text-gray-200-color)'}
                 placeholder="Add a short description..."
@@ -427,71 +428,6 @@ const Step01SingleNFTSection = props => {
                 )}
               </>
             )}
-            {/* <div className="mt-[12px] h-[30px] flex items-center">
-              <div
-                className="w-[25px] flex justify-center items-center cursor-pointer"
-                onClick={() => {
-                  setInfoFocus(true)
-                  setTimeout(() => {
-                    setInfoFocus(false)
-                  }, 2000)
-                }}
-              >
-                {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
-              </div>
-              {infoFocus && (
-                <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
-              )}
-            </div> */}
-            <div className="w-full">
-              <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-                NFT Name <span>*</span>
-              </div>
-              <div className="max-w-[370px] w-full mt-4">
-                <Input
-                  value={limit(nftName, 32)}
-                  placeholder="Give your art name"
-                  color={'var(--text-gray-200-color)'}
-                  backgroundColor={'var(--shipping-board-bg)'}
-                  label01="Max Characters 32"
-                  label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
-                  onChange={value => setNftName(limit(value, 32))}
-                />
-              </div>
-              <div className={`${styles.mobileSubTitle} mt-[30px]`}>
-                Description <span>*</span>
-              </div>
-              <div className="w-full mt-5">
-                <Textarea
-                  value={limit(description, 1000)}
-                  placeholder="Add a short description..."
-                  color={'var(--text-gray-200-color)'}
-                  backgroundColor={'var(--shipping-board-bg)'}
-                  label01="Max Characters 1000"
-                  label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
-                  onChange={value => setDescription(value)}
-                />
-              </div>
-              <div className={`${styles.mobileSubTitle} mt-[30px]`}>Categories (optional)</div>
-              <div className="w-full mt-4">
-                <div className="grid grid-cols-2 gap-5">
-                  <div className="col-span-1">
-                    <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
-                      Category (optional)
-                    </div>
-                  </div>
-                </div>
-                {showCategoryList && (
-                  <CategoryListModal
-                    data={CategoryList}
-                    categoryList={categoryList}
-                    onChange={index => handleSelectCategory(index)}
-                    onClick={() => setShowCategoryList(!showCategoryList)}
-                    onClickCancel={() => handleCancelCategory()}
-                  />
-                )}
-              </div>
-            </div>
           </div>
           {type !== 0 && (
             <div className="mt-[38px]">
@@ -593,6 +529,56 @@ const Step01SingleNFTSection = props => {
               </div>
             </>
           )}
+
+          <div className="w-full">
+            <div className={`${styles.mobileSubTitle} mt-[30px]`}>
+              NFT Name <span>*</span>
+            </div>
+            <div className="max-w-[370px] w-full mt-4">
+              <Input
+                value={limit(nftName, 32)}
+                placeholder="Give your art name"
+                color={'var(--text-gray-200-color)'}
+                backgroundColor={'var(--shipping-board-bg)'}
+                label01="Max Characters 32"
+                label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
+                onChange={value => setNftName(limit(value, 32))}
+              />
+            </div>
+            <div className={`${styles.mobileSubTitle} mt-[30px]`}>
+              Description <span>*</span>
+            </div>
+            <div className="w-full mt-5">
+              <Textarea
+                value={limit(description, 1000)}
+                height={150}
+                placeholder="Add a short description..."
+                color={'var(--text-gray-200-color)'}
+                backgroundColor={'var(--shipping-board-bg)'}
+                label01="Max Characters 1000"
+                label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
+                onChange={value => setDescription(value)}
+              />
+            </div>
+            <div className="w-full mt-4">
+              <div className="grid grid-cols-2 gap-5">
+                <div className="col-span-1">
+                  <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
+                    Category (optional)
+                  </div>
+                </div>
+              </div>
+              {showCategoryList && (
+                <CategoryListModal
+                  data={CategoryList}
+                  categoryList={categoryList}
+                  onChange={index => handleSelectCategory(index)}
+                  onClick={() => setShowCategoryList(!showCategoryList)}
+                  onClickCancel={() => handleCancelCategory()}
+                />
+              )}
+            </div>
+          </div>
         </div>
       )}
       <Alert

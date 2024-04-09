@@ -32,8 +32,7 @@ const Step03SingleNFTSection = props => {
     creatorList,
     setCreatorList,
     disabledNextButton,
-    createNft,
-    isMinting,
+    onNextStep,
     onBack,
   } = props
   const viewport = useViewport()
@@ -130,10 +129,6 @@ const Step03SingleNFTSection = props => {
     setCreatorList(list)
   }
 
-  const createSingleNFT = () => {
-    createNft()
-  }
-
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
       <div className={`${styles.subTitle} mt-10`}>
@@ -202,57 +197,9 @@ const Step03SingleNFTSection = props => {
           Add another wallet
         </div>
       </div>
-      {/* <div className="w-full mt-[54px]">
-        <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu
-          collections={collectionList}
-          name={selectedCollectionName}
-          onClick={index => chooseCollection(index)}
-        />
-      </div> */}
       <div className="w-full flex justify-end mt-[50px]">
-        <div className="flex gap-10">
-          {/* <div>
-            <Button
-              label="Back"
-              onClick={() => onBack()}
-              backgroundColor={'transparent'}
-              borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-              borderWidth={2}
-              color="var(--main-bg-color)"
-              width={viewport === '2xl' ? 124 : 117}
-              height={viewport === '2xl' ? 53 : 46}
-            />
-          </div> */}
-          {/* <div>
-            {royalties === '' ||
-            parseInt(royalties) < 0 ||
-            parseInt(royalties) > 10 ||
-            !enableMintBtn ||
-            creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
-              <Button
-                width={viewport === '2xl' ? 124 : 117}
-                height={viewport === '2xl' ? 53 : 46}
-                label="Mint"
-                disabled={disabledNextButton}
-                backgroundColor="var(--second-home-bg)"
-                color="rgba(var(--main-bg-color-rgb), 0.5)"
-              />
-            ) : isMinting ? (
-              <LoadingButton width={viewport === '2xl' ? 124 : 117} height={viewport === '2xl' ? 53 : 46} />
-            ) : (
-              <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint" onClick={() => createSingleNFT()} />
-            )}
-          </div> */}
-        </div>
+        <div className="flex gap-10"></div>
       </div>
-      {/* <Alert
-        open={showAlert}
-        close={() => {
-          setShowAlert(false)
-        }}
-        data={alertData}
-      /> */}
     </div>
   ) : (
     <div className="w-full">
@@ -344,19 +291,17 @@ const Step03SingleNFTSection = props => {
           <Button
             fullWidth
             height={45}
-            label="Mint"
+            label="Next Step"
             disabled={disabledNextButton}
             backgroundColor="var(--second-home-bg)"
             color="rgba(var(--main-bg-color-rgb), 0.5)"
             fontFamily="Muli-SemiBold"
             fontSize={16}
           />
-        ) : isMinting ? (
-          <LoadingButton fullWidth height={45} />
         ) : (
           <GradientButton
-            label="Mint"
-            onClick={() => createSingleNFT()}
+            label="Next Step"
+            onClick={() => onNextStep()}
             fullWidth
             height={45}
             fontSize={16}
