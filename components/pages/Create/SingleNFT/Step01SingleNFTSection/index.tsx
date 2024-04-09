@@ -291,7 +291,7 @@ const Step01SingleNFTSection = props => {
             </>
           )}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-0`}>
+            <div className={`${styles.subTitle} mt-[30px]`}>
               Artwork Name <span>*</span>
             </div>
             <div className="max-w-[370px] w-full mt-[15px]">
@@ -299,7 +299,7 @@ const Step01SingleNFTSection = props => {
                 value={limit(nftName, 32)}
                 placeholder="Give your art name"
                 label01="Max Characters 32"
-                label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+                label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
                 onChange={value => setNftName(limit(value, 32))}
               />
             </div>
@@ -312,14 +312,16 @@ const Step01SingleNFTSection = props => {
                 color={'var(--text-gray-200-color)'}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
-                label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
+                label02={1000 - description?.length === 1000 ? '' : `${1000 - description?.length} Characters left`}
                 onChange={value => setDescription(limit(value, 1000))}
               />
             </div>
             <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
             <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
             <div className="w-full mt-[15px]">
-              <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+              {categoryList && (
+                <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+              )}
             </div>
           </div>
         </div>
@@ -452,7 +454,7 @@ const Step01SingleNFTSection = props => {
                   color={'var(--text-gray-200-color)'}
                   backgroundColor={'var(--shipping-board-bg)'}
                   label01="Max Characters 32"
-                  label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
+                  label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
                   onChange={value => setNftName(limit(value, 32))}
                 />
               </div>

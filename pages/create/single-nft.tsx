@@ -27,7 +27,6 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
 import Chip from 'components/Chip'
-import Stepper from 'components/Stepper'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 
@@ -44,11 +43,8 @@ import CategoryList from 'assets/json/popular-category.json'
 import nftsAPI from 'apis/nfts'
 
 // styles
-import ImageIcon from 'assets/icons/image-icon.svg?component'
-import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
 import styles from './single-nft.module.scss'
-import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
@@ -539,6 +535,17 @@ const SingleNft = () => {
               setDisabledNextButton(true)
             }
           }
+
+          let count = 0
+          categoryList.map(item => {
+            if (item.checked === true) count++
+          })
+
+          if (nftName !== '' && description !== '' && count !== 0) {
+            setDisabledNextButton(false)
+          } else {
+            setDisabledNextButton(true)
+          }
         } else {
           setDisabledNextButton(true)
         }
@@ -585,7 +592,11 @@ const SingleNft = () => {
                     currentStep={currentStep}
                     nextDisabled={disabledNextButton}
                     onBack={() => handleChangeCurrentStep(currentStep - 1)}
-                    onNext={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                    onNext={() =>
+                      handleChangeCurrentStep(
+                        currentStep === 1 ? currentStep + 2 : currentStep === 4 ? 4 : currentStep + 1
+                      )
+                    }
                     loading={isMinting}
                   />
                   <div className={styles.border} />
@@ -709,9 +720,6 @@ const SingleNft = () => {
                   <div className="col-span-12 lg:col-span-6 g-right-container z-0">
                     <div className={styles.rightContainer}>
                       <div className="w-full relative">
-                        {/* <div className="w-full">
-                        <Stepper currentStep={currentStep} />
-                      </div> */}
                         {/* upload artwork part */}
                         {currentStep === 1 && (
                           <>
