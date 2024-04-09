@@ -319,7 +319,6 @@ const Step03SingleNFTSection = props => {
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"
-          backgroundColor={'var(--shipping-board-bg)'}
           label01="From 0 to 10%"
           color={'var(--text-gray-200-color)'}
           min={0}
