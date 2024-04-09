@@ -80,12 +80,13 @@ const Step03SingleNFTSection = props => {
       setDisabledNextButton(true)
       setShowAlert(true)
       setEnableMintBtn(false)
+      return
     }
 
     let enabled = true
     for (let i = 0; i < creatorList.length; i++) {
       let creator = creatorList[i]
-      if (creator.address.length === 0) {
+      if (creator.address.length === 0 || !isValidPublicKey(creator.address)) {
         setEnableMintBtn(false)
         enabled = false
         break
