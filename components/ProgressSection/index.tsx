@@ -13,18 +13,21 @@ import BackButton from 'components/Button/BackButton'
 import Stepper from 'components/Stepper'
 import NextButton from 'components/Button/NextButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import MintButton from 'components/Button/MintButton'
 
 const ProgressSection = props => {
-  const { onBack, onNext, nextDisabled, currentStep, loading } = props
+  const { onBack, onNext, nextDisabled, currentStep, loading, labels } = props
 
   return (
     <div className="w-full flex justify-between">
       <BackButton onClick={onBack} />
       <div className="w-[60%]">
-        <Stepper currentStep={currentStep} />
+        <Stepper currentStep={currentStep} labels={labels} />
       </div>
       {loading ? (
         <LoadingButton width={122} height={53} borderRadius={30} />
+      ) : currentStep === labels.length ? (
+        <MintButton onClick={onNext} disabled={nextDisabled} />
       ) : (
         <NextButton onClick={onNext} disabled={nextDisabled} />
       )}

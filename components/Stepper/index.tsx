@@ -9,7 +9,7 @@ import NextStepCircle from './NextStepCircle'
 import styles from './index.module.scss'
 
 const Stepper = props => {
-  const { currentStep } = props
+  const { currentStep, labels } = props
 
   return (
     <div className="w-full flex h-[66px] lg:h-[65px] flex-col justify-between">
@@ -20,7 +20,7 @@ const Stepper = props => {
               currentStep === 1 ? styles.boldText : styles.regularText
             } absolute top-[45px] -left-6 -right-16`}
           >
-            Artwork&nbsp;Details
+            {labels[0]}
           </div>
         </div>
 
@@ -32,21 +32,22 @@ const Stepper = props => {
               currentStep === 2 ? styles.boldText : styles.regularText
             } absolute top-[45px] -left-16 -right-16`}
           >
-            Additional&nbsp;details
+            {labels[1]}
           </div>
         </div>
 
-        <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />
-
-        <div className="relative h-[30px] flex items-center">
-          <div
-            className={`${currentStep < 3 ? styles.grayText : styles.greenText}  ${
-              currentStep === 3 ? styles.boldText : styles.regularText
-            } absolute top-[45px] -left-16 -right-16`}
-          >
-            Review
+        {labels.length > 2 && <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />}
+        {labels.length > 2 && (
+          <div className="relative h-[30px] flex items-center">
+            <div
+              className={`${currentStep < 3 ? styles.grayText : styles.greenText}  ${
+                currentStep === 3 ? styles.boldText : styles.regularText
+              } absolute top-[45px] -left-16 -right-16`}
+            >
+              {labels[2]}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

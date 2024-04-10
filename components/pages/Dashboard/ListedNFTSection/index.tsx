@@ -32,9 +32,10 @@ import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { ListingsAPIData } from 'types/nft'
+import { ListingsAPIData, NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import ListedEditionCard from 'components/Card/ListedEditionCard'
+import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 
 type SelectedDataType = {
   category: string
@@ -54,6 +55,7 @@ const ListedNFTSection = props => {
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [filteredList, setFilteredList] = useState<any>([])
 
   const [selectedData, setSelectedData] = useState<SelectedDataType>()
   const handleSelectData = item => {
@@ -343,17 +345,20 @@ const ListedNFTSection = props => {
         let new_list = fixedPriceNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[0])
       } else if (active === 1) {
         let new_list = liveAuctionNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[1])
       } else {
         // active === 2
         let new_list = liveEditions as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[2])
       }
     }, 500)
@@ -365,34 +370,55 @@ const ListedNFTSection = props => {
       if (active === 0) {
         if (nftList.length + rowCount > fixedPriceNFTs.length) {
           setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, fixedPriceNFTs.length)])
+          setFilteredList([...nftList, ...fixedPriceNFTs.slice(nftList.length, fixedPriceNFTs.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       } else if (active === 1) {
         if (nftList.length + rowCount > liveAuctionNFTs.length) {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
+          setFilteredList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       } else {
         if (nftList.length + rowCount > liveEditions.length) {
           setNFTList([...nftList, ...liveEditions.slice(nftList.length, liveEditions.length)])
+          setFilteredList([...nftList, ...liveEditions.slice(nftList.length, liveEditions.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...liveEditions.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...liveEditions.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       }
     }
   }, [isFetching])
 
+  const searchNFT = key => {
+    if (key === '') {
+      setFilteredList(nftList)
+    } else {
+      let filtered = []
+      setFilteredList([])
+      nftList.forEach(element => {
+        if (element.name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
+      })
+      setFilteredList(filtered)
+    }
+  }
+
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-end z-10">
+      <div className="w-full flex justify-between z-10">
+        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -403,9 +429,10 @@ const ListedNFTSection = props => {
           }}
         />
       </div>
+
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList.map(item => (
+          filteredList.map(item => (
             <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.address}>
               {active === 0 || active === 1 ? (
                 <ListedNFTCard

@@ -24,7 +24,7 @@ const AddSection = props => {
   useEffect(() => {}, [])
 
   const uploadNew = () => {
-    dispatch({ type: 'set', mintCollectionStep: 2 })
+    dispatch({ type: 'set', mintCollectionStep: 3 })
     dispatch({ type: 'set', collectionMintAddress: collectionId })
     dispatch({ type: 'set', collectionCoverUrl: coverUrl })
     dispatch({ type: 'set', collectionMintName: collectionName })

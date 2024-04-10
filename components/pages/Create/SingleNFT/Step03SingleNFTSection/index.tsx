@@ -32,7 +32,6 @@ const Step03SingleNFTSection = props => {
     setMaxSupply,
     royalties,
     setRoyalties,
-    setCollection,
     creatorList,
     setCreatorList,
     disabledNextButton,
@@ -46,6 +45,7 @@ const Step03SingleNFTSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
+  const [supply, setSupply] = useState(0)
 
   let alertData = [
     {
@@ -64,23 +64,21 @@ const Step03SingleNFTSection = props => {
   useEffect(() => {
     if (creatorList.length === 0) return
 
-    if (creatorList.length === 1 && creatorList[0].address === '') {
+    if (creatorList.length === 1 && creatorList[0].address === '' && disabledNextButton) {
+      setDisabledNextButton(false)
       setShowAlert(false)
       setEnableMintBtn(true)
-      setDisabledNextButton(false)
-      return
     }
 
     let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
     if (totalShares === 100) {
-      setDisabledNextButton(false)
+      if (disabledNextButton) setDisabledNextButton(false)
       setShowAlert(false)
       setEnableMintBtn(true)
     } else {
       setDisabledNextButton(true)
       setShowAlert(true)
       setEnableMintBtn(false)
-      return
     }
 
     let enabled = true
@@ -92,7 +90,8 @@ const Step03SingleNFTSection = props => {
         break
       }
     }
-    setDisabledNextButton(!enabled)
+    if (enabled === false) setDisabledNextButton(true)
+    else if (disabledNextButton) setDisabledNextButton(false)
   }, [creatorList])
 
   const addAnotherCreator = () => {
@@ -161,6 +160,7 @@ const Step03SingleNFTSection = props => {
                     onClick={() => {
                       setMaxNum(item)
                       setMaxSupply(item.value)
+                      setSupply(0)
                     }}
                   >
                     {item.label}
@@ -174,9 +174,13 @@ const Step03SingleNFTSection = props => {
                   </div>
                   <div className="mt-[15px]">
                     <Input
+                      value={supply}
                       onChange={value => {
-                        setMaxSupply(value)
+                        let digits = validDigits(value)
+                        setMaxSupply(Math.floor(digits))
+                        setSupply(Math.floor(digits))
                       }}
+                      min={0}
                       placeholder="Provide of maxmium supply of editions"
                     />
                   </div>
@@ -286,6 +290,7 @@ const Step03SingleNFTSection = props => {
                     onClick={() => {
                       setMaxNum(item)
                       setMaxSupply(item.value)
+                      setSupply(0)
                     }}
                   >
                     {item.label}
@@ -300,9 +305,13 @@ const Step03SingleNFTSection = props => {
                   </div>
                   <div className="mt-[15px]">
                     <Input
+                      value={supply}
                       onChange={value => {
-                        setMaxSupply(value)
+                        let digits = validDigits(value)
+                        setMaxSupply(Math.floor(digits))
+                        setSupply(Math.floor(digits))
                       }}
+                      min={0}
                       placeholder="Provide of maxmium supply of editions"
                     />
                   </div>
@@ -412,6 +421,7 @@ const Step03SingleNFTSection = props => {
             onClick={() => onNextStep()}
             fullWidth
             height={50}
+            disabled={disabledNextButton}
             fontSize={18}
             borderColor="transparent"
             fontFamily="Muli-SemiBold"

@@ -85,7 +85,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
           <tr key={index}>
             <td>
               <div className="flex justify-between">
-                <div className="h-[90px] flex items-center ml-[35px]">
+                <div className="h-[90px] flex items-center ml-[0px]">
                   <Link href={`/nft/${item.mint_address}`} passHref>
                     <a>
                       <div className="w-[50px] h-[50px]">

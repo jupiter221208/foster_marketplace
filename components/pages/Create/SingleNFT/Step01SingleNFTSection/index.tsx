@@ -119,7 +119,7 @@ const Step01SingleNFTSection = props => {
                 'model/gltf-binary': ['.glb'],
               }}
               maxFiles={1}
-              maxSize={31457280}
+              maxSize={104857600}
             >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
@@ -127,7 +127,7 @@ const Step01SingleNFTSection = props => {
                     <input {...getInputProps()} />
                     <p className={styles.uploadText}>Upload Here</p>
                     <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
-                    <p className={styles.greenText}>Max File Size 30mb</p>
+                    <p className={styles.greenText}>Max File Size 100mb</p>
                   </div>
                 </section>
               )}
@@ -203,7 +203,7 @@ const Step01SingleNFTSection = props => {
                   }}
                   maxFiles={1}
                   accept={{ 'image/jpeg': [], 'image/png': [] }}
-                  maxSize={31457280}
+                  maxSize={104857600}
                 >
                   {({ getRootProps, getInputProps }) => (
                     <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
@@ -211,7 +211,7 @@ const Step01SingleNFTSection = props => {
                         <input {...getInputProps()} />
                         <p className={styles.uploadText}>Upload Here</p>
                         <p className={styles.text}>Supported File Formats .png .jpeg</p>
-                        <p className={styles.greenText}>Max File Size 30mb</p>
+                        <p className={styles.greenText}>Max File Size 100mb</p>
                       </div>
                     </section>
                   )}
@@ -346,7 +346,7 @@ const Step01SingleNFTSection = props => {
                 'model/gltf-binary': ['.glb'],
               }}
               maxFiles={1}
-              maxSize={31457280}
+              maxSize={104857600}
             >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
@@ -359,7 +359,7 @@ const Step01SingleNFTSection = props => {
                       <br />
                       .png .jpeg .mp4 .gif .glb
                     </p>
-                    <p className={styles.greenText}>Max File Size 30mb</p>
+                    <p className={styles.greenText}>Max File Size 100mb</p>
                   </div>
                 </section>
               )}
@@ -494,7 +494,7 @@ const Step01SingleNFTSection = props => {
                   }}
                   maxFiles={1}
                   accept={{ 'image/jpeg': [], 'image/png': [] }}
-                  maxSize={31457280}
+                  maxSize={104857600}
                 >
                   {({ getRootProps, getInputProps }) => (
                     <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
@@ -507,7 +507,7 @@ const Step01SingleNFTSection = props => {
                           <br />
                           .png .jpeg
                         </p>
-                        <p className={styles.greenText}>Max File Size 30mb</p>
+                        <p className={styles.greenText}>Max File Size 100mb</p>
                       </div>
                     </section>
                   )}

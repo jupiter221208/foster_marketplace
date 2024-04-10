@@ -464,7 +464,7 @@
       {
         "id": 10,
         "title": "What file formats can I use to make NFTs? Is there a maximum size?",
-        "description": ["The supported file formats include .png .jpeg .mp4 .mp3 and .gif", "Max File Size 30mb"]
+        "description": ["The supported file formats include .png .jpeg .mp4 .mp3 and .gif", "Max File Size 100mb"]
       },
       {
         "id": 11,

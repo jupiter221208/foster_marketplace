@@ -37,6 +37,8 @@ import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import ProgressSection from 'components/ProgressSection'
+import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -90,6 +92,7 @@ const Collection = () => {
   const [royalties, setRoyalties] = useState(0)
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
+  const [disabledButton, setDisabledButton] = useState(false)
 
   const collectionNftMint = Keypair.generate()
 
@@ -468,7 +471,6 @@ const Collection = () => {
       error => {}
     )
 
-    // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
     dispatch({ type: 'set', isCollectionMinting: false })
   }
 
@@ -480,6 +482,21 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
+        <div className="lg:flex hidden w-full justify-center">
+          <div className="w-full g-container mt-[66px]">
+            <ProgressSection
+              currentStep={currentStep}
+              nextDisabled={disabledButton}
+              onBack={() => setCurrentStep(currentStep - 1)}
+              onNext={() => {
+                if (currentStep === 2) mintCollection()
+                else setCurrentStep(currentStep + 1)
+              }}
+              loading={isMinting}
+              labels={['Create Collection', 'Review']}
+            />
+          </div>
+        </div>
         {currentStep === 1 && (
           <Step01CollectionSection
             currentStep={currentStep}
@@ -502,13 +519,29 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
+            setDisabledButton={setDisabledButton}
+          />
+        )}
+        {currentStep === 2 && (
+          <Step01ReviewSection
+            currentStep={currentStep}
+            onChangeCurrentStep={step => setCurrentStep(step)}
+            collectionName={collectionName}
+            description={description}
+            coverImage={coverImage}
+            coverCroppedImage={coverCroppedImage}
+            bannerImage={bannerImage}
+            bannerCroppedImage={bannerCroppedImage}
+            royalties={royalties}
+            categoryList={categoryList}
+            setDisabledButton={setDisabledButton}
             mintCollection={() => {
               mintCollection()
             }}
             isMinting={isMinting}
           />
         )}
-        {currentStep === 2 && (
+        {currentStep === 3 && (
           <Step02CollectionSection
             currentStep={currentStep}
             coverCroppedImage={coverCroppedImage}
@@ -528,7 +561,7 @@ const Collection = () => {
           <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
         </div>
 
-        {currentStep === 3 && (
+        {currentStep === 4 && (
           <Step03CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
@@ -539,7 +572,7 @@ const Collection = () => {
             uploadedCount={uploadedCount}
           />
         )}
-        {currentStep === 4 && (
+        {currentStep === 5 && (
           <SuccessMintCollectionSection
             coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={collectionCoverUrl}

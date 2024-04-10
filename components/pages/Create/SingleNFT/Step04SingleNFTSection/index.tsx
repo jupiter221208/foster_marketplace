@@ -148,22 +148,19 @@ const Step04SingleNFTSection = props => {
         />
       </div>
 
-      <div className={`${styles.collaborationTitle} mt-[30px]`}>Creator Shares</div>
+      <div className={`${styles.subTitle} mt-[30px]`}>Creator Shares</div>
 
       <div className="max-w-[575px] max-h-[370px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
           return (
-            <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">
+            <div key={index} className="w-full flex mb-[10px] gap-[15px] items-center">
               <div className="w-full max-w-[540px] flex gap-[18px]">
-                <div className="w-full relative">
-                  <input
-                    className={styles.inputArea}
-                    value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
-                    disabled={index === 0}
-                    placeholder={'Enter wallet address'}
-                  />
+                <div className="w-full flex gap-[9px]">
+                  <div className={styles.addressText}>
+                    {index === 0 ? `${getDisplayUserName(address)} (your address)` : getDisplayUserName(address)}
+                  </div>
+                  {creatorList?.length > 1 && <div className={styles.prosText}>{share + '%'}</div>}
                 </div>
-                {creatorList?.length > 1 && <input className={styles.inputPros} value={share} placeholder={'100'} />}
               </div>
             </div>
           )
@@ -171,7 +168,7 @@ const Step04SingleNFTSection = props => {
       </div>
     </div>
   ) : (
-    <div className="w-full">
+    <div className="w-full mt-[30px]">
       <div className={styles.nftName}>{nftName}</div>
       {description !== '' && (
         <div className="mt-[9px]">
@@ -215,21 +212,20 @@ const Step04SingleNFTSection = props => {
           min={0}
         />
       </div>
-      <div className={styles.collaborationTitle}>Creator Shares</div>
+      <div className={`${styles.subTitle} mt-[30px]`}>Creator Shares</div>
 
       <div className="max-w-[540px] max-h-[350px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
           return (
-            <div key={index} className="flex gap-[10px] mb-[20px] items-center">
-              <div className="w-full relative">
-                <input
-                  className={styles.inputArea}
-                  value={index === 0 ? `${getDisplayUserName(address)} (your address)` : address}
-                  placeholder={'Enter wallet address'}
-                  disabled={index === 0}
-                />
+            <div key={index} className="w-full flex mb-[10px] gap-[15px] items-center">
+              <div className="w-full max-w-[540px] flex gap-[18px]">
+                <div className="w-full flex gap-[9px]">
+                  <div className={styles.addressText}>
+                    {index === 0 ? `${getDisplayUserName(address)} (your address)` : getDisplayUserName(address)}
+                  </div>
+                  {creatorList?.length > 1 && <div className={styles.prosText}>{share + '%'}</div>}
+                </div>
               </div>
-              {creatorList?.length > 1 && <input className={styles.inputPros} value={share} placeholder={'100'} />}
             </div>
           )
         })}

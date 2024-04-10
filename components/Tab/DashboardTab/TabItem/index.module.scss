@@ -7,9 +7,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Muli-SemiBold';
   color: rgba(var(--text-gray-200-color), 0.8);
   gap: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
   &:focus {
     outline: none;
   }
@@ -27,25 +28,26 @@
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   border: 1px solid var(--selected-tab-border-color);
-  border-radius: 15px 15px 0px 0px;
-  padding: 20px 12px;
-  background: var(--place-bid-color);
+  border-radius: 10px 10px 0px 0px;
+  padding: 15px;
+  background: var(--background-main-color);
   color: var(--text-gray-200-color);
+  font-weight: 100;
   @media(min-width: 1024px) {
-    padding: 20px 30px;
+    padding: 15px;
     font-family: 'Muli-SemiBold';
     font-size: 18px;
   }
 }
 
 .activeTab1 {
-  padding: 20px 12px;
+  padding: 15px;
   font-family: 'Muli-Regular';
   font-size: 16px;
-  color: rgba(var(--text-gray-200-color), 0.7);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  font-weight: 100;
   @media (min-width: 1024px) {
-    padding: 20px 30px;
-    font-family: 'Muli-Regular';
+    padding: 15px;
     font-size: 18px;
   }
 }

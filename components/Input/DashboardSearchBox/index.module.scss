@@ -6,7 +6,8 @@
   padding-left: 30px;
   padding-right: 0px;
   border-radius: 12px;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
+  // background: rgba(var(--main-bg-color-rgb), 0.05);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   @media (min-width: 414px) {
     width: 250px;
     padding-left: 10px;
@@ -38,6 +39,8 @@
   background-color: transparent;
   outline: none;
 }
+
 .inputArea::placeholder {
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  font-family: 'Muli-Light';
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
 }
