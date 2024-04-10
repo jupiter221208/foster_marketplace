@@ -21,6 +21,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
+import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 
 const CollectedSection = props => {
   const { changeActiveTab } = props
@@ -31,6 +32,7 @@ const CollectedSection = props => {
   const dispatch = useDispatch()
 
   const [nftList, setNFTList] = useState<NftData[]>([])
+  const [filteredList, setFilteredList] = useState<NftData[]>([])
   const [loading, setLoading] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedData, setSelectedData] = useState()
@@ -74,6 +76,7 @@ const CollectedSection = props => {
     })
 
     setNFTList(list)
+    setFilteredList(list)
     setLoading(false)
   }, [myNftList])
 
@@ -115,11 +118,25 @@ const CollectedSection = props => {
     }, 1000)
   }
 
+  const searchNFT = key => {
+    if (key === '') {
+      setFilteredList(nftList)
+    } else {
+      let filtered = []
+      setFilteredList([])
+      nftList.forEach(element => {
+        if (element.name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
+      })
+      setFilteredList(filtered)
+    }
+  }
+
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[0px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {!loading &&
-          nftList
+          filteredList
             .filter(item => item.image !== undefined || null)
             .map((item, index) => (
               <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>

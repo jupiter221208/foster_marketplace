@@ -32,9 +32,10 @@ import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import LoadingComponent from 'pages/explore/LoadingComponent'
-import { ListingsAPIData } from 'types/nft'
+import { ListingsAPIData, NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import ListedEditionCard from 'components/Card/ListedEditionCard'
+import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 
 type SelectedDataType = {
   category: string
@@ -54,6 +55,7 @@ const ListedNFTSection = props => {
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [filteredList, setFilteredList] = useState<any>([])
 
   const [selectedData, setSelectedData] = useState<SelectedDataType>()
   const handleSelectData = item => {
@@ -390,9 +392,24 @@ const ListedNFTSection = props => {
     }
   }, [isFetching])
 
+  const searchNFT = key => {
+    if (key === '') {
+      setFilteredList(nftList)
+    } else {
+      let filtered = []
+      setFilteredList([])
+      nftList.forEach(element => {
+        if (element.name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
+      })
+      setFilteredList(filtered)
+    }
+  }
+
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-end z-10">
+      <div className="w-full flex justify-between z-10">
+        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -403,9 +420,10 @@ const ListedNFTSection = props => {
           }}
         />
       </div>
+
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {!loading &&
-          nftList.map(item => (
+          filteredList.map(item => (
             <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.address}>
               {active === 0 || active === 1 ? (
                 <ListedNFTCard
