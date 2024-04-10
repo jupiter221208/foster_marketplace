@@ -19,6 +19,7 @@ import styles from './index.module.scss'
 
 // call apis
 import Button from 'components/Button'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const Step01ReviewSection = props => {
   const {
@@ -154,16 +155,20 @@ const Step01ReviewSection = props => {
               />
             </div>
             <div className="mt-[18px]">
-              <GradientButton
-                label="Review"
-                fullWidth
-                height={50}
-                fontSize={18}
-                borderColor="transparent"
-                onClick={() => {
-                  mintCollection()
-                }}
-              />
+              {isMinting ? (
+                <LoadingButton fullWidth height={50} />
+              ) : (
+                <GradientButton
+                  label="Mint"
+                  fullWidth
+                  height={50}
+                  fontSize={18}
+                  borderColor="transparent"
+                  onClick={() => {
+                    mintCollection()
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -345,14 +345,7 @@ const Step01CollectionSection = props => {
                       </div>
                     ) : (
                       <div>
-                        <Image
-                          src={bannerCroppedImage}
-                          width={760}
-                          height={218}
-                          alt=""
-                          objectFit="cover"
-                          className="rounded-[20px]"
-                        />
+                        <Image src={bannerCroppedImage} width={760} height={218} alt="" objectFit="cover" />
                         <div className="absolute bottom-2 right-[10px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
@@ -451,14 +444,7 @@ const Step01CollectionSection = props => {
                         </Dropzone>
                       ) : (
                         <div>
-                          <Image
-                            src={coverCroppedImage}
-                            width={200}
-                            height={200}
-                            alt=""
-                            objectFit="cover"
-                            className="rounded-[20px]"
-                          />
+                          <Image src={coverCroppedImage} width={200} height={200} alt="" objectFit="cover" />
                           <div className="absolute bottom-2 right-[10px]">
                             <Dropzone
                               onDropAccepted={acceptedFiles => {
@@ -715,14 +701,7 @@ const Step01CollectionSection = props => {
                   </div>
                 ) : (
                   <div className="relative">
-                    <Image
-                      src={bannerCroppedImage}
-                      width={375}
-                      height={120}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                    <Image src={bannerCroppedImage} width={375} height={120} alt="" objectFit="cover" />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDrop={acceptedFiles => {
@@ -826,14 +805,7 @@ const Step01CollectionSection = props => {
                   </Dropzone>
                 ) : (
                   <div>
-                    <Image
-                      src={coverCroppedImage}
-                      width={140}
-                      height={140}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                    <Image src={coverCroppedImage} width={140} height={140} alt="" objectFit="cover" />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDropAccepted={acceptedFiles => {
