@@ -13,6 +13,7 @@ import BackButton from 'components/Button/BackButton'
 import Stepper from 'components/Stepper'
 import NextButton from 'components/Button/NextButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import MintButton from 'components/Button/MintButton'
 
 const ProgressSection = props => {
   const { onBack, onNext, nextDisabled, currentStep, loading, labels } = props
@@ -25,6 +26,8 @@ const ProgressSection = props => {
       </div>
       {loading ? (
         <LoadingButton width={122} height={53} borderRadius={30} />
+      ) : currentStep === labels.length ? (
+        <MintButton onClick={onNext} disabled={nextDisabled} />
       ) : (
         <NextButton onClick={onNext} disabled={nextDisabled} />
       )}

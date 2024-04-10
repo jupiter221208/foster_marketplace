@@ -25,7 +25,6 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
-import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
 // import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
 // import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
@@ -42,6 +41,7 @@ import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useRouter } from 'next/router'
+import Button from 'components/Button'
 
 const Step01CollectionSection = props => {
   const {
@@ -65,8 +65,6 @@ const Step01CollectionSection = props => {
     onChangeRoyalties,
     categoryList,
     onChangeCategoryList,
-    mintCollection,
-    isMinting,
     setDisabledButton,
   } = props
   const viewport = useViewport()
@@ -130,11 +128,6 @@ const Step01CollectionSection = props => {
 
   const [updateBannerImage, setUpdateBannerImage] = useState(false)
   const [updateCoverImage, setUpdateCoverImage] = useState(false)
-
-  useEffect(() => {
-    setOpenCoverImageEditorModal(false)
-    setOpenBannerImageEditorModal(false)
-  }, [])
 
   useEffect(() => {
     if (coverImage !== null && coverImage !== undefined) {
@@ -208,14 +201,6 @@ const Step01CollectionSection = props => {
     if (checkedCount >= 3 && array[index].checked === false) return
 
     array[index].checked = !array[index].checked
-    onChangeCategoryList(array)
-  }
-
-  const handleCancelCategory = () => {
-    let array = [...categoryList]
-    array.map(item => {
-      item.checked = false
-    })
     onChangeCategoryList(array)
   }
 
@@ -362,8 +347,8 @@ const Step01CollectionSection = props => {
                       <div>
                         <Image
                           src={bannerCroppedImage}
-                          width={758}
-                          height={194}
+                          width={760}
+                          height={218}
                           alt=""
                           objectFit="cover"
                           className="rounded-[20px]"
@@ -537,22 +522,6 @@ const Step01CollectionSection = props => {
                   </div> */}
                 </div>
               </div>
-              <div className={`w-full flex break-all justify-center items-center mt-[35px] ${styles.collectionName}`}>
-                {collectionName}
-              </div>
-              {description !== '' && (
-                <div
-                  className={`w-full flex break-all flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}
-                >
-                  <div className={`${styles.descriptionTitle} w-full`}>Description</div>
-                  <div className={styles.descriptionText}>{description}</div>
-                </div>
-              )}
-              {categoryList.length !== 0 && (
-                <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
-                  {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                </div>
-              )}
             </div>
           </div>
           {/* right part */}
@@ -639,7 +608,7 @@ const Step01CollectionSection = props => {
                   </div>
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
+                {/* <div className="absolute bottom-0 w-full flex justify-end">
                   {isMinting ? (
                     <LoadingButton width={224} height={56} />
                   ) : (
@@ -653,7 +622,7 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -977,35 +946,34 @@ const Step01CollectionSection = props => {
             </div>
           </div>
 
-          <div className="w-full flex justify-between my-10">
+          <div className="w-full my-10">
             {/* button group part */}
-            <div className="w-full">
-              {isMinting ? (
-                <LoadingButton fullWidth height={45} />
-              ) : (
-                <GradientButton
-                  label="Create Collection"
-                  disabled={disabledNextButton}
-                  fullWidth
-                  height={45}
-                  onClick={() => {
-                    mintCollection()
-                  }}
-                />
-                // <button
-                //   className={styles.createCollection}
-                //   disabled={disabledNextButton} //disabledNextButton
-                //   style={{
-                //     color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                //     background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                //   }}
-                //   onClick={() => {
-                //     mintCollection()
-                //   }}
-                // >
-                //   Create Collection
-                // </button>
-              )}
+            <div>
+              <Button
+                label="Back"
+                onClick={() => onChangeCurrentStep(currentStep - 1)}
+                fullWidth
+                fontFamily="Muli-SemiBold"
+                height="50px"
+                backgroundColor="transparent"
+                color="var(--main-bg-color)"
+                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                borderWidth={1}
+                fontSize={18}
+              />
+            </div>
+            <div className="mt-[18px]">
+              <GradientButton
+                label="Next"
+                fullWidth
+                height={50}
+                fontSize={18}
+                borderColor="transparent"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
+              />
             </div>
           </div>
         </div>

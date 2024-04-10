@@ -38,6 +38,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
+import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -487,7 +488,10 @@ const Collection = () => {
               currentStep={currentStep}
               nextDisabled={disabledButton}
               onBack={() => setCurrentStep(currentStep - 1)}
-              onNext={() => setCurrentStep(currentStep + 1)}
+              onNext={() => {
+                if (currentStep === 2) mintCollection()
+                else setCurrentStep(currentStep + 1)
+              }}
               loading={isMinting}
               labels={['Create Collection', 'Review']}
             />
@@ -515,6 +519,21 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
+            setDisabledButton={setDisabledButton}
+          />
+        )}
+        {currentStep === 2 && (
+          <Step01ReviewSection
+            currentStep={currentStep}
+            onChangeCurrentStep={step => setCurrentStep(step)}
+            collectionName={collectionName}
+            description={description}
+            coverImage={coverImage}
+            coverCroppedImage={coverCroppedImage}
+            bannerImage={bannerImage}
+            bannerCroppedImage={bannerCroppedImage}
+            royalties={royalties}
+            categoryList={categoryList}
             setDisabledButton={setDisabledButton}
             mintCollection={() => {
               mintCollection()
