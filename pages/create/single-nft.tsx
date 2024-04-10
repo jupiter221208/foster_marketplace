@@ -594,6 +594,7 @@ const SingleNft = () => {
                     onBack={() => handleChangeCurrentStep(currentStep - 1)}
                     onNext={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                     loading={isMinting}
+                    labels={['Artwork Details', 'Additional Details', 'Review']}
                   />
                 </div>
               </div>

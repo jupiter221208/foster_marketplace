@@ -15,13 +15,13 @@ import NextButton from 'components/Button/NextButton'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const ProgressSection = props => {
-  const { onBack, onNext, nextDisabled, currentStep, loading } = props
+  const { onBack, onNext, nextDisabled, currentStep, loading, labels } = props
 
   return (
     <div className="w-full flex justify-between">
       <BackButton onClick={onBack} />
       <div className="w-[60%]">
-        <Stepper currentStep={currentStep} />
+        <Stepper currentStep={currentStep} labels={labels} />
       </div>
       {loading ? (
         <LoadingButton width={122} height={53} borderRadius={30} />

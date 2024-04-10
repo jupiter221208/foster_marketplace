@@ -24,6 +24,7 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
 // import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
 // import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
@@ -66,6 +67,7 @@ const Step01CollectionSection = props => {
     onChangeCategoryList,
     mintCollection,
     isMinting,
+    setDisabledButton,
   } = props
   const viewport = useViewport()
   const router = useRouter()
@@ -297,8 +299,10 @@ const Step01CollectionSection = props => {
       bannerCroppedImage !== undefined
     ) {
       setDisabledNextButton(false)
+      setDisabledButton(false)
     } else {
       setDisabledNextButton(true)
+      setDisabledButton(true)
     }
   }, [
     collectionName,
@@ -321,9 +325,11 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Collection Preview</div>
-              <div className="w-full mt-[57px]">
-                <div className="w-full">
+              <div className="w-full">
+                <div className={styles.collectionBannerImage}>
+                  Collection Banner Image<span>*</span>
+                </div>
+                <div className="w-full mt-[15px]">
                   <div className={styles.bannerImageArea}>
                     {bannerCroppedImage === undefined ? (
                       <div>
@@ -344,8 +350,8 @@ const Step01CollectionSection = props => {
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectBannerArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitle}>Upload Here</p>
-                                <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                                <p className={styles.subTitle}>Upload file</p>
+                                <p className={styles.text}>Supported File Formats .png and .jpeg</p>
                                 <p className={styles.greenText}>Max File Size 30mb</p>
                               </div>
                             </section>
@@ -407,7 +413,7 @@ const Step01CollectionSection = props => {
                     )}
                   </div>
                 </div>
-                <div className="absolute z-10">
+                {/* <div className="absolute z-10">
                   <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[10px] mb-[15px]`}>
                     <div className={styles.collectionBannerImage}>Collection Banner Image</div>
 
@@ -426,9 +432,12 @@ const Step01CollectionSection = props => {
                   {bannerHelper && (
                     <div className={styles.bannerRecommend}>Recommended dimensions are 1920px by 452px</div>
                   )}
-                </div>
-                <div className="relative mt-[60px]">
-                  <div className="w-full flex justify-center z-0">
+                </div> */}
+                <div className="relative mt-[34px]">
+                  <div className={styles.collectionBannerImage}>
+                    Collection Cover Image<span>*</span>
+                  </div>
+                  <div className="w-full flex justify-start z-0 mt-[15px]">
                     <div className={styles.coverImageArea}>
                       {coverCroppedImage === undefined ? (
                         <Dropzone
@@ -448,8 +457,8 @@ const Step01CollectionSection = props => {
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitleCover}>Upload Here</p>
-                                <p className={styles.textCover}>Supported file formats are .png .jpeg</p>
+                                <p className={styles.subTitleCover}>Upload file</p>
+                                <p className={styles.textCover}>Supported File Formats .png and .jpeg</p>
                                 <p className={styles.greenTextCover}>Max File Size 10mb</p>
                               </div>
                             </section>
@@ -507,7 +516,7 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
-                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
+                  {/* <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
                     Collection Cover Image
                     <div
                       className="cursor-pointer"
@@ -525,7 +534,7 @@ const Step01CollectionSection = props => {
                         Recommended dimensions are 1080px by 1080px
                       </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className={`w-full flex break-all justify-center items-center mt-[35px] ${styles.collectionName}`}>
@@ -573,25 +582,26 @@ const Step01CollectionSection = props => {
                 </div> */}
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[30px]`}>
+                  <div className={`${styles.subTitle} mt-[20px]`}>
                     Collection Name <span>*</span>
                   </div>
-                  <div className="max-w-[370px] w-full mt-5">
+                  <div className="w-full mt-[15px]">
                     <Input
                       value={limit(collectionName, 32)}
-                      placeholder="Give your art name"
+                      placeholder="Give your collection name"
                       label01="Max Characters 32"
                       label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
                       onChange={value => onChangeCollectionName(limit(value, 32))}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>
+                  <div className={`${styles.subTitle} mt-[30px]`}>
                     Description <span>*</span>
                   </div>
-                  <div className="w-full mt-5">
+                  <div className="w-full mt-[15px]">
                     <Textarea
                       value={limit(description, 1000)}
                       placeholder="Add a short description..."
+                      height={152}
                       label01="Max Characters 1000"
                       label02={
                         1000 - description.length <= 0 || 1000 - description.length === 1000
@@ -602,11 +612,11 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                  <div className={`${styles.subTitle} mt-[30px] flex justify-start items-center gap-2`}>
                     Royalties <span>*</span>
                   </div>
 
-                  <div className="max-w-[370px] w-full mt-5">
+                  <div className="max-w-[370px] w-full mt-[15px]">
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
@@ -622,8 +632,9 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Categories (optional)</div>
-                  <div className="w-full mt-5">
+                  <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+                  <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+                  <div className="w-full mt-[15px]">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
                 </div>
@@ -675,114 +686,7 @@ const Step01CollectionSection = props => {
           </div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <div className="w-full relative z-10">
-              <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
-              >
-                Collection Cover Image
-                <div
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setCoverHelper(true)
-                    setTimeout(() => {
-                      setCoverHelper(false)
-                    }, 2000)
-                  }}
-                >
-                  <InfoCircleLightGreenIcon alt="" />
-                </div>
-              </div>
-
-              {coverHelper && (
-                <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1080px by 1080px
-                </div>
-              )}
-            </div>
-
-            <div className="w-full z-0">
-              <div className={styles.coverImageArea}>
-                {coverCroppedImage === undefined ? (
-                  <Dropzone
-                    onDropAccepted={acceptedFiles => {
-                      acceptedFiles.length !== 0
-                        ? onChangeCoverImage(acceptedFiles)
-                        : handleShowAlert('cover', 'unknown')
-                    }}
-                    onDropRejected={rejectedFiles => {
-                      handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                    }}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={31457280}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section className={styles.dropzone}>
-                        <div {...getRootProps()} className={styles.selectArea}>
-                          <input {...getInputProps()} />
-                          <p className={styles.subTitle}>Upload Here</p>
-                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                          <p className={styles.greenText}>Max File Size 30mb</p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                ) : (
-                  <div>
-                    <Image
-                      src={coverCroppedImage}
-                      width={140}
-                      height={140}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
-                    <div className="absolute bottom-2 right-[10px]">
-                      <Dropzone
-                        onDropAccepted={acceptedFiles => {
-                          acceptedFiles.length !== 0
-                            ? onChangeCoverImage(acceptedFiles)
-                            : handleShowAlert('cover', 'unknown')
-                        }}
-                        onDropRejected={rejectedFiles => {
-                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                        }}
-                        maxFiles={1}
-                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={31457280}
-                      >
-                        {({ getRootProps, getInputProps, open }) => (
-                          <section>
-                            <div {...getRootProps()}>
-                              <input {...getInputProps()} />
-                              <div className={styles.iconBlurView}>
-                                <div className="w-full h-full flex justify-center items-center">
-                                  <IconButtonWithSVG
-                                    width={40}
-                                    height={40}
-                                    iconWidth={40}
-                                    iconHeight={40}
-                                    icon={<EditorGreenIcon />}
-                                    onClick={() => {}}
-                                    backgroundColor="transparent"
-                                    borderColor="transparent"
-                                    borderRadius="100%"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </section>
-                        )}
-                      </Dropzone>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <div className="w-full relative z-10">
+            {/* <div className="w-full relative z-10">
               <div
                 className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
               >
@@ -805,9 +709,13 @@ const Step01CollectionSection = props => {
                   Recommended dimensions are 1920px by 452px
                 </div>
               )}
+            </div> */}
+            <div className="w-full flex justify-start">
+              <div className={styles.collectionBannerImage}>
+                Collection Banner Image<span>*</span>
+              </div>
             </div>
-
-            <div className="w-full z-0">
+            <div className="w-full z-0 mt-[9px]">
               <div className={styles.bannerImageArea}>
                 {bannerCroppedImage === undefined ? (
                   <div>
@@ -890,12 +798,123 @@ const Step01CollectionSection = props => {
             </div>
           </div>
 
+          <div className="w-full flex flex-wrap justify-center mt-[30px]">
+            {/* <div className="w-full relative z-10">
+              <div
+                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
+              >
+                Collection Cover Image
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setCoverHelper(true)
+                    setTimeout(() => {
+                      setCoverHelper(false)
+                    }, 2000)
+                  }}
+                >
+                  <InfoCircleLightGreenIcon alt="" />
+                </div>
+              </div>
+
+              {coverHelper && (
+                <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
+                  Recommended dimensions are 1080px by 1080px
+                </div>
+              )}
+            </div> */}
+            <div className="w-full flex justify-start">
+              <div className={styles.collectionBannerImage}>
+                Collection Cover Image<span>*</span>
+              </div>
+            </div>
+            <div className="w-full z-0 mt-[9px]">
+              <div className={styles.coverImageArea}>
+                {coverCroppedImage === undefined ? (
+                  <Dropzone
+                    onDropAccepted={acceptedFiles => {
+                      acceptedFiles.length !== 0
+                        ? onChangeCoverImage(acceptedFiles)
+                        : handleShowAlert('cover', 'unknown')
+                    }}
+                    onDropRejected={rejectedFiles => {
+                      handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                    }}
+                    maxFiles={1}
+                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                    maxSize={31457280}
+                  >
+                    {({ getRootProps, getInputProps, open }) => (
+                      <section className={styles.dropzone}>
+                        <div {...getRootProps()} className={styles.selectArea}>
+                          <input {...getInputProps()} />
+                          <p className={styles.subTitle}>Upload Here</p>
+                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                          <p className={styles.greenText}>Max File Size 30mb</p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                ) : (
+                  <div>
+                    <Image
+                      src={coverCroppedImage}
+                      width={140}
+                      height={140}
+                      alt=""
+                      objectFit="cover"
+                      className="rounded-[20px]"
+                    />
+                    <div className="absolute bottom-2 right-[10px]">
+                      <Dropzone
+                        onDropAccepted={acceptedFiles => {
+                          acceptedFiles.length !== 0
+                            ? onChangeCoverImage(acceptedFiles)
+                            : handleShowAlert('cover', 'unknown')
+                        }}
+                        onDropRejected={rejectedFiles => {
+                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                        }}
+                        maxFiles={1}
+                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                        maxSize={31457280}
+                      >
+                        {({ getRootProps, getInputProps, open }) => (
+                          <section>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <div className={styles.iconBlurView}>
+                                <div className="w-full h-full flex justify-center items-center">
+                                  <IconButtonWithSVG
+                                    width={40}
+                                    height={40}
+                                    iconWidth={40}
+                                    iconHeight={40}
+                                    icon={<EditorGreenIcon />}
+                                    onClick={() => {}}
+                                    backgroundColor="transparent"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-5`}>
+            <div className={`${styles.subTitle} mt-[30px]`}>
               Collection Name <span>*</span>
             </div>
-            <div className="max-w-[370px] w-full mt-4 z-10">
+            <div className="max-w-[370px] w-full mt-[15px] z-10">
               <Input
                 value={limit(collectionName, 32)}
                 placeholder="Give your art name"
@@ -904,10 +923,10 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeCollectionName(limit(value, 32))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>
+            <div className={`${styles.subTitle} mt-[30px]`}>
               Description <span>*</span>
             </div>
-            <div className="w-full mt-5">
+            <div className="w-full mt-[15px]">
               <Textarea
                 value={limit(description, 1000)}
                 placeholder="Add a short description..."
@@ -916,10 +935,10 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+            <div className={`${styles.subTitle} mt-[30px] flex justify-start items-center gap-2`}>
               Royalties <span>*</span>
             </div>
-            <div className="max-w-[370px] w-full mt-5">
+            <div className="max-w-[370px] w-full mt-[15px]">
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
@@ -933,22 +952,26 @@ const Step01CollectionSection = props => {
                 }}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Categories (optional)</div>
+            <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+            <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
+              <>Select up to three categories</>
+              <ArrowDownIcon />
+            </div>
             <div className="w-full mt-4">
-              <div className="grid grid-cols-2 gap-5">
+              {/* <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
                   <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
                     Choose Category
                   </div>
                 </div>
-              </div>
+              </div> */}
               {showCategoryList && (
                 <CategoryListModal
                   data={CategoryList}
                   categoryList={categoryList}
                   onChange={index => handleSelectCategory(index)}
                   onClick={() => setShowCategoryList(!showCategoryList)}
-                  onClickCancel={() => handleCancelCategory()}
+                  onClickCancel={() => setShowCategoryList(false)}
                 />
               )}
             </div>
