@@ -362,7 +362,7 @@ const Step02CollectionSection = props => {
                         'model/gltf-binary': ['.glb'],
                       }}
                       maxFiles={25}
-                      maxSize={31457280}
+                      maxSize={104857600}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -373,7 +373,7 @@ const Step02CollectionSection = props => {
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
                             <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .gif .mp3 .glb</p>
-                            <p className={styles.greenText}>Max File Size 30mb</p>
+                            <p className={styles.greenText}>Max File Size 100mb</p>
                           </div>
                         </section>
                       )}
@@ -757,7 +757,7 @@ const Step02CollectionSection = props => {
                   'model/gltf-binary': ['.glb'],
                 }}
                 maxFiles={25}
-                maxSize={31457280}
+                maxSize={104857600}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
@@ -772,7 +772,7 @@ const Step02CollectionSection = props => {
                         <br />
                         .png .jpeg .mp4 .gif .mp3 .glb
                       </p>
-                      <p className={styles.greenText}>Max File Size 30mb</p>
+                      <p className={styles.greenText}>Max File Size 100mb</p>
                     </div>
                   </section>
                 )}

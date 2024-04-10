@@ -336,7 +336,7 @@ const Step01CollectionSection = props => {
                           }}
                           maxFiles={1}
                           accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                          maxSize={31457280}
+                          maxSize={104857600}
                         >
                           {({ getRootProps, getInputProps, open }) => (
                             <section className={styles.dropzone}>
@@ -344,7 +344,7 @@ const Step01CollectionSection = props => {
                                 <input {...getInputProps()} />
                                 <p className={styles.subTitle}>Upload file</p>
                                 <p className={styles.text}>Supported File Formats .png and .jpeg</p>
-                                <p className={styles.greenText}>Max File Size 30mb</p>
+                                <p className={styles.greenText}>Max File Size 100mb</p>
                               </div>
                             </section>
                           )}
@@ -366,7 +366,7 @@ const Step01CollectionSection = props => {
                             }}
                             maxFiles={1}
                             accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                            maxSize={31457280}
+                            maxSize={104857600}
                           >
                             {({ getRootProps, getInputProps, open }) => (
                               <section>
@@ -697,7 +697,7 @@ const Step01CollectionSection = props => {
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                      maxSize={31457280}
+                      maxSize={104857600}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -705,7 +705,7 @@ const Step01CollectionSection = props => {
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
                             <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                            <p className={styles.greenText}>Max File Size 30mb</p>
+                            <p className={styles.greenText}>Max File Size 100mb</p>
                           </div>
                         </section>
                       )}
@@ -727,7 +727,7 @@ const Step01CollectionSection = props => {
                         }}
                         maxFiles={1}
                         accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={31457280}
+                        maxSize={104857600}
                       >
                         {({ getRootProps, getInputProps, open }) => (
                           <section>
@@ -804,7 +804,7 @@ const Step01CollectionSection = props => {
                     }}
                     maxFiles={1}
                     accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={31457280}
+                    maxSize={104857600}
                   >
                     {({ getRootProps, getInputProps, open }) => (
                       <section className={styles.dropzone}>
@@ -812,7 +812,7 @@ const Step01CollectionSection = props => {
                           <input {...getInputProps()} />
                           <p className={styles.subTitle}>Upload Here</p>
                           <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                          <p className={styles.greenText}>Max File Size 30mb</p>
+                          <p className={styles.greenText}>Max File Size 100mb</p>
                         </div>
                       </section>
                     )}
@@ -833,7 +833,7 @@ const Step01CollectionSection = props => {
                         }}
                         maxFiles={1}
                         accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={31457280}
+                        maxSize={104857600}
                       >
                         {({ getRootProps, getInputProps, open }) => (
                           <section>
