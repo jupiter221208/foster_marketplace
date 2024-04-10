@@ -1062,10 +1062,12 @@ h6 {
 #ArtworksTable tbody tr:hover {
   color: var(--text-gray-200-color);
 }
+
 #ArtworksTable tbody tr {
   color: var(--artwork-table-tr);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
   border-radius: 20px;
+  background: var(--background-main-color) !important;
 }
 
 #ArtworksTable td {

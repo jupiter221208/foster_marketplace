@@ -21,6 +21,7 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 import LoadingModal from 'components/Modal/LoadingModal'
 import { ActivityAPIData } from 'types/nft'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const ActivitySection = () => {
   const viewport = useViewport()
@@ -32,6 +33,20 @@ const ActivitySection = () => {
   const [allList, setAllList] = useState<ActivityAPIData[]>([])
   const [filteredList, setFilteredList] = useState<ActivityAPIData[]>([])
   const [searchKey, setSearchKey] = useState('')
+  const [filterKey, setFilterKey] = useState('')
+  const [filterList, setFilterList] = useState([
+    { id: 0, label: 'All Filter', search: '' },
+    { id: 1, label: 'Auction Started', search: 'AuctionStarted' },
+    { id: 2, label: 'Auction Cancelled', search: 'AuctionCancelled' },
+    { id: 3, label: 'Listing Added', search: 'ListingAdded' },
+    { id: 4, label: 'Listing Cancelled', search: 'ListingCancelled' },
+    { id: 5, label: 'Offer Made', search: 'OfferMade' },
+    { id: 6, label: 'Offer Cancelled', search: 'OfferCancelled' },
+    { id: 7, label: 'Purchased', search: 'Purchased' },
+    { id: 8, label: 'Auction Won', search: 'AuctionWon' },
+    { id: 9, label: 'Bid Placed', search: 'BidPlaced' },
+  ])
+  const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'All Filter', search: '' })
 
   const { publicKey } = useWallet()
 
@@ -71,15 +86,25 @@ const ActivitySection = () => {
   const searchNFT = key => {
     setSearchKey(key)
     if (key === '') {
-      setFilteredList(activityList)
+      if (filterKey === '') setFilteredList(activityList)
+      else {
+        let filtered = []
+
+        activityList.forEach(element => {
+          if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
+        })
+        setFilteredList(filtered)
+      }
     } else {
       let filtered = []
       setFilteredList([])
 
       activityList.forEach(element => {
-        if (
-          element.asset_name.toLowerCase().includes(key.toLowerCase()) ||
-          element.action_type.toLowerCase().includes(key.toLowerCase())
+        if (filterKey === '') {
+          if (element.asset_name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
+        } else if (
+          element.asset_name.toLowerCase().includes(key.toLowerCase()) &&
+          element.action_type.toLowerCase().includes(filterKey.toLowerCase())
         )
           filtered.push(element)
       })
@@ -87,10 +112,50 @@ const ActivitySection = () => {
     }
   }
 
+  useEffect(() => {
+    setFilteredList([])
+    console.log(filterKey, '=========filterKey=======')
+    if (filterKey === '') {
+      if (searchKey === '') setFilteredList(activityList)
+      else {
+        let filtered = []
+        setFilteredList([])
+
+        activityList.forEach(element => {
+          if (filterKey === '')
+            if (element.asset_name.toLowerCase().includes(searchKey.toLowerCase())) filtered.push(element)
+        })
+        setFilteredList(filtered)
+      }
+      return
+    }
+
+    let filtered = []
+    activityList.forEach(element => {
+      if (searchKey === '') {
+        if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
+      } else if (
+        element.action_type.toLowerCase().includes(filterKey.toLowerCase()) &&
+        element.asset_name.toLowerCase().includes(searchKey.toLowerCase())
+      )
+        filtered.push(element)
+    })
+    setFilteredList(filtered)
+  }, [filterKey])
+
   return (
-    <section className="w-full mt-6 lg:mt-[0px]">
-      <div className="mt-[30px]">
+    <section className="w-full mt-6 lg:mt-[0px] min-h-[600px]">
+      <div className="mt-[30px] w-full flex justify-between">
         <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+        <DropdownFilterMenu
+          label={selectedItem['label']}
+          data={filterList}
+          selectedItem={selectedItem}
+          setSelectedItem={item => {
+            setSelectedItem(item)
+            setFilterKey(item.search)
+          }}
+        />
       </div>
 
       <div className="w-full z-10 mt-[-30px]">
@@ -98,14 +163,14 @@ const ActivitySection = () => {
           <div className="col-span-12">
             <LoadingModal open={!loading} />
           </div>
-        ) : activityList.length > 0 ? (
+        ) : filteredList.length > 0 ? (
           <div>
             {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
               <ActivityTable data={filteredList} type={'dashboard'} />
             ) : (
               <ActivityAccordion data={filteredList} />
             )}
-            {searchKey === '' && isVisibleFetching && (
+            {searchKey === '' && filterKey === '' && isVisibleFetching && (
               <div className="w-full mt-[-50px] mb-[40px]">
                 <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
               </div>
