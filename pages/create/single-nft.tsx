@@ -22,11 +22,11 @@ import DimensionMenu from 'components/Menu/DimensionMenu'
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
 import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
+import Step04SingleNFTSection from 'components/pages/Create/SingleNFT/Step04SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
-import Chip from 'components/Chip'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 
@@ -50,7 +50,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
-import Step04SingleNFTSection from 'components/pages/Create/SingleNFT/Step04SingleNFTSection'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -331,25 +330,7 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    if (currentStep === 2 && type != 0) {
-      if (editionType !== null) {
-        setDisabledNextButton(false)
-      } else {
-        setDisabledNextButton(true)
-        return
-      }
-    }
-
-    let count = 0
-    categoryList.map(item => {
-      if (item.checked === true) count++
-    })
-    if (nftName !== '' && description !== '' && count > 0) {
-      setDisabledNextButton(false)
-    } else {
-      setDisabledNextButton(true)
-      return
-    }
+    handleFormValidate(currentStep)
   }, [nftName, description, categoryList, editionType, currentStep])
 
   // solana
@@ -550,11 +531,7 @@ const SingleNft = () => {
             }
           }
 
-          let count = 0
-          categoryList.map(item => {
-            if (item.checked === true) count++
-          })
-          if (nftName !== '' && description !== '' && count > 0) {
+          if (nftName !== '' && description !== '') {
             setDisabledNextButton(false)
           } else {
             setDisabledNextButton(true)
@@ -564,15 +541,20 @@ const SingleNft = () => {
         }
         break
       case 2:
-        let count = 0
-        categoryList.map(item => {
-          if (item.checked === true) count++
-        })
-
-        if (nftName !== '' && description !== '' && count !== 0) {
+        if (nftName !== '' && description !== '') {
           setDisabledNextButton(false)
         } else {
           setDisabledNextButton(true)
+          break
+        }
+
+        if (type != 0) {
+          if (editionType !== null) {
+            setDisabledNextButton(false)
+          } else {
+            setDisabledNextButton(true)
+            return
+          }
         }
         break
       case 3:
@@ -960,6 +942,9 @@ const SingleNft = () => {
                   type={type}
                   editionType={editionType}
                   maxSupply={maxNum}
+                  nftName={nftName}
+                  description={description}
+                  categoryList={categoryList}
                   royalties={royalties}
                   creatorList={creatorList}
                   disabledNextButton={disabledNextButton}
