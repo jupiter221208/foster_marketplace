@@ -174,7 +174,7 @@ const Step03SingleNFTSection = props => {
                   <div className="mt-[15px]">
                     <Input
                       onChange={value => {
-                        setMaxSupply(value)
+                        setMaxSupply(value.length > 0 ? value : null)
                       }}
                       placeholder="Provide of maxmium supply of editions"
                     />

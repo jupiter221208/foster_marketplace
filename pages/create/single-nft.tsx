@@ -287,7 +287,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(1)
-  }, [nftArt, nftImage, nftType, nftCover, editionType])
+  }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
   const [nftName, setNftName] = useState<string>('')
@@ -330,8 +330,9 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
+    console.log(editionType, maxNum, '-----111------')
     handleFormValidate(currentStep)
-  }, [nftName, description, categoryList, editionType, currentStep])
+  }, [nftName, description, categoryList, editionType, currentStep, maxNum])
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -549,7 +550,7 @@ const SingleNft = () => {
         }
 
         if (type != 0) {
-          if (editionType !== null) {
+          if (editionType !== null && maxNum !== null && maxNum !== undefined && maxNum > 0) {
             setDisabledNextButton(false)
           } else {
             setDisabledNextButton(true)

@@ -114,7 +114,6 @@ const ActivitySection = () => {
 
   useEffect(() => {
     setFilteredList([])
-    console.log(filterKey, '=========filterKey=======')
     if (filterKey === '') {
       if (searchKey === '') setFilteredList(activityList)
       else {
