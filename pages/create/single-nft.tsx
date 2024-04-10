@@ -748,7 +748,6 @@ const SingleNft = () => {
                             type={type}
                             royalties={royalties}
                             setRoyalties={value => setRoyalties(value)}
-                            setCollection={setCollection}
                             creatorList={creatorList}
                             setEditionType={item => setEditionType(item)}
                             setMaxSupply={value => setMaxNum(value)}
@@ -928,7 +927,6 @@ const SingleNft = () => {
                   createNft={() => createNft()}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}
-                  setCollection={setCollection}
                   creatorList={creatorList}
                   setCreatorList={setCreatorList}
                   setDisabledNextButton={setDisabledNextButton}

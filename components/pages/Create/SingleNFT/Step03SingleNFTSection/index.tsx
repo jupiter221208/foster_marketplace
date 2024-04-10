@@ -32,7 +32,6 @@ const Step03SingleNFTSection = props => {
     setMaxSupply,
     royalties,
     setRoyalties,
-    setCollection,
     creatorList,
     setCreatorList,
     disabledNextButton,
@@ -46,6 +45,7 @@ const Step03SingleNFTSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
+  const [supply, setSupply] = useState(0)
 
   let alertData = [
     {
@@ -160,6 +160,7 @@ const Step03SingleNFTSection = props => {
                     onClick={() => {
                       setMaxNum(item)
                       setMaxSupply(item.value)
+                      setSupply(0)
                     }}
                   >
                     {item.label}
@@ -173,9 +174,13 @@ const Step03SingleNFTSection = props => {
                   </div>
                   <div className="mt-[15px]">
                     <Input
+                      value={supply}
                       onChange={value => {
-                        setMaxSupply(value.length > 0 ? value : null)
+                        let digits = validDigits(value)
+                        setMaxSupply(Math.floor(digits))
+                        setSupply(Math.floor(digits))
                       }}
+                      min={0}
                       placeholder="Provide of maxmium supply of editions"
                     />
                   </div>
@@ -285,6 +290,7 @@ const Step03SingleNFTSection = props => {
                     onClick={() => {
                       setMaxNum(item)
                       setMaxSupply(item.value)
+                      setSupply(0)
                     }}
                   >
                     {item.label}
@@ -299,9 +305,13 @@ const Step03SingleNFTSection = props => {
                   </div>
                   <div className="mt-[15px]">
                     <Input
+                      value={supply}
                       onChange={value => {
-                        setMaxSupply(value)
+                        let digits = validDigits(value)
+                        setMaxSupply(Math.floor(digits))
+                        setSupply(Math.floor(digits))
                       }}
+                      min={0}
                       placeholder="Provide of maxmium supply of editions"
                     />
                   </div>
@@ -411,6 +421,7 @@ const Step03SingleNFTSection = props => {
             onClick={() => onNextStep()}
             fullWidth
             height={50}
+            disabled={disabledNextButton}
             fontSize={18}
             borderColor="transparent"
             fontFamily="Muli-SemiBold"
