@@ -84,7 +84,7 @@ const SingleNft = () => {
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
-    handleFormValidate(step)
+    // handleFormValidate(step)
     if (step === 4) {
       createNft()
     } else {
@@ -331,12 +331,26 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    if (nftName !== '' && description !== '') {
+    if (currentStep === 2 && type != 0) {
+      if (editionType !== null) {
+        setDisabledNextButton(false)
+      } else {
+        setDisabledNextButton(true)
+        return
+      }
+    }
+
+    let count = 0
+    categoryList.map(item => {
+      if (item.checked === true) count++
+    })
+    if (nftName !== '' && description !== '' && count > 0) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
+      return
     }
-  }, [nftName, description, categoryList])
+  }, [nftName, description, categoryList, editionType, currentStep])
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -540,8 +554,7 @@ const SingleNft = () => {
           categoryList.map(item => {
             if (item.checked === true) count++
           })
-
-          if (nftName !== '' && description !== '' && count !== 0) {
+          if (nftName !== '' && description !== '' && count > 0) {
             setDisabledNextButton(false)
           } else {
             setDisabledNextButton(true)
@@ -591,7 +604,12 @@ const SingleNft = () => {
                   <ProgressSection
                     currentStep={currentStep}
                     nextDisabled={disabledNextButton}
-                    onBack={() => handleChangeCurrentStep(currentStep - 1)}
+                    onBack={() => {
+                      if (currentStep >= 1) {
+                        setEditionType(null)
+                      }
+                      handleChangeCurrentStep(currentStep - 1)
+                    }}
                     onNext={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
                     loading={isMinting}
                     labels={['Artwork Details', 'Additional Details', 'Review']}

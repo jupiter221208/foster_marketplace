@@ -61,39 +61,39 @@ const Step03SingleNFTSection = props => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
 
-  useEffect(() => {
-    if (creatorList.length === 0) return
+  // useEffect(() => {
+  //   if (creatorList.length === 0) return
 
-    if (creatorList.length === 1 && creatorList[0].address === '') {
-      setShowAlert(false)
-      setEnableMintBtn(true)
-      setDisabledNextButton(false)
-      return
-    }
+  //   if (creatorList.length === 1 && creatorList[0].address === '') {
+  //     setShowAlert(false)
+  //     setEnableMintBtn(true)
+  //     setDisabledNextButton(false)
+  //     return
+  //   }
 
-    let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
-    if (totalShares === 100) {
-      setDisabledNextButton(false)
-      setShowAlert(false)
-      setEnableMintBtn(true)
-    } else {
-      setDisabledNextButton(true)
-      setShowAlert(true)
-      setEnableMintBtn(false)
-      return
-    }
+  //   let totalShares = creatorList.reduce((total, { share }) => total + parseInt(share), 0)
+  //   if (totalShares === 100) {
+  //     setDisabledNextButton(false)
+  //     setShowAlert(false)
+  //     setEnableMintBtn(true)
+  //   } else {
+  //     setDisabledNextButton(true)
+  //     setShowAlert(true)
+  //     setEnableMintBtn(false)
+  //     return
+  //   }
 
-    let enabled = true
-    for (let i = 0; i < creatorList.length; i++) {
-      let creator = creatorList[i]
-      if (creator.address.length === 0 || !isValidPublicKey(creator.address)) {
-        setEnableMintBtn(false)
-        enabled = false
-        break
-      }
-    }
-    setDisabledNextButton(!enabled)
-  }, [creatorList])
+  //   let enabled = true
+  //   for (let i = 0; i < creatorList.length; i++) {
+  //     let creator = creatorList[i]
+  //     if (creator.address.length === 0 || !isValidPublicKey(creator.address)) {
+  //       setEnableMintBtn(false)
+  //       enabled = false
+  //       break
+  //     }
+  //   }
+  //   setDisabledNextButton(!enabled)
+  // }, [creatorList])
 
   const addAnotherCreator = () => {
     if (creatorList.length === 5) return
