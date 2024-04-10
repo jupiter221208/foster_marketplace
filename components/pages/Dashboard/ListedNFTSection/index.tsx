@@ -345,17 +345,20 @@ const ListedNFTSection = props => {
         let new_list = fixedPriceNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[0])
       } else if (active === 1) {
         let new_list = liveAuctionNFTs as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[1])
       } else {
         // active === 2
         let new_list = liveEditions as any[]
         if (new_list.length > rowCount) setIsVisibleFetching(true)
         setNFTList(new_list.slice(0, rowCount))
+        setFilteredList(new_list.slice(0, rowCount))
         setSelectedItem(filterList[2])
       }
     }, 500)
@@ -367,25 +370,31 @@ const ListedNFTSection = props => {
       if (active === 0) {
         if (nftList.length + rowCount > fixedPriceNFTs.length) {
           setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, fixedPriceNFTs.length)])
+          setFilteredList([...nftList, ...fixedPriceNFTs.slice(nftList.length, fixedPriceNFTs.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       } else if (active === 1) {
         if (nftList.length + rowCount > liveAuctionNFTs.length) {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
+          setFilteredList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       } else {
         if (nftList.length + rowCount > liveEditions.length) {
           setNFTList([...nftList, ...liveEditions.slice(nftList.length, liveEditions.length)])
+          setFilteredList([...nftList, ...liveEditions.slice(nftList.length, liveEditions.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...liveEditions.slice(nftList.length, nftList.length + rowCount)])
+          setFilteredList([...nftList, ...liveEditions.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       }
