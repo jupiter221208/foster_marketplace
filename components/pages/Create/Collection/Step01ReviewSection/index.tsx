@@ -39,6 +39,18 @@ const Step01ReviewSection = props => {
   // variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [displayCategory, setDisplayCategory] = useState(false)
+
+  useEffect(() => {
+    if (categoryList) {
+      let list = categoryList.filter((item, index) => item.checked === true)
+      if (list.length > 0) {
+        setDisplayCategory(true)
+      } else {
+        setDisplayCategory(false)
+      }
+    }
+  }, [categoryList])
 
   return (
     <div className="w-full">
@@ -73,11 +85,13 @@ const Step01ReviewSection = props => {
 
                   <div className={`${styles.desc} mt-[9px]`}>{description}</div>
 
-                  <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>
+                  {displayCategory && <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>}
 
-                  <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
-                    {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                  </div>
+                  {displayCategory && (
+                    <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
+                      {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
+                    </div>
+                  )}
 
                   <div className={`${styles.cateLabel} mt-[16px] flex justify-start items-center gap-2`}>Royalties</div>
                   <div className="max-w-[370px] w-full mt-[10px]">
@@ -119,10 +133,12 @@ const Step01ReviewSection = props => {
 
             <div className={`${styles.desc} mt-[9px]`}>{description}</div>
 
-            <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>
-            <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
-              {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-            </div>
+            {displayCategory && <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>}
+            {displayCategory && (
+              <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
+                {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
+              </div>
+            )}
 
             <div className={`${styles.cateLabel} mt-[30px] flex justify-start items-center gap-2`}>Royalties</div>
             <div className="max-w-[370px] w-full mt-[10px]">

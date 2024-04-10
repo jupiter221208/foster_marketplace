@@ -80,6 +80,8 @@ const Step01CollectionSection = props => {
   const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
+  const [enableImageDialog, setEnableImageDialog] = useState(false)
+  const [enableCoverImageDialog, setEnableCoverImageDialog] = useState(false)
 
   useEffect(() => {
     setCollectionType(collectionKind)
@@ -130,20 +132,22 @@ const Step01CollectionSection = props => {
   const [updateCoverImage, setUpdateCoverImage] = useState(false)
 
   useEffect(() => {
-    if (coverImage !== null && coverImage !== undefined) {
+    if (coverImage !== null && coverImage !== undefined && enableCoverImageDialog) {
       if (coverImage[0].type.split('/')[0] === 'image' && coverImage[0].type !== 'image/gif') {
         setOpenCoverImageEditorModal(true)
       }
+      setEnableCoverImageDialog(false)
     }
-  }, [coverImage])
+  }, [coverImage, enableImageDialog])
 
   useEffect(() => {
-    if (bannerImage !== null && bannerImage !== undefined) {
+    if (bannerImage !== null && bannerImage !== undefined && enableImageDialog) {
       if (bannerImage[0].type.split('/')[0] === 'image' && bannerImage[0].type !== 'image/gif') {
         setOpenBannerImageEditorModal(true)
       }
+      setEnableImageDialog(false)
     }
-  }, [bannerImage])
+  }, [bannerImage, enableImageDialog])
 
   useEffect(() => {
     if (bannerCroppedImage !== '' && updateBannerImage) {
@@ -241,26 +245,28 @@ const Step01CollectionSection = props => {
           .catch(e => e),
       ])
 
-      if (coverBlob instanceof Blob)
+      if (coverBlob instanceof Blob) {
+        setEnableCoverImageDialog(true)
         onChangeCoverImage([
           new File([coverBlob], coverName, {
             type: coverBlob.type,
           }),
         ])
-      else {
+      } else {
         console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
         // TODO: show error message
       }
 
       await new Promise(resolve => setTimeout(resolve, 1))
 
-      if (bannerBlob instanceof Blob)
+      if (bannerBlob instanceof Blob) {
+        setEnableImageDialog(true)
         onChangeBannerImage([
           new File([bannerBlob], bannerName, {
             type: bannerBlob.type,
           }),
         ])
-      else {
+      } else {
         console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
         // TODO: show error message
       }
@@ -320,9 +326,10 @@ const Step01CollectionSection = props => {
                       <div>
                         <Dropzone
                           onDrop={acceptedFiles => {
-                            acceptedFiles.length !== 0
-                              ? onChangeBannerImage(acceptedFiles)
-                              : handleShowAlert('banner', 'uknown')
+                            if (acceptedFiles.length !== 0) {
+                              setEnableImageDialog(true)
+                              onChangeBannerImage(acceptedFiles)
+                            } else handleShowAlert('banner', 'uknown')
                           }}
                           onDropRejected={rejectedFiles => {
                             handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -349,9 +356,10 @@ const Step01CollectionSection = props => {
                         <div className="absolute bottom-2 right-[10px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
-                              acceptedFiles.length !== 0
-                                ? onChangeBannerImage(acceptedFiles)
-                                : handleShowAlert('banner', 'uknown')
+                              if (acceptedFiles.length !== 0) {
+                                setEnableImageDialog(true)
+                                onChangeBannerImage(acceptedFiles)
+                              } else handleShowAlert('banner', 'uknown')
                             }}
                             onDropRejected={rejectedFiles => {
                               handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -420,9 +428,10 @@ const Step01CollectionSection = props => {
                       {coverCroppedImage === undefined ? (
                         <Dropzone
                           onDropAccepted={acceptedFiles => {
-                            acceptedFiles.length !== 0
-                              ? onChangeCoverImage(acceptedFiles)
-                              : handleShowAlert('cover', 'unknown')
+                            if (acceptedFiles.length !== 0) {
+                              setEnableCoverImageDialog(true)
+                              onChangeCoverImage(acceptedFiles)
+                            } else handleShowAlert('cover', 'unknown')
                           }}
                           onDropRejected={rejectedFiles => {
                             handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
@@ -448,9 +457,10 @@ const Step01CollectionSection = props => {
                           <div className="absolute bottom-2 right-[10px]">
                             <Dropzone
                               onDropAccepted={acceptedFiles => {
-                                acceptedFiles.length !== 0
-                                  ? onChangeCoverImage(acceptedFiles)
-                                  : handleShowAlert('cover', 'unknown')
+                                if (acceptedFiles.length !== 0) {
+                                  setEnableCoverImageDialog(true)
+                                  onChangeCoverImage(acceptedFiles)
+                                } else handleShowAlert('cover', 'unknown')
                               }}
                               onDropRejected={rejectedFiles => {
                                 handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
@@ -676,9 +686,11 @@ const Step01CollectionSection = props => {
                   <div>
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0
-                          ? onChangeBannerImage(acceptedFiles)
-                          : handleShowAlert('banner', 'uknown')
+                        if (acceptedFiles.length !== 0) {
+                          setEnableImageDialog(true)
+                          onChangeBannerImage(acceptedFiles)
+                        }
+                        handleShowAlert('banner', 'uknown')
                       }}
                       onDropRejected={rejectedFiles => {
                         handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -705,9 +717,10 @@ const Step01CollectionSection = props => {
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDrop={acceptedFiles => {
-                          acceptedFiles.length !== 0
-                            ? onChangeBannerImage(acceptedFiles)
-                            : handleShowAlert('banner', 'uknown')
+                          if (acceptedFiles.length !== 0) {
+                            setEnableImageDialog(true)
+                            onChangeBannerImage(acceptedFiles)
+                          } else handleShowAlert('banner', 'uknown')
                         }}
                         onDropRejected={rejectedFiles => {
                           handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -781,9 +794,10 @@ const Step01CollectionSection = props => {
                 {coverCroppedImage === undefined ? (
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
-                      acceptedFiles.length !== 0
-                        ? onChangeCoverImage(acceptedFiles)
-                        : handleShowAlert('cover', 'unknown')
+                      if (acceptedFiles.length !== 0) {
+                        setEnableImageDialog(true)
+                        onChangeCoverImage(acceptedFiles)
+                      } else handleShowAlert('cover', 'unknown')
                     }}
                     onDropRejected={rejectedFiles => {
                       handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
@@ -809,9 +823,10 @@ const Step01CollectionSection = props => {
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDropAccepted={acceptedFiles => {
-                          acceptedFiles.length !== 0
-                            ? onChangeCoverImage(acceptedFiles)
-                            : handleShowAlert('cover', 'unknown')
+                          if (acceptedFiles.length !== 0) {
+                            setEnableImageDialog(true)
+                            onChangeCoverImage(acceptedFiles)
+                          } else handleShowAlert('cover', 'unknown')
                         }}
                         onDropRejected={rejectedFiles => {
                           handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
