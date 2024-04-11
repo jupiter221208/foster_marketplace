@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import MintValuePlus from 'public/icons/mint-value-plus.svg?component'
 import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
 
@@ -34,7 +34,8 @@ const MintEditionCard = props => {
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
-
+  const [total, setTotal] = useState(nftPrice)
+  const [showDetailTotal, setShowDetailTotal] = useState(false)
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
@@ -106,7 +107,7 @@ const MintEditionCard = props => {
         </div>
       )}
 
-      <div className="w-full flex justify-between gap-[12px]">
+      <div className="w-full">
         <div className={styles.mintQty}>
           <div
             onClick={() => {
@@ -114,9 +115,11 @@ const MintEditionCard = props => {
               setPrice((nftPrice * (mintQty - 1)).toFixed(2))
             }}
           >
-            <MintValueMinus />
+            <div className={styles.minus}>-</div>
           </div>
-          <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
+          <div className={styles.mintLabel}>
+            Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+          </div>
           <div
             onClick={() => {
               if (maxSupply !== null) {
@@ -124,29 +127,34 @@ const MintEditionCard = props => {
               }
               setMintQty(mintQty + 1)
               setPrice((nftPrice * (mintQty + 1)).toFixed(2))
+              setTotal(nftPrice * (mintQty + 1))
             }}
           >
-            <MintValuePlus />
+            <div className={styles.minus}>+</div>
           </div>
         </div>
-        <div className={styles.mintPrice}>
-          <SolanaLogoIcon />
-          <PriceInput
-            value={price}
-            placeholder="0"
-            backgroundColor={'transparent'}
-            fullWidth
-            min={0}
-            margin
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
-            onChange={value => {
-              if (value < 0) {
-                setPrice('')
-              } else {
-                setPrice(value)
-              }
-            }}
-          />
+        <div className="w-full mt-[9px] h-[50px] relative">
+          {!showDetailTotal ? (
+            <div className={styles.mintPrice} onClick={() => setShowDetailTotal(true)}>
+              <div className="w-full flex justify-between px-[24px]">
+                <div>Total</div>
+                <div className="flex gap-[6px] items-center">
+                  <SolanaLogoIcon />
+                  <div className={styles.total}>{total}</div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.mintPriceDetail} onClick={() => setShowDetailTotal(false)}>
+              <div className="w-full flex justify-between px-[24px]">
+                <div>Total</div>
+                <div className="flex gap-[6px] items-center">
+                  <SolanaLogoIcon />
+                  <div className={styles.total}>{total}</div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="w-full mt-[15px]">

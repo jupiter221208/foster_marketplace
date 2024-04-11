@@ -59,7 +59,7 @@
   justify-content: space-between;
   width: 100%;
   height: auto;
-  overflow: hidden;
+  overflow: visible;
   @media (min-width: 1024px) {
     background: var(--bg-1C1C1C-F3F2F0);
     min-height: calc(100vh - 100px - 80px);
