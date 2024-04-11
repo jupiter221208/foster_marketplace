@@ -2,20 +2,20 @@
 
 .container {
  width: 100%;
- padding-right: 0px;
+ padding: 20px 0px 20px 30px;
  height: 100%;
+ border-radius: 10px;
  @media (min-width:1024px) {
     width: calc(100% + 30px);
     padding-right: 30px;
-    height: 75vh;
+    height: 100%;
     overflow: auto;
   }
 }
 
-.title {
-  font-family: 'Muli-Bold';
-  font-size: 28px;
-  color: var(--text-gray-200-color);
+.nftBG {
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
 .auctionDetail {
@@ -94,11 +94,9 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 25px;
-  line-height: 36px;
+  font-size: 22px;
   @media (min-width: 1024px) {
-    font-size: 32px;
-    line-height: 44px;
+    font-size: 22px;
   }
   text-align: center;
   letter-spacing: 0px;
@@ -159,7 +157,7 @@
   @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
   }
-  font-weight: 100;
+  font-weight: 100 !important;
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);

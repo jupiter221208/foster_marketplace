@@ -1089,7 +1089,7 @@ const MainSection = ({
         </div>
       )}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
+        <div className={`lg:w-[60%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -1121,15 +1121,13 @@ const MainSection = ({
           )}
         </div>
 
-        <div className="w-full lg:w-[29%] z-10 ">
+        <div className="w-full lg:w-[37%] z-10 ">
           {showListEditionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div className="">
               <ListEditionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessListEdition(nft)}
-                onRefreshPage={() => {
-                  router.reload()
-                }}
+                fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
                 }}
@@ -1692,9 +1690,12 @@ const MainSection = ({
                         isEditionListing ? (
                           <></>
                         ) : (
-                          <div className="w-full mt-[20px]">
+                          <div className="w-full">
                             <GradientButton
                               fullWidth
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
                               label="List Edition"
                               onClick={() => setShowListEditionDetail(true)}
                             />

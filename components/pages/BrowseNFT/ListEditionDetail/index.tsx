@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { useDispatch } from 'react-redux'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -10,7 +9,6 @@ import moment from 'moment'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
 
 // custom component
 import Input from 'components/Input'
@@ -41,10 +39,10 @@ export interface ListEditionDetailProps {
   }
   onSuccess: (name: string) => void
   onClose: () => void
-  onRefreshPage?: () => void
+  fromNFT: boolean
 }
 
-const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
   const { metaplex } = useMetaplex()
@@ -162,8 +160,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (
-    <div className="w-full">
-      <div className={styles.container}>
+    <div className="w-full h-full flex flex-col justify-between">
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
         <div className="w-full flex justify-between">
           <div className={styles.title}>List Edition</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
@@ -174,7 +172,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px]">
           <div className={styles.auctionStart}>
             Mint Price <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -198,7 +196,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[40px]">
+          <div className="w-full mt-[20px] lg:mt-[30px]">
             <div className={styles.auctionStart}>
               Start Time <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -274,15 +272,15 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        {/* Mint Duration */}
+        {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Mint Duration <span className={styles.auctionAsterisk}>*</span>
+            Listing Duration <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
-          className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[30px]'
+          className={`w-full flex flex-wrap mt-[12px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -293,7 +291,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
               setDurationType('noTime')
             }}
           >
-            No End Time
+            None
           </div>
 
           <div
@@ -405,7 +403,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[30px]'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -479,26 +477,43 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mt-[45px] w-full">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
-        ) : (
-          <GradientButton
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
-            label="List Edition"
-            borderWidth={1}
-            backgroundColor01="var(--main-icon-color)"
-            backgroundColor02="var(--main-icon-color)"
-            color="var(--background-main-color)"
-            disabled={buttonDisabled}
-            opacity={buttonDisabled ? 0.5 : 1}
-            onClick={() => handleListEdition()}
-          />
+        {fromNFT && (
+          <div className="mt-[35px] w-full">
+            {isLoading ? (
+              <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+            ) : (
+              <GradientButton
+                fullWidth
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+                label="List Edition"
+                backgroundColor01="var(--main-icon-color)"
+                backgroundColor02="var(--main-icon-color)"
+                color="var(--background-main-color)"
+                disabled={buttonDisabled}
+                onClick={() => handleListEdition()}
+              />
+            )}
+          </div>
         )}
       </div>
+      {!fromNFT && (
+        <div className="w-full px-[30px]">
+          {isLoading ? (
+            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+          ) : (
+            <GradientButton
+              fullWidth
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+              label="List Edition"
+              backgroundColor01="var(--main-icon-color)"
+              backgroundColor02="var(--main-icon-color)"
+              color="var(--background-main-color)"
+              disabled={buttonDisabled}
+              onClick={() => handleListEdition()}
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 }
