@@ -160,8 +160,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
   return (
     <div className="w-full">
       <div className={styles.container}>
-        <div className="w-full flex justify-between">
-          <div className={styles.auctionDetail}>Auction Details</div>
+        <div className="w-full flex justify-between mt-[54px]">
+          <div className={styles.auctionDetail}>Start Auction</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">
               <BackIcon />
@@ -171,7 +171,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[40px]">
+          <div className="w-full mt-[20px] lg:mt-[10px]">
             <div className={styles.auctionStart}>
               Auction Start <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -256,7 +256,6 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
           <PriceInput
             value={reservePrice}
             placeholder="Set the reserve starting bid"
-            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
             fullWidth
             type="number"
             min={0}
@@ -278,8 +277,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
           </div>
         </div>
         <div
-          className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
+          className={`w-full flex flex-wrap mt-[15px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[30px]'
           }`}
         >
           <div
@@ -339,7 +338,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
                 <Input
                   value={days}
                   placeholder="0"
-                  backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                  backgroundColor={'var(--second-home-bg)'}
+                  borderColor="transparent"
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
@@ -361,6 +361,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
                   value={hours}
                   placeholder="0"
                   backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                  borderColor="transparent"
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
@@ -401,7 +402,6 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
           <PriceInput
             value={minBidIncrement}
             placeholder="Set the minimum bid increment"
-            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
             fullWidth
             type="number"
             min={0}
@@ -518,7 +518,6 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
               <PriceInput
                 value={endBidIncrement}
                 placeholder="Set the end phase bid increment"
-                backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                 fullWidth
                 type="number"
                 min={0}
@@ -534,21 +533,20 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mt-[45px] w-full">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
-        ) : (
-          <button
-            className={styles.startAuction}
-            disabled={buttonDisabled}
-            style={{ opacity: buttonDisabled ? 0.5 : 1 }}
-            onClick={() => handleStartAuction()}
-          >
-            Start Auction
-          </button>
-        )}
+        <div className="mt-[80px] mb-[100px] w-full">
+          {isLoading ? (
+            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+          ) : (
+            <button
+              className={styles.startAuction}
+              disabled={buttonDisabled}
+              style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+              onClick={() => handleStartAuction()}
+            >
+              Start Auction
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )
