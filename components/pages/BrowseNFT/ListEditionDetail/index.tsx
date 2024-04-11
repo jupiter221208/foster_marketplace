@@ -503,7 +503,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDet
           ) : (
             <GradientButton
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
               label="List Edition"
               backgroundColor01="var(--main-icon-color)"
               backgroundColor02="var(--main-icon-color)"

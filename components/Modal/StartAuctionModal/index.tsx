@@ -188,7 +188,13 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
               )}
 
               <div className={styles.rightPanel}>
-                <AuctionDetail data={data} onSuccess={onSuccess} onClose={onClose} onRefreshPage={() => {}} />
+                <AuctionDetail
+                  data={data}
+                  onSuccess={onSuccess}
+                  onClose={onClose}
+                  onRefreshPage={() => {}}
+                  fromNFT={false}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>

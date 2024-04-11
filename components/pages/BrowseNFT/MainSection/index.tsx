@@ -1134,7 +1134,7 @@ const MainSection = ({
               />
             </div>
           ) : showAuctionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div className="">
               <AuctionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessAuction(nft)}
@@ -1145,6 +1145,7 @@ const MainSection = ({
                   setShowAuctionDetail(false)
                   setShowAuctionSection(false)
                 }}
+                fromNFT={true}
               />
             </div>
           ) : (

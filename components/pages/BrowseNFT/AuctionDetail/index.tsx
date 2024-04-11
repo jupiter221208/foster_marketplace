@@ -32,6 +32,7 @@ import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface AuctionDetailProps {
   data: {
@@ -41,9 +42,10 @@ export interface AuctionDetailProps {
   onSuccess: (name: string) => void
   onClose: () => void
   onRefreshPage?: () => void
+  fromNFT: boolean
 }
 
-const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetailProps) => {
+const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: AuctionDetailProps) => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -159,8 +161,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
 
   return (
     <div className="w-full">
-      <div className={styles.container}>
-        <div className="w-full flex justify-between mt-[54px]">
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
+        <div className={`w-full flex justify-between ${fromNFT ? 'mt-[25px]' : 'mt-[55px]'} `}>
           <div className={styles.auctionDetail}>Start Auction</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">
@@ -278,7 +280,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
         </div>
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[30px]'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[15px]'
           }`}
         >
           <div
@@ -466,7 +468,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between gap-[15px]' : 'gap-10'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[15px]'
           }`}
         >
           <div
@@ -533,18 +535,21 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage }: AuctionDetai
             </div>
           </div>
         )}
-        <div className="mt-[80px] mb-[100px] w-full">
+        <div className="mt-[80px] mb-[40px] lg:mb-[80px] w-full">
           {isLoading ? (
             <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
           ) : (
-            <button
-              className={styles.startAuction}
+            <GradientButton
+              label="Start Auction"
+              fullWidth
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+              borderColor="transparent"
+              backgroundColor01="var(--main-icon-color)"
+              backgroundColor02="var(--main-icon-color)"
               disabled={buttonDisabled}
-              style={{ opacity: buttonDisabled ? 0.5 : 1 }}
+              color="var(--background-main-color"
               onClick={() => handleStartAuction()}
-            >
-              Start Auction
-            </button>
+            />
           )}
         </div>
       </div>

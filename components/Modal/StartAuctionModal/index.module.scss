@@ -53,15 +53,13 @@
 .rightPanel {
   width: 100%;
   height: auto;
-  padding: 0px 16px 30px 16px;
-  margin-top: 35px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 0px 0px 0px 30px;
+  background: var(--background-main-color);
   @media (min-width: 1024px) {
     width: 50%;
     margin-top: 0px;
-    background: var(--background-main-color);
     padding: 0px 100px 70px 60px;
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    border-radius: 0px 0px 0px 30px;
   }
 }
 
