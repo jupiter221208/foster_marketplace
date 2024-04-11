@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
-import MintValuePlus from 'public/icons/mint-value-plus.svg?component'
-import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
+import ArrowUpIcon from 'assets/icons/arrow-up-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
-import PriceInput from 'components/Input/PriceInput'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
 import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
@@ -108,29 +107,37 @@ const MintEditionCard = props => {
       )}
 
       <div className="w-full">
-        <div className={styles.mintQty}>
-          <div
-            onClick={() => {
-              if (mintQty > 0) setMintQty(mintQty - 1)
-              setPrice((nftPrice * (mintQty - 1)).toFixed(2))
-            }}
-          >
-            <div className={styles.minus}>-</div>
-          </div>
-          <div className={styles.mintLabel}>
-            Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-          </div>
-          <div
-            onClick={() => {
-              if (maxSupply !== null) {
-                if (mintQty + 1 > maxSupply) return
-              }
-              setMintQty(mintQty + 1)
-              setPrice((nftPrice * (mintQty + 1)).toFixed(2))
-              setTotal(nftPrice * (mintQty + 1))
-            }}
-          >
-            <div className={styles.minus}>+</div>
+        <div className="w-full flex jusitfy-between">
+          <div></div>
+          <div className={styles.mintQty}>
+            <div
+              onClick={() => {
+                if (mintQty > 0) {
+                  setMintQty(mintQty - 1)
+                  let price = (nftPrice * (mintQty - 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                  setPrice(price)
+                  setTotal(price)
+                }
+              }}
+            >
+              <div className={styles.minus}>-</div>
+            </div>
+            <div className={styles.mintLabel}>
+              Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+            </div>
+            <div
+              onClick={() => {
+                if (maxSupply !== null) {
+                  if (mintQty + 1 > maxSupply) return
+                }
+                let price = (nftPrice * (mintQty + 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                setMintQty(mintQty + 1)
+                setPrice(price)
+                setTotal(price)
+              }}
+            >
+              <div className={styles.minus}>+</div>
+            </div>
           </div>
         </div>
         <div className="w-full mt-[9px] h-[50px] relative">
@@ -139,19 +146,46 @@ const MintEditionCard = props => {
               <div className="w-full flex justify-between px-[24px]">
                 <div>Total</div>
                 <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[2px]" />
                   <div className={styles.total}>{total}</div>
+                  <ArrowDownIcon className="mt-[2px] ml-[4px]" />
                 </div>
               </div>
             </div>
           ) : (
             <div className={styles.mintPriceDetail} onClick={() => setShowDetailTotal(false)}>
-              <div className="w-full flex justify-between px-[24px]">
+              <div className="w-full flex justify-between mb-[15px]">
                 <div>Total</div>
                 <div className="flex gap-[6px] items-center">
-                  <SolanaLogoIcon />
+                  <SolanaLogoIcon className="mt-[2px]" />
                   <div className={styles.total}>{total}</div>
+                  <ArrowUpIcon className="mt-[2px] ml-[4px]" />
                 </div>
+              </div>
+              <div className={styles.priceBorder} />
+              <div className="w-full flex justify-between mt-[15px]">
+                <div className={styles.priceLabel}>Quantity</div>
+                <div className={styles.priceValue}>{mintQty}</div>
+              </div>
+              <div className="w-full flex justify-between mt-[9px]">
+                <div className={styles.priceLabel}>Artwork Cost</div>
+                <div className={styles.priceValue}>{(nftPrice * mintQty).toFixed(2)}</div>
+              </div>
+              <div className="w-full flex justify-between mt-[9px]">
+                <div className={styles.priceLabel}>Foster Fee (5%)</div>
+                <div className={styles.priceValue}>{(nftPrice * mintQty * 0.05).toFixed(2)}&nbsp;SOL</div>
+              </div>
+              <div className="w-full flex justify-between mt-[9px]">
+                <div className={styles.priceLabel}>Metaplex Fee</div>
+                <div className={styles.priceValue}>0.01 SOL</div>
+              </div>
+              <div className="w-full flex justify-between mt-[9px]">
+                <div className={styles.priceLabel}>Solana Account Fee</div>
+                <div className={styles.priceValue}>~0.013 SOL</div>
+              </div>
+              <div className="w-full flex justify-between mt-[9px]">
+                <div className={styles.priceLabel}>Transaction Priority Fee</div>
+                <div className={styles.priceValue}>0.0003 SOL</div>
               </div>
             </div>
           )}
