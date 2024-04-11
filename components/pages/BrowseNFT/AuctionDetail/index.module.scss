@@ -19,6 +19,7 @@
 .nftBG {
   padding: 0px !important;
   @media (min-width:1024px) {
+    padding: 0px 30px 0px 30px !important;
     background: var(--background-main-color);
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 10px;
