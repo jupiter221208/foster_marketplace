@@ -57,10 +57,14 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className="flex justify-around gap-2 mt-1">
-          <div className="mr-[4px] mt-[1px]">
-            {auctionStarted === true ? <ClockSandIcon /> : auctionStarted === false ? 'Starts in' : ''}
-          </div>
+        <div className="flex justify-around items-center gap-2 mt-1">
+          {auctionStarted === true ? (
+            <div className="mr-[4px] mt-[1px]">
+              <ClockSandIcon />
+            </div>
+          ) : (
+            <div>Starts&nbsp;in</div>
+          )}
           {timeLeft && timeLeft['days'] !== '00' && (
             <div className="flex block justify-center gap-[2px]">
               <div className={styles.whiteText}>{timeLeft['days']}</div>
