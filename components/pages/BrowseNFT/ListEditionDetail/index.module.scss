@@ -2,20 +2,24 @@
 
 .container {
  width: 100%;
- padding: 20px 0px 20px 30px;
  height: 100%;
  border-radius: 10px;
- @media (min-width:1024px) {
+ padding: 0px 16px 0px 16px;
+  @media (min-width:1024px) {
+    padding: 0px 20px 20px 0px;
     width: calc(100% + 30px);
-    padding-right: 30px;
     height: 100%;
     overflow: auto;
   }
 }
 
 .nftBG {
-  background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  padding: 0px !important;
+  @media (min-width:1024px) {
+    padding: 20px 20px 20px 30px !important;
+    background: var(--background-main-color);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  }
 }
 
 .auctionDetail {

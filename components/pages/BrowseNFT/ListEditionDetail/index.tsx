@@ -477,43 +477,24 @@ const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDet
             </div>
           </div>
         )}
-        {fromNFT && (
-          <div className="mt-[35px] w-full">
-            {isLoading ? (
-              <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
-            ) : (
-              <GradientButton
-                fullWidth
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
-                label="List Edition"
-                backgroundColor01="var(--main-icon-color)"
-                backgroundColor02="var(--main-icon-color)"
-                color="var(--background-main-color)"
-                disabled={buttonDisabled}
-                onClick={() => handleListEdition()}
-              />
-            )}
-          </div>
-        )}
-      </div>
-      {!fromNFT && (
-        <div className="w-full px-[30px]">
+        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
           {isLoading ? (
             <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
           ) : (
             <GradientButton
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
               label="List Edition"
               backgroundColor01="var(--main-icon-color)"
               backgroundColor02="var(--main-icon-color)"
               color="var(--background-main-color)"
+              borderColor="transparent"
               disabled={buttonDisabled}
               onClick={() => handleListEdition()}
             />
           )}
         </div>
-      )}
+      </div>
     </div>
   )
 }
