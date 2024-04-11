@@ -16,8 +16,6 @@ import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
 import SelectedTab from 'components/Tab/SelectedTab'
-import NFTCard from 'components/Card/NFTCard'
-import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 

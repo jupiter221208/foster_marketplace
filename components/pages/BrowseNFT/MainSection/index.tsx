@@ -183,6 +183,7 @@ const MainSection = ({
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
+  const [buyLoading, setBuyLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
@@ -278,13 +279,13 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    setOpenProgressingModal(true)
-
+    // setOpenProgressingModal(true)
+    setBuyLoading(true)
     await refreshToken()
 
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    await updateSolBalance()
     if (result) {
+      await updateSolBalance()
       listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
         response => {
           setNftPrice(0)
@@ -294,7 +295,8 @@ const MainSection = ({
       )
       setShowAlert(true)
     }
-    setOpenProgressingModal(false)
+    // setOpenProgressingModal(false)
+    setBuyLoading(false)
   }
 
   const mintEdition = async () => {
@@ -1475,7 +1477,7 @@ const MainSection = ({
 
                       {(isOwnNft === false || isOwnNft === null) && (
                         <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
-                          {tradeStateAddress ? (
+                          {tradeStateAddress && !buyLoading ? (
                             <GradientButton
                               fullWidth
                               backgroundColor01="var(--main-icon-color)"
@@ -1488,7 +1490,7 @@ const MainSection = ({
                               onClick={() => quickBuy()}
                             />
                           ) : (
-                            <LoadingButton />
+                            <LoadingButton fullWidth />
                           )}
                           <OutlineButton
                             label="Make Offer"
