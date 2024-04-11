@@ -415,6 +415,7 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
+      console.log(nftInfo, '===========nftInfo=========')
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
@@ -565,6 +566,8 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
+      console.log(nftDetail, '===========nftDetail=========')
+      console.log(editionDetail, '===========editionDetail=========')
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
@@ -1036,6 +1039,7 @@ const MainSection = ({
 
     setTimeout(() => {
       setShowAlert(true)
+      router.reload()
     }, 1000)
   }
 
@@ -1432,6 +1436,7 @@ const MainSection = ({
                       <MintEditionCard
                         price={price}
                         maxSupply={editionDetail.maxSupply}
+                        buyLimit={nftInfo?.master_edition?.buyLimit}
                         endTime={nftInfo?.master_edition?.endTime}
                         startTime={nftInfo?.master_edition?.startTime}
                         setIsEnded={setIsEnded}

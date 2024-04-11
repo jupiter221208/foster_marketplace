@@ -18,6 +18,7 @@ const MintEditionCard = props => {
   const {
     price,
     maxSupply,
+    buyLimit,
     endTime,
     startTime,
     setIsEnded,
@@ -36,6 +37,7 @@ const MintEditionCard = props => {
   const viewport = useViewport()
   const [total, setTotal] = useState(nftPrice)
   const [showDetailTotal, setShowDetailTotal] = useState(false)
+  const [buyLimitAlert, setBuyLimitAlert] = useState(false)
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
@@ -140,6 +142,15 @@ const MintEditionCard = props => {
                   if (maxSupply !== null) {
                     if (mintQty + 1 > maxSupply) return
                   }
+                  if (buyLimit !== null) {
+                    if (mintQty + 1 > parseInt(buyLimit)) {
+                      setBuyLimitAlert(true)
+                      setTimeout(() => {
+                        setBuyLimitAlert(false)
+                      }, 3000)
+                      return
+                    }
+                  }
                   let price = (
                     nftPrice * (mintQty + 1) * 1.05 +
                     0.01 * (mintQty + 1) +
@@ -220,6 +231,9 @@ const MintEditionCard = props => {
             height={50}
             disabled={mintQty === 0}
           />
+        )}
+        {buyLimitAlert && (
+          <div className={styles.buyLimitText}>A maximum of {buyLimit} editions can be minted per wallet</div>
         )}
       </div>
     </div>
