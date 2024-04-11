@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { useDispatch } from 'react-redux'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -10,7 +9,6 @@ import moment from 'moment'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
 
 // custom component
 import Input from 'components/Input'
@@ -27,8 +25,7 @@ import styles from './index.module.scss'
 import { listMasterEdition } from 'apis/editions'
 
 // solana
-import { Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { startAuction } from 'utils/auctioneer.util'
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
@@ -42,13 +39,12 @@ export interface ListEditionDetailProps {
   }
   onSuccess: (name: string) => void
   onClose: () => void
-  onRefreshPage?: () => void
+  fromNFT: boolean
 }
 
-const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
-  const { refreshToken } = useAuthentication()
   const { metaplex } = useMetaplex()
 
   const closeModal = () => {
@@ -95,7 +91,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         endTime: endDate.toISOString().split('.')[0],
         buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       })
-      console.log(listing, '=========listing==========')
+
       let mint = new PublicKey(data.mintAddress)
       let owner = metaplex.identity().publicKey
       let delegate = new PublicKey(listing.authorityPublicKey)
@@ -130,8 +126,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
       }
 
       onSuccess(data?.name)
-      setIsLoading(false)
-      onClose()
+      // setIsLoading(false)
+      // onClose()
 
       // TODO: send listing to backend with listing details
     } catch (e: any) {
@@ -164,8 +160,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (
-    <div className="w-full">
-      <div className={styles.container}>
+    <div className="w-full h-full flex flex-col justify-between">
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
         <div className="w-full flex justify-between">
           <div className={styles.title}>List Edition</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
@@ -176,7 +172,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px]">
           <div className={styles.auctionStart}>
             Mint Price <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -185,7 +181,6 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           <PriceInput
             value={mintPrice}
             placeholder="Set the price of your editions"
-            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
             fullWidth
             type="number"
             min={0}
@@ -201,7 +196,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[40px]">
+          <div className="w-full mt-[20px] lg:mt-[30px]">
             <div className={styles.auctionStart}>
               Start Time <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -277,15 +272,15 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        {/* Mint Duration */}
+        {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Mint Duration <span className={styles.auctionAsterisk}>*</span>
+            Listing Duration <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
-          className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
+          className={`w-full flex flex-wrap mt-[12px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -296,7 +291,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
               setDurationType('noTime')
             }}
           >
-            No End Time
+            None
           </div>
 
           <div
@@ -349,6 +344,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
+                  borderColor="transparent"
                   borderRadius="9px"
                   min={0}
                   onChange={value => {
@@ -370,6 +366,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
+                  borderColor="transparent"
                   borderRadius="9px"
                   min={0}
                   onChange={value => {
@@ -405,8 +402,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         </div>
 
         <div
-          className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
+          className={`w-full flex flex-wrap mt-[15px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -463,6 +460,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   borderRadius="9px"
+                  borderColor="transparent"
+                  fontFamily="Muli-Bold"
                   min={0}
                   onChange={value => {
                     let limit = validDigits(value)
@@ -478,22 +477,23 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mt-[45px] w-full">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
-        ) : (
-          <GradientButton
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
-            label="List Edition"
-            borderWidth={1}
-            disabled={buttonDisabled}
-            opacity={buttonDisabled ? 0.5 : 1}
-            onClick={() => handleListEdition()}
-          />
-        )}
+        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
+          {isLoading ? (
+            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+          ) : (
+            <GradientButton
+              fullWidth
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+              label="List Edition"
+              backgroundColor01="var(--main-icon-color)"
+              backgroundColor02="var(--main-icon-color)"
+              color="var(--background-main-color)"
+              borderColor="transparent"
+              disabled={buttonDisabled}
+              onClick={() => handleListEdition()}
+            />
+          )}
+        </div>
       </div>
     </div>
   )

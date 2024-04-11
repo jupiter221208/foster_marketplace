@@ -24,7 +24,7 @@ const Input = props => {
     fontFamily = 'Muli-Regular',
     fullWidth = false,
     backgroundColor = '',
-    borderColor = 'transparent',
+    borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',
     borderRadius = '',
     width = '',
     height = '',

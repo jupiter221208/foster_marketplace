@@ -183,6 +183,7 @@ const MainSection = ({
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
+  const [buyLoading, setBuyLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
@@ -278,13 +279,13 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    setOpenProgressingModal(true)
-
+    // setOpenProgressingModal(true)
+    setBuyLoading(true)
     await refreshToken()
 
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    await updateSolBalance()
     if (result) {
+      await updateSolBalance()
       listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
         response => {
           setNftPrice(0)
@@ -294,7 +295,8 @@ const MainSection = ({
       )
       setShowAlert(true)
     }
-    setOpenProgressingModal(false)
+    // setOpenProgressingModal(false)
+    setBuyLoading(false)
   }
 
   const mintEdition = async () => {
@@ -415,6 +417,7 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
+      console.log(nftInfo, '===========nftInfo=========')
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
@@ -565,6 +568,9 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
+      console.log(nftDetail, '===========nftDetail=========')
+      console.log(editionDetail, '===========editionDetail=========')
+
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
@@ -1035,6 +1041,7 @@ const MainSection = ({
 
     setTimeout(() => {
       setShowAlert(true)
+      router.reload()
     }, 1000)
   }
 
@@ -1088,7 +1095,7 @@ const MainSection = ({
         </div>
       )}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
+        <div className={`lg:w-[60%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -1120,22 +1127,20 @@ const MainSection = ({
           )}
         </div>
 
-        <div className="w-full lg:w-[29%] z-10 ">
+        <div className="w-full lg:w-[37%] z-10 ">
           {showListEditionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div className="">
               <ListEditionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessListEdition(nft)}
-                onRefreshPage={() => {
-                  router.reload()
-                }}
+                fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
                 }}
               />
             </div>
           ) : showAuctionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div className="">
               <AuctionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessAuction(nft)}
@@ -1146,6 +1151,7 @@ const MainSection = ({
                   setShowAuctionDetail(false)
                   setShowAuctionSection(false)
                 }}
+                fromNFT={true}
               />
             </div>
           ) : (
@@ -1432,8 +1438,9 @@ const MainSection = ({
                       <MintEditionCard
                         price={price}
                         maxSupply={editionDetail.maxSupply}
-                        endTime={endTime}
-                        startTime={startTime}
+                        buyLimit={nftInfo?.master_edition?.buyLimit}
+                        endTime={nftInfo?.master_edition?.endTime}
+                        startTime={nftInfo?.master_edition?.startTime}
                         setIsEnded={setIsEnded}
                         setIsStarted={setIsStarted}
                         nftPrice={nftPrice}
@@ -1470,15 +1477,20 @@ const MainSection = ({
 
                       {(isOwnNft === false || isOwnNft === null) && (
                         <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
-                          {tradeStateAddress ? (
+                          {tradeStateAddress && !buyLoading ? (
                             <GradientButton
-                              label="Buy Now"
                               fullWidth
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
+                              label="Buy Now"
                               disabled={!tradeStateAddress}
+                              borderColor="transparent"
+                              fontSize={18}
                               onClick={() => quickBuy()}
                             />
                           ) : (
-                            <LoadingButton />
+                            <LoadingButton fullWidth />
                           )}
                           <OutlineButton
                             label="Make Offer"
@@ -1630,6 +1642,11 @@ const MainSection = ({
                                         <GradientButton
                                           label="Place Bid"
                                           fullWidth
+                                          backgroundColor01="var(--main-icon-color)"
+                                          backgroundColor02="var(--main-icon-color)"
+                                          color="var(--background-main-color)"
+                                          borderColor="transparent"
+                                          fontSize={18}
                                           disabled={
                                             price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                           }
@@ -1691,9 +1708,13 @@ const MainSection = ({
                         isEditionListing ? (
                           <></>
                         ) : (
-                          <div className="w-full mt-[20px]">
+                          <div className="w-full mt-[30px] lg:mt-[10px]">
                             <GradientButton
                               fullWidth
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
+                              borderColor="transparent"
                               label="List Edition"
                               onClick={() => setShowListEditionDetail(true)}
                             />
@@ -1704,15 +1725,19 @@ const MainSection = ({
                           <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
                             List&nbsp;Artwork
                           </div>
-                          <div
-                            className={styles.outlineBtn}
+                          <GradientButton
+                            fullWidth
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            color="var(--background-main-color)"
+                            label="Start Auction"
+                            borderColor="transparent"
+                            fontSize={18}
                             onClick={() => {
                               setShowAuctionDetail(true)
                               setShowAuctionSection(true)
                             }}
-                          >
-                            Start&nbsp;Auction
-                          </div>
+                          />
                         </div>
                       )}
                     </div>

@@ -185,7 +185,7 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
               )}
 
               <div className={styles.rightPanel}>
-                <ListEditionDetail data={data} onSuccess={onSuccess} onClose={onClose} />
+                <ListEditionDetail data={data} onSuccess={onSuccess} onClose={onClose} fromNFT={false} />
               </div>
             </Dialog.Panel>
           </Transition.Child>

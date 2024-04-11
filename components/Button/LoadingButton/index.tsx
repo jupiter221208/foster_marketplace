@@ -17,7 +17,7 @@ const LoadingButton = props => {
     backgroundColor02 = 'var(--place-bid-minimum-color)',
     borderRadius = 12,
     width = 160,
-    height = 40,
+    height,
     gradientDirection = 'left',
   } = props
 

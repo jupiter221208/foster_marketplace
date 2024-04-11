@@ -62,7 +62,7 @@ const OpenEditionSection = props => {
             slidesPerView={1.36}
             spaceBetween={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 20 : 0}
             centeredSlides={true}
-            loop
+            loop={editionList.length > 1}
             modules={[Navigation]}
             className={editionList.length > 1 ? 'heroNavigationSwiper' : 'noScrollNavigationSwiper'}
           >
