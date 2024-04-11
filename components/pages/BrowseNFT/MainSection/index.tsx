@@ -415,7 +415,6 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      console.log(nftInfo, '===================nftInfo===========')
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
@@ -566,7 +565,7 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-      console.log(nftDetail, '===================nftDetail===========')
+
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 

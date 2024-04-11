@@ -31,10 +31,12 @@ const MintEditionCard = props => {
   } = props
 
   const [timeLeft, setTimeLeft] = useState<any>(null)
-  const [auctionStarted, setAuctionStarted] = useState(null)
+  const [auctionStarted, setAuctionStarted] = useState(false)
+  const [auctionEnded, setAuctionEnded] = useState(false)
   const viewport = useViewport()
   const [total, setTotal] = useState(nftPrice)
   const [showDetailTotal, setShowDetailTotal] = useState(false)
+
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
@@ -65,7 +67,10 @@ const MintEditionCard = props => {
       let offset = startDate.getTimezoneOffset() * 60 * 1000
       let proposalEndTime = endDate.getTime() - offset
       let end_difference = proposalEndTime - new Date().getTime()
-      if (end_difference < 0) setIsEnded(true)
+      if (end_difference < 0) {
+        setIsEnded(true)
+        setAuctionEnded(true)
+      }
       return endTime
     }
   }
@@ -74,7 +79,7 @@ const MintEditionCard = props => {
     <div className={styles.container}>
       <div className="w-full">
         <div className="w-full flex justify-between items-center">
-          {auctionStarted ? (
+          {auctionStarted && !auctionEnded && (
             <div className="flex gap-[14px] mt-[-5px] items-center">
               <div className={styles.grayText}>
                 <ClockSandIcon />
@@ -107,37 +112,37 @@ const MintEditionCard = props => {
                 )}
               </div>
             </div>
-          ) : (
-            <div className="w-[100px] h-[30px]" />
           )}
-          <div className={styles.mintQty}>
-            <div
-              onClick={() => {
-                if (mintQty > 0) {
-                  setMintQty(mintQty - 1)
-                  let price = (nftPrice * (mintQty - 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+          <div className={`${auctionStarted && !auctionEnded ? 'w-[180px]' : 'w-full'}`}>
+            <div className={styles.mintQty}>
+              <div
+                onClick={() => {
+                  if (mintQty > 0) {
+                    setMintQty(mintQty - 1)
+                    let price = (nftPrice * (mintQty - 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                    setPrice(price)
+                    setTotal(price)
+                  }
+                }}
+              >
+                <div className={styles.minus}>-</div>
+              </div>
+              <div className={styles.mintLabel}>
+                Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+              </div>
+              <div
+                onClick={() => {
+                  if (maxSupply !== null) {
+                    if (mintQty + 1 > maxSupply) return
+                  }
+                  let price = (nftPrice * (mintQty + 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                  setMintQty(mintQty + 1)
                   setPrice(price)
                   setTotal(price)
-                }
-              }}
-            >
-              <div className={styles.minus}>-</div>
-            </div>
-            <div className={styles.mintLabel}>
-              Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-            </div>
-            <div
-              onClick={() => {
-                if (maxSupply !== null) {
-                  if (mintQty + 1 > maxSupply) return
-                }
-                let price = (nftPrice * (mintQty + 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
-                setMintQty(mintQty + 1)
-                setPrice(price)
-                setTotal(price)
-              }}
-            >
-              <div className={styles.minus}>+</div>
+                }}
+              >
+                <div className={styles.minus}>+</div>
+              </div>
             </div>
           </div>
         </div>
