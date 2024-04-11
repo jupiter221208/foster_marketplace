@@ -15,7 +15,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?compone
 
 // styles
 import styles from './index.module.scss'
-import { getPriceValue, getDisplayUserName } from 'utils/strings'
+import { getPriceValue } from 'utils/strings'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
 
