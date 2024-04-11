@@ -53,7 +53,7 @@ const LiveEditionsSection = props => {
       //   setIsVisibleFetching(true)
       // } else setIsVisibleFetching(false)
 
-      let liveData = response.filter(item => getTimeDifference(item.endTime) > 0)
+      let liveData = response.filter(item => getTimeDifference(item.endTime) > 0 || item.endTime === null)
 
       setLiveAuctionList([...liveAuctionList, ...liveData])
       fetchNftData(liveData)
