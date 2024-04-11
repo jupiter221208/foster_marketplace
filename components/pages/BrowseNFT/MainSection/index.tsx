@@ -1472,9 +1472,14 @@ const MainSection = ({
                         <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                           {tradeStateAddress ? (
                             <GradientButton
-                              label="Buy Now"
                               fullWidth
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
+                              label="Buy Now"
                               disabled={!tradeStateAddress}
+                              borderColor="transparent"
+                              fontSize={18}
                               onClick={() => quickBuy()}
                             />
                           ) : (
@@ -1630,6 +1635,11 @@ const MainSection = ({
                                         <GradientButton
                                           label="Place Bid"
                                           fullWidth
+                                          backgroundColor01="var(--main-icon-color)"
+                                          backgroundColor02="var(--main-icon-color)"
+                                          color="var(--background-main-color)"
+                                          borderColor="transparent"
+                                          fontSize={18}
                                           disabled={
                                             price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                           }
@@ -1697,6 +1707,7 @@ const MainSection = ({
                               backgroundColor01="var(--main-icon-color)"
                               backgroundColor02="var(--main-icon-color)"
                               color="var(--background-main-color)"
+                              borderColor="transparent"
                               label="List Edition"
                               onClick={() => setShowListEditionDetail(true)}
                             />
@@ -1707,15 +1718,19 @@ const MainSection = ({
                           <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
                             List&nbsp;Artwork
                           </div>
-                          <div
-                            className={styles.outlineBtn}
+                          <GradientButton
+                            fullWidth
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            color="var(--background-main-color)"
+                            label="Start Auction"
+                            borderColor="transparent"
+                            fontSize={18}
                             onClick={() => {
                               setShowAuctionDetail(true)
                               setShowAuctionSection(true)
                             }}
-                          >
-                            Start&nbsp;Auction
-                          </div>
+                          />
                         </div>
                       )}
                     </div>
