@@ -146,9 +146,12 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
   useEffect(() => {
     let disabled = false
-
     if (parseFloat(days) > 30) disabled = true
-    else if (durationType === 'custom' && parseFloat(hours) > 23) disabled = true
+    else if (
+      durationType === 'custom' &&
+      (parseFloat(hours) > 23 || parseFloat(hours) < 0 || (days === '' && hours === ''))
+    )
+      disabled = true
     else if (!minBidIncrement) disabled = true
     else if (reservePrice === undefined || reservePrice === '' || reservePrice === null) disabled = true
     else if (
@@ -156,8 +159,9 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
       (endBidIncrement === undefined || endBidIncrement === '' || endBidIncrement === null)
     )
       disabled = true
+
     setButtonDisabled(disabled)
-  }, [days, hours, reservePrice, minBidIncrement, endPhaseDurationType, endBidIncrement])
+  }, [days, hours, reservePrice, minBidIncrement, endPhaseDurationType, endBidIncrement, durationType])
 
   return (
     <div className="w-full">
