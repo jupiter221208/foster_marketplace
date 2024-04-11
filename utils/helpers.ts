@@ -67,7 +67,8 @@ export const getTimeDifference = endTime => {
 
 export const getTimeDifferenceWithAuction = endTime => {
   let endListingTime = new Date(endTime)
-  let endLocalTime = endListingTime.getTime()
+  let offset = endListingTime.getTimezoneOffset() * 60 * 1000
+  let endLocalTime = endListingTime.getTime() - offset
   let nowDate = new Date().getTime()
   let difference = endLocalTime - nowDate
   return difference

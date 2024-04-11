@@ -29,7 +29,7 @@ const MintEditionCard = props => {
     mintEditionLoading,
     mintEdition,
   } = props
-  // const [timeLeft, setTimeLeft] = useState(null)
+
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
@@ -51,9 +51,9 @@ const MintEditionCard = props => {
 
   const getStartTime = () => {
     let startDate = new Date(startTime)
-    let proposalStartTime = startDate.getTime()
+    let offset = startDate.getTimezoneOffset() * 60 * 1000
+    let proposalStartTime = startDate.getTime() - offset
     let difference = proposalStartTime - new Date().getTime()
-
     if (difference >= 0) {
       setAuctionStarted(false)
       return startTime
@@ -62,7 +62,8 @@ const MintEditionCard = props => {
       setAuctionStarted(true)
 
       let endDate = new Date(endTime)
-      let proposalEndTime = endDate.getTime()
+      let offset = startDate.getTimezoneOffset() * 60 * 1000
+      let proposalEndTime = endDate.getTime() - offset
       let end_difference = proposalEndTime - new Date().getTime()
       if (end_difference < 0) setIsEnded(true)
       return endTime
@@ -71,44 +72,44 @@ const MintEditionCard = props => {
 
   return (
     <div className={styles.container}>
-      {auctionStarted && (
-        <div className="flex gap-[14px] mb-[21px] items-center">
-          <div className={styles.grayText}>
-            <ClockSandIcon />
-          </div>
-          <div className="flex gap-[4px]">
-            {timeLeft && timeLeft['days'] !== '00' && (
-              <div className="flex block justify-center gap-[2px]">
-                <div className={styles.whiteText}>{timeLeft['days']}</div>
-                <div className={styles.grayText}>d</div>
-              </div>
-            )}
-            {timeLeft && timeLeft['hours'] !== '00' && (
-              <div className="flex block justify-center gap-[2px]">
-                <div className={styles.whiteText}>{timeLeft['hours']}</div>
-                <div className={styles.grayText}>h</div>
-              </div>
-            )}
-
-            {timeLeft && timeLeft['minutes'] !== '00' && (
-              <div className="flex block justify-center gap-[2px]">
-                <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
-                <div className={styles.grayText}>m</div>
-              </div>
-            )}
-            {timeLeft && timeLeft['seconds'] !== '00' && (
-              <div className="flex block justify-center gap-[2px]">
-                <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
-                <div className={styles.grayText}>s</div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
       <div className="w-full">
-        <div className="w-full flex jusitfy-between">
-          <div></div>
+        <div className="w-full flex justify-between items-center">
+          {auctionStarted ? (
+            <div className="flex gap-[14px] mt-[-5px] items-center">
+              <div className={styles.grayText}>
+                <ClockSandIcon />
+              </div>
+              <div className="flex gap-[4px]">
+                {timeLeft && timeLeft['days'] !== '00' && (
+                  <div className="flex block justify-center gap-[2px]">
+                    <div className={styles.whiteText}>{timeLeft['days']}</div>
+                    <div className={styles.grayText}>d</div>
+                  </div>
+                )}
+                {timeLeft && timeLeft['hours'] !== '00' && (
+                  <div className="flex block justify-center gap-[2px]">
+                    <div className={styles.whiteText}>{timeLeft['hours']}</div>
+                    <div className={styles.grayText}>h</div>
+                  </div>
+                )}
+
+                {timeLeft && timeLeft['minutes'] !== '00' && (
+                  <div className="flex block justify-center gap-[2px]">
+                    <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
+                    <div className={styles.grayText}>m</div>
+                  </div>
+                )}
+                {timeLeft && timeLeft['seconds'] !== '00' && (
+                  <div className="flex block justify-center gap-[2px]">
+                    <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
+                    <div className={styles.grayText}>s</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="w-[100px] h-[30px]" />
+          )}
           <div className={styles.mintQty}>
             <div
               onClick={() => {
