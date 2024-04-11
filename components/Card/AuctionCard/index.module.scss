@@ -38,46 +38,17 @@
 }
 
 .whiteText {
-  text-align: center;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 18px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  @media (min-width: 1680px) {
-    font-size: 20px;
-    line-height: 25px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  line-height: 20px;
+  color: var(--text-gray-200-color);
 }
 
 .grayText {
-  text-align: center;
   font-family: 'Muli-Light';
   font-size: 16px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-family: 'Muli-Regular';
-    font-size: 14px;
-    line-height: 18px;
-  }
-  @media (min-width: 1280px) {
-    font-family: 'Muli-Regular';
-    font-size: 16px;
-    line-height: 20px;
-  }
-  @media (min-width: 1680px) {
-    font-family: 'Muli-Regular';
-    font-size: 20px;
-    line-height: 25px;
-  }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .priceText {
