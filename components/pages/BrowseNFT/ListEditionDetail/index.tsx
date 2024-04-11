@@ -126,7 +126,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDet
       }
 
       onSuccess(data?.name)
-      setIsLoading(false)
+      // setIsLoading(false)
       onClose()
 
       // TODO: send listing to backend with listing details
