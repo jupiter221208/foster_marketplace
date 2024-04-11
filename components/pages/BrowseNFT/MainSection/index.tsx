@@ -1701,7 +1701,7 @@ const MainSection = ({
                         isEditionListing ? (
                           <></>
                         ) : (
-                          <div className="w-full mt-[30px] lg:mt-[0px]">
+                          <div className="w-full mt-[30px] lg:mt-[10px]">
                             <GradientButton
                               fullWidth
                               backgroundColor01="var(--main-icon-color)"
