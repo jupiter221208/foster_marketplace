@@ -225,7 +225,9 @@ const MintEditionCard = props => {
           <GradientButton
             fullWidth
             label="Buy Now"
-            direction="rtl"
+            backgroundColor01="var(--main-icon-color)"
+            backgroundColor02="var(--main-icon-color)"
+            color="var(--background-main-color)"
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
             onClick={() => mintEdition()}
             height={50}
