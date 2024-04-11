@@ -119,7 +119,12 @@ const MintEditionCard = props => {
                 onClick={() => {
                   if (mintQty > 0) {
                     setMintQty(mintQty - 1)
-                    let price = (nftPrice * (mintQty - 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                    let price = (
+                      nftPrice * (mintQty - 1) * 1.05 +
+                      0.01 * (mintQty - 1) +
+                      0.013 * (mintQty - 1) +
+                      0.0003
+                    ).toFixed(2)
                     setPrice(price)
                     setTotal(price)
                   }
@@ -135,7 +140,12 @@ const MintEditionCard = props => {
                   if (maxSupply !== null) {
                     if (mintQty + 1 > maxSupply) return
                   }
-                  let price = (nftPrice * (mintQty + 1) * 1.05 + 0.01 + 0.013 + 0.0003).toFixed(2)
+                  let price = (
+                    nftPrice * (mintQty + 1) * 1.05 +
+                    0.01 * (mintQty + 1) +
+                    0.013 * (mintQty + 1) +
+                    0.0003
+                  ).toFixed(2)
                   setMintQty(mintQty + 1)
                   setPrice(price)
                   setTotal(price)
@@ -183,11 +193,11 @@ const MintEditionCard = props => {
               </div>
               <div className="w-full flex justify-between mt-[9px]">
                 <div className={styles.priceLabel}>Metaplex Fee</div>
-                <div className={styles.priceValue}>0.01 SOL</div>
+                <div className={styles.priceValue}>{0.01 * mintQty}&nbsp;SOL</div>
               </div>
               <div className="w-full flex justify-between mt-[9px]">
                 <div className={styles.priceLabel}>Solana Account Fee</div>
-                <div className={styles.priceValue}>~0.013 SOL</div>
+                <div className={styles.priceValue}>~{0.013 * mintQty}&nbsp;SOL</div>
               </div>
               <div className="w-full flex justify-between mt-[9px]">
                 <div className={styles.priceLabel}>Transaction Priority Fee</div>

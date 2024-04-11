@@ -15,9 +15,6 @@
   background: var(--second-home-bg);
   border-radius: 10px;
   justify-content: space-between;
-  @media (min-width: 1024px) {
-    max-width: 356px;
-  }
 }
 
 .mintValue {  
