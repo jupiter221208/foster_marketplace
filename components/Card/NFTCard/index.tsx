@@ -201,7 +201,7 @@ const NFTCard = props => {
             <div className="flex items-center">
               <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
             </div>
-            <div className="w-full flex justify-between items-center mt-[2px]">
+            <div className="w-full flex justify-between items-center">
               <div className={isHome ? styles.artistNameHome : styles.artistName}>
                 <Link href={`/${artistName || collectionName}`} passHref>
                   <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
