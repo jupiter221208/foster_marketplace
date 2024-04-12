@@ -124,6 +124,7 @@ import { getListedMasterEditionInfo } from 'apis/editions'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
 import OutlineButton from 'components/Button/OutlineButton'
+import { revokeDelegateEdition } from 'utils/editions'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -262,6 +263,7 @@ const MainSection = ({
     useState<'normal' | 'master_le' | 'master_oe' | 'print_le' | 'print_oe'>('normal')
   const [isEditionListing, setIsEditionListing] = useState(false)
   const [editionListingData, setEditionListingData] = useState<any>()
+  const [cancelListLoading, setCancelListLoading] = useState(false)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -294,7 +296,8 @@ const MainSection = ({
       )
       setShowAlert(true)
     }
-    setBuyLoading(false)
+    router.reload()
+    // setBuyLoading(false)
   }
 
   const mintEdition = async () => {
@@ -415,7 +418,6 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      console.log(nftInfo, '===========nftInfo=========')
       let { merch_hub_enabled, likes, shares, saves, liked, saved, shared, auction } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setHighBidder(nftInfo?.auction?.highest_bid?.buyer_address ?? '')
@@ -813,6 +815,36 @@ const MainSection = ({
       })
     } catch (e) {
       setOpenProgressingModal(false)
+    }
+  }
+
+  const cancelListEdition = async () => {
+    setCancelListLoading(true)
+    try {
+      const listing = await revokeDelegateEdition({
+        metaplex: mx,
+        mint: new PublicKey(nftInfo.master_edition?.mintAddress),
+        delegate: new PublicKey(nftInfo.master_edition?.authorityPublicKey),
+      })
+
+      if (listing) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Edition Listing Canceled!',
+            description: `You've successfully canceled your edition listing!`,
+            type: 'success',
+          },
+        ])
+
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 500)
+
+        router.reload()
+      }
+    } catch (e) {
+      setCancelListLoading(false)
     }
   }
 
@@ -1429,7 +1461,11 @@ const MainSection = ({
                 {isEditionListing ? (
                   isOwnNft === true ? (
                     <div className="w-full mt-[20px]">
-                      <GradientButton fullWidth label="Cancel Listing" onClick={() => {}} />
+                      {cancelListLoading ? (
+                        <LoadingButton fullWidth />
+                      ) : (
+                        <GradientButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                      )}
                     </div>
                   ) : (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[10px]">
@@ -1540,13 +1576,7 @@ const MainSection = ({
                     {nftCurrentPrice > 0 ? (
                       <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
                     ) : (
-                      // <button className={styles.outlineBtn} onClick={() => processFinalizeSale()}>
-                      //   Finalize Sale
-                      // </button>
                       <GradientButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
-                      // <button className={styles.outlineBtn} onClick={() => cancelAuction()}>
-                      //   Cancel Auction
-                      // </button>
                     )}
                   </div>
                 ) : liveAuction === true ? (
