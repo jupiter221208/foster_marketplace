@@ -279,7 +279,6 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    // setOpenProgressingModal(true)
     setBuyLoading(true)
     await refreshToken()
 
@@ -295,7 +294,6 @@ const MainSection = ({
       )
       setShowAlert(true)
     }
-    // setOpenProgressingModal(false)
     setBuyLoading(false)
   }
 
