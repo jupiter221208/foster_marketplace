@@ -167,42 +167,44 @@ const NFTCard = props => {
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a>
                   <div className={styles.imageContent}>
-                    {assetType?.includes('vr') ? (
-                      coverImage !== null && coverImage !== '' ? (
-                        <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                    <div>
+                      {assetType?.includes('vr') ? (
+                        coverImage !== null && coverImage !== '' ? (
+                          <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                        ) : (
+                          <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                        )
+                      ) : assetType?.includes('audio') ? (
+                        coverImage !== null && coverImage !== '' ? (
+                          <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
+                        ) : (
+                          <Image
+                            src={DefaultNftBG}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            onClick={() => onClick()}
+                          />
+                        )
+                      ) : coverImage !== null && coverImage !== '' ? (
+                        <ImageWithFoster
+                          src={coverImage}
+                          width={360}
+                          originalSrc={fallBack}
+                          onClick={onClick}
+                          className={styles.imageNft}
+                        />
+                      ) : image !== null && image !== '' ? (
+                        <ImageWithFoster
+                          src={image}
+                          width={360}
+                          originalSrc={fallBack}
+                          onClick={onClick}
+                          className={styles.imageNft}
+                        />
                       ) : (
                         <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                      )
-                    ) : assetType?.includes('audio') ? (
-                      coverImage !== null && coverImage !== '' ? (
-                        <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
-                      ) : (
-                        <Image
-                          src={DefaultNftBG}
-                          alt=""
-                          className="w-full h-full object-cover"
-                          onClick={() => onClick()}
-                        />
-                      )
-                    ) : coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster
-                        src={coverImage}
-                        width={360}
-                        originalSrc={fallBack}
-                        onClick={onClick}
-                        className={styles.imageNft}
-                      />
-                    ) : image !== null && image !== '' ? (
-                      <ImageWithFoster
-                        src={image}
-                        width={360}
-                        originalSrc={fallBack}
-                        onClick={onClick}
-                        className={styles.imageNft}
-                      />
-                    ) : (
-                      <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                    )}
+                      )}
+                    </div>
                   </div>
                 </a>
               </Link>
