@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import Radio from 'components/Radio'
-// import PriceRange from 'components/Range/PriceRange'
 import Checkbox from 'components/Checkbox'
 
 // json
-import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import AvailabilityList from 'assets/json/explore/availability.json'
-import DimensionList from 'assets/json/explore/dimension.json'
 import MarketList from 'assets/json/explore/market.json'
 import MediumList from 'assets/json/explore/medium.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-// import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
   const {
@@ -28,10 +24,6 @@ const NFTFilter = props => {
     setSelectedMarket,
   } = props
 
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
-  // const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
-  // const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
-  // const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -60,16 +52,10 @@ const NFTFilter = props => {
         selected={selectedAvailability}
         onChange={item => setSelectedAvailability(item)}
       />
-      {/* <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
-      <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} /> */}
       <div className={`${styles.title} mt-[52px]`}>Market</div>
       <Radio gap={10} data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />
       <div className={`${styles.title} mt-[52px]`}>Medium</div>
       <Radio gap={10} data={MediumList} selected={selectedMedium} onChange={item => setSelectedMedium(item)} />
-      {/* <div className={`${styles.title} mt-[52px]`}>PRICE</div>
-      <PriceRange />
-      <div className={`${styles.title} mt-[52px]`}>ROYALTIES</div>
-      <RoyaltyRange /> */}
       <div className={`${styles.title} mt-[52px]`}>Categories</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
