@@ -407,7 +407,6 @@ h6 {
 .g-left-container {
   max-width: 1920px;
   width: 100%;
-  min-height: calc(100vh - 100px);
   padding-left: 16px;
   @media (min-width: 640px) {
     padding-left: 16px;
@@ -430,7 +429,6 @@ h6 {
 .g-right-container {
   max-width: 1920px;
   width: 100%;
-  min-height: calc(100vh - 100px);
   padding-right: 16px;
   @media (min-width: 640px) {
     padding-right: 16px;

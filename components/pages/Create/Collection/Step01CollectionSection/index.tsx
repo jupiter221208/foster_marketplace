@@ -524,27 +524,6 @@ const Step01CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                {/* <div className="w-full flex justify-center">
-                  <div className={styles.collectionTypeSection}>
-                    <div
-                      className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
-                      onClick={() => setCollectionType('foster')}
-                    >
-                      <FosterLogoSmall />
-                      Create New Collection
-                    </div>
-                    <div
-                      className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
-                      onClick={() => {
-                        setCollectionType('ea')
-                        setShowEAModal(true)
-                      }}
-                    >
-                      <EAImportIcon />
-                      Import EA Series
-                    </div>
-                  </div>
-                </div> */}
                 {/* upload artwork part */}
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-[20px]`}>
@@ -603,22 +582,6 @@ const Step01CollectionSection = props => {
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
                 </div>
-                <div className="w-full h-32" />
-                {/* <div className="absolute bottom-0 w-full flex justify-end">
-                  {isMinting ? (
-                    <LoadingButton width={224} height={56} />
-                  ) : (
-                    <GradientButton
-                      label="Create Collection"
-                      width={224}
-                      height={56}
-                      disabled={disabledNextButton}
-                      onClick={() => {
-                        mintCollection()
-                      }}
-                    />
-                  )}
-                </div> */}
               </div>
             </div>
           </div>
@@ -938,7 +901,10 @@ const Step01CollectionSection = props => {
             <div>
               <Button
                 label="Back"
-                onClick={() => onChangeCurrentStep(currentStep - 1)}
+                onClick={() => {
+                  if (currentStep === 1) router.push('/create/single-nft')
+                  else onChangeCurrentStep(currentStep - 1)
+                }}
                 fullWidth
                 fontFamily="Muli-SemiBold"
                 height="50px"
