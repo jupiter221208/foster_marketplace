@@ -4,7 +4,7 @@
   width: 100vw;
   min-height: calc(100vh - 80px);
   height: 100%;
-  background-color: var(--category-bg-color);
+  background-color: var(--bg-new-color);
   z-index: 100;
   display: flex;
   flex-wrap: wrap;
@@ -94,7 +94,7 @@
 
 .content {
   width: 100%;
-  height: calc(100vh - 80px - 68px - 96px);
+  height: calc(100vh - 80px - 68px);
   display: flex;
   overflow-y: auto;
   padding-right: 15px;
