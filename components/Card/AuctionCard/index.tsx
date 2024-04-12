@@ -19,7 +19,6 @@ const AuctionCard = props => {
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
-
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
       setTimeLeft(calculateTimeLeft(getStartTime()))
