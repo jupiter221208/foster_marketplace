@@ -42,6 +42,7 @@ const NFTCard = props => {
     coverImage = '',
     fallBack = '',
     artistName,
+    artistImage = null,
     collectionName,
     assetType,
     price,
@@ -86,11 +87,32 @@ const NFTCard = props => {
   }
 
   const videoRef = useRef<HTMLVideoElement>()
+  const [hover, setHover] = useState(false)
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
         <div className={styles.containerCard}>
+          <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
+            <div>
+              <div className="flex items-center">
+                <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className={isHome ? styles.artistNameHome : styles.artistName}>
+                  <Link href={`/${artistName || collectionName}`} passHref>
+                    <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            {artistImage && (
+              <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+                <ImageWithFoster src={artistImage} width={100} className="w-[44px] h-[44px] rounded-full" />
+              </div>
+            )}
+          </div>
+
           <div className={styles.imageArea}>
             {assetType?.includes('video') ? (
               <div className={styles.imageContent}>
@@ -197,29 +219,24 @@ const NFTCard = props => {
             )}
           </div>
 
-          <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
+          <div className={`${styles.bottomSection} ${hover ? styles.bottomHover : ''}`}>
             <div className="w-full">
-              <div className="flex items-center">
-                <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
-              </div>
               <div className="w-full flex justify-between items-center">
-                <div className={isHome ? styles.artistNameHome : styles.artistName}>
-                  <Link href={`/${artistName || collectionName}`} passHref>
-                    <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
-                  </Link>
-                </div>
                 {price && (
-                  <div className="flex justify-center items-center mt-[2px]">
-                    {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                      isHome ? (
-                        <SolanaLogoIcon />
+                  <div>
+                    <div className={styles.priceLabel}>Price</div>
+                    <div className="flex justify-center items-center mt-[4px]">
+                      {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                        isHome ? (
+                          <SolanaLogoIcon className="mt-[2px]" />
+                        ) : (
+                          <SolanaLogoMobileIcon />
+                        )
                       ) : (
-                        <SolanaLogoMobileIcon />
-                      )
-                    ) : (
-                      <SolanaLogoIcon />
-                    )}
-                    <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
+                        <SolanaLogoIcon />
+                      )}
+                      <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
+                    </div>
                   </div>
                 )}
               </div>

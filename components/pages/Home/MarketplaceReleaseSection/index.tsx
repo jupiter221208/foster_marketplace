@@ -99,6 +99,7 @@ const MarketplaceReleaseSection = props => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
+                artistImage={item.artist_profile_picture}
                 collectionName={item.collection_name}
                 price={item.list_price}
                 isHome={true}

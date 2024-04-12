@@ -146,6 +146,7 @@ export interface DashboardAPIData {
   asset_type: string
   cover_image_url: string
   artist_username: string
+  artist_profile_picture: string
   collection_name: string
   list_price: number
 }
