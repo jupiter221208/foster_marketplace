@@ -138,6 +138,9 @@ const Explore = () => {
     } else if (availabilityFilter === 1) {
       availability = AvailabilityList[1]
       setSelectedAvailability(availability)
+    } else if (availabilityFilter === 2) {
+      availability = AvailabilityList[2]
+      setSelectedAvailability(availability)
     }
 
     switch (exploreTab) {
