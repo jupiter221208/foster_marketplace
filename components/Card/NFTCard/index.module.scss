@@ -1,26 +1,6 @@
 @import 'assets/scss/variable.module.scss';
 
-.layout {
-  width: 100%;
-  height: 100%;
-  font-weight: 100;
-}
-
 .container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  padding-top: 2px;
-  padding-bottom: 0px;
-  &:hover {
-    padding-top: 0px;
-    padding-bottom: 2px;
-  }
-}
-
-.containerCard {
   width: 100%;
   @media (min-width: 640px) {
     width: 100%;
@@ -147,14 +127,13 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* 359:393 Aspect Ratio */
+  padding-top: 109.47%; /* 359:393 Aspect Ratio */
 }
 
 .imageInfoHome {
   width: 100%;
+  flex: wrap;
   position: relative;
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   padding: 16px 23px;
   @media (min-width: 640px) {
@@ -163,7 +142,7 @@
   @media (min-width: 768px) {
     padding: 16px 21px;
   }
-  background: var(--background-main-color);
+  background: transparent;
 }
 
 .imageInfo {
@@ -186,33 +165,6 @@
     height: 80px;
     padding: 15px 19px;
   }
-}
-
-.bottomSection {
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 23px;
-  @media (min-width: 640px) {
-    padding: 12px 20px;
-  }
-  @media (min-width: 768px) {
-    padding: 14px 21px;
-  }
-  background: var(--background-main-color);
-}
-
-.bottomHover {
-  background: rgba(var(--main-bg-color-rgb), 0.05) !important;
-}
-
-.priceLabel {
-  font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 15px;
-  color: rgba(var(--main-bg-color-rgb), 0.85)
 }
 
 .imageContent {

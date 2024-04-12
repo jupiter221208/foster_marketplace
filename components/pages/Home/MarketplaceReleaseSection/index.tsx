@@ -26,6 +26,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
+import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -92,7 +93,7 @@ const MarketplaceReleaseSection = props => {
               key={index}
               className="flex xs:col-span-1 sm:col-span-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4 items-center"
             >
-              <NFTCard
+              <HomeNftCard
                 image={item.asset_url}
                 token_id={item.token_id}
                 nftName={item.nft_name}
@@ -102,7 +103,6 @@ const MarketplaceReleaseSection = props => {
                 artistImage={item.artist_profile_picture}
                 collectionName={item.collection_name}
                 price={item.list_price}
-                isHome={true}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.token_id}`)
