@@ -132,7 +132,7 @@ const Step03SingleNFTSection = props => {
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-    <div className="w-full">
+    <div className="w-full h-[66vh] overflow-auto pr-[20px]">
       {type !== 0 && (
         <div className="mb-[30px]">
           <div className={styles.subTitle}>
