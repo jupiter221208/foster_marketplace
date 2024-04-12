@@ -74,181 +74,183 @@ const LiveAuctionCard = props => {
     }
   }
   return (
-    <div className={styles.container}>
-      <div className={styles.profileContainer}>
-        <div>
-          <Link href={`/nft/${data.token_id}`} passHref>
-            <a>
-              <div className={styles.nftName}>{data?.nft_name}</div>
-            </a>
-          </Link>
+    <div className={styles.layout}>
+      <div className={styles.container}>
+        <div className={styles.profileContainer}>
+          <div>
+            <Link href={`/nft/${data.token_id}`} passHref>
+              <a>
+                <div className={styles.nftName}>{data?.nft_name}</div>
+              </a>
+            </Link>
+            <Link href={`/${data.artist_username}`} passHref>
+              <a>
+                <div className={styles.artistName}>{getDisplayUserName(data?.artist_username)}</div>
+              </a>
+            </Link>
+          </div>
           <Link href={`/${data.artist_username}`} passHref>
             <a>
-              <div className={styles.artistName}>{getDisplayUserName(data?.artist_username)}</div>
+              {data?.artist_profile_picture === undefined ||
+              data?.artist_profile_picture === null ||
+              data?.artist_profile_picture === '' ? (
+                <img src={DefaultAvatar.src} className="w-[44px] h-[44px] rounded-full" />
+              ) : (
+                <img
+                  src={data?.artist_profile_picture}
+                  onClick={() => {}}
+                  width={44}
+                  height={44}
+                  className="w-[44px] rounded-full"
+                />
+              )}
             </a>
           </Link>
         </div>
-        <Link href={`/${data.artist_username}`} passHref>
-          <a>
-            {data?.artist_profile_picture === undefined ||
-            data?.artist_profile_picture === null ||
-            data?.artist_profile_picture === '' ? (
-              <img src={DefaultAvatar.src} className="w-[44px] h-[44px] rounded-full" />
-            ) : (
-              <img
-                src={data?.artist_profile_picture}
-                onClick={() => {}}
-                width={44}
-                height={44}
-                className="w-[44px] rounded-full"
-              />
-            )}
-          </a>
-        </Link>
-      </div>
-      <div className={styles.imageArea}>
-        <div className={styles.imageContent}>
-          {data.asset_type.includes('video') ? (
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center overflow-hidden">
-                <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-                  <a className="w-full h-full">
-                    {play ? (
-                      <div
-                        className="w-full h-full absolute"
-                        dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+        <div className={styles.imageArea}>
+          <div className={styles.imageContent}>
+            {data.asset_type.includes('video') ? (
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <div className="w-full relative flex justify-center items-center overflow-hidden">
+                  <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                    <a className="w-full h-full">
+                      {play ? (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
-                        }}
-                        onClick={() => onClick()}
-                      />
-                    ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                      <ImageWithFoster
-                        src={data.cover_image_url}
-                        width={500}
-                        onClick={onClick}
-                        className="max-w-full max-h-full object-cover"
-                      />
-                    ) : (
-                      <div
-                        className="w-full h-full absolute"
-                        dangerouslySetInnerHTML={{
-                          __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                          }}
+                          onClick={() => onClick()}
+                        />
+                      ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
+                        <ImageWithFoster
+                          src={data.cover_image_url}
+                          width={500}
+                          onClick={onClick}
+                          className="max-w-full max-h-full object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-full absolute"
+                          dangerouslySetInnerHTML={{
+                            __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
-                        }}
-                        onClick={() => onClick()}
+                          }}
+                          onClick={() => onClick()}
+                        />
+                      )}
+                    </a>
+                  </Link>
+                  <div className={styles.playButton}>
+                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                      <Image
+                        src={play ? PauseVideoIcon : PlayVideoIcon}
+                        width={18}
+                        height={18}
+                        alt=""
+                        onClick={() => setPlay(!play)}
                       />
-                    )}
-                  </a>
-                </Link>
-                <div className={styles.playButton}>
-                  <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                    <Image
-                      src={play ? PauseVideoIcon : PlayVideoIcon}
-                      width={18}
-                      height={18}
-                      alt=""
-                      onClick={() => setPlay(!play)}
-                    />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
+              ) : (
+                <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                  <a className="w-full h-full">
+                    <div
+                      className="w-full h-full"
+                      dangerouslySetInnerHTML={{
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                <source src=${data.asset_url} type="video/mp4" /></video>`,
+                      }}
+                      onClick={() => onClick()}
+                    />
+                  </a>
+                </Link>
+              )
+            ) : data.asset_type.includes('audio') ? (
               <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
                 <a className="w-full h-full">
-                  <div
-                    className="w-full h-full"
-                    dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-                <source src=${data.asset_url} type="video/mp4" /></video>`,
-                    }}
+                  <ImageWithFoster
+                    src={data.cover_image_url}
+                    width={500}
+                    className="max-w-full max-h-full object-cover"
                     onClick={() => onClick()}
                   />
                 </a>
               </Link>
-            )
-          ) : data.asset_type.includes('audio') ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a className="w-full h-full">
-                <ImageWithFoster
-                  src={data.cover_image_url}
-                  width={500}
-                  className="max-w-full max-h-full object-cover"
-                  onClick={() => onClick()}
-                />
-              </a>
-            </Link>
-          ) : data.cover_image_url ? (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a className="w-full h-full">
-                <ImageWithFoster
-                  src={data.cover_image_url}
-                  width={500}
-                  onClick={onClick}
-                  className="max-w-full max-h-full object-cover"
-                />
-              </a>
-            </Link>
-          ) : (
-            <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-              <a className="w-full h-full">
-                <ImageWithFoster
-                  src={data.asset_url}
-                  width={500}
-                  onClick={onClick}
-                  className="max-w-full max-h-full object-cover"
-                />
-              </a>
-            </Link>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.bidContainer}>
-        <div className={styles.bidContentView}>
-          <div className="w-full flex justify-between">
-            <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
-            <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+            ) : data.cover_image_url ? (
+              <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                <a className="w-full h-full">
+                  <ImageWithFoster
+                    src={data.cover_image_url}
+                    width={500}
+                    onClick={onClick}
+                    className="max-w-full max-h-full object-cover"
+                  />
+                </a>
+              </Link>
+            ) : (
+              <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+                <a className="w-full h-full">
+                  <ImageWithFoster
+                    src={data.asset_url}
+                    width={500}
+                    onClick={onClick}
+                    className="max-w-full max-h-full object-cover"
+                  />
+                </a>
+              </Link>
+            )}
           </div>
-          <div>
-            <div className={styles.bidCountContainer}>
-              <div className="h-full mt-[2px]">
-                <SolanaLogoMobileIcon alt="" />
-              </div>
-              <div className={styles.bidCount}>
-                {data.current_bid !== null && data.current_bid > 0
-                  ? formattedAmount(data.current_bid)
-                  : formattedAmount(data.reserve_price)}
+        </div>
+
+        <div className={styles.bidContainer}>
+          <div className={styles.bidContentView}>
+            <div className="w-full flex justify-between">
+              <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
+              <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+            </div>
+            <div>
+              <div className={styles.bidCountContainer}>
+                <div className="h-full mt-[2px]">
+                  <SolanaLogoMobileIcon alt="" />
+                </div>
+                <div className={styles.bidCount}>
+                  {data.current_bid !== null && data.current_bid > 0
+                    ? formattedAmount(data.current_bid)
+                    : formattedAmount(data.reserve_price)}
+                </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            <div className={styles.bidCountContainer}>
-              {timeLeft && timeLeft['days'] !== '00' && (
-                <div>
+            <div>
+              <div className={styles.bidCountContainer}>
+                {timeLeft && timeLeft['days'] !== '00' && (
+                  <div>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['days']}
+                      <div className={styles.bidDesc}>D</div>
+                    </div>
+                  </div>
+                )}
+                <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
-                    {timeLeft && timeLeft['days']}
-                    <div className={styles.bidDesc}>D</div>
+                    {timeLeft && timeLeft['hours']}
+                    <div className={styles.bidDesc}>H</div>
                   </div>
                 </div>
-              )}
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['hours']}
-                  <div className={styles.bidDesc}>H</div>
+                <div className={styles.endTimeContainer}>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['minutes']}
+                    <div className={styles.bidDesc}>M</div>
+                  </div>
                 </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['minutes']}
-                  <div className={styles.bidDesc}>M</div>
-                </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['seconds']}
-                  <div className={styles.bidDesc}>S</div>
+                <div className={styles.endTimeContainer}>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['seconds']}
+                    <div className={styles.bidDesc}>S</div>
+                  </div>
                 </div>
               </div>
             </div>

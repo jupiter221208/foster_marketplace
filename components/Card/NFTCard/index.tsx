@@ -88,234 +88,236 @@ const NFTCard = props => {
   const videoRef = useRef<HTMLVideoElement>()
 
   return (
-    <div className="w-full h-full relative lg:p-[3px] flex justify-center">
+    <div className={styles.layout}>
       <div className={styles.container}>
-        <div className={styles.imageArea}>
-          {assetType?.includes('video') ? (
-            <div className={styles.imageContent}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center overflow-hidden">
+        <div className={styles.containerCard}>
+          <div className={styles.imageArea}>
+            {assetType?.includes('video') ? (
+              <div className={styles.imageContent}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <div className="w-full relative flex justify-center items-center overflow-hidden">
+                    <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                      <a className="w-full h-full">
+                        {play ? (
+                          <div
+                            className="w-full h-full absolute"
+                            dangerouslySetInnerHTML={{
+                              __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
+                            }}
+                          />
+                        ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
+                          <ImageWithFoster width={360} src={coverImage} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div
+                            className="w-full h-full absolute"
+                            dangerouslySetInnerHTML={{
+                              __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
+                            }}
+                          />
+                        )}
+                      </a>
+                    </Link>
+                    <div className={styles.playButton}>
+                      <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                        <Image
+                          src={play ? PauseVideoIcon : PlayVideoIcon}
+                          width={18}
+                          height={18}
+                          alt=""
+                          onClick={() => setPlay(!play)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
                   <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                    <a className="w-full h-full">
-                      {play ? (
-                        <div
-                          className="w-full h-full absolute"
-                          dangerouslySetInnerHTML={{
-                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-                <source src=${image} type="video/mp4" /></video>`,
-                          }}
-                        />
-                      ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
-                        <ImageWithFoster width={360} src={coverImage} alt="" className="w-full h-full object-cover" />
-                      ) : (
-                        <div
-                          className="w-full h-full absolute"
-                          dangerouslySetInnerHTML={{
-                            __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-                <source src=${image} type="video/mp4" /></video>`,
-                          }}
-                        />
-                      )}
+                    <a>
+                      <div className="w-full h-full" onClick={() => onClick()}>
+                        <video src={image} loop muted autoPlay className="w-full h-full object-cover overflow-hidden" />
+                      </div>
                     </a>
                   </Link>
-                  <div className={styles.playButton}>
-                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                      <Image
-                        src={play ? PauseVideoIcon : PlayVideoIcon}
-                        width={18}
-                        height={18}
-                        alt=""
-                        onClick={() => setPlay(!play)}
+                )}
+              </div>
+            ) : (
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a>
+                  <div className={styles.imageContent}>
+                    {assetType?.includes('vr') ? (
+                      coverImage !== null && coverImage !== '' ? (
+                        <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                      ) : (
+                        <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                      )
+                    ) : assetType?.includes('audio') ? (
+                      coverImage !== null && coverImage !== '' ? (
+                        <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
+                      ) : (
+                        <Image
+                          src={DefaultNftBG}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          onClick={() => onClick()}
+                        />
+                      )
+                    ) : coverImage !== null && coverImage !== '' ? (
+                      <ImageWithFoster
+                        src={coverImage}
+                        width={360}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className={styles.imageNft}
                       />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
-                    <div className="w-full h-full" onClick={() => onClick()}>
-                      <video src={image} loop muted autoPlay className="w-full h-full object-cover overflow-hidden" />
-                    </div>
-                  </a>
-                </Link>
-              )}
-            </div>
-          ) : (
-            <Link href={`${window.origin}/nft/${token_id}`} passHref>
-              <a>
-                <div className={styles.imageContent}>
-                  {assetType?.includes('vr') ? (
-                    coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                    ) : image !== null && image !== '' ? (
+                      <ImageWithFoster
+                        src={image}
+                        width={360}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className={styles.imageNft}
+                      />
                     ) : (
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                    )
-                  ) : assetType?.includes('audio') ? (
-                    coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
-                    ) : (
-                      <Image
-                        src={DefaultNftBG}
-                        alt=""
-                        className="w-full h-full object-cover"
-                        onClick={() => onClick()}
-                      />
-                    )
-                  ) : coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFoster
-                      src={coverImage}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
-                  ) : image !== null && image !== '' ? (
-                    <ImageWithFoster
-                      src={image}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                  )}
-                </div>
-              </a>
-            </Link>
-          )}
-          {showHideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
-            </div>
-          )}
-          {showUnhideButton === true && (
-            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
-            </div>
-          )}
-        </div>
-
-        <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center">
-              <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
-            </div>
-            <div className="w-full flex justify-between items-center">
-              <div className={isHome ? styles.artistNameHome : styles.artistName}>
-                <Link href={`/${artistName || collectionName}`} passHref>
-                  <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
-                </Link>
+                    )}
+                  </div>
+                </a>
+              </Link>
+            )}
+            {showHideButton === true && (
+              <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
               </div>
-              {price && (
-                <div className="flex justify-center items-center mt-[2px]">
-                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                    isHome ? (
-                      <SolanaLogoIcon />
-                    ) : (
-                      <SolanaLogoMobileIcon />
-                    )
-                  ) : (
-                    <SolanaLogoIcon />
-                  )}
-                  <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
-                </div>
-              )}
-            </div>
+            )}
+            {showUnhideButton === true && (
+              <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
+              </div>
+            )}
           </div>
-          {unSave !== null && (
-            <div className="mt-[10px]">
-              <GradientButton
-                fullWidth
-                label="Unsave"
-                borderRadius="10"
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  unSave()
-                }}
-              />
+
+          <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
+            <div className="w-full">
+              <div className="flex items-center">
+                <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
+              </div>
+              <div className="w-full flex justify-between items-center">
+                <div className={isHome ? styles.artistNameHome : styles.artistName}>
+                  <Link href={`/${artistName || collectionName}`} passHref>
+                    <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
+                  </Link>
+                </div>
+                {price && (
+                  <div className="flex justify-center items-center mt-[2px]">
+                    {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                      isHome ? (
+                        <SolanaLogoIcon />
+                      ) : (
+                        <SolanaLogoMobileIcon />
+                      )
+                    ) : (
+                      <SolanaLogoIcon />
+                    )}
+                    <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+            {unSave !== null && (
+              <div className="mt-[10px]">
+                <GradientButton
+                  fullWidth
+                  label="Unsave"
+                  borderRadius="10"
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    unSave()
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </div>
+
+        {displayHideConfirm && (
+          <div className={styles.hideConfirm}>
+            {isLoading ? (
+              <div className={styles.loading}>
+                <LoadingModal open={isLoading} />
+              </div>
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <div>
+                  <div className={styles.hideText}>
+                    This action will hide the artwork from your profile page.
+                    <br />
+                    <br />
+                    Would you like to proceed?
+                  </div>
+                  <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                    <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                      Cancel
+                    </div>
+                    <div className={styles.hideButton} onClick={() => performHideNft()}>
+                      <div className="flex gap-[6px]">
+                        <Image
+                          src={
+                            viewport === 'xs' || viewport === 'md' || viewport === 'sm'
+                              ? HideSmallMobileIcon
+                              : HideSmallIcon
+                          }
+                          alt=""
+                        />
+                        <div className={styles.hideButtonText}>Hide</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {displayUnhideConfirm && (
+          <div className={styles.hideConfirm}>
+            {isLoading ? (
+              <div className={styles.loading}>
+                <LoadingModal open={isLoading} />
+              </div>
+            ) : (
+              <div className="flex h-full items-center justify-center">
+                <div>
+                  <div className={styles.hideText}>
+                    This artwork is currently hidden from your profile page.
+                    <br />
+                    <br />
+                    Would you like to unhide it?
+                  </div>
+                  <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                    <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
+                      Cancel
+                    </div>
+                    <div className={styles.hideButton} onClick={() => performUnhideNft()}>
+                      <div className="flex gap-[6px]">
+                        <Image
+                          src={
+                            viewport === 'xs' || viewport === 'md' || viewport === 'sm'
+                              ? UnhideSmallMobileIcon
+                              : UnhideSmallIcon
+                          }
+                          alt=""
+                        />
+                        <div className={styles.hideButtonText}>Unhide</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
-
-      {displayHideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This action will hide the artwork from your profile page.
-                  <br />
-                  <br />
-                  Would you like to proceed?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performHideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Hide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {displayUnhideConfirm && (
-        <div className={styles.hideConfirm}>
-          {isLoading ? (
-            <div className={styles.loading}>
-              <LoadingModal open={isLoading} />
-            </div>
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <div>
-                <div className={styles.hideText}>
-                  This artwork is currently hidden from your profile page.
-                  <br />
-                  <br />
-                  Would you like to unhide it?
-                </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
-                    Cancel
-                  </div>
-                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
-                    <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
-                      <div className={styles.hideButtonText}>Unhide</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   )
 }
