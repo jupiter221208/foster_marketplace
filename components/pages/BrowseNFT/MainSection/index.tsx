@@ -85,7 +85,7 @@ import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-fo
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
-import { createPrint } from 'apis/editions'
+import { cancelListingEdition, createPrint } from 'apis/editions'
 
 import { useWallets } from 'hooks/useWallets'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
@@ -826,20 +826,24 @@ const MainSection = ({
       })
 
       if (listing) {
-        setAlertData([
-          {
-            id: 0,
-            title: 'Edition Listing Canceled!',
-            description: `You've successfully canceled your edition listing!`,
-            type: 'success',
-          },
-        ])
+        cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
+          if (res) {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Edition Listing Canceled!',
+                description: `You've successfully canceled your edition listing!`,
+                type: 'success',
+              },
+            ])
 
-        setTimeout(() => {
-          setShowAlert(true)
-        }, 500)
+            setTimeout(() => {
+              setShowAlert(true)
+            }, 500)
 
-        router.reload()
+            router.reload()
+          }
+        })
       }
     } catch (e) {
       setCancelListLoading(false)

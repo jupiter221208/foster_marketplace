@@ -710,6 +710,7 @@ const SingleNft = () => {
                               setNftArt={item => handleChangeNftArt(item)}
                               setNftCover={item => handleChangeNftCover(item)}
                               nftImage={nftImage}
+                              setNftImage={setNftImage}
                               setTakeSnapshotStatus={setTakeSnapshotStatus}
                               selectedDimension={selectedDimension}
                               nftName={nftName}
@@ -880,10 +881,11 @@ const SingleNft = () => {
                 <>
                   <Step01SingleNFTSection
                     nftType={nftType}
+                    nftCover={nftCover}
                     setNftArt={item => handleChangeNftArt(item)}
                     setNftCover={item => handleChangeNftCover(item)}
-                    nftCover={nftCover}
                     nftImage={nftImage}
+                    setNftImage={setNftImage}
                     setTakeSnapshotStatus={setTakeSnapshotStatus}
                     selectedDimension={selectedDimension}
                     nftName={nftName}

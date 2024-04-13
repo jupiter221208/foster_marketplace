@@ -115,12 +115,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
                   <a className="flex justify-center items-center">
-                    <div>
+                    <div className="w-full h-full">
                       <ImageWithFoster
                         src={coverImage}
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                         onClick={onClick}
-                        className="w-full h-full object-cover"
+                        className="max-w-full max-h-full object-cover"
                       />
                     </div>
                   </a>
@@ -135,12 +135,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="flex justify-center items-center">
-                  <div>
+                  <div className="w-full h-full">
                     <ImageWithFoster
                       src={coverImage}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                       onClick={onClick}
-                      className={styles.imageNft}
+                      className="max-w-full max-h-full object-cover"
                     />
                   </div>
                 </a>
@@ -148,8 +148,8 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="flex justify-center items-center">
-                  <div>
-                    <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
+                  <div className="w-full h-full">
+                    <ImageWithFoster src={image} onClick={onClick} className="max-w-full max-h-full object-cover" />
                   </div>
                 </a>
               </Link>

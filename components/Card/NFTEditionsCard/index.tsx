@@ -32,6 +32,7 @@ const NFTEditionsCard = props => {
     currentSupply,
     maxSupply,
     price,
+    statTime,
     endTime,
     coverImage = null,
     assetType,
@@ -42,6 +43,7 @@ const NFTEditionsCard = props => {
   const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
+  const [hideTimer, setHideTimer] = useState(false)
 
   useEffect(() => {
     if (
@@ -72,6 +74,7 @@ const NFTEditionsCard = props => {
     let difference = getTimeDifference(endTime)
 
     if (difference < 0) {
+      setHideTimer(true)
       return
     }
 
@@ -221,7 +224,7 @@ const NFTEditionsCard = props => {
                 </a>
               </Link>
             )}
-            {endTime && (
+            {endTime && !hideTimer && (
               <div className={styles.timeContainer}>
                 <div className="sm:block hidden">
                   <ClockSandIcon />
@@ -274,7 +277,14 @@ const NFTEditionsCard = props => {
                 <div className={styles.price}>{getPriceValue(Number(price))}</div>
               </div>
               <div className={styles.supply}>
-                {maxSupply === null ? currentSupply + ' sold' : currentSupply + '/' + maxSupply + ' left'}
+                {maxSupply === null
+                  ? currentSupply === undefined
+                    ? '-'
+                    : currentSupply + ' sold'
+                  : (currentSupply === undefined ? '-' : currentSupply) +
+                    '/' +
+                    (maxSupply === undefined ? '-' : maxSupply) +
+                    ' left'}
               </div>
             </div>
           </div>

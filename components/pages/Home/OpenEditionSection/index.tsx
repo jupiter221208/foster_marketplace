@@ -34,11 +34,25 @@ const OpenEditionSection = props => {
   const dispatch = useDispatch()
 
   const [editionList, setEditionList] = useState<any>([])
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   useEffect(() => {
-    // setEditionList(editions)
     if (editions) setEditionList(editions.filter(item => item.maxSupply === null))
   }, [editions])
+
+  useEffect(() => {
+    if (editionList.length > 0) {
+      ;(async () => {
+        for (let index = 0; index < editionList.length; index++) {
+          let data = editionList[index]
+          fetch(`/nft/${data.tokenId}`).then(e => e.text())
+          if (index % 4 == 3) {
+            await sleep(1000)
+          }
+        }
+      })()
+    }
+  }, [editionList])
 
   return (
     editionList.length > 0 && (
