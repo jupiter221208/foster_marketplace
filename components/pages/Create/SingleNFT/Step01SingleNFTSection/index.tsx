@@ -168,12 +168,11 @@ const Step01SingleNFTSection = props => {
           {nftType === 'vr' && (
             <>
               <div className={styles.coverImgMsg}>
-                <h6>
-                  Cover Photo <span>*</span>
-                </h6>
-                <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                Cover Photo <span>*</span>
               </div>
-
+              <div className={styles.pick}>
+                Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+              </div>
               <div className={styles.coverBtnBox}>
                 <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
                   <ImageIcon /> Take Snapshot
