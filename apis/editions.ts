@@ -45,6 +45,12 @@ export async function getEditionList(mintAddress: string): Promise<[any] | null>
   })
 }
 
+export async function cancelListingEdition(mintAddress: string) {
+  return client.delete(API_URL + 'v1/editions/' + mintAddress).then(res => {
+    return res.data
+  })
+}
+
 export async function listMasterEdition({
   mintAddress,
   ...data

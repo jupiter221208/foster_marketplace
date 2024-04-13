@@ -181,6 +181,14 @@ export interface ExploreAPIData {
   creator: string
   artist_profile_picture: string
   collection_name: string
+  master_edition?: {
+    mintAddress: string,
+    price: string,
+    startTime: string,
+    endTime: string,
+    buyLimit: 0,
+    authorityPublicKey: string,
+  }
 }
 
 export interface ActivityAPIData {

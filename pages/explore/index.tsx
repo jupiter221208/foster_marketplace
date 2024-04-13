@@ -666,7 +666,7 @@ const Explore = () => {
                             artistName={item.creator}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
-                            // currentSupply={item.currentSupply}
+                            // currentSupply={item.master_edition?.currentSupply}
                             // maxSupply={item.maxSupply}
                             price={item.price}
                             endTime={item.end_time}
