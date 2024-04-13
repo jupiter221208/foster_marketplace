@@ -48,19 +48,19 @@ const MainSection = () => {
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-  useEffect(() => {
-    if (heroList.length > 0) {
-      ;(async () => {
-        for (let index = 0; index < heroList.length; index++) {
-          let data = heroList[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
-          if (index % 3 == 2) {
-            await sleep(1000)
-          }
-        }
-      })()
-    }
-  }, [heroList, router])
+  // useEffect(() => {
+  //   if (heroList.length > 0) {
+  //     ;(async () => {
+  //       for (let index = 0; index < heroList.length; index++) {
+  //         let data = heroList[index]
+  //         fetch(`/nft/${data.token_id}`).then(e => e.text())
+  //         if (index % 3 == 2) {
+  //           await sleep(1000)
+  //         }
+  //       }
+  //     })()
+  //   }
+  // }, [heroList, router])
 
   useEffect(() => {
     setTimeout(() => {
@@ -89,7 +89,7 @@ const MainSection = () => {
         }
       })()
     }
-  }, [heroList])
+  }, [heroList, router])
 
   const gotoNftPage = () => {
     dispatch({ type: 'set', isLoading: true })
