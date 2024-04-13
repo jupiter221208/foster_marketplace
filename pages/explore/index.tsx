@@ -670,12 +670,9 @@ const Explore = () => {
                             coverImage={item.cover_image_url}
                             statTime={item.master_edition?.startTime}
                             endTime={item.master_edition?.endTime}
-                            // currentSupply={item.master_edition?.currentSupply}
-                            // maxSupply={item.maxSupply}
-                            price={item.price}
+                            price={item.master_edition?.price}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
-                              // router.push('/nft/' + item.tokenId)
                             }}
                             key={index}
                           />
@@ -692,7 +689,7 @@ const Explore = () => {
                               endTime={item.master_edition?.endTime}
                               // currentSupply={item.master_edition?.currentSupply}
                               // maxSupply={item.maxSupply}
-                              price={item.price}
+                              price={item.master_edition?.price}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
                                 // router.push('/nft/' + item.tokenId)
