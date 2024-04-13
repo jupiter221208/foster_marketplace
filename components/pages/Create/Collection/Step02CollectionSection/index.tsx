@@ -29,7 +29,6 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import styles from './index.module.scss'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
-import { useResizeDetector } from 'react-resize-detector'
 import LoadingButton from 'components/Button/LoadingButton'
 import { limit } from 'utils/strings'
 import GradientButton from 'components/Button/GradientButton'
@@ -201,7 +200,6 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
-  const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
@@ -232,7 +230,7 @@ const Step02CollectionSection = props => {
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className="w-full flex justify-start z-10">
-                  <div ref={ref} className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                  <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
                       <div className="absolute inset-0 flex justify-center items-center">
                         <img
@@ -278,8 +276,6 @@ const Step02CollectionSection = props => {
                       selectedCollectionFile.url && (
                         <ModelViewer
                           path={selectedCollectionFile.url}
-                          width={width}
-                          height={height}
                           getSnapshot={{
                             onSnapshot: image => {
                               addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
@@ -655,7 +651,6 @@ const Step02CollectionSection = props => {
               {/* banner image */}
               <div className="w-full flex justify-center">
                 <div
-                  ref={ref}
                   className={styles.imageArea}
                   style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                 >
@@ -676,8 +671,6 @@ const Step02CollectionSection = props => {
                     selectedCollectionFile.url && (
                       <ModelViewer
                         path={selectedCollectionFile.url}
-                        width={width}
-                        height={height}
                         getSnapshot={{
                           onSnapshot: image => {
                             addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))

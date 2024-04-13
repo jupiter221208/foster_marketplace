@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 // next component
 
 import { useViewport } from 'utils'
-import { useResizeDetector } from 'react-resize-detector'
 
 // component
 import ModelViewer from 'components/ModelViewer'
@@ -19,7 +18,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 const NFTAssetSection = props => {
   const { nftType, nftAssetUrl, nftCoverUrl, originalCoverUrl, fullScreen } = props
   const viewport = useViewport()
-  const { width, height, ref } = useResizeDetector()
   const [currentImageUrl, setCurrentImageUrl] = useState(nftCoverUrl)
 
   useEffect(() => {
@@ -38,8 +36,8 @@ const NFTAssetSection = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         nftType.includes('vr') ? (
           nftAssetUrl ? (
-            <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-              <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
+            <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+              <ModelViewer path={nftAssetUrl} preserveDrawingBuffer />
             </div>
           ) : nftCoverUrl ? (
             <div className={styles.mobileImageArea}>
@@ -79,10 +77,10 @@ const NFTAssetSection = props => {
       ) : nftType.includes('vr') && !fullScreen ? (
         <div className={styles.blurBackground}>
           <div className={styles.blurImage} />
-          <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+          <div className={`${styles.imageArea} w-full h-full`}>
             {nftAssetUrl ? (
               <>
-                <ModelViewer path={nftAssetUrl} width={width} height={height} preserveDrawingBuffer />
+                <ModelViewer path={nftAssetUrl} preserveDrawingBuffer />
               </>
             ) : nftCoverUrl ? (
               <ImageWithFoster

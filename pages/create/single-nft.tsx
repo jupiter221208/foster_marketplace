@@ -5,7 +5,6 @@ import Head from 'next/head'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -566,7 +565,6 @@ const SingleNft = () => {
     }
   }
 
-  const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
 
   return (
@@ -606,11 +604,9 @@ const SingleNft = () => {
                     <div className={styles.leftContainer}>
                       <div className={`relative w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
                         {nftType === 'vr' && nftUrl ? (
-                          <div ref={ref} className="max-w-[760px] w-full mx-auto aspect-square">
+                          <div className="max-w-[760px] w-full mx-auto aspect-square">
                             <ModelViewer
                               path={nftUrl}
-                              width={width}
-                              height={height}
                               preserveDrawingBuffer
                               getSnapshot={{
                                 onSnapshot: image => {
@@ -794,11 +790,9 @@ const SingleNft = () => {
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
-                  <div ref={ref} className="max-w-[760px] w-full mx-auto aspect-square">
+                  <div className="max-w-[760px] w-full mx-auto aspect-square">
                     <ModelViewer
                       path={nftUrl}
-                      width={width}
-                      height={height}
                       preserveDrawingBuffer
                       getSnapshot={{
                         onSnapshot: image => {
