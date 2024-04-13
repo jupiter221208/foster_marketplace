@@ -59,9 +59,13 @@ const HomeNftCard = props => {
               </div>
             </div>
             {artistImage && (
-              <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
-                <ImageWithFoster src={artistImage} width={100} className="w-[44px] h-[44px] rounded-full" />
-              </div>
+              <Link href={`${window.origin}/${artistName}`} passHref>
+                <a>
+                  <div className="w-[44px] h-[44px] rounded-full overflow-hidden">
+                    <ImageWithFoster src={artistImage} width={100} className="w-[44px] h-[44px] rounded-full" />
+                  </div>
+                </a>
+              </Link>
             )}
           </div>
 
