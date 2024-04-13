@@ -7,11 +7,10 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './index.module.scss'
+import { useResizeDetector } from 'react-resize-detector'
 
 const ModelViewer = ({
   path,
-  width = 500,
-  height = 500,
   orbitLimited = false,
   fullScreen = false,
   getSnapshot = { onSnapshot: url => {}, status: false },
@@ -23,6 +22,8 @@ const ModelViewer = ({
   const [camera, setCamera] = useState(null)
   const [oldPath, setOldPath] = useState('')
   const [modelLoaded, setModelLoaded] = useState(false)
+
+  const { width, height, ref } = useResizeDetector()
 
   const divRef = useRef<HTMLDivElement>()
 
@@ -119,11 +120,11 @@ const ModelViewer = ({
   }, [divRef.current, renderer])
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full" ref={ref}>
       <div className={`${styles.skeletonContainer} ${modelLoaded && styles.hide}`}>
         <div className={styles.skeletonLoader} style={{ width, height }} />
       </div>
-      <div ref={divRef} />
+      <div ref={divRef} className="w-full h-full" />
     </div>
   )
 }

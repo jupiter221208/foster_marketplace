@@ -11,9 +11,6 @@ import AuctionDetail from 'components/pages/BrowseNFT/AuctionDetail'
 import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
-// custom functions
-import { useResizeDetector } from 'react-resize-detector'
-
 // styles
 import styles from './index.module.scss'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -68,7 +65,6 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
     })
   }
 
-  const { width, height, ref } = useResizeDetector()
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -101,9 +97,9 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>
                         {data?.category === 'vr' ? (
-                          <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                          <div className={`${styles.imageArea} w-full h-full`}>
                             {data?.animation_url ? (
-                              <ModelViewer width={width} height={height} path={data.animation_url} orbitLimited />
+                              <ModelViewer path={data.animation_url} orbitLimited />
                             ) : data?.image ? (
                               <img src={nftImage} onError={handleImageError} alt="" className="w-full" />
                             ) : (
@@ -136,8 +132,8 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                 <div className="w-full lg:hidden block">
                   {data?.category === 'vr' ? (
                     data?.animation_url ? (
-                      <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                        <ModelViewer path={data?.animation_url} width={width} height={height} orbitLimited />
+                      <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                        <ModelViewer path={data?.animation_url} orbitLimited />
                       </div>
                     ) : data?.image ? (
                       <div className={styles.mobileImageArea}>
