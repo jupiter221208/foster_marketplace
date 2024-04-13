@@ -213,9 +213,12 @@ const Step01SingleNFTSection = props => {
               </div>
 
               {nftImage && (
-                <div className={styles.glbNftImageSection}>
-                  <img className="w-full aspect-square" src={nftImage} alt="" />
+                <div>
+                  <div className={styles.glbNftImageSection}>
+                    <img className="w-full aspect-square" src={nftImage} alt="" />
+                  </div>
                   <button
+                    className={styles.glbButton}
                     onClick={() => {
                       setNftImage('')
                       setNftCover(null)

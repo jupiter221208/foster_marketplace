@@ -298,6 +298,27 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.5);
 }
 
+.glbNftImageSection {
+  background: rgba(var(--text-gray-200-color-rgb), 0.05);
+  max-width: 300px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.glbButton {
+  width: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin: 1rem auto 0 auto;
+  color: var(--main-bg-color);
+  fill: none;
+  stroke: var(--primary-btn-bg);
+}
+
 .coverBtnBox {
   margin-top: 20px;
   display: flex;
