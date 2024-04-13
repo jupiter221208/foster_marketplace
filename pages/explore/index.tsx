@@ -275,6 +275,7 @@ const Explore = () => {
                 url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
+                master_edition: nft.master_edition,
                 list_price: nft.list_price,
                 start_time: nft.start_time,
                 end_time: nft.end_time,
@@ -295,6 +296,7 @@ const Explore = () => {
               artist_profile_picture: nft.artist_profile_picture,
               url: `/nft/${nft.token_id}`,
               price: nft.list_price,
+              master_edition: nft.master_edition,
               current_bid: nft.current_bid,
               list_price: nft.list_price,
               start_time: nft.start_time,
@@ -666,10 +668,11 @@ const Explore = () => {
                             artistName={item.creator}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
+                            statTime={item.master_edition?.startTime}
+                            endTime={item.master_edition?.endTime}
                             // currentSupply={item.master_edition?.currentSupply}
                             // maxSupply={item.maxSupply}
                             price={item.price}
-                            endTime={item.end_time}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                               // router.push('/nft/' + item.tokenId)
@@ -677,7 +680,26 @@ const Explore = () => {
                             key={index}
                           />
                         ) : selectedAvailability.value === 'all' ? (
-                          isAvailableAuctionCard(item) ? (
+                          item?.master_edition !== null && item?.master_edition !== undefined ? (
+                            <NFTEditionsCard
+                              tokenId={item.token_id}
+                              image={item.image}
+                              nftName={item.name}
+                              artistName={item.creator}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              statTime={item.master_edition?.startTime}
+                              endTime={item.master_edition?.endTime}
+                              // currentSupply={item.master_edition?.currentSupply}
+                              // maxSupply={item.maxSupply}
+                              price={item.price}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                // router.push('/nft/' + item.tokenId)
+                              }}
+                              key={index}
+                            />
+                          ) : isAvailableAuctionCard(item) ? (
                             <NFTAuctionCard
                               token_id={item.token_id}
                               nftName={item.name}

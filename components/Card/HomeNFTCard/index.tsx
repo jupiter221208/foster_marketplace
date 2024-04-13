@@ -85,7 +85,12 @@ const HomeNftCard = props => {
                             }}
                           />
                         ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
-                          <ImageWithFoster width={360} src={coverImage} alt="" className="w-full h-full object-cover" />
+                          <ImageWithFoster
+                            width={360}
+                            src={coverImage}
+                            alt=""
+                            className="max-w-full max-h-full object-cover"
+                          />
                         ) : (
                           <div
                             className="w-full h-full absolute"
@@ -123,7 +128,7 @@ const HomeNftCard = props => {
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a>
                   <div className={styles.imageContent}>
-                    <div>
+                    <div className="w-full h-full">
                       {assetType?.includes('vr') ? (
                         coverImage !== null && coverImage !== '' ? (
                           <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
