@@ -142,7 +142,7 @@ const MintEditionCard = props => {
                   if (maxSupply !== null) {
                     if (mintQty + 1 > maxSupply) return
                   }
-                  if (buyLimit !== null) {
+                  if (buyLimit !== null && buyLimit > 0) {
                     if (mintQty + 1 > parseInt(buyLimit)) {
                       setBuyLimitAlert(true)
                       setTimeout(() => {
