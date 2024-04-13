@@ -49,7 +49,7 @@ const OpenEditionSection = props => {
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
+                dispatch({ type: 'set', availabilityFilter: 2 })
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
@@ -97,7 +97,7 @@ const OpenEditionSection = props => {
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
+                dispatch({ type: 'set', availabilityFilter: 2 })
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}

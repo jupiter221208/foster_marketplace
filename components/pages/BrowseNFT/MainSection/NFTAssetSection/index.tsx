@@ -43,18 +43,18 @@ const NFTAssetSection = props => {
             </div>
           ) : nftCoverUrl ? (
             <div className={styles.mobileImageArea}>
-              <ImageWithFoster src={nftCoverUrl} width={400} showPlaceHolder={false} className="w-full" />
+              <ImageWithFoster src={nftCoverUrl} width={900} showPlaceHolder={false} className="w-full" />
             </div>
           ) : (
             <h1>Could not load NFT.</h1>
           )
         ) : nftType.includes('image') ? (
           <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={currentImageUrl} width={400} showPlaceHolder={false} className="w-full" />
+            <ImageWithFoster src={currentImageUrl} width={900} showPlaceHolder={false} className="w-full" />
           </div>
         ) : nftType.includes('audio') ? (
           <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={nftCoverUrl} width={400} showPlaceHolder={false} className="w-full" />
+            <ImageWithFoster src={nftCoverUrl} width={900} showPlaceHolder={false} className="w-full" />
             <div className={styles.audioMobileArea}>
               <AudioPlayer src={nftAssetUrl} />
             </div>

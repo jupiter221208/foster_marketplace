@@ -68,7 +68,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
                     }}
                   />
                 ) : (
-                  <div className="w-full h-full">
+                  <div>
                     <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
                   </div>
                 )}

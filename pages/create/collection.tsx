@@ -487,7 +487,10 @@ const Collection = () => {
             <ProgressSection
               currentStep={currentStep}
               nextDisabled={disabledButton}
-              onBack={() => setCurrentStep(currentStep - 1)}
+              onBack={() => {
+                if (currentStep === 1) router.push('/create/single-nft')
+                else setCurrentStep(currentStep - 1)
+              }}
               onNext={() => {
                 if (currentStep === 2) mintCollection()
                 else setCurrentStep(currentStep + 1)

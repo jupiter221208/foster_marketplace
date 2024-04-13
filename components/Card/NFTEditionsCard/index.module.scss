@@ -25,10 +25,7 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 110%;
-  @media (min-width: 640px) {
-    padding-top: 114.0%;
-  }
+  padding-top: 100%;
 }
 
 .timeContainer {
@@ -51,36 +48,6 @@
   
 }
 
-.imageContainer {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--background-main-color);
-}
-
-.imageContentArea {
-  position: absolute;
-  width: 100%;
-  padding-top: 80.12%;
-  @media (min-width: 640px) {
-    padding-top: 95.02%;
-  }
-  @media (min-width: 1024px) {
-    padding-top: 88.02%;
-  }
-  @media (min-width: 1440px) {
-    padding-top: 91.92%;
-  }
-  @media (min-width: 1536px) {
-    padding-top: 88.12%;
-  }
-  @media (min-width: 1768px) {
-    padding-top: 91.92%;
-  }
-}
-
 .imageContent {
   position: absolute;
   inset: 0;
@@ -90,44 +57,34 @@
 }
 
 .nftData {
-  position: absolute;
   width: 100%;
   background: var(--background-main-color);
-  padding: 6px 10px;
-  @media (min-width: 640px) {
-    padding: 8px 16px 12px 16px;
-  }
+  border-bottom: 1px solid var(--bg-303030-D9D8D7);
+  border-top:  1px solid var(--bg-303030-D9D8D7);
+  padding: 13px 17px;
   @media (min-width: 1024px) {
-    padding: 12px 16px;
+    padding: 13px 20px;
   }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  left: 0;
-  bottom: 0;
 }
 
 .nftName {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 25px;
-  }
+  
 }
 
 .artistName {
   font-family: 'Muli-Light';
   font-weight: 100;
-  font-size: 10px;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
-  margin-top: 2px;
-  @media (min-width: 640px) {
-    font-size: 14px;
-    line-height: 24px;
-    margin-top: 4px;
-  }
+  margin-top: 3px;
 }
 
 .imageInfo {
@@ -138,12 +95,10 @@
   flex: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;  
-  @media (min-width: 640px) {
-    padding: 15px 15px;
-  }
+  height: 66px;
+  padding: 13px 17px;  
   @media (min-width: 1024px) {
-    padding: 15px 20px;
+    padding: 13px 20px;
   }
 }
 
@@ -181,13 +136,9 @@
 
 .currentBid {
   font-family: 'Muli-Light';
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 12px;
+  line-height: 15px;
   font-weight: 100;
-  @media (min-width: 640px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   white-space: nowrap;
@@ -196,37 +147,27 @@
 }
 
 .price {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 5px;
+  margin-top: -3px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
 
 .day {
   font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 16px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  color: rgba(#eff0f6, 0.75);
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .timeValue {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 16px;
-  color: #eff0f6;
-  @media (min-width: 640px) {
-    font-size: 16px;
+  font-size: 16px;
     line-height: 20px;
-  }
+  color: var(--text-gray-200-color);
 }
 
 .supply {

@@ -67,8 +67,7 @@ export const getTimeDifference = endTime => {
 
 export const getTimeDifferenceWithAuction = endTime => {
   let endListingTime = new Date(endTime)
-  let offset = endListingTime.getTimezoneOffset() * 60 * 1000
-  let endLocalTime = endListingTime.getTime() - offset
+  let endLocalTime = endListingTime.getTime()
   let nowDate = new Date().getTime()
   let difference = endLocalTime - nowDate
   return difference
@@ -631,6 +630,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '245, 244, 242')
     doc.style.setProperty('--bg-303030-FFF', '#FFF')
+    doc.style.setProperty('--bg-303030-D9D8D7', '#D9D8D7')
     doc.style.setProperty('--bg-95dbd5-707070', '#707070')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-303030-202427', 'rgba(32, 36, 39, 0.1)')
@@ -970,6 +970,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '51, 51, 51')
     doc.style.setProperty('--bg-303030-FFF', '#303030')
+    doc.style.setProperty('--bg-303030-D9D8D7', '#303030')
     doc.style.setProperty('--bg-95dbd5-707070', '#95dbd5')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#1C1C1C')
     doc.style.setProperty('--bg-303030-202427', '#303030')

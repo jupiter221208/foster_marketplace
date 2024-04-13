@@ -138,6 +138,9 @@ const Explore = () => {
     } else if (availabilityFilter === 1) {
       availability = AvailabilityList[1]
       setSelectedAvailability(availability)
+    } else if (availabilityFilter === 2) {
+      availability = AvailabilityList[2]
+      setSelectedAvailability(availability)
     }
 
     switch (exploreTab) {
@@ -634,7 +637,7 @@ const Explore = () => {
                   nftList?.map((item, index) => {
                     return (
                       <div
-                        className={`col-span-6 z-10 ${
+                        className={`col-span-12 z-10 ${
                           showFilter ? 'lg:col-span-6 3xl:col-span-4 ' : 'lg:col-span-4 2xl:col-span-3'
                         }`}
                         key={index}
@@ -657,19 +660,6 @@ const Explore = () => {
                           />
                         ) : selectedAvailability.value === 'editions' ? (
                           <NFTEditionsCard
-                            // token_id={item.token_id}
-                            // nftName={item.name}
-                            // artistName={item.creator}
-                            // image={item.image}
-                            // assetType={item.asset_type}
-                            // coverImage={item.cover_image_url}
-                            // currentBid={item.current_bid}
-                            // reservePrice={item.reserve_price}
-                            // endTime={item.end_time}
-                            // onClick={() => {
-                            //   dispatch({ type: 'set', isLoading: true })
-                            // }}
-                            // price={item.price}
                             tokenId={item.token_id}
                             image={item.image}
                             nftName={item.name}

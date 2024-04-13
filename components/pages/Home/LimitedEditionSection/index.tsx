@@ -47,7 +47,14 @@ const LimitedEditionSection = props => {
         <div className="w-full flex justify-between items-center z-10 ml-[5px]">
           <div className={styles.title}>Limited&nbsp;Editions</div>
           <div className="z-10 sm:block hidden">
-            <SeeMoreButton onClick={() => {}} />
+            <SeeMoreButton
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 2 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+            />
           </div>
         </div>
         <div className="w-full mt-[20px] lg:mt-[30px] z-10">
@@ -91,7 +98,7 @@ const LimitedEditionSection = props => {
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
+                dispatch({ type: 'set', availabilityFilter: 2 })
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
