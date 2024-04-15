@@ -93,7 +93,7 @@ const Collection = () => {
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
   const [disabledButton, setDisabledButton] = useState(false)
-
+  const [startUpload, setStartUpload] = useState(false)
   const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
@@ -493,7 +493,10 @@ const Collection = () => {
               }}
               onNext={() => {
                 if (currentStep === 2) mintCollection()
-                else setCurrentStep(currentStep + 1)
+                else if (currentStep === 4) {
+                  setStartUpload(true)
+                  readFilesAndUplaod()
+                } else setCurrentStep(currentStep + 1)
               }}
               loading={isMinting}
               labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
@@ -571,8 +574,9 @@ const Collection = () => {
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
-            readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
+            startUpload={startUpload}
+            setStartUpload={setStartUpload}
           />
         )}
         {currentStep === 5 && (

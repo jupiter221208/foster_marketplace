@@ -33,24 +33,24 @@ const Step03CollectionSection = props => {
     collectionMintName,
     collectionFiles,
     bannerCroppedImage,
-    readFilesAndUplaod,
     uploadedCount,
+    startUpload,
+    setStartUpload = false,
   } = props
 
   const viewport = useViewport()
 
   // variables
   const [disabledNextButton, setDisabledNextButton] = useState(true)
-  const [startUpload, setStartUpload] = useState(false)
 
   const handleChangeCurrentStep = step => {
     onChangeCurrentStep(step)
   }
 
-  const uploadArtworks = () => {
-    setStartUpload(true)
-    readFilesAndUplaod()
-  }
+  // const uploadArtworks = () => {
+  //   setStartUpload(true)
+  //   readFilesAndUplaod()
+  // }
 
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
@@ -150,31 +150,7 @@ const Step03CollectionSection = props => {
                         </div>
                         <div className="">
                           <div className={styles.nftName}>{item.name} </div>
-                          {/* <div>
-                            <Input
-                              value={item.name}
-                              placeholder="Give your art name"
-                              label=""
-                              fullWidth
-                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
-                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
-                              onChange={() => {}}
-                              height="46px"
-                            />
-                          </div> */}
-                        </div>
-                        <div className="w-full">
                           <div className={styles.nftDesc}>{item.description} </div>
-                          {/* <div>
-                            <Textarea
-                              value={item.description}
-                              placeholder="Add a short description..."
-                              fullWidth
-                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
-                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
-                              onChange={() => {}}
-                              height="90px"
-                            /> */}
                         </div>
                         {startUpload && (
                           <div className="absolute -right-20 top-10 w-10 h-10">
@@ -188,7 +164,7 @@ const Step03CollectionSection = props => {
                       </div>
                     ))}
                 </div>
-                <div className="w-full h-32" />
+                {/* <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-end">
                   <div className="flex gap-10">
                     <OutlineButton
@@ -210,7 +186,7 @@ const Step03CollectionSection = props => {
                       />
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -298,8 +274,7 @@ const Step03CollectionSection = props => {
                 ))}
             </div>
           </div>
-          <div className="w-full flex justify-between my-10">
-            {/* button group part */}
+          {/* <div className="w-full flex justify-between my-10">
             <div className="w-full flex justify-between">
               <div>
                 <OutlineButton
@@ -326,7 +301,7 @@ const Step03CollectionSection = props => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

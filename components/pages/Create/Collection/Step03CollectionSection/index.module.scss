@@ -167,9 +167,9 @@
   align-items: center;
   width: 68px;
   height: 68px;
-  border: 2px solid var(--brand-03-color);
+  border: 2px solid var(--main-icon-color);
   border-radius: 8px;
-  filter: drop-shadow(0px 0px 4px var(--brand-03-color));
+  // filter: drop-shadow(0px 0px 4px var(--brand-03-color));
 }
 
 .nonSelectedImage {
