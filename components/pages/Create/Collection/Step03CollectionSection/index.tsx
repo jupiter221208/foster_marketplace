@@ -36,12 +36,13 @@ const Step03CollectionSection = props => {
     uploadedCount,
     startUpload,
     setStartUpload = false,
+    setDisabledNextButton,
   } = props
 
   const viewport = useViewport()
 
   // variables
-  const [disabledNextButton, setDisabledNextButton] = useState(true)
+  // const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
     onChangeCurrentStep(step)
@@ -65,11 +66,11 @@ const Step03CollectionSection = props => {
         }
       })
 
-      if (count === 0) {
-        setDisabledNextButton(false)
-      } else {
-        setDisabledNextButton(true)
-      }
+      // if (count === 0) {
+      //   setDisabledNextButton(true)
+      // } else {
+      //   setDisabledNextButton(false)
+      // }
     }
   }, [collectionFiles])
 
@@ -138,22 +139,22 @@ const Step03CollectionSection = props => {
                               src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                               alt=""
                               width={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 95 : 95
                               }
                               height={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 95 : 95
                               }
                               objectFit="cover"
                               className="rounded-lg"
                             />
                           )}
                         </div>
-                        <div className="">
+                        <div className="w-full">
                           <div className={styles.nftName}>{item.name} </div>
                           <div className={styles.nftDesc}>{item.description} </div>
                         </div>
                         {startUpload && (
-                          <div className="absolute -right-20 top-10 w-10 h-10">
+                          <div className="absolute -right-20 top-4 w-10 h-10">
                             {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (

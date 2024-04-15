@@ -560,6 +560,7 @@ const Collection = () => {
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
+            setDisabledNextButton={setDisabledButton}
           />
         )}
 

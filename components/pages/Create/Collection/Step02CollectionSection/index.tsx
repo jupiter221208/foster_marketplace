@@ -46,6 +46,7 @@ const Step02CollectionSection = props => {
     onChangeCollectionName,
     onChangeCollectionDescription,
     onChangeCroppedImage,
+    setDisabledNextButton,
   } = props
 
   const viewport = useViewport()
@@ -129,7 +130,7 @@ const Step02CollectionSection = props => {
 
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
-  const [disabledNextButton, setDisabledNextButton] = useState(true)
+  // const [disabledNextButton, setDisabledNextButton] = useState(true)
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -967,7 +968,7 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          <div className="w-full flex justify-end my-10">
+          {/* <div className="w-full flex justify-end my-10">
             <div className="w-[161px] mr-[16px]">
               {coverImageProcessing ? (
                 <LoadingButton width={161} height={45} />
@@ -985,7 +986,7 @@ const Step02CollectionSection = props => {
                 </button>
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
       {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && openImageEditorModal && (
