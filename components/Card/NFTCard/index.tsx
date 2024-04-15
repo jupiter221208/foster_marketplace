@@ -146,13 +146,20 @@ const NFTCard = props => {
                 <div className={styles.imageContent}>
                   {assetType?.includes('vr') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                      <ImageWithFoster src={coverImage} width={800} className="max-w-full max-h-full object-cover" />
                     ) : (
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                     )
                   ) : assetType?.includes('audio') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
+                      <div className="w-full h-full">
+                        <ImageWithFoster
+                          src={coverImage}
+                          width={800}
+                          onClick={onClick}
+                          className="max-w-full max-h-full object-cover"
+                        />
+                      </div>
                     ) : (
                       <Image
                         src={DefaultNftBG}
@@ -162,21 +169,25 @@ const NFTCard = props => {
                       />
                     )
                   ) : coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFoster
-                      src={coverImage}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
+                    <div className="w-full h-full">
+                      <ImageWithFoster
+                        src={coverImage}
+                        width={800}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
                   ) : image !== null && image !== '' ? (
-                    <ImageWithFoster
-                      src={image}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
+                    <div className="w-full h-full">
+                      <ImageWithFoster
+                        src={image}
+                        width={800}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
                   ) : (
                     <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                   )}
