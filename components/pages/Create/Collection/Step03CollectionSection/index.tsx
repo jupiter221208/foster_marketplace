@@ -74,7 +74,7 @@ const Step03CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+          <div className="col-span-12 lg:col-span-5 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">

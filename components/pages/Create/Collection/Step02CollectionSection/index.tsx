@@ -18,7 +18,7 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
-
+import TrashBinSmall from 'assets/icons/trash-bin-18x18.svg?component'
 // custom functions
 import { useViewport } from 'utils'
 
@@ -435,71 +435,18 @@ const Step02CollectionSection = props => {
                               )}
                             </div>
                           </div>
-                          <IconButtonWithSVG
+                          <div onClick={() => onRemoveCollectionFile(item)}>
+                            <TrashBinSmall />
+                          </div>
+                          {/* <IconButtonWithSVG
                             icon={
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="17.696"
-                                height="19.485"
-                                viewBox="0 0 17.696 19.485"
-                              >
-                                <g
-                                  id="Icon_feather-trash-2"
-                                  data-name="Icon feather-trash-2"
-                                  transform="translate(0.8 0.8)"
-                                >
-                                  <path
-                                    id="Path_105825"
-                                    data-name="Path 105825"
-                                    d="M4.5,9H20.6"
-                                    transform="translate(-4.5 -5.423)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.6"
-                                  />
-                                  <path
-                                    id="Path_105826"
-                                    data-name="Path 105826"
-                                    d="M20.019,6.577V19.1a1.788,1.788,0,0,1-1.788,1.788H9.288A1.788,1.788,0,0,1,7.5,19.1V6.577m2.683,0V4.788A1.788,1.788,0,0,1,11.971,3h3.577a1.788,1.788,0,0,1,1.788,1.788V6.577"
-                                    transform="translate(-5.712 -3)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.6"
-                                  />
-                                  <path
-                                    id="Path_105827"
-                                    data-name="Path 105827"
-                                    d="M15,16.5v5.365"
-                                    transform="translate(-8.74 -8.452)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.6"
-                                  />
-                                  <path
-                                    id="Path_105828"
-                                    data-name="Path 105828"
-                                    d="M21,16.5v5.365"
-                                    transform="translate(-11.163 -8.452)"
-                                    fill="none"
-                                    stroke="var(--trash-icon-color)"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="1.6"
-                                  />
-                                </g>
-                              </svg>
+                              
                             }
                             onClick={() => onRemoveCollectionFile(item)}
                             backgroundColor="transparent"
                             iconWidth={18}
                             iconHeight={18}
-                          />
+                          /> */}
                         </div>
 
                         <div className="w-full mt-[15px]">
@@ -808,7 +755,10 @@ const Step02CollectionSection = props => {
                       )}
                     </div>
 
-                    <IconButtonWithSVG
+                    <div onClick={() => onRemoveCollectionFile(item)}>
+                      <TrashBinSmall />
+                    </div>
+                    {/* <IconButtonWithSVG
                       icon={
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -865,7 +815,7 @@ const Step02CollectionSection = props => {
                         </svg>
                       }
                       iconHeight={24}
-                    />
+                    /> */}
                   </div>
 
                   <div className="w-full">

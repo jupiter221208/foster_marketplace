@@ -450,6 +450,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        parent_nft: null,
+        max_supply: null,
+        edition: 0,
       })
       setUploadedCount(i + 1)
     }
@@ -570,7 +573,6 @@ const Collection = () => {
 
         {currentStep === 4 && (
           <Step03CollectionSection
-            currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
