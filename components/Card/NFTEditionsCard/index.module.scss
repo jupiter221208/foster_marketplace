@@ -61,10 +61,10 @@
   background: var(--background-main-color);
   border-bottom: 1px solid var(--bg-303030-D9D8D7);
   border-top:  1px solid var(--bg-303030-D9D8D7);
-  padding: 13px 17px;
+  padding: 14px 17px;
   height: 66px;
   @media (min-width: 1024px) {
-    padding: 13px 20px;
+    padding: 14px 20px;
   }
   display: flex;
   justify-content: space-between;
@@ -97,9 +97,9 @@
   justify-content: space-between;
   align-items: center;
   height: 66px;
-  padding: 13px 17px;  
+  padding: 14px 17px;  
   @media (min-width: 1024px) {
-    padding: 13px 20px;
+    padding: 14px 20px;
   }
 }
 
