@@ -132,14 +132,14 @@ const NFTAssetSection = props => {
         <div className={styles.blurBackground}>
           {nftAssetUrl ? (
             <>
-              <div className="absolute inset-0">
+              {/* <div className="absolute inset-0">
                 <ImageWithFoster
                   src={nftCoverUrl}
                   width={900}
                   showPlaceHolder={false}
                   className="min-w-full min-h-full object-cover"
                 />
-              </div>
+              </div> */}
               <div className={styles.videoArea}>
                 <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                   <source type="video/mp4" src={nftAssetUrl} />
