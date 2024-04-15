@@ -1318,15 +1318,18 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
+                <div className={`w-full lg:max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
                   {nftDescription ? (
                     <div className={styles.whiteDescription}>
-                      {processedNftDescription}
-                      {shouldShowReadMore && (
-                        <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                          {isTruncated ? '... Expand' : ' Collapse'}
-                        </span>
-                      )}
+                      <div className="lg:block hidden">
+                        {processedNftDescription}
+                        {shouldShowReadMore && (
+                          <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                            {isTruncated ? '... Expand' : ' Collapse'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="lg:hidden block">{tempNftDescription}</div>
                     </div>
                   ) : (
                     <></>
