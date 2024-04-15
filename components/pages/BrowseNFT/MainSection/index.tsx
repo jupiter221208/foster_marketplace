@@ -720,8 +720,8 @@ const MainSection = ({
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 80) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > 80
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 200) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 200
   useEffect(() => {
     setTempNftDescription(nftDescription)
   }, [nftDescription])
