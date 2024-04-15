@@ -485,7 +485,7 @@ const Collection = () => {
         <div className="lg:flex hidden w-full justify-center">
           <div className="w-full g-container mt-[66px]">
             <ProgressSection
-              currentStep={currentStep}
+              currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
               nextDisabled={disabledButton}
               onBack={() => {
                 if (currentStep === 1) router.push('/create/single-nft')
@@ -496,7 +496,7 @@ const Collection = () => {
                 else setCurrentStep(currentStep + 1)
               }}
               loading={isMinting}
-              labels={['Create Collection', 'Review']}
+              labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
             />
           </div>
         </div>

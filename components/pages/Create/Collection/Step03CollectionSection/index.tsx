@@ -103,7 +103,6 @@ const Step03CollectionSection = props => {
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className={styles.reviewCollection}>Review Collection Items</div>
                 <div className="w-full">
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
@@ -149,17 +148,9 @@ const Step03CollectionSection = props => {
                             />
                           )}
                         </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            NFT Name *
-                          </div>
-                          <div>
+                        <div className="">
+                          <div className={styles.nftName}>{item.name} </div>
+                          {/* <div>
                             <Input
                               value={item.name}
                               placeholder="Give your art name"
@@ -170,19 +161,11 @@ const Step03CollectionSection = props => {
                               onChange={() => {}}
                               height="46px"
                             />
-                          </div>
+                          </div> */}
                         </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            Description
-                          </div>
-                          <div>
+                        <div className="w-full">
+                          <div className={styles.nftDesc}>{item.description} </div>
+                          {/* <div>
                             <Textarea
                               value={item.description}
                               placeholder="Add a short description..."
@@ -191,16 +174,10 @@ const Step03CollectionSection = props => {
                               backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
                               onChange={() => {}}
                               height="90px"
-                            />
-                          </div>
+                            /> */}
                         </div>
                         {startUpload && (
                           <div className="absolute -right-20 top-10 w-10 h-10">
-                            {/* {index < uploadedCount ? (
-                              <Lottie animationData={CheckLottery} loop={true} />
-                            ) : (
-                              <Lottie animationData={LoaderLottery} loop={true} />
-                            )} */}
                             {index < uploadedCount ? (
                               <Lottie animationData={CheckLottery} loop={true} />
                             ) : (
@@ -312,45 +289,10 @@ const Step03CollectionSection = props => {
                       )}
                     </div>
                     <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        NFT Name *
-                      </div>
-                      <div>
-                        <Input
-                          value={item.name}
-                          placeholder="Give your art name"
-                          label=""
-                          fullWidth
-                          onChange={() => {}}
-                          height="46px"
-                        />
-                      </div>
+                      <div className={styles.nftName}>{item.name} </div>
                     </div>
-                    <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        Description
-                      </div>
-                      <div>
-                        <Textarea
-                          value={item.description}
-                          placeholder="Add a short description..."
-                          fullWidth
-                          onChange={() => {}}
-                          height="90px"
-                        />
-                      </div>
+                    <div className="w-full mt-[15px]">
+                      <div className={styles.nftDesc}>{item.description} </div>
                     </div>
                   </div>
                 ))}

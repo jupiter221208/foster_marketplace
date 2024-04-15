@@ -27,11 +27,13 @@
 
 .title {
   width: 100%;
-  font-family: 'Muli-SemiBold';
-  font-size: 24px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 30px;
+    font-size: 18px;
+    line-height: 22px;
   }
   color: var(--text-gray-200-color);
   text-align: center;
@@ -111,7 +113,7 @@
   min-height: calc(100vh - 100px);
   padding: 16px 0px 16px 16px;
   @media (min-width: 1024px) {
-    padding: 50px 0px 80px 50px;
+    padding: 10px 0px 80px 50px;
   }
   display: flex;
   justify-content: center;
@@ -129,6 +131,22 @@
   }
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+
+.nftDesc {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
 }
 
 .greenText {
