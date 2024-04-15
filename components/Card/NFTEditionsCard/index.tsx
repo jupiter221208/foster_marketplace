@@ -44,7 +44,6 @@ const NFTEditionsCard = props => {
   const [play, setPlay] = useState(false)
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
   const [hideTimer, setHideTimer] = useState(false)
-
   useEffect(() => {
     if (
       assetType.includes('video') &&
@@ -281,9 +280,11 @@ const NFTEditionsCard = props => {
                   ? currentSupply === undefined
                     ? '-'
                     : currentSupply + ' sold'
-                  : (currentSupply === undefined ? '-' : currentSupply) +
+                  : (currentSupply === undefined || maxSupply === null
+                      ? maxSupply
+                      : parseInt(maxSupply) - parseInt(currentSupply)) +
                     '/' +
-                    (maxSupply === undefined ? '-' : maxSupply) +
+                    (maxSupply === undefined || maxSupply === null ? '0' : maxSupply) +
                     ' left'}
               </div>
             </div>

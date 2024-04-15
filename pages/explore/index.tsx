@@ -276,6 +276,7 @@ const Explore = () => {
                 price: nft.list_price,
                 current_bid: nft.current_bid,
                 master_edition: nft.master_edition,
+                max_supply: nft.max_supply,
                 list_price: nft.list_price,
                 start_time: nft.start_time,
                 end_time: nft.end_time,
@@ -297,6 +298,7 @@ const Explore = () => {
               url: `/nft/${nft.token_id}`,
               price: nft.list_price,
               master_edition: nft.master_edition,
+              max_supply: nft.max_supply,
               current_bid: nft.current_bid,
               list_price: nft.list_price,
               start_time: nft.start_time,
@@ -687,8 +689,8 @@ const Explore = () => {
                               coverImage={item.cover_image_url}
                               statTime={item.master_edition?.startTime}
                               endTime={item.master_edition?.endTime}
-                              // currentSupply={item.master_edition?.currentSupply}
-                              // maxSupply={item.maxSupply}
+                              // currentSupply={item.parent_nft}
+                              maxSupply={item.max_supply}
                               price={item.master_edition?.price}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
