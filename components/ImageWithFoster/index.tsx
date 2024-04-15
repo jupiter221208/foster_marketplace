@@ -59,7 +59,7 @@ const ImageWithFoster = ({
   onClick,
   onLoad,
   onError,
-  useNextImage = false,
+  useNextImage,
   ...rest
 }: ImageWithFosterProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)
