@@ -150,7 +150,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(var(--background-main-color-rgb), 0.5);
+  background: var(--bg-timer-card);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
 }

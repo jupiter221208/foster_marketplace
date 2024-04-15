@@ -33,13 +33,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 27px;
-  @media (min-width: 640px) {
-    height: 50px;
-    padding: 0px 20px;
-  }
-  padding: 0px 10px;
-  background: rgba(var(--background-main-color-rgb), 0.5);
+  height: 50px;
+  padding: 0px 20px;
+  background: var(--bg-timer-card);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
   display: flex;
@@ -151,7 +147,6 @@
   font-family: 'Muli-Bold';
   font-size: 16px;
   line-height: 20px;
-  margin-left: 5px;
   margin-top: -3px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
@@ -167,17 +162,13 @@
 .timeValue {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-    line-height: 20px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
 }
 
 .supply {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
 }

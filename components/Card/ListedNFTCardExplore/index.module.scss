@@ -44,14 +44,9 @@
 
 .nftName {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
   color: var(--text-gray-200-color);
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  
+  font-size: 16px;
+  line-height: 20px;  
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
