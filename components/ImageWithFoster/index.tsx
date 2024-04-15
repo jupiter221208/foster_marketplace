@@ -59,7 +59,7 @@ const ImageWithFoster = ({
   onClick,
   onLoad,
   onError,
-  useNextImage = undefined,
+  useNextImage,
   ...rest
 }: ImageWithFosterProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -115,7 +115,7 @@ const ImageWithFoster = ({
         {srcSpecs[currentSrcSpecIndex]?.useNextImage ? (
           <Image
             // src={srcUrls[currentSrcIndex]}
-            src={srcSpecs[currentSrcSpecIndex].url}
+            src={srcSpecs[currentSrcSpecIndex]?.url}
             onLoad={handleLoad}
             loading="lazy"
             layout="fill"
@@ -125,7 +125,7 @@ const ImageWithFoster = ({
         ) : (
           // <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
           <img
-            src={srcSpecs[currentSrcSpecIndex].url}
+            src={srcSpecs[currentSrcSpecIndex]?.url}
             onLoad={handleLoad}
             loading="lazy"
             onError={handleError}
