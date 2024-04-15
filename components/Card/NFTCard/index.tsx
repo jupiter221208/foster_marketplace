@@ -31,7 +31,7 @@ import GradientButton from 'components/Button/GradientButton'
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserName, getShortName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const NFTCard = props => {
@@ -196,7 +196,7 @@ const NFTCard = props => {
           )}
         </div>
 
-        <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
+        {/* <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
               <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
@@ -234,6 +234,35 @@ const NFTCard = props => {
                   unSave()
                 }}
               />
+            </div>
+          )}
+        </div> */}
+        <div className={styles.imageInfo}>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
+              <div className="w-full flex justify-between">
+                <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.bottomInfo}>
+          {price ? (
+            <div className="">
+              <div className={styles.priceLabel}>Price</div>
+              <div className="w-full flex items-center mt-[6px]">
+                {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                  <SolanaLogoMobileIcon />
+                ) : (
+                  <SolanaLogoIcon />
+                )}
+                <div className={styles.price}>{price}</div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center">
+              <div className={styles.unlisted}>Unlisted</div>
             </div>
           )}
         </div>
