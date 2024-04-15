@@ -59,7 +59,7 @@ const ImageWithFoster = ({
   onClick,
   onLoad,
   onError,
-  useNextImage,
+  useNextImage = undefined,
   ...rest
 }: ImageWithFosterProps) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -112,7 +112,7 @@ const ImageWithFoster = ({
     <div className="w-full h-full relative overflow-hidden" onClick={onClick}>
       <div className="w-full h-full flex justify-center items-center z-1000">
         {/* {useNextImage || heliusUrl != srcUrls[currentSrcIndex] ? ( */}
-        {srcSpecs[currentSrcSpecIndex].useNextImage ? (
+        {srcSpecs[currentSrcSpecIndex]?.useNextImage ? (
           <Image
             // src={srcUrls[currentSrcIndex]}
             src={srcSpecs[currentSrcSpecIndex].url}
