@@ -6,10 +6,6 @@ import Image from 'next/image'
 // third party components
 import Lottie from 'lottie-react'
 
-// components
-import Input from 'components/Input'
-import Textarea from 'components/Input/Textarea'
-
 // custom functions
 import { useViewport } from 'utils'
 
@@ -21,37 +17,20 @@ import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
-import OutlineButton from 'components/Button/OutlineButton'
 import { FadeLoader } from 'react-spinners'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
 
 const Step03CollectionSection = props => {
   const {
-    currentStep,
     onChangeCurrentStep,
     collectionMintName,
     collectionFiles,
     bannerCroppedImage,
     uploadedCount,
     startUpload,
-    setStartUpload = false,
-    setDisabledNextButton,
+    setStartUpload,
   } = props
 
   const viewport = useViewport()
-
-  // variables
-  // const [disabledNextButton, setDisabledNextButton] = useState(true)
-
-  const handleChangeCurrentStep = step => {
-    onChangeCurrentStep(step)
-  }
-
-  // const uploadArtworks = () => {
-  //   setStartUpload(true)
-  //   readFilesAndUplaod()
-  // }
 
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
@@ -65,12 +44,6 @@ const Step03CollectionSection = props => {
           count++
         }
       })
-
-      // if (count === 0) {
-      //   setDisabledNextButton(true)
-      // } else {
-      //   setDisabledNextButton(false)
-      // }
     }
   }, [collectionFiles])
 
@@ -165,29 +138,6 @@ const Step03CollectionSection = props => {
                       </div>
                     ))}
                 </div>
-                {/* <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
-                  <div className="flex gap-10">
-                    <OutlineButton
-                      label="Back"
-                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                      width={120}
-                      height={53}
-                      borderWidth={2}
-                    />
-                    {startUpload ? (
-                      <LoadingButton width={120} height={53} />
-                    ) : (
-                      <GradientButton
-                        label="Mint"
-                        width={120}
-                        height={53}
-                        disabled={disabledNextButton}
-                        onClick={() => uploadArtworks()}
-                      />
-                    )}
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -275,34 +225,6 @@ const Step03CollectionSection = props => {
                 ))}
             </div>
           </div>
-          {/* <div className="w-full flex justify-between my-10">
-            <div className="w-full flex justify-between">
-              <div>
-                <OutlineButton
-                  label="Back"
-                  onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                  width={175}
-                  height="45px"
-                  // color="#EFF0F6"
-                  borderWidth={2}
-                  // borderColor="#5AC3BA"
-                />
-              </div>
-              <div>
-                <button
-                  className={styles.mintCollection}
-                  disabled={disabledNextButton}
-                  style={{
-                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                  }}
-                  onClick={() => uploadArtworks()}
-                >
-                  Mint
-                </button>
-              </div>
-            </div>
-          </div> */}
         </div>
       )}
     </div>
