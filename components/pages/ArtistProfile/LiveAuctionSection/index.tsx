@@ -124,7 +124,7 @@ const LiveAuctionSection = props => {
             </div>
           </div>
         ) : (
-          <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
               <NFTAuctionCard
                 image={item.asset_url}

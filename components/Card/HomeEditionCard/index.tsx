@@ -18,7 +18,7 @@ import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
-import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 const HomeEditionCard = props => {
   const { data, type = 'limit', onClick } = props
