@@ -104,7 +104,7 @@ const OpenEditionSection = props => {
           </Swiper>
         </div>
 
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[10px]">
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[30px]">
           <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"

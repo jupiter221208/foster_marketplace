@@ -93,7 +93,7 @@ const Collection = () => {
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
   const [disabledButton, setDisabledButton] = useState(false)
-
+  const [startUpload, setStartUpload] = useState(false)
   const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
@@ -450,6 +450,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        parent_nft: null,
+        max_supply: null,
+        edition: 0,
       })
       setUploadedCount(i + 1)
     }
@@ -485,7 +488,7 @@ const Collection = () => {
         <div className="lg:flex hidden w-full justify-center">
           <div className="w-full g-container mt-[66px]">
             <ProgressSection
-              currentStep={currentStep}
+              currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
               nextDisabled={disabledButton}
               onBack={() => {
                 if (currentStep === 1) router.push('/create/single-nft')
@@ -493,10 +496,13 @@ const Collection = () => {
               }}
               onNext={() => {
                 if (currentStep === 2) mintCollection()
-                else setCurrentStep(currentStep + 1)
+                else if (currentStep === 4) {
+                  setStartUpload(true)
+                  readFilesAndUplaod()
+                } else setCurrentStep(currentStep + 1)
               }}
               loading={isMinting}
-              labels={['Create Collection', 'Review']}
+              labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
             />
           </div>
         </div>
@@ -557,6 +563,7 @@ const Collection = () => {
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
+            setDisabledNextButton={setDisabledButton}
           />
         )}
 
@@ -566,13 +573,13 @@ const Collection = () => {
 
         {currentStep === 4 && (
           <Step03CollectionSection
-            currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
-            readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
+            startUpload={startUpload}
+            setStartUpload={setStartUpload}
           />
         )}
         {currentStep === 5 && (

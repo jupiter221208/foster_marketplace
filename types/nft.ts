@@ -178,6 +178,7 @@ export interface ExploreAPIData {
   price: number
   token_id: string
   name: string
+  max_supply: string
   creator: string
   artist_profile_picture: string
   collection_name: string

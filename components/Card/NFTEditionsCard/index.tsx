@@ -7,12 +7,10 @@ import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
-import ClockSandMobileIcon from 'assets/icons/clock-sand-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -44,7 +42,6 @@ const NFTEditionsCard = props => {
   const [play, setPlay] = useState(false)
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
   const [hideTimer, setHideTimer] = useState(false)
-
   useEffect(() => {
     if (
       assetType.includes('video') &&
@@ -226,12 +223,7 @@ const NFTEditionsCard = props => {
             )}
             {endTime && !hideTimer && (
               <div className={styles.timeContainer}>
-                <div className="sm:block hidden">
-                  <ClockSandIcon />
-                </div>
-                <div className="block sm:hidden">
-                  <ClockSandMobileIcon />
-                </div>
+                <ClockSandIcon />
                 <div className="flex gap-[4px] mt-[-1px]">
                   {endDate.day > 0 && (
                     <div className="flex gap-[2px]">
@@ -281,9 +273,11 @@ const NFTEditionsCard = props => {
                   ? currentSupply === undefined
                     ? '-'
                     : currentSupply + ' sold'
-                  : (currentSupply === undefined ? '-' : currentSupply) +
+                  : (currentSupply === undefined || maxSupply === null
+                      ? maxSupply
+                      : parseInt(maxSupply) - parseInt(currentSupply)) +
                     '/' +
-                    (maxSupply === undefined ? '-' : maxSupply) +
+                    (maxSupply === undefined || maxSupply === null ? '0' : maxSupply) +
                     ' left'}
               </div>
             </div>

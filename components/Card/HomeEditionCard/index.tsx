@@ -18,13 +18,14 @@ import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getDisplayUserName, getPriceValue } from 'utils/strings'
-import { calculateAuctionTimeLeft, getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 const HomeEditionCard = props => {
   const { data, type = 'limit', onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
   const [timeLeft, setTimeLeft] = useState(null)
+  const [hover, setHover] = useState(false)
 
   useEffect(() => {
     if (
@@ -50,44 +51,34 @@ const HomeEditionCard = props => {
   }, [data.endTime])
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
-        {data.endTime !== null && data.startTime !== data.endTime ? (
-          <div className={styles.timeSection}>
-            <ClockSandIcon />
-
-            <div className="flex items-center gap-[2px]">
-              {timeLeft && timeLeft['days'] !== '00' && (
-                <div>
-                  <div className={styles.endTime}>
-                    {timeLeft && timeLeft['days']}
-                    <div className={styles.bidDesc}>d</div>
-                  </div>
-                </div>
-              )}
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['hours']}
-                  <div className={styles.bidDesc}>h</div>
-                </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['minutes']}
-                  <div className={styles.bidDesc}>m</div>
-                </div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['seconds']}
-                  <div className={styles.bidDesc}>s</div>
-                </div>
-              </div>
-            </div>
+        <div className={styles.profileContainer}>
+          <div>
+            <Link href={`/nft/${data.tokenId}`} passHref>
+              <a>
+                <div className={styles.nftName}>{data?.nftName}</div>
+              </a>
+            </Link>
+            <Link href={`/${data.artistUsername}`} passHref>
+              <a>
+                <div className={styles.artistName}>{getDisplayUserName(data?.artistUsername)}</div>
+              </a>
+            </Link>
           </div>
-        ) : (
-          <div className={styles.topSection} />
-        )}
+          <Link href={`/${data.artistUsername}`} passHref>
+            <a>
+              {data?.artistProfilePicture === undefined ||
+              data?.artistProfilePicture === null ||
+              data?.artistProfilePicture === '' ? (
+                <img src={DefaultAvatar.src} className="w-[45px]  h-[45px] rounded-full" />
+              ) : (
+                <img src={data?.artistProfilePicture} onClick={() => {}} className="w-[45px] h-[45px] rounded-full" />
+              )}
+            </a>
+          </Link>
+        </div>
+
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {data.assetType.includes('video') ? (
@@ -183,36 +174,45 @@ const HomeEditionCard = props => {
                 </a>
               </Link>
             )}
+
+            {data.endTime !== null && data.startTime !== data.endTime && (
+              <div className={styles.timeSection}>
+                <ClockSandIcon />
+
+                <div className="flex items-center gap-[2px]">
+                  {timeLeft && timeLeft['days'] !== '00' && (
+                    <div>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['days']}
+                        <div className={styles.bidDesc}>d</div>
+                      </div>
+                    </div>
+                  )}
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['hours']}
+                      <div className={styles.bidDesc}>h</div>
+                    </div>
+                  </div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['minutes']}
+                      <div className={styles.bidDesc}>m</div>
+                    </div>
+                  </div>
+                  <div className={styles.endTimeContainer}>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['seconds']}
+                      <div className={styles.bidDesc}>s</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
-        <div className={styles.profileContainer}>
-          <div>
-            <Link href={`/nft/${data.tokenId}`} passHref>
-              <a>
-                <div className={styles.nftName}>{data?.nftName}</div>
-              </a>
-            </Link>
-            <Link href={`/${data.artistUsername}`} passHref>
-              <a>
-                <div className={styles.artistName}>{getDisplayUserName(data?.artistUsername)}</div>
-              </a>
-            </Link>
-          </div>
-          <Link href={`/${data.artistUsername}`} passHref>
-            <a>
-              {data?.artistProfilePicture === undefined ||
-              data?.artistProfilePicture === null ||
-              data?.artistProfilePicture === '' ? (
-                <img src={DefaultAvatar.src} className="w-[45px]  h-[45px] rounded-full" />
-              ) : (
-                <img src={data?.artistProfilePicture} onClick={() => {}} className="w-[45px] h-[45px] rounded-full" />
-              )}
-            </a>
-          </Link>
-        </div>
-
-        <div className={styles.bidContainer}>
+        <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
               <div className={styles.bidName}>Price</div>

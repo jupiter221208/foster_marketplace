@@ -126,8 +126,8 @@ const NFTAuctionCard = props => {
                       ) : coverImage != null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
-                          width={200}
-                          className="w-full h-full object-cover"
+                          width={800}
+                          className="max-w-full max-h-full object-cover"
                           onClick={() => onClick()}
                         />
                       ) : (
@@ -171,13 +171,13 @@ const NFTAuctionCard = props => {
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a className="w-full h-full flex items-center justify-center">
-                    <div>
+                  <a className="flex justify-center items-center">
+                    <div className="w-full h-full">
                       <ImageWithFoster
                         src={coverImage}
                         onClick={onClick}
                         width={800}
-                        className="w-full h-full object-cover"
+                        className="max-w-full max-h-full object-cover"
                       />
                     </div>
                   </a>
@@ -191,23 +191,28 @@ const NFTAuctionCard = props => {
               )
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full flex items-center justify-center">
-                  <div>
+                <a className="flex justify-center items-center">
+                  <div className="w-full h-full">
                     <ImageWithFoster
                       src={coverImage}
                       width={800}
                       onClick={onClick}
                       alt=""
-                      className={styles.imageNft}
+                      className="max-w-full max-h-full object-cover"
                     />
                   </div>
                 </a>
               </Link>
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full flex items-center justify-center">
-                  <div>
-                    <ImageWithFoster src={image} width={800} onClick={onClick} className={styles.imageNft} />
+                <a className="flex justify-center items-center">
+                  <div className="w-full h-full">
+                    <ImageWithFoster
+                      src={image}
+                      width={800}
+                      onClick={onClick}
+                      className="max-w-full max-h-full object-cover"
+                    />
                   </div>
                 </a>
               </Link>

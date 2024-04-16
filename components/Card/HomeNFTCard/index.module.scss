@@ -265,15 +265,15 @@
 
 .priceHome {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 16px;
   line-height: 23px;
   margin-left: 7px;
   margin-top: -2px;
   @media (min-width: 640px) {
     margin-top: -2px;
     margin-left: 7px;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 23px;
   }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
