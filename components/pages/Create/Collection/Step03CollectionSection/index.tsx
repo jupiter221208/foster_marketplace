@@ -37,7 +37,6 @@ const Step03CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
-
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
   })

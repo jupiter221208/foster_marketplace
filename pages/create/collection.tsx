@@ -341,6 +341,8 @@ const Collection = () => {
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
 
+    setIsMinting(true)
+
     let array = []
 
     const collectionPublicKey = new PublicKey(collectionMintAddress)
@@ -517,7 +519,9 @@ const Collection = () => {
           router.push(`/collection/${collectionMintAddress}`)
         }, 500)
       },
-      error => {}
+      error => {
+        setIsMinting(false)
+      }
     )
 
     dispatch({ type: 'set', isCollectionMinting: false })
@@ -636,7 +640,6 @@ const Collection = () => {
             mintCollection={() => {
               setStartUpload(true)
               readFilesAndUplaod()
-              setCurrentStep(currentStep + 1)
             }}
           />
         )}

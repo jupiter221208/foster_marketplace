@@ -984,7 +984,7 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          <div className="w-full flex justify-end my-10">
+          <div className="w-full my-10">
             <div className="w-full">
               <Button
                 label="Back"
@@ -999,7 +999,7 @@ const Step02CollectionSection = props => {
                 fontSize={18}
               />
             </div>
-            <div className="w-full">
+            <div className="w-full mt-[15px]">
               {coverImageProcessing ? (
                 <LoadingButton fullWidth height={50} />
               ) : (
