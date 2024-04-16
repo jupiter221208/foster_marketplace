@@ -61,7 +61,7 @@ const Collection = () => {
 
   // --------------variables------------
   const [currentStep, setCurrentStep] = useState(mintCollectionStep)
-  console.log(mintCollectionStep, '============mintCollectionStep===========')
+
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
@@ -285,6 +285,7 @@ const Collection = () => {
   }
 
   const handleChangeMaxNum = (item, value) => {
+    console.log(item, value, '===========item=============')
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
       if (index > -1) prevFiles[index].maxNum = value

@@ -13,7 +13,7 @@ import DimensionMenu from 'components/Menu/DimensionMenu'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import SwipRadio from 'components/Radio/SwipRadio'
+// import SwipRadio from 'components/Radio/SwipRadio'
 
 // Icons
 import ImageIcon from 'assets/icons/image-icon.svg?component'
@@ -34,6 +34,7 @@ import styles from './index.module.scss'
 import ModelViewer from 'components/ModelViewer'
 import { limit } from 'utils/strings'
 import { validDigits } from 'utils/helpers'
+import ProductionListMenu from 'components/ProductionListMenu'
 
 const Step02CollectionSection = props => {
   const {
@@ -540,17 +541,27 @@ const Step02CollectionSection = props => {
                           )}
 
                           {/* Editins */}
-                          <div className="mb-[30px]">
+                          <div className="mb-[30px] mt-[30px]">
                             <div className={styles.subTitle}>
                               Edition type <span>*</span>
                             </div>
-                            <SwipRadio
+                            {/* <SwipRadio
                               data={EditionList}
                               selected={item.editionType}
                               onChange={item => {
                                 onChangeEditionType(item, item)
                               }}
-                            />
+                            /> */}
+                            <div className="mt-[15px]">
+                              <ProductionListMenu
+                                label={item.editionType.label}
+                                data={EditionList}
+                                selectedItem={item.editionType}
+                                setSelectedItem={data => {
+                                  onChangeEditionType(item, data)
+                                }}
+                              />
+                            </div>
                             {item.editionType.id === 0 && (
                               <div className="mt-[30px]">
                                 <div className={styles.maxSupplyTitle}>
@@ -567,9 +578,9 @@ const Step02CollectionSection = props => {
                                         item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply
                                       }`}
                                       onClick={() => {
-                                        onChangeMaxNum(item)
-                                        onChangeMaxSupply(item.value)
-                                        onChangeSupply(0)
+                                        onChangeMaxNum(item, number)
+                                        onChangeMaxSupply(item, number.value)
+                                        onChangeSupply(item, 0)
                                       }}
                                     >
                                       {number.label}
@@ -586,8 +597,8 @@ const Step02CollectionSection = props => {
                                         value={item.supply}
                                         onChange={value => {
                                           let digits = validDigits(value)
-                                          onChangeMaxSupply(Math.floor(digits))
-                                          onChangeSupply(Math.floor(digits))
+                                          onChangeMaxSupply(item, Math.floor(digits))
+                                          onChangeSupply(item, Math.floor(digits))
                                         }}
                                         min={0}
                                         placeholder="Provide of maxmium supply of editions"

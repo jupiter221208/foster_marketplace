@@ -1,12 +1,12 @@
 [
   {
-    "id": 0,
+    "id": 2,
     "name": "single",
     "label": "1 of 1",
     "small_tip": "One of a kind artwork"
   },
   {
-    "id": 1,
+    "id": 0,
     "name": "Limited Edition",
     "label": "Limited Edition",
     "small_tip": "Set the max amount of editions that can be minted"
