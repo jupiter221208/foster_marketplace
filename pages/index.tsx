@@ -88,7 +88,7 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className={styles.newReleaseSection}>
         <div className="g-container">
           <MarketplaceReleaseSection category={''} />
         </div>

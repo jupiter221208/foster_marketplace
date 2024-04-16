@@ -81,10 +81,9 @@ const Step03CollectionSection = props => {
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
-                      <div className="w-full">
+                      <div className="w-full" key={index}>
                         <div
                           className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                          key={index}
                           onClick={() => setSelectedCollectionFile(item)}
                         >
                           <div

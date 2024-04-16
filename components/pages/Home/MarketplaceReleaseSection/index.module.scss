@@ -2,8 +2,8 @@
 
 .container {
   position: relative;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  padding-top: 60px;
+  padding-bottom: 70px;
 }
 
 .bottomLeftEllipse {
@@ -25,6 +25,7 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 24px;
+  line-height: 30px;
   color: var(--text-gray-200-color);
 }
 
