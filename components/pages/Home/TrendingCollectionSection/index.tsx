@@ -162,7 +162,9 @@ const TrendingCollectionSection = props => {
                 }
                 spaceBetween={viewport === 'xs' ? 10 : 20}
                 modules={[Autoplay, Lazy, Navigation]}
-                className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
+                className={`${trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper pb-0'} ${
+                  styles.noPaddingBottom
+                }`}
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>
