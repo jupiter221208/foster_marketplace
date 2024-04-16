@@ -18,9 +18,13 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
+import Button from 'components/Button'
+import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const Step03CollectionSection = props => {
   const {
+    currentStep,
     onChangeCurrentStep,
     collectionMintName,
     collectionFiles,
@@ -28,6 +32,8 @@ const Step03CollectionSection = props => {
     uploadedCount,
     startUpload,
     setStartUpload,
+    isMinting,
+    mintCollection,
   } = props
 
   const viewport = useViewport()
@@ -138,9 +144,8 @@ const Step03CollectionSection = props => {
         // mobile part
         <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          <div className={`${styles.title} w-full`}>{collectionMintName}</div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
+          <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
             <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
@@ -159,13 +164,15 @@ const Step03CollectionSection = props => {
             </div>
           </div>
 
+          <div className={`${styles.title} w-full mt-[15px]`}>{collectionMintName}</div>
+
           <div className="w-full">
-            <div className="w-full mt-[70px]">
+            <div className="w-full">
               {/* {!showMore && */}
               {collectionFiles.length !== 0 &&
                 collectionFiles.map((item, index) => (
                   <div
-                    className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
+                    className="w-full flex flex-wrap justify-between items-center gap-[15px] mt-[30px] lg:mt-10 cursor-pointer"
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
@@ -186,12 +193,8 @@ const Step03CollectionSection = props => {
                           <Image
                             src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                             alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
+                            width={68}
+                            height={68}
                             objectFit="cover"
                             className="rounded-lg"
                           />
@@ -210,11 +213,48 @@ const Step03CollectionSection = props => {
                     <div className="w-full">
                       <div className={styles.nftName}>{item.name} </div>
                     </div>
-                    <div className="w-full mt-[15px]">
+                    <div className="w-full">
                       <div className={styles.nftDesc}>{item.description} </div>
+                    </div>
+                    <div className="w-full flex gap-[15px]">
+                      <div className={styles.editionType}>{item.editionType.label}</div>
+                      {item.editionType.id === 0 && <div className={styles.editionType}>{item.maxSupply}</div>}
                     </div>
                   </div>
                 ))}
+            </div>
+            <div className="w-full my-10">
+              {/* button group part */}
+              <div>
+                <Button
+                  label="Back"
+                  onClick={() => onChangeCurrentStep(currentStep - 1)}
+                  fullWidth
+                  fontFamily="Muli-SemiBold"
+                  height="50px"
+                  backgroundColor="transparent"
+                  color="var(--main-bg-color)"
+                  borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                  borderWidth={1}
+                  fontSize={18}
+                />
+              </div>
+              <div className="mt-[18px]">
+                {isMinting ? (
+                  <LoadingButton fullWidth height={50} />
+                ) : (
+                  <GradientButton
+                    label="Mint"
+                    fullWidth
+                    height={50}
+                    fontSize={18}
+                    borderColor="transparent"
+                    onClick={() => {
+                      mintCollection()
+                    }}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>

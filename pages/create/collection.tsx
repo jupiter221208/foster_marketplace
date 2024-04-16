@@ -61,7 +61,7 @@ const Collection = () => {
   const { refreshToken } = useAuthentication()
 
   // --------------variables------------
-  const [currentStep, setCurrentStep] = useState(mintCollectionStep)
+  const [currentStep, setCurrentStep] = useState(3)
 
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
@@ -483,6 +483,11 @@ const Collection = () => {
       } else {
         assetUrl = metadata.image
       }
+
+      let max_supply_value = 0
+      if (editionType?.name == 'Limited Edition') max_supply_value = maxSupply
+      else if (editionType?.name == 'Open Edition') max_supply_value = null
+
       array.push({
         token_id: nftKeypair.publicKey.toString(),
         nft_name: metadata.name,
@@ -491,9 +496,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
-        edition: editionType?.name == 'Open Edition' || editionType?.name == 'Limited Edition' ? 0 : null,
+        edition: 0,
         parent_nft: null,
-        max_supply: editionType?.name == 'Limited Edition' ? maxSupply : null,
+        max_supply: max_supply_value,
       })
       setUploadedCount(i + 1)
     }
@@ -532,7 +537,7 @@ const Collection = () => {
               currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
               nextDisabled={disabledButton}
               onBack={() => {
-                if (currentStep === 1) router.push('/create/single-nft')
+                if (currentStep === 1) router.back()
                 else setCurrentStep(currentStep - 1)
               }}
               onNext={() => {
@@ -608,6 +613,7 @@ const Collection = () => {
             onChangeMaxSupply={(item, value) => handleChangeMaxSupply(item, value)}
             onChangeSupply={(item, value) => handleChangeSupply(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
+            disabledNextButton={disabledButton}
             setDisabledNextButton={setDisabledButton}
           />
         )}
@@ -618,6 +624,7 @@ const Collection = () => {
 
         {currentStep === 4 && (
           <Step03CollectionSection
+            currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
@@ -625,6 +632,12 @@ const Collection = () => {
             uploadedCount={uploadedCount}
             startUpload={startUpload}
             setStartUpload={setStartUpload}
+            isMinting={isMinting}
+            mintCollection={() => {
+              setStartUpload(true)
+              readFilesAndUplaod()
+              setCurrentStep(currentStep + 1)
+            }}
           />
         )}
         {currentStep === 5 && (

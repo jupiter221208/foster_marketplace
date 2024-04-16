@@ -35,6 +35,10 @@ import ModelViewer from 'components/ModelViewer'
 import { limit } from 'utils/strings'
 import { validDigits } from 'utils/helpers'
 import ProductionListMenu from 'components/ProductionListMenu'
+import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
+import { useRouter } from 'next/router'
+import Button from 'components/Button'
 
 const Step02CollectionSection = props => {
   const {
@@ -53,11 +57,13 @@ const Step02CollectionSection = props => {
     onChangeMaxNum,
     onChangeMaxSupply,
     onChangeSupply,
+    disabledNextButton,
     setDisabledNextButton,
   } = props
 
   const viewport = useViewport()
   const dropzoneNftEl = useRef(null)
+  const router = useRouter()
 
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
@@ -632,20 +638,6 @@ const Step02CollectionSection = props => {
                     </div>
                   )}
                 </div>
-                {/* <div className="w-full h-32" />
-                <div className="absolute bottom-10 w-full flex justify-end">
-                  {coverImageProcessing ? (
-                    <LoadingButton width={224} height={56} />
-                  ) : (
-                    <GradientButton
-                      label="Next Step"
-                      width={224}
-                      height={56}
-                      disabled={disabledNextButton}
-                      onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                    />
-                  )}
-                </div> */}
               </div>
             </div>
           </div>
@@ -656,11 +648,6 @@ const Step02CollectionSection = props => {
       ) : (
         // mobile part
         <div className="g-container mb-[47px]">
-          {/* CollectionStepper part */}
-          {/* <div className="w-full">
-            <CollectionStepper currentStep={currentStep} />
-          </div> */}
-
           <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
             <div className="w-full flex flex-wrap justify-center z-10">
@@ -837,64 +824,6 @@ const Step02CollectionSection = props => {
                     <div onClick={() => onRemoveCollectionFile(item)}>
                       <TrashBinSmall />
                     </div>
-                    {/* <IconButtonWithSVG
-                      icon={
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="17.696"
-                          height="19.485"
-                          viewBox="0 0 17.696 19.485"
-                        >
-                          <g id="Icon_feather-trash-2" data-name="Icon feather-trash-2" transform="translate(0.8 0.8)">
-                            <path
-                              id="Path_105825"
-                              data-name="Path 105825"
-                              d="M4.5,9H20.6"
-                              transform="translate(-4.5 -5.423)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.6"
-                            />
-                            <path
-                              id="Path_105826"
-                              data-name="Path 105826"
-                              d="M20.019,6.577V19.1a1.788,1.788,0,0,1-1.788,1.788H9.288A1.788,1.788,0,0,1,7.5,19.1V6.577m2.683,0V4.788A1.788,1.788,0,0,1,11.971,3h3.577a1.788,1.788,0,0,1,1.788,1.788V6.577"
-                              transform="translate(-5.712 -3)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.6"
-                            />
-                            <path
-                              id="Path_105827"
-                              data-name="Path 105827"
-                              d="M15,16.5v5.365"
-                              transform="translate(-8.74 -8.452)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.6"
-                            />
-                            <path
-                              id="Path_105828"
-                              data-name="Path 105828"
-                              d="M21,16.5v5.365"
-                              transform="translate(-11.163 -8.452)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.6"
-                            />
-                          </g>
-                        </svg>
-                      }
-                      iconHeight={24}
-                    /> */}
                   </div>
 
                   <div className="w-full">
@@ -976,6 +905,64 @@ const Step02CollectionSection = props => {
                       </>
                     )}
                   </div>
+                  {/* Editins */}
+                  <div className="w-full mb-[30px] mt-[30px]">
+                    <div className={styles.subTitle}>
+                      Edition type <span>*</span>
+                    </div>
+                    <div className="w-full mt-[15px]">
+                      <ProductionListMenu
+                        label={item.editionType.label}
+                        data={EditionList}
+                        selectedItem={item.editionType}
+                        setSelectedItem={data => {
+                          onChangeEditionType(item, data)
+                        }}
+                      />
+                    </div>
+                    {item.editionType.id === 0 && (
+                      <div className="mt-[15px]">
+                        <div className={styles.maxSupplyTitle}>
+                          Max Supply <span>*</span>
+                        </div>
+                        <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                        <div className="flex flex-wrap gap-[20px] mt-[16px] lg:mt-[25px]">
+                          {MaxNumberList.map((number, index) => (
+                            <div
+                              key={index}
+                              className={`${item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply}`}
+                              onClick={() => {
+                                onChangeMaxNum(item, number)
+                                onChangeMaxSupply(item, number.value)
+                                onChangeSupply(item, 0)
+                              }}
+                            >
+                              {number.label}
+                            </div>
+                          ))}
+                        </div>
+                        {item.maxNum && item.maxNum['id'] === 3 && (
+                          <div className="max-w-[450px] mt-[15px] lg:mt-[30px]">
+                            <div className={styles.maxTitle}>
+                              Custom Supply <span>*</span>
+                            </div>
+                            <div className="mt-[15px]">
+                              <Input
+                                value={item.supply}
+                                onChange={value => {
+                                  let digits = validDigits(value)
+                                  onChangeMaxSupply(item, Math.floor(digits))
+                                  onChangeSupply(item, Math.floor(digits))
+                                }}
+                                min={0}
+                                placeholder="Provide of maxmium supply of editions"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
           </div>
@@ -997,25 +984,49 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          {/* <div className="w-full flex justify-end my-10">
-            <div className="w-[161px] mr-[16px]">
+          <div className="w-full flex justify-end my-10">
+            <div className="w-full">
+              <Button
+                label="Back"
+                onClick={() => router.back()}
+                fullWidth
+                fontFamily="Muli-SemiBold"
+                height="50px"
+                backgroundColor="transparent"
+                color="var(--main-bg-color)"
+                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                borderWidth={1}
+                fontSize={18}
+              />
+            </div>
+            <div className="w-full">
               {coverImageProcessing ? (
-                <LoadingButton width={161} height={45} />
+                <LoadingButton fullWidth height={50} />
               ) : (
-                <button
-                  className={styles.nextStep}
-                  disabled={disabledNextButton}
-                  style={{
-                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                  }}
+                // <button
+                //   className={styles.nextStep}
+                //   disabled={disabledNextButton}
+                //   style={{
+                //     color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
+                //     background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
+                //   }}
+                //   onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                // >
+                //   Next Step
+                // </button>
+                <GradientButton
+                  fullWidth
+                  label="Next"
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                >
-                  Next Step
-                </button>
+                  height="50px"
+                  fontSize={18}
+                  fontFamily="Muli-SemiBold"
+                  borderColor="transparent"
+                  disabled={disabledNextButton}
+                />
               )}
             </div>
-          </div> */}
+          </div>
         </div>
       )}
       {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && openImageEditorModal && (
