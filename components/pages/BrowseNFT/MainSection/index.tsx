@@ -1318,7 +1318,7 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className={`w-full lg:max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
+                <div className={`w-full lg:max-h-[100px] my-[28px] ${!isTruncated && 'overflow-scroll'}`}>
                   {nftDescription ? (
                     <div className={styles.whiteDescription}>
                       <div className="lg:block hidden">
@@ -1670,7 +1670,7 @@ const MainSection = ({
                                       }}
                                     >
                                       {auctionLoading ? (
-                                        <LoadingButton fullWidth height={50}/>
+                                        <LoadingButton fullWidth height={50} />
                                       ) : (
                                         <GradientButton
                                           label="Place Bid"

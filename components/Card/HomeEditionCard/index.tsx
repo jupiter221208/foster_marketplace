@@ -220,7 +220,7 @@ const HomeEditionCard = props => {
             </div>
             <div>
               <div className={styles.bidCountContainer}>
-                <div className="h-full mt-[2px]">
+                <div className={`h-full mt-[2px] ${styles.sol_icon_color}`}>
                   <SolanaLogoMobileIcon alt="" />
                 </div>
                 <div className={styles.bidCount}>{getPriceValue(Number(data.price))}</div>

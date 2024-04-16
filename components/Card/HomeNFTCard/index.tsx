@@ -180,9 +180,9 @@ const HomeNftCard = props => {
                     <div className={styles.priceLabel}>Price</div>
                     <div className="flex justify-center items-center mt-[4px]">
                       {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                        <SolanaLogoIcon className="mt-[2px]" />
+                        <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       ) : (
-                        <SolanaLogoIcon className="mt-[2px]" />
+                        <SolanaLogoIcon className={`mt-[2px] ${styles.sol_icon_color}`} />
                       )}
                       <div className={styles.priceHome}>{formattedAmount(price)}</div>
                     </div>

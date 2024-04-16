@@ -223,7 +223,7 @@ const Step02CollectionSection = props => {
           {/* left part */}
           <div className="flex-[50%] g-left-container">
             <div className={styles.leftContainer}>
-              <div className="w-full flex flex-wrap justify-center z-10">
+              <div className="w-full flex flex-wrap justify-center z-10 max-w-max">
                 {/* banner image */}
                 <div className="w-full flex justify-start z-10">
                   <div className={styles.imageArea} style={{ width: artWidth, height: (artWidth * 65) / 76 }}>
@@ -300,9 +300,10 @@ const Step02CollectionSection = props => {
                   </div>
                 </div>
               </div>
-              {collectionFiles.length !== 0 ? (
-                <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile !== undefined &&
+
+              <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
+                {collectionFiles.length !== 0 ? (
+                  selectedCollectionFile !== undefined &&
                   selectedCollectionFile.type === 'image' &&
                   selectedCollectionFile.dimensionList !== undefined ? (
                     <DimensionMenu
@@ -311,12 +312,12 @@ const Step02CollectionSection = props => {
                       onSelect={item => handleChangeDimension(item)}
                     />
                   ) : (
-                    <>&nbsp;</>
-                  )}
-                </div>
-              ) : (
-                <div className={styles.preview}>Preview will display here</div>
-              )}
+                    <> </>
+                  )
+                ) : (
+                  <div className={styles.preview}>Preview will display here</div>
+                )}
+              </div>
 
               {/* <div className="w-full flex justify-start mt-[50px]">
                 <div className={styles.grayText} style={{ width: artWidth, textAlign: 'center' }}>

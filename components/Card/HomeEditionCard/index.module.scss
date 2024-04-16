@@ -132,7 +132,7 @@
 }
 
 .artistName {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 14px;
   height: 18px;
   margin-top: 7px;
@@ -222,4 +222,10 @@
 
 .bottomHover {
   background: rgba(var(--main-bg-color-rgb), 0.05) !important;
+}
+
+.sol_icon_color {
+  * {
+    fill: var(--main-icon-color);
+  }
 }

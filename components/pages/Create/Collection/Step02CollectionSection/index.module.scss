@@ -13,13 +13,13 @@
   width: 100%;
   position: relative;
   max-height: 100vh;
-  padding: 16px 16px 16px 0px;
+  margin: 16px 16px 16px 0px;
   overflow-y: scroll;
   @media (min-width: 1024px) {
-    padding: 50px 20px 80px 0px;
+    margin: 50px 20px 80px 0px;
   }
   @media (min-width: 1280px) {
-    padding: 54px 40px 54px 0px;
+    margin: 54px 40px 54px 0px;
   }
   display: flex;
   justify-content: center;
@@ -33,10 +33,9 @@
 
 .preview {
   position: absolute;
+  display: grid;
+  place-items: center;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: 'Muli-Light';
   font-size: 16px;
   font-weight: 100;
@@ -253,7 +252,7 @@
   margin-top: 20px;
   display: flex;
   gap: 24px;
-  
+
   @media (max-width: 420px) {
     gap: 1rem;
   }
@@ -265,7 +264,7 @@
     fill: var(--main-icon-color);
     background-color: rgba(var(--main-bg-color-rgb), 0.05);
     border-radius: 10px;
-   
+
     @media (max-width: 420px) {
       svg {
         scale: 0.7;
@@ -279,7 +278,7 @@
     justify-content: center;
     gap: 0.25rem;
     font-family: 'Muli-Regular';
-    font-size: 14px; 
+    font-size: 14px;
     @media (min-width: 1024px) {
       padding: 16px 21px;
       font-size: 16px;
@@ -295,7 +294,7 @@
       justify-content: center;
       cursor: pointer;
       font-family: 'Muli-Regular';
-      font-size: 14px; 
+      font-size: 14px;
       @media (min-width: 1024px) {
         padding: 16px 21px;
         font-size: 16px;

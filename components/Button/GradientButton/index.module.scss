@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
+  height: 50px;
   border-radius: 12px;
   font-family: 'Muli-SemiBold';
   line-height: 100%;
@@ -12,7 +12,7 @@
   padding-right: 8px;
   font-size: 14px;
   @media (min-width: 1024px) {
-    height: 46px;
+    height: 50px;
     font-size: 16px;
     padding-left: 12px;
     padding-right: 12px;
@@ -33,14 +33,14 @@
 
 .disabledBtn {
   background: rgba(var(--main-bg-color-rgb), 0.05) !important;
-  color:  rgba(var(--main-bg-color-rgb), 0.5) !important;
+  color: rgba(var(--main-bg-color-rgb), 0.5) !important;
 }
 
 .hoverBtn {
   &:hover {
     @media (min-width: 1024px) {
       background: var(--gradient-btn-hover-bg) !important;
-      color: var(--gradient-btn-hover-color) !important
+      color: var(--gradient-btn-hover-color) !important;
     }
   }
 }

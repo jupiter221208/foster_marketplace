@@ -526,7 +526,7 @@ const Step01CollectionSection = props => {
               <div className="w-full relative">
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[20px]`}>
+                  <div className={`${styles.subTitle}`}>
                     Collection Name <span>*</span>
                   </div>
                   <div className="w-full mt-[15px]">
