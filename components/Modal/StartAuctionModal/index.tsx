@@ -99,7 +99,7 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                   <div className="w-full h-full flex justify-center mt-[50px] px-[100px]">
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>
-                        {data?.category === 'vr' ? (
+                        {data?.category.includes('vr') ? (
                           <div className={`${styles.imageArea} w-full h-full`}>
                             {data?.animation_url ? (
                               <ModelViewer path={data.animation_url} orbitLimited />
@@ -109,13 +109,13 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                               <h1>Could not load NFT.</h1>
                             )}
                           </div>
-                        ) : data?.category === 'video' ? (
+                        ) : data?.category.includes('video') ? (
                           <div className={styles.videoArea}>
                             <video controls autoPlay loop className="max-w-full max-h-full">
                               <source type="video/mp4" src={data?.animation_url} />
                             </video>
                           </div>
-                        ) : data?.category === 'audio' ? (
+                        ) : data?.category.includes('audio') ? (
                           <div className="w-full h-full">
                             <AudioPlayer src={data?.animation_url} cover={data?.image} />
                           </div>
@@ -133,7 +133,7 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                 </div>
               ) : (
                 <div className="w-full lg:hidden block">
-                  {data?.category === 'vr' ? (
+                  {data?.category.includes('vr') ? (
                     data?.animation_url ? (
                       <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
                         <ModelViewer path={data?.animation_url} orbitLimited />
@@ -145,15 +145,15 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                     ) : (
                       <h1>Could not load NFT.</h1>
                     )
-                  ) : data?.category === 'image' ? (
+                  ) : data?.category.includes('image') ? (
                     <div className={styles.mobileImageArea}>
                       <img onError={handleImageError} src={nftImage} alt="" className="w-full" />
                     </div>
-                  ) : data?.category === 'audio' ? (
+                  ) : data?.category.includes('audio') ? (
                     <div>
                       <AudioPlayer src={data?.animation_url} cover={data?.image} />
                     </div>
-                  ) : data?.category === 'video' ? (
+                  ) : data?.category.includes('video') ? (
                     <div className={styles.videoArea}>
                       <div className={styles.mobileVideoThumb}>
                         <div

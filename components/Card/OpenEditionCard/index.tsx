@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import GradientButton from 'components/Button/GradientButton'

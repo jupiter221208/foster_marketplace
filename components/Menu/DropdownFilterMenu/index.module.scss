@@ -13,6 +13,7 @@
   justify-content: space-between;
   align-items: center;
   outline: none;
+  white-space: nowrap;
   @media (min-width: 1024px) {
     padding: 0px 20px;
     background: var(--background-main-color);

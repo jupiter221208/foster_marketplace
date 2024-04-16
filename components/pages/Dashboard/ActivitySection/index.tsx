@@ -143,8 +143,8 @@ const ActivitySection = () => {
   }, [filterKey])
 
   return (
-    <section className="w-full mt-6 lg:mt-[0px] min-h-[600px]">
-      <div className="mt-[30px] w-full flex justify-between">
+    <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
+      <div className="lg:mt-[30px] w-full flex justify-between">
         <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
         <DropdownFilterMenu
           label={selectedItem['label']}
@@ -157,7 +157,7 @@ const ActivitySection = () => {
         />
       </div>
 
-      <div className="w-full z-10 mt-[-30px]">
+      <div className="w-full z-10 mt-[10px] lg:mt-[-30px]">
         {loading === false ? (
           <div className="col-span-12">
             <LoadingModal open={!loading} />
