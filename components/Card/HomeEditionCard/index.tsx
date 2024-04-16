@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'

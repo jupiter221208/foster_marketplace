@@ -12,7 +12,7 @@ import { useViewport } from 'utils'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-14x12.svg?component'
 
 // styles
 import styles from './index.module.scss'

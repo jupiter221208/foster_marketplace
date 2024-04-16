@@ -9,7 +9,7 @@ import { useViewport } from 'utils'
 import { calculateAuctionTimeLeft, formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-14x12.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -213,7 +213,7 @@ const LiveAuctionCard = props => {
             </div>
             <div>
               <div className={styles.bidCountContainer}>
-                <div className="h-full mt-[2px]">
+                <div className="h-full">
                   <SolanaLogoMobileIcon alt="" />
                 </div>
                 <div className={styles.bidCount}>
