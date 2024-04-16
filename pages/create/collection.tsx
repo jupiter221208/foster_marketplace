@@ -16,6 +16,7 @@ import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
+import EditionList from 'assets/json/single-nft/edition-type.json'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -60,7 +61,7 @@ const Collection = () => {
 
   // --------------variables------------
   const [currentStep, setCurrentStep] = useState(mintCollectionStep)
-
+  console.log(mintCollectionStep, '============mintCollectionStep===========')
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
@@ -240,6 +241,8 @@ const Collection = () => {
         object.type = 'vr'
         object.url = URL.createObjectURL(item)
       }
+      object.editionType = EditionList[0]
+
       array.push(object)
     })
 
@@ -269,6 +272,38 @@ const Collection = () => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
       if (index > -1) prevFiles[index].description = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeEditionType = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].editionType = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxNum = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxNum = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxSupply = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].supply = value
       return [...prevFiles]
     })
   }
@@ -562,6 +597,10 @@ const Collection = () => {
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            onChangeEditionType={(item, value) => handleChangeEditionType(item, value)}
+            onChangeMaxNum={(item, value) => handleChangeMaxNum(item, value)}
+            onChangeMaxSupply={(item, value) => handleChangeMaxSupply(item, value)}
+            onChangeSupply={(item, value) => handleChangeSupply(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
             setDisabledNextButton={setDisabledButton}
           />

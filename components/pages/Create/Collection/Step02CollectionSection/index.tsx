@@ -13,25 +13,27 @@ import DimensionMenu from 'components/Menu/DimensionMenu'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import SwipRadio from 'components/Radio/SwipRadio'
 
 // Icons
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
 import TrashBinSmall from 'assets/icons/trash-bin-18x18.svg?component'
+
 // custom functions
 import { useViewport } from 'utils'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
+import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
+import EditionList from 'assets/json/single-nft/edition-type.json'
 
 // styles
 import styles from './index.module.scss'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
-import LoadingButton from 'components/Button/LoadingButton'
 import { limit } from 'utils/strings'
-import GradientButton from 'components/Button/GradientButton'
+import { validDigits } from 'utils/helpers'
 
 const Step02CollectionSection = props => {
   const {
@@ -45,7 +47,11 @@ const Step02CollectionSection = props => {
     onRemoveCollectionFile,
     onChangeCollectionName,
     onChangeCollectionDescription,
+    onChangeEditionType,
     onChangeCroppedImage,
+    onChangeMaxNum,
+    onChangeMaxSupply,
+    onChangeSupply,
     setDisabledNextButton,
   } = props
 
@@ -56,6 +62,7 @@ const Step02CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [addMoreClicked, setAddMoreClicked] = useState(false)
+  const [edition, setEdition] = useState(2)
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -531,6 +538,66 @@ const Step02CollectionSection = props => {
                               )}
                             </div>
                           )}
+
+                          {/* Editins */}
+                          <div className="mb-[30px]">
+                            <div className={styles.subTitle}>
+                              Edition type <span>*</span>
+                            </div>
+                            <SwipRadio
+                              data={EditionList}
+                              selected={item.editionType}
+                              onChange={item => {
+                                onChangeEditionType(item, item)
+                              }}
+                            />
+                            {item.editionType.id === 0 && (
+                              <div className="mt-[30px]">
+                                <div className={styles.maxSupplyTitle}>
+                                  Max Supply <span>*</span>
+                                </div>
+                                <div className={styles.editionDescription}>
+                                  The max number of copies that will be created
+                                </div>
+                                <div className="flex flex-wrap gap-[20px] mt-[16px] lg:mt-[25px]">
+                                  {MaxNumberList.map((number, index) => (
+                                    <div
+                                      key={index}
+                                      className={`${
+                                        item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply
+                                      }`}
+                                      onClick={() => {
+                                        onChangeMaxNum(item)
+                                        onChangeMaxSupply(item.value)
+                                        onChangeSupply(0)
+                                      }}
+                                    >
+                                      {number.label}
+                                    </div>
+                                  ))}
+                                </div>
+                                {item.maxNum && item.maxNum['id'] === 3 && (
+                                  <div className="max-w-[450px] mt-[45px]">
+                                    <div className={styles.maxTitle}>
+                                      Custom Supply <span>*</span>
+                                    </div>
+                                    <div className="mt-[15px]">
+                                      <Input
+                                        value={item.supply}
+                                        onChange={value => {
+                                          let digits = validDigits(value)
+                                          onChangeMaxSupply(Math.floor(digits))
+                                          onChangeSupply(Math.floor(digits))
+                                        }}
+                                        min={0}
+                                        placeholder="Provide of maxmium supply of editions"
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}

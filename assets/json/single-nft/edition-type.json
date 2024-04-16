@@ -1,6 +1,12 @@
 [
   {
     "id": 0,
+    "name": "single",
+    "label": "1 of 1",
+    "small_tip": "One of a kind artwork"
+  },
+  {
+    "id": 1,
     "name": "Limited Edition",
     "label": "Limited Edition",
     "small_tip": "Set the max amount of editions that can be minted"
@@ -11,4 +17,5 @@
     "label": "Open Edition",
     "small_tip": "Unlimited amount of editions can be minted"
   }
+  
 ]
