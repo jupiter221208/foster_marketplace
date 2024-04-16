@@ -17,13 +17,14 @@ const TimeSlotButton = props => {
     borderRadius = '',
     paddingLeft = '',
     paddingRight = '',
+    className = '',
   } = props
 
   return (
     <button
       type="button"
       onClick={() => onClick()}
-      className={styles.container}
+      className={`${styles.container} ${className}`}
       style={{
         width: fullWidth ? '100%' : width,
         color: `${selected ? 'var(--background-main-color)' : '#979EA2'}`,

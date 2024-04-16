@@ -214,6 +214,7 @@ const TabSection = props => {
               onClick={() => {
                 setArtworkType('editions')
               }}
+              className="min-w-max"
             />
           </div>
 
