@@ -1,11 +1,5 @@
 [
   {
-    "id": 2,
-    "name": "single",
-    "label": "1 of 1",
-    "small_tip": "One of a kind artwork"
-  },
-  {
     "id": 0,
     "name": "Limited Edition",
     "label": "Limited Edition",

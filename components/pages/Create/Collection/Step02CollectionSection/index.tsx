@@ -27,7 +27,7 @@ import { useViewport } from 'utils'
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
-import EditionList from 'assets/json/single-nft/edition-type.json'
+import EditionList from 'assets/json/collections/edition-type.json'
 
 // styles
 import styles from './index.module.scss'

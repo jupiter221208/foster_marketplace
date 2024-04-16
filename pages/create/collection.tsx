@@ -16,7 +16,7 @@ import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
-import EditionList from 'assets/json/single-nft/edition-type.json'
+import EditionList from 'assets/json/collections/edition-type.json'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
