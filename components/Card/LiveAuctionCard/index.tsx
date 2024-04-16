@@ -213,7 +213,7 @@ const LiveAuctionCard = props => {
             </div>
             <div>
               <div className={styles.bidCountContainer}>
-                <div className="h-full">
+                <div className={`h-full ${styles.sol_icon_color}`}>
                   <SolanaLogoMobileIcon alt="" />
                 </div>
                 <div className={styles.bidCount}>

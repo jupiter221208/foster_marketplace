@@ -265,7 +265,7 @@ const OpenEditionCard = ({ data }) => {
 
             <div className={styles.priceLabel}>Price</div>
             <div className="flex gap-[6px] mt-[12px] mb-[4px] items-center">
-              <div className="">
+              <div className={styles.sol_icon_color}>
                 <SolanaIcon alt="" />
               </div>
               <div className={styles.price}>{getPriceValue(Number(data.price))}</div>

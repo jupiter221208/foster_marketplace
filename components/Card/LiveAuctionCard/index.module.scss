@@ -235,3 +235,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.sol_icon_color {
+  * {
+    fill: var(--main-icon-color);
+  }
+}

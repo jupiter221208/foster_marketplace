@@ -102,11 +102,10 @@
   width: fit-content;
   display: flex;
   gap: 21px;
-  align-items: center;  
+  align-items: center;
 }
 
 .nftNames {
-  
   p:first-child {
     font-family: 'Muli-SemiBold';
     font-size: 20px;
@@ -184,7 +183,7 @@
   font-family: 'Muli-SemiBold';
   border-radius: 12px;
   color: var(--pagination-down-icon);
-  border: solid 1px rgba(var(--background-light-color-rgb), 0.25);  
+  border: solid 1px rgba(var(--background-light-color-rgb), 0.25);
 }
 
 .secondBtn {
@@ -210,21 +209,21 @@
   font-size: 16px;
   line-height: 23px;
   margin-top: -2px;
-  color: var(--text-gray-200-color) 
+  color: var(--text-gray-200-color);
 }
 
 .priceLabel {
   font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8) 
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .sold {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
-  color: var(--text-gray-200-color) 
+  color: var(--text-gray-200-color);
 }
 
 .priceBox {
@@ -265,7 +264,6 @@
   font-size: 16px;
   line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
-
 }
 
 .skeletonLoader:empty {
@@ -300,5 +298,11 @@
   }
   100% {
     opacity: 0.6;
+  }
+}
+
+.sol_icon_color {
+  * {
+    fill: var(--main-icon-color);
   }
 }
