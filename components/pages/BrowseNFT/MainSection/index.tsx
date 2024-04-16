@@ -1670,7 +1670,7 @@ const MainSection = ({
                                       }}
                                     >
                                       {auctionLoading ? (
-                                        <LoadingButton fullWidth />
+                                        <LoadingButton fullWidth height={50}/>
                                       ) : (
                                         <GradientButton
                                           label="Place Bid"
@@ -1679,6 +1679,7 @@ const MainSection = ({
                                           backgroundColor02="var(--main-icon-color)"
                                           color="var(--background-main-color)"
                                           borderColor="transparent"
+                                          height={50}
                                           fontSize={18}
                                           disabled={
                                             price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))

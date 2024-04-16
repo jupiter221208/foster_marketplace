@@ -115,7 +115,7 @@ const MintEditionCard = props => {
               </div>
             </div>
           )}
-          <div className={`${auctionStarted && !auctionEnded ? 'w-[180px]' : 'w-full'}`}>
+          <div className={`${auctionStarted && !auctionEnded ? 'w-[160px] lg:w-[180px]' : 'w-full'}`}>
             <div className={styles.mintQty}>
               <div
                 onClick={() => {
