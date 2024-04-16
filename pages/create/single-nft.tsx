@@ -329,7 +329,6 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    console.log(editionType, maxNum, '-----111------')
     handleFormValidate(currentStep)
   }, [nftName, description, categoryList, editionType, currentStep, maxNum])
 

@@ -81,60 +81,53 @@ const Step03CollectionSection = props => {
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
-                      <div
-                        className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                        key={index}
-                        onClick={() => setSelectedCollectionFile(item)}
-                      >
+                      <div className="w-full">
                         <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.greenText
-                              : styles.text
-                          }
+                          className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                          key={index}
+                          onClick={() => setSelectedCollectionFile(item)}
                         >
-                          {index + 1}
-                        </div>
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.selectedImage
-                              : styles.nonSelectedImage
-                          }
-                        >
-                          {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full h-full" id="video">
-                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                              Your browser does not support the video tag.
-                            </video>
-                          ) : (
-                            <Image
-                              src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
-                              alt=""
-                              width={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 95 : 95
-                              }
-                              height={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 95 : 95
-                              }
-                              objectFit="cover"
-                              className="rounded-lg"
-                            />
-                          )}
-                        </div>
-                        <div className="w-full">
-                          <div className={styles.nftName}>{item.name} </div>
-                          <div className={styles.nftDesc}>{item.description} </div>
-                        </div>
-                        {startUpload && (
-                          <div className="absolute -right-20 top-4 w-10 h-10">
-                            {index < uploadedCount ? (
-                              <Lottie animationData={CheckLottery} loop={true} />
+                          <div
+                            className={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                ? styles.selectedImage
+                                : styles.nonSelectedImage
+                            }
+                          >
+                            {item.type === 'video' ? (
+                              <video loop autoPlay className="w-full h-full" id="video">
+                                <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                                Your browser does not support the video tag.
+                              </video>
                             ) : (
-                              <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                              <Image
+                                src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
+                                alt=""
+                                width={95}
+                                height={95}
+                                objectFit="cover"
+                                className="rounded-lg"
+                              />
                             )}
                           </div>
-                        )}
+                          <div className="w-full">
+                            <div className={styles.nftName}>{item.name} </div>
+                            <div className={styles.nftDesc}>{item.description} </div>
+                          </div>
+                          {startUpload && (
+                            <div className="absolute -right-20 top-4 w-10 h-10">
+                              {index < uploadedCount ? (
+                                <Lottie animationData={CheckLottery} loop={true} />
+                              ) : (
+                                <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex gap-[15px] mt-[20px]">
+                          <div className={styles.editionType}>{item.editionType.label}</div>
+                          {item.editionType.id === 0 && <div className={styles.editionType}>{item.maxSupply}</div>}
+                        </div>
                       </div>
                     ))}
                 </div>

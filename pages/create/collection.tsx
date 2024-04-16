@@ -26,6 +26,7 @@ import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import {
   CreateNftOutput,
   JsonMetadata,
+  toBigNumber,
   toMetaplexFile,
   toMetaplexFileFromBrowser,
   TransactionBuilder,
@@ -285,7 +286,6 @@ const Collection = () => {
   }
 
   const handleChangeMaxNum = (item, value) => {
-    console.log(item, value, '===========item=============')
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
       if (index > -1) prevFiles[index].maxNum = value
@@ -354,7 +354,7 @@ const Collection = () => {
     })
 
     for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      let { name, description, file, croppedImage, type, nftCoverImage, editionType, maxSupply } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
@@ -427,6 +427,10 @@ const Collection = () => {
         }
       )
 
+      let max_supply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') max_supply = toBigNumber(maxSupply)
+      else if (editionType?.name == 'Open Edition') max_supply = null
+
       createNftOperation.add(
         await mx.nfts().builders().create({
           useNewMint: nftKeypair,
@@ -434,6 +438,7 @@ const Collection = () => {
           name,
           sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
           collection: collectionPublicKey,
+          maxSupply: max_supply,
         })
       )
 
@@ -486,9 +491,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        edition: editionType?.name == 'Open Edition' || editionType?.name == 'Limited Edition' ? 0 : null,
         parent_nft: null,
-        max_supply: null,
-        edition: 0,
+        max_supply: editionType?.name == 'Limited Edition' ? maxSupply : null,
       })
       setUploadedCount(i + 1)
     }
