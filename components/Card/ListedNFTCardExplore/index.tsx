@@ -171,8 +171,8 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         <div className={styles.imageInfo}>
           <div className={styles.nftData}>
             <div>
-              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
-              <div className="w-full flex justify-between">
+              <div className={styles.nftName}>{nftName}</div>
+              <div className="w-full flex justify-between pb-2">
                 <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
               </div>
             </div>
