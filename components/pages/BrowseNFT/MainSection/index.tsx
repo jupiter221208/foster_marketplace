@@ -1491,7 +1491,7 @@ const MainSection = ({
                         backgroundColor02="var(--main-icon-color)"
                         color="var(--background-main-color)"
                         borderColor="transparent"
-                        label={nftInfo?.master_edition?.endTime === null || !isEnded ? 'Update' : 'Relist'}
+                        label={'Relist or Update'}
                         onClick={() => {}}
                       />
                       <div className="mt-[15px]">
