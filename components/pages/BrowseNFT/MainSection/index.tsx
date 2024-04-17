@@ -553,6 +553,11 @@ const MainSection = ({
     return false
   }
 
+  const isNftMasterEdition = () => {
+    if (editionType === 'master_oe' || editionType === 'master_le') return true
+    return false
+  }
+
   const getTokenTypeString = () => {
     if (editionType === 'master_oe') return 'Master Edition'
     else if (editionType === 'master_le') return 'Master Edition'
@@ -1330,7 +1335,7 @@ const MainSection = ({
                   )}
                 </div>
 
-                {editionDetail && !isNftPrintEdition() && (
+                {editionDetail && isNftMasterEdition() && (
                   <div className="flex gap-[10px]">
                     <div className={styles.editionTitle}>
                       {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
