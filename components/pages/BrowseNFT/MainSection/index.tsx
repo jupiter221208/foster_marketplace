@@ -1485,11 +1485,22 @@ const MainSection = ({
                 {isEditionListing ? (
                   isOwnNft === true ? (
                     <div className="w-full mt-[20px]">
-                      {cancelListLoading ? (
-                        <LoadingButton fullWidth />
-                      ) : (
-                        <GradientButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
-                      )}
+                      <GradientButton
+                        fullWidth
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                        color="var(--background-main-color)"
+                        borderColor="transparent"
+                        label={nftInfo?.master_edition?.endTime === null || !isEnded ? 'Update' : 'Relist'}
+                        onClick={() => {}}
+                      />
+                      <div className="mt-[15px]">
+                        {cancelListLoading ? (
+                          <LoadingButton fullWidth />
+                        ) : (
+                          <GradientButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                        )}
+                      </div>
                     </div>
                   ) : (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[10px]">
