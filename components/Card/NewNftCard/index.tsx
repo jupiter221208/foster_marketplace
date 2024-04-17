@@ -278,7 +278,7 @@ const NewNftCard = props => {
                   <br />
                   Would you like to proceed?
                 </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                <div className="flex gap-[15px] lg:gap-[19px] mt-[50px] justify-center">
                   <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
                     Cancel
                   </div>
