@@ -61,7 +61,7 @@ const Collection = () => {
   const { refreshToken } = useAuthentication()
 
   // --------------variables------------
-  const [currentStep, setCurrentStep] = useState(3)
+  const [currentStep, setCurrentStep] = useState(mintCollectionStep)
 
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
