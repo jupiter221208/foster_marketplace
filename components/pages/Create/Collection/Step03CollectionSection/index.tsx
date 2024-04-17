@@ -130,7 +130,9 @@ const Step03CollectionSection = props => {
                         </div>
                         <div className="flex gap-[15px] mt-[20px]">
                           <div className={styles.editionType}>{item.editionType.label}</div>
-                          {item.editionType.id === 0 && <div className={styles.editionType}>{item.maxSupply}</div>}
+                          {item.editionType.id === 0 && (
+                            <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
+                          )}
                         </div>
                       </div>
                     ))}
@@ -217,7 +219,9 @@ const Step03CollectionSection = props => {
                     </div>
                     <div className="w-full flex gap-[15px]">
                       <div className={styles.editionType}>{item.editionType.label}</div>
-                      {item.editionType.id === 0 && <div className={styles.editionType}>{item.maxSupply}</div>}
+                      {item.editionType.id === 0 && (
+                        <div className={styles.editionType}>{item.maxSupply + ' editions'}</div>
+                      )}
                     </div>
                   </div>
                 ))}
