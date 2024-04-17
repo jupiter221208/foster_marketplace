@@ -548,14 +548,8 @@ const MainSection = ({
     }
   }, [supply])
 
-  const isNftEdition = () => {
-    if (
-      editionType === 'print_le' ||
-      editionType === 'print_oe' ||
-      editionType === 'master_oe' ||
-      editionType === 'master_le'
-    )
-      return true
+  const isNftPrintEdition = () => {
+    if (editionType === 'print_oe' || editionType === 'print_le') return true
     return false
   }
 
@@ -1335,10 +1329,27 @@ const MainSection = ({
                     <></>
                   )}
                 </div>
+
+                {editionDetail && !isNftPrintEdition() && (
+                  <div className="flex gap-[10px]">
+                    <div className={styles.editionTitle}>
+                      {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
+                    </div>
+                    <div className={styles.editionValue}>
+                      {editionType === 'master_le'
+                        ? Number(editionDetail?.maxSupply) -
+                          Number(editionDetail?.supply) +
+                          '/' +
+                          Number(editionDetail?.maxSupply) +
+                          ' Left'
+                        : Number(editionDetail?.supply) + ' Sold'}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="w-full flex flex-wrap mt-10 lg:mt-0">
-                {editionDetail && isNftEdition() && (
+                {editionDetail && isNftPrintEdition() && (
                   <div className={styles.editionContainer}>
                     {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
                       <div className={styles.editionSecondRow}>
@@ -1431,6 +1442,7 @@ const MainSection = ({
                     )}
                   </div>
                 )}
+
                 <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
                   {nftCategories && nftCategories.length > 0 && (
                     <div className="flex flex-wrap flex-col gap-2">
