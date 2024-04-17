@@ -103,13 +103,14 @@ const MoreCollectionSection = props => {
         </Swiper>
       </div>
       <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
+        <div className="w-full max-w-[300px] z-10 mt-[10px]">
           <OutlineButton
             label="See More"
             fullWidth
             onClick={() => router.push(`/collection/${collectionId}`)}
-            borderColor={'var(--see-more-border)'}
+            fontSize="16px"
             height="40px"
+            borderRadius="8px"
           />
         </div>
       </div>

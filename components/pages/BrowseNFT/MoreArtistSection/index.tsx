@@ -104,7 +104,7 @@ const MoreArtistSection = props => {
           </Swiper>
         </div>
         <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px]">
+          <div className="w-full max-w-[300px] mt-[10px]">
             <OutlineButton
               label="See More"
               fullWidth
@@ -112,8 +112,9 @@ const MoreArtistSection = props => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
-              borderColor={'var(--see-more-border)'}
+              fontSize="16px"
               height="40px"
+              borderRadius="8px"
             />
           </div>
         </div>
