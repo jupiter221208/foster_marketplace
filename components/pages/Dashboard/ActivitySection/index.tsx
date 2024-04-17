@@ -90,7 +90,7 @@ const ActivitySection = () => {
       else {
         let filtered = []
 
-        activityList.forEach(element => {
+        allList.forEach(element => {
           if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
         })
         setFilteredList(filtered)
@@ -99,7 +99,7 @@ const ActivitySection = () => {
       let filtered = []
       setFilteredList([])
 
-      activityList.forEach(element => {
+      allList.forEach(element => {
         if (filterKey === '') {
           if (element.asset_name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
         } else if (
@@ -120,7 +120,7 @@ const ActivitySection = () => {
         let filtered = []
         setFilteredList([])
 
-        activityList.forEach(element => {
+        allList.forEach(element => {
           if (filterKey === '')
             if (element.asset_name.toLowerCase().includes(searchKey.toLowerCase())) filtered.push(element)
         })
@@ -130,7 +130,7 @@ const ActivitySection = () => {
     }
 
     let filtered = []
-    activityList.forEach(element => {
+    allList.forEach(element => {
       if (searchKey === '') {
         if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
       } else if (

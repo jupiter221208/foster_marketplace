@@ -99,7 +99,7 @@ const Home = () => {
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className={styles.liveEditions}>Live Editins</div>
+          <div className={styles.liveEditions}>Live Editions</div>
           <LimitedEditionSection category={''} editions={editionList} />
         </div>
       </div>
