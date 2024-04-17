@@ -34,8 +34,7 @@ const TrendingArtistCard = props => {
             <div className="absolute inset-0 w-full h-full">
               <ImageWithFoster
                 src={artist.banner_picture}
-                width={400}
-                height={293}
+                width={800}
                 onClick={() => {}}
                 className="w-full h-full object-cover"
                 showPlaceHolder={false}
