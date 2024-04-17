@@ -4,10 +4,11 @@
   position: relative;
   z-index: 10;
   padding-top: 30px;
+  padding-bottom: 32px;
   @media (min-width: 1024px) {
     padding-top: 60px;
+    padding-bottom: 80px;
   }
-  padding-bottom: 80px;
 }
 
 .title {
