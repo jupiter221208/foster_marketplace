@@ -19,8 +19,10 @@
   margin-top: 2px;
   margin-bottom: 0px;
   &:hover {
-    margin-top: 0px;
-    margin-bottom: 2px;
+    @media (min-width: 1024px) {
+      margin-top: 0px;
+      margin-bottom: 2px;
+    }
   }
 }
 

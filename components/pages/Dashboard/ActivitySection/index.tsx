@@ -90,7 +90,7 @@ const ActivitySection = () => {
       else {
         let filtered = []
 
-        activityList.forEach(element => {
+        allList.forEach(element => {
           if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
         })
         setFilteredList(filtered)
@@ -99,7 +99,7 @@ const ActivitySection = () => {
       let filtered = []
       setFilteredList([])
 
-      activityList.forEach(element => {
+      allList.forEach(element => {
         if (filterKey === '') {
           if (element.asset_name.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
         } else if (
@@ -120,7 +120,7 @@ const ActivitySection = () => {
         let filtered = []
         setFilteredList([])
 
-        activityList.forEach(element => {
+        allList.forEach(element => {
           if (filterKey === '')
             if (element.asset_name.toLowerCase().includes(searchKey.toLowerCase())) filtered.push(element)
         })
@@ -130,7 +130,7 @@ const ActivitySection = () => {
     }
 
     let filtered = []
-    activityList.forEach(element => {
+    allList.forEach(element => {
       if (searchKey === '') {
         if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
       } else if (
@@ -145,16 +145,20 @@ const ActivitySection = () => {
   return (
     <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
-        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-        <DropdownFilterMenu
-          label={selectedItem['label']}
-          data={filterList}
-          selectedItem={selectedItem}
-          setSelectedItem={item => {
-            setSelectedItem(item)
-            setFilterKey(item.search)
-          }}
-        />
+        <div className="w-[185px]">
+          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+        </div>
+        <div>
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setFilterKey(item.search)
+            }}
+          />
+        </div>
       </div>
 
       <div className="w-full z-10 mt-[10px] lg:mt-[-30px]">

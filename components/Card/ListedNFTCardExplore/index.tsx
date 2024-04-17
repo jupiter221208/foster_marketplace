@@ -59,7 +59,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                     <a className="w-full h-full relative">
                       {play ? (
                         <div
-                          className="w-full h-full absolute"
+                          className="w-full h-full absolute overflow-hidden"
                           dangerouslySetInnerHTML={{
                             __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
@@ -99,7 +99,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </div>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a className="w-full h-full flex items-center">
+                  <a className="w-full h-full flex items-center overflow-hidden">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{

@@ -146,7 +146,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+                setArtistInfo({
+                  address: response.creator_address,
+                  name: response.creator_username,
+                  profile_image: response.creator_profile_image,
+                })
               }
             }
           },
@@ -158,7 +162,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+                setArtistInfo({
+                  address: response.creator_address,
+                  name: response.creator_username,
+                  profile_image: response.creator_profile_image,
+                })
               }
             }
           },
@@ -211,7 +219,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (!isString(response)) {
             setNftInfo(response)
             if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              setArtistInfo({
+                address: response.creator_address,
+                name: response.creator_username,
+                profile_image: response.creator_profile_image,
+              })
             }
           }
         },
@@ -223,7 +235,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (!isString(response)) {
             setNftInfo(response)
             if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              setArtistInfo({
+                address: response.creator_address,
+                name: response.creator_username,
+                profile_image: response.creator_profile_image,
+              })
             }
           }
         },

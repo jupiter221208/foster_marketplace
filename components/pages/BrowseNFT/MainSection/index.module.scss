@@ -293,6 +293,10 @@
   font-size: 14px;
   line-height: 18px;
   color: var(--text-gray-200-color);
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .infoText {

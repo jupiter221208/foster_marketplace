@@ -14,6 +14,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
 import PreviewImage from 'assets/images/preview-image.png'
+import SolonaLogoIcon from 'assets/icons/solana-logo-black.svg?component'
 
 // custom functions
 import { useDetectRouterPath, useViewport } from 'utils'
@@ -29,9 +30,12 @@ import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
 
 // api
 import dashboardAPI from 'apis/dashboard'
+import GradientButton from 'components/Button/GradientButton'
+import ShopMerchSection from 'components/pages/Home/ShopMerchSection'
 
 const Home = () => {
   const viewport = useViewport()
+  const router = useRouter()
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
@@ -43,6 +47,7 @@ const Home = () => {
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [editionList, setEditionList] = useState<any>([])
+  const [visibleBoundary, setVisibleBoundary] = useState(false)
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
@@ -88,9 +93,9 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className={styles.newReleaseSection}>
         <div className="g-container">
-          <MarketplaceReleaseSection category={''} />
+          <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
         </div>
       </div>
       <div className="w-full flex justify-center">
@@ -98,11 +103,66 @@ const Home = () => {
           <LimitedEditionSection category={''} editions={editionList} />
         </div>
       </div>
-      <div className="w-full flex justify-center">
-        <div className="g-container ">
+      <div className={styles.editionSection}>
+        <div className="g-container">
           <OpenEditionSection category={''} editions={editionList} />
         </div>
       </div>
+      {visibleBoundary && (
+        <div className={styles.pushingBoundary}>
+          <div className="g-container w-full flex justify-center items-center">
+            <div className="lg:flex hidden gap-[28px]">
+              <div className={styles.boundaryIcon}>
+                <SolonaLogoIcon />
+              </div>
+              <div className="mt-[-5px]">
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
+              </div>
+              <GradientButton
+                width={140}
+                height={50}
+                borderRadius={25}
+                label="Explore Art"
+                color="#1A1A1A"
+                borderColor="transparent"
+                backgroundColor01="#95DBD5"
+                backgroundColor02="#95DBD5"
+                onClick={() => router.push('/explore')}
+              />
+            </div>
+            {/* Mobile */}
+            <div className="lg:hidden block gap-[28px]">
+              <div className="w-full flex justify-center">
+                <div className={styles.boundaryIcon}>
+                  <SolonaLogoIcon />
+                </div>
+              </div>
+              <div className="mt-[15px]">
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushText}>
+                  Home to creators, collectors, and curators
+                  <br /> around the world
+                </div>
+              </div>
+              <div className="w-full flex justify-center mt-[27px]">
+                <GradientButton
+                  width={120}
+                  height={40}
+                  borderRadius={20}
+                  label="Explore Art"
+                  color="#1A1A1A"
+                  fontSize={16}
+                  borderColor="transparent"
+                  backgroundColor01="#95DBD5"
+                  backgroundColor02="#95DBD5"
+                  onClick={() => router.push('/explore')}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.otherBG}>
         {viewport === 'xs' ? (
           <div className="w-full">
@@ -114,13 +174,20 @@ const Home = () => {
           </div>
         )}
       </div>
-      <div className="w-full flex justify-center">
+      <div className={styles.collectionSection}>
         <div className="g-container">
           <TrendingCollectionSection category={''} loop={true} />
-          {/* <CreateSellNFTSection /> */}
-          <FullScreenLoadingModal open={isLoading} />
         </div>
       </div>
+
+      <div className={styles.shopMerchSection}>
+        <div className="g-container">
+          <ShopMerchSection />
+        </div>
+      </div>
+
+      {/* <CreateSellNFTSection /> */}
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

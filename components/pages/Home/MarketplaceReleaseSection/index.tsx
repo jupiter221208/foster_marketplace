@@ -29,7 +29,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const MarketplaceReleaseSection = props => {
-  const { category } = props
+  const { category, setVisibleBoundary } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -59,6 +59,7 @@ const MarketplaceReleaseSection = props => {
     dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.slice(5, response.length))
+        setVisibleBoundary(true)
       }
     }),
       error => {
@@ -87,7 +88,7 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[25px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
           {marketplaceReleaseList.map((item, index) => (
             <div
               key={index}

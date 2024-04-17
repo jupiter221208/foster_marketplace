@@ -16,6 +16,7 @@ import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
+import EditionList from 'assets/json/collections/edition-type.json'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -25,6 +26,7 @@ import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import {
   CreateNftOutput,
   JsonMetadata,
+  toBigNumber,
   toMetaplexFile,
   toMetaplexFileFromBrowser,
   TransactionBuilder,
@@ -240,6 +242,8 @@ const Collection = () => {
         object.type = 'vr'
         object.url = URL.createObjectURL(item)
       }
+      object.editionType = EditionList[0]
+
       array.push(object)
     })
 
@@ -269,6 +273,38 @@ const Collection = () => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
       if (index > -1) prevFiles[index].description = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeEditionType = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].editionType = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxNum = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxNum = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxSupply = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].supply = value
       return [...prevFiles]
     })
   }
@@ -305,6 +341,8 @@ const Collection = () => {
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
 
+    setIsMinting(true)
+
     let array = []
 
     const collectionPublicKey = new PublicKey(collectionMintAddress)
@@ -318,7 +356,7 @@ const Collection = () => {
     })
 
     for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      let { name, description, file, croppedImage, type, nftCoverImage, editionType, maxSupply } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
@@ -391,6 +429,10 @@ const Collection = () => {
         }
       )
 
+      let max_supply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') max_supply = toBigNumber(maxSupply)
+      else if (editionType?.name == 'Open Edition') max_supply = null
+
       createNftOperation.add(
         await mx.nfts().builders().create({
           useNewMint: nftKeypair,
@@ -398,6 +440,7 @@ const Collection = () => {
           name,
           sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
           collection: collectionPublicKey,
+          maxSupply: max_supply,
         })
       )
 
@@ -442,6 +485,11 @@ const Collection = () => {
       } else {
         assetUrl = metadata.image
       }
+
+      let max_supply_value = 0
+      if (editionType?.name == 'Limited Edition') max_supply_value = maxSupply
+      else if (editionType?.name == 'Open Edition') max_supply_value = null
+
       array.push({
         token_id: nftKeypair.publicKey.toString(),
         nft_name: metadata.name,
@@ -450,9 +498,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
-        parent_nft: null,
-        max_supply: null,
         edition: 0,
+        parent_nft: null,
+        max_supply: max_supply_value,
       })
       setUploadedCount(i + 1)
     }
@@ -471,7 +519,9 @@ const Collection = () => {
           router.push(`/collection/${collectionMintAddress}`)
         }, 500)
       },
-      error => {}
+      error => {
+        setIsMinting(false)
+      }
     )
 
     dispatch({ type: 'set', isCollectionMinting: false })
@@ -491,7 +541,7 @@ const Collection = () => {
               currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
               nextDisabled={disabledButton}
               onBack={() => {
-                if (currentStep === 1) router.push('/create/single-nft')
+                if (currentStep === 1) router.back()
                 else setCurrentStep(currentStep - 1)
               }}
               onNext={() => {
@@ -562,7 +612,12 @@ const Collection = () => {
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            onChangeEditionType={(item, value) => handleChangeEditionType(item, value)}
+            onChangeMaxNum={(item, value) => handleChangeMaxNum(item, value)}
+            onChangeMaxSupply={(item, value) => handleChangeMaxSupply(item, value)}
+            onChangeSupply={(item, value) => handleChangeSupply(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
+            disabledNextButton={disabledButton}
             setDisabledNextButton={setDisabledButton}
           />
         )}
@@ -573,6 +628,7 @@ const Collection = () => {
 
         {currentStep === 4 && (
           <Step03CollectionSection
+            currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
@@ -580,6 +636,11 @@ const Collection = () => {
             uploadedCount={uploadedCount}
             startUpload={startUpload}
             setStartUpload={setStartUpload}
+            isMinting={isMinting}
+            mintCollection={() => {
+              setStartUpload(true)
+              readFilesAndUplaod()
+            }}
           />
         )}
         {currentStep === 5 && (

@@ -1,0 +1,21 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.shopTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 15px;
+  line-height: 19px;  
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 24px;
+    line-height: 30px;  
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.9)
+}

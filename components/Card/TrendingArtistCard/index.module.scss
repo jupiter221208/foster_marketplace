@@ -1,5 +1,10 @@
 @import 'assets/scss/variable.module.scss';
 
+.layout {
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   width: 100%;
   height: 171px;
@@ -7,6 +12,14 @@
     height: 187px;
   }
   position: relative;
+  margin-top: 2px;
+  margin-bottom: 0px;
+  &:hover {
+    @media (min-width: 1024px) {
+      margin-top: 0px;
+      margin-bottom: 2px;
+    }
+  }
 }
 
 .containerHover {
@@ -16,17 +29,18 @@
 .name {
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  color: var(--text-gray-200-color);
+  color: #fff;
   @media (min-width: 640px) {
     font-family: 'Muli-Bold';
     font-size: 20px;
+    color: #eff0f6;
   }
 }
 
 .bio {
   font-family: 'Muli-Regular';
   font-size: 14px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: rgba(#eff0f6, 0.8);
   margin-top: 27px;
   max-height: 66px;
   overflow: hidden;
@@ -46,4 +60,16 @@
 .mobileContainer {
   width: 100%;
   height: 293px
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(#000, 0.8);
+}
+
+.socialIcon {
+  svg {
+    fill: #95dbd5;
+  }
 }

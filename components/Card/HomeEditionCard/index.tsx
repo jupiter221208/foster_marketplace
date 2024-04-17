@@ -216,7 +216,7 @@ const HomeEditionCard = props => {
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
               <div className={styles.bidName}>Price</div>
-              <div className={styles.bidTime}>Limited Edition</div>
+              <div className={styles.bidTime}>{type === 'limit' ? 'Limited Edition' : 'Open Edition'}</div>
             </div>
             <div>
               <div className={styles.bidCountContainer}>

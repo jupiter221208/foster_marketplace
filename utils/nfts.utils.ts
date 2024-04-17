@@ -287,20 +287,25 @@ export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): Pu
 export interface NFTArtistInfo {
   address: PublicKey
   name: string
+  profile_image: string
 }
 
-export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
-  let artist = getNFTArtistPublicKey(nft)
-  if (!artist) return null
+// export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
+//   let artist = getNFTArtistPublicKey(nft)
+//   if (!artist) return null
 
-  let { username } = await userAPI.get(artist.toString())
-  let name = username ?? getShortAddress(artist)
+//   let response = await userAPI.get(artist.toString())
+//   console.log(response, '============response==========')
+//   let { username, profile_image } = response
+//   // let { username, profile_image } = await userAPI.get(artist.toString())
+//   let name = username ?? getShortAddress(artist)
 
-  return {
-    address: artist,
-    name,
-  }
-}
+//   return {
+//     address: artist,
+//     name,
+//     profile_image
+//   }
+// }
 
 export interface NFTSocialInfo {
   likes: number

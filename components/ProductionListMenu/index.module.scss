@@ -1,0 +1,66 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 650px;
+  }
+  height: 45px;
+  padding: 13px 15px;
+  gap: 7px;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: 0px;
+  @media (min-width: 1024px) {
+    width: 650px;
+    top: 50px;
+  }
+  background: rgba(var(--background-main-color-rgb), 0.8);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  padding: 10px 15px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}

@@ -72,7 +72,7 @@ const LimitedEditionSection = props => {
             />
           </div>
         </div>
-        <div className="w-full mt-[20px] lg:mt-[30px] z-10">
+        <div className="w-full mt-[25px] lg:mt-[30px] z-10 px-[10]">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
@@ -87,7 +87,7 @@ const LimitedEditionSection = props => {
                 : 4
             }
             spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 26 : 26
             }
             modules={[Navigation]}
             className={
@@ -106,7 +106,7 @@ const LimitedEditionSection = props => {
           </Swiper>
         </div>
 
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[10px]">
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
           <div className="w-full max-w-[300px] z-10">
             <OutlineButton
               label="See More"

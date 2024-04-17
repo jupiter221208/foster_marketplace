@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 
 // api
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const MoreArtistSection = props => {
   const { artistInfo, collectionList } = props
@@ -74,7 +75,7 @@ const MoreArtistSection = props => {
         <div className="w-full mt-[15px] lg:mt-[34px]">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1 : viewport === 'lg' ? 3 : 4}
             spaceBetween={
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
@@ -88,13 +89,14 @@ const MoreArtistSection = props => {
             {collectionList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
-                  <CollectionCard
+                  <TrendingCollectionCard
+                    collectionID={item.collection_id}
                     image={item.cover_image}
-                    nftName={item.collection_name}
-                    category={item.categories.split(',')}
+                    collectionName={item.collection_name}
                     artistName={artistInfo.name}
-                    mintAddress={item.collection_id}
-                    link={`/collection/${item.collection_id}`}
+                    avatar={artistInfo.profile_image}
+                    // nftCount={item.number_in_collections}
+                    showRemoveButton={false}
                   />
                 </div>
               </SwiperSlide>
@@ -102,7 +104,7 @@ const MoreArtistSection = props => {
           </Swiper>
         </div>
         <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px]">
+          <div className="w-full max-w-[300px] mt-[10px]">
             <OutlineButton
               label="See More"
               fullWidth
@@ -110,8 +112,9 @@ const MoreArtistSection = props => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
-              borderColor={'var(--see-more-border)'}
+              fontSize="16px"
               height="40px"
+              borderRadius="8px"
             />
           </div>
         </div>
