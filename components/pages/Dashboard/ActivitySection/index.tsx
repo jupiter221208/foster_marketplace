@@ -145,16 +145,20 @@ const ActivitySection = () => {
   return (
     <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
-        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-        <DropdownFilterMenu
-          label={selectedItem['label']}
-          data={filterList}
-          selectedItem={selectedItem}
-          setSelectedItem={item => {
-            setSelectedItem(item)
-            setFilterKey(item.search)
-          }}
-        />
+        <div className="w-[185px]">
+          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+        </div>
+        <div>
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setFilterKey(item.search)
+            }}
+          />
+        </div>
       </div>
 
       <div className="w-full z-10 mt-[10px] lg:mt-[-30px]">
