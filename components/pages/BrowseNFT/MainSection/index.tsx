@@ -532,6 +532,7 @@ const MainSection = ({
       } else {
         type = 'print_oe'
         setEditionType('print_oe')
+        fetch(`/nft/${supply.parent}`)
       }
     } else if (supply.max > 0) {
       if (supply.parent === null) {
@@ -539,8 +540,9 @@ const MainSection = ({
         setEditionType('master_le')
         getEditionListingStatus()
       } else {
-        setEditionType('print_le')
         type = 'print_le'
+        setEditionType('print_le')
+        fetch(`/nft/${supply.parent}`)
       }
     } else {
       setEditionType('normal')
