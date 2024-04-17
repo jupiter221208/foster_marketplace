@@ -118,9 +118,9 @@
 // right part
 .rightContainer {
   width: 100%;
-  max-height: 100vh;
+  // height: 100vh;
   padding: 16px 0px 16px 16px;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   @media (min-width: 1024px) {
     padding: 0px 0px 80px 50px;
   }
