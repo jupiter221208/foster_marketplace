@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 
 // api
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 const MoreArtistSection = props => {
   const { artistInfo, collectionList } = props
@@ -88,13 +89,14 @@ const MoreArtistSection = props => {
             {collectionList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
-                  <CollectionCard
+                  <TrendingCollectionCard
+                    collectionID={item.collection_id}
                     image={item.cover_image}
-                    nftName={item.collection_name}
-                    category={item.categories.split(',')}
+                    collectionName={item.collection_name}
                     artistName={artistInfo.name}
-                    mintAddress={item.collection_id}
-                    link={`/collection/${item.collection_id}`}
+                    avatar={artistInfo.profile_image}
+                    // nftCount={item.number_in_collections}
+                    showRemoveButton={false}
                   />
                 </div>
               </SwiperSlide>

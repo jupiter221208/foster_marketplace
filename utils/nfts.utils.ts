@@ -287,6 +287,7 @@ export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): Pu
 export interface NFTArtistInfo {
   address: PublicKey
   name: string
+  profile_image: string
 }
 
 export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {

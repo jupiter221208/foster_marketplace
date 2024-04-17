@@ -61,14 +61,13 @@ const TrendingCollectionCard = props => {
           </div>
 
           <div className={styles.bidContainer}>
-            {/* <div className={styles.bidGradientBgView} /> */}
             <div className={styles.bidContentView}>
               <div className="px-[15px] sm:px-[20px] lg:px-[28px]">
                 <div className={styles.nftName}>{collectionName}</div>
                 <div className="flex mt-2">
                   <div className={styles.artistName}>{artistName || collectionName}</div>
-                  <div className={styles.dotStyle}>&#183;</div>
-                  <div className={styles.nftCount}>{nftCount} artworks</div>
+                  {nftCount !== null && nftCount > 0 && <div className={styles.dotStyle}>&#183;</div>}
+                  {nftCount !== null && nftCount > 0 && <div className={styles.nftCount}>{nftCount} artworks</div>}
                 </div>
               </div>
               {avatar !== null && avatar.length > 0 && (
