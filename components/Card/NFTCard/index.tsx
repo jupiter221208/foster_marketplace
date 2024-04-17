@@ -197,12 +197,12 @@ const NFTCard = props => {
           )}
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
+              <HideIcon />
             </div>
           )}
           {showUnhideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
+              <UnhideIcon />
             </div>
           )}
         </div>
@@ -263,11 +263,7 @@ const NFTCard = props => {
             <div className="">
               <div className={styles.priceLabel}>Price</div>
               <div className="w-full flex items-center mt-[6px]">
-                {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                  <SolanaLogoMobileIcon />
-                ) : (
-                  <SolanaLogoIcon />
-                )}
+                <SolanaLogoIcon />
                 <div className={styles.price}>{price}</div>
               </div>
             </div>
@@ -300,14 +296,7 @@ const NFTCard = props => {
                   </div>
                   <div className={styles.hideButton} onClick={() => performHideNft()}>
                     <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
-                        }
-                        alt=""
-                      />
+                      <Image src={HideSmallIcon} alt="" />
                       <div className={styles.hideButtonText}>Hide</div>
                     </div>
                   </div>
@@ -339,14 +328,7 @@ const NFTCard = props => {
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnhideNft()}>
                     <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
+                      <Image src={UnhideSmallIcon} alt="" />
                       <div className={styles.hideButtonText}>Unhide</div>
                     </div>
                   </div>

@@ -16,19 +16,11 @@
 
 .hideBtnArea {
   position: absolute;
-  left: 8px;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  @media (min-width: 1024px) {
-    left: 20px;
-    top: 20px;
-    width: 52px;
-    height: 52px;
-    border-radius: 26px;
-  }
-
+  left: 20px;
+  top: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,16 +59,10 @@
 }
 
 .hideCancelButton {
-  width: 67px;
-  height: 26px;
-  border-radius: 6px;
-  font-size: 10px;
-  @media (min-width: 1024px) {
-    border-radius: 8px;
-    width: 106px;
-    height: 40px;
-    font-size: 14px;
-  }
+  border-radius: 8px;
+  width: 106px;
+  height: 40px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,14 +75,9 @@
 }
 
 .hideButton {
-  width: 67px;
-  height: 26px;
-  border-radius: 6px;
-  @media (min-width: 1024px) {
-    border-radius: 8px;
-    width: 106px;
-    height: 40px;
-  }
+  border-radius: 8px;
+  width: 106px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,10 +87,7 @@
 
 .hideButtonText {
   font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-  }
+  font-size: 16px;
   color: $background-dark-color;
 }
 
