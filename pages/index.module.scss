@@ -22,6 +22,13 @@
   border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
 
+.editionSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-141313-E8E7E5);
+}
+
 .liveEditions {
   width: 100%;
   text-align: center;
@@ -34,7 +41,10 @@
 
 .pushingBoundary {
   width: 100%;
-  padding: 50px 0px;
+  padding: 30px 0px;
+  @media (min-width: 1024px) {
+    padding: 50px 0px;
+  }
   background: #1b1d1d;
   border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -53,18 +63,38 @@
 }
 
 .pushTitle {
-  font-family: "Muli-Bold";
-  font-size: 20px;
-  line-height: 25p;
-  color: #eff0f6;
+  font-family: "Muli-SemiBold";
+  font-size: 15px;
+  line-height: 19px;
+  font-weight: 100;
+  letter-spacing: 0px;
+  text-align: center;
+  color: var(#eff0f6, 0.9);
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  @media (min-width: 1024px) {
+    width: 100%;
+    margin-left: 0px;
+    font-family: "Muli-Bold";
+    font-size: 20px;
+    line-height: 25px;
+    color: #eff0f6;
+  }
 }
 
 .pushText {
   font-family: "Muli-Light";
-  font-size: 16px;
-  line-height: 20p;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 7px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-family: "Muli-Light";
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 2px;
+  }
   color: var(#eff0f6, 0.9);
-  margin-top: 2px;
 }
 
 .collectionSection {

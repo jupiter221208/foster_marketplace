@@ -29,7 +29,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const MarketplaceReleaseSection = props => {
-  const { category } = props
+  const { category, setVisibleBoundary } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -59,6 +59,7 @@ const MarketplaceReleaseSection = props => {
     dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.slice(5, response.length))
+        setVisibleBoundary(true)
       }
     }),
       error => {

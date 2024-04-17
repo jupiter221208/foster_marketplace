@@ -47,6 +47,7 @@ const Home = () => {
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [editionList, setEditionList] = useState<any>([])
+  const [visibleBoundary, setVisibleBoundary] = useState(false)
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
@@ -94,44 +95,74 @@ const Home = () => {
       </div>
       <div className={styles.newReleaseSection}>
         <div className="g-container">
-          <MarketplaceReleaseSection category={''} />
+          <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
         </div>
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <div className={styles.liveEditions}>Live Editions</div>
           <LimitedEditionSection category={''} editions={editionList} />
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className={styles.editionSection}>
         <div className="g-container">
           <OpenEditionSection category={''} editions={editionList} />
         </div>
       </div>
-      <div className={styles.pushingBoundary}>
-        <div className="g-container w-full flex justify-center items-center">
-          <div className="flex gap-[28px]">
-            <div className={styles.boundaryIcon}>
-              <SolonaLogoIcon />
+      {visibleBoundary && (
+        <div className={styles.pushingBoundary}>
+          <div className="g-container w-full flex justify-center items-center">
+            <div className="lg:flex hidden gap-[28px]">
+              <div className={styles.boundaryIcon}>
+                <SolonaLogoIcon />
+              </div>
+              <div className="mt-[-5px]">
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
+              </div>
+              <GradientButton
+                width={140}
+                height={50}
+                borderRadius={25}
+                label="Explore Art"
+                color="#1A1A1A"
+                borderColor="transparent"
+                backgroundColor01="#95DBD5"
+                backgroundColor02="#95DBD5"
+                onClick={() => router.push('/explore')}
+              />
             </div>
-            <div className="mt-[-5px]">
-              <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
-              <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
+            {/* Mobile */}
+            <div className="lg:hidden block gap-[28px]">
+              <div className="w-full flex justify-center">
+                <div className={styles.boundaryIcon}>
+                  <SolonaLogoIcon />
+                </div>
+              </div>
+              <div className="mt-[15px]">
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushText}>
+                  Home to creators, collectors, and curators
+                  <br /> around the world
+                </div>
+              </div>
+              <div className="w-full flex justify-center mt-[27px]">
+                <GradientButton
+                  width={120}
+                  height={40}
+                  borderRadius={20}
+                  label="Explore Art"
+                  color="#1A1A1A"
+                  fontSize={16}
+                  borderColor="transparent"
+                  backgroundColor01="#95DBD5"
+                  backgroundColor02="#95DBD5"
+                  onClick={() => router.push('/explore')}
+                />
+              </div>
             </div>
-            <GradientButton
-              width={140}
-              height={50}
-              borderRadius={25}
-              label="Explore Art"
-              color="#1A1A1A"
-              borderColor="transparent"
-              backgroundColor01="#95DBD5"
-              backgroundColor02="#95DBD5"
-              onClick={() => router.push('/explore')}
-            />
           </div>
         </div>
-      </div>
+      )}
       <div className={styles.otherBG}>
         {viewport === 'xs' ? (
           <div className="w-full">
