@@ -3,10 +3,10 @@
 .container {
   position: relative;
   padding-top: 30px;
-  padding-bottom: 18px;
+  padding-bottom: 30px;
   @media (min-width: 1024px) {
     padding-top: 60px;
-    padding-bottom: 30px;
+    padding-bottom: 60px;
   }
   width: 100%;
 }
@@ -14,6 +14,7 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 24px;
+  line-height: 30px;
   color: var(--text-gray-200-color);
 }
 

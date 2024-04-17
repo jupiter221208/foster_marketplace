@@ -191,7 +191,7 @@ const LiveAuctionSection = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[20px] lg:mt-[30px] z-10">
+      <div className="w-full mt-[25px] lg:mt-[30px] z-10">
         {isLoading ? (
           <div className="w-full h-[400px] flex justify-center">
             <div className="w-[500px] h-[40px]">
@@ -215,7 +215,7 @@ const LiveAuctionSection = props => {
                 : 4
             }
             spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={
