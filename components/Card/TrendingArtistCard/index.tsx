@@ -31,7 +31,7 @@ const TrendingArtistCard = props => {
       <a className="w-full h-full">
         {viewport === 'xs' ? (
           <div className={styles.mobileContainer}>
-            <div className="absolute inset-0 w-full h-full opacity-[15%]">
+            <div className="absolute inset-0 w-full h-full">
               <ImageWithFoster
                 src={artist.banner_picture}
                 width={400}
@@ -40,30 +40,34 @@ const TrendingArtistCard = props => {
                 className="w-full h-full object-cover"
                 showPlaceHolder={false}
               />
+              <div className={styles.overlay} />
             </div>
             <div className="absolute inset-0 w-full h-full">
-              <div className="w-full flex justify-center mt-[36px]">
-                <div className="min-w-[86px] min-h-[86px] w-[86px] h-[86px] overflow-hidden ">
-                  <ImageWithFoster
-                    src={
-                      artist.profile_picture !== null &&
-                      artist.profile_picture !== undefined &&
-                      artist.profile_picture !== ''
-                        ? artist.profile_picture
-                        : Artist.src
-                    }
-                    width={86}
-                    height={86}
-                    onClick={() => {}}
-                    className="object-cover rounded-full"
-                    showPlaceHolder={false}
-                  />
+              <div className="w-full h-full flex justify-center items-center">
+                <div>
+                  <div className="w-full flex justify-center">
+                    <div className="min-w-[130px] min-h-[130px] w-[130px] h-[130px] overflow-hidden ">
+                      <ImageWithFoster
+                        src={
+                          artist.profile_picture !== null &&
+                          artist.profile_picture !== undefined &&
+                          artist.profile_picture !== ''
+                            ? artist.profile_picture
+                            : Artist.src
+                        }
+                        width={130}
+                        height={130}
+                        onClick={() => {}}
+                        className="object-cover rounded-full"
+                        showPlaceHolder={false}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full flex justify-center mt-[30px]">
+                    <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
+                  </div>
                 </div>
               </div>
-              <div className="w-full flex justify-center mt-[13px]">
-                <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
-              </div>
-              <div className={styles.bio}>{artist.bio}</div>
             </div>
           </div>
         ) : (
