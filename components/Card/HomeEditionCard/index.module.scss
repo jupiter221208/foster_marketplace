@@ -17,8 +17,10 @@
   margin-top: 2px;
   margin-bottom: 0px;
   &:hover {
-    margin-top: 0px;
-    margin-bottom: 2px;
+    @media (min-width: 1024px) {
+      margin-top: 0px;
+      margin-bottom: 2px;
+    }
   }
 }
 
@@ -221,7 +223,9 @@
 }
 
 .bottomHover {
-  background: rgba(var(--main-bg-color-rgb), 0.05) !important;
+  @media (min-width: 1024px) {
+    background: rgba(var(--main-bg-color-rgb), 0.05) !important;
+  }
 }
 
 .sol_icon_color {
