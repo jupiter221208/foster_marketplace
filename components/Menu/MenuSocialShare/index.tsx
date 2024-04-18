@@ -90,8 +90,9 @@ const MenuSocialShare = ({
                 )}
               </div>
             ) : type === 'nft' ? (
-              <div>
+              <div className="flex gap-[9px]">
                 <ShareSmallIcon />
+                <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
               </div>
             ) : (
               <div className="mt-[4px]">

@@ -54,7 +54,7 @@ import {
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
@@ -1201,7 +1201,6 @@ const MainSection = ({
                       message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
                       url={`/nft/${id}`}
                     />
-                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
                   </div>
                 </div>
               </div>
@@ -1297,106 +1296,116 @@ const MainSection = ({
           ) : (
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap">
-                <div className="w-full flex flex-wrap justify-between items-center">
-                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseMobileIcon alt="" />
-                        </div>
-                      ) : (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseIcon alt="" />
-                        </div>
-                      )}
-                    </div>
+                <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
+                  <div className="w-full flex flex-wrap justify-between items-center">
+                    <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                      <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                          <div className={styles.ellipseArea}>
+                            <ThreeEllipseMobileIcon alt="" />
+                          </div>
+                        ) : (
+                          <div className={styles.ellipseArea}>
+                            <ThreeEllipseIcon alt="" />
+                          </div>
+                        )}
+                      </div>
 
-                    {/* {nftType.includes('image') &&
-                    nftType !== 'image/gif' &&
-                    !nftCoverUrl.includes('ext=gif') &&
-                    (merchToggle || isCreatedNft) ? (
-                      <div
-                        className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
-                      >
-                        {merchToggle ? (
-                          <MerchToggleEnabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setRemoveMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        ) : isCreatedNft ? (
-                          <MerchToggleDisabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setCreateMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        {nftType.includes('image') &&
+                        nftType !== 'image/gif' &&
+                        !nftCoverUrl.includes('ext=gif') &&
+                        (merchToggle || isCreatedNft) ? (
+                          <div
+                            className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
+                          >
+                            {merchToggle ? (
+                              <MerchToggleEnabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setRemoveMerchModal(true)
+                                }}
+                                onMouseEnter={() => setMerchHover(true)}
+                                onMouseLeave={() => setMerchHover(false)}
+                              />
+                            ) : isCreatedNft ? (
+                              <MerchToggleDisabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setCreateMerchModal(true)
+                                }}
+                                onMouseEnter={() => setMerchHover(true)}
+                                onMouseLeave={() => setMerchHover(false)}
+                              />
+                            ) : (
+                              <></>
+                            )}
+
+                            {!nftType.includes('audio') && merchHover && (
+                              <div className={styles.infoText}>Foster Studio</div>
+                            )}
+                          </div>
                         ) : (
                           <></>
                         )}
-
-                        {!nftType.includes('audio') && merchHover && (
-                          <div className={styles.infoText}>Foster Studio</div>
-                        )}
                       </div>
-                    ) : (
-                      <></>
-                    )} */}
+                    </div>
                     {isCreatedNft && (
-                      <div onClick={() => setShowNftMeta(true)}>
-                        <EditNftMetaIcon alt="" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="inline">
-                    {!loadedNftInfo ? (
-                      <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
-                    ) : (
-                      <div className="flex gap-[15px] sm:gap-1 xs:gap-1 md:gap-3">
-                        <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
-                          <Image
-                            src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeLikeStatus()}
-                          />
-
-                          <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                            {likeCount}
-                          </div>
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <div onClick={() => setShowNftMeta(true)}>
+                          <EditNftMetaIcon alt="" />
                         </div>
-                        <div className="flex items-center cursor-pointer mr-[20px]">
-                          <Image
-                            src={save ? TicketGreenIcon : TicketWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeSaveStatus()}
-                          />
-                          <div className={styles.text} onClick={() => setShowSaveModal(true)}>
-                            {saveCount}
-                          </div>
-                        </div>
-                        {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-                          <div onClick={() => setOpenShareModal(true)}>
-                            <ShareSmallIcon alt="" />
-                          </div>
-                        )}
                       </div>
                     )}
                   </div>
                 </div>
+
                 <NFTCreatorDataSection
                   nftName={nftName}
                   nftCreatorname={nftCreatorname}
                   nftOwnerUsername={nftOwnerUsername}
                   nameLoading={nameLoading}
                 />
+
+                <div className="w-full mt-[15px] lg:hidden block">
+                  {!loadedNftInfo ? (
+                    <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
+                  ) : (
+                    <div className="flex gap-[15px]">
+                      <div className={`${styles.iconContainer} w-[87px]`}>
+                        <Image
+                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeLikeStatus()}
+                        />
+
+                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                          {likeCount}
+                        </div>
+                      </div>
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <Image
+                          src={save ? TicketGreenIcon : TicketWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeSaveStatus()}
+                        />
+                      </div>
+                      {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                        <div
+                          className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                          onClick={() => setOpenShareModal(true)}
+                        >
+                          <div>
+                            <ShareSmallIcon alt="" />
+                          </div>
+                          <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 <div className={styles.collectionContainer}>
                   {nftCollectionAddress && (
@@ -1599,7 +1608,6 @@ const MainSection = ({
                         color="var(--background-main-color)"
                         borderColor="transparent"
                         label={'Update/Relist'}
-                        fontSize={16}
                         onClick={() => {
                           setListEditionType('update')
                           setShowListEditionDetail(true)
@@ -1609,12 +1617,7 @@ const MainSection = ({
                         {cancelListLoading ? (
                           <LoadingButton fullWidth />
                         ) : (
-                          <OutlineButton
-                            fullWidth
-                            label="Cancel Listing"
-                            onClick={() => cancelListEdition()}
-                            fontSize={16}
-                          />
+                          <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
                         )}
                       </div>
                     </div>
