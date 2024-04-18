@@ -370,8 +370,9 @@ const MainSection = ({
         },
       ])
       setShowAlert(true)
-
-      router.reload()
+      setTimeout(() => {
+        router.reload()
+      }, 1000)
     } else {
       setAlertData([
         {
@@ -846,7 +847,7 @@ const MainSection = ({
             setShowAlert(true)
             setTimeout(() => {
               router.reload()
-            }, 500)
+            }, 1000)
           }
         })
       }
