@@ -8,7 +8,8 @@
 .bgView {
   position: fixed;
   border-radius: 30px;
-  background: var(--second-home-bg);
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   left: 45px;
   bottom: 62px;
   width: 100%;
@@ -61,7 +62,7 @@
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 24px;
-    font-family: 'Muli-Bold';
+    font-family: 'Muli-SemiBold';
   }
   color: var(--tab-bottom-color);
 }
@@ -83,7 +84,7 @@
   @media (min-width: 768px) {
     font-size: 16px;
     line-height: 24px;
-    font-family: 'Muli-SemiBold';
+    font-family: 'Muli-Regular';
   }
   color: var(--text-gray-200-color);
 }
@@ -114,7 +115,7 @@
   right: 0px;
   background: var(--background-main-color);
   border-radius: 30px 30px 0px 0px;
-  border: 1px solid var(--secondary-button-border);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   box-shadow: 0px 0px 10px var(--notification-shadow-color);
 }
 

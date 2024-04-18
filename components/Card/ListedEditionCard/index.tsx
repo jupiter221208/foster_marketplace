@@ -81,7 +81,7 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
                 />
               ) : (
                 <div className="w-full h-full">
-                  <ImageWithFoster src={coverUrl} width={360} className="w-full h-full object-cover" />
+                  <ImageWithFoster src={coverUrl} width={360} className="max-w-full max-h-full object-cover" />
                 </div>
               )}
             </div>
@@ -119,7 +119,9 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          <ImageWithFoster width={200} src={coverUrl} className="w-full h-full object-cover" />
+          <div className="w-full h-full flex items-center">
+            <ImageWithFoster width={200} src={coverUrl} className="max-w-full max-h-full object-cover" />
+          </div>
         </div>
       </div>
       <div className={styles.bottomSection}>
