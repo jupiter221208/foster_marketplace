@@ -541,7 +541,7 @@ const Collection = () => {
               currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
               nextDisabled={disabledButton}
               onBack={() => {
-                if (currentStep === 1) router.back()
+                if (currentStep === 1 || currentStep === 3) router.back()
                 else setCurrentStep(currentStep - 1)
               }}
               onNext={() => {
