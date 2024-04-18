@@ -116,7 +116,7 @@ const Home = () => {
                 <SolonaLogoIcon />
               </div>
               <div className="mt-[-5px]">
-                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
               </div>
               <GradientButton
@@ -139,7 +139,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="mt-[15px]">
-                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana.</div>
+                <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>
                   Home to creators, collectors, and curators
                   <br /> around the world
