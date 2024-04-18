@@ -1504,6 +1504,7 @@ const MainSection = ({
                         color="var(--background-main-color)"
                         borderColor="transparent"
                         label={'Update/Relist'}
+                        fontSize={16}
                         onClick={() => {
                           setListEditionType('update')
                           setShowListEditionDetail(true)
@@ -1513,7 +1514,12 @@ const MainSection = ({
                         {cancelListLoading ? (
                           <LoadingButton fullWidth />
                         ) : (
-                          <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                          <OutlineButton
+                            fullWidth
+                            label="Cancel Listing"
+                            onClick={() => cancelListEdition()}
+                            fontSize={16}
+                          />
                         )}
                       </div>
                     </div>
