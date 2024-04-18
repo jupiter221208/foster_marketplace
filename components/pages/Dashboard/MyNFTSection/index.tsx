@@ -51,7 +51,7 @@ const MyNFTSection = props => {
       }, 1000)
       return
     }
-    // const nftsWithEditionData = await getEditionDataOfNFTs(nfts, mx)
+
     setAllList(nfts)
     let validNfts = nfts.filter(
       item =>

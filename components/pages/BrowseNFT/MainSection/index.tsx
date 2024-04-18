@@ -53,9 +53,6 @@ import {
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import SolanaLogoMediumIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
-import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
@@ -180,6 +177,7 @@ const MainSection = ({
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
   const [showListEditionDetail, setShowListEditionDetail] = useState(false)
+  const [listEditionType, setListEditionType] = useState('list')
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -1165,6 +1163,7 @@ const MainSection = ({
             <div className="">
               <ListEditionDetail
                 data={nftDetail}
+                listingType={listEditionType}
                 onSuccess={nft => handleSuccessListEdition(nft)}
                 fromNFT={true}
                 onClose={() => {
@@ -1492,7 +1491,10 @@ const MainSection = ({
                         color="var(--background-main-color)"
                         borderColor="transparent"
                         label={'Relist or Update'}
-                        onClick={() => {}}
+                        onClick={() => {
+                          setListEditionType('update')
+                          setShowListEditionDetail(true)
+                        }}
                       />
                       <div className="mt-[15px]">
                         {cancelListLoading ? (
@@ -1780,7 +1782,10 @@ const MainSection = ({
                               color="var(--background-main-color)"
                               borderColor="transparent"
                               label="List Edition"
-                              onClick={() => setShowListEditionDetail(true)}
+                              onClick={() => {
+                                setListEditionType('list')
+                                setShowListEditionDetail(true)
+                              }}
                             />
                           </div>
                         )

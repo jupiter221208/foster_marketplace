@@ -18,6 +18,7 @@ import styles from './index.module.scss'
 import { getPriceValue } from 'utils/strings'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -61,14 +62,15 @@ const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardPro
             <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
-        <div className="mt-[14px] w-full">
-          <GradientButton
+        <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
+          <GradientButton label="Update/Relist" onClick={() => {}} fullWidth borderRadius={10} />
+
+          <OutlineButton
             label={'Cancel Listing'}
-            onClick={() => {}}
-            height="48px"
             fullWidth
-            borderRadius="10px"
-            borderWidth="1px"
+            backgroundColor="transparent"
+            onClick={() => {}}
+            fontFamily="Muli-SemiBold"
           />
         </div>
       </div>
