@@ -145,7 +145,7 @@ const ActivitySection = () => {
   return (
     <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
-        <div className="w-[185px]">
+        <div className="w-[185px] lg:w-full">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
         </div>
         <div>
