@@ -1078,14 +1078,25 @@ const MainSection = ({
   }
 
   const handleSuccessListEdition = nftName => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Edition Listed!',
-        description: `You've successfully listed an edition for ${nftName}`,
-        type: 'success',
-      },
-    ])
+    if (listEditionType === 'list') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Edition Listed!',
+          description: `You've successfully published a listing for ${nftName}`,
+          type: 'success',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Listing Updated!',
+          description: `Your listing for ${nftName} has been updated`,
+          type: 'success',
+        },
+      ])
+    }
 
     setTimeout(() => {
       setShowAlert(true)
