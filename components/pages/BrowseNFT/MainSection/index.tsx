@@ -1449,11 +1449,14 @@ const MainSection = ({
                 </div>
 
                 {editionDetail && isNftMasterEdition() && (
-                  <div className="flex gap-[10px]">
+                  <div className="flex gap-[15px]">
                     <div className={styles.editionTitle}>
                       {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                     </div>
-                    <div className={styles.editionValue}>
+                    {editionType === 'master_le' && (
+                      <div className={styles.editionTitle}>{editionDetail?.maxSupply + ' Editions'}</div>
+                    )}
+                    <div className={styles.editionTitle}>
                       {editionType === 'master_le'
                         ? Number(editionDetail?.maxSupply) -
                           Number(editionDetail?.supply) +

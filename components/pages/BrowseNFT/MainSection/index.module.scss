@@ -282,10 +282,14 @@
 }
 
 .editionTitle {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  padding: 9px 10px;
+  color: var(--main-icon-color);
+  background: rgba(var(--main-icon-color-rgb), 0.05);
+  border: 1px solid rgba(var(--main-icon-color-rgb), 0.15);
+  border-radius: 5px;
 }
 
 .editionValue {
