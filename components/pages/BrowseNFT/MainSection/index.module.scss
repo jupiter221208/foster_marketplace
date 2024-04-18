@@ -134,9 +134,10 @@
 
 .text {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 14px;
   line-height: 18px;
   margin-left: 7px;
+  margin-top: -2px;
   @media (min-width: 1024px) {
     margin-left: 12px;
   }
@@ -309,7 +310,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background: rgba(var(--main-bg-color-rgb), 0.03);
+  background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
 }
