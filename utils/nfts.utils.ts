@@ -295,7 +295,6 @@ export interface NFTArtistInfo {
 //   if (!artist) return null
 
 //   let response = await userAPI.get(artist.toString())
-//   console.log(response, '============response==========')
 //   let { username, profile_image } = response
 //   // let { username, profile_image } = await userAPI.get(artist.toString())
 //   let name = username ?? getShortAddress(artist)

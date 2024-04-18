@@ -9,6 +9,10 @@ import GradientButton from 'components/Button/GradientButton'
 // custom functions
 import { useViewport } from 'utils'
 
+// Web3
+import { PublicKey, Keypair } from '@solana/web3.js'
+import { useMetaplex } from 'hooks/useMetaplex'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
@@ -19,16 +23,48 @@ import { getPriceValue } from 'utils/strings'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
 import OutlineButton from 'components/Button/OutlineButton'
+import LoadingButton from 'components/Button/LoadingButton'
+
+// api
+import { revokeDelegateEdition } from 'utils/editions'
+import { cancelListingEdition } from 'apis/editions'
 
 export interface ListedEditionCardProps {
   data: any
   onClick: (uri: string) => any
-  onCancelList: any
+  onUpdateList: any
+  onCancelSuccess: any
 }
 
-const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardProps) => {
+const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: ListedEditionCardProps) => {
   const { address, name, type, assetUrl, coverUrl, creatorAddress, price } = data
   const viewport = useViewport()
+  const { metaplex: mx } = useMetaplex()
+
+  const [cancelListLoading, setCancelListLoading] = useState(false)
+
+  const cancelListEdition = async () => {
+    let item = data
+    setCancelListLoading(true)
+    try {
+      const listing = await revokeDelegateEdition({
+        metaplex: mx,
+        mint: new PublicKey(item?.address),
+        // delegate: new PublicKey(item?.authority),
+        delegate: Keypair.fromSecretKey(Uint8Array.from(item?.authority)).publicKey,
+      })
+
+      if (listing) {
+        cancelListingEdition(item?.address).then(res => {
+          if (res) {
+            onCancelSuccess()
+          }
+        })
+      }
+    } catch (e) {
+      setCancelListLoading(false)
+    }
+  }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
@@ -63,15 +99,19 @@ const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardPro
           </div>
         </div>
         <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-          <GradientButton label="Update/Relist" onClick={() => {}} fullWidth borderRadius={10} />
-
-          <OutlineButton
-            label={'Cancel Listing'}
-            fullWidth
-            backgroundColor="transparent"
-            onClick={() => {}}
-            fontFamily="Muli-SemiBold"
-          />
+          <GradientButton label="Update/Relist" onClick={() => onUpdateList()} fullWidth borderRadius={10} />
+          {cancelListLoading ? (
+            <LoadingButton fullWidth />
+          ) : (
+            <OutlineButton
+              label={'Cancel Listing'}
+              fullWidth
+              backgroundColor="transparent"
+              onClick={() => cancelListEdition()}
+              fontFamily="Muli-SemiBold"
+              fontSize={16}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -93,16 +133,30 @@ const ListedEditionCard = ({ data, onClick, onCancelList }: ListedEditionCardPro
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-center mt-[6px]">
+        <div className="w-full flex flex-wrap gap-[8px] items-center mt-[6px]">
           <GradientButton
-            label={'Cancel Listing'}
-            onClick={() => {}}
+            fullWidth
+            label="Update/Relist"
+            onClick={() => onUpdateList()}
             height="28px"
             fontSize="12px"
-            fullWidth
             borderRadius="5px"
-            borderWidth="1px"
           />
+
+          {/* {cancelListLoading ? (
+            <LoadingButton fullWidth height={28} borderRadius={5} />
+          ) : ( */}
+          <OutlineButton
+            label={'Cancel Listing'}
+            fullWidth
+            backgroundColor="transparent"
+            onClick={() => cancelListEdition()}
+            fontFamily="Muli-SemiBold"
+            fontSize={12}
+            height="28px"
+            borderRadius="5px"
+          />
+          {/* )} */}
         </div>
       </div>
     </div>

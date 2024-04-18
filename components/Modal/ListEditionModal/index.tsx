@@ -31,11 +31,12 @@ interface LisetEditionModalProps {
     }
   }
   open: boolean
+  listingType: string
   onSuccess: (name: string) => void
   onClose: () => void
 }
 
-const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalProps) => {
+const ListEditionModal = ({ data, open, listingType, onSuccess, onClose }: LisetEditionModalProps) => {
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 
@@ -183,7 +184,7 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
               <div className={styles.rightPanel}>
                 <ListEditionDetail
                   data={data}
-                  listingType={'list'}
+                  listingType={listingType}
                   onSuccess={onSuccess}
                   onClose={onClose}
                   fromNFT={false}

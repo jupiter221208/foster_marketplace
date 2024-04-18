@@ -345,8 +345,20 @@ const MainSection = ({
         console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
         setMintEditionLoading(false)
+
+        setAlertData([
+          {
+            id: 0,
+            title: 'Purchase Canceled',
+            description: `Wallet signature request rejected`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+
         if (e?.message == 'User rejected the request.') break
         await new Promise(resolve => setTimeout(resolve, 1000))
+        return
       }
 
     setMintEditionLoading(false)
@@ -357,7 +369,7 @@ const MainSection = ({
       setAlertData([
         {
           id: 0,
-          title: 'Successful Mint!',
+          title: 'Edition Purchased!',
           description: `You've successfully minted ${Object.keys(editionStatuses).length} editions`,
           type: 'success',
         },
@@ -377,6 +389,7 @@ const MainSection = ({
       setShowAlert(true)
     }
   }
+
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -1490,7 +1503,7 @@ const MainSection = ({
                         backgroundColor02="var(--main-icon-color)"
                         color="var(--background-main-color)"
                         borderColor="transparent"
-                        label={'Relist or Update'}
+                        label={'Update/Relist'}
                         onClick={() => {
                           setListEditionType('update')
                           setShowListEditionDetail(true)
@@ -1500,7 +1513,7 @@ const MainSection = ({
                         {cancelListLoading ? (
                           <LoadingButton fullWidth />
                         ) : (
-                          <GradientButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                          <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
                         )}
                       </div>
                     </div>

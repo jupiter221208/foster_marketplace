@@ -21,12 +21,12 @@ import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
 import { cancelListing, executeSale } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
-import { PublicKey } from '@solana/web3.js'
+import { PublicKey, Keypair } from '@solana/web3.js'
 
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
-import { getEditionList } from 'apis/editions'
+import { cancelListingEdition, getEditionList } from 'apis/editions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -36,6 +36,7 @@ import { ListingsAPIData, NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import ListedEditionCard from 'components/Card/ListedEditionCard'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
+import ListEditionModal from 'components/Modal/ListEditionModal'
 
 type SelectedDataType = {
   category: string
@@ -56,8 +57,10 @@ const ListedNFTSection = props => {
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [filteredList, setFilteredList] = useState<any>([])
-
+  const [showListEditionModal, setShowListEditionModal] = useState(false)
   const [selectedData, setSelectedData] = useState<SelectedDataType>()
+  const [editionData, setEditionData] = useState<any>()
+
   const handleSelectData = item => {
     setSelectedData({
       category: item?.json.properties.category,
@@ -68,6 +71,17 @@ const ListedNFTSection = props => {
       tradeStateAddress: item.tradeStateAddress.toString(),
     })
     setShowListNFTModal(true)
+  }
+
+  const handleEditionData = item => {
+    setEditionData({
+      category: item?.type ?? 'image',
+      name: item?.name,
+      animation_url: item?.assetUrl,
+      image: item?.coverUrl,
+      mintAddress: item?.address,
+    })
+    setShowListEditionModal(true)
   }
 
   const isGetListedNFTs = useSelector<any>(state => state.isGetListedNFTs)
@@ -151,9 +165,10 @@ const ListedNFTSection = props => {
     let lists = []
     editions.map(item => {
       lists.push({
+        authority: item.listedMasterEdition.authority_keypair,
         address: item.nft.token_id,
         price: Number(item.listedMasterEdition.price),
-        type: item.nft.type,
+        type: item.nft.asset_type,
         assetUrl: item.nft.asset_url,
         coverUrl: item.nft.cover_image_url,
         name: item.nft.nft_name,
@@ -208,6 +223,40 @@ const ListedNFTSection = props => {
     } catch (e) {
       setOpenProgressingModal(false)
     }
+  }
+
+  const handleSuccessListEdition = nftName => {
+    getLiveEditions()
+    setActive(2)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Edition Listed!',
+        description: `You've successfully listed an edition for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowAlert(true)
+    }, 500)
+  }
+
+  const handleSuccessCancelEdition = item => {
+    getLiveEditions()
+    setActive(2)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Edition Listing Canceled!',
+        description: `You've successfully canceled your edition listing!`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowAlert(true)
+    }, 500)
   }
 
   const onUpdatePrice = async ({ address, tradeStateAddress }: ListingsAPIData, price: number) => {
@@ -444,7 +493,12 @@ const ListedNFTSection = props => {
                   finalizeSale={finalizeSale}
                 />
               ) : (
-                <ListedEditionCard data={item} onClick={url => handleGotoDetailPage(url)} onCancelList={() => {}} />
+                <ListedEditionCard
+                  data={item}
+                  onClick={url => handleGotoDetailPage(url)}
+                  onUpdateList={() => handleEditionData(item)}
+                  onCancelSuccess={() => handleSuccessCancelEdition(item)}
+                />
               )}
             </div>
           ))}
@@ -480,6 +534,14 @@ const ListedNFTSection = props => {
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
+
+      <ListEditionModal
+        data={editionData}
+        open={showListEditionModal}
+        listingType={'update'}
+        onSuccess={nft => handleSuccessListEdition(nft)}
+        onClose={() => setShowListEditionModal(false)}
+      />
 
       <UpdateNFTModal
         data={selectedData}

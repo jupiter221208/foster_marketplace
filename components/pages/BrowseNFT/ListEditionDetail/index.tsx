@@ -147,6 +147,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       }).then(response => {
         onSuccess(data?.name)
+        closeModal()
       }),
         error => {
           console.log(error)

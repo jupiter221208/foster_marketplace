@@ -296,6 +296,7 @@ const MyNFTSection = props => {
       <ListEditionModal
         data={selectedData}
         open={showListEditionModal}
+        listingType={'list'}
         onSuccess={nft => handleSuccessListEdition(nft)}
         onClose={() => setShowListEditionModal(false)}
       />
