@@ -1,12 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" data-name='fullscreen-icon' width="46" height="46" viewBox="0 0 46 46">
-  <g id="Group_55752" data-name="Group 55752" transform="translate(-1148.865 -1005)">
-    <g id="Group_55750" data-name="Group 55750" transform="translate(-66 -14.74)">
-      <circle id="Ellipse_4334" data-name="Ellipse 4334" cx="23" cy="23" r="23" transform="translate(1214.865 1019.74)" />
-    </g>
-    <g id="Group_55751" data-name="Group 55751" transform="translate(1163.148 1017.906)">
-      <g id="noun-share-1037331" transform="translate(0 0)">
-        <path id="noun-share-1037331-2" data-name="noun-share-1037331" d="M327.063,267.49a3.218,3.218,0,0,0-3.212,3.211,3.176,3.176,0,0,0,.186,1.061l-5.878,3.412a3.208,3.208,0,1,0,.007,4.817l5.871,3.405a3.179,3.179,0,0,0-.186,1.068,3.221,3.221,0,1,0,.617-1.885l-5.7-3.3a3.179,3.179,0,0,0,0-3.405l5.7-3.3a3.208,3.208,0,1,0,2.595-5.09Z" transform="translate(-312.841 -267.49)" data-fill="a"/>
-      </g>
-    </g>
-  </g>
+<svg data-name='fullscreen-icon' id="noun-share-1037331" xmlns="http://www.w3.org/2000/svg" width="16.349" height="18.931" viewBox="0 0 16.349 18.931">
+  <path id="noun-share-1037331-2" data-name="noun-share-1037331" d="M326.178,267.49a3.018,3.018,0,0,0-3.012,3.012,2.978,2.978,0,0,0,.175.995l-5.512,3.2a3.009,3.009,0,1,0,.007,4.518l5.506,3.193a2.981,2.981,0,0,0-.175,1,3.021,3.021,0,1,0,.578-1.768l-5.344-3.092a2.981,2.981,0,0,0,0-3.193l5.345-3.092a3.008,3.008,0,1,0,2.433-4.773Z" transform="translate(-312.841 -267.49)" fill="#eff0f6"/>
 </svg>

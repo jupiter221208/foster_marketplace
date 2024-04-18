@@ -299,6 +299,17 @@
   }
 }
 
+.iconContainer {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(var(--main-bg-color-rgb), 0.03);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+}
+
 .infoText {
   background: var(--address-btn-bg-color);
   border-radius: 10px;
@@ -545,4 +556,10 @@
     border-top: none;
     padding-top: 0;
   }
+}
+.share_text {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  font-weight: 100;
+  color: var(--text-gray-200-color)
 }

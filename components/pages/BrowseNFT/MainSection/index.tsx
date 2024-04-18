@@ -1150,23 +1150,118 @@ const MainSection = ({
 
           {!nftType.includes('audio') && (
             <div className="lg:flex hidden mt-[32px] w-full justify-between">
-              <MenuSocialShare
-                type="nft"
-                vote={share}
-                setVote={setShare}
-                voteCount={shareCount}
-                setVoteCount={setShareCount}
-                message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                url={`/nft/${id}`}
-              />
-
-              {nftType.includes('vr') || nftType.includes('image') ? (
-                <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
-                  <FullScreenModeIcon />
+              <div className="flex gap-[15px] items-center">
+                <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                    <div className={styles.ellipseArea}>
+                      <ThreeEllipseMobileIcon alt="" />
+                    </div>
+                  ) : (
+                    <div className={styles.ellipseArea}>
+                      <ThreeEllipseIcon alt="" />
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div />
-              )}
+                <div className="inline">
+                  {/* {!loadedNftInfo ? (
+                    <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
+                  ) : ( */}
+                  <div className="flex gap-[15px]">
+                    <div className={`${styles.iconContainer} w-[50px]`}>
+                      <Image
+                        src={save ? TicketGreenIcon : TicketWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeSaveStatus()}
+                      />
+                    </div>
+                    <div className={`${styles.iconContainer} w-[87px]`}>
+                      <Image
+                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeLikeStatus()}
+                      />
+
+                      <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowLikeModal(true)}>
+                        {likeCount}
+                      </div>
+                    </div>
+                  </div>
+                  {/* )} */}
+                </div>
+                <div className={`${styles.iconContainer} w-[87px]`}>
+                  <div className="flex items-center gap-[9px]">
+                    <MenuSocialShare
+                      type="nft"
+                      vote={share}
+                      setVote={setShare}
+                      voteCount={shareCount}
+                      setVoteCount={setShareCount}
+                      message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                      url={`/nft/${id}`}
+                    />
+                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-[15px] items-center">
+                {nftType.includes('image') &&
+                nftType !== 'image/gif' &&
+                !nftCoverUrl.includes('ext=gif') &&
+                (merchToggle || isCreatedNft) ? (
+                  <div className={`${styles.iconContainer} w-[50px]`}>
+                    <div
+                      className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
+                    >
+                      {merchToggle ? (
+                        <MerchToggleEnabledIcon
+                          alt=""
+                          onClick={() => {
+                            if (isCreatedNft) setRemoveMerchModal(true)
+                          }}
+                          // onMouseEnter={() => setMerchHover(true)}
+                          // onMouseLeave={() => setMerchHover(false)}
+                        />
+                      ) : isCreatedNft ? (
+                        <MerchToggleDisabledIcon
+                          alt=""
+                          onClick={() => {
+                            if (isCreatedNft) setCreateMerchModal(true)
+                          }}
+                          // onMouseEnter={() => setMerchHover(true)}
+                          // onMouseLeave={() => setMerchHover(false)}
+                        />
+                      ) : (
+                        <></>
+                      )}
+
+                      {!nftType.includes('audio') && merchHover && <div className={styles.infoText}>Foster Studio</div>}
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+
+                {isCreatedNft && (
+                  <div className={`${styles.iconContainer} w-[50px]`}>
+                    <div onClick={() => setShowNftMeta(true)}>
+                      <EditNftMetaIcon alt="" />
+                    </div>
+                  </div>
+                )}
+
+                {nftType.includes('vr') || nftType.includes('image') ? (
+                  <div className={`${styles.iconContainer} w-[50px]`}>
+                    <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
+                      <FullScreenModeIcon />
+                    </div>
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -1216,7 +1311,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') &&
+                    {/* {nftType.includes('image') &&
                     nftType !== 'image/gif' &&
                     !nftCoverUrl.includes('ext=gif') &&
                     (merchToggle || isCreatedNft) ? (
@@ -1251,7 +1346,7 @@ const MainSection = ({
                       </div>
                     ) : (
                       <></>
-                    )}
+                    )} */}
                     {isCreatedNft && (
                       <div onClick={() => setShowNftMeta(true)}>
                         <EditNftMetaIcon alt="" />
