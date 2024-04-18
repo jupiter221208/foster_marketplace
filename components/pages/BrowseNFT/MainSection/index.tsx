@@ -844,7 +844,7 @@ const MainSection = ({
               {
                 id: 0,
                 title: 'Edition Listing Canceled!',
-                description: `You've successfully canceled your edition listing!`,
+                description: `${nftName} is no longer available for purchase`,
                 type: 'success',
               },
             ])
