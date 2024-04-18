@@ -370,7 +370,7 @@ const MainSection = ({
         {
           id: 0,
           title: 'Edition Purchased!',
-          description: `You've successfully minted ${Object.keys(editionStatuses).length} editions`,
+          description: `You've successfully purchased ${nftName} #${editionsToPrint[0]}`,
           type: 'success',
         },
       ])
