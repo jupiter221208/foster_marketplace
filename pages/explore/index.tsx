@@ -673,6 +673,8 @@ const Explore = () => {
                             statTime={item.master_edition?.startTime}
                             endTime={item.master_edition?.endTime}
                             price={item.master_edition?.price}
+                            maxSupply={item.max_supply}
+                            price={item.master_edition?.price}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                             }}
