@@ -109,10 +109,10 @@ const NFTAssetSection = props => {
           <div className={styles.borderView} />
         </div>
       ) : nftType.includes('audio') ? (
-        <div className="w-full h-full flex justify-center items-center">
+        <div className={styles.audioContainer}>
           <div className={styles.audioBackground}>
             {nftAssetUrl && (
-              <div className="w-full max-w-[600px] h-[600px] rounded-[35px] overflow-hidden">
+              <div className="w-full max-w-[600px] h-full rounded-[35px] overflow-hidden">
                 <ImageWithFoster
                   src={nftCoverUrl}
                   width={900}
@@ -121,7 +121,7 @@ const NFTAssetSection = props => {
                 />
               </div>
             )}
-            <div className="w-full flex justify-center mb-[10px]">
+            <div className="w-full flex justify-center mb-[30px]">
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
               </div>
