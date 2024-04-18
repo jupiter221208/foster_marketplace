@@ -43,7 +43,7 @@ export interface ListEditionDetailProps {
   fromNFT: boolean
 }
 
-const ListEditionDetail = ({ data, listingType = 'list', onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
   const { metaplex } = useMetaplex()
