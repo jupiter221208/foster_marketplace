@@ -121,7 +121,7 @@ const NFTAssetSection = props => {
                 />
               </div>
             )}
-            <div className="w-full flex justify-center mb-[15px]">
+            <div className="w-full flex justify-center mb-[10px]">
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
               </div>

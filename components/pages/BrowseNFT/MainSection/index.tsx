@@ -727,8 +727,8 @@ const MainSection = ({
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 200) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > 200
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 450) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 450
   useEffect(() => {
     setTempNftDescription(nftDescription)
   }, [nftDescription])
@@ -843,12 +843,10 @@ const MainSection = ({
                 type: 'success',
               },
             ])
-
+            setShowAlert(true)
             setTimeout(() => {
-              setShowAlert(true)
+              router.reload()
             }, 500)
-
-            router.reload()
           }
         })
       }
@@ -1689,12 +1687,6 @@ const MainSection = ({
                           />
                           {isOwnNft === true ? (
                             <div className="py-[15px] lg:py-0 lg:mt-[15px]">
-                              {/* <button
-                                className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
-                                onClick={() => nftCurrentPrice === 0 && cancelAuction()}
-                              >
-                                Cancel Auction
-                              </button> */}
                               <GradientButton
                                 label="Cancel Auction"
                                 fullWidth
