@@ -33,13 +33,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 // custom functions
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
-import {
-  getNFTCategories,
-  getNFTTokenAccount,
-  getNFTSocialInfo,
-  getNFTArtistPublicKey,
-  getNftFromDAS,
-} from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount, getNFTArtistPublicKey, getNftFromDAS } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import {
   cancelListing,
@@ -62,6 +56,7 @@ import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?compon
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
@@ -1430,26 +1425,8 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className={`w-full lg:max-h-[100px] my-[28px] ${!isTruncated && 'overflow-scroll'}`}>
-                  {nftDescription ? (
-                    <div className={styles.whiteDescription}>
-                      <div className="lg:block hidden">
-                        {processedNftDescription}
-                        {shouldShowReadMore && (
-                          <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                            {isTruncated ? '... Expand' : ' Collapse'}
-                          </span>
-                        )}
-                      </div>
-                      <div className="lg:hidden block">{tempNftDescription}</div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
                 {editionDetail && isNftMasterEdition() && (
-                  <div className="flex gap-[15px]">
+                  <div className="flex gap-[15px] mt-[30px]">
                     <div className={styles.editionTitle}>
                       {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                     </div>
@@ -1467,12 +1444,10 @@ const MainSection = ({
                     </div>
                   </div>
                 )}
-              </div>
 
-              <div className="w-full flex flex-wrap mt-10 lg:mt-0">
                 {editionDetail && isNftPrintEdition() && (
-                  <div className={styles.editionContainer}>
-                    {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
+                  <div className="mt-[30px]">
+                    {/* {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
                       <div className={styles.editionSecondRow}>
                         <div className={styles.editionTitle}>Mint Price</div>
                         <div className="flex gap-[6px] items-center">
@@ -1482,88 +1457,56 @@ const MainSection = ({
                           <div className={styles.editionValue}>{nftPrice}</div>
                         </div>
                       </div>
-                    )}
-                    {(editionType === 'print_le' || editionType === 'print_oe') && (
-                      <div className={styles.editionSecondRow}>
-                        <div className={styles.editionTitle}>Master Edition Address</div>
-                        <div
-                          className={styles.editionValue}
-                          onClick={() => {
-                            router.push(`/nft/${supply.parent}`)
-                          }}
-                        >
-                          {getDisplayUserName(supply.parent)}
-                        </div>
+                    )} */}
+
+                    <div className="w-full flex gap-[15px]">
+                      <div className={styles.editionTitle}>
+                        {editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}
                       </div>
-                    )}
-                    <div className={styles.editionFirstRow}>
-                      <div className={styles.editionTitle}>Token Type</div>
-                      <div className={styles.editionValue}>{getTokenTypeString()}</div>
+                      {editionType === 'print_le' && (
+                        <div className={styles.editionTitle}>{Number(editionDetail?.maxSupply) + ' Editions'}</div>
+                      )}
+                      <div className={styles.editionTitle}>{'Edition #' + Number(editionDetail?.print?.number)}</div>
                     </div>
-                    {editionType === 'master_le' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Limited Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Remaining</div>
-                          <div className={styles.editionValue}>
-                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
-                          </div>
-                        </div>
-                      </div>
-                    ) : editionType === 'master_oe' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Open Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : editionType === 'print_le' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Limited Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : editionType === 'print_oe' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Open Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
+
+                    <div
+                      className={styles.editionValue}
+                      onClick={() => {
+                        router.push(`/nft/${supply.parent}`)
+                      }}
+                    >
+                      View Master Edition
+                      <ArrowRightIcon />
+                    </div>
                   </div>
                 )}
 
+                <div className={`w-full lg:max-h-[130px] my-[30px] ${!isTruncated && 'overflow-scroll'}`}>
+                  {nftDescription ? (
+                    <div>
+                      <div className={styles.descLabel}>Description</div>
+                      <div className={styles.whiteDescription}>
+                        <div className="lg:block hidden">
+                          {processedNftDescription}
+                          {shouldShowReadMore && (
+                            <span
+                              onClick={toggleIsTruncated}
+                              className={`${styles.greenText} min-w-max cursor-pointer`}
+                            >
+                              {isTruncated ? '... Expand' : ' Collapse'}
+                            </span>
+                          )}
+                        </div>
+                        <div className="lg:hidden block">{tempNftDescription}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+
+              <div className="w-full flex flex-wrap mt-10 lg:mt-0">
                 <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
                   {nftCategories && nftCategories.length > 0 && (
                     <div className="flex flex-wrap flex-col gap-2">
@@ -1905,10 +1848,8 @@ const MainSection = ({
                           </div>
                         )
                       ) : (
-                        <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
-                            List&nbsp;Artwork
-                          </div>
+                        <div className="w-full flex flex-wrap gap-[15px] mt-[20px]">
+                          <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
                           <GradientButton
                             fullWidth
                             backgroundColor01="var(--main-icon-color)"

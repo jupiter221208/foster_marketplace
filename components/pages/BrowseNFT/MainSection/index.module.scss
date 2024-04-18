@@ -260,11 +260,6 @@
   }
 }
 
-.editionContainer {
-  width: 100%;
-  margin-bottom: 26px;
-}
-
 .editionFirstRow {
   display: flex;
   justify-content: space-between;
@@ -286,7 +281,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  padding: 9px 10px;
+  padding: 8px 9px;
   color: var(--main-icon-color);
   background: rgba(var(--main-icon-color-rgb), 0.05);
   border: 1px solid rgba(var(--main-icon-color-rgb), 0.15);
@@ -294,14 +289,15 @@
 }
 
 .editionValue {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
   color: var(--text-gray-200-color);
+  margin-top: 15px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
   cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
 .iconContainer {
@@ -457,9 +453,17 @@
 
 .whiteDescription {
   font-family: 'Muli-Light';
-  font-size: 16px;
+  font-size: 14px;
   line-height: 18px;
   color: var(--text-gray-200-color);
+}
+
+.descLabel {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  margin-bottom: 10px;
 }
 
 .greenRoyalties {
