@@ -357,8 +357,18 @@ const MainSection = ({
       }
 
     setMintEditionLoading(false)
-    console.log(editionsToPrint)
-    if (Object.keys(editionStatuses).length === mintQty) {
+
+    if (Object.keys(editionStatuses).length === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Purchase Canceled',
+          description: `Wallet signature request rejected`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else if (Object.keys(editionStatuses).length === mintQty) {
       console.log('minted editions successfully', editionStatuses)
 
       setAlertData([
