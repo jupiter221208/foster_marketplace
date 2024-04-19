@@ -1335,8 +1335,8 @@ const MainSection = ({
                                 onClick={() => {
                                   if (isCreatedNft) setRemoveMerchModal(true)
                                 }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
+                                // onMouseEnter={() => setMerchHover(true)}
+                                // onMouseLeave={() => setMerchHover(false)}
                               />
                             ) : isCreatedNft ? (
                               <MerchToggleDisabledIcon
@@ -1344,8 +1344,8 @@ const MainSection = ({
                                 onClick={() => {
                                   if (isCreatedNft) setCreateMerchModal(true)
                                 }}
-                                onMouseEnter={() => setMerchHover(true)}
-                                onMouseLeave={() => setMerchHover(false)}
+                                // onMouseEnter={() => setMerchHover(true)}
+                                // onMouseLeave={() => setMerchHover(false)}
                               />
                             ) : (
                               <></>
