@@ -30,7 +30,7 @@ const ActivityAccordion = ({ data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
-
+  console.log(data, '==========data==========')
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {

@@ -22,7 +22,7 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 // backend
-import { listMasterEdition } from 'apis/editions'
+import { listMasterEdition, updateEditionListing } from 'apis/editions'
 
 // solana
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
@@ -37,12 +37,13 @@ export interface ListEditionDetailProps {
     mintAddress: string
     name?: string
   }
+  listingType: string
   onSuccess: (name: string) => void
   onClose: () => void
   fromNFT: boolean
 }
 
-const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
   const { metaplex } = useMetaplex()
@@ -126,9 +127,31 @@ const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDet
       }
 
       onSuccess(data?.name)
-      // setIsLoading(false)
-      // onClose()
 
+      // TODO: send listing to backend with listing details
+    } catch (e: any) {
+      console.error(e)
+      setIsLoading(false)
+    }
+  }
+
+  const handleUpdateEdition = async () => {
+    try {
+      setIsLoading(true)
+
+      updateEditionListing({
+        mintAddress: data.mintAddress,
+        price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
+        startTime: startDate.toISOString().split('.')[0],
+        endTime: endDate.toISOString().split('.')[0],
+        buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
+      }).then(response => {
+        onSuccess(data?.name)
+        closeModal()
+      }),
+        error => {
+          console.log(error)
+        }
       // TODO: send listing to backend with listing details
     } catch (e: any) {
       console.error(e)
@@ -490,7 +513,10 @@ const ListEditionDetail = ({ data, onSuccess, onClose, fromNFT }: ListEditionDet
               color="var(--background-main-color)"
               borderColor="transparent"
               disabled={buttonDisabled}
-              onClick={() => handleListEdition()}
+              onClick={() => {
+                if (listingType === 'list') handleListEdition()
+                else handleUpdateEdition()
+              }}
             />
           )}
         </div>

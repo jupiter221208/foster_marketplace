@@ -31,11 +31,12 @@ interface LisetEditionModalProps {
     }
   }
   open: boolean
+  listingType: string
   onSuccess: (name: string) => void
   onClose: () => void
 }
 
-const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalProps) => {
+const ListEditionModal = ({ data, open, listingType, onSuccess, onClose }: LisetEditionModalProps) => {
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 
@@ -121,7 +122,7 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                             src={nftImage}
                             onError={handleImageError}
                             alt={data?.name}
-                            className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                            className="w-auto h-auto max-w-full max-h-full object-contain"
                           />
                         )}
                       </div>
@@ -181,7 +182,13 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
               )}
 
               <div className={styles.rightPanel}>
-                <ListEditionDetail data={data} onSuccess={onSuccess} onClose={onClose} fromNFT={false} />
+                <ListEditionDetail
+                  data={data}
+                  listingType={listingType}
+                  onSuccess={onSuccess}
+                  onClose={onClose}
+                  fromNFT={false}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>

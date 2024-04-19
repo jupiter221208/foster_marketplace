@@ -31,6 +31,9 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'AuctionCancelled':
       case 'ListingAdded':
       case 'ListingCancelled':
+      case 'MasterEditionListingCreated':
+      case 'MasterEditionListingUpdated':
+      case 'ListingUpdated':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -73,6 +76,15 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         break
       case 'BidPlaced':
         type = 'placed a bid'
+        break
+      case 'MasterEditionListingCreated':
+        type = 'listed master edition'
+        break
+      case 'MasterEditionListingUpdated':
+        type = 'updated listing master edition'
+        break
+      case 'ListingUpdated':
+        type = 'updated listing'
         break
     }
     return type

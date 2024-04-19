@@ -74,7 +74,7 @@ export async function createPrint({
   })
 }
 
-export async function updateListing({ mintAddress, ...data }: UpdateListingRequest & { mintAddress: string }) {
+export async function updateEditionListing({ mintAddress, ...data }: UpdateListingRequest & { mintAddress: string }) {
   return client.patch(API_URL + `v1/editions/${mintAddress}`, data).then(response => {
     return response.data
   })

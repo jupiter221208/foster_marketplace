@@ -206,7 +206,7 @@ const MainSection = () => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          className="w-full h-full object-cover opacity-25"
+          className="w-full h-full object-cover opacity-100"
         />
       </div>
       <div className="w-full z-10">

@@ -33,13 +33,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 // custom functions
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
-import {
-  getNFTCategories,
-  getNFTTokenAccount,
-  getNFTSocialInfo,
-  getNFTArtistPublicKey,
-  getNftFromDAS,
-} from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount, getNFTArtistPublicKey, getNftFromDAS } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import {
   cancelListing,
@@ -53,11 +47,8 @@ import {
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import SolanaLogoMediumIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
-import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
@@ -65,6 +56,7 @@ import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?compon
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
@@ -180,6 +172,7 @@ const MainSection = ({
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
   const [showListEditionDetail, setShowListEditionDetail] = useState(false)
+  const [listEditionType, setListEditionType] = useState('list')
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
@@ -347,26 +340,49 @@ const MainSection = ({
         console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
         console.error(e)
         setMintEditionLoading(false)
+
+        setAlertData([
+          {
+            id: 0,
+            title: 'Purchase Canceled',
+            description: `Wallet signature request rejected`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+
         if (e?.message == 'User rejected the request.') break
         await new Promise(resolve => setTimeout(resolve, 1000))
+        return
       }
 
     setMintEditionLoading(false)
-    console.log(editionsToPrint)
-    if (Object.keys(editionStatuses).length === mintQty) {
+
+    if (Object.keys(editionStatuses).length === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Purchase Canceled',
+          description: `Wallet signature request rejected`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else if (Object.keys(editionStatuses).length === mintQty) {
       console.log('minted editions successfully', editionStatuses)
 
       setAlertData([
         {
           id: 0,
-          title: 'Successful Mint!',
-          description: `You've successfully minted ${Object.keys(editionStatuses).length} editions`,
+          title: 'Edition Purchased!',
+          description: `You've successfully purchased ${nftName} #${editionsToPrint[0]}`,
           type: 'success',
         },
       ])
       setShowAlert(true)
-
-      router.reload()
+      setTimeout(() => {
+        router.reload()
+      }, 1000)
     } else {
       setAlertData([
         {
@@ -379,6 +395,7 @@ const MainSection = ({
       setShowAlert(true)
     }
   }
+
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -721,8 +738,8 @@ const MainSection = ({
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 200) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > 200
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 450) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 450
   useEffect(() => {
     setTempNftDescription(nftDescription)
   }, [nftDescription])
@@ -833,16 +850,14 @@ const MainSection = ({
               {
                 id: 0,
                 title: 'Edition Listing Canceled!',
-                description: `You've successfully canceled your edition listing!`,
+                description: `${nftName} is no longer available for purchase`,
                 type: 'success',
               },
             ])
-
+            setShowAlert(true)
             setTimeout(() => {
-              setShowAlert(true)
-            }, 500)
-
-            router.reload()
+              router.reload()
+            }, 1000)
           }
         })
       }
@@ -1063,17 +1078,29 @@ const MainSection = ({
   }
 
   const handleSuccessListEdition = nftName => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Edition Listed!',
-        description: `You've successfully listed an edition for ${nftName}`,
-        type: 'success',
-      },
-    ])
+    if (listEditionType === 'list') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Edition Listed!',
+          description: `You've successfully published a listing for ${nftName}`,
+          type: 'success',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Listing Updated!',
+          description: `Your listing for ${nftName} has been updated`,
+          type: 'success',
+        },
+      ])
+    }
+
+    setShowAlert(true)
 
     setTimeout(() => {
-      setShowAlert(true)
       router.reload()
     }, 1000)
   }
@@ -1121,14 +1148,14 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      {nftType.includes('audio') && (
+      {/* {nftType.includes('audio') && (
         <div className={`${styles.nftAudioBG} lg:block hidden`}>
           <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
           <div className={styles.overlay} />
         </div>
-      )}
+      )} */}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[60%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
+        <div className={`lg:w-[60%] w-full`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -1137,27 +1164,115 @@ const MainSection = ({
             fullScreen={fullScreen}
           />
 
-          {!nftType.includes('audio') && (
-            <div className="lg:flex hidden mt-[32px] w-full justify-between">
-              <MenuSocialShare
-                type="nft"
-                vote={share}
-                setVote={setShare}
-                voteCount={shareCount}
-                setVoteCount={setShareCount}
-                message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                url={`/nft/${id}`}
-              />
+          <div className="w-full lg:flex hidden mt-[32px] w-full justify-between">
+            <div className="flex gap-[15px] items-center">
+              <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <div className={styles.ellipseArea}>
+                    <ThreeEllipseMobileIcon alt="" />
+                  </div>
+                ) : (
+                  <div className={styles.ellipseArea}>
+                    <ThreeEllipseIcon alt="" />
+                  </div>
+                )}
+              </div>
+              <div className="inline">
+                <div className="flex gap-[15px]">
+                  <div className={`${styles.iconContainer} w-[50px]`}>
+                    <Image
+                      src={save ? TicketGreenIcon : TicketWhiteIcon}
+                      alt=""
+                      className=""
+                      onClick={() => changeSaveStatus()}
+                    />
+                  </div>
+                  <div className={`${styles.iconContainer} w-[87px]`}>
+                    <Image
+                      src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                      alt=""
+                      className=""
+                      onClick={() => changeLikeStatus()}
+                    />
+
+                    <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowLikeModal(true)}>
+                      {likeCount}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={`${styles.iconContainer} w-[87px]`}>
+                <div className="flex items-center gap-[9px]">
+                  <MenuSocialShare
+                    type="nft"
+                    vote={share}
+                    setVote={setShare}
+                    voteCount={shareCount}
+                    setVoteCount={setShareCount}
+                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                    url={`/nft/${id}`}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-[15px] items-center">
+              {nftType.includes('image') &&
+              nftType !== 'image/gif' &&
+              !nftCoverUrl.includes('ext=gif') &&
+              (merchToggle || isCreatedNft) ? (
+                <div className={`${styles.iconContainer} w-[50px]`}>
+                  <div
+                    className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
+                  >
+                    {merchToggle ? (
+                      <MerchToggleEnabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setRemoveMerchModal(true)
+                        }}
+                        // onMouseEnter={() => setMerchHover(true)}
+                        // onMouseLeave={() => setMerchHover(false)}
+                      />
+                    ) : isCreatedNft ? (
+                      <MerchToggleDisabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setCreateMerchModal(true)
+                        }}
+                        // onMouseEnter={() => setMerchHover(true)}
+                        // onMouseLeave={() => setMerchHover(false)}
+                      />
+                    ) : (
+                      <></>
+                    )}
+
+                    {!nftType.includes('audio') && merchHover && <div className={styles.infoText}>Foster Studio</div>}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {isCreatedNft && (
+                <div className={`${styles.iconContainer} w-[50px]`}>
+                  <div onClick={() => setShowNftMeta(true)}>
+                    <EditNftMetaIcon alt="" />
+                  </div>
+                </div>
+              )}
 
               {nftType.includes('vr') || nftType.includes('image') ? (
-                <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
-                  <FullScreenModeIcon />
+                <div className={`${styles.iconContainer} w-[50px]`}>
+                  <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
+                    <FullScreenModeIcon />
+                  </div>
                 </div>
               ) : (
                 <div />
               )}
             </div>
-          )}
+          </div>
         </div>
 
         <div className="w-full lg:w-[37%] z-10 ">
@@ -1165,6 +1280,7 @@ const MainSection = ({
             <div className="">
               <ListEditionDetail
                 data={nftDetail}
+                listingType={listEditionType}
                 onSuccess={nft => handleSuccessListEdition(nft)}
                 fromNFT={true}
                 onClose={() => {
@@ -1190,106 +1306,117 @@ const MainSection = ({
           ) : (
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap">
-                <div className="w-full flex flex-wrap justify-between items-center">
-                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseMobileIcon alt="" />
+                <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
+                  <div className="w-full flex flex-wrap justify-between items-center">
+                    <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                      <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                          <div className={styles.ellipseArea}>
+                            <ThreeEllipseMobileIcon alt="" />
+                          </div>
+                        ) : (
+                          <div className={styles.ellipseArea}>
+                            <ThreeEllipseIcon alt="" />
+                          </div>
+                        )}
+                      </div>
+
+                      {nftType.includes('image') &&
+                      nftType !== 'image/gif' &&
+                      !nftCoverUrl.includes('ext=gif') &&
+                      (merchToggle || isCreatedNft) ? (
+                        <div className={`${styles.iconContainer} w-[50px]`}>
+                          <div
+                            className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
+                          >
+                            {merchToggle ? (
+                              <MerchToggleEnabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setRemoveMerchModal(true)
+                                }}
+                                // onMouseEnter={() => setMerchHover(true)}
+                                // onMouseLeave={() => setMerchHover(false)}
+                              />
+                            ) : isCreatedNft ? (
+                              <MerchToggleDisabledIcon
+                                alt=""
+                                onClick={() => {
+                                  if (isCreatedNft) setCreateMerchModal(true)
+                                }}
+                                // onMouseEnter={() => setMerchHover(true)}
+                                // onMouseLeave={() => setMerchHover(false)}
+                              />
+                            ) : (
+                              <></>
+                            )}
+
+                            {!nftType.includes('audio') && merchHover && (
+                              <div className={styles.infoText}>Foster Studio</div>
+                            )}
+                          </div>
                         </div>
                       ) : (
-                        <div className={styles.ellipseArea}>
-                          <ThreeEllipseIcon alt="" />
-                        </div>
+                        <></>
                       )}
                     </div>
 
-                    {nftType.includes('image') &&
-                    nftType !== 'image/gif' &&
-                    !nftCoverUrl.includes('ext=gif') &&
-                    (merchToggle || isCreatedNft) ? (
-                      <div
-                        className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
-                      >
-                        {merchToggle ? (
-                          <MerchToggleEnabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setRemoveMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        ) : isCreatedNft ? (
-                          <MerchToggleDisabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setCreateMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        ) : (
-                          <></>
-                        )}
-
-                        {!nftType.includes('audio') && merchHover && (
-                          <div className={styles.infoText}>Foster Studio</div>
-                        )}
-                      </div>
-                    ) : (
-                      <></>
-                    )}
                     {isCreatedNft && (
-                      <div onClick={() => setShowNftMeta(true)}>
-                        <EditNftMetaIcon alt="" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="inline">
-                    {!loadedNftInfo ? (
-                      <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
-                    ) : (
-                      <div className="flex gap-[15px] sm:gap-1 xs:gap-1 md:gap-3">
-                        <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
-                          <Image
-                            src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeLikeStatus()}
-                          />
-
-                          <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                            {likeCount}
-                          </div>
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <div onClick={() => setShowNftMeta(true)}>
+                          <EditNftMetaIcon alt="" />
                         </div>
-                        <div className="flex items-center cursor-pointer mr-[20px]">
-                          <Image
-                            src={save ? TicketGreenIcon : TicketWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeSaveStatus()}
-                          />
-                          <div className={styles.text} onClick={() => setShowSaveModal(true)}>
-                            {saveCount}
-                          </div>
-                        </div>
-                        {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-                          <div onClick={() => setOpenShareModal(true)}>
-                            <ShareSmallIcon alt="" />
-                          </div>
-                        )}
                       </div>
                     )}
                   </div>
                 </div>
+
                 <NFTCreatorDataSection
                   nftName={nftName}
                   nftCreatorname={nftCreatorname}
                   nftOwnerUsername={nftOwnerUsername}
                   nameLoading={nameLoading}
                 />
+
+                <div className="w-full mt-[15px] lg:hidden block">
+                  {!loadedNftInfo ? (
+                    <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
+                  ) : (
+                    <div className="flex gap-[15px]">
+                      <div className={`${styles.iconContainer} w-[87px]`}>
+                        <Image
+                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeLikeStatus()}
+                        />
+
+                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                          {likeCount}
+                        </div>
+                      </div>
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <Image
+                          src={save ? TicketGreenIcon : TicketWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeSaveStatus()}
+                        />
+                      </div>
+                      {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                        <div
+                          className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                          onClick={() => setOpenShareModal(true)}
+                        >
+                          <div>
+                            <ShareSmallIcon alt="" />
+                          </div>
+                          <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 <div className={styles.collectionContainer}>
                   {nftCollectionAddress && (
@@ -1319,30 +1446,15 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className={`w-full lg:max-h-[100px] my-[28px] ${!isTruncated && 'overflow-scroll'}`}>
-                  {nftDescription ? (
-                    <div className={styles.whiteDescription}>
-                      <div className="lg:block hidden">
-                        {processedNftDescription}
-                        {shouldShowReadMore && (
-                          <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                            {isTruncated ? '... Expand' : ' Collapse'}
-                          </span>
-                        )}
-                      </div>
-                      <div className="lg:hidden block">{tempNftDescription}</div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-
                 {editionDetail && isNftMasterEdition() && (
-                  <div className="flex gap-[10px]">
+                  <div className="flex gap-[15px] mt-[30px]">
                     <div className={styles.editionTitle}>
                       {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                     </div>
-                    <div className={styles.editionValue}>
+                    {editionType === 'master_le' && (
+                      <div className={styles.editionTitle}>{editionDetail?.maxSupply + ' Editions'}</div>
+                    )}
+                    <div className={styles.editionTitle}>
                       {editionType === 'master_le'
                         ? Number(editionDetail?.maxSupply) -
                           Number(editionDetail?.supply) +
@@ -1353,12 +1465,10 @@ const MainSection = ({
                     </div>
                   </div>
                 )}
-              </div>
 
-              <div className="w-full flex flex-wrap mt-10 lg:mt-0">
                 {editionDetail && isNftPrintEdition() && (
-                  <div className={styles.editionContainer}>
-                    {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
+                  <div className="mt-[30px]">
+                    {/* {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
                       <div className={styles.editionSecondRow}>
                         <div className={styles.editionTitle}>Mint Price</div>
                         <div className="flex gap-[6px] items-center">
@@ -1368,88 +1478,56 @@ const MainSection = ({
                           <div className={styles.editionValue}>{nftPrice}</div>
                         </div>
                       </div>
-                    )}
-                    {(editionType === 'print_le' || editionType === 'print_oe') && (
-                      <div className={styles.editionSecondRow}>
-                        <div className={styles.editionTitle}>Master Edition Address</div>
-                        <div
-                          className={styles.editionValue}
-                          onClick={() => {
-                            router.push(`/nft/${supply.parent}`)
-                          }}
-                        >
-                          {getDisplayUserName(supply.parent)}
-                        </div>
+                    )} */}
+
+                    <div className="w-full flex gap-[15px]">
+                      <div className={styles.editionTitle}>
+                        {editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}
                       </div>
-                    )}
-                    <div className={styles.editionFirstRow}>
-                      <div className={styles.editionTitle}>Token Type</div>
-                      <div className={styles.editionValue}>{getTokenTypeString()}</div>
+                      {editionType === 'print_le' && (
+                        <div className={styles.editionTitle}>{Number(editionDetail?.maxSupply) + ' Editions'}</div>
+                      )}
+                      <div className={styles.editionTitle}>{'Edition #' + Number(editionDetail?.print?.number)}</div>
                     </div>
-                    {editionType === 'master_le' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Limited Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Remaining</div>
-                          <div className={styles.editionValue}>
-                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
-                          </div>
-                        </div>
-                      </div>
-                    ) : editionType === 'master_oe' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Open Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : editionType === 'print_le' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Limited Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : editionType === 'print_oe' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Type</div>
-                          <div className={styles.editionValue}>Open Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
-                        </div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
+
+                    <div
+                      className={styles.editionValue}
+                      onClick={() => {
+                        router.push(`/nft/${supply.parent}`)
+                      }}
+                    >
+                      View Master Edition
+                      <ArrowRightIcon />
+                    </div>
                   </div>
                 )}
 
+                <div className={`w-full lg:max-h-[130px] my-[30px] ${!isTruncated && 'overflow-scroll'}`}>
+                  {nftDescription ? (
+                    <div>
+                      <div className={styles.descLabel}>Description</div>
+                      <div className={styles.whiteDescription}>
+                        <div className="lg:block hidden">
+                          {processedNftDescription}
+                          {shouldShowReadMore && (
+                            <span
+                              onClick={toggleIsTruncated}
+                              className={`${styles.greenText} min-w-max cursor-pointer`}
+                            >
+                              {isTruncated ? '... Expand' : ' Collapse'}
+                            </span>
+                          )}
+                        </div>
+                        <div className="lg:hidden block">{tempNftDescription}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+
+              <div className="w-full flex flex-wrap mt-10 lg:mt-0">
                 <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
                   {nftCategories && nftCategories.length > 0 && (
                     <div className="flex flex-wrap flex-col gap-2">
@@ -1485,11 +1563,25 @@ const MainSection = ({
                 {isEditionListing ? (
                   isOwnNft === true ? (
                     <div className="w-full mt-[20px]">
-                      {cancelListLoading ? (
-                        <LoadingButton fullWidth />
-                      ) : (
-                        <GradientButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
-                      )}
+                      <GradientButton
+                        fullWidth
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                        color="var(--background-main-color)"
+                        borderColor="transparent"
+                        label={'Update/Relist'}
+                        onClick={() => {
+                          setListEditionType('update')
+                          setShowListEditionDetail(true)
+                        }}
+                      />
+                      <div className="mt-[15px]">
+                        {cancelListLoading ? (
+                          <LoadingButton fullWidth />
+                        ) : (
+                          <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                        )}
+                      </div>
                     </div>
                   ) : (
                     <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[10px]">
@@ -1618,12 +1710,6 @@ const MainSection = ({
                           />
                           {isOwnNft === true ? (
                             <div className="py-[15px] lg:py-0 lg:mt-[15px]">
-                              {/* <button
-                                className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
-                                onClick={() => nftCurrentPrice === 0 && cancelAuction()}
-                              >
-                                Cancel Auction
-                              </button> */}
                               <GradientButton
                                 label="Cancel Auction"
                                 fullWidth
@@ -1769,15 +1855,16 @@ const MainSection = ({
                               color="var(--background-main-color)"
                               borderColor="transparent"
                               label="List Edition"
-                              onClick={() => setShowListEditionDetail(true)}
+                              onClick={() => {
+                                setListEditionType('list')
+                                setShowListEditionDetail(true)
+                              }}
                             />
                           </div>
                         )
                       ) : (
-                        <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
-                            List&nbsp;Artwork
-                          </div>
+                        <div className="w-full flex flex-wrap gap-[15px] mt-[20px]">
+                          <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
                           <GradientButton
                             fullWidth
                             backgroundColor01="var(--main-icon-color)"

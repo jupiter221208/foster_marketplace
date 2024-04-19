@@ -61,7 +61,7 @@ const ActivitySection = () => {
         tempItem.push(item)
       })
       setAllList(tempItem)
-      setActivityList(tempItem.slice(0, rowCount))
+      setActivityList(tempItem)
       setFilteredList(tempItem.slice(0, rowCount))
       if (tempItem.length > rowCount) setIsVisibleFetching(true)
       setLoading(true)
@@ -71,13 +71,11 @@ const ActivitySection = () => {
   useEffect(() => {
     if (isFetching) {
       setIsFetching(false)
-      if (activityList.length + rowCount > allList.length) {
-        setActivityList([...activityList, ...allList.slice(activityList.length, allList.length)])
-        setFilteredList([...activityList, ...allList.slice(activityList.length, allList.length)])
+      if (filteredList.length + rowCount > activityList.length) {
+        setFilteredList([...filteredList, ...activityList.slice(filteredList.length, activityList.length)])
         setIsVisibleFetching(false)
       } else {
-        setActivityList([...activityList, ...allList.slice(activityList.length, activityList.length + rowCount)])
-        setFilteredList([...activityList, ...allList.slice(activityList.length, activityList.length + rowCount)])
+        setFilteredList([...filteredList, ...activityList.slice(filteredList.length, filteredList.length + rowCount)])
         setIsVisibleFetching(true)
       }
     }
@@ -86,14 +84,17 @@ const ActivitySection = () => {
   const searchNFT = key => {
     setSearchKey(key)
     if (key === '') {
-      if (filterKey === '') setFilteredList(activityList)
-      else {
+      if (filterKey === '') {
+        setActivityList(allList)
+        setFilteredList(allList.slice(0, rowCount))
+      } else {
         let filtered = []
 
         allList.forEach(element => {
           if (element.action_type.toLowerCase().includes(filterKey.toLowerCase())) filtered.push(element)
         })
-        setFilteredList(filtered)
+        setActivityList(filtered)
+        setFilteredList(filtered.slice(0, rowCount))
       }
     } else {
       let filtered = []
@@ -108,15 +109,19 @@ const ActivitySection = () => {
         )
           filtered.push(element)
       })
-      setFilteredList(filtered)
+      setActivityList(filtered)
+      setFilteredList(filtered.slice(0, rowCount))
     }
   }
 
   useEffect(() => {
     setFilteredList([])
+
     if (filterKey === '') {
-      if (searchKey === '') setFilteredList(activityList)
-      else {
+      if (searchKey === '') {
+        setActivityList(allList)
+        setFilteredList(allList.slice(0, rowCount))
+      } else {
         let filtered = []
         setFilteredList([])
 
@@ -124,7 +129,8 @@ const ActivitySection = () => {
           if (filterKey === '')
             if (element.asset_name.toLowerCase().includes(searchKey.toLowerCase())) filtered.push(element)
         })
-        setFilteredList(filtered)
+        setActivityList(filtered)
+        setFilteredList(filtered.slice(0, rowCount))
       }
       return
     }
@@ -139,13 +145,15 @@ const ActivitySection = () => {
       )
         filtered.push(element)
     })
-    setFilteredList(filtered)
+    setActivityList(filtered)
+    setFilteredList(filtered.slice(0, rowCount))
+    console.log(filtered, '======filtered===')
   }, [filterKey])
 
   return (
     <section className="w-full mt-[16px] lg:mt-[0px] min-h-[600px]">
       <div className="lg:mt-[30px] w-full flex justify-between">
-        <div className="w-[185px]">
+        <div className="w-[185px] lg:w-full">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
         </div>
         <div>
@@ -173,7 +181,7 @@ const ActivitySection = () => {
             ) : (
               <ActivityAccordion data={filteredList} />
             )}
-            {searchKey === '' && filterKey === '' && isVisibleFetching && (
+            {isVisibleFetching && (
               <div className="w-full mt-[-50px] mb-[40px]">
                 <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
               </div>
