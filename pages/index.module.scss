@@ -108,8 +108,10 @@
 
 .shopMerchSection {
   width: 100%;
-  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  @media (min-width: 1024px) {
+    border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    // border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  }
   display: flex;
   justify-content: center;
 }
