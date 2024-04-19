@@ -1098,8 +1098,9 @@ const MainSection = ({
       ])
     }
 
+    setShowAlert(true)
+
     setTimeout(() => {
-      setShowAlert(true)
       router.reload()
     }, 1000)
   }
