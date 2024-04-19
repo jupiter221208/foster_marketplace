@@ -286,6 +286,7 @@ const Step02CollectionSection = props => {
                       selectedCollectionFile.url && (
                         <ModelViewer
                           path={selectedCollectionFile.url}
+                          preserveDrawingBuffer
                           getSnapshot={{
                             onSnapshot: image => {
                               addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
@@ -674,6 +675,7 @@ const Step02CollectionSection = props => {
                     selectedCollectionFile.url && (
                       <ModelViewer
                         path={selectedCollectionFile.url}
+                        preserveDrawingBuffer
                         getSnapshot={{
                           onSnapshot: image => {
                             addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
