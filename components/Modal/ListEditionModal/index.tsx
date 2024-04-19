@@ -122,7 +122,7 @@ const ListEditionModal = ({ data, open, listingType, onSuccess, onClose }: Liset
                             src={nftImage}
                             onError={handleImageError}
                             alt={data?.name}
-                            className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                            className="w-auto h-auto max-w-full max-h-full object-contain"
                           />
                         )}
                       </div>
