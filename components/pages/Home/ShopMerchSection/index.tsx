@@ -16,7 +16,7 @@ const ShopMerchSection = props => {
   const viewport = useViewport()
   return (
     <section className={styles.container}>
-      <div className="w-full opacity-[25%] h-[510px] lg:h-[877px] flex items-center justify-center">
+      <div className={styles.imageArea}>
         <Image src={MerchImage} alt="" width={593} height={776} />
       </div>
       <div className="absolute inset-0 flex justify-center items-center">

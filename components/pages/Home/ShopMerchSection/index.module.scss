@@ -19,3 +19,20 @@
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.9)
 }
+
+.imageArea {
+  width: 100%;
+  height: auto;
+  padding: 30px 0px;
+  @media (min-width: 414px) {
+    height: auto;
+    padding: 30px 0px;
+  }
+  @media (min-width: 640px) {
+    height: 877px;
+  }
+  opacity: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
