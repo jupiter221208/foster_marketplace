@@ -60,14 +60,16 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [buyLimit, setBuyLimit] = useState('')
   const [mintPrice, setMintPrice] = useState('')
   const [startType, setStartType] = useState('soon')
-  const [durationType, setDurationType] = useState('24')
+  const [durationType, setDurationType] = useState<'noTime' | '24' | '72' | 'custom'>('24')
   const [buyLimitType, setBuyLimitType] = useState('no')
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [day, setDay] = useState('')
 
   const endDate = useMemo(() => {
-    var plusDays = Number(days)
-    var plusHours = Number(hours)
+    if (durationType == 'noTime') return null
+
+    let plusDays = Number(days)
+    let plusHours = Number(hours)
 
     if (days === '') plusDays = 0
     if (hours === '') plusHours = 0
@@ -79,7 +81,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     const dayOfWeek = day[endDate.getDay()]
     setDay(dayOfWeek)
     return endDate
-  }, [startDate, days, hours])
+  }, [startDate, days, hours, durationType])
 
   const handleListEdition = async () => {
     try {
@@ -89,7 +91,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         mintAddress: data.mintAddress,
         price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
         startTime: startDate.toISOString().split('.')[0],
-        endTime: endDate.toISOString().split('.')[0],
+        endTime: endDate?.toISOString().split('.')[0],
         buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       })
 
