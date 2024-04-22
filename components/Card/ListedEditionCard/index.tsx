@@ -145,20 +145,20 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
             borderRadius="5px"
           />
 
-          {/* {cancelListLoading ? (
-            <LoadingButton fullWidth height={28} borderRadius={5} />
-          ) : ( */}
-          <OutlineButton
-            label={'Cancel Listing'}
-            fullWidth
-            backgroundColor="transparent"
-            onClick={() => cancelListEdition()}
-            fontFamily="Muli-SemiBold"
-            fontSize={12}
-            height="28px"
-            borderRadius="5px"
-          />
-          {/* )} */}
+          {cancelListLoading ? (
+            <LoadingButton fullWidth height={28} borderRadius={5} mobileLoading={true} />
+          ) : (
+            <OutlineButton
+              label={'Cancel Listing'}
+              fullWidth
+              backgroundColor="transparent"
+              onClick={() => cancelListEdition()}
+              fontFamily="Muli-SemiBold"
+              fontSize={12}
+              height="28px"
+              borderRadius="5px"
+            />
+          )}
         </div>
       </div>
     </div>

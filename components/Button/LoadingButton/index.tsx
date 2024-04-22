@@ -19,6 +19,7 @@ const LoadingButton = props => {
     width = 160,
     height,
     gradientDirection = 'left',
+    mobileLoading = false,
   } = props
 
   return (
@@ -32,7 +33,7 @@ const LoadingButton = props => {
         background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
       }}
     >
-      <div className="flex items-center w-[40px]">
+      <div className={`flex items-center ${mobileLoading ? 'w-[30px]' : 'w-[40px]'}`}>
         <Lottie animationData={LoadingIcon} loop={true} />
       </div>
     </button>
