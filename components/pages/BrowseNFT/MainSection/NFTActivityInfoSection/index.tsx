@@ -140,6 +140,33 @@ const NFTActivityInfoSection = props => {
                   </Link>
                   <span>&nbsp;purchased artwork</span>
                 </div>
+              ) : item.action_type === 'MasterEditionListingCancelled' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;canceled master edition</span>
+                </div>
+              ) : item.action_type === 'MasterEditionListingCreated' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;listed master edition</span>
+                </div>
+              ) : item.action_type === 'MasterEditionListingUpdated' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;updated master edition</span>
+                </div>
               ) : (
                 ''
               )}

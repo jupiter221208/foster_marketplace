@@ -24,7 +24,8 @@ export const isAmountExisting = event => {
     event === 'OfferMade' ||
     event === 'ListingSold' ||
     event === 'MasterEditionListingCreated' || 
-    event === 'MasterEditionListingUpdated'
+    event === 'MasterEditionListingUpdated' ||
+    event === 'MasterEditionListingCancelled'
   )
     exist = true
   return exist
