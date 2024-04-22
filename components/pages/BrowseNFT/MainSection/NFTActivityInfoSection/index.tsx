@@ -176,7 +176,7 @@ const NFTActivityInfoSection = props => {
                 <div className={styles.actionType}>
                   <Link href={`/${item.reference_username}`} passHref>
                     <a>
-                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                      <span className={styles.userName}>{getDisplayUserName(item.minter_username)}</span>
                     </a>
                   </Link>
                   <span>
