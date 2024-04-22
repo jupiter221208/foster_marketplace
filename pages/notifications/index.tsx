@@ -310,6 +310,13 @@ const Notifications = () => {
               <div className="mt-[140px] h-[540px] max-h-[540px]">
                 <LoadingModal open={loading} />
               </div>
+            ) : searchedNotification.length === 0 ? (
+              <div className="h-[500px] max-h-[500px] flex items-center justify-center">
+                <div className="mb-[30px]">
+                  <div className={styles.noTitle}>No notifications detected</div>
+                  <div className={styles.noDesc}>When you get notifications, they will show up here</div>
+                </div>
+              </div>
             ) : (
               <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
             )}
