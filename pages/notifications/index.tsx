@@ -43,6 +43,7 @@ const Notifications = () => {
   const [loading, setLoading] = useState(true)
   const viewport = useViewport()
   const { profileInfo } = useAuthentication()
+  const [noDataAlert, setNoDataAlert] = useState(false)
 
   function getSortedNotification(notifications) {
     let today = new Date().getTime()
@@ -132,16 +133,27 @@ const Notifications = () => {
 
     userAPI.getNotifications().then(
       response => {
-        setTimeout(() => {
-          setLoading(false)
-        }, 1000)
         if (response !== null) {
           if (response.notifications.length > 0) {
+            setTimeout(() => {
+              setLoading(false)
+            }, 500)
             getNotifications([...response.notifications])
+          } else {
+            setTimeout(() => {
+              setNoDataAlert(true)
+              setLoading(false)
+            }, 500)
           }
+        } else {
+          setTimeout(() => {
+            setNoDataAlert(true)
+            setLoading(false)
+          }, 500)
         }
       },
       error => {
+        setNoDataAlert(true)
         setLoading(false)
         console.log(error)
       }
@@ -290,68 +302,53 @@ const Notifications = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className="hidden lg:flex w-full z-10">
+        <div className="w-full">
           <div className={styles.title}>Notifications</div>
+          {loading ? (
+            <div className="mt-[140px] h-[540px] max-h-[540px]">
+              <LoadingModal open={loading} />
+            </div>
+          ) : noDataAlert === true ? (
+            <div className="h-[500px] max-h-[500px] flex items-center justify-center">
+              <div className="mb-[30px]">
+                <div className={styles.noTitle}>No notifications detected</div>
+                <div className={styles.noDesc}>When you get notifications, they will show up here</div>
+              </div>
+            </div>
+          ) : (
+            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+          )}
         </div>
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full">
-            <div className={styles.searchArea}>
-              <div className="flex w-full">
-                <NotificationsSearchBox
-                  placeholder="Search"
-                  onChange={value => searchNotification(filterNotification, value)}
-                />
-              </div>
-              <div className={styles.filter} onClick={() => setShowFilterModal(true)}>
-                Filter
-              </div>
-            </div>
-            {loading ? (
-              <div className="mt-[140px] h-[540px] max-h-[540px]">
-                <LoadingModal open={loading} />
-              </div>
-            ) : searchedNotification.length === 0 ? (
-              <div className="h-[500px] max-h-[500px] flex items-center justify-center">
-                <div className="mb-[30px]">
-                  <div className={styles.noTitle}>No notifications detected</div>
-                  <div className={styles.noDesc}>When you get notifications, they will show up here</div>
-                </div>
-              </div>
-            ) : (
-              <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
-            )}
-          </div>
-        ) : (
-          <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
-            <div className="w-[55%] flex flex-wrap max-w-[705px] gap-[16px] lg:gap-[35px] z-10">
-              <div className="w-full justify-start">
-                <div className={styles.tabContainer}>
-                  <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-                </div>
 
-                {loading ? (
-                  <div className="mt-[140px] h-[540px] max-h-[540px]">
-                    <LoadingModal open={loading} />
-                  </div>
-                ) : (
-                  <div className="mt-[20px] h-[540px] max-h-[540px]">
-                    <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
-                  </div>
-                )}
+        {/* <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
+          <div className="w-[55%] flex flex-wrap max-w-[705px] gap-[16px] lg:gap-[35px] z-10">
+            <div className="w-full justify-start">
+              <div className={styles.tabContainer}>
+                <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
-            </div>
-            <div className="w-[45%] mt-[-20px]">
-              <NotificationsSearchBox
-                placeholder="Search"
-                onChange={value => searchNotification(filterNotification, value)}
-              />
-              <div className={styles.followArtist}>Activity by artists you follow</div>
-              <div className={styles.followArea}>
-                <div className={styles.comingSoon}>Coming Soon...</div>
-              </div>
+
+              {loading ? (
+                <div className="mt-[140px] h-[540px] max-h-[540px]">
+                  <LoadingModal open={loading} />
+                </div>
+              ) : (
+                <div className="mt-[20px] h-[540px] max-h-[540px]">
+                  <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+                </div>
+              )}
             </div>
           </div>
-        )}
+          <div className="w-[45%] mt-[-20px]">
+            <NotificationsSearchBox
+              placeholder="Search"
+              onChange={value => searchNotification(filterNotification, value)}
+            />
+            <div className={styles.followArtist}>Activity by artists you follow</div>
+            <div className={styles.followArea}>
+              <div className={styles.comingSoon}>Coming Soon...</div>
+            </div>
+          </div>
+        </div> */}
       </div>
       {showFilterModal && (
         <NotificationsFilterModal
