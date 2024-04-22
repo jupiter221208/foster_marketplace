@@ -11,10 +11,6 @@
   line-height: 24px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
-  opacity: 0.8;
-  &:hover {
-    color: #95dbd5;
-  }
 }
 
 .menuArea {
@@ -61,7 +57,6 @@
 
 .iconArea {
   width: 46px;
-  aspect-ratio: 1/1;
   margin-right: 20px;
   border-radius: 50px;
   background-color: rgba(var(--main-bg-color-rgb), 0.05);
@@ -71,5 +66,6 @@
   * {
     fill: var(--main-bg-color);
   }
+  aspect-ratio: 1;
 }
 

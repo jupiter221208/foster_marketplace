@@ -14,7 +14,6 @@ import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?componen
 
 // styles
 import styles from './index.module.scss'
-import { useRouter } from 'next/router'
 
 // apis
 import userAPI from 'apis/user'
@@ -24,18 +23,12 @@ import NotificationsCard from 'components/Card/NotificationsCard'
 
 const NotificationMenu = () => {
   const dispatch = useDispatch()
-  const router = useRouter()
+  const viewport = useViewport()
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
-  const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
-  const [filterList, setFilterList] = useState<any[]>([])
-  const [selectedTab, setSelectedTab] = useState(0)
   const [allNotification, setAllNotification] = useState<any[]>([])
-  const [filterNotification, setFilterNotification] = useState<any[]>([])
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
-  const [searchWord, setSearchWord] = useState('')
   const [loading, setLoading] = useState(true)
-  const viewport = useViewport()
   const { profileInfo } = useAuthentication()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false) // Initially menu is hidden
 
@@ -63,7 +56,6 @@ const NotificationMenu = () => {
 
   useEffect(() => {
     if (profileInfo === null || profileInfo === undefined) return
-    console.log(isMenuOpen, allNotification, '============allNotification=========')
     if (isMenuOpen && allNotification.length === 0) {
       setLoading(true)
       userAPI.getNotifications().then(
@@ -164,7 +156,6 @@ const NotificationMenu = () => {
     let dateSorted = notifications.sort(compareDate)
     setAllNotification(dateSorted)
     const sorted = getSortedNotification(dateSorted)
-    setFilterNotification(sorted)
     setSearchedNotification(sorted)
   }
 
