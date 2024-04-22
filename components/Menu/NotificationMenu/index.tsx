@@ -63,24 +63,27 @@ const NotificationMenu = () => {
 
   useEffect(() => {
     if (profileInfo === null || profileInfo === undefined) return
-
-    userAPI.getNotifications().then(
-      response => {
-        setTimeout(() => {
-          setLoading(false)
-        }, 1000)
-        if (response !== null) {
-          if (response.notifications.length > 0) {
-            getNotifications([...response.notifications])
+    console.log(isMenuOpen, allNotification, '============allNotification=========')
+    if (isMenuOpen && allNotification.length === 0) {
+      setLoading(true)
+      userAPI.getNotifications().then(
+        response => {
+          setTimeout(() => {
+            setLoading(false)
+          }, 1000)
+          if (response !== null) {
+            if (response.notifications.length > 0) {
+              getNotifications([...response.notifications])
+            }
           }
+        },
+        error => {
+          setLoading(false)
+          console.log(error)
         }
-      },
-      error => {
-        setLoading(false)
-        console.log(error)
-      }
-    )
-  }, [profileInfo])
+      )
+    }
+  }, [profileInfo, isMenuOpen])
 
   function getSortedNotification(notifications) {
     let today = new Date().getTime()
@@ -199,8 +202,15 @@ const NotificationMenu = () => {
               <div className={styles.title}>Notifications</div>
             </div>
             {loading ? (
-              <div className="mt-[140px] h-[540px] max-h-[540px]">
+              <div className="mt-[100px] h-[300px] max-h-[300px]">
                 <LoadingModal open={loading} />
+              </div>
+            ) : searchedNotification.length === 0 ? (
+              <div className="h-[500px] max-h-[500px] flex items-center justify-center">
+                <div className="mb-[30px]">
+                  <div className={styles.noTitle}>No notifications detected</div>
+                  <div className={styles.noDesc}>When you get notifications, they will show up here</div>
+                </div>
               </div>
             ) : (
               <div className="h-[500px] max-h-[500px]">
