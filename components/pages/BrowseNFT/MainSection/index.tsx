@@ -326,6 +326,29 @@ const MainSection = ({
               preflightCommitment: 'processed',
             })
             await mx.connection.confirmTransaction(signature)
+
+            await nftsAPI
+              .create({
+                token_id: editionMint,
+                nft_name: `${nftName} #${editionNumber}`,
+                categories: nftCategories.toString(),
+                asset_type: nftType === 'image/gif' ? 'image' : nftType,
+                cover_image_url: nftCoverUrl,
+                asset_url: nftAssetUrl ?? originalCoverUrl,
+                collection_id: nftCollectionAddress ?? '',
+                edition: 1,
+                parent_nft: mintAddress,
+                max_supply: editionType == 'master_le' ? supply.max : null,
+              })
+              .then(
+                response => {
+                  console.log(response)
+                },
+                error => {
+                  console.log(error)
+                }
+              )
+
             editionStatuses[editionNumber.toString()] = {
               status: 'success',
               signature,

@@ -195,12 +195,15 @@ const NotificationMenu = () => {
         </HMenu.Button>
         {isMenuOpen && (
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
+            <div className="mt-[30px] ml-[30px]">
+              <div className={styles.title}>Notifications</div>
+            </div>
             {loading ? (
               <div className="mt-[140px] h-[540px] max-h-[540px]">
                 <LoadingModal open={loading} />
               </div>
             ) : (
-              <div className="mt-[20px] h-[540px] max-h-[540px]">
+              <div className="h-[500px] max-h-[500px]">
                 <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
               </div>
             )}
