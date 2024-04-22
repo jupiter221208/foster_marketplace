@@ -174,7 +174,7 @@ const NFTActivityInfoSection = props => {
                 </div>
               ) : item.action_type === 'MasterEditionPrintCreated' ? (
                 <div className={styles.actionType}>
-                  <Link href={`/${item.reference_username}`} passHref>
+                  <Link href={`/${item.minter_username}`} passHref>
                     <a>
                       <span className={styles.userName}>{getDisplayUserName(item.minter_username)}</span>
                     </a>
