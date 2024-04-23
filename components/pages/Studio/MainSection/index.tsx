@@ -188,9 +188,9 @@ const MainSection = ({ onChange, heroValue }) => {
                   <img src={StudioCloth.src} alt="" />
                 </div>
                 <div className={styles.solanaText}>
-                  Solana Couture
+                  Solana Fashion
                   <br />
-                  by&nbsp;<span>Foster Studio</span>
+                  <span>On-Demand</span>
                 </div>
               </div>
             </div>

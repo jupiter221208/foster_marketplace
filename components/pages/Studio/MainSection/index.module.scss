@@ -32,8 +32,8 @@
   font-size: 72px;
   line-height: 80px;
   text-align: center;
-  stroke-width: 1px;
-  stroke: var(--background-main-color);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #1a1a1a;
   color: #eff0f6;
   span {
     color: var(--main-icon-color)
