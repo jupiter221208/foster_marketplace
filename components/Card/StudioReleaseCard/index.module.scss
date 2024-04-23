@@ -119,6 +119,21 @@
   color: var(--wallet-active-text);
 }
 
+.noHeightFull {
+  div {
+    div {
+      height: fit-content;
+    }
+  }
+}
+
+.heightFull {
+  div {
+    div {
+      height: 100%;
+    }
+  }
+}
 .costDivider {
   display: flex;
   width: 1px;
