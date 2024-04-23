@@ -32,7 +32,6 @@ import FosterLogo from 'assets/logo.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
-import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
 
@@ -44,6 +43,7 @@ import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import Link from 'next/link'
 import { getShortAddress } from 'utils/wallet.util'
+import NotificationMenu from 'components/Menu/NotificationMenu'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -277,11 +277,14 @@ const PrimaryHeader = () => {
                       >
                         <ShoppingCartIcon alt="" />
                       </div>
-                      <div
+                      {/* <div
                         className={`${styles.iconArea} flex relative cursor-pointer`}
                         onClick={() => router.push('/notifications')}
                       >
                         <NotificationIcon alt="" />
+                      </div> */}
+                      <div>
+                        <NotificationMenu />
                       </div>
                     </div>
                   </>
@@ -354,7 +357,15 @@ const PrimaryHeader = () => {
           </div>
         </div>
 
-        {!isScrollTop && <div className={styles.divider} />}
+        {router.pathname === '/' ? (
+          !isScrollTop ? (
+            <div className={styles.divider} />
+          ) : (
+            <></>
+          )
+        ) : (
+          <div className={styles.divider} />
+        )}
       </div>
     </div>
   )

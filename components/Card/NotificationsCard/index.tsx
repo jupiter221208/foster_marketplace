@@ -112,6 +112,11 @@ const NotificationsCard = props => {
       case 'offer':
         message = 'You received an offer from'
         break
+      case 'mint_edition':
+        let name = notification.reference_token_name
+        name = name.slice(name.indexOf('(') + 1, name.indexOf(')'))
+        message = `bought edition ${name}`
+        break
       case 'bid':
         message = 'placed a bid in your auction.'
         break
@@ -147,6 +152,7 @@ const NotificationsCard = props => {
       case 'following':
       case 'save_nft':
       case 'save_collection':
+      case 'mint_edition':
       case 'like':
       case 'bid':
       case 'winner':
@@ -177,6 +183,7 @@ const NotificationsCard = props => {
       case 'bid':
       case 'save_nft':
       case 'save_collection':
+      case 'mint_edition':
       case 'like':
       case 'purchase':
       case 'winner':

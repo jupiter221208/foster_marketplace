@@ -503,7 +503,7 @@ const MainSection = prop => {
               (hasLoading ? (
                 <div className={`${styles.skeletonLoader} w-[150px] h-[35px] rounded-full `}></div>
               ) : (
-                <div className="relative">
+                <div className="relative z-100">
                   <AddressButton
                     label={getShortAddress(artistInfo?.wallet_id)}
                     onClick={() => {

@@ -1,6 +1,4 @@
 import React, { Fragment } from 'react'
-// next components
-import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -16,7 +14,6 @@ import SolrPlexIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const WalletFilterMenu = props => {
   const { label, data, selectedItem, setSelectedItem } = props

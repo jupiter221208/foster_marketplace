@@ -121,10 +121,10 @@ const TopRatedArtistsSection = () => {
                 : viewport === 'md'
                 ? 3
                 : viewport === 'lg'
-                ? 3
-                : viewport === 'xl'
                 ? 4
-                : 5
+                : viewport === 'xl'
+                ? 5
+                : 6
             }
             spaceBetween={
               viewport === 'xs' || viewport === 'sm' || viewport === 'md'
@@ -132,7 +132,7 @@ const TopRatedArtistsSection = () => {
                 : viewport === 'lg'
                 ? 20
                 : viewport === 'xl'
-                ? 24
+                ? 20
                 : 24
             }
             initialSlide={5}

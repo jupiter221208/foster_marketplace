@@ -182,6 +182,7 @@ export interface ExploreAPIData {
   creator: string
   artist_profile_picture: string
   collection_name: string
+  current_supply: string
   master_edition?: {
     mintAddress: string,
     price: string,
