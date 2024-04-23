@@ -27,11 +27,14 @@
 }
 
 .solanaText {
-  margin-top: -100px;
+  margin-top: -50px;
   font-family: 'JunkDog';
   font-size: 72px;
+  line-height: 80px;
   text-align: center;
-  color: var(--text-gray-200-color);
+  stroke-width: 1px;
+  stroke: var(--background-main-color);
+  color: #eff0f6;
   span {
     color: var(--main-icon-color)
   }
@@ -331,4 +334,17 @@
   font-size: 16px;
   line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.5)
+}
+
+.information {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.5)
+}
+
+.topBorder {
+  width: 30px;
+  height: 1px;
+  background: var(--main-icon-color);
 }

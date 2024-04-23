@@ -13,8 +13,6 @@ import 'swiper/css/pagination'
 import { useDispatch, useSelector } from 'react-redux'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
-import StudioCard from 'components/Card/StudioCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // custom functions
@@ -24,12 +22,15 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // images and icons
 import StudioClothBG from 'assets/images/studio-cloth-bg.png'
 import StudioCloth from 'assets/images/studio-cloth.png'
+import WorldWide from 'assets/icons/studio-world.svg?component'
+import EasyCheckout from 'assets/icons/studio-checkout.svg?component'
+import QualityThreads from 'assets/icons/studio-quality.svg?component'
+import Monetization from 'assets/icons/studio-monetization.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 // call apis
-import GradientButton from 'components/Button/GradientButton'
 import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 SwiperCore.use([Navigation])
@@ -114,7 +115,7 @@ const MainSection = ({ onChange, heroValue }) => {
   }
 
   const [items, setItems] = useState([
-    { label: 'All', name: 'All', selected: true },
+    // { label: 'All', name: 'All', selected: true },
     { label: 'Tees', name: 'Short Sleeve', selected: false },
     { label: 'Long Sleeves', name: 'Long Sleeve', selected: false },
     { label: 'Hoodies', name: 'Hoodie', selected: false },
@@ -155,7 +156,29 @@ const MainSection = ({ onChange, heroValue }) => {
       <div className="g-container w-full h-full z-10">
         <div className="w-full">
           <div className="w-full flex">
-            <div className="w-[25%]"></div>
+            <div className="w-[25%]">
+              <div className="w-full h-full flex items-center">
+                <div className={styles.information}>
+                  <div className={styles.topBorder} />
+                  <div className="flex gap-[24px] mt-[27px] items-center">
+                    <WorldWide />
+                    WORLDWIDE SHIPPING
+                  </div>
+                  <div className="flex gap-[24px] mt-[25px] items-center">
+                    <EasyCheckout />
+                    EASY CHECKOUT
+                  </div>
+                  <div className="flex gap-[24px] mt-[25px] items-center">
+                    <QualityThreads />
+                    QUALITY THREADS
+                  </div>
+                  <div className="flex gap-[24px] mt-[25px] items-center">
+                    <Monetization />
+                    ADDITIONAL MONETIZATION
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="relative w-[50%] mt-[66px]">
               <div className="flex justify-center">
                 <img src={StudioClothBG.src} alt="" />
@@ -207,11 +230,11 @@ const MainSection = ({ onChange, heroValue }) => {
               />
             </div> */}
           </div>
-          <div className="flex justify-center mt-[140px]">
+          <div className="flex justify-center mt-[150px]">
             <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
           </div>
           <div className="w-full flex justify-center">
-            <div className="flex gap-[25px] mt-[70px]">
+            <div className="flex gap-[25px] mt-[60px]">
               {items.map((item, index) => (
                 <div
                   key={index}
