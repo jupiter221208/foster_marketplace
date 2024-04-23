@@ -71,51 +71,8 @@ const MainSection = ({ onChange, heroValue }) => {
     }
   }, [])
 
-  const onSelected1 = (type, name, base) => {
-    let newStudioList = []
-    studioHeroList.map(studioData => {
-      if (studioData.type === type) {
-        let newData = { ...studioData }
-        let newBases = []
-        newData.bases.map(item => {
-          if (item.name === name) item.selected = 'true'
-          else item.selected = 'false'
-          newBases.push(item)
-        })
-        newData['bases'] = newBases
-        newStudioList.push(newData)
-
-        StudioApparelList.map(item => {
-          if (item.name === base) {
-            onChange({
-              selected: true,
-              data: item,
-            })
-            dispatch({ type: 'set', apparelType: item.name })
-          }
-          setTimeout(() => {
-            window.scrollTo({
-              top: window.innerHeight,
-              behavior: 'smooth',
-            })
-          }, 1000)
-        })
-      } else {
-        let newData = { ...studioData }
-        let newBases = []
-        newData.bases.map(item => {
-          item.selected = 'false'
-          newBases.push(item)
-        })
-        newData['bases'] = newBases
-        newStudioList.push(newData)
-      }
-    })
-    setStudioHeroList(newStudioList)
-  }
-
   const [items, setItems] = useState([
-    // { label: 'All', name: 'All', selected: true },
+    { label: 'All', name: 'All', selected: true },
     { label: 'Tees', name: 'Short Sleeve', selected: true },
     { label: 'Long Sleeves', name: 'Long Sleeve', selected: false },
     { label: 'Hoodies', name: 'Hoodie', selected: false },
@@ -123,41 +80,40 @@ const MainSection = ({ onChange, heroValue }) => {
     { label: `Women's Tees`, name: `Women's Short Sleeve`, selected: false },
   ])
 
-  const onSelected = data => {
-    let newItems = []
-    items.map(item => {
-      if (data.name === item.name) {
-        newItems.push({ label: item.label, name: item.name, selected: true })
-      } else {
-        newItems.push({ label: item.label, name: item.name, selected: false })
-      }
-    })
-    setItems(newItems)
+  // const onSelected = data => {
+  //   let newItems = []
+  //   items.map(item => {
+  //     if (data.name === item.name) {
+  //       newItems.push({ label: item.label, name: item.name, selected: true })
+  //     } else {
+  //       newItems.push({ label: item.label, name: item.name, selected: false })
+  //     }
+  //   })
+  //   setItems(newItems)
 
-    StudioApparelList.map(item => {
-      if (item.name === data.name) {
-        onChange({
-          selected: true,
-          data: item,
-        })
-        dispatch({ type: 'set', apparelType: item.name })
-      }
-      setTimeout(() => {
-        window.scrollTo({
-          top: window.innerHeight - 140,
-          behavior: 'smooth',
-        })
-      }, 1000)
-    })
-  }
+  //   StudioApparelList.map(item => {
+  //     if (item.name === data.name) {
+  //       onChange({
+  //         selected: true,
+  //         data: item,
+  //       })
+  //       dispatch({ type: 'set', apparelType: item.name })
+  //     }
+  //     setTimeout(() => {
+  //       window.scrollTo({
+  //         top: window.innerHeight - 140,
+  //         behavior: 'smooth',
+  //       })
+  //     }, 1000)
+  //   })
+  // }
 
   return (
     <section id="main-section" className={styles.container}>
       <div className="g-container w-full h-full z-10">
         <div className="w-full">
-          <div className="w-full flex">
-            <div className="w-[25%]"></div>
-            <div className="relative w-[50%] mt-[66px]">
+          <div className="w-full lg:flex hidden justify-center">
+            <div className="relative w-[50%] mt-[74px] mt-[66px]">
               <div className="flex justify-center">
                 <img src={StudioClothBG.src} alt="" />
               </div>
@@ -166,15 +122,35 @@ const MainSection = ({ onChange, heroValue }) => {
                   <img src={StudioCloth.src} alt="" />
                 </div>
                 <div className={styles.solanaText}>
-                  Solana Fashion
+                  Solana&nbsp;Fashion
                   <br />
                   <span>On-Demand</span>
                 </div>
               </div>
             </div>
-            <div className="w-[25%]"></div>
           </div>
-          <div className="w-full flex justify-center">
+          <div className="w-full lg:hidden block">
+            <div className="w-full flex justify-center">
+              <div className="relative w-[76%] mt-[74px]">
+                <div className="w-full flex justify-center">
+                  <img src={StudioClothBG.src} alt="" />
+                </div>
+                <div className="absolute inset-0">
+                  <div className="flex justify-center mt-[45px]">
+                    <img src={StudioCloth.src} alt="" />
+                  </div>
+                  <div className="w-full flex justify-center">
+                    <div className={styles.solanaText}>
+                      Solana&nbsp;Fashion
+                      <br />
+                      <span>On-Demand</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div className="w-full flex justify-center">
             <div className="flex gap-[25px] mt-[244px]">
               {items.map((item, index) => (
                 <div
@@ -186,7 +162,7 @@ const MainSection = ({ onChange, heroValue }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
           {/* <div className="hidden lg:flex w-full justify-around mt-[75px] gap-[20px]">
             {studioHeroList.map((item, index) => (
               <div key={index}>

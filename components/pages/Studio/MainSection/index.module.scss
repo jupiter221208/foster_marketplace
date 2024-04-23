@@ -1,15 +1,14 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  margin-top: -80px;
-  margin-bottom: 60px;
-  height: auto;
+  padding-bottom: 170px;
+  height: 100%;
   // background-image: url('../../../../public/images/hero-background.png');
   background-size: cover;
   @media (min-width: 1024px) {
     margin-top: 0px;
     margin-bottom: 0px;
-    height: 97vh;
+    height: 90vh;
   }
   width: 100%;
   display: flex;
@@ -27,10 +26,15 @@
 }
 
 .solanaText {
-  margin-top: -50px;
+  margin-top: -15px;
   font-family: 'JunkDog';
-  font-size: 72px;
-  line-height: 80px;
+  font-size: 44px;
+  line-height: 50px;
+  @media (min-width: 1024px) {
+    margin-top: -50px;
+    font-size: 72px;
+    line-height: 80px;
+  }
   text-align: center;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: var(--bg-1A1A1A-202427);

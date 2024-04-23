@@ -26,8 +26,8 @@ import styles from './index.module.scss'
 
 const Studio = () => {
   const [heroState, setHeroState] = useState({
-    selected: false,
-    data: {},
+    selected: true,
+    data: 'all',
   })
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
