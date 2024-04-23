@@ -92,7 +92,7 @@ const StudioReleaseCard = props => {
   }, [color])
 
   return (
-    <div className="w-full h-full relative p-[2px] lg:p-[3px]">
+    <div className="w-full h-full relative">
       <div className={styles.imageArea}>
         <div
           className={styles.imageContent}
@@ -104,9 +104,15 @@ const StudioReleaseCard = props => {
             <>
               <img src={imagePath} className={styles.imageNft} />
               <div className={styles.nftImage}>
-                <div className="w-[25%] h-[25%] mt-[29%] flex justify-center items-center">
-                  <ImageWithFoster src={nftImage} className="w-auto h-auto max-w-full max-h-full object-contain" />
-                </div>
+                {apparelList.name === 'Hoodie' ? (
+                  <div className="w-[29%] h-[30%] mt-[28%] flex justify-center items-center overflow-hidden">
+                    <ImageWithFoster src={nftImage} className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="w-[32%] h-[43%] mt-[22%] flex justify-center items-center overflow-hidden">
+                    <ImageWithFoster src={nftImage} className="w-full h-full object-cover" />
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -114,7 +120,7 @@ const StudioReleaseCard = props => {
           )}
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mt-[15px]">
         <div className={styles.apparelTitle}>
           <div className="w-full">
             <div className="flex justify-center mx-[20px]">
@@ -130,13 +136,13 @@ const StudioReleaseCard = props => {
                 {getDisplayUserName(nftName)}
               </div>
             </div>
-            <div>
+            {/* <div>
               {apparelList?.name === "Women's Short Sleeve"
                 ? 'Womens T-Shirt'
                 : apparelList?.name === 'Youth Short Sleeve'
                 ? 'Youth T-Shirt'
                 : apparelList?.name}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

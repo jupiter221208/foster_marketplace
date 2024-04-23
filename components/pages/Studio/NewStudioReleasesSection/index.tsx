@@ -39,7 +39,7 @@ const NewStudioReleasesSection = props => {
   const [filterName, setFilterName] = useState('Filter')
   const [bases, setBases] = useState([])
   const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(8)
+  const [perPage, setPerPage] = useState(10)
   const [seed, setSeed] = useState(Math.random())
 
   useEffect(() => {
