@@ -116,7 +116,7 @@ const MainSection = ({ onChange, heroValue }) => {
 
   const [items, setItems] = useState([
     // { label: 'All', name: 'All', selected: true },
-    { label: 'Tees', name: 'Short Sleeve', selected: false },
+    { label: 'Tees', name: 'Short Sleeve', selected: true },
     { label: 'Long Sleeves', name: 'Long Sleeve', selected: false },
     { label: 'Hoodies', name: 'Hoodie', selected: false },
     { label: 'Crewnecks', name: 'Sweatshirt', selected: false },
@@ -157,7 +157,7 @@ const MainSection = ({ onChange, heroValue }) => {
         <div className="w-full">
           <div className="w-full flex">
             <div className="w-[25%]">
-              <div className="w-full h-full flex items-center">
+              {/* <div className="w-full h-full flex items-center">
                 <div className={styles.information}>
                   <div className={styles.topBorder} />
                   <div className="flex gap-[24px] mt-[27px] items-center">
@@ -177,7 +177,7 @@ const MainSection = ({ onChange, heroValue }) => {
                     SEAMLESS MONETIZATION
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="relative w-[50%] mt-[66px]">
               <div className="flex justify-center">
