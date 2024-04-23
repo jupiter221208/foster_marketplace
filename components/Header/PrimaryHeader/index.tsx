@@ -357,7 +357,15 @@ const PrimaryHeader = () => {
           </div>
         </div>
 
-        {!isScrollTop && <div className={styles.divider} />}
+        {router.pathname === '/' ? (
+          !isScrollTop ? (
+            <div className={styles.divider} />
+          ) : (
+            <></>
+          )
+        ) : (
+          <div className={styles.divider} />
+        )}
       </div>
     </div>
   )
