@@ -170,11 +170,11 @@ const MainSection = ({ onChange, heroValue }) => {
                   </div>
                   <div className="flex gap-[24px] mt-[25px] items-center">
                     <QualityThreads />
-                    QUALITY THREADS
+                    QUALITY ASSURED
                   </div>
                   <div className="flex gap-[24px] mt-[25px] items-center">
                     <Monetization />
-                    ADDITIONAL MONETIZATION
+                    SEAMLESS MONETIZATION
                   </div>
                 </div>
               </div>
