@@ -9,7 +9,7 @@ import { useViewport } from 'utils'
 // images and icons
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import StudioSelectionColor from 'components/StudioSelectionColor'
-import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import ColorType from 'assets/json/print/color.json'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
@@ -106,7 +106,7 @@ const StudioReleaseCard = props => {
               <div className={styles.nftImage}>
                 {apparelList.name === 'Hoodie' ? (
                   <div
-                    className={`${styles.heightFull}w-[30%] h-[30%] mt-[28%] flex justify-center items-center overflow-hidden`}
+                    className={`${styles.heightFull} w-[30%] h-[30%] mt-[28%] flex justify-center items-center overflow-hidden`}
                   >
                     <ImageWithFoster src={nftImage} className="w-full h-full object-cover overflow-hidden" />
                   </div>
@@ -162,7 +162,7 @@ const StudioReleaseCard = props => {
         )}
         <div className={styles.costDivider} />
         <div className="flex items-center ml-[10px]">
-          <SolanaIcon alt="" />
+          <SolanaIcon alt="" className="mt-[4px]" />
           &nbsp;
           <div className={styles.cost}>
             {apparelList?.black.cost ? (apparelList?.black.cost / solToUsdRate).toFixed(2) : ''}

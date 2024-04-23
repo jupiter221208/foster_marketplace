@@ -22,3 +22,12 @@
     font-size: 20px;
   }
 }
+
+.artistSectionBG {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: var(--bg-141313-F3F2F0);
+  border-top: 1px solid rgba(#eff0f6, 0.1);
+  border-bottom: 1px solid rgba(#eff0f6, 0.1);
+}

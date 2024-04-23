@@ -156,29 +156,7 @@ const MainSection = ({ onChange, heroValue }) => {
       <div className="g-container w-full h-full z-10">
         <div className="w-full">
           <div className="w-full flex">
-            <div className="w-[25%]">
-              {/* <div className="w-full h-full flex items-center">
-                <div className={styles.information}>
-                  <div className={styles.topBorder} />
-                  <div className="flex gap-[24px] mt-[27px] items-center">
-                    <WorldWide />
-                    WORLDWIDE SHIPPING
-                  </div>
-                  <div className="flex gap-[24px] mt-[25px] items-center">
-                    <EasyCheckout />
-                    EASY CHECKOUT
-                  </div>
-                  <div className="flex gap-[24px] mt-[25px] items-center">
-                    <QualityThreads />
-                    QUALITY ASSURED
-                  </div>
-                  <div className="flex gap-[24px] mt-[25px] items-center">
-                    <Monetization />
-                    SEAMLESS MONETIZATION
-                  </div>
-                </div>
-              </div> */}
-            </div>
+            <div className="w-[25%]"></div>
             <div className="relative w-[50%] mt-[66px]">
               <div className="flex justify-center">
                 <img src={StudioClothBG.src} alt="" />
@@ -195,46 +173,9 @@ const MainSection = ({ onChange, heroValue }) => {
               </div>
             </div>
             <div className="w-[25%]"></div>
-            {/* <div className="w-full lg:block hidden">
-              <div className={styles.text}>
-                Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
-              </div>
-              <div className={`${styles.slug} lg:flex hidden`}>Fashion & Fulfillment</div>
-            </div> */}
-            {/* <div className="mt-[25px] gap-[20px] hidden lg:flex">
-              <GradientButton
-                width={150}
-                height={50}
-                label="Start Earning"
-                onClick={() => {
-                  if (!connected) {
-                    setVisible(true)
-                    return
-                  }
-                  dispatch({ type: 'set', activeTab: 1 })
-                  router.push(`/merch-logs`)
-                }}
-              />
-              <OutlineButton
-                width={150}
-                height={50}
-                borderColor="var(--follow-btn-border-mobile)"
-                label="Dashboard"
-                onClick={() => {
-                  if (!connected) {
-                    setVisible(true)
-                    return
-                  }
-                  router.push(`/merch-logs`)
-                }}
-              />
-            </div> */}
-          </div>
-          <div className="flex justify-center mt-[150px]">
-            <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
           </div>
           <div className="w-full flex justify-center">
-            <div className="flex gap-[25px] mt-[60px]">
+            <div className="flex gap-[25px] mt-[244px]">
               {items.map((item, index) => (
                 <div
                   key={index}
