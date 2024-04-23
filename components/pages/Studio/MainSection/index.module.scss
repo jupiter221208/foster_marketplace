@@ -41,16 +41,18 @@
 }
 
 .selected {
-  font-size: 20px;
+  font-size: 18px;
   font-family: 'Muli-SemiBold';
+  line-height: 22px;
   color: var(--main-icon-color);
   cursor: pointer;
 }
 
 .unselected {
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 22px;
   font-family: 'Muli-SemiBold';
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   cursor: pointer;
 }
 
