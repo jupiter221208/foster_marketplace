@@ -47,7 +47,7 @@ const NewStudioReleasesSection = props => {
       merchAPI.getRecentOrders().then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
           let arr = Object.keys(response.nftData).map(key => response.nftData[key])
-          setStudioReleaseList(arr.slice(0, 6))
+          setStudioReleaseList(arr.slice(0, 10))
         }
       }),
         error => {
@@ -86,12 +86,12 @@ const NewStudioReleasesSection = props => {
                 {type === 'trending' ? 'Trending Now' : 'New Releases'}
               </div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              <div className={`${styles.title} w-full mr-0 lg:mr-6 xl:mr-8`}>
                 {type === 'trending' ? 'Trending Now' : 'New Releases'}
               </div>
             )}
           </div>
-          <div className="hidden lg:block absolute top-[10px] right-[10px]">
+          <div className="hidden lg:block absolute top-[0px] right-[10px]">
             <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} setFilterName={setFilterName} />
           </div>
           {bases.length > 1 && (
@@ -103,14 +103,14 @@ const NewStudioReleasesSection = props => {
             </div>
           )}
         </div>
-        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
+        <div className="w-full grid grid-cols-20 gap-[20px] lg:gap-[60px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
             <div
               key={index}
               className={`flex ${
                 type === 'trending'
-                  ? 'col-span-12 sm:col-span-6 lg:col-span-4'
-                  : 'col-span-6 lg:col-span-4 xl:col-span-3'
+                  ? 'col-span-10 sm:col-span-4 lg:col-span-4'
+                  : 'col-span-10 lg:col-span-4 xl:col-span-4'
               } flex items-center`}
             >
               <StudioReleaseCard

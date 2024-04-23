@@ -22,6 +22,8 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images and icons
+import StudioClothBG from 'assets/images/studio-cloth-bg.png'
+import StudioCloth from 'assets/images/studio-cloth.png'
 
 // styles
 import styles from './index.module.scss'
@@ -68,7 +70,7 @@ const MainSection = ({ onChange, heroValue }) => {
     }
   }, [])
 
-  const onSelected = (type, name, base) => {
+  const onSelected1 = (type, name, base) => {
     let newStudioList = []
     studioHeroList.map(studioData => {
       if (studioData.type === type) {
@@ -111,18 +113,72 @@ const MainSection = ({ onChange, heroValue }) => {
     setStudioHeroList(newStudioList)
   }
 
+  const [items, setItems] = useState([
+    { label: 'All', name: 'All', selected: true },
+    { label: 'Tees', name: 'Short Sleeve', selected: false },
+    { label: 'Long Sleeves', name: 'Long Sleeve', selected: false },
+    { label: 'Hoodies', name: 'Hoodie', selected: false },
+    { label: 'Crewnecks', name: 'Sweatshirt', selected: false },
+    { label: `Women's Tees`, name: `Women's Short Sleeve`, selected: false },
+  ])
+
+  const onSelected = data => {
+    let newItems = []
+    items.map(item => {
+      if (data.name === item.name) {
+        newItems.push({ label: item.label, name: item.name, selected: true })
+      } else {
+        newItems.push({ label: item.label, name: item.name, selected: false })
+      }
+    })
+    setItems(newItems)
+
+    StudioApparelList.map(item => {
+      if (item.name === data.name) {
+        onChange({
+          selected: true,
+          data: item,
+        })
+        dispatch({ type: 'set', apparelType: item.name })
+      }
+      setTimeout(() => {
+        window.scrollTo({
+          top: window.innerHeight - 140,
+          behavior: 'smooth',
+        })
+      }, 1000)
+    })
+  }
+
   return (
     <section id="main-section" className={styles.container}>
       <div className="g-container w-full h-full z-10">
         <div className="w-full">
-          <div className="mt-[100px] lg:mt-[90px]">
-            <div className="w-full lg:block hidden">
+          <div className="w-full flex">
+            <div className="w-[25%]"></div>
+            <div className="relative w-[50%] mt-[66px]">
+              <div className="flex justify-center">
+                <img src={StudioClothBG.src} alt="" />
+              </div>
+              <div className="absolute inset-0">
+                <div className="flex justify-center mt-[66px]">
+                  <img src={StudioCloth.src} alt="" />
+                </div>
+                <div className={styles.solanaText}>
+                  Solana Couture
+                  <br />
+                  by&nbsp;<span>Foster Studio</span>
+                </div>
+              </div>
+            </div>
+            <div className="w-[25%]"></div>
+            {/* <div className="w-full lg:block hidden">
               <div className={styles.text}>
                 Solana Couture<span className={styles.slash}>&nbsp;/&nbsp;</span>By Foster Studio
               </div>
               <div className={`${styles.slug} lg:flex hidden`}>Fashion & Fulfillment</div>
-            </div>
-            <div className="mt-[25px] gap-[20px] hidden lg:flex">
+            </div> */}
+            {/* <div className="mt-[25px] gap-[20px] hidden lg:flex">
               <GradientButton
                 width={150}
                 height={50}
@@ -149,10 +205,25 @@ const MainSection = ({ onChange, heroValue }) => {
                   router.push(`/merch-logs`)
                 }}
               />
+            </div> */}
+          </div>
+          <div className="flex justify-center mt-[140px]">
+            <div className={styles.connecting}>Connecting creators with their audience through fashion.</div>
+          </div>
+          <div className="w-full flex justify-center">
+            <div className="flex gap-[25px] mt-[70px]">
+              {items.map((item, index) => (
+                <div
+                  key={index}
+                  className={item.selected ? styles.selected : styles.unselected}
+                  onClick={() => onSelected(item)}
+                >
+                  {item.label}
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="hidden lg:flex w-full justify-around mt-[75px] gap-[20px]">
+          {/* <div className="hidden lg:flex w-full justify-around mt-[75px] gap-[20px]">
             {studioHeroList.map((item, index) => (
               <div key={index}>
                 <StudioCard data={item} onSelected={onSelected} value={heroValue} />
@@ -165,8 +236,8 @@ const MainSection = ({ onChange, heroValue }) => {
                 <StudioCard data={item} onSelected={onSelected} value={heroValue} />
               </div>
             ))}
-          </div>
-          <div className="w-full mt-[58px] flex gap-[20px] block lg:hidden">
+          </div> */}
+          {/* <div className="w-full mt-[58px] flex gap-[20px] block lg:hidden">
             <GradientButton
               fontSize={16}
               fontFamily="Muli-SemiBold"
@@ -196,10 +267,10 @@ const MainSection = ({ onChange, heroValue }) => {
                 router.push(`/merch-logs`)
               }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
-      <div className={styles.gradient}></div>
+      {/* <div className={styles.gradient}></div> */}
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )
