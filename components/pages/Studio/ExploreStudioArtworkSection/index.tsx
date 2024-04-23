@@ -102,7 +102,7 @@ const MarketplaceReleaseSection = props => {
         {!loading && (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 2}
+            slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 1}
             centeredSlides={false}
             spaceBetween={20}
             modules={[Autoplay, Navigation]}
