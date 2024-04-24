@@ -22,7 +22,7 @@ const StudioHelpSection = () => {
           <div>
             <div className={styles.title}>DESIGN & CREATE</div>
             <div className={styles.desc}>
-              it's simple and intuitive to create merch, just select a garment and place the artwork
+              it&apos;s simple and intuitive to create merch, just select a garment and place the artwork
             </div>
           </div>
         </div>
