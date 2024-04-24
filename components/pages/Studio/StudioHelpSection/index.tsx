@@ -12,11 +12,15 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 const StudioHelpSection = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
   const router = useRouter()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
 
   return (
     <section className={styles.container}>
@@ -67,8 +71,12 @@ const StudioHelpSection = () => {
           borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 27}
           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
           onClick={() => {
-            dispatch({ type: 'set', activeTab: 1 })
-            router.push(`/merch-logs`)
+            if (connected) {
+              dispatch({ type: 'set', activeTab: 1 })
+              router.push(`/merch-logs`)
+            } else {
+              setVisible(true)
+            }
           }}
         />
       </div>

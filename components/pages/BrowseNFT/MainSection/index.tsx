@@ -1611,7 +1611,7 @@ const MainSection = ({
                         )}
 
                         {isOwnNft === true ? (
-                          <div className="w-full flex content-none lg:mt-[20px]">
+                          <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
                             <GradientButton
                               label="Delist or Update"
                               fullWidth
