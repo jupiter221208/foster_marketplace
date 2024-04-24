@@ -97,7 +97,7 @@ const StudioReleaseCard = props => {
         <div
           className={styles.imageContent}
           onClick={() => {
-            onClick(colorNumber)
+            onClick(colorNumber, image)
           }}
         >
           {apparelList !== null && apparelList !== '' ? (
