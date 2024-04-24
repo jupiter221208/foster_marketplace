@@ -10,7 +10,6 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
-import EditStudioIcon from 'assets/icons/edit-studio.svg?component'
 import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
 import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
