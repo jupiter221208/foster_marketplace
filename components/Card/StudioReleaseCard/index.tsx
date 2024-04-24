@@ -58,8 +58,6 @@ const StudioReleaseCard = props => {
   }, [apparelList])
 
   useEffect(() => {
-    console.log(color?.type)
-    console.log(color?.type === 'black' ? 'screen' : 'multiply')
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
