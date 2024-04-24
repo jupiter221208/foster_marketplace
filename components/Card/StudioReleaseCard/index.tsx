@@ -26,7 +26,6 @@ const StudioReleaseCard = props => {
   const [imagePath, setImagepath] = useState('')
   const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
-  const [blendMode, setBlendMode] = useState(null)
 
   useEffect(() => {
     if (Math.floor(Math.random() * 1000) % 2 === 0) {
@@ -35,6 +34,7 @@ const StudioReleaseCard = props => {
         name: '#000000',
         type: 'black',
         asset_url: '/images/apparel-color-black.png',
+        blendMode: 'screen',
       })
     } else {
       setColor({
@@ -42,6 +42,7 @@ const StudioReleaseCard = props => {
         name: '#fff',
         type: 'white',
         asset_url: '/images/apparel-color-white.png',
+        blendMode: 'multiply',
       })
     }
   }, [image])
@@ -59,15 +60,14 @@ const StudioReleaseCard = props => {
   }, [apparelList])
 
   useEffect(() => {
+    console.log(color)
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
           setImagepath(apparelList.black.image.thumb)
-          setBlendMode('screen')
           break
         case 'white':
           setImagepath(apparelList.white.image.thumb)
-          setBlendMode('multiply')
           break
         default:
           break
@@ -111,7 +111,7 @@ const StudioReleaseCard = props => {
                   <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
                     <ImageWithFoster
                       style={{
-                        mixBlendMode: blendMode,
+                        mixBlendMode: color.blendMode,
                       }}
                       src={nftImage}
                       className="max-w-full max-h-full object-cover"
@@ -123,7 +123,7 @@ const StudioReleaseCard = props => {
                   >
                     <ImageWithFoster
                       style={{
-                        mixBlendMode: blendMode,
+                        mixBlendMode: color.blendMode,
                       }}
                       src={nftImage}
                       className="w-full object-contain flex items-start"
