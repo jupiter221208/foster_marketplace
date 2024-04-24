@@ -336,7 +336,7 @@ const MainSection = ({
                 cover_image_url: nftCoverUrl,
                 asset_url: nftAssetUrl ?? originalCoverUrl,
                 collection_id: nftCollectionAddress ?? '',
-                edition: 1,
+                edition: editionNumber,
                 parent_nft: mintAddress,
                 max_supply: editionType == 'master_le' ? supply.max : null,
               })

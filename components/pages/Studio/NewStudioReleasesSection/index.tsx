@@ -112,9 +112,12 @@ const NewStudioReleasesSection = props => {
                 userName={item.artist.username}
                 assetType={item.asset_type}
                 artistName={item.artist_username}
-                onClick={colorNumber => {
+                onClick={(colorNumber, asset: any) => {
                   dispatch({ type: 'set', isLoading: true })
-                  dispatch({ type: 'set', apparelType })
+                  if (filterName === 'All') {
+                    dispatch({ type: 'set', apparelType: asset['name'] })
+                  } else dispatch({ type: 'set', apparelType })
+
                   dispatch({ type: 'set', detailShow: true })
                   dispatch({ type: 'set', apparelColor: colorNumber })
                   router.push(`/nft/${item.nft.token_id}`)

@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
+import StudioHelpSection from 'components/pages/Studio/StudioHelpSection'
 
 const Studio = () => {
   const [heroState, setHeroState] = useState({
@@ -76,6 +77,12 @@ const Studio = () => {
       </Head>
       <div className="w-full flex justify-center">
         <MainSection onChange={setHeroState} heroValue={heroState} />
+      </div>
+
+      <div className={styles.helpSectionBG}>
+        <div className="g-container">
+          <StudioHelpSection />
+        </div>
       </div>
 
       {heroState?.selected && (
