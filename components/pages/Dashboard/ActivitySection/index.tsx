@@ -147,7 +147,6 @@ const ActivitySection = () => {
     })
     setActivityList(filtered)
     setFilteredList(filtered.slice(0, rowCount))
-    console.log(filtered, '======filtered===')
   }, [filterKey])
 
   return (
