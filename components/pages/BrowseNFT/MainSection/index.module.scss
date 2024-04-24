@@ -57,9 +57,9 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: var(--background-main-color);
   min-height: auto;
   border: 1px solid var(--bg-303030-DDDCDC);
+  background: var(--bg-1C1C1C-F3F2F0);
   border-radius: 5px;
   padding: 0px 13px 15px 13px;
   margin-top: 15px;
@@ -81,8 +81,8 @@
   width: 100%;
   height: auto;
   overflow: visible;
-  background: var(--bg-1C1C1C-F3F2F0);
   @media (min-width: 1024px) {
+    background: var(--bg-1C1C1C-F3F2F0);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

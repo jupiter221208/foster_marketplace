@@ -1211,7 +1211,7 @@ const MainSection = ({
                       onClick={() => changeSaveStatus()}
                     />
                   </div>
-                  <div className={`${styles.iconContainer} w-[87px]`}>
+                  <div className={`${styles.iconContainer} w-[80px]`}>
                     <Image
                       src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
                       alt=""
@@ -1327,7 +1327,7 @@ const MainSection = ({
                     )}
                   </div>
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className={`${styles.iconContainer} w-[80px] lg:w-[87px]`}>
+                    <div className={`${styles.iconContainer} w-[80px]`}>
                       <Image
                         src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
                         alt=""
@@ -1580,7 +1580,7 @@ const MainSection = ({
                         </div>
 
                         {(isOwnNft === false || isOwnNft === null) && (
-                          <div className="w-full flex flex-wrap lg:mt-[20px] gap-[15px] lg:gap-[15px]">
+                          <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
                               <GradientButton
                                 fullWidth
