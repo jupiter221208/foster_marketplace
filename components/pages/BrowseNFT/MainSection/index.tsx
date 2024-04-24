@@ -1443,7 +1443,7 @@ const MainSection = ({
                   />
 
                   {editionDetail && isNftMasterEdition() && (
-                    <div className="flex gap-[15px] mt-[30px]">
+                    <div className="flex gap-[8px] lg:gap-[15px] mt-[30px]">
                       <div className={styles.editionTitle}>
                         {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                       </div>
