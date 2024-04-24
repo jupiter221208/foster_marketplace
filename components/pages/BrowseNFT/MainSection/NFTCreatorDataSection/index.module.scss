@@ -25,8 +25,8 @@
   font-size: 14px;
   line-height: 16px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 22px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
@@ -37,8 +37,8 @@
   line-height: 18px;
   @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--main-icon-color);
   &:hover {

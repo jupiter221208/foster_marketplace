@@ -81,11 +81,11 @@
   width: 100%;
   height: auto;
   overflow: visible;
+  background: var(--bg-1C1C1C-F3F2F0);
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    // background: var(--bg-1C1C1C-F3F2F0);
     min-height: calc(100vh - 100px - 80px);
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 10px;
@@ -138,8 +138,8 @@
   @media (min-width: 1024px) {
     height: 26px;
     margin-top: 6px;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 18px;
   }
   // background: rgba(var(--background-light-color-rgb), 0.05);
   // border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
