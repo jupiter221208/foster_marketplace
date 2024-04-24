@@ -1682,7 +1682,7 @@ const MainSection = ({
                   ) : liveAuction === true ? (
                     <>
                       {!isEnded && (
-                        <div className={`mt-[0px] lg:mt-6 lg:mt-0 w-full ${styles.border_top}`}>
+                        <div className={`w-full ${styles.border_top}`}>
                           <div className={styles.auctionContainer}>
                             <AuctionCard
                               currentPrice={nftCurrentPrice}
