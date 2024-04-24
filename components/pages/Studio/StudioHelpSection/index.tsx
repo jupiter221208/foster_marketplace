@@ -10,9 +10,13 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const StudioHelpSection = () => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   return (
     <section className={styles.container}>
@@ -62,6 +66,10 @@ const StudioHelpSection = () => {
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 54}
           borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 27}
           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
+          onClick={() => {
+            dispatch({ type: 'set', activeTab: 1 })
+            router.push(`/merch-logs`)
+          }}
         />
       </div>
     </section>
