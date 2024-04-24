@@ -1580,7 +1580,7 @@ const MainSection = ({
                         </div>
 
                         {(isOwnNft === false || isOwnNft === null) && (
-                          <div className="w-full flex flex-wrap lg:mt-[10px] gap-[15px] lg:gap-[15px]">
+                          <div className="w-full flex flex-wrap lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
                               <GradientButton
                                 fullWidth
@@ -1611,7 +1611,7 @@ const MainSection = ({
                         )}
 
                         {isOwnNft === true ? (
-                          <div className="w-full flex content-none lg:mt-[10px]">
+                          <div className="w-full flex content-none lg:mt-[20px]">
                             <GradientButton
                               label="Delist or Update"
                               fullWidth
@@ -1648,7 +1648,7 @@ const MainSection = ({
                               setIsStarted={setIsStarted}
                             />
                             {isOwnNft === true ? (
-                              <div className="py-[15px] lg:py-0 lg:mt-[10px]">
+                              <div className="lg:mt-[10px]">
                                 <GradientButton
                                   label="Cancel Auction"
                                   fullWidth

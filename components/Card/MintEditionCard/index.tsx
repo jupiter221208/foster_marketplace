@@ -167,7 +167,7 @@ const MintEditionCard = props => {
             </div>
           </div>
         </div>
-        <div className="w-full mt-[9px] h-[50px] relative">
+        <div className="w-full mt-[15px] lg:mt-[15px] h-[50px] relative">
           {!showDetailTotal ? (
             <div className={styles.mintPrice} onClick={() => setShowDetailTotal(true)}>
               <div className="w-full flex justify-between px-[24px]">
