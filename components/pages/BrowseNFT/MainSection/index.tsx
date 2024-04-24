@@ -1411,7 +1411,7 @@ const MainSection = ({
                 <div className="w-full">
                   {nftCollectionAddress && (
                     <div className={styles.collectionContainer}>
-                      <div className="justify-between items-center mt-0 lg:mt-[15px] ">
+                      <div className="justify-between items-center mt-[15px] lg:mt-[7px]">
                         <Link href={`/collection/${nftCollectionAddress}`} passHref>
                           <a>
                             {!(nftCollectionImage || nftCollectionName) ? (
