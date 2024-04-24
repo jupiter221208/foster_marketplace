@@ -117,6 +117,7 @@ import { getDisplayUserName, getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import { revokeDelegateEdition } from 'utils/editions'
+import MenuEditNft from 'components/Menu/MenuEditNft'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1224,27 +1225,14 @@ const MainSection = ({
                   </div>
                 </div>
               </div>
-              <div className={`${styles.iconContainer} w-[87px]`}>
-                <div className="flex items-center gap-[9px]">
-                  <MenuSocialShare
-                    type="nft"
-                    vote={share}
-                    setVote={setShare}
-                    voteCount={shareCount}
-                    setVoteCount={setShareCount}
-                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                    url={`/nft/${id}`}
-                  />
-                </div>
-              </div>
             </div>
 
             <div className="flex gap-[15px] items-center">
-              {nftType.includes('image') &&
+              {/* {nftType.includes('image') &&
               nftType !== 'image/gif' &&
               !nftCoverUrl.includes('ext=gif') &&
               (merchToggle || isCreatedNft) ? (
-                <div className={`${styles.iconContainer} w-[50px]`}>
+                <div className={`${styles.iconContainer} w-[50px] flex gap-[15px] items-center`}>
                   <div
                     className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
                   >
@@ -1275,15 +1263,41 @@ const MainSection = ({
                 </div>
               ) : (
                 <></>
-              )}
+              )} */}
 
-              {isCreatedNft && (
+              {/* {isCreatedNft && (
                 <div className={`${styles.iconContainer} w-[50px]`}>
                   <div onClick={() => setShowNftMeta(true)}>
                     <EditNftMetaIcon alt="" />
                   </div>
                 </div>
+              )} */}
+
+              {(isCreatedNft || merchToggle) && (
+                <MenuEditNft
+                  studio={true}
+                  metadata={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
+                  setShowNftMeta={setShowNftMeta}
+                  setRemoveMerchModal={setRemoveMerchModal}
+                  setCreateMerchModal={setCreateMerchModal}
+                  merchToggle={merchToggle}
+                  isCreatedNft={isCreatedNft}
+                />
               )}
+
+              <div className={`${styles.iconContainer} w-[87px]`}>
+                <div className="flex items-center gap-[9px]">
+                  <MenuSocialShare
+                    type="nft"
+                    vote={share}
+                    setVote={setShare}
+                    voteCount={shareCount}
+                    setVoteCount={setShareCount}
+                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                    url={`/nft/${id}`}
+                  />
+                </div>
+              </div>
 
               {nftType.includes('vr') || nftType.includes('image') ? (
                 <div className={`${styles.iconContainer} w-[50px]`}>
@@ -1394,6 +1408,33 @@ const MainSection = ({
                   </div>
                 </div>
 
+                <div className={styles.collectionContainer}>
+                  {nftCollectionAddress && (
+                    <div className="justify-between items-center mt-[15px]">
+                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                        <a>
+                          {!(nftCollectionImage || nftCollectionName) ? (
+                            <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
+                          ) : (
+                            <div className={styles.collectionName}>
+                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                                <Image
+                                  src={nftCollectionImage}
+                                  alt=""
+                                  width={25}
+                                  height={25}
+                                  className="object-cover rounded-[4px]"
+                                />
+                              )}
+                              {nftCollectionName}
+                            </div>
+                          )}
+                        </a>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
                 <NFTCreatorDataSection
                   nftName={nftName}
                   nftCreatorname={nftCreatorname}
@@ -1437,34 +1478,6 @@ const MainSection = ({
                           <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
                         </div>
                       )}
-                    </div>
-                  )}
-                </div>
-
-                <div className={styles.collectionContainer}>
-                  {nftCollectionAddress && (
-                    <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                      <div className={styles.collectionText}>Collection</div>
-                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
-                        <a>
-                          {!(nftCollectionImage || nftCollectionName) ? (
-                            <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
-                          ) : (
-                            <div className={styles.collectionName}>
-                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                                <Image
-                                  src={nftCollectionImage}
-                                  alt=""
-                                  width={25}
-                                  height={25}
-                                  className="object-cover rounded-[4px]"
-                                />
-                              )}
-                              {nftCollectionName}
-                            </div>
-                          )}
-                        </a>
-                      </Link>
                     </div>
                   )}
                 </div>
