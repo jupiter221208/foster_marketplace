@@ -57,17 +57,16 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  background: var(--bg-1C1C1C-F3F2F0);
+  background: var(--background-main-color);
   min-height: calc(100vh - 100px - 120px);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 10px;
+  border: 1px solid var(--bg-303030-DDDCDC);
+  border-radius: 5px;
   padding: 8px;
   margin-top: 15px;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
     overflow: visible;
     margin-top: 0px;
     padding: 0px;

@@ -1443,7 +1443,7 @@ const MainSection = ({
                   />
 
                   {editionDetail && isNftMasterEdition() && (
-                    <div className="flex gap-[8px] lg:gap-[15px] mt-[30px]">
+                    <div className="flex gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
                       <div className={styles.editionTitle}>
                         {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                       </div>
@@ -1498,7 +1498,9 @@ const MainSection = ({
                     </div>
                   )}
 
-                  <div className={`w-full lg:max-h-[130px] my-[30px] ${!isTruncated && 'overflow-scroll'}`}>
+                  <div
+                    className={`w-full lg:max-h-[130px] mt-[15px] lg:my-[30px] ${!isTruncated && 'overflow-scroll'}`}
+                  >
                     {nftDescription ? (
                       <div>
                         <div className={styles.descLabel}>Description</div>
@@ -1523,8 +1525,8 @@ const MainSection = ({
                   </div>
                 </div>
 
-                <div className="w-full flex flex-wrap mt-10 lg:mt-0">
-                  <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
+                <div className="w-full flex flex-wrap mt-[15px] lg:mt-0">
+                  <div className="w-full flex lg:flex-row flex-col justify-between gap-0 lg:gap-3 xl:gap-4">
                     {nftCategories && nftCategories.length > 0 && (
                       <div className="flex flex-wrap flex-col gap-2">
                         <div className={styles.categories}>Categories</div>
