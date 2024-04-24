@@ -30,7 +30,7 @@ const ActivityAccordion = ({ data }) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
-  console.log(data, '==========data==========')
+
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
@@ -123,7 +123,7 @@ const ActivityAccordion = ({ data }) => {
                       <ImageWithFoster src={item.asset_url} className="w-full h-full rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.asset_name}</div>
+                      <div className={styles.subTitle}>{item.asset_name.slice(0, item.asset_name.indexOf(', (#'))}</div>
                       <div className={styles.subType}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                     </div>
                   </div>

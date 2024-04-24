@@ -122,7 +122,9 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                       <div className="block">
                         <Link href={`/nft/${item.mint_address}`} passHref>
                           <a>
-                            <div className={styles.nftName}>{item.asset_name}</div>
+                            <div className={styles.nftName}>
+                              {item.asset_name.slice(0, item.asset_name.indexOf(', (#'))}
+                            </div>
                           </a>
                         </Link>
                       </div>
