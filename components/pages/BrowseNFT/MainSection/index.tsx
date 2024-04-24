@@ -1228,51 +1228,6 @@ const MainSection = ({
             </div>
 
             <div className="flex gap-[15px] items-center">
-              {/* {nftType.includes('image') &&
-              nftType !== 'image/gif' &&
-              !nftCoverUrl.includes('ext=gif') &&
-              (merchToggle || isCreatedNft) ? (
-                <div className={`${styles.iconContainer} w-[50px] flex gap-[15px] items-center`}>
-                  <div
-                    className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
-                  >
-                    {merchToggle ? (
-                      <MerchToggleEnabledIcon
-                        alt=""
-                        onClick={() => {
-                          if (isCreatedNft) setRemoveMerchModal(true)
-                        }}
-                        // onMouseEnter={() => setMerchHover(true)}
-                        // onMouseLeave={() => setMerchHover(false)}
-                      />
-                    ) : isCreatedNft ? (
-                      <MerchToggleDisabledIcon
-                        alt=""
-                        onClick={() => {
-                          if (isCreatedNft) setCreateMerchModal(true)
-                        }}
-                        // onMouseEnter={() => setMerchHover(true)}
-                        // onMouseLeave={() => setMerchHover(false)}
-                      />
-                    ) : (
-                      <></>
-                    )}
-
-                    {!nftType.includes('audio') && merchHover && <div className={styles.infoText}>Foster Studio</div>}
-                  </div>
-                </div>
-              ) : (
-                <></>
-              )} */}
-
-              {/* {isCreatedNft && (
-                <div className={`${styles.iconContainer} w-[50px]`}>
-                  <div onClick={() => setShowNftMeta(true)}>
-                    <EditNftMetaIcon alt="" />
-                  </div>
-                </div>
-              )} */}
-
               {(isCreatedNft || merchToggle) && (
                 <MenuEditNft
                   studio={true}
@@ -1372,7 +1327,7 @@ const MainSection = ({
                     )}
                   </div>
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
-                    <div className={`${styles.iconContainer} w-[87px]`}>
+                    <div className={`${styles.iconContainer} w-[80px] lg:w-[87px]`}>
                       <Image
                         src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
                         alt=""
@@ -1561,7 +1516,7 @@ const MainSection = ({
 
                   {isEditionListing ? (
                     isOwnNft === true ? (
-                      <div className="w-full mt-[20px]">
+                      <div className="w-full lg:mt-[10px]">
                         <GradientButton
                           fullWidth
                           backgroundColor01="var(--main-icon-color)"
@@ -1625,7 +1580,7 @@ const MainSection = ({
                         </div>
 
                         {(isOwnNft === false || isOwnNft === null) && (
-                          <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
+                          <div className="w-full flex flex-wrap lg:mt-[10px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
                               <GradientButton
                                 fullWidth
@@ -1656,7 +1611,7 @@ const MainSection = ({
                         )}
 
                         {isOwnNft === true ? (
-                          <div className="w-full flex content-none mt-[20px]">
+                          <div className="w-full flex content-none lg:mt-[10px]">
                             <GradientButton
                               label="Delist or Update"
                               fullWidth
@@ -1672,7 +1627,7 @@ const MainSection = ({
                     getTimeDifferenceWithAuction(endTime) < 0 &&
                     (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                     connected ? (
-                    <div className="w-full mb-1 mt-5 lg:mt-4 lg:mb-5">
+                    <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                       {nftCurrentPrice > 0 ? (
                         <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
                       ) : (
@@ -1693,7 +1648,7 @@ const MainSection = ({
                               setIsStarted={setIsStarted}
                             />
                             {isOwnNft === true ? (
-                              <div className="py-[15px] lg:py-0 lg:mt-[15px]">
+                              <div className="py-[15px] lg:py-0 lg:mt-[10px]">
                                 <GradientButton
                                   label="Cancel Auction"
                                   fullWidth
@@ -1721,7 +1676,7 @@ const MainSection = ({
                                       <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                     </>
                                   ) : (
-                                    <div className="relative mt-[5px] lg:mt-[15px]">
+                                    <div className="relative mt-[0px] lg:mt-[10px]">
                                       <div className="w-full flex justify-center">
                                         <PriceInput
                                           value={price}
@@ -1835,7 +1790,7 @@ const MainSection = ({
                           isEditionListing ? (
                             <></>
                           ) : (
-                            <div className="w-full mt-[30px] lg:mt-[10px]">
+                            <div className="w-full mt-[0px] lg:mt-[10px]">
                               <GradientButton
                                 fullWidth
                                 backgroundColor01="var(--main-icon-color)"
@@ -1851,7 +1806,7 @@ const MainSection = ({
                             </div>
                           )
                         ) : (
-                          <div className="w-full flex flex-wrap gap-[15px] mt-[20px]">
+                          <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                             <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
                             <GradientButton
                               fullWidth
