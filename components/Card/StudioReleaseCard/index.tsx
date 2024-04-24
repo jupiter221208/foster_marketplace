@@ -58,6 +58,8 @@ const StudioReleaseCard = props => {
   }, [apparelList])
 
   useEffect(() => {
+    console.log(color?.type)
+    console.log(color?.type === 'black' ? 'screen' : 'multiply')
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
@@ -106,13 +108,21 @@ const StudioReleaseCard = props => {
               <div className={styles.nftImage}>
                 {apparelList.name === 'Hoodie' ? (
                   <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
-                    <ImageWithFoster src={nftImage} className="max-w-full max-h-full object-cover" />
+                    <ImageWithFoster
+                      style={{ mixBlendMode: color === 'black' ? 'screen' : 'multiply' }}
+                      src={nftImage}
+                      className="max-w-full max-h-full object-cover"
+                    />
                   </div>
                 ) : (
                   <div
                     className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
                   >
-                    <ImageWithFoster src={nftImage} className="w-full object-contain flex items-start" />
+                    <ImageWithFoster
+                      style={{ mixBlendMode: color === 'black' ? 'screen' : 'multiply' }}
+                      src={nftImage}
+                      className="w-full object-contain flex items-start"
+                    />
                   </div>
                 )}
               </div>
