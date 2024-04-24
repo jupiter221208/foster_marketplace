@@ -103,7 +103,7 @@ const NewStudioReleasesSection = props => {
         </div>
         <div className="w-full grid grid-cols-10 lg:grid-cols-20 gap-[20px] lg:gap-[60px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
-            <div key={index} className={`col-span-10 lg:col-span-4 flex items-center`}>
+            <div key={Math.random()} className={`col-span-10 lg:col-span-4 flex items-center`}>
               <StudioReleaseCard
                 type={type}
                 image={filterName === 'All' ? allApparelType[index] : heroValue.data}

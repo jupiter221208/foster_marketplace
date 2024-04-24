@@ -26,6 +26,7 @@ const StudioReleaseCard = props => {
   const [imagePath, setImagepath] = useState('')
   const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
+  const [blendMode, setBlendMode] = useState(null)
 
   useEffect(() => {
     if (Math.floor(Math.random() * 1000) % 2 === 0) {
@@ -62,9 +63,11 @@ const StudioReleaseCard = props => {
       switch (color?.type) {
         case 'black':
           setImagepath(apparelList.black.image.thumb)
+          setBlendMode('screen')
           break
         case 'white':
           setImagepath(apparelList.white.image.thumb)
+          setBlendMode('multiply')
           break
         default:
           break
@@ -108,7 +111,7 @@ const StudioReleaseCard = props => {
                   <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
                     <ImageWithFoster
                       style={{
-                        mixBlendMode: color.type === 'black' ? 'screen' : 'multiply',
+                        mixBlendMode: blendMode,
                       }}
                       src={nftImage}
                       className="max-w-full max-h-full object-cover"
@@ -120,7 +123,7 @@ const StudioReleaseCard = props => {
                   >
                     <ImageWithFoster
                       style={{
-                        mixBlendMode: color.type === 'black' ? 'screen' : 'multiply',
+                        mixBlendMode: blendMode,
                       }}
                       src={nftImage}
                       className="w-full object-contain flex items-start"
