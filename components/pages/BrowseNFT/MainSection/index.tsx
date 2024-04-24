@@ -1326,7 +1326,7 @@ const MainSection = ({
               />
             </div>
           ) : showAuctionDetail ? (
-            <div className="">
+            <div>
               <AuctionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessAuction(nft)}
@@ -1343,7 +1343,7 @@ const MainSection = ({
           ) : (
             <div className={styles.nftDetailCard}>
               <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
-                <div className="w-full flex flex-wrap justify-between items-center">
+                <div className="w-full flex justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
                     <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -1370,7 +1370,8 @@ const MainSection = ({
                         isCreatedNft={isCreatedNft}
                       />
                     )}
-
+                  </div>
+                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
                     <div className={`${styles.iconContainer} w-[87px]`}>
                       <Image
                         src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
@@ -1407,9 +1408,9 @@ const MainSection = ({
               </div>
 
               <div className={styles.rightContainer}>
-                <div className="w-full flex flex-wrap">
-                  <div className={styles.collectionContainer}>
-                    {nftCollectionAddress && (
+                <div className="w-full">
+                  {nftCollectionAddress && (
+                    <div className={styles.collectionContainer}>
                       <div className="justify-between items-center mt-0 lg:mt-[15px] ">
                         <Link href={`/collection/${nftCollectionAddress}`} passHref>
                           <a>
@@ -1432,8 +1433,8 @@ const MainSection = ({
                           </a>
                         </Link>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <NFTCreatorDataSection
                     nftName={nftName}
@@ -1443,7 +1444,7 @@ const MainSection = ({
                   />
 
                   {editionDetail && isNftMasterEdition() && (
-                    <div className="flex gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
+                    <div className="flex flex-wrap gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
                       <div className={styles.editionTitle}>
                         {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
                       </div>
@@ -1550,7 +1551,7 @@ const MainSection = ({
                     </div>
                   </div>
 
-                  <div className={`${styles.categoryBorder} lg:block hidden`} />
+                  <div className={`${styles.categoryBorder} lg:block block`} />
 
                   {loadListing && (
                     <div
@@ -1582,7 +1583,7 @@ const MainSection = ({
                         </div>
                       </div>
                     ) : (
-                      <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[10px]">
+                      <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[0px] lg:mt-[10px]">
                         <MintEditionCard
                           price={price}
                           maxSupply={editionDetail.maxSupply}
