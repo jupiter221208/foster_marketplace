@@ -74,7 +74,7 @@ const TopRatedArtistsSection = () => {
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-between items-center z-10">
               <div className={styles.title}>Studio Artists</div>
-              <div className="flex gap-[8px] items-center">
+              <div className="hidden lg:flex gap-[8px] items-center">
                 <div
                   className={styles.seeMore}
                   onClick={() => {
@@ -164,11 +164,32 @@ const TopRatedArtistsSection = () => {
           </Swiper>
         )}
       </div>
+
       {loading && isVisibleFetching && (
-        <div className="w-full mt-[-100px]">
+        <div className="w-full lg:mt-[0px] h-[221px] lg:h-[260px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
+
+      <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full max-w-[265px] mt-[10px]">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              setSeed(Math.random())
+              setRefresh(new Date())
+              setLoading(true)
+              setIsFetching(true)
+              setIsVisibleFetching(true)
+            }}
+            fontFamily="Muli-Bold"
+            fontSize="16px"
+            height="40px"
+            borderRadius="8px"
+          />
+        </div>
+      </div>
     </section>
   )
 }
