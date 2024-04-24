@@ -18,12 +18,24 @@ import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
+import SweatshirtW from '../../../public/images/apparel/man_sweat_white_s.png'
+import ShortSleeveW from '../../../public/images/apparel/man_t_white_s.png'
+import HoodieW from '../../../public/images/apparel/man_hoodie_white_s.png'
+import WomenShortSleeveW from '../../../public/images/apparel/women_t_white_s.png'
+import ManLongsLeeveW from '../../../public/images/apparel/man_longsleeve_white_s.png'
+
+import SweatshirtB from '../../../public/images/apparel/man_sweat_black_s.png'
+import ShortSleeveB from '../../../public/images/apparel/man_t_black_s.png'
+import HoodieB from '../../../public/images/apparel/man_hoodie_black_s.png'
+import WomenShortSleeveB from '../../../public/images/apparel/women_t_black_s.png'
+import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black_s.png'
+
 const StudioReleaseCard = props => {
   const { type = 'release', image, userName = '', nftName, onClick, nftImage } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
-  const [imagePath, setImagepath] = useState('')
+  const [imagePath, setImagePath] = useState('')
   const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
 
@@ -34,6 +46,7 @@ const StudioReleaseCard = props => {
         name: '#000000',
         type: 'black',
         asset_url: '/images/apparel-color-black.png',
+        blendMode: 'screen',
       })
     } else {
       setColor({
@@ -41,6 +54,7 @@ const StudioReleaseCard = props => {
         name: '#fff',
         type: 'white',
         asset_url: '/images/apparel-color-white.png',
+        blendMode: 'multiply',
       })
     }
   }, [image])
@@ -53,7 +67,7 @@ const StudioReleaseCard = props => {
 
   useEffect(() => {
     if (apparelList) {
-      setImagepath(apparelList.black.image.thumb)
+      setImagePath(apparelList.black.image.thumb)
     }
   }, [apparelList])
 
@@ -61,10 +75,10 @@ const StudioReleaseCard = props => {
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
-          setImagepath(apparelList.black.image.thumb)
+          setImagePath(apparelList.black.image.thumb)
           break
         case 'white':
-          setImagepath(apparelList.white.image.thumb)
+          setImagePath(apparelList.white.image.thumb)
           break
         default:
           break
@@ -102,17 +116,54 @@ const StudioReleaseCard = props => {
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <img src={imagePath} className={styles.imageNft} />
+              <img
+                src={
+                  imagePath.endsWith('man_sweat_white_s.png')
+                    ? SweatshirtW.src
+                    : imagePath.endsWith('man_t_white_s.png')
+                    ? ShortSleeveW.src
+                    : imagePath.endsWith('man_hoodie_white_s.png')
+                    ? HoodieW.src
+                    : imagePath.endsWith('women_t_white_s.png')
+                    ? WomenShortSleeveW.src
+                    : imagePath.endsWith('man_longsleeve_white_s.png')
+                    ? ManLongsLeeveW.src
+                    : imagePath.endsWith('man_sweat_black_s.png')
+                    ? SweatshirtB.src
+                    : imagePath.endsWith('man_t_black_s.png')
+                    ? ShortSleeveB.src
+                    : imagePath.endsWith('man_hoodie_black_s.png')
+                    ? HoodieB.src
+                    : imagePath.endsWith('women_t_black_s.png')
+                    ? WomenShortSleeveB.src
+                    : imagePath.endsWith('man_longsleeve_black_s.png')
+                    ? ManLongsLeeveB.src
+                    : ''
+                }
+                className={styles.imageNft}
+              />
               <div className={styles.nftImage}>
                 {apparelList.name === 'Hoodie' ? (
                   <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
-                    <ImageWithFoster src={nftImage} className="max-w-full max-h-full object-cover" />
+                    <ImageWithFoster
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
+                      src={nftImage}
+                      className="max-w-full max-h-full object-cover"
+                    />
                   </div>
                 ) : (
                   <div
                     className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
                   >
-                    <ImageWithFoster src={nftImage} className="w-full object-contain flex items-start" />
+                    <ImageWithFoster
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
+                      src={nftImage}
+                      className="w-full object-contain flex items-start"
+                    />
                   </div>
                 )}
               </div>
