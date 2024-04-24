@@ -123,7 +123,9 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                         <Link href={`/nft/${item.mint_address}`} passHref>
                           <a>
                             <div className={styles.nftName}>
-                              {item.asset_name.slice(0, item.asset_name.indexOf(', (#'))}
+                              {item.action_type === 'MasterEditionPrintCreated'
+                                ? item.asset_name.slice(0, item.asset_name.indexOf(', (#'))
+                                : item.asset_name}
                             </div>
                           </a>
                         </Link>
