@@ -33,6 +33,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'ListingCancelled':
       case 'MasterEditionListingCreated':
       case 'MasterEditionListingUpdated':
+      case 'MasterEditionPrintCreated':
       case 'ListingUpdated':
         user = getOwnerName(item)
         break
@@ -83,6 +84,9 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'MasterEditionListingUpdated':
         type = 'updated listing master edition'
         break
+      case 'MasterEditionPrintCreated':
+        type = 'purchased master printed edition'
+        break
       case 'MasterEditionListingCancelled':
         type = 'canceled list edition'
       case 'ListingUpdated':
@@ -118,7 +122,11 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                       <div className="block">
                         <Link href={`/nft/${item.mint_address}`} passHref>
                           <a>
-                            <div className={styles.nftName}>{item.asset_name}</div>
+                            <div className={styles.nftName}>
+                              {item.action_type === 'MasterEditionPrintCreated'
+                                ? item.asset_name.slice(0, item.asset_name.indexOf(', (#'))
+                                : item.asset_name}
+                            </div>
                           </a>
                         </Link>
                       </div>

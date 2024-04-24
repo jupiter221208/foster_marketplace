@@ -27,11 +27,16 @@
 }
 
 .title {
+  width: 100%;
   font-family: 'Muli-Bold';
-  font-size: 20px;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
   @media (min-width: 1024px) {
+    width: auto;
     font-size: 30px;
     line-height: 40px;
+    text-align: start;
   }
   color: var(--text-gray-200-color);
 }
