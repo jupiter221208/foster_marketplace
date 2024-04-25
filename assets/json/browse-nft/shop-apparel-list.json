@@ -73,9 +73,9 @@
   },
   {
     "id": 6,
-    "name": "Youth Hoodie",
+    "name": "Hoodie",
     "start_price": "31.00",
-    "asset_url": "/images/shop-apparel-youth-hoodie.png",
+    "asset_url": "/images/shop-apparel-hoodie.png",
     "category": "apparel",
     "type": "",
     "sub_type": "youth",
