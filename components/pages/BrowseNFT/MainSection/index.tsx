@@ -51,8 +51,6 @@ import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
-import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
-import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -62,7 +60,6 @@ import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
-import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
