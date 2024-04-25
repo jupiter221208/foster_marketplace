@@ -6,8 +6,8 @@
   min-height: 375px;
   position: relative;
   padding: 0px;
-  background: var(--view-item-btn-color);
   @media (min-width: 1024px) {
+    background: var(--view-item-btn-color);
     padding: 0px;
     background: transparent;
     border-radius: 12px;
