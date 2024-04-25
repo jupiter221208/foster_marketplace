@@ -63,6 +63,7 @@
   border-radius: 5px;
   padding: 0px 13px 15px 13px;
   margin-top: 15px;
+  overflow: hidden;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -105,22 +106,23 @@
 }
 
 .categoryBorder {
-  width: 100%;
+  width: 200%;
+
   height: 1px;
-  margin: 15px 0;
+  margin: 15px -30px;
   background: rgba(#707070, 0.25);
 
   @media (min-width: 640px) {
-    margin: 15px 0;
+    margin: 15px -25px;
   }
   @media (min-width: 768px) {
-    margin: 15px 0;
+    margin: 15px -35px;
   }
   @media (min-width: 1024px) {
-    margin: 15px 0;
+    margin: 15px -20px;
   }
   @media (min-width: 1680px) {
-    margin: 15px 0 15px 0;
+    margin: 15px -24px 15px -30px;
   }
 }
 
