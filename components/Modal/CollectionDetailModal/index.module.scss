@@ -8,15 +8,11 @@
 .bgView {
   position: fixed;
   inset: 0;
-  @media (min-width: 1024px) {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px) brightness(15px) opacity(0.9);
-    background: rgba(var(--background-main-color), 0.9);
-  }
+  background-color: #1a1a1a;
+  opacity: 0.8;
 }
 
 .modalView {
-
   position: fixed;
   inset: 0;
   background: var(--background-main-color);
@@ -37,11 +33,11 @@
   height: 200px;
   border-radius: 35px;
   @media (min-width: 1024px) {
-  width: 330px;
-  height: 330px;
-  min-width: 330px;
-  min-height: 330px;
-  border-radius: 35px;
+    width: 330px;
+    height: 330px;
+    min-width: 330px;
+    min-height: 330px;
+    border-radius: 35px;
   }
   overflow: hidden;
 }
@@ -50,6 +46,5 @@
   font-family: 'Muli-Bold';
   font-size: 18px;
   text-align: start;
-  color: var(--text-gray-200-color)
+  color: var(--text-gray-200-color);
 }
-
