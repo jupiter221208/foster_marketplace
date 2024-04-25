@@ -1194,7 +1194,7 @@ const MainSection = ({
             fullScreen={fullScreen}
           />
 
-          <div className="w-full lg:flex hidden mt-[32px] w-full justify-between">
+          <div className="w-full lg:flex hidden mt-[32px] justify-between">
             <div className="flex gap-[15px] items-center">
               <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
