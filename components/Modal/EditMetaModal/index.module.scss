@@ -35,20 +35,20 @@
   height: 200px;
   border-radius: 35px;
   @media (min-width: 1024px) {
-  width: 330px;
-  height: 330px;
-  min-width: 330px;
-  min-height: 330px;
-  border-radius: 35px;
+    width: 330px;
+    height: 330px;
+    min-width: 330px;
+    min-height: 330px;
+    border-radius: 35px;
   }
   overflow: hidden;
 }
 
 .artName {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-family: 'Semi-Bold';
+  font-size: 16px;
   text-align: start;
-  color: var(--text-gray-200-color)
+  color: var(--text-gray-200-color);
 }
 
 .audioMobileArea {
@@ -82,7 +82,7 @@
   justify-content: start;
   border-radius: 12px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
-  color:var(--text-gray-200-color);
+  color: var(--text-gray-200-color);
   font-family: 'Muli-Regular';
   font-size: 16px;
   outline: none;
