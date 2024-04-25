@@ -82,7 +82,7 @@ const MintEditionCard = props => {
   return (
     <div className={styles.container}>
       <div className="w-full">
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center gap-2">
           {auctionStarted && !auctionEnded && (
             <div className="flex gap-[14px] mt-[-5px] items-center">
               <div className={styles.grayText}>
