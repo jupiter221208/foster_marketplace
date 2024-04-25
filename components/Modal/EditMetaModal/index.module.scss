@@ -9,9 +9,7 @@
   position: fixed;
   inset: 0;
   @media (min-width: 1024px) {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px) brightness(15px) opacity(0.9);
-    background: rgba(var(--background-main-color), 0.9);
+    background: rgba(26, 26, 26, 0.8);
   }
 }
 
@@ -45,7 +43,7 @@
 }
 
 .artName {
-  font-family: 'Semi-Bold';
+  font-family: 'Muli-Bold';
   font-size: 16px;
   text-align: start;
   color: var(--text-gray-200-color);
@@ -70,9 +68,6 @@
   font-size: 16px;
   color: var(--text-gray-200-color);
   text-align: start;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-  }
 }
 
 .inputArea {
