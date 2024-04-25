@@ -424,7 +424,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                           nftCreator={artistInfo?.name}
                           shopApparelList={ShopApparelList}
                           openMerchPage={data => {
-                            console.log(data, '============data')
                             setMerchData(data)
                             setOpenMerchPage(true)
                           }}
