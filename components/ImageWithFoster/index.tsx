@@ -13,31 +13,27 @@ function shouldUseHeliusCdn(url: URL): boolean {
 }
 
 function useHeliusCdn(urlString: string | null, options: Record<string, string | number> = {}): string | null {
-  try {
-    if (!urlString || !urlString.match(/^https?:\/\//i)) return null
+  if (!urlString || !urlString.match(/^https?:\/\//i)) return null
 
-    // unwrap cdn urls
-    let url = new URL(urlString)
-    while (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image/')) {
-      try {
-        url = new URL(decodeURIComponent(url.pathname.match(/(?<=\/cdn-cgi\/image\/[^\/]*\/).*$/)[0]))
-      } catch (e: any) {
-        console.error(`could not decode url: ${url.toString()}, original: ${urlString}: ${e?.message}`)
-        return null
-      }
+  // unwrap cdn urls
+  let url = new URL(urlString)
+  while (url.hostname == 'cdn.helius-rpc.com' && url.pathname.startsWith('/cdn-cgi/image/')) {
+    try {
+      url = new URL(decodeURIComponent(url.pathname.match(/(?<=\/cdn-cgi\/image\/[^\/]*\/).*$/)[0]))
+    } catch (e: any) {
+      console.error(`could not decode url: ${url.toString()}, original: ${urlString}: ${e?.message}`)
+      return null
     }
-
-    if (!shouldUseHeliusCdn(url)) return null
-
-    let parameters = Object.entries(options)
-      .filter(([, v]) => v !== undefined && v !== null)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([k, v]) => k + '=' + v.toString())
-      .join(',')
-    return `https://cdn.helius-rpc.com/cdn-cgi/image/${parameters}/${encodeURIComponent(url.toString())}`
-  } catch (error) {
-    console.log(error)
   }
+
+  if (!shouldUseHeliusCdn(url)) return null
+
+  let parameters = Object.entries(options)
+    .filter(([, v]) => v !== undefined && v !== null)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([k, v]) => k + '=' + v.toString())
+    .join(',')
+  return `https://cdn.helius-rpc.com/cdn-cgi/image/${parameters}/${encodeURIComponent(url.toString())}`
 }
 
 export type ImageWithFosterProps = {
