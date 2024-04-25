@@ -245,74 +245,80 @@ const PhysicalShippingMethod = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        <div className={styles.selecteCategory}>Select Shipping Method</div>
-      </div>
-      <div className="w-full flex xl:flex-row flex-col mt-[20px] justify-between">
-        <div className="min-w-[300px] mt-[12px]">
-          {shipping && (
-            <Radio
-              data={shippingMethods}
-              selected={shipping}
-              onChange={item => {
-                setShipping(item)
-              }}
-            />
-          )}
-        </div>
-        <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
-          <div className="w-full relative">
-            <div className={styles.orderView}>
-              <div className="w-full flex justify-between">
-                <div className={styles.orderTotal}>Subtotal</div>
-                <div className={styles.totalPrice}>${data.cost}</div>
-              </div>
-              <div className={`${styles.divider} mt-[15px]`} />
-              <div className="w-full flex justify-between mt-[15px]">
-                <div className={styles.orderTotal}>
-                  Shipping and
-                  <br />
-                  Handling
+      <div className={styles.rightPanel}>
+        <div className="pt-[13px] lg:p-[30px]">
+          <div className="flex gap-[15px] items-center">
+            <div className={styles.selecteCategory}>Shipping Method</div>
+          </div>
+          <div className="w-full flex xl:flex-row flex-col lg:mt-[20px] justify-between">
+            <div className="min-w-[300px] mt-[12px]">
+              {shipping && (
+                <Radio
+                  data={shippingMethods}
+                  selected={shipping}
+                  onChange={item => {
+                    setShipping(item)
+                  }}
+                />
+              )}
+            </div>
+            <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
+              <div className="w-full relative">
+                <div className={styles.orderView}>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.orderTotal}>Subtotal</div>
+                    <div className={styles.totalPrice}>${data.cost}</div>
+                  </div>
+                  <div className={`${styles.divider} mt-[15px]`} />
+                  <div className="w-full flex justify-between mt-[15px]">
+                    <div className={styles.orderTotal}>
+                      Shipping and
+                      <br />
+                      Handling
+                    </div>
+                    <div className={styles.subPrice}>
+                      <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
+                      <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                    </div>
+                  </div>
+                  <div className={`${styles.divider} mt-[15px]`} />
+                  <div className="w-full flex justify-between mt-[20px]">
+                    <div className={styles.orderTotal}>Total</div>
+                    <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+                  </div>
                 </div>
-                <div className={styles.subPrice}>
-                  <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                  <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
-                </div>
-              </div>
-              <div className={`${styles.divider} mt-[15px]`} />
-              <div className="w-full flex justify-between mt-[20px]">
-                <div className={styles.orderTotal}>Total</div>
-                <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="xl:absolute xl:bottom-[120px] w-full flex gap-[30px] mt-[30px]">
-        <OutlineButton
-          label="Back"
-          onClick={onBack}
-          fullWidth
-          fontFamily="Muli-SemiBold"
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-          color={'var(--text-gray-200-color)'}
-        />
-        <div className="w-full">
-          {isLoading ? (
-            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
-          ) : (
-            <GradientButton
-              disabled={!total}
-              label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
-              fontFamily="Muli-SemiBold"
+        <div className={styles.btnContainer}>
+          <div className="w-full mt-[20px]">
+            {isLoading ? (
+              <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50} />
+            ) : (
+              <GradientButton
+                disabled={!total}
+                label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
+                fontFamily="Muli-SemiBold"
+                fullWidth
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+                onClick={() => onCheckout()}
+              />
+            )}
+          </div>
+          <div className="w-full mt-[15px] lg:mt-[20px] mb-[20px] lg:mb-[20px] flex">
+            <OutlineButton
+              label="Back"
+              onClick={onBack}
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-              onClick={() => onCheckout()}
+              fontFamily="Muli-SemiBold"
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
+              borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+              color={'var(--text-gray-200-color)'}
             />
-          )}
+          </div>
         </div>
       </div>
     </section>
