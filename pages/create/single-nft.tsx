@@ -948,7 +948,7 @@ const SingleNft = () => {
                 />
               )}
 
-              <div className="w-full flex justify-between my-10">
+              <div className="w-full flex justify-between my-[30px]">
                 {/* button group part */}
                 {currentStep === 1 && (
                   <div className="w-full">
