@@ -30,6 +30,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import SizeChartModal from 'components/Modal/SizeChartModal'
+import Image from 'next/image'
 
 // api
 
@@ -70,6 +71,7 @@ const PhysicalPrintDetail = props => {
   const shippingDetail = useSelector<any>(state => state.shippingDetail)
   const printImageUrl = useSelector<any>(state => state.printImageUrl)
   const isAddToCart = useSelector(state => (state as any).isAddToCart)
+  const [apparelAssets, setApparelAssets] = useState(null)
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -146,7 +148,6 @@ const PhysicalPrintDetail = props => {
         setCost('----')
         onPrint('')
         setPreviewApparel('')
-        // setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
       }
     } else {
       setEnabled(false)
@@ -194,6 +195,7 @@ const PhysicalPrintDetail = props => {
     if (apparel.hasOwnProperty(gender.type)) {
       if (apparel[gender.type].hasOwnProperty(quality.type)) {
         if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
+          setApparelAssets(apparel[gender.type][quality.type][color.type].image)
           onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
           setPreviewApparel(apparel[gender.type][quality.type][color.type].image[print.type])
           let cost = apparel[gender.type][quality.type][color.type].cost
@@ -287,41 +289,42 @@ const PhysicalPrintDetail = props => {
         />
       </div>
       <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">
-        {/* <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden">
-            <ArrowLeftIconMobile alt="" />
-          </div>
-        </div> */}
         <div className={styles.selecteCategory}>
           {getApparelName()}&nbsp;<div className={styles.nftName}>({nftName})</div>
         </div>
       </div>
       <div className={styles.description}>{getApparelDescription()}</div>
-      {/* <div className="w-full mt-[30px] lg:mt-[40px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'GENDER:' : 'Gender:'}
-          data={GenderType}
-          selected={gender?.name}
-          onSelect={item => setGender(item)}
-        />
-      </div> */}
-      {/* <div className="w-full mt-[25px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'BASE:' : 'Base:'}
-          data={apparelType}
-          selected={apparel?.name}
-          onSelect={item => setApparel(item)}
-        />
-      </div> */}
-      <div className="w-full mt-[25px]">
-        <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
+
+      <div className="w-full mt-[30px]">
+        {/* <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} /> */}
+        <div className={styles.placementTitle}>Select Placement</div>
+        <div className="mt-[15px] flex gap-[58px]">
+          <div onClick={() => setPrint(PrintType[0])}>
+            <div className={print.type === 'front' ? styles.selectedPrint : styles.unselectedPrint}>
+              <Image
+                src={apparelAssets ? apparelAssets['front'] : ''}
+                width={170}
+                height={170}
+                alt=""
+                className="w-full h-full"
+              />
+            </div>
+            <div className={styles.selectedPrintText}>Front Side</div>
+          </div>
+          <div onClick={() => setPrint(PrintType[1])}>
+            <div className={print.type === 'back' ? styles.selectedPrint : styles.unselectedPrint}>
+              <Image
+                src={apparelAssets ? apparelAssets['back'] : ''}
+                width={170}
+                height={170}
+                alt=""
+                className="w-full h-full"
+              />
+            </div>
+            <div className={styles.selectedPrintText}>Back Side</div>
+          </div>
+        </div>
       </div>
-      {/* <div className="w-full mt-[25px]">
-        <Selection label={'Quality:'} data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
-      </div> */}
       <div className="w-full mt-[25px]">
         <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
       </div>

@@ -27,6 +27,43 @@
   color: var(--text-gray-200-color);
 }
 
+.placementTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.unselectedPrint {
+  width: 196px;
+  height: 196px;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedPrint {
+  width: 196px;
+  height: 196px;
+  border: 2px solid var(--main-icon-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedPrintText {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
 .backBG {
   @media (min-width: 1024px) {
     width: 30px;
