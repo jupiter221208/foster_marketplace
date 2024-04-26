@@ -1714,36 +1714,32 @@ const MainSection = ({
                                           }}
                                         />
                                       </div>
-                                      <div
-                                        className={`${styles.placeBidBG}`}
-                                        onClick={async () => {
-                                          if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                            return
-
-                                          if (isEnded) return
-
-                                          if (!connected) {
-                                            setVisible(true)
-                                            return
-                                          }
-                                          placeBidAndSave(price)
-                                        }}
-                                      >
+                                      <div className={`${styles.placeBidBG}`}>
                                         {auctionLoading ? (
-                                          <LoadingButton fullWidth height={50} />
+                                          <LoadingPrimaryButton fullWidth />
                                         ) : (
-                                          <GradientButton
+                                          <PrimaryButton
                                             label="Place Bid"
+                                            type="place-bid"
                                             fullWidth
-                                            backgroundColor01="var(--main-icon-color)"
-                                            backgroundColor02="var(--main-icon-color)"
-                                            color="var(--background-main-color)"
-                                            borderColor="transparent"
-                                            height={50}
-                                            fontSize={18}
                                             disabled={
                                               price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                             }
+                                            onClick={async () => {
+                                              if (
+                                                price === '' ||
+                                                parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                              )
+                                                return
+
+                                              if (isEnded) return
+
+                                              if (!connected) {
+                                                setVisible(true)
+                                                return
+                                              }
+                                              placeBidAndSave(price)
+                                            }}
                                           />
                                         )}
                                       </div>

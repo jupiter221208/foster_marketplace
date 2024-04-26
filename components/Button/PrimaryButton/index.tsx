@@ -9,6 +9,7 @@ import HoverButtonDivider from 'assets/icons/hover-button-divider.svg?component'
 import BuyIcon from 'assets/icons/buy-now-icon.svg?component'
 import BuyHoverIcon from 'assets/icons/buy-now-icon-hover.svg?component'
 import PlaceBidIcon from 'assets/icons/place-bid-icon.svg?component'
+import PlaceBidHoverIcon from 'assets/icons/place-bid-hover-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -38,7 +39,11 @@ const PrimaryButton = props => {
                 <BuyIcon />
               )
             ) : type === 'place-bid' ? (
-              <PlaceBidIcon />
+              hover ? (
+                <PlaceBidHoverIcon />
+              ) : (
+                <PlaceBidIcon />
+              )
             ) : (
               <></>
             )}
