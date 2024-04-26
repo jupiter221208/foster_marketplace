@@ -632,6 +632,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-303030-FFF', '#FFF')
     doc.style.setProperty('--bg-303030-D9D8D7', '#D9D8D7')
     doc.style.setProperty('--bg-95dbd5-707070', '#707070')
+    doc.style.setProperty('--bg-95dbd5-FFF', '#FFF')
     doc.style.setProperty('--bg-eff0f6-707070', '#707070')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-303030-202427', 'rgba(32, 36, 39, 0.1)')
@@ -642,6 +643,13 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-141313-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-1A1A1A-202427', '#202427')
     doc.style.setProperty('--bg-9bdbd5-20242725', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--bg-1A1A1A-4A4D50', '#4A4D50')
+    doc.style.setProperty('--bg-1A1A1A-FFF', '#FFF')
+    doc.style.setProperty('--bg-212121-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-59595B-BEBFBD', '#BEBFBD')
+    doc.style.setProperty('--bg-95dbd505-202427', '#202427')
+    doc.style.setProperty('--bg-4D6A67-202427', '#202427')
+    doc.style.setProperty('--bg-4D6A67-484B4E', '#484B4E')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -980,6 +988,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-303030-FFF', '#303030')
     doc.style.setProperty('--bg-303030-D9D8D7', '#303030')
     doc.style.setProperty('--bg-95dbd5-707070', '#95dbd5')
+    doc.style.setProperty('--bg-95dbd5-FFF', '#95dbd5')
     doc.style.setProperty('--bg-eff0f6-707070', '#eff0f6')
     doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#1C1C1C')
     doc.style.setProperty('--bg-303030-202427', '#303030')
@@ -990,5 +999,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-141313-F3F2F0', '#141313')
     doc.style.setProperty('--bg-1A1A1A-202427', '#1A1A1A')
     doc.style.setProperty('--bg-9bdbd5-20242725', '#95dbd5')
+    doc.style.setProperty('--bg-1A1A1A-4A4D50', '#1A1A1A')
+    doc.style.setProperty('--bg-1A1A1A-FFF', '#1A1A1A')
+    doc.style.setProperty('--bg-212121-F3F2F0', '#212121')
+    doc.style.setProperty('--bg-59595B-BEBFBD', '#59595B')
+    doc.style.setProperty('--bg-95dbd505-202427', 'rgba(149, 219, 213, 0.05)')
+    doc.style.setProperty('--bg-4D6A67-202427', '#4D6A67')
+    doc.style.setProperty('--bg-4D6A67-484B4E', '#4D6A67')
   }
 }

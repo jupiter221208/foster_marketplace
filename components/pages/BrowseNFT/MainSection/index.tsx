@@ -115,6 +115,8 @@ import MintEditionCard from 'components/Card/MintEditionCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1579,22 +1581,41 @@ const MainSection = ({
                         {(isOwnNft === false || isOwnNft === null) && (
                           <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
-                              <GradientButton
+                              // <GradientButton
+                              //   fullWidth
+                              //   backgroundColor01="var(--main-icon-color)"
+                              //   backgroundColor02="var(--main-icon-color)"
+                              //   color="var(--background-main-color)"
+                              //   label="Buy Now"
+                              //   disabled={!tradeStateAddress}
+                              //   borderColor="transparent"
+                              //   fontSize={18}
+                              //   onClick={() => quickBuy()}
+                              // />
+                              <PrimaryButton
                                 fullWidth
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
+                                type="buy-now"
                                 label="Buy Now"
                                 disabled={!tradeStateAddress}
-                                borderColor="transparent"
-                                fontSize={18}
                                 onClick={() => quickBuy()}
                               />
                             ) : (
                               <LoadingButton fullWidth />
                             )}
-                            <OutlineButton
+                            {/* <OutlineButton
                               label="Make Offer"
+                              fullWidth
+                              onClick={() => {
+                                if (!connected) {
+                                  setVisible(true)
+                                  return
+                                }
+                                setOpenOfferModal(true)
+                              }}
+                            /> */}
+                            <SecondaryButton
+                              label="Make Offer"
+                              type="make-offer"
                               fullWidth
                               onClick={() => {
                                 if (!connected) {
