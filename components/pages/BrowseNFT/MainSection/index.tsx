@@ -1523,13 +1523,10 @@ const MainSection = ({
                   {isEditionListing ? (
                     isOwnNft === true ? (
                       <div className="w-full lg:mt-[10px]">
-                        <GradientButton
+                        <PrimaryButton
                           fullWidth
-                          backgroundColor01="var(--main-icon-color)"
-                          backgroundColor02="var(--main-icon-color)"
-                          color="var(--background-main-color)"
-                          borderColor="transparent"
-                          label={'Update/Relist'}
+                          type="update-relist"
+                          label={'Update or Relist'}
                           onClick={() => {
                             setListEditionType('update')
                             setShowListEditionDetail(true)
@@ -1598,17 +1595,7 @@ const MainSection = ({
                             ) : (
                               <LoadingPrimaryButton fullWidth />
                             )}
-                            {/* <OutlineButton
-                              label="Make Offer"
-                              fullWidth
-                              onClick={() => {
-                                if (!connected) {
-                                  setVisible(true)
-                                  return
-                                }
-                                setOpenOfferModal(true)
-                              }}
-                            /> */}
+
                             <SecondaryButton
                               label="Make Offer"
                               type="make-offer"
@@ -1626,8 +1613,9 @@ const MainSection = ({
 
                         {isOwnNft === true ? (
                           <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                            <GradientButton
+                            <PrimaryButton
                               label="Delist or Update"
+                              type="update-relist"
                               fullWidth
                               onClick={() => setShowUpdateListNFTModal(true)}
                             />
@@ -1643,7 +1631,12 @@ const MainSection = ({
                     connected ? (
                     <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                       {nftCurrentPrice > 0 ? (
-                        <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
+                        <SecondaryButton
+                          type="finalize-sale"
+                          label="Finalize Sale"
+                          fullWidth
+                          onClick={() => processFinalizeSale()}
+                        />
                       ) : (
                         <GradientButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
                       )}
@@ -1801,12 +1794,9 @@ const MainSection = ({
                             <></>
                           ) : (
                             <div className="w-full mt-[0px] lg:mt-[10px]">
-                              <GradientButton
+                              <SecondaryButton
                                 fullWidth
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
-                                borderColor="transparent"
+                                type="list-artwork"
                                 label="List Edition"
                                 onClick={() => {
                                   setListEditionType('list')
@@ -1817,15 +1807,16 @@ const MainSection = ({
                           )
                         ) : (
                           <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
-                            <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                            <GradientButton
+                            <SecondaryButton
+                              type="list-artwork"
                               fullWidth
-                              backgroundColor01="var(--main-icon-color)"
-                              backgroundColor02="var(--main-icon-color)"
-                              color="var(--background-main-color)"
+                              label="List Artwork"
+                              onClick={() => setShowListNFTModal(true)}
+                            />
+                            <PrimaryButton
+                              fullWidth
                               label="Start Auction"
-                              borderColor="transparent"
-                              fontSize={18}
+                              type="start-auction"
                               onClick={() => {
                                 setShowAuctionDetail(true)
                                 setShowAuctionSection(true)

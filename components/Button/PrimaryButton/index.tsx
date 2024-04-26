@@ -10,6 +10,10 @@ import BuyIcon from 'assets/icons/buy-now-icon.svg?component'
 import BuyHoverIcon from 'assets/icons/buy-now-icon-hover.svg?component'
 import PlaceBidIcon from 'assets/icons/place-bid-icon.svg?component'
 import PlaceBidHoverIcon from 'assets/icons/place-bid-hover-icon.svg?component'
+import StartAuctionIcon from 'assets/icons/start-auction-icon.svg?component'
+import StartAuctionHoverIcon from 'assets/icons/start-auction-hover-icon.svg?component'
+import UpdateRelistIcon from 'assets/icons/update-relist-icon.svg?component'
+import UpdateRelistHoverIcon from 'assets/icons/update-relist-hover-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -43,6 +47,18 @@ const PrimaryButton = props => {
                 <PlaceBidHoverIcon />
               ) : (
                 <PlaceBidIcon />
+              )
+            ) : type === 'start-auction' ? (
+              hover ? (
+                <StartAuctionHoverIcon />
+              ) : (
+                <StartAuctionIcon />
+              )
+            ) : type === 'update-relist' ? (
+              hover ? (
+                <UpdateRelistHoverIcon />
+              ) : (
+                <UpdateRelistIcon />
               )
             ) : (
               <></>

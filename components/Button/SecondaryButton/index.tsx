@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import MakeOfferIcon from 'assets/icons/make-offer-icon.svg?component'
 import FinalizeSaleIcon from 'assets/icons/finalize-sale-icon.svg?component'
 import SecondButtonDivider from 'assets/icons/second-button-divider.svg?component'
-
+import ListArtworkIcon from 'assets/icons/list-artwork-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 
@@ -28,7 +28,15 @@ const SecondaryButton = props => {
       <div className="w-[45%] absolute left-0 top-0 flex">
         <div className={`${hover ? 'w-full' : 'w-[56px]'} flex justify-end items-center`}>
           <div className="w-[56px] h-[50px] flex justify-center items-center">
-            {type === 'make-offer' ? <MakeOfferIcon /> : type === 'finalize-sale' ? <FinalizeSaleIcon /> : <></>}
+            {type === 'make-offer' ? (
+              <MakeOfferIcon />
+            ) : type === 'finalize-sale' ? (
+              <FinalizeSaleIcon />
+            ) : type === 'list-artwork' ? (
+              <ListArtworkIcon />
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className="min-w-[13px] max-w-[13px]">

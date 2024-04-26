@@ -13,6 +13,8 @@ import { useViewport } from 'utils'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
 import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const MintEditionCard = props => {
   const {
@@ -220,18 +222,14 @@ const MintEditionCard = props => {
       </div>
       <div className="w-full mt-[15px]">
         {mintEditionLoading ? (
-          <LoadingButton fullWidth height={50} />
+          <LoadingPrimaryButton fullWidth />
         ) : (
-          <GradientButton
+          <PrimaryButton
             fullWidth
+            type="buy-now"
             label="Buy Now"
-            backgroundColor01="var(--main-icon-color)"
-            backgroundColor02="var(--main-icon-color)"
-            color="var(--background-main-color)"
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 18}
-            onClick={() => mintEdition()}
-            height={50}
             disabled={mintQty === 0}
+            onClick={() => mintEdition()}
           />
         )}
         {buyLimitAlert && (
