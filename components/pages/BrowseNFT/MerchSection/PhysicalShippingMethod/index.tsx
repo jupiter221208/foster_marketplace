@@ -250,8 +250,8 @@ const PhysicalShippingMethod = props => {
           <div className="flex gap-[15px] items-center">
             <div className={styles.selecteCategory}>Shipping Method</div>
           </div>
-          <div className="w-full flex xl:flex-row flex-col lg:mt-[20px] justify-between">
-            <div className="min-w-[300px] mt-[12px]">
+          <div className="w-full">
+            <div className="w-full min-w-[375px] mt-[12px]">
               {shipping && (
                 <Radio
                   data={shippingMethods}
@@ -262,7 +262,7 @@ const PhysicalShippingMethod = props => {
                 />
               )}
             </div>
-            <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
+            <div className="w-full h-auto gap-[30px] mt-[24px]">
               <div className="w-full relative">
                 <div className={styles.orderView}>
                   <div className="w-full flex justify-between">

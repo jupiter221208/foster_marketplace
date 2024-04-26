@@ -81,8 +81,9 @@ const ApparelSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
-
-    let screenWidth = window.innerWidth * 0.3
+    let screenWidth
+    if (viewport === '3xl') screenWidth = window.innerWidth * 0.36
+    else screenWidth = window.innerWidth * 0.3
     if (viewport === 'xs') {
       screenWidth = window.innerWidth * 0.85 - 32
     } else if (viewport === 'sm' || viewport === 'md') {

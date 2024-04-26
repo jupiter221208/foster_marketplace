@@ -53,6 +53,7 @@
 
 .rightPanel {
   width: 100%;
+  max-width: 604px;
   background: var(--background-main-color);
   border: 1px solid var(--bg-303030-DDDCDC);
   border-radius: 10px;
@@ -90,10 +91,6 @@
 .unselectedPrint {
   width: 150px;
   height: 150px;
-  @media (min-width: 1024px) {
-    width: 196px;
-    height: 196px;
-  }
   border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;
   display: flex;
@@ -103,11 +100,7 @@
 
 .selectedPrint {
   width: 150px;
-    height: 150px;
-  @media (min-width: 1024px) {
-    width: 196px;
-  height: 196px;
-  }
+  height: 150px;
   border: 2px solid var(--main-icon-color);
   border-radius: 10px;
   display: flex;

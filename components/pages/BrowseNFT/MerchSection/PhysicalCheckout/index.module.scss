@@ -2,8 +2,17 @@
 
 .container {
   width: 100%;
+  max-width: 604px;
+  min-width: 604px;
   height: 100%;
   position: relative;
+  background: var(--background-main-color);
+  border: 1px solid var(--bg-303030-DDDCDC);
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .selecteCategory {

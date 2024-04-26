@@ -322,13 +322,13 @@ const PhysicalPrintDetail = props => {
         <div className="w-full mt-[20px] lg:mt-[30px]">
           {/* <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} /> */}
           <div className={styles.placementTitle}>Select Placement</div>
-          <div className="mt-[15px] flex gap-[16px] lg:gap-[58px]">
+          <div className="mt-[15px] flex gap-[16px] lg:gap-[30px]">
             <div onClick={() => setPrint(PrintType[0])}>
               <div className={print.type === 'front' ? styles.selectedPrint : styles.unselectedPrint}>
                 <Image
                   src={apparelAssets ? apparelAssets['front'] : ''}
-                  width={170}
-                  height={170}
+                  width={150}
+                  height={150}
                   alt=""
                   className="w-full h-full"
                 />

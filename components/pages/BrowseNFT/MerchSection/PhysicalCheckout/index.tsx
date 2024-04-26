@@ -184,23 +184,64 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      {/* <div className="flex gap-[15px] mt-[20px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden">
-            <ArrowLeftIconMobile alt="" />
+      <div className="w-full">
+        <div className={styles.summary}>Order Summary</div>
+        <div className="mt-[20px] hidden lg:block">
+          <TableSection data={list} />
+        </div>
+        <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
+          <div className="w-[286px] h-[160px] relative hidden lg:block">
+            <div className={styles.paymentMethod}>Choose Payment Method*</div>
+            <div className="w-full flex justify-between mt-[16px]">
+              <div
+                className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('sol')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>SOL</div>
+              </div>
+              <div
+                className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('usdc')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={USDCIcon} width={37} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>USDC</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className={styles.selecteCategory}>Checkout</div>
-      </div> */}
-      <div className={styles.summary}>Order Summary</div>
-      <div className="mt-[20px] hidden lg:block">
-        <TableSection data={list} />
-      </div>
-      <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
-        <div className="w-[286px] h-[160px] relative hidden lg:block">
+
+        {/* Mobile Table */}
+        <div className="w-full lg:hidden">
+          {list.map((item, index) => {
+            return (
+              <div key={index}>
+                <div className={`${styles.tableColor} w-full flex justify-between px-3 mt-[30px]`}>
+                  <div className="w-full h-full">
+                    <img src={item.url} className="w-[50%] h-[50%]" />
+                  </div>
+                  <div className={`${styles.value} w-[200px] text-right`}>
+                    <p dangerouslySetInnerHTML={{ __html: item.name }} />
+                  </div>
+                </div>
+
+                <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
+                  <div className={styles.value}>{'Shipping\nAddress:'}</div>
+                  <div className={`${styles.value} text-left mt-[12px]`}>
+                    <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* SOL / USDC */}
+        <div className="w-full h-auto relative lg:hidden mt-[30px]">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
           <div className="w-full flex justify-between mt-[16px]">
             <div
@@ -221,56 +262,6 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               </div>
               <div className={styles.currencyName}>USDC</div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Table */}
-      <div className="w-full lg:hidden">
-        {list.map((item, index) => {
-          return (
-            <div key={index}>
-              <div className={`${styles.tableColor} w-full flex justify-between px-3 mt-[30px]`}>
-                <div className="w-full h-full">
-                  <img src={item.url} className="w-[50%] h-[50%]" />
-                </div>
-                <div className={`${styles.value} w-[200px] text-right`}>
-                  <p dangerouslySetInnerHTML={{ __html: item.name }} />
-                </div>
-              </div>
-
-              <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
-                <div className={styles.value}>{'Shipping\nAddress:'}</div>
-                <div className={`${styles.value} text-left mt-[12px]`}>
-                  <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
-                </div>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* SOL / USDC */}
-      <div className="w-full h-auto relative lg:hidden mt-[30px]">
-        <div className={styles.paymentMethod}>Choose Payment Method*</div>
-        <div className="w-full flex justify-between mt-[16px]">
-          <div
-            className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
-            onClick={() => setCurrency('sol')}
-          >
-            <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-              <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
-            </div>
-            <div className={styles.currencyName}>SOL</div>
-          </div>
-          <div
-            className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
-            onClick={() => setCurrency('usdc')}
-          >
-            <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-              <Image src={USDCIcon} width={37} height={37} alt="" />
-            </div>
-            <div className={styles.currencyName}>USDC</div>
           </div>
         </div>
       </div>
