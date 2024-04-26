@@ -22,16 +22,16 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
-import OutlineButton from 'components/Button/OutlineButton'
 import SizeChartModal from 'components/Modal/SizeChartModal'
 import Image from 'next/image'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import QuantityCard from 'components/Card/QuantityCard'
 import { useAuthentication } from 'hooks/useAuthentication'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 // api
 
@@ -401,30 +401,19 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[30px] flex gap-[30px]">
-          <OutlineButton
-            label="Add to Cart"
-            onClick={() => handleSaveData()}
-            fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-            color={'var(--text-gray-200-color)'}
-          />
-
-          <GradientButton
+        <div className="w-full flex flex-wrap mt-[20px] flex gap-[15px]">
+          <PrimaryButton
             disabled={!enabled}
             label="Buy Now"
-            fontFamily="Muli-SemiBold"
+            type="buy-now"
             fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             onClick={() => {
               let data = { apparel, gender, color, print, quality, size, quantity, cost }
               onShipping(data)
               setFinishEditing(true)
             }}
           />
+          <SecondaryButton label="Add to Cart" type="add-cart" onClick={() => handleSaveData()} fullWidth />
         </div>
       </div>
       <SizeChartModal open={tableModal} title={getApparelName()} onClose={() => setTableModal(false)} />

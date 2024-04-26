@@ -22,6 +22,9 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -281,31 +284,21 @@ const PhysicalShipping = props => {
         </div>
 
         <div className={styles.btnContainer}>
-          <div className="w-full mt-[15px] lg:mt-[20px]">
+          <div className="w-full mt-[15px] lg:mt-[30px]">
             {isLoading ? (
-              <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50} />
+              <LoadingPrimaryButton fullWidth />
             ) : (
-              <GradientButton
-                disabled={!enabled}
+              <PrimaryButton
                 label="Select Shipping"
-                fontFamily="Muli-SemiBold"
+                type="shipping"
+                disabled={!enabled}
                 fullWidth
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
-                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
                 onClick={() => proceedToCheckout()}
               />
             )}
           </div>
-          <div className="mt-[15px] mb-[15px] lg:mb-[20px]">
-            <OutlineButton
-              label="Back"
-              onClick={() => backToPage()}
-              fullWidth
-              fontFamily="Muli-SemiBold"
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
-              borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-              color={'var(--text-gray-200-color)'}
-            />
+          <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
+            <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
           </div>
         </div>
       </div>

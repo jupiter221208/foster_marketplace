@@ -12,10 +12,26 @@
   line-height: 23px;
   font-weight: 100;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: var(--text-gray-200-color);
   background: var(--bg-212121-F3F2F0);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
   overflow: hidden;
+}
+
+.iconArea {
+	&:hover {
+		-webkit-animation: bounceright .3s alternate ease infinite;
+		animation: bounceright .3s alternate ease infinite;
+	}
+}
+
+.iconBG {
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+@keyframes bounceright {
+	from { transform: translateX(0); }
+	to   { transform: translateX(5px); }
 }

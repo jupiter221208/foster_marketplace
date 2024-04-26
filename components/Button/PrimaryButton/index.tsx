@@ -14,6 +14,8 @@ import StartAuctionIcon from 'assets/icons/start-auction-icon.svg?component'
 import StartAuctionHoverIcon from 'assets/icons/start-auction-hover-icon.svg?component'
 import UpdateRelistIcon from 'assets/icons/update-relist-icon.svg?component'
 import UpdateRelistHoverIcon from 'assets/icons/update-relist-hover-icon.svg?component'
+import SelectShippingIcon from 'assets/icons/select-shipping-icon.svg?component'
+import SelectShippingHoverIcon from 'assets/icons/select-shipping-hover-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -33,46 +35,49 @@ const PrimaryButton = props => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className="w-[45%] absolute left-0 top-0 flex">
-        <div className={`${hover ? 'w-full' : 'w-[56px]'} flex justify-end items-center`}>
-          <div className="w-[56px] h-[50px] flex justify-center items-center">
-            {type === 'buy-now' ? (
-              hover ? (
-                <BuyHoverIcon />
-              ) : (
-                <BuyIcon />
-              )
-            ) : type === 'place-bid' ? (
-              hover ? (
-                <PlaceBidHoverIcon />
-              ) : (
-                <PlaceBidIcon />
-              )
-            ) : type === 'start-auction' ? (
-              hover ? (
-                <StartAuctionHoverIcon />
-              ) : (
-                <StartAuctionIcon />
-              )
-            ) : type === 'update-relist' ? (
-              hover ? (
-                <UpdateRelistHoverIcon />
-              ) : (
-                <UpdateRelistIcon />
-              )
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-        <div className="min-w-[13px] max-w-[13px]">{hover ? <HoverButtonDivider /> : <ButtonDivider />}</div>
-      </div>
-      <div
-        className={`absolute top-0  bottom-0 flex  items-center ${
-          hover ? 'w-[55%] right-0 pl-[20px]' : 'w-[100%] justify-center left-0'
-        }`}
-      >
+      <div className={'w-full h-full absolute top-0 left-0 flex justify-center items-center'}>
+        <div
+          className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center ${styles.iconBG} `}
+        />
         {label}
+      </div>
+
+      <div className={`absolute w-full h-full left-0 top-0 ${styles.iconArea}`}>
+        <div className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center`}>
+          {type === 'buy-now' ? (
+            hover ? (
+              <BuyHoverIcon />
+            ) : (
+              <BuyIcon />
+            )
+          ) : type === 'place-bid' ? (
+            hover ? (
+              <PlaceBidHoverIcon />
+            ) : (
+              <PlaceBidIcon />
+            )
+          ) : type === 'start-auction' ? (
+            hover ? (
+              <StartAuctionHoverIcon />
+            ) : (
+              <StartAuctionIcon />
+            )
+          ) : type === 'update-relist' ? (
+            hover ? (
+              <UpdateRelistHoverIcon />
+            ) : (
+              <UpdateRelistIcon />
+            )
+          ) : type === 'shipping' ? (
+            hover ? (
+              <SelectShippingIcon />
+            ) : (
+              <SelectShippingIcon />
+            )
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </button>
   )

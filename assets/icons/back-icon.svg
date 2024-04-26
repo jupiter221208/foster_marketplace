@@ -1,0 +1,12 @@
+<svg data-name="second-button-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21.981" height="20" viewBox="0 0 21.981 20">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_108688" data-name="Path 108688" d="M222.14,263h21.981v20H222.14Z" fill="#eff0f6"/>
+    </clipPath>
+  </defs>
+  <g id="noun-back-1829444" transform="translate(0 0)">
+    <g id="noun-back-1829444-2" data-name="noun-back-1829444" transform="translate(-222.14 -263)" clip-path="url(#clip-path)">
+      <path id="Path_108687" data-name="Path 108687" d="M242.707,271.81H226.963l6.168-6.167a1.418,1.418,0,0,0-2.006-2.006l-8.55,8.548a1.414,1.414,0,0,0-.409,1.021c0,.008,0,.015,0,.022v0c0,.01.007.022.007.033a1.1,1.1,0,0,0,.28.776,1.428,1.428,0,0,0,.125.19l8.55,8.548a1.418,1.418,0,0,0,2.006-2.006l-6.125-6.125h15.7a1.419,1.419,0,1,0,0-2.837" transform="translate(-0.022 -0.217)" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>
