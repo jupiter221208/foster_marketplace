@@ -117,6 +117,7 @@ import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -288,9 +289,10 @@ const MainSection = ({
         error => console.log(error)
       )
       setShowAlert(true)
+      router.reload()
+    } else {
+      setBuyLoading(false)
     }
-    router.reload()
-    // setBuyLoading(false)
   }
 
   const mintEdition = async () => {
@@ -1581,17 +1583,6 @@ const MainSection = ({
                         {(isOwnNft === false || isOwnNft === null) && (
                           <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
-                              // <GradientButton
-                              //   fullWidth
-                              //   backgroundColor01="var(--main-icon-color)"
-                              //   backgroundColor02="var(--main-icon-color)"
-                              //   color="var(--background-main-color)"
-                              //   label="Buy Now"
-                              //   disabled={!tradeStateAddress}
-                              //   borderColor="transparent"
-                              //   fontSize={18}
-                              //   onClick={() => quickBuy()}
-                              // />
                               <PrimaryButton
                                 fullWidth
                                 type="buy-now"
@@ -1600,7 +1591,7 @@ const MainSection = ({
                                 onClick={() => quickBuy()}
                               />
                             ) : (
-                              <LoadingButton fullWidth />
+                              <LoadingPrimaryButton fullWidth />
                             )}
                             {/* <OutlineButton
                               label="Make Offer"

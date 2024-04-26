@@ -25,16 +25,22 @@ const SecondaryButton = props => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className={`${hover ? 'w-full' : 'w-[56px]'} flex justify-end items-center`}>
-        <div className="w-[56px] h-[50px] flex justify-center items-center">
-          {type === 'make-offer' ? <MakeOfferIcon /> : type === 'finalize-sale' ? <FinalizeSaleIcon /> : <></>}
+      <div className="w-[45%] absolute left-0 top-0 flex">
+        <div className={`${hover ? 'w-full' : 'w-[56px]'} flex justify-end items-center`}>
+          <div className="w-[56px] h-[50px] flex justify-center items-center">
+            {type === 'make-offer' ? <MakeOfferIcon /> : type === 'finalize-sale' ? <FinalizeSaleIcon /> : <></>}
+          </div>
+        </div>
+        <div className="min-w-[13px] max-w-[13px]">
+          <SecondButtonDivider />
         </div>
       </div>
-      <div className="min-w-[13px] max-w-[13px]">
-        <SecondButtonDivider />
-      </div>
-      <div className="w-full">
-        <div>{label}</div>
+      <div
+        className={`absolute top-0  bottom-0 flex  items-center ${
+          hover ? 'w-[55%] right-0 pl-[20px]' : 'w-[100%] justify-center left-0'
+        }`}
+      >
+        {label}
       </div>
     </button>
   )
