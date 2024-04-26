@@ -29,6 +29,7 @@
 
 .iconArea {
 	&:hover {
+    background: rgba(var(--background-main-color-rgb), 0.1);
 		-webkit-animation: bounceright .3s alternate ease infinite;
 		animation: bounceright .3s alternate ease infinite;
 	}

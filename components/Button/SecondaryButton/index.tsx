@@ -35,7 +35,7 @@ const SecondaryButton = props => {
         {label}
       </div>
 
-      <div className={`absolute w-full h-full left-0 top-0 ${styles.iconArea}`}>
+      <div className={`absolute w-[calc(100%+10px)] h-full left-[-10px] top-0 ${styles.iconArea}`}>
         <div className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center`}>
           {type === 'make-offer' ? (
             <MakeOfferIcon />
