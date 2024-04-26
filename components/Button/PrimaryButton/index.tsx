@@ -46,25 +46,25 @@ const PrimaryButton = props => {
         <div className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center`}>
           {type === 'buy-now' ? (
             hover ? (
-              <BuyHoverIcon />
+              <BuyIcon />
             ) : (
               <BuyIcon />
             )
           ) : type === 'place-bid' ? (
             hover ? (
-              <PlaceBidHoverIcon />
+              <PlaceBidIcon />
             ) : (
               <PlaceBidIcon />
             )
           ) : type === 'start-auction' ? (
             hover ? (
-              <StartAuctionHoverIcon />
+              <StartAuctionIcon />
             ) : (
               <StartAuctionIcon />
             )
           ) : type === 'update-relist' ? (
             hover ? (
-              <UpdateRelistHoverIcon />
+              <UpdateRelistIcon />
             ) : (
               <UpdateRelistIcon />
             )
