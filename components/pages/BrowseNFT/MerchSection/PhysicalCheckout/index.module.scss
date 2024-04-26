@@ -2,8 +2,18 @@
 
 .container {
   width: 100%;
+  @media (min-width: 1024px) {  
+    max-width: 604px;
+    min-width: 604px;
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+  }
   height: 100%;
   position: relative;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .selecteCategory {
@@ -42,12 +52,12 @@
 }
 
 .orderTotal {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--text-gray-200-color);
 }
@@ -59,7 +69,7 @@
 }
 
 .totalPrice {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
@@ -104,14 +114,33 @@
   line-height: 23px;
   color: var(--text-gray-200-color);
 }
+
 .summary {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  line-height: 24px;
+
   @media (min-width: 1024px) {
     font-size: 24px;
+    line-height: 30px;
   }
   color: var(--text-gray-200-color);
 }
+
+.productDetails {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.itemDetails {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
 .paymentBG {
   width: 125px;
   height: 125px;
@@ -164,4 +193,14 @@
   height: 100%;
   border-radius: 15px;
   background: var(--order-table-color);
+}
+
+.bottomSection {
+  width: 100%;
+  padding: 0px;
+  margin-top: 15px;
+  @media (min-width: 1024px) {
+    border-top: 1px solid var(--bg-303030-DDDCDC);
+    padding: 20px 30px;
+  }
 }

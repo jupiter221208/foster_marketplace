@@ -56,6 +56,17 @@
   color: var(--text-gray-200-color);
 }
 
+.iconContainer {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+}
+
 .nftInfo {
   width: 345px;
   height: 45px;

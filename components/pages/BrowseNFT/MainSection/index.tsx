@@ -51,8 +51,6 @@ import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
-import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
-import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -62,7 +60,6 @@ import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
-import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
@@ -118,6 +115,9 @@ import MintEditionCard from 'components/Card/MintEditionCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -275,23 +275,29 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    setBuyLoading(true)
-    await refreshToken()
 
-    const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    if (result) {
-      await updateSolBalance()
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
-        response => {
-          setNftPrice(0)
-          setIsOwnNft(true)
-        },
-        error => console.log(error)
-      )
-      setShowAlert(true)
+    try {
+      setBuyLoading(true)
+      await refreshToken()
+
+      const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
+      if (result) {
+        await updateSolBalance()
+        listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
+          response => {
+            setNftPrice(0)
+            setIsOwnNft(true)
+          },
+          error => console.log(error)
+        )
+        setShowAlert(true)
+        router.reload()
+      } else {
+        setBuyLoading(false)
+      }
+    } catch {
+      setBuyLoading(false)
     }
-    router.reload()
-    // setBuyLoading(false)
   }
 
   const mintEdition = async () => {
@@ -1517,13 +1523,10 @@ const MainSection = ({
                   {isEditionListing ? (
                     isOwnNft === true ? (
                       <div className="w-full lg:mt-[10px]">
-                        <GradientButton
+                        <PrimaryButton
                           fullWidth
-                          backgroundColor01="var(--main-icon-color)"
-                          backgroundColor02="var(--main-icon-color)"
-                          color="var(--background-main-color)"
-                          borderColor="transparent"
-                          label={'Update/Relist'}
+                          type="update-relist"
+                          label={'Update or Relist'}
                           onClick={() => {
                             setListEditionType('update')
                             setShowListEditionDetail(true)
@@ -1582,22 +1585,20 @@ const MainSection = ({
                         {(isOwnNft === false || isOwnNft === null) && (
                           <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                             {tradeStateAddress && !buyLoading ? (
-                              <GradientButton
+                              <PrimaryButton
                                 fullWidth
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
+                                type="buy-now"
                                 label="Buy Now"
                                 disabled={!tradeStateAddress}
-                                borderColor="transparent"
-                                fontSize={18}
                                 onClick={() => quickBuy()}
                               />
                             ) : (
-                              <LoadingButton fullWidth />
+                              <LoadingPrimaryButton fullWidth />
                             )}
-                            <OutlineButton
+
+                            <SecondaryButton
                               label="Make Offer"
+                              type="make-offer"
                               fullWidth
                               onClick={() => {
                                 if (!connected) {
@@ -1612,8 +1613,9 @@ const MainSection = ({
 
                         {isOwnNft === true ? (
                           <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                            <GradientButton
+                            <PrimaryButton
                               label="Delist or Update"
+                              type="update-relist"
                               fullWidth
                               onClick={() => setShowUpdateListNFTModal(true)}
                             />
@@ -1629,7 +1631,12 @@ const MainSection = ({
                     connected ? (
                     <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                       {nftCurrentPrice > 0 ? (
-                        <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
+                        <SecondaryButton
+                          type="finalize-sale"
+                          label="Finalize Sale"
+                          fullWidth
+                          onClick={() => processFinalizeSale()}
+                        />
                       ) : (
                         <GradientButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
                       )}
@@ -1700,36 +1707,32 @@ const MainSection = ({
                                           }}
                                         />
                                       </div>
-                                      <div
-                                        className={`${styles.placeBidBG}`}
-                                        onClick={async () => {
-                                          if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                            return
-
-                                          if (isEnded) return
-
-                                          if (!connected) {
-                                            setVisible(true)
-                                            return
-                                          }
-                                          placeBidAndSave(price)
-                                        }}
-                                      >
+                                      <div className={`${styles.placeBidBG}`}>
                                         {auctionLoading ? (
-                                          <LoadingButton fullWidth height={50} />
+                                          <LoadingPrimaryButton fullWidth />
                                         ) : (
-                                          <GradientButton
+                                          <PrimaryButton
                                             label="Place Bid"
+                                            type="place-bid"
                                             fullWidth
-                                            backgroundColor01="var(--main-icon-color)"
-                                            backgroundColor02="var(--main-icon-color)"
-                                            color="var(--background-main-color)"
-                                            borderColor="transparent"
-                                            height={50}
-                                            fontSize={18}
                                             disabled={
                                               price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                             }
+                                            onClick={async () => {
+                                              if (
+                                                price === '' ||
+                                                parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                              )
+                                                return
+
+                                              if (isEnded) return
+
+                                              if (!connected) {
+                                                setVisible(true)
+                                                return
+                                              }
+                                              placeBidAndSave(price)
+                                            }}
                                           />
                                         )}
                                       </div>
@@ -1791,12 +1794,9 @@ const MainSection = ({
                             <></>
                           ) : (
                             <div className="w-full mt-[0px] lg:mt-[10px]">
-                              <GradientButton
+                              <SecondaryButton
                                 fullWidth
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
-                                borderColor="transparent"
+                                type="list-artwork"
                                 label="List Edition"
                                 onClick={() => {
                                   setListEditionType('list')
@@ -1807,15 +1807,16 @@ const MainSection = ({
                           )
                         ) : (
                           <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
-                            <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                            <GradientButton
+                            <SecondaryButton
+                              type="list-artwork"
                               fullWidth
-                              backgroundColor01="var(--main-icon-color)"
-                              backgroundColor02="var(--main-icon-color)"
-                              color="var(--background-main-color)"
+                              label="List Artwork"
+                              onClick={() => setShowListNFTModal(true)}
+                            />
+                            <PrimaryButton
+                              fullWidth
                               label="Start Auction"
-                              borderColor="transparent"
-                              fontSize={18}
+                              type="start-auction"
                               onClick={() => {
                                 setShowAuctionDetail(true)
                                 setShowAuctionSection(true)

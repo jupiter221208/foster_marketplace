@@ -85,7 +85,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         type = 'updated listing master edition'
         break
       case 'MasterEditionPrintCreated':
-        type = 'purchased master printed edition'
+        type = 'purchased edition'
         break
       case 'MasterEditionListingCancelled':
         type = 'canceled list edition'
@@ -94,6 +94,12 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         break
     }
     return type
+  }
+
+  const getPrintAssetName = item => {
+    let edition = item.asset_name.slice(item.asset_name.indexOf('#'))
+    edition = edition.slice(0, edition.indexOf(', (#'))
+    return edition + ' of ' + item.asset_name.slice(0, item.asset_name.indexOf('#'))
   }
 
   return (
@@ -124,7 +130,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                           <a>
                             <div className={styles.nftName}>
                               {item.action_type === 'MasterEditionPrintCreated'
-                                ? item.asset_name.slice(0, item.asset_name.indexOf(', (#'))
+                                ? getPrintAssetName(item)
                                 : item.asset_name}
                             </div>
                           </a>

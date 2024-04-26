@@ -19,12 +19,103 @@
 }
 
 .nftName {
-  font-family: 'Muli-Regular';
-  font-size: 18px;
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
   @media (min-width: 1024px) {
-    font-size: 24px;
+    font-size: 30px;
+    line-height: 39px;
   }
   color: var(--text-gray-200-color);
+}
+
+.merchBy {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.username {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  color: var(--main-icon-color);
+}
+
+.rightPanel {
+  width: 100%;
+  max-width: 604px;
+  background: var(--background-main-color);
+  border: 1px solid var(--bg-303030-DDDCDC);
+  border-radius: 10px;
+  padding: 13px;
+  @media (min-width: 1024px) {
+  padding: 30px;
+  }
+}
+
+.placementTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.whiteColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: white;
+}
+
+.blackColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: #010101;
+}
+
+.colorBorder {
+  border: 2px solid #95dbd5;
+}
+
+.unselectedPrint {
+  width: 150px;
+  height: 150px;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedPrint {
+  width: 150px;
+  height: 150px;
+  border: 2px solid var(--main-icon-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedPrintText {
+  width: 100%;
+  margin-top: 15px;
+  text-align: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .backBG {
@@ -69,12 +160,10 @@
 }
 
 .description {
-  margin-top: 15px;
-  @media (min-width: 1024px) {
-    margin-top: 20px;
-  }
-  font-family: 'Muli-Regular';
+  margin-top: 10px;
+  font-family: 'Muli-Light';
   font-size: 14px;
+  font-weight: 100;
   line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
@@ -104,9 +193,11 @@
 .sizeChart {
   font-family: 'Muli-Regular';
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
+    font-size: 16px;
+    line-height: 20px;
   }
   font-size: 14px;
+  font-size: 18px;
   color: var(--text-gray-200-color);
   cursor: pointer;
   &:hover {
@@ -114,38 +205,33 @@
   }
 }
 
+.borderLine {
+  width: 100%;
+  height: 1px;
+  background: var(--bg-303030-DDDCDC);
+  margin-top: 30px;
+}
+
 .subTotal {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 23px;
-  margin-top: 5px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 30px;
-    margin-top: 0px;
+    font-family: 'Muli-Light';
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .price {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 18px;
-  line-height: 23px;
-  @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 30px;
-  }
+  line-height: 22px;
   color: var(--text-gray-200-color);
 }
 
 .separator {
   width: 1px;
   height: 30px;
-  margin-left: 20px;
-  margin-right: 18px;
-  @media (min-width: 1024px) {
-    margin-left: 40px;
-  }
   background: $brand-05-color;
 }
 

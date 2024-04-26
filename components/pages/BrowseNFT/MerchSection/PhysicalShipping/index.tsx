@@ -22,6 +22,9 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -198,111 +201,107 @@ const PhysicalShipping = props => {
           <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
         </div>
       </div> */}
-      <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
-        <div className={styles.selecteCategory}>Add Shipping Details</div>
-      </div>
-      <div className="w-full mt-[20px]">
-        <div className={styles.label}>Contact Information *</div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={email}
-            placeholder="Email"
-            className={styles.inputArea}
-            onChange={event => setEmail(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={name}
-            placeholder="Name"
-            className={styles.inputArea}
-            onChange={event => setName(event.target.value)}
-          />
-        </div>
-      </div>
-      <div className="w-full mt-[10px]">
-        <div className={styles.label}>Shipping Address *</div>
-        <div className="mt-[10px] ">
-          <CountrySelect
-            className={styles.countrySelect}
-            data={Country.getAllCountries()}
-            selected={country}
-            onChange={item => setCountry(item)}
-            maxHeight="none"
-            placeholder="Country"
-          />
-        </div>
-        <div className="mt-[10px] ">
-          <CountrySelect
-            className={styles.countrySelect}
-            data={State?.getStatesOfCountry(country?.isoCode)}
-            selected={state}
-            onChange={item => setState(item)}
-            maxHeight="none"
-            placeholder="State"
-          />
+      <div className={styles.rightPanel}>
+        <div className="pt-[13px] lg:p-[30px]">
+          <div className="flex flex-col lg:flex-row gap-[15px] lg:items-center justify-between">
+            <div className={styles.selecteCategory}>Shipping Details</div>
+          </div>
+          <div className="w-full mt-[20px]">
+            <div className={styles.label}>Contact Information *</div>
+            <div className="w-full mt-[10px]">
+              <input
+                value={email}
+                placeholder="Email"
+                className={styles.inputArea}
+                onChange={event => setEmail(event.target.value)}
+              />
+            </div>
+            <div className="w-full mt-[10px]">
+              <input
+                value={name}
+                placeholder="Name"
+                className={styles.inputArea}
+                onChange={event => setName(event.target.value)}
+              />
+            </div>
+          </div>
+          <div className="w-full mt-[10px]">
+            <div className={styles.label}>Shipping Address *</div>
+            <div className="mt-[10px] ">
+              <CountrySelect
+                className={styles.countrySelect}
+                data={Country.getAllCountries()}
+                selected={country}
+                onChange={item => setCountry(item)}
+                maxHeight="none"
+                placeholder="Country"
+              />
+            </div>
+            <div className="mt-[10px] ">
+              <CountrySelect
+                className={styles.countrySelect}
+                data={State?.getStatesOfCountry(country?.isoCode)}
+                selected={state}
+                onChange={item => setState(item)}
+                maxHeight="none"
+                placeholder="State"
+              />
+            </div>
+
+            <div className="w-full mt-[10px]">
+              <input
+                value={city}
+                placeholder="City"
+                className={styles.inputArea}
+                onChange={event => setCity(event.target.value)}
+              />
+            </div>
+            <div className="w-full mt-[10px]">
+              <input
+                value={street}
+                placeholder="Street"
+                className={styles.inputArea}
+                onChange={event => setStreet(event.target.value)}
+              />
+            </div>
+            <div className="w-full mt-[10px]">
+              <input
+                value={zipCode}
+                placeholder="ZIP Code"
+                className={styles.inputArea}
+                onChange={event => setZipCode(event.target.value)}
+              />
+            </div>
+            <div className="w-full mt-[10px]">
+              <input
+                value={apartment}
+                placeholder="Apartment / Suite"
+                className={styles.inputArea}
+                onChange={event => setApartment(event.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
-        <div className="w-full mt-[10px]">
-          <input
-            value={city}
-            placeholder="City"
-            className={styles.inputArea}
-            onChange={event => setCity(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={street}
-            placeholder="Street"
-            className={styles.inputArea}
-            onChange={event => setStreet(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={zipCode}
-            placeholder="ZIP Code"
-            className={styles.inputArea}
-            onChange={event => setZipCode(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={apartment}
-            placeholder="Apartment / Suite"
-            className={styles.inputArea}
-            onChange={event => setApartment(event.target.value)}
-          />
+        <div className={styles.btnContainer}>
+          <div className="w-full mt-[15px] lg:mt-[30px]">
+            {isLoading ? (
+              <LoadingPrimaryButton fullWidth />
+            ) : (
+              <PrimaryButton
+                label="Select Shipping"
+                type="shipping"
+                disabled={!enabled}
+                fullWidth
+                onClick={() => proceedToCheckout()}
+              />
+            )}
+          </div>
+          <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
+            <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
+          </div>
         </div>
       </div>
-      <div className="w-full flex mt-[20px] gap-[30px] mb-[30px]">
-        <OutlineButton
-          label="Back"
-          onClick={() => backToPage()}
-          fullWidth
-          fontFamily="Muli-SemiBold"
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-          color={'var(--text-gray-200-color)'}
-        />
-        <div className="w-full">
-          {isLoading ? (
-            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
-          ) : (
-            <GradientButton
-              disabled={!enabled}
-              label="Select Shipping"
-              fontFamily="Muli-SemiBold"
-              fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-              onClick={() => proceedToCheckout()}
-            />
-          )}
-        </div>
-      </div>
-
       <Alert
         open={showAlert}
         close={() => {

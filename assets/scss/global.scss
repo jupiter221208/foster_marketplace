@@ -1560,6 +1560,30 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='button-divider'] {
+  fill: var(--bg-1A1A1A-4A4D50)
+}
+
+[data-name='hover-button-divider'] {
+  fill: var(--bg-4D6A67-484B4E)
+}
+
+[data-name='second-button-divider'] {
+  fill: var(--bg-59595B-BEBFBD)
+}
+
+[data-name='button-icon'] {
+  fill: var(--bg-1A1A1A-FFF)
+}
+
+[data-name='button-icon-hover'] {
+  fill: var(--bg-95dbd5-FFF)
+}
+
+[data-name='second-button-icon'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.8)
+}
+
 [data-name='fullscreen-icon'] {
   fill: rgba(var(--main-bg-color-rgb), 0.03);
   [data-fill='a'] {

@@ -33,7 +33,6 @@ const FavoriteSection = () => {
   const [nftList, setNftList] = useState<NftData[]>([])
   const [allNftList, setAllNftList] = useState<NftData[]>([])
   const [collectionList, setCollectionList] = useState<NftData[]>([])
-  const [allCollectionList, setAllCollectionList] = useState<NftData[]>([])
 
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -81,7 +80,10 @@ const FavoriteSection = () => {
   const getFavoriteCollectionData = () => {
     userAPI.getFavoriteCollection().then(
       response => {
-        setAllCollectionList(response)
+        const list = response.filter(
+          (obj, index) => response.findIndex(item => item.collection_id === obj.collection_id) === index
+        )
+        setCollectionList(list)
         setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
         }, 2000)

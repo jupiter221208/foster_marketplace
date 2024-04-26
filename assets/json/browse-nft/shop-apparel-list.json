@@ -58,29 +58,4 @@
     "base": "T-Shirt",
     "top": 25,
     "description": "Made with 100% combed and ring-spun cotton in a feminine fit that is as stylish as it is comfy. The ribbed knitting makes the collar highly elastic while the twill tape on the shoulder seams stabilizes the back of the shirt and prevents stretching."
-  },
-  {
-    "id": 5,
-    "name": "Youth Short Sleeve",
-    "start_price": "24.00",
-    "asset_url": "/images/shop-apparel-youth-shortsleeve.png",
-    "category": "apparel",
-    "type": "",
-    "sub_type": "youth",
-    "base": "T-Shirt",
-    "top": 25,
-    "description": "This youth short sleeved tee maximizes comfort all day long. The ring-spun cotton makes it perfect for displaying custom artwork. Pick one in your kids favorite color to match his or her style."
-  },
-  {
-    "id": 6,
-    "name": "Youth Hoodie",
-    "start_price": "31.00",
-    "asset_url": "/images/shop-apparel-youth-hoodie.png",
-    "category": "apparel",
-    "type": "",
-    "sub_type": "youth",
-    "base": "Hoodie",
-    "top": 10,
-    "description": "Kids will love this custom youth hoodie. Made with three-panel fleece lining, this pullover is double stitched for durability. Pick one in your kids favorite color to match his or her style."
-  }
-]
+  }]

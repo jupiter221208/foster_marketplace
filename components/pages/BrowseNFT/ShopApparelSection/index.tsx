@@ -27,7 +27,7 @@ import WallArtCard from 'components/Card/WallArtCard'
 // api
 
 const ShopApparelSection = props => {
-  const { title, nftDetail, shopApparelList, openMerchPage, type = '' } = props
+  const { title, nftDetail, nftCreator, shopApparelList, openMerchPage, type = '' } = props
   const dispatch = useDispatch()
   const viewport = useViewport()
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
@@ -37,6 +37,7 @@ const ShopApparelSection = props => {
   const openPage = item => {
     let params = {
       nftName,
+      nftCreator,
       nftCoverUrl,
       mintAddress,
       category: item.category,
@@ -74,6 +75,7 @@ const ShopApparelSection = props => {
                       image={getStudioItem(item)}
                       nftImage={nftCoverUrl}
                       nftName={nftName}
+                      nftCreator={nftCreator}
                       onClick={colorNumber => {
                         dispatch({ type: 'set', apparelColor: colorNumber })
                         openPage(item)

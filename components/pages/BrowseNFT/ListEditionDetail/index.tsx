@@ -31,6 +31,8 @@ import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 
 export interface ListEditionDetailProps {
   data: {
@@ -504,17 +506,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         )}
         <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
           {isLoading ? (
-            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
+            <LoadingSecondaryButton fullWidth />
           ) : (
-            <GradientButton
+            <SecondaryButton
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
+              type="list-artwork"
               label="List Edition"
-              backgroundColor01="var(--main-icon-color)"
-              backgroundColor02="var(--main-icon-color)"
-              color="var(--background-main-color)"
-              borderColor="transparent"
-              disabled={buttonDisabled}
               onClick={() => {
                 if (listingType === 'list') handleListEdition()
                 else handleUpdateEdition()

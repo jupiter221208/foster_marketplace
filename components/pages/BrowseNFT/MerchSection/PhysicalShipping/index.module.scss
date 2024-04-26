@@ -26,6 +26,28 @@
   margin-left: -16px;
 }
 
+.rightPanel {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 140px);
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+    border-radius: 10px;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btnContainer {
+  margin-top: 60px;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+    padding: 0px 30px;
+    border-top: 1px solid var(--bg-303030-DDDCDC);
+  }
+}
+
 .backBG {
   @media (min-width: 1024px) {
     width: 24px;

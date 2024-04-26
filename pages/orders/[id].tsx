@@ -45,16 +45,16 @@ const OrderSection = props => {
   return (
     <div className="g-container">
       <div className={styles.container}>
-        <div className="w-full grid grid-cols-2 gap-10">
-          <div className="col-span-2 lg:col-span-1">
+        <div className="w-full flex lg:flex-row flex-col">
+          <div className="w-full">
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
-                <div className="">
+                {/* <div className="">
                   <ImageWithFoster src={coverUrl} className="min-w-full min-h-full object-cover" />
-                </div>
-                <div className={styles.blurImage} />
+                </div> */}
+                {/* <div className={styles.blurImage} /> */}
                 <div className="absolute w-full h-full flex items-center justify-center">
-                  <ImageWithFoster src={previewUrl} className="w-[60%] h-auto object-cover" />
+                  <ImageWithFoster src={previewUrl} className="w-[65%] h-auto object-cover" />
                 </div>
               </div>
             ) : merchType === 'wallart' ? (
@@ -67,11 +67,11 @@ const OrderSection = props => {
               <></>
             )}
           </div>
-          <div className="col-span-2 lg:col-span-1 z-10">
+          <div className="z-10">
             <div className={styles.contentContainer}>
-              <div className="w-full mb-[45px] lg:flex hidden">
+              {/* <div className="w-full mb-[45px] lg:flex hidden">
                 <MerchStepper currentStep={3} />
-              </div>
+              </div> */}
               {orderData && (
                 <PhysicalCheckout
                   orderData={orderData}

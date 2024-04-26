@@ -117,10 +117,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
         const nftName = nftDetail.name ?? 'No name found'
         const nftCoverUrl = nftDetail.image ?? ''
+        const nftUsername = ''
         const mintAddress = nftDetail.mintAddress.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
         let params = {
           nftName,
+          nftUsername,
           nftCoverUrl,
           mintAddress,
           category: item?.category,
@@ -419,6 +421,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                           title="Shop Apparel"
                           type="apparel"
                           nftDetail={nftDetail}
+                          nftCreator={artistInfo?.name}
                           shopApparelList={ShopApparelList}
                           openMerchPage={data => {
                             setMerchData(data)

@@ -239,16 +239,6 @@ const WallArtDetail = props => {
         </div>
 
         <div className="w-full mt-[30px] flex gap-[30px] mb-[30px]">
-          {/* <SecondaryButton
-            backgroundColor="transparent"
-            label="Generate Preview"
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
-            color={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
-            borderColor={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
-            onClick={() => enabled && setOpenEditorModal(true)}
-          /> */}
           <OutlineButton
             label="Back"
             onClick={onBack}
