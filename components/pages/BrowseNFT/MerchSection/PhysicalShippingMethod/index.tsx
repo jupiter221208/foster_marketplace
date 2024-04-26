@@ -22,6 +22,9 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const PhysicalShippingMethod = props => {
   const {
@@ -295,29 +298,19 @@ const PhysicalShippingMethod = props => {
         <div className={styles.btnContainer}>
           <div className="w-full mt-[20px]">
             {isLoading ? (
-              <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50} />
+              <LoadingPrimaryButton fullWidth />
             ) : (
-              <GradientButton
+              <PrimaryButton
                 disabled={!total}
                 label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
-                fontFamily="Muli-SemiBold"
+                type="buy-now"
                 fullWidth
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
-                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
                 onClick={() => onCheckout()}
               />
             )}
           </div>
           <div className="w-full mt-[15px] lg:mt-[20px] mb-[20px] lg:mb-[20px] flex">
-            <OutlineButton
-              label="Back"
-              onClick={onBack}
-              fullWidth
-              fontFamily="Muli-SemiBold"
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 50}
-              borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-              color={'var(--text-gray-200-color)'}
-            />
+            <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
           </div>
         </div>
       </div>

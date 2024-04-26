@@ -31,6 +31,8 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 import { OrderData, payOrder } from 'apis/merch'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import OutlineButton from 'components/Button/OutlineButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -286,24 +288,14 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
         <div className="w-full flex flex-col gap-[15px]">
-          <GradientButton
+          <PrimaryButton
             disabled={currency.length === 0}
-            label="Place Order"
+            label="Make Payment"
+            type="payment"
             fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             onClick={() => onCheckout()}
           />
-          <OutlineButton
-            label="Cancel Order"
-            onClick={onBack}
-            fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-            color={'var(--text-gray-200-color)'}
-          />
+          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
       <ProgressingModal open={isLoad} />
