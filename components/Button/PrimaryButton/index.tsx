@@ -19,12 +19,10 @@ const PrimaryButton = props => {
     <button
       type="button"
       onClick={() => !disabled && onClick()}
-      className={styles.container}
+      className={`${styles.container} ${disabled ? styles.disabled : ''} ${!disabled && hover ? styles.hoverBtn : ''}`}
       style={{
         width: fullWidth ? '100%' : width,
       }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
     >
       <div className={'w-full h-full absolute top-0 left-0 flex justify-center items-center'}>
         <div
@@ -33,7 +31,11 @@ const PrimaryButton = props => {
         {label}
       </div>
 
-      <div className={`absolute w-[calc(100%+10px)] h-full left-[-10px] top-0 ${styles.iconArea}`}>
+      <div
+        className={`absolute w-[calc(100%+10px)] h-full left-[-10px] top-0 ${!disabled && styles.iconArea}`}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
         <div className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center`}>
           {type === 'buy-now' ? (
             <BuyIcon />

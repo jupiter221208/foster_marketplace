@@ -5,9 +5,8 @@ import React, { useState } from 'react'
 // icons
 import MakeOfferIcon from 'assets/icons/make-offer-icon.svg?component'
 import FinalizeSaleIcon from 'assets/icons/finalize-sale-icon.svg?component'
-import SecondButtonDivider from 'assets/icons/second-button-divider.svg?component'
 import ListArtworkIcon from 'assets/icons/list-artwork-icon.svg?component'
-import AddCartIcon from 'assets/icons/list-artwork-icon.svg?component'
+import AddCartIcon from 'assets/icons/add-cart-icon.svg?component'
 import BackIcon from 'assets/icons/back-icon.svg?component'
 
 // styles
@@ -21,7 +20,7 @@ const SecondaryButton = props => {
     <button
       type="button"
       onClick={() => !disabled && onClick()}
-      className={styles.container}
+      className={`${styles.container} ${disabled ? styles.disabled : ''} ${!disabled && hover ? styles.hoverBtn : ''}`}
       style={{
         width: fullWidth ? '100%' : width,
       }}
@@ -35,7 +34,7 @@ const SecondaryButton = props => {
         {label}
       </div>
 
-      <div className={`absolute w-[calc(100%+10px)] h-full left-[-10px] top-0 ${styles.iconArea}`}>
+      <div className={`absolute w-[calc(100%+10px)] h-full left-[-10px] top-0 ${!disabled && styles.iconArea}`}>
         <div className={`absolute top-0 right-0 w-[60px] h-[50px] flex justify-center items-center`}>
           {type === 'make-offer' ? (
             <MakeOfferIcon />

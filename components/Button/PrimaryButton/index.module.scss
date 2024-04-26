@@ -14,7 +14,7 @@
   line-height: 23px;
   font-weight: 100;
   letter-spacing: 0;
-  color: var(--time-slog-bg);
+  color: rgba(var(--bg-1A1A1A-FFF-RGB), 0.8);
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
   overflow: hidden;
@@ -25,6 +25,14 @@
   //   border: 1px solid var(--bg-4D6A67-202427);
   //   color: var(--bg-95dbd5-FFF)
   // }
+}
+
+.disabled {
+  color: rgba(var(--bg-1A1A1A-FFF-RGB), 0.5);
+}
+
+.hoverBtn {
+  color: rgba(var(--bg-1A1A1A-FFF-RGB), 1);
 }
 
 .iconArea {
