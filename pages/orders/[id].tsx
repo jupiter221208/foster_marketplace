@@ -45,7 +45,7 @@ const OrderSection = props => {
   return (
     <div className="g-container">
       <div className={styles.container}>
-        <div className="w-full flex">
+        <div className="w-full flex lg:flex-row flex-col">
           <div className="w-full">
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
@@ -54,7 +54,7 @@ const OrderSection = props => {
                 </div> */}
                 {/* <div className={styles.blurImage} /> */}
                 <div className="absolute w-full h-full flex items-center justify-center">
-                  <ImageWithFoster src={previewUrl} className="w-[60%] h-auto object-cover" />
+                  <ImageWithFoster src={previewUrl} className="w-[65%] h-auto object-cover" />
                 </div>
               </div>
             ) : merchType === 'wallart' ? (

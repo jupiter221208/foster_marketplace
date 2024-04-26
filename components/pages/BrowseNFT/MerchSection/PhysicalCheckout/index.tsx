@@ -16,16 +16,13 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
-import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { findElement, getFirstUpperString } from 'utils/helpers'
@@ -58,6 +55,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
+  const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
@@ -74,19 +72,14 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     ])
 
     let shippingData = orderData?.ssorder.shipTo
-    let itemShipping = shippingData
-      ? shippingData['street1'] +
-        ' ' +
-        shippingData['street2'] +
-        '<br/>' +
-        shippingData['city'] +
-        ', ' +
-        shippingData['state'] +
-        ', ' +
-        shippingData['postalCode'] +
-        '<br/>' +
-        shippingData['country']
-      : '-'
+
+    setShipping({
+      address: shippingData['street1'] + ' ' + shippingData['street2'],
+      city: shippingData['city'],
+      state: shippingData['state'],
+      code: shippingData['postalCode'],
+      country: shippingData['country'],
+    })
 
     let itemList = []
     orderData?.ssorder.items.forEach(item => {
@@ -98,12 +91,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var name = item.name
       var apparel = findElement(options, 'name', 'apparel')['value']
       var size = findElement(options, 'name', 'size')['value']
-      var itemName
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
-        itemName =
-          nftName +
-          '<br/>' +
+        let type =
           apparel +
           ' ' +
           '(' +
@@ -118,16 +108,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             : size === '2XL' || size === 'YXL'
             ? '2X-Large'
             : '') +
-          ')' +
-          '<br/>' +
-          getFirstUpperString(color) +
-          '<br/>' +
-          'Qty:' +
-          itemQuantity
+          ')'
+        let colorText = getFirstUpperString(color)
+        let qty = 'Qty:' + itemQuantity
+        itemList.push({ name: nftName, type, color: colorText, qty })
       }
-      itemList.push({ url: imageUrl, name: itemName, shipping: itemShipping })
     })
-
     setList(itemList)
   }, [])
 
@@ -184,12 +170,33 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="w-full">
+      <div className="w-full px-[0px] lg:px-[30px] mt-[0px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
-        <div className="mt-[20px] hidden lg:block">
-          <TableSection data={list} />
+        <div className="w-full mt-[15px] lg:mt-[30px] h-[130px] overflow-auto">
+          <div className={styles.productDetails}>Product Details</div>
+          <div className="mt-[7px] mb-[7px]">
+            {list.map((item, index) => (
+              <div key={index} className="pb-[5px]">
+                <div className={styles.itemDetails}>{item.name}</div>
+                <div className={styles.itemDetails}>{item.type}</div>
+                <div className={styles.itemDetails}>{item.color}</div>
+                <div className={styles.itemDetails}>{item.qty}</div>
+              </div>
+            ))}
+          </div>
+          {/* <TableSection data={list} /> */}
         </div>
-        <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
+        <div className="w-full mt-[15px]">
+          <div className={styles.productDetails}>Shipping Address</div>
+          <div className="mt-[7px]">
+            <div className={styles.itemDetails}>{shipping.address}</div>
+            <div className={styles.itemDetails}>{shipping.city + ' ' + shipping.code}</div>
+            <div className={styles.itemDetails}>{shipping.state}</div>
+            <div className={styles.itemDetails}>{shipping.country}</div>
+          </div>
+        </div>
+
+        <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[10px] lg:mt-[24px]">
           <div className="w-[286px] h-[160px] relative hidden lg:block">
             <div className={styles.paymentMethod}>Choose Payment Method*</div>
             <div className="w-full flex justify-between mt-[16px]">
@@ -216,7 +223,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div>
 
         {/* Mobile Table */}
-        <div className="w-full lg:hidden">
+        {/* <div className="w-full lg:hidden">
           {list.map((item, index) => {
             return (
               <div key={index}>
@@ -238,10 +245,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               </div>
             )
           })}
-        </div>
+        </div> */}
 
         {/* SOL / USDC */}
-        <div className="w-full h-auto relative lg:hidden mt-[30px]">
+        {/* <div className="w-full h-auto relative lg:hidden mt-[30px]">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
           <div className="w-full flex justify-between mt-[16px]">
             <div
@@ -263,31 +270,22 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               <div className={styles.currencyName}>USDC</div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div className="w-full mt-[80px]">
-        <div className="w-full flex justify-between mb-[30px] px-[5px]">
-          <div className={styles.orderTotal}>TOTAL</div>
+      <div className={styles.bottomSection}>
+        <div className="w-full flex justify-between mb-[20px] px-[5px]">
+          <div className={styles.orderTotal}>Total</div>
           <div className="flex gap-2 items-center">
             <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
             <div className={styles.costDivider} />
             <div className="flex gap-1 items-center">
-              <SolanaIcon alt="" />
+              <SolanaIcon alt="" className="mt-[2px]" />
               <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-[30px]">
-          <OutlineButton
-            label="Cancel Order"
-            onClick={onBack}
-            fullWidth
-            fontFamily="Muli-SemiBold"
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-            color={'var(--text-gray-200-color)'}
-          />
+        <div className="w-full flex flex-col gap-[15px]">
           <GradientButton
             disabled={currency.length === 0}
             label="Place Order"
@@ -296,6 +294,15 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             onClick={() => onCheckout()}
+          />
+          <OutlineButton
+            label="Cancel Order"
+            onClick={onBack}
+            fullWidth
+            fontFamily="Muli-SemiBold"
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+            color={'var(--text-gray-200-color)'}
           />
         </div>
       </div>
