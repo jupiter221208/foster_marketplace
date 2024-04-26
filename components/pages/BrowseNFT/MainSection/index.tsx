@@ -275,22 +275,27 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    setBuyLoading(true)
-    await refreshToken()
 
-    const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    if (result) {
-      await updateSolBalance()
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
-        response => {
-          setNftPrice(0)
-          setIsOwnNft(true)
-        },
-        error => console.log(error)
-      )
-      setShowAlert(true)
-      router.reload()
-    } else {
+    try {
+      setBuyLoading(true)
+      await refreshToken()
+
+      const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
+      if (result) {
+        await updateSolBalance()
+        listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
+          response => {
+            setNftPrice(0)
+            setIsOwnNft(true)
+          },
+          error => console.log(error)
+        )
+        setShowAlert(true)
+        router.reload()
+      } else {
+        setBuyLoading(false)
+      }
+    } catch {
       setBuyLoading(false)
     }
   }

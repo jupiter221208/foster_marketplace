@@ -3,6 +3,7 @@
 .container {
   display: flex;
   justify-content: center;
+  gap:10px;
   align-items: center;
   height: 50px;
   background: var(--bg-95dbd505-202427);
@@ -10,7 +11,8 @@
   border-radius: 10px;
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 18px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
 }
