@@ -326,6 +326,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       <div className={styles.container}>
         <MainSection
           artistInfo={artistInfo}
+          artistStatsInfo={artistStatsInfo}
+          collectorStatsInfo={collectorStatsInfo}
           categoryList={categoryList}
           isOwn={isOwn}
           isLoaded={isLoaded}
@@ -342,8 +344,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
-              description={artistDescription}
-              categoryList={categoryList}
               isOwn={isOwn}
               isLoaded={isLoaded}
               handleNextPage={() => handleNextPage()}
@@ -351,8 +351,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               setArtistEnable={setArtistEnable}
               setMerchEnable={setMerchEnable}
               setCollectorEnable={setCollectorEnable}
-              artistStatsInfo={artistStatsInfo}
-              collectorStatsInfo={collectorStatsInfo}
               isVisibleFetchingCreated={isVisibleFetchingCreated}
               isFetchingCreated={isFetchingCreated}
               setIsFetchingCreated={setIsFetchingCreated}

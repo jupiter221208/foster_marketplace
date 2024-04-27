@@ -41,7 +41,7 @@ const WalletFilterMenu = props => {
               {({ active }) => (
                 <div className={styles.menuItem}>
                   {data.map((item, index) => (
-                    <div key={index} className="flex justify-between gap-[10px] lg:gap-4 z-10 h-[32px] items-center">
+                    <div key={index} className="flex justify-between gap-[10px] lg:gap-4 z-10 h-[28px] items-center">
                       <div className="w-[24px] flex justify-center">
                         {item.type === 'address' ? (
                           <FileCopyIcon />
@@ -59,7 +59,7 @@ const WalletFilterMenu = props => {
                           <></>
                         )}
                       </div>
-                      <label
+                      <div
                         className={styles.label}
                         onClick={() => {
                           if (item.type === 'address') {
@@ -69,7 +69,7 @@ const WalletFilterMenu = props => {
                         }}
                       >
                         {item.label}
-                      </label>
+                      </div>
 
                       {/* <CopyClipboardChip identifier="wallet-address" /> */}
                     </div>

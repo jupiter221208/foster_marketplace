@@ -230,12 +230,12 @@ const MainSection = () => {
                     <SettingsIcon />
                   )
                 }
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 50}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
                 onClick={() => router.push('/settings')}
-                backgroundColor="transparent"
+                backgroundColor="var(--background-main-color)"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
-                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 25}
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 20}
               />
               <WalletFilterMenu
                 label={'Wallet & Socials'}

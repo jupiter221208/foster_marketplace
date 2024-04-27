@@ -170,7 +170,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
     } finally {
-      setIsLoad(false)
+      // setIsLoad(false)
       if (result) {
         setTimeout(() => {
           setShowAlert(true)

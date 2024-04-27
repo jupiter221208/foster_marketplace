@@ -95,7 +95,7 @@ const ProfileArtistCard = props => {
         ) : (
           <div className={styles.name}>
             {getDisplayUserName(name)}
-            <div className="w-full flex gap-[10px] items-center ml-[9px]">
+            {/* <div className="w-full flex gap-[10px] items-center ml-[9px]">
               {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
                 <div>
                   <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
@@ -121,7 +121,7 @@ const ProfileArtistCard = props => {
                   <SolrPlexIcon onClick={() => window.open(validUrl(solarplex_url))} />
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         )
       ) : hasLoading ? (
