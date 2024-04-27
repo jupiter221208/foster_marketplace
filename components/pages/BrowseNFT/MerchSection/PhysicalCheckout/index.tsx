@@ -99,7 +99,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           apparel +
           ' ' +
           '(' +
-          (size === 'S' || size === 'YXS'
+          (size === 'XS'
+            ? 'X-Small'
+            : size === 'S' || size === 'YXS'
             ? 'Small'
             : size === 'M' || size === 'YS'
             ? 'Medium'
@@ -109,6 +111,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             ? 'X-Large'
             : size === '2XL' || size === 'YXL'
             ? '2X-Large'
+            : size === '3XL'
+            ? '3X-Large'
+            : size === '4XL'
+            ? '4X-Large'
+            : size === '5XL'
+            ? '5X-Large'
             : '') +
           ')'
         let colorText = getFirstUpperString(color)

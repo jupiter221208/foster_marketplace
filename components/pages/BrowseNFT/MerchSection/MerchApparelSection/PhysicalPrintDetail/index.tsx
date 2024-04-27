@@ -118,6 +118,7 @@ const PhysicalPrintDetail = props => {
     if (base && base.length > 0) {
       let apparel = ApparelType.filter(item => item.name === base)
       setApparel(apparel[0])
+      console.log(base, '=================base============')
     }
   }, [base])
 
@@ -354,7 +355,7 @@ const PhysicalPrintDetail = props => {
           <div className="flex gap-[18px]">
             <DropdownSizeMenu
               label={size?.name}
-              data={SizeType[`${gender?.type}`]}
+              data={apparel && SizeType[`${apparel.name}`][`${gender?.type}`]}
               selectedItem={size}
               setSelectedItem={item => {
                 setSize(item)
