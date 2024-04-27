@@ -1,56 +1,170 @@
 {
-  "man": [
-    {
-      "id": 0,
-      "name": "S",
-      "label": "S"
-    },
-    {
-      "id": 1,
-      "name": "M",
-      "label": "M"
-    },
-    {
-      "id": 2,
-      "name": "L",
-      "label": "L"
-    },
-    {
-      "id": 3,
-      "name": "XL",
-      "label": "XL"
-    },
-    {
-      "id": 4,
-      "name": "2XL",
-      "label": "2XL"
-    }
-  ],
-  "women": [
-    {
-      "id": 0,
-      "name": "S",
-      "label": "S"
-    },
-    {
-      "id": 1,
-      "name": "M",
-      "label": "M"
-    },
-    {
-      "id": 2,
-      "name": "L",
-      "label": "L"
-    },
-    {
-      "id": 3,
-      "name": "XL",
-      "label": "XL"
-    },
-    {
-      "id": 4,
-      "name": "2XL",
-      "label": "2XL"
-    }
-  ]
+  "Hoodie": {
+    "man": [
+      {
+        "id": 0,
+        "name": "S",
+        "label": "S"
+      },
+      {
+        "id": 1,
+        "name": "M",
+        "label": "M"
+      },
+      {
+        "id": 2,
+        "name": "L",
+        "label": "L"
+      },
+      {
+        "id": 3,
+        "name": "XL",
+        "label": "XL"
+      },
+      {
+        "id": 4,
+        "name": "2XL",
+        "label": "2XL"
+      },
+      {
+        "id": 5,
+        "name": "3XL",
+        "label": "3XL"
+      }
+    ]
+  },
+  "Sweatshirt": {
+    "man" : [
+      {
+        "id": 0,
+        "name": "S",
+        "label": "S"
+      },
+      {
+        "id": 1,
+        "name": "M",
+        "label": "M"
+      },
+      {
+        "id": 2,
+        "name": "L",
+        "label": "L"
+      },
+      {
+        "id": 3,
+        "name": "XL",
+        "label": "XL"
+      },
+      {
+        "id": 4,
+        "name": "2XL",
+        "label": "2XL"
+      }
+    ]
+  },
+  "Long Sleeve": {
+    "man" : [
+      {
+        "id": 0,
+        "name": "XS",
+        "label": "XS"
+      },
+      {
+        "id": 1,
+        "name": "S",
+        "label": "S"
+      },
+      {
+        "id": 2,
+        "name": "M",
+        "label": "M"
+      },
+      {
+        "id": 3,
+        "name": "L",
+        "label": "L"
+      },
+      {
+        "id": 4,
+        "name": "XL",
+        "label": "XL"
+      },
+      {
+        "id": 5,
+        "name": "2XL",
+        "label": "2XL"
+      }
+    ]
+  },
+  "T-Shirt": {
+    "man" : [
+      {
+        "id": 0,
+        "name": "S",
+        "label": "S"
+      },
+      {
+        "id": 1,
+        "name": "M",
+        "label": "M"
+      },
+      {
+        "id": 2,
+        "name": "L",
+        "label": "L"
+      },
+      {
+        "id": 3,
+        "name": "XL",
+        "label": "XL"
+      },
+      {
+        "id": 4,
+        "name": "2XL",
+        "label": "2XL"
+      },
+      {
+        "id": 5,
+        "name": "3XL",
+        "label": "3XL"
+      },
+      {
+        "id": 5,
+        "name": "4XL",
+        "label": "4XL"
+      },
+      {
+        "id": 6,
+        "name": "5XL",
+        "label": "5XL"
+      }
+    ],
+    "women" : [
+      {
+        "id": 0,
+        "name": "S",
+        "label": "S"
+      },
+      {
+        "id": 1,
+        "name": "M",
+        "label": "M"
+      },
+      {
+        "id": 2,
+        "name": "L",
+        "label": "L"
+      },
+      {
+        "id": 3,
+        "name": "XL",
+        "label": "XL"
+      },
+      {
+        "id": 4,
+        "name": "2XL",
+        "label": "2XL"
+      }
+    ]
+  }
 }

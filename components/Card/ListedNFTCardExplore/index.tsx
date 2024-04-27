@@ -69,7 +69,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                       ) : coverImage != null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
-                          width={200}
+                          width={800}
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -138,7 +138,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                   <div className="w-full h-full">
                     <ImageWithFoster
                       src={coverImage}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                      width={800}
                       onClick={onClick}
                       className="max-w-full max-h-full object-cover"
                     />
@@ -149,7 +149,12 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
                 <a className="flex justify-center items-center">
                   <div className="w-full h-full">
-                    <ImageWithFoster src={image} onClick={onClick} className="max-w-full max-h-full object-cover" />
+                    <ImageWithFoster
+                      src={image}
+                      width={800}
+                      onClick={onClick}
+                      className="max-w-full max-h-full object-cover"
+                    />
                   </div>
                 </a>
               </Link>

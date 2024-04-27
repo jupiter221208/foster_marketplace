@@ -551,7 +551,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
               backgroundColor01="var(--main-icon-color)"
               backgroundColor02="var(--main-icon-color)"
               disabled={buttonDisabled}
-              color="var(--background-main-color"
+              color="var(--background-main-color)"
               onClick={() => handleStartAuction()}
             />
           )}

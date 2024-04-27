@@ -33,6 +33,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -99,7 +100,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           apparel +
           ' ' +
           '(' +
-          (size === 'S' || size === 'YXS'
+          (size === 'XS'
+            ? 'X-Small'
+            : size === 'S' || size === 'YXS'
             ? 'Small'
             : size === 'M' || size === 'YS'
             ? 'Medium'
@@ -109,6 +112,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             ? 'X-Large'
             : size === '2XL' || size === 'YXL'
             ? '2X-Large'
+            : size === '3XL'
+            ? '3X-Large'
+            : size === '4XL'
+            ? '4X-Large'
+            : size === '5XL'
+            ? '5X-Large'
             : '') +
           ')'
         let colorText = getFirstUpperString(color)
@@ -161,7 +170,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
     } finally {
-      setIsLoad(false)
+      // setIsLoad(false)
       if (result) {
         setTimeout(() => {
           setShowAlert(true)
@@ -288,17 +297,21 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
         <div className="w-full flex flex-col gap-[15px]">
-          <PrimaryButton
-            disabled={currency.length === 0}
-            label="Make Payment"
-            type="payment"
-            fullWidth
-            onClick={() => onCheckout()}
-          />
+          {isLoad ? (
+            <LoadingPrimaryButton fullWidth />
+          ) : (
+            <PrimaryButton
+              disabled={currency.length === 0}
+              label="Make Payment"
+              type="payment"
+              fullWidth
+              onClick={() => onCheckout()}
+            />
+          )}
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
-      <ProgressingModal open={isLoad} />
+      {/* <ProgressingModal open={isLoad} /> */}
       <Alert
         open={showAlert}
         close={() => {
