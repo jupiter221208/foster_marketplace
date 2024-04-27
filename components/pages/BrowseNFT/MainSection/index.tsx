@@ -1234,7 +1234,7 @@ const MainSection = ({
             </div>
 
             <div className="flex gap-[15px] items-center">
-              {(isCreatedNft || merchToggle) && (
+              {isCreatedNft && (
                 <MenuEditNft
                   studio={true}
                   metadata={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
@@ -1318,7 +1318,7 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {(isCreatedNft || merchToggle) && (
+                    {isCreatedNft && (
                       <MenuEditNft
                         studio={true}
                         metadata={
