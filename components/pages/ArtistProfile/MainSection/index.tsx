@@ -476,7 +476,7 @@ const MainSection = prop => {
                       height={45}
                       label="Following"
                       fontSize={18}
-                      borderWidth={22}
+                      borderRadius={22}
                       onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                     />
                   )
@@ -655,7 +655,7 @@ const MainSection = prop => {
                     selectedItem={selectedWallet}
                     setSelectedItem={item => {
                       if (item.type === 'address') {
-                        copyToClipboard(publicKey?.toBase58() || '')
+                        copyToClipboard(artistInfo?.wallet_id || '')
                       } else if (item.type === 'twitter') {
                         window.open(artistInfo?.twitter_url)
                       } else if (item.type === 'instagram') {
@@ -1044,7 +1044,7 @@ const MainSection = prop => {
               selectedItem={selectedWallet}
               setSelectedItem={item => {
                 if (item.type === 'address') {
-                  copyToClipboard(publicKey?.toBase58() || '')
+                  copyToClipboard(artistInfo?.wallet_id || '')
                 } else if (item.type === 'twitter') {
                   window.open(artistInfo?.twitter_url)
                 } else if (item.type === 'instagram') {
@@ -1060,6 +1060,7 @@ const MainSection = prop => {
             />
           )}
         </div>
+        {artistInfo?.bio && <div className={`w-full mt-[15px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
       </div>
 
       {showFollowModal && (

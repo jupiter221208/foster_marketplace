@@ -114,7 +114,12 @@ const MenuSocialShare = ({
           <Menu.Items className={type === 'nft' ? styles.menuAreaNft : styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
+                <div
+                  className={styles.menuItem}
+                  onClick={() => {
+                    copyToClipboard(fullUrl)
+                  }}
+                >
                   <FileCopyIcon alt="" />
                   Copy to Clipboard
                 </div>
