@@ -118,7 +118,6 @@ const PhysicalPrintDetail = props => {
     if (base && base.length > 0) {
       let apparel = ApparelType.filter(item => item.name === base)
       setApparel(apparel[0])
-      console.log(base, '=================base============')
     }
   }, [base])
 
