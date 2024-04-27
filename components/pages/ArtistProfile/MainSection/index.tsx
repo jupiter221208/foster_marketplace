@@ -694,7 +694,7 @@ const MainSection = prop => {
               <div className={styles.statisticBorder} />
               <div className="flex gap-[6px] items-center">
                 <SolanaLogoIcon alt="" className="mt-[2px]" />
-                <div className={styles.statisticValue}>{artistStatsInfo?.purchase_volume}</div>
+                <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
                 <div className={styles.statisticLabel}>Purchased</div>
               </div>
             </div>
@@ -1091,7 +1091,7 @@ const MainSection = prop => {
             <div>
               <div className="flex gap-[6px] items-center">
                 <SolanaLogoIcon alt="" className="mt-[4px]" />
-                <div className={styles.statisticValue}>{artistStatsInfo?.purchase_volume}</div>
+                <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
               </div>
               <div className={styles.statisticLabel}>Purchased</div>
             </div>
