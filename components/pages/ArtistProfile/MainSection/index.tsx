@@ -33,7 +33,7 @@ import BannerImage from 'assets/images/banner-image.png'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import LandIcon from 'assets/icons/land-icon.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
@@ -1012,13 +1012,11 @@ const MainSection = prop => {
           {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
           ) : (
-            <div className={`${styles.iconContainer} w-[87px]`}>
-              <MenuSocialShare
-                type="nft"
-                vote={true}
-                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                url={`/${artistInfo?.username}`}
-              />
+            <div className={`${styles.iconContainer} w-[87px]`} onClick={() => setOpenShareModal(true)}>
+              <div className="flex gap-[9px]">
+                <ShareSmallIcon />
+                <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+              </div>
             </div>
           )}
 
