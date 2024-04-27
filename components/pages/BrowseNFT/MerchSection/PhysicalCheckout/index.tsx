@@ -33,6 +33,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -296,17 +297,21 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
         <div className="w-full flex flex-col gap-[15px]">
-          <PrimaryButton
-            disabled={currency.length === 0}
-            label="Make Payment"
-            type="payment"
-            fullWidth
-            onClick={() => onCheckout()}
-          />
+          {isLoad ? (
+            <LoadingPrimaryButton fullWidth />
+          ) : (
+            <PrimaryButton
+              disabled={currency.length === 0}
+              label="Make Payment"
+              type="payment"
+              fullWidth
+              onClick={() => onCheckout()}
+            />
+          )}
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
-      <ProgressingModal open={isLoad} />
+      {/* <ProgressingModal open={isLoad} /> */}
       <Alert
         open={showAlert}
         close={() => {
