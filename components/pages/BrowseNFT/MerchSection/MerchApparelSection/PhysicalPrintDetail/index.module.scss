@@ -71,21 +71,22 @@
 }
 
 .whiteColor {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
   background: white;
 }
 
 .blackColor {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background: #010101;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: #010101;  
 }
 
 .colorBorder {
-  border: 2px solid #95dbd5;
+  border: 2px solid var(--bg-9bdbd5-20242725);
+  border-radius: 17px;
 }
 
 .unselectedPrint {

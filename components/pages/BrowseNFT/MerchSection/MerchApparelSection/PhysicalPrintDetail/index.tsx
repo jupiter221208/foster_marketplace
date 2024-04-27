@@ -306,15 +306,21 @@ const PhysicalPrintDetail = props => {
 
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.placementTitle}>Select Color</div>
-          <div className="mt-[15px] flex gap-[15px]">
+          <div className="mt-[15px] flex gap-[11px] lg:gap-[15px]">
             <div
-              className={`${styles.whiteColor} ${color?.type === 'white' ? styles.colorBorder : ''}`}
-              onClick={() => setColor(ColorType[0])}
-            />
+              className={`w-[34px] h-[34px] flex justify-center items-center ${
+                color?.type === 'white' ? styles.colorBorder : ''
+              }`}
+            >
+              <div className={styles.whiteColor} onClick={() => setColor(ColorType[0])} />
+            </div>
             <div
-              className={`${styles.blackColor} ${color?.type === 'black' ? styles.colorBorder : ''}`}
-              onClick={() => setColor(ColorType[1])}
-            />
+              className={`w-[34px] h-[34px] flex justify-center items-center ${
+                color?.type === 'black' ? styles.colorBorder : ''
+              }`}
+            >
+              <div className={styles.blackColor} onClick={() => setColor(ColorType[1])} />
+            </div>
           </div>
           {/* <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} /> */}
         </div>
