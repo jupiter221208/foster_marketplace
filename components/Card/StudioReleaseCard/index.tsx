@@ -146,11 +146,9 @@ const StudioReleaseCard = props => {
                 {apparelList.name === 'Hoodie' ? (
                   <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
                     <ImageWithFoster
-                      style={
-                        {
-                          // mixBlendMode: color.blendMode,
-                        }
-                      }
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
                       src={nftImage}
                       className="max-w-full max-h-full object-cover"
                     />
@@ -160,11 +158,9 @@ const StudioReleaseCard = props => {
                     className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
                   >
                     <ImageWithFoster
-                      style={
-                        {
-                          // mixBlendMode: color.blendMode,
-                        }
-                      }
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
                       src={nftImage}
                       className="w-full object-contain flex items-start"
                     />

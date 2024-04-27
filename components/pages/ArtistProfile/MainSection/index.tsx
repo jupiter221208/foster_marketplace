@@ -689,7 +689,7 @@ const MainSection = prop => {
               </div>
               <div className={styles.statisticBorder} />
               <div className="flex gap-[7px] items-center">
-                <SolanaLogoIcon alt="" />
+                <SolanaLogoIcon alt="" className="mt-[2px]" />
                 <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
                 <div className={styles.statisticLabel}>Purchased</div>
               </div>
