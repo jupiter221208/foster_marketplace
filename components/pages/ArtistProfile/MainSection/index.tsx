@@ -675,20 +675,24 @@ const MainSection = prop => {
 
             {artistInfo?.bio && <div className={`w-full mt-[30px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
 
-            <div className="w-full mt-[30px] mb-[30px] flex gap-[15px]">
-              <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
-              <div className={styles.statisticLabel}>Created</div>
+            <div className="w-full mt-[30px] mb-[30px] flex gap-[15px] items-center">
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
+                <div className={styles.statisticLabel}>Created</div>
+              </div>
               <div className={styles.statisticBorder} />
-              <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
-              <div className={styles.statisticLabel}>Collected</div>
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
+                <div className={styles.statisticLabel}>Collected</div>
+              </div>
               <div className={styles.statisticBorder} />
-              <div className="flex gap-[7px] items-center">
+              <div className="flex gap-[6px] items-center">
                 <SolanaLogoIcon alt="" className="mt-[2px]" />
                 <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
                 <div className={styles.statisticLabel}>Sold</div>
               </div>
               <div className={styles.statisticBorder} />
-              <div className="flex gap-[7px] items-center">
+              <div className="flex gap-[6px] items-center">
                 <SolanaLogoIcon alt="" className="mt-[2px]" />
                 <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
                 <div className={styles.statisticLabel}>Purchased</div>
