@@ -1593,22 +1593,19 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <GradientButton
+                                <PrimaryButton
                                   fullWidth
-                                  backgroundColor01="var(--main-icon-color)"
-                                  backgroundColor02="var(--main-icon-color)"
-                                  color="var(--background-main-color)"
+                                  type="buy-now"
                                   label="Buy Now"
                                   disabled={!tradeStateAddress}
-                                  borderColor="transparent"
-                                  fontSize={18}
                                   onClick={() => quickBuy()}
                                 />
                               ) : (
                                 <LoadingButton fullWidth />
                               )}
-                              <OutlineButton
+                              <SecondaryButton
                                 label="Make Offer"
+                                type="make-offer"
                                 fullWidth
                                 onClick={() => {
                                   if (!connected) {
@@ -1729,15 +1726,10 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingButton fullWidth height={50} />
                                           ) : (
-                                            <GradientButton
+                                            <PrimaryButton
                                               label="Place Bid"
+                                              type="place-bid"
                                               fullWidth
-                                              backgroundColor01="var(--main-icon-color)"
-                                              backgroundColor02="var(--main-icon-color)"
-                                              color="var(--background-main-color)"
-                                              borderColor="transparent"
-                                              height={50}
-                                              fontSize={18}
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               }
