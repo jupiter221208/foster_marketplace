@@ -165,8 +165,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
   return (
     <div className="w-full">
-      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
-        <div className={`w-full flex justify-between ${fromNFT ? 'mt-[25px]' : 'mt-[55px]'} `}>
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${fromNFT ? 'mt-[25px]' : 'mt-[55px]'}`}>
+        <div className={`w-full flex justify-between`}>
           <div className={styles.auctionDetail}>Start Auction</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">
@@ -539,7 +539,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
             </div>
           </div>
         )}
-        <div className="mt-[80px] mb-[40px] lg:mb-[80px] w-full">
+        <div className="mt-[30px] mb-[30px] w-full">
           {isLoading ? (
             <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
           ) : (

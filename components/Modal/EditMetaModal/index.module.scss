@@ -9,9 +9,7 @@
   position: fixed;
   inset: 0;
   @media (min-width: 1024px) {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px) brightness(15px) opacity(0.9);
-    background: rgba(var(--background-main-color), 0.9);
+    background: rgba(26, 26, 26, 0.8);
   }
 }
 
@@ -35,20 +33,20 @@
   height: 200px;
   border-radius: 35px;
   @media (min-width: 1024px) {
-  width: 330px;
-  height: 330px;
-  min-width: 330px;
-  min-height: 330px;
-  border-radius: 35px;
+    width: 330px;
+    height: 330px;
+    min-width: 330px;
+    min-height: 330px;
+    border-radius: 35px;
   }
   overflow: hidden;
 }
 
 .artName {
   font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-size: 16px;
   text-align: start;
-  color: var(--text-gray-200-color)
+  color: var(--text-gray-200-color);
 }
 
 .audioMobileArea {
@@ -70,9 +68,6 @@
   font-size: 16px;
   color: var(--text-gray-200-color);
   text-align: start;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-  }
 }
 
 .inputArea {
@@ -82,7 +77,7 @@
   justify-content: start;
   border-radius: 12px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
-  color:var(--text-gray-200-color);
+  color: var(--text-gray-200-color);
   font-family: 'Muli-Regular';
   font-size: 16px;
   outline: none;

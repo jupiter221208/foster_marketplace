@@ -386,7 +386,7 @@ const Step03SingleNFTSection = props => {
         Add another wallet
       </div>
 
-      <div className="w-full flex flex-wrap gap-[18px] mt-[100px]">
+      <div className="w-full flex flex-wrap gap-[18px] mt-[30px]">
         <Button
           label="Back"
           fullWidth

@@ -226,7 +226,7 @@ const Step03CollectionSection = props => {
                   </div>
                 ))}
             </div>
-            <div className="w-full my-10">
+            <div className="w-full my-[30px]">
               {/* button group part */}
               <div>
                 <Button

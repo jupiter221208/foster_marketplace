@@ -61,14 +61,11 @@
   border: 1px solid var(--bg-303030-DDDCDC);
   background: var(--bg-1C1C1C-F3F2F0);
   border-radius: 5px;
-  padding: 0px 13px 15px 13px;
   margin-top: 15px;
-  overflow: hidden;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: visible;
     margin-top: 0px;
     min-height: calc(100vh - 100px - 120px);
     padding: 0px;
@@ -92,21 +89,38 @@
   }
 
   @media (min-width: 640px) {
-    padding: 28px 25px 28px 25px;
+    padding: 28px 0 28px 0;
   }
   @media (min-width: 768px) {
-    padding: 32px 35px 32px 35px;
+    padding: 32px 0 32px 0;
   }
   @media (min-width: 1024px) {
-    padding: 20px 20px 25px 20px;
+    padding: 20px 0 25px 0;
   }
   @media (min-width: 1680px) {
-    padding: 20px 24px 25px 30px;
+    padding: 20px 0 25px 0;
+  }
+}
+
+.nftDetailCardPadding {
+  padding: 0 13px 13px 13px;
+  // @media (min-width: 640px) {
+  //   padding: 0 25px 0 25px;
+  // }
+  // @media (min-width: 768px) {
+  //   padding: 0 35px 0 35px;
+  // }
+  @media (min-width: 1024px) {
+    padding: 0 20px 0 20px;
+  }
+  @media (min-width: 1680px) {
+    padding: 0 24px 0 30px;
   }
 }
 
 .categoryBorder {
-  width: calc(100% + 60px);
+  width: 200%;
+
   height: 1px;
   margin: 15px -30px;
   background: rgba(#707070, 0.25);
@@ -303,7 +317,7 @@
   font-size: 14px;
   line-height: 18px;
   padding: 8px 7px;
-  @media (min-width:640px) {
+  @media (min-width: 640px) {
     padding: 8px 9px;
   }
   color: var(--main-icon-color);
@@ -592,5 +606,5 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   font-weight: 100;
-  color: var(--text-gray-200-color)
+  color: var(--text-gray-200-color);
 }

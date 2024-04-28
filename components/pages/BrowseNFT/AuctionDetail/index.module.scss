@@ -1,16 +1,15 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
- width: 100%;
- padding-right: 0px;
- height: 100%;
- overflow: none;
- padding: 0px 16px 0px 16px;
- @media (min-width:1024px) {
-  padding: 0px 0px 0px 30px;
+  max-height: calc(100vh - 115px);
+  min-height: max-content;
+  width: 100%;
+  padding-right: 0px;
+  padding: 0px 16px 0px 16px;
+  @media (min-width: 1024px) {
+    padding: 0px 0px 0px 30px;
     width: calc(100% + 30px);
     padding-right: 30px;
-    height: 100vh;
     overflow: scroll;
   }
   font-weight: 100;
@@ -18,7 +17,7 @@
 
 .nftBG {
   padding: 0px !important;
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     padding: 0px 30px 0px 30px !important;
     background: var(--background-main-color);
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -32,7 +31,7 @@
   font-size: 22px;
   font-weight: 100;
   color: var(--text-gray-200-color);
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     font-size: 22px;
   }
 }
@@ -49,7 +48,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     width: 120px;
     height: 50px;
   }
@@ -68,7 +67,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     width: 120px;
     height: 50px;
   }
@@ -87,7 +86,7 @@
   align-items: center;
   justify-items: center;
   cursor: pointer;
-  @media (min-width:1024px) {
+  @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
     width: 122px;
     height: 52px;
@@ -96,7 +95,6 @@
   }
   -webkit-tap-highlight-color: transparent;
 }
-
 
 .title {
   font-family: 'Muli-Bold';

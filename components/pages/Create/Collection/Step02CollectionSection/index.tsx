@@ -986,7 +986,7 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          <div className="w-full my-10">
+          <div className="w-full my-[30px]">
             <div className="w-full">
               <Button
                 label="Back"
