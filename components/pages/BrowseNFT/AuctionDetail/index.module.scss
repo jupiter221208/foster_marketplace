@@ -3,15 +3,13 @@
 .container {
   width: 100%;
   padding-right: 0px;
-  height: 100%;
-  overflow: none;
+  min-height: 100%;
   padding: 0px 16px 0px 16px;
   @media (min-width: 1024px) {
     max-height: 85vh;
     padding: 0px 0px 0px 30px;
     width: calc(100% + 30px);
     padding-right: 30px;
-    overflow: scroll;
   }
   font-weight: 100;
 }
