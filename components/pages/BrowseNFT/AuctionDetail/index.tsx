@@ -539,7 +539,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
             </div>
           </div>
         )}
-        <div className="mt-[80px] mb-[40px] lg:mb-[80px] w-full">
+        <div className="mt-[45px] mb-[45px] lg:mb-[80px] w-full">
           {isLoading ? (
             <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
           ) : (

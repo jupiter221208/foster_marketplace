@@ -183,7 +183,11 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                 </div>
               )}
 
-              <div className={styles.rightPanel}>
+              <div
+                className={
+                  viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? styles.rightPanel : styles.rightPanel2
+                }
+              >
                 <AuctionDetail
                   data={data}
                   onSuccess={onSuccess}
