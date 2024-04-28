@@ -61,9 +61,7 @@
   border: 1px solid var(--bg-303030-DDDCDC);
   background: var(--bg-1C1C1C-F3F2F0);
   border-radius: 5px;
-  padding: 0px 13px 15px 13px;
   margin-top: 15px;
-  overflow: hidden;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -105,12 +103,13 @@
 }
 
 .nftDetailCardPadding {
-  @media (min-width: 640px) {
-    padding: 0 25px 0 25px;
-  }
-  @media (min-width: 768px) {
-    padding: 0 35px 0 35px;
-  }
+  padding: 0 13px 13px 13px;
+  // @media (min-width: 640px) {
+  //   padding: 0 25px 0 25px;
+  // }
+  // @media (min-width: 768px) {
+  //   padding: 0 35px 0 35px;
+  // }
   @media (min-width: 1024px) {
     padding: 0 20px 0 20px;
   }

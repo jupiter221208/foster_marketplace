@@ -1514,7 +1514,7 @@ const MainSection = ({
                     </div>
                   </div>
 
-                  <div className="w-[200%] min-h-max">
+                  <div className="w-[200%] min-h-max overflow-hidden">
                     <div className={`${styles.categoryBorder} lg:block block`} />
                   </div>
 
