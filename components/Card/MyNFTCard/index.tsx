@@ -61,13 +61,13 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
                 {data.category.toString().includes('video') ? (
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full object-cover">
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full object-contain">
                   <source src=${data.animation_url} type="video/mp4" /></video>`,
                     }}
                   />
                 ) : (
                   <div>
-                    <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-cover" />
+                    <ImageWithFoster src={nftImage} width={340} className="w-full h-full object-contain" />
                   </div>
                 )}
               </div>
