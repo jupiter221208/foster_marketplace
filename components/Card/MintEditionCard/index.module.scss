@@ -16,7 +16,7 @@
   justify-content: space-between;
 }
 
-.mintValue {  
+.mintValue {
   font-size: 16px;
   font-family: 'Muli-Regular';
   line-height: 20px;
@@ -57,6 +57,7 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--background-main-color);
   padding: 12px 24px;
+  z-index: 100;
 }
 
 .priceBorder {
@@ -116,5 +117,5 @@
   margin-top: 5px;
   font-family: 'Muli-Light';
   font-size: 12px;
-  color: #D67474
+  color: #d67474;
 }
