@@ -1,12 +1,13 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-height: calc(100vh - 115px);
-  min-height: max-content;
   width: 100%;
   padding-right: 0px;
+  height: 100%;
+  overflow: none;
   padding: 0px 16px 0px 16px;
   @media (min-width: 1024px) {
+    max-height: 85vh;
     padding: 0px 0px 0px 30px;
     width: calc(100% + 30px);
     padding-right: 30px;
