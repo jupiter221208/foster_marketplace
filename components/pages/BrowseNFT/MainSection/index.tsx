@@ -1528,12 +1528,9 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <GradientButton
+                          <PrimaryButton
                             fullWidth
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
-                            color="var(--background-main-color)"
-                            borderColor="transparent"
+                            type="update-relist"
                             label={'Update/Relist'}
                             onClick={() => {
                               setListEditionType('update')
@@ -1620,8 +1617,9 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <GradientButton
+                              <PrimaryButton
                                 label="Delist or Update"
+                                type="update-relist"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
