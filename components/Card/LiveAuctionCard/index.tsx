@@ -77,7 +77,7 @@ const LiveAuctionCard = props => {
     <div className={styles.layout}>
       <div className={styles.container}>
         <div className={styles.profileContainer}>
-          <div>
+          <div className="max-w-[70%]">
             <Link href={`/nft/${data.token_id}`} passHref>
               <a>
                 <div className={styles.nftName}>{data?.nft_name}</div>

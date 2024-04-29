@@ -46,7 +46,7 @@ const HomeNftCard = props => {
       <div className={styles.container}>
         <div className={styles.containerCard}>
           <div className={styles.imageInfoHome}>
-            <div>
+            <div className="max-w-[70%]">
               <div className="flex items-center">
                 <div className={styles.nftNameForHome}>{nftName}</div>
               </div>

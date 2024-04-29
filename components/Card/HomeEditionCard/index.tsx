@@ -54,7 +54,7 @@ const HomeEditionCard = props => {
     <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
         <div className={styles.profileContainer}>
-          <div>
+          <div className="max-w-[70%]">
             <Link href={`/nft/${data.tokenId}`} passHref>
               <a>
                 <div className={styles.nftName}>{data?.nftName}</div>
