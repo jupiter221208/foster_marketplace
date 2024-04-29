@@ -207,7 +207,9 @@ const PhysicalShipping = props => {
             <div className={styles.selecteCategory}>Shipping Details</div>
           </div>
           <div className="w-full mt-[20px]">
-            <div className={styles.label}>Contact Information *</div>
+            <div className={styles.label}>
+              Contact Information <span>*</span>
+            </div>
             <div className="w-full mt-[10px]">
               <input
                 value={email}
@@ -226,7 +228,9 @@ const PhysicalShipping = props => {
             </div>
           </div>
           <div className="w-full mt-[10px]">
-            <div className={styles.label}>Shipping Address *</div>
+            <div className={styles.label}>
+              Shipping Address <span>*</span>
+            </div>
             <div className="mt-[10px] ">
               <CountrySelect
                 className={styles.countrySelect}
