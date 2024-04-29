@@ -49,13 +49,13 @@ const OrderSection = props => {
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
                 <div className="absolute w-full h-full flex items-center justify-center">
-                  <ImageWithFoster src={previewUrl} width={800} className="w-[80%] lg:w-full h-auto object-cover" />
+                  <ImageWithFoster src={previewUrl} width={800} className="w-[80%] lg:w-auto h-auto object-cover" />
                 </div>
               </div>
             ) : merchType === 'wallart' ? (
               <div className={styles.blurBackground}>
                 <div className="w-full h-full">
-                  <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-full h-full object-cover" />
+                  <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-auto h-full object-cover" />
                 </div>
               </div>
             ) : (
