@@ -183,14 +183,31 @@ const WalletButton = props => {
     if (offerPrice === 0) return
     try {
       setIsProcessing(true)
+      let title = '',
+        message = ''
       if (offerStatus === 'deposit') {
         await depositOfferFunds(mx, offerPrice)
+        title = 'Deposit Success'
+        message = `${offerPrice} SOL has been deposited to your offer wallet`
       } else {
         await withdrawOfferFunds(mx, offerPrice)
+        title = 'Withdrawal Success'
+        message = `${offerPrice} SOL has been withdrawn to your main wallet`
       }
-      setOfferPrice(0)
       setWalletAmount('')
       await updateSolBalance()
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      setOfferPrice(0)
       setIsProcessing(false)
     } catch {
       setIsProcessing(false)
@@ -202,14 +219,34 @@ const WalletButton = props => {
 
     setIsProcessing(true)
     try {
+      let title = '',
+        message = ''
+
       if (biddingStatus === 'deposit') {
         await depositBiddingFunds(mx, biddingPrice)
+        title = 'Deposit Success'
+        message = `${biddingPrice} SOL has been deposited to your bidding wallet`
       } else {
         await withdrawBiddingFunds(mx, biddingPrice)
+        title = 'Withdrawal Success'
+        message = `${biddingPrice} SOL has been withdrawn to your main wallet`
       }
+
+      await updateSolBalance()
+
       setBiddingPrice(0)
       setWalletAmount('')
-      await updateSolBalance()
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
       setIsProcessing(false)
     } catch {
       setIsProcessing(false)
@@ -481,7 +518,7 @@ const WalletButton = props => {
                         label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                         type={offerStatus}
                         fullWidth
-                        disabled={isOfferLocked}
+                        disabled={isOfferLocked || offerPrice === 0}
                         onClick={() => onClickOfferButton()}
                       />
                     )}
@@ -639,7 +676,7 @@ const WalletButton = props => {
                         label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                         type={biddingStatus}
                         fullWidth
-                        disabled={isBidLocked}
+                        disabled={isBidLocked || biddingPrice === 0}
                         onClick={() => onClickBiddingButton()}
                       />
                     )}
@@ -698,7 +735,6 @@ const WalletButton = props => {
       <Alert
         open={showAlert}
         close={() => {
-          router.push('/')
           setShowAlert(false)
         }}
         data={alertData}
