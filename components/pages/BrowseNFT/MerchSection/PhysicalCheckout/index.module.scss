@@ -113,6 +113,9 @@
   font-size: 16px;
   line-height: 23px;
   color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color)
+  }
 }
 
 .summary {
@@ -198,7 +201,7 @@
 .bottomSection {
   width: 100%;
   padding: 0px;
-  margin-top: 15px;
+  margin-top: 45px;
   @media (min-width: 1024px) {
     border-top: 1px solid var(--bg-303030-DDDCDC);
     padding: 20px 30px;

@@ -207,9 +207,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
 
-        <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[10px] lg:mt-[24px]">
+        <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
           <div className="w-[286px] h-[160px] relative hidden lg:block">
-            <div className={styles.paymentMethod}>Choose Payment Method*</div>
+            <div className={styles.paymentMethod}>
+              Choose Payment Method <span>*</span>
+            </div>
             <div className="w-full flex justify-between mt-[16px]">
               <div
                 className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
@@ -259,9 +261,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div> */}
 
         {/* SOL / USDC */}
-        {/* <div className="w-full h-auto relative lg:hidden mt-[30px]">
-          <div className={styles.paymentMethod}>Choose Payment Method*</div>
-          <div className="w-full flex justify-between mt-[16px]">
+        <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
+          <div className={styles.paymentMethod}>
+            Choose Payment Method <span>*</span>
+          </div>
+          <div className="w-full flex gap-[30px] mt-[10px]">
             <div
               className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('sol')}
@@ -281,7 +285,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               <div className={styles.currencyName}>USDC</div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
 
       <div className={styles.bottomSection}>

@@ -33,6 +33,8 @@ import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const NewNftCard = props => {
   const {
@@ -235,29 +237,47 @@ const NewNftCard = props => {
           </div>
           {unSave !== null && (
             <div className="w-full mt-[9px] sm:mt-[15px]">
-              <GradientButton
-                fullWidth
-                label="Unsave"
-                fontSize={viewport === 'xs' ? 12 : 18}
-                borderRadius={viewport === 'xs' ? 5 : 10}
-                height={viewport === 'xs' ? 28 : 50}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  unSave()
-                }}
-              />
+              <div className="lg:block hidden">
+                <SecondaryButton
+                  fullWidth
+                  label="Unsave"
+                  type="unsave"
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    unSave()
+                  }}
+                />
+              </div>
+              <div className="block lg:hidden">
+                <GradientButton
+                  fullWidth
+                  label="Unsave"
+                  fontSize={viewport === 'xs' ? 12 : 18}
+                  borderRadius={viewport === 'xs' ? 5 : 10}
+                  height={viewport === 'xs' ? 28 : 50}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    unSave()
+                  }}
+                />
+              </div>
             </div>
           )}
           {showUnhideButton && (
             <div className="w-full mt-[9px] sm:mt-[15px]">
-              <GradientButton
-                fullWidth
-                label="Unhide"
-                fontSize={viewport === 'xs' ? 12 : 18}
-                borderRadius={viewport === 'xs' ? 5 : 10}
-                height={viewport === 'xs' ? 28 : 50}
-                onClick={() => setDisplayUnhideConfirm(true)}
-              />
+              <div className="lg:block hidden">
+                <SecondaryButton fullWidth label="Unhide" type="unhide" onClick={() => setDisplayUnhideConfirm(true)} />
+              </div>
+              <div className="block lg:hidden">
+                <GradientButton
+                  fullWidth
+                  label="Unhide"
+                  fontSize={viewport === 'xs' ? 12 : 18}
+                  borderRadius={viewport === 'xs' ? 5 : 10}
+                  height={viewport === 'xs' ? 28 : 50}
+                  onClick={() => setDisplayUnhideConfirm(true)}
+                />
+              </div>
             </div>
           )}
         </div>

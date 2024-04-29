@@ -8,6 +8,9 @@ import FinalizeSaleIcon from 'assets/icons/finalize-sale-icon.svg?component'
 import ListArtworkIcon from 'assets/icons/list-artwork-icon.svg?component'
 import AddCartIcon from 'assets/icons/add-cart-icon.svg?component'
 import BackIcon from 'assets/icons/back-icon.svg?component'
+import CancelIcon from 'assets/icons/cancel-icon.svg?component'
+import UnsaveIcon from 'assets/icons/unsave-icon.svg?component'
+import UnhideIcon from 'assets/icons/unhide-button-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -46,6 +49,12 @@ const SecondaryButton = props => {
             <AddCartIcon />
           ) : type === 'back' ? (
             <BackIcon />
+          ) : type === 'cancel' ? (
+            <CancelIcon />
+          ) : type === 'unsave' ? (
+            <UnsaveIcon />
+          ) : type === 'unhide' ? (
+            <UnhideIcon />
           ) : (
             <></>
           )}

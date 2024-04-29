@@ -45,6 +45,9 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
+import LoadingButton from '../LoadingButton'
+import PrimaryButton from '../PrimaryButton'
+import LoadingPrimaryButton from '../LoadingPrimaryButton'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -178,26 +181,76 @@ const WalletButton = props => {
 
   const onClickOfferButton = async () => {
     if (offerPrice === 0) return
-    if (offerStatus === 'deposit') {
-      await depositOfferFunds(mx, offerPrice)
-    } else {
-      await withdrawOfferFunds(mx, offerPrice)
+    try {
+      setIsProcessing(true)
+      let title = '',
+        message = ''
+      if (offerStatus === 'deposit') {
+        await depositOfferFunds(mx, offerPrice)
+        title = 'Deposit Success'
+        message = `${offerPrice} SOL has been deposited to your offer wallet`
+      } else {
+        await withdrawOfferFunds(mx, offerPrice)
+        title = 'Withdrawal Success'
+        message = `${offerPrice} SOL has been withdrawn to your main wallet`
+      }
+      setWalletAmount('')
+      await updateSolBalance()
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      setOfferPrice(0)
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setOfferPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const onClickBiddingButton = async () => {
     if (biddingPrice === 0) return
-    if (biddingStatus === 'deposit') {
-      await depositBiddingFunds(mx, biddingPrice)
-    } else {
-      await withdrawBiddingFunds(mx, biddingPrice)
+
+    setIsProcessing(true)
+    try {
+      let title = '',
+        message = ''
+
+      if (biddingStatus === 'deposit') {
+        await depositBiddingFunds(mx, biddingPrice)
+        title = 'Deposit Success'
+        message = `${biddingPrice} SOL has been deposited to your bidding wallet`
+      } else {
+        await withdrawBiddingFunds(mx, biddingPrice)
+        title = 'Withdrawal Success'
+        message = `${biddingPrice} SOL has been withdrawn to your main wallet`
+      }
+
+      await updateSolBalance()
+
+      setBiddingPrice(0)
+      setWalletAmount('')
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setBiddingPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const [showAlert, setShowAlert] = useState(false)
@@ -210,6 +263,8 @@ const WalletButton = props => {
 
   const [profileName, setProfileName] = useState('')
   const [profileImage, setProfileImage] = useState('')
+
+  const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -375,7 +430,7 @@ const WalletButton = props => {
                   >
                     {offerStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
                     <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Deposit from Main Wallet
+                      Deposit to Offer Wallet
                     </div>
                   </div>
                   <div
@@ -456,28 +511,14 @@ const WalletButton = props => {
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                   <div className="w-full mt-1">
-                    {isOfferLocked ? (
-                      <GradientButton
-                        label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                        fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        color="#CBCCD2"
-                        backgroundColor01="#121212"
-                        backgroundColor02="#121212"
-                        gradientDirection="bottom"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
-                        onClick={() => {}}
-                      />
+                    {isProcessing ? (
+                      <LoadingPrimaryButton fullWidth />
                     ) : (
-                      <GradientButton
+                      <PrimaryButton
                         label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        type={offerStatus}
                         fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        disabled={isOfferLocked || offerPrice === 0}
                         onClick={() => onClickOfferButton()}
                       />
                     )}
@@ -628,28 +669,14 @@ const WalletButton = props => {
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
                   <div className="w-full mt-1">
-                    {isBidLocked ? (
-                      <GradientButton
-                        label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                        fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        color="#CBCCD2"
-                        backgroundColor01="#121212"
-                        backgroundColor02="#121212"
-                        gradientDirection="bottom"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
-                        onClick={() => {}}
-                      />
+                    {isProcessing ? (
+                      <LoadingPrimaryButton fullWidth />
                     ) : (
-                      <GradientButton
+                      <PrimaryButton
                         label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        type={biddingStatus}
                         fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        disabled={isBidLocked || biddingPrice === 0}
                         onClick={() => onClickBiddingButton()}
                       />
                     )}
@@ -708,7 +735,6 @@ const WalletButton = props => {
       <Alert
         open={showAlert}
         close={() => {
-          router.push('/')
           setShowAlert(false)
         }}
         data={alertData}

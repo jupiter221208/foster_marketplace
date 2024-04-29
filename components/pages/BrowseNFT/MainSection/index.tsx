@@ -28,7 +28,6 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
-import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -101,7 +100,6 @@ import AuctionDetail from '../AuctionDetail'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
-import GradientButton from 'components/Button/GradientButton'
 import ListEditionDetail from '../ListEditionDetail'
 
 // call apis
@@ -110,13 +108,13 @@ import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 import AuctionAPI from 'apis/auctions'
 import { getListedMasterEditionInfo } from 'apis/editions'
-import { getDisplayUserName, getPriceValue } from 'utils/strings'
+import { getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
-import OutlineButton from 'components/Button/OutlineButton'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface MainSectionProps {
@@ -605,12 +603,6 @@ const MainSection = ({
   const isNftMasterEdition = () => {
     if (editionType === 'master_oe' || editionType === 'master_le') return true
     return false
-  }
-
-  const getTokenTypeString = () => {
-    if (editionType === 'master_oe') return 'Master Edition'
-    else if (editionType === 'master_le') return 'Master Edition'
-    else return 'Printed Edition'
   }
 
   useEffect(() => {
@@ -1539,9 +1531,14 @@ const MainSection = ({
                           />
                           <div className="mt-[15px]">
                             {cancelListLoading ? (
-                              <LoadingButton fullWidth />
+                              <LoadingSecondaryButton fullWidth />
                             ) : (
-                              <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                              <SecondaryButton
+                                fullWidth
+                                label="Cancel Listing"
+                                type="cancel"
+                                onClick={() => cancelListEdition()}
+                              />
                             )}
                           </div>
                         </div>
@@ -1598,7 +1595,7 @@ const MainSection = ({
                                   onClick={() => quickBuy()}
                                 />
                               ) : (
-                                <LoadingButton fullWidth />
+                                <LoadingPrimaryButton fullWidth />
                               )}
                               <SecondaryButton
                                 label="Make Offer"
@@ -1635,9 +1632,19 @@ const MainSection = ({
                       connected ? (
                       <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                         {nftCurrentPrice > 0 ? (
-                          <GradientButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
+                          <SecondaryButton
+                            label="Finalize Sale"
+                            type="finalize-sale"
+                            fullWidth
+                            onClick={() => processFinalizeSale()}
+                          />
                         ) : (
-                          <GradientButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
+                          <SecondaryButton
+                            label="Cancel Auction"
+                            type="cancel"
+                            fullWidth
+                            onClick={() => cancelAuction()}
+                          />
                         )}
                       </div>
                     ) : liveAuction === true ? (
@@ -1655,8 +1662,9 @@ const MainSection = ({
                               />
                               {isOwnNft === true ? (
                                 <div className="lg:mt-[10px]">
-                                  <GradientButton
+                                  <SecondaryButton
                                     label="Cancel Auction"
+                                    type="cancel"
                                     fullWidth
                                     onClick={() => nftCurrentPrice === 0 && cancelAuction()}
                                     disabled={nftCurrentPrice > 0}
@@ -1722,7 +1730,7 @@ const MainSection = ({
                                           }}
                                         >
                                           {auctionLoading ? (
-                                            <LoadingButton fullWidth height={50} />
+                                            <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
                                             <PrimaryButton
                                               label="Place Bid"
@@ -1792,13 +1800,10 @@ const MainSection = ({
                               <></>
                             ) : (
                               <div className="w-full mt-[0px] lg:mt-[10px]">
-                                <GradientButton
+                                <SecondaryButton
                                   fullWidth
-                                  backgroundColor01="var(--main-icon-color)"
-                                  backgroundColor02="var(--main-icon-color)"
-                                  color="var(--background-main-color)"
-                                  borderColor="transparent"
                                   label="List Edition"
+                                  type="list-artwork"
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
@@ -1808,15 +1813,16 @@ const MainSection = ({
                             )
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
-                              <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                              <GradientButton
+                              <SecondaryButton
                                 fullWidth
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
+                                label="List Artwork"
+                                type="list-artwork"
+                                onClick={() => setShowListNFTModal(true)}
+                              />
+                              <PrimaryButton
+                                fullWidth
                                 label="Start Auction"
-                                borderColor="transparent"
-                                fontSize={18}
+                                type="start-auction"
                                 onClick={() => {
                                   setShowAuctionDetail(true)
                                   setShowAuctionSection(true)
@@ -1830,8 +1836,10 @@ const MainSection = ({
                           <></>
                         ) : (
                           <div className="w-full flex gap-[20px] mt-[20px]">
-                            <button
-                              className={styles.outlineBtn}
+                            <SecondaryButton
+                              fullWidth
+                              label="Make Offer"
+                              type="make-offer"
                               onClick={() => {
                                 if (!connected) {
                                   setVisible(true)
@@ -1839,9 +1847,7 @@ const MainSection = ({
                                 }
                                 setOpenOfferModal(true)
                               }}
-                            >
-                              Make Offer
-                            </button>
+                            />
                           </div>
                         )
                       ) : (

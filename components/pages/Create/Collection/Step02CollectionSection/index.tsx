@@ -35,10 +35,10 @@ import ModelViewer from 'components/ModelViewer'
 import { limit } from 'utils/strings'
 import { validDigits } from 'utils/helpers'
 import ProductionListMenu from 'components/ProductionListMenu'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
 import { useRouter } from 'next/router'
-import Button from 'components/Button'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step02CollectionSection = props => {
   const {
@@ -333,22 +333,12 @@ const Step02CollectionSection = props => {
                   <div className={styles.preview}>Preview will display here</div>
                 )}
               </div>
-
-              {/* <div className="w-full flex justify-start mt-[50px]">
-                <div className={styles.grayText} style={{ width: artWidth, textAlign: 'center' }}>
-                  {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
-                  &nbsp;uploaded files
-                </div>
-              </div> */}
             </div>
           </div>
           {/* right part */}
           <div className="flex-[50%] g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                {/* <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
-                </div> */}
                 <div className="w-full">
                   <div className={`${styles.subTitle} lg:mt-[54px]`}>
                     Upload Art (max 20 files) <span>*</span>
@@ -454,15 +444,6 @@ const Step02CollectionSection = props => {
                           <div onClick={() => onRemoveCollectionFile(item)}>
                             <TrashBinSmall />
                           </div>
-                          {/* <IconButtonWithSVG
-                            icon={
-                              
-                            }
-                            onClick={() => onRemoveCollectionFile(item)}
-                            backgroundColor="transparent"
-                            iconWidth={18}
-                            iconHeight={18}
-                          /> */}
                         </div>
 
                         <div className="w-full mt-[15px]">
@@ -988,45 +969,20 @@ const Step02CollectionSection = props => {
           )}
           <div className="w-full my-[30px]">
             <div className="w-full">
-              <Button
-                label="Back"
-                onClick={() => router.back()}
-                fullWidth
-                fontFamily="Muli-SemiBold"
-                height="50px"
-                backgroundColor="transparent"
-                color="var(--main-bg-color)"
-                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                borderWidth={1}
-                fontSize={18}
-              />
-            </div>
-            <div className="w-full mt-[15px]">
               {coverImageProcessing ? (
-                <LoadingButton fullWidth height={50} />
+                <LoadingPrimaryButton fullWidth />
               ) : (
-                // <button
-                //   className={styles.nextStep}
-                //   disabled={disabledNextButton}
-                //   style={{
-                //     color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                //     background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                //   }}
-                //   onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                // >
-                //   Next Step
-                // </button>
-                <GradientButton
+                <PrimaryButton
                   fullWidth
                   label="Next"
-                  onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                  height="50px"
-                  fontSize={18}
-                  fontFamily="Muli-SemiBold"
-                  borderColor="transparent"
+                  type="next"
                   disabled={disabledNextButton}
+                  onClick={() => handleChangeCurrentStep(currentStep + 1)}
                 />
               )}
+            </div>
+            <div className="w-full mt-[15px]">
+              <SecondaryButton fullWidth label="Back" type="back" onClick={() => router.back()} />
             </div>
           </div>
         </div>

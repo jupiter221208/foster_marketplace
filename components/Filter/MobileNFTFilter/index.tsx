@@ -10,9 +10,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // json
-import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import AvailabilityList from 'assets/json/explore/availability.json'
-import DimensionList from 'assets/json/explore/dimension.json'
 import MarketList from 'assets/json/explore/market.json'
 import MediumList from 'assets/json/explore/medium.json'
 import CategoryList from 'assets/json/popular-category.json'
@@ -24,7 +22,6 @@ import styles from './index.module.scss'
 const MobileNFTFilter = props => {
   const { category, availability, medium, market, onClose, onFilter } = props
 
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedAvailability, setSelectedAvailability] = useState<any>(availability)
   const [selectedMarket, setSelectedMarket] = useState<any>(market)
   const [selectedMedium, setSelectedMedium] = useState<any>(medium)
@@ -169,13 +166,16 @@ const MobileNFTFilter = props => {
             onClick={() => onClose()}
             color="var(--text-gray-200-color)"
             borderWidth={2}
-            borderColor="var(--stats-btn-border-color)"
+            borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
             fullWidth
           />
         </div>
         <div className="w-[94px]">
           <GradientButton
-            label="Done"
+            label="Apply"
+            backgroundColor01="var(--main-icon-color)"
+            backgroundColor02="var(--main-icon-color)"
+            color="var(--background-main-color)"
             onClick={() =>
               onFilter({
                 category: categoryList,

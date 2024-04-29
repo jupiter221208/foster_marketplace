@@ -19,15 +19,11 @@ import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import DimensionMenu from 'components/Menu/DimensionMenu'
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
-import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import Step04SingleNFTSection from 'components/pages/Create/SingleNFT/Step04SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
-
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -49,6 +45,8 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -725,20 +723,6 @@ const SingleNft = () => {
                           </>
                         )}
 
-                        {/* {currentStep === 2 && (
-                          <Step02SingleNFTSection
-                            nftName={nftName}
-                            setNftName={value => setNftName(value)}
-                            description={description}
-                            setDescription={value => setDescription(value)}
-                            categoryList={categoryList}
-                            showCategoryList={showCategoryList}
-                            setShowCategoryList={value => setShowCategoryList(value)}
-                            handleSelectCategory={index => handleSelectCategory(index)}
-                            handleCancelCategory={() => handleCancelCategory()}
-                          />
-                        )} */}
-
                         {currentStep === 2 && (
                           <Step03SingleNFTSection
                             type={type}
@@ -952,64 +936,25 @@ const SingleNft = () => {
                 {/* button group part */}
                 {currentStep === 1 && (
                   <div className="w-full">
-                    <div className="col-span-1">
-                      <Button
-                        label="Back"
-                        onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                        fullWidth
-                        fontFamily="Muli-SemiBold"
-                        height="50px"
-                        backgroundColor="transparent"
-                        color="var(--main-bg-color)"
-                        borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                        borderWidth={1}
-                        fontSize={18}
-                      />
-                    </div>
-                    <div className="w-full mt-[18px]">
-                      <GradientButton
+                    <div className="w-full">
+                      <PrimaryButton
                         fullWidth
                         label="Next"
+                        type="next"
                         onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                        height="50px"
-                        fontSize={18}
-                        fontFamily="Muli-SemiBold"
-                        borderColor="transparent"
                         disabled={disabledNextButton}
+                      />
+                    </div>
+                    <div className="mt-[18px]">
+                      <SecondaryButton
+                        fullWidth
+                        label="Back"
+                        type="back"
+                        onClick={() => handleChangeCurrentStep(currentStep - 1)}
                       />
                     </div>
                   </div>
                 )}
-                {/* {currentStep === 2 && (
-                  <div className="w-full grid grid-cols-2 gap-5">
-                    <div>
-                      <Button
-                        label="Back"
-                        onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                        fullWidth
-                        fontFamily="Muli-SemiBold"
-                        height="45px"
-                        backgroundColor="transparent"
-                        color="var(--main-bg-color)"
-                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                        borderWidth={2}
-                        fontSize={16}
-                      />
-                    </div>
-
-                    <div className="w-full mt-[18px]">
-                      <GradientButton
-                        fullWidth
-                        label="Next Step"
-                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                        height="45px"
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
-                        disabled={disabledNextButton}
-                      />
-                    </div>
-                  </div>
-                )} */}
               </div>
             </div>
           ))}
