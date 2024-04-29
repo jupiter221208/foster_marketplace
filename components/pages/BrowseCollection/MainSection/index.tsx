@@ -18,12 +18,11 @@ import ReadMoreCollectionModal from 'components/Modal/ReadMoreCollectionModal'
 import { namePublicFile, useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
 import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
@@ -33,8 +32,6 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -302,16 +299,18 @@ const MainSection = props => {
                 <div className="flex mt-[40px] gap-[15px]">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
-                      <div className="mt-[4px]">
+                      <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
+                      <div className={`${styles.nftInfoLabel} ml-[6px]`}>
+                        {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
-                      <div className="mt-[4px]">
+                      <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
                       <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
@@ -482,7 +481,7 @@ const MainSection = props => {
                         <div className="text-center">
                           <div className="flex justify-center">
                             <div className="flex gap-2 items-center">
-                              <SolanaLogoMobileIcon />
+                              <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                             </div>
@@ -498,7 +497,7 @@ const MainSection = props => {
                         <div className="text-center">
                           <div className="flex items-center justify-center">
                             <div className="flex gap-2 items-center">
-                              <SolanaLogoMobileIcon />
+                              <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>
                                 {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
