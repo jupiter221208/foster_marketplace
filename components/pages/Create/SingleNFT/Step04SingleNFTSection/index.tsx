@@ -20,6 +20,9 @@ import styles from './index.module.scss'
 // resources
 import LoadingButton from 'components/Button/LoadingButton'
 import Chip from 'components/Chip'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step04SingleNFTSection = props => {
   const {
@@ -232,47 +235,18 @@ const Step04SingleNFTSection = props => {
       </div>
 
       <div className="w-full flex flex-wrap gap-[18px] mt-[30px]">
-        <Button
-          label="Back"
-          fullWidth
-          onClick={() => onBack()}
-          backgroundColor={'transparent'}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-          borderWidth={1}
-          color="var(--main-bg-color)"
-          fontFamily="Muli-SemiBold"
-          height={45}
-          fontSize={16}
-        />
-
-        {royalties === '' ||
-        parseInt(royalties) < 0 ||
-        parseInt(royalties) > 10 ||
-        !enableMintBtn ||
-        creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
-          <Button
-            fullWidth
-            height={45}
-            label="Mint"
-            disabled={disabledNextButton}
-            backgroundColor="var(--second-home-bg)"
-            color="rgba(var(--main-bg-color-rgb), 0.5)"
-            fontFamily="Muli-SemiBold"
-            fontSize={18}
-          />
-        ) : isMinting ? (
-          <LoadingButton fullWidth height={45} />
+        {isMinting ? (
+          <LoadingPrimaryButton fullWidth />
         ) : (
-          <GradientButton
+          <PrimaryButton
             label="Mint"
-            onClick={() => createSingleNFT()}
+            type="next"
             fullWidth
-            height={50}
-            fontSize={18}
-            borderColor="transparent"
-            fontFamily="Muli-SemiBold"
+            onClick={() => createSingleNFT()}
+            disabled={disabledNextButton}
           />
         )}
+        <SecondaryButton label="Back" type="back" fullWidth onClick={() => onBack()} />
       </div>
     </div>
   )

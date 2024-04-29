@@ -21,6 +21,9 @@ import { FadeLoader } from 'react-spinners'
 import Button from 'components/Button'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -229,34 +232,26 @@ const Step03CollectionSection = props => {
             <div className="w-full my-[30px]">
               {/* button group part */}
               <div>
-                <Button
-                  label="Back"
-                  onClick={() => onChangeCurrentStep(currentStep - 1)}
-                  fullWidth
-                  fontFamily="Muli-SemiBold"
-                  height="50px"
-                  backgroundColor="transparent"
-                  color="var(--main-bg-color)"
-                  borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                  borderWidth={1}
-                  fontSize={18}
-                />
-              </div>
-              <div className="mt-[18px]">
                 {isMinting ? (
-                  <LoadingButton fullWidth height={50} />
+                  <LoadingPrimaryButton fullWidth />
                 ) : (
-                  <GradientButton
+                  <PrimaryButton
                     label="Mint"
+                    type="next"
                     fullWidth
-                    height={50}
-                    fontSize={18}
-                    borderColor="transparent"
                     onClick={() => {
                       mintCollection()
                     }}
                   />
                 )}
+              </div>
+              <div className="mt-[15px]">
+                <SecondaryButton
+                  fullWidth
+                  label="Back"
+                  type="back"
+                  onClick={() => onChangeCurrentStep(currentStep - 1)}
+                />
               </div>
             </div>
           </div>

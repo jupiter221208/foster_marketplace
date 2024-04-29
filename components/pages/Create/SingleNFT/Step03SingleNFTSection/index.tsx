@@ -24,6 +24,8 @@ import CrossPlusIcon from 'assets/icons/cross-plus.svg?component'
 import TrashIcon from 'assets/icons/trash-icon.svg?component'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 import EditionList from 'assets/json/single-nft/edition-type.json'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -387,46 +389,8 @@ const Step03SingleNFTSection = props => {
       </div>
 
       <div className="w-full flex flex-wrap gap-[18px] mt-[30px]">
-        <Button
-          label="Back"
-          fullWidth
-          onClick={() => onBack()}
-          backgroundColor={'transparent'}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-          borderWidth={1}
-          color="var(--main-bg-color)"
-          fontFamily="Muli-SemiBold"
-          height={50}
-          fontSize={18}
-        />
-
-        {royalties === '' ||
-        parseInt(royalties) < 0 ||
-        parseInt(royalties) > 10 ||
-        !enableMintBtn ||
-        creatorList.some(({ address }) => !isValidPublicKey(address)) ? (
-          <Button
-            fullWidth
-            height={50}
-            label="Next"
-            disabled={disabledNextButton}
-            backgroundColor="var(--second-home-bg)"
-            color="rgba(var(--main-bg-color-rgb), 0.1)"
-            fontFamily="Muli-SemiBold"
-            fontSize={18}
-          />
-        ) : (
-          <GradientButton
-            label="Next"
-            onClick={() => onNextStep()}
-            fullWidth
-            height={50}
-            disabled={disabledNextButton}
-            fontSize={18}
-            borderColor="transparent"
-            fontFamily="Muli-SemiBold"
-          />
-        )}
+        <PrimaryButton fullWidth label="Next" type="next" onClick={() => onNextStep()} disabled={disabledNextButton} />
+        <SecondaryButton fullWidth label="Back" type="back" onClick={() => onBack()} />
       </div>
     </div>
   )

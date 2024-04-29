@@ -20,6 +20,9 @@ import styles from './index.module.scss'
 // call apis
 import Button from 'components/Button'
 import LoadingButton from 'components/Button/LoadingButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step01ReviewSection = props => {
   const {
@@ -157,34 +160,26 @@ const Step01ReviewSection = props => {
           <div className="w-full my-10">
             {/* button group part */}
             <div>
-              <Button
-                label="Back"
-                onClick={() => onChangeCurrentStep(currentStep - 1)}
-                fullWidth
-                fontFamily="Muli-SemiBold"
-                height="50px"
-                backgroundColor="transparent"
-                color="var(--main-bg-color)"
-                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                borderWidth={1}
-                fontSize={18}
-              />
-            </div>
-            <div className="mt-[18px]">
               {isMinting ? (
-                <LoadingButton fullWidth height={50} />
+                <LoadingPrimaryButton fullWidth />
               ) : (
-                <GradientButton
-                  label="Mint"
+                <PrimaryButton
                   fullWidth
-                  height={50}
-                  fontSize={18}
-                  borderColor="transparent"
+                  type="next"
+                  label="Mint"
                   onClick={() => {
                     mintCollection()
                   }}
                 />
               )}
+            </div>
+            <div className="mt-[15px]">
+              <SecondaryButton
+                label="Back"
+                type="back"
+                onClick={() => onChangeCurrentStep(currentStep - 1)}
+                fullWidth
+              />
             </div>
           </div>
         </div>

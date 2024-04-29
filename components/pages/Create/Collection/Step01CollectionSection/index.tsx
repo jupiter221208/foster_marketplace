@@ -42,6 +42,8 @@ import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useRouter } from 'next/router'
 import Button from 'components/Button'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step01CollectionSection = props => {
   const {
@@ -77,7 +79,6 @@ const Step01CollectionSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
-  const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
   const [enableImageDialog, setEnableImageDialog] = useState(false)
@@ -210,7 +211,6 @@ const Step01CollectionSection = props => {
 
   const importEACollection = async url => {
     setShowEAModal(false)
-    setEAImportUrl(url)
 
     try {
       let collectionInfo = await getEACollectionInfo(url)
@@ -329,7 +329,7 @@ const Step01CollectionSection = props => {
                             if (acceptedFiles.length !== 0) {
                               setEnableImageDialog(true)
                               onChangeBannerImage(acceptedFiles)
-                            } else handleShowAlert('banner', 'uknown')
+                            } else handleShowAlert('banner', 'unknown')
                           }}
                           onDropRejected={rejectedFiles => {
                             handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -359,7 +359,7 @@ const Step01CollectionSection = props => {
                               if (acceptedFiles.length !== 0) {
                                 setEnableImageDialog(true)
                                 onChangeBannerImage(acceptedFiles)
-                              } else handleShowAlert('banner', 'uknown')
+                              } else handleShowAlert('banner', 'unknown')
                             }}
                             onDropRejected={rejectedFiles => {
                               handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -652,8 +652,7 @@ const Step01CollectionSection = props => {
                         if (acceptedFiles.length !== 0) {
                           setEnableImageDialog(true)
                           onChangeBannerImage(acceptedFiles)
-                        }
-                        handleShowAlert('banner', 'uknown')
+                        } else handleShowAlert('banner', 'uknown')
                       }}
                       onDropRejected={rejectedFiles => {
                         handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
@@ -758,7 +757,7 @@ const Step01CollectionSection = props => {
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
                       if (acceptedFiles.length !== 0) {
-                        setEnableImageDialog(true)
+                        setEnableCoverImageDialog(true)
                         onChangeCoverImage(acceptedFiles)
                       } else handleShowAlert('cover', 'unknown')
                     }}
@@ -899,7 +898,38 @@ const Step01CollectionSection = props => {
           <div className="w-full my-[30px]">
             {/* button group part */}
             <div>
-              <Button
+              <PrimaryButton
+                fullWidth
+                label="Next"
+                type="next"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
+              />
+              {/* <GradientButton
+                label="Next"
+                fullWidth
+                height={50}
+                fontSize={18}
+                borderColor="transparent"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
+              /> */}
+            </div>
+            <div className="mt-[18px]">
+              <SecondaryButton
+                label="Back"
+                type="back"
+                onClick={() => {
+                  if (currentStep === 1) router.push('/create/single-nft')
+                  else onChangeCurrentStep(currentStep - 1)
+                }}
+                fullWidth
+              />
+              {/* <Button
                 label="Back"
                 onClick={() => {
                   if (currentStep === 1) router.push('/create/single-nft')
@@ -913,20 +943,7 @@ const Step01CollectionSection = props => {
                 borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
                 borderWidth={1}
                 fontSize={18}
-              />
-            </div>
-            <div className="mt-[18px]">
-              <GradientButton
-                label="Next"
-                fullWidth
-                height={50}
-                fontSize={18}
-                borderColor="transparent"
-                disabled={disabledNextButton}
-                onClick={() => {
-                  onChangeCurrentStep(currentStep + 1)
-                }}
-              />
+              /> */}
             </div>
           </div>
         </div>

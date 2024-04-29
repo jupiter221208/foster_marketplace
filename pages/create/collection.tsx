@@ -24,7 +24,6 @@ import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import {
-  CreateNftOutput,
   JsonMetadata,
   toBigNumber,
   toMetaplexFile,
@@ -92,7 +91,6 @@ const Collection = () => {
   // step 2
   const [collectionFiles, setCollectionFiles] = useState<any[]>([])
   const [royalties, setRoyalties] = useState(0)
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
   const [disabledButton, setDisabledButton] = useState(false)
   const [startUpload, setStartUpload] = useState(false)
@@ -105,8 +103,6 @@ const Collection = () => {
       await refreshToken()
       // TODO: calculate real file size
       // for now, just fund with 0.1 sol which is little over 1GB
-      let signature = await ensureLocalWalletBalance(0.1 * 1e9, 'confirmed')
-
       const categories = categoryList.filter(item => item.checked)
 
       const attributes = categories.map(category => {
