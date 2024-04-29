@@ -46,6 +46,8 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
 import LoadingButton from '../LoadingButton'
+import PrimaryButton from '../PrimaryButton'
+import LoadingPrimaryButton from '../LoadingPrimaryButton'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -472,30 +474,14 @@ const WalletButton = props => {
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                   <div className="w-full mt-1">
-                    {isOfferLocked ? (
-                      <GradientButton
-                        label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                        fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        color="#CBCCD2"
-                        backgroundColor01="#121212"
-                        backgroundColor02="#121212"
-                        gradientDirection="bottom"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
-                        onClick={() => {}}
-                      />
-                    ) : isProcessing ? (
-                      <LoadingButton fullWidth height="53px" />
+                    {isProcessing ? (
+                      <LoadingPrimaryButton fullWidth />
                     ) : (
-                      <GradientButton
+                      <PrimaryButton
                         label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        type={offerStatus}
                         fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        disabled={isOfferLocked}
                         onClick={() => onClickOfferButton()}
                       />
                     )}
@@ -646,30 +632,14 @@ const WalletButton = props => {
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
                   <div className="w-full mt-1">
-                    {isBidLocked ? (
-                      <GradientButton
-                        label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                        fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        color="#CBCCD2"
-                        backgroundColor01="#121212"
-                        backgroundColor02="#121212"
-                        gradientDirection="bottom"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
-                        onClick={() => {}}
-                      />
-                    ) : isProcessing ? (
-                      <LoadingButton fullWidth height="53px" />
+                    {isProcessing ? (
+                      <LoadingPrimaryButton fullWidth />
                     ) : (
-                      <GradientButton
+                      <PrimaryButton
                         label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        type={biddingStatus}
                         fullWidth
-                        height="53px"
-                        fontSize="18px"
-                        borderRadius="15px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        disabled={isBidLocked}
                         onClick={() => onClickBiddingButton()}
                       />
                     )}
