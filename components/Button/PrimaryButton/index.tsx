@@ -7,6 +7,7 @@ import StartAuctionIcon from 'assets/icons/start-auction-icon.svg?component'
 import UpdateRelistIcon from 'assets/icons/update-relist-icon.svg?component'
 import SelectShippingIcon from 'assets/icons/select-shipping-icon.svg?component'
 import NextArrowIcon from 'assets/icons/next-arrow-icon.svg?component'
+import TweetIcon from 'assets/icons/tweet-icon.svg?component'
 import PaymentIcon from 'assets/icons/make-payment-icon.svg?component'
 
 // styles
@@ -52,6 +53,8 @@ const PrimaryButton = props => {
             <PaymentIcon />
           ) : type === 'next' ? (
             <NextArrowIcon />
+          ) : type === 'tweet' ? (
+            <TweetIcon />
           ) : (
             <></>
           )}

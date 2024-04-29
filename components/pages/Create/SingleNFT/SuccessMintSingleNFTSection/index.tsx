@@ -33,6 +33,8 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import ImageWithFoster from 'components/ImageWithFoster'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
@@ -145,24 +147,15 @@ const SuccessMintSingleNFTSection = props => {
                     onShareWindowClose={() => {}}
                     className="w-full"
                   >
-                    <TweetMintButton
-                      width={282}
-                      height={50}
-                      label="Tweet your Mint"
-                      onClick={() => {}}
-                      direction="rtl"
-                    />
+                    <PrimaryButton width={300} label="Tweet your Mint" type="tweet" onClick={() => {}} />
                   </TwitterShareButton>
                 </div>
                 <div className="w-full">
-                  <MintOutlineButton
-                    width={282}
-                    height={50}
+                  <SecondaryButton
+                    width={300}
                     label="List Artwork"
-                    backgroundColor="transparent"
-                    // onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                    type="list-artwork"
                     onClick={() => router.push('/nft/' + nftAddress)}
-                    borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                   />
                 </div>
               </div>
@@ -224,24 +217,18 @@ const SuccessMintSingleNFTSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton fullWidth height={50} label="Tweet your Mint" onClick={() => {}} direction="rtl" />
+                  <PrimaryButton fullWidth label="Tweet your Mint" type="tweet" onClick={() => {}} />
                 </TwitterShareButton>
               </div>
               <div className="w-full">
-                <OutlineButton
+                <SecondaryButton
                   fullWidth
                   label="List Artwork"
-                  height="50px"
-                  fontSize={16}
-                  // onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
+                  type="list-artwork"
                   onClick={() => router.push('/nft/' + nftAddress)}
-                  borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                 />
               </div>
             </div>
-            {/* <div className="mt-[33px]">
-              <LinkTextButton label="View on SolanaFM" link={explorerURL} />
-            </div> */}
           </div>
         </div>
       )}
