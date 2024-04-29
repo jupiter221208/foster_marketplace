@@ -45,6 +45,7 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
+import LoadingButton from '../LoadingButton'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -178,26 +179,39 @@ const WalletButton = props => {
 
   const onClickOfferButton = async () => {
     if (offerPrice === 0) return
-    if (offerStatus === 'deposit') {
-      await depositOfferFunds(mx, offerPrice)
-    } else {
-      await withdrawOfferFunds(mx, offerPrice)
+    try {
+      setIsProcessing(true)
+      if (offerStatus === 'deposit') {
+        await depositOfferFunds(mx, offerPrice)
+      } else {
+        await withdrawOfferFunds(mx, offerPrice)
+      }
+      setOfferPrice(0)
+      setWalletAmount('')
+      await updateSolBalance()
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setOfferPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const onClickBiddingButton = async () => {
     if (biddingPrice === 0) return
-    if (biddingStatus === 'deposit') {
-      await depositBiddingFunds(mx, biddingPrice)
-    } else {
-      await withdrawBiddingFunds(mx, biddingPrice)
+
+    setIsProcessing(true)
+    try {
+      if (biddingStatus === 'deposit') {
+        await depositBiddingFunds(mx, biddingPrice)
+      } else {
+        await withdrawBiddingFunds(mx, biddingPrice)
+      }
+      setBiddingPrice(0)
+      setWalletAmount('')
+      await updateSolBalance()
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setBiddingPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const [showAlert, setShowAlert] = useState(false)
@@ -210,6 +224,8 @@ const WalletButton = props => {
 
   const [profileName, setProfileName] = useState('')
   const [profileImage, setProfileImage] = useState('')
+
+  const [isProcessing, setIsProcessing] = useState(false)
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -470,6 +486,8 @@ const WalletButton = props => {
                         borderColor="rgba(255, 255, 255, 0.1)"
                         onClick={() => {}}
                       />
+                    ) : isProcessing ? (
+                      <LoadingButton fullWidth height="53px" />
                     ) : (
                       <GradientButton
                         label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
@@ -642,6 +660,8 @@ const WalletButton = props => {
                         borderColor="rgba(255, 255, 255, 0.1)"
                         onClick={() => {}}
                       />
+                    ) : isProcessing ? (
+                      <LoadingButton fullWidth height="53px" />
                     ) : (
                       <GradientButton
                         label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}

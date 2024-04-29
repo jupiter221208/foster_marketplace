@@ -20,7 +20,7 @@ const Radio = props => {
       {data.map((item, index) => (
         <div
           key={index}
-          className="flex justify-between gap-4 z-10"
+          className="flex justify-between gap-4 z-10 pb-[4px]"
           style={{ backgroundColor: backgroundColor, borderRadius: borderRadius, padding: padding }}
         >
           {direction === 'ltr' && (

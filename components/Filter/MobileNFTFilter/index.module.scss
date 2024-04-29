@@ -7,7 +7,7 @@
   right: 0px;
   bottom: 0px;
   width: 100%;
-  background-color: var(--activity-bg-color);
+  background-color: var(--bg-new-color);
   border-radius: 0px;
   padding: 17px 0px 96px 0px;
   z-index: 1000;
@@ -40,6 +40,7 @@
   width: 100%;
   height: 96px;
   background-color: var(--background-main-color);
+  border-top:1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
