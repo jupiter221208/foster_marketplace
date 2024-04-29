@@ -16,6 +16,8 @@ import styles from './index.module.scss'
 import { NftData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
 import OutlineButton from 'components/Button/OutlineButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 type MyNFTCardTypes = {
   data: NftData
@@ -85,30 +87,21 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
         </div> */}
         {active === 0 ? (
           <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-            <GradientButton
+            <PrimaryButton
               label="Start Auction"
+              type="start-auction"
               onClick={() => onClickStartAuction(data)}
               fullWidth
-              borderRadius={10}
             />
-            <OutlineButton
-              backgroundColor="transparent"
-              fullWidth
-              label="List Artwork"
-              onClick={() => onClickListNFT(data)}
-              fontFamily="Muli-SemiBold"
-            />
+            <SecondaryButton fullWidth label="List Artwork" type="list-artwork" onClick={() => onClickListNFT(data)} />
           </div>
         ) : (
           <div className="w-full hidden lg:flex justify-between items-center mt-[15px]">
-            <GradientButton
+            <SecondaryButton
               label="List Edition"
+              type="list-artwork"
               onClick={() => onClickListEdition(data)}
-              height="50px"
-              fontSize="18px"
-              borderWidth={1}
               fullWidth
-              borderRadius={10}
             />
           </div>
         )}

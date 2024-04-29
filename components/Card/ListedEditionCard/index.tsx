@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // next components
 // import Image from 'next/image'
@@ -28,6 +28,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 // api
 import { revokeDelegateEdition } from 'utils/editions'
 import { cancelListingEdition } from 'apis/editions'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -99,7 +100,7 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
           </div>
         </div>
         <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-          <GradientButton label="Update/Relist" onClick={() => onUpdateList()} fullWidth borderRadius={10} />
+          <PrimaryButton label="Update or Relist" type="update-relist" onClick={() => onUpdateList()} fullWidth />
           {cancelListLoading ? (
             <LoadingButton fullWidth />
           ) : (

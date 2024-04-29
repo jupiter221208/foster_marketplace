@@ -25,6 +25,8 @@ import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import Link from 'next/link'
 import { ListingsAPIData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
@@ -132,14 +134,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
         </div>
         <div className="mt-[15px] w-full">
           {type === 'fixed' ? (
-            <GradientButton
-              label={'Update'}
-              onClick={() => onActionClick({ ...data, json: assetJson })}
-              fontSize="16px"
-              paddingLeft="37px"
-              paddingRight="37px"
-              borderRadius="10px"
+            <PrimaryButton
               fullWidth
+              label={'Update'}
+              type="update-relist"
+              onClick={() => onActionClick({ ...data, json: assetJson })}
             />
           ) : type === 'edition' ? (
             <GradientButton
@@ -154,13 +153,10 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
             <>
               {highestBid ? (
                 isEnded ? (
-                  <GradientButton
+                  <SecondaryButton
                     label={'Finalize Sale'}
+                    type="finalize-sale"
                     onClick={() => processFinalizeSale()}
-                    fontSize="16px"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    borderRadius="10px"
                     fullWidth
                   />
                 ) : (
