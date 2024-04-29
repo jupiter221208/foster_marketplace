@@ -1792,13 +1792,22 @@ const MainSection = ({
                               <></>
                             ) : (
                               <div className="w-full mt-[0px] lg:mt-[10px]">
-                                <GradientButton
+                                {/* <GradientButton
                                   fullWidth
                                   backgroundColor01="var(--main-icon-color)"
                                   backgroundColor02="var(--main-icon-color)"
                                   color="var(--background-main-color)"
                                   borderColor="transparent"
                                   label="List Edition"
+                                  onClick={() => {
+                                    setListEditionType('list')
+                                    setShowListEditionDetail(true)
+                                  }}
+                                /> */}
+                                <SecondaryButton
+                                  fullWidth
+                                  label="List Edition"
+                                  type="list-artwork"
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
