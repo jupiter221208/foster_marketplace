@@ -48,8 +48,16 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  overflow: hidden;
+  padding: 45px;
   // box-shadow: 0px 0px 10px rgba(#202427, 0.1);
+}
+
+.nftImage {
+  object-fit: contain;
+  max-height: 360px;
+  @media (min-width: 1600px) {
+    max-height: 485px;
+  }
 }
 
 .infoBox {

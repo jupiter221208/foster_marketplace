@@ -85,7 +85,7 @@ const OpenEditionCard = ({ data }) => {
                           : ''
                       }
                       alt=""
-                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain lg:p-[30px] 2xl:p-[45px]`}
+                      className={`${styles.noSelect} ${styles.nftImage}`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -106,7 +106,7 @@ const OpenEditionCard = ({ data }) => {
                       <img
                         src={data.coverImageUrl}
                         alt=""
-                        className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                        className={`${styles.noSelect} ${styles.nftImage}`}
                         onLoad={() => {
                           setLoaded(true)
                         }}
@@ -135,7 +135,7 @@ const OpenEditionCard = ({ data }) => {
                         <img
                           src={data.coverImageUrl}
                           alt=""
-                          className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                          className={`${styles.noSelect} ${styles.nftImage}`}
                           onLoad={() => {
                             setLoaded(true)
                           }}
@@ -149,7 +149,7 @@ const OpenEditionCard = ({ data }) => {
                     src={DefaultNftBG}
                     alt=""
                     layout="fill"
-                    className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                    className={`${styles.noSelect} ${styles.nftImage}`}
                     onClick={() => onClick()}
                   />
                 )}
@@ -181,7 +181,7 @@ const OpenEditionCard = ({ data }) => {
                     <img
                       src={data.coverImageUrl}
                       alt=""
-                      className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                      className={`${styles.noSelect} ${styles.nftImage}`}
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -195,7 +195,7 @@ const OpenEditionCard = ({ data }) => {
                 src={DefaultNftBG}
                 alt=""
                 layout="fill"
-                className={`${styles.noSelect} w-full xl:h-[418px] h-[300px] object-contain`}
+                className={`${styles.noSelect} ${styles.nftImage}`}
                 onClick={() => onClick()}
               />
             )
