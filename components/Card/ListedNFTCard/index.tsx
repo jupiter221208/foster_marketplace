@@ -160,28 +160,16 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     fullWidth
                   />
                 ) : (
-                  <Button
-                    width={'100%'}
-                    fontSize="16px"
-                    paddingLeft="37px"
-                    paddingRight="37px"
-                    label="Cancel Auction"
+                  <SecondaryButton
                     disabled={true}
-                    backgroundColor="#383838"
-                    color="#202427"
+                    label={'Cancel Auction'}
+                    type="cancel"
+                    onClick={() => {}}
                     fullWidth
                   />
                 )
               ) : (
-                <GradientButton
-                  label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data)}
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  borderRadius="10px"
-                  fullWidth
-                />
+                <SecondaryButton label={'Cancel Auction'} type="cancel" onClick={() => cancelAuction(data)} fullWidth />
               )}
             </>
           )}

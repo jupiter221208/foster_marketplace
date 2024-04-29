@@ -29,6 +29,8 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { revokeDelegateEdition } from 'utils/editions'
 import { cancelListingEdition } from 'apis/editions'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -102,16 +104,9 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
         <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
           <PrimaryButton label="Update or Relist" type="update-relist" onClick={() => onUpdateList()} fullWidth />
           {cancelListLoading ? (
-            <LoadingButton fullWidth />
+            <LoadingSecondaryButton fullWidth />
           ) : (
-            <OutlineButton
-              label={'Cancel Listing'}
-              fullWidth
-              backgroundColor="transparent"
-              onClick={() => cancelListEdition()}
-              fontFamily="Muli-SemiBold"
-              fontSize={16}
-            />
+            <SecondaryButton label={'Cancel Listing'} type="cancel" fullWidth onClick={() => cancelListEdition()} />
           )}
         </div>
       </div>

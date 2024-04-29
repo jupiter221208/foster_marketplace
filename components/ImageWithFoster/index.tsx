@@ -120,7 +120,8 @@ const ImageWithFoster = ({
           <Image
             // src={srcUrls[currentSrcIndex]}
             src={srcSpecs[currentSrcSpecIndex]?.url}
-            onLoad={handleLoad}
+            // onLoad={handleLoad}
+            onLoadingComplete={handleLoad}
             loading="lazy"
             layout="fill"
             onError={handleError}
