@@ -17,10 +17,8 @@ import Lottie from 'lottie-react'
 // custom components
 import ReadMoreModal from 'components/Modal/ReadMoreModal'
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
-import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
-import IconButton from 'components/Button/IconButton'
 import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
 import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 
@@ -30,18 +28,12 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import InstagramIcon from 'assets/icons/social-ig.svg?component'
-import TwitterIcon from 'assets/icons/social-twitter.svg?component'
-import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
-import LandIcon from 'assets/icons/land-icon.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
-import { copyClipboardAlert, copyToClipboard, isLoggedIn, validUrl } from 'utils/helpers'
-import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import { copyToClipboard, isLoggedIn } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -1015,7 +1007,7 @@ const MainSection = prop => {
             <div className={`${styles.iconContainer} w-[87px]`} onClick={() => setOpenShareModal(true)}>
               <div className="flex gap-[9px]">
                 <ShareSmallIcon />
-                <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
               </div>
             </div>
           )}
