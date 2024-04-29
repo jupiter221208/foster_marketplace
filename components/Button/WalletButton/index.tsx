@@ -393,7 +393,7 @@ const WalletButton = props => {
                   >
                     {offerStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
                     <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Deposit from Main Wallet
+                      Deposit to Offer Wallet
                     </div>
                   </div>
                   <div

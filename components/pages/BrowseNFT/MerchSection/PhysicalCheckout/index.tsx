@@ -262,7 +262,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
         {/* SOL / USDC */}
         <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
-          <div className={styles.paymentMethod}>Choose Payment Method*</div>
+          <div className={styles.paymentMethod}>
+            Choose Payment Method <span>*</span>
+          </div>
           <div className="w-full flex gap-[30px] mt-[10px]">
             <div
               className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}

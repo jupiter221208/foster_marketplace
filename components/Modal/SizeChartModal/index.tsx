@@ -136,7 +136,7 @@ const StartAuctionModal = props => {
                             <tr className={styles.header}>
                               {SizeTitleList.map((item, index) => {
                                 if (title === item.title)
-                                  return SizeTitleList[0].fields.map((itemfield, index) => {
+                                  return item.fields.map((itemfield, index) => {
                                     return (
                                       <th key={index} className="">
                                         {itemfield}
