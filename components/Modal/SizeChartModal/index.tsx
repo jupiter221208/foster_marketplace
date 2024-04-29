@@ -116,7 +116,7 @@ const StartAuctionModal = props => {
                         height="30"
                         rx="15"
                         transform="translate(1164 333)"
-                        fill="var(--modal-close-btn-bg)"
+                        fill="rgba(var(--main-bg-color-rgb), 0.05)"
                       />
                       <path
                         id="times-7"
@@ -127,7 +127,7 @@ const StartAuctionModal = props => {
                     </g>
                   </svg>
                 </div>
-                <div className="flex flex-col justity-center items-center pt-[30px] pb-[30px]">
+                <div className="w-full flex flex-col justity-center items-center">
                   <div className={styles.tableView}>
                     <div className="min-w-full">
                       <div className="overflow-hidden">
@@ -136,9 +136,9 @@ const StartAuctionModal = props => {
                             <tr className={styles.header}>
                               {SizeTitleList.map((item, index) => {
                                 if (title === item.title)
-                                  return item.fields.map((itemfield, index) => {
+                                  return SizeTitleList[0].fields.map((itemfield, index) => {
                                     return (
-                                      <th key={index} className=" px-6 py-4">
+                                      <th key={index} className="">
                                         {itemfield}
                                       </th>
                                     )
