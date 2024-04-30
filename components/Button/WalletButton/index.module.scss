@@ -140,7 +140,8 @@
   width: auto;
   height: 21px;
   border-radius: 6px;
-  background-color: rgba(var(--text-gray-200-color), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+
   padding-left: 5px;
   padding-right: 5px;
 
@@ -185,6 +186,7 @@
   line-height: 20px;
   letter-spacing: 0;
   color: var(--main-icon-color);
+  cursor: pointer;
 }
 
 .cardWhiteText {
@@ -193,6 +195,7 @@
   line-height: 20px;
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  cursor: pointer;
 }
 
 .greenText {

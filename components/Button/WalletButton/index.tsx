@@ -493,7 +493,7 @@ const WalletButton = props => {
                   <div className="w-full flex justify-between itmes-center">
                     <div className="">
                       <div className={styles.subText}>
-                        {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Wallet Balance Lockup'}
+                        {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Balance Lockup'}
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
@@ -507,7 +507,7 @@ const WalletButton = props => {
                   <div className="w-full flex justify-between itmes-center mt-1">
                     <div className="">
                       <div className={styles.subText}>
-                        {offerStatus === 'deposit' ? 'New Offer Wallet Balance' : 'Available Offer Wallet Balance'}
+                        {offerStatus === 'deposit' ? 'New Offer Wallet Balance' : 'Available to Withdraw'}
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
@@ -689,7 +689,7 @@ const WalletButton = props => {
                   <div className="w-full flex justify-between items-center">
                     <div className="">
                       <div className={styles.subText}>
-                        {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Wallet Balance Lockup'}
+                        {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Balance Lockup'}
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
@@ -702,9 +702,7 @@ const WalletButton = props => {
                   <div className="w-full flex justify-between items-center mt-1">
                     <div className="">
                       <div className={styles.subText}>
-                        {biddingStatus === 'deposit'
-                          ? 'New Bidding Wallet Balance'
-                          : 'Available Bidding Wallet Balance'}
+                        {biddingStatus === 'deposit' ? 'New Bidding Wallet Balance' : 'Available to Withdraw'}
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
