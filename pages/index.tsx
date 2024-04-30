@@ -98,7 +98,7 @@ const Home = () => {
           <OpenEditionSection category={''} editions={editionList} />
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className={styles.limitEditionSection}>
         <div className="g-container">
           <LimitedEditionSection category={''} editions={editionList} />
         </div>

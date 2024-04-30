@@ -169,11 +169,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 8px;
+  padding: 8px 0px;
 }
 
 .depositWithdraw {
-  background: var(--social-bg-color);
+  // background: var(--social-bg-color);
   border-radius: 12px;
 }
 

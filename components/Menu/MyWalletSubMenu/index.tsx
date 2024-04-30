@@ -452,7 +452,7 @@ const MyWalletSubMenu = props => {
                   </div>
                 )}
                 {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
-                  <div className="w-full gap-1 p-2">
+                  <div className="w-full gap-1 py-2">
                     <div className="w-full flex justify-between">
                       <div className={styles.subText}>
                         {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Balance Lockup'}
@@ -646,7 +646,7 @@ const MyWalletSubMenu = props => {
                   </div>
                 )}
                 {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
-                  <div className="w-full p-2">
+                  <div className="w-full py-2">
                     <div className="w-full flex justify-between">
                       <div>
                         <div className={styles.subText}>

@@ -30,6 +30,13 @@
   background: var(--bg-141313-F3F2F0);
 }
 
+.limitEditionSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
 .liveEditions {
   width: 100%;
   text-align: center;
