@@ -44,7 +44,8 @@ const initialState = {
   collectionMintAddress: '',
   collectionMintName: '',
   collectionCoverUrl: '',
-  collectionKind: 'foster'
+  collectionKind: 'foster',
+  merchBy: ''
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
