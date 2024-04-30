@@ -48,6 +48,8 @@ import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 import WalletIcon from 'assets/icons/wallet-icon.svg?component'
 import WalletGrayIcon from 'assets/icons/wallet-white.svg?component'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const MyWalletSubMenu = props => {
   const { label, type = '' } = props
@@ -61,7 +63,6 @@ const MyWalletSubMenu = props => {
 
   const shortMainAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
-  const [showMainWallet, setShowMainWallet] = useState(false)
   const [showOfferWallet, setShowOfferWallet] = useState(false)
   const [showBiddingWallet, setShowBiddingWallet] = useState(false)
   const [offerStatus, setOfferStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
@@ -76,6 +77,8 @@ const MyWalletSubMenu = props => {
   const [isOfferLocked, setIsOfferLocked] = useState(false)
   const [isBidLocked, setIsBidLocked] = useState(false)
   const [walletAmount, setWalletAmount] = useState<any>()
+  const [isProcessing, setIsProcessing] = useState(false)
+
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
@@ -183,25 +186,76 @@ const MyWalletSubMenu = props => {
   const { metaplex: mx } = useMetaplex()
 
   const onClickOfferButton = async () => {
-    if (offerStatus === 'deposit') {
-      await depositOfferFunds(mx, offerPrice)
-    } else {
-      await withdrawOfferFunds(mx, offerPrice)
+    if (offerPrice === 0) return
+    try {
+      setIsProcessing(true)
+      let title = '',
+        message = ''
+      if (offerStatus === 'deposit') {
+        await depositOfferFunds(mx, offerPrice)
+        title = 'Deposit Success'
+        message = `${offerPrice} SOL has been deposited to your offer wallet`
+      } else {
+        await withdrawOfferFunds(mx, offerPrice)
+        title = 'Withdrawal Success'
+        message = `${offerPrice} SOL has been withdrawn to your main wallet`
+      }
+      setWalletAmount('')
+      await updateSolBalance()
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      setOfferPrice(0)
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setOfferPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const onClickBiddingButton = async () => {
-    if (biddingStatus === 'deposit') {
-      await depositBiddingFunds(mx, biddingPrice)
-    } else {
-      await withdrawBiddingFunds(mx, biddingPrice)
+    if (biddingPrice === 0) return
+    setIsProcessing(true)
+
+    try {
+      let title = '',
+        message = ''
+
+      if (biddingStatus === 'deposit') {
+        await depositBiddingFunds(mx, biddingPrice)
+        title = 'Deposit Success'
+        message = `${biddingPrice} SOL has been deposited to your bidding wallet`
+      } else {
+        await withdrawBiddingFunds(mx, biddingPrice)
+        title = 'Withdrawal Success'
+        message = `${biddingPrice} SOL has been withdrawn to your main wallet`
+      }
+      await updateSolBalance()
+
+      setBiddingPrice(0)
+      setWalletAmount('')
+
+      setAlertData([
+        {
+          id: 0,
+          title: title,
+          description: message,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+
+      setIsProcessing(false)
+    } catch {
+      setIsProcessing(false)
     }
-    setBiddingPrice(0)
-    setWalletAmount('')
-    await updateSolBalance()
   }
 
   const [showAlert, setShowAlert] = useState(false)
@@ -418,22 +472,14 @@ const MyWalletSubMenu = props => {
                     </div>
                     {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                     <div className="w-full mt-2">
-                      {isOfferLocked ? (
-                        <GradientButton
-                          label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                          fullWidth
-                          height="42px"
-                          fontSize="14px"
-                          borderRadius="6px"
-                          onClick={() => {}}
-                        />
+                      {isProcessing ? (
+                        <LoadingPrimaryButton fullWidth />
                       ) : (
-                        <GradientButton
+                        <PrimaryButton
                           label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                          type={offerStatus}
                           fullWidth
-                          height="42px"
-                          fontSize="14px"
-                          borderRadius="6px"
+                          disabled={isOfferLocked || offerPrice === 0}
                           onClick={() => onClickOfferButton()}
                         />
                       )}
@@ -588,22 +634,14 @@ const MyWalletSubMenu = props => {
                     {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
                     <div className="w-full mt-2">
-                      {isBidLocked ? (
-                        <GradientButton
-                          label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                          fullWidth
-                          height="42px"
-                          fontSize="14px"
-                          borderRadius="6px"
-                          onClick={() => {}}
-                        />
+                      {isProcessing ? (
+                        <LoadingPrimaryButton fullWidth />
                       ) : (
-                        <GradientButton
+                        <PrimaryButton
                           label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                          type={biddingStatus}
                           fullWidth
-                          height="42px"
-                          fontSize="14px"
-                          borderRadius="6px"
+                          disabled={isBidLocked || biddingPrice === 0}
                           onClick={() => onClickBiddingButton()}
                         />
                       )}
