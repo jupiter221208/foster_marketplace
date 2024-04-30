@@ -7,11 +7,12 @@
 
 .container {
   width: 100%;
-  height: 171px;
-  @media (min-width: 1024px) {
-    height: 187px;
-  }
+  height: auto;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
   position: relative;
+  overflow-y: hidden;
   margin-top: 2px;
   margin-bottom: 0px;
   &:hover {
@@ -22,6 +23,23 @@
   }
 }
 
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 27.64%; /* 359:393 Aspect Ratio */
+  @media (min-width: 640px) {
+    padding-top: 34.43%; /* 359:393 Aspect Ratio */
+  }
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
 .containerHover {
   box-shadow: 0px 0px 20px rgba(var(--main-icon-color-rgb), 0.4);
 }
@@ -29,12 +47,37 @@
 .name {
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  color: #fff;
+  line-height: 22px;
+  font-weight: 100;
   @media (min-width: 640px) {
-    font-family: 'Muli-Bold';
+    font-family: 'Muli-ExtraBold';
     font-size: 20px;
-    color: #eff0f6;
   }
+  color: var(--text-gray-200-color);
+}
+
+.followers {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  @media (min-width: 640px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 16px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.followLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  @media (min-width: 640px) {
+    font-family: 'Muli-Light';
+    font-size: 16px;
+  }
+  color: var(--text-gray-200-color);
 }
 
 .bio {
@@ -70,6 +113,6 @@
 
 .socialIcon {
   svg {
-    fill: #95dbd5;
+    fill: var(--main-icon-color);
   }
 }

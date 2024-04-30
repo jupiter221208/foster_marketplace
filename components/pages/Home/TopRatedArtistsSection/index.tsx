@@ -128,7 +128,7 @@ const TopRatedArtistsSection = () => {
           </div>
         ) : viewport === 'xs' ? (
           <div className="w-full relative" id="trendArtistMobile">
-            <Swiper spaceBetween={20} modules={[Navigation]} className={'trendArtistMobile'} loop>
+            <Swiper spaceBetween={32} modules={[Navigation]} className={'trendArtistMobile'} loop>
               {artistsList.length !== 0 &&
                 artistsList.map((item: any, index) => (
                   <SwiperSlide key={index}>
@@ -145,7 +145,7 @@ const TopRatedArtistsSection = () => {
             </Swiper>
           </div>
         ) : (
-          <div className="w-full grid grid-cols-12 gap-[20px]">
+          <div className="w-full grid grid-cols-12 gap-[24px]">
             {artistsList.map((item, index) => (
               <div key={index} className="flex col-span-12 lg:col-span-6">
                 <TrendingArtistCard

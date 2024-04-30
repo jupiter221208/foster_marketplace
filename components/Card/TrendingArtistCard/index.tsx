@@ -29,7 +29,7 @@ const TrendingArtistCard = props => {
   return (
     <Link href={`${window.origin}/${artist.username}`} passHref>
       <a className="w-full h-full">
-        {viewport === 'xs' ? (
+        {/* {viewport === 'xs' ? (
           <div className={styles.mobileContainer}>
             <div className="absolute inset-0 w-full h-full">
               <ImageWithFoster
@@ -69,79 +69,84 @@ const TrendingArtistCard = props => {
               </div>
             </div>
           </div>
-        ) : (
-          <div className={styles.layout}>
-            <div
-              className={`${styles.container}`}
-              onClick={() => {}}
-              onMouseEnter={() => setHover(true)}
-              onMouseLeave={() => setHover(false)}
-            >
-              <div className="absolute inset-0 w-full h-full">
+        ) : ( */}
+        <div className={styles.layout}>
+          <div
+            className={`${styles.container}`}
+            onClick={() => {}}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            <div className={styles.imageArea}>
+              <div className={styles.imageContent}>
                 <ImageWithFoster
                   src={artist.banner_picture}
                   width={800}
-                  height={190}
+                  height={272}
                   onClick={() => {}}
                   className="w-full h-full object-cover"
                   showPlaceHolder={false}
                 />
-                <div className={styles.overlay} />
               </div>
-              <div className="absolute inset-0 px-[18px] lg:px-[44px] py-[20px] lg:py-[31px] flex gap-[20px]">
-                <div className="min-w-[123px] min-h-[123px] w-[123px] h-[123px] overflow-hidden">
-                  <ImageWithFoster
-                    src={
-                      artist.profile_picture !== null &&
-                      artist.profile_picture !== undefined &&
-                      artist.profile_picture !== ''
-                        ? artist.profile_picture
-                        : Artist.src
-                    }
-                    width={123}
-                    height={123}
-                    onClick={() => {}}
-                    className="object-cover rounded-full"
-                    showPlaceHolder={false}
-                  />
-                </div>
-                <div className="w-full flex items-center">
-                  <div>
-                    <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
-                    <div className="flex gap-[10px] mt-[13px] items-center">
-                      {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
-                        <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.twitter_url)}>
-                          <TwitterWhiteIcon />
-                        </div>
-                      )}
-                      {artist.ig_url !== null && artist.ig_url.length > 0 && (
-                        <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.ig_url)}>
-                          <IGWhiteIcon />
-                        </div>
-                      )}
-                      {artist.site_url !== null && artist.site_url.length > 0 && (
-                        <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.site_url)}>
-                          <WebsiteIcon />
-                        </div>
-                      )}
-                      {artist.three_land_url !== null && artist.three_land_url.length > 0 && (
-                        <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.three_land_url)}>
-                          <LandIcon />
-                        </div>
-                      )}
-                      {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && (
-                        <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.solarplex_url)}>
-                          <SolrPlexIcon />
-                        </div>
-                      )}
-                    </div>
-                    <div className={styles.bio}>{artist.bio}</div>
+            </div>
+            <div className="w-full h-[68px] sm:h-[104px] flex gap-[8px] sm:gap-[17px]">
+              <div className="min-w-[95px] min-h-[95px] w-[95px] h-[95px] sm:min-w-[120px] lg:min-w-[120px] 2xl:min-w-[150px] sm:min-h-[120px] lg:min-h-[120px] 2xl:min-h-[150px] sm:h-[120px] lg:h-[120px] 2xl:h-[150px] mt-[-47px] sm:mt-[-60px] lg:mt-[-60px] 2xl:mt-[-75px] ml-[13px] sm:ml-[40px] lg:ml-[40px] 2xl:ml-[55px] overflow-hidden">
+                <ImageWithFoster
+                  src={
+                    artist.profile_picture !== null &&
+                    artist.profile_picture !== undefined &&
+                    artist.profile_picture !== ''
+                      ? artist.profile_picture
+                      : Artist.src
+                  }
+                  width={150}
+                  height={150}
+                  onClick={() => {}}
+                  className="object-cover rounded-full"
+                  showPlaceHolder={false}
+                />
+              </div>
+              <div className="w-full flex justify-between">
+                <div className="mt-[10px] sm:mt-[16px]">
+                  <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
+                  <div className="flex gap-[6px] mt-[6px]">
+                    <div className={styles.followers}>{artist.followers}</div>
+                    <div className={styles.followLabel}>Followers</div>
                   </div>
+                </div>
+
+                <div className="sm:flex hidden gap-[10px] mt-[16px] mr-[18px]">
+                  {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
+                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.twitter_url)}>
+                      <TwitterWhiteIcon />
+                    </div>
+                  )}
+                  {artist.ig_url !== null && artist.ig_url.length > 0 && (
+                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.ig_url)}>
+                      <IGWhiteIcon />
+                    </div>
+                  )}
+                  {artist.site_url !== null && artist.site_url.length > 0 && (
+                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.site_url)}>
+                      <WebsiteIcon />
+                    </div>
+                  )}
+                  {artist.three_land_url !== null && artist.three_land_url.length > 0 && (
+                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.three_land_url)}>
+                      <LandIcon />
+                    </div>
+                  )}
+                  {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && (
+                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.solarplex_url)}>
+                      <SolrPlexIcon />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-        )}
+        </div>
+        {/* )} */}
       </a>
     </Link>
   )
