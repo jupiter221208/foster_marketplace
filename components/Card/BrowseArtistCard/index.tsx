@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 const BrowseArtistCard = props => {
-  const { image, collectionName, artistName, description, artistAddress, hasloading } = props
+  const { image, collectionName, artistName, artistAddress, hasloading } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
@@ -70,7 +70,6 @@ const BrowseArtistCard = props => {
             ) : (
               <div className="w-full h-[22px]"></div>
             )}
-            {description?.length > 0 && <div className={styles.description}>{description}</div>}
           </>
         )}
       </div>

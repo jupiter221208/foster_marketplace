@@ -293,6 +293,8 @@ const MainSection = props => {
               </div>
             </div>
 
+            {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
+
             {hasloading ? (
               <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
@@ -445,6 +447,8 @@ const MainSection = props => {
                   </div>
                 </div>
               </div>
+
+              {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>
