@@ -248,6 +248,7 @@ const MainSection = props => {
                 image={data?.cover_image ?? avatarImage.src}
                 collectionName={data?.collection_name}
                 artistName={data?.artist_username}
+                description={data?.description}
                 artistAddress={data?.artist_username}
                 hasloading={hasloading}
               />
@@ -292,11 +293,13 @@ const MainSection = props => {
               </div>
             </div>
 
+            {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
+
             {hasloading ? (
               <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
-                <div className="flex mt-[40px] gap-[15px]">
+                <div className="flex mt-[30px] gap-[15px]">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">
@@ -401,6 +404,7 @@ const MainSection = props => {
                     artistName={data?.artist_username}
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
+                    description={data?.description}
                   />
                   <div className="flex gap-[10px]">
                     {publicKey?.toBase58() === data?.minter_id ? (
@@ -443,6 +447,8 @@ const MainSection = props => {
                   </div>
                 </div>
               </div>
+
+              {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>

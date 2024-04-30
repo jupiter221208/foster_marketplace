@@ -115,7 +115,7 @@ const Category = () => {
             <div className="g-container lg:pt-[70px]">
               <TrendingCollectionSection category={cateQuery} loop={false} />
               <MostPopularSection category={cateQuery} />
-              <MarketplaceReleaseSection category={cateQuery} />
+              <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
               <LiveAuctionSection category={cateQuery} fromPage={'category'} />
               <FreshMintSection category={cateQuery} />
               <LimitedEditionSection />

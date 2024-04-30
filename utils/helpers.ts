@@ -595,7 +595,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
-    doc.style.setProperty('--scroll-arrow-color', '#202427')
+    doc.style.setProperty('--scroll-arrow-color', '#707070')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#FFFFFF')
     doc.style.setProperty('--nft-type-box-hover', 'rgba(32, 36, 39, 0.25)')

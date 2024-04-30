@@ -70,6 +70,7 @@ const PhysicalPrintDetail = props => {
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
+  const merchBy: string = useSelector(state => (state as any).merchBy)
   const shippingDetail = useSelector<any>(state => state.shippingDetail)
   const printImageUrl = useSelector<any>(state => state.printImageUrl)
   const isAddToCart = useSelector(state => (state as any).isAddToCart)
@@ -295,7 +296,9 @@ const PhysicalPrintDetail = props => {
           <div className={styles.nftName}>{nftName}</div>
           <div className="flex gap-[6px] mt-[8px] lg:mt-[10px] items-center">
             <div className={styles.merchBy}>Merch by</div>
-            <div className={styles.username}>{profileInfo?.username}</div>
+            <div className={styles.username} onClick={() => router.push(`/${merchBy}`)}>
+              {merchBy}
+            </div>
           </div>
         </div>
 

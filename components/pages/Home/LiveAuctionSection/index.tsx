@@ -115,12 +115,14 @@ const LiveAuctionSection = props => {
           setIsLoaded(true)
         }
       } else {
+        setIsLoaded(true)
         setLiveAuctionList([])
       }
     }),
       error => {
         if (setLiveAuctionLoaded) setLiveAuctionLoaded()
         setIsLoading(false)
+        setIsLoaded(true)
         console.log(error)
       }
   }
@@ -264,6 +266,8 @@ const LiveAuctionSection = props => {
         </div>
       )}
     </section>
+  ) : isLoaded === false ? (
+    <div className="w-full h-[300px] lg:h-[300px]" />
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />
   ) : (

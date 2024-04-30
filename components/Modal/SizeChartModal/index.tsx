@@ -91,14 +91,11 @@ const SizeChartModal = props => {
                                   switch (title) {
                                     case 'Short Sleeve':
                                       return (
-                                        <tr
-                                          key={index}
-                                          className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
-                                        >
-                                          <th className=" px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className=" px-6 py-4">{sizeItem.USSize}</th>
-                                          <th className=" px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className=" px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.USSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.EUSize}</th>
+                                          <th className={`${styles.text} px-6 py-4 min-w-[100px`}>{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -108,10 +105,10 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.Sleeve}</th>
-                                          <th className="px-6 py-4">{sizeItem.Chest}</th>
-                                          <th className="px-6 py-4">{sizeItem.Shoulder}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Sleeve}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Chest}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Shoulder}</th>
                                         </tr>
                                       )
 
@@ -121,8 +118,8 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.SleeveLength}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.SleeveLength}</th>
                                           <th>{sizeItem.Chest}</th>
                                         </tr>
                                       )
@@ -133,8 +130,8 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.Chest}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -144,10 +141,10 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.USSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.USSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.EUSize}</th>
+                                          <th className={`${styles.text} px-6 py-4 min-w-[100px`}>{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -157,9 +154,9 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.USSize}</th>
-                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.USSize}</th>
+                                          <th className={`${styles.text} px-6 py-4 min-w-[100px`}>{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -169,10 +166,10 @@ const SizeChartModal = props => {
                                           key={index}
                                           className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''} ${styles.text}`}
                                         >
-                                          <th className="px-6 py-4">{sizeItem.BrandSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.USSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.BrandSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.USSize}</th>
+                                          <th className={`${styles.text} px-6 py-4`}>{sizeItem.EUSize}</th>
+                                          <th className={`${styles.text} px-6 py-4 min-w-[100px`}>{sizeItem.Chest}</th>
                                         </tr>
                                       )
                                   }

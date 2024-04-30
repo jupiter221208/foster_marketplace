@@ -153,6 +153,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   name: response.creator_username,
                   profile_image: response.creator_profile_image,
                 })
+                dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
           },
@@ -169,6 +170,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   name: response.creator_username,
                   profile_image: response.creator_profile_image,
                 })
+                dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
           },

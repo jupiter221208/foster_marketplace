@@ -60,12 +60,18 @@
 .arrowBG {
   width: 56px;
   height: 56px;
-  border: 1px solid rgba(#eff0f6, 0.25);
+  border: 1px solid rgba(var(--main-bg-color-rgb), .25);
   background: var(--second-home-bg);
   border-radius: 29px;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    border: 1px solid var(--main-icon-color);
+    svg {
+      fill: var(--main-icon-color);
+    }
+  }
 }
 
 .skeletonLoader:empty {

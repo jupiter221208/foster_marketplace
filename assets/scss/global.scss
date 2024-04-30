@@ -569,6 +569,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -597,6 +599,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -756,6 +760,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -781,6 +787,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -811,6 +819,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -836,6 +846,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -866,6 +878,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -891,6 +905,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -924,6 +940,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -949,6 +967,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -1536,6 +1556,10 @@ h6 {
   [data-fill='a'] {
     fill: var(--main-bg-color);
   }
+}
+
+[data-name='scroll-arrow'] {
+  fill: var(--scroll-arrow-color)
 }
 
 [data-name='stepper'] {
