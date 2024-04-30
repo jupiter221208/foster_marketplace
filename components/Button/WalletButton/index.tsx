@@ -387,7 +387,7 @@ const WalletButton = props => {
                   <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center mt-[8px]">
+              <div className="w-full flex justify-between items-center mt-[12px]">
                 <div
                   className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
                   onClick={() => {
@@ -403,7 +403,42 @@ const WalletButton = props => {
                   </div>
                   <CopyClipboardChip identifier="offer-wallet" height={24} fontSize={14} />
                 </div>
-                <div
+                <div className="flex gap-[9px] items-center">
+                  <div
+                    className={offerStatus === 'deposit' ? styles.cardGrayText : styles.cardWhiteText}
+                    onClick={() => {
+                      if (offerStatus === 'deposit') {
+                        setShowOfferWallet(false)
+                        setOfferStatus('')
+                      } else {
+                        setShowOfferWallet(true)
+                        setOfferStatus('deposit')
+                      }
+                      setShowBiddingWallet(false)
+                      setBiddingStatus('')
+                    }}
+                  >
+                    Deposit
+                  </div>
+                  <div className={styles.dividerVertical} />
+                  <div
+                    className={offerStatus === 'withdraw' ? styles.cardGrayText : styles.cardWhiteText}
+                    onClick={() => {
+                      if (offerStatus === 'withdraw') {
+                        setShowOfferWallet(false)
+                        setOfferStatus('')
+                      } else {
+                        setShowOfferWallet(true)
+                        setOfferStatus('withdraw')
+                      }
+                      setShowBiddingWallet(false)
+                      setBiddingStatus('')
+                    }}
+                  >
+                    Withdraw
+                  </div>
+                </div>
+                {/* <div
                   className="w-full flex justify-end cursor-pointer py-2"
                   onClick={() => {
                     setShowOfferWallet(!showOfferWallet)
@@ -411,13 +446,16 @@ const WalletButton = props => {
                   }}
                 >
                   <EllipseGroupWhiteIcon alt="" />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={styles.depositWithdraw}>
               {showOfferWallet && (
                 <div className={styles.walletCard}>
-                  <div
+                  <div className={styles.cardTypeText}>
+                    {offerStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
+                  </div>
+                  {/* <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
                       if (offerStatus === 'deposit') setOfferStatus('')
@@ -447,7 +485,7 @@ const WalletButton = props => {
                     <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                       Withdraw to Main Wallet
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
@@ -510,7 +548,7 @@ const WalletButton = props => {
                     />
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
-                  <div className="w-full mt-1">
+                  <div className="w-full mt-[15px]">
                     {isProcessing ? (
                       <LoadingPrimaryButton fullWidth />
                     ) : (
@@ -561,7 +599,7 @@ const WalletButton = props => {
                   </div>
                   <CopyClipboardChip identifier="bidding-wallet" height={24} fontSize={14} />
                 </div>
-                <div
+                {/* <div
                   className="w-full flex justify-end py-2 cursor-pointer"
                   onClick={() => {
                     setShowBiddingWallet(!showBiddingWallet)
@@ -569,13 +607,52 @@ const WalletButton = props => {
                   }}
                 >
                   <EllipseGroupWhiteIcon alt="" />
+                </div> */}
+                <div className="flex gap-[9px] items-center">
+                  <div
+                    className={biddingStatus === 'deposit' ? styles.cardGrayText : styles.cardWhiteText}
+                    onClick={() => {
+                      if (biddingStatus === 'deposit') {
+                        setShowBiddingWallet(false)
+                        setBiddingStatus('')
+                      } else {
+                        setShowBiddingWallet(true)
+                        setBiddingStatus('deposit')
+                      }
+                      setShowOfferWallet(false)
+                      setOfferStatus('')
+                    }}
+                  >
+                    Deposit
+                  </div>
+                  <div className={styles.dividerVertical} />
+                  <div
+                    className={biddingStatus === 'withdraw' ? styles.cardGrayText : styles.cardWhiteText}
+                    onClick={() => {
+                      if (biddingStatus === 'withdraw') {
+                        setShowBiddingWallet(false)
+                        setBiddingStatus('')
+                      } else {
+                        setShowBiddingWallet(true)
+                        setBiddingStatus('withdraw')
+                      }
+
+                      setShowOfferWallet(false)
+                      setOfferStatus('')
+                    }}
+                  >
+                    Withdraw
+                  </div>
                 </div>
               </div>
             </div>
             <div className={styles.depositWithdraw}>
               {showBiddingWallet && (
                 <div className={styles.walletCard}>
-                  <div
+                  <div className={styles.cardTypeText}>
+                    {biddingStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
+                  </div>
+                  {/* <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
                       if (biddingStatus === 'deposit') setBiddingStatus('')
@@ -604,7 +681,7 @@ const WalletButton = props => {
                     <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                       Withdraw to Main Wallet
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
@@ -668,7 +745,7 @@ const WalletButton = props => {
                   </div>
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
-                  <div className="w-full mt-1">
+                  <div className="w-full mt-[15px]">
                     {isProcessing ? (
                       <LoadingPrimaryButton fullWidth />
                     ) : (

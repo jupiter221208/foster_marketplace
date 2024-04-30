@@ -299,7 +299,7 @@ const MyWalletSubMenu = props => {
                     <div className={styles.priceText}>{mainBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between mt-[12px]">
                   <div
                     className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
                     onClick={() => {
@@ -347,7 +347,7 @@ const MyWalletSubMenu = props => {
                     <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between mt-[12px]">
                   <div
                     className="relative flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
                     onClick={() => {
@@ -356,7 +356,6 @@ const MyWalletSubMenu = props => {
                     }}
                   >
                     <div className="w-[16px] h-[18px]">
-                      {/* <Image src={CopyAltLightGreenIcon} alt="" /> */}
                       <CopyAltLightGreenIcon />
                     </div>
                     <div className={styles.grayCard}>
@@ -364,7 +363,42 @@ const MyWalletSubMenu = props => {
                     </div>
                     <CopyClipboardChip identifier="offer-wallet" />
                   </div>
-                  <div
+                  <div className="flex gap-[9px] items-center">
+                    <div
+                      className={offerStatus === 'deposit' ? styles.cardGrayText : styles.cardWhiteText}
+                      onClick={() => {
+                        if (offerStatus === 'deposit') {
+                          setShowOfferWallet(false)
+                          setOfferStatus('')
+                        } else {
+                          setShowOfferWallet(true)
+                          setOfferStatus('deposit')
+                        }
+                        setShowBiddingWallet(false)
+                        setBiddingStatus('')
+                      }}
+                    >
+                      Deposit
+                    </div>
+                    <div className={styles.divider} />
+                    <div
+                      className={offerStatus === 'withdraw' ? styles.cardGrayText : styles.cardWhiteText}
+                      onClick={() => {
+                        if (offerStatus === 'withdraw') {
+                          setShowOfferWallet(false)
+                          setOfferStatus('')
+                        } else {
+                          setShowOfferWallet(true)
+                          setOfferStatus('withdraw')
+                        }
+                        setShowBiddingWallet(false)
+                        setBiddingStatus('')
+                      }}
+                    >
+                      Withdraw
+                    </div>
+                  </div>
+                  {/* <div
                     className="pt-3 cursor-pointer"
                     onClick={() => {
                       setShowOfferWallet(!showOfferWallet)
@@ -372,13 +406,16 @@ const MyWalletSubMenu = props => {
                     }}
                   >
                     <EllipseGroupWhiteIcon alt="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className={styles.depositWithdraw}>
                 {showOfferWallet && (
                   <div className={styles.walletCard}>
-                    <div
+                    <div className={styles.cardTypeText}>
+                      {offerStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
+                    </div>
+                    {/* <div
                       className="w-full flex justify-start items-center gap-2 cursor-pointer"
                       onClick={() => {
                         if (offerStatus === 'deposit') setOfferStatus('')
@@ -411,17 +448,16 @@ const MyWalletSubMenu = props => {
                       <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                         Withdraw to Main Wallet
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 )}
                 {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
                   <div className="w-full gap-1 p-2">
                     <div className="w-full flex justify-between">
-                      <div>
-                        <div className={styles.subText}>
-                          {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Wallet Balance Lockup'}
-                        </div>
+                      <div className={styles.subText}>
+                        {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Balance Lockup'}
                       </div>
+
                       <div className="flex items-center gap-1">
                         <SolanaLogoGreenIcon width={15} height={13} />
                         <div className={styles.cardWhiteText}>
@@ -429,10 +465,10 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full flex justify-between">
+                    <div className="w-full flex justify-between mt-[15px]">
                       <div>
                         <div className={styles.subText}>
-                          {offerStatus === 'deposit' ? 'New Offer Wallet Balance' : 'Available Offer Wallet Balance'}
+                          {offerStatus === 'deposit' ? 'New Offer Wallet Balance' : 'Available to Withdraw'}
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
@@ -447,7 +483,7 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                     </div>
-                    <div className="relative w-full mt-1">
+                    <div className="relative w-full mt-[15px]">
                       <PriceInput
                         value={walletAmount}
                         onChange={value => onChangeOfferPrice(value)}
@@ -471,7 +507,7 @@ const MyWalletSubMenu = props => {
                       />
                     </div>
                     {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
-                    <div className="w-full mt-2">
+                    <div className="w-full mt-[10px]">
                       {isProcessing ? (
                         <LoadingPrimaryButton fullWidth />
                       ) : (
@@ -505,7 +541,7 @@ const MyWalletSubMenu = props => {
                     <div className={styles.priceText}>{biddingBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between mt-[12px]">
                   <div
                     className="relative flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
                     onClick={() => {
@@ -513,14 +549,13 @@ const MyWalletSubMenu = props => {
                       copyClipboardAlert('bidding-wallet')
                     }}
                   >
-                    {/* <Image src={CopyAltLightGreenIcon} alt="" /> */}
                     <CopyAltLightGreenIcon />
                     <div className={styles.grayCard}>
                       <div className={styles.greenText}>{shortBiddingAddress}</div>
                     </div>
                     <CopyClipboardChip identifier="bidding-wallet" />
                   </div>
-                  <div
+                  {/* <div
                     className="pt-3 cursor-pointer"
                     onClick={() => {
                       setShowBiddingWallet(!showBiddingWallet)
@@ -528,13 +563,52 @@ const MyWalletSubMenu = props => {
                     }}
                   >
                     <EllipseGroupWhiteIcon alt="" />
+                  </div> */}
+                  <div className="flex gap-[9px] items-center">
+                    <div
+                      className={biddingStatus === 'deposit' ? styles.cardGrayText : styles.cardWhiteText}
+                      onClick={() => {
+                        if (biddingStatus === 'deposit') {
+                          setShowBiddingWallet(false)
+                          setBiddingStatus('')
+                        } else {
+                          setShowBiddingWallet(true)
+                          setBiddingStatus('deposit')
+                        }
+                        setShowOfferWallet(false)
+                        setOfferStatus('')
+                      }}
+                    >
+                      Deposit
+                    </div>
+                    <div className={styles.divider} />
+                    <div
+                      className={biddingStatus === 'withdraw' ? styles.cardGrayText : styles.cardWhiteText}
+                      onClick={() => {
+                        if (biddingStatus === 'withdraw') {
+                          setShowBiddingWallet(false)
+                          setBiddingStatus('')
+                        } else {
+                          setShowBiddingWallet(true)
+                          setBiddingStatus('withdraw')
+                        }
+
+                        setShowOfferWallet(false)
+                        setOfferStatus('')
+                      }}
+                    >
+                      Withdraw
+                    </div>
                   </div>
                 </div>
               </div>
               <div className={styles.depositWithdraw}>
                 {showBiddingWallet && (
                   <div className={styles.walletCard}>
-                    <div
+                    <div className={styles.cardTypeText}>
+                      {biddingStatus === 'withdraw' ? 'Withdraw to Main Wallet' : 'Deposit from Main Wallet'}
+                    </div>
+                    {/* <div
                       className="w-full flex justify-start items-center gap-2 cursor-pointer"
                       onClick={() => {
                         if (biddingStatus === 'deposit') setBiddingStatus('')
@@ -549,8 +623,8 @@ const MyWalletSubMenu = props => {
                       <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                         Deposit from Main Wallet
                       </div>
-                    </div>
-                    <div
+                    </div> */}
+                    {/* <div
                       className="w-full flex justify-start items-center gap-2 cursor-pointer"
                       onClick={() => {
                         if (biddingStatus === 'withdraw') setBiddingStatus('')
@@ -568,7 +642,7 @@ const MyWalletSubMenu = props => {
                       <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                         Withdraw to Main Wallet
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 )}
                 {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
@@ -576,7 +650,7 @@ const MyWalletSubMenu = props => {
                     <div className="w-full flex justify-between">
                       <div>
                         <div className={styles.subText}>
-                          {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Wallet Balance Lockup'}
+                          {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Balance Lockup'}
                         </div>
                       </div>
                       <div className="flex gap-1 mt-1 items-center">
@@ -586,12 +660,10 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-full flex justify-between">
+                    <div className="w-full flex justify-between mt-[15px]">
                       <div className="">
                         <div className={styles.subText}>
-                          {biddingStatus === 'deposit'
-                            ? 'New Bidding Wallet Balance'
-                            : 'Available Bidding Wallet Balance'}
+                          {biddingStatus === 'deposit' ? 'New Bidding Wallet Balance' : 'Available to Withdraw'}
                         </div>
                       </div>
                       <div className="flex gap-1 items-center">
@@ -633,7 +705,7 @@ const MyWalletSubMenu = props => {
                     </div>
                     {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
-                    <div className="w-full mt-2">
+                    <div className="w-full mt-[10px]">
                       {isProcessing ? (
                         <LoadingPrimaryButton fullWidth />
                       ) : (
