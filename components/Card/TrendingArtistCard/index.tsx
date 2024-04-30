@@ -84,7 +84,7 @@ const TrendingArtistCard = props => {
                   {artist.banner_picture ? (
                     <ImageWithFoster
                       src={artist.banner_picture}
-                      width={400}
+                      width={800}
                       onClick={() => {}}
                       className="w-full h-full object-cover"
                     />
@@ -106,7 +106,7 @@ const TrendingArtistCard = props => {
                 <img src={DefaultBanner.src} alt="" />
               )}
             </div>
-            <div className="w-full hidden sm:block h-[104px] flex sm:gap-[17px]">
+            <div className="w-full hidden sm:flex h-[104px] sm:gap-[17px]">
               <div className={styles.artistProfile}>
                 <ImageWithFoster
                   src={
