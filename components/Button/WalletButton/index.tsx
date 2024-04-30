@@ -1,7 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -16,7 +15,6 @@ import { PublicKey } from '@solana/web3.js'
 import Alert from 'components/Alert'
 import Avatar from 'components/Avatar'
 import PriceInput from 'components/Input/PriceInput'
-import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg?component'
@@ -25,11 +23,6 @@ import avatar from 'assets/images/dashboard-avatar.png'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg?component'
-import DepositIcon from 'assets/icons/deposit-icon.svg?component'
-import DepositDisabledIcon from 'assets/icons/deposit-icon-disabled.svg?component'
-import WithdrawIcon from 'assets/icons/withdraw-icon.svg?component'
-import WithdrawDisabledIcon from 'assets/icons/withdraw-icon-disabled.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -540,7 +533,7 @@ const WalletButton = props => {
                       placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="50px"
                       fontSize="16px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
+                      borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                       borderRadius="6px"
                       paddingLeft="10px"
                       paddingRight="10px"
@@ -734,7 +727,7 @@ const WalletButton = props => {
                       placeholder={biddingStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="50px"
                       fontSize="16px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
+                      borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                       borderRadius="6px"
                       paddingLeft="10px"
                       paddingRight="10px"

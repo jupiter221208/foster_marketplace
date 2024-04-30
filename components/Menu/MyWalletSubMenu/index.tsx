@@ -499,7 +499,7 @@ const MyWalletSubMenu = props => {
                         placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                         height="42px"
                         fontSize="12px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                         borderRadius="8px"
                         paddingLeft="10px"
                         paddingRight="10px"
@@ -696,7 +696,7 @@ const MyWalletSubMenu = props => {
                         placeholder={biddingStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                         height="42px"
                         fontSize="12px"
-                        borderColor="rgba(255, 255, 255, 0.1)"
+                        borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                         borderRadius="8px"
                         paddingLeft="10px"
                         paddingRight="10px"
