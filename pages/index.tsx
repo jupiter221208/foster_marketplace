@@ -93,9 +93,9 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      <div className={styles.newReleaseSection}>
+      <div className={styles.editionSection}>
         <div className="g-container">
-          <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
+          <OpenEditionSection category={''} editions={editionList} />
         </div>
       </div>
       <div className="w-full flex justify-center">
@@ -103,11 +103,12 @@ const Home = () => {
           <LimitedEditionSection category={''} editions={editionList} />
         </div>
       </div>
-      <div className={styles.editionSection}>
+      <div className={styles.newReleaseSection}>
         <div className="g-container">
-          <OpenEditionSection category={''} editions={editionList} />
+          <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
         </div>
       </div>
+
       {visibleBoundary && (
         <div className={styles.pushingBoundary}>
           <div className="g-container w-full flex justify-center items-center">
