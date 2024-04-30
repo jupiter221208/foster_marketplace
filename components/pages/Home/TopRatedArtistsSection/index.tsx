@@ -126,7 +126,7 @@ const TopRatedArtistsSection = () => {
               <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
             </div>
           </div>
-        ) : viewport === 'xs' ? (
+        ) : viewport === 'xs' || viewport === 'sm' ? (
           <div className="w-full relative" id="trendArtistMobile">
             <Swiper spaceBetween={32} modules={[Navigation]} className={'trendArtistMobile'} loop>
               {artistsList.length !== 0 &&

@@ -78,7 +78,7 @@ const TrendingArtistCard = props => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <div className="sm:block hidden">
+            <div className="lg:block hidden">
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   {artist.banner_picture ? (
@@ -94,7 +94,7 @@ const TrendingArtistCard = props => {
                 </div>
               </div>
             </div>
-            <div className="block sm:hidden">
+            <div className="block lg:hidden">
               {artist.banner_picture ? (
                 <ImageWithFoster
                   src={artist.banner_picture}
