@@ -1000,9 +1000,9 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-        <div className="w-full flex justify-between mt-[15px]">
+        <div className="w-full flex gap-[8px] mt-[15px]">
           {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
+            <div className={`${styles.skeletonLoader} w-[87px] h-[40px] rounded-md`}></div>
           ) : (
             <div className={`${styles.iconContainer} w-[87px]`} onClick={() => setOpenShareModal(true)}>
               <div className="flex gap-[9px]">
