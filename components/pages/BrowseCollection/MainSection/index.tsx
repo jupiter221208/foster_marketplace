@@ -248,6 +248,7 @@ const MainSection = props => {
                 image={data?.cover_image ?? avatarImage.src}
                 collectionName={data?.collection_name}
                 artistName={data?.artist_username}
+                description={data?.description}
                 artistAddress={data?.artist_username}
                 hasloading={hasloading}
               />
@@ -296,7 +297,7 @@ const MainSection = props => {
               <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
-                <div className="flex mt-[40px] gap-[15px]">
+                <div className="flex mt-[30px] gap-[15px]">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">

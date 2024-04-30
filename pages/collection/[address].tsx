@@ -213,8 +213,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                   collectionName={publicCollectionData?.collection_name}
                   coverUrl={publicCollectionData?.cover_image}
                   artistName={publicCollectionData?.artist_username}
-                  description={publicCollectionData?.description}
-                  categories={publicCollectionData?.categories}
+                  // description={publicCollectionData?.description}
+                  // categories={publicCollectionData?.categories}
                   handleCollectionImport={handleCollectionImport}
                 />
               </div>
