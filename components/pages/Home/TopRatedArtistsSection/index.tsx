@@ -121,7 +121,7 @@ const TopRatedArtistsSection = () => {
       </div>
       <div className="w-full mt-[25px] lg:mt-[30px] z-10">
         {isLoading ? (
-          <div className="w-full h-[305px] flex justify-center">
+          <div className="w-full h-[268px] sm:h-[305px] flex justify-center">
             <div className="w-[500px] h-[40px]">
               <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
             </div>

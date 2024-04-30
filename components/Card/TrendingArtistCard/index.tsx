@@ -106,7 +106,7 @@ const TrendingArtistCard = props => {
                 <img src={DefaultBanner.src} alt="" />
               )}
             </div>
-            <div className="w-full h-[68px] sm:h-[104px] flex gap-[8px] sm:gap-[17px]">
+            <div className="w-full hidden sm:block h-[104px] flex sm:gap-[17px]">
               <div className={styles.artistProfile}>
                 <ImageWithFoster
                   src={
@@ -153,12 +153,57 @@ const TrendingArtistCard = props => {
                       <LandIcon />
                     </div>
                   )}
-                  {artist.solarplex_url !== null && artist.solarplex_url.length > 0 && (
-                    <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.solarplex_url)}>
-                      <SolrPlexIcon />
-                    </div>
-                  )}
                 </div>
+              </div>
+            </div>
+            <div className="w-full h-[118px] sm:hidden flex gap-[8px] justify-between">
+              <div>
+                <div className={styles.artistProfile}>
+                  <ImageWithFoster
+                    src={
+                      artist.profile_picture !== null &&
+                      artist.profile_picture !== undefined &&
+                      artist.profile_picture !== ''
+                        ? artist.profile_picture
+                        : Artist.src
+                    }
+                    width={100}
+                    height={100}
+                    onClick={() => {}}
+                    className="object-cover"
+                    showPlaceHolder={false}
+                  />
+                </div>
+                <div className="mt-[11px] ml-[13px] sm:mt-[16px]">
+                  <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
+                  <div className="flex gap-[6px] mt-[6px] sm:mt-[9px]">
+                    <div className={styles.followers}>{artist.followers}</div>
+                    <div className={styles.followLabel}>Followers</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-[15px] mt-[11px] mr-[18px]">
+                {artist.twitter_url !== null && artist.twitter_url.length > 0 && (
+                  <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.twitter_url)}>
+                    <TwitterWhiteIcon />
+                  </div>
+                )}
+                {artist.ig_url !== null && artist.ig_url.length > 0 && (
+                  <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.ig_url)}>
+                    <IGWhiteIcon />
+                  </div>
+                )}
+                {artist.site_url !== null && artist.site_url.length > 0 && (
+                  <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.site_url)}>
+                    <WebsiteIcon />
+                  </div>
+                )}
+                {artist.three_land_url !== null && artist.three_land_url.length > 0 && (
+                  <div className={styles.socialIcon} onClick={e => onClickSocialButton(e, artist.three_land_url)}>
+                    <LandIcon />
+                  </div>
+                )}
               </div>
             </div>
           </div>
