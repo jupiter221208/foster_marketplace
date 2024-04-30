@@ -115,12 +115,14 @@ const LiveAuctionSection = props => {
           setIsLoaded(true)
         }
       } else {
+        setIsLoaded(true)
         setLiveAuctionList([])
       }
     }),
       error => {
         if (setLiveAuctionLoaded) setLiveAuctionLoaded()
         setIsLoading(false)
+        setIsLoaded(true)
         console.log(error)
       }
   }
