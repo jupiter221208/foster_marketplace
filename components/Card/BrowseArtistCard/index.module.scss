@@ -39,11 +39,14 @@
 }
 
 .description {
-  margin-top: 30px;
+  margin-top: 15px;
   font-size: 14px;
   line-height: 18px;
   font-family: 'Muli-Light';
-  color: var(--text-gray-200-color)
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    margin-top: 30px;
+  }
 }
 
 .bottomSection {

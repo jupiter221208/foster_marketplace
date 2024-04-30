@@ -402,6 +402,7 @@ const MainSection = props => {
                     artistName={data?.artist_username}
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
+                    description={data?.description}
                   />
                   <div className="flex gap-[10px]">
                     {publicKey?.toBase58() === data?.minter_id ? (
