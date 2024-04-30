@@ -100,6 +100,37 @@
   }
 }
 
+.artistProfile {
+  position: relative;
+  border: 3px solid var(--background-main-color);
+  border-radius: 48px;
+  min-width: 95px;
+  min-height: 95px;
+  width: 95px;
+  height: 95px;
+  margin-top: -47px;
+  margin-left: 13px;
+  @media (min-width: 640px) {
+    border-radius: 60px;
+    min-width: 120px;
+    min-height: 120px;
+    width: 120px;
+    height: 120px;
+    margin-top: -60px;
+    margin-left: 40px;
+  }
+  @media (min-width: 1536px) {
+    border-radius: 75px;
+    min-width: 150px;
+    min-height: 150px;
+    width: 150px;
+    height: 150px;
+    margin-top: -75px;
+    margin-left: 55px;
+  }
+  overflow: hidden;
+}
+
 .mobileContainer {
   width: 100%;
   height: 293px
@@ -112,6 +143,14 @@
 }
 
 .socialIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--main-icon-color);
+  background: var(--activity-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   svg {
     fill: var(--main-icon-color);
   }

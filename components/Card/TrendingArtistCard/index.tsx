@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 
 // images and icons
+import DefaultBanner from 'assets/images/top-creator-banner-placeholder.png'
 import Artist from 'assets/images/dashboard-avatar.png'
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
-import WebsiteIcon from 'assets/icons/website-icon.svg?component'
-import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
-import LandIcon from 'assets/icons/land-icon.svg?component'
+import TwitterWhiteIcon from 'assets/icons/twitter-white-15x15.svg?component'
+import WebsiteIcon from 'assets/icons/website-icon-15x15.svg?component'
+import IGWhiteIcon from 'assets/icons/instagram-white-15x15.svg?component'
+import LandIcon from 'assets/icons/land-icon-15x15.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
 
 // styles
@@ -77,20 +78,36 @@ const TrendingArtistCard = props => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <div className={styles.imageArea}>
-              <div className={styles.imageContent}>
-                <ImageWithFoster
-                  src={artist.banner_picture}
-                  width={800}
-                  height={272}
-                  onClick={() => {}}
-                  className="w-full h-full object-cover"
-                  showPlaceHolder={false}
-                />
+            <div className="sm:block hidden">
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  {artist.banner_picture ? (
+                    <ImageWithFoster
+                      src={artist.banner_picture}
+                      width={400}
+                      onClick={() => {}}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img src={DefaultBanner.src} alt="" />
+                  )}
+                </div>
               </div>
             </div>
+            <div className="block sm:hidden">
+              {artist.banner_picture ? (
+                <ImageWithFoster
+                  src={artist.banner_picture}
+                  width={400}
+                  onClick={() => {}}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <img src={DefaultBanner.src} alt="" />
+              )}
+            </div>
             <div className="w-full h-[68px] sm:h-[104px] flex gap-[8px] sm:gap-[17px]">
-              <div className="min-w-[95px] min-h-[95px] w-[95px] h-[95px] sm:min-w-[120px] lg:min-w-[120px] 2xl:min-w-[150px] sm:min-h-[120px] lg:min-h-[120px] 2xl:min-h-[150px] sm:h-[120px] lg:h-[120px] 2xl:h-[150px] mt-[-47px] sm:mt-[-60px] lg:mt-[-60px] 2xl:mt-[-75px] ml-[13px] sm:ml-[40px] lg:ml-[40px] 2xl:ml-[55px] overflow-hidden">
+              <div className={styles.artistProfile}>
                 <ImageWithFoster
                   src={
                     artist.profile_picture !== null &&
@@ -102,14 +119,14 @@ const TrendingArtistCard = props => {
                   width={150}
                   height={150}
                   onClick={() => {}}
-                  className="object-cover rounded-full"
+                  className="object-cover"
                   showPlaceHolder={false}
                 />
               </div>
               <div className="w-full flex justify-between">
                 <div className="mt-[10px] sm:mt-[16px]">
                   <div className={styles.name}>{getDisplayUserName(artist.username)}</div>
-                  <div className="flex gap-[6px] mt-[6px]">
+                  <div className="flex gap-[6px] mt-[6px] sm:mt-[9px]">
                     <div className={styles.followers}>{artist.followers}</div>
                     <div className={styles.followLabel}>Followers</div>
                   </div>
