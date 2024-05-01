@@ -56,7 +56,7 @@ const ProfileMenuItem = props => {
           <div className="flex flex-col items-center gap-[10px]">
             {avatar?.length > 0 ? (
               <div className="rounded-full w-[70px] h-[70px] overflow-hidden">
-                <Image src={avatar} alt="profile image" width={70} height={70} className="rounded-full w-full h-full" />
+                <img src={avatar} alt="profile image" width={70} height={70} className="rounded-full w-full h-full" />
               </div>
             ) : (
               <div className="w-full flex justify-center">
