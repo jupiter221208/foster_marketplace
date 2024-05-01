@@ -18,7 +18,6 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
@@ -26,7 +25,6 @@ import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
-import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterLogo from 'assets/logo.svg?component'
 
@@ -41,12 +39,10 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import Link from 'next/link'
 import { getShortAddress } from 'utils/wallet.util'
 import NotificationMenu from 'components/Menu/NotificationMenu'
 
 const PrimaryHeader = () => {
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const { setVisible } = useWalletModal()
@@ -228,7 +224,7 @@ const PrimaryHeader = () => {
               </div>
 
               <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Studio
+                Merch
               </div>
 
               <div>
@@ -254,10 +250,6 @@ const PrimaryHeader = () => {
               >
                 Create
               </div>
-
-              {/* <div>
-                <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
-              </div> */}
             </div>
 
             <div className="flex items-center my-auto min-w-max z-[10001]">
@@ -277,12 +269,6 @@ const PrimaryHeader = () => {
                       >
                         <ShoppingCartIcon alt="" />
                       </div>
-                      {/* <div
-                        className={`${styles.iconArea} flex relative cursor-pointer`}
-                        onClick={() => router.push('/notifications')}
-                      >
-                        <NotificationIcon alt="" />
-                      </div> */}
                       <div>
                         <NotificationMenu />
                       </div>
@@ -324,7 +310,6 @@ const PrimaryHeader = () => {
         className={`${
           isScrollTop && router.pathname === '/' ? styles.mobileNonBlurContainer : styles.mobileBlurContainer
         } top-0 transition-all block lg:hidden`}
-        // className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
       >
         <div className={styles.mobileContainer}>
           <div className="g-container flex justify-between items-center">

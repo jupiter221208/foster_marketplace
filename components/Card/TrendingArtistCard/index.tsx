@@ -78,7 +78,7 @@ const TrendingArtistCard = props => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <div className="lg:block hidden">
+            <div className="sm:block hidden">
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
                   {artist.banner_picture ? (
@@ -89,21 +89,21 @@ const TrendingArtistCard = props => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <img src={DefaultBanner.src} alt="" />
+                    <img src={DefaultBanner.src} alt="" className="w-full h-full object-cover" />
                   )}
                 </div>
               </div>
             </div>
-            <div className="block lg:hidden">
+            <div className="block sm:hidden h-[118px]">
               {artist.banner_picture ? (
                 <ImageWithFoster
                   src={artist.banner_picture}
-                  width={400}
+                  width={800}
                   onClick={() => {}}
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <img src={DefaultBanner.src} alt="" />
+                <img src={DefaultBanner.src} alt="" className="w-full h-full object-cover" />
               )}
             </div>
             <div className="w-full hidden sm:flex h-[104px] sm:gap-[17px]">
@@ -167,8 +167,8 @@ const TrendingArtistCard = props => {
                         ? artist.profile_picture
                         : Artist.src
                     }
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     onClick={() => {}}
                     className="object-cover"
                     showPlaceHolder={false}

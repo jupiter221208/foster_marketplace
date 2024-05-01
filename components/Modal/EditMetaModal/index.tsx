@@ -28,7 +28,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // web3
 import { PublicKey } from '@solana/web3.js'
-import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 import { validDigits } from 'utils/helpers'
@@ -38,7 +38,18 @@ import nftsAPI from 'apis/nfts'
 import { useViewport } from 'utils'
 
 const EditMetaModal = props => {
-  const { open, close, nftType, nftCover, nftAsset, nftInfo, nftRoyalties, nftAttributes, creatorRoyalty, originalCoverUrl } = props
+  const {
+    open,
+    close,
+    nftType,
+    nftCover,
+    nftAsset,
+    nftInfo,
+    nftRoyalties,
+    nftAttributes,
+    creatorRoyalty,
+    originalCoverUrl,
+  } = props
   const router = useRouter()
   const { metaplex } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
@@ -280,7 +291,7 @@ const EditMetaModal = props => {
   }
 
   console.log(viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-  
+
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -309,10 +320,154 @@ const EditMetaModal = props => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className={styles.modalView}>
-                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 
-                  <div className="hidden lg:block">
-                    <div className="w-full flex gap-[40px]">
-                      <div className={styles.artImage}>
+                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+                    <div className="hidden lg:block">
+                      <div className="w-full flex gap-[40px]">
+                        <div className={styles.artImage}>
+                          {assetType.includes('video') ? (
+                            <video
+                              autoPlay
+                              src={assetUrl}
+                              loop
+                              playsInline
+                              controls
+                              controlsList="nodownload"
+                              className="w-full h-full object-cover overflow-hidden"
+                            />
+                          ) : assetType.includes('image') ? (
+                            <img
+                              src={nftImage}
+                              onError={handleImageError}
+                              alt=""
+                              className="w-full h-full object-cover"
+                            />
+                          ) : assetType.includes('audio') ? (
+                            <div className="w-full h-full z-10">
+                              <img
+                                src={nftImage}
+                                onError={handleImageError}
+                                alt=""
+                                className="w-full h-full object-contain z-10"
+                              />
+                            </div>
+                          ) : (
+                            <img
+                              src={nftImage}
+                              onError={handleImageError}
+                              alt=""
+                              className="w-full h-full object-cover"
+                            />
+                          )}
+                          <div className="absolute bottom-[24px] right-[28px] z-[1000]">
+                            <Dropzone
+                              onDrop={acceptedFiles => {
+                                acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                              }}
+                              onDropRejected={rejectedFiles => {}}
+                              maxFiles={1}
+                              accept={{
+                                'image/jpeg': [],
+                                'image/png': [],
+                                'image/gif': [],
+                              }}
+                              maxSize={31457280}
+                            >
+                              {({ getRootProps, getInputProps, open }) => (
+                                <section>
+                                  <button onClick={open} style={{ display: 'none' }}>
+                                    open
+                                  </button>
+                                  <div {...getRootProps()} style={{ outline: 'none' }}>
+                                    <input {...getInputProps()} />
+                                    <EditImageIcon alt="" />
+                                  </div>
+                                </section>
+                              )}
+                            </Dropzone>
+                          </div>
+                        </div>
+                        <div className="w-full">
+                          <div className={styles.artName}>Artwork Name</div>
+                          <div className="w-full mt-[15px]">
+                            <Input
+                              value={limit(artName, 32)}
+                              placeholder="Give your art name"
+                              label01="Max Characters 32"
+                              label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
+                              onChange={value => setArtName(limit(value, 32))}
+                            />
+                          </div>
+                          <div className={`${styles.artName} mt-[40px]`}>Artwork Description</div>
+                          <div className="w-full mt-[15px]">
+                            <Textarea
+                              value={limit(artDesc, 1000)}
+                              placeholder="Give your art name"
+                              label01="Max Characters 1000"
+                              label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
+                              onChange={value => setArtDesc(limit(value, 1000))}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-full flex mt-[44px] justify-between">
+                        <div className="w-[15%]">
+                          <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
+                          <input
+                            className={`${styles.inputArea} mb-[30px]`}
+                            value={artRoyalty + '%'}
+                            placeholder={'10%'}
+                            onChange={event => {
+                              let value = validDigits(event.target.value)
+                              if (value > 100) value = 100
+                              setArtRoyalty(value)
+                            }}
+                          />
+                        </div>
+                        <div className="w-[40%]">
+                          <WalletInputBox
+                            creatorList={creatorList}
+                            setCreatorList={setCreatorList}
+                            label="Royalty Split"
+                          />
+                        </div>
+                        <div className="w-[35%]">
+                          <AttributeInputBox
+                            attributeList={attributeList}
+                            setAttributeList={setAttributeList}
+                            label="Attributes"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="w-full flex justify-end mt-[50px]">
+                        <div className="flex gap-[30px]">
+                          <OutlineButton
+                            width={100}
+                            height={45}
+                            label="Cancel"
+                            onClick={() => close('cancel')}
+                            borderWidth={1}
+                            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                          />
+                          {loading ? (
+                            <LoadingButton width={100} height={45} />
+                          ) : (
+                            <GradientButton
+                              width={100}
+                              height={45}
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
+                              label="Save"
+                              onClick={() => updateMetadata()}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="block lg:hidden g-container">
+                      <div className={`${styles.artImage} mt-[56px]`}>
                         {assetType.includes('video') ? (
                           <video
                             autoPlay
@@ -324,15 +479,30 @@ const EditMetaModal = props => {
                             className="w-full h-full object-cover overflow-hidden"
                           />
                         ) : assetType.includes('image') ? (
-                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
+                          <img
+                            src={nftImage}
+                            onError={handleImageError}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
                         ) : assetType.includes('audio') ? (
                           <div className="w-full h-full z-10">
-                            <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-contain z-10" />
+                            <img
+                              src={nftImage}
+                              onError={handleImageError}
+                              alt=""
+                              className="w-full h-full object-contain z-10"
+                            />
                           </div>
                         ) : (
-                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
+                          <img
+                            src={nftImage}
+                            onError={handleImageError}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
                         )}
-                        <div className="absolute bottom-[24px] right-[28px] z-[1000]">
+                        <div className="absolute w-[30px] h-[30px] right-[17px] bottom-[19px]">
                           <Dropzone
                             onDrop={acceptedFiles => {
                               acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
@@ -360,10 +530,11 @@ const EditMetaModal = props => {
                           </Dropzone>
                         </div>
                       </div>
-                      <div className="w-full">
+                      <div className="w-full mt-[30px]">
                         <div className={styles.artName}>Artwork Name</div>
                         <div className="w-full mt-[15px]">
                           <Input
+                            height={47}
                             value={limit(artName, 32)}
                             placeholder="Give your art name"
                             label01="Max Characters 32"
@@ -371,9 +542,10 @@ const EditMetaModal = props => {
                             onChange={value => setArtName(limit(value, 32))}
                           />
                         </div>
-                        <div className={`${styles.artName} mt-[40px]`}>Artwork Description</div>
+                        <div className={`${styles.artName} mt-[30px]`}>Artwork Description</div>
                         <div className="w-full mt-[15px]">
                           <Textarea
+                            height={140}
                             value={limit(artDesc, 1000)}
                             placeholder="Give your art name"
                             label01="Max Characters 1000"
@@ -382,188 +554,54 @@ const EditMetaModal = props => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div className="w-full flex mt-[44px] justify-between">
-                      <div className="w-[15%]">
-                        <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
-                        <input
-                          className={`${styles.inputArea} mb-[30px]`}
-                          value={artRoyalty + '%'}
-                          placeholder={'10%'}
-                          onChange={event => {
-                            let value = validDigits(event.target.value)
-                            if (value > 100) value = 100
-                            setArtRoyalty(value)
-                          }}
-                        />
-                      </div>
-                      <div className="w-[40%]">
-                        <WalletInputBox
-                          creatorList={creatorList}
-                          setCreatorList={setCreatorList}
-                          label="Royalty Split"
-                        />
-                      </div>
-                      <div className="w-[35%]">
-                        <AttributeInputBox
-                          attributeList={attributeList}
-                          setAttributeList={setAttributeList}
-                          label="Attributes"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full flex justify-end mt-[50px]">
-                      <div className="flex gap-[30px]">
-                        <OutlineButton
-                          width={100}
-                          height={45}
-                          label="Cancel"
-                          onClick={() => close('cancel')}
-                          borderWidth={2}
-                          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                        />
-                        {loading ?
-                          <LoadingButton width={100} height={45}/>
-                        :
-                          <GradientButton
-                            width={100}
-                            height={45}
-                            label="Save"
-                            onClick={() => updateMetadata()}
+                      <div className="w-full mt-[40px]">
+                        <div className="w-full">
+                          <AttributeInputBox
+                            attributeList={attributeList}
+                            setAttributeList={setAttributeList}
+                            label="Attributes"
                           />
-                        }
-                      </div>
-                    </div>
-                  </div> : 
-                  
-                  <div className="block lg:hidden g-container">
-                    <div className={`${styles.artImage} mt-[56px]`}>
-                      {assetType.includes('video') ? (
-                        <video
-                          autoPlay
-                          src={assetUrl}
-                          loop
-                          playsInline
-                          controls
-                          controlsList="nodownload"
-                          className="w-full h-full object-cover overflow-hidden"
-                        />
-                      ) : assetType.includes('image') ? (
-                        <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
-                      ) : assetType.includes('audio') ? (
-                        <div className="w-full h-full z-10">
-                          <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-contain z-10" />
                         </div>
-                      ) : (
-                        <img src={nftImage} onError={handleImageError} alt="" className="w-full h-full object-cover" />
-                      )}
-                      <div className="absolute w-[30px] h-[30px] right-[17px] bottom-[19px]">
-                        <Dropzone
-                          onDrop={acceptedFiles => {
-                            acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
-                          }}
-                          onDropRejected={rejectedFiles => {}}
-                          maxFiles={1}
-                          accept={{
-                            'image/jpeg': [],
-                            'image/png': [],
-                            'image/gif': [],
-                          }}
-                          maxSize={31457280}
-                        >
-                          {({ getRootProps, getInputProps, open }) => (
-                            <section>
-                              <button onClick={open} style={{ display: 'none' }}>
-                                open
-                              </button>
-                              <div {...getRootProps()} style={{ outline: 'none' }}>
-                                <input {...getInputProps()} />
-                                <EditImageIcon alt="" />
-                              </div>
-                            </section>
-                          )}
-                        </Dropzone>
-                      </div>
-                    </div>
-                    <div className="w-full mt-[30px]">
-                      <div className={styles.artName}>Artwork Name</div>
-                      <div className="w-full mt-[15px]">
-                        <Input
-                          height={47}
-                          value={limit(artName, 32)}
-                          placeholder="Give your art name"
-                          label01="Max Characters 32"
-                          label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
-                          onChange={value => setArtName(limit(value, 32))}
-                        />
-                      </div>
-                      <div className={`${styles.artName} mt-[30px]`}>Artwork Description</div>
-                      <div className="w-full mt-[15px]">
-                        <Textarea
-                          height={140}
-                          value={limit(artDesc, 1000)}
-                          placeholder="Give your art name"
-                          label01="Max Characters 1000"
-                          label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
-                          onChange={value => setArtDesc(limit(value, 1000))}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full mt-[40px]">
-                      <div className="w-full">
-                        <AttributeInputBox
-                          attributeList={attributeList}
-                          setAttributeList={setAttributeList}
-                          label="Attributes"
-                        />
-                      </div>
-                      <div className="w-full mt-[30px]">
-                        <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
-                        <input
-                          className={`${styles.inputArea} mb-[30px]`}
-                          value={artRoyalty + '%'}
-                          placeholder={'10%'}
-                          onChange={event => {
-                            let value = validDigits(event.target.value)
-                            if (value > 100) value = 100
-                            setArtRoyalty(value)
-                          }}
-                        />
-                        <WalletInputBox
-                          creatorList={creatorList}
-                          setCreatorList={setCreatorList}
-                          label="Royalty Split"
-                        />
-                      </div>
+                        <div className="w-full mt-[30px]">
+                          <div className={`${styles.roaylties} mb-[15px]`}>Creator Royalties</div>
+                          <input
+                            className={`${styles.inputArea} mb-[30px]`}
+                            value={artRoyalty + '%'}
+                            placeholder={'10%'}
+                            onChange={event => {
+                              let value = validDigits(event.target.value)
+                              if (value > 100) value = 100
+                              setArtRoyalty(value)
+                            }}
+                          />
+                          <WalletInputBox
+                            creatorList={creatorList}
+                            setCreatorList={setCreatorList}
+                            label="Royalty Split"
+                          />
+                        </div>
 
-                      <div className="flex gap-[24px] mt-[70px] mb-[70px]">
-                        <OutlineButton
-                          fullWidth
-                          height={45}
-                          label="Cancel"
-                          onClick={() => close('cancel')}
-                          borderWidth={2}
-                          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                        />
-                        {loading ? 
-                          <LoadingButton fullWidth height={45}/>
-                          :
-                          <GradientButton
+                        <div className="flex gap-[24px] mt-[70px] mb-[70px]">
+                          <OutlineButton
                             fullWidth
                             height={45}
-                            label="Save"
-                            onClick={() => updateMetadata()}
+                            label="Cancel"
+                            onClick={() => close('cancel')}
+                            borderWidth={2}
+                            borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
                           />
-                        }
+                          {loading ? (
+                            <LoadingButton fullWidth height={45} />
+                          ) : (
+                            <GradientButton fullWidth height={45} label="Save" onClick={() => updateMetadata()} />
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
                       </div>
                     </div>
-                    <div>
-                      <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
-                    </div>
-                  </div>}
-                  
-                  
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

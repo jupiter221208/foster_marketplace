@@ -185,7 +185,6 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
             </div>
           </div>
         </div>
-        <div className={styles.bottomSection} />
       </div>
     </div>
   )
