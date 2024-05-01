@@ -204,7 +204,7 @@ const FavoriteSection = () => {
         {active === 1 &&
           !loading &&
           collectionList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <div className="col-span-12 lg:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
                 image={item.cover_image}
                 nftName={item.collection_name}
