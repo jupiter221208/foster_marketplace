@@ -39,6 +39,7 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import userAPI from 'apis/user'
 import { copyToClipboard, isValidUrl, validUrl } from 'utils/helpers'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -604,32 +605,15 @@ const ProfileSection = prop => {
             )}
 
             <div className="mt-[60px] lg:mt-[61px] mb-[140px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
-              {enableSave ? (
-                <GradientButton
-                  label="Save"
-                  onClick={() => {
-                    handleSaveUserInfo()
-                  }}
-                  fontFamily="Muli-SemiBold"
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
-                  height={50}
-                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                  paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                  paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                />
-              ) : (
-                <GradientButton
-                  label="Save"
-                  disabled={true}
-                  onClick={() => {}}
-                  fontFamily="Muli-SemiBold"
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
-                  height={50}
-                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                  paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                  paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                />
-              )}
+              <PrimaryButton
+                fullWidth
+                label="Save"
+                type="save"
+                disabled={!enableSave}
+                onClick={() => {
+                  handleSaveUserInfo()
+                }}
+              />
             </div>
           </div>
         </div>

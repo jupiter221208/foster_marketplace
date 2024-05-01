@@ -11,6 +11,7 @@ import TweetIcon from 'assets/icons/tweet-icon.svg?component'
 import PaymentIcon from 'assets/icons/make-payment-icon.svg?component'
 import WithdrawIcon from 'assets/icons/withdraw-button-icon.svg?component'
 import DepositIcon from 'assets/icons/deposit-button-icon.svg?component'
+import SaveIcon from 'assets/icons/save-button-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -61,6 +62,8 @@ const PrimaryButton = props => {
             <DepositIcon />
           ) : type === 'withdraw' ? (
             <WithdrawIcon />
+          ) : type === 'save' ? (
+            <SaveIcon />
           ) : (
             <></>
           )}
