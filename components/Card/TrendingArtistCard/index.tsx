@@ -78,23 +78,23 @@ const TrendingArtistCard = props => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           >
-            <div className="lg:block hidden">
-              <div className={styles.imageArea}>
-                <div className={styles.imageContent}>
-                  {artist.banner_picture ? (
-                    <ImageWithFoster
-                      src={artist.banner_picture}
-                      width={800}
-                      onClick={() => {}}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <img src={DefaultBanner.src} alt="" />
-                  )}
-                </div>
+            {/* <div className="lg:block hidden"> */}
+            <div className={styles.imageArea}>
+              <div className={styles.imageContent}>
+                {artist.banner_picture ? (
+                  <ImageWithFoster
+                    src={artist.banner_picture}
+                    width={800}
+                    onClick={() => {}}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img src={DefaultBanner.src} alt="" />
+                )}
               </div>
             </div>
-            <div className="block lg:hidden">
+            {/* </div> */}
+            {/* <div className="block lg:hidden">
               {artist.banner_picture ? (
                 <ImageWithFoster
                   src={artist.banner_picture}
@@ -105,7 +105,7 @@ const TrendingArtistCard = props => {
               ) : (
                 <img src={DefaultBanner.src} alt="" />
               )}
-            </div>
+            </div> */}
             <div className="w-full hidden sm:flex h-[104px] sm:gap-[17px]">
               <div className={styles.artistProfile}>
                 <ImageWithFoster
@@ -167,8 +167,8 @@ const TrendingArtistCard = props => {
                         ? artist.profile_picture
                         : Artist.src
                     }
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     onClick={() => {}}
                     className="object-cover"
                     showPlaceHolder={false}
