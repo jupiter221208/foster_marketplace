@@ -1,22 +1,16 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-// next components
-// import Image from 'next/image'
-
 // custom components
 import GradientButton from 'components/Button/GradientButton'
-import Button from 'components/Button'
-
-// custom functions
-import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
+import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getPriceValue, getDisplayUserName } from 'utils/strings'
+import { getPriceValue } from 'utils/strings'
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
@@ -27,6 +21,9 @@ import { ListingsAPIData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import { useDispatch } from 'react-redux'
+import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
@@ -41,11 +38,11 @@ export interface ListedNFTCardProps {
 
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
-  const viewport = useViewport()
+  const dispatch = useDispatch()
+  const [showEditBtn, setShowEditBtn] = useState(false)
   const { metaplex: mx } = useMetaplex()
   const [deficiency, setDeficiency] = useState(0)
   const [deficencyModal, setDeficencyModal] = useState(false)
-  const [imageLoading, setImageLoading] = useState(true)
 
   const isEnded = useMemo(() => {
     if (endTime) {
@@ -94,37 +91,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     }
   }
 
-  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return (
     <div className={styles.container}>
-      <div className={styles.imageArea}>
-        <Link href={`/nft/${address}`} passHref>
-          <a>
-            <div className={styles.imageContent}>
-              {assetJson?.properties?.category === 'video' ? (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-              <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full">
-                  {assetJson && (
-                    <ImageWithFoster
-                      src={assetJson?.image}
-                      width={360}
-                      className="max-w-full max-h-full object-cover"
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          </a>
-        </Link>
-      </div>
-      <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{name}</div>
+      <div className="relative w-full overflow-hidden">
+        <div className={styles.topSection}>
+          <div className={styles.nftName}>{data.name}</div>
           <div className="flex items-center gap-[6px]">
             <div className="mt-[4px]">
               <SolanaLogoIcon alt="" />
@@ -132,143 +103,126 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
             <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
-        <div className="mt-[15px] w-full">
-          {type === 'fixed' ? (
-            <PrimaryButton
-              fullWidth
-              label={'Update'}
-              type="update-relist"
-              onClick={() => onActionClick({ ...data, json: assetJson })}
-            />
-          ) : type === 'edition' ? (
-            <GradientButton
-              label={'Cancel Listing'}
-              onClick={() => {}}
-              fontSize="16px"
-              fullWidth
-              borderRadius="10px"
-              borderWidth="1px"
-            />
-          ) : (
-            <>
-              {highestBid ? (
-                isEnded ? (
-                  <SecondaryButton
-                    label={'Finalize Sale'}
-                    type="finalize-sale"
-                    onClick={() => processFinalizeSale()}
-                    fullWidth
+        <Link href={`/nft/${address}`} passHref>
+          <a>
+            <div className={styles.imageArea} onClick={() => dispatch({ type: 'set', isLoading: true })}>
+              <div className={styles.imageContent}>
+                {assetJson?.properties?.category === 'video' ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+              <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
+                    }}
                   />
                 ) : (
-                  <SecondaryButton
-                    disabled={true}
+                  <div className="w-full h-full">
+                    {assetJson && (
+                      <ImageWithFoster src={assetJson?.image} width={360} className="w-full h-full object-cover" />
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </a>
+        </Link>
+        <div className={styles.bottomSection}>
+          <div className="w-full">
+            {type === 'fixed' ? (
+              <PrimaryDashboardButton
+                fullWidth
+                label={'Update'}
+                type="update-relist"
+                onClick={() => onActionClick({ ...data, json: assetJson })}
+              />
+            ) : type === 'edition' ? (
+              <SecondaryDashboardButton label={'Cancel Listing'} onClick={() => {}} type="cancel" fullWidth />
+            ) : (
+              <>
+                {highestBid ? (
+                  isEnded ? (
+                    <SecondaryDashboardButton
+                      label={'Finalize Sale'}
+                      type="finalize-sale"
+                      onClick={() => processFinalizeSale()}
+                      fullWidth
+                    />
+                  ) : (
+                    <SecondaryDashboardButton
+                      disabled={true}
+                      label={'Cancel Auction'}
+                      type="cancel"
+                      onClick={() => {}}
+                      fullWidth
+                    />
+                  )
+                ) : (
+                  <SecondaryDashboardButton
                     label={'Cancel Auction'}
                     type="cancel"
-                    onClick={() => {}}
+                    onClick={() => cancelAuction(data)}
                     fullWidth
                   />
-                )
-              ) : (
-                <SecondaryButton label={'Cancel Auction'} type="cancel" onClick={() => cancelAuction(data)} fullWidth />
-              )}
-            </>
-          )}
-        </div>
-      </div>
-      {deficencyModal && (
-        <EscrowDeficientModal
-          onFinalize={() => finalizeSale(data)}
-          open={deficencyModal}
-          close={() => setDeficencyModal(false)}
-          highestBid={parseFloat(highestBid?.amount)}
-          deficiency={deficiency}
-          nftName={name}
-          collectionName={''}
-        />
-      )}
-    </div>
-  ) : (
-    <div className={styles.container}>
-      <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          <div className="w-full h-full">
-            <ImageWithFoster width={800} src={assetJson?.image} className="max-w-full max-h-full object-cover" />
+                )}
+              </>
+            )}
           </div>
         </div>
-      </div>
-      <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{name}</div>
-          <div className="flex items-center gap-[2px]">
-            <div className="mt-[2px]">
-              <SolanaLogoMobileIcon alt="" />
+        {showEditBtn && (
+          <div className={styles.overlay}>
+            <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>
+              <CloseIcon />
             </div>
-            <div className={styles.price}>{getPriceValue(price)}</div>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-between items-center mt-[6px]">
-          {type === 'fixed' ? (
-            <GradientButton
-              label={'Update'}
-              onClick={() => onActionClick({ ...data, json: assetJson })}
-              fullWidth
-              height="28px"
-              fontSize="12px"
-              borderRadius="5px"
-              borderWidth="1px"
-            />
-          ) : type === 'edition' ? (
-            <GradientButton
-              label={'Cancel Listing'}
-              onClick={() => {}}
-              height="28px"
-              fontSize="12px"
-              fullWidth
-              borderRadius="5px"
-              borderWidth="1px"
-            />
-          ) : (
-            <>
-              {highestBid ? (
-                isEnded ? (
-                  <GradientButton
-                    label={'Finalize Sale'}
-                    onClick={() => processFinalizeSale()}
-                    height="28px"
-                    fontSize="12px"
+            <div className={styles.bottomBtn}>
+              <div className="mt-[15px] w-full">
+                {type === 'fixed' ? (
+                  <PrimaryButton
                     fullWidth
-                    borderRadius="5px"
+                    label={'Update'}
+                    type="update-relist"
+                    onClick={() => onActionClick({ ...data, json: assetJson })}
+                  />
+                ) : type === 'edition' ? (
+                  <GradientButton
+                    label={'Cancel Listing'}
+                    onClick={() => {}}
+                    fontSize="16px"
+                    fullWidth
+                    borderRadius="10px"
                     borderWidth="1px"
                   />
                 ) : (
-                  <Button
-                    width={'100%'}
-                    height="28px"
-                    fontSize="12px"
-                    paddingLeft="7px"
-                    paddingRight="7px"
-                    label="Cancel Auction"
-                    disabled={true}
-                    backgroundColor="#202427"
-                    color="rgba(239,240, 246, 0.6)"
-                    borderRadius="5px"
-                  />
-                )
-              ) : (
-                <GradientButton
-                  fullWidth
-                  label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data)}
-                  height="28px"
-                  fontSize="12px"
-                  borderRadius="5px"
-                  borderWidth="1px"
-                />
-              )}
-            </>
-          )}
-        </div>
+                  <>
+                    {highestBid ? (
+                      isEnded ? (
+                        <SecondaryButton
+                          label={'Finalize Sale'}
+                          type="finalize-sale"
+                          onClick={() => processFinalizeSale()}
+                          fullWidth
+                        />
+                      ) : (
+                        <SecondaryButton
+                          disabled={true}
+                          label={'Cancel Auction'}
+                          type="cancel"
+                          onClick={() => {}}
+                          fullWidth
+                        />
+                      )
+                    ) : (
+                      <SecondaryButton
+                        label={'Cancel Auction'}
+                        type="cancel"
+                        onClick={() => cancelAuction(data)}
+                        fullWidth
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       {deficencyModal && (
         <EscrowDeficientModal
@@ -283,6 +237,102 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
       )}
     </div>
   )
+  // ) : (
+  //   <div className={styles.container}>
+  //     <div className={styles.imageArea}>
+  //       <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
+  //         <div className="w-full h-full">
+  //           <ImageWithFoster width={800} src={assetJson?.image} className="max-w-full max-h-full object-cover" />
+  //         </div>
+  //       </div>
+  //     </div>
+  //     <div className={styles.bottomSection}>
+  //       <div className="w-full flex justify-between items-center">
+  //         <div className={styles.nftName}>{name}</div>
+  //         <div className="flex items-center gap-[2px]">
+  //           <div className="mt-[2px]">
+  //             <SolanaLogoMobileIcon alt="" />
+  //           </div>
+  //           <div className={styles.price}>{getPriceValue(price)}</div>
+  //         </div>
+  //       </div>
+
+  //       <div className="w-full flex justify-between items-center mt-[6px]">
+  //         {type === 'fixed' ? (
+  //           <GradientButton
+  //             label={'Update'}
+  //             onClick={() => onActionClick({ ...data, json: assetJson })}
+  //             fullWidth
+  //             height="28px"
+  //             fontSize="12px"
+  //             borderRadius="5px"
+  //             borderWidth="1px"
+  //           />
+  //         ) : type === 'edition' ? (
+  //           <GradientButton
+  //             label={'Cancel Listing'}
+  //             onClick={() => {}}
+  //             height="28px"
+  //             fontSize="12px"
+  //             fullWidth
+  //             borderRadius="5px"
+  //             borderWidth="1px"
+  //           />
+  //         ) : (
+  //           <>
+  //             {highestBid ? (
+  //               isEnded ? (
+  //                 <GradientButton
+  //                   label={'Finalize Sale'}
+  //                   onClick={() => processFinalizeSale()}
+  //                   height="28px"
+  //                   fontSize="12px"
+  //                   fullWidth
+  //                   borderRadius="5px"
+  //                   borderWidth="1px"
+  //                 />
+  //               ) : (
+  //                 <Button
+  //                   width={'100%'}
+  //                   height="28px"
+  //                   fontSize="12px"
+  //                   paddingLeft="7px"
+  //                   paddingRight="7px"
+  //                   label="Cancel Auction"
+  //                   disabled={true}
+  //                   backgroundColor="#202427"
+  //                   color="rgba(239,240, 246, 0.6)"
+  //                   borderRadius="5px"
+  //                 />
+  //               )
+  //             ) : (
+  //               <GradientButton
+  //                 fullWidth
+  //                 label={'Cancel Auction'}
+  //                 onClick={() => cancelAuction(data)}
+  //                 height="28px"
+  //                 fontSize="12px"
+  //                 borderRadius="5px"
+  //                 borderWidth="1px"
+  //               />
+  //             )}
+  //           </>
+  //         )}
+  //       </div>
+  //     </div>
+  //     {deficencyModal && (
+  //       <EscrowDeficientModal
+  //         onFinalize={() => finalizeSale(data)}
+  //         open={deficencyModal}
+  //         close={() => setDeficencyModal(false)}
+  //         highestBid={parseFloat(highestBid?.amount)}
+  //         deficiency={deficiency}
+  //         nftName={name}
+  //         collectionName={''}
+  //       />
+  //     )}
+  //   </div>
+  // )
 }
 
 export default ListedNFTCard

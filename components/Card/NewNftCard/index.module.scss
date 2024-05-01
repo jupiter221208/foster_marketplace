@@ -122,13 +122,81 @@
   align-items: center;
 }
 
+
+.topSection {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: var(--background-main-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.bottomSection {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: var(--background-main-color);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.bottomBtn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0px 20px 23px 20px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(#1a1a1a, 0.6);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+}
+
+.moreBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--second-home-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.closeBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  background: var(--bg-242424-EFF0F605);
+  position: absolute;
+  top: 22px;
+  right: 25px;
+}
+
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 84.33%;
-  @media (min-width: 640px) {
-  padding-top: 95.82%; /* 359:393 Aspect Ratio */
-  }
+  padding-top: 100%;
 }
 
 .imageInfoHome {
@@ -199,7 +267,7 @@
 }
 
 .nftNameForHome {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 15px;
   @media (min-width: 640px) {
@@ -215,13 +283,9 @@
 }
 
 .nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;

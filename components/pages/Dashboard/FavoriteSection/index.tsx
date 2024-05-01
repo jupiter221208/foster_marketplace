@@ -182,7 +182,7 @@ const FavoriteSection = () => {
           nftList.map(
             (item: any, index) =>
               item.nft_name && (
-                <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+                <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
                   <NewNftCard
                     token_id={item.token_id}
                     image={item.asset_url}
@@ -204,7 +204,7 @@ const FavoriteSection = () => {
         {active === 1 &&
           !loading &&
           collectionList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
                 image={item.cover_image}
                 nftName={item.collection_name}

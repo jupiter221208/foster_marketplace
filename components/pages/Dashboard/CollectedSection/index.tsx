@@ -139,7 +139,7 @@ const CollectedSection = props => {
           filteredList
             .filter(item => item.image !== undefined || null)
             .map((item, index) => (
-              <div className="col-span-6 md:col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+              <div className="col-span-12 md:col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
                 <MyNFTCard
                   data={item}
                   onClickStartAuction={(item: NftData) => handleStartAuction(item)}

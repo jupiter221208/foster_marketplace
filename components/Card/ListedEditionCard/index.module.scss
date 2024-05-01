@@ -9,6 +9,76 @@
   cursor: pointer;
 }
 
+.topSection {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: var(--background-main-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.bottomSection {
+  width: 100%;
+  height: 50px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: var(--background-main-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.bottomBtn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0px 20px 23px 20px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(#1a1a1a, 0.6);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+}
+
+.moreBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--second-home-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.closeBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  background: var(--bg-242424-EFF0F605);
+  position: absolute;
+  top: 22px;
+  right: 25px;
+}
+
 .imageContent {
   position: absolute;
   inset: 0;
@@ -21,30 +91,19 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 95.55%;
-  @media (min-width: 640px) {
-    padding-top: 103.78%; /* 345:304 Aspect Ratio */
-  }
+  padding-top: 100%; /* 345:304 Aspect Ratio */
 }
 
 .bottomSection {
-  padding: 7px 12px 12px 12px;
-  @media (min-width: 640px) {
-    padding: 15px 20px;
-  }
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
 .nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   white-space: nowrap;
@@ -54,12 +113,8 @@
 
 .price {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 20px;
-  }
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }

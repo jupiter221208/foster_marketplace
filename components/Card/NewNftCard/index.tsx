@@ -14,10 +14,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
-import HideIcon from 'assets/icons/hide-icon.svg?component'
-import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
-import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
+import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
+import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
 import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
@@ -34,7 +32,7 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryButton from 'components/Button/SecondaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 const NewNftCard = props => {
   const {
@@ -51,13 +49,13 @@ const NewNftCard = props => {
     unSave = null,
     showHideButton = false,
     showUnhideButton = false,
-    isHome = false,
   } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
+  const [showEditBtn, setShowEditBtn] = useState(false)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -92,111 +90,110 @@ const NewNftCard = props => {
   return (
     <div className="w-full h-full relative flex justify-center">
       <div className={styles.container}>
-        <div className={styles.imageArea}>
-          {assetType?.includes('video') ? (
-            <div className={styles.imageContent}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full relative flex justify-center items-center overflow-hidden">
-                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                    <a className="w-full h-full">
-                      {play ? (
-                        <div
-                          className="w-full h-full absolute"
-                          dangerouslySetInnerHTML={{
-                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+        <div className="relative w-full overflow-hidden">
+          <div className={styles.topSection}>
+            <div className={styles.nftName}>{nftName}</div>
+          </div>
+          <div className={styles.imageArea}>
+            {assetType?.includes('video') ? (
+              <div className={styles.imageContent}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <div className="w-full relative flex justify-center items-center overflow-hidden">
+                    <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                      <a className="w-full h-full">
+                        {play ? (
+                          <div
+                            className="w-full h-full absolute"
+                            dangerouslySetInnerHTML={{
+                              __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
                 <source src=${image} type="video/mp4" /></video>`,
-                          }}
-                        />
-                      ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
-                        <ImageWithFoster
-                          width={360}
-                          src={coverImage}
+                            }}
+                          />
+                        ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
+                          <ImageWithFoster width={800} src={coverImage} alt="" className="w-full h-full object-cover" />
+                        ) : (
+                          <div
+                            className="w-full h-full absolute"
+                            dangerouslySetInnerHTML={{
+                              __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
+                <source src=${image} type="video/mp4" /></video>`,
+                            }}
+                          />
+                        )}
+                      </a>
+                    </Link>
+                    <div className={styles.playButton}>
+                      <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                        <Image
+                          src={play ? PauseVideoIcon : PlayVideoIcon}
+                          width={18}
+                          height={18}
                           alt=""
-                          className="max-w-full max-h-full object-cover"
+                          onClick={() => setPlay(!play)}
                         />
-                      ) : (
-                        <div
-                          className="w-full h-full absolute"
-                          dangerouslySetInnerHTML={{
-                            __html: `<video id="hidden_video" muted webkit-playsinline playsinline class="w-full h-full object-contain overflow-hidden">
-                <source src=${image} type="video/mp4" /></video>`,
-                          }}
-                        />
-                      )}
-                    </a>
-                  </Link>
-                  <div className={styles.playButton}>
-                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                      <Image
-                        src={play ? PauseVideoIcon : PlayVideoIcon}
-                        width={18}
-                        height={18}
-                        alt=""
-                        onClick={() => setPlay(!play)}
-                      />
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a>
-                    <div className="w-full h-full" onClick={() => onClick()}>
-                      <video src={image} loop muted autoPlay className="w-full h-full object-cover overflow-hidden" />
-                    </div>
-                  </a>
-                </Link>
-              )}
-            </div>
-          ) : (
-            <Link href={`${window.origin}/nft/${token_id}`} passHref>
-              <a>
-                <div className={styles.imageContent}>
-                  {assetType?.includes('vr') ? (
-                    coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} className="max-w-full max-h-full object-cover" />
-                    ) : (
-                      <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                    )
-                  ) : assetType?.includes('audio') ? (
-                    coverImage !== null && coverImage !== '' ? (
+                ) : (
+                  <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                    <a>
+                      <div className="w-full h-full" onClick={() => onClick()}>
+                        <video src={image} loop muted autoPlay className="w-full h-full object-cover overflow-hidden" />
+                      </div>
+                    </a>
+                  </Link>
+                )}
+              </div>
+            ) : (
+              <Link href={`${window.origin}/nft/${token_id}`} passHref>
+                <a>
+                  <div className={styles.imageContent}>
+                    {assetType?.includes('vr') ? (
+                      coverImage !== null && coverImage !== '' ? (
+                        <ImageWithFoster src={coverImage} width={800} className="max-w-full max-h-full object-cover" />
+                      ) : (
+                        <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                      )
+                    ) : assetType?.includes('audio') ? (
+                      coverImage !== null && coverImage !== '' ? (
+                        <ImageWithFoster
+                          src={coverImage}
+                          width={800}
+                          onClick={onClick}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <Image
+                          src={DefaultNftBG}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          onClick={() => onClick()}
+                        />
+                      )
+                    ) : coverImage !== null && coverImage !== '' ? (
                       <ImageWithFoster
                         src={coverImage}
-                        width={360}
+                        width={800}
+                        originalSrc={fallBack}
                         onClick={onClick}
-                        className="max-w-full max-h-full object-cover"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : image !== null && image !== '' ? (
+                      <ImageWithFoster
+                        src={image}
+                        width={800}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className="w-full h-full object-cover"
                       />
                     ) : (
-                      <Image
-                        src={DefaultNftBG}
-                        alt=""
-                        className="w-full h-full object-cover"
-                        onClick={() => onClick()}
-                      />
-                    )
-                  ) : coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFoster
-                      src={coverImage}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className="max-w-full max-h-full object-cover"
-                    />
-                  ) : image !== null && image !== '' ? (
-                    <ImageWithFoster
-                      src={image}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className="max-w-full max-h-full object-cover"
-                    />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                  )}
-                </div>
-              </a>
-            </Link>
-          )}
-          {/* {showHideButton === true && (
+                      <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                    )}
+                  </div>
+                </a>
+              </Link>
+            )}
+            {/* {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
             </div>
@@ -206,39 +203,11 @@ const NewNftCard = props => {
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
             </div>
           )} */}
-        </div>
-
-        <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center">
-              <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
-            </div>
-            <div className="w-full flex justify-between items-center mt-[3px] sm:mt-[7px]">
-              <div className={isHome ? styles.artistNameHome : styles.artistName}>
-                <Link href={`/${artistName || collectionName}`} passHref>
-                  <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
-                </Link>
-              </div>
-              {price && (
-                <div className="flex justify-center items-center mt-[2px]">
-                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                    isHome ? (
-                      <SolanaLogoIcon />
-                    ) : (
-                      <SolanaLogoMobileIcon />
-                    )
-                  ) : (
-                    <SolanaLogoIcon />
-                  )}
-                  <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
-                </div>
-              )}
-            </div>
           </div>
-          {unSave !== null && (
-            <div className="w-full mt-[9px] sm:mt-[15px]">
-              <div className="lg:block hidden">
-                <SecondaryButton
+          <div className={styles.bottomSection}>
+            {unSave !== null && (
+              <div className="w-full">
+                <SecondaryDashboardButton
                   fullWidth
                   label="Unsave"
                   type="unsave"
@@ -248,38 +217,18 @@ const NewNftCard = props => {
                   }}
                 />
               </div>
-              <div className="block lg:hidden">
-                <GradientButton
-                  fullWidth
-                  label="Unsave"
-                  fontSize={viewport === 'xs' ? 12 : 18}
-                  borderRadius={viewport === 'xs' ? 5 : 10}
-                  height={viewport === 'xs' ? 28 : 50}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    unSave()
-                  }}
-                />
-              </div>
-            </div>
-          )}
-          {showUnhideButton && (
-            <div className="w-full mt-[9px] sm:mt-[15px]">
-              <div className="lg:block hidden">
-                <SecondaryButton fullWidth label="Unhide" type="unhide" onClick={() => setDisplayUnhideConfirm(true)} />
-              </div>
-              <div className="block lg:hidden">
-                <GradientButton
+            )}
+            {showUnhideButton && (
+              <div className="w-full">
+                <SecondaryDashboardButton
                   fullWidth
                   label="Unhide"
-                  fontSize={viewport === 'xs' ? 12 : 18}
-                  borderRadius={viewport === 'xs' ? 5 : 10}
-                  height={viewport === 'xs' ? 28 : 50}
+                  type="unhide"
                   onClick={() => setDisplayUnhideConfirm(true)}
                 />
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 

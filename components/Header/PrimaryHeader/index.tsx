@@ -281,6 +281,12 @@ const PrimaryHeader = () => {
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}
+
+                {connected && (
+                  <button className="mr-[20px]" onClick={() => handleThemeMode()}>
+                    {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+                  </button>
+                )}
               </div>
 
               <div className="min-w-fit">

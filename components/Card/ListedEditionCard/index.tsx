@@ -1,29 +1,21 @@
 import React, { useState } from 'react'
 
 // next components
-// import Image from 'next/image'
-
-// custom components
-import GradientButton from 'components/Button/GradientButton'
-
-// custom functions
-import { useViewport } from 'utils'
 
 // Web3
 import { PublicKey, Keypair } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
+import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import { getPriceValue } from 'utils/strings'
 import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
-import OutlineButton from 'components/Button/OutlineButton'
-import LoadingButton from 'components/Button/LoadingButton'
 
 // api
 import { revokeDelegateEdition } from 'utils/editions'
@@ -31,6 +23,10 @@ import { cancelListingEdition } from 'apis/editions'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import LoadingButton from 'components/Button/LoadingButton'
+import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -41,7 +37,7 @@ export interface ListedEditionCardProps {
 
 const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: ListedEditionCardProps) => {
   const { address, name, type, assetUrl, coverUrl, creatorAddress, price } = data
-  const viewport = useViewport()
+  const [showEditBtn, setShowEditBtn] = useState(false)
   const { metaplex: mx } = useMetaplex()
 
   const [cancelListLoading, setCancelListLoading] = useState(false)
@@ -69,31 +65,11 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
     }
   }
 
-  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return (
     <div className={styles.container}>
-      <div className={styles.imageArea}>
-        <Link href={`/nft/${address}`} passHref>
-          <a>
-            <div className={styles.imageContent}>
-              {type === 'video' ? (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
-              <source src=${assetUrl} type="video/mp4" /></video>`,
-                  }}
-                />
-              ) : (
-                <div className="w-full h-full">
-                  <ImageWithFoster src={coverUrl} width={360} className="max-w-full max-h-full object-cover" />
-                </div>
-              )}
-            </div>
-          </a>
-        </Link>
-      </div>
-      <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{name}</div>
+      <div className="relative w-full overflow-hidden">
+        <div className={styles.topSection}>
+          <div className={styles.nftName}>{data.name}</div>
           <div className="flex items-center gap-[6px]">
             <div className="mt-[4px]">
               <SolanaLogoIcon alt="" />
@@ -101,61 +77,69 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
             <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
-        <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-          <PrimaryButton label="Update or Relist" type="update-relist" onClick={() => onUpdateList()} fullWidth />
-          {cancelListLoading ? (
-            <LoadingSecondaryButton fullWidth />
-          ) : (
-            <SecondaryButton label={'Cancel Listing'} type="cancel" fullWidth onClick={() => cancelListEdition()} />
-          )}
-        </div>
-      </div>
-    </div>
-  ) : (
-    <div className={styles.container}>
-      <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-          <div className="w-full h-full flex items-center">
-            <ImageWithFoster width={200} src={coverUrl} className="max-w-full max-h-full object-cover" />
-          </div>
-        </div>
-      </div>
-      <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{name}</div>
-          <div className="flex items-center gap-[2px]">
-            <div className="mt-[2px]">
-              <SolanaLogoMobileIcon alt="" />
+        <Link href={`/nft/${address}`} passHref>
+          <a>
+            <div className={styles.imageArea}>
+              <div className={styles.imageContent}>
+                {type === 'video' ? (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
+                <source src=${assetUrl} type="video/mp4" /></video>`,
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full">
+                    <ImageWithFoster src={coverUrl} width={800} className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
             </div>
-            <div className={styles.price}>{getPriceValue(price)}</div>
+          </a>
+        </Link>
+
+        <div className={styles.bottomSection}>
+          <div className="w-full flex">
+            <PrimaryDashboardButton
+              label="Update or Relist"
+              type="update-relist"
+              onClick={() => onUpdateList()}
+              fullWidth
+            />
+            {cancelListLoading ? (
+              <LoadingDashboardButton fullWidth />
+            ) : (
+              <SecondaryDashboardButton
+                label={'Cancel Listing'}
+                type="cancel"
+                fullWidth
+                onClick={() => cancelListEdition()}
+              />
+            )}
           </div>
         </div>
-
-        <div className="w-full flex flex-wrap gap-[8px] items-center mt-[6px]">
-          <GradientButton
-            fullWidth
-            label="Update/Relist"
-            onClick={() => onUpdateList()}
-            height="28px"
-            fontSize="12px"
-            borderRadius="5px"
-          />
-
-          {cancelListLoading ? (
-            <LoadingButton fullWidth height={28} borderRadius={5} mobileLoading={true} />
-          ) : (
-            <OutlineButton
-              label={'Cancel Listing'}
-              fullWidth
-              backgroundColor="transparent"
-              onClick={() => cancelListEdition()}
-              fontFamily="Muli-SemiBold"
-              fontSize={12}
-              height="28px"
-              borderRadius="5px"
-            />
-          )}
-        </div>
+        {showEditBtn && (
+          <div className={styles.overlay}>
+            <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>
+              <CloseIcon />
+            </div>
+            <div className={styles.bottomBtn}>
+              <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
+                <PrimaryButton label="Update or Relist" type="update-relist" onClick={() => onUpdateList()} fullWidth />
+                {cancelListLoading ? (
+                  <LoadingSecondaryButton fullWidth />
+                ) : (
+                  <SecondaryButton
+                    label={'Cancel Listing'}
+                    type="cancel"
+                    fullWidth
+                    onClick={() => cancelListEdition()}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
