@@ -32,6 +32,7 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 const NewNftCard = props => {
   const {
@@ -91,9 +92,7 @@ const NewNftCard = props => {
       <div className={styles.container}>
         <div className="relative w-full overflow-hidden">
           <div className={styles.topSection}>
-            <div className={styles.moreBtn} onClick={() => setShowEditBtn(true)}>
-              <EllipseGroupWhiteIcon alt="" />
-            </div>
+            <div className={styles.nftName}>{nftName}</div>
           </div>
           <div className={styles.imageArea}>
             {assetType?.includes('video') ? (
@@ -206,40 +205,30 @@ const NewNftCard = props => {
           )} */}
           </div>
           <div className={styles.bottomSection}>
-            <div className={styles.nftName}>{nftName}</div>
+            {unSave !== null && (
+              <div className="w-full">
+                <SecondaryDashboardButton
+                  fullWidth
+                  label="Unsave"
+                  type="unsave"
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    unSave()
+                  }}
+                />
+              </div>
+            )}
+            {showUnhideButton && (
+              <div className="w-full">
+                <SecondaryDashboardButton
+                  fullWidth
+                  label="Unhide"
+                  type="unhide"
+                  onClick={() => setDisplayUnhideConfirm(true)}
+                />
+              </div>
+            )}
           </div>
-          {showEditBtn && (
-            <div className={styles.overlay}>
-              <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>
-                <CloseIcon />
-              </div>
-              <div className={styles.bottomBtn}>
-                {unSave !== null && (
-                  <div className="w-full mt-[9px] sm:mt-[15px]">
-                    <SecondaryButton
-                      fullWidth
-                      label="Unsave"
-                      type="unsave"
-                      onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
-                        unSave()
-                      }}
-                    />
-                  </div>
-                )}
-                {showUnhideButton && (
-                  <div className="w-full mt-[9px] sm:mt-[15px]">
-                    <SecondaryButton
-                      fullWidth
-                      label="Unhide"
-                      type="unhide"
-                      onClick={() => setDisplayUnhideConfirm(true)}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

@@ -23,6 +23,10 @@ import { cancelListingEdition } from 'apis/editions'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import LoadingButton from 'components/Button/LoadingButton'
+import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -94,7 +98,26 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
           </a>
         </Link>
 
-        <div className={styles.bottomSection}></div>
+        <div className={styles.bottomSection}>
+          <div className="w-full flex">
+            <PrimaryDashboardButton
+              label="Update or Relist"
+              type="update-relist"
+              onClick={() => onUpdateList()}
+              fullWidth
+            />
+            {cancelListLoading ? (
+              <LoadingDashboardButton fullWidth />
+            ) : (
+              <SecondaryDashboardButton
+                label={'Cancel Listing'}
+                type="cancel"
+                fullWidth
+                onClick={() => cancelListEdition()}
+              />
+            )}
+          </div>
+        </div>
         {showEditBtn && (
           <div className={styles.overlay}>
             <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>

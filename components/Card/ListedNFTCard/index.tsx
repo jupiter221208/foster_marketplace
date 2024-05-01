@@ -22,6 +22,8 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { useDispatch } from 'react-redux'
+import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
+import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
@@ -123,7 +125,48 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
             </div>
           </a>
         </Link>
-        <div className={styles.bottomSection}></div>
+        <div className={styles.bottomSection}>
+          <div className="w-full">
+            {type === 'fixed' ? (
+              <PrimaryDashboardButton
+                fullWidth
+                label={'Update'}
+                type="update-relist"
+                onClick={() => onActionClick({ ...data, json: assetJson })}
+              />
+            ) : type === 'edition' ? (
+              <SecondaryDashboardButton label={'Cancel Listing'} onClick={() => {}} type="cancel" fullWidth />
+            ) : (
+              <>
+                {highestBid ? (
+                  isEnded ? (
+                    <SecondaryDashboardButton
+                      label={'Finalize Sale'}
+                      type="finalize-sale"
+                      onClick={() => processFinalizeSale()}
+                      fullWidth
+                    />
+                  ) : (
+                    <SecondaryDashboardButton
+                      disabled={true}
+                      label={'Cancel Auction'}
+                      type="cancel"
+                      onClick={() => {}}
+                      fullWidth
+                    />
+                  )
+                ) : (
+                  <SecondaryDashboardButton
+                    label={'Cancel Auction'}
+                    type="cancel"
+                    onClick={() => cancelAuction(data)}
+                    fullWidth
+                  />
+                )}
+              </>
+            )}
+          </div>
+        </div>
         {showEditBtn && (
           <div className={styles.overlay}>
             <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>
