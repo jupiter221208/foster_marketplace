@@ -182,7 +182,7 @@ const FavoriteSection = () => {
           nftList.map(
             (item: any, index) =>
               item.nft_name && (
-                <div className="col-span-6 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+                <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
                   <NewNftCard
                     token_id={item.token_id}
                     image={item.asset_url}
