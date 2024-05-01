@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 18px;
+  margin-right: 20px;
 }
 
 .closeBtn {
@@ -94,13 +94,9 @@
 }
 
 .nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
   white-space: nowrap;
@@ -110,12 +106,8 @@
 
 .price {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 20px;
-  }
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }

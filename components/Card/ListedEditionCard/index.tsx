@@ -7,7 +7,7 @@ import { PublicKey, Keypair } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
 import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
