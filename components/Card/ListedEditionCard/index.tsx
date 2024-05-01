@@ -82,7 +82,7 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
                   />
                 ) : (
                   <div className="w-full h-full">
-                    <ImageWithFoster src={coverUrl} width={360} className="w-full h-full object-cover" />
+                    <ImageWithFoster src={coverUrl} width={800} className="w-full h-full object-cover" />
                   </div>
                 )}
               </div>

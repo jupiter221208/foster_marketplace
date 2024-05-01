@@ -41,7 +41,7 @@ const CollectionCard = props => {
             >
               <div className={styles.imageContent}>
                 <div className="w-full h-full overflow-hidden">
-                  <ImageWithFoster width={360} src={image} className="w-full h-full object-cover" />
+                  <ImageWithFoster width={800} src={image} className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>

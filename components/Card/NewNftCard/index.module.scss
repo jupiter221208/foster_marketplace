@@ -145,7 +145,7 @@
   display: flex;
   justify-content: start;
   align-items: center;
-  padding-left: 30px;
+  padding-left: 20px;
 }
 
 .bottomBtn {
@@ -175,7 +175,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 18px;
+  margin-right: 20px;
 }
 
 .closeBtn {
@@ -265,7 +265,7 @@
 }
 
 .nftNameForHome {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 15px;
   @media (min-width: 640px) {
@@ -281,13 +281,9 @@
 }
 
 .nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;

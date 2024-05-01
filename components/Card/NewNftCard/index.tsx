@@ -111,7 +111,7 @@ const NewNftCard = props => {
                             }}
                           />
                         ) : coverImage != null && coverImage !== '' && !coverImage?.includes('mp4') ? (
-                          <ImageWithFoster width={360} src={coverImage} alt="" className="w-full h-full object-cover" />
+                          <ImageWithFoster width={800} src={coverImage} alt="" className="w-full h-full object-cover" />
                         ) : (
                           <div
                             className="w-full h-full absolute"
@@ -151,7 +151,7 @@ const NewNftCard = props => {
                   <div className={styles.imageContent}>
                     {assetType?.includes('vr') ? (
                       coverImage !== null && coverImage !== '' ? (
-                        <ImageWithFoster src={coverImage} width={360} className="max-w-full max-h-full object-cover" />
+                        <ImageWithFoster src={coverImage} width={800} className="max-w-full max-h-full object-cover" />
                       ) : (
                         <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                       )
@@ -159,7 +159,7 @@ const NewNftCard = props => {
                       coverImage !== null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
-                          width={360}
+                          width={800}
                           onClick={onClick}
                           className="w-full h-full object-cover"
                         />
@@ -174,7 +174,7 @@ const NewNftCard = props => {
                     ) : coverImage !== null && coverImage !== '' ? (
                       <ImageWithFoster
                         src={coverImage}
-                        width={360}
+                        width={800}
                         originalSrc={fallBack}
                         onClick={onClick}
                         className="w-full h-full object-cover"
@@ -182,7 +182,7 @@ const NewNftCard = props => {
                     ) : image !== null && image !== '' ? (
                       <ImageWithFoster
                         src={image}
-                        width={360}
+                        width={800}
                         originalSrc={fallBack}
                         onClick={onClick}
                         className="w-full h-full object-cover"
