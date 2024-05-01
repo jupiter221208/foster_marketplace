@@ -93,8 +93,12 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     <div className={styles.container}>
       <div className="relative w-full overflow-hidden">
         <div className={styles.topSection}>
-          <div className={styles.moreBtn} onClick={() => setShowEditBtn(true)}>
-            <EllipseGroupWhiteIcon alt="" />
+          <div className={styles.nftName}>{data.name}</div>
+          <div className="flex items-center gap-[6px]">
+            <div className="mt-[4px]">
+              <SolanaLogoIcon alt="" />
+            </div>
+            <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
         <Link href={`/nft/${address}`} passHref>
@@ -119,15 +123,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
             </div>
           </a>
         </Link>
-        <div className={styles.bottomSection}>
-          <div className={styles.nftName}>{data.name}</div>
-          <div className="flex items-center gap-[6px]">
-            <div className="mt-[4px]">
-              <SolanaLogoIcon alt="" />
-            </div>
-            <div className={styles.price}>{getPriceValue(price)}</div>
-          </div>
-        </div>
+        <div className={styles.bottomSection}></div>
         {showEditBtn && (
           <div className={styles.overlay}>
             <div className={styles.closeBtn} onClick={() => setShowEditBtn(false)}>

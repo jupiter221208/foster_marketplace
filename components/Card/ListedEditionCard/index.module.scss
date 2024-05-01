@@ -17,8 +17,10 @@
   border-top-right-radius: 10px;
   background: var(--background-main-color);
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .bottomSection {
