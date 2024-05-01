@@ -10,9 +10,9 @@
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  // display: flex;
+  // justify-content: flex-start;
+  // align-items: center;
   white-space: nowrap;
   border: 1px solid transparent;
   &:hover {
@@ -24,16 +24,30 @@
   &:hover .iconFill {
     fill: var(--main-icon-color);
   }
+  &:hover .profileIconFill {
+    fill: var(--main-icon-color);
+  }
   .iconStroke {
     overflow: visible;
     stroke: var(--main-bg-color);
   }
   .iconFill {
-    margin-top: 5px;
+    margin-top: 3px;
     transform: scale(0.7);
     overflow: visible;
     fill: var(--main-bg-color);
   }
+  .profileIconFill {
+    margin-top: 3px;
+    fill: var(--main-bg-color);
+  }
+}
+
+.border {
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+  margin-top: 20px;
 }
 
 .imageArea {
@@ -45,11 +59,12 @@
 
 .username {
   display: block;
-  margin-top: 12px;
+  font-family: 'Muli-Regular';
   font-size: 18px;
-  font-weight: 400;
-  color: var(--main-bg-color);
-  &:hover {
-    color: var(--brand-09-color);
-  }
+  line-height: 22px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  // &:hover {
+  //   color: var(--brand-09-color);
+  // }
 }

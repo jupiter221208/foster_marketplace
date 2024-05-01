@@ -5,10 +5,11 @@ import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
+import MyProfileIcon from 'assets/icons/myprofile-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon.svg?component'
 import SettingIcon from 'assets/icons/setting-icon.svg?component'
@@ -17,21 +18,23 @@ import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
 import { getDisplayUserName } from 'utils/strings'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const ProfileMenuItem = props => {
   const { avatar, username, key, item, onSelect } = props
+  const router = useRouter()
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
-  const [mouseHover, setMouseHover] = useState(false)
 
   return (
     <button
       key={key}
-      className={`${styles.menuItem} ${item.id === 0 && 'mb-4'}`}
-      onMouseEnter={() => setMouseHover(true)}
-      onMouseLeave={() => setMouseHover(false)}
+      className={styles.menuItem}
       onClick={() => {
         if (item.id === 0) {
+          return
+        } else if (item.id === 3) {
+          router.push(`/${username}`)
           return
         } else if (item.id === 7) {
           if (localStorage.getItem('walletName') === '"Phantom"') {
@@ -48,59 +51,62 @@ const ProfileMenuItem = props => {
         }
         onSelect(item)
       }}
-      // onMouseEnter={() => setMouseHover(true)}
-      // onMouseLeave={() => setMouseHover(false)}
     >
       {item.id === 0 ? (
-        <div className="w-full">
-          {avatar?.length > 0 ? (
-            <div>
-              <Image src={avatar} alt="profile image" width={100} height={100} className="rounded-full w-full h-full" />
-            </div>
-          ) : (
-            <div className="w-full flex justify-center">
-              <div className="rounded-full w-[100px] h-[100px] overflow-hidden">
-                <Image src={AvatarImage} alt="" width={100} height={100} layout="responsive" objectFit="cover" />
+        <div>
+          <div className="flex gap-[15px] items-center">
+            {avatar?.length > 0 ? (
+              <div>
+                <Image src={avatar} alt="profile image" width={36} height={36} className="rounded-full w-full h-full" />
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="w-full flex justify-center">
+                <div className="rounded-full w-[36px] h-[36px] overflow-hidden">
+                  <Image src={AvatarImage} alt="" width={36} height={36} layout="responsive" objectFit="cover" />
+                </div>
+              </div>
+            )}
 
-          <Link href={`/${username}`}>
-            <a>
-              <span className={styles.username}>{getDisplayUserName(username)}</span>
-            </a>
-          </Link>
+            <span className={styles.username}>{getDisplayUserName(username)}</span>
+          </div>
+
+          <div className={styles.border}></div>
         </div>
       ) : (
-        <div className={`w-full flex max-h-[25px] items-center ${item.id !== 2 && 'pl-[10px]'}`}>
-          {item.id === 1 ? (
-            <DashboardIcon className={styles.iconFill} />
-          ) : item.id === 2 ? (
-            <MerchHubIcon className={`${styles.iconStroke} ${styles.iconFill}`} />
-          ) : item.id === 3 ? (
-            <StatsIcon />
-          ) : // : item.id === 4 ? (
-          //   mouseHover ? (
-          //     <DaoHoverIcon />
-          //   ) : (
-          //     <DaoIcon />
-          //   )
-          // )
-          // item.id === 5 ? (
-          //   mouseHover ? (
-          //     <ResourceHoverIcon />
-          //   ) : (
-          //     <ResourceIcon />
-          //   )
-          // ) :
-          item.id === 6 ? (
-            <SettingIcon className={styles.iconFill} />
-          ) : item.id === 7 ? (
-            <LogoutIcon className={styles.iconFill} />
-          ) : (
-            <div />
-          )}
-          <span className={`ml-4 ${item.id === 2 && 'ml-[12px]'} flex`}>{item.label}</span>
+        <div className={`w-full flex gap-[15px] max-h-[25px] items-center`}>
+          <div className="w-[28px] flex justify-center items-center">
+            {item.id === 3 ? (
+              <MyProfileIcon className={styles.profileIconFill} />
+            ) : item.id === 1 ? (
+              <DashboardIcon className={styles.iconFill} />
+            ) : item.id === 2 ? (
+              <MerchHubIcon className={`${styles.iconStroke} ${styles.iconFill}`} />
+            ) : item.id === 3 ? (
+              <StatsIcon />
+            ) : // : item.id === 4 ? (
+            //   mouseHover ? (
+            //     <DaoHoverIcon />
+            //   ) : (
+            //     <DaoIcon />
+            //   )
+            // )
+            // item.id === 5 ? (
+            //   mouseHover ? (
+            //     <ResourceHoverIcon />
+            //   ) : (
+            //     <ResourceIcon />
+            //   )
+            // ) :
+            item.id === 6 ? (
+              <SettingIcon className={styles.iconFill} />
+            ) : item.id === 7 ? (
+              <LogoutIcon className={styles.iconFill} />
+            ) : (
+              <div />
+            )}
+          </div>
+
+          <span>{item.label}</span>
         </div>
       )}
     </button>
