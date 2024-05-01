@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // next components
 import Image from 'next/image'
@@ -17,7 +17,6 @@ import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import { deleteCookie } from 'cookies-next'
 import { getDisplayUserName } from 'utils/strings'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const ProfileMenuItem = props => {
@@ -54,15 +53,15 @@ const ProfileMenuItem = props => {
     >
       {item.id === 0 ? (
         <div>
-          <div className="flex gap-[15px] items-center">
+          <div className="flex flex-col items-center gap-[10px]">
             {avatar?.length > 0 ? (
-              <div>
-                <Image src={avatar} alt="profile image" width={36} height={36} className="rounded-full w-full h-full" />
+              <div className="rounded-full w-[70px] h-[70px] overflow-hidden">
+                <Image src={avatar} alt="profile image" width={70} height={70} className="rounded-full w-full h-full" />
               </div>
             ) : (
               <div className="w-full flex justify-center">
-                <div className="rounded-full w-[36px] h-[36px] overflow-hidden">
-                  <Image src={AvatarImage} alt="" width={36} height={36} layout="responsive" objectFit="cover" />
+                <div className="rounded-full w-[70px] h-[70px] overflow-hidden">
+                  <Image src={AvatarImage} alt="" width={70} height={70} layout="responsive" objectFit="cover" />
                 </div>
               </div>
             )}
@@ -76,11 +75,11 @@ const ProfileMenuItem = props => {
         <div className={`w-full flex gap-[15px] max-h-[25px] items-center`}>
           <div className="w-[28px] flex justify-center items-center">
             {item.id === 3 ? (
-              <MyProfileIcon className={styles.profileIconFill} />
+              <MyProfileIcon className={`${styles.profileIconFill} ${styles.iconStroke}`} />
             ) : item.id === 1 ? (
               <DashboardIcon className={styles.iconFill} />
             ) : item.id === 2 ? (
-              <MerchHubIcon className={`${styles.iconStroke} ${styles.iconFill}`} />
+              <MerchHubIcon className={styles.profileIconFill} />
             ) : item.id === 3 ? (
               <StatsIcon />
             ) : // : item.id === 4 ? (
