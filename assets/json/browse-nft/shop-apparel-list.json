@@ -9,6 +9,7 @@
     "type": "Unisex",
     "sub_type": "man",
     "base": "Hoodie",
+    "range": "S - 3XL",
     "top": 10,
     "description": "Beat the cold with this premium pullover hoodie. Made with 80% Cotton and 20% Polyester, this pullover is double stitched for durability. Pick one in your favorite color to match your style."
   },
@@ -22,6 +23,7 @@
     "type": "Unisex",
     "sub_type": "man",
     "base": "T-Shirt",
+    "range": "S - 5XL",
     "top": 25,
     "description": "This classic unisex short sleeve tee has ribbed knit collars to bolster shaping, soft cotton and quality print. Pick one in your favorite color to match your style."
   },
@@ -35,6 +37,7 @@
     "type": "Unisex",
     "sub_type": "man",
     "base": "Sweatshirt",
+    "range": "S - 2XL",
     "top": 10,
     "description": "Made with 85% organic ring-spun cotton and 15% recycled polyester, this unisex sweatshirt provides a cozy feeling that’s great for daily wear. Pick one in your favorite color to match your style."
   },
@@ -48,6 +51,7 @@
     "type": "Unisex",
     "sub_type": "man",
     "base": "Long Sleeve",
+    "range": "XS - 2XL",
     "top": 10,
     "description": "This premium long sleeve is made with 100% airlume combed and ring-spun cotton. The shoulders have taping for better fit and dual side seams to hold the garment’s shape overtime."
   },
@@ -61,6 +65,7 @@
     "type": "",
     "sub_type": "women",
     "base": "T-Shirt",
+    "range": "S - 2XL",
     "top": 25,
     "description": "Made with 100% combed and ring-spun cotton in a feminine fit that is as stylish as it is comfy. The ribbed knitting makes the collar highly elastic while the twill tape on the shoulder seams stabilizes the back of the shirt and prevents stretching."
   }]

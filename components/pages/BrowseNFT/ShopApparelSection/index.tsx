@@ -59,11 +59,20 @@ const ShopApparelSection = props => {
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
-              viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
+              viewport === 'xs'
+                ? 1.2
+                : viewport === 'sm' || viewport === 'md'
+                ? 2
+                : viewport === 'lg'
+                ? 3
+                : viewport === '2xl'
+                ? 5
+                : 5
             }
             spaceBetween={
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 20
             }
+            loop
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
           >
@@ -75,7 +84,9 @@ const ShopApparelSection = props => {
                       image={getStudioItem(item)}
                       nftImage={nftCoverUrl}
                       nftName={nftName}
+                      userName={item.label}
                       nftCreator={nftCreator}
+                      size={item.range}
                       onClick={colorNumber => {
                         dispatch({ type: 'set', apparelColor: colorNumber })
                         openPage(item)

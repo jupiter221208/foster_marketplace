@@ -31,7 +31,7 @@ import WomenShortSleeveB from '../../../public/images/apparel/women_t_black_s.pn
 import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black_s.png'
 
 const StudioReleaseCard = props => {
-  const { type = 'release', image, userName = '', nftName, onClick, nftImage } = props
+  const { type = 'release', image, userName = '', nftName, onClick, nftImage, size = null } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
@@ -218,14 +218,17 @@ const StudioReleaseCard = props => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-[10px] relative">
-        <StudioSelectionColor
-          label={''}
-          data={ColorType}
-          selected={color?.type}
-          onSelect={itemData => setColor(itemData)}
-          newStudio={true}
-        />
+      <div className="w-full mt-[10px] flex justify-center">
+        <div className="flex gap-[25px] items-center">
+          <StudioSelectionColor
+            label={''}
+            data={ColorType}
+            selected={color?.type}
+            onSelect={itemData => setColor(itemData)}
+            newStudio={true}
+          />
+          {size && <div className={styles.size}>{size}</div>}
+        </div>
       </div>
     </div>
   )
