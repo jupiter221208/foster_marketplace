@@ -587,13 +587,21 @@ const EditMetaModal = props => {
                             height={45}
                             label="Cancel"
                             onClick={() => close('cancel')}
-                            borderWidth={2}
-                            borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                            borderWidth={1}
+                            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
                           />
                           {loading ? (
                             <LoadingButton fullWidth height={45} />
                           ) : (
-                            <GradientButton fullWidth height={45} label="Save" onClick={() => updateMetadata()} />
+                            <GradientButton
+                              fullWidth
+                              height={45}
+                              label="Save"
+                              backgroundColor01="var(--main-icon-color)"
+                              backgroundColor02="var(--main-icon-color)"
+                              color="var(--background-main-color)"
+                              onClick={() => updateMetadata()}
+                            />
                           )}
                         </div>
                       </div>
