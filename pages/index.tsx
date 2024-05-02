@@ -47,6 +47,8 @@ const Home = () => {
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   const [editionList, setEditionList] = useState<any>([])
+  const [limitedEditionList, setLimitedEditionList] = useState<any>([])
+  const [openEditionList, setOpenEditionList] = useState<any>([])
   const [visibleBoundary, setVisibleBoundary] = useState(false)
 
   useEffect(() => {
@@ -62,6 +64,15 @@ const Home = () => {
         console.log(error)
       }
   }, [])
+
+  useEffect(() => {
+    if (editionList && Array.isArray(editionList)) {
+      const openEditions = editionList.filter(item => item.maxSupply === null)
+      setOpenEditionList(openEditions)
+      const limitEditions = editionList.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
+      setLimitedEditionList(limitEditions)
+    }
+  }, [editionList])
 
   return (
     // <MaintenancePage />
@@ -93,16 +104,20 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      <div className={styles.editionSection}>
-        <div className="g-container">
-          <OpenEditionSection category={''} editions={editionList} />
+      {openEditionList.length > 0 && (
+        <div className={styles.editionSection}>
+          <div className="g-container">
+            <OpenEditionSection category={''} editionList={openEditionList} />
+          </div>
         </div>
-      </div>
-      <div className={styles.limitEditionSection}>
-        <div className="g-container">
-          <LimitedEditionSection category={''} editions={editionList} />
+      )}
+      {limitedEditionList.length > 0 && (
+        <div className={styles.limitEditionSection}>
+          <div className="g-container">
+            <LimitedEditionSection category={''} editionList={limitedEditionList} />
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.newReleaseSection}>
         <div className="g-container">
           <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />

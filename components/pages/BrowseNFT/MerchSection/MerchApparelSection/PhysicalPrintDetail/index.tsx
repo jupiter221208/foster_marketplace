@@ -234,6 +234,20 @@ const PhysicalPrintDetail = props => {
     }
     return ''
   }
+
+  const getApparelLabel = () => {
+    if (apparel) {
+      let type = gender.type
+      let name = apparel?.name
+      console.log(name, '==============name========')
+      let list = apparelList.filter(item => item.base === name && item.sub_type == type)
+      console.log(list, '==============list========')
+      if (list.length > 0) return list[0].label
+      else return name
+    }
+    return ''
+  }
+
   const getApparelDescription = () => {
     if (apparel) {
       let type = gender.type
@@ -425,7 +439,12 @@ const PhysicalPrintDetail = props => {
           <SecondaryButton label="Add to Cart" type="add-cart" onClick={() => handleSaveData()} fullWidth />
         </div>
       </div>
-      <SizeChartModal open={tableModal} title={getApparelName()} onClose={() => setTableModal(false)} />
+      <SizeChartModal
+        open={tableModal}
+        title={getApparelName()}
+        label={getApparelLabel()}
+        onClose={() => setTableModal(false)}
+      />
     </section>
   )
 }

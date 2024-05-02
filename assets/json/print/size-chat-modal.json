@@ -5,52 +5,59 @@
     "size": [
       {
         "id": 0,
-        "BrandSize": "XS",
-        "USSize": "34",
-        "EUSize": "44",
-        "Chest": "31 - 34"
+        "Size": "S",
+        "Length": "27",
+        "Width": "19.5",
+        "Sleeves": "9"
       },
       {
         "id": 1,
-        "BrandSize": "S",
-        "USSize": "38",
-        "EUSize": "48",
-        "Chest": "34 - 37"
+        "Size": "M",
+        "Length": "28.8",
+        "Width": "21",
+        "Sleeves": "9.5"
       },
       {
         "id": 2,
-        "BrandSize": "M",
-        "USSize": "40",
-        "EUSize": "50",
-        "Chest": "38 - 41"
+        "Size": "L",
+        "Length": "29.5",
+        "Width": "22",
+        "Sleeves": "9.5"
       },
       {
         "id": 3,
-        "BrandSize": "L",
-        "USSize": "42",
-        "EUSize": "52",
-        "Chest": "42 - 45"
+        "Size": "XL",
+        "Length": "30.2",
+        "Width": "23.5",
+        "Sleeves": "10"
       },
       {
         "id": 4,
-        "BrandSize": "XL",
-        "USSize": "44",
-        "EUSize": "54",
-        "Chest": "46 - 49"
+        "Size": "2XL",
+        "Length": "31",
+        "Width": "25",
+        "Sleeves": "10"
       },
       {
         "id": 5,
-        "BrandSize": "2XL",
-        "USSize": "46",
-        "EUSize": "56",
-        "Chest": "50 - 53"
+        "Size": "3XL",
+        "Length": "32",
+        "Width": "26.5",
+        "Sleeves": "10"
       },
       {
         "id": 6,
-        "BrandSize": "3XL",
-        "USSize": "48",
-        "EUSize": "58",
-        "Chest": "54 - 57"
+        "Size": "4XL",
+        "Length": "32.5",
+        "Width": "28.5",
+        "Sleeves": "10"
+      },
+      {
+        "id": 7,
+        "Size": "5XL",
+        "Length": "33",
+        "Width": "30.5",
+        "Sleeves": "10"
       }
     ]
   },
@@ -60,45 +67,38 @@
     "size": [
       {
         "id": 0,
-        "BrandSize": "S",
-        "Sleeve": "33.5",
-        "Chest": "27",
-        "Shoulder": "19.2"
+        "Size": "S",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "25.5"
       },
       {
         "id": 1,
-        "BrandSize": "M",
-        "Sleeve": "34.5",
-        "Chest": "28",
-        "Shoulder": "21.2"
+        "Size": "M",
+        "Length": "28.5",
+        "Width": "21",
+        "Sleeves": "26"
       },
       {
         "id": 2,
-        "BrandSize": "L",
-        "Sleeve": "35.5",
-        "Chest": "29",
-        "Shoulder": "23.2"
+        "Size": "L",
+        "Length": "29",
+        "Width": "22",
+        "Sleeves": "26.5"
       },
       {
         "id": 3,
-        "BrandSize": "XL",
-        "Sleeve": "36.5",
-        "Chest": "30",
-        "Shoulder": "25.2"
+        "Size": "XL",
+        "Length": "30",
+        "Width": "23",
+        "Sleeves": "27"
       },
       {
         "id": 4,
-        "BrandSize": "2XL",
-        "Sleeve": "37.5",
-        "Chest": "31",
-        "Shoulder": "27.2"
-      },
-      {
-        "id": 5,
-        "BrandSize": "3XL",
-        "Sleeve": "38.5",
-        "Chest": "32",
-        "Shoulder": "29.2"
+        "Size": "2XL",
+        "Length": "31",
+        "Width": "25",
+        "Sleeves": "28"
       }
     ]
   },
@@ -108,39 +108,45 @@
     "size": [
       {
         "id": 0,
-        "BrandSize": "XS",
-        "SleeveLength": "33.5",
-        "Chest": "38"
+        "Size": "S",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "25.5"
       },
       {
         "id": 1,
-        "BrandSize": "S",
-        "SleeveLength": "34.5",
-        "Chest": "40"
+        "Size": "M",
+        "Length": "28",
+        "Width": "21",
+        "Sleeves": "26"
       },
       {
         "id": 2,
-        "BrandSize": "M",
-        "SleeveLength": "35.5",
-        "Chest": "44"
+        "Size": "L",
+        "Length": "29",
+        "Width": "23",
+        "Sleeves": "26.5"
       },
       {
         "id": 3,
-        "BrandSize": "L",
-        "SleeveLength": "36.5",
-        "Chest": "47"
+        "Size": "XL",
+        "Length": "30",
+        "Width": "25",
+        "Sleeves": "27"
       },
       {
         "id": 4,
-        "BrandSize": "XL",
-        "SleeveLength": "37.5",
-        "Chest": "51"
+        "Size": "2XL",
+        "Length": "31",
+        "Width": "26.5",
+        "Sleeves": "28"
       },
       {
         "id": 5,
-        "BrandSize": "2XL",
-        "SleeveLength": "38.5",
-        "Chest": "54"
+        "Size": "3XL",
+        "Length": "32",
+        "Width": "28",
+        "Sleeves": "28.5"
       },
       {
         "id": 6,
@@ -156,38 +162,45 @@
     "size": [
       {
         "id": 0,
-        "BrandSize": "S",
-        "USSize": "38",
-        "EUSize": "48",
-        "Chest": "34 - 37"
+        "Size": "XS",
+        "Length": "27",
+        "Width": "16.5",
+        "Sleeves": "25"
       },
       {
         "id": 1,
-        "BrandSize": "M",
-        "USSize": "40",
-        "EUSize": "50",
-        "Chest": "38 - 41"
+        "Size": "S",
+        "Length": "28",
+        "Width": "18",
+        "Sleeves": "25.5"
       },
       {
         "id": 2,
-        "BrandSize": "L",
-        "USSize": "42",
-        "EUSize": "52",
-        "Chest": "42 - 45"
+        "Size": "M",
+        "Length": "29",
+        "Width": "20",
+        "Sleeves": "26"
       },
       {
         "id": 3,
-        "BrandSize": "XL",
-        "USSize": "44",
-        "EUSize": "54",
-        "Chest": "46 - 49"
+        "Size": "L",
+        "Length": "30",
+        "Width": "22",
+        "Sleeves": "27"
       },
       {
         "id": 4,
-        "BrandSize": "2XL",
-        "USSize": "46",
-        "EUSize": "56",
-        "Chest": "50 - 53"
+        "Size": "XL",
+        "Length": "31",
+        "Width": "24",
+        "Sleeves": "27.5"
+      },
+      {
+        "id": 5,
+        "Size": "2XL",
+        "Length": "32",
+        "Width": "26",
+        "Sleeves": "28"
       }
     ]
   },
@@ -197,28 +210,38 @@
     "size": [
       {
         "id": 0,
-        "BrandSize": "S",
-        "USSize": "6 - 8",
-        "Chest": "30 - 32"
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
       },
       {
         "id": 1,
-        "BrandSize": "M",
-        "USSize": "10 - 12",
-        "Chest": "32 - 34"
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
       },
       {
         "id": 2,
-        "BrandSize": "L",
-        "USSize": "14 - 16",
-        "Chest": "34 - 36"
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
       },
       {
         "id": 3,
-        "BrandSize": "XL",
-        "USSize": "44",
-        "EUSize": "54",
-        "Chest": "36 - 38"
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "2XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
       }
     ]
   },

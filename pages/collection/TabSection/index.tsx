@@ -87,7 +87,7 @@ const TabSection = props => {
         </div>
       )} */}
 
-      {activeTab === 3 && (
+      {activeTab === 2 && (
         <div className="w-full flex flex-wrap z-10">
           <AddSection
             collectionId={collectionId}

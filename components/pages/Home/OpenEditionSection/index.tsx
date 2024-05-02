@@ -28,20 +28,12 @@ import styles from './index.module.scss'
 // call apis
 
 const OpenEditionSection = props => {
-  const { category, editions } = props
+  const { category, editionList } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [editionList, setEditionList] = useState<any>([])
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-  useEffect(() => {
-    if (editions && Array.isArray(editions)) {
-      const filteredEditions = editions.filter(item => item.maxSupply === null)
-      setEditionList(filteredEditions)
-    }
-  }, [editions])
 
   useEffect(() => {
     if (editionList.length > 0) {
