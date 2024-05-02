@@ -7,7 +7,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 import { PublicKey } from '@solana/web3.js'
-import { type UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { UpdateNftInput, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // next components
 import Input from 'components/Input'
@@ -74,7 +74,7 @@ const CollectionDetailModal = props => {
       newJson.description = artDesc
       needsJsonUpload = true
     }
-   
+
     let updateInput: UpdateNftInput = { nftOrSft: chainNft }
     if (artName != chainNft.name) updateInput.name = artName
     let newImageUrl = ''
@@ -104,16 +104,14 @@ const CollectionDetailModal = props => {
 
         let params = {
           collectionName: artName,
-          description: artDesc
+          description: artDesc,
         }
-        
+
         if (newImageUrl.length > 0) {
-          params["coverImage"] = newImageUrl
+          params['coverImage'] = newImageUrl
         }
-       
-        await collectionsAPI
-        .updateCollection(data.collection_id, params)
-        .then(
+
+        await collectionsAPI.updateCollection(data.collection_id, params).then(
           response => {
             console.log(response)
           },
@@ -166,7 +164,7 @@ const CollectionDetailModal = props => {
                   <div className="hidden lg:block">
                     <div className="w-full flex gap-[40px]">
                       <div className={styles.artImage}>
-                      <ImageWithFoster src={imageUrl} alt="" className="w-full h-full object-cover" />
+                        <ImageWithFoster src={imageUrl} alt="" className="w-full h-full object-cover" />
                         <div className="absolute bottom-[24px] right-[28px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
@@ -222,50 +220,53 @@ const CollectionDetailModal = props => {
                           height={45}
                           label="Cancel"
                           onClick={() => close()}
-                          borderWidth={2}
-                          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                          borderWidth={1}
+                          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
                         />
-                         {loading ?
-                          <LoadingButton width={100} height={45}/>
-                          :
+                        {loading ? (
+                          <LoadingButton width={100} height={45} />
+                        ) : (
                           <GradientButton
                             width={100}
                             height={45}
                             label="Save"
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            color="var(--background-main-color)"
                             onClick={() => updateCollectionData()}
                           />
-                         }
+                        )}
                       </div>
                     </div>
                   </div>
                   {/* Mobile */}
-                  <div className='w-full h-full overflow-scroll'>
+                  <div className="w-full h-full overflow-scroll">
                     <div className="block lg:hidden g-container">
                       <div className={`${styles.artImage} mt-[56px]`}>
                         <img src={imageUrl} alt="" className="w-full h-full object-cover" />
                         <div className="absolute right-[17px] bottom-[19px] z-[1000]">
-                            <Dropzone
-                              onDrop={acceptedFiles => {
-                                acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
-                              }}
-                              onDropRejected={rejectedFiles => {}}
-                              maxFiles={1}
-                              accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                              maxSize={31457280}
-                            >
-                              {({ getRootProps, getInputProps, open }) => (
-                                <section>
-                                  <button onClick={open} style={{ display: 'none' }}>
-                                    open
-                                  </button>
-                                  <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    <EditImageIcon alt="" />
-                                  </div>
-                                </section>
-                              )}
-                            </Dropzone>
-                          </div>
+                          <Dropzone
+                            onDrop={acceptedFiles => {
+                              acceptedFiles.length !== 0 && setSelectedFile(acceptedFiles)
+                            }}
+                            onDropRejected={rejectedFiles => {}}
+                            maxFiles={1}
+                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            maxSize={31457280}
+                          >
+                            {({ getRootProps, getInputProps, open }) => (
+                              <section>
+                                <button onClick={open} style={{ display: 'none' }}>
+                                  open
+                                </button>
+                                <div {...getRootProps()}>
+                                  <input {...getInputProps()} />
+                                  <EditImageIcon alt="" />
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
+                        </div>
                       </div>
                       <div className="w-full mt-[30px]">
                         <div className={styles.artName}>Collection Name</div>
@@ -297,19 +298,22 @@ const CollectionDetailModal = props => {
                           height={45}
                           label="Cancel"
                           onClick={() => close()}
-                          borderWidth={2}
-                          borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
+                          borderWidth={1}
+                          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
                         />
-                        {loading ?
-                            <LoadingButton fullWidth height={45}/>
-                            :
-                        <GradientButton
-                          fullWidth
-                          height={45}
-                          label="Save"
-                          onClick={() => updateCollectionData()}
-                        />
-                        }
+                        {loading ? (
+                          <LoadingButton fullWidth height={45} />
+                        ) : (
+                          <GradientButton
+                            fullWidth
+                            height={45}
+                            label="Save"
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            color="var(--background-main-color)"
+                            onClick={() => updateCollectionData()}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>

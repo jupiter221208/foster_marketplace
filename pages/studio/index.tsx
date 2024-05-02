@@ -86,7 +86,7 @@ const Studio = () => {
       </div>
 
       {heroState?.selected && (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mt-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
             <FullScreenLoadingModal open={isLoading} />
@@ -94,7 +94,7 @@ const Studio = () => {
         </div>
       )}
       {heroState?.selected && (
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center mb-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
             <FullScreenLoadingModal open={isLoading} />
@@ -106,7 +106,7 @@ const Studio = () => {
           <StudioArtistsSection />
         </div>
       </div>
-      <div className="w-full flex justify-center mb-[200px]">
+      <div className="w-full flex justify-center mb-[100px] lg:mb-[0px]">
         <div className="g-container">
           <ExploreStudioArtworkSection category={''} loop={true} />
         </div>

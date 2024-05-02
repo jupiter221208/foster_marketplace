@@ -108,6 +108,24 @@
   cursor: pointer;
 }
 
+.settingBtn {
+  display: flex;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  font-weight: 100;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  height: 35px;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  color: var(--text-gray-200-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .avatarArea {
   width: 100px;
   height: 100px;

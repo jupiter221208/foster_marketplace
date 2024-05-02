@@ -26,6 +26,7 @@ import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 import EditionList from 'assets/json/single-nft/edition-type.json'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import ProductionListMenu from 'components/ProductionListMenu'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -43,7 +44,7 @@ const Step03SingleNFTSection = props => {
   } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
-  const [edition, setEdition] = useState(2)
+  const [edition, setEdition] = useState(EditionList[0])
   const [showAlert, setShowAlert] = useState(false)
   const [enableMintBtn, setEnableMintBtn] = useState(false)
   const [maxNum, setMaxNum] = useState(MaxNumberList[0])
@@ -140,14 +141,18 @@ const Step03SingleNFTSection = props => {
           <div className={styles.subTitle}>
             Edition type <span>*</span>
           </div>
-          <SwipRadio
-            data={EditionList}
-            selected={edition}
-            onChange={item => {
-              setEdition(item)
-              setEditionType(item)
-            }}
-          />
+          <div className="w-[60%] mt-[15px]">
+            <ProductionListMenu
+              label={edition['label']}
+              data={EditionList}
+              selectedItem={edition}
+              setSelectedItem={data => {
+                setEdition(data)
+                setEditionType(data)
+              }}
+            />
+          </div>
+
           {edition['id'] === 0 && (
             <div className="mt-[30px]">
               <div className={styles.maxSupplyTitle}>
@@ -270,16 +275,27 @@ const Step03SingleNFTSection = props => {
             Edition type <span>*</span>
           </div>
           <div className={styles.editionDescription}>Editions are created on-demand</div>
-          <SwipRadio
+          {/* <SwipRadio
             data={EditionList}
             selected={edition}
             onChange={item => {
               setEdition(item)
               setEditionType(item)
             }}
-          />
+          /> */}
+          <div className="w-full mt-[15px]">
+            <ProductionListMenu
+              label={edition['label']}
+              data={EditionList}
+              selectedItem={edition}
+              setSelectedItem={data => {
+                setEdition(data)
+                setEditionType(data)
+              }}
+            />
+          </div>
           {edition['id'] === 0 && (
-            <div className="mt-[36px]">
+            <div className="mt-[30px]">
               <div className={styles.maxSupplyTitle}>
                 Max Supply <span>*</span>
               </div>

@@ -222,21 +222,19 @@ const MainSection = () => {
           </div>
           <div className="flex gap-[10px] mt-[24px]">
             <div className="flex gap-[9px] lg:gap-[15px] items-center">
-              <IconButtonWithSVG
-                icon={
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <SettingsMobileIcon />
-                  ) : (
-                    <SettingsIcon />
-                  )
-                }
+              <div className={styles.settingBtn} onClick={() => router.push('/settings')}>
+                <SettingsMobileIcon />
+                <div>Settings</div>
+              </div>
+              {/* <IconButtonWithSVG
+                icon={<SettingsMobileIcon />}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
                 onClick={() => router.push('/settings')}
                 backgroundColor="var(--background-main-color)"
                 borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
                 borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 20}
-              />
+              /> */}
               <WalletFilterMenu
                 label={'Wallet & Socials'}
                 data={walletList}

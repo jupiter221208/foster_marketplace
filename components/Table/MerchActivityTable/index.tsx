@@ -24,47 +24,49 @@ const MerchActivityTable = props => {
   const { solToUsdRate } = useSolToUsdRate()
 
   return (
-    <table id={'ArtworksTable'} className="w-full table-auto">
+    <table id={'MerchTable'} className="w-full table-auto">
       <thead>
-        <tr className={styles.tableHeader}>
-          <th className="w-[15%] text-start">
-            <div className="ml-3">Order Number</div>
+        <tr>
+          <th>
+            <div className={styles.tableHeader}>
+              <div className="w-[15%] text-start">Order Number</div>
+              <div className="w-[20%]">Amount</div>
+              <div className="w-[25%]">Transaction ID</div>
+              <div className="w-[25%]">{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
+              <div className="w-[15%]">Order Details</div>
+            </div>
           </th>
-          <th>Amount</th>
-          <th>Transaction ID</th>
-          <th>{type === 'purchases' ? 'Creator' : 'Buyer'}</th>
-          <th className="w-[200px]">Order Details</th>
         </tr>
       </thead>
       <tbody>
         {data.map(item => {
           return (
             <tr key={item.id}>
-              <td className="text-start">
-                <div className="ml-3">{item.id}</div>
-              </td>
-              <td className="text-center">
-                <div className={`flex justify-center items-center gap-[5px]`}>
-                  <SolanaLogoIcon />
-                  {(item.amount / solToUsdRate).toFixed(2)}
+              <td className="w-full pt-[10px] pb-[10px]">
+                <div className={styles.tableRow}>
+                  <div className="w-[15%]">{item.id}</div>
+                  <div className="w-[20%] flex justify-center items-center gap-[5px]">
+                    <SolanaLogoIcon />
+                    {(item.amount / solToUsdRate).toFixed(2)}
+                  </div>
+                  <div
+                    className={`w-[25%] ${styles.transactionId} `}
+                    onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id, 'tx'))}
+                  >
+                    {getSliceAddress(item.transaction_id)}
+                  </div>
+                  <div className="w-[25%] text-center ">{getSliceAddress(item.creator)}</div>
+                  <div
+                    className={`${styles.viewOrder} w-[15%]`}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      dispatch({ type: 'set', orderType: type })
+                      router.push(`merch-logs/${item.id}`)
+                    }}
+                  >
+                    View Order
+                  </div>
                 </div>
-              </td>
-              <td
-                className={styles.transactionId}
-                onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id, 'tx'))}
-              >
-                {getSliceAddress(item.transaction_id)}
-              </td>
-              <td className="text-center">{getSliceAddress(item.creator)}</td>
-              <td
-                className={styles.viewOrder}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  dispatch({ type: 'set', orderType: type })
-                  router.push(`merch-logs/${item.id}`)
-                }}
-              >
-                View Order
               </td>
             </tr>
           )
