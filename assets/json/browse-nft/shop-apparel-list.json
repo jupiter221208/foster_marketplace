@@ -2,6 +2,7 @@
   {
     "id": 0,
     "name": "Hoodie",
+    "label": "Unisex Hoodie",
     "start_price": "37.94",
     "asset_url": "/images/shop-apparel-hoodie.png",
     "category": "apparel",
@@ -14,6 +15,7 @@
   {
     "id": 1,
     "name": "Short Sleeve",
+    "label": "Unisex Tee", 
     "start_price": "25.74",
     "asset_url": "/images/shop-apparel-shortsleeve.png",
     "category": "apparel",
@@ -26,6 +28,7 @@
   {
     "id": 2,
     "name": "Sweatshirt",
+    "label": "Unisex Crewneck",
     "start_price": "44.99",
     "asset_url": "/images/shop-apparel-sweatshirt.png",
     "category": "apparel",
@@ -38,6 +41,7 @@
   {
     "id": 3,
     "name": "Long Sleeve",
+    "label": "Unisex Long Sleeve", 
     "start_price": "30.24",
     "asset_url": "/images/shop-apparel-longsleeve.png",
     "category": "apparel",
@@ -50,6 +54,7 @@
   {
     "id": 4,
     "name": "Women's Short Sleeve",
+    "label": "Women's Tee",
     "start_price": "27.99",
     "asset_url": "/images/shop-apparel-women-shortsleeve.png",
     "category": "apparel",
