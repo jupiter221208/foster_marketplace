@@ -54,7 +54,7 @@ const Home = () => {
 
     setEditionList([])
     dashboardAPI.getListedEditions('', '', 1, 15).then(response => {
-      if (response !== null && response !== undefined && response.length !== 0) {
+      if (Array.isArray(response)) {
         setEditionList(response)
       }
     }),
