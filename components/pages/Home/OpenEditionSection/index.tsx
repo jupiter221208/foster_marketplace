@@ -38,7 +38,7 @@ const OpenEditionSection = props => {
 
   useEffect(() => {
     if (editions && Array.isArray(editions)) {
-      const filteredEditions = editions.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
+      const filteredEditions = editions.filter(item => item.maxSupply === null)
       setEditionList(filteredEditions)
     }
   }, [editions])
