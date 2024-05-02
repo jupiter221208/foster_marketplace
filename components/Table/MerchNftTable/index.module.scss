@@ -15,3 +15,23 @@
   margin-left: 15px;
   color: var(--text-gray-200-color);
 }
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  padding: 15px 40px;
+}
+
+.button {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
