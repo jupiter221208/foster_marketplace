@@ -39,11 +39,11 @@ const LimitedEditionSection = props => {
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   useEffect(() => {
-    if (editions && editions.length !== 0) {
-      const filteredEditions = editions.filter(item => item.maxSupply !== null && item.maxSupply !== '0');
-      setEditionList(filteredEditions);
+    if (editions && Array.isArray(editions)) {
+      const filteredEditions = editions.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
+      setEditionList(filteredEditions)
     }
-  }, [editions]);
+  }, [editions])
 
   useEffect(() => {
     if (editionList.length > 0) {
