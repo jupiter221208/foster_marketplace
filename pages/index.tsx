@@ -66,10 +66,12 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    const openEditions = editionList.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
-    setOpenEditionList(openEditions)
-    const limitEditions = editionList.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
-    setLimitedEditionList(limitEditions)
+    if (editionList && Array.isArray(editionList)) {
+      const openEditions = editionList.filter(item => item.maxSupply === null)
+      setOpenEditionList(openEditions)
+      const limitEditions = editionList.filter(item => item.maxSupply !== null && item.maxSupply !== '0')
+      setLimitedEditionList(limitEditions)
+    }
   }, [editionList])
 
   return (
@@ -105,14 +107,14 @@ const Home = () => {
       {openEditionList.length > 0 && (
         <div className={styles.editionSection}>
           <div className="g-container">
-            <OpenEditionSection category={''} editions={openEditionList} />
+            <OpenEditionSection category={''} editionList={openEditionList} />
           </div>
         </div>
       )}
       {limitedEditionList.length > 0 && (
         <div className={styles.limitEditionSection}>
           <div className="g-container">
-            <LimitedEditionSection category={''} editions={limitedEditionList} />
+            <LimitedEditionSection category={''} editionList={limitedEditionList} />
           </div>
         </div>
       )}
