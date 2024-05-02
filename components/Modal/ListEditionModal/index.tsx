@@ -11,9 +11,6 @@ import AuctionDetail from 'components/pages/BrowseNFT/AuctionDetail'
 import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
-// custom functions
-import { useResizeDetector } from 'react-resize-detector'
-
 // styles
 import styles from './index.module.scss'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -34,11 +31,12 @@ interface LisetEditionModalProps {
     }
   }
   open: boolean
+  listingType: string
   onSuccess: (name: string) => void
   onClose: () => void
 }
 
-const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalProps) => {
+const ListEditionModal = ({ data, open, listingType, onSuccess, onClose }: LisetEditionModalProps) => {
   const [play, setPlay] = useState(true)
   const viewport = useViewport()
 
@@ -68,7 +66,6 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
     })
   }
 
-  const { width, height, ref } = useResizeDetector()
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -101,9 +98,9 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>
                         {data?.category === 'vr' ? (
-                          <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                          <div className={`${styles.imageArea} w-full h-full`}>
                             {data?.animation_url ? (
-                              <ModelViewer width={width} height={height} path={data.animation_url} orbitLimited />
+                              <ModelViewer path={data.animation_url} orbitLimited />
                             ) : data?.image ? (
                               <img src={nftImage} onError={handleImageError} alt="" className="w-full" />
                             ) : (
@@ -125,7 +122,7 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                             src={nftImage}
                             onError={handleImageError}
                             alt={data?.name}
-                            className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                            className="w-auto h-auto max-w-full max-h-full object-contain"
                           />
                         )}
                       </div>
@@ -136,8 +133,8 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
                 <div className="w-full lg:hidden block">
                   {data?.category === 'vr' ? (
                     data?.animation_url ? (
-                      <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                        <ModelViewer path={data?.animation_url} width={width} height={height} orbitLimited />
+                      <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                        <ModelViewer path={data?.animation_url} orbitLimited />
                       </div>
                     ) : data?.image ? (
                       <div className={styles.mobileImageArea}>
@@ -185,7 +182,13 @@ const ListEditionModal = ({ data, open, onSuccess, onClose }: LisetEditionModalP
               )}
 
               <div className={styles.rightPanel}>
-                <ListEditionDetail data={data} onSuccess={onSuccess} onClose={onClose} />
+                <ListEditionDetail
+                  data={data}
+                  listingType={listingType}
+                  onSuccess={onSuccess}
+                  onClose={onClose}
+                  fromNFT={false}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>

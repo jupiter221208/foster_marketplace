@@ -36,79 +36,80 @@ const TrendingCollectionCard = props => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className="relative w-full h-full overflow-hidden">
-        <div className={styles.imageArea}>
-          <div className={styles.imageContent}>
-            <Link href={`/collection/${collectionID}`} passHref>
-              <a className="w-full">
-                <ImageWithFoster src={image} width={500} className="w-full h-full object-cover" />
-              </a>
-            </Link>
+    <div className={styles.layout}>
+      <div className={styles.container}>
+        <div className="relative w-full h-full overflow-hidden">
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              <Link href={`/collection/${collectionID}`} passHref>
+                <a className="w-full">
+                  <ImageWithFoster src={image} width={500} className="w-full h-full object-cover" />
+                </a>
+              </Link>
 
-            {showRemoveButton && (
-              <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
-                <div className="hidden lg:block">
-                  <TrashIcon alt="" />
+              {showRemoveButton && (
+                <div className={styles.removeVisible} onClick={() => setDisplayRemoveConfirm(true)}>
+                  <div className="hidden lg:block">
+                    <TrashIcon alt="" />
+                  </div>
+                  <div className="block lg:hidden">
+                    <TrashMobileIcon alt="" />
+                  </div>
                 </div>
-                <div className="block lg:hidden">
-                  <TrashMobileIcon alt="" />
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className={styles.bidContainer}>
-          {/* <div className={styles.bidGradientBgView} /> */}
-          <div className={styles.bidContentView}>
-            <div className="px-[15px] sm:px-[20px] lg:px-[28px]">
-              <div className={styles.nftName}>{collectionName}</div>
-              <div className="flex mt-2">
-                <div className={styles.artistName}>{artistName || collectionName}</div>
-                <div className={styles.dotStyle}>&#183;</div>
-                <div className={styles.nftCount}>{nftCount} artworks</div>
-              </div>
+              )}
             </div>
-            {avatar !== null && avatar.length > 0 && (
-              <div className={styles.avatar}>
-                <div className="min-w-full w-full h-full overflow-hidden rounded-full">
-                  <ImageWithFoster src={avatar} width={56} className="rounded-full" loading="lazy" />
+          </div>
+
+          <div className={styles.bidContainer}>
+            <div className={styles.bidContentView}>
+              <div className="px-[15px] sm:px-[20px] lg:px-[28px]">
+                <div className={styles.nftName}>{collectionName}</div>
+                <div className="flex mt-2">
+                  <div className={styles.artistName}>{artistName || collectionName}</div>
+                  {nftCount !== null && nftCount > 0 && <div className={styles.dotStyle}>&#183;</div>}
+                  {nftCount !== null && nftCount > 0 && <div className={styles.nftCount}>{nftCount} artworks</div>}
                 </div>
               </div>
-            )}
+              {avatar !== null && avatar.length > 0 && (
+                <div className={styles.avatar}>
+                  <div className="min-w-full w-full h-full overflow-hidden rounded-full">
+                    <ImageWithFoster src={avatar} width={56} className="rounded-full" loading="lazy" />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
+          {displayRemoveConfirm && (
+            <div className={styles.hideConfirm}>
+              {isLoading ? (
+                <div className={styles.loading}>
+                  <LoadingModal open={isLoading} />
+                </div>
+              ) : (
+                <div className="flex h-full items-center justify-center">
+                  <div>
+                    <div className={styles.hideText}>
+                      This action will remove this collection and
+                      <br />
+                      all of the collection items from Foster Marketplace.
+                      <br />
+                      <br />
+                      Would you like to proceed?
+                    </div>
+                    <div className="flex gap-[19px] lg:gap-[19px] mt-[50px] justify-center">
+                      <div className={styles.hideCancelButton} onClick={() => setDisplayRemoveConfirm(false)}>
+                        Cancel
+                      </div>
+                      <div className={styles.hideButton} onClick={() => removeCollection(collectionID)}>
+                        <div className={styles.hideButtonText}>Remove</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        {displayRemoveConfirm && (
-          <div className={styles.hideConfirm}>
-            {isLoading ? (
-              <div className={styles.loading}>
-                <LoadingModal open={isLoading} />
-              </div>
-            ) : (
-              <div className="flex h-full items-center justify-center">
-                <div>
-                  <div className={styles.hideText}>
-                    This action will remove this collection and
-                    <br />
-                    all of the collection items from Foster Marketplace.
-                    <br />
-                    <br />
-                    Would you like to proceed?
-                  </div>
-                  <div className="flex gap-[19px] lg:gap-[19px] mt-[50px] justify-center">
-                    <div className={styles.hideCancelButton} onClick={() => setDisplayRemoveConfirm(false)}>
-                      Cancel
-                    </div>
-                    <div className={styles.hideButton} onClick={() => removeCollection(collectionID)}>
-                      <div className={styles.hideButtonText}>Remove</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   )

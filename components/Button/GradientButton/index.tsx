@@ -25,7 +25,7 @@ const GradientButton = props => {
     fontSize = '',
     borderRadius = '',
     borderWidth = '1px',
-    borderColor = 'var(--primary-btn-border)',
+    borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',
     disabled = false,
     paddingLeft = '',
     paddingRight = '',
@@ -35,9 +35,8 @@ const GradientButton = props => {
   return (
     <button
       type="button"
-      onClick={() => onClick()}
-      className={`${styles.container} min-w-max ${disabled ? '' : styles.hoverBtn}`}
-      disabled={disabled}
+      onClick={() => !disabled && onClick()}
+      className={`${styles.container} min-w-max ${disabled ? styles.disabledBtn : styles.hoverBtn}`}
       style={{
         width: fullWidth ? '100%' : width,
         color: color,
@@ -52,7 +51,7 @@ const GradientButton = props => {
         borderColor: borderColor,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
-        opacity: disabled ? 0.5 : opacity,
+        opacity: opacity,
       }}
     >
       {(direction === 'both' || direction === 'rtl') &&

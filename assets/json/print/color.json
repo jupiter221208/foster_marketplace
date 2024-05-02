@@ -2,11 +2,13 @@
   {
     "id": 0,
     "name": "#E2E3E8",
-    "type": "white"
+    "type": "white",
+    "blendMode": "multiply"
   },
   {
     "id": 1,
     "name": "#010101",
-    "type": "black"
+    "type": "black",
+    "blendMode": "screen"
   }
 ]

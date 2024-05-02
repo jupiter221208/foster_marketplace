@@ -152,7 +152,7 @@ const ProfileMenu = props => {
                 />
               ))}
 
-              <div className="w-full flex min-h-[40px] items-center">
+              {/* <div className="w-full flex min-h-[40px] items-center">
                 <div className={`${styles.themeContainer} ${lightMode ? 'bg-[#20242725]' : 'bg-[#eff0f616]'}`}>
                   <button
                     onClick={() => handleThemeMode(true)}
@@ -174,7 +174,7 @@ const ProfileMenu = props => {
                     <span className="ml-4">Dark Mode</span>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </Transition>
         )}

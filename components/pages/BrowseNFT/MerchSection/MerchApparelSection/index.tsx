@@ -38,9 +38,6 @@ const MerchApparelSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full mb-[45px] lg:flex hidden">
-        <MerchStepper currentStep={currentStep} />
-      </div>
       {openPrintDetail ? (
         <PhysicalPrintDetail
           onBack={() => {

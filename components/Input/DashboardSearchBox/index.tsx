@@ -1,8 +1,5 @@
 import React from 'react'
 
-// next components
-import Image from 'next/image'
-
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg?component'
 
@@ -13,7 +10,7 @@ const DashboardSearchBox = props => {
   const { value, placeholder, onChange, onClick } = props
   return (
     <div className={styles.container}>
-      <div className="w-[20px]">
+      <div className="w-[14px]">
         <SearchGrayIcon className="cursor-pointer" onClick={() => onClick()} />
       </div>
       <input

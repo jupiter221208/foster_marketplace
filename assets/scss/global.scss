@@ -67,6 +67,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'JunkDog';
+  src: url('../fonts/JunkDog/JunkDog.woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --brand-01-color: #5ac3ba;
   --brand-02-color: #378287;
@@ -407,7 +414,6 @@ h6 {
 .g-left-container {
   max-width: 1920px;
   width: 100%;
-  min-height: calc(100vh - 100px);
   padding-left: 16px;
   @media (min-width: 640px) {
     padding-left: 16px;
@@ -424,13 +430,12 @@ h6 {
   @media (min-width: 1536px) {
     padding-left: 150px;
   }
-  background: var(--second-home-bg);
+  // background: var(--second-home-bg);
 }
 
 .g-right-container {
   max-width: 1920px;
   width: 100%;
-  min-height: calc(100vh - 100px);
   padding-right: 16px;
   @media (min-width: 640px) {
     padding-right: 16px;
@@ -447,7 +452,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-right: 150px;
   }
-  background-color: var(--background-main-color);
+  // background-color: var(--background-main-color);
 }
 #heroSwiper .swiper .swiper-slide {
   transform: scale(0.9);
@@ -564,6 +569,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -592,6 +599,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -599,19 +608,19 @@ h6 {
 
 
 #heroSwiperMobile .swiper-wrapper {
-  padding-bottom: 30px;
+  // padding-bottom: 30px;
 }
 #heroSwiperMobile .swiper-horizontal > .swiper-pagination-bullets,
 #heroSwiperMobile .swiper-pagination-bullets.swiper-pagination-horizontal,
 .swiper-pagination-custom,
 .swiper-pagination-fraction {
-  bottom: 80px;
+  bottom: 50px;
   left: 0px;
   width: 100%;
   height: 18px;
   z-index: 10;
   @media (min-width: 414px) {
-    bottom: 60px;
+    bottom: 30px;
   }
   @media (min-width: 1024px) {
     left: -10px;
@@ -711,8 +720,8 @@ h6 {
 
 .noScrollNavigationSwiper {
   padding-bottom: 15px !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   .swiper-button-prev {
     display: none;
   }
@@ -724,6 +733,8 @@ h6 {
 
 .auctionNavigationSwiper {
   padding-bottom: 15px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   @media (min-width: 640px) {
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -749,6 +760,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -774,6 +787,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -804,6 +819,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -829,6 +846,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -859,6 +878,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -884,6 +905,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -917,6 +940,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -942,6 +967,8 @@ h6 {
     opacity: 1 !important;
     &:hover {
       cursor: pointer;
+      border: solid 1px var(--main-icon-color);
+      color: var(--main-icon-color);
     }
     pointer-events: visible !important;
   }
@@ -1060,10 +1087,12 @@ h6 {
 #ArtworksTable tbody tr:hover {
   color: var(--text-gray-200-color);
 }
+
 #ArtworksTable tbody tr {
   color: var(--artwork-table-tr);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.16);
   border-radius: 20px;
+  background: var(--background-main-color) !important;
 }
 
 #ArtworksTable td {
@@ -1371,6 +1400,10 @@ h6 {
   }
 }
 
+[data-name='color-1a-ff'] {
+  --fill-color: var(--time-slog-bg);
+}
+
 [data-name='foster-enhanced-logo'] {
   --fill-color: var(--background-light-color);
 }
@@ -1440,6 +1473,10 @@ h6 {
 
 [data-name='solana-logo-dark'] {
   fill: var(--single-nft-btn-color);
+}
+
+[data-name='clock-sand-icon'] {
+  fill: var(--bg-95dbd5-707070);
 }
 
 [data-name='foster-logo-dark'] {
@@ -1521,6 +1558,10 @@ h6 {
   }
 }
 
+[data-name='scroll-arrow'] {
+  fill: var(--scroll-arrow-color)
+}
+
 [data-name='stepper'] {
   fill: var(--step-circle-mobile-color);
   [data-fill='a'] {
@@ -1543,6 +1584,30 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='button-divider'] {
+  fill: var(--bg-1A1A1A-4A4D50)
+}
+
+[data-name='hover-button-divider'] {
+  fill: var(--bg-4D6A67-484B4E)
+}
+
+[data-name='second-button-divider'] {
+  fill: var(--bg-59595B-BEBFBD)
+}
+
+[data-name='button-icon'] {
+  fill: var(--bg-1A1A1A-FFF)
+}
+
+[data-name='button-icon-hover'] {
+  fill: var(--bg-95dbd5-FFF)
+}
+
+[data-name='second-button-icon'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.8)
+}
+
 [data-name='fullscreen-icon'] {
   fill: rgba(var(--main-bg-color-rgb), 0.03);
   [data-fill='a'] {
@@ -1563,6 +1628,10 @@ h6 {
   &:hover {
     fill: #95dbd5;
   }
+}
+
+[data-name='nft-share-icon'] {
+  fill: var(--bg-eff0f6-707070)
 }
 
 svg {

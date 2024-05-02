@@ -51,6 +51,10 @@ const ActivityAccordion = ({ data }) => {
       case 'AuctionCancelled':
       case 'ListingAdded':
       case 'ListingCancelled':
+      case 'MasterEditionListingCreated':
+      case 'MasterEditionListingUpdated':
+      case 'MasterEditionPrintCreated':
+      case 'ListingUpdated':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -94,6 +98,18 @@ const ActivityAccordion = ({ data }) => {
       case 'BidPlaced':
         type = 'placed a bid'
         break
+      case 'MasterEditionPrintCreated':
+        type = 'purchased print edition'
+        break
+      case 'MasterEditionListingCreated':
+        type = 'listed master edition'
+        break
+      case 'MasterEditionListingUpdated':
+        type = 'updated listing master edition'
+        break
+      case 'ListingUpdated':
+        type = 'updated listing'
+        break
     }
     return type
   }
@@ -123,7 +139,11 @@ const ActivityAccordion = ({ data }) => {
                       <ImageWithFoster src={item.asset_url} className="w-full h-full rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.asset_name}</div>
+                      <div className={styles.subTitle}>
+                        {item.action_type === 'MasterEditionPrintCreated'
+                          ? item.asset_name.slice(0, item.asset_name.indexOf(', (#'))
+                          : item.asset_name}
+                      </div>
                       <div className={styles.subType}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                     </div>
                   </div>

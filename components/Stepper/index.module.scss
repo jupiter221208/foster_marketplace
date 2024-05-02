@@ -13,7 +13,7 @@
   align-items: center;
   text-align: center;
   background: rgba(var(--main-bg-color-rgb), 0.05);
-  border-radius: 30px;
+  border-radius: 15px;
 }
 
 .grayLine {
@@ -28,8 +28,15 @@
   background-color: var(--main-icon-color);
 }
 
-.greenText {
+.boldText {
   font-family: 'Muli-Bold';
+}
+
+.regularText {
+  font-family: 'Muli-Regular';
+}
+
+.greenText {
   font-size: 12px;
   line-height: 15px;
   color: var(--main-icon-color);
@@ -37,13 +44,12 @@
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
-    // color: var(--brand-09-color);
   }
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .grayText {
-  font-family: 'Muli-Regular';
   letter-spacing: 0;
   font-size: 12px;
   line-height: 15px;
@@ -53,4 +59,5 @@
     line-height: 24px;
     color: rgba(var(--text-gray-200-color-rgb), 0.6);
   }
+  white-space: nowrap;
 }

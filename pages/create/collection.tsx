@@ -16,6 +16,7 @@ import Alert from 'components/Alert'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
+import EditionList from 'assets/json/collections/edition-type.json'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -23,8 +24,8 @@ import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import { ComputeBudgetProgram, Keypair, PublicKey } from '@solana/web3.js'
 import {
-  CreateNftOutput,
   JsonMetadata,
+  toBigNumber,
   toMetaplexFile,
   toMetaplexFileFromBrowser,
   TransactionBuilder,
@@ -37,6 +38,8 @@ import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import ProgressSection from 'components/ProgressSection'
+import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -88,9 +91,9 @@ const Collection = () => {
   // step 2
   const [collectionFiles, setCollectionFiles] = useState<any[]>([])
   const [royalties, setRoyalties] = useState(0)
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isMinting, setIsMinting] = useState(false)
-
+  const [disabledButton, setDisabledButton] = useState(false)
+  const [startUpload, setStartUpload] = useState(false)
   const collectionNftMint = Keypair.generate()
 
   const mintCollection = async () => {
@@ -100,8 +103,6 @@ const Collection = () => {
       await refreshToken()
       // TODO: calculate real file size
       // for now, just fund with 0.1 sol which is little over 1GB
-      let signature = await ensureLocalWalletBalance(0.1 * 1e9, 'confirmed')
-
       const categories = categoryList.filter(item => item.checked)
 
       const attributes = categories.map(category => {
@@ -237,6 +238,8 @@ const Collection = () => {
         object.type = 'vr'
         object.url = URL.createObjectURL(item)
       }
+      object.editionType = EditionList[0]
+
       array.push(object)
     })
 
@@ -266,6 +269,38 @@ const Collection = () => {
     setCollectionFiles(prevFiles => {
       let index = prevFiles.indexOf(item)
       if (index > -1) prevFiles[index].description = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeEditionType = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].editionType = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxNum = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxNum = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeMaxSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].maxSupply = value
+      return [...prevFiles]
+    })
+  }
+
+  const handleChangeSupply = (item, value) => {
+    setCollectionFiles(prevFiles => {
+      let index = prevFiles.indexOf(item)
+      if (index > -1) prevFiles[index].supply = value
       return [...prevFiles]
     })
   }
@@ -302,6 +337,8 @@ const Collection = () => {
   const readFilesAndUplaod = async () => {
     dispatch({ type: 'set', isCollectionMinting: true })
 
+    setIsMinting(true)
+
     let array = []
 
     const collectionPublicKey = new PublicKey(collectionMintAddress)
@@ -315,7 +352,7 @@ const Collection = () => {
     })
 
     for (let i = 0; i < collectionFiles.length; i++) {
-      let { name, description, file, croppedImage, type, nftCoverImage } = collectionFiles[i]
+      let { name, description, file, croppedImage, type, nftCoverImage, editionType, maxSupply } = collectionFiles[i]
       name = name.trim()
       description = description.trim()
       const metadata: JsonMetadata = {
@@ -388,6 +425,10 @@ const Collection = () => {
         }
       )
 
+      let max_supply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') max_supply = toBigNumber(maxSupply)
+      else if (editionType?.name == 'Open Edition') max_supply = null
+
       createNftOperation.add(
         await mx.nfts().builders().create({
           useNewMint: nftKeypair,
@@ -395,6 +436,7 @@ const Collection = () => {
           name,
           sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
           collection: collectionPublicKey,
+          maxSupply: max_supply,
         })
       )
 
@@ -439,6 +481,11 @@ const Collection = () => {
       } else {
         assetUrl = metadata.image
       }
+
+      let max_supply_value = 0
+      if (editionType?.name == 'Limited Edition') max_supply_value = maxSupply
+      else if (editionType?.name == 'Open Edition') max_supply_value = null
+
       array.push({
         token_id: nftKeypair.publicKey.toString(),
         nft_name: metadata.name,
@@ -447,6 +494,9 @@ const Collection = () => {
         cover_image_url: coverUrl,
         categories: category.slice(0, -1),
         sellerFeeBasisPoints: collectionInfo.sellerFeeBasisPoints,
+        edition: 0,
+        parent_nft: null,
+        max_supply: max_supply_value,
       })
       setUploadedCount(i + 1)
     }
@@ -465,10 +515,11 @@ const Collection = () => {
           router.push(`/collection/${collectionMintAddress}`)
         }, 500)
       },
-      error => {}
+      error => {
+        setIsMinting(false)
+      }
     )
 
-    // setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
     dispatch({ type: 'set', isCollectionMinting: false })
   }
 
@@ -480,6 +531,27 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
+        <div className="lg:flex hidden w-full justify-center">
+          <div className="w-full g-container mt-[66px]">
+            <ProgressSection
+              currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
+              nextDisabled={disabledButton}
+              onBack={() => {
+                if (currentStep === 1 || currentStep === 3) router.back()
+                else setCurrentStep(currentStep - 1)
+              }}
+              onNext={() => {
+                if (currentStep === 2) mintCollection()
+                else if (currentStep === 4) {
+                  setStartUpload(true)
+                  readFilesAndUplaod()
+                } else setCurrentStep(currentStep + 1)
+              }}
+              loading={isMinting}
+              labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
+            />
+          </div>
+        </div>
         {currentStep === 1 && (
           <Step01CollectionSection
             currentStep={currentStep}
@@ -502,13 +574,29 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
+            setDisabledButton={setDisabledButton}
+          />
+        )}
+        {currentStep === 2 && (
+          <Step01ReviewSection
+            currentStep={currentStep}
+            onChangeCurrentStep={step => setCurrentStep(step)}
+            collectionName={collectionName}
+            description={description}
+            coverImage={coverImage}
+            coverCroppedImage={coverCroppedImage}
+            bannerImage={bannerImage}
+            bannerCroppedImage={bannerCroppedImage}
+            royalties={royalties}
+            categoryList={categoryList}
+            setDisabledButton={setDisabledButton}
             mintCollection={() => {
               mintCollection()
             }}
             isMinting={isMinting}
           />
         )}
-        {currentStep === 2 && (
+        {currentStep === 3 && (
           <Step02CollectionSection
             currentStep={currentStep}
             coverCroppedImage={coverCroppedImage}
@@ -520,7 +608,13 @@ const Collection = () => {
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            onChangeEditionType={(item, value) => handleChangeEditionType(item, value)}
+            onChangeMaxNum={(item, value) => handleChangeMaxNum(item, value)}
+            onChangeMaxSupply={(item, value) => handleChangeMaxSupply(item, value)}
+            onChangeSupply={(item, value) => handleChangeSupply(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
+            disabledNextButton={disabledButton}
+            setDisabledNextButton={setDisabledButton}
           />
         )}
 
@@ -528,18 +622,24 @@ const Collection = () => {
           <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
         </div>
 
-        {currentStep === 3 && (
+        {currentStep === 4 && (
           <Step03CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             bannerCroppedImage={collectionCoverUrl}
             collectionMintName={collectionMintName}
             collectionFiles={collectionFiles}
-            readFilesAndUplaod={readFilesAndUplaod}
             uploadedCount={uploadedCount}
+            startUpload={startUpload}
+            setStartUpload={setStartUpload}
+            isMinting={isMinting}
+            mintCollection={() => {
+              setStartUpload(true)
+              readFilesAndUplaod()
+            }}
           />
         )}
-        {currentStep === 4 && (
+        {currentStep === 5 && (
           <SuccessMintCollectionSection
             coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={collectionCoverUrl}

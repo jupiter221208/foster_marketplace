@@ -1,0 +1,121 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: auto;
+}
+
+.mintQty {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  background: var(--second-home-bg);
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.mintValue {
+  font-size: 16px;
+  font-family: 'Muli-Regular';
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 1);
+  user-select: none;
+}
+
+.mintLabel {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  height: 20px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: 'Muli-Light';
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
+.mintPrice {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  padding: 12px 0px;
+}
+
+.mintPriceDetail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 234px;
+  border-radius: 10px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  padding: 12px 24px;
+  z-index: 100;
+}
+
+.priceBorder {
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.priceLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.priceValue {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.whiteText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.grayText {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.minus {
+  font-family: 'Muli-Bold';
+  padding: 15px 20px;
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.total {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.buyLimitText {
+  margin-top: 5px;
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  color: #d67474;
+}

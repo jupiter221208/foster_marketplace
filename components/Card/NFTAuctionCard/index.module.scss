@@ -3,8 +3,6 @@
 .container {
   width: 100%;
   height: 100%;
-  
-  background: rgba(var(--main-icon-color-rgb), 0.05);
   border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   cursor: pointer;
@@ -25,31 +23,7 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 110%;
-  @media (min-width: 640px) {
-    padding-top: 114.0%;
-  }
-}
-
-.imageContainer {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--background-main-color);
-}
-
-.imageContentArea {
-  position: absolute;
-  width: 100%;
-  padding-top: 88.02%;
-  @media (min-width: 640px) {
-    padding-top: 95.02%;
-  }
-  @media (min-width: 1024px) {
-    padding-top: 91.92%;
-  }
+  padding-top: 100%;
 }
 
 .imageContent {
@@ -58,47 +32,31 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  background: var(--background-main-color);
 }
 
 .nftData {
-  position: absolute;
   width: 100%;
   background: var(--background-main-color);
-  padding: 7px 10px;
-  @media (min-width: 640px) {
-    padding: 8px 16px 12px 16px;
-  }
-  @media (min-width: 1024px) {
-    padding: 12px 16px;
-  }
   display: flex;
   justify-content: space-between;
   align-items: center;
-  left: 0;
-  bottom: 0;
 }
 
 .nftName {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
   color: var(--text-gray-200-color);
-  @media (min-width: 640px) {
-    font-size: 16px;
-    line-height: 25px;
-  }
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .artistName {
   font-family: 'Muli-Light';
   font-weight: 100;
-  font-size: 10px;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
-  margin-top: 2px;
-  @media (min-width: 640px) {
-    font-size: 14px;
-    line-height: 24px;
-    margin-top: 4px;
-  }
+  margin-top: 3px;
 }
 
 .imageInfo {
@@ -109,12 +67,27 @@
   flex: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;  
-  @media (min-width: 640px) {
-    padding: 15px 15px;
-  }
+  padding: 14px 17px;  
+  height: 66px;
+  background: var(--background-main-color);
+  border-bottom: 1px solid var(--bg-303030-D9D8D7);
+  border-top:  1px solid var(--bg-303030-D9D8D7);
   @media (min-width: 1024px) {
-    padding: 15px 19px;
+    padding: 14px 20px;
+  }
+}
+
+.bottomSection {
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 17px;
+  @media (min-width: 1024px) {
+    padding: 14px 20px;
   }
 }
 
@@ -152,15 +125,12 @@
 
 .currentBid {
   font-family: 'Muli-Light';
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 12px;
+  line-height: 15px;
   font-weight: 100;
-  @media (min-width: 640px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
+  margin-top: -2px;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -168,50 +138,24 @@
 
 .price {
   font-family: 'Muli-Bold';
-  font-size: 12px;
-  line-height: 15px;
-  margin-left: 3px;
-  margin-top: -2px;
-  @media (min-width: 640px) {
-    margin-top: -3px;
-    margin-left: 5px;
-    font-size: 18px;
-    line-height: 22px;
-  }
-  @media (min-width: 1440px) {
-    margin-top: -3px;
-    margin-left: 7px;
-    font-size: 18px;
-    line-height: 22px;
-  }
-  @media (min-width: 1680px) {
-    margin-top: -4px;
-    margin-left: 7px;
-    font-size: 18px;
-    line-height: 22px;
-  }
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 5px;
+  margin-top: -3px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
 
 .day {
   font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 16px;
-  @media (min-width: 640px) {
-    font-size: 18px;
-    line-height: 23px;
-  }
+  font-size: 16px;
+  line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .timeValue {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 16px;
+    line-height: 20px;
   color: var(--text-gray-200-color);
-  @media (min-width: 640px) {
-    font-size: 18px;
-    line-height: 23px;
-  }
 }

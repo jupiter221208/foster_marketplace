@@ -1,15 +1,14 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  margin-top: -80px;
-  margin-bottom: 60px;
-  height: auto;
-  background-image: url('../../../../public/images/hero-background.png');
+  padding-bottom: 170px;
+  height: 100%;
+  // background-image: url('../../../../public/images/hero-background.png');
   background-size: cover;
   @media (min-width: 1024px) {
     margin-top: 0px;
     margin-bottom: 0px;
-    height: 95vh;
+    height: 90vh;
   }
   width: 100%;
   display: flex;
@@ -24,6 +23,43 @@
   height: 280px;
   bottom: 0;
   background-image: var(--hero-bg-color);
+}
+
+.solanaText {
+  margin-top: -15px;
+  font-family: 'JunkDog';
+  font-size: 44px;
+  line-height: 50px;
+  @media (min-width: 1024px) {
+    margin-top: -50px;
+    font-size: 72px;
+    line-height: 80px;
+  }
+  text-align: center;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--bg-1A1A1A-202427);
+  color: #fff;
+  span {
+    color: var(--main-icon-color)
+  }
+}
+
+.selected {
+  font-size: 18px;
+  font-family: 'Muli-SemiBold';
+  line-height: 22px;
+  font-weight: 100;
+  color: var(--main-icon-color);
+  cursor: pointer;
+}
+
+.unselected {
+  font-size: 18px;
+  line-height: 22px;
+  font-family: 'Muli-Regular';
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  cursor: pointer;
 }
 
 .topLeftEllipse {
@@ -299,4 +335,24 @@
   z-index: 99;
   right: -15px;
   margin-right: 5px;
+}
+
+.connecting {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.5)
+}
+
+.information {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.5)
+}
+
+.topBorder {
+  width: 30px;
+  height: 1px;
+  background: var(--main-icon-color);
 }

@@ -50,9 +50,8 @@ import { isString, compareDate, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
-import ProvenanceSection from 'components/pages/BrowseNFT/ProvenanceSection'
 import ModelViewer from 'components/ModelViewer'
-import { NftData, NftApiData } from 'types/nft'
+import { NftData } from 'types/nft'
 import { useViewport } from 'utils'
 import NFTActivityInfoSection from 'components/pages/BrowseNFT/MainSection/NFTActivityInfoSection'
 import collectionAPI from 'apis/collections'
@@ -118,10 +117,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
         const nftName = nftDetail.name ?? 'No name found'
         const nftCoverUrl = nftDetail.image ?? ''
+        const nftUsername = ''
         const mintAddress = nftDetail.mintAddress.toString()
         const item = ShopApparelList.find(apparel => apparel.name === apparelType)
         let params = {
           nftName,
+          nftUsername,
           nftCoverUrl,
           mintAddress,
           category: item?.category,
@@ -147,7 +148,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+                setArtistInfo({
+                  address: response.creator_address,
+                  name: response.creator_username,
+                  profile_image: response.creator_profile_image,
+                })
+                dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
           },
@@ -159,7 +165,12 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             if (!isString(response)) {
               setNftInfo(response)
               if (response.creator_address !== null) {
-                setArtistInfo({ address: response.creator_address, name: response.creator_username })
+                setArtistInfo({
+                  address: response.creator_address,
+                  name: response.creator_username,
+                  profile_image: response.creator_profile_image,
+                })
+                dispatch({ type: 'set', merchBy: response.creator_username })
               }
             }
           },
@@ -212,7 +223,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (!isString(response)) {
             setNftInfo(response)
             if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              setArtistInfo({
+                address: response.creator_address,
+                name: response.creator_username,
+                profile_image: response.creator_profile_image,
+              })
             }
           }
         },
@@ -224,7 +239,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           if (!isString(response)) {
             setNftInfo(response)
             if (response.creator_address !== null) {
-              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+              setArtistInfo({
+                address: response.creator_address,
+                name: response.creator_username,
+                profile_image: response.creator_profile_image,
+              })
             }
           }
         },
@@ -372,43 +391,48 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             )}
 
             {!showAuctionSection && (
-              <div className={`g-container ${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
+              <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
                 <div className={styles.selectedTab}>
-                  <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                  <div className="g-container">
+                    <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                  </div>
                   <div className={styles.selectedTabBorder} />
                 </div>
-                <div className={styles.mainContainer}>
-                  {activeTab === 0 ? (
-                    <NFTActivityInfoSection activityList={activityList} />
-                  ) : activeTab === 1 ? (
-                    <div>
-                      {collectionId && collectionNFTs && (
-                        <MoreCollectionSection
-                          collectionNFTs={collectionNFTs}
-                          collectionId={collectionId}
-                          collectionName={collectionName}
-                          mintAddress={nftDetail.mintAddress.toString()}
+                <div className={styles.background}>
+                  <div className={`g-container ${styles.mainContainer}`}>
+                    {activeTab === 0 ? (
+                      <NFTActivityInfoSection activityList={activityList} />
+                    ) : activeTab === 1 ? (
+                      <div>
+                        {collectionId && collectionNFTs && (
+                          <MoreCollectionSection
+                            collectionNFTs={collectionNFTs}
+                            collectionId={collectionId}
+                            collectionName={collectionName}
+                            mintAddress={nftDetail.mintAddress.toString()}
+                          />
+                        )}
+                        {artistInfo && collectionList && (
+                          <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
+                        )}
+                        <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
+                      </div>
+                    ) : (
+                      merchToggle && (
+                        <ShopApparelSection
+                          title="Shop Apparel"
+                          type="apparel"
+                          nftDetail={nftDetail}
+                          nftCreator={artistInfo?.name}
+                          shopApparelList={ShopApparelList}
+                          openMerchPage={data => {
+                            setMerchData(data)
+                            setOpenMerchPage(true)
+                          }}
                         />
-                      )}
-                      {artistInfo && collectionList && (
-                        <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
-                      )}
-                      <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
-                    </div>
-                  ) : (
-                    merchToggle && (
-                      <ShopApparelSection
-                        title="Shop Apparel"
-                        type="apparel"
-                        nftDetail={nftDetail}
-                        shopApparelList={ShopApparelList}
-                        openMerchPage={data => {
-                          setMerchData(data)
-                          setOpenMerchPage(true)
-                        }}
-                      />
-                    )
-                  )}
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             )}
@@ -419,7 +443,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       {fullScreen && (
         <div className={styles.fullScreen}>
           {nftType?.includes('vr') ? (
-            <ModelViewer path={nftCoverUrl} fullScreen width={innerWidth} height={innerHeight} />
+            <ModelViewer path={nftCoverUrl} fullScreen />
           ) : (
             <img
               src={nftCoverUrl}

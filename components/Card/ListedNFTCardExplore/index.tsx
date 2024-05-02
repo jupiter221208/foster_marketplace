@@ -59,7 +59,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                     <a className="w-full h-full relative">
                       {play ? (
                         <div
-                          className="w-full h-full absolute"
+                          className="w-full h-full absolute overflow-hidden"
                           dangerouslySetInnerHTML={{
                             __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
@@ -69,7 +69,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                       ) : coverImage != null && coverImage !== '' ? (
                         <ImageWithFoster
                           src={coverImage}
-                          width={200}
+                          width={800}
                           className="w-full h-full object-cover"
                           onClick={() => onClick()}
                         />
@@ -99,7 +99,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 </div>
               ) : (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a className="w-full h-full flex items-center">
+                  <a className="w-full h-full flex items-center overflow-hidden">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{
@@ -114,13 +114,15 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
             ) : assetType?.includes('audio') ? (
               coverImage != null && coverImage !== '' ? (
                 <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                  <a className="w-full h-full">
-                    <ImageWithFoster
-                      src={coverImage}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
-                      onClick={onClick}
-                      className="w-full h-full object-cover"
-                    />
+                  <a className="flex justify-center items-center">
+                    <div className="w-full h-full">
+                      <ImageWithFoster
+                        src={coverImage}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
+                        onClick={onClick}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
                   </a>
                 </Link>
               ) : (
@@ -132,19 +134,28 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
               )
             ) : coverImage != null && coverImage !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full">
-                  <ImageWithFoster
-                    src={coverImage}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
-                    onClick={onClick}
-                    className={styles.imageNft}
-                  />
+                <a className="flex justify-center items-center">
+                  <div className="w-full h-full">
+                    <ImageWithFoster
+                      src={coverImage}
+                      width={800}
+                      onClick={onClick}
+                      className="max-w-full max-h-full object-cover"
+                    />
+                  </div>
                 </a>
               </Link>
             ) : image !== null && image !== '' ? (
               <Link href={`${window.origin}/nft/${token_id}`} passHref>
-                <a className="w-full h-full">
-                  <ImageWithFoster src={image} onClick={onClick} className={styles.imageNft} />
+                <a className="flex justify-center items-center">
+                  <div className="w-full h-full">
+                    <ImageWithFoster
+                      src={image}
+                      width={800}
+                      onClick={onClick}
+                      className="max-w-full max-h-full object-cover"
+                    />
+                  </div>
                 </a>
               </Link>
             ) : (
@@ -165,15 +176,18 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         <div className={styles.imageInfo}>
           <div className={styles.nftData}>
             <div>
-              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
-              <div className="w-full flex justify-between">
+              <div className={styles.nftName}>{nftName}</div>
+              <div className="w-full flex justify-between pb-2">
                 <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
               </div>
             </div>
           </div>
-          {price && (
-            <div className="h-full flex justify-between items-end mt-[18px] sm:mt-[0px] mb-[2px]">
-              <div className="flex justify-center items-center mt-[2px]">
+        </div>
+        <div className={styles.bottomInfo}>
+          {price ? (
+            <div className="">
+              <div className={styles.priceLabel}>Price</div>
+              <div className="w-full flex items-center mt-[6px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                   <SolanaLogoMobileIcon />
                 ) : (
@@ -181,6 +195,10 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                 )}
                 <div className={styles.price}>{price}</div>
               </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center">
+              <div className={styles.unlisted}>Unlisted</div>
             </div>
           )}
         </div>

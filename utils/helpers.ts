@@ -31,6 +31,31 @@ export const calculateTimeLeft = endDate => {
   return timeLeft
 }
 
+export const calculateAuctionTimeLeft = endDate => {
+  let difference = getTimeDifference(endDate)
+  let timeLeft = {}
+
+  if (difference > 0) {
+    const seconds = Math.floor((difference / 1000) % 60)
+    const minutes = Math.floor((difference / 1000 / 60) % 60)
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    timeLeft['seconds'] = (seconds < 10 && '0') + seconds + ''
+    timeLeft['minutes'] = (minutes < 10 && '0') + minutes + ''
+    timeLeft['hours'] = (hours < 10 && '0') + hours + ''
+    timeLeft['days'] = (days < 10 && '0') + days + ''
+  } else {
+    timeLeft = {
+      days: '00',
+      hours: '00',
+      minutes: '00',
+      seconds: '00',
+    }
+  }
+
+  return timeLeft
+}
+
 export const getTimeDifference = endTime => {
   let endListingTime = new Date(endTime)
   let offset = endListingTime.getTimezoneOffset() * 60 * 1000
@@ -331,8 +356,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--primary-btn-hover', '#202427')
     doc.style.setProperty('--primary-btn-color', '#eff0f6')
     doc.style.setProperty('--twitter-text-color', '#eff0f6')
-    doc.style.setProperty('--twitter-btn-color1', '#202427')
-    doc.style.setProperty('--twitter-btn-color2', '#202427')
+    doc.style.setProperty('--twitter-btn-color1', '#F3F2F0')
+    doc.style.setProperty('--twitter-btn-color2', '#F3F2F0')
     doc.style.setProperty('--notification-card-bg', 'rgba(32, 36, 39, 0.5)')
     doc.style.setProperty('--background-dark-color-rgb', '135, 137, 141')
     doc.style.setProperty('--dao-title-color', '#202427')
@@ -372,7 +397,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--studio-title-bg', '#FFF')
     doc.style.setProperty('--switch-disabled-bg', '#CBCDD2')
     doc.style.setProperty('--nft-detail-section-border', '#eff0f6')
-    doc.style.setProperty('--gradient-btn-color', '#202427')
+    doc.style.setProperty('--gradient-btn-color', '#FFF')
     doc.style.setProperty('--ellipse-btn-shadow', 'rgba(32, 36, 39, 0.3)')
     doc.style.setProperty('--nft-detail-bg', '#CBCDD2')
     doc.style.setProperty('--nft-detail-border', '#C5C7CC')
@@ -511,7 +536,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-icon-stop-1', '#95dbd5')
     doc.style.setProperty('--search-icon-stop-2', '#4B6E6B')
     doc.style.setProperty('--search-icon-bg', 'rgba(239, 240, 247, 0.6)')
-    doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
+    doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.6)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(32,36,39,0.2)')
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
@@ -536,7 +561,9 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--stats-search-bg', '#FFF')
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #FFF, #FFF)')
-    doc.style.setProperty('--primary-btn-bg', '#FFF')
+    doc.style.setProperty('--primary-btn-bg', '#2E3235')
+    doc.style.setProperty('--gradient-btn-hover-bg', '#202427')
+    doc.style.setProperty('--gradient-btn-hover-color', '#FFF')
     doc.style.setProperty('--primary-btn-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--auction-card-label', '#65686C')
     doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #C8C8CD, #939396)')
@@ -568,7 +595,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
-    doc.style.setProperty('--scroll-arrow-color', '#202427')
+    doc.style.setProperty('--scroll-arrow-color', '#707070')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#FFFFFF')
     doc.style.setProperty('--nft-type-box-hover', 'rgba(32, 36, 39, 0.25)')
@@ -602,6 +629,31 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--explore-tab-border', '#202427')
     doc.style.setProperty('--chip-border-color', 'rgba(32, 26, 39, 0.1)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '245, 244, 242')
+    doc.style.setProperty('--bg-303030-FFF', '#FFF')
+    doc.style.setProperty('--bg-303030-D9D8D7', '#D9D8D7')
+    doc.style.setProperty('--bg-95dbd5-707070', '#707070')
+    doc.style.setProperty('--bg-95dbd5-FFF', '#FFF')
+    doc.style.setProperty('--bg-eff0f6-707070', '#707070')
+    doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-303030-202427', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--bg-303030-D3D3D2', '#D3D3D2')
+    doc.style.setProperty('--bg-303030-DDDCDC', '#DDDCDC')
+    doc.style.setProperty('--bg-timer-card', 'rgba(244, 243, 240, 0.8)')
+    doc.style.setProperty('--bg-141313-E8E7E5', '#E8E7E5')
+    doc.style.setProperty('--bg-141313-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-1A1A1A-202427', '#202427')
+    doc.style.setProperty('--bg-9bdbd5-20242725', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--bg-1A1A1A-4A4D50', '#4A4D50')
+    doc.style.setProperty('--bg-1A1A1A-FFF', '#FFF')
+    doc.style.setProperty('--bg-212121-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-212121-202427', '#202427')
+    doc.style.setProperty('--bg-59595B-BEBFBD', '#BEBFBD')
+    doc.style.setProperty('--bg-95dbd505-202427', '#202427')
+    doc.style.setProperty('--bg-4D6A67-202427', '#202427')
+    doc.style.setProperty('--bg-4D6A67-484B4E', '#484B4E')
+    doc.style.setProperty('--bg-3A3A3A-202427', '#202427')
+    doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '255, 255, 255')
+    doc.style.setProperty('--bg-242424-EFF0F605', 'rgba(239, 240, 247, 0.05)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -664,8 +716,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--primary-btn-color', '#1a1a1a')
     doc.style.setProperty('--hero-artist-color', '#95dbd5')
     doc.style.setProperty('--twitter-text-color', '#202427')
-    doc.style.setProperty('--twitter-btn-color1', '#95DBD5')
-    doc.style.setProperty('--twitter-btn-color2', '#4B6E6B')
+    doc.style.setProperty('--twitter-btn-color1', 'rgba(149, 219, 213, 0.05)')
+    doc.style.setProperty('--twitter-btn-color2', 'rgba(149, 219, 213, 0.05)')
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
     doc.style.setProperty('--back-btn-bg-color', '18, 18, 18')
@@ -841,7 +893,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sell-nft-border', 'rgba(255, 255, 255, 0.1)')
     doc.style.setProperty('--sell-nft-bg', '#121212')
     doc.style.setProperty('--setting-input-bg', '#202427')
-    doc.style.setProperty('--search-gray-icon', 'rgba(239, 240, 247, 0.75)')
+    doc.style.setProperty('--search-gray-icon', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--search-icon-stop-1', '#202427')
     doc.style.setProperty('--search-icon-stop-2', '#2D625D')
     doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.6)')
@@ -872,7 +924,9 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--stats-search-bg', '#2b2b2b')
     doc.style.setProperty('--artwork-tbl-header-bg', '#242424')
-    doc.style.setProperty('--primary-btn-bg', '#242424')
+    doc.style.setProperty('--primary-btn-bg', '#232626')
+    doc.style.setProperty('--gradient-btn-hover-bg', '#252A29')
+    doc.style.setProperty('--gradient-btn-hover-color', '#95DBD5')
     doc.style.setProperty('--primary-btn-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--auction-card-label', '#95dbd5')
     doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #4b6e6b, #95dbd5)')
@@ -935,6 +989,31 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--explore-tab-border', 'rgba(239, 240, 246, 0.5)')
     doc.style.setProperty('--chip-border-color', 'rgba(236, 238, 244, 0.6)')
     doc.style.setProperty('--audio-nft-bgr-rgb', '51, 51, 51')
+    doc.style.setProperty('--bg-303030-FFF', '#303030')
+    doc.style.setProperty('--bg-303030-D9D8D7', '#303030')
+    doc.style.setProperty('--bg-95dbd5-707070', '#95dbd5')
+    doc.style.setProperty('--bg-95dbd5-FFF', '#95dbd5')
+    doc.style.setProperty('--bg-eff0f6-707070', '#eff0f6')
+    doc.style.setProperty('--bg-1C1C1C-F3F2F0', '#1C1C1C')
+    doc.style.setProperty('--bg-303030-202427', '#303030')
+    doc.style.setProperty('--bg-303030-D3D3D2', '#303030')
+    doc.style.setProperty('--bg-303030-DDDCDC', '#303030')
+    doc.style.setProperty('--bg-timer-card', 'rgba(26, 26, 26, 0.5)')
+    doc.style.setProperty('--bg-141313-E8E7E5', '#141313')
+    doc.style.setProperty('--bg-141313-F3F2F0', '#141313')
+    doc.style.setProperty('--bg-1A1A1A-202427', '#1A1A1A')
+    doc.style.setProperty('--bg-9bdbd5-20242725', '#95dbd5')
+    doc.style.setProperty('--bg-1A1A1A-4A4D50', '#1A1A1A')
+    doc.style.setProperty('--bg-1A1A1A-FFF', '#1A1A1A')
+    doc.style.setProperty('--bg-212121-F3F2F0', '#212121')
+    doc.style.setProperty('--bg-212121-202427', '#212121')
+    doc.style.setProperty('--bg-59595B-BEBFBD', '#59595B')
+    doc.style.setProperty('--bg-95dbd505-202427', 'rgba(149, 219, 213, 0.05)')
+    doc.style.setProperty('--bg-4D6A67-202427', '#4D6A67')
+    doc.style.setProperty('--bg-4D6A67-484B4E', '#4D6A67')
+    doc.style.setProperty('--bg-3A3A3A-202427', '#3A3A3A')
+    doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '26, 26, 26')
+    doc.style.setProperty('--bg-242424-EFF0F605', '#242424')
 
   }
 }

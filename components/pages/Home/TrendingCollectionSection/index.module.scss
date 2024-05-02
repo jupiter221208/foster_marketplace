@@ -4,6 +4,10 @@
   position: relative;
   padding-top: 30px;
   padding-bottom: 30px;
+  @media (min-width: 1024px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
 }
 
 .topRightEllipse {
@@ -47,4 +51,8 @@
   background: var(--time-slot-bg);
   padding: 0px 6px;
   z-index: 10;
+}
+
+.noPaddingBottom {
+  padding-bottom: 0 !important;
 }

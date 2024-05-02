@@ -28,14 +28,9 @@ import 'react-slideshow-image/dist/styles.css'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
-import GradientButton from 'components/Button/GradientButton'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
-
-import EllipseBlue from 'assets/icons/ellipse-blue.svg?component'
-import EllipseGreen from 'assets/icons/ellipse-green-home.svg?component'
 import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-large.svg?component'
 import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-large.svg?component'
-
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 import HeroNewCard from 'components/Card/HeroNewCard'
 
@@ -53,19 +48,19 @@ const MainSection = () => {
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-  useEffect(() => {
-    if (heroList.length > 0) {
-      ;(async () => {
-        for (let index = 0; index < heroList.length; index++) {
-          let data = heroList[index]
-          fetch(`/nft/${data.token_id}`).then(e => e.text())
-          if (index % 3 == 2) {
-            await sleep(1000)
-          }
-        }
-      })()
-    }
-  }, [heroList, router])
+  // useEffect(() => {
+  //   if (heroList.length > 0) {
+  //     ;(async () => {
+  //       for (let index = 0; index < heroList.length; index++) {
+  //         let data = heroList[index]
+  //         fetch(`/nft/${data.token_id}`).then(e => e.text())
+  //         if (index % 3 == 2) {
+  //           await sleep(1000)
+  //         }
+  //       }
+  //     })()
+  //   }
+  // }, [heroList, router])
 
   useEffect(() => {
     setTimeout(() => {
@@ -94,7 +89,7 @@ const MainSection = () => {
         }
       })()
     }
-  }, [heroList])
+  }, [heroList, router])
 
   const gotoNftPage = () => {
     dispatch({ type: 'set', isLoading: true })

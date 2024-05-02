@@ -85,7 +85,6 @@ const SellNFTModal = props => {
                         height={49}
                         onClick={() => handleClickButton('list')}
                         fontSize="18px"
-                        color="#202427"
                       />
 
                       <OutlineButton
@@ -119,7 +118,6 @@ const SellNFTModal = props => {
                         height={45}
                         onClick={() => handleClickButton('list')}
                         fontSize="16px"
-                        color="#202427"
                       />
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">

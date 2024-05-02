@@ -26,9 +26,10 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
+import HomeNftCard from 'components/Card/HomeNFTCard'
 
 const MarketplaceReleaseSection = props => {
-  const { category } = props
+  const { category, setVisibleBoundary } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ const MarketplaceReleaseSection = props => {
     dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response.slice(5, response.length))
+        setVisibleBoundary(true)
       }
     }),
       error => {
@@ -86,22 +88,22 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[26px] lg:gap-[14px] mt-[15px] lg:mt-[34px] z-10 sm:px-[7px]">
+        <div className="w-full grid xs:grid-cols-1 sm:grid-cols-20 gap-[18px] md:gap-[26px] lg:gap-[26px] mt-[25px] lg:mt-[30px] z-10 sm:px-[7px] lg:px-[0px]">
           {marketplaceReleaseList.map((item, index) => (
             <div
               key={index}
               className="flex xs:col-span-1 sm:col-span-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4 items-center"
             >
-              <NFTCard
+              <HomeNftCard
                 image={item.asset_url}
                 token_id={item.token_id}
                 nftName={item.nft_name}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
+                artistImage={item.artist_profile_picture}
                 collectionName={item.collection_name}
                 price={item.list_price}
-                isHome={true}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.token_id}`)

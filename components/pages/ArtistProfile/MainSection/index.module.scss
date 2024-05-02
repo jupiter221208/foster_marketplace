@@ -10,12 +10,13 @@
   @media (min-width: 1024px) {
     margin-top: 0px;
   }
+  z-index: 10;
 }
 
 .bannerImage {
   position: relative;
   width: 100%;
-  height: 436px;
+  height: 350px;
   overflow: hidden;
 }
 
@@ -32,21 +33,93 @@
   }
 }
 
-.whiteText {
-  font-family: 'Muli-Bold';
+.iconContainer {
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 5px;
+}
+
+.bioText {
+  font-family: 'Muli-Light';
   font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.shareText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.refereshText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.statsConatiner {
+  width: 100%;
+  height: 58px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: var(--background-main-color);
+}
+
+.statisticValue {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--text-gray-200-color);
 }
 
-.grayText {
-  font-family: 'Muli-SemiBold';
-  font-size: 14px;
+.statisticLabel {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  margin-top: 2px;
   @media (min-width: 1024px) {
-    font-size: 18px;
+    margin-top: 2px;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--text-gray-200-color);
   }
+}
+
+.statisticBorder {
+  width: 1px;
+  height: 20px;
+  background: #707070;
+}
+
+.whiteText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.grayText {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 

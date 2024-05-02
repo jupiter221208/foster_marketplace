@@ -88,7 +88,7 @@ const TopRatedArtistsSection = () => {
       <div className="w-full flex justify-between items-center z-10 ">
         <div className="sm:block hidden">
           <HomeFilterMenu
-            label="Trending Artists"
+            label="Top Creators"
             data={DayList}
             selectedItem={period}
             setSelectedItem={item => {
@@ -98,7 +98,7 @@ const TopRatedArtistsSection = () => {
           />
         </div>
         <div className="sm:hidden w-full flex justify-between items-center g-container">
-          <div className={styles.title}>Trending&nbsp;Artists</div>
+          <div className={styles.title}>Top&nbsp;Creators</div>
           <HomeFilterMenu
             label=""
             data={DayList}
@@ -119,16 +119,16 @@ const TopRatedArtistsSection = () => {
           />
         </div>
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+      <div className="w-full mt-[25px] lg:mt-[30px] z-10">
         {isLoading ? (
-          <div className="w-full h-[305px] flex justify-center">
+          <div className="w-full h-[268px] sm:h-[305px] flex justify-center">
             <div className="w-[500px] h-[40px]">
               <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
             </div>
           </div>
-        ) : viewport === 'xs' ? (
+        ) : viewport === 'xs' || viewport === 'sm' ? (
           <div className="w-full relative" id="trendArtistMobile">
-            <Swiper spaceBetween={20} modules={[Navigation]} className={'trendArtistMobile'} loop>
+            <Swiper spaceBetween={32} modules={[Navigation]} className={'trendArtistMobile'} loop>
               {artistsList.length !== 0 &&
                 artistsList.map((item: any, index) => (
                   <SwiperSlide key={index}>
@@ -145,7 +145,7 @@ const TopRatedArtistsSection = () => {
             </Swiper>
           </div>
         ) : (
-          <div className="w-full grid grid-cols-12 gap-[20px]">
+          <div className="w-full grid grid-cols-12 gap-[24px]">
             {artistsList.map((item, index) => (
               <div key={index} className="flex col-span-12 lg:col-span-6">
                 <TrendingArtistCard

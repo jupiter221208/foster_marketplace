@@ -115,12 +115,14 @@ const LiveAuctionSection = props => {
           setIsLoaded(true)
         }
       } else {
+        setIsLoaded(true)
         setLiveAuctionList([])
       }
     }),
       error => {
         if (setLiveAuctionLoaded) setLiveAuctionLoaded()
         setIsLoading(false)
+        setIsLoaded(true)
         console.log(error)
       }
   }
@@ -191,7 +193,7 @@ const LiveAuctionSection = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[20px] lg:mt-[30px] z-10">
+      <div className="w-full mt-[25px] lg:mt-[30px] z-10">
         {isLoading ? (
           <div className="w-full h-[400px] flex justify-center">
             <div className="w-[500px] h-[40px]">
@@ -203,8 +205,10 @@ const LiveAuctionSection = props => {
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
               viewport === 'xs'
-                ? 1.07
-                : viewport === 'sm' || viewport === 'md'
+                ? 1.13
+                : viewport === 'sm'
+                ? 1.92
+                : viewport === 'md'
                 ? 2
                 : viewport === '2xl'
                 ? 5
@@ -213,7 +217,7 @@ const LiveAuctionSection = props => {
                 : 4
             }
             spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={
@@ -262,6 +266,8 @@ const LiveAuctionSection = props => {
         </div>
       )}
     </section>
+  ) : isLoaded === false ? (
+    <div className="w-full h-[300px] lg:h-[300px]" />
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />
   ) : (

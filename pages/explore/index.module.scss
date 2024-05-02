@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   margin-top: 0px;
-  margin-bottom: 50px;
+  margin-bottom: 150px;
   @media (min-width: 1024px) {
     margin-top: 60px;
   }
@@ -70,7 +70,7 @@
 .tabBorder {
   width: 100%;
   height: 1px;
-  background: var(--explore-tab-border);
+  background: rgba(var(--main-bg-color-rgb), 0.25);
   position: absolute;
   bottom: 1px;
   left: 15px;
@@ -84,7 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--dao-treasury-bg);
+  background: var(--bg-1C1C1C-F3F2F0);
   border-radius: 16px;
   border-color: rgba(var(--main-bg-color-rgb), 0.1);
   border-width: 1px;
@@ -137,7 +137,7 @@
   bottom: 0px;
   width: 100%;
   height: 1px;
-  background: #303030;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
 }
 
 .result {

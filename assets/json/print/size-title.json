@@ -28,10 +28,5 @@
     "id": 5,
     "title": "Women's Short Sleeve",
     "fields": ["Brand Size", "US Size", "Bust (in)"]
-  },
-  {
-    "id": 6,
-    "title": "Youth Short Sleeve",
-    "fields": ["Brand Size", "US Size", "EU Size", "Chest (in)"]
   }
 ]

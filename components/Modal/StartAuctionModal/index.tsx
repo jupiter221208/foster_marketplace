@@ -11,9 +11,6 @@ import AuctionDetail from 'components/pages/BrowseNFT/AuctionDetail'
 import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
-// custom functions
-import { useResizeDetector } from 'react-resize-detector'
-
 // styles
 import styles from './index.module.scss'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -68,7 +65,6 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
     })
   }
 
-  const { width, height, ref } = useResizeDetector()
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -97,29 +93,26 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
             <Dialog.Panel className={styles.modalView}>
               {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
                 <div className="w-[50%] lg:block hidden">
-                  <div className="w-full flex justify-center">
-                    <div className={styles.nftName}>{data?.name}</div>
-                  </div>
-                  <div className="w-full h-full flex justify-center mt-[50px] px-[100px]">
+                  <div className="w-full h-full flex justify-center items-center px-[100px]">
                     <div className={styles.nftArea}>
                       <div className={styles.imageArea}>
-                        {data?.category === 'vr' ? (
-                          <div ref={ref} className={`${styles.imageArea} w-full h-full`}>
+                        {data?.category.includes('vr') ? (
+                          <div className={`${styles.imageArea} w-full h-full`}>
                             {data?.animation_url ? (
-                              <ModelViewer width={width} height={height} path={data.animation_url} orbitLimited />
+                              <ModelViewer path={data.animation_url} orbitLimited />
                             ) : data?.image ? (
                               <img src={nftImage} onError={handleImageError} alt="" className="w-full" />
                             ) : (
                               <h1>Could not load NFT.</h1>
                             )}
                           </div>
-                        ) : data?.category === 'video' ? (
+                        ) : data?.category.includes('video') ? (
                           <div className={styles.videoArea}>
                             <video controls autoPlay loop className="max-w-full max-h-full">
                               <source type="video/mp4" src={data?.animation_url} />
                             </video>
                           </div>
-                        ) : data?.category === 'audio' ? (
+                        ) : data?.category.includes('audio') ? (
                           <div className="w-full h-full">
                             <AudioPlayer src={data?.animation_url} cover={data?.image} />
                           </div>
@@ -137,10 +130,10 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                 </div>
               ) : (
                 <div className="w-full lg:hidden block">
-                  {data?.category === 'vr' ? (
+                  {data?.category.includes('vr') ? (
                     data?.animation_url ? (
-                      <div ref={ref} className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
-                        <ModelViewer path={data?.animation_url} width={width} height={height} orbitLimited />
+                      <div className={`${styles.mobileImageArea} aspect-square w-full h-full`}>
+                        <ModelViewer path={data?.animation_url} orbitLimited />
                       </div>
                     ) : data?.image ? (
                       <div className={styles.mobileImageArea}>
@@ -149,15 +142,15 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                     ) : (
                       <h1>Could not load NFT.</h1>
                     )
-                  ) : data?.category === 'image' ? (
+                  ) : data?.category.includes('image') ? (
                     <div className={styles.mobileImageArea}>
                       <img onError={handleImageError} src={nftImage} alt="" className="w-full" />
                     </div>
-                  ) : data?.category === 'audio' ? (
+                  ) : data?.category.includes('audio') ? (
                     <div>
                       <AudioPlayer src={data?.animation_url} cover={data?.image} />
                     </div>
-                  ) : data?.category === 'video' ? (
+                  ) : data?.category.includes('video') ? (
                     <div className={styles.videoArea}>
                       <div className={styles.mobileVideoThumb}>
                         <div
@@ -187,8 +180,18 @@ const StartAuctionModal = ({ data, open, onSuccess, onClose, onStartProgress }: 
                 </div>
               )}
 
-              <div className={styles.rightPanel}>
-                <AuctionDetail data={data} onSuccess={onSuccess} onClose={onClose} onRefreshPage={() => {}} />
+              <div
+                className={
+                  viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? styles.rightPanel : styles.rightPanel2
+                }
+              >
+                <AuctionDetail
+                  data={data}
+                  onSuccess={onSuccess}
+                  onClose={onClose}
+                  onRefreshPage={() => {}}
+                  fromNFT={false}
+                />
               </div>
             </Dialog.Panel>
           </Transition.Child>

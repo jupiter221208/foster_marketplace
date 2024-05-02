@@ -1,0 +1,29 @@
+@import 'assets/scss/variable.module.scss';
+
+@button-tint: fadeout(#000, 90%);
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: 'Muli-SemiBold'; 
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  letter-spacing: 0;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+  background: var(--background-main-color);
+  transition: box-shadow 0.2s;
+  transition-timing-function: ease-in-out;
+  overflow: hidden;
+  svg {
+    fill: var(--main-bg-color)
+  }
+  &:hover {
+    color: var(--main-icon-color);
+    svg {
+      fill: var(--main-icon-color)
+    }
+  }
+}

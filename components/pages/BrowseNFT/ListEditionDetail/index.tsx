@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { useDispatch } from 'react-redux'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -10,7 +9,6 @@ import moment from 'moment'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useAuthentication } from 'hooks/useAuthentication'
 
 // custom component
 import Input from 'components/Input'
@@ -24,30 +22,32 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 // backend
+import { listMasterEdition, updateEditionListing } from 'apis/editions'
 
 // solana
-import { PublicKey } from '@solana/web3.js'
-import { startAuction } from 'utils/auctioneer.util'
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
-import { delegateEdition } from 'utils/editions'
+import { delegateEdition, findPrintDelegate } from 'utils/editions'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 
 export interface ListEditionDetailProps {
   data: {
     mintAddress: string
     name?: string
   }
+  listingType: string
   onSuccess: (name: string) => void
   onClose: () => void
-  onRefreshPage?: () => void
+  fromNFT: boolean
 }
 
-const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEditionDetailProps) => {
+const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
 
-  const { refreshToken } = useAuthentication()
   const { metaplex } = useMetaplex()
 
   const closeModal = () => {
@@ -62,14 +62,16 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   const [buyLimit, setBuyLimit] = useState('')
   const [mintPrice, setMintPrice] = useState('')
   const [startType, setStartType] = useState('soon')
-  const [durationType, setDurationType] = useState('24')
+  const [durationType, setDurationType] = useState<'noTime' | '24' | '72' | 'custom'>('24')
   const [buyLimitType, setBuyLimitType] = useState('no')
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [day, setDay] = useState('')
 
   const endDate = useMemo(() => {
-    var plusDays = Number(days)
-    var plusHours = Number(hours)
+    if (durationType == 'noTime') return null
+
+    let plusDays = Number(days)
+    let plusHours = Number(hours)
 
     if (days === '') plusDays = 0
     if (hours === '') plusHours = 0
@@ -81,32 +83,82 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
     const dayOfWeek = day[endDate.getDay()]
     setDay(dayOfWeek)
     return endDate
-  }, [startDate, days, hours])
+  }, [startDate, days, hours, durationType])
 
   const handleListEdition = async () => {
     try {
       setIsLoading(true)
-      // onRefreshPage?.()
 
-      let response = await delegateEdition({
-        metaplex,
-        mint: new PublicKey(data.mintAddress),
-        // TODO: generate keypair and send to backend
-        delegate: new PublicKey('3FVrkePokrBYhQKthGjpTr8MCsPAymTStHuPCsLZ6SLX'),
+      let listing = await listMasterEdition({
+        mintAddress: data.mintAddress,
+        price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
+        startTime: startDate.toISOString().split('.')[0],
+        endTime: endDate?.toISOString().split('.')[0],
+        buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
       })
 
-      if (!response) {
+      let mint = new PublicKey(data.mintAddress)
+      let owner = metaplex.identity().publicKey
+      let delegate = new PublicKey(listing.authorityPublicKey)
+      let printDelegateAddress = findPrintDelegate({
+        mint,
+        owner,
+        delegate,
+      })
+
+      let printDelegateAccount
+      for (let i = 0; i < 5; i++)
+        try {
+          console.log(`delegating master edition: attempt ${i + 1}`)
+          await delegateEdition({
+            metaplex,
+            mint,
+            delegate,
+          })
+          await new Promise(resolve => setTimeout(resolve, 1000))
+
+          printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
+          if (printDelegateAccount.exists) break
+        } catch (e: any) {
+          console.error(`delegating failed: ${e?.message ?? e}`)
+          console.error(e)
+        }
+
+      if (!printDelegateAccount.exists) {
         // show error to user
         setIsLoading(false)
         return
       }
 
       onSuccess(data?.name)
-      setIsLoading(false)
-      onClose()
 
       // TODO: send listing to backend with listing details
     } catch (e: any) {
+      console.error(e)
+      setIsLoading(false)
+    }
+  }
+
+  const handleUpdateEdition = async () => {
+    try {
+      setIsLoading(true)
+
+      updateEditionListing({
+        mintAddress: data.mintAddress,
+        price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
+        startTime: startDate.toISOString().split('.')[0],
+        endTime: endDate.toISOString().split('.')[0],
+        buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
+      }).then(response => {
+        onSuccess(data?.name)
+        closeModal()
+      }),
+        error => {
+          console.log(error)
+        }
+      // TODO: send listing to backend with listing details
+    } catch (e: any) {
+      console.error(e)
       setIsLoading(false)
     }
   }
@@ -135,8 +187,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (
-    <div className="w-full">
-      <div className={styles.container}>
+    <div className="w-full h-full flex flex-col justify-between">
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
         <div className="w-full flex justify-between">
           <div className={styles.title}>List Edition</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
@@ -147,7 +199,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        <div className="w-full mt-[30px]">
+        <div className="w-full mt-[20px]">
           <div className={styles.auctionStart}>
             Mint Price <span className={styles.auctionAsterisk}>*</span>
           </div>
@@ -156,7 +208,6 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           <PriceInput
             value={mintPrice}
             placeholder="Set the price of your editions"
-            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
             fullWidth
             type="number"
             min={0}
@@ -172,7 +223,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[40px]">
+          <div className="w-full mt-[20px] lg:mt-[30px]">
             <div className={styles.auctionStart}>
               Start Time <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -248,15 +299,15 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
           </div>
         </div>
 
-        {/* Mint Duration */}
+        {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Mint Duration <span className={styles.auctionAsterisk}>*</span>
+            Listing Duration <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
-          className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
+          className={`w-full flex flex-wrap mt-[12px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -267,7 +318,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
               setDurationType('noTime')
             }}
           >
-            No End Time
+            None
           </div>
 
           <div
@@ -320,6 +371,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
+                  borderColor="transparent"
                   borderRadius="9px"
                   min={0}
                   onChange={value => {
@@ -341,6 +393,7 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   fullWidth
+                  borderColor="transparent"
                   borderRadius="9px"
                   min={0}
                   onChange={value => {
@@ -376,8 +429,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
         </div>
 
         <div
-          className={`w-full flex flex-wrap mt-[15px] justify-between ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-8'
+          className={`w-full flex flex-wrap mt-[15px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
           }`}
         >
           <div
@@ -434,6 +487,8 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                   borderRadius="9px"
+                  borderColor="transparent"
+                  fontFamily="Muli-Bold"
                   min={0}
                   onChange={value => {
                     let limit = validDigits(value)
@@ -449,22 +504,21 @@ const ListEditionDetail = ({ data, onSuccess, onClose, onRefreshPage }: ListEdit
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mt-[45px] w-full">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56} />
-        ) : (
-          <GradientButton
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 56}
-            label="List Edition"
-            borderWidth={1}
-            disabled={buttonDisabled}
-            opacity={buttonDisabled ? 0.5 : 1}
-            onClick={() => handleListEdition()}
-          />
-        )}
+        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
+          {isLoading ? (
+            <LoadingSecondaryButton fullWidth />
+          ) : (
+            <SecondaryButton
+              fullWidth
+              type="list-artwork"
+              label="List Edition"
+              onClick={() => {
+                if (listingType === 'list') handleListEdition()
+                else handleUpdateEdition()
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   )

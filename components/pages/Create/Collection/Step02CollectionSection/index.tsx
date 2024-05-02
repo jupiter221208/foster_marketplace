@@ -13,26 +13,32 @@ import DimensionMenu from 'components/Menu/DimensionMenu'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+// import SwipRadio from 'components/Radio/SwipRadio'
 
 // Icons
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
+import TrashBinSmall from 'assets/icons/trash-bin-18x18.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
+import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
+import EditionList from 'assets/json/collections/edition-type.json'
 
 // styles
 import styles from './index.module.scss'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import ModelViewer from 'components/ModelViewer'
-import { useResizeDetector } from 'react-resize-detector'
-import LoadingButton from 'components/Button/LoadingButton'
 import { limit } from 'utils/strings'
-import GradientButton from 'components/Button/GradientButton'
+import { validDigits } from 'utils/helpers'
+import ProductionListMenu from 'components/ProductionListMenu'
+import { useRouter } from 'next/router'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step02CollectionSection = props => {
   const {
@@ -46,16 +52,24 @@ const Step02CollectionSection = props => {
     onRemoveCollectionFile,
     onChangeCollectionName,
     onChangeCollectionDescription,
+    onChangeEditionType,
     onChangeCroppedImage,
+    onChangeMaxNum,
+    onChangeMaxSupply,
+    onChangeSupply,
+    disabledNextButton,
+    setDisabledNextButton,
   } = props
 
   const viewport = useViewport()
   const dropzoneNftEl = useRef(null)
+  const router = useRouter()
 
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [addMoreClicked, setAddMoreClicked] = useState(false)
+  const [edition, setEdition] = useState(2)
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -108,21 +122,21 @@ const Step02CollectionSection = props => {
     let width = 0
     switch (viewport) {
       case '2xl':
-        width = screenWidth / 2 - 150 - 80 - 32
+        width = screenWidth / 2 - 150
         break
       case 'xl':
-        width = screenWidth / 2 - 120 - 80 - 32
+        width = screenWidth / 2 - 120
         break
       case 'lg':
-        width = screenWidth / 2 - 100 - 50 - 32
+        width = screenWidth / 2 - 100
         break
       default:
         // width = screenWidth - 32 - 8
         width = screenWidth
         break
     }
-    if (width > 620) {
-      setArtWidth(620)
+    if (width > 760) {
+      setArtWidth(760)
     } else {
       setArtWidth(width)
     }
@@ -130,7 +144,7 @@ const Step02CollectionSection = props => {
 
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
-  const [disabledNextButton, setDisabledNextButton] = useState(true)
+  // const [disabledNextButton, setDisabledNextButton] = useState(true)
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -201,7 +215,6 @@ const Step02CollectionSection = props => {
   // form validate
   const handleFormValidate = () => {}
 
-  const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
@@ -224,15 +237,10 @@ const Step02CollectionSection = props => {
           {/* left part */}
           <div className="flex-[50%] g-left-container">
             <div className={styles.leftContainer}>
-              <div className="w-full">
-                <div className={styles.title} style={{ width: artWidth }}>
-                  Artwork Preview
-                </div>
-              </div>
-              <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+              <div className="w-full flex flex-wrap justify-center z-10 max-w-max">
                 {/* banner image */}
                 <div className="w-full flex justify-start z-10">
-                  <div ref={ref} className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                  <div className={styles.imageArea} style={{ width: artWidth, height: (artWidth * 65) / 76 }}>
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'vr' && (
                       <div className="absolute inset-0 flex justify-center items-center">
                         <img
@@ -278,8 +286,7 @@ const Step02CollectionSection = props => {
                       selectedCollectionFile.url && (
                         <ModelViewer
                           path={selectedCollectionFile.url}
-                          width={width}
-                          height={height}
+                          preserveDrawingBuffer
                           getSnapshot={{
                             onSnapshot: image => {
                               addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
@@ -308,9 +315,10 @@ const Step02CollectionSection = props => {
                   </div>
                 </div>
               </div>
-              {collectionFiles.length !== 0 && (
-                <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile !== undefined &&
+
+              <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
+                {collectionFiles.length !== 0 ? (
+                  selectedCollectionFile !== undefined &&
                   selectedCollectionFile.type === 'image' &&
                   selectedCollectionFile.dimensionList !== undefined ? (
                     <DimensionMenu
@@ -319,16 +327,11 @@ const Step02CollectionSection = props => {
                       onSelect={item => handleChangeDimension(item)}
                     />
                   ) : (
-                    <>&nbsp;</>
-                  )}
-                </div>
-              )}
-
-              <div className="w-full flex justify-start mt-[50px]">
-                <div className={styles.grayText} style={{ width: artWidth, textAlign: 'center' }}>
-                  {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
-                  &nbsp;uploaded files
-                </div>
+                    <> </>
+                  )
+                ) : (
+                  <div className={styles.preview}>Preview will display here</div>
+                )}
               </div>
             </div>
           </div>
@@ -336,12 +339,9 @@ const Step02CollectionSection = props => {
           <div className="flex-[50%] g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                {/* <div className="w-full">
-                  <CollectionStepper currentStep={currentStep} />
-                </div> */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} lg:mt-[110px]`}>
-                    Collection Files (max. 25) <span>*</span>
+                  <div className={`${styles.subTitle} lg:mt-[54px]`}>
+                    Upload Art (max 20 files) <span>*</span>
                   </div>
                   <div className="mt-5">
                     <Dropzone
@@ -362,7 +362,7 @@ const Step02CollectionSection = props => {
                         'model/gltf-binary': ['.glb'],
                       }}
                       maxFiles={25}
-                      maxSize={31457280}
+                      maxSize={104857600}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -373,7 +373,7 @@ const Step02CollectionSection = props => {
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
                             <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .gif .mp3 .glb</p>
-                            <p className={styles.greenText}>Max File Size 30mb</p>
+                            <p className={styles.greenText}>Max File Size 100mb</p>
                           </div>
                         </section>
                       )}
@@ -384,64 +384,69 @@ const Step02CollectionSection = props => {
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
-                        className="flex my-10 gap-4 cursor-pointer"
+                        className="my-10 gap-4 cursor-pointer"
                         key={index}
                         onClick={() => handleSelectedCollectionFile(item)}
                       >
-                        <div className="flex">
-                          <div
-                            className={`mt-5 mr-4 ${
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }`}
-                          >
-                            {index + 1}
-                          </div>
+                        <div className="w-full flex justify-between">
+                          <div className="flex">
+                            <div
+                              className={`mt-5 mr-4 ${
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                  ? styles.greenText
+                                  : styles.text
+                              }`}
+                            >
+                              {index + 1}
+                            </div>
 
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined &&
-                              selectedCollectionFile.file.path === item.file.path
-                                ? styles.selectedImage
-                                : styles.nonSelectedImage
-                            }
-                          >
-                            {item.type === 'video' ? (
-                              <video loop autoPlay className="w-full h-full" id="video">
-                                <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                                Your browser does not support the video tag.
-                              </video>
-                            ) : item.type === 'vr' && !item.nftCoverImage ? (
-                              <p className={styles.tapToView}>Click to Preview</p>
-                            ) : (
-                              <NextImage
-                                src={
-                                  item.type === 'vr' && item.nftCoverImage
-                                    ? item.nftCoverImage
-                                    : item.croppedImage !== ''
-                                    ? item.croppedImage
-                                    : URL.createObjectURL(item.file)
-                                }
-                                alt=""
-                                width={
-                                  selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                    ? 64
-                                    : 68
-                                }
-                                height={
-                                  selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                    ? 64
-                                    : 68
-                                }
-                                objectFit="cover"
-                                className="rounded-lg"
-                              />
-                            )}
+                            <div
+                              className={
+                                selectedCollectionFile !== undefined &&
+                                selectedCollectionFile.file.path === item.file.path
+                                  ? styles.selectedImage
+                                  : styles.nonSelectedImage
+                              }
+                            >
+                              {item.type === 'video' ? (
+                                <video loop autoPlay className="w-full h-full" id="video">
+                                  <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                                  Your browser does not support the video tag.
+                                </video>
+                              ) : item.type === 'vr' && !item.nftCoverImage ? (
+                                <p className={styles.tapToView}>Click to Preview</p>
+                              ) : (
+                                <NextImage
+                                  src={
+                                    item.type === 'vr' && item.nftCoverImage
+                                      ? item.nftCoverImage
+                                      : item.croppedImage !== ''
+                                      ? item.croppedImage
+                                      : URL.createObjectURL(item.file)
+                                  }
+                                  alt=""
+                                  width={
+                                    selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                      ? 76
+                                      : 76
+                                  }
+                                  height={
+                                    selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                      ? 76
+                                      : 76
+                                  }
+                                  objectFit="cover"
+                                  className="rounded-lg"
+                                />
+                              )}
+                            </div>
+                          </div>
+                          <div onClick={() => onRemoveCollectionFile(item)}>
+                            <TrashBinSmall />
                           </div>
                         </div>
 
-                        <div className="w-full">
+                        <div className="w-full mt-[15px]">
                           <div className="flex-1 block h-[120px]">
                             <div className={`mb-2 ${styles.subTitle}`}>
                               NFT Name <span>*</span>
@@ -459,7 +464,9 @@ const Step02CollectionSection = props => {
                             </div>
                           </div>
                           <div className="flex-1 block h-[120px]">
-                            <div className={`mb-2 ${styles.subTitle}`}>Description</div>
+                            <div className={`mb-2 ${styles.subTitle}`}>
+                              Description <span>*</span>
+                            </div>
                             <div>
                               <Textarea
                                 value={item.description}
@@ -473,11 +480,9 @@ const Step02CollectionSection = props => {
                           </div>
 
                           {item.type === 'vr' && (
-                            <>
+                            <div className="mt-[15px]">
                               <div className={styles.coverImgMsg}>
-                                <h6>
-                                  Cover Photo <span>*</span>
-                                </h6>
+                                Cover Photo <span>*</span>
                                 <p>
                                   Pick the best angle to take a snapshot or upload an image to use as the cover photo.
                                 </p>
@@ -520,84 +525,79 @@ const Step02CollectionSection = props => {
                                   </button>
                                 </div>
                               )}
-                            </>
+                            </div>
                           )}
-                        </div>
 
-                        <IconButtonWithSVG
-                          icon={
-                            <svg
-                              id="Group_52015"
-                              data-name="Group 52015"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="46"
-                              height="46"
-                              viewBox="0 0 46 46"
-                            >
-                              <g
-                                id="Icon_feather-trash-2"
-                                data-name="Icon feather-trash-2"
-                                transform="translate(12.378 10.643)"
-                              >
-                                <path
-                                  id="Path_105833"
-                                  data-name="Path 105833"
-                                  d="M4.5,9H26.743"
-                                  transform="translate(-4.5 -4.057)"
-                                  fill="none"
-                                  stroke="var(--trash-icon-color)"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                />
-                                <path
-                                  id="Path_105834"
-                                  data-name="Path 105834"
-                                  d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                                  transform="translate(-5.029 -3)"
-                                  fill="none"
-                                  stroke="var(--trash-icon-color)"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                />
-                                <path
-                                  id="Path_105835"
-                                  data-name="Path 105835"
-                                  d="M15,16.5v7.414"
-                                  transform="translate(-6.35 -5.378)"
-                                  fill="none"
-                                  stroke="var(--trash-icon-color)"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                />
-                                <path
-                                  id="Path_105836"
-                                  data-name="Path 105836"
-                                  d="M21,16.5v7.414"
-                                  transform="translate(-7.407 -5.378)"
-                                  fill="none"
-                                  stroke="var(--trash-icon-color)"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth="2"
-                                />
-                              </g>
-                              <rect
-                                id="Rectangle_21074"
-                                data-name="Rectangle 21074"
-                                width="46"
-                                height="46"
-                                fill="none"
+                          {/* Editins */}
+                          <div className="mb-[30px] mt-[30px]">
+                            <div className={styles.subTitle}>
+                              Edition type <span>*</span>
+                            </div>
+                            {/* <SwipRadio
+                              data={EditionList}
+                              selected={item.editionType}
+                              onChange={item => {
+                                onChangeEditionType(item, item)
+                              }}
+                            /> */}
+                            <div className="mt-[15px]">
+                              <ProductionListMenu
+                                label={item.editionType.label}
+                                data={EditionList}
+                                selectedItem={item.editionType}
+                                setSelectedItem={data => {
+                                  onChangeEditionType(item, data)
+                                }}
                               />
-                            </svg>
-                          }
-                          onClick={() => onRemoveCollectionFile(item)}
-                          backgroundColor="transparent"
-                          iconWidth={24}
-                          iconHeight={24}
-                        />
+                            </div>
+                            {item.editionType.id === 0 && (
+                              <div className="mt-[30px]">
+                                <div className={styles.maxSupplyTitle}>
+                                  Max Supply <span>*</span>
+                                </div>
+                                <div className={styles.editionDescription}>
+                                  The max number of copies that will be created
+                                </div>
+                                <div className="flex flex-wrap gap-[20px] mt-[16px] lg:mt-[25px]">
+                                  {MaxNumberList.map((number, index) => (
+                                    <div
+                                      key={index}
+                                      className={`${
+                                        item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply
+                                      }`}
+                                      onClick={() => {
+                                        onChangeMaxNum(item, number)
+                                        onChangeMaxSupply(item, number.value)
+                                        onChangeSupply(item, 0)
+                                      }}
+                                    >
+                                      {number.label}
+                                    </div>
+                                  ))}
+                                </div>
+                                {item.maxNum && item.maxNum['id'] === 3 && (
+                                  <div className="max-w-[450px] mt-[45px]">
+                                    <div className={styles.maxTitle}>
+                                      Custom Supply <span>*</span>
+                                    </div>
+                                    <div className="mt-[15px]">
+                                      <Input
+                                        value={item.supply}
+                                        onChange={value => {
+                                          let digits = validDigits(value)
+                                          onChangeMaxSupply(item, Math.floor(digits))
+                                          onChangeSupply(item, Math.floor(digits))
+                                        }}
+                                        min={0}
+                                        placeholder="Provide of maxmium supply of editions"
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     ))}
 
@@ -620,20 +620,6 @@ const Step02CollectionSection = props => {
                     </div>
                   )}
                 </div>
-                <div className="w-full h-32" />
-                <div className="absolute bottom-10 w-full flex justify-end">
-                  {coverImageProcessing ? (
-                    <LoadingButton width={224} height={56} />
-                  ) : (
-                    <GradientButton
-                      label="Next Step"
-                      width={224}
-                      height={56}
-                      disabled={disabledNextButton}
-                      onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                    />
-                  )}
-                </div>
               </div>
             </div>
           </div>
@@ -644,18 +630,12 @@ const Step02CollectionSection = props => {
       ) : (
         // mobile part
         <div className="g-container mb-[47px]">
-          {/* CollectionStepper part */}
-          {/* <div className="w-full">
-            <CollectionStepper currentStep={currentStep} />
-          </div> */}
-
           <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
             <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
               <div className="w-full flex justify-center">
                 <div
-                  ref={ref}
                   className={styles.imageArea}
                   style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                 >
@@ -676,8 +656,7 @@ const Step02CollectionSection = props => {
                     selectedCollectionFile.url && (
                       <ModelViewer
                         path={selectedCollectionFile.url}
-                        width={width}
-                        height={height}
+                        preserveDrawingBuffer
                         getSnapshot={{
                           onSnapshot: image => {
                             addCoverImageToFile(selectedCollectionFile, URL.createObjectURL(image))
@@ -736,7 +715,7 @@ const Step02CollectionSection = props => {
             <div
               className={`${styles.subTitle} ${selectedCollectionFile?.type === 'audio' ? '-mt-[10px]' : 'mt-[20px]'}`}
             >
-              Collection Files (max. 25) *
+              Upload Art (max 20 files) *
             </div>
             <div className="mt-5">
               <Dropzone
@@ -757,7 +736,7 @@ const Step02CollectionSection = props => {
                   'model/gltf-binary': ['.glb'],
                 }}
                 maxFiles={25}
-                maxSize={31457280}
+                maxSize={104857600}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
@@ -772,7 +751,7 @@ const Step02CollectionSection = props => {
                         <br />
                         .png .jpeg .mp4 .gif .mp3 .glb
                       </p>
-                      <p className={styles.greenText}>Max File Size 30mb</p>
+                      <p className={styles.greenText}>Max File Size 100mb</p>
                     </div>
                   </section>
                 )}
@@ -814,10 +793,10 @@ const Step02CollectionSection = props => {
                           }
                           alt=""
                           width={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 76 : 78
                           }
                           height={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 76 : 78
                           }
                           objectFit="cover"
                           className="rounded-lg"
@@ -825,80 +804,15 @@ const Step02CollectionSection = props => {
                       )}
                     </div>
 
-                    <IconButtonWithSVG
-                      icon={
-                        <svg
-                          id="Group_52015"
-                          data-name="Group 52015"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="46"
-                          height="46"
-                          viewBox="0 0 46 46"
-                        >
-                          <g
-                            id="Icon_feather-trash-2"
-                            data-name="Icon feather-trash-2"
-                            transform="translate(12.378 10.643)"
-                          >
-                            <path
-                              id="Path_105833"
-                              data-name="Path 105833"
-                              d="M4.5,9H26.743"
-                              transform="translate(-4.5 -4.057)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105834"
-                              data-name="Path 105834"
-                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
-                              transform="translate(-5.029 -3)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105835"
-                              data-name="Path 105835"
-                              d="M15,16.5v7.414"
-                              transform="translate(-6.35 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                            <path
-                              id="Path_105836"
-                              data-name="Path 105836"
-                              d="M21,16.5v7.414"
-                              transform="translate(-7.407 -5.378)"
-                              fill="none"
-                              stroke="var(--trash-icon-color)"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            />
-                          </g>
-                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
-                        </svg>
-                      }
-                      onClick={() => onRemoveCollectionFile(item)}
-                      backgroundColor="transparent"
-                      iconWidth={24}
-                      iconHeight={24}
-                    />
+                    <div onClick={() => onRemoveCollectionFile(item)}>
+                      <TrashBinSmall />
+                    </div>
                   </div>
 
                   <div className="w-full">
                     <div className="flex-1 block h-[120px]">
                       <div className={`mb-2 ${styles.subTitle}`}>
-                        NFT Name <span>*</span>
+                        Artwork Name <span>*</span>
                       </div>
                       <div>
                         <Input
@@ -919,6 +833,7 @@ const Step02CollectionSection = props => {
                           value={item.description}
                           placeholder="Add a short description..."
                           fullWidth
+                          label=""
                           onChange={value => onChangeCollectionDescription(item, value)}
                           height="90px"
                         />
@@ -973,6 +888,64 @@ const Step02CollectionSection = props => {
                       </>
                     )}
                   </div>
+                  {/* Editins */}
+                  <div className="w-full mb-[30px] mt-[30px]">
+                    <div className={styles.subTitle}>
+                      Edition type <span>*</span>
+                    </div>
+                    <div className="w-full mt-[15px]">
+                      <ProductionListMenu
+                        label={item.editionType.label}
+                        data={EditionList}
+                        selectedItem={item.editionType}
+                        setSelectedItem={data => {
+                          onChangeEditionType(item, data)
+                        }}
+                      />
+                    </div>
+                    {item.editionType.id === 0 && (
+                      <div className="mt-[15px]">
+                        <div className={styles.maxSupplyTitle}>
+                          Max Supply <span>*</span>
+                        </div>
+                        <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                        <div className="flex flex-wrap gap-[20px] mt-[16px] lg:mt-[25px]">
+                          {MaxNumberList.map((number, index) => (
+                            <div
+                              key={index}
+                              className={`${item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply}`}
+                              onClick={() => {
+                                onChangeMaxNum(item, number)
+                                onChangeMaxSupply(item, number.value)
+                                onChangeSupply(item, 0)
+                              }}
+                            >
+                              {number.label}
+                            </div>
+                          ))}
+                        </div>
+                        {item.maxNum && item.maxNum['id'] === 3 && (
+                          <div className="max-w-[450px] mt-[15px] lg:mt-[30px]">
+                            <div className={styles.maxTitle}>
+                              Custom Supply <span>*</span>
+                            </div>
+                            <div className="mt-[15px]">
+                              <Input
+                                value={item.supply}
+                                onChange={value => {
+                                  let digits = validDigits(value)
+                                  onChangeMaxSupply(item, Math.floor(digits))
+                                  onChangeSupply(item, Math.floor(digits))
+                                }}
+                                min={0}
+                                placeholder="Provide of maxmium supply of editions"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
           </div>
@@ -994,23 +967,22 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          <div className="w-full flex justify-end my-10">
-            <div className="w-[161px] mr-[16px]">
+          <div className="w-full my-[30px]">
+            <div className="w-full">
               {coverImageProcessing ? (
-                <LoadingButton width={161} height={45} />
+                <LoadingPrimaryButton fullWidth />
               ) : (
-                <button
-                  className={styles.nextStep}
+                <PrimaryButton
+                  fullWidth
+                  label="Next"
+                  type="next"
                   disabled={disabledNextButton}
-                  style={{
-                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                  }}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                >
-                  Next Step
-                </button>
+                />
               )}
+            </div>
+            <div className="w-full mt-[15px]">
+              <SecondaryButton fullWidth label="Back" type="back" onClick={() => router.back()} />
             </div>
           </div>
         </div>

@@ -37,7 +37,7 @@ const NFTSwiperSection = props => {
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
           {nfts.map((item, index) => (
-            <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+            <div className="col-span-12 lg:col-span-4 xl:col-span-3" key={index}>
               <NFTCard
                 token_id={item.token_id}
                 image={item.asset_url}

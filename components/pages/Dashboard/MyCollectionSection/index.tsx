@@ -69,10 +69,10 @@ const MyCollectionSection = () => {
   }
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[0px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[0px] gap-[11px] 2xl:gap-[60px] lg:gap-[32px] grid grid-cols-12">
         {isCollectionLoaded &&
           myCollections.map((item, index) => (
-            <div className="col-span-6 lg:col-span-3" key={index}>
+            <div className="col-span-12 lg:col-span-4 2xl:col-span-3" key={index}>
               <CollectionCard
                 image={item.json?.image}
                 nftName={item.json?.name}

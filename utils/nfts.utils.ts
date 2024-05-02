@@ -184,7 +184,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
 
   let nonCompressedNfts = allNfts.filter(({ burnt, compression }) => !burnt && !compression.compressed)
 
-  return nonCompressedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
+  return nonCompressedNfts.map(({ id, content, creators, grouping, group_definition, ownership, supply }) => {
     let image = content.links.image
     let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
     let animation_url = content.links.animation_url
@@ -200,9 +200,9 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
       }
 
     let collectionDetails = null
-    if (false)
+    if (group_definition)
       collectionDetails = {
-        size: 0,
+        size: group_definition.size,
       }
 
     return {
@@ -255,8 +255,7 @@ export async function getMyCollectionNFTs(mx: Metaplex) {
   let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
   let identity = mx.identity().publicKey
   return nfts.filter(
-    ({ updateAuthorityAddress, collectionDetails }) =>
-      identity.equals(updateAuthorityAddress) && collectionDetails?.version === 'V1'
+    ({ updateAuthorityAddress, collectionDetails }) => identity.equals(updateAuthorityAddress) && collectionDetails
   )
 }
 
@@ -288,20 +287,24 @@ export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): Pu
 export interface NFTArtistInfo {
   address: PublicKey
   name: string
+  profile_image: string
 }
 
-export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
-  let artist = getNFTArtistPublicKey(nft)
-  if (!artist) return null
+// export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
+//   let artist = getNFTArtistPublicKey(nft)
+//   if (!artist) return null
 
-  let { username } = await userAPI.get(artist.toString())
-  let name = username ?? getShortAddress(artist)
+//   let response = await userAPI.get(artist.toString())
+//   let { username, profile_image } = response
+//   // let { username, profile_image } = await userAPI.get(artist.toString())
+//   let name = username ?? getShortAddress(artist)
 
-  return {
-    address: artist,
-    name,
-  }
-}
+//   return {
+//     address: artist,
+//     name,
+//     profile_image
+//   }
+// }
 
 export interface NFTSocialInfo {
   likes: number
@@ -334,6 +337,9 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
         method: 'getAsset',
         params: {
           id: address,
+          options: {
+            showUnverifiedCollections: true,
+          },
         },
       }),
     })
@@ -353,7 +359,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
     return null
   }
 
-  let { content, grouping, royalty, creators, supply } = dasResponse
+  let { content, grouping, group_definition, royalty, creators, supply } = dasResponse
   let image = content.links.image
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
@@ -395,10 +401,14 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
 
     collection: grouping
       .filter(({ group_key }) => group_key == 'collection')
-      .map(({ group_value }) => ({
+      .map(({ group_value, verified }) => ({
         address: group_value,
-        verified: true,
+        verified,
       }))[0],
+
+    collectionDetails: group_definition && {
+      size: group_definition.size,
+    },
 
     content,
     properties: {
@@ -493,7 +503,7 @@ export function determineCategory(files: determineCategoryType) {
   let category: string
   if (files.length > 1) {
     files.map((file, index) => {
-      if (index > 0 ) {
+      if (index > 0) {
         if (file.mime !== '' && file.mime !== undefined && file.mime !== null) {
           category = file.mime.split('/')[0] === 'model' ? 'vr' : file.mime
         } else if (file.uri.includes('ext=glb')) {

@@ -1,6 +1,7 @@
 [
   { "id": "availability-0", "label": "Fixed Price", "value": "fixed" },
   { "id": "availability-1", "label": "Live Auction", "value": "timed" },
-  { "id": "availability-2", "label": "Not Listed", "value": "none" },
-  { "id": "availability-3", "label": "All", "value": "all" }
+  { "id": "availability-2", "label": "Live Editions", "value": "editions" },
+  { "id": "availability-3", "label": "Not Listed", "value": "none" },
+  { "id": "availability-4", "label": "All", "value": "all" }
 ]

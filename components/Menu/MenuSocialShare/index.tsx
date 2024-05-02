@@ -90,8 +90,9 @@ const MenuSocialShare = ({
                 )}
               </div>
             ) : type === 'nft' ? (
-              <div>
+              <div className="flex gap-[9px]">
                 <ShareSmallIcon />
+                <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
               </div>
             ) : (
               <div className="mt-[4px]">
@@ -113,7 +114,12 @@ const MenuSocialShare = ({
           <Menu.Items className={type === 'nft' ? styles.menuAreaNft : styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
+                <div
+                  className={styles.menuItem}
+                  onClick={() => {
+                    copyToClipboard(fullUrl)
+                  }}
+                >
                   <FileCopyIcon alt="" />
                   Copy to Clipboard
                 </div>

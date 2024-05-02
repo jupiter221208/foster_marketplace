@@ -35,9 +35,9 @@
 
 .bannerImageArea {
   width: 100%;
-  max-width: 758px;
+  max-width: 760px;
   height: 100%;
-  max-height: 194px;
+  max-height: 218px;
   position: relative;
 }
 
@@ -90,18 +90,11 @@
 }
 
 .collectionBannerImage {
-  width: 100%;
-  @media (min-width: 1024px) {
-    max-width: 100px;
-  }
-  @media (min-width: 1280px) {
-    max-width: 140px;
-  }
-  @media (min-width: 1440px) {
-    max-width: 210px;
-  }
-  @media (min-width: 1680px) {
-    max-width: 250px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color);
   }
 }
 
@@ -154,10 +147,14 @@
 // right part
 .rightContainer {
   width: 100%;
-  min-height: calc(100vh - 100px);
-  padding: 16px 0px 16px 16px;
+  // min-height: calc(100vh - 100px);
+  padding: 0px 0px 16px 16px;
+  margin-top: 16px;
   @media (min-width: 1024px) {
-    padding: 30px 0px 80px 50px;
+    padding: 0px 20px 20px 50px;
+    margin-top: 50px;
+    height: 72vh;
+    overflow: scroll;
   }
   display: flex;
   justify-content: center;
@@ -173,11 +170,11 @@
     padding: 12px;
   }
   text-align: center;
-  background: var(--artwork-bg-color);
-  border-radius: 12px;
-  border: 2px dashed rgba(var(--text-gray-200-color-rgb), 0.6);
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px dashed rgba(var(--main-bg-color-rgb), 0.25);
   display: flex;
   align-items: center;
+  border-radius: 5px;
 }
 
 .selectArea {
@@ -210,13 +207,13 @@
 }
 
 .subTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 21px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
   letter-spacing: 0;
   span {
@@ -225,7 +222,7 @@
 }
 
 .subTitleCover {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 21px;
   color: var(--text-gray-200-color);
@@ -234,8 +231,8 @@
     line-height: 20px;
   }
   @media (min-width: 1680px) {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
   letter-spacing: 0;
 }
@@ -246,9 +243,10 @@
   line-height: 19px;
   @media (min-width: 1024px) {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 18px;
   }
   letter-spacing: 0;
+  margin-top: 12px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
@@ -262,14 +260,15 @@
   }
   @media (min-width: 1680px) {
     font-size: 14px;
-    line-height: 17px;
+    line-height: 18px;
   }
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  margin-top: 12px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .greenText {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 11px;
   line-height: 19px;
   @media (min-width: 1024px) {
@@ -277,11 +276,12 @@
     line-height: 24px;
   }
   letter-spacing: 0;
+  margin-top: 12px;
   color: var(--main-icon-color);
 }
 
 .greenTextCover {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 11px;
   line-height: 19px;
   @media (min-width: 1024px) {
@@ -290,8 +290,9 @@
   }
   @media (min-width: 1680px) {
     font-size: 14px;
-    line-height: 24px;
+    line-height: 18px;
   }
+  margin-top: 12px;
   letter-spacing: 0;
   color: var(--main-icon-color);
 }
@@ -304,6 +305,28 @@
   background: var(--artwork-bg-mobile-color);
   border-radius: 10px;
   padding: 11px 22px;
+}
+
+.categoryDesc {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
+.categoryBtn {
+  width: 100%;
+  height: 45px;
+  margin-top: 15px;
+  border-radius: 5px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 12px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
 
 .collectionTypeSection {
@@ -323,7 +346,7 @@
 }
 
 .deSelectedType {
-  width: 50%;  
+  width: 50%;
   height: 100%;
   color: rgba(var(--main-bg-color-rgb), 0.7);
   display: flex;
@@ -340,7 +363,7 @@
 }
 
 .selectedType {
-  width: 50%;  
+  width: 50%;
   height: 100%;
   color: var(--collection-type-card-color);
   background: var(--connection-type-bg);

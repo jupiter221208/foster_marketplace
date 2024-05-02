@@ -71,7 +71,7 @@ const MoreCollectionSection = props => {
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
           className={collectionNFTs.length > 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
@@ -103,13 +103,14 @@ const MoreCollectionSection = props => {
         </Swiper>
       </div>
       <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
+        <div className="w-full max-w-[300px] z-10 mt-[10px]">
           <OutlineButton
             label="See More"
             fullWidth
             onClick={() => router.push(`/collection/${collectionId}`)}
-            borderColor={'var(--see-more-border)'}
+            fontSize="16px"
             height="40px"
+            borderRadius="8px"
           />
         </div>
       </div>

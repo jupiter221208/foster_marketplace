@@ -9,53 +9,45 @@ import NextStepCircle from './NextStepCircle'
 import styles from './index.module.scss'
 
 const Stepper = props => {
-  const { currentStep } = props
+  const { currentStep, labels } = props
 
   return (
-    <div className="w-full flex h-[66px] lg:h-[95px] flex-col justify-between">
+    <div className="w-full flex h-[66px] lg:h-[65px] flex-col justify-between">
       <div className={styles.container}>
-        <div className="relative h-[40px] lg:h-[30px] flex items-center">
-          {/* {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />} */}
-          <div className={`${styles.greenText} absolute top-[25px] lg:top-[50px] -left-6 -right-16`}>Upload file</div>
+        <div className="relative h-[30px] flex items-center">
+          <div
+            className={`${styles.greenText} ${
+              currentStep === 1 ? styles.boldText : styles.regularText
+            } absolute top-[45px] -left-6 -right-16`}
+          >
+            {labels[0]}
+          </div>
         </div>
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />
 
-        <div className="relative h-[40px] lg:h-[30px] flex items-center">
-          {/* {currentStep === 1 ? (
-            <NextStepCircle step={2} />
-          ) : currentStep === 2 ? (
-            <CurrentStepCircle step={2} />
-          ) : (
-            <CompleteStepCirce />
-          )} */}
+        <div className="relative h-[30px] flex items-center">
           <div
-            className={`${
-              currentStep < 2 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-[50px] -left-16 -right-16`}
+            className={`${currentStep < 2 ? styles.grayText : styles.greenText} ${
+              currentStep === 2 ? styles.boldText : styles.regularText
+            } absolute top-[45px] -left-16 -right-16`}
           >
-            Add details
+            {labels[1]}
           </div>
         </div>
 
-        <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />
-
-        <div className="relative h-[40px] lg:h-[30px] flex items-center">
-          {/* {currentStep === 1 || currentStep === 2 ? (
-            <NextStepCircle step={3} />
-          ) : currentStep === 3 ? (
-            <CurrentStepCircle step={3} />
-          ) : (
-            <CompleteStepCirce />
-          )} */}
-          <div
-            className={`${
-              currentStep < 3 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-[50px] -left-16 -right-16`}
-          >
-            Mint
+        {labels.length > 2 && <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />}
+        {labels.length > 2 && (
+          <div className="relative h-[30px] flex items-center">
+            <div
+              className={`${currentStep < 3 ? styles.grayText : styles.greenText}  ${
+                currentStep === 3 ? styles.boldText : styles.regularText
+              } absolute top-[45px] -left-16 -right-16`}
+            >
+              {labels[2]}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { isLoggedIn } from 'utils/helpers'
-import IconButton from 'components/Button/IconButton'
 import uploadFileToS3 from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Alert from 'components/Alert'
@@ -19,24 +18,25 @@ import ReadMoreCollectionModal from 'components/Modal/ReadMoreCollectionModal'
 import { namePublicFile, useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
 import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
+import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import Image from 'next/image'
 
 const MainSection = props => {
   const { nfts, data, publicKey, hasloading } = props
@@ -248,81 +248,72 @@ const MainSection = props => {
                 image={data?.cover_image ?? avatarImage.src}
                 collectionName={data?.collection_name}
                 artistName={data?.artist_username}
+                description={data?.description}
                 artistAddress={data?.artist_username}
                 hasloading={hasloading}
               />
-              <div className="flex">
-                {hasloading ? (
-                  <div className={`${styles.skeletonLoader} w-[45px] h-[45px] mt-[50px] rounded-md`}></div>
+              <div className="flex gap-[15px]">
+                {publicKey?.toBase58() === data?.minter_id ? (
+                  <div className={`${styles.iconContainer} w-[50px]`} onClick={() => setEditCollection(true)}>
+                    <EditMetaIcon />
+                  </div>
                 ) : (
-                  <div className="flex items-center">
-                    <MenuSocialShare
-                      type="image"
-                      vote={true}
-                      message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                      url={`/collection/${data?.collection_id}`}
-                    />
+                  <div className="w-[50px]">
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} w-[50px] h-[45px] mt-[50px] rounded-md`}></div>
+                    ) : (
+                      <div className={`${styles.iconContainer} w-[50px]`}>
+                        <Image
+                          src={saved ? TicketGreenIcon : TicketWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() =>
+                            saved ? unsaveCollection(data?.collection_id) : saveCollection(data?.collection_id)
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
-                {publicKey?.toBase58() === data?.minter_id ? (
-                  <div className="ml-[24px]">
-                    <OutlineButton
-                      width={100}
-                      height={45}
-                      borderRadius={12}
-                      borderWidth={2}
-                      borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
-                      label="Edit"
-                      onClick={() => setEditCollection(true)}
-                    />
-                  </div>
+
+                {hasloading ? (
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[45px] mt-[50px] rounded-md`}></div>
                 ) : (
-                  <div className="w-[100px] overflow-hidden rounded-[12px] ml-[24px]">
-                    {saved ? (
-                      hasloading ? (
-                        <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
-                      ) : (
-                        <OutlineButton
-                          borderColor="var(--follow-btn-border-mobile)"
-                          width={100}
-                          height={45}
-                          label="Saved"
-                          onClick={() => unsaveCollection(data?.collection_id)}
-                        />
-                      )
-                    ) : hasloading ? (
-                      <div className={`${styles.skeletonLoader} w-[100px] h-[45px] mt-[50px] rounded-md`}></div>
-                    ) : (
-                      <GradientButton
-                        width={100}
-                        height={45}
-                        label="Save"
-                        backgroundColor
-                        onClick={() => saveCollection(data?.collection_id)}
+                  <div className={`${styles.iconContainer} w-[87px]`}>
+                    <div className="flex items-center gap-[9px]">
+                      <MenuSocialShare
+                        type="nft"
+                        vote={true}
+                        message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                        url={`/collection/${data?.collection_id}`}
                       />
-                    )}
+                    </div>
                   </div>
                 )}
               </div>
             </div>
 
+            {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
+
             {hasloading ? (
               <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
-                <div className="flex mt-[40px] gap-[15px]">
+                <div className="flex mt-[30px] gap-[15px]">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
-                      <div className="mt-[4px]">
+                      <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
+                      <div className={`${styles.nftInfoLabel} ml-[6px]`}>
+                        {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
-                      <div className="mt-[4px]">
+                      <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
                       <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
@@ -413,62 +404,51 @@ const MainSection = props => {
                     artistName={data?.artist_username}
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
+                    description={data?.description}
                   />
-                  <div className="flex">
-                    {hasloading ? (
-                      <div className={`${styles.skeletonLoader} w-[29px] h-[29px] rounded-md mt-[30px]`}></div>
+                  <div className="flex gap-[10px]">
+                    {publicKey?.toBase58() === data?.minter_id ? (
+                      <div className={`${styles.iconContainer} w-[50px]`} onClick={() => setEditCollection(true)}>
+                        <EditMetaIcon />
+                      </div>
                     ) : (
-                      <div className="">
-                        <div onClick={() => setOpenShareModal(true)}>
-                          <ShareSmallIcon alt="" />
-                        </div>
+                      <div className="w-[50px]">
+                        {hasloading ? (
+                          <div className={`${styles.skeletonLoader} w-[50px] h-[45px] mt-[50px] rounded-md`}></div>
+                        ) : (
+                          <div className={`${styles.iconContainer} w-[50px]`}>
+                            <Image
+                              src={saved ? TicketGreenIcon : TicketWhiteIcon}
+                              alt=""
+                              className=""
+                              onClick={() =>
+                                saved ? unsaveCollection(data?.collection_id) : saveCollection(data?.collection_id)
+                              }
+                            />
+                          </div>
+                        )}
                       </div>
                     )}
 
-                    {publicKey?.toBase58() === data?.minter_id ? (
-                      <div className="ml-[14px]">
-                        <OutlineButton
-                          width={67}
-                          height={29}
-                          borderRadius={8}
-                          borderWidth={1}
-                          borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
-                          label="Edit"
-                          onClick={() => setEditCollection(true)}
-                        />
-                      </div>
+                    {hasloading ? (
+                      <div className={`${styles.skeletonLoader} w-[84px] h-[45px] mt-[50px] rounded-md`}></div>
                     ) : (
-                      <div className="w-[70px] overflow-hidden rounded-[6px] ml-[11px] lg:ml-[24px]">
-                        {saved ? (
-                          hasloading ? (
-                            <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
-                          ) : (
-                            <OutlineButton
-                              width={70}
-                              height={29}
-                              borderRadius={6}
-                              borderColor="var(--follow-btn-border-mobile)"
-                              label="Saved"
-                              onClick={() => unsaveCollection(data?.collection_id)}
-                            />
-                          )
-                        ) : hasloading ? (
-                          <div className={`${styles.skeletonLoader} w-[70px] h-[29px] mt-[30px] rounded-md`}></div>
-                        ) : (
-                          <GradientButton
-                            width={70}
-                            height={29}
-                            borderRadius={6}
-                            label="Save"
-                            backgroundColor
-                            onClick={() => saveCollection(data?.collection_id)}
+                      <div className={`${styles.iconContainer} w-[84px]`}>
+                        <div className="flex items-center gap-[9px]">
+                          <MenuSocialShare
+                            type="nft"
+                            vote={true}
+                            message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                            url={`/collection/${data?.collection_id}`}
                           />
-                        )}
+                        </div>
                       </div>
                     )}
                   </div>
                 </div>
               </div>
+
+              {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>
@@ -507,7 +487,7 @@ const MainSection = props => {
                         <div className="text-center">
                           <div className="flex justify-center">
                             <div className="flex gap-2 items-center">
-                              <SolanaLogoMobileIcon />
+                              <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                             </div>
@@ -523,7 +503,7 @@ const MainSection = props => {
                         <div className="text-center">
                           <div className="flex items-center justify-center">
                             <div className="flex gap-2 items-center">
-                              <SolanaLogoMobileIcon />
+                              <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>
                                 {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}

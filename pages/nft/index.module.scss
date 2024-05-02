@@ -80,6 +80,15 @@
   box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
 }
 
+.background {
+  width: 100%;
+  padding-bottom: 200px;
+  background: transparent;
+  @media (min-width: 1024px) {
+    background: var(--bg-1C1C1C-F3F2F0);
+  }
+}
+
 .selectedTab {
   position: relative;
   width: 100%;
@@ -97,7 +106,7 @@
   bottom: 0px;
   width: 100%;
   height: 1px;
-  background: #303030;
+  background: var(--bg-303030-202427);
 }
 .mainContainer {
   width: 100%;

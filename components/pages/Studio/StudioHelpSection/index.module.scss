@@ -1,0 +1,70 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0px;
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap;
+    height: 233px;
+    padding: 45px 0px;
+  }
+  justify-content: space-between;
+}
+
+.card {
+  width: 100%;
+  margin-top: 30px;
+  @media (min-width:1024px) {  
+    width: 344px;
+    max-width: 344px;
+    margin-top: 0px;
+  }
+  height: 100%;
+}
+
+.number {
+  font-family: 'JunkDog';
+  font-size: 72px;
+  line-height: 92px;
+  color: var(--main-icon-color)
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 22px;
+  color: var(--text-gray-200-color);
+}
+
+.desc {
+  margin-top: 5px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.border {
+  margin-top: 17px;
+  @media (min-width:1024px) {
+  margin-top: 15px;
+  }
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.button {
+  margin-top: 15px;
+  width: 100%;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  color: rgba(var(--main-icon-color-rgb), 0.9);
+  text-align: center;
+  display: none;
+  @media (min-width:1024px) {
+    display: block;
+  }
+}

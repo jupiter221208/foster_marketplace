@@ -27,26 +27,26 @@ const MerchSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full grid grid-cols-2 gap-10">
+      <div className="w-full flex justify-around">
         {showApparelMode ? (
-          <div className="col-span-2 lg:col-span-1 lg:flex hidden">
-            <div className={styles.blurBackground}>
-              <div className="absolute inset-0">
+          <div className="w-full lg:flex hidden justify-center items-start pt-[50px]">
+            {/* <div className={styles.blurBackground}> */}
+            {/* <div className="absolute inset-0">
                 <ImageWithFoster src={data?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
               </div>
-              <div className={styles.blurImage} />
+              <div className={styles.blurImage} /> */}
 
-              <ApparelSection
-                canvasId="canvas"
-                nftName={data?.nftName}
-                apparel={apparel}
-                nftCoverUrl={data?.nftCoverUrl}
-                finishEditing={finishEditing}
-              />
-            </div>
+            <ApparelSection
+              canvasId="canvas"
+              nftName={data?.nftName}
+              apparel={apparel}
+              nftCoverUrl={data?.nftCoverUrl}
+              finishEditing={finishEditing}
+            />
           </div>
-        ) : showWallArtMode ? (
-          <div className="col-span-2 lg:col-span-1 lg:flex hidden">
+        ) : // </div>
+        showWallArtMode ? (
+          <div className="w-full lg:flex hidden justify-center items-start">
             <div className={styles.blurBackground}>
               {!wallArt && (
                 <div className="absolute inset-0">
@@ -62,7 +62,7 @@ const MerchSection = props => {
           <></>
         )}
 
-        <div className="col-span-2 lg:col-span-1 z-10">
+        <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10">
           {openApparelDetail ? (
             <MerchApparelSection
               nftName={data?.nftName}

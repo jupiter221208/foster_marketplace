@@ -10,16 +10,15 @@ import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
-import AboutSection from 'components/pages/ArtistProfile/AboutSection'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // resources
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import LiveEditionsSection from 'components/pages/ArtistProfile/LiveEditionsSection'
 
 const TabSection = props => {
   const {
@@ -28,16 +27,12 @@ const TabSection = props => {
     merchNfts,
     collections,
     wallet,
-    description,
-    categoryList,
     isOwn,
     isLoaded,
     handleNextPage,
     setArtistEnable,
     setMerchEnable,
     setCollectorEnable,
-    artistStatsInfo,
-    collectorStatsInfo,
     isVisibleFetchingCreated,
     isFetchingCreated,
     setIsFetchingCreated,
@@ -147,7 +142,7 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
+      <div className="w-full flex z-0 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
         <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       <div className={styles.divider} />
@@ -204,6 +199,17 @@ const TabSection = props => {
                 setArtworkType('collected')
               }}
             />
+
+            <TimeSlotButton
+              label="Live Editions"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'editions'}
+              onClick={() => {
+                setArtworkType('editions')
+              }}
+              className="min-w-max"
+            />
           </div>
 
           {artworkType === 'all' && (
@@ -249,6 +255,8 @@ const TabSection = props => {
               <ActiveListingSection artist={wallet} fromPage={'profile'} />
             </div>
           )}
+
+          {artworkType === 'editions' && <LiveEditionsSection category={''} artist={wallet} fromPage={'profile'} />}
         </div>
       )}
 
@@ -261,7 +269,7 @@ const TabSection = props => {
         </div>
       )}
 
-      {activeTab === 2 && (
+      {/* {activeTab === 2 && (
         <div className={styles.statsSection}>
           <div className="flex justify-between">
             <div>Total Volume Sold</div>
@@ -300,7 +308,7 @@ const TabSection = props => {
         <div className="w-full flex flex-wrap z-10">
           <AboutSection description={description} categories={categoryList} />
         </div>
-      )}
+      )} */}
     </div>
   )
 }

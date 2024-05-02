@@ -47,6 +47,11 @@ const NFTActivityInfoSection = props => {
 
         let formattedDate = `${dateString} • ${timeString}`
 
+        let editionNumber = ''
+        if (item.action_type === 'MasterEditionPrintCreated') {
+          editionNumber = item.asset_name.slice(item.asset_name.indexOf('#'), item.asset_name.legth)
+          editionNumber = editionNumber.slice(0, editionNumber.indexOf(','))
+        }
         return (
           <div className={styles.subContainer} key={index}>
             <div className="w-full flex flex-col">
@@ -140,9 +145,49 @@ const NFTActivityInfoSection = props => {
                   </Link>
                   <span>&nbsp;purchased artwork</span>
                 </div>
+              ) : item.action_type === 'MasterEditionListingCancelled' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;canceled master edition</span>
+                </div>
+              ) : item.action_type === 'MasterEditionListingCreated' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;listed master edition</span>
+                </div>
+              ) : item.action_type === 'MasterEditionListingUpdated' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.reference_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
+                    </a>
+                  </Link>
+                  <span>&nbsp;updated master edition</span>
+                </div>
+              ) : item.action_type === 'MasterEditionPrintCreated' ? (
+                <div className={styles.actionType}>
+                  <Link href={`/${item.minter_username}`} passHref>
+                    <a>
+                      <span className={styles.userName}>{getDisplayUserName(item.minter_username)}</span>
+                    </a>
+                  </Link>
+                  <span>
+                    &nbsp;
+                    {`bought edition ${editionNumber}`}
+                  </span>
+                </div>
               ) : (
                 ''
               )}
+
               <div className={styles.dateValue}>{formattedDate}</div>
             </div>
             <div className="w-fit-content flex flex-col">

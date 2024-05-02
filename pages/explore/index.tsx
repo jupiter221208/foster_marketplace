@@ -16,8 +16,6 @@ import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
 import SelectedTab from 'components/Tab/SelectedTab'
-import NFTCard from 'components/Card/NFTCard'
-import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
@@ -55,6 +53,7 @@ import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
+import NFTEditionsCard from 'components/Card/NFTEditionsCard'
 
 const Explore = () => {
   const router = useRouter()
@@ -106,7 +105,7 @@ const Explore = () => {
 
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[3])
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
   const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[4])
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
 
@@ -138,6 +137,9 @@ const Explore = () => {
       setSelectedAvailability(availability)
     } else if (availabilityFilter === 1) {
       availability = AvailabilityList[1]
+      setSelectedAvailability(availability)
+    } else if (availabilityFilter === 2) {
+      availability = AvailabilityList[2]
       setSelectedAvailability(availability)
     }
 
@@ -270,9 +272,12 @@ const Explore = () => {
                 cover_image_url: nft.cover_image_url,
                 creator: nft.artist_username,
                 artist_profile_picture: nft.artist_profile_picture,
+                current_supply: nft.current_supply,
                 url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
+                master_edition: nft.master_edition,
+                max_supply: nft.max_supply,
                 list_price: nft.list_price,
                 start_time: nft.start_time,
                 end_time: nft.end_time,
@@ -291,8 +296,11 @@ const Explore = () => {
               cover_image_url: nft.cover_image_url,
               creator: nft.artist_username,
               artist_profile_picture: nft.artist_profile_picture,
+              current_supply: nft.current_supply,
               url: `/nft/${nft.token_id}`,
               price: nft.list_price,
+              master_edition: nft.master_edition,
+              max_supply: nft.max_supply,
               current_bid: nft.current_bid,
               list_price: nft.list_price,
               start_time: nft.start_time,
@@ -635,7 +643,7 @@ const Explore = () => {
                   nftList?.map((item, index) => {
                     return (
                       <div
-                        className={`col-span-6 z-10 ${
+                        className={`col-span-12 z-10 ${
                           showFilter ? 'lg:col-span-6 3xl:col-span-4 ' : 'lg:col-span-4 2xl:col-span-3'
                         }`}
                         key={index}
@@ -656,8 +664,45 @@ const Explore = () => {
                             }}
                             price={item.price}
                           />
+                        ) : selectedAvailability.value === 'editions' ? (
+                          <NFTEditionsCard
+                            tokenId={item.token_id}
+                            image={item.image}
+                            nftName={item.name}
+                            artistName={item.creator}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            statTime={item.master_edition?.startTime}
+                            endTime={item.master_edition?.endTime}
+                            price={item.master_edition?.price}
+                            currentSupply={item.current_supply}
+                            maxSupply={item.max_supply}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                            }}
+                            key={index}
+                          />
                         ) : selectedAvailability.value === 'all' ? (
-                          isAvailableAuctionCard(item) ? (
+                          item?.master_edition !== null && item?.master_edition !== undefined ? (
+                            <NFTEditionsCard
+                              tokenId={item.token_id}
+                              image={item.image}
+                              nftName={item.name}
+                              artistName={item.creator}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              statTime={item.master_edition?.startTime}
+                              endTime={item.master_edition?.endTime}
+                              currentSupply={item.current_supply}
+                              maxSupply={item.max_supply}
+                              price={item.master_edition?.price}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                // router.push('/nft/' + item.tokenId)
+                              }}
+                              key={index}
+                            />
+                          ) : isAvailableAuctionCard(item) ? (
                             <NFTAuctionCard
                               token_id={item.token_id}
                               nftName={item.name}

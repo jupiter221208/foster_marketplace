@@ -1,22 +1,21 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 155px;
-  height: 40px;
-  @media (min-width: 1024px) {
-    width: 185px;
-    font-size: 18px;
-    height: 50px;
-    padding: 0px 13px;
-    font-family: 'Muli-Regular';
+  width: 140px;
+  padding: 0px 8px;
+  gap: 6px;
+  @media (min-width: 1024px) {  
+  width: 150px;
+  padding: 0px 10px;
+  gap: 9px;
   }
-  padding: 0px 13px;
-  gap: 12px;
+  height: 35px;
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   color: var(--text-gray-200-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 30px;
+  background: var(--background-main-color);
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,14 +31,9 @@
 
 .menuArea {
   position: absolute;
-  width: 155px;
-  top: 50px;
+  width: 150px;
+  top: 40px;
   right: 0px;
-  @media (min-width: 1024px) {
-    width: 185px;
-    top: 60px;
-    padding: 10px 25px;
-  }
   padding: 10px 15px;
   background: rgba(var(--collection-card-bg-rgb), 0.7);
   -webkit-backdrop-filter: blur(30px);
@@ -80,7 +74,7 @@
   cursor: pointer;
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 20px;
+  line-height: 18px;
   @media (min-width:1024px) {
     font-size: 16px;
     line-height: 22px;

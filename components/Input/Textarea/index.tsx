@@ -18,6 +18,7 @@ const Textarea = props => {
     backgroundColor,
     onChange,
     fullWidth = false,
+    fontFamily = 'Muli-Regular',
     fontSize = '16px',
     color = '',
     width = '',
@@ -42,6 +43,7 @@ const Textarea = props => {
           height: height,
           maxHeight: maxHeight,
           background: backgroundColor,
+          fontFamily,
           fontSize: fontSize,
           color: color,
         }}

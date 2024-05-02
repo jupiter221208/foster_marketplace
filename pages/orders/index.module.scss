@@ -43,21 +43,4 @@
   @media (min-width: 1024px) {
     min-height: calc(100vh - 100px - 60px);
   }
-
-  padding: 0px 16px 20px 16px;
-  @media (min-width: 640px) {
-    padding: 28px 25px 28px 25px;
-  }
-  @media (min-width: 768px) {
-    padding: 32px 35px 32px 35px;
-  }
-  @media (min-width: 1024px) {
-    padding: 35px 25px 35px 25px;
-  }
-  @media (min-width: 1280px) {
-    padding: 10px 40px 0px 40px;
-  }
-  @media (min-width: 1536px) {
-    padding: 10px 45px 0px 45px;
-  }
 }

@@ -1,0 +1,116 @@
+@import 'assets/scss/variable.module.scss';
+
+.leftContainer {
+  width: 100%;
+  height: fit-content;
+  padding: 16px 16px 16px 0px;
+  @media (min-width: 1024px) {
+    padding: 50px 50px 80px 0px;
+  }
+  @media (min-width: 1280px) {
+    padding: 50px 80px 80px 0px;
+  }
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 100;
+}
+
+.title {
+  width: 100%;
+  margin-top: 26px;
+
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 41px;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+    font-size: 24px;
+    line-height: 40px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
+
+.bannerImageArea {
+  width: 100%;
+  max-width: 758px;
+  height: 100%;
+  max-height: 218px;
+  position: relative;
+}
+
+.coverImageArea {
+  width: 100px;
+  height: 100px;
+  @media (min-width: 1024px) {
+    width: 110px;
+    height: 110px;
+  }
+  @media (min-width: 1280px) {
+    width: 120px;
+    height: 120px;
+  }
+  @media (min-width: 1440px) {
+    width: 140px;
+    height: 140px;
+  }
+  @media (min-width: 1680px) {
+    width: 200px;
+    height: 200px;
+  }
+  position: relative;
+  border: 3px solid var(--background-main-color);
+}
+
+.collectionName {
+  font-family: 'Muli-Bold';
+  font-size: 22px;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
+
+// right part
+.rightContainer {
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  padding: 16px 0px 16px 16px;
+  @media (min-width: 1024px) {
+    padding: 30px 0px 80px 50px;
+  }
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 100;
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 21px;
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  letter-spacing: 0;
+}
+
+.desc {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  letter-spacing: 0;
+  word-wrap: break-word;
+}
+
+.cateLabel {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}

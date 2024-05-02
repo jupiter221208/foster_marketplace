@@ -31,7 +31,7 @@ import GradientButton from 'components/Button/GradientButton'
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
-import { getDisplayUserName } from 'utils/strings'
+import { getDisplayUserName, getShortName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const NFTCard = props => {
@@ -146,13 +146,20 @@ const NFTCard = props => {
                 <div className={styles.imageContent}>
                   {assetType?.includes('vr') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} className={styles.imageNft} />
+                      <ImageWithFoster src={coverImage} width={800} className="max-w-full max-h-full object-cover" />
                     ) : (
                       <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                     )
                   ) : assetType?.includes('audio') ? (
                     coverImage !== null && coverImage !== '' ? (
-                      <ImageWithFoster src={coverImage} width={360} onClick={onClick} className={styles.imageNft} />
+                      <div className="w-full h-full">
+                        <ImageWithFoster
+                          src={coverImage}
+                          width={800}
+                          onClick={onClick}
+                          className="max-w-full max-h-full object-cover"
+                        />
+                      </div>
                     ) : (
                       <Image
                         src={DefaultNftBG}
@@ -162,21 +169,25 @@ const NFTCard = props => {
                       />
                     )
                   ) : coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFoster
-                      src={coverImage}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
+                    <div className="w-full h-full">
+                      <ImageWithFoster
+                        src={coverImage}
+                        width={800}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
                   ) : image !== null && image !== '' ? (
-                    <ImageWithFoster
-                      src={image}
-                      width={360}
-                      originalSrc={fallBack}
-                      onClick={onClick}
-                      className={styles.imageNft}
-                    />
+                    <div className="w-full h-full">
+                      <ImageWithFoster
+                        src={image}
+                        width={800}
+                        originalSrc={fallBack}
+                        onClick={onClick}
+                        className="max-w-full max-h-full object-cover"
+                      />
+                    </div>
                   ) : (
                     <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                   )}
@@ -186,17 +197,17 @@ const NFTCard = props => {
           )}
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
+              <HideIcon />
             </div>
           )}
           {showUnhideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
+              <UnhideIcon />
             </div>
           )}
         </div>
 
-        <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
+        {/* <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
           <div className="w-full">
             <div className="flex items-center">
               <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
@@ -236,6 +247,31 @@ const NFTCard = props => {
               />
             </div>
           )}
+        </div> */}
+        <div className={styles.imageInfo}>
+          <div className={styles.nftData}>
+            <div>
+              <div className={styles.nftName}>{getShortName(nftName, price ? 15 : 24)}</div>
+              <div className="w-full flex justify-between">
+                <div className={styles.artistName}>{getDisplayUserName(artistName)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.bottomInfo}>
+          {price ? (
+            <div className="">
+              <div className={styles.priceLabel}>Price</div>
+              <div className="w-full flex items-center mt-[6px]">
+                <SolanaLogoIcon />
+                <div className={styles.price}>{price}</div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-full flex items-center">
+              <div className={styles.unlisted}>Unlisted</div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -254,20 +290,13 @@ const NFTCard = props => {
                   <br />
                   Would you like to proceed?
                 </div>
-                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                <div className="flex gap-[15px] lg:gap-[19px] mt-[50px] justify-center">
                   <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performHideNft()}>
                     <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
-                        }
-                        alt=""
-                      />
+                      <Image src={HideSmallIcon} alt="" />
                       <div className={styles.hideButtonText}>Hide</div>
                     </div>
                   </div>
@@ -299,14 +328,7 @@ const NFTCard = props => {
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnhideNft()}>
                     <div className="flex gap-[6px]">
-                      <Image
-                        src={
-                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? UnhideSmallMobileIcon
-                            : UnhideSmallIcon
-                        }
-                        alt=""
-                      />
+                      <Image src={UnhideSmallIcon} alt="" />
                       <div className={styles.hideButtonText}>Unhide</div>
                     </div>
                   </div>

@@ -1,0 +1,236 @@
+@import 'assets/scss/variable.module.scss';
+
+.layout {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  background: var(--background-main-color);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  margin-top: 2px;
+  margin-bottom: 0px;
+  &:hover {
+    @media (min-width: 1024px) {
+      margin-top: 0px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.avatar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 18px;
+  @media (min-width: 1024px) {
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  @media (min-width: 1536px) {
+    top: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+  background-color: rgba(#ffffff, 0.3);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.profileContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.bidContainer {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 15px;
+  background: var(--background-main-color);
+}
+
+.bidGradientBgView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--header-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.bidContentView {
+  -webkit-transform: translate3d(0, 0, 0);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 508:383 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.artistName {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  height: 18px;
+  margin-top: 7px;
+  color: var(--main-icon-color);
+  font-weight: 200;
+}
+
+.timeSection {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-timer-card);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+}
+
+.topSection {
+  width: 100%;
+  height: 50px;
+  background: var(--background-main-color);
+  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.bidCountContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.bidName {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  text-align: start;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.bidTime {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  text-align: right;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.bidCount {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 23px;
+  margin-left: 5px;
+  color: var(--text-gray-200-color);
+}
+
+.endTimeContainer {
+  margin-left: 4px;
+  @media (min-width: 1024px) {
+    margin-left: 2px;
+  }
+  @media (min-width: 1680px) {
+    margin-left: 4px;
+  }
+}
+
+.endTime {
+  display: flex;
+  gap: 2px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.bidDesc {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.bottomHover {
+  @media (min-width: 1024px) {
+    background: rgba(var(--main-bg-color-rgb), 0.05) !important;
+  }
+}
+
+.sol_icon_color {
+  * {
+    fill: var(--main-icon-color);
+  }
+}

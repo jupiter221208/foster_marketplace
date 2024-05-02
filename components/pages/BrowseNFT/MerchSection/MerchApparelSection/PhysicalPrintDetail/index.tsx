@@ -18,18 +18,20 @@ import ColorType from 'assets/json/print/color.json'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // images
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import Selection from 'components/Selection'
-import SelectionColor from 'components/SelectionColor'
-import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
-import OutlineButton from 'components/Button/OutlineButton'
 import SizeChartModal from 'components/Modal/SizeChartModal'
+import Image from 'next/image'
+import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
+import QuantityCard from 'components/Card/QuantityCard'
+import { useAuthentication } from 'hooks/useAuthentication'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 // api
 
@@ -57,6 +59,7 @@ const PhysicalPrintDetail = props => {
   const dispatch = useDispatch()
   const router = useRouter()
   const id = router.query.id
+  const { profileInfo } = useAuthentication()
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -67,9 +70,11 @@ const PhysicalPrintDetail = props => {
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
   const apparelColor = useSelector<any>(state => state.apparelColor)
+  const merchBy: string = useSelector(state => (state as any).merchBy)
   const shippingDetail = useSelector<any>(state => state.shippingDetail)
   const printImageUrl = useSelector<any>(state => state.printImageUrl)
   const isAddToCart = useSelector(state => (state as any).isAddToCart)
+  const [apparelAssets, setApparelAssets] = useState(null)
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -146,7 +151,6 @@ const PhysicalPrintDetail = props => {
         setCost('----')
         onPrint('')
         setPreviewApparel('')
-        // setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
       }
     } else {
       setEnabled(false)
@@ -194,6 +198,7 @@ const PhysicalPrintDetail = props => {
     if (apparel.hasOwnProperty(gender.type)) {
       if (apparel[gender.type].hasOwnProperty(quality.type)) {
         if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
+          setApparelAssets(apparel[gender.type][quality.type][color.type].image)
           onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
           setPreviewApparel(apparel[gender.type][quality.type][color.type].image[print.type])
           let cost = apparel[gender.type][quality.type][color.type].cost
@@ -286,117 +291,139 @@ const PhysicalPrintDetail = props => {
           finishEditing={finishEditing}
         />
       </div>
-      <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">
-        {/* <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden">
-            <ArrowLeftIconMobile alt="" />
-          </div>
-        </div> */}
-        <div className={styles.selecteCategory}>
-          {getApparelName()}&nbsp;<div className={styles.nftName}>({nftName})</div>
-        </div>
-      </div>
-      <div className={styles.description}>{getApparelDescription()}</div>
-      {/* <div className="w-full mt-[30px] lg:mt-[40px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'GENDER:' : 'Gender:'}
-          data={GenderType}
-          selected={gender?.name}
-          onSelect={item => setGender(item)}
-        />
-      </div> */}
-      {/* <div className="w-full mt-[25px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'BASE:' : 'Base:'}
-          data={apparelType}
-          selected={apparel?.name}
-          onSelect={item => setApparel(item)}
-        />
-      </div> */}
-      <div className="w-full mt-[25px]">
-        <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
-      </div>
-      {/* <div className="w-full mt-[25px]">
-        <Selection label={'Quality:'} data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
-      </div> */}
-      <div className="w-full mt-[25px]">
-        <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
-      </div>
-      <div className="w-full mt-[35px] lg:mt-[25px]">
-        <Selection
-          label={'Size:'}
-          data={SizeType[`${gender?.type}`] == undefined ? [] : SizeType[`${gender?.type}`]}
-          selected={size?.name}
-          onSelect={item => setSize(item)}
-        />
-      </div>
-      <div className="w-full mt-[25px] block lg:flex">
-        <div className={styles.quantity}>Quantity:</div>
-        <div className="mt-[15px] lg:mt-[0px]">
-          <input
-            value={quantity}
-            type="number"
-            min="0"
-            placeholder="0"
-            className={styles.inputArea}
-            onChange={event => setQuantity(parseInt(event.target.value))}
-          />
-        </div>
-      </div>
-      <div className="w-full mt-[25px] block flex flex-row items-center gap-2">
-        <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-          Size Chart
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
-          <path
-            id="angle-down-9"
-            d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
-            transform="translate(-6.754 -8.879)"
-            fill="var(--chevron-up-icon-color)"
-          />
-        </svg>
-      </div>
-      <div className="w-full mt-[30px] lg:mt-[160px] flex">
-        <div className={styles.subTotal}>Subtotal:</div>
-        <div className="flex ml-[10px] lg:ml-[20px] items-center">
-          <div className={styles.price}>$ {cost}</div>
-          <div className={styles.separator}></div>
-          <div className="flex gap-[10px] items-center">
-            <SolanaLogoIcon alt="" />
-            <div className={styles.price}>
-              {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
+      <div className={styles.rightPanel}>
+        <div className="w-full">
+          <div className={styles.nftName}>{nftName}</div>
+          <div className="flex gap-[6px] mt-[8px] lg:mt-[10px] items-center">
+            <div className={styles.merchBy}>Merch by</div>
+            <div className={styles.username} onClick={() => router.push(`/${merchBy}`)}>
+              {merchBy}
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="w-full mt-[30px] flex gap-[30px]">
-        <OutlineButton
-          label="Add to Cart"
-          onClick={() => handleSaveData()}
-          fullWidth
-          fontFamily="Muli-SemiBold"
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-          color={'var(--text-gray-200-color)'}
-        />
+        <div className="w-full mt-[20px] lg:mt-[30px]">
+          <div className={styles.placementTitle}>Description</div>
+          <div className={styles.description}>{getApparelDescription()}</div>
+        </div>
 
-        <GradientButton
-          disabled={!enabled}
-          label="Buy Now"
-          fontFamily="Muli-SemiBold"
-          fullWidth
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-          onClick={() => {
-            let data = { apparel, gender, color, print, quality, size, quantity, cost }
-            onShipping(data)
-            setFinishEditing(true)
-          }}
-        />
+        <div className="w-full mt-[20px] lg:mt-[30px]">
+          <div className={styles.placementTitle}>Select Color</div>
+          <div className="mt-[15px] flex gap-[11px] lg:gap-[15px]">
+            <div
+              className={`w-[34px] h-[34px] flex justify-center items-center ${
+                color?.type === 'white' ? styles.colorBorder : ''
+              }`}
+            >
+              <div className={styles.whiteColor} onClick={() => setColor(ColorType[0])} />
+            </div>
+            <div
+              className={`w-[34px] h-[34px] flex justify-center items-center ${
+                color?.type === 'black' ? styles.colorBorder : ''
+              }`}
+            >
+              <div className={styles.blackColor} onClick={() => setColor(ColorType[1])} />
+            </div>
+          </div>
+          {/* <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} /> */}
+        </div>
+
+        <div className="w-full mt-[20px] lg:mt-[30px]">
+          {/* <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} /> */}
+          <div className={styles.placementTitle}>Select Placement</div>
+          <div className="mt-[15px] flex gap-[16px] lg:gap-[30px]">
+            <div onClick={() => setPrint(PrintType[0])}>
+              <div className={print.type === 'front' ? styles.selectedPrint : styles.unselectedPrint}>
+                <Image
+                  src={apparelAssets ? apparelAssets['front'] : ''}
+                  width={150}
+                  height={150}
+                  alt=""
+                  className="w-full h-full"
+                />
+              </div>
+              <div className={styles.selectedPrintText}>Front Side</div>
+            </div>
+            <div onClick={() => setPrint(PrintType[1])}>
+              <div className={print.type === 'back' ? styles.selectedPrint : styles.unselectedPrint}>
+                <Image
+                  src={apparelAssets ? apparelAssets['back'] : ''}
+                  width={170}
+                  height={170}
+                  alt=""
+                  className="w-full h-full"
+                />
+              </div>
+              <div className={styles.selectedPrintText}>Back Side</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full mt-[35px] lg:mt-[25px] flex flex-wrap gap-[16px] justify-between items-center">
+          <div className="flex gap-[18px]">
+            <DropdownSizeMenu
+              label={size?.name}
+              data={apparel && SizeType[`${apparel.name}`][`${gender?.type}`]}
+              selectedItem={size}
+              setSelectedItem={item => {
+                setSize(item)
+              }}
+            />
+            <QuantityCard
+              qty={quantity}
+              onMinus={() => {
+                if (quantity > 1) setQuantity(quantity - 1)
+              }}
+              onPlus={() => {
+                setQuantity(quantity + 1)
+              }}
+            />
+          </div>
+          <div className="flex gap-[7px] items-center">
+            <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+              Size Chart
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+              <path
+                id="angle-down-9"
+                d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+                transform="translate(-6.754 -8.879)"
+                fill="var(--chevron-up-icon-color)"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div className={styles.borderLine} />
+
+        <div className="w-full mt-[18px] flex justify-between items-center">
+          <div className={styles.subTotal}>Subtotal:</div>
+          <div className="flex items-center gap-[15px]">
+            <div className={styles.price}>$ {cost}</div>
+            <div className={styles.separator}></div>
+            <div className="flex gap-[10px] items-center">
+              <SolanaLogoIcon alt="" className="mt-[2px]" />
+              <div className={styles.price}>
+                {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-wrap mt-[20px] flex gap-[15px]">
+          <PrimaryButton
+            disabled={!enabled}
+            label="Buy Now"
+            type="buy-now"
+            fullWidth
+            onClick={() => {
+              let data = { apparel, gender, color, print, quality, size, quantity, cost }
+              onShipping(data)
+              setFinishEditing(true)
+            }}
+          />
+          <SecondaryButton label="Add to Cart" type="add-cart" onClick={() => handleSaveData()} fullWidth />
+        </div>
       </div>
       <SizeChartModal open={tableModal} title={getApparelName()} onClose={() => setTableModal(false)} />
     </section>

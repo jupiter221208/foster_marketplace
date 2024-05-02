@@ -31,6 +31,10 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'AuctionCancelled':
       case 'ListingAdded':
       case 'ListingCancelled':
+      case 'MasterEditionListingCreated':
+      case 'MasterEditionListingUpdated':
+      case 'MasterEditionPrintCreated':
+      case 'ListingUpdated':
         user = getOwnerName(item)
         break
       case 'OfferMade':
@@ -74,8 +78,28 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'BidPlaced':
         type = 'placed a bid'
         break
+      case 'MasterEditionListingCreated':
+        type = 'listed master edition'
+        break
+      case 'MasterEditionListingUpdated':
+        type = 'updated listing master edition'
+        break
+      case 'MasterEditionPrintCreated':
+        type = 'purchased edition'
+        break
+      case 'MasterEditionListingCancelled':
+        type = 'canceled list edition'
+      case 'ListingUpdated':
+        type = 'updated listing'
+        break
     }
     return type
+  }
+
+  const getPrintAssetName = item => {
+    let edition = item.asset_name.slice(item.asset_name.indexOf('#'))
+    edition = edition.slice(0, edition.indexOf(', (#'))
+    return edition + ' of ' + item.asset_name.slice(0, item.asset_name.indexOf('#'))
   }
 
   return (
@@ -85,7 +109,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
           <tr key={index}>
             <td>
               <div className="flex justify-between">
-                <div className="h-[90px] flex items-center ml-[35px]">
+                <div className="h-[90px] flex items-center ml-[0px]">
                   <Link href={`/nft/${item.mint_address}`} passHref>
                     <a>
                       <div className="w-[50px] h-[50px]">
@@ -104,7 +128,11 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                       <div className="block">
                         <Link href={`/nft/${item.mint_address}`} passHref>
                           <a>
-                            <div className={styles.nftName}>{item.asset_name}</div>
+                            <div className={styles.nftName}>
+                              {item.action_type === 'MasterEditionPrintCreated'
+                                ? getPrintAssetName(item)
+                                : item.asset_name}
+                            </div>
                           </a>
                         </Link>
                       </div>

@@ -73,6 +73,19 @@
   position: relative;
 }
 
+.audioContainer {
+  display: flex;
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 270px);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
 .borderView {
   position: absolute;
   inset: 0;
@@ -82,9 +95,9 @@
   min-width: 100%;
   min-height: 190%;
   position: absolute;
-  background: var(--place-bid-color);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  // background: var(--place-bid-color);
+  // -webkit-backdrop-filter: blur(10px);
+  // backdrop-filter: blur(10px);
 }
 
 .imageArea {
@@ -124,7 +137,7 @@
   width: 394px;
   margin-left: 0px;
   height: 75px;
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

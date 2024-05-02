@@ -6,10 +6,6 @@ import Image from 'next/image'
 // third party components
 import Lottie from 'lottie-react'
 
-// components
-import Input from 'components/Input'
-import Textarea from 'components/Input/Textarea'
-
 // custom functions
 import { useViewport } from 'utils'
 
@@ -21,10 +17,13 @@ import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
-import OutlineButton from 'components/Button/OutlineButton'
 import { FadeLoader } from 'react-spinners'
+import Button from 'components/Button'
 import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -33,25 +32,14 @@ const Step03CollectionSection = props => {
     collectionMintName,
     collectionFiles,
     bannerCroppedImage,
-    readFilesAndUplaod,
     uploadedCount,
+    startUpload,
+    setStartUpload,
+    isMinting,
+    mintCollection,
   } = props
 
   const viewport = useViewport()
-
-  // variables
-  const [disabledNextButton, setDisabledNextButton] = useState(true)
-  const [startUpload, setStartUpload] = useState(false)
-
-  const handleChangeCurrentStep = step => {
-    onChangeCurrentStep(step)
-  }
-
-  const uploadArtworks = () => {
-    setStartUpload(true)
-    readFilesAndUplaod()
-  }
-
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
   })
@@ -64,12 +52,6 @@ const Step03CollectionSection = props => {
           count++
         }
       })
-
-      if (count === 0) {
-        setDisabledNextButton(false)
-      } else {
-        setDisabledNextButton(true)
-      }
     }
   }, [collectionFiles])
 
@@ -100,139 +82,63 @@ const Step03CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+          <div className="col-span-12 lg:col-span-5 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                <div className={styles.reviewCollection}>Review Collection Items</div>
                 <div className="w-full">
                   {/* {!showMore && */}
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
-                      <div
-                        className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                        key={index}
-                        onClick={() => setSelectedCollectionFile(item)}
-                      >
+                      <div className="w-full" key={index}>
                         <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.greenText
-                              : styles.text
-                          }
+                          className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                          onClick={() => setSelectedCollectionFile(item)}
                         >
-                          {index + 1}
-                        </div>
-                        <div
-                          className={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                              ? styles.selectedImage
-                              : styles.nonSelectedImage
-                          }
-                        >
-                          {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full h-full" id="video">
-                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                              Your browser does not support the video tag.
-                            </video>
-                          ) : (
-                            <Image
-                              src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
-                              alt=""
-                              width={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              height={
-                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                              }
-                              objectFit="cover"
-                              className="rounded-lg"
-                            />
-                          )}
-                        </div>
-                        <div className="flex-1 block h-[120px]">
                           <div
                             className={
                               selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
+                                ? styles.selectedImage
+                                : styles.nonSelectedImage
                             }
                           >
-                            NFT Name *
-                          </div>
-                          <div>
-                            <Input
-                              value={item.name}
-                              placeholder="Give your art name"
-                              label=""
-                              fullWidth
-                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
-                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
-                              onChange={() => {}}
-                              height="46px"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex-1 block h-[120px]">
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.greenText
-                                : styles.text
-                            }
-                          >
-                            Description
-                          </div>
-                          <div>
-                            <Textarea
-                              value={item.description}
-                              placeholder="Add a short description..."
-                              fullWidth
-                              color="rgba(var(--text-gray-200-color-rgb), 0.8)"
-                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
-                              onChange={() => {}}
-                              height="90px"
-                            />
-                          </div>
-                        </div>
-                        {startUpload && (
-                          <div className="absolute -right-20 top-10 w-10 h-10">
-                            {/* {index < uploadedCount ? (
-                              <Lottie animationData={CheckLottery} loop={true} />
+                            {item.type === 'video' ? (
+                              <video loop autoPlay className="w-full h-full" id="video">
+                                <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                                Your browser does not support the video tag.
+                              </video>
                             ) : (
-                              <Lottie animationData={LoaderLottery} loop={true} />
-                            )} */}
-                            {index < uploadedCount ? (
-                              <Lottie animationData={CheckLottery} loop={true} />
-                            ) : (
-                              <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                              <Image
+                                src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
+                                alt=""
+                                width={95}
+                                height={95}
+                                objectFit="cover"
+                                className="rounded-lg"
+                              />
                             )}
                           </div>
-                        )}
+                          <div className="w-full">
+                            <div className={styles.nftName}>{item.name} </div>
+                            <div className={styles.nftDesc}>{item.description} </div>
+                          </div>
+                          {startUpload && (
+                            <div className="absolute -right-20 top-4 w-10 h-10">
+                              {index < uploadedCount ? (
+                                <Lottie animationData={CheckLottery} loop={true} />
+                              ) : (
+                                <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex gap-[15px] mt-[20px]">
+                          <div className={styles.editionType}>{item.editionType.label}</div>
+                          {item.editionType.id === 0 && (
+                            <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
+                          )}
+                        </div>
                       </div>
                     ))}
-                </div>
-                <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
-                  <div className="flex gap-10">
-                    <OutlineButton
-                      label="Back"
-                      onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                      width={120}
-                      height={53}
-                      borderWidth={2}
-                    />
-                    {startUpload ? (
-                      <LoadingButton width={120} height={53} />
-                    ) : (
-                      <GradientButton
-                        label="Mint"
-                        width={120}
-                        height={53}
-                        disabled={disabledNextButton}
-                        onClick={() => uploadArtworks()}
-                      />
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
@@ -242,9 +148,8 @@ const Step03CollectionSection = props => {
         // mobile part
         <div className="g-container mb-[47px]">
           {/* CollectionStepper part */}
-          <div className={`${styles.title} w-full`}>{collectionMintName}</div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
+          <div className="w-full flex flex-wrap justify-center">
             {/* banner part */}
             <div className="w-full flex flex-wrap justify-center z-10">
               {/* banner image */}
@@ -263,13 +168,15 @@ const Step03CollectionSection = props => {
             </div>
           </div>
 
+          <div className={`${styles.title} w-full mt-[15px]`}>{collectionMintName}</div>
+
           <div className="w-full">
-            <div className="w-full mt-[70px]">
+            <div className="w-full">
               {/* {!showMore && */}
               {collectionFiles.length !== 0 &&
                 collectionFiles.map((item, index) => (
                   <div
-                    className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
+                    className="w-full flex flex-wrap justify-between items-center gap-[15px] mt-[30px] lg:mt-10 cursor-pointer"
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
@@ -290,12 +197,8 @@ const Step03CollectionSection = props => {
                           <Image
                             src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                             alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
+                            width={68}
+                            height={68}
                             objectFit="cover"
                             className="rounded-lg"
                           />
@@ -312,76 +215,43 @@ const Step03CollectionSection = props => {
                       )}
                     </div>
                     <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        NFT Name *
-                      </div>
-                      <div>
-                        <Input
-                          value={item.name}
-                          placeholder="Give your art name"
-                          label=""
-                          fullWidth
-                          onChange={() => {}}
-                          height="46px"
-                        />
-                      </div>
+                      <div className={styles.nftName}>{item.name} </div>
                     </div>
                     <div className="w-full">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        Description
-                      </div>
-                      <div>
-                        <Textarea
-                          value={item.description}
-                          placeholder="Add a short description..."
-                          fullWidth
-                          onChange={() => {}}
-                          height="90px"
-                        />
-                      </div>
+                      <div className={styles.nftDesc}>{item.description} </div>
+                    </div>
+                    <div className="w-full flex gap-[15px]">
+                      <div className={styles.editionType}>{item.editionType.label}</div>
+                      {item.editionType.id === 0 && (
+                        <div className={styles.editionType}>{item.maxSupply + ' editions'}</div>
+                      )}
                     </div>
                   </div>
                 ))}
             </div>
-          </div>
-          <div className="w-full flex justify-between my-10">
-            {/* button group part */}
-            <div className="w-full flex justify-between">
+            <div className="w-full my-[30px]">
+              {/* button group part */}
               <div>
-                <OutlineButton
-                  label="Back"
-                  onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                  width={175}
-                  height="45px"
-                  // color="#EFF0F6"
-                  borderWidth={2}
-                  // borderColor="#5AC3BA"
-                />
+                {isMinting ? (
+                  <LoadingPrimaryButton fullWidth />
+                ) : (
+                  <PrimaryButton
+                    label="Mint"
+                    type="next"
+                    fullWidth
+                    onClick={() => {
+                      mintCollection()
+                    }}
+                  />
+                )}
               </div>
-              <div>
-                <button
-                  className={styles.mintCollection}
-                  disabled={disabledNextButton}
-                  style={{
-                    color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                    background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                  }}
-                  onClick={() => uploadArtworks()}
-                >
-                  Mint
-                </button>
+              <div className="mt-[15px]">
+                <SecondaryButton
+                  fullWidth
+                  label="Back"
+                  type="back"
+                  onClick={() => onChangeCurrentStep(currentStep - 1)}
+                />
               </div>
             </div>
           </div>

@@ -1,0 +1,174 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(var(--background-main-color-rgb), 1);
+  border-radius: 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.timeContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  padding: 0px 20px;
+  background: var(--bg-timer-card);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nftData {
+  width: 100%;
+  background: var(--background-main-color);
+  border-bottom: 1px solid var(--bg-303030-D9D8D7);
+  border-top:  1px solid var(--bg-303030-D9D8D7);
+  padding: 14px 17px;
+  height: 66px;
+  @media (min-width: 1024px) {
+    padding: 14px 20px;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  
+}
+
+.artistName {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  margin-top: 3px;
+}
+
+.imageInfo {
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex: wrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 66px;
+  padding: 14px 17px;  
+  @media (min-width: 1024px) {
+    padding: 14px 20px;
+  }
+}
+
+.imageNft {
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  object-fit: cover;
+  margin: 0 auto;
+  transition: transform 0.2s;
+  @media (min-width: 1024px) {
+    max-width: 600px;
+  }
+  &:hover {
+    @media (min-width: 1024px) {
+      -ms-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+  }
+}
+
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.currentBid {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 100;
+  letter-spacing: 0;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: -3px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+
+.day {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.timeValue {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.supply {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}

@@ -9,7 +9,7 @@ import { useViewport } from 'utils'
 // images and icons
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import StudioSelectionColor from 'components/StudioSelectionColor'
-import SolanaIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import ColorType from 'assets/json/print/color.json'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
@@ -18,12 +18,24 @@ import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
+import SweatshirtW from '../../../public/images/apparel/man_sweat_white_s.png'
+import ShortSleeveW from '../../../public/images/apparel/man_t_white_s.png'
+import HoodieW from '../../../public/images/apparel/man_hoodie_white_s.png'
+import WomenShortSleeveW from '../../../public/images/apparel/women_t_white_s.png'
+import ManLongsLeeveW from '../../../public/images/apparel/man_longsleeve_white_s.png'
+
+import SweatshirtB from '../../../public/images/apparel/man_sweat_black_s.png'
+import ShortSleeveB from '../../../public/images/apparel/man_t_black_s.png'
+import HoodieB from '../../../public/images/apparel/man_hoodie_black_s.png'
+import WomenShortSleeveB from '../../../public/images/apparel/women_t_black_s.png'
+import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black_s.png'
+
 const StudioReleaseCard = props => {
   const { type = 'release', image, userName = '', nftName, onClick, nftImage } = props
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const [apparelList, setApparelList] = useState(null)
-  const [imagePath, setImagepath] = useState('')
+  const [imagePath, setImagePath] = useState('')
   const [color, setColor] = useState(null)
   const [colorNumber, setColorNumber] = useState(-1)
 
@@ -34,6 +46,7 @@ const StudioReleaseCard = props => {
         name: '#000000',
         type: 'black',
         asset_url: '/images/apparel-color-black.png',
+        blendMode: 'screen',
       })
     } else {
       setColor({
@@ -41,6 +54,7 @@ const StudioReleaseCard = props => {
         name: '#fff',
         type: 'white',
         asset_url: '/images/apparel-color-white.png',
+        blendMode: 'multiply',
       })
     }
   }, [image])
@@ -53,7 +67,7 @@ const StudioReleaseCard = props => {
 
   useEffect(() => {
     if (apparelList) {
-      setImagepath(apparelList.black.image.thumb)
+      setImagePath(apparelList.black.image.thumb)
     }
   }, [apparelList])
 
@@ -61,10 +75,10 @@ const StudioReleaseCard = props => {
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
-          setImagepath(apparelList.black.image.thumb)
+          setImagePath(apparelList.black.image.thumb)
           break
         case 'white':
-          setImagepath(apparelList.white.image.thumb)
+          setImagePath(apparelList.white.image.thumb)
           break
         default:
           break
@@ -92,21 +106,66 @@ const StudioReleaseCard = props => {
   }, [color])
 
   return (
-    <div className="w-full h-full relative p-[2px] lg:p-[3px]">
+    <div className="w-full h-full relative">
       <div className={styles.imageArea}>
         <div
           className={styles.imageContent}
           onClick={() => {
-            onClick(colorNumber)
+            onClick(colorNumber, userName, image)
           }}
         >
           {apparelList !== null && apparelList !== '' ? (
             <>
-              <img src={imagePath} className={styles.imageNft} />
+              <img
+                src={
+                  imagePath.endsWith('man_sweat_white_s.png')
+                    ? SweatshirtW.src
+                    : imagePath.endsWith('man_t_white_s.png')
+                    ? ShortSleeveW.src
+                    : imagePath.endsWith('man_hoodie_white_s.png')
+                    ? HoodieW.src
+                    : imagePath.endsWith('women_t_white_s.png')
+                    ? WomenShortSleeveW.src
+                    : imagePath.endsWith('man_longsleeve_white_s.png')
+                    ? ManLongsLeeveW.src
+                    : imagePath.endsWith('man_sweat_black_s.png')
+                    ? SweatshirtB.src
+                    : imagePath.endsWith('man_t_black_s.png')
+                    ? ShortSleeveB.src
+                    : imagePath.endsWith('man_hoodie_black_s.png')
+                    ? HoodieB.src
+                    : imagePath.endsWith('women_t_black_s.png')
+                    ? WomenShortSleeveB.src
+                    : imagePath.endsWith('man_longsleeve_black_s.png')
+                    ? ManLongsLeeveB.src
+                    : ''
+                }
+                className={styles.imageNft}
+              />
               <div className={styles.nftImage}>
-                <div className="w-[25%] h-[25%] mt-[29%] flex justify-center items-center">
-                  <ImageWithFoster src={nftImage} className="w-auto h-auto max-w-full max-h-full object-contain" />
-                </div>
+                {apparelList.name === 'Hoodie' ? (
+                  <div className={`w-[30%] h-[30%] mt-[28%] flex justify-center items-start overflow-hidden`}>
+                    <ImageWithFoster
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
+                      src={nftImage}
+                      className="max-w-full max-h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    className={`${styles.noHeightFull} w-[32%] max-h-[43%] mt-[22%] flex justify-center items-start overflow-hidden`}
+                  >
+                    <ImageWithFoster
+                      style={{
+                        mixBlendMode: color.blendMode,
+                      }}
+                      src={nftImage}
+                      className="w-full object-contain flex items-start"
+                    />
+                  </div>
+                )}
               </div>
             </>
           ) : (
@@ -114,7 +173,7 @@ const StudioReleaseCard = props => {
           )}
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mt-[15px]">
         <div className={styles.apparelTitle}>
           <div className="w-full">
             <div className="flex justify-center mx-[20px]">
@@ -130,13 +189,13 @@ const StudioReleaseCard = props => {
                 {getDisplayUserName(nftName)}
               </div>
             </div>
-            <div>
+            {/* <div>
               {apparelList?.name === "Women's Short Sleeve"
                 ? 'Womens T-Shirt'
                 : apparelList?.name === 'Youth Short Sleeve'
                 ? 'Youth T-Shirt'
                 : apparelList?.name}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -152,7 +211,7 @@ const StudioReleaseCard = props => {
         )}
         <div className={styles.costDivider} />
         <div className="flex items-center ml-[10px]">
-          <SolanaIcon alt="" />
+          <SolanaIcon alt="" className="mt-[4px]" />
           &nbsp;
           <div className={styles.cost}>
             {apparelList?.black.cost ? (apparelList?.black.cost / solToUsdRate).toFixed(2) : ''}

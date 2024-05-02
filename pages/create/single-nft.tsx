@@ -5,7 +5,6 @@ import Head from 'next/head'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
-import { useResizeDetector } from 'react-resize-detector'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -20,16 +19,11 @@ import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import DimensionMenu from 'components/Menu/DimensionMenu'
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
-import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
+import Step04SingleNFTSection from 'components/pages/Create/SingleNFT/Step04SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
-
-import Chip from 'components/Chip'
-import Stepper from 'components/Stepper'
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -44,15 +38,15 @@ import CategoryList from 'assets/json/popular-category.json'
 import nftsAPI from 'apis/nfts'
 
 // styles
-import ImageIcon from 'assets/icons/image-icon.svg?component'
-import ShareIcon from 'assets/icons/share-icon.svg?component'
 import TrashBin from 'assets/icons/trash-bin.svg?component'
 import styles from './single-nft.module.scss'
-import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import ProgressSection from 'components/ProgressSection'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -86,8 +80,12 @@ const SingleNft = () => {
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
-    handleFormValidate(step)
-    setCurrentStep(step)
+    // handleFormValidate(step)
+    if (step === 4) {
+      createNft()
+    } else {
+      setCurrentStep(step)
+    }
   }
   // step 1
   const [editionType, setEditionType] = useState(null)
@@ -133,8 +131,8 @@ const SingleNft = () => {
         width = screenWidth
         break
     }
-    if (width > 672) {
-      setArtWidth(672)
+    if (width > 760) {
+      setArtWidth(760)
     } else {
       setArtWidth(width)
     }
@@ -271,8 +269,8 @@ const SingleNft = () => {
               windowWidth = screenWidth
               break
           }
-          if (windowWidth > 672) {
-            setArtWidth(672)
+          if (windowWidth > 760) {
+            setArtWidth(760)
           } else {
             setArtWidth(windowWidth)
           }
@@ -286,7 +284,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(1)
-  }, [nftArt, nftImage, nftType, nftCover, editionType])
+  }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
   const [nftName, setNftName] = useState<string>('')
@@ -329,12 +327,8 @@ const SingleNft = () => {
   }
 
   useEffect(() => {
-    if (nftName !== '' && description !== '') {
-      setDisabledNextButton(false)
-    } else {
-      setDisabledNextButton(true)
-    }
-  }, [nftName, description, categoryList])
+    handleFormValidate(currentStep)
+  }, [nftName, description, categoryList, editionType, currentStep, maxNum])
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -493,6 +487,9 @@ const SingleNft = () => {
           cover_image_url: imageUrl,
           asset_url: animationUrl ?? imageUrl,
           collection_id: collection?.mintAddress.toBase58(),
+          edition: editionType?.name == 'Open Edition' || editionType?.name == 'Limited Edition' ? 0 : null,
+          parent_nft: null,
+          max_supply: editionType?.name == 'Limited Edition' ? maxNum : null,
         })
         .then(
           response => {
@@ -502,7 +499,7 @@ const SingleNft = () => {
             console.log(error)
           }
         )
-      handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+      setCurrentStep(4)
     } catch (error) {
       console.error(error)
     } finally {
@@ -530,33 +527,42 @@ const SingleNft = () => {
               setDisabledNextButton(true)
             }
           }
+
+          if (nftName !== '' && description !== '') {
+            setDisabledNextButton(false)
+          } else {
+            setDisabledNextButton(true)
+          }
         } else {
           setDisabledNextButton(true)
         }
         break
       case 2:
-        let count = 0
-        categoryList.map(item => {
-          if (item.checked === true) count++
-        })
-
-        if (nftName !== '' && description !== '' && count !== 0) {
+        if (nftName !== '' && description !== '') {
           setDisabledNextButton(false)
         } else {
           setDisabledNextButton(true)
+          break
+        }
+
+        if (type != 0) {
+          if (editionType !== null && maxNum !== null && maxNum !== undefined && maxNum > 0) {
+            setDisabledNextButton(false)
+          } else {
+            setDisabledNextButton(true)
+            return
+          }
         }
         break
       case 3:
-        setDisabledNextButton(true)
+        setDisabledNextButton(false)
         break
       default:
         break
     }
   }
 
-  const { width, height, ref } = useResizeDetector()
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
-  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
 
   return (
     <div className="w-full">
@@ -570,267 +576,185 @@ const SingleNft = () => {
           (currentStep === 0 ? (
             <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
           ) : (
-            <div className="relative w-full grid grid-cols-12 gap-0">
-              {/* left part */}
-              <div className="relative col-span-12 lg:col-span-6 g-left-container">
-                <div className={styles.leftContainer}>
-                  <div className="w-full flex flex-wrap justify-center z-10 mt-[10px]">
-                    {nftType === 'vr' && nftUrl ? (
-                      <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
-                        <ModelViewer
-                          path={nftUrl}
-                          width={width}
-                          height={height}
-                          preserveDrawingBuffer
-                          getSnapshot={{
-                            onSnapshot: image => {
-                              setNftImage(URL.createObjectURL(image))
-                              setTakeSnapshotStatus(false)
-                            },
-                            status: takeSnapshotStatus,
-                          }}
-                        />
-                      </div>
-                    ) : nftType === 'image' || nftType === 'image/gif' ? (
-                      <div
-                        className={styles.artArea}
-                        style={{
-                          width: artWidth,
-                          height: artWidth,
-                        }}
-                      >
-                        {nftImage !== '' && artWidth !== 0 && (
-                          <div className="absolute inset-0 flex justify-center items-center">
-                            <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                          </div>
-                        )}
-                        {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />}
-                        {nftImage !== '' && artWidth !== 0 && (
-                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
-                        )}
-                      </div>
-                    ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
-                        <div className="absolute inset-0">
-                          {nftImage !== '' && artWidth !== 0 && (
-                            <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                          )}
-                        </div>
-                        <div className={styles.blurImage} />
-                        {nftType === 'video' && nftArt !== null ? (
-                          <video controls className="w-full h-full z-10" id="video">
-                            <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : nftType === 'audio' && nftArt !== null ? (
-                          <div className="w-full h-full z-10">
-                            <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
-                            {nftImage !== '' && artWidth !== 0 && (
-                              <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
-                            )}
-                          </div>
-                        ) : nftImage !== '' && artWidth !== 0 ? (
-                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
-                        ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
-                        )}
-                      </div>
-                    )}
-
-                    {nftArt !== null && (
-                      <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
-                        {currentStep === 1 &&
-                        (nftType === 'image' ||
-                          (nftType === 'audio' &&
-                            nftImage !== '' &&
-                            nftCover !== null &&
-                            nftCover[0].type !== 'image/gif')) ? (
-                          <DimensionMenu
-                            dimensionList={dimensionList}
-                            selectedDimension={selectedDimension}
-                            onSelect={item => handleChangeDimension(item)}
-                          />
-                        ) : (
-                          <>&nbsp;</>
-                        )}
-                        {currentStep === 1 ? (
-                          <IconButtonWithSVG
-                            icon={<TrashBin className={styles.trashIcon} />}
-                            onClick={() => handleDeleteNftArt()}
-                            backgroundColor="transparent"
-                          />
-                        ) : (
-                          <>&nbsp;</>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
-                    {nftName}
-                  </div>
-                  {description !== '' && (
-                    <div className={`w-full flex flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}>
-                      <div className={`${styles.descriptionTitle} w-full`}>Description</div>
-                      <div className={styles.descriptionText}>{description}</div>
-                    </div>
-                  )}
-                  {categoryList.length !== 0 && (
-                    <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
-                      {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                    </div>
-                  )}
+            <div className="w-full">
+              <div className="w-full flex justify-center">
+                <div className="w-full g-container mt-[66px]">
+                  <ProgressSection
+                    currentStep={currentStep}
+                    nextDisabled={disabledNextButton}
+                    onBack={() => {
+                      if (currentStep >= 1) {
+                        setEditionType(null)
+                      }
+                      handleChangeCurrentStep(currentStep - 1)
+                    }}
+                    onNext={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                    loading={isMinting}
+                    labels={['Artwork Details', 'Additional Details', 'Review']}
+                  />
                 </div>
               </div>
-              {/* right part */}
-              <div className="col-span-12 lg:col-span-6 g-right-container z-0">
-                <div className={styles.rightContainer}>
-                  <div className="w-full relative">
-                    <div className="w-full">
-                      <Stepper currentStep={currentStep} />
-                    </div>
-                    {/* upload artwork part */}
-                    {currentStep === 1 && (
-                      <>
-                        <Step01SingleNFTSection
-                          type={type}
-                          nftType={nftType}
-                          setEditionType={item => setEditionType(item)}
-                          setNftArt={item => handleChangeNftArt(item)}
-                          setNftCover={item => handleChangeNftCover(item)}
-                          setMaxSupply={value => setMaxNum(value)}
-                        />
-                        {nftType === 'vr' && (
-                          <>
-                            <div className={styles.coverImgMsg}>
-                              <h6>
-                                Cover Photo <span>*</span>
-                              </h6>
-                              <p>
-                                Pick the best angle to take a snapshot or upload an image to use as the cover photo.
-                              </p>
-                            </div>
-
-                            <div className={styles.coverBtnBox}>
-                              <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
-                                <ImageIcon /> Take Snapshot
-                              </button>
-
-                              <button disabled={nftImage !== ''}>
-                                <label htmlFor="fileInput">
-                                  <ShareIcon /> Upload Photo
-                                </label>
-                              </button>
-                              <input
-                                type="file"
-                                accept="image/*"
-                                id="fileInput"
-                                onChange={e => {
-                                  const file = e.target.files[0]
-                                  if (file && file.type.startsWith('image/')) {
-                                    setNftCover(file)
-                                    setOpenCoverImageEditorModal(true)
-                                  } else {
-                                    alert('Please select an image file.')
-                                  }
-                                }}
-                              />
-
-                              {nftCover && (
-                                <NftImageEditorModal
-                                  open={openCoverImageEditorModal}
-                                  close={() => setOpenCoverImageEditorModal(false)}
-                                  nftImage={nftType === 'vr' && [nftCover]}
-                                  getCroppedImage={croppedImage => {
-                                    setNftImage(croppedImage)
-                                    setOpenCoverImageEditorModal(false)
-                                  }}
-                                  dimension={selectedDimension}
-                                />
+              <div className="w-full flex justify-center">
+                <div className="max-w-[1920px] relative w-full grid grid-cols-12 gap-0">
+                  {/* left part */}
+                  <div className="relative col-span-12 lg:col-span-6 g-left-container">
+                    <div className={styles.leftContainer}>
+                      <div className={`relative w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
+                        {nftType === 'vr' && nftUrl ? (
+                          <div className="max-w-[760px] w-full mx-auto aspect-square">
+                            <ModelViewer
+                              path={nftUrl}
+                              preserveDrawingBuffer
+                              getSnapshot={{
+                                onSnapshot: image => {
+                                  setNftImage(URL.createObjectURL(image))
+                                  setTakeSnapshotStatus(false)
+                                },
+                                status: takeSnapshotStatus,
+                              }}
+                            />
+                          </div>
+                        ) : nftType === 'image' || nftType === 'image/gif' ? (
+                          <div
+                            className={styles.artArea}
+                            style={{
+                              width: 760,
+                              maxWidth: 760,
+                              height: 560,
+                              maxHeight: 560,
+                            }}
+                          >
+                            {/* {nftImage !== '' && artWidth !== 0 && (
+                              <div className="absolute inset-0 flex justify-center items-center">
+                                <img src={nftImage} alt="" className="w-full h-full object-cover" />
+                              </div>
+                            )} */}
+                            {/* {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />} */}
+                            {nftImage !== '' && artWidth !== 0 && (
+                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                            )}
+                          </div>
+                        ) : (
+                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+                            <div className="absolute inset-0">
+                              {nftImage !== '' && artWidth !== 0 && (
+                                <img src={nftImage} alt="" className="w-full h-full object-cover" />
                               )}
                             </div>
-
-                            {nftImage && (
-                              <div className={styles.glbNftImageSection}>
-                                <img className="w-full aspect-square" src={nftImage} alt="" />
-                                <button
-                                  onClick={() => {
-                                    setNftImage('')
-                                    setNftCover(null)
-                                  }}
-                                >
-                                  <TrashBin />
-                                  &nbsp;Remove Cover Image
-                                </button>
+                            <div className={styles.blurImage} />
+                            {nftType === 'video' && nftArt !== null ? (
+                              <video controls className="w-full h-full z-10" id="video">
+                                <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                                Your browser does not support the video tag.
+                              </video>
+                            ) : nftType === 'audio' && nftArt !== null ? (
+                              <div className="w-full h-full z-10">
+                                <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                                {nftImage !== '' && artWidth !== 0 && (
+                                  <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                                )}
                               </div>
+                            ) : nftImage !== '' && artWidth !== 0 ? (
+                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                            ) : (
+                              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                             )}
+                          </div>
+                        )}
+
+                        {nftArt !== null ? (
+                          <div className="w-full mt-[5px] flex justify-between">
+                            {currentStep === 1 &&
+                            (nftType === 'image' ||
+                              (nftType === 'audio' &&
+                                nftImage !== '' &&
+                                nftCover !== null &&
+                                nftCover[0].type !== 'image/gif')) ? (
+                              <DimensionMenu
+                                dimensionList={dimensionList}
+                                selectedDimension={selectedDimension}
+                                onSelect={item => handleChangeDimension(item)}
+                              />
+                            ) : (
+                              <>&nbsp;</>
+                            )}
+                            {currentStep === 1 ? (
+                              <IconButtonWithSVG
+                                icon={<TrashBin className={styles.trashIcon} />}
+                                onClick={() => handleDeleteNftArt()}
+                                backgroundColor="transparent"
+                              />
+                            ) : (
+                              <>&nbsp;</>
+                            )}
+                          </div>
+                        ) : (
+                          <div className={styles.preview}>Preview will display here</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  {/* right part */}
+                  <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+                    <div className={styles.rightContainer}>
+                      <div className="w-full relative">
+                        {/* upload artwork part */}
+                        {currentStep === 1 && (
+                          <>
+                            <Step01SingleNFTSection
+                              nftType={nftType}
+                              nftCover={nftCover}
+                              setNftArt={item => handleChangeNftArt(item)}
+                              setNftCover={item => handleChangeNftCover(item)}
+                              nftImage={nftImage}
+                              setNftImage={setNftImage}
+                              setTakeSnapshotStatus={setTakeSnapshotStatus}
+                              selectedDimension={selectedDimension}
+                              nftName={nftName}
+                              setNftName={value => setNftName(value)}
+                              description={description}
+                              setDescription={value => setDescription(value)}
+                              categoryList={categoryList}
+                              showCategoryList={showCategoryList}
+                              setShowCategoryList={value => setShowCategoryList(value)}
+                              handleSelectCategory={index => handleSelectCategory(index)}
+                              handleCancelCategory={() => handleCancelCategory()}
+                            />
                           </>
                         )}
-                      </>
-                    )}
 
-                    {currentStep === 2 && (
-                      <Step02SingleNFTSection
-                        nftName={nftName}
-                        setNftName={value => setNftName(value)}
-                        description={description}
-                        setDescription={value => setDescription(value)}
-                        categoryList={categoryList}
-                        showCategoryList={showCategoryList}
-                        setShowCategoryList={value => setShowCategoryList(value)}
-                        handleSelectCategory={index => handleSelectCategory(index)}
-                        handleCancelCategory={() => handleCancelCategory()}
-                      />
-                    )}
-                    {currentStep === 3 && (
-                      <Step03SingleNFTSection
-                        royalties={royalties}
-                        setRoyalties={value => setRoyalties(value)}
-                        setCollection={setCollection}
-                        creatorList={creatorList}
-                        setCreatorList={setCreatorList}
-                        disabledNextButton={disabledNextButton}
-                        createNft={() => createNft()}
-                        isMinting={isMinting}
-                        onBack={() => handleChangeCurrentStep(currentStep - 1)}
-                      />
-                    )}
-                    <div className="w-full h-32" />
-                    <div className="absolute bottom-0 w-full flex justify-end">
-                      <div className="flex gap-10">
-                        {currentStep === 2 ? (
-                          <Button
-                            label="Back"
-                            onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                            backgroundColor={'transparent'}
-                            borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                            borderWidth={2}
-                            color="var(--main-bg-color)"
-                            width={viewport === '2xl' ? 124 : 117}
-                            height={viewport === '2xl' ? 53 : 45}
+                        {currentStep === 2 && (
+                          <Step03SingleNFTSection
+                            type={type}
+                            royalties={royalties}
+                            setRoyalties={value => setRoyalties(value)}
+                            creatorList={creatorList}
+                            setEditionType={item => setEditionType(item)}
+                            setMaxSupply={value => setMaxNum(value)}
+                            setCreatorList={setCreatorList}
+                            setDisabledNextButton={setDisabledNextButton}
+                            disabledNextButton={disabledNextButton}
+                            onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
+                            onBack={() => handleChangeCurrentStep(currentStep - 1)}
                           />
-                        ) : (
-                          <div />
                         )}
-                        {currentStep < 3 &&
-                          (disabledNextButton ? (
-                            <Button
-                              width={viewport === '2xl' ? 124 : 117}
-                              height={viewport === '2xl' ? 53 : 45}
-                              label="Next Step"
-                              disabled={disabledNextButton}
-                              backgroundColor="var(--second-home-bg)"
-                              color="rgba(var(--main-bg-color-rgb), 0.5)"
-                            />
-                          ) : coverImageProcessing ? (
-                            <LoadingButton width={viewport === '2xl' ? 124 : 117} />
-                          ) : (
-                            <GradientButton
-                              width={viewport === '2xl' ? 124 : 117}
-                              height={viewport === '2xl' ? 53 : 45}
-                              label="Next Step"
-                              onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                            />
-                          ))}
+
+                        {currentStep === 3 && (
+                          <Step04SingleNFTSection
+                            type={type}
+                            editionType={editionType}
+                            maxSupply={maxNum}
+                            nftName={nftName}
+                            description={description}
+                            categoryList={categoryList}
+                            royalties={royalties}
+                            creatorList={creatorList}
+                            disabledNextButton={disabledNextButton}
+                            createNft={() => createNft()}
+                            isMinting={isMinting}
+                            onBack={() => handleChangeCurrentStep(currentStep - 1)}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -850,11 +774,9 @@ const SingleNft = () => {
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
-                  <div ref={ref} className="max-w-[672px] w-full mx-auto aspect-square">
+                  <div className="max-w-[760px] w-full mx-auto aspect-square">
                     <ModelViewer
                       path={nftUrl}
-                      width={width}
-                      height={height}
                       preserveDrawingBuffer
                       getSnapshot={{
                         onSnapshot: image => {
@@ -941,76 +863,28 @@ const SingleNft = () => {
               {currentStep === 1 && (
                 <>
                   <Step01SingleNFTSection
-                    type={type}
                     nftType={nftType}
-                    setEditionType={item => setEditionType(item)}
+                    nftCover={nftCover}
                     setNftArt={item => handleChangeNftArt(item)}
                     setNftCover={item => handleChangeNftCover(item)}
-                    setMaxSupply={value => setMaxNum(value)}
+                    nftImage={nftImage}
+                    setNftImage={setNftImage}
+                    setTakeSnapshotStatus={setTakeSnapshotStatus}
+                    selectedDimension={selectedDimension}
+                    nftName={nftName}
+                    setNftName={value => setNftName(value)}
+                    description={description}
+                    setDescription={value => setDescription(value)}
+                    categoryList={categoryList}
+                    showCategoryList={showCategoryList}
+                    setShowCategoryList={value => setShowCategoryList(value)}
+                    handleSelectCategory={index => handleSelectCategory(index)}
+                    handleCancelCategory={() => handleCancelCategory()}
                   />
-                  {nftType === 'vr' && (
-                    <>
-                      <div className={styles.coverImgMsg}>
-                        <h6>
-                          Cover Photo <span>*</span>
-                        </h6>
-                        <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
-                      </div>
-
-                      <div className={styles.coverBtnBox}>
-                        <button disabled={nftImage !== ''} onClick={() => setTakeSnapshotStatus(true)}>
-                          <ImageIcon /> Take Snapshot
-                        </button>
-
-                        <button disabled={nftImage !== ''}>
-                          <label htmlFor="fileInput">
-                            <ShareIcon /> Upload Photo
-                          </label>
-                        </button>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          id="fileInput"
-                          onChange={e => {
-                            const file = e.target.files[0]
-                            if (file && file.type.startsWith('image/')) {
-                              setNftCover(file)
-                              setOpenCoverImageEditorModal(true)
-                            } else {
-                              alert('Please select an image file.')
-                            }
-                          }}
-                        />
-
-                        {nftCover && (
-                          <NftImageEditorModal
-                            open={openCoverImageEditorModal}
-                            close={() => setOpenCoverImageEditorModal(false)}
-                            nftImage={nftType === 'vr' && [nftCover]}
-                            getCroppedImage={croppedImage => {
-                              setNftImage(croppedImage)
-                              setOpenCoverImageEditorModal(false)
-                            }}
-                            dimension={selectedDimension}
-                          />
-                        )}
-                      </div>
-
-                      {nftImage && (
-                        <div className={styles.glbNftImageSection}>
-                          <img className="w-full aspect-square" src={nftImage} alt="" />
-                          <button onClick={() => setNftImage('')}>
-                            <TrashBin />
-                            &nbsp;Remove Cover Image
-                          </button>
-                        </div>
-                      )}
-                    </>
-                  )}
                 </>
               )}
 
-              {currentStep === 2 && (
+              {/* {currentStep === 2 && (
                 <Step02SingleNFTSection
                   nftName={nftName}
                   setNftName={value => setNftName(value)}
@@ -1022,95 +896,62 @@ const SingleNft = () => {
                   handleSelectCategory={index => handleSelectCategory(index)}
                   handleCancelCategory={() => handleCancelCategory()}
                 />
-              )}
+              )} */}
 
-              {currentStep === 3 && (
+              {currentStep === 2 && (
                 <Step03SingleNFTSection
+                  type={type}
+                  setEditionType={item => setEditionType(item)}
+                  setMaxSupply={value => setMaxNum(value)}
                   createNft={() => createNft()}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}
-                  setCollection={setCollection}
                   creatorList={creatorList}
                   setCreatorList={setCreatorList}
-                  isMinting={isMinting}
+                  setDisabledNextButton={setDisabledNextButton}
                   disabledNextButton={disabledNextButton}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
-                  handleChangeCurrentStep={() =>
-                    handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-                  }
+                  onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                 />
               )}
 
-              <div className="w-full flex justify-between my-10">
+              {currentStep === 3 && (
+                <Step04SingleNFTSection
+                  type={type}
+                  editionType={editionType}
+                  maxSupply={maxNum}
+                  nftName={nftName}
+                  description={description}
+                  categoryList={categoryList}
+                  royalties={royalties}
+                  creatorList={creatorList}
+                  disabledNextButton={disabledNextButton}
+                  createNft={() => createNft()}
+                  isMinting={isMinting}
+                  onBack={() => handleChangeCurrentStep(currentStep - 1)}
+                />
+              )}
+
+              <div className="w-full flex justify-between my-[30px]">
                 {/* button group part */}
-                {currentStep === 1 &&
-                  (disabledNextButton ? (
+                {currentStep === 1 && (
+                  <div className="w-full">
                     <div className="w-full">
-                      <Button
+                      <PrimaryButton
                         fullWidth
-                        label="Next Step"
+                        label="Next"
+                        type="next"
+                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
                         disabled={disabledNextButton}
-                        backgroundColor="var(--second-home-bg)"
-                        color="rgba(var(--main-bg-color-rgb), 0.5)"
-                        height="45px"
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
                       />
                     </div>
-                  ) : (
-                    <div className="w-full">
-                      <GradientButton
+                    <div className="mt-[18px]">
+                      <SecondaryButton
                         fullWidth
-                        label="Next Step"
-                        onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                        height="45px"
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
-                      />
-                    </div>
-                  ))}
-                {currentStep === 2 && (
-                  <div className="w-full grid grid-cols-2 gap-5">
-                    <div className="col-span-1">
-                      <Button
                         label="Back"
+                        type="back"
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                        fullWidth
-                        fontFamily="Muli-SemiBold"
-                        height="45px"
-                        backgroundColor="transparent"
-                        color="var(--main-bg-color)"
-                        borderColor={'rgba(var(--main-bg-color-rgb), 0.25)'}
-                        borderWidth={2}
-                        fontSize={16}
                       />
-                    </div>
-                    <div className="col-span-1">
-                      {disabledNextButton ? (
-                        <div className="w-full">
-                          <Button
-                            fullWidth
-                            label="Next Step"
-                            disabled={disabledNextButton}
-                            backgroundColor="var(--second-home-bg)"
-                            color="rgba(var(--main-bg-color-rgb), 0.5)"
-                            height="45px"
-                            fontSize={16}
-                            fontFamily="Muli-SemiBold"
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-full">
-                          <GradientButton
-                            fullWidth
-                            label="Next Step"
-                            onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                            height="45px"
-                            fontSize={16}
-                            fontFamily="Muli-SemiBold"
-                          />
-                        </div>
-                      )}
                     </div>
                   </div>
                 )}

@@ -23,6 +23,7 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import NewNftCard from 'components/Card/NewNftCard'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -32,7 +33,6 @@ const FavoriteSection = () => {
   const [nftList, setNftList] = useState<NftData[]>([])
   const [allNftList, setAllNftList] = useState<NftData[]>([])
   const [collectionList, setCollectionList] = useState<NftData[]>([])
-  const [allCollectionList, setAllCollectionList] = useState<NftData[]>([])
 
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -80,7 +80,10 @@ const FavoriteSection = () => {
   const getFavoriteCollectionData = () => {
     userAPI.getFavoriteCollection().then(
       response => {
-        setAllCollectionList(response)
+        const list = response.filter(
+          (obj, index) => response.findIndex(item => item.collection_id === obj.collection_id) === index
+        )
+        setCollectionList(list)
         setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
         }, 2000)
@@ -163,13 +166,6 @@ const FavoriteSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-end z-10">
-        {/* <TimeSlotButton label="Artwork" onClick={() => handleChangeActive(0)} selected={active === 0} width={160} />
-          <TimeSlotButton
-            label="Collections"
-            onClick={() => handleChangeActive(1)}
-            selected={active === 1}
-            width={160}
-          /> */}
         <DropdownFilterMenu
           label={selectedItem['label']}
           data={filterList}
@@ -180,14 +176,14 @@ const FavoriteSection = () => {
           }}
         />
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12">
         {active === 0 &&
           !loading &&
           nftList.map(
             (item: any, index) =>
               item.nft_name && (
-                <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-                  <NFTCard
+                <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
+                  <NewNftCard
                     token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
@@ -208,7 +204,7 @@ const FavoriteSection = () => {
         {active === 1 &&
           !loading &&
           collectionList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
                 image={item.cover_image}
                 nftName={item.collection_name}

@@ -26,7 +26,7 @@ import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import merchAPI from 'apis/merch'
 import ApparelTypeMenu from 'components/Menu/ApparelTypeMenu'
 import MobileApparelFilter from 'components/Filter/MobileApparelFilter'
-import StudioHeroList from 'assets/json/hero/hero-list.json'
+import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 
 const NewStudioReleasesSection = props => {
   const { type, heroValue, onChange } = props
@@ -36,18 +36,30 @@ const NewStudioReleasesSection = props => {
   const apparelType = useSelector<any>(state => state.apparelType)
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
   const [showMobileFilter, setShowMobileFilter] = useState(false)
-  const [filterName, setFilterName] = useState('Filter')
+  const [filterName, setFilterName] = useState('All')
   const [bases, setBases] = useState([])
   const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(8)
+  const [perPage, setPerPage] = useState(10)
   const [seed, setSeed] = useState(Math.random())
+  const allApparelType = [
+    StudioApparelList[0],
+    StudioApparelList[5],
+    StudioApparelList[2],
+    StudioApparelList[3],
+    StudioApparelList[4],
+    StudioApparelList[0],
+    StudioApparelList[5],
+    StudioApparelList[2],
+    StudioApparelList[3],
+    StudioApparelList[4],
+  ]
 
   useEffect(() => {
     if (type === 'trending') {
       merchAPI.getRecentOrders().then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
           let arr = Object.keys(response.nftData).map(key => response.nftData[key])
-          setStudioReleaseList(arr.slice(0, 6))
+          setStudioReleaseList(arr.slice(0, 5))
         }
       }),
         error => {
@@ -65,67 +77,50 @@ const NewStudioReleasesSection = props => {
     }
   }, [])
 
-  useEffect(() => {
-    for (var i = 0; i < StudioHeroList.length; i++) {
-      let hero = StudioHeroList[i]
-      let bases = hero.bases.filter(item => item.base === heroValue.data['name'])
-      if (bases.length > 0) {
-        setBases(hero.bases)
-        break
-      }
-    }
-  }, [heroValue])
-
   return (
     studioReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full relative">
           <div className="w-auto lg:w-full flex justify-start lg:justify-center items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className={`${styles.title} ${bases.length === 1 ? 'w-full text-center' : ''} `}>
-                {type === 'trending' ? 'Trending Now' : 'New Releases'}
-              </div>
+              <div className={`${styles.title}`}>{type === 'trending' ? 'Trending Now' : 'New Releases'}</div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              <div className={`${styles.title} w-full mr-0 lg:mr-6 xl:mr-8`}>
                 {type === 'trending' ? 'Trending Now' : 'New Releases'}
               </div>
             )}
           </div>
-          <div className="hidden lg:block absolute top-[10px] right-[10px]">
+          <div className="hidden lg:block absolute top-[0px] right-[10px]">
             <ApparelTypeMenu base={heroValue.data['name']} onChange={onChange} setFilterName={setFilterName} />
           </div>
-          {bases.length > 1 && (
-            <div className="block lg:hidden absolute top-[-10px] right-[0px]">
-              <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
-                {filterName}
-                <FilterIcon alt="" />
-              </div>
+
+          <div className="block lg:hidden absolute top-[-10px] right-[0px]">
+            <div className={styles.btnArea} onClick={() => setShowMobileFilter(true)}>
+              {filterName}
+              <FilterIcon alt="" />
             </div>
-          )}
+          </div>
         </div>
-        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[20px] lg:mt-[34px] z-10">
+        <div className="w-full grid grid-cols-10 lg:grid-cols-20 gap-[20px] lg:gap-[60px] mt-[20px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
-            <div
-              key={index}
-              className={`flex ${
-                type === 'trending'
-                  ? 'col-span-12 sm:col-span-6 lg:col-span-4'
-                  : 'col-span-6 lg:col-span-4 xl:col-span-3'
-              } flex items-center`}
-            >
+            <div key={index} className={`col-span-10 lg:col-span-4 flex items-center`}>
               <StudioReleaseCard
                 type={type}
-                image={heroValue.data}
+                image={filterName === 'All' ? allApparelType[index] : heroValue.data}
                 nftImage={item.nft.asset_url}
                 nftName={item.nft.nft_name}
                 userName={item.artist.username}
                 assetType={item.asset_type}
                 artistName={item.artist_username}
-                onClick={colorNumber => {
+                onClick={(colorNumber, artistName, asset: any) => {
                   dispatch({ type: 'set', isLoading: true })
-                  dispatch({ type: 'set', apparelType })
+                  if (filterName === 'All') {
+                    dispatch({ type: 'set', apparelType: asset['name'] })
+                  } else dispatch({ type: 'set', apparelType })
+
                   dispatch({ type: 'set', detailShow: true })
                   dispatch({ type: 'set', apparelColor: colorNumber })
+                  dispatch({ type: 'set', merchBy: artistName })
                   router.push(`/nft/${item.nft.token_id}`)
                 }}
               />

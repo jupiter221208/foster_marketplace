@@ -24,7 +24,7 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
-import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 // import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
 // import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
@@ -41,6 +41,9 @@ import { validDigits } from 'utils/helpers'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useRouter } from 'next/router'
+import Button from 'components/Button'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const Step01CollectionSection = props => {
   const {
@@ -64,8 +67,7 @@ const Step01CollectionSection = props => {
     onChangeRoyalties,
     categoryList,
     onChangeCategoryList,
-    mintCollection,
-    isMinting,
+    setDisabledButton,
   } = props
   const viewport = useViewport()
   const router = useRouter()
@@ -77,9 +79,10 @@ const Step01CollectionSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [collectionType, setCollectionType] = useState<any>('foster')
   const [showEAModal, setShowEAModal] = useState(false)
-  const [eaImportUrl, setEAImportUrl] = useState('')
   const [eaCollectionInfo, setEACollectionInfo] = useState<EACollectionInfo | null>(null)
   const [eaTags, setEATags] = useState<string[]>([])
+  const [enableImageDialog, setEnableImageDialog] = useState(false)
+  const [enableCoverImageDialog, setEnableCoverImageDialog] = useState(false)
 
   useEffect(() => {
     setCollectionType(collectionKind)
@@ -130,25 +133,22 @@ const Step01CollectionSection = props => {
   const [updateCoverImage, setUpdateCoverImage] = useState(false)
 
   useEffect(() => {
-    setOpenCoverImageEditorModal(false)
-    setOpenBannerImageEditorModal(false)
-  }, [])
-
-  useEffect(() => {
-    if (coverImage !== null && coverImage !== undefined) {
+    if (coverImage !== null && coverImage !== undefined && enableCoverImageDialog) {
       if (coverImage[0].type.split('/')[0] === 'image' && coverImage[0].type !== 'image/gif') {
         setOpenCoverImageEditorModal(true)
       }
+      setEnableCoverImageDialog(false)
     }
-  }, [coverImage])
+  }, [coverImage, enableImageDialog])
 
   useEffect(() => {
-    if (bannerImage !== null && bannerImage !== undefined) {
+    if (bannerImage !== null && bannerImage !== undefined && enableImageDialog) {
       if (bannerImage[0].type.split('/')[0] === 'image' && bannerImage[0].type !== 'image/gif') {
         setOpenBannerImageEditorModal(true)
       }
+      setEnableImageDialog(false)
     }
-  }, [bannerImage])
+  }, [bannerImage, enableImageDialog])
 
   useEffect(() => {
     if (bannerCroppedImage !== '' && updateBannerImage) {
@@ -209,17 +209,8 @@ const Step01CollectionSection = props => {
     onChangeCategoryList(array)
   }
 
-  const handleCancelCategory = () => {
-    let array = [...categoryList]
-    array.map(item => {
-      item.checked = false
-    })
-    onChangeCategoryList(array)
-  }
-
   const importEACollection = async url => {
     setShowEAModal(false)
-    setEAImportUrl(url)
 
     try {
       let collectionInfo = await getEACollectionInfo(url)
@@ -254,26 +245,28 @@ const Step01CollectionSection = props => {
           .catch(e => e),
       ])
 
-      if (coverBlob instanceof Blob)
+      if (coverBlob instanceof Blob) {
+        setEnableCoverImageDialog(true)
         onChangeCoverImage([
           new File([coverBlob], coverName, {
             type: coverBlob.type,
           }),
         ])
-      else {
+      } else {
         console.error(`could not fetch EA collection image from ${thumbnailPath}: ${coverBlob?.message}`)
         // TODO: show error message
       }
 
       await new Promise(resolve => setTimeout(resolve, 1))
 
-      if (bannerBlob instanceof Blob)
+      if (bannerBlob instanceof Blob) {
+        setEnableImageDialog(true)
         onChangeBannerImage([
           new File([bannerBlob], bannerName, {
             type: bannerBlob.type,
           }),
         ])
-      else {
+      } else {
         console.error(`could not fetch EA banner image from ${bannerPath}: ${bannerBlob?.message}`)
         // TODO: show error message
       }
@@ -297,8 +290,10 @@ const Step01CollectionSection = props => {
       bannerCroppedImage !== undefined
     ) {
       setDisabledNextButton(false)
+      setDisabledButton(false)
     } else {
       setDisabledNextButton(true)
+      setDisabledButton(true)
     }
   }, [
     collectionName,
@@ -321,32 +316,35 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Collection Preview</div>
-              <div className="w-full mt-[57px]">
-                <div className="w-full">
+              <div className="w-full">
+                <div className={styles.collectionBannerImage}>
+                  Collection Banner Image<span>*</span>
+                </div>
+                <div className="w-full mt-[15px]">
                   <div className={styles.bannerImageArea}>
                     {bannerCroppedImage === undefined ? (
                       <div>
                         <Dropzone
                           onDrop={acceptedFiles => {
-                            acceptedFiles.length !== 0
-                              ? onChangeBannerImage(acceptedFiles)
-                              : handleShowAlert('banner', 'uknown')
+                            if (acceptedFiles.length !== 0) {
+                              setEnableImageDialog(true)
+                              onChangeBannerImage(acceptedFiles)
+                            } else handleShowAlert('banner', 'unknown')
                           }}
                           onDropRejected={rejectedFiles => {
                             handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
                           }}
                           maxFiles={1}
                           accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                          maxSize={31457280}
+                          maxSize={104857600}
                         >
                           {({ getRootProps, getInputProps, open }) => (
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectBannerArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitle}>Upload Here</p>
-                                <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                                <p className={styles.greenText}>Max File Size 30mb</p>
+                                <p className={styles.subTitle}>Upload file</p>
+                                <p className={styles.text}>Supported File Formats .png and .jpeg</p>
+                                <p className={styles.greenText}>Max File Size 100mb</p>
                               </div>
                             </section>
                           )}
@@ -354,27 +352,21 @@ const Step01CollectionSection = props => {
                       </div>
                     ) : (
                       <div>
-                        <Image
-                          src={bannerCroppedImage}
-                          width={758}
-                          height={194}
-                          alt=""
-                          objectFit="cover"
-                          className="rounded-[20px]"
-                        />
+                        <Image src={bannerCroppedImage} width={760} height={218} alt="" objectFit="cover" />
                         <div className="absolute bottom-2 right-[10px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
-                              acceptedFiles.length !== 0
-                                ? onChangeBannerImage(acceptedFiles)
-                                : handleShowAlert('banner', 'uknown')
+                              if (acceptedFiles.length !== 0) {
+                                setEnableImageDialog(true)
+                                onChangeBannerImage(acceptedFiles)
+                              } else handleShowAlert('banner', 'unknown')
                             }}
                             onDropRejected={rejectedFiles => {
                               handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
                             }}
                             maxFiles={1}
                             accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                            maxSize={31457280}
+                            maxSize={104857600}
                           >
                             {({ getRootProps, getInputProps, open }) => (
                               <section>
@@ -407,7 +399,7 @@ const Step01CollectionSection = props => {
                     )}
                   </div>
                 </div>
-                <div className="absolute z-10">
+                {/* <div className="absolute z-10">
                   <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[10px] mb-[15px]`}>
                     <div className={styles.collectionBannerImage}>Collection Banner Image</div>
 
@@ -426,16 +418,20 @@ const Step01CollectionSection = props => {
                   {bannerHelper && (
                     <div className={styles.bannerRecommend}>Recommended dimensions are 1920px by 452px</div>
                   )}
-                </div>
-                <div className="relative mt-[60px]">
-                  <div className="w-full flex justify-center z-0">
+                </div> */}
+                <div className="relative mt-[34px]">
+                  <div className={styles.collectionBannerImage}>
+                    Collection Cover Image<span>*</span>
+                  </div>
+                  <div className="w-full flex justify-start z-0 mt-[15px]">
                     <div className={styles.coverImageArea}>
                       {coverCroppedImage === undefined ? (
                         <Dropzone
                           onDropAccepted={acceptedFiles => {
-                            acceptedFiles.length !== 0
-                              ? onChangeCoverImage(acceptedFiles)
-                              : handleShowAlert('cover', 'unknown')
+                            if (acceptedFiles.length !== 0) {
+                              setEnableCoverImageDialog(true)
+                              onChangeCoverImage(acceptedFiles)
+                            } else handleShowAlert('cover', 'unknown')
                           }}
                           onDropRejected={rejectedFiles => {
                             handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
@@ -448,8 +444,8 @@ const Step01CollectionSection = props => {
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitleCover}>Upload Here</p>
-                                <p className={styles.textCover}>Supported file formats are .png .jpeg</p>
+                                <p className={styles.subTitleCover}>Upload file</p>
+                                <p className={styles.textCover}>Supported File Formats .png and .jpeg</p>
                                 <p className={styles.greenTextCover}>Max File Size 10mb</p>
                               </div>
                             </section>
@@ -457,20 +453,14 @@ const Step01CollectionSection = props => {
                         </Dropzone>
                       ) : (
                         <div>
-                          <Image
-                            src={coverCroppedImage}
-                            width={200}
-                            height={200}
-                            alt=""
-                            objectFit="cover"
-                            className="rounded-[20px]"
-                          />
+                          <Image src={coverCroppedImage} width={200} height={200} alt="" objectFit="cover" />
                           <div className="absolute bottom-2 right-[10px]">
                             <Dropzone
                               onDropAccepted={acceptedFiles => {
-                                acceptedFiles.length !== 0
-                                  ? onChangeCoverImage(acceptedFiles)
-                                  : handleShowAlert('cover', 'unknown')
+                                if (acceptedFiles.length !== 0) {
+                                  setEnableCoverImageDialog(true)
+                                  onChangeCoverImage(acceptedFiles)
+                                } else handleShowAlert('cover', 'unknown')
                               }}
                               onDropRejected={rejectedFiles => {
                                 handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
@@ -507,7 +497,7 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
-                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
+                  {/* <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
                     Collection Cover Image
                     <div
                       className="cursor-pointer"
@@ -525,73 +515,37 @@ const Step01CollectionSection = props => {
                         Recommended dimensions are 1080px by 1080px
                       </div>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
-              <div className={`w-full flex break-all justify-center items-center mt-[35px] ${styles.collectionName}`}>
-                {collectionName}
-              </div>
-              {description !== '' && (
-                <div
-                  className={`w-full flex break-all flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}
-                >
-                  <div className={`${styles.descriptionTitle} w-full`}>Description</div>
-                  <div className={styles.descriptionText}>{description}</div>
-                </div>
-              )}
-              {categoryList.length !== 0 && (
-                <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
-                  {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                </div>
-              )}
             </div>
           </div>
           {/* right part */}
           <div className="col-span-12 lg:col-span-6 g-right-container z-0">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
-                {/* <div className="w-full flex justify-center">
-                  <div className={styles.collectionTypeSection}>
-                    <div
-                      className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
-                      onClick={() => setCollectionType('foster')}
-                    >
-                      <FosterLogoSmall />
-                      Create New Collection
-                    </div>
-                    <div
-                      className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
-                      onClick={() => {
-                        setCollectionType('ea')
-                        setShowEAModal(true)
-                      }}
-                    >
-                      <EAImportIcon />
-                      Import EA Series
-                    </div>
-                  </div>
-                </div> */}
                 {/* upload artwork part */}
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[30px]`}>
+                  <div className={`${styles.subTitle}`}>
                     Collection Name <span>*</span>
                   </div>
-                  <div className="max-w-[370px] w-full mt-5">
+                  <div className="w-full mt-[15px]">
                     <Input
                       value={limit(collectionName, 32)}
-                      placeholder="Give your art name"
+                      placeholder="Give your collection name"
                       label01="Max Characters 32"
                       label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
                       onChange={value => onChangeCollectionName(limit(value, 32))}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>
+                  <div className={`${styles.subTitle} mt-[30px]`}>
                     Description <span>*</span>
                   </div>
-                  <div className="w-full mt-5">
+                  <div className="w-full mt-[15px]">
                     <Textarea
                       value={limit(description, 1000)}
                       placeholder="Add a short description..."
+                      height={152}
                       label01="Max Characters 1000"
                       label02={
                         1000 - description.length <= 0 || 1000 - description.length === 1000
@@ -602,11 +556,11 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                  <div className={`${styles.subTitle} mt-[30px] flex justify-start items-center gap-2`}>
                     Royalties <span>*</span>
                   </div>
 
-                  <div className="max-w-[370px] w-full mt-5">
+                  <div className="max-w-[370px] w-full mt-[15px]">
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
@@ -622,26 +576,11 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Categories (optional)</div>
-                  <div className="w-full mt-5">
+                  <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+                  <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+                  <div className="w-full mt-[15px]">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
-                </div>
-                <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
-                  {isMinting ? (
-                    <LoadingButton width={224} height={56} />
-                  ) : (
-                    <GradientButton
-                      label="Create Collection"
-                      width={224}
-                      height={56}
-                      disabled={disabledNextButton}
-                      onClick={() => {
-                        mintCollection()
-                      }}
-                    />
-                  )}
                 </div>
               </div>
             </div>
@@ -675,17 +614,17 @@ const Step01CollectionSection = props => {
           </div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <div className="w-full relative z-10">
+            {/* <div className="w-full relative z-10">
               <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
+                className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
               >
-                Collection Cover Image
+                Collection Banner Image
                 <div
                   className="cursor-pointer"
                   onClick={() => {
-                    setCoverHelper(true)
+                    setBannerHelper(true)
                     setTimeout(() => {
-                      setCoverHelper(false)
+                      setBannerHelper(false)
                     }, 2000)
                   }}
                 >
@@ -693,63 +632,64 @@ const Step01CollectionSection = props => {
                 </div>
               </div>
 
-              {coverHelper && (
+              {bannerHelper && (
                 <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1080px by 1080px
+                  Recommended dimensions are 1920px by 452px
                 </div>
               )}
+            </div> */}
+            <div className="w-full flex justify-start">
+              <div className={styles.collectionBannerImage}>
+                Collection Banner Image<span>*</span>
+              </div>
             </div>
-
-            <div className="w-full z-0">
-              <div className={styles.coverImageArea}>
-                {coverCroppedImage === undefined ? (
-                  <Dropzone
-                    onDropAccepted={acceptedFiles => {
-                      acceptedFiles.length !== 0
-                        ? onChangeCoverImage(acceptedFiles)
-                        : handleShowAlert('cover', 'unknown')
-                    }}
-                    onDropRejected={rejectedFiles => {
-                      handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
-                    }}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={31457280}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section className={styles.dropzone}>
-                        <div {...getRootProps()} className={styles.selectArea}>
-                          <input {...getInputProps()} />
-                          <p className={styles.subTitle}>Upload Here</p>
-                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                          <p className={styles.greenText}>Max File Size 30mb</p>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                ) : (
+            <div className="w-full z-0 mt-[9px]">
+              <div className={styles.bannerImageArea}>
+                {bannerCroppedImage === undefined ? (
                   <div>
-                    <Image
-                      src={coverCroppedImage}
-                      width={140}
-                      height={140}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                    <Dropzone
+                      onDrop={acceptedFiles => {
+                        if (acceptedFiles.length !== 0) {
+                          setEnableImageDialog(true)
+                          onChangeBannerImage(acceptedFiles)
+                        } else handleShowAlert('banner', 'uknown')
+                      }}
+                      onDropRejected={rejectedFiles => {
+                        handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
+                      }}
+                      maxFiles={1}
+                      accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                      maxSize={104857600}
+                    >
+                      {({ getRootProps, getInputProps, open }) => (
+                        <section className={styles.dropzone}>
+                          <div {...getRootProps()} className={styles.selectBannerArea}>
+                            <input {...getInputProps()} />
+                            <p className={styles.subTitle}>Upload Here</p>
+                            <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                            <p className={styles.greenText}>Max File Size 100mb</p>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <Image src={bannerCroppedImage} width={375} height={120} alt="" objectFit="cover" />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
-                        onDropAccepted={acceptedFiles => {
-                          acceptedFiles.length !== 0
-                            ? onChangeCoverImage(acceptedFiles)
-                            : handleShowAlert('cover', 'unknown')
+                        onDrop={acceptedFiles => {
+                          if (acceptedFiles.length !== 0) {
+                            setEnableImageDialog(true)
+                            onChangeBannerImage(acceptedFiles)
+                          } else handleShowAlert('banner', 'uknown')
                         }}
                         onDropRejected={rejectedFiles => {
-                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                          handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
                         }}
                         maxFiles={1}
                         accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={31457280}
+                        maxSize={104857600}
                       >
                         {({ getRootProps, getInputProps, open }) => (
                           <section>
@@ -781,18 +721,18 @@ const Step01CollectionSection = props => {
             </div>
           </div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <div className="w-full relative z-10">
+          <div className="w-full flex flex-wrap justify-center mt-[30px]">
+            {/* <div className="w-full relative z-10">
               <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
+                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
               >
-                Collection Banner Image
+                Collection Cover Image
                 <div
                   className="cursor-pointer"
                   onClick={() => {
-                    setBannerHelper(true)
+                    setCoverHelper(true)
                     setTimeout(() => {
-                      setBannerHelper(false)
+                      setCoverHelper(false)
                     }, 2000)
                   }}
                 >
@@ -800,65 +740,62 @@ const Step01CollectionSection = props => {
                 </div>
               </div>
 
-              {bannerHelper && (
+              {coverHelper && (
                 <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1920px by 452px
+                  Recommended dimensions are 1080px by 1080px
                 </div>
               )}
+            </div> */}
+            <div className="w-full flex justify-start">
+              <div className={styles.collectionBannerImage}>
+                Collection Cover Image<span>*</span>
+              </div>
             </div>
-
-            <div className="w-full z-0">
-              <div className={styles.bannerImageArea}>
-                {bannerCroppedImage === undefined ? (
-                  <div>
-                    <Dropzone
-                      onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0
-                          ? onChangeBannerImage(acceptedFiles)
-                          : handleShowAlert('banner', 'uknown')
-                      }}
-                      onDropRejected={rejectedFiles => {
-                        handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
-                      }}
-                      maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                      maxSize={31457280}
-                    >
-                      {({ getRootProps, getInputProps, open }) => (
-                        <section className={styles.dropzone}>
-                          <div {...getRootProps()} className={styles.selectBannerArea}>
-                            <input {...getInputProps()} />
-                            <p className={styles.subTitle}>Upload Here</p>
-                            <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                            <p className={styles.greenText}>Max File Size 30mb</p>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                  </div>
+            <div className="w-full z-0 mt-[9px]">
+              <div className={styles.coverImageArea}>
+                {coverCroppedImage === undefined ? (
+                  <Dropzone
+                    onDropAccepted={acceptedFiles => {
+                      if (acceptedFiles.length !== 0) {
+                        setEnableCoverImageDialog(true)
+                        onChangeCoverImage(acceptedFiles)
+                      } else handleShowAlert('cover', 'unknown')
+                    }}
+                    onDropRejected={rejectedFiles => {
+                      handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                    }}
+                    maxFiles={1}
+                    accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                    maxSize={104857600}
+                  >
+                    {({ getRootProps, getInputProps, open }) => (
+                      <section className={styles.dropzone}>
+                        <div {...getRootProps()} className={styles.selectArea}>
+                          <input {...getInputProps()} />
+                          <p className={styles.subTitle}>Upload Here</p>
+                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                          <p className={styles.greenText}>Max File Size 100mb</p>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
                 ) : (
-                  <div className="relative">
-                    <Image
-                      src={bannerCroppedImage}
-                      width={375}
-                      height={120}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                  <div>
+                    <Image src={coverCroppedImage} width={140} height={140} alt="" objectFit="cover" />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
-                        onDrop={acceptedFiles => {
-                          acceptedFiles.length !== 0
-                            ? onChangeBannerImage(acceptedFiles)
-                            : handleShowAlert('banner', 'uknown')
+                        onDropAccepted={acceptedFiles => {
+                          if (acceptedFiles.length !== 0) {
+                            setEnableImageDialog(true)
+                            onChangeCoverImage(acceptedFiles)
+                          } else handleShowAlert('cover', 'unknown')
                         }}
                         onDropRejected={rejectedFiles => {
-                          handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
+                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
                         }}
                         maxFiles={1}
                         accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={31457280}
+                        maxSize={104857600}
                       >
                         {({ getRootProps, getInputProps, open }) => (
                           <section>
@@ -892,10 +829,10 @@ const Step01CollectionSection = props => {
 
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-5`}>
+            <div className={`${styles.subTitle} mt-[30px]`}>
               Collection Name <span>*</span>
             </div>
-            <div className="max-w-[370px] w-full mt-4 z-10">
+            <div className="max-w-[370px] w-full mt-[15px] z-10">
               <Input
                 value={limit(collectionName, 32)}
                 placeholder="Give your art name"
@@ -904,10 +841,10 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeCollectionName(limit(value, 32))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>
+            <div className={`${styles.subTitle} mt-[30px]`}>
               Description <span>*</span>
             </div>
-            <div className="w-full mt-5">
+            <div className="w-full mt-[15px]">
               <Textarea
                 value={limit(description, 1000)}
                 placeholder="Add a short description..."
@@ -916,10 +853,10 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+            <div className={`${styles.subTitle} mt-[30px] flex justify-start items-center gap-2`}>
               Royalties <span>*</span>
             </div>
-            <div className="max-w-[370px] w-full mt-5">
+            <div className="max-w-[370px] w-full mt-[15px]">
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
@@ -933,56 +870,80 @@ const Step01CollectionSection = props => {
                 }}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Categories (optional)</div>
+            <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
+            <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
+              <>Select up to three categories</>
+              <ArrowDownIcon />
+            </div>
             <div className="w-full mt-4">
-              <div className="grid grid-cols-2 gap-5">
+              {/* <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
                   <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
                     Choose Category
                   </div>
                 </div>
-              </div>
+              </div> */}
               {showCategoryList && (
                 <CategoryListModal
                   data={CategoryList}
                   categoryList={categoryList}
                   onChange={index => handleSelectCategory(index)}
                   onClick={() => setShowCategoryList(!showCategoryList)}
-                  onClickCancel={() => handleCancelCategory()}
+                  onClickCancel={() => setShowCategoryList(false)}
                 />
               )}
             </div>
           </div>
 
-          <div className="w-full flex justify-between my-10">
+          <div className="w-full my-[30px]">
             {/* button group part */}
-            <div className="w-full">
-              {isMinting ? (
-                <LoadingButton fullWidth height={45} />
-              ) : (
-                <GradientButton
-                  label="Create Collection"
-                  disabled={disabledNextButton}
-                  fullWidth
-                  height={45}
-                  onClick={() => {
-                    mintCollection()
-                  }}
-                />
-                // <button
-                //   className={styles.createCollection}
-                //   disabled={disabledNextButton} //disabledNextButton
-                //   style={{
-                //     color: disabledNextButton ? 'var(--create-collection-color)' : 'var(--twitter-text-color)',
-                //     background: disabledNextButton ? 'var(--create-collection-btn)' : 'var(--main-icon-color)',
-                //   }}
-                //   onClick={() => {
-                //     mintCollection()
-                //   }}
-                // >
-                //   Create Collection
-                // </button>
-              )}
+            <div>
+              <PrimaryButton
+                fullWidth
+                label="Next"
+                type="next"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
+              />
+              {/* <GradientButton
+                label="Next"
+                fullWidth
+                height={50}
+                fontSize={18}
+                borderColor="transparent"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
+              /> */}
+            </div>
+            <div className="mt-[18px]">
+              <SecondaryButton
+                label="Back"
+                type="back"
+                onClick={() => {
+                  if (currentStep === 1) router.push('/create/single-nft')
+                  else onChangeCurrentStep(currentStep - 1)
+                }}
+                fullWidth
+              />
+              {/* <Button
+                label="Back"
+                onClick={() => {
+                  if (currentStep === 1) router.push('/create/single-nft')
+                  else onChangeCurrentStep(currentStep - 1)
+                }}
+                fullWidth
+                fontFamily="Muli-SemiBold"
+                height="50px"
+                backgroundColor="transparent"
+                color="var(--main-bg-color)"
+                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                borderWidth={1}
+                fontSize={18}
+              /> */}
             </div>
           </div>
         </div>

@@ -28,18 +28,11 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
-import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
-import {
-  getNFTCategories,
-  getNFTTokenAccount,
-  getNFTSocialInfo,
-  getNFTArtistPublicKey,
-  getNftFromDAS,
-} from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount, getNFTArtistPublicKey, getNftFromDAS } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import {
   cancelListing,
@@ -53,26 +46,19 @@ import {
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import SolanaLogoMediumIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
-import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
-import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
-import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
-import MintValuePlus from 'public/icons/mint-value-plus.svg?component'
-import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
-import EditNftMetaIcon from 'assets/icons/edit-edition.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
@@ -82,16 +68,12 @@ import styles from './index.module.scss'
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey, Transaction } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
-// call apis
-import nftsAPI from 'apis/nfts'
-import usersAPI from 'apis/user'
-import listingsAPI from 'apis/listings'
-import AuctionAPI from 'apis/auctions'
+import { cancelListingEdition, createPrint } from 'apis/editions'
 
 import { useWallets } from 'hooks/useWallets'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
@@ -118,8 +100,22 @@ import AuctionDetail from '../AuctionDetail'
 import NFTCreatorDataSection from './NFTCreatorDataSection'
 import NFTAssetSection from './NFTAssetSection'
 import EditMetaModal from 'components/Modal/EditMetaModal'
-import GradientButton from 'components/Button/GradientButton'
 import ListEditionDetail from '../ListEditionDetail'
+
+// call apis
+import nftsAPI from 'apis/nfts'
+import usersAPI from 'apis/user'
+import listingsAPI from 'apis/listings'
+import AuctionAPI from 'apis/auctions'
+import { getListedMasterEditionInfo } from 'apis/editions'
+import { getPriceValue } from 'utils/strings'
+import MintEditionCard from 'components/Card/MintEditionCard'
+import { revokeDelegateEdition } from 'utils/editions'
+import MenuEditNft from 'components/Menu/MenuEditNft'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -155,7 +151,7 @@ const MainSection = ({
   const [loading, setLoading] = useState<boolean>(true)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
-  
+
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
@@ -175,10 +171,12 @@ const MainSection = ({
   const [liveAuction, setLiveAuction] = useState(false)
   const [showAuctionDetail, setShowAuctionDetail] = useState(false)
   const [showListEditionDetail, setShowListEditionDetail] = useState(false)
+  const [listEditionType, setListEditionType] = useState('list')
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showUpdateListNFTModal, setShowUpdateListNFTModal] = useState(false)
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
+  const [buyLoading, setBuyLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
@@ -198,6 +196,7 @@ const MainSection = ({
   const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
+  const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -237,7 +236,7 @@ const MainSection = ({
   const nftCategories = getNFTCategories(nftDetail)
   const mintAddress = nftDetail.mintAddress.toString()
   const nftCollectionAddress = nftDetail.collection?.address?.toString()
-
+  const supply = nftDetail.supply
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
@@ -252,7 +251,11 @@ const MainSection = ({
   const [isRunning, setIsRunning] = useState(false)
   const [loadListing, setLoadListing] = useState(false)
   const [nameLoading, setNameLoading] = useState(true)
-  const [editionType, setEditionType] = useState<'normal' | 'master_le' | 'master_oe' | 'print'>('normal')
+  const [editionType, setEditionType] =
+    useState<'normal' | 'master_le' | 'master_oe' | 'print_le' | 'print_oe'>('normal')
+  const [isEditionListing, setIsEditionListing] = useState(false)
+  const [editionListingData, setEditionListingData] = useState<any>()
+  const [cancelListLoading, setCancelListLoading] = useState(false)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
 
@@ -270,26 +273,157 @@ const MainSection = ({
       setVisible(true)
       return
     }
-    setOpenProgressingModal(true)
 
-    await refreshToken()
+    try {
+      setBuyLoading(true)
+      await refreshToken()
 
-    const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    await updateSolBalance()
-    if (result) {
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
-        response => {
-          setNftPrice(0)
-          setIsOwnNft(true)
-        },
-        error => console.log(error)
-      )
-      setShowAlert(true)
+      const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
+      if (result) {
+        await updateSolBalance()
+        listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
+          response => {
+            setNftPrice(0)
+            setIsOwnNft(true)
+          },
+          error => console.log(error)
+        )
+        setShowAlert(true)
+        router.reload()
+      } else {
+        setBuyLoading(false)
+      }
+    } catch {
+      setBuyLoading(false)
     }
-    setOpenProgressingModal(false)
   }
 
-  const mintEdition = () => {}
+  const mintEdition = async () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
+
+    setMintEditionLoading(true)
+
+    let editionsToPrint = undefined
+    let editionStatuses: Record<string, any> = {}
+    for (let i = 0; i < 5 && Object.keys(editionStatuses).length < mintQty; i++)
+      try {
+        let printResponse = await createPrint({
+          mintAddress,
+          buyer: mx.identity().publicKey.toBase58(),
+          count: mintQty,
+          editions: editionsToPrint,
+        })
+
+        if (printResponse.length == 0) break
+
+        editionsToPrint = printResponse.map(({ editionNumber }) => editionNumber)
+        let txs = printResponse.map(({ transaction }) => Transaction.from(Buffer.from(transaction, 'base64')))
+        let signedTransactions = await mx.identity().signAllTransactions(txs)
+
+        let results = await Promise.allSettled(
+          signedTransactions.map(async (tx, index) => {
+            let { editionNumber, editionMint } = printResponse[index]
+            let signature = await mx.connection.sendRawTransaction(tx.serialize(), {
+              maxRetries: 5,
+              preflightCommitment: 'processed',
+            })
+            await mx.connection.confirmTransaction(signature)
+
+            await nftsAPI
+              .create({
+                token_id: editionMint,
+                nft_name: `${nftName} #${editionNumber}`,
+                categories: nftCategories.toString(),
+                asset_type: nftType === 'image/gif' ? 'image' : nftType,
+                cover_image_url: nftCoverUrl,
+                asset_url: nftAssetUrl ?? originalCoverUrl,
+                collection_id: nftCollectionAddress ?? '',
+                edition: editionNumber,
+                parent_nft: mintAddress,
+                max_supply: editionType == 'master_le' ? supply.max : null,
+              })
+              .then(
+                response => {
+                  console.log(response)
+                },
+                error => {
+                  console.log(error)
+                }
+              )
+
+            editionStatuses[editionNumber.toString()] = {
+              status: 'success',
+              signature,
+              editionMint,
+            }
+          })
+        )
+        console.log('print transaction results', results)
+
+        break
+      } catch (e: any) {
+        console.error(`attempt ${i + 1} failed: ${e?.message ?? e}`)
+        console.error(e)
+        setMintEditionLoading(false)
+
+        setAlertData([
+          {
+            id: 0,
+            title: 'Purchase Canceled',
+            description: `Wallet signature request rejected`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+
+        if (e?.message == 'User rejected the request.') break
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        return
+      }
+
+    setMintEditionLoading(false)
+
+    if (Object.keys(editionStatuses).length === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Purchase Canceled',
+          description: `Wallet signature request rejected`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else if (Object.keys(editionStatuses).length === mintQty) {
+      console.log('minted editions successfully', editionStatuses)
+
+      setAlertData([
+        {
+          id: 0,
+          title: 'Edition Purchased!',
+          description: `You've successfully purchased ${nftName} #${editionsToPrint[0]}`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+      setTimeout(() => {
+        router.reload()
+      }, 1000)
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Mint Partially Succeeded!',
+          description: `You've failed minting some editions`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    }
+  }
+
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -415,30 +549,66 @@ const MainSection = ({
     [minBidIncrement]
   )
 
+  const getEditionListingStatus = () => {
+    getListedMasterEditionInfo(nftDetail.mintAddress).then(
+      response => {
+        if (response && response.price.length > 0) {
+          setIsEditionListing(true)
+          setEditionListingData(response)
+          setPrice(getPriceValue(Number(response.price)))
+          setNftPrice(parseFloat(getPriceValue(Number(response.price))))
+        }
+      },
+      error => {}
+    )
+  }
+
   useEffect(() => {
-    if (!editionDetail) return
+    if (!supply) return
+    let type: any = 'normal'
+    if (supply.max === 0) {
+      type = 'normal'
+      setEditionType('normal')
+    } else if (supply.max === null) {
+      if (supply.parent === null) {
+        type = 'master_oe'
+        setEditionType('master_oe')
+        getEditionListingStatus()
+      } else {
+        type = 'print_oe'
+        setEditionType('print_oe')
+        fetch(`/nft/${supply.parent}`)
+      }
+    } else if (supply.max > 0) {
+      if (supply.parent === null) {
+        type = 'master_le'
+        setEditionType('master_le')
+        getEditionListingStatus()
+      } else {
+        type = 'print_le'
+        setEditionType('print_le')
+        fetch(`/nft/${supply.parent}`)
+      }
+    } else {
+      setEditionType('normal')
+      type = 'normal'
+    }
+  }, [supply])
 
-    if (editionDetail.isSingleNft) setEditionType('normal')
-    else if (editionDetail.isOpenEdition) setEditionType('master_oe')
-    else if (editionDetail.isLimitedEdition) setEditionType('master_le')
-    else setEditionType('print')
-  }, [editionDetail])
-
-  const isNftEdition = () => {
-    console.log({ editionType })
-    if (editionType === 'print' || editionType === 'master_oe' || editionType === 'master_le') return true
+  const isNftPrintEdition = () => {
+    if (editionType === 'print_oe' || editionType === 'print_le') return true
     return false
   }
 
-  const getTokenTypeString = () => {
-    if (editionType === 'master_oe') return 'Open Edition'
-    else if (editionType === 'master_le') return 'Limited Edition'
-    else return 'Print'
+  const isNftMasterEdition = () => {
+    if (editionType === 'master_oe' || editionType === 'master_le') return true
+    return false
   }
 
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
+
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
@@ -590,8 +760,8 @@ const MainSection = ({
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 80) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > 80
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, 450) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > 450
   useEffect(() => {
     setTempNftDescription(nftDescription)
   }, [nftDescription])
@@ -683,6 +853,38 @@ const MainSection = ({
       })
     } catch (e) {
       setOpenProgressingModal(false)
+    }
+  }
+
+  const cancelListEdition = async () => {
+    setCancelListLoading(true)
+    try {
+      const listing = await revokeDelegateEdition({
+        metaplex: mx,
+        mint: new PublicKey(nftInfo.master_edition?.mintAddress),
+        delegate: new PublicKey(nftInfo.master_edition?.authorityPublicKey),
+      })
+
+      if (listing) {
+        cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
+          if (res) {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Edition Listing Canceled!',
+                description: `${nftName} is no longer available for purchase`,
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
+            setTimeout(() => {
+              router.reload()
+            }, 1000)
+          }
+        })
+      }
+    } catch (e) {
+      setCancelListLoading(false)
     }
   }
 
@@ -898,17 +1100,30 @@ const MainSection = ({
   }
 
   const handleSuccessListEdition = nftName => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Edition Listed!',
-        description: `You've successfully listed an edition for ${nftName}`,
-        type: 'success',
-      },
-    ])
+    if (listEditionType === 'list') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Edition Listed!',
+          description: `You've successfully published a listing for ${nftName}`,
+          type: 'success',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Listing Updated!',
+          description: `Your listing for ${nftName} has been updated`,
+          type: 'success',
+        },
+      ])
+    }
+
+    setShowAlert(true)
 
     setTimeout(() => {
-      setShowAlert(true)
+      router.reload()
     }, 1000)
   }
 
@@ -955,14 +1170,14 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      {nftType.includes('audio') && (
+      {/* {nftType.includes('audio') && (
         <div className={`${styles.nftAudioBG} lg:block hidden`}>
           <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
           <div className={styles.overlay} />
         </div>
-      )}
+      )} */}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[68%] w-full ${nftType.includes('audio') ? 'flex justify-center items-center' : ''}`}>
+        <div className={`lg:w-[60%] w-full`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -971,45 +1186,100 @@ const MainSection = ({
             fullScreen={fullScreen}
           />
 
-          {!nftType.includes('audio') && (
-            <div className="lg:flex hidden mt-[32px] w-full justify-between">
-              <MenuSocialShare
-                type="nft"
-                vote={share}
-                setVote={setShare}
-                voteCount={shareCount}
-                setVoteCount={setShareCount}
-                message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                url={`/nft/${id}`}
-              />
+          <div className="w-full lg:flex hidden mt-[32px] justify-between">
+            <div className="flex gap-[15px] items-center">
+              <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <div className={styles.ellipseArea}>
+                    <ThreeEllipseMobileIcon alt="" />
+                  </div>
+                ) : (
+                  <div className={styles.ellipseArea}>
+                    <ThreeEllipseIcon alt="" />
+                  </div>
+                )}
+              </div>
+              <div className="inline">
+                <div className="flex gap-[15px]">
+                  <div className={`${styles.iconContainer} w-[50px]`}>
+                    <Image
+                      src={save ? TicketGreenIcon : TicketWhiteIcon}
+                      alt=""
+                      className=""
+                      onClick={() => changeSaveStatus()}
+                    />
+                  </div>
+                  <div className={`${styles.iconContainer} w-[80px]`}>
+                    <Image
+                      src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                      alt=""
+                      className=""
+                      onClick={() => changeLikeStatus()}
+                    />
+
+                    <div className={`${styles.text} mt-[-2px]`} onClick={() => setShowLikeModal(true)}>
+                      {likeCount}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-[15px] items-center">
+              {isCreatedNft && (
+                <MenuEditNft
+                  studio={true}
+                  metadata={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
+                  setShowNftMeta={setShowNftMeta}
+                  setRemoveMerchModal={setRemoveMerchModal}
+                  setCreateMerchModal={setCreateMerchModal}
+                  merchToggle={merchToggle}
+                  isCreatedNft={isCreatedNft}
+                />
+              )}
+
+              <div className={`${styles.iconContainer} w-[87px]`}>
+                <div className="flex items-center gap-[9px]">
+                  <MenuSocialShare
+                    type="nft"
+                    vote={share}
+                    setVote={setShare}
+                    voteCount={shareCount}
+                    setVoteCount={setShareCount}
+                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                    url={`/nft/${id}`}
+                  />
+                </div>
+              </div>
 
               {nftType.includes('vr') || nftType.includes('image') ? (
-                <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
-                  <FullScreenModeIcon />
+                <div className={`${styles.iconContainer} w-[50px]`}>
+                  <div onClick={() => setFullScreenView(nftType.includes('vr') ? nftAssetUrl : nftCoverUrl)}>
+                    <FullScreenModeIcon />
+                  </div>
                 </div>
               ) : (
                 <div />
               )}
             </div>
-          )}
+          </div>
         </div>
 
-        <div className="w-full lg:w-[29%] z-10 ">
+        <div className="w-full lg:w-[37%] z-10 ">
           {showListEditionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div className="">
               <ListEditionDetail
                 data={nftDetail}
+                listingType={listEditionType}
                 onSuccess={nft => handleSuccessListEdition(nft)}
-                onRefreshPage={() => {
-                  router.reload()
-                }}
+                fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
                 }}
               />
             </div>
           ) : showAuctionDetail ? (
-            <div className="ml-[0px] lg:ml-[20px]">
+            <div>
               <AuctionDetail
                 data={nftDetail}
                 onSuccess={nft => handleSuccessAuction(nft)}
@@ -1020,12 +1290,13 @@ const MainSection = ({
                   setShowAuctionDetail(false)
                   setShowAuctionSection(false)
                 }}
+                fromNFT={true}
               />
             </div>
           ) : (
             <div className={styles.nftDetailCard}>
-              <div className="w-full flex flex-wrap">
-                <div className="w-full flex flex-wrap justify-between items-center">
+              <div className="w-full flex flex-wrap justify-between items-center lg:hidden">
+                <div className="w-full flex justify-between items-center">
                   <div className="flex items-center gap-[15px] lg:gap-[20px]">
                     <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -1039,545 +1310,554 @@ const MainSection = ({
                       )}
                     </div>
 
-                    {nftType.includes('image') &&
-                    nftType !== 'image/gif' &&
-                    !nftCoverUrl.includes('ext=gif') &&
-                    (merchToggle || isCreatedNft) ? (
-                      <div
-                        className={`cursor-pointer flex gap-[10px] items-center ${styles.overflow_visible_for_children}`}
-                      >
-                        {merchToggle ? (
-                          <MerchToggleEnabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setRemoveMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        ) : isCreatedNft ? (
-                          <MerchToggleDisabledIcon
-                            alt=""
-                            onClick={() => {
-                              if (isCreatedNft) setCreateMerchModal(true)
-                            }}
-                            onMouseEnter={() => setMerchHover(true)}
-                            onMouseLeave={() => setMerchHover(false)}
-                          />
-                        ) : (
-                          <></>
-                        )}
+                    {isCreatedNft && (
+                      <MenuEditNft
+                        studio={true}
+                        metadata={
+                          nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')
+                        }
+                        setShowNftMeta={setShowNftMeta}
+                        setRemoveMerchModal={setRemoveMerchModal}
+                        setCreateMerchModal={setCreateMerchModal}
+                        merchToggle={merchToggle}
+                        isCreatedNft={isCreatedNft}
+                      />
+                    )}
+                  </div>
+                  <div className="flex items-center gap-[15px] lg:gap-[20px]">
+                    <div className={`${styles.iconContainer} w-[80px]`}>
+                      <Image
+                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeLikeStatus()}
+                      />
+                      <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                        {likeCount}
+                      </div>
+                    </div>
 
-                        {!nftType.includes('audio') && merchHover && (
-                          <div className={styles.infoText}>Foster Studio</div>
+                    <div className={`${styles.iconContainer} w-[50px]`}>
+                      <Image
+                        src={save ? TicketGreenIcon : TicketWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeSaveStatus()}
+                      />
+                    </div>
+                    {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+                      <div
+                        className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                        onClick={() => setOpenShareModal(true)}
+                      >
+                        <div>
+                          <ShareSmallIcon alt="" />
+                        </div>
+                        <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.rightContainer}>
+                <div className={`w-full ${styles.nftDetailCardPadding}`}>
+                  {nftCollectionAddress && (
+                    <div className={styles.collectionContainer}>
+                      <div className="justify-between items-center mt-[15px] lg:mt-[7px]">
+                        <Link href={`/collection/${nftCollectionAddress}`} passHref>
+                          <a>
+                            {!(nftCollectionImage || nftCollectionName) ? (
+                              <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
+                            ) : (
+                              <div className={styles.collectionName}>
+                                {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                                  <Image
+                                    src={nftCollectionImage}
+                                    alt=""
+                                    width={25}
+                                    height={25}
+                                    className="object-cover rounded-[4px]"
+                                  />
+                                )}
+                                {nftCollectionName}
+                              </div>
+                            )}
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+
+                  <NFTCreatorDataSection
+                    nftName={nftName}
+                    nftCreatorname={nftCreatorname}
+                    nftOwnerUsername={nftOwnerUsername}
+                    nameLoading={nameLoading}
+                  />
+
+                  {editionDetail && isNftMasterEdition() && (
+                    <div className="flex flex-wrap gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
+                      <div className={styles.editionTitle}>
+                        {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
+                      </div>
+                      {editionType === 'master_le' && (
+                        <div className={styles.editionTitle}>{editionDetail?.maxSupply + ' Editions'}</div>
+                      )}
+                      <div className={styles.editionTitle}>
+                        {editionType === 'master_le'
+                          ? Number(editionDetail?.maxSupply) -
+                            Number(editionDetail?.supply) +
+                            '/' +
+                            Number(editionDetail?.maxSupply) +
+                            ' Left'
+                          : Number(editionDetail?.supply) + ' Sold'}
+                      </div>
+                    </div>
+                  )}
+
+                  {editionDetail && isNftPrintEdition() && (
+                    <div className="mt-[30px]">
+                      {/* {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
+                      <div className={styles.editionSecondRow}>
+                        <div className={styles.editionTitle}>Mint Price</div>
+                        <div className="flex gap-[6px] items-center">
+                          <div className="mt-[2px]">
+                            <SolanaLogoMobileIcon alt="" />
+                          </div>
+                          <div className={styles.editionValue}>{nftPrice}</div>
+                        </div>
+                      </div>
+                    )} */}
+
+                      <div className="w-full flex gap-[15px]">
+                        <div className={styles.editionTitle}>
+                          {editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}
+                        </div>
+                        {editionType === 'print_le' && (
+                          <div className={styles.editionTitle}>{Number(editionDetail?.maxSupply) + ' Editions'}</div>
                         )}
+                        <div className={styles.editionTitle}>{'Edition #' + Number(editionDetail?.print?.number)}</div>
+                      </div>
+
+                      <div
+                        className={styles.editionValue}
+                        onClick={() => {
+                          router.push(`/nft/${supply.parent}`)
+                        }}
+                      >
+                        View Master Edition
+                        <ArrowRightIcon />
+                      </div>
+                    </div>
+                  )}
+
+                  <div
+                    className={`w-full lg:max-h-[130px] mt-[15px] lg:my-[30px] ${!isTruncated && 'overflow-scroll'}`}
+                  >
+                    {nftDescription ? (
+                      <div>
+                        <div className={styles.descLabel}>Description</div>
+                        <div className={styles.whiteDescription}>
+                          <div className="lg:block hidden">
+                            {processedNftDescription}
+                            {shouldShowReadMore && (
+                              <span
+                                onClick={toggleIsTruncated}
+                                className={`${styles.greenText} min-w-max cursor-pointer`}
+                              >
+                                {isTruncated ? '... Expand' : ' Collapse'}
+                              </span>
+                            )}
+                          </div>
+                          <div className="lg:hidden block">{tempNftDescription}</div>
+                        </div>
                       </div>
                     ) : (
                       <></>
                     )}
-                    {isCreatedNft && (
-                      <div onClick={() => setShowNftMeta(true)}>
-                        <EditNftMetaIcon alt="" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="inline">
-                    {!loadedNftInfo ? (
-                      <div className={`${styles.skeletonLoader} w-[150px] lg:w-[300px] h-[22px] rounded-full`}></div>
-                    ) : (
-                      <div className="flex gap-[15px] sm:gap-1 xs:gap-1 md:gap-3">
-                        <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
-                          <Image
-                            src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeLikeStatus()}
-                          />
-
-                          <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                            {likeCount}
-                          </div>
-                        </div>
-                        <div className="flex items-center cursor-pointer mr-[20px]">
-                          <Image
-                            src={save ? TicketGreenIcon : TicketWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeSaveStatus()}
-                          />
-                          <div className={styles.text} onClick={() => setShowSaveModal(true)}>
-                            {saveCount}
-                          </div>
-                        </div>
-                        {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-                          <div onClick={() => setOpenShareModal(true)}>
-                            <ShareSmallIcon alt="" />
-                          </div>
-                        )}
-                      </div>
-                    )}
                   </div>
                 </div>
-                <NFTCreatorDataSection
-                  nftName={nftName}
-                  nftCreatorname={nftCreatorname}
-                  nftOwnerUsername={nftOwnerUsername}
-                  nameLoading={nameLoading}
-                />
 
-                <div className={styles.collectionContainer}>
-                  {nftCollectionAddress && (
-                    <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                      <div className={styles.collectionText}>Collection</div>
-                      <Link href={`/collection/${nftCollectionAddress}`} passHref>
-                        <a>
-                          {!(nftCollectionImage || nftCollectionName) ? (
-                            <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
+                <div className="w-full flex flex-wrap mt-[15px] lg:mt-0">
+                  <div className={`w-full ${styles.nftDetailCardPadding}`}>
+                    <div className="w-full flex lg:flex-row flex-col justify-between gap-0 lg:gap-3 xl:gap-4">
+                      {nftCategories && nftCategories.length > 0 && (
+                        <div className="flex flex-wrap flex-col gap-2">
+                          <div className={styles.categories}>Categories</div>
+                          {nftCategories && nftCategories.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                              {nftCategories.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
+                            </div>
                           ) : (
-                            <div className={styles.collectionName}>
-                              {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                                <Image
-                                  src={nftCollectionImage}
-                                  alt=""
-                                  width={25}
-                                  height={25}
-                                  className="object-cover rounded-[4px]"
-                                />
-                              )}
-                              {nftCollectionName}
+                            <div className="flex flex-row">
+                              <SmallCategoryChip data={['N/A']} />
                             </div>
                           )}
-                        </a>
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                <div className={`w-full max-h-[100px] mt-[28px] ${!isTruncated && 'overflow-scroll'}`}>
-                  {nftDescription ? (
-                    <div className={styles.whiteDescription}>
-                      {processedNftDescription}
-                      {shouldShowReadMore && (
-                        <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                          {isTruncated ? '... Expand' : ' Collapse'}
-                        </span>
-                      )}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </div>
-
-              <div className="w-full flex flex-wrap mt-10 lg:mt-0">
-                {editionDetail && isNftEdition() && (
-                  <div className={styles.editionContainer}>
-                    {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
-                      <div className={styles.editionSecondRow}>
-                        <div className={styles.editionTitle}>Mint Price</div>
-                        <div className="flex gap-[8px] items-center">
-                          <SolanaLogoMediumIcon alt="" />
-                          <div className={styles.editionValue}>{nftPrice}</div>
-                        </div>
-                      </div>
-                    )}
-                    <div className={styles.editionFirstRow}>
-                      <div className={styles.editionTitle}>Token Type</div>
-                      <div className={styles.editionValue}>{getTokenTypeString()}</div>
-                    </div>
-                    {editionType === 'master_le' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.edition}>Master Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Remaining</div>
-                          <div className={styles.editionValue}>
-                            {Number(editionDetail?.maxSupply) - Number(editionDetail?.supply)}
-                          </div>
-                        </div>
-                      </div>
-                    ) : editionType === 'master_oe' ? (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>Master Edition</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Remaining</div>
-                          <div className={styles.editionValue}>Unlimited</div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <div className={styles.editionSecondRow}>
-                          <div className={styles.editionTitle}>Edition Number</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.print?.number)}</div>
-                        </div>
-                        <div className={styles.editionFirstRow}>
-                          <div className={styles.editionTitle}>Editions Minted</div>
-                          <div className={styles.editionValue}>{Number(editionDetail?.supply)}</div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-                <div className="w-full flex lg:flex-row flex-col justify-between gap-2 lg:gap-3 xl:gap-4">
-                  {nftCategories && nftCategories.length > 0 && (
-                    <div className="flex flex-wrap flex-col gap-2">
-                      <div className={styles.categories}>Categories</div>
-                      {nftCategories && nftCategories.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
-                          {nftCategories.map((item, index) => (
-                            <SmallCategoryChip data={item} key={index} />
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="flex flex-row">
-                          <SmallCategoryChip data={['N/A']} />
                         </div>
                       )}
+
+                      <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
+                        <div className={styles.whiteRoyalties}>Royalties</div>
+                        <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
+                      </div>
                     </div>
-                  )}
-
-                  <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
-                    <div className={styles.whiteRoyalties}>Royalties</div>
-                    <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
                   </div>
-                </div>
 
-                <div className={`${styles.categoryBorder} lg:block hidden`} />
+                  <div className="w-[200%] min-h-max overflow-hidden">
+                    <div className={`${styles.categoryBorder} lg:block block`} />
+                  </div>
 
-                {loadListing && (
-                  <div
-                    className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
-                  ></div>
-                )}
+                  <div className={`w-full ${styles.nftDetailCardPadding}`}>
+                    {loadListing && (
+                      <div
+                        className={`${styles.skeletonLoader}  ${styles.collectionContainer} w-[200px] mt-[20px] lg:mt-[0px] h-[120px] lg:h-[100px] rounded-[12px]`}
+                      ></div>
+                    )}
 
-                {nftPrice > 0 && !liveAuction ? (
-                  editionType === 'master_oe' || editionType === 'master_le' ? (
-                    <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
-                      <div className={styles.masterContainer}>
-                        <div className="flex justify-between gap-[13px]">
-                          <div className={styles.mintQty}>
-                            <div
-                              onClick={() => {
-                                if (mintQty > 0) setMintQty(mintQty - 1)
-                              }}
-                            >
-                              <MintValueMinus />
-                            </div>
-                            <div className={styles.mintValue}>Qty:&nbsp;{mintQty}</div>
-                            <div
-                              onClick={() => {
-                                if (editionDetail.maxSupply !== null) {
-                                  if (mintQty + 1 > editionDetail.maxSupply) return
-                                }
-                                setMintQty(mintQty + 1)
-                              }}
-                            >
-                              <MintValuePlus />
-                            </div>
-                          </div>
-                          <div className={styles.mintPrice}>
-                            <SolanaLogoIcon />
-                            <PriceInput
-                              value={price}
-                              placeholder="0"
-                              backgroundColor={'transparent'}
-                              fullWidth
-                              min={0}
-                              margin
-                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '40px' : '50px'}
-                              onChange={value => {
-                                if (value < 0) {
-                                  setPrice('')
-                                } else {
-                                  setPrice(value)
-                                }
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <div className="mt-[23px]">
-                          <GradientButton
+                    {isEditionListing ? (
+                      isOwnNft === true ? (
+                        <div className="w-full lg:mt-[10px]">
+                          <PrimaryButton
                             fullWidth
-                            label={'Mint Edition'}
-                            direction="rtl"
-                            onClick={() => mintEdition()}
-                            height={50}
-                            disabled={!tradeStateAddress}
+                            type="update-relist"
+                            label={'Update/Relist'}
+                            onClick={() => {
+                              setListEditionType('update')
+                              setShowListEditionDetail(true)
+                            }}
                           />
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className={`w-full flex gap-2 mt-[20px] lg:mt-[0px] ${styles.border_top}`}>
-                        <div className={styles.fixedPrice}>Listed&nbsp;for</div>
-                        <div className="w-full flex items-center">
-                          <div className="flex items-center mt-[3px]">
-                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                              <SolanaLogoMobileIcon alt="" />
+                          <div className="mt-[15px]">
+                            {cancelListLoading ? (
+                              <LoadingSecondaryButton fullWidth />
                             ) : (
-                              <SolanaLogoIcon alt="" />
+                              <SecondaryButton
+                                fullWidth
+                                label="Cancel Listing"
+                                type="cancel"
+                                onClick={() => cancelListEdition()}
+                              />
                             )}
                           </div>
-                          <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
-                        </div>
-                      </div>
-
-                      {(isOwnNft === false || isOwnNft === null) && (
-                        <div className="w-full flex flex-wrap mt-[10px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
-                          {tradeStateAddress ? (
-                            <button
-                              className={styles.primaryBtn}
-                              disabled={!tradeStateAddress}
-                              onClick={() => quickBuy()}
-                            >
-                              Buy Now
-                            </button>
-                          ) : (
-                            <LoadingButton />
-                          )}
-                          <button
-                            className={styles.outlineBtn}
-                            onClick={() => {
-                              if (!connected) {
-                                setVisible(true)
-                                return
-                              }
-                              setOpenOfferModal(true)
-                            }}
-                          >
-                            Make Offer
-                          </button>
-                        </div>
-                      )}
-
-                      {isOwnNft === true ? (
-                        <div className="w-full flex content-none mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowUpdateListNFTModal(true)}>
-                            Delist or Update
-                          </div>
                         </div>
                       ) : (
-                        <></>
-                      )}
-                    </>
-                  )
-                ) : endTime !== null &&
-                  getTimeDifferenceWithAuction(endTime) < 0 &&
-                  (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
-                  connected ? (
-                  <div className="w-full mb-1 mt-5 lg:mt-4 lg:mb-5">
-                    {nftCurrentPrice > 0 ? (
-                      <button className={styles.outlineBtn} onClick={() => processFinalizeSale()}>
-                        Finalize Sale
-                      </button>
-                    ) : (
-                      <button className={styles.outlineBtn} onClick={() => cancelAuction()}>
-                        Cancel Auction
-                      </button>
-                    )}
-                  </div>
-                ) : liveAuction === true ? (
-                  <>
-                    {!isEnded && (
-                      <div className={`mt-6 lg:mt-0 w-full ${styles.border_top}`}>
-                        <div className={styles.auctionContainer}>
-                          <AuctionCard
-                            currentPrice={nftCurrentPrice}
-                            reservePrice={nftReservePrice}
-                            endTime={endTime}
-                            startTime={startTime}
+                        <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[0px] lg:mt-[10px]">
+                          <MintEditionCard
+                            price={price}
+                            maxSupply={editionDetail.maxSupply}
+                            buyLimit={nftInfo?.master_edition?.buyLimit}
+                            endTime={nftInfo?.master_edition?.endTime}
+                            startTime={nftInfo?.master_edition?.startTime}
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
+                            nftPrice={nftPrice}
+                            setPrice={setPrice}
+                            mintQty={mintQty}
+                            setMintQty={setMintQty}
+                            mintEditionLoading={mintEditionLoading}
+                            mintEdition={mintEdition}
                           />
+                        </div>
+                      )
+                    ) : (
+                      <></>
+                    )}
+
+                    {nftPrice > 0 && !liveAuction ? (
+                      editionType === 'master_oe' || editionType === 'master_le' ? (
+                        <></>
+                      ) : (
+                        <>
+                          <div className={`w-full flex gap-2 ${styles.border_top}`}>
+                            <div className={styles.fixedPrice}>Listed&nbsp;for</div>
+                            <div className="w-full flex items-center">
+                              <div className="flex items-center mt-[3px]">
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <SolanaLogoMobileIcon alt="" />
+                                ) : (
+                                  <SolanaLogoIcon alt="" />
+                                )}
+                              </div>
+                              <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
+                            </div>
+                          </div>
+
+                          {(isOwnNft === false || isOwnNft === null) && (
+                            <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
+                              {tradeStateAddress && !buyLoading ? (
+                                <PrimaryButton
+                                  fullWidth
+                                  type="buy-now"
+                                  label="Buy Now"
+                                  disabled={!tradeStateAddress}
+                                  onClick={() => quickBuy()}
+                                />
+                              ) : (
+                                <LoadingPrimaryButton fullWidth />
+                              )}
+                              <SecondaryButton
+                                label="Make Offer"
+                                type="make-offer"
+                                fullWidth
+                                onClick={() => {
+                                  if (!connected) {
+                                    setVisible(true)
+                                    return
+                                  }
+                                  setOpenOfferModal(true)
+                                }}
+                              />
+                            </div>
+                          )}
+
                           {isOwnNft === true ? (
-                            <div className="py-[15px] lg:py-0 lg:mt-[15px]">
-                              <button
-                                className={nftCurrentPrice > 0 ? styles.outlineDisableBtn : styles.outlineBtn}
-                                onClick={() => nftCurrentPrice === 0 && cancelAuction()}
-                              >
-                                Cancel Auction
-                              </button>
+                            <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
+                              <PrimaryButton
+                                label="Delist or Update"
+                                type="update-relist"
+                                fullWidth
+                                onClick={() => setShowUpdateListNFTModal(true)}
+                              />
                             </div>
                           ) : (
                             <></>
                           )}
-                          {showPlaceBidButton &&
-                            !isOwnNft &&
-                            (loading ? (
-                              <div className="w-full mt-[15px] mb-[16px]">
-                                <div className="w-full flex justify-center">
-                                  <div
-                                    className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
-                                  ></div>
+                        </>
+                      )
+                    ) : endTime !== null &&
+                      getTimeDifferenceWithAuction(endTime) < 0 &&
+                      (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
+                      connected ? (
+                      <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
+                        {nftCurrentPrice > 0 ? (
+                          <SecondaryButton
+                            label="Finalize Sale"
+                            type="finalize-sale"
+                            fullWidth
+                            onClick={() => processFinalizeSale()}
+                          />
+                        ) : (
+                          <SecondaryButton
+                            label="Cancel Auction"
+                            type="cancel"
+                            fullWidth
+                            onClick={() => cancelAuction()}
+                          />
+                        )}
+                      </div>
+                    ) : liveAuction === true ? (
+                      <>
+                        {!isEnded && (
+                          <div className={`w-full ${styles.border_top}`}>
+                            <div className={styles.auctionContainer}>
+                              <AuctionCard
+                                currentPrice={nftCurrentPrice}
+                                reservePrice={nftReservePrice}
+                                endTime={endTime}
+                                startTime={startTime}
+                                setIsEnded={setIsEnded}
+                                setIsStarted={setIsStarted}
+                              />
+                              {isOwnNft === true ? (
+                                <div className="lg:mt-[10px]">
+                                  <SecondaryButton
+                                    label="Cancel Auction"
+                                    type="cancel"
+                                    fullWidth
+                                    onClick={() => nftCurrentPrice === 0 && cancelAuction()}
+                                    disabled={nftCurrentPrice > 0}
+                                  />
                                 </div>
-                              </div>
-                            ) : (
-                              <div>
-                                {publicKey?.toBase58() === highBidder ? (
-                                  <>
-                                    <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                                  </>
-                                ) : (
-                                  <div className="relative mt-[5px] lg:mt-[15px]">
+                              ) : (
+                                <></>
+                              )}
+                              {showPlaceBidButton &&
+                                !isOwnNft &&
+                                (loading ? (
+                                  <div className="w-full mt-[15px] mb-[16px]">
                                     <div className="w-full flex justify-center">
-                                      <PriceInput
-                                        value={price}
-                                        placeholder="Enter Bid amount"
-                                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                                        fullWidth
-                                        min={0}
-                                        height={
-                                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '50px'
-                                        }
-                                        onChange={value => {
-                                          if (value < 0) {
-                                            setPrice('')
-                                          } else {
-                                            setPrice(value)
-                                          }
-                                        }}
-                                      />
+                                      <div
+                                        className={`${styles.skeletonLoader} w-[100%] h-[110px] lg:h-[130px] rounded-[12px]`}
+                                      ></div>
                                     </div>
-                                    <div
-                                      className={`${styles.placeBidBG} ${
-                                        isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
-                                      }`}
-                                      onClick={async () => {
-                                        if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                          return
-
-                                        if (isEnded) return
-
-                                        if (!connected) {
-                                          setVisible(true)
-                                          return
-                                        }
-                                        placeBidAndSave(price)
-                                      }}
-                                    >
-                                      {auctionLoading ? (
-                                        <LoadingButton fullWidth height={51} />
-                                      ) : (
-                                        <div className="flex">
-                                          <div
-                                            className={`${styles.placeBidBtn} ${
-                                              isEnded ||
-                                              price === '' ||
-                                              price === '.' ||
-                                              parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                                ? styles.placeBidDisabledColor
-                                                : styles.placeBidEnabledColor
-                                            }`}
-                                          >
-                                            Place Bid
-                                          </div>
-                                          {/* <GradientButton
-                                          label="Place Bid" */}
+                                  </div>
+                                ) : (
+                                  <div>
+                                    {publicKey?.toBase58() === highBidder ? (
+                                      <>
+                                        <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                                      </>
+                                    ) : (
+                                      <div className="relative mt-[0px] lg:mt-[10px]">
+                                        <div className="w-full flex justify-center">
+                                          <PriceInput
+                                            value={price}
+                                            placeholder="Enter Bid amount"
+                                            backgroundColor={'transparent'}
+                                            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                                            borderWidth={1}
+                                            fullWidth
+                                            min={0}
+                                            height={
+                                              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                                ? '50px'
+                                                : '50px'
+                                            }
+                                            onChange={value => {
+                                              if (value < 0) {
+                                                setPrice('')
+                                              } else {
+                                                setPrice(value)
+                                              }
+                                            }}
+                                          />
                                         </div>
-                                      )}
-                                    </div>
-                                    <div className="w-full flex items-center justify-between mb-[10px]">
-                                      <div className={styles.minText}>Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL</div>
-                                      {endPhaseDuration > 0 && (
                                         <div
-                                          className="flex gap-[10px] items-center"
-                                          onMouseEnter={() => {
-                                            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-                                              setAuctionInfoFocus(true)
-                                          }}
-                                          onMouseLeave={() => {
-                                            if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-                                              setAuctionInfoFocus(false)
-                                          }}
-                                          onClick={() => {
-                                            setAuctionInfoFocus(true)
-                                            setTimeout(() => {
-                                              setAuctionInfoFocus(false)
-                                            }, 2000)
+                                          className={`${styles.placeBidBG}`}
+                                          onClick={async () => {
+                                            if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
+                                              return
+
+                                            if (isEnded) return
+
+                                            if (!connected) {
+                                              setVisible(true)
+                                              return
+                                            }
+                                            placeBidAndSave(price)
                                           }}
                                         >
-                                          <div className={styles.endPhaseText}>End Phase</div>
-                                          <div>
-                                            <InfoGreenIcon />
+                                          {auctionLoading ? (
+                                            <LoadingPrimaryButton fullWidth height={50} />
+                                          ) : (
+                                            <PrimaryButton
+                                              label="Place Bid"
+                                              type="place-bid"
+                                              fullWidth
+                                              disabled={
+                                                price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                              }
+                                            />
+                                          )}
+                                        </div>
+                                        <div className="w-full flex items-center justify-between mb-[10px]">
+                                          <div className={styles.minText}>
+                                            Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
                                           </div>
+                                          {endPhaseDuration > 0 && (
+                                            <div
+                                              className="flex gap-[10px] items-center"
+                                              onMouseEnter={() => {
+                                                if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                                                  setAuctionInfoFocus(true)
+                                              }}
+                                              onMouseLeave={() => {
+                                                if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                                                  setAuctionInfoFocus(false)
+                                              }}
+                                              onClick={() => {
+                                                setAuctionInfoFocus(true)
+                                                setTimeout(() => {
+                                                  setAuctionInfoFocus(false)
+                                                }, 2000)
+                                              }}
+                                            >
+                                              <div className={styles.endPhaseText}>End Phase</div>
+                                              <div>
+                                                <InfoGreenIcon />
+                                              </div>
+                                            </div>
+                                          )}
                                         </div>
-                                      )}
-                                    </div>
-                                    {auctionInfoFocus && (
-                                      <div className="absolute w-full flex justify-end top-[10px]">
-                                        <div className={styles.auctionInfoText}>
-                                          <div className={styles.auctionInfoTitle}>End Phase</div>
-                                          Auction uses
-                                          <span>
-                                            &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
-                                          </span>
-                                          bid increments in the last
-                                          <span>&nbsp;{Math.floor(endPhaseDuration / 60)} mins.&nbsp;</span>
-                                        </div>
+                                        {auctionInfoFocus && (
+                                          <div className="absolute w-full flex justify-end top-[10px]">
+                                            <div className={styles.auctionInfoText}>
+                                              <div className={styles.auctionInfoTitle}>End Phase</div>
+                                              Auction uses
+                                              <span>
+                                                &nbsp;{nftInfo?.auction?.auction?.end_phase_bid_increment} SOL&nbsp;
+                                              </span>
+                                              bid increments in the last
+                                              <span>&nbsp;{Math.floor(endPhaseDuration / 60)} mins.&nbsp;</span>
+                                            </div>
+                                          </div>
+                                        )}
                                       </div>
                                     )}
                                   </div>
-                                )}
+                                ))}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    ) : !loading && nftInfo ? (
+                      isOwnNft === true ? (
+                        <div className="w-full">
+                          {editionType === 'master_le' || editionType === 'master_oe' ? (
+                            isEditionListing ? (
+                              <></>
+                            ) : (
+                              <div className="w-full mt-[0px] lg:mt-[10px]">
+                                <SecondaryButton
+                                  fullWidth
+                                  label="List Edition"
+                                  type="list-artwork"
+                                  onClick={() => {
+                                    setListEditionType('list')
+                                    setShowListEditionDetail(true)
+                                  }}
+                                />
                               </div>
-                            ))}
+                            )
+                          ) : (
+                            <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
+                              <SecondaryButton
+                                fullWidth
+                                label="List Artwork"
+                                type="list-artwork"
+                                onClick={() => setShowListNFTModal(true)}
+                              />
+                              <PrimaryButton
+                                fullWidth
+                                label="Start Auction"
+                                type="start-auction"
+                                onClick={() => {
+                                  setShowAuctionDetail(true)
+                                  setShowAuctionSection(true)
+                                }}
+                              />
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    )}
-                  </>
-                ) : !loading && nftInfo ? (
-                  isOwnNft === true ? (
-                    <div className="w-full">
-                      {editionType === 'master_le' || editionType === 'master_oe' ? (
-                        <div className="w-full mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowListEditionDetail(true)}>
-                            List&nbsp;Edition
+                      ) : isOwnNft === false || isOwnNft === null ? (
+                        editionType === 'master_le' || editionType === 'master_oe' ? (
+                          <></>
+                        ) : (
+                          <div className="w-full flex gap-[20px] mt-[20px]">
+                            <SecondaryButton
+                              fullWidth
+                              label="Make Offer"
+                              type="make-offer"
+                              onClick={() => {
+                                if (!connected) {
+                                  setVisible(true)
+                                  return
+                                }
+                                setOpenOfferModal(true)
+                              }}
+                            />
                           </div>
-                        </div>
+                        )
                       ) : (
-                        <div className="w-full flex lg:flex-wrap gap-[15px] mt-[20px]">
-                          <div className={styles.primaryBtn} onClick={() => setShowListNFTModal(true)}>
-                            List&nbsp;Artwork
-                          </div>
-                          <div
-                            className={styles.outlineBtn}
-                            onClick={() => {
-                              setShowAuctionDetail(true)
-                              setShowAuctionSection(true)
-                            }}
-                          >
-                            Start&nbsp;Auction
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ) : isOwnNft === false || isOwnNft === null ? (
-                    <div className="w-full flex gap-[20px] mt-[20px]">
-                      <button
-                        className={styles.outlineBtn}
-                        onClick={() => {
-                          if (!connected) {
-                            setVisible(true)
-                            return
-                          }
-                          setOpenOfferModal(true)
-                        }}
-                      >
-                        Make Offer
-                      </button>
-                    </div>
-                  ) : (
-                    <></>
-                  )
-                ) : (
-                  <div></div>
-                )}
+                        <></>
+                      )
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           )}

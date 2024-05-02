@@ -26,7 +26,6 @@ import DayList from 'assets/json/home/day-list.json'
 
 // styles
 import styles from './index.module.scss'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
@@ -151,7 +150,7 @@ const TrendingCollectionSection = props => {
           </div>
         ) : (
           <div
-            className="w-full relative mt-[20px] lg:mt-[34px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]"
+            className="w-full relative mt-[20px] lg:mt-[30px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]"
             id="trendArtistMobile"
           >
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
@@ -162,7 +161,9 @@ const TrendingCollectionSection = props => {
                 }
                 spaceBetween={viewport === 'xs' ? 10 : 20}
                 modules={[Autoplay, Lazy, Navigation]}
-                className={trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
+                className={`${trendingList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper pb-0'} ${
+                  styles.noPaddingBottom
+                }`}
               >
                 {trendingList.map((item: any, index) => (
                   <SwiperSlide key={index}>

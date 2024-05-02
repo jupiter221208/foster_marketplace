@@ -146,6 +146,7 @@ export interface DashboardAPIData {
   asset_type: string
   cover_image_url: string
   artist_username: string
+  artist_profile_picture: string
   collection_name: string
   list_price: number
 }
@@ -177,9 +178,19 @@ export interface ExploreAPIData {
   price: number
   token_id: string
   name: string
+  max_supply: string
   creator: string
   artist_profile_picture: string
   collection_name: string
+  current_supply: string
+  master_edition?: {
+    mintAddress: string,
+    price: string,
+    startTime: string,
+    endTime: string,
+    buyLimit: 0,
+    authorityPublicKey: string,
+  }
 }
 
 export interface ActivityAPIData {

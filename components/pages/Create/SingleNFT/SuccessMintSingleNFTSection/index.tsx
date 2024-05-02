@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 // components
+import Lottie from 'lottie-react'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import OutlineButton from 'components/Button/OutlineButton'
 import LinkTextButton from 'components/Button/LinkTextButton'
-
 import TweetMintButton from 'components/Button/TweetMintButton'
 import MintOutlineButton from 'components/Button/MintOutlineButton'
+
+// resources
+import MintSuccessIcon from 'assets/lottery/mint-success.json'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -30,6 +33,8 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import ImageWithFoster from 'components/ImageWithFoster'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
@@ -78,22 +83,22 @@ const SuccessMintSingleNFTSection = props => {
       }, 1000)
     }, 1000)
   }
-
+  console.log(nftType, nftImage)
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
           <div className="w-full flex flex-wrap justify-center items-center mt-10 lg:mt-20 z-10">
             {nftType === 'image' ? (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+              <div className={`${styles.artArea}`} style={{ width: 550, height: 550 }}>
                 {nftImage !== '' && artWidth !== 0 ? (
                   <ImageWithFoster src={nftImage} className="w-full h-full object-contain" />
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
+                  <div className={`${styles.artArea}`} style={{ width: 550, height: 550 }} />
                 )}
               </div>
             ) : (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+              <div className={`${styles.artArea}`} style={{ width: 550, height: 550 }}>
                 {nftType === 'video' ? (
                   <video controls className="w-full">
                     <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -109,16 +114,16 @@ const SuccessMintSingleNFTSection = props => {
                 ) : nftImage !== '' && artWidth !== 0 ? (
                   <ImageWithFoster src={nftImage} className="w-full h-full rounded-[6px] object-contain" />
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
+                  <div className={`${styles.artArea}`} style={{ width: 550, height: 550 }} />
                 )}
               </div>
             )}
           </div>
-          <div className="max-w-[800px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
+          <div className="max-w-[800px] mt-[47px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
-              Your NFT has been minted successfully and can be viewed on the&nbsp;
-              <a
+              {nftName} has been minted successfully
+              {/* <a
                 className={styles.mintLinkText}
                 href={'/nft/' + nftAddress}
                 onClick={e => {
@@ -130,38 +135,42 @@ const SuccessMintSingleNFTSection = props => {
                 }}
               >
                 NFT page
-              </a>
+              </a> */}
             </div>
-            <div className="w-full flex justify-between gap-[30px] mt-[60px]">
-              <div className="w-full">
-                <TwitterShareButton
-                  title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-                  url={nftDetailUrl}
-                  beforeOnClick={() => {}}
-                  onShareWindowClose={() => {}}
-                  className="w-full"
-                >
-                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
-                </TwitterShareButton>
-              </div>
-              <div className="w-full">
-                <MintOutlineButton
-                  fullWidth
-                  label="List or Start Auction"
-                  backgroundColor="#63D6CD"
-                  onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={'var(--see-more-border)'}
-                />
+            <div className="w-full flex justify-center gap-[30px] mt-[47px]">
+              <div className="flex gap-[30px]">
+                <div className="w-full">
+                  <TwitterShareButton
+                    title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
+                    url={nftDetailUrl}
+                    beforeOnClick={() => {}}
+                    onShareWindowClose={() => {}}
+                    className="w-full"
+                  >
+                    <PrimaryButton width={300} label="Tweet your Mint" type="tweet" onClick={() => {}} />
+                  </TwitterShareButton>
+                </div>
+                <div className="w-full">
+                  <SecondaryButton
+                    width={300}
+                    label="List Artwork"
+                    type="list-artwork"
+                    onClick={() => router.push('/nft/' + nftAddress)}
+                  />
+                </div>
               </div>
             </div>
-            <div className="mt-[44px]">
+            {/* <div className="mt-[44px]">
               <LinkTextButton label="View on SolanaFM" link={explorerURL} />
-            </div>
+            </div> */}
+          </div>
+          <div className="absolute inset-0">
+            <Lottie animationData={MintSuccessIcon} loop={false} />
           </div>
         </div>
       ) : (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
-          <div className="w-full flex justify-center items-center z-10 mt-10">
+          <div className="w-full flex justify-center items-center z-10">
             <div className="z-10">
               <div className="w-full">
                 {nftType === 'image' ? (
@@ -198,9 +207,9 @@ const SuccessMintSingleNFTSection = props => {
           </div>
           <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>Your NFT has been minted successfully!</div>
-            <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
-              <div className="w-[221px]">
+            <div className={styles.mintText}>{nftName} has been minted successfully</div>
+            <div className="w-full flex flex-wrap justify-center gap-[12px] mt-[30px]">
+              <div className="w-full">
                 <TwitterShareButton
                   title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
                   url={nftDetailUrl}
@@ -208,21 +217,17 @@ const SuccessMintSingleNFTSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
+                  <PrimaryButton fullWidth label="Tweet your Mint" type="tweet" onClick={() => {}} />
                 </TwitterShareButton>
               </div>
-              <div className="w-[221px]">
-                <OutlineButton
+              <div className="w-full">
+                <SecondaryButton
                   fullWidth
-                  label="List or Start Auction"
-                  height="45px"
-                  onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={'var(--see-more-border)'}
+                  label="List Artwork"
+                  type="list-artwork"
+                  onClick={() => router.push('/nft/' + nftAddress)}
                 />
               </div>
-            </div>
-            <div className="mt-[33px]">
-              <LinkTextButton label="View on SolanaFM" link={explorerURL} />
             </div>
           </div>
         </div>

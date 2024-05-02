@@ -52,9 +52,9 @@
 }
 
 .label {
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: var(--text-gray-200-color);
   font-family: 'Muli-Regular';
-  font-size: 20px;
+  font-size: 16px;
   line-height: 24px;
 }
 

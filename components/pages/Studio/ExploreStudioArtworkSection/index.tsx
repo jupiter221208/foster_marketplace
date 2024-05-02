@@ -28,6 +28,7 @@ import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -70,18 +71,6 @@ const MarketplaceReleaseSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>Explore Studio Artwork</div>
-                <div className="flex gap-[8px] items-center">
-                  <div
-                    className={styles.seeMore}
-                    onClick={() => {
-                      setSeed(Math.random())
-                      setRefresh(new Date())
-                    }}
-                  >
-                    See More
-                  </div>
-                  <ArrowRightGreenIcon alt="" />
-                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Explore Studio Artwork</div>
@@ -102,7 +91,7 @@ const MarketplaceReleaseSection = props => {
         {!loading && (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 2}
+            slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 1}
             centeredSlides={false}
             spaceBetween={20}
             modules={[Autoplay, Navigation]}
@@ -138,10 +127,30 @@ const MarketplaceReleaseSection = props => {
         )}
 
         {loading && isVisibleFetching && (
-          <div className="w-full mt-[100px]">
+          <div className="w-full mt-[100px] h-[420px] lg:h-[260px]">
             <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
           </div>
         )}
+
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[265px] mt-[10px]">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                setSeed(Math.random())
+                setRefresh(new Date())
+                setLoading(true)
+                setIsFetching(true)
+                setIsVisibleFetching(true)
+              }}
+              fontFamily="Muli-Bold"
+              fontSize="16px"
+              height="40px"
+              borderRadius="8px"
+            />
+          </div>
+        </div>
       </section>
     )
   )
