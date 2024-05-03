@@ -67,7 +67,7 @@ const Home = () => {
 
   useEffect(() => {
     if (editionList && Array.isArray(editionList)) {
-      const openEditions = editionList.filter(item => item.maxSupply === null)
+      const openEditions = editionList.filter(item => item.maxSupply === '0' || item.maxSupply === null)
       setOpenEditionList(openEditions)
       const limitEditions = editionList.filter(
         item => item.maxSupply !== null && item.maxSupply !== '0' && item.maxSupply !== item.currentSupply
