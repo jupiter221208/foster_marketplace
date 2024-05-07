@@ -286,6 +286,42 @@ const Explore = () => {
               })
             }
           })
+        }
+        if (availability.value === 'editions') {
+          let liveEditions = response.filter(nft => {
+            if (nft.master_edition?.endTime !== null) {
+              let difference = getTimeDifference(nft.master_edition?.endTime)
+              if (difference < 0) return false
+            }
+            return true
+          })
+
+          if (liveEditions.length > 0) {
+            nfts = liveEditions.map(nft => {
+              return {
+                token_id: nft.token_id,
+                image: nft.asset_url,
+                name: nft.nft_name,
+                asset_type: nft.asset_type,
+                cover_image_url: nft.cover_image_url,
+                creator: nft.artist_username,
+                artist_profile_picture: nft.artist_profile_picture,
+                current_supply: nft.current_supply,
+                url: `/nft/${nft.token_id}`,
+                price: nft.list_price,
+                master_edition: nft.master_edition,
+                max_supply: nft.max_supply,
+                current_bid: nft.current_bid,
+                list_price: nft.list_price,
+                start_time: nft.start_time,
+                end_time: nft.end_time,
+                reserve_price: nft.reserve_price,
+                collection_name: nft.collection_name,
+              }
+            })
+          } else {
+            setIsVisibleFetching(false)
+          }
         } else {
           nfts = response.map(nft => {
             return {
@@ -313,7 +349,7 @@ const Explore = () => {
 
         setCurrentPage(curPage)
         setNftCurrentPage(curPage)
-        setTotalCount(count * curPage + nfts.length)
+        setTotalCount(count * curPage + response.length)
 
         if (reset === true) setNftList([...nfts])
         else setNftList([...nftList, ...nfts])
