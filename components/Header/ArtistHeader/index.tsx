@@ -230,7 +230,7 @@ const PrimaryHeader = () => {
                 </div>
 
                 <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                  Studio
+                  Merch
                 </div>
 
                 <div>

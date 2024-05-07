@@ -239,9 +239,7 @@ const PhysicalPrintDetail = props => {
     if (apparel) {
       let type = gender.type
       let name = apparel?.name
-      console.log(name, '==============name========')
       let list = apparelList.filter(item => item.base === name && item.sub_type == type)
-      console.log(list, '==============list========')
       if (list.length > 0) return list[0].label
       else return name
     }
