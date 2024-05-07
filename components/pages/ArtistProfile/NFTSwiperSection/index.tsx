@@ -14,9 +14,10 @@ import styles from './index.module.scss'
 
 // redux
 import { useDispatch } from 'react-redux'
+import NFTCreatedCard from 'components/Card/NFTCreatedCard'
 
 const NFTSwiperSection = props => {
-  const { nfts, showHideButton, isLoaded } = props
+  const { nfts, showHideButton, isLoaded, type = 'normal' } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -38,22 +39,41 @@ const NFTSwiperSection = props => {
         <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
           {nfts.map((item, index) => (
             <div className="col-span-12 lg:col-span-4 xl:col-span-3" key={index}>
-              <NFTCard
-                token_id={item.token_id}
-                image={item.asset_url}
-                assetType={item.asset_type}
-                coverImage={item.cover_image_url}
-                nftName={item.nft_name}
-                collectionName={item.collection_name}
-                artistName={item.artist_username}
-                price={item.list_price}
-                showHideButton={showHideButton}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push(`/nft/${item.token_id}`)
-                }}
-                key={item}
-              />
+              {type === 'created' ? (
+                <NFTCreatedCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  nftName={item.nft_name}
+                  collectionName={item.collection_name}
+                  artistName={item.artist_username}
+                  price={item.list_price}
+                  showHideButton={showHideButton}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/nft/${item.token_id}`)
+                  }}
+                  key={item}
+                />
+              ) : (
+                <NFTCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  nftName={item.nft_name}
+                  collectionName={item.collection_name}
+                  artistName={item.artist_username}
+                  price={item.list_price}
+                  showHideButton={showHideButton}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/nft/${item.token_id}`)
+                  }}
+                  key={item}
+                />
+              )}
             </div>
           ))}
         </div>

@@ -302,7 +302,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Listing Duration <span className={styles.auctionAsterisk}>*</span>
+            Listing Expiration <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div

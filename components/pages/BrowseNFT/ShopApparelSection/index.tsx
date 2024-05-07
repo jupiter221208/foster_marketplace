@@ -72,9 +72,12 @@ const ShopApparelSection = props => {
             spaceBetween={
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 20
             }
-            loop
             modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
+            className={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg'
+                ? 'navigationSwiper'
+                : 'noScrollNavigationSwiper'
+            }
           >
             {shopApparelList.map((item: any, index) => (
               <SwiperSlide key={index}>

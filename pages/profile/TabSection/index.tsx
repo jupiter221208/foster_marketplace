@@ -234,7 +234,7 @@ const TabSection = props => {
 
           {artworkType === 'created' && (
             <div className="w-full">
-              <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+              <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} type="created" />
               {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
                 <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
               )}
