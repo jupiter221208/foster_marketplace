@@ -56,8 +56,11 @@ const Home = () => {
 
     setEditionList([])
     dashboardAPI.getListedEditions('', '', 1, 15).then(response => {
-      if (Array.isArray(response)) {
-        setEditionList(response)
+      if (Array.isArray(response.limitedEditions)) {
+        setLimitedEditionList(response.limitedEditions)
+      }
+      if (Array.isArray(response.openEditions)) {
+        setOpenEditionList(response.openEditions)
       }
     }),
       error => {
@@ -65,16 +68,16 @@ const Home = () => {
       }
   }, [])
 
-  useEffect(() => {
-    if (editionList && Array.isArray(editionList)) {
-      const openEditions = editionList.filter(item => item.maxSupply === '0' || item.maxSupply === null)
-      setOpenEditionList(openEditions)
-      const limitEditions = editionList.filter(
-        item => item.maxSupply !== null && item.maxSupply !== '0' && item.maxSupply !== item.currentSupply
-      )
-      setLimitedEditionList(limitEditions)
-    }
-  }, [editionList])
+  // useEffect(() => {
+  //   if (editionList && Array.isArray(editionList)) {
+  //     const openEditions = editionList.filter(item => item.maxSupply === '0' || item.maxSupply === null)
+  //     setOpenEditionList(openEditions)
+  //     const limitEditions = editionList.filter(
+  //       item => item.maxSupply !== null && item.maxSupply !== '0' && item.maxSupply !== item.currentSupply
+  //     )
+  //     setLimitedEditionList(limitEditions)
+  //   }
+  // }, [editionList])
 
   return (
     // <MaintenancePage />

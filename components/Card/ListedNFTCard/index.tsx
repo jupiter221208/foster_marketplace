@@ -24,6 +24,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import { useDispatch } from 'react-redux'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
+import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 
 export type ListedNFTCardDataWithJson = ListingsAPIData & { json: JsonMetadata }
 
@@ -34,15 +35,29 @@ export interface ListedNFTCardProps {
   onActionClick: (data: ListedNFTCardDataWithJson) => void
   cancelAuction: any
   finalizeSale: any
+  processingNft: any
 }
 
-const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
+const ListedNFTCard = ({
+  data,
+  type,
+  onClick,
+  onActionClick,
+  cancelAuction,
+  finalizeSale,
+  processingNft,
+}: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
   const dispatch = useDispatch()
   const [showEditBtn, setShowEditBtn] = useState(false)
   const { metaplex: mx } = useMetaplex()
   const [deficiency, setDeficiency] = useState(0)
   const [deficencyModal, setDeficencyModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!processingNft) setLoading(false)
+  }, [processingNft])
 
   const isEnded = useMemo(() => {
     if (endTime) {
@@ -138,12 +153,17 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               <SecondaryDashboardButton label={'Cancel Listing'} onClick={() => {}} type="cancel" fullWidth />
             ) : (
               <>
-                {highestBid ? (
+                {loading ? (
+                  <LoadingDashboardButton fullWidth />
+                ) : highestBid ? (
                   isEnded ? (
                     <SecondaryDashboardButton
                       label={'Finalize Sale'}
                       type="finalize-sale"
-                      onClick={() => processFinalizeSale()}
+                      onClick={() => {
+                        setLoading(true)
+                        processFinalizeSale()
+                      }}
                       fullWidth
                     />
                   ) : (
@@ -159,7 +179,10 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   <SecondaryDashboardButton
                     label={'Cancel Auction'}
                     type="cancel"
-                    onClick={() => cancelAuction(data)}
+                    onClick={() => {
+                      setLoading(true)
+                      cancelAuction(data)
+                    }}
                     fullWidth
                   />
                 )}
@@ -237,102 +260,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
       )}
     </div>
   )
-  // ) : (
-  //   <div className={styles.container}>
-  //     <div className={styles.imageArea}>
-  //       <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
-  //         <div className="w-full h-full">
-  //           <ImageWithFoster width={800} src={assetJson?.image} className="max-w-full max-h-full object-cover" />
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className={styles.bottomSection}>
-  //       <div className="w-full flex justify-between items-center">
-  //         <div className={styles.nftName}>{name}</div>
-  //         <div className="flex items-center gap-[2px]">
-  //           <div className="mt-[2px]">
-  //             <SolanaLogoMobileIcon alt="" />
-  //           </div>
-  //           <div className={styles.price}>{getPriceValue(price)}</div>
-  //         </div>
-  //       </div>
-
-  //       <div className="w-full flex justify-between items-center mt-[6px]">
-  //         {type === 'fixed' ? (
-  //           <GradientButton
-  //             label={'Update'}
-  //             onClick={() => onActionClick({ ...data, json: assetJson })}
-  //             fullWidth
-  //             height="28px"
-  //             fontSize="12px"
-  //             borderRadius="5px"
-  //             borderWidth="1px"
-  //           />
-  //         ) : type === 'edition' ? (
-  //           <GradientButton
-  //             label={'Cancel Listing'}
-  //             onClick={() => {}}
-  //             height="28px"
-  //             fontSize="12px"
-  //             fullWidth
-  //             borderRadius="5px"
-  //             borderWidth="1px"
-  //           />
-  //         ) : (
-  //           <>
-  //             {highestBid ? (
-  //               isEnded ? (
-  //                 <GradientButton
-  //                   label={'Finalize Sale'}
-  //                   onClick={() => processFinalizeSale()}
-  //                   height="28px"
-  //                   fontSize="12px"
-  //                   fullWidth
-  //                   borderRadius="5px"
-  //                   borderWidth="1px"
-  //                 />
-  //               ) : (
-  //                 <Button
-  //                   width={'100%'}
-  //                   height="28px"
-  //                   fontSize="12px"
-  //                   paddingLeft="7px"
-  //                   paddingRight="7px"
-  //                   label="Cancel Auction"
-  //                   disabled={true}
-  //                   backgroundColor="#202427"
-  //                   color="rgba(239,240, 246, 0.6)"
-  //                   borderRadius="5px"
-  //                 />
-  //               )
-  //             ) : (
-  //               <GradientButton
-  //                 fullWidth
-  //                 label={'Cancel Auction'}
-  //                 onClick={() => cancelAuction(data)}
-  //                 height="28px"
-  //                 fontSize="12px"
-  //                 borderRadius="5px"
-  //                 borderWidth="1px"
-  //               />
-  //             )}
-  //           </>
-  //         )}
-  //       </div>
-  //     </div>
-  //     {deficencyModal && (
-  //       <EscrowDeficientModal
-  //         onFinalize={() => finalizeSale(data)}
-  //         open={deficencyModal}
-  //         close={() => setDeficencyModal(false)}
-  //         highestBid={parseFloat(highestBid?.amount)}
-  //         deficiency={deficiency}
-  //         nftName={name}
-  //         collectionName={''}
-  //       />
-  //     )}
-  //   </div>
-  // )
 }
 
 export default ListedNFTCard

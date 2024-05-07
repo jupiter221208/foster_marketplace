@@ -165,8 +165,8 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
   return (
     <div className="w-full">
-      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${fromNFT ? 'mt-[25px]' : 'mt-[55px]'}`}>
-        <div className={`w-full flex justify-between `}>
+      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${fromNFT ? 'mt-[0px]' : 'mt-[55px]'}`}>
+        <div className={`w-full flex justify-between mt-[30px]`}>
           <div className={styles.auctionDetail}>Start Auction</div>
           <div className={styles.backBtn} onClick={() => closeModal()}>
             <div className="w-full flex gap-[13px] justify-center items-center">

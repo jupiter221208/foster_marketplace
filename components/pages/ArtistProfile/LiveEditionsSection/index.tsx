@@ -53,10 +53,20 @@ const LiveEditionsSection = props => {
       //   setIsVisibleFetching(true)
       // } else setIsVisibleFetching(false)
 
-      let liveData = response.filter(item => getTimeDifference(item.endTime) > 0 || item.endTime === null)
+      let openData = [],
+        limitData = []
+      if (Array.isArray(response.limitedEditions)) {
+        limitData = response.limitedEditions
+      }
 
-      setLiveAuctionList([...liveAuctionList, ...liveData])
-      fetchNftData(liveData)
+      if (Array.isArray(response.openEditions)) {
+        openData = response.openEditions
+      }
+
+      // let liveData = response.filter(item => getTimeDifference(item.endTime) > 0 || item.endTime === null)
+
+      setLiveAuctionList([...liveAuctionList, ...limitData, ...openData])
+      fetchNftData([...limitData, ...openData])
 
       if (isLoaded === false) {
         setShowSection(true)
