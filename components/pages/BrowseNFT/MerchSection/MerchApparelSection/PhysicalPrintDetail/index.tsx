@@ -339,8 +339,8 @@ const PhysicalPrintDetail = props => {
               <div className={print.type === 'back' ? styles.selectedPrint : styles.unselectedPrint}>
                 <Image
                   src={apparelAssets ? apparelAssets['back'] : ''}
-                  width={170}
-                  height={170}
+                  width={150}
+                  height={150}
                   alt=""
                   className="w-full h-full"
                 />
@@ -418,7 +418,7 @@ const PhysicalPrintDetail = props => {
                 {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
               </div>
             </div>
-            <div className={`${styles.usd} mt-[4px]`}>$ {cost}</div>
+            <div className={`${styles.usd} mt-[4px] text-right`}>$ {cost}</div>
           </div>
         </div>
 
