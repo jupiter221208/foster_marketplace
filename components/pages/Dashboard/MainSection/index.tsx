@@ -221,20 +221,11 @@ const MainSection = () => {
             </div>
           </div>
           <div className="flex gap-[10px] mt-[24px]">
-            <div className="flex gap-[9px] lg:gap-[15px] items-center">
+            <div className="hidden lg:flex gap-[9px] lg:gap-[15px] items-center">
               <div className={styles.settingBtn} onClick={() => router.push('/settings')}>
                 <SettingsMobileIcon />
                 <div>Settings</div>
               </div>
-              {/* <IconButtonWithSVG
-                icon={<SettingsMobileIcon />}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 40}
-                onClick={() => router.push('/settings')}
-                backgroundColor="var(--background-main-color)"
-                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
-                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 20}
-              /> */}
               <WalletFilterMenu
                 label={'Wallet & Socials'}
                 data={walletList}
@@ -255,6 +246,31 @@ const MainSection = () => {
                   }
                 }}
               />
+            </div>
+            <div className="flex lg:hidden gap-[9px] lg:gap-[15px] items-center">
+              <WalletFilterMenu
+                label={'Wallet & Socials'}
+                data={walletList}
+                selectedItem={selectedWallet}
+                setSelectedItem={item => {
+                  if (item.type === 'address') {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                  } else if (item.type === 'twitter') {
+                    window.open(twitterUrl)
+                  } else if (item.type === 'instagram') {
+                    window.open(instagramUrl)
+                  } else if (item.type === 'website') {
+                    window.open(siteUrl)
+                  } else if (item.type === 'land') {
+                    window.open(threelandUrl)
+                  } else if (item.type === 'solar') {
+                    window.open(solrPlexUrl)
+                  }
+                }}
+              />
+              <div className={styles.settingBtn} onClick={() => router.push('/settings')}>
+                <SettingsMobileIcon />
+              </div>
             </div>
           </div>
         </div>

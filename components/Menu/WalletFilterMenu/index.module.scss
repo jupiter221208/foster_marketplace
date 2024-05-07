@@ -5,9 +5,9 @@
   padding: 0px 8px;
   gap: 6px;
   @media (min-width: 1024px) {  
-  width: 150px;
-  padding: 0px 10px;
-  gap: 9px;
+    width: 150px;
+    padding: 0px 10px;
+    gap: 9px;
   }
   height: 35px;
   font-family: 'Muli-SemiBold';
@@ -31,7 +31,10 @@
 
 .menuArea {
   position: absolute;
-  width: 150px;
+  width: 140px;
+  @media (min-width: 1024px) {  
+    width: 150px;
+  }
   top: 40px;
   right: 0px;
   padding: 10px 15px;
