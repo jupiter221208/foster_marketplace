@@ -61,6 +61,11 @@ const Step03SingleNFTSection = props => {
   const [collectionList, setCollectionList] = useState([])
 
   useEffect(() => {
+    setDisabledNextButton(false)
+    setEditionType(EditionList[0])
+  }, [])
+
+  useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
 
