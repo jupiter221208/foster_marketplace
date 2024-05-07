@@ -60,7 +60,7 @@
   border-radius: 10px;
   padding: 13px;
   @media (min-width: 1024px) {
-    padding: 30px;
+    padding: 25px 30px 20px 30px;
     max-width: 604px;
   }
 }
@@ -194,14 +194,14 @@
 }
 
 .sizeChart {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
   }
   font-size: 14px;
   font-size: 18px;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   cursor: pointer;
   &:hover {
     color: var(--profile-active-border-color);
@@ -209,10 +209,16 @@
 }
 
 .borderLine {
-  width: 100%;
+  width: calc(100% + 26px);
+  margin-left: -13px;
+  @media (min-width: 1024px) {
+    width: calc(100% + 60px);
+    margin-left: -30px;
+    margin-top: 25px;
+  }
   height: 1px;
   background: var(--bg-303030-DDDCDC);
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .subTotal {
@@ -230,6 +236,13 @@
   font-size: 18px;
   line-height: 22px;
   color: var(--text-gray-200-color);
+}
+
+.usd {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .separator {

@@ -314,33 +314,12 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[20px] lg:mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[25px]">
           <div className={styles.placementTitle}>Description</div>
           <div className={styles.description}>{getApparelDescription()}</div>
         </div>
 
-        <div className="w-full mt-[20px] lg:mt-[30px]">
-          <div className={styles.placementTitle}>Select Color</div>
-          <div className="mt-[15px] flex gap-[11px] lg:gap-[15px]">
-            <div
-              className={`w-[34px] h-[34px] flex justify-center items-center ${
-                color?.type === 'white' ? styles.colorBorder : ''
-              }`}
-            >
-              <div className={styles.whiteColor} onClick={() => setColor(ColorType[0])} />
-            </div>
-            <div
-              className={`w-[34px] h-[34px] flex justify-center items-center ${
-                color?.type === 'black' ? styles.colorBorder : ''
-              }`}
-            >
-              <div className={styles.blackColor} onClick={() => setColor(ColorType[1])} />
-            </div>
-          </div>
-          {/* <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} /> */}
-        </div>
-
-        <div className="w-full mt-[20px] lg:mt-[30px]">
+        <div className="w-full mt-[20px] lg:mt-[25px]">
           {/* <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} /> */}
           <div className={styles.placementTitle}>Select Placement</div>
           <div className="mt-[15px] flex gap-[16px] lg:gap-[30px]">
@@ -371,8 +350,27 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[35px] lg:mt-[25px] flex flex-wrap gap-[16px] justify-between items-center">
-          <div className="flex gap-[18px]">
+        <div className="w-full mt-[20px] lg:mt-[25px] flex justify-between">
+          <div>
+            <div className={styles.placementTitle}>Select Color</div>
+            <div className="mt-[15px] flex gap-[11px] lg:gap-[15px]">
+              <div
+                className={`w-[34px] h-[34px] flex justify-center items-center ${
+                  color?.type === 'white' ? styles.colorBorder : ''
+                }`}
+              >
+                <div className={styles.whiteColor} onClick={() => setColor(ColorType[0])} />
+              </div>
+              <div
+                className={`w-[34px] h-[34px] flex justify-center items-center ${
+                  color?.type === 'black' ? styles.colorBorder : ''
+                }`}
+              >
+                <div className={styles.blackColor} onClick={() => setColor(ColorType[1])} />
+              </div>
+            </div>
+          </div>
+          <div>
             <DropdownSizeMenu
               label={size?.name}
               data={apparel && SizeType[`${apparel.name}`][`${gender?.type}`]}
@@ -381,6 +379,28 @@ const PhysicalPrintDetail = props => {
                 setSize(item)
               }}
             />
+            <div className="flex items-center mt-[10px]">
+              <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                Size Chart
+              </div>
+              {/* <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+                <path
+                  id="angle-down-9"
+                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+                  transform="translate(-6.754 -8.879)"
+                  fill="var(--chevron-up-icon-color)"
+                />
+              </svg> */}
+            </div>
+          </div>
+          {/* <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} /> */}
+        </div>
+
+        <div className={styles.borderLine} />
+
+        <div className="w-full mt-[20px] flex justify-between items-center">
+          {/* <div className={styles.subTotal}>Subtotal:</div> */}
+          <div className="flex gap-[18px]">
             <QuantityCard
               qty={quantity}
               onMinus={() => {
@@ -391,34 +411,14 @@ const PhysicalPrintDetail = props => {
               }}
             />
           </div>
-          <div className="flex gap-[7px] items-center">
-            <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-              Size Chart
-            </div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
-              <path
-                id="angle-down-9"
-                d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
-                transform="translate(-6.754 -8.879)"
-                fill="var(--chevron-up-icon-color)"
-              />
-            </svg>
-          </div>
-        </div>
-
-        <div className={styles.borderLine} />
-
-        <div className="w-full mt-[18px] flex justify-between items-center">
-          <div className={styles.subTotal}>Subtotal:</div>
-          <div className="flex items-center gap-[15px]">
-            <div className={styles.price}>$ {cost}</div>
-            <div className={styles.separator}></div>
-            <div className="flex gap-[10px] items-center">
+          <div>
+            <div className="flex gap-[6px] items-center">
               <SolanaLogoIcon alt="" className="mt-[2px]" />
               <div className={styles.price}>
                 {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
               </div>
             </div>
+            <div className={`${styles.usd} mt-[4px]`}>$ {cost}</div>
           </div>
         </div>
 
