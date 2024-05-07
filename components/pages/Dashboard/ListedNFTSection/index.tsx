@@ -88,6 +88,7 @@ const ListedNFTSection = props => {
   const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [liveEditions, setLiveEditions] = useState([])
+  const [processingNft, setProcessingNft] = useState(false)
   const [active, setActive] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [filterList, setFilterList] = useState([
@@ -311,7 +312,7 @@ const ListedNFTSection = props => {
   ])
 
   const cancelAuction = async ({ address, sellerAddress, name }) => {
-    setOpenProgressingModal(true)
+    setProcessingNft(true)
     try {
       await refreshToken()
 
@@ -326,25 +327,23 @@ const ListedNFTSection = props => {
               type: 'success',
             },
           ])
-          setOpenProgressingModal(false)
           setTimeout(() => {
             setShowAlert(true)
             setTimeout(() => {
               setMyListedNFTs()
               dispatch({ type: 'set', isGetMyNFTs: false })
+              setProcessingNft(false)
             }, 500)
           }, 500)
         }
       })
     } catch (e) {
-      setOpenProgressingModal(false)
+      setProcessingNft(false)
     }
   }
 
   const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
-    setTimeout(() => {
-      setOpenProgressingModal(true)
-    }, 500)
+    setProcessingNft(true)
 
     try {
       await refreshToken()
@@ -366,17 +365,17 @@ const ListedNFTSection = props => {
               type: 'success',
             },
           ])
-          setOpenProgressingModal(false)
           setTimeout(() => {
             setShowAlert(true)
             setTimeout(() => {
               setMyListedNFTs()
               dispatch({ type: 'set', isGetMyNFTs: false })
+              setProcessingNft(false)
             }, 800)
           }, 800)
         })
     } catch (e) {
-      setOpenProgressingModal(false)
+      setProcessingNft(false)
     }
   }
 
@@ -491,6 +490,7 @@ const ListedNFTSection = props => {
                   onActionClick={item => handleSelectData(item)}
                   cancelAuction={cancelAuction}
                   finalizeSale={finalizeSale}
+                  processingNft={processingNft}
                 />
               ) : (
                 <ListedEditionCard
