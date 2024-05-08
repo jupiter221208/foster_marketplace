@@ -516,7 +516,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
                 mintPrice === '' ||
                 parseFloat(mintPrice) === 0 ||
                 ((hours === '' || parseFloat(hours) === 0) && (parseFloat(days) === 0 || days === '')) ||
-                buyLimit === '' ||
                 parseFloat(buyLimit) === 0
               }
               onClick={() => {
