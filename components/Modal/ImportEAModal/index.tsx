@@ -91,8 +91,7 @@ const ImportEAModal = props => {
                       if (url.includes(EXCHANGE_ART_PREFIX) && url.length > EXCHANGE_ART_PREFIX.length) onImportUrl(url)
                       else setShowErrorValidUrl(true)
                     }}
-                    disabled={url.length === 0}
-                    backgroundColor="transparent"
+                    disabled={!(url.includes(EXCHANGE_ART_PREFIX) && url.length > EXCHANGE_ART_PREFIX.length)}
                   />
                 </div>
               </Dialog.Panel>
