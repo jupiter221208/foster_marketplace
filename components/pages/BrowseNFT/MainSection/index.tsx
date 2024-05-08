@@ -1276,6 +1276,7 @@ const MainSection = ({
                 fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
+                  setShowAuctionSection(false)
                 }}
               />
             </div>
@@ -1528,6 +1529,7 @@ const MainSection = ({
                             onClick={() => {
                               setListEditionType('update')
                               setShowListEditionDetail(true)
+                              setShowAuctionSection(true)
                             }}
                           />
                           <div className="mt-[15px]">
@@ -1808,6 +1810,7 @@ const MainSection = ({
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
+                                    setShowAuctionSection(true)
                                   }}
                                 />
                               </div>
