@@ -210,7 +210,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
             <div className="w-[44%] px-[44px]">
               <div className={styles.tokenArea}>
                 <div className={styles.tokenTitle}>Could not process the following tokens:</div>
-                <div className="mt-[30px]">
+                <div className="mt-[30px] overflow-auto max-h-[320px]">
                   {errorList.map(([nftId, reason], index) => {
                     return (
                       <div key={index} className={styles.tokenText}>
