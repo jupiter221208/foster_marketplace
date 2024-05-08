@@ -62,7 +62,7 @@ const Step03SingleNFTSection = props => {
 
   useEffect(() => {
     setDisabledNextButton(false)
-    setEditionType(EditionList[0])
+    if (type !== 0) setEditionType(EditionList[0])
   }, [])
 
   useEffect(() => {
