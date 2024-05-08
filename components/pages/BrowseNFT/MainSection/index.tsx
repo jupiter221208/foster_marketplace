@@ -1171,12 +1171,6 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      {/* {nftType.includes('audio') && (
-        <div className={`${styles.nftAudioBG} lg:block hidden`}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-          <div className={styles.overlay} />
-        </div>
-      )} */}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
         <div className={`lg:w-[60%] w-full`}>
           <NFTAssetSection
