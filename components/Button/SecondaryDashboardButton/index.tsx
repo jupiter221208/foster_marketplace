@@ -9,6 +9,8 @@ import BackIcon from 'assets/icons/back-icon.svg?component'
 import CancelIcon from 'assets/icons/cancel-icon.svg?component'
 import UnsaveIcon from 'assets/icons/unsave-icon.svg?component'
 import UnhideIcon from 'assets/icons/unhide-button-icon.svg?component'
+import UpdateRelistIcon from 'assets/icons/update-relist-icon.svg?component'
+import NextArrowIcon from 'assets/icons/next-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -43,6 +45,10 @@ const SecondaryDashboardButton = props => {
             <UnsaveIcon />
           ) : type === 'unhide' ? (
             <UnhideIcon />
+          ) : type === 'update-relist' ? (
+            <UpdateRelistIcon />
+          ) : type === 'next' ? (
+            <NextArrowIcon />
           ) : (
             <></>
           )}

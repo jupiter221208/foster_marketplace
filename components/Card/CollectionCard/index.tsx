@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 // next component
 
@@ -8,7 +8,6 @@ import Link from 'next/link'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
-import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 
 const CollectionCard = props => {
@@ -41,7 +40,7 @@ const CollectionCard = props => {
         </Link>
         <div className={styles.bottomSection}>
           <div className="w-full">
-            <PrimaryDashboardButton
+            <SecondaryDashboardButton
               fullWidth
               label="View"
               type="next"
