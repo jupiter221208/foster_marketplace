@@ -11,7 +11,7 @@
     "base": "Hoodie",
     "range": "S - 3XL",
     "top": 10,
-    "description": "Beat the cold with this premium pullover hoodie. Made with 80% Cotton and 20% Polyester, this pullover is double stitched for durability. Pick one in your favorite color to match your style."
+    "description": "Premium unisex hoodie made from tight-knit cotton/poly fleece with a 100% cotton face, providing a more tailored fit and superior printability."
   },
   {
     "id": 1,
@@ -39,7 +39,7 @@
     "base": "Sweatshirt",
     "range": "S - 2XL",
     "top": 10,
-    "description": "Made with 85% organic ring-spun cotton and 15% recycled polyester, this unisex sweatshirt provides a cozy feeling that’s great for daily wear. Pick one in your favorite color to match your style."
+    "description": "Iconic unisex crewneck made from 100% organic cotton fabric and 350 gsm brushed fleece, providing a cozy feeling that’s great for daily wear."
   },
   {
     "id": 3,
@@ -53,7 +53,7 @@
     "base": "Long Sleeve",
     "range": "XS - 2XL",
     "top": 10,
-    "description": "This premium long sleeve is made with 100% airlume combed and ring-spun cotton. The shoulders have taping for better fit and dual side seams to hold the garment’s shape overtime."
+    "description": "Premium long sleeve made from 100% soft-combed, ring spun airlume cotton. Look good, feel good."
   },
   {
     "id": 4,
@@ -67,5 +67,5 @@
     "base": "T-Shirt",
     "range": "S - 2XL",
     "top": 25,
-    "description": "Made with 100% combed and ring-spun cotton in a feminine fit that is as stylish as it is comfy. The ribbed knitting makes the collar highly elastic while the twill tape on the shoulder seams stabilizes the back of the shirt and prevents stretching."
+    "description": "A fitted women's tee made from soft, organic cotton (155 gsm). Great for eco-conscious lassies looking for both style and comfort."
   }]
