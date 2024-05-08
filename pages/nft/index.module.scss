@@ -84,6 +84,8 @@
   width: 100%;
   padding-bottom: 200px;
   background: transparent;
+  display: flex;
+  justify-content: center;
   @media (min-width: 1024px) {
     background: var(--bg-1C1C1C-F3F2F0);
   }
@@ -93,10 +95,9 @@
   position: relative;
   width: 100%;
   display: flex;
-  flex-direction: row;
   background: transparent;
   border-radius: 12px 12px 0px 0px;
-  align-items: center;
+  justify-content: center;
   color: var(--text-gray-200-color);
 }
 

@@ -280,7 +280,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
           if (response instanceof Array) {
-            let resData = response.filter(item => item.token_id !== collectionId)
+            let resData = response.filter(item => item.token_id !== nftDetail.mintAddress.toString())
             if (resData.length === 0) return
             if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
               setCollectionNFTs(resData.filter(item => item.cover_image_url !== null))
@@ -391,54 +391,48 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             )}
 
             {!showAuctionSection && (
-              <div className="w-full flex justify-center">
-                <div className="g-container">
-                  <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
-                    <div className={styles.selectedTab}>
-                      <div className="g-container">
-                        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-                      </div>
-                      <div className={styles.selectedTabBorder} />
-                    </div>
-                    <div className={styles.background}>
-                      <div className={`g-container ${styles.mainContainer}`}>
-                        {activeTab === 0 ? (
-                          <NFTActivityInfoSection activityList={activityList} />
-                        ) : activeTab === 1 ? (
-                          <div>
-                            {collectionId && collectionNFTs && (
-                              <MoreCollectionSection
-                                collectionNFTs={collectionNFTs}
-                                collectionId={collectionId}
-                                collectionName={collectionName}
-                                mintAddress={nftDetail.mintAddress.toString()}
-                              />
-                            )}
-                            {artistInfo && collectionList && (
-                              <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
-                            )}
-                            <MoreCategorySection
-                              categories={categories}
-                              categoryCollectionList={categoryCollectionList}
-                            />
-                          </div>
-                        ) : (
-                          merchToggle && (
-                            <ShopApparelSection
-                              title="Shop Apparel"
-                              type="apparel"
-                              nftDetail={nftDetail}
-                              nftCreator={artistInfo?.name}
-                              shopApparelList={ShopApparelList}
-                              openMerchPage={data => {
-                                setMerchData(data)
-                                setOpenMerchPage(true)
-                              }}
-                            />
-                          )
+              <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
+                <div className={styles.selectedTab}>
+                  <div className="g-container">
+                    <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                  </div>
+                  <div className={styles.selectedTabBorder} />
+                </div>
+
+                <div className={styles.background}>
+                  <div className={`g-container ${styles.mainContainer}`}>
+                    {activeTab === 0 ? (
+                      <NFTActivityInfoSection activityList={activityList} />
+                    ) : activeTab === 1 ? (
+                      <div>
+                        {collectionId && collectionNFTs && (
+                          <MoreCollectionSection
+                            collectionNFTs={collectionNFTs}
+                            collectionId={collectionId}
+                            collectionName={collectionName}
+                            mintAddress={nftDetail.mintAddress.toString()}
+                          />
                         )}
+                        {artistInfo && collectionList && (
+                          <MoreArtistSection artistInfo={artistInfo} collectionList={collectionList} />
+                        )}
+                        <MoreCategorySection categories={categories} categoryCollectionList={categoryCollectionList} />
                       </div>
-                    </div>
+                    ) : (
+                      merchToggle && (
+                        <ShopApparelSection
+                          title="Shop Apparel"
+                          type="apparel"
+                          nftDetail={nftDetail}
+                          nftCreator={artistInfo?.name}
+                          shopApparelList={ShopApparelList}
+                          openMerchPage={data => {
+                            setMerchData(data)
+                            setOpenMerchPage(true)
+                          }}
+                        />
+                      )
+                    )}
                   </div>
                 </div>
               </div>
