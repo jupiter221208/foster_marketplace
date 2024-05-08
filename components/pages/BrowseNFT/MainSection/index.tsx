@@ -1171,12 +1171,6 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      {/* {nftType.includes('audio') && (
-        <div className={`${styles.nftAudioBG} lg:block hidden`}>
-          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-          <div className={styles.overlay} />
-        </div>
-      )} */}
       <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
         <div className={`lg:w-[60%] w-full`}>
           <NFTAssetSection
@@ -1276,6 +1270,7 @@ const MainSection = ({
                 fromNFT={true}
                 onClose={() => {
                   setShowListEditionDetail(false)
+                  setShowAuctionSection(false)
                 }}
               />
             </div>
@@ -1528,6 +1523,7 @@ const MainSection = ({
                             onClick={() => {
                               setListEditionType('update')
                               setShowListEditionDetail(true)
+                              setShowAuctionSection(true)
                             }}
                           />
                           <div className="mt-[15px]">
@@ -1808,6 +1804,7 @@ const MainSection = ({
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
+                                    setShowAuctionSection(true)
                                   }}
                                 />
                               </div>

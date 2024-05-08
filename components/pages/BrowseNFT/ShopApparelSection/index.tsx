@@ -84,6 +84,7 @@ const ShopApparelSection = props => {
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
                   {type === 'apparel' ? (
                     <StudioReleaseCard
+                      type="nft"
                       image={getStudioItem(item)}
                       nftImage={nftCoverUrl}
                       nftName={nftName}

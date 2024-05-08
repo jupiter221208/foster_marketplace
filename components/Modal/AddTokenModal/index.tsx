@@ -126,6 +126,10 @@ const AddTokenModal = props => {
                 <div className="w-full mt-[20px] lg:mt-[15px]">
                   <GradientButton
                     label="Import"
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
+                    disabled={tokenList.length === 1 && tokenList[0].token_id === ''}
                     fullWidth
                     onClick={() => {
                       onImportMintList(
@@ -144,7 +148,6 @@ const AddTokenModal = props => {
                         setTokenList([{ token_id: '' }])
                       }, 1000)
                     }}
-                    backgroundColor="transparent"
                   />
                 </div>
               </Dialog.Panel>

@@ -217,21 +217,6 @@ const NFTCreatedCard = props => {
             </div>
           </div>
         </div>
-        {/* <div className={styles.bottomInfo}>
-          {price ? (
-            <div className="">
-              <div className={styles.priceLabel}>Price</div>
-              <div className="w-full flex items-center mt-[6px]">
-                <SolanaLogoIcon />
-                <div className={styles.price}>{price}</div>
-              </div>
-            </div>
-          ) : (
-            <div className="h-full flex items-center">
-              <div className={styles.unlisted}>Unlisted</div>
-            </div>
-          )}
-        </div> */}
       </div>
 
       {displayHideConfirm && (

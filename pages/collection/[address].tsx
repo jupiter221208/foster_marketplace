@@ -203,7 +203,16 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           />
         ) : (
           <div className="w-full">
-            <MainSection nfts={nfts} data={collectionData} hasloading={hasloading} publicKey={publicKey} />
+            <MainSection
+              nfts={nfts}
+              data={collectionData}
+              hasloading={hasloading}
+              publicKey={publicKey}
+              collectionId={address}
+              collectionName={publicCollectionData?.collection_name}
+              coverUrl={publicCollectionData?.cover_image}
+              handleCollectionImport={handleCollectionImport}
+            />
             <div className="w-full flex justify-center">
               <div className="g-container">
                 <TabSection
@@ -211,11 +220,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                   collectionId={address}
                   minter={publicCollectionData?.minter_id}
                   collectionName={publicCollectionData?.collection_name}
-                  coverUrl={publicCollectionData?.cover_image}
                   artistName={publicCollectionData?.artist_username}
-                  // description={publicCollectionData?.description}
-                  // categories={publicCollectionData?.categories}
-                  handleCollectionImport={handleCollectionImport}
                 />
               </div>
             </div>

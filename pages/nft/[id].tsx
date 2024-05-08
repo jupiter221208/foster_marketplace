@@ -280,7 +280,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
           if (response instanceof Array) {
-            let resData = response.filter(item => item.token_id !== collectionId)
+            let resData = response.filter(item => item.token_id !== nftDetail.mintAddress.toString())
             if (resData.length === 0) return
             if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
               setCollectionNFTs(resData.filter(item => item.cover_image_url !== null))
@@ -398,6 +398,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   </div>
                   <div className={styles.selectedTabBorder} />
                 </div>
+
                 <div className={styles.background}>
                   <div className={`g-container ${styles.mainContainer}`}>
                     {activeTab === 0 ? (

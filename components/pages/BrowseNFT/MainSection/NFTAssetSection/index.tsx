@@ -112,16 +112,16 @@ const NFTAssetSection = props => {
         <div className={styles.audioContainer}>
           <div className={styles.audioBackground}>
             {nftAssetUrl && (
-              <div className="w-full max-w-[600px] h-full rounded-[35px] overflow-hidden">
+              <div className="w-full max-w-[530px] h-full overflow-hidden">
                 <ImageWithFoster
                   src={nftCoverUrl}
                   width={900}
                   showPlaceHolder={false}
-                  className="min-w-full min-h-full object-cover"
+                  className="min-w-full min-h-full object-cover rounded-[10px] overflow-hidden"
                 />
               </div>
             )}
-            <div className="w-full flex justify-center mb-[30px]">
+            <div className="w-full flex justify-center mb-[20px]">
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
               </div>
