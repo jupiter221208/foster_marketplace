@@ -196,8 +196,8 @@ const MainSection = props => {
               <>
                 {croppedBanner !== '' ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={croppedBanner}
                       className="w-full h-[350px] object-cover"
                     />
