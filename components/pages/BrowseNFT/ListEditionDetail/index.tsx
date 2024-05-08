@@ -515,8 +515,10 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               disabled={
                 mintPrice === '' ||
                 parseFloat(mintPrice) === 0 ||
-                ((hours === '' || parseFloat(hours) === 0) && (parseFloat(days) === 0 || days === '')) ||
-                parseFloat(buyLimit) === 0
+                (durationType === 'custom' &&
+                  (hours === '' || parseFloat(hours) === 0) &&
+                  (parseFloat(days) === 0 || days === '')) ||
+                (buyLimitType === 'custom' && (buyLimit === '' || parseFloat(buyLimit) === 0))
               }
               onClick={() => {
                 if (listingType === 'list') handleListEdition()
