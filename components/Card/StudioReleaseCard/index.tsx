@@ -109,7 +109,7 @@ const StudioReleaseCard = props => {
     <div className="w-full h-full relative">
       <div className={styles.imageArea}>
         <div
-          className={styles.imageContent}
+          className={`${styles.imageContent} ${type === 'nft' ? '' : styles.contentBG}`}
           onClick={() => {
             onClick(colorNumber, userName, image)
           }}
@@ -150,6 +150,7 @@ const StudioReleaseCard = props => {
                         mixBlendMode: color.blendMode,
                       }}
                       src={nftImage}
+                      width={200}
                       className="max-w-full max-h-full object-cover"
                     />
                   </div>
@@ -161,6 +162,7 @@ const StudioReleaseCard = props => {
                       style={{
                         mixBlendMode: color.blendMode,
                       }}
+                      width={200}
                       src={nftImage}
                       className="w-full object-contain flex items-start"
                     />
@@ -179,7 +181,7 @@ const StudioReleaseCard = props => {
             <div className="flex justify-center mx-[20px]">
               <div
                 className={`${styles.overText} ${
-                  type === 'release'
+                  type === 'release' || type === 'nft'
                     ? viewport === 'xs' || viewport === 'sm' || viewport === 'md'
                       ? 'max-w-[140px]'
                       : 'max-w-[250px]'

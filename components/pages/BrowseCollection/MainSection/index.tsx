@@ -19,7 +19,6 @@ import { namePublicFile, useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
 import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
@@ -37,11 +36,16 @@ import CollectionDetailModal from 'components/Modal/CollectionDetailModal'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import Image from 'next/image'
+import MenuCreateCollection from 'components/Menu/MenuCreateCollection'
+import AddTokenModal from 'components/Modal/AddTokenModal'
+import ImportEAModal from 'components/Modal/ImportEAModal'
+import { useRouter } from 'next/router'
 
 const MainSection = props => {
-  const { nfts, data, publicKey, hasloading } = props
+  const { nfts, data, publicKey, hasloading, collectionId, coverUrl, collectionName, handleCollectionImport } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const inputBannerFile = useRef<any>(null)
   const [items, setItems] = useState<any>()
@@ -50,6 +54,8 @@ const MainSection = props => {
   const [totalVolume, setTotalVolume] = useState<number>(0.0)
   const [saved, setSaved] = useState<boolean>(false)
   const [showReadMore, setShowReadMore] = useState(false)
+  const [showAddTokenModal, setShowAddTokenModal] = useState(false)
+  const [showImportEAModal, setShowImportEAModal] = useState(false)
   const [openShareModal, setOpenShareModal] = useState(false)
   const { setVisible } = useWalletModal()
   const [bannerUploadingToS3, setBannerUploadingToS3] = useState<boolean>(false)
@@ -130,7 +136,7 @@ const MainSection = props => {
     collectionAPI.updateCollectionBanner(data?.collection_id, { banner_image: bannerPictureUrl }).then(
       response => {
         if (response !== null) {
-          dispatch({ type: 'set', profileInfo: response })
+          // dispatch({ type: 'set', profileInfo: response })
         }
       },
       error => {
@@ -170,21 +176,30 @@ const MainSection = props => {
     setOpenBannerEditorModal(true)
   }
 
+  const uploadNew = () => {
+    dispatch({ type: 'set', mintCollectionStep: 3 })
+    dispatch({ type: 'set', collectionMintAddress: collectionId })
+    dispatch({ type: 'set', collectionCoverUrl: coverUrl })
+    dispatch({ type: 'set', collectionMintName: collectionName })
+    dispatch({ type: 'set', collectionKind: 'foster' })
+    router.push('/create/collection')
+  }
+
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={styles.container}>
           <div className="relative w-full">
             {hasloading ? (
-              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[435px]`}></div>
+              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[350px]`}></div>
             ) : (
               <>
                 {croppedBanner !== '' ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={croppedBanner}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.banner_image ? (
@@ -192,7 +207,7 @@ const MainSection = props => {
                     <ImageWithFoster
                       showPlaceHolder={false}
                       src={data.banner_image}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.cover_image ? (
@@ -200,14 +215,14 @@ const MainSection = props => {
                     <ImageWithFoster
                       showPlaceHolder={false}
                       src={data?.cover_image}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : (
                   <ImageWithFoster
                     showPlaceHolder={false}
                     src={bannerImage.src}
-                    className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] "
+                    className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] "
                   />
                 )}
               </>
@@ -254,15 +269,15 @@ const MainSection = props => {
               />
               <div className="flex gap-[15px]">
                 {publicKey?.toBase58() === data?.minter_id ? (
-                  <div className={`${styles.iconContainer} w-[50px]`} onClick={() => setEditCollection(true)}>
+                  <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
                     <EditMetaIcon />
                   </div>
                 ) : (
-                  <div className="w-[50px]">
+                  <div className="w-[35px]">
                     {hasloading ? (
-                      <div className={`${styles.skeletonLoader} w-[50px] h-[45px] mt-[50px] rounded-md`}></div>
+                      <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>
                     ) : (
-                      <div className={`${styles.iconContainer} w-[50px]`}>
+                      <div className={`${styles.iconContainer} w-[35px]`}>
                         <Image
                           src={saved ? TicketGreenIcon : TicketWhiteIcon}
                           alt=""
@@ -275,9 +290,15 @@ const MainSection = props => {
                     )}
                   </div>
                 )}
-
+                {publicKey?.toBase58() === data?.minter_id && (
+                  <MenuCreateCollection
+                    setShowAddToken={() => setShowAddTokenModal(true)}
+                    setShowImportEA={() => setShowImportEAModal(true)}
+                    setShowUploadNew={() => uploadNew()}
+                  />
+                )}
                 {hasloading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[45px] mt-[50px] rounded-md`}></div>
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] mt-[50px] rounded-md`}></div>
                 ) : (
                   <div className={`${styles.iconContainer} w-[87px]`}>
                     <div className="flex items-center gap-[9px]">
@@ -296,10 +317,10 @@ const MainSection = props => {
             {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
 
             {hasloading ? (
-              <div className={`${styles.skeletonLoader} w-1/2 h-[30px] mt-[50px] ml-[24px] rounded-full`}></div>
+              <div className={`${styles.skeletonLoader} w-1/2 h-[35px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
-                <div className="flex mt-[30px] gap-[15px]">
+                <div className="flex mt-[30px] gap-[15px] items-center">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">
@@ -311,6 +332,7 @@ const MainSection = props => {
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">
@@ -320,10 +342,12 @@ const MainSection = props => {
                     </div>
                     <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>{items}</div>
                     <div className={styles.nftInfoValue}>Items</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>{owners}</div>
                     <div className={styles.nftInfoValue}>Owners</div>
@@ -408,15 +432,15 @@ const MainSection = props => {
                   />
                   <div className="flex gap-[10px]">
                     {publicKey?.toBase58() === data?.minter_id ? (
-                      <div className={`${styles.iconContainer} w-[50px]`} onClick={() => setEditCollection(true)}>
+                      <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
                         <EditMetaIcon />
                       </div>
                     ) : (
-                      <div className="w-[50px]">
+                      <div className="w-[35px]">
                         {hasloading ? (
-                          <div className={`${styles.skeletonLoader} w-[50px] h-[45px] mt-[50px] rounded-md`}></div>
+                          <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>
                         ) : (
-                          <div className={`${styles.iconContainer} w-[50px]`}>
+                          <div className={`${styles.iconContainer} w-[35px]`}>
                             <Image
                               src={saved ? TicketGreenIcon : TicketWhiteIcon}
                               alt=""
@@ -430,8 +454,16 @@ const MainSection = props => {
                       </div>
                     )}
 
+                    {publicKey?.toBase58() === data?.minter_id && (
+                      <MenuCreateCollection
+                        setShowAddToken={() => setShowAddTokenModal(true)}
+                        setShowImportEA={() => setShowImportEAModal(true)}
+                        setShowUploadNew={() => uploadNew()}
+                      />
+                    )}
+
                     {hasloading ? (
-                      <div className={`${styles.skeletonLoader} w-[84px] h-[45px] mt-[50px] rounded-md`}></div>
+                      <div className={`${styles.skeletonLoader} w-[84px] h-[35px] mt-[50px] rounded-md`}></div>
                     ) : (
                       <div className={`${styles.iconContainer} w-[84px]`}>
                         <div className="flex items-center gap-[9px]">
@@ -563,6 +595,21 @@ const MainSection = props => {
       {editCollection && (
         <CollectionDetailModal open={editCollection} close={() => setEditCollection(false)} data={data} />
       )}
+
+      <AddTokenModal
+        open={showAddTokenModal}
+        onClose={() => setShowAddTokenModal(false)}
+        onImportMintList={mintList => {
+          setShowAddTokenModal(false)
+          handleCollectionImport({ mintList })
+        }}
+      />
+
+      <ImportEAModal
+        open={showImportEAModal}
+        onClose={() => setShowImportEAModal(false)}
+        onImportUrl={eaUrl => handleCollectionImport({ eaUrl })}
+      />
     </div>
   )
 }

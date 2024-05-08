@@ -21,7 +21,7 @@ import AboutSection from 'components/pages/BrowseCollection/AboutSection'
 // apis
 
 const TabSection = props => {
-  const { nfts, collectionName, coverUrl, minter, collectionId, hasloading, handleCollectionImport } = props
+  const { nfts, collectionName, minter, collectionId, hasloading } = props
   const { publicKey } = useWallet()
 
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -87,7 +87,7 @@ const TabSection = props => {
         </div>
       )} */}
 
-      {activeTab === 2 && (
+      {/* {activeTab === 2 && (
         <div className="w-full flex flex-wrap z-10">
           <AddSection
             collectionId={collectionId}
@@ -96,7 +96,7 @@ const TabSection = props => {
             handleCollectionImport={handleCollectionImport}
           />
         </div>
-      )}
+      )} */}
     </div>
   )
 }

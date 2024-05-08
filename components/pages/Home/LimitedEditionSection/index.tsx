@@ -38,7 +38,7 @@ const LimitedEditionSection = props => {
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   useEffect(() => {
-    if (editionList.length > 0) {
+    if (editionList && editionList.length > 0) {
       ;(async () => {
         for (let index = 0; index < editionList.length; index++) {
           let data = editionList[index]
@@ -52,6 +52,7 @@ const LimitedEditionSection = props => {
   }, [editionList])
 
   return (
+    editionList &&
     editionList.length > 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10 ml-[5px]">

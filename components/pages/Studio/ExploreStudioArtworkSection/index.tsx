@@ -29,6 +29,7 @@ import SeeMoreButton from 'components/Button/SeeMoreButton'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { NftData } from 'types/nft'
 import OutlineButton from 'components/Button/OutlineButton'
+import NFTCreatedCard from 'components/Card/NFTCreatedCard'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -106,7 +107,7 @@ const MarketplaceReleaseSection = props => {
               {artworkList.map((item: any, index) => (
                 <SwiperSlide key={index}>
                   <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
-                    <NFTCard
+                    <NFTCreatedCard
                       image={item.nft.asset_url}
                       token_id={item.nft.token_id}
                       nftName={item.nft.nft_name}
