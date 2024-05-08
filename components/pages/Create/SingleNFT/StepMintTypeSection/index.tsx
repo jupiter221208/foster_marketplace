@@ -67,6 +67,9 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
           <div
             className={`${styles.singleTag} mt-[12px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
+              dispatch({ type: 'set', mintCollectionStep: 1 })
+              dispatch({ type: 'set', collectionMintAddress: '' })
+              dispatch({ type: 'set', collectionCoverUrl: '' })
               dispatch({ type: 'set', collectionKind: 'foster' })
               router.push('/create/collection')
             }}
@@ -89,6 +92,9 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
       <div
         className={styles.exchangeArt}
         onClick={() => {
+          dispatch({ type: 'set', mintCollectionStep: 1 })
+          dispatch({ type: 'set', collectionMintAddress: '' })
+          dispatch({ type: 'set', collectionCoverUrl: '' })
           dispatch({ type: 'set', collectionKind: 'ea' })
           router.push('/create/collection')
         }}
