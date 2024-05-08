@@ -320,7 +320,7 @@ const MainSection = props => {
               <div className={`${styles.skeletonLoader} w-1/2 h-[35px] mt-[50px] ml-[24px] rounded-full`}></div>
             ) : (
               <>
-                <div className="flex mt-[30px] gap-[15px]">
+                <div className="flex mt-[30px] gap-[15px] items-center">
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">
@@ -332,6 +332,7 @@ const MainSection = props => {
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>
                       <div className="mt-[3px]">
@@ -341,10 +342,12 @@ const MainSection = props => {
                     </div>
                     <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>{items}</div>
                     <div className={styles.nftInfoValue}>Items</div>
                   </div>
+                  <div className={styles.statisticBorder} />
                   <div className="flex gap-[6px] items-center">
                     <div className={styles.nftInfoLabel}>{owners}</div>
                     <div className={styles.nftInfoValue}>Owners</div>
