@@ -512,6 +512,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               fullWidth
               type="list-artwork"
               label="List Edition"
+              disabled={mintPrice === '' || parseFloat(mintPrice) === 0}
               onClick={() => {
                 if (listingType === 'list') handleListEdition()
                 else handleUpdateEdition()
