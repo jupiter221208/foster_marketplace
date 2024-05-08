@@ -81,6 +81,9 @@ const RemoveMerchSudioModal = props => {
                   />
                   <GradientButton
                     label={'Continue'}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
                     onClick={onContinue}
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
                     fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}

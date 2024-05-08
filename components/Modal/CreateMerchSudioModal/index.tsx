@@ -89,6 +89,9 @@ const CreateMerchSudioModal = props => {
                     />
                     <GradientButton
                       label={'Continue'}
+                      backgroundColor01="var(--main-icon-color)"
+                      backgroundColor02="var(--main-icon-color)"
+                      color="var(--background-main-color)"
                       onClick={onContinue}
                       width={120}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '48px'}

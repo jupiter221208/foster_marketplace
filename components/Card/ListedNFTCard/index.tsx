@@ -143,7 +143,7 @@ const ListedNFTCard = ({
         <div className={styles.bottomSection}>
           <div className="w-full">
             {type === 'fixed' ? (
-              <PrimaryDashboardButton
+              <SecondaryDashboardButton
                 fullWidth
                 label={'Update'}
                 type="update-relist"

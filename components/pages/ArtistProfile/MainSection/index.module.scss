@@ -46,8 +46,8 @@
 
 .bioText {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
 }
 
@@ -93,13 +93,12 @@
   font-size: 12px;
   line-height: 15px;
   text-align: center;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   margin-top: 2px;
   @media (min-width: 1024px) {
     margin-top: 2px;
     font-size: 16px;
     line-height: 20px;
-    color: var(--text-gray-200-color);
   }
 }
 

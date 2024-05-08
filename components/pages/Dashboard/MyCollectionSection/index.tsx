@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react'
 // next components
 
 // components
-import DashboardCollectionCard from 'components/Card/DashboardCollectionCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 
 // styles
 import styles from './index.module.scss'
 
 // redux
-import { useDispatch } from 'react-redux'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -21,7 +19,6 @@ import { NftData } from 'types/nft'
 import CollectionCard from 'components/Card/CollectionCard'
 
 const MyCollectionSection = () => {
-  const dispatch = useDispatch()
 
   const [collections, setCollections] = useState([])
   const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
@@ -63,10 +60,6 @@ const MyCollectionSection = () => {
     }
   }, [isFetching])
 
-  const getCategory = attributes => {
-    if (!Array.isArray(attributes)) return []
-    return attributes.map(({ value }) => value).filter(category => !!category)
-  }
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[0px] gap-[11px] 2xl:gap-[60px] lg:gap-[32px] grid grid-cols-12">

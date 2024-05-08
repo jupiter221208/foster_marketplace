@@ -83,13 +83,15 @@ const ImportEAModal = props => {
                 <div className="w-full mt-[40px] lg:mt-[15px]">
                   <GradientButton
                     label="Import"
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
                     fullWidth
                     onClick={() => {
                       if (url.includes(EXCHANGE_ART_PREFIX) && url.length > EXCHANGE_ART_PREFIX.length) onImportUrl(url)
                       else setShowErrorValidUrl(true)
                     }}
-                    disabled={url.length === 0}
-                    backgroundColor="transparent"
+                    disabled={!(url.includes(EXCHANGE_ART_PREFIX) && url.length > EXCHANGE_ART_PREFIX.length)}
                   />
                 </div>
               </Dialog.Panel>
