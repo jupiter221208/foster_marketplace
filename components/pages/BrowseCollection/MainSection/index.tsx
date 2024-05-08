@@ -136,7 +136,7 @@ const MainSection = props => {
     collectionAPI.updateCollectionBanner(data?.collection_id, { banner_image: bannerPictureUrl }).then(
       response => {
         if (response !== null) {
-          dispatch({ type: 'set', profileInfo: response })
+          // dispatch({ type: 'set', profileInfo: response })
         }
       },
       error => {
