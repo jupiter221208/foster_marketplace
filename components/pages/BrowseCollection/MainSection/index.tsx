@@ -176,7 +176,7 @@ const MainSection = props => {
         <div className={styles.container}>
           <div className="relative w-full">
             {hasloading ? (
-              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[435px]`}></div>
+              <div className={`${styles.skeletonLoader} ${styles.headerImage} h-[350px]`}></div>
             ) : (
               <>
                 {croppedBanner !== '' ? (
@@ -184,7 +184,7 @@ const MainSection = props => {
                     <ImageWithFoster
                       showPlaceHolder={false}
                       src={croppedBanner}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.banner_image ? (
@@ -192,7 +192,7 @@ const MainSection = props => {
                     <ImageWithFoster
                       showPlaceHolder={false}
                       src={data.banner_image}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.cover_image ? (
@@ -200,14 +200,14 @@ const MainSection = props => {
                     <ImageWithFoster
                       showPlaceHolder={false}
                       src={data?.cover_image}
-                      className="w-full h-[435px] object-cover"
+                      className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : (
                   <ImageWithFoster
                     showPlaceHolder={false}
                     src={bannerImage.src}
-                    className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] "
+                    className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] "
                   />
                 )}
               </>
