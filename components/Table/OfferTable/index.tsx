@@ -85,6 +85,9 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
           ) : (
             <GradientButton
               label="Accept"
+              backgroundColor01="var(--main-icon-color)"
+              backgroundColor02="var(--main-icon-color)"
+              color="var(--background-main-color)"
               onClick={() => onAccept(listing)}
               gradientDirection="right"
               width="138px"
@@ -100,7 +103,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
     <table id="ArtworksTable" className="w-full table-auto">
-      <thead>
+      {/* <thead>
         <tr>
           <th className="w-[25%]">
             <div className="text-start pl-[35px]">Name</div>
@@ -110,7 +113,7 @@ const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) =>
           <th className="w-[20%]">{offerType === 'made' ? 'Seller' : 'Buyer'}</th>
           <th className="w-[15%]">Action</th>
         </tr>
-      </thead>
+      </thead> */}
       <tbody>
         {data.map((listing, index) => (
           <tr key={index}>
