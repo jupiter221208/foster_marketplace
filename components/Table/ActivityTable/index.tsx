@@ -89,7 +89,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         type = 'purchased edition'
         break
       case 'MasterEditionListingCancelled':
-        type = 'canceled list edition'
+        type = 'removed listing'
         break
       case 'ListingUpdated':
         type = 'updated listing'
