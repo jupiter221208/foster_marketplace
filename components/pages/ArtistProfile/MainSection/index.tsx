@@ -1076,36 +1076,52 @@ const MainSection = prop => {
         {artistInfo?.bio && <div className={`w-full mt-[15px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
         <div className="w-full mt-[15px] flex gap-[5px]">
           <div className={styles.statsConatiner}>
-            <div>
-              <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
-              <div className={styles.statisticLabel}>Created</div>
-            </div>
+            {!isColletorLoaded ? (
+              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
+            ) : (
+              <div>
+                <div className={styles.statisticValue}>{artistStatsInfo?.nfts_created}</div>
+                <div className={styles.statisticLabel}>Created</div>
+              </div>
+            )}
           </div>
           <div className={styles.statsConatiner}>
-            <div>
-              <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
-              <div className={styles.statisticLabel}>Collected</div>
-            </div>
+            {!isColletorLoaded ? (
+              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
+            ) : (
+              <div>
+                <div className={styles.statisticValue}>{collectorStatsInfo?.nfts_collected}</div>
+                <div className={styles.statisticLabel}>Collected</div>
+              </div>
+            )}
           </div>
         </div>
         <div className="w-full mt-[5px] flex gap-[5px]">
           <div className={styles.statsConatiner}>
-            <div>
-              <div className="flex gap-[6px] items-center">
-                <SolanaLogoIcon alt="" className="mt-[4px]" />
-                <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
+            {!isColletorLoaded ? (
+              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
+            ) : (
+              <div>
+                <div className="flex gap-[6px] items-center">
+                  <SolanaLogoIcon alt="" className="mt-[4px]" />
+                  <div className={styles.statisticValue}>{artistStatsInfo?.sales_volume}</div>
+                </div>
+                <div className={styles.statisticLabel}>Sold</div>
               </div>
-              <div className={styles.statisticLabel}>Sold</div>
-            </div>
+            )}
           </div>
           <div className={styles.statsConatiner}>
-            <div>
-              <div className="flex gap-[6px] items-center">
-                <SolanaLogoIcon alt="" className="mt-[4px]" />
-                <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
+            {!isColletorLoaded ? (
+              <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-[5px]`}></div>
+            ) : (
+              <div>
+                <div className="flex gap-[6px] items-center">
+                  <SolanaLogoIcon alt="" className="mt-[4px]" />
+                  <div className={styles.statisticValue}>{collectorStatsInfo?.purchase_volume}</div>
+                </div>
+                <div className={styles.statisticLabel}>Purchased</div>
               </div>
-              <div className={styles.statisticLabel}>Purchased</div>
-            </div>
+            )}
           </div>
         </div>
       </div>
