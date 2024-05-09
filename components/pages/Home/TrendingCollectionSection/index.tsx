@@ -150,7 +150,7 @@ const TrendingCollectionSection = props => {
           </div>
         ) : (
           <div
-            className="w-full relative mt-[20px] lg:mt-[30px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[30px]"
+            className="w-full relative mt-[20px] lg:mt-[30px] z-10 pb-[80px] sm:pb-[120px] lg:pb-[0px]"
             id="trendArtistMobile"
           >
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
