@@ -57,6 +57,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [merchEnable, setMerchEnable] = useState(false)
   const [collectorEnable, setCollectorEnable] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isColletorLoaded, setIsColletorLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
   const [artistCurrentPage, setArtistCurrentPage] = useState(1)
@@ -245,7 +246,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const getCollectorData = (id, row_count, current_page, refresh = false, reset = false) => {
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
-        setIsLoaded(true)
+        setIsColletorLoaded(true)
         setIsFetchingCollected(false)
         if (isString(response)) return
         let artist = response.collector
@@ -266,7 +267,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         fetchNftData(response.nfts)
       },
       error => {
-        setIsLoaded(true)
+        setIsColletorLoaded(true)
         setIsFetchingCollected(false)
         setIsVisibleFetchingCollected(false)
       }
@@ -331,6 +332,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           categoryList={categoryList}
           isOwn={isOwn}
           isLoaded={isLoaded}
+          isColletorLoaded={isColletorLoaded}
           setFullScreenView={setFullScreenView}
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
