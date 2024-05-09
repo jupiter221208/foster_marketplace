@@ -69,7 +69,7 @@ const ExploreMenu = props => {
                   {activeList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <a>
-                        <p
+                        <div
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
@@ -86,7 +86,7 @@ const ExploreMenu = props => {
                           }}
                         >
                           {item.label}
-                        </p>
+                        </div>
                       </a>
                     </Link>
                   ))}

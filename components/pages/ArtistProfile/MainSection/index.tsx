@@ -665,7 +665,7 @@ const MainSection = prop => {
             {artistInfo?.bio && <div className={`w-full mt-[30px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
 
             <div className="w-full mt-[30px] mb-[30px] flex gap-[15px] items-center">
-              {!isLoaded ? (
+              {!isColletorLoaded ? (
                 <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
               ) : (
                 <div className="flex gap-[6px] items-center">
@@ -687,7 +687,7 @@ const MainSection = prop => {
 
               <div className={styles.statisticBorder} />
 
-              {!isLoaded ? (
+              {!isColletorLoaded ? (
                 <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[90px] h-[30px] rounded-full`}></div>
               ) : (
                 <div className="flex gap-[6px] items-center">
