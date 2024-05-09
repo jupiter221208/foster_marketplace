@@ -11,6 +11,12 @@
       "label": "Live Auctions",
       "query": "live_auctions",
       "path": "/explore"
+    },
+    {
+      "id": 2,
+      "label": "Live Editions",
+      "query": "live_editions",
+      "path": "/explore"
     }
   ],
   "filterList": [

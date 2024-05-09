@@ -34,6 +34,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'MasterEditionListingCreated':
       case 'MasterEditionListingUpdated':
       case 'MasterEditionPrintCreated':
+      case 'MasterEditionListingCancelled':
       case 'ListingUpdated':
         user = getOwnerName(item)
         break
@@ -88,7 +89,8 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         type = 'purchased edition'
         break
       case 'MasterEditionListingCancelled':
-        type = 'canceled list edition'
+        type = 'removed listing'
+        break
       case 'ListingUpdated':
         type = 'updated listing'
         break

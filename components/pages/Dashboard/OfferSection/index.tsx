@@ -229,12 +229,14 @@ const OfferSection = () => {
       ) : shownOfferListChunk.length > 0 ? (
         <div className="w-full mt-[15px] lg:mt-[34px]">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <OfferTable
-              offerType={shownOfferType}
-              data={shownOfferListChunk}
-              onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={onAccept}
-            />
+            <div className="mt-[-50px]">
+              <OfferTable
+                offerType={shownOfferType}
+                data={shownOfferListChunk}
+                onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
+                onAccept={onAccept}
+              />
+            </div>
           ) : (
             <OfferAccordion
               offerType={shownOfferType}

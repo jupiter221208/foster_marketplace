@@ -19,7 +19,6 @@ import { NftData } from 'types/nft'
 import CollectionCard from 'components/Card/CollectionCard'
 
 const MyCollectionSection = () => {
-
   const [collections, setCollections] = useState([])
   const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()

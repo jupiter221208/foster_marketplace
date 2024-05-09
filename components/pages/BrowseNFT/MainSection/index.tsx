@@ -1223,8 +1223,8 @@ const MainSection = ({
             <div className="flex gap-[15px] items-center">
               {isCreatedNft && (
                 <MenuEditNft
-                  studio={true}
-                  metadata={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
+                  studio={nftType.includes('image') && nftType !== 'image/gif' && !nftCoverUrl.includes('ext=gif')}
+                  metadata={true}
                   setShowNftMeta={setShowNftMeta}
                   setRemoveMerchModal={setRemoveMerchModal}
                   setCreateMerchModal={setCreateMerchModal}

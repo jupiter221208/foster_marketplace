@@ -39,18 +39,19 @@ const CollectionCard = props => {
           </a>
         </Link>
         <div className={styles.bottomSection}>
-          <div className="w-full">
-            <SecondaryDashboardButton
-              fullWidth
-              label="View"
-              type="next"
-              onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
-                router.push(link)
-              }}
-            />
-          </div>
-          {unSave !== null && (
+          {unSave === null ? (
+            <div className="w-full">
+              <SecondaryDashboardButton
+                fullWidth
+                label="View"
+                type="next"
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(link)
+                }}
+              />
+            </div>
+          ) : (
             <div className="w-full">
               <SecondaryDashboardButton
                 fullWidth

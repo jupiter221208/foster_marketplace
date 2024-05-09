@@ -212,8 +212,10 @@ const ListNFTModal = ({ data, open, onClose }: ListNFTModalProps) => {
                     ) : (
                       <GradientButton
                         disabled={parseFloat(price ?? '0') <= 0 || price === ''}
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                        color="var(--background-main-color)"
                         label="List"
-                        fontSize={18}
                         fullWidth
                         onClick={() => handleListNFTClick()}
                       />
