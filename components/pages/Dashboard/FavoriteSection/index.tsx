@@ -43,10 +43,6 @@ const FavoriteSection = () => {
   ])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Artwork' })
 
-  const handleChangeActive = value => {
-    setActive(value)
-  }
-
   useEffect(() => {
     setLoading(true)
 
