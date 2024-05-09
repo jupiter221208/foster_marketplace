@@ -102,7 +102,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 
 const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
-    <table id="ArtworksTable" className="w-full table-auto">
+    <table className="w-full table-auto">
       {/* <thead>
         <tr>
           <th className="w-[25%]">
