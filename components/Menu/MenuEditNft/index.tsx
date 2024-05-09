@@ -76,6 +76,7 @@ const MenuEditNft = ({
                 <div
                   className={`${styles.menuItem} ${studio ? '' : 'opacity-[80%]'} mt-[8px]`}
                   onClick={() => {
+                    if (!studio) return
                     if (merchToggle) {
                       if (isCreatedNft) setRemoveMerchModal(true)
                     } else if (isCreatedNft) setCreateMerchModal(true)
@@ -86,9 +87,8 @@ const MenuEditNft = ({
                   ) : isCreatedNft ? (
                     <MerchToggleDisabledIcon alt="" />
                   ) : (
-                    <></>
+                    <MerchToggleDisabledIcon alt="" />
                   )}
-                  {/* <EditStudioIcon alt="" /> */}
                   {merchToggle ? 'Disable Studio' : 'Enable Studio'}
                 </div>
               )}
