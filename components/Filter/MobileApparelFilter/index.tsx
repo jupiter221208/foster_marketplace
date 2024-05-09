@@ -9,49 +9,69 @@ import Radio from 'components/Radio'
 // images and icons
 
 // json
-import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 
 // styles
 import styles from './index.module.scss'
+import { useDispatch } from 'react-redux'
 
 const MobileApparelFilter = props => {
-  const { base, onChange, onClose, setFilterName } = props
-  const [apparelTypes, setApparelTypes] = useState([])
-  const [selectedType, setSelectedType] = useState(null)
+  const { filterName, onChange, onClose, setFilterName } = props
+  const dispatch = useDispatch()
+  const [apparelTypes, setApparelTypes] = useState([
+    { id: 0, label: 'All', name: 'All', selected: true },
+    { id: 1, label: 'Tees', name: 'Short Sleeve', selected: false },
+    { id: 2, label: 'Long Sleeves', name: 'Long Sleeve', selected: false },
+    { id: 3, label: 'Hoodies', name: 'Hoodie', selected: false },
+    { id: 4, label: 'Crewnecks', name: 'Sweatshirt', selected: false },
+    { id: 5, label: `Women's Tees`, name: `Women's Short Sleeve`, selected: false },
+  ])
+  const [selectedType, setSelectedType] = useState(apparelTypes[0])
 
   useEffect(() => {
-    for (var i = 0; i < StudioHeroList.length; i++) {
-      let hero = StudioHeroList[i]
-      let bases = hero.bases.filter(item => item.base === base)
-
-      if (bases.length > 0) {
-        let types = []
-        hero.bases.map((item, index) => {
-          let type = { id: index, label: item.name, value: item.base, disabled: false }
-          types.push(type)
-          if (item.base === base) {
-            setSelectedType(type)
-            setFilterName(type['label'])
-          }
-        })
-        setApparelTypes(types)
-        break
+    apparelTypes.map(item => {
+      if (item.label === filterName) {
+        setSelectedType(item)
+        return
       }
-    }
-  }, [base])
+    })
+  }, [filterName])
 
   const onChangeType = type => {
     setSelectedType(type)
-    StudioApparelList.map(item => {
-      if (item.name === type.value) {
-        onChange({
-          selected: true,
-          data: item,
-        })
-        onClose()
+    setFilterName(type['label'])
+
+    let newItems = []
+    apparelTypes.map(item => {
+      if (type.name === item.name) {
+        newItems.push({ id: item.id, label: item.label, name: item.name, selected: true })
+      } else {
+        newItems.push({ id: item.id, label: item.label, name: item.name, selected: false })
       }
     })
+
+    setApparelTypes(newItems)
+
+    if (type.name === 'All') {
+      onChange({
+        selected: true,
+        data: 'All',
+      })
+      onClose()
+      return
+    } else {
+      StudioApparelList.map(item => {
+        if (item.name === type.name) {
+          onChange({
+            selected: true,
+            data: item,
+          })
+          dispatch({ type: 'set', apparelType: item.name })
+          onClose()
+          return
+        }
+      })
+    }
   }
 
   return (
