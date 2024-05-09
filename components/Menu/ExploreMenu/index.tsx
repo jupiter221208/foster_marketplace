@@ -77,6 +77,8 @@ const ExploreMenu = props => {
                             dispatch({ type: 'set', exploreTab: 0 })
                             if (item.query === 'live_auctions') {
                               dispatch({ type: 'set', availabilityFilter: 1 })
+                            } else if (item.query === 'live_editions') {
+                              dispatch({ type: 'set', availabilityFilter: 2 })
                             } else {
                               dispatch({ type: 'set', availabilityFilter: 0 })
                             }
