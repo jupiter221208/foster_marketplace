@@ -1,5 +1,9 @@
 @import 'assets/scss/variable.module.scss';
 .nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
   display: flex;
   justify-items: center;
   cursor: pointer;
@@ -8,4 +12,20 @@
       text-decoration: underline;
     }
   }
+}
+
+.date {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 12px;  
 }
