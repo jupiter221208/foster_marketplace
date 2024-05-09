@@ -19,6 +19,7 @@
   font-size: 14px;
   line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 11px;
 }
 
 .row {
@@ -28,4 +29,5 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--background-main-color);
   border-radius: 12px;  
+  padding: 10px 15px;
 }

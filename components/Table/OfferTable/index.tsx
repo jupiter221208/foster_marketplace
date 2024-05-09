@@ -68,13 +68,13 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
                 onClick={() => router.push(`/nft/${listing.asset.mintAddress.toBase58()}`)}
               >
                 {offerType === 'made'
-                  ? 'You placed an offer of Sol ' +
+                  ? 'You placed an offer of ' +
                     getPriceValue(listing.price.basisPoints.toNumber()) +
-                    ' for ' +
+                    ' SOL for ' +
                     listing.asset.name
-                  : 'You received an offer of Sol ' +
+                  : 'You received an offer of ' +
                     getPriceValue(listing.price.basisPoints.toNumber()) +
-                    ' for ' +
+                    ' SOL for ' +
                     listing.asset.name}
               </div>
               <div className={styles.date}>{timeSince(listing.createdAt.toNumber())}</div>
