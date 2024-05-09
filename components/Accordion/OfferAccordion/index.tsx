@@ -110,7 +110,7 @@ const OfferAccordionItem = ({
                 <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
                 <div className={styles.text}>{ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}</div>
               </div>
-              <div className={styles.firstRow}>
+              {/* <div className={styles.firstRow}>
                 <div className="w-full flex justify-center">
                   <div className={styles.help}>
                     {offerType === 'made'
@@ -118,12 +118,13 @@ const OfferAccordionItem = ({
                       : 'Would you like to accept the offer?'}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className={styles.thirdRow}>
                 {offerType === 'made' ? (
                   <OutlineButton
                     label="Cancel"
                     onClick={() => onCancel(listing)}
+                    fontSize="16px"
                     width="300px"
                     height="38px"
                   />
@@ -131,7 +132,10 @@ const OfferAccordionItem = ({
                   <GradientButton
                     label="Accept"
                     onClick={() => onAccept(listing)}
-                    gradientDirection="right"
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
+                    fontSize="16px"
                     width="300px"
                     height="38px"
                   />
