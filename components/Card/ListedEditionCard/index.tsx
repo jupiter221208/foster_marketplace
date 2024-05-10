@@ -46,20 +46,16 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
     let item = data
     setCancelListLoading(true)
     try {
-      const listing = await revokeDelegateEdition({
+      await revokeDelegateEdition({
         metaplex: mx,
         mint: new PublicKey(item?.address),
-        // delegate: new PublicKey(item?.authority),
         delegate: Keypair.fromSecretKey(Uint8Array.from(item?.authority)).publicKey,
       })
-
-      if (listing) {
-        cancelListingEdition(item?.address).then(res => {
-          if (res) {
-            onCancelSuccess()
-          }
-        })
-      }
+      cancelListingEdition(item?.address).then(res => {
+        if (res) {
+          onCancelSuccess()
+        }
+      })
     } catch (e) {
       setCancelListLoading(false)
     }

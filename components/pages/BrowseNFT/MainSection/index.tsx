@@ -860,30 +860,27 @@ const MainSection = ({
   const cancelListEdition = async () => {
     setCancelListLoading(true)
     try {
-      const listing = await revokeDelegateEdition({
+      await revokeDelegateEdition({
         metaplex: mx,
         mint: new PublicKey(nftInfo.master_edition?.mintAddress),
         delegate: new PublicKey(nftInfo.master_edition?.authorityPublicKey),
       })
-
-      if (listing) {
-        cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
-          if (res) {
-            setAlertData([
-              {
-                id: 0,
-                title: 'Edition Listing Canceled!',
-                description: `${nftName} is no longer available for purchase`,
-                type: 'success',
-              },
-            ])
-            setShowAlert(true)
-            setTimeout(() => {
-              router.reload()
-            }, 1000)
-          }
-        })
-      }
+      cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
+        if (res) {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Edition Listing Canceled!',
+              description: `${nftName} is no longer available for purchase`,
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+          setTimeout(() => {
+            router.reload()
+          }, 1000)
+        }
+      })
     } catch (e) {
       setCancelListLoading(false)
     }

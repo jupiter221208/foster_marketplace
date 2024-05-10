@@ -50,6 +50,9 @@ export async function delegateEdition({
     delegate,
   })
 
+  let printDelegateAccount = await metaplex.getAccount(printDelegate)
+  if (!printDelegateAccount.exists) return null
+
   let delegateIx = new TransactionInstruction({
     keys: [
       {
