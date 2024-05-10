@@ -19,6 +19,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getLocalDate } from 'utils/helpers'
 
 export interface OfferTableProps {
   data: LazyBidWithAsset[]
