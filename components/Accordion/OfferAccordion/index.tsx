@@ -25,6 +25,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getLocalDate } from 'utils/helpers'
 
 export interface OfferAccordionProps {
   data: LazyBidWithAsset[]
@@ -100,7 +101,8 @@ const OfferAccordionItem = ({
              
             <div className={styles.secondRow}>
                 <div className={styles.title}>Time</div>
-                <div className={styles.text}>{timeSince(listing.createdAt.toNumber())}</div>
+                {/* <div className={styles.text}>{timeSince(listing.createdAt.toNumber())}</div> */}
+                <div className={styles.text}>{getLocalDate(new Date(listing.createdAt.toNumber() * 1000))}</div>
               </div>
 
               <div className={styles.firstRow}>
@@ -132,9 +134,11 @@ const OfferAccordionItem = ({
                     fontSize={16}
                     width={300}
                     height={38}
+                    fullWidth
                   />
                 ) : (
                   <GradientButton
+                    fullWidth
                     label="Accept"
                     onClick={() => onAccept(listing)}
                     gradientDirection="right"

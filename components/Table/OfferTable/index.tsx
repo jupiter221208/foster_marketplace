@@ -19,6 +19,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getLocalDate } from 'utils/helpers'
 
 export interface OfferTableProps {
   data: LazyBidWithAsset[]
@@ -54,12 +55,12 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 
   return (
     <>
-      <td className="pb-[10px]">
+      <td className="pb-[15px]">
         <div className={styles.row}>
           <div className="flex gap-[30px] items-center">
-            <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px] overflow-hidden rounded-[15px]">
+            <div className="ml-[20px] w-[50px] h-[50px] lg:w-[50px] lg:h-[50px] overflow-hidden rounded-[10px]">
               {assetImageUrl && (
-                <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[15px] object-cover" />
+                <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[10px] object-cover" />
               )}
             </div>
             <div>
@@ -77,23 +78,29 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
                     ' SOL for ' +
                     listing.asset.name}
               </div>
-              <div className={styles.date}>{timeSince(listing.createdAt.toNumber())}</div>
+              <div className={styles.date}>{getLocalDate(new Date(listing.createdAt.toNumber() * 1000))}</div>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center mr-[20px]">
             {offerType === 'made' ? (
-              <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
+              // <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
+              <div className={styles.button} onClick={() => onCancel(listing)}>
+                Cancel
+              </div>
             ) : (
-              <GradientButton
-                label="Accept"
-                backgroundColor01="var(--main-icon-color)"
-                backgroundColor02="var(--main-icon-color)"
-                color="var(--background-main-color)"
-                onClick={() => onAccept(listing)}
-                gradientDirection="right"
-                width="138px"
-                height="48px"
-              />
+              <div className={styles.button} onClick={() => onAccept(listing)}>
+                Accept
+              </div>
+              // <GradientButton
+              //   label="Accept"
+              //   backgroundColor01="var(--main-icon-color)"
+              //   backgroundColor02="var(--main-icon-color)"
+              //   color="var(--background-main-color)"
+              //   onClick={() => onAccept(listing)}
+              //   gradientDirection="right"
+              //   width="138px"
+              //   height="48px"
+              // />
             )}
           </div>
         </div>
