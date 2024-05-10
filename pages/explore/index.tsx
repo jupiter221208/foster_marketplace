@@ -113,15 +113,19 @@ const Explore = () => {
     setTimeout(() => {
       setIsMounted(true)
     }, 1000)
-    return () => {
-      dispatch({ type: 'set', availabilityFilter: 3 })
-      dispatch({ type: 'set', collectionSort: '' })
-      dispatch({ type: 'set', artistSort: '' })
-      dispatch({ type: 'set', artworkSort: '' })
-      dispatch({ type: 'set', collectionCategory: '' })
-      dispatch({ type: 'set', artworkCategory: '' })
-    }
   }, [])
+
+  // useEffect(() => {
+  //   return () => {
+  //     console.log(availabilityFilter, '===================availabilityFilter222==============')
+  //     dispatch({ type: 'set', availabilityFilter: 3 })
+  //     dispatch({ type: 'set', collectionSort: '' })
+  //     dispatch({ type: 'set', artistSort: '' })
+  //     dispatch({ type: 'set', artworkSort: '' })
+  //     dispatch({ type: 'set', collectionCategory: '' })
+  //     dispatch({ type: 'set', artworkCategory: '' })
+  //   }
+  // }, [])
 
   useEffect(() => {
     setIsMounted(false)
@@ -354,7 +358,10 @@ const Explore = () => {
         setNftCurrentPage(curPage)
         setTotalCount(count * curPage + response.length)
 
-        if (nfts.length < 4) {
+        if (response.length < rowCount) {
+          if (reset === true) setNftList([...nfts])
+          else setNftList([...nftList, ...nfts])
+        } else if (nfts.length < 4) {
           stackNftList = [...stackNftList, ...nfts]
           if (stackNftList.length >= 4) {
             if (reset === true) setNftList([...stackNftList])
