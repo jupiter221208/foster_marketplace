@@ -185,7 +185,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
         </div>
         <div className={styles.bottomInfo}>
           {price ? (
-            <div className="">
+            <div className="mb-[4px]">
               <div className={styles.priceLabel}>Price</div>
               <div className="w-full flex items-center mt-[6px]">
                 {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
