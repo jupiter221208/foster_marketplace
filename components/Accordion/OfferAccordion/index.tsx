@@ -134,9 +134,11 @@ const OfferAccordionItem = ({
                     fontSize={16}
                     width={300}
                     height={38}
+                    fullWidth
                   />
                 ) : (
                   <GradientButton
+                    fullWidth
                     label="Accept"
                     onClick={() => onAccept(listing)}
                     gradientDirection="right"

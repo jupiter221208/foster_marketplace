@@ -79,11 +79,13 @@
 
 .thirdRow {
   width: 100%;
-  height: 86px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  padding-left: 15px; 
+  padding-right: 15px;
 }
 
 .title {
