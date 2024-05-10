@@ -89,10 +89,7 @@ const OfferAccordionItem = ({
 
                 <div className="block">
                   <div className={styles.subTitle}>{listing.asset.name}</div>
-                  <div className='flex gap-1 mt-1 items-center'>
-                  <SolanaLogoIcon />
-                    <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
-                    </div>
+                  <div className={styles.subDesc}>{offerType === 'made' ? 'Offer Placed' : 'Offer Received'}</div>
                 </div>
               </div>
               
@@ -101,16 +98,24 @@ const OfferAccordionItem = ({
             </Disclosure.Button>
             <Disclosure.Panel className={styles.panel}>
              
-              <div className={styles.firstRow}>
+            <div className={styles.secondRow}>
                 <div className={styles.title}>Time</div>
                 <div className={styles.text}>{timeSince(listing.createdAt.toNumber())}</div>
+              </div>
+
+              <div className={styles.firstRow}>
+                <div className={styles.title}>Amount</div>
+                <div className='flex gap-1 mt-1 items-center'>
+                  <SolanaLogoIcon />
+                    <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
+                  </div>
               </div>
             
               <div className={styles.secondRow}>
                 <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
                 <div className={styles.text}>{ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}</div>
               </div>
-              <div className={styles.firstRow}>
+              {/* <div className={styles.firstRow}>
                 <div className="w-full flex justify-center">
                   <div className={styles.help}>
                     {offerType === 'made'
@@ -118,22 +123,27 @@ const OfferAccordionItem = ({
                       : 'Would you like to accept the offer?'}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className={styles.thirdRow}>
                 {offerType === 'made' ? (
                   <OutlineButton
                     label="Cancel"
                     onClick={() => onCancel(listing)}
-                    width="300px"
-                    height="38px"
+                    fontSize={16}
+                    width={300}
+                    height={38}
                   />
                 ) : (
                   <GradientButton
                     label="Accept"
                     onClick={() => onAccept(listing)}
                     gradientDirection="right"
-                    width="300px"
-                    height="38px"
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
+                    fontSize={16}
+                    width={300}
+                    height={38}
                   />
                 )}
               </div>
