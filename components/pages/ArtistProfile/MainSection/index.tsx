@@ -32,7 +32,6 @@ import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 import WebSiteIcon from 'assets/icons/website-icon.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
