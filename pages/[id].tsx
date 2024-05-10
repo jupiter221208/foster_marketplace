@@ -226,7 +226,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           (arr, index, self) =>
             index === self.findIndex(t => t.nft_name === arr.nft_name && t.asset_url === arr.asset_url)
         )
-        setCreatedNfts(filteredNfts)
+        var noPrintNfts = filteredNfts.filter(item => {
+          let index = item.nft_name.indexOf(' #')
+          if (index < 0) return true
+          let num = item.nft_name.slice(index + 2, item.nft_name.length)
+          if (num.length > 0 && parseInt(num) > 0) return false
+          else return true
+        })
+
+        setCreatedNfts(noPrintNfts)
         setArtistCurrentPage(current_page)
         setCollections(response.collections)
 
