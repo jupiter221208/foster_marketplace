@@ -60,14 +60,14 @@ const NotificationMenu = () => {
       setLoading(true)
       userAPI.getNotifications().then(
         response => {
-          setTimeout(() => {
-            setLoading(false)
-          }, 1000)
           if (response !== null) {
             if (response.notifications.length > 0) {
               getNotifications([...response.notifications])
             }
           }
+          setTimeout(() => {
+            setLoading(false)
+          }, 1000)
         },
         error => {
           setLoading(false)
