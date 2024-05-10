@@ -130,7 +130,7 @@ const NewStudioReleasesSection = props => {
         {showMobileFilter && (
           <div className="absolute left-0 top-0">
             <MobileApparelFilter
-              base={heroValue.data['name']}
+              filterName={filterName}
               setFilterName={setFilterName}
               onChange={onChange}
               onClose={() => setShowMobileFilter(false)}

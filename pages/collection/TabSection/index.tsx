@@ -16,7 +16,6 @@ import TabNoAddList from 'assets/json/browse-collection/tab-list-no-add.json'
 // styles
 import styles from './index.module.scss'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
-import AboutSection from 'components/pages/BrowseCollection/AboutSection'
 
 // apis
 

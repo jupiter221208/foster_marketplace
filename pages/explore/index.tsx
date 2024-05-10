@@ -626,8 +626,8 @@ const Explore = () => {
                 height="40px"
                 color={'var(--text-gray-200-color)'}
                 icon1={<FilterGrayIcon alt="" />}
-                backgroundColor01="var(--resource-card-bg)"
-                backgroundColor02="var(--resource-card-bg)"
+                backgroundColor01="var(--background-main-color)"
+                backgroundColor02="var(--background-main-color)"
                 gradientDirection="bottom"
                 fontFamily="Muli-Regular"
                 fontSize={14}
@@ -644,8 +644,8 @@ const Explore = () => {
               height="40px"
               color={'var(--text-gray-200-color)'}
               icon1={<SortGrayIcon alt="" />}
-              backgroundColor01="var(--resource-card-bg)"
-              backgroundColor02="var(--resource-card-bg)"
+              backgroundColor01="var(--background-main-color)"
+              backgroundColor02="var(--background-main-color)"
               gradientDirection="bottom"
               fontFamily="Muli-Regular"
               fontSize={14}

@@ -34,6 +34,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
       case 'MasterEditionListingCreated':
       case 'MasterEditionListingUpdated':
       case 'MasterEditionPrintCreated':
+      case 'MasterEditionListingCancelled':
       case 'ListingUpdated':
         user = getOwnerName(item)
         break
@@ -88,7 +89,8 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         type = 'purchased edition'
         break
       case 'MasterEditionListingCancelled':
-        type = 'canceled list edition'
+        type = 'removed listing'
+        break
       case 'ListingUpdated':
         type = 'updated listing'
         break
@@ -139,11 +141,12 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
                       {isAmountExisting(item.action_type) && (
                         <>
                           <div className={styles.text}>&nbsp;for&nbsp;</div>
-                          <div className="flex justify-center items-center gap-[5px]">
-                            <SolanaLogoIcon />
+                          <div className="flex justify-center items-center">
+                            {/* <SolanaLogoIcon /> */}
                             {countDecimals(parseFloat(item.amount)) > 2
                               ? parseFloat(item.amount).toFixed(2)
                               : item.amount}
+                            &nbsp;SOL
                           </div>
                         </>
                       )}

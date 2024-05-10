@@ -19,6 +19,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { getLocalDate } from 'utils/helpers'
 
 export interface OfferTableProps {
   data: LazyBidWithAsset[]
@@ -54,43 +55,54 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 
   return (
     <>
-      <td>
-        <div className="h-[90px] flex justify-start items-center gap-[25px]">
-          <div className="ml-[10px]">
-            <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px] overflow-hidden rounded-[15px]">
+      <td className="pb-[15px]">
+        <div className={styles.row}>
+          <div className="flex gap-[30px] items-center">
+            <div className="ml-[20px] w-[50px] h-[50px] lg:w-[50px] lg:h-[50px] overflow-hidden rounded-[10px]">
               {assetImageUrl && (
-                <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[15px] object-cover" />
+                <ImageWithFoster src={assetImageUrl} className="w-full h-full rounded-[10px] object-cover" />
               )}
             </div>
-          </div>
-          <div className="block">
-            <div className={styles.nftName} onClick={() => router.push(`/nft/${listing.asset.mintAddress.toBase58()}`)}>
-              {listing.asset.name}
+            <div>
+              <div
+                className={styles.nftName}
+                onClick={() => router.push(`/nft/${listing.asset.mintAddress.toBase58()}`)}
+              >
+                {offerType === 'made'
+                  ? 'You placed an offer of ' +
+                    getPriceValue(listing.price.basisPoints.toNumber()) +
+                    ' SOL for ' +
+                    listing.asset.name
+                  : 'You received an offer of ' +
+                    getPriceValue(listing.price.basisPoints.toNumber()) +
+                    ' SOL for ' +
+                    listing.asset.name}
+              </div>
+              <div className={styles.date}>{getLocalDate(new Date(listing.createdAt.toNumber() * 1000))}</div>
             </div>
           </div>
-        </div>
-      </td>
-      <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>
-      <td className="text-center">
-        <div className="flex justify-center gap-[5px] items-center">
-          <SolanaLogoIcon />
-          {getPriceValue(listing.price.basisPoints.toNumber())}
-        </div>
-      </td>
-      <td className="text-center">{ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}</td>
-      <td className="">
-        <div className="w-full flex justify-center">
-          {offerType === 'made' ? (
-            <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
-          ) : (
-            <GradientButton
-              label="Accept"
-              onClick={() => onAccept(listing)}
-              gradientDirection="right"
-              width="138px"
-              height="48px"
-            />
-          )}
+          <div className="flex items-center mr-[20px]">
+            {offerType === 'made' ? (
+              // <OutlineButton label="Cancel" onClick={() => onCancel(listing)} width="138px" height="48px" />
+              <div className={styles.button} onClick={() => onCancel(listing)}>
+                Cancel
+              </div>
+            ) : (
+              <div className={styles.button} onClick={() => onAccept(listing)}>
+                Accept
+              </div>
+              // <GradientButton
+              //   label="Accept"
+              //   backgroundColor01="var(--main-icon-color)"
+              //   backgroundColor02="var(--main-icon-color)"
+              //   color="var(--background-main-color)"
+              //   onClick={() => onAccept(listing)}
+              //   gradientDirection="right"
+              //   width="138px"
+              //   height="48px"
+              // />
+            )}
+          </div>
         </div>
       </td>
     </>
@@ -99,18 +111,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 
 const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
-    <table id="ArtworksTable" className="w-full table-auto">
-      <thead>
-        <tr>
-          <th className="w-[25%]">
-            <div className="text-start pl-[35px]">Name</div>
-          </th>
-          <th className="w-[20%]">Time</th>
-          <th className="w-[20%]">Amount</th>
-          <th className="w-[20%]">{offerType === 'made' ? 'Seller' : 'Buyer'}</th>
-          <th className="w-[15%]">Action</th>
-        </tr>
-      </thead>
+    <table className="w-full table-auto">
       <tbody>
         {data.map((listing, index) => (
           <tr key={index}>

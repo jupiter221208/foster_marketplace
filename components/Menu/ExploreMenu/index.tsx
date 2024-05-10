@@ -69,7 +69,7 @@ const ExploreMenu = props => {
                   {activeList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
                       <a>
-                        <p
+                        <div
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
@@ -77,6 +77,8 @@ const ExploreMenu = props => {
                             dispatch({ type: 'set', exploreTab: 0 })
                             if (item.query === 'live_auctions') {
                               dispatch({ type: 'set', availabilityFilter: 1 })
+                            } else if (item.query === 'live_editions') {
+                              dispatch({ type: 'set', availabilityFilter: 2 })
                             } else {
                               dispatch({ type: 'set', availabilityFilter: 0 })
                             }
@@ -84,7 +86,7 @@ const ExploreMenu = props => {
                           }}
                         >
                           {item.label}
-                        </p>
+                        </div>
                       </a>
                     </Link>
                   ))}

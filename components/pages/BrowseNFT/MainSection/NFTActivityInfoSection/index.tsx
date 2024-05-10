@@ -152,7 +152,7 @@ const NFTActivityInfoSection = props => {
                       <span className={styles.userName}>{getDisplayUserName(item.reference_username)}</span>
                     </a>
                   </Link>
-                  <span>&nbsp;canceled master edition</span>
+                  <span>&nbsp;removed listing</span>
                 </div>
               ) : item.action_type === 'MasterEditionListingCreated' ? (
                 <div className={styles.actionType}>
