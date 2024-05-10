@@ -227,6 +227,7 @@ const Explore = () => {
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
+  let stackNftList = []
 
   const getExploreNFTData = async (curPage, categoryList, availability, medium, market, sort, count, reset = false) => {
     let categoryLabel = []
@@ -353,8 +354,19 @@ const Explore = () => {
         setNftCurrentPage(curPage)
         setTotalCount(count * curPage + response.length)
 
-        if (reset === true) setNftList([...nfts])
-        else setNftList([...nftList, ...nfts])
+        if (nfts.length < 4) {
+          stackNftList = [...stackNftList, ...nfts]
+          if (stackNftList.length >= 4) {
+            if (reset === true) setNftList([...stackNftList])
+            else setNftList([...nftList, ...stackNftList])
+            stackNftList = []
+          } else {
+            loadMorePage(curPage + 1)
+          }
+        } else {
+          if (reset === true) setNftList([...nfts])
+          else setNftList([...nftList, ...nfts])
+        }
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
@@ -478,6 +490,20 @@ const Explore = () => {
     else if (exploreTab === 2) getExploreArtistData(nextPage, selectedSort, rowCount)
   }
 
+  const loadMorePage = nextPage => {
+    if (exploreTab === 0)
+      getExploreNFTData(
+        nextPage,
+        categoryList,
+        selectedAvailability,
+        selectedMedium,
+        selectedMarket,
+        selectedSort,
+        rowCount
+      )
+    else if (exploreTab === 1) getExploreCollectionData(nextPage, categoryList, selectedSort, rowCount)
+    else if (exploreTab === 2) getExploreArtistData(nextPage, selectedSort, rowCount)
+  }
   const selectCategory = categoryList => {
     setCategoryList(categoryList)
 
