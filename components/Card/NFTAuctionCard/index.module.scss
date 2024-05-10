@@ -130,7 +130,7 @@
   font-weight: 100;
   margin-top: -2px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
