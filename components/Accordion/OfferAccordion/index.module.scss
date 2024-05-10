@@ -99,6 +99,14 @@
   color: var(--text-gray-200-color);
 }
 
+.subDesc {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 9px;
+}
+
 .amount {
   font-family: 'Muli-Regular';
   font-size: 14px;
