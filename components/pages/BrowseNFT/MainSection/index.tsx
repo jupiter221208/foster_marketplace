@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
+import { sendTransactionWithRetry } from 'utils/transactions'
 
 // next components
 import Image from 'next/image'
@@ -325,12 +326,16 @@ const MainSection = ({
 
         let results = await Promise.allSettled(
           signedTransactions.map(async (tx, index) => {
-            let { editionNumber, editionMint } = printResponse[index]
-            let signature = await mx.connection.sendRawTransaction(tx.serialize(), {
-              maxRetries: 5,
-              preflightCommitment: 'processed',
+            let { editionNumber, editionMint, lastValidBlockHeight } = printResponse[index]
+            let signature = await sendTransactionWithRetry({
+              connection: mx.connection,
+              transaction: tx,
+              maxHeight: lastValidBlockHeight,
             })
-            await mx.connection.confirmTransaction(signature)
+            if (!signature) {
+              console.error('could not confirm signature for', printResponse[index])
+              throw new Error(`could not confirm signature for ${editionNumber} ${editionMint}`)
+            }
 
             await nftsAPI
               .create({
