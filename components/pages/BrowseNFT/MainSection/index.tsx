@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelList, populateLazyListingsWithAssets, updateList } from 'utils/auction.util'
+import { sendTransactionWithRetry } from 'utils/transactions'
 
 // next components
 import Image from 'next/image'
@@ -325,12 +326,16 @@ const MainSection = ({
 
         let results = await Promise.allSettled(
           signedTransactions.map(async (tx, index) => {
-            let { editionNumber, editionMint } = printResponse[index]
-            let signature = await mx.connection.sendRawTransaction(tx.serialize(), {
-              maxRetries: 5,
-              preflightCommitment: 'processed',
+            let { editionNumber, editionMint, lastValidBlockHeight } = printResponse[index]
+            let signature = await sendTransactionWithRetry({
+              connection: mx.connection,
+              transaction: tx,
+              maxHeight: lastValidBlockHeight,
             })
-            await mx.connection.confirmTransaction(signature)
+            if (!signature) {
+              console.error('could not confirm signature for', printResponse[index])
+              throw new Error(`could not confirm signature for ${editionNumber} ${editionMint}`)
+            }
 
             await nftsAPI
               .create({
@@ -860,30 +865,34 @@ const MainSection = ({
   const cancelListEdition = async () => {
     setCancelListLoading(true)
     try {
-      const listing = await revokeDelegateEdition({
+      let mint = new PublicKey(nftInfo.master_edition?.mintAddress)
+      let delegate = new PublicKey(nftInfo.master_edition?.authorityPublicKey)
+      let signature = await revokeDelegateEdition({
         metaplex: mx,
-        mint: new PublicKey(nftInfo.master_edition?.mintAddress),
-        delegate: new PublicKey(nftInfo.master_edition?.authorityPublicKey),
+        mint,
+        delegate,
       })
-
-      if (listing) {
-        cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
-          if (res) {
-            setAlertData([
-              {
-                id: 0,
-                title: 'Edition Listing Canceled!',
-                description: `${nftName} is no longer available for purchase`,
-                type: 'success',
-              },
-            ])
-            setShowAlert(true)
-            setTimeout(() => {
-              router.reload()
-            }, 1000)
-          }
-        })
+      if (!signature) {
+        console.error(`could not revoke delegate for ${mint} to ${delegate}`)
+        throw new Error(`could not revoke delegate for ${mint} to ${delegate}`)
       }
+
+      cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
+        if (res) {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Edition Listing Canceled!',
+              description: `${nftName} is no longer available for purchase`,
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+          setTimeout(() => {
+            router.reload()
+          }, 1000)
+        }
+      })
     } catch (e) {
       setCancelListLoading(false)
     }

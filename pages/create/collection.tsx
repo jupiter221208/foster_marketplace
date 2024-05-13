@@ -125,7 +125,7 @@ const Collection = () => {
           signers: [],
         },
         {
-          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 8_000_000 }),
           signers: [],
         }
       )
@@ -420,7 +420,7 @@ const Collection = () => {
           signers: [],
         },
         {
-          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 500_000 }),
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 8_000_000 }),
           signers: [],
         }
       )
