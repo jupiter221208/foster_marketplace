@@ -1,0 +1,40 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 196px;
+}
+
+.imageArea {
+  width: 196px;
+  height: 196px;
+  border: 2px solid #303030;
+  border-radius: 12px;
+}
+
+.selected {
+  border: 2px solid #95dbd5 !important;
+}
+
+.side {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color)
+}
+
+.dtg {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 15px;
+  color: var(--text-gray-200-color);
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+}
+
+.label {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--main-icon-color);
+}

@@ -1,0 +1,121 @@
+@import 'assets/scss/variable.module.scss';
+
+.createDesign {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color)
+  span {
+    color: var(--main-icon-color)
+  }
+}
+
+.garment {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9)
+}
+
+.studioDesinger {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+}
+
+.technique {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.5);
+}
+
+.leftPanel {
+  width: 31.48%;
+  max-width: 510px;
+  padding: 30px;
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.rightPanel {
+  position: relative;
+  width: 66.67%;
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.upload {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.selectedBtn {
+  width: 100%;
+  height: 50px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  background: var(--main-icon-color);
+  color: var(--background-main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.unselectedBtn {
+  width: 100%;
+  height: 50px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  background: transparent;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--text-gray-200-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.whiteColor {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: white;
+}
+
+.blackColor {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: black;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.selectedColor {
+  border: 2px solid var(--bg-95dbd5-707070);
+}
+
+.border {
+  width: 100%;
+  height: 1px;
+  margin-top: 45px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
+}
+
+.dropArea {
+  display:flex;
+  justify-content: center;
+  align-items: center; 
+  z-index: 10;
+  background: rgba(var(--background-main-color-rgb), 0.5);
+  border: 1px solid #707070;
+}

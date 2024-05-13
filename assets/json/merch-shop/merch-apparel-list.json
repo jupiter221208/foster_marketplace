@@ -1,0 +1,8 @@
+[
+    {
+      "id": 0,
+      "name": "Hoodie",
+      "image": { "front": "/images/merch-store/hoodie_front.png", "back": "/images/merch-store/hoodie_back.png", "right" :"/images/merch-store/hoodie_right.png", "left" : "/images/merch-store/hoodie_left.png" },
+      "apparel": { "front": "/images/merch-store/hoodie_apparel_white.png", "back": "/images/merch-store/hoodie_apparel_back.png", "right" :"/images/merch-store/hoodie_apparel_right.png", "left" : "/images/merch-store/hoodie_apparel_left.png" }
+    }
+]

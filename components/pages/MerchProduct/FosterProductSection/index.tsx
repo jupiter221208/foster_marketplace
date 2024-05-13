@@ -14,6 +14,7 @@ import 'swiper/css/navigation'
 import styles from './index.module.scss'
 import MerchProductCard from 'components/Card/MerchProductCard'
 import { useViewport } from 'utils'
+import MerchDTGSection from './MerchDTGSection'
 
 const FosterProductSection = () => {
   const viewport = useViewport()
@@ -74,6 +75,8 @@ const FosterProductSection = () => {
     ])
   }, [])
 
+  const [selectedCard, setSelectedCard] = useState(null)
+
   return (
     <div className="w-full">
       <Swiper
@@ -98,11 +101,13 @@ const FosterProductSection = () => {
         {productList.map((item, index) => (
           <SwiperSlide key={index}>
             <div key={index}>
-              <MerchProductCard data={item} />
+              <MerchProductCard data={item} onSelectedCard={item => setSelectedCard(item)} />
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <div className="w-full mt-[60px] mb-[60px]">{!selectedCard && <MerchDTGSection />}</div>
     </div>
   )
 }

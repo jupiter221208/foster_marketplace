@@ -12,7 +12,7 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const MerchProductCard = props => {
-  const { data } = props
+  const { data, onSelectedCard } = props
 
   return (
     <div className={styles.container}>
@@ -36,7 +36,9 @@ const MerchProductCard = props => {
       </div>
 
       <div className="w-full mt-[30px]">
-        <div className={styles.startDisableBtn}>Start&nbsp;Designing</div>
+        <div className={styles.startDisableBtn} onClick={() => onSelectedCard(data)}>
+          Start&nbsp;Designing
+        </div>
       </div>
     </div>
   )

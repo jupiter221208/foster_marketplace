@@ -74,6 +74,7 @@ const MerchShopCard = props => {
           color="var(--time-slog-bg)"
           width={106}
           height={50}
+          onClick={() => {}}
         />
       </div>
     </div>
