@@ -138,15 +138,11 @@ export async function delegateEdition({
   tx.recentBlockhash = latestBlockhash.blockhash
   let signedTx = await metaplex.identity().signTransaction(tx)
 
-  let signature = await sendTransactionWithRetry({
+  return sendTransactionWithRetry({
     connection: metaplex.connection,
     transaction: signedTx,
     maxHeight: latestBlockhash.lastValidBlockHeight,
   })
-  if (!signature) {
-    console.error(`could not delegate ${mint} to ${delegate}`)
-    throw new Error(`could not delegate ${mint} to ${delegate}`)
-  }
 }
 
 export interface RevokeDelegateEditionArgs {
@@ -257,13 +253,9 @@ export async function revokeDelegateEdition({
   tx.recentBlockhash = latestBlockhash.blockhash
   let signedTx = await metaplex.identity().signTransaction(tx)
 
-  let signature = await sendTransactionWithRetry({
+  return sendTransactionWithRetry({
     connection: metaplex.connection,
     transaction: signedTx,
     maxHeight: latestBlockhash.lastValidBlockHeight,
   })
-  if (!signature) {
-    console.error(`could not revoke delegate for ${mint} to ${delegate}`)
-    throw new Error(`could not revoke delegate for ${mint} to ${delegate}`)
-  }
 }

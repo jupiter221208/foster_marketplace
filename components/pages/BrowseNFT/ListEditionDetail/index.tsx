@@ -107,22 +107,19 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
       })
 
       let printDelegateAccount
-      for (let i = 0; i < 5; i++)
-        try {
-          console.log(`delegating master edition: attempt ${i + 1}`)
-          await delegateEdition({
-            metaplex,
-            mint,
-            delegate,
-          })
-          await new Promise(resolve => setTimeout(resolve, 1000))
+      for (let i = 0; i < 5; i++) {
+        console.log(`delegating master edition: attempt ${i + 1}`)
+        printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
+        if (printDelegateAccount.exists) break
 
-          printDelegateAccount = await metaplex.rpc().getAccount(printDelegateAddress, 'single')
-          if (printDelegateAccount.exists) break
-        } catch (e: any) {
-          console.error(`delegating failed: ${e?.message ?? e}`)
-          console.error(e)
-        }
+        let signature = await delegateEdition({
+          metaplex,
+          mint,
+          delegate,
+        })
+        if (!signature) console.error(`could not delegate ${mint} to ${delegate}`)
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
 
       if (!printDelegateAccount.exists) {
         // show error to user

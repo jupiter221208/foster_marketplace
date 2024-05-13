@@ -860,11 +860,18 @@ const MainSection = ({
   const cancelListEdition = async () => {
     setCancelListLoading(true)
     try {
-      await revokeDelegateEdition({
+      let mint = new PublicKey(nftInfo.master_edition?.mintAddress)
+      let delegate = new PublicKey(nftInfo.master_edition?.authorityPublicKey)
+      let signature = await revokeDelegateEdition({
         metaplex: mx,
-        mint: new PublicKey(nftInfo.master_edition?.mintAddress),
-        delegate: new PublicKey(nftInfo.master_edition?.authorityPublicKey),
+        mint,
+        delegate,
       })
+      if (!signature) {
+        console.error(`could not revoke delegate for ${mint} to ${delegate}`)
+        throw new Error(`could not revoke delegate for ${mint} to ${delegate}`)
+      }
+
       cancelListingEdition(nftInfo.master_edition?.mintAddress).then(res => {
         if (res) {
           setAlertData([
