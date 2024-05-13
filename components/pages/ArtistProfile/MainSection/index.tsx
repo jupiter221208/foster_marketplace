@@ -29,9 +29,6 @@ import { useViewport, namePublicFile } from 'utils'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
-import InstagramIcon from 'assets/icons/social-ig.svg?component'
-import TwitterIcon from 'assets/icons/social-twitter.svg?component'
-import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
@@ -456,40 +453,6 @@ const MainSection = prop => {
           </div>
 
           <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
-            {hasLoading ? (
-              <div className={`${styles.skeletonLoader} w-[33px] h-[33px] mt-[4px] mr-[20px] rounded-md`}></div>
-            ) : (
-              <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[20px]">
-                {refreshing ? (
-                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
-                ) : (
-                  <div onClick={() => refreshNFT()}>
-                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                  </div>
-                )}
-              </div>
-            )}
-            {hasLoading ? (
-              <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] mr-[20px] rounded-md`}></div>
-            ) : (
-              <div className="mr-[20px]">
-                <div onClick={() => router.push(`/${artistInfo?.username}/merch`)}>
-                  <CreatorMerchIcon alt="" />
-                </div>
-              </div>
-            )}
-            {hasLoading ? (
-              <div className={`${styles.skeletonLoader} w-[40px] h-[40px] mt-[4px] mr-[20px] rounded-md`}></div>
-            ) : (
-              <div className="mr-[11px] ">
-                <MenuSocialShare
-                  type="image"
-                  vote={true}
-                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                  url={`/${artistInfo?.username}`}
-                />
-              </div>
-            )}
             {!isOwn && (
               <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
                 {!followLoaded && (
@@ -533,69 +496,6 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex justify-center">
           <div className="w-full flex flex-wrap z-10">
-            {/* {artistInfo?.wallet_id &&
-              (hasLoading ? (
-                <div className={`${styles.skeletonLoader} w-[150px] h-[35px] rounded-full `}></div>
-              ) : (
-                <div className="relative z-100">
-                  <AddressButton
-                    label={getShortAddress(artistInfo?.wallet_id)}
-                    onClick={() => {
-                      copyToClipboard(artistInfo?.wallet_id || '')
-                      copyClipboardAlert('wallet-address')
-                    }}
-                  />
-                  <CopyClipboardChip identifier="wallet-address" />
-                </div>
-              ))} */}
-            {/* <div className="flex gap-[20px] items-center ml-[11px]">
-              {artistInfo?.ig_url !== null &&
-                artistInfo?.ig_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[30px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
-                  </div>
-                ))}
-              {artistInfo?.twitter_url !== null &&
-                artistInfo?.twitter_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
-                  </div>
-                ))}
-              {artistInfo?.site_url !== null &&
-                artistInfo?.site_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
-                  </div>
-                ))}
-              {artistInfo?.three_land_url !== null &&
-                artistInfo?.three_land_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <LandIcon onClick={() => window.open(validUrl(artistInfo?.three_land_url))} />
-                  </div>
-                ))}
-              {artistInfo?.solarplex_url !== null &&
-                artistInfo?.solarplex_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <SolrPlexIcon onClick={() => window.open(validUrl(artistInfo?.solarplex_url))} />
-                  </div>
-                ))}
-            </div> */}
-
             <div className="w-full h-[24px] mt-[19px] flex items-center">
               <div className="flex gap-[15px] z-10 items-center">
                 {hasLoading ? (
@@ -671,6 +571,18 @@ const MainSection = prop => {
                       )}
                     </div>
                     <div className={styles.refereshText}>Refresh</div>
+                  </div>
+                )}
+
+                {hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[130px] h-[40px] rounded-md`}></div>
+                ) : (
+                  <div
+                    className={`${styles.iconContainer} w-[130px] px-[8px] gap-[8px]`}
+                    onClick={() => router.push(`/${artistInfo?.username}/merch`)}
+                  >
+                    <CreatorMerchIcon alt="" />
+                    <div className={styles.refereshText}>Merch Store</div>
                   </div>
                 )}
 

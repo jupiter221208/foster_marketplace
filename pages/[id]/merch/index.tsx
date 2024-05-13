@@ -45,7 +45,7 @@ const CreatorMerch = props => {
   }, [activeTab])
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-[60px]">
       <div className="w-full h-[350px] relative">
         <Image src={ShopBanner} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
