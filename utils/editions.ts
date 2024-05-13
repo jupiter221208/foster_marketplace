@@ -8,6 +8,7 @@ import {
 import { ASSOCIATED_TOKEN_PROGRAM_ID, TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { PROGRAM_ID as METADATA_PROGRAM_ID } from '@metaplex-foundation/mpl-token-metadata'
 import { Metaplex, type SendAndConfirmTransactionResponse } from '@metaplex-foundation/js'
+import { sendTransactionWithRetry } from 'utils/transactions'
 
 export interface FindPrintDelegateArgs {
   mint: PublicKey
@@ -38,7 +39,7 @@ export async function delegateEdition({
   metaplex,
   mint,
   delegate,
-}: DelegateEditionArgs): Promise<SendAndConfirmTransactionResponse | null> {
+}: DelegateEditionArgs): Promise<string | null> {
   let { value: largestAccounts } = await metaplex.connection.getTokenLargestAccounts(mint)
   let ata = largestAccounts.find(({ amount }) => amount == '1')?.address
   let { ownerAddress: owner } = await metaplex.tokens().findTokenByAddress({ address: ata })
@@ -49,6 +50,9 @@ export async function delegateEdition({
     owner,
     delegate,
   })
+
+  let printDelegateAccount = await metaplex.rpc().getAccount(printDelegate)
+  if (printDelegateAccount.exists) return null
 
   let delegateIx = new TransactionInstruction({
     keys: [
@@ -132,15 +136,13 @@ export async function delegateEdition({
   tx.feePayer = metaplex.identity().publicKey
   let latestBlockhash = await metaplex.rpc().getLatestBlockhash()
   tx.recentBlockhash = latestBlockhash.blockhash
+  let signedTx = await metaplex.identity().signTransaction(tx)
 
-  return metaplex.rpc().sendAndConfirmTransaction(
-    tx,
-    {
-      commitment: 'single',
-      maxRetries: 5,
-    },
-    [metaplex.identity()]
-  )
+  return sendTransactionWithRetry({
+    connection: metaplex.connection,
+    transaction: signedTx,
+    maxHeight: latestBlockhash.lastValidBlockHeight,
+  })
 }
 
 export interface RevokeDelegateEditionArgs {
@@ -152,7 +154,7 @@ export async function revokeDelegateEdition({
   metaplex,
   mint,
   delegate,
-}: RevokeDelegateEditionArgs): Promise<SendAndConfirmTransactionResponse | null> {
+}: RevokeDelegateEditionArgs): Promise<string | null> {
   let { value: largestAccounts } = await metaplex.connection.getTokenLargestAccounts(mint)
   let ata = largestAccounts.find(({ amount }) => amount == '1')?.address
   let { ownerAddress: owner } = await metaplex.tokens().findTokenByAddress({ address: ata })
@@ -163,6 +165,9 @@ export async function revokeDelegateEdition({
     owner,
     delegate,
   })
+
+  let printDelegateAccount = await metaplex.rpc().getAccount(printDelegate)
+  if (!printDelegateAccount.exists) return null
 
   let delegateIx = new TransactionInstruction({
     keys: [
@@ -246,13 +251,11 @@ export async function revokeDelegateEdition({
   tx.feePayer = metaplex.identity().publicKey
   let latestBlockhash = await metaplex.rpc().getLatestBlockhash()
   tx.recentBlockhash = latestBlockhash.blockhash
+  let signedTx = await metaplex.identity().signTransaction(tx)
 
-  return metaplex.rpc().sendAndConfirmTransaction(
-    tx,
-    {
-      commitment: 'single',
-      maxRetries: 5,
-    },
-    [metaplex.identity()]
-  )
+  return sendTransactionWithRetry({
+    connection: metaplex.connection,
+    transaction: signedTx,
+    maxHeight: latestBlockhash.lastValidBlockHeight,
+  })
 }

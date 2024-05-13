@@ -24,6 +24,7 @@ export interface CreatePrintTransaction {
   editionMint: string
   transaction: string
   editionNumber: number
+  lastValidBlockHeight: number
 }
 
 export interface UpdateListingRequest {
