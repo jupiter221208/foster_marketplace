@@ -22,7 +22,7 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import styles from './index.module.scss'
 
 // backend
-import { listMasterEdition, updateEditionListing } from 'apis/editions'
+import { listMasterEdition, updateEditionListing, cancelListingEdition } from 'apis/editions'
 
 // solana
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
@@ -85,6 +85,8 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     return endDate
   }, [startDate, days, hours, durationType])
 
+  const cancelListEdition = async () => {}
+
   const handleListEdition = async () => {
     try {
       setIsLoading(true)
@@ -123,6 +125,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
       if (!printDelegateAccount.exists) {
         // show error to user
+        await cancelListingEdition(data.mintAddress)
         setIsLoading(false)
         return
       }
@@ -132,6 +135,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
       // TODO: send listing to backend with listing details
     } catch (e: any) {
       console.error(e)
+      await cancelListingEdition(data.mintAddress)
       setIsLoading(false)
     }
   }
