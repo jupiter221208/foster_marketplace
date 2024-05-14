@@ -34,6 +34,8 @@ const MerchDTGSection = props => {
       drawApparel()
       return
     }
+    console.log(selectedCard, '==========selectedCard=========')
+    console.log(apparelList[selectedCard.id].location, '==========selectedCard=========')
   }, [cardSide, assetUrl, color, selectedCard])
 
   const drawApparel = () => {
@@ -48,8 +50,9 @@ const MerchDTGSection = props => {
     }
 
     let baseWidth = 700
-    let assetWidth = 220
-    let assetTop = 200
+    let assetWidth = apparelList[selectedCard.id].location.width
+    let assetHeight = apparelList[selectedCard.id].location.height
+    let assetTop = apparelList[selectedCard.id].location.top
     let screenWidth = 700
 
     newCanvas.setDimensions({
@@ -74,7 +77,7 @@ const MerchDTGSection = props => {
                   top: assetTop,
                   left: (baseWidth - assetWidth) / 2,
                   width: assetWidth,
-                  height: assetWidth,
+                  height: assetHeight,
                   fill: 'rgba(26, 26, 26, 0.5)',
                   angle: 0,
                   absolutePositioned: true,
@@ -231,7 +234,14 @@ const MerchDTGSection = props => {
                   className="w-[700px] h-[700px]"
                 />
               </div>
-              <div className={`w-[220px] h-[220px] mt-[200px] ${styles.dropArea}`}>
+              <div
+                style={{
+                  width: apparelList[selectedCard.id].location.width,
+                  height: apparelList[selectedCard.id].location.height,
+                  marginTop: apparelList[selectedCard.id].location.top,
+                }}
+                className={`${styles.dropArea}`}
+              >
                 <Dropzone
                   onDrop={acceptedFiles => {
                     acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
