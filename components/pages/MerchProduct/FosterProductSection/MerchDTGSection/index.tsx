@@ -34,6 +34,10 @@ const MerchDTGSection = props => {
   const [assetUrl, setAssetUrl] = useState<any>(null)
 
   const canvasId = 'canvas-mobile'
+  const alertId = 'alert-tech'
+  useEffect(() => {
+    document.getElementById(alertId).style.display = 'none'
+  }, [])
 
   useEffect(() => {
     if (assetUrl) {
@@ -53,10 +57,10 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
-    let baseWidth = 700
-    let assetWidth = apparelList[selectedCard.id].location.width
-    let assetHeight = apparelList[selectedCard.id].location.height
-    let assetTop = apparelList[selectedCard.id].location.top
+    let assetWidth = apparelList[selectedCard.id].location[cardSide].width
+    let assetHeight = apparelList[selectedCard.id].location[cardSide].height
+    let assetTop = apparelList[selectedCard.id].location[cardSide].top
+    let assetLeft = apparelList[selectedCard.id].location[cardSide].left
     let screenWidth = 700
 
     newCanvas.setDimensions({
@@ -81,10 +85,10 @@ const MerchDTGSection = props => {
 
                 var rectClippingPath = new fabric.Rect({
                   top: assetTop,
-                  left: (baseWidth - assetWidth) / 2,
+                  left: assetLeft,
                   width: assetWidth,
                   height: assetHeight,
-                  fill: 'rgba(26, 26, 26, 0.5)',
+                  stroke: 'rgba(26, 26, 26, 0.5)',
                   angle: 0,
                   absolutePositioned: true,
                 })
@@ -94,7 +98,7 @@ const MerchDTGSection = props => {
                   scaleX: assetWidth / width,
                   scaleY: assetWidth / width,
                   top: assetTop,
-                  left: (baseWidth - assetWidth) / 2,
+                  left: assetLeft,
                 })
                 img.lockUniScaling = true
                 newCanvas.add(img)
@@ -134,12 +138,12 @@ const MerchDTGSection = props => {
               Technique
               <div
                 onMouseEnter={() => {
-                  copyLongClipboardAlert('alert-tech')
+                  copyLongClipboardAlert(alertId)
                 }}
               >
                 <InfoIcon className="mt-[2px]" />
               </div>
-              <TechniqueClipboardChip identifier="alert-tech" />
+              <TechniqueClipboardChip identifier={alertId} />
             </div>
             <div className="w-full mt-[15px] flex gap-[15px]">
               <div

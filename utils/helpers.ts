@@ -236,7 +236,7 @@ export const copyLongClipboardAlert = identifier => {
   document.getElementById(identifier).style.display = 'block'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
-  }, 5000)
+  }, 3000)
 }
 
 export const getOwnerName = item => {
