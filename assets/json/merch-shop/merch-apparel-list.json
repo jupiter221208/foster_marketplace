@@ -3,60 +3,63 @@
     "id": 0,
     "name": "Hoodie",
     "location": { "width": 220, "height": 220, "top": 200 },
-    "image": { "front": "/images/merch-store/hoodie_front.png", "back": "/images/merch-store/hoodie_back.png", "right" :"/images/merch-store/hoodie_right.png", "left" : "/images/merch-store/hoodie_left.png" },
     "apparel": { 
+      "width": 11.04,
+      "height": 11.04,
       "front": { "white":"/images/apparel/man_hoodie_white.png", "black":"/images/apparel/man_hoodie_black.png" }, 
       "back": { "white": "/images/apparel/man_hoodie_white_b.png", "black":"/images/apparel/man_hoodie_black_b.png" }, 
-      "right" :{ "white":"/images/apparel/man_hoodie_white.png", "black":"/images/apparel/man_hoodie_black.png" }, 
-      "left" : { "white":"/images/apparel/man_hoodie_white.png", "black":"/images/apparel/man_hoodie_black.png" } 
+      "right" :{ "white":"/images/apparel/man_hoodie_white_r.png", "black":"/images/apparel/man_hoodie_black_r.png" }, 
+      "left" : { "white":"/images/apparel/man_hoodie_white_l.png", "black":"/images/apparel/man_hoodie_black_l.png" } 
     }
   },
   {
     "id": 1,
     "name": "Long Sleeve",
     "location": { "width": 220, "height": 290, "top": 150 },
-    "image": { "front": "/images/merch-store/long_sleeve_front.png", "back": "/images/merch-store/long_sleeve_back.png", "right" :"/images/merch-store/long_sleeve_right.png", "left" : "/images/merch-store/long_sleeve_left.png" },
     "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
       "front": { "white":"/images/apparel/man_longsleeve_white.png", "black":"/images/apparel/man_longsleeve_black.png"}, 
       "back": { "white": "/images/apparel/man_longsleeve_white_b.png", "black":"/images/apparel/man_longsleeve_black_b.png"}, 
-      "right" :{ "white":"/images/apparel/man_longsleeve_white.png", "black":"/images/apparel/man_longsleeve_black.png"}, 
-      "left" : { "white":"/images/apparel/man_longsleeve_white_b.png", "black":"/images/apparel/man_longsleeve_black_b.png"} 
+      "right" :{ "white":"/images/apparel/man_longsleeve_white_r.png", "black":"/images/apparel/man_longsleeve_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_longsleeve_white_l.png", "black":"/images/apparel/man_longsleeve_black_l.png"} 
     }
   },
   {
     "id": 2,
     "name": "T-Shirt",
     "location": { "width": 220, "height": 290, "top": 150 },
-    "image": { "front": "/images/merch-store/t_shirt_front.png", "back": "/images/merch-store/t_shirt_back.png", "right" :"/images/merch-store/t_shirt_right.png", "left" : "/images/merch-store/t_shirt_left.png" },
     "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
       "front": { "white":"/images/apparel/man_t_white.png", "black":"/images/apparel/man_t_black.png"}, 
       "back": { "white": "/images/apparel/man_t_white_b.png", "black":"/images/apparel/man_t_black_b.png"}, 
-      "right" :{ "white":"/images/apparel/man_t_white.png", "black":"/images/apparel/man_t_black.png"}, 
-      "left" : { "white":"/images/apparel/man_t_white_b.png", "black":"/images/apparel/man_t_black_b.png"} 
+      "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
     }
   },
   {
     "id": 3,
     "name": "Sweatshirt",
     "location": { "width": 220, "height": 290, "top": 150 },
-    "image": { "front": "/images/merch-store/sweatshirt_front.png", "back": "/images/merch-store/sweatshirt_back.png", "right" :"/images/merch-store/sweatshirt_right.png", "left" : "/images/merch-store/sweatshirt_left.png" },
     "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
       "front": { "white":"/images/apparel/man_sweat_white.png", "black":"/images/apparel/man_sweat_black.png"}, 
       "back": { "white": "/images/apparel/man_sweat_white_b.png", "black":"/images/apparel/man_sweat_black_b.png"}, 
-      "right" :{ "white":"/images/apparel/man_sweat_white.png", "black":"/images/apparel/man_sweat_black.png"}, 
-      "left" : { "white":"/images/apparel/man_sweat_white_b.png", "black":"/images/apparel/man_sweat_black_b.png"} 
+      "right" :{ "white":"/images/apparel/man_sweat_white_r.png", "black":"/images/apparel/man_sweat_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_sweat_white_l.png", "black":"/images/apparel/man_sweat_black_l.png"} 
     }
   },
   {
     "id": 4,
     "name": "Women's T-Shirt",
     "location": { "width": 220, "height": 290, "top": 150 },
-    "image": { "front": "/images/merch-store/woman_t_front.png", "back": "/images/merch-store/woman_t_back.png" },
     "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
       "front": { "white":"/images/apparel/women_t_white.png", "black":"/images/apparel/women_t_black.png" }, 
-      "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" }, 
-      "right" :{ "white":"/images/apparel/women_t_white.png", "black":"/images/apparel/women_t_black.png" }, 
-      "left" : { "white":"/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" } 
+      "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" }
     }
   }
 ]

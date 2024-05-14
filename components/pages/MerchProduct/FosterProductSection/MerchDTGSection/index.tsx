@@ -34,8 +34,6 @@ const MerchDTGSection = props => {
       drawApparel()
       return
     }
-    console.log(selectedCard, '==========selectedCard=========')
-    console.log(apparelList[selectedCard.id].location, '==========selectedCard=========')
   }, [cardSide, assetUrl, color, selectedCard])
 
   const drawApparel = () => {
@@ -62,7 +60,7 @@ const MerchDTGSection = props => {
 
     setTimeout(() => {
       new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
-        img.scale(screenWidth / 600, false)
+        img.scale(screenWidth / 700, false)
         newCanvas.add(img)
 
         newCanvas.item(0).selectable = false
@@ -156,14 +154,14 @@ const MerchDTGSection = props => {
           <div className="flex justify-between mt-[45px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
-              image={apparelList[selectedCard.id].image.front}
+              image={apparelList[selectedCard.id].apparel.front[color]}
               side="front"
               type="DTG"
               onSelect={type => setCardSide(type)}
             />
             <MerchDTGCard
               selected={cardSide === 'back'}
-              image={apparelList[selectedCard.id].image.back}
+              image={apparelList[selectedCard.id].apparel.back[color]}
               side="back"
               type="DTG"
               label="+$5.95"
@@ -171,19 +169,19 @@ const MerchDTGSection = props => {
             />
           </div>
           <div className="flex justify-between mt-[45px]">
-            {apparelList[selectedCard.id].image.hasOwnProperty('right') && (
+            {apparelList[selectedCard.id].apparel.hasOwnProperty('right') && (
               <MerchDTGCard
                 selected={cardSide === 'right'}
-                image={apparelList[selectedCard.id].image.right}
+                image={apparelList[selectedCard.id].apparel.right[color]}
                 side="right"
                 label="+$2.49"
                 onSelect={type => setCardSide(type)}
               />
             )}
-            {apparelList[selectedCard.id].image.hasOwnProperty('left') && (
+            {apparelList[selectedCard.id].apparel.hasOwnProperty('left') && (
               <MerchDTGCard
                 selected={cardSide === 'left'}
-                image={apparelList[selectedCard.id].image.left}
+                image={apparelList[selectedCard.id].apparel.left[color]}
                 side="left"
                 label="+$2.49"
                 onSelect={type => setCardSide(type)}
@@ -269,6 +267,24 @@ const MerchDTGSection = props => {
               </div>
             </div>
           )}
+          <div className={styles.infoLabel}>
+            <div>
+              <div className="flex gap-[3px]">
+                <div className={styles.printQulity}>Print quality:</div>
+                <div className={styles.printDPI}>Good / 481 DPI</div>
+              </div>
+              <div className="flex gap-[15px] mt-[15px]">
+                <div className="flex gap-[3px]">
+                  <div className={styles.printQulity}>Width</div>
+                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.width}</div>
+                </div>
+                <div className="flex gap-[3px]">
+                  <div className={styles.printQulity}>Height</div>
+                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.height}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

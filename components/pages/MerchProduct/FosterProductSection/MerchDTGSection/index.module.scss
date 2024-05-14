@@ -117,3 +117,41 @@
   background: rgba(var(--background-main-color-rgb), 0.5);
   border: 1px solid #707070;
 }
+
+.infoLabel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 234px;
+  height: 90px;
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px solid  rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.printQulity {
+  font-family: "Muli-SemiBold";
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.printDPI {
+  font-family: "Muli-Light";
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: var(--main-icon-color);
+}
+
+.printText {
+  font-family: "Muli-Light";
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
