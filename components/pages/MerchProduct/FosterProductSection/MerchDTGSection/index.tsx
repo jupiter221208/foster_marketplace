@@ -58,6 +58,8 @@ const MerchDTGSection = props => {
       height: screenWidth,
     })
 
+    if (!apparelList[selectedCard.id].apparel.hasOwnProperty(cardSide)) return
+
     setTimeout(() => {
       new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
         img.scale(screenWidth / 700, false)
