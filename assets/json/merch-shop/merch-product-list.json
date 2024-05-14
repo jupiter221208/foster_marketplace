@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "name": "Unisex Premium Hoodie | Cotton Heritage M2580",
+    "description": "DTG starting at $30.45 / Embroidery starting at $36.45",
+    "size": "S - 3XL",
+    "image": "/images/apparel/man_hoodie_black_s.png"
+  },
+  {
+    "id": 1,
+    "name": "Unisex Long Sleeve Tee | Bella + Canvas 3501",
+    "description": " 'DTG starting at $22.75 / Embroidery starting at $25.50",
+    "size": "XS - 2XL",
+    "image": "/images/apparel/man_longsleeve_white_s.png"
+  },
+  {
+    "id": 2,
+    "name": "Unisex Garment-Dyed Heavyweight T-Shirt | Comfort Colors 1717",
+    "description": "DTG starting at $19.95 / Embroidery starting at $20.45",
+    "size": "S - 4XL",
+    "image": "/images/apparel/man_t_white_s.png"
+  },
+  {
+    "id": 3,
+    "name": "Unisex Premium Sweatshirt | Cotton Heritage M2480",
+    "description": " 'DTG starting at $27.50 / Embroidery starting at $34.45",
+    "size": "S - 3XL",
+    "image": "/images/apparel/man_sweat_black_s.png"
+  },
+  {
+    "id": 4,
+    "name": "Women's Relaxed T-Shirt | Bella + Canvas 6400 Heritage M2580",
+    "description": "DTG starting at $18.25 / Embroidery starting at $21.95",
+    "size": "S - 3XL",
+    "image": "/images/apparel/women_t_white_s.png"
+  }
+]

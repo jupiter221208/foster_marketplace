@@ -18,7 +18,8 @@ import MerchDTGCard from './MerchDTGCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
-const MerchDTGSection = () => {
+const MerchDTGSection = props => {
+  const { selectedCard } = props
   const [canvas, setCanvas] = useState('')
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
@@ -33,17 +34,10 @@ const MerchDTGSection = () => {
       drawApparel()
       return
     }
-    // let newCanvas = canvas as fabric.Canvas
-    // if (newCanvas != '') {
-    //   newCanvas.clear().renderAll()
-    //   setCanvas(newCanvas)
-    // }
-  }, [cardSide, assetUrl])
+  }, [cardSide, assetUrl, color, selectedCard])
 
   const drawApparel = () => {
     if (isDrawing) return
-
-    // setIsDrawing(true)
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -53,10 +47,10 @@ const MerchDTGSection = () => {
       newCanvas.renderAll()
     }
 
-    let baseWidth = 1080
-    let assetWidth = 335
-    let assetTop = 312
-    let screenWidth = 1080
+    let baseWidth = 700
+    let assetWidth = 220
+    let assetTop = 200
+    let screenWidth = 700
 
     newCanvas.setDimensions({
       width: screenWidth,
@@ -64,8 +58,8 @@ const MerchDTGSection = () => {
     })
 
     setTimeout(() => {
-      new fabric.Image.fromURL(apparelList[0].apparel.front, img => {
-        img.scale(screenWidth / 1080, false)
+      new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
+        img.scale(screenWidth / 600, false)
         newCanvas.add(img)
 
         newCanvas.item(0).selectable = false
@@ -159,14 +153,14 @@ const MerchDTGSection = () => {
           <div className="flex justify-between mt-[45px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
-              image={apparelList[0].image.front}
+              image={apparelList[selectedCard.id].image.front}
               side="front"
               type="DTG"
               onSelect={type => setCardSide(type)}
             />
             <MerchDTGCard
               selected={cardSide === 'back'}
-              image={apparelList[0].image.back}
+              image={apparelList[selectedCard.id].image.back}
               side="back"
               type="DTG"
               label="+$5.95"
@@ -174,20 +168,24 @@ const MerchDTGSection = () => {
             />
           </div>
           <div className="flex justify-between mt-[45px]">
-            <MerchDTGCard
-              selected={cardSide === 'right'}
-              image={apparelList[0].image.right}
-              side="right"
-              label="+$2.49"
-              onSelect={type => setCardSide(type)}
-            />
-            <MerchDTGCard
-              selected={cardSide === 'left'}
-              image={apparelList[0].image.left}
-              side="left"
-              label="+$2.49"
-              onSelect={type => setCardSide(type)}
-            />
+            {apparelList[selectedCard.id].image.hasOwnProperty('right') && (
+              <MerchDTGCard
+                selected={cardSide === 'right'}
+                image={apparelList[selectedCard.id].image.right}
+                side="right"
+                label="+$2.49"
+                onSelect={type => setCardSide(type)}
+              />
+            )}
+            {apparelList[selectedCard.id].image.hasOwnProperty('left') && (
+              <MerchDTGCard
+                selected={cardSide === 'left'}
+                image={apparelList[selectedCard.id].image.left}
+                side="left"
+                label="+$2.49"
+                onSelect={type => setCardSide(type)}
+              />
+            )}
           </div>
           <div className="w-full mt-[45px]">
             <OutlineButton
@@ -221,13 +219,19 @@ const MerchDTGSection = () => {
         </div>
 
         <div className={styles.rightPanel}>
-          <canvas id={canvasId} />
+          <div className="w-[700px] h-[700px]">
+            <canvas id={canvasId} />
+          </div>
           {!assetUrl && (
-            <div className="absolute w-full h-full flex justify-center">
+            <div className="absolute w-[700px] h-[700px] flex justify-center">
               <div className="absolute inset-0">
-                <img src={apparelList[0].apparel.front} alt="" />
+                <img
+                  src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                  alt=""
+                  className="w-[700px] h-[700px]"
+                />
               </div>
-              <div className={`w-[335px] h-[335px] mt-[312px] ${styles.dropArea}`}>
+              <div className={`w-[220px] h-[220px] mt-[200px] ${styles.dropArea}`}>
                 <Dropzone
                   onDrop={acceptedFiles => {
                     acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))

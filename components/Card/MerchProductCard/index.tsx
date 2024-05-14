@@ -36,7 +36,10 @@ const MerchProductCard = props => {
       </div>
 
       <div className="w-full mt-[30px]">
-        <div className={styles.startDisableBtn} onClick={() => onSelectedCard(data)}>
+        <div
+          className={data.selected ? styles.startEnableBtn : styles.startDisableBtn}
+          onClick={() => onSelectedCard(data)}
+        >
           Start&nbsp;Designing
         </div>
       </div>

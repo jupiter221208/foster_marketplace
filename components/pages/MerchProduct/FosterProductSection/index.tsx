@@ -9,6 +9,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // json
+import merchProductList from 'assets/json/merch-shop/merch-product-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -18,64 +19,24 @@ import MerchDTGSection from './MerchDTGSection'
 
 const FosterProductSection = () => {
   const viewport = useViewport()
-
   const [productList, setProductList] = useState([])
-  useEffect(() => {
-    setProductList([
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
+  const [selectedCard, setSelectedCard] = useState(null)
 
-      {
-        id: 0,
-        name: 'Unisex Premium Hoodie | Cotton Heritage M2580',
-        description: 'DTG starting at $30.45 / Embroidery starting at $36.45',
-        size: 'S - 3XL',
-        image: '/images/apparel/man_hoodie_white_s.png',
-      },
-    ])
+  useEffect(() => {
+    let cardList = []
+    merchProductList.map(item => cardList.push({ ...item, selected: false }))
+    setProductList(cardList)
   }, [])
 
-  const [selectedCard, setSelectedCard] = useState(null)
+  useEffect(() => {
+    if (!selectedCard) return
+    let cardList = []
+    merchProductList.map(item => {
+      if (selectedCard.id === item.id) cardList.push({ ...item, selected: true })
+      else cardList.push({ ...item, selected: false })
+    })
+    setProductList(cardList)
+  }, [selectedCard])
 
   return (
     <div className="w-full">
@@ -96,7 +57,6 @@ const FosterProductSection = () => {
         pagination={true}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         className={'auctionNavigationSwiper'}
-        loop
       >
         {productList.map((item, index) => (
           <SwiperSlide key={index}>
@@ -107,7 +67,9 @@ const FosterProductSection = () => {
         ))}
       </Swiper>
 
-      <div className="w-full mt-[60px] mb-[60px]">{!selectedCard && <MerchDTGSection />}</div>
+      <div className="w-full mt-[60px] mb-[60px]">
+        {selectedCard !== null && <MerchDTGSection selectedCard={selectedCard} />}
+      </div>
     </div>
   )
 }

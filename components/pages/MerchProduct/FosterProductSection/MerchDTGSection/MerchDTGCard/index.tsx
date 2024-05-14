@@ -27,7 +27,7 @@ const MerchDTGCard = props => {
             ? 'Back'
             : side === 'right'
             ? 'Right sleeve'
-            : 'Left sleev'}
+            : 'Left sleeve'}
         </div>
         {label.length > 0 && <div className={styles.label}>{label}</div>}
         {type === 'DTG' && <div className={styles.dtg}>DTG</div>}
