@@ -27,6 +27,15 @@
   overflow: hidden;
 }
 
+.bottomSection {
+  width: 100%;
+  padding: 20px;
+  background: #1a1a1a;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
@@ -74,6 +83,16 @@
   height: 50px;
   border-radius: 18px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlBtn {
+  width: 50px;
+  height: 50px;
+  background: #242424;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -656,54 +656,6 @@ h6 {
 }
 
 // Merch Shop Card Swiper
-.merchShopCardSwiper {
-
-  .swiper-button-prev {
-    display: flex;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 18px;
-    top: calc(100% - 25px);
-    left: 0px;
-    background: var(--create-nft-card-bg);
-    color: var(--scroll-arrow-color);
-    &::after {
-      font-size: 20px;
-      font-weight: 700;
-    }
-    z-index: 100;
-    opacity: 1 !important;
-    &:hover {
-      cursor: pointer;
-    }
-    pointer-events: visible !important;
-  }
-
-  .swiper-button-next {
-    display: flex;
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 18px;
-    top: calc(100% - 25px);
-    bottom: 0px;
-    right: 0px;
-    background: var(--create-nft-card-bg);
-    color: var(--scroll-arrow-color);
-    &::after {
-      font-size: 20px;
-      font-weight: 700;
-    }
-    z-index: 100;
-    opacity: 1 !important;
-    &:hover {
-      cursor: pointer;
-    }
-    pointer-events: visible !important;
-  }
-}
-
 #merchShopCardSwiper .swiper-wrapper {
   padding-bottom: 30px;
 }
