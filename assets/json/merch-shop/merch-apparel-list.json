@@ -3,10 +3,18 @@
     "id": 0,
     "name": "Hoodie",
     "location": { 
-      "front": {"width": 220, "height": 220, "top": 200, "left": 240},
-      "back": {"width": 220, "height": 290, "top": 255, "left": 240 },
-      "right": {"width": 50, "height": 180, "top": 300, "left": 320 },
-      "left": {"width": 50, "height": 180, "top": 300, "left": 335 }
+      "dtg": {
+        "front": {"width": 220, "height": 220, "top": 200, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 255, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 320 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 335 }
+      },
+      "emb": {
+        "front": {"width": 220, "height": 220, "top": 200, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 255, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 320 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 335 }
+      }
     },
     "apparel": { 
       "width": 11.04,
@@ -21,10 +29,18 @@
     "id": 1,
     "name": "Long Sleeve",
     "location": { 
-      "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-      "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-      "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-      "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      "dtg": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      },
+      "emb": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      }
     },
     "apparel": { 
       "width": 11.04,
@@ -39,10 +55,18 @@
     "id": 2,
     "name": "T-Shirt",
     "location": { 
-      "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-      "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-      "right": {"width": 86, "height": 70, "top": 430, "left": 302 },
-      "left": {"width": 86, "height": 70, "top": 430, "left": 302 }
+      "dtg": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 86, "height": 70, "top": 430, "left": 302 },
+        "left": {"width": 86, "height": 70, "top": 430, "left": 302 }
+      },
+      "emb": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 86, "height": 70, "top": 430, "left": 302 },
+        "left": {"width": 86, "height": 70, "top": 430, "left": 302 }
+      }
     },
     "apparel": { 
       "width": 11.04,
@@ -57,10 +81,18 @@
     "id": 3,
     "name": "Sweatshirt",
     "location": { 
-      "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-      "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-      "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-      "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      "dtg": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      },
+      "emb": {
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+      }
     },
     "apparel": { 
       "width": 11.04,
@@ -74,7 +106,16 @@
   {
     "id": 4,
     "name": "Women's T-Shirt",
-    "location": { "width": 220, "height": 290, "top": 150 },
+    "location": { 
+      "dtg": {
+        "front": { "width": 220, "height": 290, "top": 150, "left": 240 },
+        "back": { "width": 220, "height": 290, "top": 150, "left": 240 }
+      },
+      "emb": {
+        "front": { "width": 220, "height": 290, "top": 150, "left": 240 },
+        "back": { "width": 220, "height": 290, "top": 150, "left": 240 }
+      }
+    },
     "apparel": { 
       "width": 11.04,
       "height": 14.72,

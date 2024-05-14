@@ -57,10 +57,10 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
-    let assetWidth = apparelList[selectedCard.id].location[cardSide].width
-    let assetHeight = apparelList[selectedCard.id].location[cardSide].height
-    let assetTop = apparelList[selectedCard.id].location[cardSide].top
-    let assetLeft = apparelList[selectedCard.id].location[cardSide].left
+    let assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
+    let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+    let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+    let assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
     let screenWidth = 700
 
     newCanvas.setDimensions({
