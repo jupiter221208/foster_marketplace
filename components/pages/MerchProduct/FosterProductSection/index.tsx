@@ -42,21 +42,21 @@ const FosterProductSection = () => {
     <div className="w-full">
       <Swiper
         navigation={true}
-        slidesPerView={
+        slidesPerView={5}
+        spaceBetween={
           viewport === 'xs'
-            ? 1.07
+            ? 9
             : viewport === 'sm' || viewport === 'md'
-            ? 2
+            ? 30
+            : viewport === 'lg'
+            ? 20
             : viewport === '2xl'
-            ? 5
-            : viewport === 'xl'
-            ? 4
-            : 4
+            ? 60
+            : 60
         }
-        spaceBetween={viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 20 : 20}
         pagination={true}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
-        className={'auctionNavigationSwiper'}
+        className={'noScrollNavigationSwiper'}
       >
         {productList.map((item, index) => (
           <SwiperSlide key={index}>

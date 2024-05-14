@@ -30,7 +30,7 @@
 .name {
   font-family: 'Muli-Bold';
   font-size: 16px;
-  color: rgba(var(--text-gray-200-color), 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .description {
@@ -45,7 +45,7 @@
   font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .blackColor {

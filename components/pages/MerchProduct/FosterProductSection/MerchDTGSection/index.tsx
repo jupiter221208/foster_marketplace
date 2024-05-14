@@ -5,18 +5,24 @@ import Dropzone from 'react-dropzone'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+import Lottie from 'lottie-react'
 
-// json
-import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
-
-// resources
-import EditMerchAssetIcon from 'assets/icons/edit-merch-asset.svg?component'
-
-// styles
-import styles from './index.module.scss'
+// component
 import MerchDTGCard from './MerchDTGCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
+import { copyLongClipboardAlert } from 'utils/helpers'
+import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
+
+// json
+import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
+import animationData from 'assets/lottery/upload-file.json'
+
+//resources
+import InfoIcon from 'assets/icons/info-green-small.svg?component'
+
+// styles
+import styles from './index.module.scss'
 
 const MerchDTGSection = props => {
   const { selectedCard } = props
@@ -113,17 +119,28 @@ const MerchDTGSection = props => {
 
   return (
     <div className="w-full">
-      <div className={styles.createDesign}>
-        Create Design <span>*</span>
-      </div>
+      <div className={styles.createDesign}>Create Design</div>
       <div className={styles.garment}>
-        Select the garments and colors you would like to make available for this apparel design.
+        Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch in
+        your studio store. You can place up to 4 different designs, but only 1 design (front or back) is included in the
+        base price. Additional designs will include additional fees – please see <span>product extras and costs</span>{' '}
+        for a breakdown of prices.
       </div>
       <div className="w-full flex gap-[30px] mt-[45px]">
         <div className={styles.leftPanel}>
           <div className={styles.studioDesinger}>Studio Desinger</div>
           <div className="w-full mt-[39px]">
-            <div className={styles.technique}>Technique</div>
+            <div className={styles.technique}>
+              Technique
+              <div
+                onMouseEnter={() => {
+                  copyLongClipboardAlert('alert-tech')
+                }}
+              >
+                <InfoIcon className="mt-[2px]" />
+              </div>
+              <TechniqueClipboardChip identifier="alert-tech" />
+            </div>
             <div className="w-full mt-[15px] flex gap-[15px]">
               <div
                 className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
@@ -234,14 +251,7 @@ const MerchDTGSection = props => {
                   className="w-[700px] h-[700px]"
                 />
               </div>
-              <div
-                style={{
-                  width: apparelList[selectedCard.id].location.width,
-                  height: apparelList[selectedCard.id].location.height,
-                  marginTop: apparelList[selectedCard.id].location.top,
-                }}
-                className={`${styles.dropArea}`}
-              >
+              <div className={`${styles.dropArea}`}>
                 <Dropzone
                   onDrop={acceptedFiles => {
                     acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
@@ -258,9 +268,15 @@ const MerchDTGSection = props => {
                       </button>
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
-                        <div className="flex flex-col items-center gap-[16px]">
-                          <EditMerchAssetIcon alt="" />
-                          <div className={styles.upload}>Upload Here</div>
+                        <div className="flex flex-col justify-center items-center">
+                          <div className="w-[60px] h-[60px]">
+                            <Lottie animationData={animationData} loop={true} />
+                          </div>
+                          <div className={styles.uploadText}>
+                            Upload or drop
+                            <br />
+                            your design here
+                          </div>
                         </div>
                       </div>
                     </section>

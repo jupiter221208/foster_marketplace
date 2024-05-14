@@ -226,10 +226,17 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'flex'
+  document.getElementById(identifier).style.display = 'block'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
+}
+
+export const copyLongClipboardAlert = identifier => {
+  document.getElementById(identifier).style.display = 'block'
+  setTimeout(function () {
+    document.getElementById(identifier).style.display = 'none'
+  }, 5000)
 }
 
 export const getOwnerName = item => {

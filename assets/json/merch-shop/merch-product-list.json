@@ -2,35 +2,35 @@
   {
     "id": 0,
     "name": "Unisex Premium Hoodie | Cotton Heritage M2580",
-    "description": "DTG starting at $30.45 / Embroidery starting at $36.45",
+    "description": "DTG starting at $32.94 / Embroidery starting at $35.44",
     "size": "S - 3XL",
     "image": "/images/apparel/man_hoodie_black.png"
   },
   {
     "id": 1,
     "name": "Unisex Long Sleeve Tee | Bella + Canvas 3501",
-    "description": " 'DTG starting at $22.75 / Embroidery starting at $25.50",
+    "description": "DTG starting at $25.24 / Embroidery starting at $27.99",
     "size": "XS - 2XL",
     "image": "/images/apparel/man_longsleeve_white.png"
   },
   {
     "id": 2,
-    "name": "Unisex Garment-Dyed Heavyweight T-Shirt | Comfort Colors 1717",
-    "description": "DTG starting at $19.95 / Embroidery starting at $20.45",
+    "name": "Unisex Organic Cotton T-Shirt | Stanley & Stella STTU169",
+    "description": "DTG starting at $20.74 / Embroidery starting at $24.74",
     "size": "S - 4XL",
     "image": "/images/apparel/man_t_white.png"
   },
   {
     "id": 3,
-    "name": "Unisex Premium Sweatshirt | Cotton Heritage M2480",
-    "description": " 'DTG starting at $27.50 / Embroidery starting at $34.45",
+    "name": "Unisex Eco Sweatshirt | Stanley & Stella STSU178",
+    "description": "DTG starting at $39.99 / Embroidery starting at $40.44",
     "size": "S - 3XL",
     "image": "/images/apparel/man_sweat_black.png"
   },
   {
     "id": 4,
-    "name": "Women's Relaxed T-Shirt | Bella + Canvas 6400 Heritage M2580",
-    "description": "DTG starting at $18.25 / Embroidery starting at $21.95",
+    "name": "Women's Fitted Eco Tee | Stanley & Stella STTW032",
+    "description": "DTG starting at $22.99 / Embroidery starting at $22.99",
     "size": "S - 3XL",
     "image": "/images/apparel/women_t_white.png"
   }

@@ -56,9 +56,6 @@ const NewCreatorMerch = () => {
           <ArrowRightGray />
         </div>
       </div>
-      <div className="w-full mt-[45px]">
-        <div className={styles.border} />
-      </div>
       <div className="w-full mt-[40px]">
         <div className={styles.setupText}>
           Easily setup your own merch store. You can either choose to have Foster manage the production and fulfillment
@@ -68,7 +65,6 @@ const NewCreatorMerch = () => {
       <div className="mt-[27px]">
         <div className="w-full flex gap-[5px] mb-[15px]">
           <div className={styles.fullfill}>Production & Fulfillment</div>
-          <div className={styles.asterisk}>*</div>
         </div>
         <ProductionListMenu
           label={product.id === -1 ? 'Select who will handle production and fulfillment' : product.label}
@@ -83,7 +79,6 @@ const NewCreatorMerch = () => {
         <div className="mt-[32px]">
           <div className="w-full flex gap-[5px] mb-[10px]">
             <div className={styles.fullfill}>Select Apparel Item</div>
-            <div className={styles.asterisk}>*</div>
           </div>
           <div className={styles.chooseBase}>Choose a base to begin designing</div>
           <div className="mt-[30px]">
