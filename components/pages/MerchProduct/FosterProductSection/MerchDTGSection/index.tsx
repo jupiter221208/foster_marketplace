@@ -58,6 +58,8 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
+    if (!apparelList[selectedCard.id].apparel.hasOwnProperty(cardSide)) return
+
     let assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
     let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
     let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
@@ -69,8 +71,6 @@ const MerchDTGSection = props => {
       width: screenWidth,
       height: screenWidth,
     })
-
-    if (!apparelList[selectedCard.id].apparel.hasOwnProperty(cardSide)) return
 
     setTimeout(() => {
       new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
@@ -180,7 +180,11 @@ const MerchDTGSection = props => {
             </div>
           </div>
           <div className={styles.border} />
-          <div className="flex justify-between mt-[45px]">
+          <div
+            className={`flex justify-between mt-[45px] ${
+              apparelList[selectedCard.id].apparel.hasOwnProperty('right') ? 'justify-between' : 'justify-around'
+            }`}
+          >
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={apparelList[selectedCard.id].apparel.front[color]}
