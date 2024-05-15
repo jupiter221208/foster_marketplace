@@ -15,8 +15,8 @@ const MerchDTGCard = props => {
   const [color, setColor] = useState('white')
 
   return (
-    <div className={styles.container}>
-      <div className={`${styles.imageArea} ${selected ? styles.selected : ''}`} onClick={() => onSelect(side)}>
+    <div className={styles.container} onClick={() => onSelect(side)}>
+      <div className={`${styles.imageArea} ${selected ? styles.selected : ''}`}>
         <img src={image} alt="" />
       </div>
       <div className="flex flex-col gap-[2px] mt-[4px] justify-center items-center">

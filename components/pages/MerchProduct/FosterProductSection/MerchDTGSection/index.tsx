@@ -20,6 +20,7 @@ import patternImage from 'assets/images/merch-pattern.png'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -34,7 +35,7 @@ const MerchDTGSection = props => {
   const [embPlace, setEmbPlace] = useState('left')
   const [assetUrl, setAssetUrl] = useState<any>(null)
   const [showInfoModal, setShowInfoModal] = useState(false)
-
+  const [showEmbPosModal, setShowEmbPosModal] = useState(false)
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
   useEffect(() => {
@@ -47,6 +48,10 @@ const MerchDTGSection = props => {
       return
     }
   }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
+
+  useEffect(() => {
+    if (technique === 'emb') if (cardSide === 'front') setShowEmbPosModal(true)
+  }, [technique])
 
   const saveApparel = () => {
     let newCanvas = canvas as fabric.Canvas
@@ -250,7 +255,10 @@ const MerchDTGSection = props => {
               side="front"
               type="DTG"
               technique={technique}
-              onSelect={type => setCardSide(type)}
+              onSelect={type => {
+                setCardSide(type)
+                if (technique === 'emb') setShowEmbPosModal(true)
+              }}
             />
             <MerchDTGCard
               selected={cardSide === 'back'}
@@ -282,56 +290,70 @@ const MerchDTGSection = props => {
               />
             )}
           </div>
-          {technique === 'emb' && cardSide === 'front' && (
+          {showEmbPosModal ? (
             <div className={styles.embFrontContainer}>
-              <div className={styles.embFrontTitle}>Embroidery Placement</div>
+              <div className="w-full flex justify-between">
+                <div className={styles.embFrontTitle}>Embroidery Placement</div>
+                <div className="mt-[-8px]" onClick={() => setShowEmbPosModal(false)}>
+                  <CloseIcon alt="" />
+                </div>
+              </div>
               <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
               <div className="mt-[25px] flex gap-[16px] justify-end">
                 <div
                   className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                  onClick={() => setEmbPlace('left')}
+                  onClick={() => {
+                    setEmbPlace('left')
+                    setShowEmbPosModal(false)
+                  }}
                 >
                   Left Chest
                 </div>
                 <div
                   className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                  onClick={() => setEmbPlace('center')}
+                  onClick={() => {
+                    setEmbPlace('center')
+                    setShowEmbPosModal(false)
+                  }}
                 >
                   Center Chest
                 </div>
               </div>
             </div>
+          ) : (
+            <div className="w-full">
+              <div className={`w-full mt-[70px]`}>
+                <OutlineButton
+                  fullWidth
+                  height={50}
+                  fontSize={18}
+                  label="Clear"
+                  onClick={() => {
+                    let newCanvas = canvas as fabric.Canvas
+                    if (newCanvas == '') {
+                      newCanvas = new fabric.Canvas(canvasId)
+                    } else {
+                      newCanvas.clear()
+                      newCanvas.renderAll()
+                    }
+                    setAssetUrl(null)
+                  }}
+                />
+              </div>
+              <div className="w-full mt-[15px]">
+                <GradientButton
+                  fullWidth
+                  height={50}
+                  fontSize={18}
+                  backgroundColor01="var(--main-icon-color)"
+                  backgroundColor02="var(--main-icon-color)"
+                  color="var(--background-main-color)"
+                  label="Save"
+                  onClick={() => saveApparel()}
+                />
+              </div>
+            </div>
           )}
-          <div className={`w-full ${technique === 'emb' && cardSide === 'front' ? 'mt-[20px]' : 'mt-[70px]'}`}>
-            <OutlineButton
-              fullWidth
-              height={50}
-              fontSize={18}
-              label="Clear"
-              onClick={() => {
-                let newCanvas = canvas as fabric.Canvas
-                if (newCanvas == '') {
-                  newCanvas = new fabric.Canvas(canvasId)
-                } else {
-                  newCanvas.clear()
-                  newCanvas.renderAll()
-                }
-                setAssetUrl(null)
-              }}
-            />
-          </div>
-          <div className="w-full mt-[15px]">
-            <GradientButton
-              fullWidth
-              height={50}
-              fontSize={18}
-              backgroundColor01="var(--main-icon-color)"
-              backgroundColor02="var(--main-icon-color)"
-              color="var(--background-main-color)"
-              label="Save"
-              onClick={() => saveApparel()}
-            />
-          </div>
         </div>
 
         <div className={styles.rightPanel}>
