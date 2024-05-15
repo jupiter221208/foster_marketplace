@@ -127,15 +127,18 @@ const MerchDTGSection = props => {
   return (
     <div className="w-full">
       <div className={styles.createDesign}>Create Design</div>
-      <div className={styles.garment}>
-        Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch in
-        your studio store. You can place up to 4 different designs, but only 1 design (front or back) is included in the
-        base price. Additional designs will include additional fees – please see&nbsp;
+      <div className={`${styles.garment} mt-[10px]`}>
+        You can place up to 4 different designs, but only 1 design (front or back) is included in the base price.
+        Additional designs will include additional fees – please see{' '}
         <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
       </div>
       <div className="w-full flex gap-[30px] mt-[45px]">
         <div className={styles.leftPanel}>
           <div className={styles.studioDesinger}>Studio Designer</div>
+          <div className={`${styles.garment} mt-[15px]`}>
+            Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
+            in your studio store.
+          </div>
           <div className="w-full mt-[39px]">
             <div className={styles.technique}>
               Technique
@@ -179,9 +182,10 @@ const MerchDTGSection = props => {
               ></div>
             </div>
           </div>
-          <div className={styles.border} />
+
+          <div className={`${styles.technique} mt-[28px]`}>Placement</div>
           <div
-            className={`flex justify-between mt-[45px] ${
+            className={`flex justify-between mt-[12px] ${
               apparelList[selectedCard.id].apparel.hasOwnProperty('right') ? 'justify-between' : 'justify-around'
             }`}
           >
@@ -219,7 +223,7 @@ const MerchDTGSection = props => {
               />
             )}
           </div>
-          <div className="w-full mt-[45px]">
+          <div className="w-full mt-[65px]">
             <OutlineButton
               fullWidth
               height={50}
