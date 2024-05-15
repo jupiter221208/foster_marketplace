@@ -85,8 +85,8 @@ const MerchShopCard = props => {
             <BackIcon />
           </div>
           <div className="w-[45px] h-[5px] flex justify-around">
-            {indicatorList.map(item => (
-              <div className={item ? styles.selected : styles.nonSelected} />
+            {indicatorList.map((item, index) => (
+              <div key={index} className={item ? styles.selected : styles.nonSelected} />
             ))}
           </div>
           <div className={styles.controlBtn} onClick={goNext}>
