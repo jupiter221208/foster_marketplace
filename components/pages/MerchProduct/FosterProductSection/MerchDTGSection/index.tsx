@@ -22,6 +22,7 @@ import InfoIcon from 'assets/icons/info-green-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
 
 const MerchDTGSection = props => {
   const { selectedCard } = props
@@ -31,6 +32,7 @@ const MerchDTGSection = props => {
   const [cardSide, setCardSide] = useState('front')
   const [isDrawing, setIsDrawing] = useState(false)
   const [assetUrl, setAssetUrl] = useState<any>(null)
+  const [showInfoModal, setShowInfoModal] = useState(false)
 
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
@@ -126,8 +128,8 @@ const MerchDTGSection = props => {
       <div className={styles.garment}>
         Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch in
         your studio store. You can place up to 4 different designs, but only 1 design (front or back) is included in the
-        base price. Additional designs will include additional fees – please see <span>product extras and costs</span>{' '}
-        for a breakdown of prices.
+        base price. Additional designs will include additional fees – please see&nbsp;
+        <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
       </div>
       <div className="w-full flex gap-[30px] mt-[45px]">
         <div className={styles.leftPanel}>
@@ -211,7 +213,6 @@ const MerchDTGSection = props => {
               />
             )}
           </div>
-          <div className="flex justify-between mt-[45px]"></div>
           <div className="w-full mt-[45px]">
             <OutlineButton
               fullWidth
@@ -310,6 +311,12 @@ const MerchDTGSection = props => {
           </div>
         </div>
       </div>
+      <MerchShopInfoModal
+        open={showInfoModal}
+        close={status => {
+          setShowInfoModal(false)
+        }}
+      />
     </div>
   )
 }
