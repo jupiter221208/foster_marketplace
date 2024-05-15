@@ -50,8 +50,13 @@ const MerchDTGSection = props => {
   }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
 
   useEffect(() => {
-    if (technique === 'emb') if (cardSide === 'front') setShowEmbPosModal(true)
-  }, [technique])
+    if (technique === 'emb') {
+      if (cardSide === 'front') setShowEmbPosModal(true)
+      else setShowEmbPosModal(false)
+    } else {
+      setShowEmbPosModal(false)
+    }
+  }, [technique, cardSide])
 
   const saveApparel = () => {
     let newCanvas = canvas as fabric.Canvas
