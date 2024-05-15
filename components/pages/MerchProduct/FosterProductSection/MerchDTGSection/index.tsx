@@ -138,7 +138,10 @@ const MerchDTGSection = props => {
               Technique
               <div
                 onMouseEnter={() => {
-                  copyLongClipboardAlert(alertId)
+                  document.getElementById(alertId).style.display = 'block'
+                }}
+                onMouseLeave={() => {
+                  document.getElementById(alertId).style.display = 'none'
                 }}
               >
                 <InfoIcon className="mt-[2px]" />

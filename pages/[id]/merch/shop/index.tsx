@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-
-import Image from 'next/image'
-import ArtistLayout from 'components/Layout/ArtistLayout'
-
-import ShopBanner from 'assets/images/merch-shop-banner.png'
 
 // json
-import TabList from 'assets/json/creator-merch/tab-list.json'
+
 // styles
-import styles from './index.module.scss'
 import MerchShopCard from 'components/Card/MerchShopCard'
 
 const CreatorMerchShop = () => {
@@ -20,6 +13,7 @@ const CreatorMerchShop = () => {
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
         ],
         productName: 'Product_name',
         merchType: 'Unisex Hoodie',
@@ -29,6 +23,7 @@ const CreatorMerchShop = () => {
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
         ],
         productName: 'Product_name',
         merchType: 'Unisex Hoodie',
@@ -38,6 +33,7 @@ const CreatorMerchShop = () => {
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
         ],
         productName: 'Product_name',
         merchType: 'Unisex Hoodie',
@@ -47,6 +43,7 @@ const CreatorMerchShop = () => {
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
         ],
         productName: 'Product_name',
         merchType: 'Unisex Hoodie',
@@ -56,6 +53,7 @@ const CreatorMerchShop = () => {
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
         ],
         productName: 'Product_name',
         merchType: 'Unisex Hoodie',

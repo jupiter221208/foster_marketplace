@@ -27,9 +27,25 @@
   overflow: hidden;
 }
 
+.selected {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(var(--main-bg-color-rgb), 1);
+}
+
+.nonSelected {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(var(--main-bg-color-rgb), 0.5);
+}
+
 .bottomSection {
   width: 100%;
-  padding: 20px;
+  height: 220px;
+  padding-left: 20px;
+  padding-right: 20px;
   background: #1a1a1a;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom-left-radius: 10px;
@@ -50,9 +66,9 @@
   font-family: 'Muli-Light';
   font-weight: 100;
   font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
   font-weight: 100;
-  margin-top: 2px;
 }
 
 .price {
@@ -79,9 +95,9 @@
 
 .shareBtn {
   background: var(--second-home-bg);
-  width: 50px;
-  height: 50px;
-  border-radius: 18px;
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   align-items: center;
