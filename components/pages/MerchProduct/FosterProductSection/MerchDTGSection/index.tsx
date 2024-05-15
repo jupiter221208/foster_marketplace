@@ -192,8 +192,6 @@ const MerchDTGSection = props => {
               label="+$5.95"
               onSelect={type => setCardSide(type)}
             />
-          </div>
-          <div className="flex justify-between mt-[45px]">
             {apparelList[selectedCard.id].apparel.hasOwnProperty('right') && (
               <MerchDTGCard
                 selected={cardSide === 'right'}
@@ -213,6 +211,7 @@ const MerchDTGSection = props => {
               />
             )}
           </div>
+          <div className="flex justify-between mt-[45px]"></div>
           <div className="w-full mt-[45px]">
             <OutlineButton
               fullWidth

@@ -19,7 +19,7 @@ const MerchDTGCard = props => {
       <div className={`${styles.imageArea} ${selected ? styles.selected : ''}`} onClick={() => onSelect(side)}>
         <img src={image} alt="" />
       </div>
-      <div className="flex gap-[6px] mt-[14px] justify-center items-center">
+      <div className="flex flex-col gap-[2px] mt-[4px] justify-center items-center">
         <div className={styles.side}>
           {side === 'front'
             ? 'Full Front'

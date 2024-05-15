@@ -1,12 +1,13 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  width: 196px;
+  width: 100px;
 }
 
 .imageArea {
-  width: 196px;
-  height: 196px;
+  width: 100px;
+  height: 100px;
+  padding: 4px;
   border: 2px solid #303030;
   border-radius: 12px;
 }
