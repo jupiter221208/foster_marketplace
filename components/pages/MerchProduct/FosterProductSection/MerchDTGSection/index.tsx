@@ -16,6 +16,7 @@ import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
 // json
 import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
 import animationData from 'assets/lottery/upload-file.json'
+import patternImage from 'assets/images/merch-pattern.png'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
@@ -30,7 +31,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
   const [cardSide, setCardSide] = useState('front')
-  const [isDrawing, setIsDrawing] = useState(false)
+  const [embPlace, setEmbPlace] = useState('left')
   const [assetUrl, setAssetUrl] = useState<any>(null)
   const [showInfoModal, setShowInfoModal] = useState(false)
 
@@ -45,7 +46,7 @@ const MerchDTGSection = props => {
       drawApparel()
       return
     }
-  }, [cardSide, assetUrl, color, selectedCard])
+  }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
 
   const saveApparel = () => {
     let newCanvas = canvas as fabric.Canvas
@@ -56,8 +57,6 @@ const MerchDTGSection = props => {
     }
   }
   const drawApparel = () => {
-    if (isDrawing) return
-
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
@@ -71,9 +70,22 @@ const MerchDTGSection = props => {
     let assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
     let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
     let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
-    let assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
+
+    let assetLeft
+
+    if (technique === 'dtg') {
+      assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
+    } else {
+      if (cardSide === 'front') {
+        if (embPlace === 'center') {
+          assetLeft = (screenWidth - assetWidth) / 2
+        } else {
+          assetLeft = screenWidth * 0.56
+        }
+      } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
+    }
 
     newCanvas.setDimensions({
       width: screenWidth,
@@ -102,12 +114,14 @@ const MerchDTGSection = props => {
 
         newCanvas.add(rect)
 
+        newCanvas.item(1).selectable = false
+
         if (assetUrl) {
           setTimeout(() => {
             new fabric.Image.fromURL(
               assetUrl,
-              img => {
-                const { width } = img.getOriginalSize()
+              overlayImg => {
+                const { width } = overlayImg.getOriginalSize()
 
                 var rectClippingPath = new fabric.Rect({
                   top: assetTop,
@@ -118,24 +132,45 @@ const MerchDTGSection = props => {
                   angle: angle,
                   absolutePositioned: true,
                 })
-                img.clipPath = rectClippingPath
-                img.scaleToWidth(assetWidth, false)
-                img.set({
+                overlayImg.clipPath = rectClippingPath
+                overlayImg.scaleToWidth(assetWidth, false)
+                overlayImg.set({
                   scaleX: assetWidth / width,
                   scaleY: assetWidth / width,
                   top: assetTop,
                   left: assetLeft,
                   angle: angle,
                 })
-                img.lockUniScaling = true
-                newCanvas.add(img)
-                img.setControlsVisibility({
+
+                // new fabric.Image.fromURL(assetUrl, patternImage => {
+                //   overlayImg.filters.push(
+                //     new fabric.Image.filters.BlendImage({
+                //       image: patternImage,
+                //       mode: 'multiply', // Experiment with blend modes to achieve the desired effect
+                //       alpha: 0.3,
+                //     })
+                //   )
+                //   overlayImg.applyFilters()
+                //   overlayImg.lockUniScaling = true
+                //   overlayImg.setControlsVisibility({
+                //     mt: false,
+                //     mb: false,
+                //     ml: false,
+                //     mr: false,
+                //   })
+                //   newCanvas.add(overlayImg)
+                //   newCanvas.setActiveObject(overlayImg)
+                //   newCanvas.renderAll()
+                // })
+
+                newCanvas.add(overlayImg)
+                overlayImg.setControlsVisibility({
                   mt: false,
                   mb: false,
                   ml: false,
                   mr: false,
                 })
-                newCanvas.setActiveObject(img)
+                newCanvas.setActiveObject(overlayImg)
                 newCanvas.renderAll()
               },
               { crossOrigin: 'Anonymous' }
@@ -208,16 +243,13 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div
-            className={`flex justify-between mt-[12px] ${
-              apparelList[selectedCard.id].apparel.hasOwnProperty('right') ? 'justify-between' : 'justify-around'
-            }`}
-          >
+          <div className="flex gap-[12px] mt-[12px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={apparelList[selectedCard.id].apparel.front[color]}
               side="front"
               type="DTG"
+              technique={technique}
               onSelect={type => setCardSide(type)}
             />
             <MerchDTGCard
@@ -226,6 +258,7 @@ const MerchDTGSection = props => {
               side="back"
               type="DTG"
               label="+$5.95"
+              technique={technique}
               onSelect={type => setCardSide(type)}
             />
             {apparelList[selectedCard.id].apparel.hasOwnProperty('right') && (
@@ -234,6 +267,7 @@ const MerchDTGSection = props => {
                 image={apparelList[selectedCard.id].apparel.right[color]}
                 side="right"
                 label="+$2.49"
+                technique={technique}
                 onSelect={type => setCardSide(type)}
               />
             )}
@@ -243,11 +277,32 @@ const MerchDTGSection = props => {
                 image={apparelList[selectedCard.id].apparel.left[color]}
                 side="left"
                 label="+$2.49"
+                technique={technique}
                 onSelect={type => setCardSide(type)}
               />
             )}
           </div>
-          <div className="w-full mt-[65px]">
+          {technique === 'emb' && cardSide === 'front' && (
+            <div className={styles.embFrontContainer}>
+              <div className={styles.embFrontTitle}>Embroidery Placement</div>
+              <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
+              <div className="mt-[25px] flex gap-[16px] justify-end">
+                <div
+                  className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
+                  onClick={() => setEmbPlace('left')}
+                >
+                  Left Chest
+                </div>
+                <div
+                  className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                  onClick={() => setEmbPlace('center')}
+                >
+                  Center Chest
+                </div>
+              </div>
+            </div>
+          )}
+          <div className={`w-full ${technique === 'emb' && cardSide === 'front' ? 'mt-[20px]' : 'mt-[70px]'}`}>
             <OutlineButton
               fullWidth
               height={50}

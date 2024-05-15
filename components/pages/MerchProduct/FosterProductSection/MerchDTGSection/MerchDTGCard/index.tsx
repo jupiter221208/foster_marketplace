@@ -11,7 +11,7 @@ import 'swiper/css/navigation'
 import styles from './index.module.scss'
 
 const MerchDTGCard = props => {
-  const { image, selected = false, side = 'front', type = '', label = '', onSelect } = props
+  const { image, selected = false, side = 'front', type = '', label = '', technique, onSelect } = props
   const [color, setColor] = useState('white')
 
   return (
@@ -22,15 +22,21 @@ const MerchDTGCard = props => {
       <div className="flex flex-col gap-[2px] mt-[4px] justify-center items-center">
         <div className={styles.side}>
           {side === 'front'
-            ? 'Full Front'
+            ? technique === 'dtg'
+              ? 'Full Front'
+              : 'Left or Center Chest'
             : side === 'back'
             ? 'Back'
             : side === 'right'
-            ? 'Right sleeve'
-            : 'Left sleeve'}
+            ? technique === 'dtg'
+              ? 'Right sleeve'
+              : 'Right Wrist'
+            : technique === 'dtg'
+            ? 'Left sleeve'
+            : 'Left Wrist'}
         </div>
-        {label.length > 0 && <div className={styles.label}>{label}</div>}
-        {type === 'DTG' && <div className={styles.dtg}>DTG</div>}
+        {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
+        {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>
     </div>
   )
