@@ -47,6 +47,14 @@ const MerchDTGSection = props => {
     }
   }, [cardSide, assetUrl, color, selectedCard])
 
+  const saveApparel = () => {
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas !== '') {
+      newCanvas.discardActiveObject()
+      newCanvas.item(2).selectable = false
+      newCanvas.remove(newCanvas.item(1))
+    }
+  }
   const drawApparel = () => {
     if (isDrawing) return
 
@@ -72,12 +80,28 @@ const MerchDTGSection = props => {
       height: screenWidth,
     })
 
+    var rect = new fabric.Rect({
+      top: assetTop,
+      left: assetLeft,
+      width: assetWidth,
+      height: assetHeight,
+      stroke: '#707070',
+      strokeWidth: 1,
+      fill: '#1a1a1a',
+      angle: angle,
+      opacity: 0.5,
+      absolutePositioned: true,
+    })
+
     setTimeout(() => {
       new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
         img.scale(screenWidth / 700, false)
         newCanvas.add(img)
 
         newCanvas.item(0).selectable = false
+
+        newCanvas.add(rect)
+
         if (assetUrl) {
           setTimeout(() => {
             new fabric.Image.fromURL(
@@ -250,6 +274,7 @@ const MerchDTGSection = props => {
               backgroundColor02="var(--main-icon-color)"
               color="var(--background-main-color)"
               label="Save"
+              onClick={() => saveApparel()}
             />
           </div>
         </div>
