@@ -4,16 +4,16 @@
     "name": "Hoodie",
     "location": { 
       "dtg": {
-        "front": {"width": 220, "height": 220, "top": 200, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 255, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 320 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 335 }
+        "front": {"width": 220, "height": 220, "top": 200, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 255, "left": 240, "angle": 0 },
+        "right": {"width": 47, "height": 180, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 47, "height": 180, "top": 370, "left": 350, "angle": 11 }
       },
       "emb": {
-        "front": {"width": 220, "height": 220, "top": 200, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 255, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 320 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 335 }
+        "front": {"width": 220, "height": 220, "top": 200, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 255, "left": 240, "angle": 0 },
+        "right": {"width": 50, "height": 180, "top": 300, "left": 310, "angle": -11 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 350, "angle": 11 }
       }
     },
     "apparel": { 
@@ -30,16 +30,16 @@
     "name": "Long Sleeve",
     "location": { 
       "dtg": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 50, "height": 180, "top": 286, "left": 275, "angle": -11 },
+        "left": {"width": 50, "height": 180, "top": 286, "left": 395, "angle": 11 }
       },
       "emb": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 50, "height": 180, "top": 286, "left": 275, "angle": -11 },
+        "left": {"width": 50, "height": 180, "top": 286, "left": 395, "angle": 11 }
       }
     },
     "apparel": { 
@@ -56,16 +56,16 @@
     "name": "T-Shirt",
     "location": { 
       "dtg": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 86, "height": 70, "top": 430, "left": 302 },
-        "left": {"width": 86, "height": 70, "top": 430, "left": 302 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 }
       },
       "emb": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 86, "height": 70, "top": 430, "left": 302 },
-        "left": {"width": 86, "height": 70, "top": 430, "left": 302 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 }
       }
     },
     "apparel": { 
@@ -82,16 +82,16 @@
     "name": "Sweatshirt",
     "location": { 
       "dtg": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 290 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 375 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 50, "height": 180, "top": 286, "left": 415, "angle": -11 },
+        "left": {"width": 50, "height": 180, "top": 286, "left": 235, "angle": 11 }
       },
       "emb": {
-        "front": {"width": 220, "height": 290, "top": 150, "left": 240},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 290 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 375 }
+        "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "right": {"width": 50, "height": 180, "top": 286, "left": 290, "angle": 0 },
+        "left": {"width": 50, "height": 180, "top": 286, "left": 375, "angle": 0 }
       }
     },
     "apparel": { 

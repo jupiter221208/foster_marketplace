@@ -62,6 +62,7 @@ const MerchDTGSection = props => {
     let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
     let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
     let assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
+    let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
 
     newCanvas.setDimensions({
@@ -90,7 +91,7 @@ const MerchDTGSection = props => {
                   width: assetWidth,
                   height: assetHeight,
                   stroke: 'rgba(26, 26, 26, 0.5)',
-                  angle: 0,
+                  angle: angle,
                   absolutePositioned: true,
                 })
                 img.clipPath = rectClippingPath
@@ -100,6 +101,7 @@ const MerchDTGSection = props => {
                   scaleY: assetWidth / width,
                   top: assetTop,
                   left: assetLeft,
+                  angle: angle,
                 })
                 img.lockUniScaling = true
                 newCanvas.add(img)
