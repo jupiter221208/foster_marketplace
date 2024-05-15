@@ -75,7 +75,8 @@ const MerchDTGSection = props => {
       newCanvas.renderAll()
     }
 
-    if (!apparelList[selectedCard.id].apparel.hasOwnProperty(cardSide)) return
+    if (apparelList[selectedCard.id].id === 4 && technique === 'dtg' && (cardSide === 'left' || cardSide === 'right'))
+      return
 
     let assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
     let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
@@ -274,7 +275,9 @@ const MerchDTGSection = props => {
               technique={technique}
               onSelect={type => setCardSide(type)}
             />
-            {apparelList[selectedCard.id].apparel.hasOwnProperty('right') && (
+            {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
+              <></>
+            ) : (
               <MerchDTGCard
                 selected={cardSide === 'right'}
                 image={apparelList[selectedCard.id].apparel.right[color]}
@@ -284,7 +287,9 @@ const MerchDTGSection = props => {
                 onSelect={type => setCardSide(type)}
               />
             )}
-            {apparelList[selectedCard.id].apparel.hasOwnProperty('left') && (
+            {technique === 'dtg' && apparelList[selectedCard.id].id === 4 ? (
+              <></>
+            ) : (
               <MerchDTGCard
                 selected={cardSide === 'left'}
                 image={apparelList[selectedCard.id].apparel.left[color]}

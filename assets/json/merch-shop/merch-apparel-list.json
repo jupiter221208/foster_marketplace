@@ -58,14 +58,14 @@
       "dtg": {
         "front": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0},
         "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
-        "right": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 },
-        "left": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 }
+        "right": {"width": 86, "height": 70, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 145, "left": 352, "angle": 0 }
       },
       "emb": {
         "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
         "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
-        "right": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 },
-        "left": {"width": 86, "height": 70, "top": 430, "left": 302, "angle": 0 }
+        "right": {"width": 86, "height": 70, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 145, "left": 352, "angle": 0 }
       }
     },
     "apparel": { 
@@ -109,18 +109,24 @@
     "location": { 
       "dtg": {
         "front": { "width": 220, "height": 290, "top": 150, "left": 240 },
-        "back": { "width": 220, "height": 290, "top": 150, "left": 240 }
+        "back": { "width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 86, "height": 70, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 145, "left": 352, "angle": 0 }
       },
       "emb": {
         "front": { "width": 90, "height": 90, "top": 150, "left": 394 },
-        "back": { "width": 220, "height": 290, "top": 150, "left": 240 }
+        "back": { "width": 220, "height": 290, "top": 150, "left": 240 },
+        "right": {"width": 86, "height": 70, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 70, "top": 145, "left": 352, "angle": 0 }
       }
     },
     "apparel": { 
       "width": 11.04,
       "height": 14.72,
       "front": { "white":"/images/apparel/women_t_white.png", "black":"/images/apparel/women_t_black.png" }, 
-      "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" }
+      "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" },
+      "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
     }
   }
 ]
