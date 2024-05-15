@@ -91,6 +91,7 @@ const CreatorMerch = props => {
             </div>
             <div className={styles.share}>
               <ShareSocialIcon />
+              <div className="mb-[2px]">Share</div>
             </div>
           </div>
         </div>
