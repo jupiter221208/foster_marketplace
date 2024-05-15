@@ -11,7 +11,6 @@ import Lottie from 'lottie-react'
 import MerchDTGCard from './MerchDTGCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
-import { copyLongClipboardAlert } from 'utils/helpers'
 import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
 
 // json
@@ -132,7 +131,7 @@ const MerchDTGSection = props => {
       </div>
       <div className="w-full flex gap-[30px] mt-[45px]">
         <div className={styles.leftPanel}>
-          <div className={styles.studioDesinger}>Studio Desinger</div>
+          <div className={styles.studioDesinger}>Studio Designer</div>
           <div className="w-full mt-[39px]">
             <div className={styles.technique}>
               Technique
@@ -276,7 +275,7 @@ const MerchDTGSection = props => {
                       <div {...getRootProps()}>
                         <input {...getInputProps()} />
                         <div className="flex flex-col justify-center items-center">
-                          <div className="w-[60px] h-[60px]">
+                          <div className="w-[90px] h-[90px]">
                             <Lottie animationData={animationData} loop={true} />
                           </div>
                           <div className={styles.uploadText}>

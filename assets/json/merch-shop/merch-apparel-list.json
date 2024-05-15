@@ -84,14 +84,14 @@
       "dtg": {
         "front": {"width": 220, "height": 290, "top": 150, "left": 240},
         "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+        "right": {"width": 50, "height": 180, "top": 300, "left": 290 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 375 }
       },
       "emb": {
         "front": {"width": 220, "height": 290, "top": 150, "left": 240},
         "back": {"width": 220, "height": 290, "top": 150, "left": 240 },
-        "right": {"width": 50, "height": 180, "top": 300, "left": 305 },
-        "left": {"width": 50, "height": 180, "top": 300, "left": 365 }
+        "right": {"width": 50, "height": 180, "top": 300, "left": 290 },
+        "left": {"width": 50, "height": 180, "top": 300, "left": 375 }
       }
     },
     "apparel": { 
