@@ -17,10 +17,17 @@ import MerchProductCard from 'components/Card/MerchProductCard'
 import { useViewport } from 'utils'
 import MerchDTGSection from './MerchDTGSection'
 
-const FosterProductSection = () => {
+const FosterProductSection = props => {
+  const { setProductDetail } = props
   const viewport = useViewport()
   const [productList, setProductList] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
+  const [snapshotAssetUrl, setSnapAssetUrl] = useState()
+
+  useEffect(() => {
+    console.log(snapshotAssetUrl, '=========snapshotAssetUrl=======')
+    setProductDetail({ snapshotAssetUrl })
+  }, [snapshotAssetUrl])
 
   useEffect(() => {
     let cardList = []
@@ -68,7 +75,7 @@ const FosterProductSection = () => {
       </Swiper>
 
       <div className="w-full mt-[60px] mb-[60px]">
-        {selectedCard !== null && <MerchDTGSection selectedCard={selectedCard} />}
+        {selectedCard !== null && <MerchDTGSection selectedCard={selectedCard} setSnapAssetUrl={setSnapAssetUrl} />}
       </div>
     </div>
   )

@@ -16,7 +16,6 @@ import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
 // json
 import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
 import animationData from 'assets/lottery/upload-file.json'
-import patternImg from 'public/images/merch-pattern.png'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
@@ -30,7 +29,7 @@ import uploadFileToS3 from 'apis/aws'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchDTGSection = props => {
-  const { selectedCard } = props
+  const { selectedCard, setSnapAssetUrl } = props
   const [canvas, setCanvas] = useState('')
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
@@ -43,6 +42,7 @@ const MerchDTGSection = props => {
   const [processingImage, setProcessingImage] = useState(false)
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
+
   useEffect(() => {
     document.getElementById(alertId).style.display = 'none'
   }, [])
@@ -53,6 +53,12 @@ const MerchDTGSection = props => {
       return
     }
   }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
+
+  useEffect(() => {
+    setSnapshotAsset({ front: '', back: '', right: '', left: '' })
+    setSnapAssetUrl({ front: '', back: '', right: '', left: '' })
+    setAssetUrl(null)
+  }, [selectedCard])
 
   useEffect(() => {
     if (technique === 'emb') {
@@ -87,7 +93,14 @@ const MerchDTGSection = props => {
       let newAsset = { ...snapshotAsset }
       newAsset[cardSide] = imgDataString
       setSnapshotAsset(newAsset)
+      setSnapAssetUrl(newAsset)
       setProcessingImage(false)
+
+      if (newCanvas !== '') {
+        newCanvas.clear()
+        newCanvas.renderAll()
+      }
+      setAssetUrl(null)
     }
   }
 
@@ -95,6 +108,7 @@ const MerchDTGSection = props => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
+    setSnapAssetUrl(newAsset)
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -416,7 +430,7 @@ const MerchDTGSection = props => {
                     color="var(--background-main-color)"
                     label="Save"
                     onClick={() => saveApparel()}
-                    disabled={snapshotAsset[cardSide].length > 0}
+                    disabled={assetUrl === null}
                   />
                 )}
               </div>
