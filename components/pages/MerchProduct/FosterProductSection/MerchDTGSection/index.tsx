@@ -16,7 +16,7 @@ import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
 // json
 import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
 import animationData from 'assets/lottery/upload-file.json'
-import patternImage from 'assets/images/merch-pattern.png'
+import patternImg from 'public/images/merch-pattern.png'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
@@ -174,6 +174,7 @@ const MerchDTGSection = props => {
             new fabric.Image.fromURL(
               assetUrl,
               overlayImg => {
+                console.log(overlayImg, '=========overlayImg========')
                 const { width } = overlayImg.getOriginalSize()
 
                 var rectClippingPath = new fabric.Rect({
@@ -195,27 +196,40 @@ const MerchDTGSection = props => {
                   angle: angle,
                 })
 
-                // new fabric.Image.fromURL(assetUrl, patternImage => {
-                //   overlayImg.filters.push(
-                //     new fabric.Image.filters.BlendImage({
-                //       image: patternImage,
-                //       mode: 'multiply', // Experiment with blend modes to achieve the desired effect
-                //       alpha: 0.3,
-                //     })
-                //   )
-                //   overlayImg.applyFilters()
-                //   overlayImg.lockUniScaling = true
-                //   overlayImg.setControlsVisibility({
-                //     mt: false,
-                //     mb: false,
-                //     ml: false,
-                //     mr: false,
-                //   })
-                //   newCanvas.add(overlayImg)
-                //   newCanvas.setActiveObject(overlayImg)
-                //   newCanvas.renderAll()
-                // })
-
+                // pattern image
+                if (technique === 'dtg') {
+                  newCanvas.add(overlayImg)
+                  overlayImg.setControlsVisibility({
+                    mt: false,
+                    mb: false,
+                    ml: false,
+                    mr: false,
+                  })
+                  newCanvas.setActiveObject(overlayImg)
+                  newCanvas.renderAll()
+                } else {
+                  new fabric.Image.fromURL('/images/merch-pattern.png', patternImage => {
+                    overlayImg.filters.push(
+                      new fabric.Image.filters.BlendImage({
+                        image: patternImage,
+                        mode: 'multiply', // Experiment with blend modes to achieve the desired effect
+                        alpha: 0.3,
+                      })
+                    )
+                    overlayImg.applyFilters()
+                    overlayImg.lockUniScaling = true
+                    overlayImg.setControlsVisibility({
+                      mt: false,
+                      mb: false,
+                      ml: false,
+                      mr: false,
+                    })
+                    newCanvas.add(overlayImg)
+                    newCanvas.setActiveObject(overlayImg)
+                    newCanvas.renderAll()
+                  })
+                }
+                /*
                 newCanvas.add(overlayImg)
                 overlayImg.setControlsVisibility({
                   mt: false,
@@ -224,7 +238,7 @@ const MerchDTGSection = props => {
                   mr: false,
                 })
                 newCanvas.setActiveObject(overlayImg)
-                newCanvas.renderAll()
+                newCanvas.renderAll()*/
               },
               { crossOrigin: 'Anonymous' }
             )
@@ -400,7 +414,7 @@ const MerchDTGSection = props => {
                   <div className="w-full flex flex-col gap-[8px] mt-[13px]">
                     <div className={styles.savedTitle}>Your design has been saved!</div>
                     <div className={styles.savedContent}>
-                      Click next if you're finished, otherwise add another design.
+                      {"Click next if you're finished, otherwise add another design."}
                     </div>
                   </div>
                 ) : (
