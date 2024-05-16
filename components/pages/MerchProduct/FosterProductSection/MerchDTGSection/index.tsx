@@ -140,6 +140,20 @@ const MerchDTGSection = props => {
     setAssetUrl(null)
   }
 
+  function resizeImage(url, maxWidth, maxHeight, callback) {
+    var img = new Image()
+    img.onload = function () {
+      var canvas = document.createElement('canvas')
+      var ctx = canvas.getContext('2d')
+      var ratio = Math.min(maxWidth / img.width, maxHeight / img.height)
+      canvas.width = img.width * ratio
+      canvas.height = img.height * ratio
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      callback(canvas.toDataURL())
+    }
+    img.src = url
+  }
+
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -230,7 +244,7 @@ const MerchDTGSection = props => {
                 })
 
                 // pattern image
-                if (technique === 'dtg') {
+                if (technique === 'dtg' || cardSide === 'back') {
                   newCanvas.add(overlayImg)
                   overlayImg.setControlsVisibility({
                     mt: false,
@@ -394,6 +408,7 @@ const MerchDTGSection = props => {
               <></>
             ) : (
               <MerchDTGCard
+                type={selectedCard.id}
                 selected={cardSide === 'right'}
                 image={
                   snapshotAsset['right'].length > 0
@@ -410,6 +425,7 @@ const MerchDTGSection = props => {
               <></>
             ) : (
               <MerchDTGCard
+                type={selectedCard.id}
                 selected={cardSide === 'left'}
                 image={
                   snapshotAsset['left'].length > 0

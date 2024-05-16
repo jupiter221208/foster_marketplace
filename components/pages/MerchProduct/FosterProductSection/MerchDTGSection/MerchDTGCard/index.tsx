@@ -12,29 +12,32 @@ import styles from './index.module.scss'
 
 const MerchDTGCard = props => {
   const { image, selected = false, side = 'front', type = '', label = '', technique, onSelect } = props
-  const [color, setColor] = useState('white')
 
+  const getLabel = () => {
+    let label = ''
+    if (side === 'front') {
+      if (technique === 'dtg') label = 'Full Front'
+      else label = 'Left or Center Chest'
+    } else if (side === 'back') {
+      label = 'Back'
+    } else if (side === 'right') {
+      if (type === 2 || type === 4) label = 'Right sleeve'
+      else if (technique === 'dtg') label = 'Right sleeve'
+      else label = 'Right Wrist'
+    } else {
+      if (type === 2 || type === 4) label = 'Left sleeve'
+      else if (technique === 'dtg') label = 'Left sleeve'
+      else label = 'Left Wrist'
+    }
+    return label
+  }
   return (
     <div className={styles.container} onClick={() => onSelect(side)}>
       <div className={`${styles.imageArea} ${selected ? styles.selected : ''}`}>
         <img src={image} alt="" />
       </div>
       <div className="flex flex-col gap-[2px] mt-[4px] justify-center items-center">
-        <div className={styles.side}>
-          {side === 'front'
-            ? technique === 'dtg'
-              ? 'Full Front'
-              : 'Left or Center Chest'
-            : side === 'back'
-            ? 'Back'
-            : side === 'right'
-            ? technique === 'dtg'
-              ? 'Right sleeve'
-              : 'Right Wrist'
-            : technique === 'dtg'
-            ? 'Left sleeve'
-            : 'Left Wrist'}
-        </div>
+        <div className={styles.side}>{getLabel()}</div>
         {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
         {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>

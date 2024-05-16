@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 
 const CreatorMerch = props => {
   const { userName } = props
+  const [name, setName] = useState('')
   const router = useRouter()
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -29,6 +30,8 @@ const CreatorMerch = props => {
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
+
+  useEffect(() => {}, [router])
 
   useEffect(() => {
     let array: any[] = []
