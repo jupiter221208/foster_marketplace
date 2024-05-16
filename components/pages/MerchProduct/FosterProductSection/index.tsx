@@ -16,16 +16,18 @@ import styles from './index.module.scss'
 import MerchProductCard from 'components/Card/MerchProductCard'
 import { useViewport } from 'utils'
 import MerchDTGSection from './MerchDTGSection'
+import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const FosterProductSection = props => {
   const { setProductDetail } = props
   const viewport = useViewport()
   const [productList, setProductList] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
-  const [snapshotAssetUrl, setSnapAssetUrl] = useState()
+  const [snapshotAssetUrl, setSnapAssetUrl] = useState({ front: '', back: '', right: '', left: '' })
+  const [showQuestionModal, setShowQuestionModal] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
 
   useEffect(() => {
-    console.log(snapshotAssetUrl, '=========snapshotAssetUrl=======')
     setProductDetail({ snapshotAssetUrl })
   }, [snapshotAssetUrl])
 
@@ -44,6 +46,17 @@ const FosterProductSection = props => {
     })
     setProductList(cardList)
   }, [selectedCard])
+
+  const isSaved = () => {
+    if (
+      snapshotAssetUrl['front'] === '' &&
+      snapshotAssetUrl['back'] === '' &&
+      snapshotAssetUrl['right'] === '' &&
+      snapshotAssetUrl['left'] === ''
+    )
+      return false
+    return true
+  }
 
   return (
     <div className="w-full">
@@ -68,7 +81,17 @@ const FosterProductSection = props => {
         {productList.map((item, index) => (
           <SwiperSlide key={index}>
             <div key={index}>
-              <MerchProductCard data={item} onSelectedCard={item => setSelectedCard(item)} />
+              <MerchProductCard
+                data={item}
+                onSelectedCard={item => {
+                  if (isSaved()) {
+                    setSelectedItem(item)
+                    setShowQuestionModal(true)
+                  } else {
+                    setSelectedCard(item)
+                  }
+                }}
+              />
             </div>
           </SwiperSlide>
         ))}
@@ -77,6 +100,18 @@ const FosterProductSection = props => {
       <div className="w-full mt-[60px] mb-[60px]">
         {selectedCard !== null && <MerchDTGSection selectedCard={selectedCard} setSnapAssetUrl={setSnapAssetUrl} />}
       </div>
+
+      <MerchShopQuestionModal
+        type={'apparel'}
+        open={showQuestionModal}
+        close={status => {
+          setShowQuestionModal(false)
+        }}
+        onContinue={type => {
+          setShowQuestionModal(false)
+          setSelectedCard(selectedItem)
+        }}
+      />
     </div>
   )
 }

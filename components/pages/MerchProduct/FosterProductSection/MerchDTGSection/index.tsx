@@ -27,6 +27,7 @@ import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
 import { dataURLtoFile } from 'utils/helpers'
 import uploadFileToS3 from 'apis/aws'
 import LoadingButton from 'components/Button/LoadingButton'
+import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const MerchDTGSection = props => {
   const { selectedCard, setSnapAssetUrl } = props
@@ -40,6 +41,9 @@ const MerchDTGSection = props => {
   const [showEmbPosModal, setShowEmbPosModal] = useState(false)
   const [snapshotAsset, setSnapshotAsset] = useState({ front: '', back: '', right: '', left: '' })
   const [processingImage, setProcessingImage] = useState(false)
+  const [questionType, setQuestionType] = useState('')
+  const [showQuestionModal, setShowQuestionModal] = useState(false)
+
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
 
@@ -58,7 +62,12 @@ const MerchDTGSection = props => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
     setSnapAssetUrl({ front: '', back: '', right: '', left: '' })
     setAssetUrl(null)
-  }, [selectedCard])
+  }, [selectedCard, color])
+
+  useEffect(() => {
+    setSnapshotAsset({ front: '', back: '', right: '', left: '' })
+    setSnapAssetUrl({ front: '', back: '', right: '', left: '' })
+  }, [color, technique])
 
   useEffect(() => {
     if (technique === 'emb') {
@@ -68,6 +77,17 @@ const MerchDTGSection = props => {
       setShowEmbPosModal(false)
     }
   }, [technique, cardSide])
+
+  const isSaved = () => {
+    if (
+      snapshotAsset['front'] === '' &&
+      snapshotAsset['back'] === '' &&
+      snapshotAsset['right'] === '' &&
+      snapshotAsset['left'] === ''
+    )
+      return false
+    return true
+  }
 
   const uploadApparelSection = async (name: string, imgDataString: string) => {
     let timestamp = new Date().getTime()
@@ -286,13 +306,27 @@ const MerchDTGSection = props => {
             <div className="w-full mt-[15px] flex gap-[15px]">
               <div
                 className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => setTechnique('dtg')}
+                onClick={() => {
+                  if (isSaved()) {
+                    setQuestionType('technique_dtg')
+                    setShowQuestionModal(true)
+                  } else {
+                    setTechnique('dtg')
+                  }
+                }}
               >
                 Direct to Garment (DTG)
               </div>
               <div
                 className={technique === 'emb' ? styles.selectedBtn : styles.unselectedBtn}
-                onClick={() => setTechnique('emb')}
+                onClick={() => {
+                  if (isSaved()) {
+                    setQuestionType('technique_emb')
+                    setShowQuestionModal(true)
+                  } else {
+                    setTechnique('emb')
+                  }
+                }}
               >
                 Embroidery
               </div>
@@ -303,11 +337,25 @@ const MerchDTGSection = props => {
             <div className="w-full mt-[15px] flex gap-[15px]">
               <div
                 className={`${styles.whiteColor} ${color === 'white' && styles.selectedColor}`}
-                onClick={() => setColor('white')}
+                onClick={() => {
+                  if (isSaved()) {
+                    setQuestionType('color_white')
+                    setShowQuestionModal(true)
+                  } else {
+                    setColor('white')
+                  }
+                }}
               ></div>
               <div
                 className={`${styles.blackColor} ${color === 'black' && styles.selectedColor}`}
-                onClick={() => setColor('black')}
+                onClick={() => {
+                  if (isSaved()) {
+                    setQuestionType('color_black')
+                    setShowQuestionModal(true)
+                  } else {
+                    setColor('black')
+                  }
+                }}
               ></div>
             </div>
           </div>
@@ -518,6 +566,21 @@ const MerchDTGSection = props => {
         open={showInfoModal}
         close={status => {
           setShowInfoModal(false)
+        }}
+      />
+
+      <MerchShopQuestionModal
+        type={questionType}
+        open={showQuestionModal}
+        close={status => {
+          setShowQuestionModal(false)
+        }}
+        onContinue={type => {
+          setShowQuestionModal(false)
+          if (type === 'technique_dtg') setTechnique('dtg')
+          else if (type === 'technique_emb') setTechnique('emb')
+          else if (type === 'color_white') setColor('white')
+          else if (type === 'color_black') setColor('black')
         }}
       />
     </div>

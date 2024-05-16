@@ -6,7 +6,6 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 
 // images
 import ArrowLeft from 'assets/icons/arrow-left-black.svg?component'
-import ArrowRightGray from 'assets/icons/arrow-right-gray.svg?component'
 import ArrowRightBlack from 'assets/icons/arrow-right-black.svg?component'
 
 // styles
@@ -23,7 +22,6 @@ const NewCreatorMerch = () => {
   const [nextEnabled, setNextEnabled] = useState(false)
 
   useEffect(() => {
-    console.log(productDetail, '==============productDetail==========')
     if (!productDetail) return
 
     let snapshotUrl = productDetail.snapshotAssetUrl
@@ -77,11 +75,6 @@ const NewCreatorMerch = () => {
           disabled={!nextEnabled}
           onClick={() => {}}
         />
-
-        {/* <div className={`${styles.nextBtn} ${nextEnabled ? styles.enabled : styles.disabled}`}>
-          Next
-          {nextEnabled ? <ArrowRightBlack className="mt-1" /> : <ArrowRightGray className="mt-1" />}
-        </div> */}
       </div>
       {currentStep === 1 && <ProductDetails setProductDetail={setProductDetail} />}
     </div>
