@@ -219,32 +219,31 @@ const MerchDTGSection = props => {
 
         if (assetUrl) {
           setTimeout(() => {
-            new fabric.Image.fromURL(
-              assetUrl,
-              overlayImg => {
-                const { width } = overlayImg.getOriginalSize()
+            if (technique === 'dtg' || cardSide === 'back') {
+              new fabric.Image.fromURL(
+                assetUrl,
+                overlayImg => {
+                  const { width } = overlayImg.getOriginalSize()
 
-                var rectClippingPath = new fabric.Rect({
-                  top: assetTop,
-                  left: assetLeft,
-                  width: assetWidth,
-                  height: assetHeight,
-                  stroke: 'rgba(26, 26, 26, 0.5)',
-                  angle: angle,
-                  absolutePositioned: true,
-                })
-                overlayImg.clipPath = rectClippingPath
-                overlayImg.scaleToWidth(assetWidth, false)
-                overlayImg.set({
-                  scaleX: assetWidth / width,
-                  scaleY: assetWidth / width,
-                  top: assetTop,
-                  left: assetLeft,
-                  angle: angle,
-                })
+                  var rectClippingPath = new fabric.Rect({
+                    top: assetTop,
+                    left: assetLeft,
+                    width: assetWidth,
+                    height: assetHeight,
+                    stroke: 'rgba(26, 26, 26, 0.5)',
+                    angle: angle,
+                    absolutePositioned: true,
+                  })
+                  overlayImg.clipPath = rectClippingPath
+                  overlayImg.scaleToWidth(assetWidth, false)
+                  overlayImg.set({
+                    scaleX: assetWidth / width,
+                    scaleY: assetWidth / width,
+                    top: assetTop,
+                    left: assetLeft,
+                    angle: angle,
+                  })
 
-                // pattern image
-                if (technique === 'dtg' || cardSide === 'back') {
                   newCanvas.add(overlayImg)
                   overlayImg.setControlsVisibility({
                     mt: false,
@@ -254,31 +253,62 @@ const MerchDTGSection = props => {
                   })
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
-                } else {
-                  new fabric.Image.fromURL('/images/merch-pattern.png', patternImage => {
-                    overlayImg.filters.push(
-                      new fabric.Image.filters.BlendImage({
-                        image: patternImage,
-                        mode: 'multiply', // Experiment with blend modes to achieve the desired effect
-                        alpha: 0.5,
-                      })
-                    )
-                    overlayImg.applyFilters()
-                    overlayImg.lockUniScaling = true
-                    overlayImg.setControlsVisibility({
-                      mt: false,
-                      mb: false,
-                      ml: false,
-                      mr: false,
+                },
+                { crossOrigin: 'Anonymous' }
+              )
+            } else {
+              resizeImage(assetUrl, 1000, 1000, function (dataUrl) {
+                new fabric.Image.fromURL(
+                  dataUrl,
+                  overlayImg => {
+                    const { width } = overlayImg.getOriginalSize()
+
+                    var rectClippingPath = new fabric.Rect({
+                      top: assetTop,
+                      left: assetLeft,
+                      width: assetWidth,
+                      height: assetHeight,
+                      stroke: 'rgba(26, 26, 26, 0.5)',
+                      angle: angle,
+                      absolutePositioned: true,
                     })
-                    newCanvas.add(overlayImg)
-                    newCanvas.setActiveObject(overlayImg)
-                    newCanvas.renderAll()
-                  })
-                }
-              },
-              { crossOrigin: 'Anonymous' }
-            )
+                    overlayImg.clipPath = rectClippingPath
+                    overlayImg.scaleToWidth(assetWidth, false)
+                    overlayImg.set({
+                      scaleX: assetWidth / width,
+                      scaleY: assetWidth / width,
+                      top: assetTop,
+                      left: assetLeft,
+                      angle: angle,
+                    })
+
+                    // pattern image
+
+                    new fabric.Image.fromURL('/images/merch-pattern.png', patternImage => {
+                      overlayImg.filters.push(
+                        new fabric.Image.filters.BlendImage({
+                          image: patternImage,
+                          mode: 'multiply',
+                          alpha: 0.5,
+                        })
+                      )
+                      overlayImg.applyFilters()
+                      overlayImg.lockUniScaling = true
+                      overlayImg.setControlsVisibility({
+                        mt: false,
+                        mb: false,
+                        ml: false,
+                        mr: false,
+                      })
+                      newCanvas.add(overlayImg)
+                      newCanvas.setActiveObject(overlayImg)
+                      newCanvas.renderAll()
+                    })
+                  },
+                  { crossOrigin: 'Anonymous' }
+                )
+              })
+            }
           }, 500)
         }
       })
