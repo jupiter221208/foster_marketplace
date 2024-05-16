@@ -19,10 +19,16 @@ import TabList from 'assets/json/creator-merch/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import MenuSocialShare from 'components/Menu/MenuSocialShare'
 
-const CreatorMerch = props => {
-  const { userName } = props
-  const [name, setName] = useState('')
+interface CreatorMerchProps {
+  artistPublicKey?: string
+  publicArtistData?: any
+  error?: string
+}
+
+const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
+  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -50,11 +56,11 @@ const CreatorMerch = props => {
   return (
     <div className="w-full pb-[60px]">
       <div className="w-full h-[350px] relative">
-        <Image src={ShopBanner} alt="" className="w-full h-full object-cover" />
+        <img src={artistInfo.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
           <div className="w-full h-full flex items-center justify-center">
             <div>
-              <div className={styles.userName}>Circusdragon</div>
+              <div className={styles.userName}>{artistInfo.username}</div>
               <div className={styles.merchStore}>Official Merch Store</div>
             </div>
           </div>
@@ -92,9 +98,17 @@ const CreatorMerch = props => {
                 <PlusIcon />
               </div>
             </div>
-            <div className={styles.share}>
+            {/* <div className={styles.share}>
               <ShareSocialIcon />
               <div className="mb-[2px]">Share</div>
+            </div> */}
+            <div className={`${styles.iconContainer} w-[87px]`}>
+              <MenuSocialShare
+                type="nft"
+                vote={true}
+                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                url={`/${artistInfo?.username}`}
+              />
             </div>
           </div>
         </div>
@@ -108,4 +122,24 @@ export default CreatorMerch
 
 CreatorMerch.getLayout = function getLayout(page) {
   return <ArtistLayout>{page}</ArtistLayout>
+}
+
+CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorMerchProps> {
+  let artistUsername = encodeURIComponent(query.id)
+
+  try {
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+      r.json()
+    )
+    let artistPublicKey = publicArtistData.artist.wallet_id
+    return {
+      artistPublicKey,
+      publicArtistData,
+    }
+  } catch (e: any) {
+    console.error(e)
+    return {
+      error: `could not load artist details: ${artistUsername}: ${e.message}`,
+    }
+  }
 }
