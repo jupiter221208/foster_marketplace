@@ -25,6 +25,9 @@ import CloseIcon from 'assets/icons/close-wallet.svg?component'
 // styles
 import styles from './index.module.scss'
 import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
+import { dataURLtoFile } from 'utils/helpers'
+import uploadFileToS3 from 'apis/aws'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchDTGSection = props => {
   const { selectedCard } = props
@@ -36,6 +39,8 @@ const MerchDTGSection = props => {
   const [assetUrl, setAssetUrl] = useState<any>(null)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showEmbPosModal, setShowEmbPosModal] = useState(false)
+  const [snapshotAsset, setSnapshotAsset] = useState({ front: '', back: '', right: '', left: '' })
+  const [processingImage, setProcessingImage] = useState(false)
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
   useEffect(() => {
@@ -58,14 +63,49 @@ const MerchDTGSection = props => {
     }
   }, [technique, cardSide])
 
-  const saveApparel = () => {
+  const uploadApparelSection = async (name: string, imgDataString: string) => {
+    let timestamp = new Date().getTime()
+    let filename = name + timestamp + '.png'
+    var imgFile = dataURLtoFile(imgDataString, filename)
+    const { url } = await uploadFileToS3(imgFile, filename)
+    return url
+  }
+
+  const saveApparel = async () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas !== '') {
+      setProcessingImage(true)
       newCanvas.discardActiveObject()
       newCanvas.item(2).selectable = false
       newCanvas.remove(newCanvas.item(1))
+
+      let imgDataString = newCanvas.toDataURL({
+        format: 'png',
+        quality: 1,
+      })
+      // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
+      let newAsset = { ...snapshotAsset }
+      newAsset[cardSide] = imgDataString
+      setSnapshotAsset(newAsset)
+      setProcessingImage(false)
     }
   }
+
+  const clearApparel = () => {
+    let newAsset = { ...snapshotAsset }
+    newAsset[cardSide] = ''
+    setSnapshotAsset(newAsset)
+
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas == '') {
+      newCanvas = new fabric.Canvas(canvasId)
+    } else {
+      newCanvas.clear()
+      newCanvas.renderAll()
+    }
+    setAssetUrl(null)
+  }
+
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -74,6 +114,8 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
+
+    if (snapshotAsset[cardSide].length > 0) return
 
     if (apparelList[selectedCard.id].id === 4 && technique === 'dtg' && (cardSide === 'left' || cardSide === 'right'))
       return
@@ -257,7 +299,11 @@ const MerchDTGSection = props => {
           <div className="flex gap-[12px] mt-[12px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
-              image={apparelList[selectedCard.id].apparel.front[color]}
+              image={
+                snapshotAsset['front'].length > 0
+                  ? snapshotAsset['front']
+                  : apparelList[selectedCard.id].apparel.front[color]
+              }
               side="front"
               type="DTG"
               technique={technique}
@@ -268,7 +314,11 @@ const MerchDTGSection = props => {
             />
             <MerchDTGCard
               selected={cardSide === 'back'}
-              image={apparelList[selectedCard.id].apparel.back[color]}
+              image={
+                snapshotAsset['back'].length > 0
+                  ? snapshotAsset['back']
+                  : apparelList[selectedCard.id].apparel.back[color]
+              }
               side="back"
               type="DTG"
               label="+$5.95"
@@ -280,7 +330,11 @@ const MerchDTGSection = props => {
             ) : (
               <MerchDTGCard
                 selected={cardSide === 'right'}
-                image={apparelList[selectedCard.id].apparel.right[color]}
+                image={
+                  snapshotAsset['right'].length > 0
+                    ? snapshotAsset['right']
+                    : apparelList[selectedCard.id].apparel.right[color]
+                }
                 side="right"
                 label="+$2.49"
                 technique={technique}
@@ -292,7 +346,11 @@ const MerchDTGSection = props => {
             ) : (
               <MerchDTGCard
                 selected={cardSide === 'left'}
-                image={apparelList[selectedCard.id].apparel.left[color]}
+                image={
+                  snapshotAsset['left'].length > 0
+                    ? snapshotAsset['left']
+                    : apparelList[selectedCard.id].apparel.left[color]
+                }
                 side="left"
                 label="+$2.49"
                 technique={technique}
@@ -333,34 +391,31 @@ const MerchDTGSection = props => {
           ) : (
             <div className="w-full">
               <div className={`w-full mt-[70px]`}>
-                <OutlineButton
-                  fullWidth
-                  height={50}
-                  fontSize={18}
-                  label="Clear"
-                  onClick={() => {
-                    let newCanvas = canvas as fabric.Canvas
-                    if (newCanvas == '') {
-                      newCanvas = new fabric.Canvas(canvasId)
-                    } else {
-                      newCanvas.clear()
-                      newCanvas.renderAll()
-                    }
-                    setAssetUrl(null)
-                  }}
-                />
+                <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
               </div>
               <div className="w-full mt-[15px]">
-                <GradientButton
-                  fullWidth
-                  height={50}
-                  fontSize={18}
-                  backgroundColor01="var(--main-icon-color)"
-                  backgroundColor02="var(--main-icon-color)"
-                  color="var(--background-main-color)"
-                  label="Save"
-                  onClick={() => saveApparel()}
-                />
+                {processingImage ? (
+                  <LoadingButton fullWidth height={50} />
+                ) : snapshotAsset[cardSide].length > 0 ? (
+                  <div className="w-full flex flex-col gap-[8px] mt-[13px]">
+                    <div className={styles.savedTitle}>Your design has been saved!</div>
+                    <div className={styles.savedContent}>
+                      Click next if you're finished, otherwise add another design.
+                    </div>
+                  </div>
+                ) : (
+                  <GradientButton
+                    fullWidth
+                    height={50}
+                    fontSize={18}
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
+                    label="Save"
+                    onClick={() => saveApparel()}
+                    disabled={snapshotAsset[cardSide].length > 0}
+                  />
+                )}
               </div>
             </div>
           )}
@@ -370,48 +425,57 @@ const MerchDTGSection = props => {
           <div className="w-[700px] h-[700px]">
             <canvas id={canvasId} />
           </div>
-          {!assetUrl && (
+
+          {snapshotAsset[cardSide].length > 0 ? (
             <div className="absolute w-[700px] h-[700px] flex justify-center">
               <div className="absolute inset-0">
-                <img
-                  src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                  alt=""
-                  className="w-[700px] h-[700px]"
-                />
-              </div>
-              <div className={`${styles.dropArea}`}>
-                <Dropzone
-                  onDrop={acceptedFiles => {
-                    acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                  }}
-                  onDropRejected={rejectedFiles => {}}
-                  maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [] }}
-                  maxSize={31457280}
-                >
-                  {({ getRootProps, getInputProps, open }) => (
-                    <section>
-                      <button onClick={open} style={{ display: 'none' }}>
-                        open
-                      </button>
-                      <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <div className="flex flex-col justify-center items-center">
-                          <div className="w-[90px] h-[90px]">
-                            <Lottie animationData={animationData} loop={true} />
-                          </div>
-                          <div className={styles.uploadText}>
-                            Upload or drop
-                            <br />
-                            your design here
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  )}
-                </Dropzone>
+                <img src={snapshotAsset[cardSide]} alt="" className="w-[700px] h-[700px]" />
               </div>
             </div>
+          ) : (
+            !assetUrl && (
+              <div className="absolute w-[700px] h-[700px] flex justify-center">
+                <div className="absolute inset-0">
+                  <img
+                    src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                    alt=""
+                    className="w-[700px] h-[700px]"
+                  />
+                </div>
+                <div className={`${styles.dropArea}`}>
+                  <Dropzone
+                    onDrop={acceptedFiles => {
+                      acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                    }}
+                    onDropRejected={rejectedFiles => {}}
+                    maxFiles={1}
+                    accept={{ 'image/jpeg': [], 'image/png': [] }}
+                    maxSize={31457280}
+                  >
+                    {({ getRootProps, getInputProps, open }) => (
+                      <section>
+                        <button onClick={open} style={{ display: 'none' }}>
+                          open
+                        </button>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <div className="flex flex-col justify-center items-center">
+                            <div className="w-[90px] h-[90px]">
+                              <Lottie animationData={animationData} loop={true} />
+                            </div>
+                            <div className={styles.uploadText}>
+                              Upload or drop
+                              <br />
+                              your design here
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </div>
+              </div>
+            )
           )}
           <div className={styles.infoLabel}>
             <div>
