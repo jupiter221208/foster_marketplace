@@ -174,7 +174,6 @@ const MerchDTGSection = props => {
             new fabric.Image.fromURL(
               assetUrl,
               overlayImg => {
-                console.log(overlayImg, '=========overlayImg========')
                 const { width } = overlayImg.getOriginalSize()
 
                 var rectClippingPath = new fabric.Rect({
@@ -213,7 +212,7 @@ const MerchDTGSection = props => {
                       new fabric.Image.filters.BlendImage({
                         image: patternImage,
                         mode: 'multiply', // Experiment with blend modes to achieve the desired effect
-                        alpha: 0.3,
+                        alpha: 0.5,
                       })
                     )
                     overlayImg.applyFilters()
@@ -229,16 +228,6 @@ const MerchDTGSection = props => {
                     newCanvas.renderAll()
                   })
                 }
-                /*
-                newCanvas.add(overlayImg)
-                overlayImg.setControlsVisibility({
-                  mt: false,
-                  mb: false,
-                  ml: false,
-                  mr: false,
-                })
-                newCanvas.setActiveObject(overlayImg)
-                newCanvas.renderAll()*/
               },
               { crossOrigin: 'Anonymous' }
             )
