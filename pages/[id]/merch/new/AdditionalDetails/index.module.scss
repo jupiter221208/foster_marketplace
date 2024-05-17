@@ -101,6 +101,15 @@
   color: var(--main-icon-color)
 }
 
+.includePurchase {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 20px;
+}
+
 .sellingArea {
   width: 100%;
   height: 45px;

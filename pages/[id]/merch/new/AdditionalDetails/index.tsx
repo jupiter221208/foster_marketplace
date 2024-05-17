@@ -80,6 +80,7 @@ const AdditionalDetails = props => {
     let { snapshotAssetUrl, selectedCard, technique } = productDetail
 
     setPriceBase(selectedCard.price[technique])
+    setTitle(selectedCard.name.slice(0, selectedCard.name.indexOf('|') - 1))
 
     if (snapshotAssetUrl.front !== '') {
       urls.push(snapshotAssetUrl.front)
@@ -197,6 +198,12 @@ const AdditionalDetails = props => {
             />
           </div>
         </div>
+        {saleMethod.id === 0 && (
+          <div className={styles.includePurchase}>
+            This method of sale allows will save the item to your merch brand & design library. When you are listing an
+            edition, you can choose to toggle on merch for every edition purchased
+          </div>
+        )}
         {saleMethod.id === 1 && (
           <div className="w-full mt-[30px] mb-[200px]">
             <div className={styles.title}>
