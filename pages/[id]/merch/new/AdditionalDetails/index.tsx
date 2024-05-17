@@ -34,6 +34,7 @@ const AdditionalDetails = props => {
   const [description, setDescription] = useState('')
   const [saleMethod, setSaleMethod] = useState({ id: -1, label: '' })
   const [sellingPrice, setSellingPrice] = useState('')
+  const [profit, setProfit] = useState(0)
   const [maxSupplyItem, setMaxSupplyItem] = useState(MaxSupplyList[0])
   const [limitedSupply, setLimitedSupply] = useState('')
   const [releaseDurationItem, setReleaseDurationItem] = useState(ReleaseDurationList[0])
@@ -118,6 +119,10 @@ const AdditionalDetails = props => {
     setApparelUrl(assetUrl[0].url)
   }, [productDetail])
 
+  useEffect(() => {
+    setProfit(parseFloat(sellingPrice) - (priceBase + priceFB + priceRight + priceLeft))
+  }, [sellingPrice])
+
   const selectAssetItem = item => {
     let urls = []
     assetUrls.map(asset => {
@@ -189,7 +194,7 @@ const AdditionalDetails = props => {
           </div>
           <div className="w-full mt-[15px] flex justify-between px-[16px]">
             <div className={styles.production}>Production Price</div>
-            <div className={styles.prodPrice}>${priceBase + priceFB + priceRight + priceLeft}</div>
+            <div className={styles.prodPrice}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
           </div>
         </div>
         <div className="w-full mt-[30px]">
@@ -222,13 +227,22 @@ const AdditionalDetails = props => {
                 className={styles.input}
                 value={sellingPrice}
                 placeholder={'Set your selling price'}
-                onChange={event => setSellingPrice(event.target.value)}
+                onChange={event => setSellingPrice(validDigits(event.target.value))}
               />
             </div>
             <div className="w-full flex justify-between mt-[15px]">
               <div className={styles.production}>Your Profit</div>
-              <div className={styles.prodPrice}>$35.95</div>
+              <div className={`${styles.prodPrice} ${profit >= 0 ? styles.positive : styles.negotive}`}>
+                {profit >= 0 ? '$' + profit.toFixed(2) : '-$' + Math.abs(profit).toFixed(2)}
+              </div>
             </div>
+            {profit < 0 && (
+              <div className={styles.negotiveAlert}>
+                The selling price you entered is below the cost of production. Please enter a value higher than the
+                production price.
+              </div>
+            )}
+
             <div className="mt-[30px]">
               <div className={styles.title}>Max Supply (optional)</div>
               <div className="mt-[15px]">
