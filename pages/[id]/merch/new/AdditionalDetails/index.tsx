@@ -42,6 +42,10 @@ const AdditionalDetails = props => {
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('24')
   const [day, setDay] = useState('')
+  const [priceBase, setPriceBase] = useState(0)
+  const [priceFB, setPriceFB] = useState(0)
+  const [priceRight, setPriceRight] = useState(0)
+  const [priceLeft, setPriceLeft] = useState(0)
 
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
@@ -73,11 +77,30 @@ const AdditionalDetails = props => {
 
   useEffect(() => {
     let urls = []
-    let sanpshots = productDetail.snapshotAssetUrl
-    if (sanpshots.front !== '') urls.push(sanpshots.front)
-    if (sanpshots.back !== '') urls.push(sanpshots.back)
-    if (sanpshots.right !== '') urls.push(sanpshots.right)
-    if (sanpshots.left !== '') urls.push(sanpshots.left)
+    let { snapshotAssetUrl, selectedCard, technique } = productDetail
+
+    setPriceBase(selectedCard.price[technique])
+
+    if (snapshotAssetUrl.front !== '') {
+      urls.push(snapshotAssetUrl.front)
+    }
+    if (snapshotAssetUrl.back !== '') {
+      urls.push(snapshotAssetUrl.back)
+    }
+    if (technique === 'dtg') {
+      if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
+    } else {
+      if (snapshotAssetUrl.back !== '') setPriceFB(8.5)
+    }
+
+    if (snapshotAssetUrl.right !== '') {
+      urls.push(snapshotAssetUrl.right)
+      setPriceRight(7)
+    }
+    if (snapshotAssetUrl.left !== '') {
+      urls.push(snapshotAssetUrl.left)
+      setPriceLeft(7)
+    }
     let assetUrl = []
     urls.map((url, index) => {
       if (index === 0) assetUrl.push({ id: index, url, selected: true })
@@ -141,24 +164,24 @@ const AdditionalDetails = props => {
           <div className="w-full mt-[15px]">
             <div className={styles.firstRow}>
               <div className={styles.sideText}>Base (includes front or back print)</div>
-              <div className={styles.price}>$39.99</div>
+              <div className={styles.price}>${priceBase}</div>
             </div>
             <div className={styles.secondRow}>
               <div className={styles.sideText}>Additional front or back print</div>
-              <div className={styles.price}>$8.50</div>
+              <div className={styles.price}>{priceFB > 0 ? '$' + priceFB : 'N/A'}</div>
             </div>
             <div className={styles.firstRow}>
               <div className={styles.sideText}>Right sleeve/wrist</div>
-              <div className={styles.price}>$7.00</div>
+              <div className={styles.price}>{priceRight > 0 ? '$' + priceRight : 'N/A'}</div>
             </div>
             <div className={styles.secondRow}>
               <div className={styles.sideText}>Left sleeve/wrist</div>
-              <div className={styles.price}>$7.00</div>
+              <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
             </div>
           </div>
           <div className="w-full mt-[15px] flex justify-between px-[16px]">
             <div className={styles.production}>Production Price</div>
-            <div className={styles.prodPrice}>$62.49</div>
+            <div className={styles.prodPrice}>${priceBase + priceFB + priceRight + priceLeft}</div>
           </div>
         </div>
         <div className="w-full mt-[30px]">
