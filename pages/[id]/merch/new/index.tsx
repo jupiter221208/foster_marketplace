@@ -25,7 +25,8 @@ const NewCreatorMerch = () => {
   useEffect(() => {
     if (!productDetail) return
 
-    let snapshotUrl = productDetail.snapshotAssetUrl
+    let snapshotUrl = productDetail?.snapshotAssetUrl
+
     if (snapshotUrl)
       if (
         snapshotUrl.front.length > 0 ||
@@ -83,7 +84,7 @@ const NewCreatorMerch = () => {
           }}
         />
       </div>
-      {currentStep === 1 && <ProductDetails setProductDetail={setProductDetail} />}
+      {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
       {currentStep === 2 && <AdditionalDetails productDetail={productDetail} />}
     </div>
   )

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,24 +11,24 @@ import 'swiper/css/navigation'
 import merchProductList from 'assets/json/merch-shop/merch-product-list.json'
 
 // styles
-import styles from './index.module.scss'
 import MerchProductCard from 'components/Card/MerchProductCard'
 import { useViewport } from 'utils'
 import MerchDTGSection from './MerchDTGSection'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const FosterProductSection = props => {
-  const { setProductDetail } = props
+  const { productDetail, setProductDetail } = props
   const viewport = useViewport()
   const [productList, setProductList] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
-  const [snapshotAssetUrl, setSnapAssetUrl] = useState({ front: '', back: '', right: '', left: '' })
   const [showQuestionModal, setShowQuestionModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
 
   useEffect(() => {
-    setProductDetail({ snapshotAssetUrl })
-  }, [snapshotAssetUrl])
+    if (productDetail?.selectedCard) {
+      setSelectedCard(productDetail.selectedCard)
+    }
+  }, [productDetail])
 
   useEffect(() => {
     let cardList = []
@@ -48,6 +47,8 @@ const FosterProductSection = props => {
   }, [selectedCard])
 
   const isSaved = () => {
+    if (!productDetail) return
+    let snapshotAssetUrl = productDetail.snapshotAssetUrl
     if (
       snapshotAssetUrl['front'] === '' &&
       snapshotAssetUrl['back'] === '' &&
@@ -98,7 +99,13 @@ const FosterProductSection = props => {
       </Swiper>
 
       <div className="w-full mt-[60px] mb-[60px]">
-        {selectedCard !== null && <MerchDTGSection selectedCard={selectedCard} setSnapAssetUrl={setSnapAssetUrl} />}
+        {selectedCard !== null && (
+          <MerchDTGSection
+            selectedCard={selectedCard}
+            productDetail={productDetail}
+            setProductDetail={detail => setProductDetail({ ...detail, selectedCard })}
+          />
+        )}
       </div>
 
       <MerchShopQuestionModal

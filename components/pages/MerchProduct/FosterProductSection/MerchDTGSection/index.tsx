@@ -30,7 +30,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 
 const MerchDTGSection = props => {
-  const { selectedCard, setSnapAssetUrl } = props
+  const { selectedCard, productDetail, setProductDetail } = props
   const [canvas, setCanvas] = useState('')
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
@@ -48,6 +48,14 @@ const MerchDTGSection = props => {
   const alertId = 'alert-tech'
 
   useEffect(() => {
+    if (productDetail?.snapshotAssetUrl) {
+      setTimeout(() => {
+        setSnapshotAsset(productDetail?.snapshotAssetUrl)
+      }, 1000)
+    }
+  }, [productDetail])
+
+  useEffect(() => {
     document.getElementById(alertId).style.display = 'none'
   }, [])
 
@@ -60,14 +68,8 @@ const MerchDTGSection = props => {
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
-    setSnapAssetUrl({ front: '', back: '', right: '', left: '' })
     setAssetUrl(null)
-  }, [selectedCard, color])
-
-  useEffect(() => {
-    setSnapshotAsset({ front: '', back: '', right: '', left: '' })
-    setSnapAssetUrl({ front: '', back: '', right: '', left: '' })
-  }, [color, technique])
+  }, [selectedCard, color, technique])
 
   useEffect(() => {
     if (technique === 'emb') {
@@ -113,7 +115,7 @@ const MerchDTGSection = props => {
       let newAsset = { ...snapshotAsset }
       newAsset[cardSide] = imgDataString
       setSnapshotAsset(newAsset)
-      setSnapAssetUrl(newAsset)
+      setProductDetail({ snapshotAssetUrl: newAsset })
       setProcessingImage(false)
 
       if (newCanvas !== '') {
@@ -128,7 +130,7 @@ const MerchDTGSection = props => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
-    setSnapAssetUrl(newAsset)
+    setProductDetail({ snapshotAssetUrl: newAsset })
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 //components
 import ArtistLayout from 'components/Layout/ArtistLayout'
@@ -14,8 +14,14 @@ import FosterProductSection from 'components/pages/MerchProduct/FosterProductSec
 import MyProductSection from 'components/pages/MerchProduct/MyProductSection'
 
 const ProductDetails = props => {
-  const { setProductDetail } = props
+  const { productDetail, setProductDetail } = props
   const [product, setProduct] = useState({ id: -1, label: '' })
+
+  useEffect(() => {
+    if (productDetail) {
+      setProduct(productDetail.product)
+    }
+  }, [productDetail])
 
   return (
     <div className="w-full">
@@ -45,7 +51,10 @@ const ProductDetails = props => {
           </div>
           <div className={styles.chooseBase}>Choose a base to begin designing</div>
           <div className="mt-[30px]">
-            <FosterProductSection setProductDetail={setProductDetail} />
+            <FosterProductSection
+              productDetail={productDetail}
+              setProductDetail={detail => setProductDetail({ ...detail, product })}
+            />
           </div>
         </div>
       )}
