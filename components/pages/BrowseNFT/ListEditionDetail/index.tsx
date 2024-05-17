@@ -28,8 +28,6 @@ import { listMasterEdition, updateEditionListing, cancelListingEdition } from 'a
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
