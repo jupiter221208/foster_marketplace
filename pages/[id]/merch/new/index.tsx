@@ -14,6 +14,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 import NewMerchStepper from 'components/NewMerchStepper'
 import ProductDetails from './ProductDetails'
+import AdditionalDetails from './AdditionalDetails'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
@@ -53,8 +54,12 @@ const NewCreatorMerch = () => {
           fontFamily="Muli-Regular"
           fontSize={18}
           onClick={() => {
-            let path = window.location.href
-            router.push(path.substring(0, path.lastIndexOf('/')))
+            if (currentStep === 1) {
+              let path = window.location.href
+              router.push(path.substring(0, path.lastIndexOf('/')))
+            } else {
+              setCurrentStep(currentStep - 1)
+            }
           }}
         />
         <div className="w-[50%]">
@@ -73,10 +78,13 @@ const NewCreatorMerch = () => {
           fontFamily="Muli-Regular"
           fontSize={18}
           disabled={!nextEnabled}
-          onClick={() => {}}
+          onClick={() => {
+            setCurrentStep(currentStep + 1)
+          }}
         />
       </div>
       {currentStep === 1 && <ProductDetails setProductDetail={setProductDetail} />}
+      {currentStep === 2 && <AdditionalDetails productDetail={productDetail} />}
     </div>
   )
 }
