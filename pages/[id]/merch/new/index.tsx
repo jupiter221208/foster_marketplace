@@ -85,7 +85,7 @@ const NewCreatorMerch = () => {
         />
       </div>
       {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
-      {currentStep === 2 && <AdditionalDetails productDetail={productDetail} />}
+      {currentStep >= 2 && <AdditionalDetails productDetail={productDetail} step={currentStep} />}
     </div>
   )
 }
