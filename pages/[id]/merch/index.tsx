@@ -58,7 +58,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full h-[350px] relative">
         <img src={artistInfo.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
-          <div className="w-full h-full flex items-center justify-center">
+          <div className={styles.overlayBG}>
             <div>
               <div className={styles.userName}>{artistInfo.username}</div>
               <div className={styles.merchStore}>Official Merch Store</div>
@@ -69,50 +69,48 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           <div className={styles.tabBorder} />
         </div>
       </div>
-      <div className="g-container mt-[-42px]">
-        <div className="w-full flex z-10 relative overflow-hidden h-[46px]">
-          <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-        </div>
-        <div className="w-full mt-[30px] flex justify-between">
-          <div
-            className={styles.profile}
-            onClick={() => {
-              let path = window.location.href
-              router.push(path.substring(0, path.lastIndexOf('/')))
-            }}
-          >
-            <div>
-              <LeftArrow />
-            </div>
-            <div className="mt-[-2px]">Profile</div>
+      <div className="w-full flex justify-center">
+        <div className="g-container mt-[-42px]">
+          <div className="w-full flex z-10 relative overflow-hidden h-[46px]">
+            <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
           </div>
-          <div className="flex gap-[15px]">
+          <div className="w-full mt-[30px] flex justify-between">
             <div
-              className={styles.plus}
+              className={styles.profile}
               onClick={() => {
                 let path = window.location.href
-                router.push(`${path}/new`)
+                router.push(path.substring(0, path.lastIndexOf('/')))
               }}
             >
-              <div className={styles.plusBG}>
-                <PlusIcon />
+              <div>
+                <LeftArrow />
+              </div>
+              <div className="mt-[-2px]">Profile</div>
+            </div>
+            <div className="flex gap-[15px]">
+              <div
+                className={styles.plus}
+                onClick={() => {
+                  let path = window.location.href
+                  router.push(`${path}/new`)
+                }}
+              >
+                <div className={styles.plusBG}>
+                  <PlusIcon />
+                </div>
+              </div>
+              <div className={`${styles.iconContainer} w-[87px]`}>
+                <MenuSocialShare
+                  type="nft"
+                  vote={true}
+                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                  url={`/${artistInfo?.username}`}
+                />
               </div>
             </div>
-            {/* <div className={styles.share}>
-              <ShareSocialIcon />
-              <div className="mb-[2px]">Share</div>
-            </div> */}
-            <div className={`${styles.iconContainer} w-[87px]`}>
-              <MenuSocialShare
-                type="nft"
-                vote={true}
-                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                url={`/${artistInfo?.username}`}
-              />
-            </div>
           </div>
+          <div className="w-full mt-[52px]">{activeTab === 0 && <CreatorMerchShop />}</div>
         </div>
-        <div className="w-full mt-[52px]">{activeTab === 0 && <CreatorMerchShop />}</div>
       </div>
     </div>
   )
