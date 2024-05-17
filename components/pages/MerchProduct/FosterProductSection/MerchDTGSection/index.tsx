@@ -50,6 +50,7 @@ const MerchDTGSection = props => {
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
+      setColor(productDetail?.color)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
       }, 1000)
@@ -116,7 +117,7 @@ const MerchDTGSection = props => {
       let newAsset = { ...snapshotAsset }
       newAsset[cardSide] = imgDataString
       setSnapshotAsset(newAsset)
-      setProductDetail({ snapshotAssetUrl: newAsset, technique })
+      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
       setProcessingImage(false)
 
       if (newCanvas !== '') {

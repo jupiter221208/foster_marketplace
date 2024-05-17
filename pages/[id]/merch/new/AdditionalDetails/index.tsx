@@ -22,7 +22,7 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { validDigits } from 'utils/helpers'
+import { getFirstUpperString, validDigits } from 'utils/helpers'
 
 const AdditionalDetails = props => {
   const { productDetail } = props
@@ -31,6 +31,7 @@ const AdditionalDetails = props => {
   const [assetUrls, setAssetUrls] = useState([])
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [saleMethod, setSaleMethod] = useState({ id: -1, label: '' })
   const [sellingPrice, setSellingPrice] = useState('')
   const [maxSupplyItem, setMaxSupplyItem] = useState(MaxSupplyList[0])
@@ -77,10 +78,16 @@ const AdditionalDetails = props => {
 
   useEffect(() => {
     let urls = []
-    let { snapshotAssetUrl, selectedCard, technique } = productDetail
+    let { snapshotAssetUrl, selectedCard, technique, color } = productDetail
 
     setPriceBase(selectedCard.price[technique])
-    setTitle(selectedCard.name.slice(0, selectedCard.name.indexOf('|') - 1))
+    setDescription(
+      selectedCard.name +
+        ' | ' +
+        (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
+        ' | ' +
+        getFirstUpperString(color)
+    )
 
     if (snapshotAssetUrl.front !== '') {
       urls.push(snapshotAssetUrl.front)
@@ -161,7 +168,7 @@ const AdditionalDetails = props => {
         </div>
         <div className="w-full mt-[30px]">
           <div className={styles.title}>Additional Details</div>
-          <div className={`${styles.desc} mt-[10px]`}>Unisex Premium Hoodie | Cotton Heritage M2580 | White</div>
+          <div className={`${styles.desc} mt-[10px]`}>{description}</div>
           <div className="w-full mt-[15px]">
             <div className={styles.firstRow}>
               <div className={styles.sideText}>Base (includes front or back print)</div>
