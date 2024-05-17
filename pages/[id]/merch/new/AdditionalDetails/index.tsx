@@ -189,7 +189,7 @@ const AdditionalDetails = props => {
               />
             </div>
             <div className="w-full flex justify-between mt-[15px]">
-              <div className={styles.production}>Your Profile</div>
+              <div className={styles.production}>Your Profit</div>
               <div className={styles.prodPrice}>$35.95</div>
             </div>
             <div className="mt-[30px]">

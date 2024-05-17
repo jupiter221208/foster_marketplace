@@ -49,6 +49,7 @@ const MerchDTGSection = props => {
 
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
+      setTechnique(productDetail?.technique)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
       }, 1000)
@@ -115,7 +116,7 @@ const MerchDTGSection = props => {
       let newAsset = { ...snapshotAsset }
       newAsset[cardSide] = imgDataString
       setSnapshotAsset(newAsset)
-      setProductDetail({ snapshotAssetUrl: newAsset })
+      setProductDetail({ snapshotAssetUrl: newAsset, technique })
       setProcessingImage(false)
 
       if (newCanvas !== '') {
@@ -130,7 +131,7 @@ const MerchDTGSection = props => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
-    setProductDetail({ snapshotAssetUrl: newAsset })
+    setProductDetail({ snapshotAssetUrl: newAsset, technique })
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
