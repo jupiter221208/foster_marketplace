@@ -138,7 +138,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       signedTxs.map(tx =>
         sendTransactionWithRetry({
           connection: metaplex.connection,
-          rawTransaction: tx.serialize(),
+          transaction: tx,
           maxHeight: blockhashInfo.lastValidBlockHeight,
           skipPreflight: true,
         })

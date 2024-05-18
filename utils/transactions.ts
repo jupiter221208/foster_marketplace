@@ -6,7 +6,6 @@ const MAX_BLOCK_HEIGHT = 150
 interface SendTransactionWithRetryArgs {
   connection: Connection
   transaction?: Transaction
-  rawTransaction?: Buffer
   maxHeight: number
   retryInterval?: number
   skipPreflight?: boolean
@@ -15,13 +14,12 @@ interface SendTransactionWithRetryArgs {
 export async function sendTransactionWithRetry({
   connection,
   transaction,
-  rawTransaction,
   maxHeight,
   retryInterval = 2000,
   skipPreflight = false,
 }: SendTransactionWithRetryArgs): Promise<string | null> {
   let signature = bs58.encode(transaction.signature)
-  let transactionBuffer = rawTransaction ?? transaction.serialize()
+  let transactionBuffer = transaction.serialize()
 
   while (true) {
     await new Promise(resolve => setTimeout(resolve, retryInterval))
