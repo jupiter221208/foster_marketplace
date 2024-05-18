@@ -186,7 +186,7 @@ const AdditionalDetails = props => {
 
       {step === 3 && (
         <div className="w-[49%]">
-          <div className="w-full mt-[30px]">
+          <div className="w-full">
             <div className={styles.title}>Product & Design Details</div>
             <div className={`${styles.desc} mt-[10px]`}>{description}</div>
             <div className="w-full mt-[15px]">
