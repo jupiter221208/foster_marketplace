@@ -93,6 +93,14 @@
   color: var(--text-gray-200-color)
 }
 
+.priceUnit {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--main-icon-color)
+}
+
 .prodPrice {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
@@ -112,6 +120,7 @@
   margin-top: 10px;
   color: #E25E62;
 }
+
 .positive {
   color: var(--main-icon-color)
 }

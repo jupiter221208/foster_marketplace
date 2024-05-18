@@ -198,41 +198,63 @@ const AdditionalDetails = props => {
               <div className={styles.firstRow}>
                 <div className={styles.sideText}>Selling Price</div>
                 <div className={styles.price}>
-                  {saleMethod.id === 0 ? 'Production Price + Price of Edition' : sellingPrice}
+                  ${saleMethod.id === 0 ? 'Production Price + Price of Edition' : sellingPrice}
                 </div>
               </div>
               <div className={styles.secondRow}>
                 <div className={styles.sideText}>Profit Per Unit</div>
-                <div className={styles.prodPrice}>{saleMethod.id === 0 ? 'Price of Edition' : profit.toFixed(2)}</div>
+                <div className={styles.priceUnit}>${saleMethod.id === 0 ? 'Price of Edition' : profit.toFixed(2)}</div>
               </div>
             </div>
           </div>
           <div className="w-full mt-[30px]">
             <div className={styles.title}>Release Details</div>
-            <div className="w-full mt-[15px]">
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Supply</div>
-                <div className={styles.price}>{maxSupplyItem.id === 0 ? 'No Max' : 'Limited Supply'}</div>
+            {saleMethod.id === 0 ? (
+              <div className={`${styles.desc} mt-[15px]`}>
+                Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
+                an edition, you can choose to toggle this merch item for every edition purchased. Once you have enabled
+                this merch item, it will become available as an added bonus to your collectors. If you enable this merch
+                item when listing an edition, please note that the production price for this merch item will be added to
+                the listing price. As a merch edition, your profit will be dictated by the listing price of the edition.
               </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Max Supply</div>
-                <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
-              </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Release Date</div>
-                <div className={styles.price}>
-                  {startType === 'soon' ? 'Immediately' : startDate.toLocaleDateString()}
+            ) : (
+              <div className="w-full mt-[15px]">
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Supply</div>
+                  <div className={styles.price}>{maxSupplyItem.id === 0 ? 'No Max' : 'Limited Supply'}</div>
                 </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Max Supply</div>
+                  <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
+                </div>
+                {maxSupplyItem.id === 1 && (
+                  <div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Release Date</div>
+                      <div className={styles.price}>
+                        {startType === 'soon'
+                          ? 'Immediately'
+                          : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
+                      </div>
+                    </div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Release Duration</div>
+                      <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
+                    </div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Limited Duration</div>
+                      <div className={styles.price}>
+                        {releaseDurationItem.id === 0
+                          ? '∞'
+                          : days.length === 0
+                          ? hours + ' hours'
+                          : days + ' days' + ', ' + hours + ' hours'}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Release Duration</div>
-                <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
-              </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Limited Duration</div>
-                <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : endDate.toLocaleDateString()}</div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       )}
@@ -274,7 +296,7 @@ const AdditionalDetails = props => {
             </div>
             <div className="w-full mt-[15px] flex justify-between px-[16px]">
               <div className={styles.production}>Production Price</div>
-              <div className={styles.prodPrice}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
+              <div className={styles.priceUnit}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
             </div>
           </div>
           <div className="w-full mt-[30px]">
@@ -314,11 +336,19 @@ const AdditionalDetails = props => {
               </div>
               <div className="w-full flex justify-between mt-[15px]">
                 <div className={styles.production}>Your Profit</div>
-                <div className={`${styles.prodPrice} ${profit >= 0 ? styles.positive : styles.negotive}`}>
-                  {profit === 0 ? '$ ---' : profit > 0 ? '$' + profit.toFixed(2) : '-$' + Math.abs(profit).toFixed(2)}
+                <div
+                  className={`${styles.prodPrice} ${
+                    profit >= 0 || sellingPrice === '' ? styles.positive : styles.negotive
+                  }`}
+                >
+                  {sellingPrice === ''
+                    ? '$ ---'
+                    : profit > 0
+                    ? '$' + profit.toFixed(2)
+                    : '-$' + Math.abs(profit).toFixed(2)}
                 </div>
               </div>
-              {profit < 0 && (
+              {sellingPrice !== '' && profit < 0 && (
                 <div className={styles.negotiveAlert}>
                   The selling price you entered is below the cost of production. Please enter a value higher than the
                   production price.

@@ -68,10 +68,10 @@ const NewCreatorMerch = () => {
         </div>
 
         <GradientButton
-          icon1={<ArrowRightBlack />}
+          icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
           width={122}
           height={53}
-          label="Next"
+          label={currentStep === 3 ? 'Publish' : 'Next'}
           borderRadius={30}
           backgroundColor01="var(--place-bid-minimum-color)"
           backgroundColor02="var(--place-bid-minimum-color)"
@@ -80,7 +80,11 @@ const NewCreatorMerch = () => {
           fontSize={18}
           disabled={!nextEnabled}
           onClick={() => {
-            setCurrentStep(currentStep + 1)
+            if (currentStep === 3) {
+              // publish API
+            } else {
+              setCurrentStep(currentStep + 1)
+            }
           }}
         />
       </div>
