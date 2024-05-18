@@ -34,7 +34,6 @@ export async function sendTransactionWithRetry({
 
     try {
       await connection.sendRawTransaction(transactionBuffer, {
-        maxRetries: 5,
         preflightCommitment: 'confirmed',
         skipPreflight,
       })
