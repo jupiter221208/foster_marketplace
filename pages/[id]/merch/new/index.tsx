@@ -60,6 +60,7 @@ const NewCreatorMerch = () => {
               router.push(path.substring(0, path.lastIndexOf('/')))
             } else {
               setCurrentStep(currentStep - 1)
+              setNextEnabled(true)
             }
           }}
         />
@@ -89,7 +90,9 @@ const NewCreatorMerch = () => {
         />
       </div>
       {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
-      {currentStep >= 2 && <AdditionalDetails productDetail={productDetail} step={currentStep} />}
+      {currentStep >= 2 && (
+        <AdditionalDetails productDetail={productDetail} step={currentStep} setEnableNext={setNextEnabled} />
+      )}
     </div>
   )
 }

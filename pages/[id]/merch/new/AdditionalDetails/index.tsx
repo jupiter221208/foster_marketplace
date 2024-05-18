@@ -22,10 +22,10 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { getFirstUpperString, validDigits } from 'utils/helpers'
+import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step } = props
+  const { productDetail, step, setEnableNext } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -76,6 +76,30 @@ const AdditionalDetails = props => {
     setDay(dayOfWeek)
     return endDate
   }, [startDate, days, hours])
+
+  useEffect(() => {
+    if (title.length === 0) {
+      setEnableNext(false)
+      return
+    }
+
+    if (saleMethod.id === 1 && profit <= 0) {
+      setEnableNext(false)
+      return
+    }
+
+    if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
+      setEnableNext(false)
+      return
+    }
+
+    if (releaseDurationItem.id === 1 && days === '' && hours === '') {
+      setEnableNext(false)
+      return
+    }
+
+    setEnableNext(true)
+  }, [title, saleMethod, profit, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
 
   useEffect(() => {
     let urls = []
@@ -377,7 +401,7 @@ const AdditionalDetails = props => {
                         value={limitedSupply}
                         placeholder="Set the total supply for this apparel item"
                         onChange={value => {
-                          setLimitedSupply(validDigits(value))
+                          setLimitedSupply(validInteger(value))
                         }}
                       />
                     </div>
