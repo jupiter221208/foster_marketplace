@@ -132,7 +132,7 @@ const MerchDTGSection = props => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
-    setProductDetail({ snapshotAssetUrl: newAsset, technique })
+    setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {

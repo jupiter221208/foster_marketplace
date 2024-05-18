@@ -222,12 +222,14 @@ const AdditionalDetails = props => {
               <div className={styles.firstRow}>
                 <div className={styles.sideText}>Selling Price</div>
                 <div className={styles.price}>
-                  ${saleMethod.id === 0 ? 'Production Price + Price of Edition' : sellingPrice}
+                  {saleMethod.id === 0 ? 'Production Price + Price of Edition' : '$' + sellingPrice}
                 </div>
               </div>
               <div className={styles.secondRow}>
                 <div className={styles.sideText}>Profit Per Unit</div>
-                <div className={styles.priceUnit}>${saleMethod.id === 0 ? 'Price of Edition' : profit.toFixed(2)}</div>
+                <div className={styles.priceUnit}>
+                  {saleMethod.id === 0 ? 'Price of Edition' : '$' + profit.toFixed(2)}
+                </div>
               </div>
             </div>
           </div>
