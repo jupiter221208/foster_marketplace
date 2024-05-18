@@ -20,6 +20,7 @@ import {
 import { Metaplex, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
 
 import usersAPI from 'apis/user'
+import { sendTransactionWithRetry } from './transactions'
 
 export { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
 
@@ -111,12 +112,12 @@ export async function fetchAuctionListing(
 ): Promise<AuctionListing | null> {
   let [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
   let accountInfo = await metaplex.connection.getAccountInfo(listingConfig)
-  if(!accountInfo) return null;
+  if (!accountInfo) return null
   else return parseAuctionListing(accountInfo)
 }
 
 export function parseAuctionListing(accountInfo: AccountInfo<Buffer>): AuctionListing {
-  return AuctionListing.fromAccountInfo(accountInfo)[0];
+  return AuctionListing.fromAccountInfo(accountInfo)[0]
 }
 
 export async function startAuction(
@@ -127,7 +128,7 @@ export async function startAuction(
   price: number,
   minBidIncrement: number,
   timeExtPeriod: number | null,
-  timeExtDelta: number | null,
+  timeExtDelta: number | null
 ) {
   const startTime = Math.floor(startDate.getTime() / 1000)
   const endTime = Math.floor(endDate.getTime() / 1000)
@@ -195,10 +196,17 @@ export async function startAuction(
 
   let tx = new Transaction()
   tx.add(sellInstruction)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  let blockhashInfo = await mx.connection.getLatestBlockhash()
+  tx.recentBlockhash = blockhashInfo.blockhash
   tx.feePayer = publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  let signedTransaction = await mx.identity().signTransaction(tx)
+  const response = await sendTransactionWithRetry({
+    connection: mx.connection,
+    transaction: signedTransaction,
+    maxHeight: blockhashInfo.lastValidBlockHeight,
+    skipPreflight: true,
+  })
 
   return {
     response,
@@ -262,10 +270,17 @@ export async function cancelListing(mx: Metaplex, mintAddress: PublicKey, seller
 
   let tx = new Transaction()
   tx.add(cancelInstruction)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  let blockhashInfo = await mx.connection.getLatestBlockhash()
+  tx.recentBlockhash = blockhashInfo.blockhash
   tx.feePayer = publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  let signedTransaction = await mx.identity().signTransaction(tx)
+  const response = await sendTransactionWithRetry({
+    connection: mx.connection,
+    transaction: signedTransaction,
+    maxHeight: blockhashInfo.lastValidBlockHeight,
+    skipPreflight: true,
+  })
 
   return {
     response,
@@ -360,10 +375,17 @@ export async function withdrawFunds(mx: Metaplex, price: number) {
 
   let tx = new Transaction()
   tx.add(withdrawInstruction)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  let blockhashInfo = await mx.connection.getLatestBlockhash()
+  tx.recentBlockhash = blockhashInfo.blockhash
   tx.feePayer = publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  let signedTransaction = await mx.identity().signTransaction(tx)
+  const response = await sendTransactionWithRetry({
+    connection: mx.connection,
+    transaction: signedTransaction,
+    maxHeight: blockhashInfo.lastValidBlockHeight,
+    skipPreflight: true,
+  })
 
   return {
     response,
@@ -431,17 +453,17 @@ export async function placeBid(mx: Metaplex, mintAddress: PublicKey, sellerAddre
 
   let tx = fundTx ?? new Transaction()
   tx.add(buyInstruction)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  let blockhashInfo = await mx.connection.getLatestBlockhash()
+  tx.recentBlockhash = blockhashInfo.blockhash
   tx.feePayer = publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(
-    tx,
-    {
-      commitment: 'single',
-      maxRetries: 5,
-    },
-    [mx.identity()]
-  )
+  let signedTransaction = await mx.identity().signTransaction(tx)
+  const response = await sendTransactionWithRetry({
+    connection: mx.connection,
+    transaction: signedTransaction,
+    maxHeight: blockhashInfo.lastValidBlockHeight,
+    skipPreflight: true,
+  })
 
   return {
     response,
@@ -579,10 +601,17 @@ export async function executeSale(
   }
 
   tx.add(executeSale)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  let blockhashInfo = await mx.connection.getLatestBlockhash()
+  tx.recentBlockhash = blockhashInfo.blockhash
   tx.feePayer = wallet.publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [wallet])
+  let signedTransaction = await mx.identity().signTransaction(tx)
+  const response = await sendTransactionWithRetry({
+    connection: mx.connection,
+    transaction: signedTransaction,
+    maxHeight: blockhashInfo.lastValidBlockHeight,
+    skipPreflight: true,
+  })
 
   return {
     response,
