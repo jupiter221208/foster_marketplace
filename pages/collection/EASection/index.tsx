@@ -20,6 +20,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // apis
 import { useMetaplex } from 'hooks/useMetaplex'
+import { sendTransactionWithRetry } from 'utils/transactions'
 import LoadingButton from 'components/Button/LoadingButton'
 import nftAPI from 'apis/nfts'
 
