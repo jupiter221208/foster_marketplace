@@ -27,7 +27,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
           units: 500,
         }),
         ComputeBudgetProgram.setComputeUnitPrice({
-          microLamports: 10_000_000,
+          microLamports: 20_000_000,
         })
       );
 

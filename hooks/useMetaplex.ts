@@ -12,7 +12,7 @@ import {
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useMemo } from "react";
 
-export const DEFAULT_COMPUTE_BUDGET = 5_000_000;
+export const DEFAULT_COMPUTE_BUDGET = 10_000_000
 
 export const useMetaplex = () => {
   const { connection } = useConnection();
