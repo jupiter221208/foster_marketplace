@@ -14,7 +14,7 @@ import FosterProductSection from 'components/pages/MerchProduct/FosterProductSec
 import MyProductSection from 'components/pages/MerchProduct/MyProductSection'
 
 const ProductDetails = props => {
-  const { productDetail, setProductDetail } = props
+  const { productDetail, setProductDetail, scrollToBottom } = props
   const [product, setProduct] = useState({ id: -1, label: '' })
 
   useEffect(() => {

@@ -8,15 +8,15 @@
 
 .userName {
   font-family: 'Muli-SemiBold';
-  font-size: 30px;
-  line-height: 47px;
+  font-size: 24px;
+  line-height: 30px;
   text-align: center;
   color: var(--text-gray-200-color)
 }
 
 .titleBG {
-  width: 450px;
-  height: 128px;
+  width: 448px;
+  height: 104px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,16 +24,17 @@
   @media (min-width: 1024px) {
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   }
 }
 
 .merchStore {
-  font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 24px;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
   text-align: center;
   margin-top: 5px;
-  color: var(--text-gray-200-color)
+  color: rgba(var(--text-gray-200-color-rgb), 0.8)
 }
 
 .tabBorder {
@@ -119,7 +120,7 @@
   cursor: pointer;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 5px;
+  border-radius: 18px;
 }
 
 .selected {
