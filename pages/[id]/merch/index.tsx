@@ -20,6 +20,7 @@ import TabList from 'assets/json/creator-merch/tab-list.json'
 // styles
 import styles from './index.module.scss'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
+import CreatorMerchBadges from './badges'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -122,6 +123,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           </div>
           <div className="w-full mt-[30px]">
             {activeTab === 0 && <CreatorMerchShop username={artistInfo.username} />}
+            {activeTab === 2 && <CreatorMerchBadges />}
           </div>
         </div>
       </div>
