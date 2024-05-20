@@ -43,7 +43,7 @@ const NewCreatorMerch = () => {
   return (
     <div className="w-full relative">
       <div className="fixed g-container" style={{ background: 'var(--bg-new-color)', zIndex: 10001 }}>
-        <div className="w-full mt-[22px] flex justify-between items-start">
+        <div className="w-full mt-[22px] h-[78px] flex justify-between items-start">
           <GradientButton
             icon1={<ArrowLeft />}
             direction="rtl"

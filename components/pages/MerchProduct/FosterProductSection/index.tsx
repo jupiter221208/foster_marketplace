@@ -90,10 +90,6 @@ const FosterProductSection = props => {
                     setShowQuestionModal(true)
                   } else {
                     setSelectedCard(item)
-                    window.scrollTo({
-                      top: 860,
-                      behavior: 'smooth',
-                    })
                   }
                 }}
               />

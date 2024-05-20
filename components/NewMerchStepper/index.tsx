@@ -10,7 +10,7 @@ const NewMerchStepper = props => {
     <div className="w-full flex h-[66px] lg:h-[95px] flex-col justify-between">
       <div className={styles.container}>
         <div className="relative h-[40px] lg:h-[30px] flex items-center">
-          <div className={`${styles.greenText} absolute top-[25px] lg:top-[50px] -left-6 -right-16`}>
+          <div className={`${styles.greenText} absolute top-[25px] lg:top-[45px] -left-6 -right-16`}>
             Product&nbsp;Details
           </div>
         </div>
@@ -21,7 +21,7 @@ const NewMerchStepper = props => {
           <div
             className={`${
               currentStep < 2 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-[50px] -left-16 -right-16`}
+            } absolute top-[52px] lg:top-[45px] -left-16 -right-16`}
           >
             Additional&nbsp;Details
           </div>
@@ -33,7 +33,7 @@ const NewMerchStepper = props => {
           <div
             className={`${
               currentStep < 3 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-[50px] -left-16 -right-16`}
+            } absolute top-[52px] lg:top-[45px] -left-16 -right-16`}
           >
             Review
           </div>
