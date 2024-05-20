@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
@@ -39,6 +40,7 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -62,6 +64,52 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     )
   }, [])
 
+  const getCollectionData = async () => {
+    const result = await getCollectionFromDAS(address)
+
+    let filteredNfts = result.filter(
+      (arr, index, self) =>
+        index ===
+        self.findIndex(
+          t => t.content.json_uri === arr.content.json_uri || t.content.metadata.name === arr.content.metadata.name
+        )
+    )
+
+    filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
+
+    if (filteredNfts) {
+      let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+      let sortedCollectionNfts = filteredNfts
+        .map(r => {
+          return collectionNfts.find(nft => nft.token_id === r.id)
+        })
+        .filter(nft => nft !== undefined)
+
+      if (sortedCollectionNfts && filteredNfts) {
+        let newNftsArr: NftData[] = [...filteredNfts]
+
+        newNftsArr.map((data, index) => {
+          newNftsArr[index].category = determineCategory(data.content.files)
+        })
+
+        sortedCollectionNfts.map((data, index) => {
+          newNftsArr[index].mintAddress = data.token_id
+          newNftsArr[index].creators[0].artist_username = data.artist_username
+          newNftsArr[index].auction = {
+            current_bid: data.current_bid,
+            start_time: data.start_time,
+            end_time: data.end_time,
+            list_price: data.list_price,
+          }
+        })
+        setNfts(newNftsArr)
+        fetchNftData(newNftsArr)
+      }
+
+      setHasLoading(false)
+    }
+  }
   useEffect(() => {
     ;(async () => {
       setCollectionData(publicCollectionData)
@@ -70,52 +118,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setHasLoading(true)
-
-        const result = await getCollectionFromDAS(address)
-
-        let filteredNfts = result.filter(
-          (arr, index, self) =>
-            index ===
-            self.findIndex(
-              t => t.content.json_uri === arr.content.json_uri || t.content.metadata.name === arr.content.metadata.name
-            )
-        )
-
-        filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
-
-        if (filteredNfts) {
-          let collectionNfts = await collectionsAPI.getCollectionNft(address)
-
-          let sortedCollectionNfts = filteredNfts
-            .map(r => {
-              return collectionNfts.find(nft => nft.token_id === r.id)
-            })
-            .filter(nft => nft !== undefined)
-
-          if (sortedCollectionNfts && filteredNfts) {
-            let newNftsArr: NftData[] = [...filteredNfts]
-
-            newNftsArr.map((data, index) => {
-              newNftsArr[index].category = determineCategory(data.content.files)
-            })
-
-            sortedCollectionNfts.map((data, index) => {
-              newNftsArr[index].mintAddress = data.token_id
-              newNftsArr[index].creators[0].artist_username = data.artist_username
-              newNftsArr[index].auction = {
-                current_bid: data.current_bid,
-                start_time: data.start_time,
-                end_time: data.end_time,
-                list_price: data.list_price,
-              }
-            })
-
-            setNfts(newNftsArr)
-            fetchNftData(newNftsArr)
-          }
-
-          setHasLoading(false)
-        }
+        await getCollectionData()
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -154,14 +157,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     setShowEAPreview(true)
   }
 
-  const successImporting = () => {
-    collectionsAPI.getCollectionNft(address).then(
-      response => {
-        setNfts(response)
-        setShowEAPreview(false)
-      },
-      error => {}
-    )
+  const successImporting = async () => {
+    await getCollectionData()
+    setShowEAPreview(false)
+    // collectionsAPI.getCollectionNft(address).then(
+    //   response => {
+    //     // router.reload()
+    //     setNfts(response)
+    //     setShowEAPreview(false)
+    //   },
+    //   error => {}
+    // )
   }
 
   useEffect(() => {

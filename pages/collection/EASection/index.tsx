@@ -20,6 +20,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // apis
 import { useMetaplex } from 'hooks/useMetaplex'
+import { sendTransactionWithRetry } from 'utils/transactions'
 import LoadingButton from 'components/Button/LoadingButton'
 import nftAPI from 'apis/nfts'
 
@@ -133,19 +134,30 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
     let blockhashInfo = await metaplex.connection.getLatestBlockhash()
     let txs = batchedBuilders.map(builder => builder.toTransaction(blockhashInfo))
     let signedTxs = await metaplex.identity().signAllTransactions(txs)
-    let signatures = await Promise.all(signedTxs.map(tx => metaplex.connection.sendRawTransaction(tx.serialize())))
+    let signatures = await Promise.all(
+      signedTxs.map(tx =>
+        sendTransactionWithRetry({
+          connection: metaplex.connection,
+          transaction: tx,
+          maxHeight: blockhashInfo.lastValidBlockHeight,
+          skipPreflight: true,
+        })
+      )
+    )
     console.log(signatures)
 
     await Promise.all(
-      signatures.map(signature => metaplex.rpc().confirmTransaction(signature, blockhashInfo, 'finalized'))
+      signatures.map(signature => signature && metaplex.rpc().confirmTransaction(signature, blockhashInfo, 'finalized'))
     )
 
     await nftAPI.batchIndex(nftInfos.filter(nft => nft?.isMutable).map(({ mintAddress }) => mintAddress.toString()))
 
-    onSuccess()
     // TODO: show success message
     //
-    setIsProcessing(false)
+    setTimeout(() => {
+      // setIsProcessing(false)
+      onSuccess()
+    }, 1000)
   }
 
   return (

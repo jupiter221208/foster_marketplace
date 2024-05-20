@@ -424,7 +424,7 @@ const SingleNft = () => {
           signers: [],
         },
         {
-          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 8_000_000 }),
+          instruction: ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 15_000_000 }),
           signers: [],
         }
       )
