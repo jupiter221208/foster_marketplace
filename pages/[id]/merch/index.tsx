@@ -30,28 +30,26 @@ interface CreatorMerchProps {
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
-  const [tabList, setTabList] = useState<any[]>(TabList)
+  // const [tabList, setTabList] = useState<any[]>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
 
-  const handleSelectedTab = item => {
-    setActiveTab(item.id)
+  const handleSelectedTab = tabIndex => {
+    setActiveTab(tabIndex)
   }
 
-  useEffect(() => {}, [router])
-
-  useEffect(() => {
-    let array: any[] = []
-    TabList.map(item => {
-      let object: any = item
-      if (item.id === activeTab) {
-        object.selected = true
-      } else {
-        object.selected = false
-      }
-      array.push(object)
-    })
-    setTabList(array)
-  }, [activeTab])
+  // useEffect(() => {
+  //   let array: any[] = []
+  //   TabList.map(item => {
+  //     let object: any = item
+  //     if (item.id === activeTab) {
+  //       object.selected = true
+  //     } else {
+  //       object.selected = false
+  //     }
+  //     array.push(object)
+  //   })
+  //   setTabList(array)
+  // }, [activeTab])
 
   return (
     <div className="w-full pb-[60px]">
@@ -70,22 +68,33 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
         </div>
       </div>
       <div className="w-full flex justify-center">
-        <div className="g-container mt-[-42px]">
-          <div className="w-full flex z-10 relative overflow-hidden h-[46px]">
+        <div className="g-container">
+          {/* <div className="w-full flex z-10 relative overflow-hidden h-[46px]">
             <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-          </div>
+          </div> */}
           <div className="w-full mt-[30px] flex justify-between">
-            <div
-              className={styles.profile}
-              onClick={() => {
-                let path = window.location.href
-                router.push(path.substring(0, path.lastIndexOf('/')))
-              }}
-            >
-              <div>
-                <LeftArrow />
+            <div className="flex gap-[15px]">
+              <div
+                className={styles.profile}
+                onClick={() => {
+                  let path = window.location.href
+                  router.push(path.substring(0, path.lastIndexOf('/')))
+                }}
+              >
+                <div>
+                  <LeftArrow />
+                </div>
+                <div className="mt-[-2px]">Profile</div>
               </div>
-              <div className="mt-[-2px]">Profile</div>
+              <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
+                Shop
+              </div>
+              <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
+                Reviews
+              </div>
+              <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
+                Badges
+              </div>
             </div>
             <div className="flex gap-[15px]">
               <div
@@ -109,7 +118,9 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
               </div>
             </div>
           </div>
-          <div className="w-full mt-[52px]">{activeTab === 0 && <CreatorMerchShop />}</div>
+          <div className="w-full mt-[30px]">
+            {activeTab === 0 && <CreatorMerchShop username={artistInfo.username} />}
+          </div>
         </div>
       </div>
     </div>

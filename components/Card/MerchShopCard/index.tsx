@@ -84,7 +84,7 @@ const MerchShopCard = props => {
           <div className={styles.controlBtn} onClick={goPrev}>
             <BackIcon />
           </div>
-          <div className="w-[45px] h-[5px] flex justify-around">
+          <div className="gap-[14px] h-[5px] flex justify-around">
             {indicatorList.map((item, index) => (
               <div key={index} className={item ? styles.selected : styles.nonSelected} />
             ))}
@@ -102,18 +102,23 @@ const MerchShopCard = props => {
             <div className={styles.price}>{data.price}</div>
           </div>
         </div>
-        <div className="w-full mt-[12px] flex justify-between items-center">
+        <div className="w-full mt-[7px] flex justify-between items-center">
           <div className={styles.artistName}>{data.merchType}</div>
           <div className={styles.dollarPrice}>$642.00</div>
         </div>
-        <div className="w-full mt-[25px] flex justify-between">
-          <div className="flex gap-[11px]">
-            <div className={styles.shareBtn}>
+
+        <div className={`${styles.divider} mt-[15px]`} />
+
+        <div className="w-full mt-[15px] flex justify-between">
+          <div>
+            {/* <div className={styles.shareBtn}>
               <ShoppingCartIcon />
             </div>
             <div className={styles.shareBtn}>
               <ShareSocialIcon />
-            </div>
+            </div> */}
+            <div className={styles.saleType}>Open Supply</div>
+            <div className={styles.saleCount}>3 sold</div>
           </div>
           <GradientButton
             borderRadius={10}
@@ -122,7 +127,8 @@ const MerchShopCard = props => {
             backgroundColor02="var(--place-bid-minimum-color)"
             color="var(--time-slog-bg)"
             width={106}
-            height={45}
+            height={42}
+            fontSize={16}
             onClick={() => {}}
           />
         </div>
