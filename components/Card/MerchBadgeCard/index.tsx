@@ -53,11 +53,11 @@ const MerchBadgeCard = props => {
         <div className={styles.dialog}>
           <div className={styles.badgeTitle}>Badge Benefits</div>
           <div className={styles.badgeContent}>
-            - Access to premium design assets and templates.
+            {`- Access to premium design assets and templates.`}
             <br />
-            - Featured placement in the "Studio Spotlight" section on Foster Marketplace.
+            {`- Featured placement in the "Studio Spotlight" section on Foster Marketplace.`}
             <br />
-            - Early access to new features and updates on Foster Studio.
+            {`- Early access to new features and updates on Foster Studio.`}
             <br />
           </div>
           <div className={styles.dlgBottom} onClick={() => setShowDialog(false)}>
