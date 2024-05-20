@@ -1,0 +1,15 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: var(--bg-new-color);
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  &:focus {
+    outline: none;
+  }
+}

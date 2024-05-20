@@ -15,6 +15,7 @@ import GradientButton from 'components/Button/GradientButton'
 import NewMerchStepper from 'components/NewMerchStepper'
 import ProductDetails from './ProductDetails'
 import AdditionalDetails from './AdditionalDetails'
+import NoNavLayout from 'components/Layout/NoNavLayout'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
@@ -40,59 +41,63 @@ const NewCreatorMerch = () => {
   }, [productDetail])
 
   return (
-    <div className="w-full g-container">
-      <div className="w-full mt-[80px] flex justify-between items-start">
-        <GradientButton
-          icon1={<ArrowLeft />}
-          direction="rtl"
-          width={122}
-          height={53}
-          label="Back"
-          borderRadius={30}
-          backgroundColor01="var(--place-bid-minimum-color)"
-          backgroundColor02="var(--place-bid-minimum-color)"
-          color="var(--time-slog-bg)"
-          fontFamily="Muli-Regular"
-          fontSize={18}
-          onClick={() => {
-            if (currentStep === 1) {
-              let path = window.location.href
-              router.push(path.substring(0, path.lastIndexOf('/')))
-            } else {
-              setCurrentStep(currentStep - 1)
-              setNextEnabled(true)
-            }
-          }}
-        />
-        <div className="w-[50%]">
-          <NewMerchStepper currentStep={currentStep} />
-        </div>
+    <div className="w-full relative">
+      <div className="fixed g-container" style={{ background: 'var(--bg-new-color)', zIndex: 10001 }}>
+        <div className="w-full mt-[80px] flex justify-between items-start">
+          <GradientButton
+            icon1={<ArrowLeft />}
+            direction="rtl"
+            width={122}
+            height={53}
+            label="Back"
+            borderRadius={30}
+            backgroundColor01="var(--place-bid-minimum-color)"
+            backgroundColor02="var(--place-bid-minimum-color)"
+            color="var(--time-slog-bg)"
+            fontFamily="Muli-Regular"
+            fontSize={18}
+            onClick={() => {
+              if (currentStep === 1) {
+                let path = window.location.href
+                router.push(path.substring(0, path.lastIndexOf('/')))
+              } else {
+                setCurrentStep(currentStep - 1)
+                setNextEnabled(true)
+              }
+            }}
+          />
+          <div className="w-[50%]">
+            <NewMerchStepper currentStep={currentStep} />
+          </div>
 
-        <GradientButton
-          icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
-          width={122}
-          height={53}
-          label={currentStep === 3 ? 'Publish' : 'Next'}
-          borderRadius={30}
-          backgroundColor01="var(--place-bid-minimum-color)"
-          backgroundColor02="var(--place-bid-minimum-color)"
-          color="var(--background-main-color)"
-          fontFamily="Muli-Regular"
-          fontSize={18}
-          disabled={!nextEnabled}
-          onClick={() => {
-            if (currentStep === 3) {
-              // publish API
-            } else {
-              setCurrentStep(currentStep + 1)
-            }
-          }}
-        />
+          <GradientButton
+            icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
+            width={122}
+            height={53}
+            label={currentStep === 3 ? 'Publish' : 'Next'}
+            borderRadius={30}
+            backgroundColor01="var(--place-bid-minimum-color)"
+            backgroundColor02="var(--place-bid-minimum-color)"
+            color="var(--background-main-color)"
+            fontFamily="Muli-Regular"
+            fontSize={18}
+            disabled={!nextEnabled}
+            onClick={() => {
+              if (currentStep === 3) {
+                // publish API
+              } else {
+                setCurrentStep(currentStep + 1)
+              }
+            }}
+          />
+        </div>
       </div>
-      {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
-      {currentStep >= 2 && (
-        <AdditionalDetails productDetail={productDetail} step={currentStep} setEnableNext={setNextEnabled} />
-      )}
+      <div className="g-container mt-[200px]">
+        {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
+        {currentStep >= 2 && (
+          <AdditionalDetails productDetail={productDetail} step={currentStep} setEnableNext={setNextEnabled} />
+        )}
+      </div>
     </div>
   )
 }
@@ -100,5 +105,5 @@ const NewCreatorMerch = () => {
 export default NewCreatorMerch
 
 NewCreatorMerch.getLayout = function getLayout(page) {
-  return <ArtistLayout>{page}</ArtistLayout>
+  return <NoNavLayout>{page}</NoNavLayout>
 }
