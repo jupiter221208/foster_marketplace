@@ -44,6 +44,11 @@ const FosterProductSection = props => {
       else cardList.push({ ...item, selected: false })
     })
     setProductList(cardList)
+
+    window.scrollTo({
+      top: 860,
+      behavior: 'smooth',
+    })
   }, [selectedCard])
 
   const isSaved = () => {
