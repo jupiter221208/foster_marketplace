@@ -57,9 +57,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
         <img src={artistInfo.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
           <div className={styles.overlayBG}>
-            <div>
-              <div className={styles.userName}>{artistInfo.username}</div>
-              <div className={styles.merchStore}>Official Merch Store</div>
+            <div className={styles.titleBG}>
+              <div>
+                <div className={styles.userName}>{artistInfo.username}</div>
+                <div className={styles.merchStore}>Official Merch Store</div>
+              </div>
             </div>
           </div>
         </div>
@@ -87,13 +89,13 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 <div className="mt-[-2px]">Profile</div>
               </div>
               <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
-                Shop
+                <div className="mt-[-2px]">Shop</div>
               </div>
               <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
-                Reviews
+                <div className="mt-[-2px]">Reviews</div>
               </div>
               <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
-                Badges
+                <div className="mt-[-2px]">Badges</div>
               </div>
             </div>
             <div className="flex gap-[15px]">
