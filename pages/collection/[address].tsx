@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
@@ -39,6 +40,7 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -109,7 +111,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
                 list_price: data.list_price,
               }
             })
-
             setNfts(newNftsArr)
             fetchNftData(newNftsArr)
           }
@@ -157,8 +158,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const successImporting = () => {
     collectionsAPI.getCollectionNft(address).then(
       response => {
-        setNfts(response)
-        setShowEAPreview(false)
+        router.reload()
       },
       error => {}
     )

@@ -155,7 +155,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
     onSuccess()
     // TODO: show success message
     //
-    setIsProcessing(false)
+    // setIsProcessing(false)
   }
 
   return (
