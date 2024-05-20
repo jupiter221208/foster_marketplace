@@ -20,9 +20,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
   border-radius: 10px;
+  @media (min-width: 1024px) {
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+  }
 }
 
 .merchStore {
