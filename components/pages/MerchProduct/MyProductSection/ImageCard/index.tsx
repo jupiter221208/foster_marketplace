@@ -22,7 +22,7 @@ const ImageCard = props => {
           onMouseEnter={() => setShowDelete(true)}
           onMouseLeave={() => setShowDelete(false)}
         >
-          <img src={image} alt="" className="max-w-full max-h-full object-cover" />
+          <img src={image} alt="" className="w-full h-full object-cover" />
           {showDelete && (
             <div className={styles.deleteArea}>
               <div onClick={() => onDelete(index)}>Delete</div>

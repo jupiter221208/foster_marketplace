@@ -35,6 +35,7 @@ const MyProductSection = () => {
   const [description, setDescription] = useState('')
 
   const onSelectImage = index => {
+    if (index >= imageList.length) return
     setSelectedIndex(index)
     setMainImage(imageList[index])
   }
@@ -77,7 +78,7 @@ const MyProductSection = () => {
                       'image/jpeg': [],
                       'image/png': [],
                     }}
-                    maxFiles={1}
+                    maxFiles={4}
                     maxSize={10485760}
                   >
                     {({ getRootProps, getInputProps }) => (
@@ -117,6 +118,7 @@ const MyProductSection = () => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setSelectedIndex(1)
                   setMainImage(image)
                 }}
                 isSelected={selectedIndex === 1}
@@ -132,6 +134,8 @@ const MyProductSection = () => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setSelectedIndex(2)
+
                   setMainImage(image)
                 }}
                 isSelected={selectedIndex === 2}
@@ -147,6 +151,8 @@ const MyProductSection = () => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setSelectedIndex(3)
+
                   setMainImage(image)
                 }}
                 isSelected={selectedIndex === 3}
