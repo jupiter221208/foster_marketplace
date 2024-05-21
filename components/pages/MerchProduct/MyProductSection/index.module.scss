@@ -5,6 +5,9 @@
     font-size: 16px;
     line-height: 20px;
     color: var(--text-gray-200-color)
+    span {
+      color: var(--main-icon-color)
+    }
   }
   
   .asterisk {
@@ -17,7 +20,7 @@
   .imageArea {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* 508:383 Aspect Ratio */
+    padding-top: 75.983%;
   }
   
   .imageContent {
@@ -34,10 +37,8 @@
   }
 
   .dropzone {
-    width: 130px;
-    height: 130px;
-    border-radius: 12px;
-    background: rgba(#242424, 0.8)
+    width: auto;
+    height: 80px;
   }
   
   .selectArea {
@@ -46,4 +47,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+.subTitle {
+    font-family: 'Muli-Bold';
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 100;
+    color: var(--text-gray-200-color);
+    @media (min-width: 1024px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    letter-spacing: 0;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .text {
+    margin-top: 11px;
+    font-family: 'Muli-Regular';
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .grayText {
+    font-family: 'Muli-Regular';
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0;
+    color: var(--main-icon-color);
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
   }

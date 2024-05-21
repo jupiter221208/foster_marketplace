@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -12,15 +12,20 @@ import PlusIcon from 'assets/icons/plus-circle-icon.svg?component'
 import styles from './index.module.scss'
 
 const ImageCard = props => {
-  const { index, image, setImage, isDelete = false, isSelected = false, onSelect } = props
+  const { index, image, setImage, isSelected = false, onSelect, onDelete } = props
+  const [showDelete, setShowDelete] = useState(false)
   return (
     <div className="w-[130px] h-[130px]" onClick={() => onSelect(index)}>
       {image ? (
-        <div className={isSelected ? styles.selected : styles.noSelect}>
+        <div
+          className={isSelected ? styles.selected : styles.noSelect}
+          onMouseEnter={() => setShowDelete(true)}
+          onMouseLeave={() => setShowDelete(false)}
+        >
           <img src={image} alt="" className="max-w-full max-h-full object-cover" />
-          {isDelete && (
+          {showDelete && (
             <div className={styles.deleteArea}>
-              <div onClick={() => setImage(null)}>Delete</div>
+              <div onClick={() => onDelete(index)}>Delete</div>
             </div>
           )}
         </div>
