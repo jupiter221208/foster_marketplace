@@ -264,7 +264,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
                 <div className={styles.merchContent}>Unisex Premium Hoodie | Embroidery | White</div>
               </div>
             </div>
-            <div className={styles.merchButton} onClick={() => setMerchCard(null)}>
+            <div
+              className={styles.merchButton}
+              onClick={() => {
+                setMerchCard(null)
+                setEnableMerch(false)
+              }}
+            >
               Remove
             </div>
           </div>

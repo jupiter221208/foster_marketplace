@@ -58,6 +58,10 @@
   line-height: 20px;
   font-weight: 100;
   color: var(--text-gray-200-color);
+  &:hover {
+    text-decoration: underline;
+  }
+  cursor: pointer;
 }
 
 .plus {

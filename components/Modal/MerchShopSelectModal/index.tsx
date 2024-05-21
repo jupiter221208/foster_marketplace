@@ -1,4 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -13,6 +15,9 @@ import MerchEditionCard from 'components/Card/MerchEditionCard'
 
 const MerchShopSelectModal = props => {
   const { open, close, selectCard } = props
+  const router = useRouter()
+  const { profileInfo } = useAuthentication()
+
   const [merchList, setMerchList] = useState([])
 
   useEffect(() => {
@@ -94,7 +99,12 @@ const MerchShopSelectModal = props => {
                       <CloseIcon alt="" />
                     </div>
                   </div>
-                  <div className="w-full flex gap-[15px] justify-end items-center h-[35px]">
+                  <div
+                    className="w-full flex gap-[15px] justify-end items-center h-[35px]"
+                    onClick={() => {
+                      if (profileInfo?.username) router.push(`/${profileInfo?.username}/merch/new`)
+                    }}
+                  >
                     <div className={styles.plus} onClick={() => {}}>
                       <div className={styles.plusBG}>
                         <PlusIcon />
