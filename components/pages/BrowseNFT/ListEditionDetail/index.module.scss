@@ -256,3 +256,27 @@
   margin-top: 10px;
   font-weight: 100;
 }
+
+.active {
+  background: var(--main-icon-color);
+}
+
+.inactive {
+  background: var(--switch-disabled-bg);
+}
+
+.activeSwitch {
+  background: var(--background-main-color);
+}
+
+.inactiveSwitch {
+  background: white;
+}
+
+.merchText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}

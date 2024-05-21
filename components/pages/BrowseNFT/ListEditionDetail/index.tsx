@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
+import { Switch as HSwitch } from '@headlessui/react'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -31,6 +32,7 @@ import { validDigits } from 'utils/helpers'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
+import MerchShopSelectModal from 'components/Modal/MerchShopSelectModal'
 
 export interface ListEditionDetailProps {
   data: {
@@ -63,6 +65,8 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [durationType, setDurationType] = useState<'noTime' | '24' | '72' | 'custom'>('24')
   const [buyLimitType, setBuyLimitType] = useState('no')
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [enableMerch, setEnableMerch] = useState(false)
+  const [showMerchModal, setShowMerchModal] = useState(false)
   const [day, setDay] = useState('')
 
   const endDate = useMemo(() => {
@@ -82,8 +86,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     setDay(dayOfWeek)
     return endDate
   }, [startDate, days, hours, durationType])
-
-  const cancelListEdition = async () => {}
 
   const handleListEdition = async () => {
     try {
@@ -221,8 +223,31 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
+        <div className="w-full mt-[20px]">
+          <div className="flex gap-[13px]">
+            <HSwitch
+              checked={enableMerch}
+              onChange={() => {
+                setEnableMerch(!enableMerch)
+                if (!enableMerch) setShowMerchModal(true)
+              }}
+              className={`${
+                enableMerch ? styles.active : styles.inactive
+              } relative inline-flex h-6 w-11 items-center rounded-full`}
+            >
+              <span
+                className={`transform transition ease-in-out duration-200 ${
+                  enableMerch ? 'translate-x-5' : 'translate-x-1'
+                } ${
+                  enableMerch ? styles.activeSwitch : styles.inactiveSwitch
+                } inline-block h-5 w-5 transform rounded-full bg-white`}
+              />
+            </HSwitch>
+            <div className={styles.merchText}>Include merch for each print</div>
+          </div>
+        </div>
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[30px]">
+          <div className="w-full mt-[20px] lg:mt-[20px]">
             <div className={styles.auctionStart}>
               Start Time <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -527,6 +552,15 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           )}
         </div>
       </div>
+      <MerchShopSelectModal
+        open={showMerchModal}
+        close={status => {
+          setShowMerchModal(false)
+        }}
+        selectCard={item => {
+          setShowMerchModal(false)
+        }}
+      />
     </div>
   )
 }

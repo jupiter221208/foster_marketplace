@@ -336,7 +336,7 @@ const MerchDTGSection = props => {
             Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
             in your studio store.
           </div>
-          <div className="w-full mt-[39px]">
+          <div className="w-full mt-[31px]">
             <div className={styles.technique}>
               Technique
               <div
