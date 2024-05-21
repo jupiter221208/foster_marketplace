@@ -33,6 +33,7 @@ import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import MerchShopSelectModal from 'components/Modal/MerchShopSelectModal'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface ListEditionDetailProps {
   data: {
@@ -68,6 +69,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [enableMerch, setEnableMerch] = useState(false)
   const [showMerchModal, setShowMerchModal] = useState(false)
   const [day, setDay] = useState('')
+  const [merchCard, setMerchCard] = useState(null)
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
@@ -246,6 +248,23 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             <div className={styles.merchText}>Include merch for each print</div>
           </div>
         </div>
+
+        {merchCard && (
+          <div className={styles.merchArea}>
+            <div className="flex gap-[15px] mt-[11px] ml-[16px]">
+              <div className={styles.assetArea}>
+                <ImageWithFoster width={65} src={merchCard.image} />
+              </div>
+              <div className="mt-[8px]">
+                <div className={styles.merchTitle}>Merch item included for each sale</div>
+                <div className={styles.merchContent}>Unisex Premium Hoodie | Embroidery | White</div>
+              </div>
+            </div>
+            <div className={styles.merchButton} onClick={() => setMerchCard(null)}>
+              Remove
+            </div>
+          </div>
+        )}
         <div className="w-full">
           <div className="w-full mt-[20px] lg:mt-[20px]">
             <div className={styles.auctionStart}>
@@ -559,6 +578,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         }}
         selectCard={item => {
           setShowMerchModal(false)
+          setMerchCard(item)
         }}
       />
     </div>
