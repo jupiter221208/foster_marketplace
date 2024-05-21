@@ -44,7 +44,8 @@
 .leftPanel {
   width: 31.48%;
   max-width: 510px;
-  padding: 30px;
+  height: 700px;
+  padding: 23px 30px;
   background: rgba(var(--main-bg-color-rgb), 0.02);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }
@@ -88,16 +89,16 @@
 }
 
 .whiteColor {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
   background: white;
 }
 
 .blackColor {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
   background: black;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
 }

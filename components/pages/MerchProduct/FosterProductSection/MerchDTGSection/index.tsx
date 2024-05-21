@@ -336,7 +336,7 @@ const MerchDTGSection = props => {
             Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
             in your studio store.
           </div>
-          <div className="w-full mt-[31px]">
+          <div className="w-full mt-[15px]">
             <div className={styles.technique}>
               Technique
               <div
@@ -505,10 +505,10 @@ const MerchDTGSection = props => {
             </div>
           ) : (
             <div className="w-full">
-              <div className={`w-full mt-[70px]`}>
+              <div className={`w-full mt-[48px]`}>
                 <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
               </div>
-              <div className="w-full mt-[15px]">
+              <div className="w-full mt-[18px]">
                 {processingImage ? (
                   <LoadingButton fullWidth height={50} />
                 ) : snapshotAsset[cardSide].length > 0 ? (
@@ -592,7 +592,7 @@ const MerchDTGSection = props => {
               </div>
             )
           )}
-          <div className={styles.infoLabel}>
+          {/* <div className={styles.infoLabel}>
             <div>
               <div className="flex gap-[3px]">
                 <div className={styles.printQulity}>Print quality:</div>
@@ -609,7 +609,7 @@ const MerchDTGSection = props => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <MerchShopInfoModal
