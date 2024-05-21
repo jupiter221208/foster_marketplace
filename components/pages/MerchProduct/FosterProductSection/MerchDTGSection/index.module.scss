@@ -48,6 +48,7 @@
   padding: 23px 30px;
   background: rgba(var(--main-bg-color-rgb), 0.02);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
 }
 
 .rightPanel {
@@ -185,10 +186,10 @@
 }
 
 .embFrontContainer {
-  width: 420px;
+  width: 100%;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 15px;
+  padding: 13px 16px;
   margin-top: 20px;
 }
 
@@ -206,11 +207,11 @@
   font-weight: 100;
   line-height: 20px;
   color: var(--text-gray-200-color);
-  margin-top: 15px;
+  margin-top: 6px;
 }
 
 .embFrontBtn {
-  width: 146px;
+  width: 118px;
   height: 40px;
   font-family: 'Muli-SemiBold';
   font-size: 16px;

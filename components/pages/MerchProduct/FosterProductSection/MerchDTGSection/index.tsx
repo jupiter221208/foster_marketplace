@@ -477,12 +477,12 @@ const MerchDTGSection = props => {
             <div className={styles.embFrontContainer}>
               <div className="w-full flex justify-between">
                 <div className={styles.embFrontTitle}>Embroidery Placement</div>
-                <div className="mt-[-8px]" onClick={() => setShowEmbPosModal(false)}>
+                {/* <div className="mt-[-8px]" onClick={() => setShowEmbPosModal(false)}>
                   <CloseIcon alt="" />
-                </div>
+                </div> */}
               </div>
               <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
-              <div className="mt-[25px] flex gap-[16px] justify-end">
+              <div className="mt-[15px] flex gap-[16px] justify-end">
                 <div
                   className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
                   onClick={() => {
@@ -505,7 +505,7 @@ const MerchDTGSection = props => {
             </div>
           ) : (
             <div className="w-full">
-              <div className={`w-full mt-[48px]`}>
+              <div className={`w-full ${technique === 'dtg' ? 'mt-[44px]' : 'mt-[27px]'}`}>
                 <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
               </div>
               <div className="w-full mt-[18px]">
@@ -523,9 +523,10 @@ const MerchDTGSection = props => {
                     fullWidth
                     height={50}
                     fontSize={18}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
+                    backgroundColor01="#242424"
+                    backgroundColor02="#242424"
+                    borderColor="transparent"
+                    color="rgba(var(--text-gray-200-color-rgb), 0.5)"
                     label="Save"
                     onClick={() => saveApparel()}
                     disabled={assetUrl === null}
