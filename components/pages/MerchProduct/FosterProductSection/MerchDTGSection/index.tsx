@@ -162,10 +162,9 @@ const MerchDTGSection = props => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
-    } else {
-      newCanvas.clear()
-      newCanvas.renderAll()
     }
+    newCanvas.clear()
+    newCanvas.renderAll()
 
     if (snapshotAsset[cardSide].length > 0) return
 
@@ -523,10 +522,9 @@ const MerchDTGSection = props => {
                     fullWidth
                     height={50}
                     fontSize={18}
-                    backgroundColor01="#242424"
-                    backgroundColor02="#242424"
-                    borderColor="transparent"
-                    color="rgba(var(--text-gray-200-color-rgb), 0.5)"
+                    backgroundColor01="var(--main-icon-color)"
+                    backgroundColor02="var(--main-icon-color)"
+                    color="var(--background-main-color)"
                     label="Save"
                     onClick={() => saveApparel()}
                     disabled={assetUrl === null}
