@@ -205,7 +205,7 @@ const MyProductSection = () => {
               }}
             />
           </div>
-          <div className="mt-[30px] mb-[200px]">
+          <div className="mt-[30px] mb-[300px]">
             <div className="w-full flex gap-[5px] mb-[15px]">
               <div className={styles.fullfill}>
                 Shipping & Handling <span>*</span>
