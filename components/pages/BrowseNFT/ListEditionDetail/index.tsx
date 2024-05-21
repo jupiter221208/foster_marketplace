@@ -18,6 +18,9 @@ import PriceInput from 'components/Input/PriceInput'
 // resource
 import BackIcon from 'assets/icons/back-small.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
+import ArrowTopWhiteIcon from 'assets/icons/arrow-up-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -70,6 +73,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [showMerchModal, setShowMerchModal] = useState(false)
   const [day, setDay] = useState('')
   const [merchCard, setMerchCard] = useState(null)
+  const [totalCostExpand, setTotalCostExpand] = useState(false)
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
@@ -547,7 +551,45 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
           </div>
         )}
-        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
+        {totalCostExpand ? (
+          <div className={styles.totalCostExpand} onClick={() => setTotalCostExpand(false)}>
+            <div className="w-full flex justify-between">
+              <div className={styles.totalCost}>Total Cost Per Mint</div>
+              <div className="flex items-center">
+                <SolanaIcon className="mt-[2px]" />
+                <div className={styles.price}>0.63</div>
+                <div className="ml-[11px]">
+                  <ArrowTopWhiteIcon />
+                </div>
+              </div>
+            </div>
+            <div className={styles.costBorder} />
+            <div className="w-full mt-[15px] flex justify-between">
+              <div className={styles.mintPrice}>Artwork Mint Price</div>
+              <div className={styles.mintSol}>0.3 SOL</div>
+            </div>
+            <div className="w-full mt-[15px] flex justify-between">
+              <div className={styles.mintPrice}>Merch Production Cost</div>
+              <div className={styles.mintSol}>0.3 SOL</div>
+            </div>
+            <div className="w-full mt-[15px] mb-[22px] flex justify-between">
+              <div className={styles.mintPrice}>Foster Fee (5%)</div>
+              <div className={styles.mintSol}>0.03 SOL</div>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.totalCostCollapse} onClick={() => setTotalCostExpand(true)}>
+            <div className={styles.totalCost}>Total Cost Per Mint</div>
+            <div className="flex h-[20px] items-center">
+              <SolanaIcon className="mt-[2px]" />
+              <div className={styles.price}>0.63</div>
+              <div className="ml-[11px]">
+                <ArrowDownWhiteIcon />
+              </div>
+            </div>
+          </div>
+        )}
+        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[30px] mb-[40px]'} w-full`}>
           {isLoading ? (
             <LoadingSecondaryButton fullWidth />
           ) : (
