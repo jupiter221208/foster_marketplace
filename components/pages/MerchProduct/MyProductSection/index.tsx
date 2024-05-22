@@ -49,22 +49,25 @@ const MyProductSection = props => {
     if (!productDetail) return
 
     let { snapshotAssetUrl, description, name, type, shipping } = productDetail
+
     let urls = []
-    if (snapshotAssetUrl.front !== '') {
-      urls.push(snapshotAssetUrl.front)
+    if (snapshotAssetUrl) {
+      if (snapshotAssetUrl.front !== '') {
+        urls.push(snapshotAssetUrl.front)
+      }
+      if (snapshotAssetUrl.back !== '') {
+        urls.push(snapshotAssetUrl.back)
+      }
+      if (snapshotAssetUrl.right !== '') {
+        urls.push(snapshotAssetUrl.right)
+      }
+      if (snapshotAssetUrl.left !== '') {
+        urls.push(snapshotAssetUrl.left)
+      }
+      setImageList(urls)
+      setMainImage(urls[0])
+      setSelectedIndex(0)
     }
-    if (snapshotAssetUrl.back !== '') {
-      urls.push(snapshotAssetUrl.back)
-    }
-    if (snapshotAssetUrl.right !== '') {
-      urls.push(snapshotAssetUrl.right)
-    }
-    if (snapshotAssetUrl.left !== '') {
-      urls.push(snapshotAssetUrl.left)
-    }
-    setImageList(urls)
-    setMainImage(urls[0])
-    setSelectedIndex(0)
     if (name) setProductName(name)
     if (description) setDescription(description)
     if (type) setProductType(type)

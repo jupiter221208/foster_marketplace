@@ -266,7 +266,7 @@ const AdditionalDetails = props => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-[30px]">
+            <div className="w-full mt-[30px] mb-[100px]">
               <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
                 <div className={`${styles.desc} mt-[15px]`}>
@@ -349,7 +349,7 @@ const AdditionalDetails = props => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-[20px]">
+            <div className="w-full mt-[20px] mb-[100px]">
               <div className={styles.title}>Release Details</div>
               <div className="w-full mt-[15px]">
                 <div>
