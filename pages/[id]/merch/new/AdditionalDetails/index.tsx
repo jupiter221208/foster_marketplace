@@ -26,7 +26,6 @@ import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
   const { productDetail, step, setEnableNext } = props
-  const { product } = productDetail
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -79,13 +78,12 @@ const AdditionalDetails = props => {
   }, [startDate, days, hours])
 
   useEffect(() => {
-    console.log(title, productDetail, '=============product=========')
     if (title.length === 0) {
       setEnableNext(false)
       return
     }
 
-    if (product.id === 0) {
+    if (productDetail.product?.id === 0) {
       if (saleMethod.id === 1 && profit <= 0) {
         setEnableNext(false)
         return
@@ -113,7 +111,7 @@ const AdditionalDetails = props => {
   useEffect(() => {
     let urls = []
     let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
-    if (product.id === 0) {
+    if (productDetail.product?.id === 0) {
       setPriceBase(selectedCard.price[technique])
       setDescription(
         selectedCard.name +
@@ -217,7 +215,7 @@ const AdditionalDetails = props => {
       </div>
 
       {step === 3 &&
-        (product['id'] === 0 ? (
+        (productDetail.product?.id === 0 ? (
           <div className="w-[49%]">
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
@@ -384,7 +382,7 @@ const AdditionalDetails = props => {
         ))}
 
       {step === 2 &&
-        (product['id'] === 0 ? (
+        (productDetail.product?.id === 0 ? (
           <div className="w-[49%]">
             <div className={styles.title}>
               Product Name <span>*</span>
