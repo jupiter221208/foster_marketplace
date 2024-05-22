@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
 
 // third party components
 import Dropzone from 'react-dropzone'
 
 // image
-import PlusIcon from 'assets/icons/plus-circle-icon.svg?component'
 
 // json
 import ProductType from 'assets/json/creator-merch/product-type.json'
@@ -13,23 +11,18 @@ import ShippingList from 'assets/json/creator-merch/shipping-list.json'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
 import ImageCard from './ImageCard'
 import Input from 'components/Input'
 import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/ProductionListMenu'
 
-const MyProductSection = () => {
+const MyProductSection = props => {
+  const { currentStep } = props
   const [productType, setProductType] = useState({ id: -1, label: '' })
   const [shipping, setShipping] = useState({ id: -1, label: '' })
   const [mainImage, setMainImage] = useState<any>(null)
   const [imageList, setImageList] = useState<any>([])
-  // const [imageFirst, setImageFirst] = useState<any>(null)
-  // const [imageSecond, setImageSecond] = useState<any>(null)
-  // const [imageThird, setImageThird] = useState<any>(null)
-  // const [imageForth, setImageForth] = useState<any>(null)
-
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [productName, setProductName] = useState('')
   const [description, setDescription] = useState('')
@@ -101,10 +94,7 @@ const MyProductSection = () => {
               <ImageCard
                 index={0}
                 image={imageList[0]}
-                setImage={image => {
-                  // setImageList(imageList.push(image))
-                  // setMainImage(image)
-                }}
+                setImage={image => {}}
                 isSelected={selectedIndex === 0}
                 onSelect={index => onSelectImage(index)}
                 onDelete={index => onDeleteByIndex(index)}
