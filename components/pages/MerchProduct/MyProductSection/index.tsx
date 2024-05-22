@@ -40,7 +40,9 @@ const MyProductSection = props => {
   }
 
   useEffect(() => {
-    let { snapshotAssetUrl } = productDetail
+    if (!productDetail) return
+
+    let { snapshotAssetUrl, description, name, type, shipping } = productDetail
     let urls = []
     if (snapshotAssetUrl.front !== '') {
       urls.push(snapshotAssetUrl.front)
@@ -57,6 +59,10 @@ const MyProductSection = props => {
     setImageList(urls)
     setMainImage(urls[0])
     setSelectedIndex(0)
+    if (name) setProductName(name)
+    if (description) setDescription(description)
+    if (type) setProductType(type)
+    if (shipping) setShipping(shipping)
   }, [productDetail])
 
   const setProductAssetUrl = newList => {
@@ -202,7 +208,10 @@ const MyProductSection = props => {
               placeholder="Give your product name"
               label01="Max Characters 42"
               label02={40 - productName.length === 40 ? '' : `${40 - productName.length} Characters left`}
-              onChange={value => setProductName(limit(value, 40))}
+              onChange={value => {
+                setProductName(limit(value, 40))
+                setProductDetail({ ...productDetail, name: limit(value, 40) })
+              }}
             />
           </div>
           <div className="flex gap-[5px] mt-[30px]">
@@ -216,7 +225,10 @@ const MyProductSection = props => {
               color={'var(--text-gray-200-color)'}
               label01="Max Characters 1000"
               label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
-              onChange={value => setDescription(limit(value, 1000))}
+              onChange={value => {
+                setDescription(limit(value, 1000))
+                setProductDetail({ ...productDetail, description: limit(value, 40) })
+              }}
             />
           </div>
           <div className="mt-[30px]">
@@ -232,6 +244,7 @@ const MyProductSection = props => {
               selectedItem={productType}
               setSelectedItem={item => {
                 setProductType(item)
+                setProductDetail({ ...productDetail, type: item })
               }}
             />
           </div>
@@ -248,6 +261,7 @@ const MyProductSection = props => {
               selectedItem={shipping}
               setSelectedItem={item => {
                 setShipping(item)
+                setProductDetail({ ...productDetail, shipping: item })
               }}
             />
           </div>
