@@ -3,11 +3,17 @@ import React, { useState, useEffect } from 'react'
 // third party components
 import Dropzone from 'react-dropzone'
 
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import Lottie from 'lottie-react'
+
 // image
 
 // json
 import ProductType from 'assets/json/creator-merch/product-type.json'
 import ShippingList from 'assets/json/creator-merch/shipping-list.json'
+import animationData from 'assets/lottery/upload-file.json'
 
 // styles
 import styles from './index.module.scss'
@@ -121,8 +127,13 @@ const MyProductSection = props => {
                   >
                     {({ getRootProps, getInputProps }) => (
                       <section className={styles.dropzone}>
-                        <div {...getRootProps()}>
+                        <div {...getRootProps()} className="mt-[-20px]">
                           <input {...getInputProps()} />
+                          <div className="w-full flex justify-center">
+                            <div className="w-[90px] h-[90px]">
+                              <Lottie animationData={animationData} loop={true} />
+                            </div>
+                          </div>
                           <p className={styles.subTitle}>Upload Image(s)</p>
                           <p className={styles.text}>Supported File Formats .png and .jpeg</p>
                           <p className={styles.grayText}>Max File Size 10mb</p>

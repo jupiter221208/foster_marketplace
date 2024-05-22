@@ -19,7 +19,6 @@ import animationData from 'assets/lottery/upload-file.json'
 
 //resources
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
-import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
