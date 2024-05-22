@@ -2,20 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // next component
-import Image from 'next/image'
 
 //components
-import CreatorMerchTab from 'components/Tab/CreatorMerchTab'
+
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 // images
-import ShopBanner from 'assets/images/merch-shop-banner.png'
+
 import LeftArrow from 'assets/icons/arrow-left-white-big.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
-import ShareSocialIcon from 'assets/icons/share-social-icon.svg?component'
 
 // json
-import TabList from 'assets/json/creator-merch/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -31,26 +28,7 @@ interface CreatorMerchProps {
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
-  // const [tabList, setTabList] = useState<any[]>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
-
-  const handleSelectedTab = tabIndex => {
-    setActiveTab(tabIndex)
-  }
-
-  // useEffect(() => {
-  //   let array: any[] = []
-  //   TabList.map(item => {
-  //     let object: any = item
-  //     if (item.id === activeTab) {
-  //       object.selected = true
-  //     } else {
-  //       object.selected = false
-  //     }
-  //     array.push(object)
-  //   })
-  //   setTabList(array)
-  // }, [activeTab])
 
   return (
     <div className="w-full pb-[60px]">

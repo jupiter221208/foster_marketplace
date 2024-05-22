@@ -6,7 +6,7 @@ import 'swiper/css/navigation'
 
 //images
 import MerchBadge from 'assets/images/merch-badge.png'
-import MerchLock from 'assets/images/merch-lock.png'
+import MerchLock from 'assets/icons/merch-lock.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -40,7 +40,7 @@ const MerchBadgeCard = props => {
         </div>
       </div>
       <div className="w-full flex flex-col items-center justify-center mt-[30px]">
-        <img src={MerchLock.src} alt="" className="w-[42px] h-[50px] mb-[7px]" />
+        <MerchLock alt="" className="mb-[7px]" />
         <div className={styles.locked}>Locked</div>
       </div>
 

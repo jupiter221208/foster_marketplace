@@ -11,8 +11,6 @@ import 'swiper/css/navigation'
 
 //images
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
-import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import ShareSocialIcon from 'assets/icons/share-social-icon.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
 
