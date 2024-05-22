@@ -41,6 +41,7 @@ const ProductDetails = props => {
           selectedItem={product}
           setSelectedItem={item => {
             setProduct(item)
+            if (item.id !== product.id) setProductDetail(null)
           }}
         />
       </div>

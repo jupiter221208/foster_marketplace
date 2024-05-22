@@ -24,6 +24,7 @@ const NewCreatorMerch = () => {
 
   useEffect(() => {
     if (!productDetail) {
+      setNextEnabled(false)
       return
     }
 
