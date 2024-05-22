@@ -9,7 +9,6 @@ import ArrowLeft from 'assets/icons/arrow-left-black.svg?component'
 import ArrowRightBlack from 'assets/icons/arrow-right-black.svg?component'
 
 // styles
-import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
 import NewMerchStepper from 'components/NewMerchStepper'
@@ -24,7 +23,9 @@ const NewCreatorMerch = () => {
   const [nextEnabled, setNextEnabled] = useState(false)
 
   useEffect(() => {
-    if (!productDetail) return
+    if (!productDetail) {
+      return
+    }
 
     let snapshotUrl = productDetail?.snapshotAssetUrl
 
@@ -34,9 +35,16 @@ const NewCreatorMerch = () => {
         snapshotUrl.back.length > 0 ||
         snapshotUrl.left.length > 0 ||
         snapshotUrl.right.length > 0
-      )
-        setNextEnabled(true)
-      else setNextEnabled(false)
+      ) {
+        let { product, description, name, type, shipping } = productDetail
+        if (product.id === 0) {
+          setNextEnabled(true)
+        } else {
+          if (name !== undefined && description !== undefined && type !== undefined && shipping !== undefined)
+            setNextEnabled(true)
+          else setNextEnabled(false)
+        }
+      } else setNextEnabled(false)
     else setNextEnabled(false)
   }, [productDetail])
 
