@@ -235,18 +235,18 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               checked={enableMerch}
               onChange={() => {
                 setEnableMerch(!enableMerch)
-                if (!enableMerch) setShowMerchModal(true)
+                setShowMerchModal(!enableMerch)
               }}
               className={`${
                 enableMerch ? styles.active : styles.inactive
-              } relative inline-flex h-6 w-11 items-center rounded-full`}
+              } relative inline-flex h-6 w-[42px] items-center rounded-full`}
             >
               <span
                 className={`transform transition ease-in-out duration-200 ${
                   enableMerch ? 'translate-x-5' : 'translate-x-1'
                 } ${
                   enableMerch ? styles.activeSwitch : styles.inactiveSwitch
-                } inline-block h-5 w-5 transform rounded-full bg-white`}
+                } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
               />
             </HSwitch>
             <div className={styles.merchText}>Include merch for each print</div>
@@ -625,9 +625,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         open={showMerchModal}
         close={status => {
           setShowMerchModal(false)
+          setEnableMerch(false)
         }}
         selectCard={item => {
           setShowMerchModal(false)
+          setEnableMerch(true)
           setMerchCard(item)
         }}
       />
