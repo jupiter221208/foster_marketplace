@@ -26,6 +26,7 @@ import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
   const { productDetail, step, setEnableNext } = props
+  const { product, name } = productDetail
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -104,43 +105,64 @@ const AdditionalDetails = props => {
   useEffect(() => {
     let urls = []
     let { snapshotAssetUrl, selectedCard, technique, color } = productDetail
+    if (product.id === 0) {
+      setPriceBase(selectedCard.price[technique])
+      setDescription(
+        selectedCard.name +
+          ' | ' +
+          (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
+          ' | ' +
+          getFirstUpperString(color)
+      )
 
-    setPriceBase(selectedCard.price[technique])
-    setDescription(
-      selectedCard.name +
-        ' | ' +
-        (technique === 'dtg' ? 'Direct-to-Garment' : 'Embroidery') +
-        ' | ' +
-        getFirstUpperString(color)
-    )
+      if (snapshotAssetUrl.front !== '') {
+        urls.push(snapshotAssetUrl.front)
+      }
+      if (snapshotAssetUrl.back !== '') {
+        urls.push(snapshotAssetUrl.back)
+      }
+      if (technique === 'dtg') {
+        if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
+      } else {
+        if (snapshotAssetUrl.back !== '') setPriceFB(8.5)
+      }
 
-    if (snapshotAssetUrl.front !== '') {
-      urls.push(snapshotAssetUrl.front)
-    }
-    if (snapshotAssetUrl.back !== '') {
-      urls.push(snapshotAssetUrl.back)
-    }
-    if (technique === 'dtg') {
-      if (snapshotAssetUrl.front !== '' && snapshotAssetUrl.back !== '') setPriceFB(8.5)
+      if (snapshotAssetUrl.right !== '') {
+        urls.push(snapshotAssetUrl.right)
+        setPriceRight(7)
+      }
+      if (snapshotAssetUrl.left !== '') {
+        urls.push(snapshotAssetUrl.left)
+        setPriceLeft(7)
+      }
+      let assetUrl = []
+      urls.map((url, index) => {
+        if (index === 0) assetUrl.push({ id: index, url, selected: true })
+        else assetUrl.push({ id: index, url, selected: false })
+      })
+      setAssetUrls(assetUrl)
+      setApparelUrl(assetUrl[0].url)
     } else {
-      if (snapshotAssetUrl.back !== '') setPriceFB(8.5)
+      if (snapshotAssetUrl.front !== '') {
+        urls.push(snapshotAssetUrl.front)
+      }
+      if (snapshotAssetUrl.back !== '') {
+        urls.push(snapshotAssetUrl.back)
+      }
+      if (snapshotAssetUrl.right !== '') {
+        urls.push(snapshotAssetUrl.right)
+      }
+      if (snapshotAssetUrl.left !== '') {
+        urls.push(snapshotAssetUrl.left)
+      }
+      let assetUrl = []
+      urls.map((url, index) => {
+        if (index === 0) assetUrl.push({ id: index, url, selected: true })
+        else assetUrl.push({ id: index, url, selected: false })
+      })
+      setAssetUrls(assetUrl)
+      setApparelUrl(assetUrl[0].url)
     }
-
-    if (snapshotAssetUrl.right !== '') {
-      urls.push(snapshotAssetUrl.right)
-      setPriceRight(7)
-    }
-    if (snapshotAssetUrl.left !== '') {
-      urls.push(snapshotAssetUrl.left)
-      setPriceLeft(7)
-    }
-    let assetUrl = []
-    urls.map((url, index) => {
-      if (index === 0) assetUrl.push({ id: index, url, selected: true })
-      else assetUrl.push({ id: index, url, selected: false })
-    })
-    setAssetUrls(assetUrl)
-    setApparelUrl(assetUrl[0].url)
   }, [productDetail])
 
   useEffect(() => {
@@ -287,286 +309,458 @@ const AdditionalDetails = props => {
         </div>
       )}
 
-      {step === 2 && (
-        <div className="w-[49%]">
-          <div className={styles.title}>
-            Product Name <span>*</span>
-          </div>
-          <div className="mt-[15px]">
-            <Input
-              value={limit(title, 32)}
-              placeholder="Insert a name for your product"
-              label01="Max Characters 40"
-              label02={40 - title.length === 40 ? '' : `${40 - title.length} Characters left`}
-              onChange={value => setTitle(limit(value, 40))}
-            />
-          </div>
-          <div className="w-full mt-[30px]">
-            <div className={styles.title}>Additional Details</div>
-            <div className={`${styles.desc} mt-[10px]`}>{description}</div>
-            <div className="w-full mt-[15px]">
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Base (includes front or back print)</div>
-                <div className={styles.price}>${priceBase}</div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Additional front or back print</div>
-                <div className={styles.price}>{priceFB > 0 ? '$' + priceFB : 'N/A'}</div>
-              </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Right sleeve/wrist</div>
-                <div className={styles.price}>{priceRight > 0 ? '$' + priceRight : 'N/A'}</div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Left sleeve/wrist</div>
-                <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
-              </div>
+      {step === 2 &&
+        (product['id'] === 0 ? (
+          <div className="w-[49%]">
+            <div className={styles.title}>
+              Product Name <span>*</span>
             </div>
-            <div className="w-full mt-[15px] flex justify-between px-[16px]">
-              <div className={styles.production}>Production Price</div>
-              <div className={styles.priceUnit}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
-            </div>
-          </div>
-          <div className="w-full mt-[30px]">
-            <div className={styles.title}>Method of Sale</div>
             <div className="mt-[15px]">
-              <ProductionListMenu
-                label={saleMethod.id === -1 ? 'How would you like this item to be purchased' : saleMethod.label}
-                data={SaleList}
-                selectedItem={saleMethod}
-                setSelectedItem={item => {
-                  setSaleMethod(item)
-                }}
+              <Input
+                value={limit(title, 32)}
+                placeholder="Insert a name for your product"
+                label01="Max Characters 40"
+                label02={40 - title.length === 40 ? '' : `${40 - title.length} Characters left`}
+                onChange={value => setTitle(limit(value, 40))}
               />
             </div>
-          </div>
-          {saleMethod.id === 0 && (
-            <div className={styles.includePurchase}>
-              This method of sale allows will save the item to your merch brand & design library. When you are listing
-              an edition, you can choose to toggle on merch for every edition purchased
-            </div>
-          )}
-          {saleMethod.id === 1 && (
-            <div className="w-full mt-[30px] mb-[200px]">
-              <div className={styles.title}>
-                Selling Price <span>*</span>
+            <div className="w-full mt-[30px]">
+              <div className={styles.title}>Additional Details</div>
+              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className="w-full mt-[15px]">
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Base (includes front or back print)</div>
+                  <div className={styles.price}>${priceBase}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Additional front or back print</div>
+                  <div className={styles.price}>{priceFB > 0 ? '$' + priceFB : 'N/A'}</div>
+                </div>
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Right sleeve/wrist</div>
+                  <div className={styles.price}>{priceRight > 0 ? '$' + priceRight : 'N/A'}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Left sleeve/wrist</div>
+                  <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
+                </div>
               </div>
-              <div className={`${styles.sellingArea} mt-[15px]`}>
-                <div className={styles.dollar}>$</div>
-                <input
-                  className={styles.input}
-                  value={sellingPrice}
-                  placeholder={'Set your selling price'}
-                  onChange={event => {
-                    setSellingPrice(validDigits(event.target.value))
+              <div className="w-full mt-[15px] flex justify-between px-[16px]">
+                <div className={styles.production}>Production Price</div>
+                <div className={styles.priceUnit}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
+              </div>
+            </div>
+            <div className="w-full mt-[30px]">
+              <div className={styles.title}>Method of Sale</div>
+              <div className="mt-[15px]">
+                <ProductionListMenu
+                  label={saleMethod.id === -1 ? 'How would you like this item to be purchased' : saleMethod.label}
+                  data={SaleList}
+                  selectedItem={saleMethod}
+                  setSelectedItem={item => {
+                    setSaleMethod(item)
                   }}
                 />
               </div>
-              <div className="w-full flex justify-between mt-[15px]">
-                <div className={styles.production}>Your Profit</div>
-                <div
-                  className={`${styles.prodPrice} ${
-                    profit >= 0 || sellingPrice === '' ? styles.positive : styles.negotive
-                  }`}
-                >
-                  {sellingPrice === ''
-                    ? '$ ---'
-                    : profit > 0
-                    ? '$' + profit.toFixed(2)
-                    : '-$' + Math.abs(profit).toFixed(2)}
-                </div>
+            </div>
+            {saleMethod.id === 0 && (
+              <div className={styles.includePurchase}>
+                This method of sale allows will save the item to your merch brand & design library. When you are listing
+                an edition, you can choose to toggle on merch for every edition purchased
               </div>
-              {sellingPrice !== '' && profit < 0 && (
-                <div className={styles.negotiveAlert}>
-                  The selling price you entered is below the cost of production. Please enter a value higher than the
-                  production price.
+            )}
+            {saleMethod.id === 1 && (
+              <div className="w-full mt-[30px] mb-[200px]">
+                <div className={styles.title}>
+                  Selling Price <span>*</span>
                 </div>
-              )}
-
-              <div className="mt-[30px]">
-                <div className={styles.title}>Max Supply (optional)</div>
-                <div className="mt-[15px]">
-                  <ProductionListMenu
-                    label={maxSupplyItem.id === -1 ? 'Limited Supply' : maxSupplyItem.label}
-                    data={MaxSupplyList}
-                    selectedItem={maxSupplyItem}
-                    setSelectedItem={item => {
-                      setMaxSupplyItem(item)
+                <div className={`${styles.sellingArea} mt-[15px]`}>
+                  <div className={styles.dollar}>$</div>
+                  <input
+                    className={styles.input}
+                    value={sellingPrice}
+                    placeholder={'Set your selling price'}
+                    onChange={event => {
+                      setSellingPrice(validDigits(event.target.value))
                     }}
                   />
                 </div>
-                {maxSupplyItem.id === 1 && (
-                  <div className="w-full mt-[30px]">
-                    <div className={styles.title}>
-                      Limited Supply <span>*</span>
-                    </div>
-                    <div className="mt-[15px]">
-                      <Input
-                        value={limitedSupply}
-                        placeholder="Set the total supply for this apparel item"
-                        onChange={value => {
-                          setLimitedSupply(validInteger(value))
-                        }}
-                      />
-                    </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.production}>Your Profit</div>
+                  <div
+                    className={`${styles.prodPrice} ${
+                      profit >= 0 || sellingPrice === '' ? styles.positive : styles.negotive
+                    }`}
+                  >
+                    {sellingPrice === ''
+                      ? '$ ---'
+                      : profit > 0
+                      ? '$' + profit.toFixed(2)
+                      : '-$' + Math.abs(profit).toFixed(2)}
+                  </div>
+                </div>
+                {sellingPrice !== '' && profit < 0 && (
+                  <div className={styles.negotiveAlert}>
+                    The selling price you entered is below the cost of production. Please enter a value higher than the
+                    production price.
+                  </div>
+                )}
+
+                <div className="mt-[30px]">
+                  <div className={styles.title}>Max Supply (optional)</div>
+                  <div className="mt-[15px]">
+                    <ProductionListMenu
+                      label={maxSupplyItem.id === -1 ? 'Limited Supply' : maxSupplyItem.label}
+                      data={MaxSupplyList}
+                      selectedItem={maxSupplyItem}
+                      setSelectedItem={item => {
+                        setMaxSupplyItem(item)
+                      }}
+                    />
+                  </div>
+                  {maxSupplyItem.id === 1 && (
                     <div className="w-full mt-[30px]">
                       <div className={styles.title}>
-                        Release Date <span>*</span>
+                        Limited Supply <span>*</span>
                       </div>
-                    </div>
-                    <div className="w-full flex gap-[112px]">
-                      <div
-                        className={`flex items-center ${
-                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                        }`}
-                      >
-                        <input
-                          className={styles.radio}
-                          type="radio"
-                          id="reserve"
-                          checked={startType === 'soon'}
-                          onChange={() => {
-                            setStartDate(new Date())
-                            setStartType('soon')
+                      <div className="mt-[15px]">
+                        <Input
+                          value={limitedSupply}
+                          placeholder="Set the total supply for this apparel item"
+                          onChange={value => {
+                            setLimitedSupply(validInteger(value))
                           }}
                         />
-                        <div
-                          className={styles.radioText}
-                          onClick={() => {
-                            setStartDate(new Date())
-                            setStartType('soon')
-                          }}
-                        >
-                          Immediately
+                      </div>
+                      <div className="w-full mt-[30px]">
+                        <div className={styles.title}>
+                          Release Date <span>*</span>
                         </div>
                       </div>
-                      <div
-                        className={`flex items-center z-10001 ${
-                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                        }`}
-                      >
-                        <input
-                          className={styles.radio}
-                          type="radio"
-                          id="reserve"
-                          checked={startType === 'later'}
-                          onChange={() => {
-                            setStartType('later')
-                          }}
-                        />
-                        <div>
-                          <div className="w-full startAuctionDatePicker">
-                            <div className="relative">
-                              <DatePicker
-                                selected={startDate}
-                                onChange={date => {
-                                  setStartDate(date)
-                                }}
-                                dateFormat={
-                                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                    ? 'MM/dd/yyyy'
-                                    : 'MM/dd/yyyy h:mm aa'
-                                }
-                                formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                                minDate={moment().toDate()}
-                                showTimeInput
-                                timeInputLabel=""
-                                className={styles.datePicker}
-                                disabled={startType === 'soon'}
-                                customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                              />
-                              <div className="absolute top-[20px] right-4">
-                                <ArrowDownIcon alt="" />
+                      <div className="w-full flex gap-[112px]">
+                        <div
+                          className={`flex items-center ${
+                            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                          }`}
+                        >
+                          <input
+                            className={styles.radio}
+                            type="radio"
+                            id="reserve"
+                            checked={startType === 'soon'}
+                            onChange={() => {
+                              setStartDate(new Date())
+                              setStartType('soon')
+                            }}
+                          />
+                          <div
+                            className={styles.radioText}
+                            onClick={() => {
+                              setStartDate(new Date())
+                              setStartType('soon')
+                            }}
+                          >
+                            Immediately
+                          </div>
+                        </div>
+                        <div
+                          className={`flex items-center z-10001 ${
+                            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                          }`}
+                        >
+                          <input
+                            className={styles.radio}
+                            type="radio"
+                            id="reserve"
+                            checked={startType === 'later'}
+                            onChange={() => {
+                              setStartType('later')
+                            }}
+                          />
+                          <div>
+                            <div className="w-full startAuctionDatePicker">
+                              <div className="relative">
+                                <DatePicker
+                                  selected={startDate}
+                                  onChange={date => {
+                                    setStartDate(date)
+                                  }}
+                                  dateFormat={
+                                    viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                      ? 'MM/dd/yyyy'
+                                      : 'MM/dd/yyyy h:mm aa'
+                                  }
+                                  formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                                  minDate={moment().toDate()}
+                                  showTimeInput
+                                  timeInputLabel=""
+                                  className={styles.datePicker}
+                                  disabled={startType === 'soon'}
+                                  customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                                />
+                                <div className="absolute top-[20px] right-4">
+                                  <ArrowDownIcon alt="" />
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="mt-[30px]">
-                      <div className={styles.title}>Release Duration (optional)</div>
-                      <div className="mt-[15px]">
-                        <ProductionListMenu
-                          label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
-                          data={ReleaseDurationList}
-                          selectedItem={releaseDurationItem}
-                          setSelectedItem={item => {
-                            setReleaseDurationItem(item)
-                          }}
-                        />
-                      </div>
-                    </div>
-                    {releaseDurationItem.id === 1 && (
-                      <div className="w-full mt-[30px]">
-                        <div className={styles.title}>
-                          Limited Duration <span>*</span>
-                        </div>
-                        <div className="mt-[15px] w-full flex gap-5">
-                          <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                            <Input
-                              value={days}
-                              placeholder="0"
-                              backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                              fullWidth
-                              borderColor="transparent"
-                              borderRadius="9px"
-                              min={0}
-                              onChange={value => {
-                                let days = validDigits(value)
-                                if (days < 0) {
-                                  setDays('')
-                                } else {
-                                  setDays(days)
-                                }
-                              }}
-                            />
-                            <div className={styles.dateFont}>Days</div>
-                          </div>
-                          <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                            <Input
-                              value={hours}
-                              placeholder="0"
-                              backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                              fullWidth
-                              borderColor="transparent"
-                              borderRadius="9px"
-                              min={0}
-                              onChange={value => {
-                                let hours = validDigits(value)
-                                if (hours < 0) {
-                                  setHours('')
-                                } else {
-                                  setHours(hours)
-                                }
-                              }}
-                            />
-                            <div className={styles.dateFont}>Hours</div>
-                          </div>
-                        </div>
-                        <div className="mt-2 w-full text-start">
-                          <div className={styles.label}>
-                            The release is due to end&nbsp;
-                            <span className={styles.dateLabel}>
-                              {day}
-                              {', '}
-                              {endDate.toLocaleDateString()}&nbsp;
-                            </span>
-                            {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
-                          </div>
+                      <div className="mt-[30px]">
+                        <div className={styles.title}>Release Duration (optional)</div>
+                        <div className="mt-[15px]">
+                          <ProductionListMenu
+                            label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
+                            data={ReleaseDurationList}
+                            selectedItem={releaseDurationItem}
+                            setSelectedItem={item => {
+                              setReleaseDurationItem(item)
+                            }}
+                          />
                         </div>
                       </div>
-                    )}
-                  </div>
-                )}
+                      {releaseDurationItem.id === 1 && (
+                        <div className="w-full mt-[30px]">
+                          <div className={styles.title}>
+                            Limited Duration <span>*</span>
+                          </div>
+                          <div className="mt-[15px] w-full flex gap-5">
+                            <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                              <Input
+                                value={days}
+                                placeholder="0"
+                                backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                                fullWidth
+                                borderColor="transparent"
+                                borderRadius="9px"
+                                min={0}
+                                onChange={value => {
+                                  let days = validDigits(value)
+                                  if (days < 0) {
+                                    setDays('')
+                                  } else {
+                                    setDays(days)
+                                  }
+                                }}
+                              />
+                              <div className={styles.dateFont}>Days</div>
+                            </div>
+                            <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                              <Input
+                                value={hours}
+                                placeholder="0"
+                                backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                                fullWidth
+                                borderColor="transparent"
+                                borderRadius="9px"
+                                min={0}
+                                onChange={value => {
+                                  let hours = validDigits(value)
+                                  if (hours < 0) {
+                                    setHours('')
+                                  } else {
+                                    setHours(hours)
+                                  }
+                                }}
+                              />
+                              <div className={styles.dateFont}>Hours</div>
+                            </div>
+                          </div>
+                          <div className="mt-2 w-full text-start">
+                            <div className={styles.label}>
+                              The release is due to end&nbsp;
+                              <span className={styles.dateLabel}>
+                                {day}
+                                {', '}
+                                {endDate.toLocaleDateString()}&nbsp;
+                              </span>
+                              {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
+            )}
+          </div>
+        ) : (
+          <div className="w-[49%] mb-[200px]">
+            <div className={styles.title}>
+              Selling Price <span>*</span>
             </div>
-          )}
-        </div>
-      )}
+            <div className={`${styles.sellingArea} mt-[15px]`}>
+              <div className={styles.dollar}>$</div>
+              <input
+                className={styles.input}
+                value={sellingPrice}
+                placeholder={'Set your selling price'}
+                onChange={event => {
+                  setSellingPrice(validDigits(event.target.value))
+                }}
+              />
+            </div>
+
+            <div className="w-full mt-[30px]">
+              <div className="w-full mt-[30px]">
+                <div className={styles.title}>
+                  Release Date <span>*</span>
+                </div>
+              </div>
+              <div className="w-full flex gap-[112px]">
+                <div
+                  className={`flex items-center ${
+                    viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                  }`}
+                >
+                  <input
+                    className={styles.radio}
+                    type="radio"
+                    id="reserve"
+                    checked={startType === 'soon'}
+                    onChange={() => {
+                      setStartDate(new Date())
+                      setStartType('soon')
+                    }}
+                  />
+                  <div
+                    className={styles.radioText}
+                    onClick={() => {
+                      setStartDate(new Date())
+                      setStartType('soon')
+                    }}
+                  >
+                    Immediately
+                  </div>
+                </div>
+                <div
+                  className={`flex items-center z-10001 ${
+                    viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                  }`}
+                >
+                  <input
+                    className={styles.radio}
+                    type="radio"
+                    id="reserve"
+                    checked={startType === 'later'}
+                    onChange={() => {
+                      setStartType('later')
+                    }}
+                  />
+                  <div>
+                    <div className="w-full startAuctionDatePicker">
+                      <div className="relative">
+                        <DatePicker
+                          selected={startDate}
+                          onChange={date => {
+                            setStartDate(date)
+                          }}
+                          dateFormat={
+                            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                              ? 'MM/dd/yyyy'
+                              : 'MM/dd/yyyy h:mm aa'
+                          }
+                          formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                          minDate={moment().toDate()}
+                          showTimeInput
+                          timeInputLabel=""
+                          className={styles.datePicker}
+                          disabled={startType === 'soon'}
+                          customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                        />
+                        <div className="absolute top-[20px] right-4">
+                          <ArrowDownIcon alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-[30px]">
+                <div className={styles.title}>Release Duration (optional)</div>
+                <div className="mt-[15px]">
+                  <ProductionListMenu
+                    label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
+                    data={ReleaseDurationList}
+                    selectedItem={releaseDurationItem}
+                    setSelectedItem={item => {
+                      setReleaseDurationItem(item)
+                    }}
+                  />
+                </div>
+              </div>
+              {releaseDurationItem.id === 1 && (
+                <div className="w-full mt-[30px]">
+                  <div className={styles.title}>
+                    Limited Duration <span>*</span>
+                  </div>
+                  <div className="mt-[15px] w-full flex gap-5">
+                    <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                      <Input
+                        value={days}
+                        placeholder="0"
+                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                        fullWidth
+                        borderColor="transparent"
+                        borderRadius="9px"
+                        min={0}
+                        onChange={value => {
+                          let days = validDigits(value)
+                          if (days < 0) {
+                            setDays('')
+                          } else {
+                            setDays(days)
+                          }
+                        }}
+                      />
+                      <div className={styles.dateFont}>Days</div>
+                    </div>
+                    <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                      <Input
+                        value={hours}
+                        placeholder="0"
+                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                        fullWidth
+                        borderColor="transparent"
+                        borderRadius="9px"
+                        min={0}
+                        onChange={value => {
+                          let hours = validDigits(value)
+                          if (hours < 0) {
+                            setHours('')
+                          } else {
+                            setHours(hours)
+                          }
+                        }}
+                      />
+                      <div className={styles.dateFont}>Hours</div>
+                    </div>
+                  </div>
+                  <div className="mt-2 w-full text-start">
+                    <div className={styles.label}>
+                      The release is due to end&nbsp;
+                      <span className={styles.dateLabel}>
+                        {day}
+                        {', '}
+                        {endDate.toLocaleDateString()}&nbsp;
+                      </span>
+                      {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
     </div>
   )
 }

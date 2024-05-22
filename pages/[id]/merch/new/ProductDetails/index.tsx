@@ -60,7 +60,10 @@ const ProductDetails = props => {
       )}
       {product.id === 1 && (
         <div className="mt-[27px]">
-          <MyProductSection />
+          <MyProductSection
+            productDetail={productDetail}
+            setProductDetail={detail => setProductDetail({ ...detail, product })}
+          />
         </div>
       )}
     </div>

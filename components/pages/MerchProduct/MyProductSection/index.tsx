@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -18,7 +18,7 @@ import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/ProductionListMenu'
 
 const MyProductSection = props => {
-  const { currentStep } = props
+  const { productDetail, setProductDetail } = props
   const [productType, setProductType] = useState({ id: -1, label: '' })
   const [shipping, setShipping] = useState({ id: -1, label: '' })
   const [mainImage, setMainImage] = useState<any>(null)
@@ -38,6 +38,40 @@ const MyProductSection = props => {
     newList.splice(index, 1)
     setImageList(newList)
   }
+
+  useEffect(() => {
+    let { snapshotAssetUrl } = productDetail
+    let urls = []
+    if (snapshotAssetUrl.front !== '') {
+      urls.push(snapshotAssetUrl.front)
+    }
+    if (snapshotAssetUrl.back !== '') {
+      urls.push(snapshotAssetUrl.back)
+    }
+    if (snapshotAssetUrl.right !== '') {
+      urls.push(snapshotAssetUrl.right)
+    }
+    if (snapshotAssetUrl.left !== '') {
+      urls.push(snapshotAssetUrl.left)
+    }
+    setImageList(urls)
+    setMainImage(urls[0])
+    setSelectedIndex(0)
+  }, [productDetail])
+
+  const setProductAssetUrl = newList => {
+    let newAsset = {}
+
+    newAsset = {
+      front: newList.length > 0 ? newList[0] : '',
+      back: newList.length > 1 ? newList[1] : '',
+      right: newList.length > 2 ? newList[2] : '',
+      left: newList.length > 3 ? newList[3] : '',
+    }
+
+    setProductDetail({ snapshotAssetUrl: newAsset })
+  }
+
   return (
     <div className="w-full">
       <div className="w-full lg:flex hidden gap-[72px] justify-between">
@@ -60,12 +94,17 @@ const MyProductSection = props => {
                           newList.push(URL.createObjectURL(file))
                         })
                         setImageList(newList)
+                        setProductAssetUrl(newList)
                         setSelectedIndex(0)
                         setMainImage(newList[0])
-                      } else setImageList([])
+                      } else {
+                        setImageList([])
+                        setProductAssetUrl([])
+                      }
                     }}
                     onDropRejected={rejectedFiles => {
                       setImageList([])
+                      setProductAssetUrl([])
                     }}
                     accept={{
                       'image/jpeg': [],
@@ -108,6 +147,7 @@ const MyProductSection = props => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setProductAssetUrl(newList)
                   setSelectedIndex(1)
                   setMainImage(image)
                 }}
@@ -124,8 +164,8 @@ const MyProductSection = props => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setProductAssetUrl(newList)
                   setSelectedIndex(2)
-
                   setMainImage(image)
                 }}
                 isSelected={selectedIndex === 2}
@@ -141,8 +181,8 @@ const MyProductSection = props => {
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
+                  setProductAssetUrl(newList)
                   setSelectedIndex(3)
-
                   setMainImage(image)
                 }}
                 isSelected={selectedIndex === 3}
