@@ -9,6 +9,7 @@
   font-size: 16px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--bg-TRANSPARENT-FFF);
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -32,7 +33,7 @@
   @media (min-width: 1024px) {
     top: 50px;
   }
-  background: rgba(var(--background-main-color-rgb), 0.8);
+  background: var(--bg-TRANSPARENT-FFF);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
   -webkit-backdrop-filter: blur(30px);

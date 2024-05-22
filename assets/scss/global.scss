@@ -1598,6 +1598,13 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='close-icon'] {
+  fill: var(--main-bg-color);
+  [data-fill='a'] {
+    fill: rgba(var(--main-bg-color-rgb), 0.05);
+  }
+}
+
 [data-name='button-divider'] {
   fill: var(--bg-1A1A1A-4A4D50)
 }

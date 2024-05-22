@@ -17,7 +17,7 @@
   position: relative;
   width: 73%;
   height: 100%;
-  background: var(--background-main-color);
+  background: rgba(var(--bg-1a1a1a-EEEDEB), 1);
   padding: 15px 20px;
   @media (min-width: 1024px) {
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);

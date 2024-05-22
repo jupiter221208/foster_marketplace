@@ -8,12 +8,12 @@
   width: 100px;
   height: 100px;
   padding: 4px;
-  border: 2px solid #303030;
+  border: 2px solid var(--bg-303030-DDDCDC);
   border-radius: 12px;
 }
 
 .selected {
-  border: 2px solid #95dbd5 !important;
+  border: 2px solid var(--main-icon-color) !important;
 }
 
 .side {
