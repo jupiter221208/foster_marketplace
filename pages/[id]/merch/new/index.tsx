@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 //components
-import ArtistLayout from 'components/Layout/ArtistLayout'
+import NewMerchStepper from 'components/NewMerchStepper'
+import ProductDetails from './ProductDetails'
+import AdditionalDetails from './AdditionalDetails'
+import NoNavLayout from 'components/Layout/NoNavLayout'
 
 // images
 import ArrowLeft from 'assets/icons/arrow-left-black.svg?component'
@@ -10,11 +13,6 @@ import ArrowRightBlack from 'assets/icons/arrow-right-black.svg?component'
 
 // styles
 import GradientButton from 'components/Button/GradientButton'
-
-import NewMerchStepper from 'components/NewMerchStepper'
-import ProductDetails from './ProductDetails'
-import AdditionalDetails from './AdditionalDetails'
-import NoNavLayout from 'components/Layout/NoNavLayout'
 
 const NewCreatorMerch = () => {
   const router = useRouter()

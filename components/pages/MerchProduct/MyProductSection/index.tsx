@@ -81,7 +81,7 @@ const MyProductSection = props => {
       left: newList.length > 3 ? newList[3] : '',
     }
 
-    setProductDetail({ snapshotAssetUrl: newAsset })
+    setProductDetail({ ...productDetail, snapshotAssetUrl: newAsset })
   }
 
   return (
@@ -238,7 +238,7 @@ const MyProductSection = props => {
               label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
               onChange={value => {
                 setDescription(limit(value, 1000))
-                setProductDetail({ ...productDetail, description: limit(value, 40) })
+                setProductDetail({ ...productDetail, description: limit(value, 1000) })
               }}
             />
           </div>

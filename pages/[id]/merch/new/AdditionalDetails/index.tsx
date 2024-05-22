@@ -26,7 +26,7 @@ import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
   const { productDetail, step, setEnableNext } = props
-  const { product, name } = productDetail
+  const { product } = productDetail
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -79,19 +79,27 @@ const AdditionalDetails = props => {
   }, [startDate, days, hours])
 
   useEffect(() => {
+    console.log(title, productDetail, '=============product=========')
     if (title.length === 0) {
       setEnableNext(false)
       return
     }
 
-    if (saleMethod.id === 1 && profit <= 0) {
-      setEnableNext(false)
-      return
-    }
+    if (product.id === 0) {
+      if (saleMethod.id === 1 && profit <= 0) {
+        setEnableNext(false)
+        return
+      }
 
-    if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
-      setEnableNext(false)
-      return
+      if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
+        setEnableNext(false)
+        return
+      }
+    } else {
+      if (sellingPrice === '' || parseFloat(sellingPrice) <= 0) {
+        setEnableNext(false)
+        return
+      }
     }
 
     if (releaseDurationItem.id === 1 && days === '' && hours === '') {
@@ -100,11 +108,11 @@ const AdditionalDetails = props => {
     }
 
     setEnableNext(true)
-  }, [title, saleMethod, profit, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
+  }, [title, saleMethod, profit, sellingPrice, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
 
   useEffect(() => {
     let urls = []
-    let { snapshotAssetUrl, selectedCard, technique, color } = productDetail
+    let { snapshotAssetUrl, selectedCard, technique, color, name, description } = productDetail
     if (product.id === 0) {
       setPriceBase(selectedCard.price[technique])
       setDescription(
@@ -143,6 +151,8 @@ const AdditionalDetails = props => {
       setAssetUrls(assetUrl)
       setApparelUrl(assetUrl[0].url)
     } else {
+      setTitle(name)
+      setDescription(description)
       if (snapshotAssetUrl.front !== '') {
         urls.push(snapshotAssetUrl.front)
       }
@@ -206,108 +216,172 @@ const AdditionalDetails = props => {
         </div>
       </div>
 
-      {step === 3 && (
-        <div className="w-[49%]">
-          <div className="w-full">
-            <div className={styles.title}>Product Name</div>
-            <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-            <div className={`mt-[30px] ${styles.title}`}>Product & Design Details</div>
-            <div className={`${styles.desc} mt-[10px]`}>{description}</div>
-            <div className="w-full mt-[15px]">
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Base (includes front or back print)</div>
-                <div className={styles.price}>${priceBase}</div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Additional front or back print</div>
-                <div className={styles.price}>{priceFB > 0 ? '$' + priceFB : 'N/A'}</div>
-              </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Right sleeve/wrist</div>
-                <div className={styles.price}>{priceRight > 0 ? '$' + priceRight : 'N/A'}</div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Left sleeve/wrist</div>
-                <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
-              </div>
-            </div>
-          </div>
-          <div className="w-full mt-[30px]">
-            <div className={styles.title}>Commision Details</div>
-            <div className="w-full mt-[15px]">
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Method of Sale</div>
-                <div className={styles.price}>{saleMethod.id === 0 ? 'Edition Purchases' : 'Standalone'}</div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Production Price</div>
-                <div className={styles.price}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
-              </div>
-              <div className={styles.firstRow}>
-                <div className={styles.sideText}>Selling Price</div>
-                <div className={styles.price}>
-                  {saleMethod.id === 0 ? 'Production Price + Price of Edition' : '$' + sellingPrice}
-                </div>
-              </div>
-              <div className={styles.secondRow}>
-                <div className={styles.sideText}>Profit Per Unit</div>
-                <div className={styles.priceUnit}>
-                  {saleMethod.id === 0 ? 'Price of Edition' : '$' + profit.toFixed(2)}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-full mt-[30px]">
-            <div className={styles.title}>Release Details</div>
-            {saleMethod.id === 0 ? (
-              <div className={`${styles.desc} mt-[15px]`}>
-                Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
-                an edition, you can choose to toggle this merch item for every edition purchased. Once you have enabled
-                this merch item, it will become available as an added bonus to your collectors. If you enable this merch
-                item when listing an edition, please note that the production price for this merch item will be added to
-                the listing price. As a merch edition, your profit will be dictated by the listing price of the edition.
-              </div>
-            ) : (
+      {step === 3 &&
+        (product['id'] === 0 ? (
+          <div className="w-[49%]">
+            <div className="w-full">
+              <div className={styles.title}>Product Name</div>
+              <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
+              <div className={`mt-[30px] ${styles.title}`}>Product & Design Details</div>
+              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
-                  <div className={styles.sideText}>Supply</div>
-                  <div className={styles.price}>{maxSupplyItem.id === 0 ? 'No Max' : 'Limited Supply'}</div>
+                  <div className={styles.sideText}>Base (includes front or back print)</div>
+                  <div className={styles.price}>${priceBase}</div>
                 </div>
                 <div className={styles.secondRow}>
-                  <div className={styles.sideText}>Max Supply</div>
-                  <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
+                  <div className={styles.sideText}>Additional front or back print</div>
+                  <div className={styles.price}>{priceFB > 0 ? '$' + priceFB : 'N/A'}</div>
                 </div>
-                {maxSupplyItem.id === 1 && (
-                  <div>
-                    <div className={styles.firstRow}>
-                      <div className={styles.sideText}>Release Date</div>
-                      <div className={styles.price}>
-                        {startType === 'soon'
-                          ? 'Immediately'
-                          : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Right sleeve/wrist</div>
+                  <div className={styles.price}>{priceRight > 0 ? '$' + priceRight : 'N/A'}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Left sleeve/wrist</div>
+                  <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full mt-[30px]">
+              <div className={styles.title}>Commision Details</div>
+              <div className="w-full mt-[15px]">
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Method of Sale</div>
+                  <div className={styles.price}>{saleMethod.id === 0 ? 'Edition Purchases' : 'Standalone'}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Production Price</div>
+                  <div className={styles.price}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
+                </div>
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Selling Price</div>
+                  <div className={styles.price}>
+                    {saleMethod.id === 0 ? 'Production Price + Price of Edition' : '$' + sellingPrice}
+                  </div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Profit Per Unit</div>
+                  <div className={styles.priceUnit}>
+                    {saleMethod.id === 0 ? 'Price of Edition' : '$' + profit.toFixed(2)}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full mt-[30px]">
+              <div className={styles.title}>Release Details</div>
+              {saleMethod.id === 0 ? (
+                <div className={`${styles.desc} mt-[15px]`}>
+                  Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
+                  an edition, you can choose to toggle this merch item for every edition purchased. Once you have
+                  enabled this merch item, it will become available as an added bonus to your collectors. If you enable
+                  this merch item when listing an edition, please note that the production price for this merch item
+                  will be added to the listing price. As a merch edition, your profit will be dictated by the listing
+                  price of the edition.
+                </div>
+              ) : (
+                <div className="w-full mt-[15px]">
+                  <div className={styles.firstRow}>
+                    <div className={styles.sideText}>Supply</div>
+                    <div className={styles.price}>{maxSupplyItem.id === 0 ? 'No Max' : 'Limited Supply'}</div>
+                  </div>
+                  <div className={styles.secondRow}>
+                    <div className={styles.sideText}>Max Supply</div>
+                    <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
+                  </div>
+                  {maxSupplyItem.id === 1 && (
+                    <div>
+                      <div className={styles.firstRow}>
+                        <div className={styles.sideText}>Release Date</div>
+                        <div className={styles.price}>
+                          {startType === 'soon'
+                            ? 'Immediately'
+                            : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
+                        </div>
+                      </div>
+                      <div className={styles.secondRow}>
+                        <div className={styles.sideText}>Release Duration</div>
+                        <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
+                      </div>
+                      <div className={styles.firstRow}>
+                        <div className={styles.sideText}>Limited Duration</div>
+                        <div className={styles.price}>
+                          {releaseDurationItem.id === 0
+                            ? '∞'
+                            : days.length === 0
+                            ? hours + ' hours'
+                            : days + ' days' + ', ' + hours + ' hours'}
+                        </div>
                       </div>
                     </div>
-                    <div className={styles.firstRow}>
-                      <div className={styles.sideText}>Release Duration</div>
-                      <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
-                    </div>
-                    <div className={styles.firstRow}>
-                      <div className={styles.sideText}>Limited Duration</div>
-                      <div className={styles.price}>
-                        {releaseDurationItem.id === 0
-                          ? '∞'
-                          : days.length === 0
-                          ? hours + ' hours'
-                          : days + ' days' + ', ' + hours + ' hours'}
-                      </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          /**************************** Product 2 *************************************/
+          <div className="w-[49%]">
+            <div className="w-full">
+              <div className={styles.title}>Product Name</div>
+              <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
+              <div className={`mt-[30px] ${styles.title}`}>Product Description</div>
+              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
+              <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>
+              <div className={`mt-[20px] ${styles.title}`}>Shipping & Handling</div>
+              <div className={`${styles.desc} mt-[10px]`}>{productDetail.shipping.label}</div>
+            </div>
+            <div className="w-full mt-[20px]">
+              <div className={styles.title}>Commision Details</div>
+              <div className="w-full mt-[15px]">
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Selling Price</div>
+                  <div className={styles.price}>${sellingPrice}</div>
+                </div>
+                <div className={styles.secondRow}>
+                  <div className={styles.sideText}>Platform Fee (5%)</div>
+                  <div className={styles.price}>${(parseFloat(sellingPrice) * 0.05).toFixed(2)}</div>
+                </div>
+                <div className={styles.firstRow}>
+                  <div className={styles.sideText}>Total</div>
+                  <div className={styles.price}>
+                    ${(parseFloat(sellingPrice) + parseFloat(sellingPrice) * 0.05).toFixed(2)}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full mt-[20px]">
+              <div className={styles.title}>Release Details</div>
+              <div className="w-full mt-[15px]">
+                <div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.sideText}>Release Date</div>
+                    <div className={styles.price}>
+                      {startType === 'soon'
+                        ? 'Immediately'
+                        : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
                     </div>
                   </div>
-                )}
+                  <div className={styles.secondRow}>
+                    <div className={styles.sideText}>Release Duration</div>
+                    <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
+                  </div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.sideText}>Limited Duration</div>
+                    <div className={styles.price}>
+                      {releaseDurationItem.id === 0
+                        ? '∞'
+                        : days.length === 0
+                        ? hours + ' hours'
+                        : days + ' days' + ', ' + hours + ' hours'}
+                    </div>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      )}
+        ))}
 
       {step === 2 &&
         (product['id'] === 0 ? (
