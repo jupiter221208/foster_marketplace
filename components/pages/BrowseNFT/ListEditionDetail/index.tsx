@@ -253,7 +253,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           </div>
         </div>
 
-        {merchCard && (
+        {enableMerch && merchCard && (
           <div className={styles.merchArea}>
             <div className="flex gap-[15px] mt-[11px] ml-[16px]">
               <div className={styles.assetArea}>
@@ -563,7 +563,9 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               <div className={styles.totalCost}>Total Cost Per Mint</div>
               <div className="flex items-center">
                 <SolanaIcon className="mt-[2px]" />
-                <div className={styles.price}>0.63</div>
+                <div className={styles.price}>
+                  {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + 0.3).toFixed(2)}
+                </div>
                 <div className="ml-[11px]">
                   <ArrowTopWhiteIcon />
                 </div>
@@ -572,7 +574,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             <div className={styles.costBorder} />
             <div className="w-full mt-[15px] flex justify-between">
               <div className={styles.mintPrice}>Artwork Mint Price</div>
-              <div className={styles.mintSol}>0.3 SOL</div>
+              <div className={styles.mintSol}>{mintPrice} SOL</div>
             </div>
             <div className="w-full mt-[15px] flex justify-between">
               <div className={styles.mintPrice}>Merch Production Cost</div>
@@ -580,7 +582,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
             <div className="w-full mt-[15px] mb-[22px] flex justify-between">
               <div className={styles.mintPrice}>Foster Fee (5%)</div>
-              <div className={styles.mintSol}>0.03 SOL</div>
+              <div className={styles.mintSol}>{(parseFloat(mintPrice) * 0.05).toFixed(2)} SOL</div>
             </div>
           </div>
         ) : (
