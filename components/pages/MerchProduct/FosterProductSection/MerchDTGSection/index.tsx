@@ -362,7 +362,7 @@ const MerchDTGSection = props => {
         <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
       </div>
       {/************* Desktop ************/}
-      <div className="w-full flex gap-[30px] mt-[45px]">
+      <div className="w-full flex gap-[10px] xl:gap-[30px] mt-[45px]">
         <div className={`${styles.leftPanel} lg:block hidden`}>
           <div className={styles.studioDesinger}>Studio Designer</div>
           <div className={`${styles.garment} mt-[15px]`}>
@@ -442,7 +442,7 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div className="flex gap-[12px] mt-[12px]">
+          <div className="flex gap-[8px] xl:gap-[12px] mt-[12px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={
@@ -569,76 +569,77 @@ const MerchDTGSection = props => {
           )}
         </div>
 
-        <div className={styles.rightPanel}>
-          <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]">
-            <canvas id={canvasId} />
-          </div>
-
-          {snapshotAsset[cardSide].length > 0 ? (
-            <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px] flex justify-center">
-              <div className="absolute inset-0">
-                <img
-                  src={snapshotAsset[cardSide]}
-                  alt=""
-                  className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]"
-                />
-              </div>
+        <div className="flex-1 flex justify-center">
+          <div className={styles.rightPanel}>
+            <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]">
+              <canvas id={canvasId} />
             </div>
-          ) : (
-            !assetUrl && (
-              <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px] flex justify-center">
+
+            {snapshotAsset[cardSide].length > 0 ? (
+              <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px] flex justify-center">
                 <div className="absolute inset-0">
                   <img
-                    src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                    src={snapshotAsset[cardSide]}
                     alt=""
-                    className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]"
+                    className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px]"
                   />
                 </div>
-                <div className={`${styles.dropArea}`}>
-                  <Dropzone
-                    onDrop={acceptedFiles => {
-                      acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                    }}
-                    onDropRejected={rejectedFiles => {}}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [] }}
-                    maxSize={31457280}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section>
-                        <button onClick={open} style={{ display: 'none' }}>
-                          open
-                        </button>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <div className="flex flex-col justify-center items-center">
-                            <div className="w-[90px] h-[90px]">
-                              <Lottie animationData={animationData} loop={true} />
-                            </div>
-                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                              <div className={styles.uploadText}>
-                                Upload your
-                                <br />
-                                design here
-                              </div>
-                            ) : (
-                              <div className={styles.uploadText}>
-                                Upload or drop
-                                <br />
-                                your design here
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </div>
               </div>
-            )
-          )}
+            ) : (
+              !assetUrl && (
+                <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                  <div className="absolute inset-0">
+                    <img
+                      src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                      alt=""
+                      className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                    />
+                  </div>
+                  <div className={`${styles.dropArea}`}>
+                    <Dropzone
+                      onDrop={acceptedFiles => {
+                        acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                      }}
+                      onDropRejected={rejectedFiles => {}}
+                      maxFiles={1}
+                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      maxSize={31457280}
+                    >
+                      {({ getRootProps, getInputProps, open }) => (
+                        <section>
+                          <button onClick={open} style={{ display: 'none' }}>
+                            open
+                          </button>
+                          <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <div className="flex flex-col justify-center items-center">
+                              <div className="w-[90px] h-[90px]">
+                                <Lottie animationData={animationData} loop={true} />
+                              </div>
+                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                <div className={styles.uploadText}>
+                                  Upload your
+                                  <br />
+                                  design here
+                                </div>
+                              ) : (
+                                <div className={styles.uploadText}>
+                                  Upload or drop
+                                  <br />
+                                  your design here
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                </div>
+              )
+            )}
 
-          {/* <div className={styles.infoLabel}>
+            {/* <div className={styles.infoLabel}>
             <div>
               <div className="flex gap-[3px]">
                 <div className={styles.printQulity}>Print quality:</div>
@@ -656,6 +657,7 @@ const MerchDTGSection = props => {
               </div>
             </div>
           </div> */}
+          </div>
         </div>
       </div>
       {/************* Mobile ************/}
@@ -860,66 +862,68 @@ const MerchDTGSection = props => {
           </div>
 
           {/* ************mobile*********** */}
-          <div className={styles.buttonArea}>
-            {showEmbPosModal ? (
-              <div className={styles.embFrontContainer}>
-                <div className="w-full flex justify-between">
-                  <div className={styles.embFrontTitle}>Embroidery Placement</div>
-                </div>
-                <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
-                <div className="mt-[15px] flex gap-[16px] justify-end">
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('left')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Left Chest
+          {(assetUrl || snapshotAsset[cardSide].length > 0) && (
+            <div className={styles.buttonArea}>
+              {showEmbPosModal ? (
+                <div className={styles.embFrontContainer}>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.embFrontTitle}>Embroidery Placement</div>
                   </div>
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('center')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Center Chest
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="w-full">
-                <div className={`w-full mt-[20px] px-[15px]`}>
-                  <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
-                </div>
-                <div className="w-full mt-[12px] px-[15px]">
-                  {processingImage ? (
-                    <LoadingButton fullWidth height={50} />
-                  ) : snapshotAsset[cardSide].length > 0 ? (
-                    <div className="w-full flex flex-col gap-[8px] mt-[13px]">
-                      <div className={styles.savedTitle}>Your design has been saved!</div>
-                      <div className={styles.savedContent}>
-                        {"Click next if you're finished, or add another design."}
-                      </div>
+                  <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
+                  <div className="mt-[15px] flex gap-[16px] justify-end">
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('left')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Left Chest
                     </div>
-                  ) : (
-                    <GradientButton
-                      fullWidth
-                      height={50}
-                      fontSize={18}
-                      backgroundColor01="var(--main-icon-color)"
-                      backgroundColor02="var(--main-icon-color)"
-                      color="var(--background-main-color)"
-                      label="Save"
-                      onClick={() => saveApparel()}
-                      disabled={assetUrl === null}
-                    />
-                  )}
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('center')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Center Chest
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="w-full">
+                  <div className={`w-full mt-[20px] px-[15px]`}>
+                    <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
+                  </div>
+                  <div className="w-full mt-[12px] px-[15px]">
+                    {processingImage ? (
+                      <LoadingButton fullWidth height={50} />
+                    ) : snapshotAsset[cardSide].length > 0 ? (
+                      <div className="w-full flex flex-col gap-[8px] mt-[13px]">
+                        <div className={styles.savedTitle}>Your design has been saved!</div>
+                        <div className={styles.savedContent}>
+                          {"Click next if you're finished, or add another design."}
+                        </div>
+                      </div>
+                    ) : (
+                      <GradientButton
+                        fullWidth
+                        height={50}
+                        fontSize={18}
+                        backgroundColor01="var(--main-icon-color)"
+                        backgroundColor02="var(--main-icon-color)"
+                        color="var(--background-main-color)"
+                        label="Save"
+                        onClick={() => saveApparel()}
+                        disabled={assetUrl === null}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <MerchShopInfoModal

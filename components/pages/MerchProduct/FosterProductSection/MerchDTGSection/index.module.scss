@@ -44,8 +44,11 @@
 .leftPanel {
   width: 100%;
   @media (min-width: 1024px) {
-    width: 31.48%;
-    max-width: 510px;
+    width: 450px;
+    height: 700px;
+  }
+  @media (min-width: 1280px) {
+    width: 510px;
     height: 700px;
   }
   padding: 23px 30px;
@@ -58,7 +61,7 @@
   position: relative;
   width: 100%;
   @media (min-width: 1024px) {
-    width: 66.67%;
+    width: auto;
   }
   display: flex;
   justify-content: center;

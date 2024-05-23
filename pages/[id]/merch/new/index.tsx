@@ -59,8 +59,8 @@ const NewCreatorMerch = () => {
           <GradientButton
             icon1={<ArrowLeft />}
             direction="rtl"
-            width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
-            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 44 : 53}
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 105 : 122}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 53}
             label="Back"
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
@@ -85,8 +85,8 @@ const NewCreatorMerch = () => {
 
           <GradientButton
             icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
-            width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
-            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 44 : 53}
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 105 : 122}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 44 : 53}
             label={currentStep === 3 ? 'Publish' : 'Next'}
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
