@@ -111,7 +111,9 @@ const MenuSocialShare = ({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className={type === 'nft' ? styles.menuAreaNft : styles.menuArea}>
+          <Menu.Items
+            className={type === 'icon' ? styles.menuIcon : type === 'nft' ? styles.menuAreaNft : styles.menuArea}
+          >
             <Menu.Item>
               {({ active }) => (
                 <div
