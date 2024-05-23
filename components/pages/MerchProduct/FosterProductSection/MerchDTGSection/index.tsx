@@ -624,8 +624,8 @@ const MerchDTGSection = props => {
         </div>
       </div>
       {/************* Mobile ************/}
-      <div className="w-full block lg:hidden gap-[30px] mt-[15px]">
-        <div className={styles.rightPanel}>
+      <div className="w-full block lg:hidden gap-[30px] mt-[30px]">
+        <div className="w-full relative flex justify-center">
           <div className="w-[375px] h-[375px]">
             <canvas id={canvasId} />
           </div>
@@ -633,17 +633,17 @@ const MerchDTGSection = props => {
           {snapshotAsset[cardSide].length > 0 ? (
             <div className="absolute lg:w-[700px] lg:h-[700px] w-[375px] h-[375px] flex justify-center">
               <div className="absolute inset-0">
-                <img src={snapshotAsset[cardSide]} alt="" className="w-[700px] h-[700px]" />
+                <img src={snapshotAsset[cardSide]} alt="" className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]" />
               </div>
             </div>
           ) : (
             !assetUrl && (
-              <div className="absolute w-[700px] h-[700px] flex justify-center">
+              <div className="absolute lg:w-[700px] lg:h-[700px] w-[375px] h-[375px] flex justify-center">
                 <div className="absolute inset-0">
                   <img
                     src={apparelList[selectedCard.id].apparel[cardSide][color]}
                     alt=""
-                    className="w-[700px] h-[700px]"
+                    className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]"
                   />
                 </div>
                 <div className={`${styles.dropArea}`}>

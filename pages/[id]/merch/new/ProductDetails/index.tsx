@@ -34,7 +34,7 @@ const ProductDetails = props => {
         </div>
       </div>
       <div className="lg:mt-[27px] mt-[8px]">
-        <div className="w-full lg:flex hidden gap-[5px]">
+        <div className="w-full lg:flex hidden gap-[5px] mb-[15px]">
           <div className={styles.fullfill}>Production & Fulfillment</div>
         </div>
 

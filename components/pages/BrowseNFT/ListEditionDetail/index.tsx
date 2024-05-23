@@ -74,6 +74,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [day, setDay] = useState('')
   const [merchCard, setMerchCard] = useState(null)
   const [totalCostExpand, setTotalCostExpand] = useState(false)
+  const [merchProdCost, setMerchProdCost] = useState(0)
+
+  useEffect(() => {
+    if (merchCard) setMerchProdCost(0.3)
+    else setMerchProdCost(0)
+  }, [merchCard])
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
@@ -564,7 +570,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               <div className="flex items-center">
                 <SolanaIcon className="mt-[2px]" />
                 <div className={styles.price}>
-                  {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + 0.3).toFixed(2)}
+                  {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + merchProdCost).toFixed(2)}
                 </div>
                 <div className="ml-[11px]">
                   <ArrowTopWhiteIcon />
@@ -578,7 +584,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
             <div className="w-full mt-[15px] flex justify-between">
               <div className={styles.mintPrice}>Merch Production Cost</div>
-              <div className={styles.mintSol}>0.3 SOL</div>
+              <div className={styles.mintSol}>{merchProdCost} SOL</div>
             </div>
             <div className="w-full mt-[15px] mb-[22px] flex justify-between">
               <div className={styles.mintPrice}>Foster Fee (5%)</div>
@@ -591,7 +597,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             <div className="flex h-[20px] items-center">
               <SolanaIcon className="mt-[2px]" />
               <div className={styles.price}>
-                {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + 0.3).toFixed(2)}
+                {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + merchProdCost).toFixed(2)}
               </div>
               <div className="ml-[11px]">
                 <ArrowDownWhiteIcon />
