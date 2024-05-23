@@ -27,9 +27,11 @@ import { dataURLtoFile } from 'utils/helpers'
 import uploadFileToS3 from 'apis/aws'
 import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
+import { useViewport } from 'utils'
 
 const MerchDTGSection = props => {
   const { selectedCard, productDetail, setProductDetail } = props
+  const viewport = useViewport()
   const [canvas, setCanvas] = useState('')
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
@@ -176,6 +178,9 @@ const MerchDTGSection = props => {
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
 
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+      screenWidth = window.innerWidth
+    }
     let assetLeft
 
     if (technique === 'dtg') {
@@ -626,7 +631,7 @@ const MerchDTGSection = props => {
           </div>
 
           {snapshotAsset[cardSide].length > 0 ? (
-            <div className="absolute w-[700px] h-[700px] flex justify-center">
+            <div className="absolute lg:w-[700px] lg:h-[700px] w-[375px] h-[375px] flex justify-center">
               <div className="absolute inset-0">
                 <img src={snapshotAsset[cardSide]} alt="" className="w-[700px] h-[700px]" />
               </div>
