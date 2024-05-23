@@ -68,12 +68,12 @@ const FosterProductSection = props => {
     <div className="w-full">
       <Swiper
         navigation={true}
-        slidesPerView={5}
+        slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.23 : 5}
         spaceBetween={
           viewport === 'xs'
-            ? 9
+            ? 20
             : viewport === 'sm' || viewport === 'md'
-            ? 30
+            ? 20
             : viewport === 'lg'
             ? 20
             : viewport === '2xl'
@@ -103,7 +103,7 @@ const FosterProductSection = props => {
         ))}
       </Swiper>
 
-      <div className="w-full mt-[60px] mb-[60px]">
+      <div className="w-full lg:mt-[60px] mt-[30px] mb-[60px]">
         {selectedCard !== null && (
           <MerchDTGSection
             selectedCard={selectedCard}

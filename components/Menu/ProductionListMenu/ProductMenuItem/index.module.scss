@@ -61,13 +61,19 @@
 .label {
   flex: 1;
   cursor: pointer;
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 25px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-wrap: nowrap;
   letter-spacing: 0;
   padding: 8px 12px;
+  
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 16px;
+    line-height: 25px;
+  }
 }
 .label:hover {
   color: rgba(var(--text-gray-200-color-rgb), 1);

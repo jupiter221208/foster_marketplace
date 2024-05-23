@@ -1,13 +1,18 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 600px;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 600px;
+    font-size: 16px;
+    gap: 7px;
+    padding: 13px 15px;
+  }
   height: 45px;
-  padding: 13px 15px;
-  gap: 7px;
+  padding: 13px 10px;
   font-family: 'Muli-Light';
-  font-size: 16px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--bg-TRANSPARENT-FFF);
   border-radius: 5px;
@@ -26,20 +31,22 @@
 
 .menuArea {
   position: absolute;
-  @media (max-width: 1023px) {
-    top: 40px;
-    right: 0px;
-  }
+  width: 100%;
   @media (min-width: 1024px) {
+    width: 600px;
     top: 50px;
+    padding: 10px 15px;
   }
+  
+  top: 50px;
+  right: 0px;
+  padding: 6px 8px;
+  
   background: var(--bg-TRANSPARENT-FFF);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
-  width: 650px;
-  padding: 10px 15px;
   overflow: hidden;
   cursor: pointer;
   z-index: 100;
@@ -48,13 +55,10 @@
 
 .menuItem {
   width: 100%;
-
   transition: all 0.2s;
   transition-timing-function: ease-in-out;
-
   display: flex;
   flex-direction: column;
-  
 }
 
 .removeBlueHighlight {

@@ -590,7 +590,9 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             <div className={styles.totalCost}>Total Cost Per Mint</div>
             <div className="flex h-[20px] items-center">
               <SolanaIcon className="mt-[2px]" />
-              <div className={styles.price}>0.63</div>
+              <div className={styles.price}>
+                {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + 0.3).toFixed(2)}
+              </div>
               <div className="ml-[11px]">
                 <ArrowDownWhiteIcon />
               </div>

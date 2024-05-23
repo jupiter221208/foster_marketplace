@@ -18,7 +18,7 @@ const ProductionListMenu = props => {
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
       <Menu>
-        <Menu.Button>
+        <Menu.Button className="lg:w-auto w-full">
           <div className={styles.btnArea}>
             {label}
             <div>

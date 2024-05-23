@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useViewport } from 'utils'
 
 //components
 import NewMerchStepper from 'components/NewMerchStepper'
@@ -16,6 +17,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
+  const viewport = useViewport()
   const [currentStep, setCurrentStep] = useState(1)
   const [productDetail, setProductDetail] = useState(null)
   const [nextEnabled, setNextEnabled] = useState(false)
@@ -56,8 +58,8 @@ const NewCreatorMerch = () => {
           <GradientButton
             icon1={<ArrowLeft />}
             direction="rtl"
-            width={122}
-            height={53}
+            width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
+            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 45 : 53}
             label="Back"
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
@@ -75,14 +77,15 @@ const NewCreatorMerch = () => {
               }
             }}
           />
-          <div className="w-[50%]">
+
+          <div className="w-[50%] lg:flex hidden">
             <NewMerchStepper currentStep={currentStep} />
           </div>
 
           <GradientButton
             icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
-            width={122}
-            height={53}
+            width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
+            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 45 : 53}
             label={currentStep === 3 ? 'Publish' : 'Next'}
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
@@ -101,7 +104,7 @@ const NewCreatorMerch = () => {
           />
         </div>
       </div>
-      <div className="g-container mt-[165px]">
+      <div className="g-container mt-[110px] lg:mt-[165px]">
         {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
         {currentStep >= 2 && (
           <AdditionalDetails productDetail={productDetail} step={currentStep} setEnableNext={setNextEnabled} />
