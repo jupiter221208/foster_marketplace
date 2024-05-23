@@ -219,8 +219,8 @@ const AdditionalDetails = props => {
           <div className="w-full lg:w-[49%]">
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
-              <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-              <div className={`mt-[30px] ${styles.title}`}>Product & Design Details</div>
+              <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
+              <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Product & Design Details</div>
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
@@ -241,7 +241,7 @@ const AdditionalDetails = props => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-[30px]">
+            <div className="w-full mt-[20px] sm:mt-[30px]">
               <div className={styles.title}>Commision Details</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
@@ -266,7 +266,7 @@ const AdditionalDetails = props => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-[30px] mb-[100px]">
+            <div className="w-full mt-[20px] sm:mt-[30px] mb-[100px]">
               <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
                 <div className={`${styles.desc} mt-[15px]`}>
@@ -396,8 +396,8 @@ const AdditionalDetails = props => {
                 onChange={value => setTitle(limit(value, 40))}
               />
             </div>
-            <div className="w-full mt-[30px]">
-              <div className={styles.title}>Additional Details</div>
+            <div className="w-full sm:mt-[30px] mt-[20px]">
+              <div className={styles.title}>Product & Design Details</div>
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
@@ -417,12 +417,12 @@ const AdditionalDetails = props => {
                   <div className={styles.price}>{priceLeft > 0 ? '$' + priceLeft : 'N/A'}</div>
                 </div>
               </div>
-              <div className="w-full mt-[15px] flex justify-between px-[16px]">
+              <div className="w-full mt-[15px] flex justify-between px-[0px] lg:px-[16px]">
                 <div className={styles.production}>Production Price</div>
                 <div className={styles.priceUnit}>${(priceBase + priceFB + priceRight + priceLeft).toFixed(2)}</div>
               </div>
             </div>
-            <div className="w-full mt-[30px]">
+            <div className="w-full sm:mt-[30px] mt-[20px]">
               <div className={styles.title}>Method of Sale</div>
               <div className="mt-[15px]">
                 <ProductionListMenu
@@ -442,7 +442,7 @@ const AdditionalDetails = props => {
               </div>
             )}
             {saleMethod.id === 1 && (
-              <div className="w-full mt-[30px]">
+              <div className="w-full sm:mt-[30px] mt-[20px]">
                 <div className={styles.title}>
                   Selling Price <span>*</span>
                 </div>
@@ -478,7 +478,7 @@ const AdditionalDetails = props => {
                   </div>
                 )}
 
-                <div className="mt-[30px]">
+                <div className="sm:mt-[30px] mt-[20px]">
                   <div className={styles.title}>Max Supply (optional)</div>
                   <div className="mt-[15px]">
                     <ProductionListMenu
@@ -491,7 +491,7 @@ const AdditionalDetails = props => {
                     />
                   </div>
                   {maxSupplyItem.id === 1 && (
-                    <div className="w-full mt-[30px]">
+                    <div className="w-full sm:mt-[30px] mt-[20px]">
                       <div className={styles.title}>
                         Limited Supply <span>*</span>
                       </div>
@@ -504,12 +504,12 @@ const AdditionalDetails = props => {
                           }}
                         />
                       </div>
-                      <div className="w-full mt-[30px]">
+                      <div className="w-full sm:mt-[30px] mt-[20px]">
                         <div className={styles.title}>
                           Release Date <span>*</span>
                         </div>
                       </div>
-                      <div className="w-full flex justify-between lg:justify-normal lg:gap-[112px]">
+                      <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
                         <div
                           className={`flex items-center ${
                             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
@@ -578,7 +578,7 @@ const AdditionalDetails = props => {
                           </div>
                         </div>
                       </div>
-                      <div className="mt-[30px]">
+                      <div className="sm:mt-[30px] mt-[20px]">
                         <div className={styles.title}>Release Duration (optional)</div>
                         <div className="mt-[15px]">
                           <ProductionListMenu
@@ -592,7 +592,7 @@ const AdditionalDetails = props => {
                         </div>
                       </div>
                       {releaseDurationItem.id === 1 && (
-                        <div className="w-full mt-[30px]">
+                        <div className="w-full sm:mt-[30px] mt-[20px]">
                           <div className={styles.title}>
                             Limited Duration <span>*</span>
                           </div>
@@ -650,6 +650,7 @@ const AdditionalDetails = props => {
                                 {', '}
                                 {endDate.toLocaleDateString()}&nbsp;
                               </span>
+                              (in your local time)
                               {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
                             </div>
                           </div>
@@ -684,7 +685,7 @@ const AdditionalDetails = props => {
                   Release Date <span>*</span>
                 </div>
               </div>
-              <div className="w-full flex justify-between lg:justify-normal lg:gap-[112px]">
+              <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
                 <div
                   className={`flex items-center ${
                     viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
