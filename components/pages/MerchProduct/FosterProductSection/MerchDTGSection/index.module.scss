@@ -42,9 +42,12 @@
 }
 
 .leftPanel {
-  width: 31.48%;
-  max-width: 510px;
-  height: 700px;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 31.48%;
+    max-width: 510px;
+    height: 700px;
+  }
   padding: 23px 30px;
   background: rgba(var(--main-bg-color-rgb), 0.02);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -53,7 +56,10 @@
 
 .rightPanel {
   position: relative;
-  width: 66.67%;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 66.67%;
+  }
   display: flex;
   justify-content: center;
 }
@@ -116,8 +122,14 @@
 }
 
 .dropArea {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
+  margin-top: 100px;
+  @media (min-width: 1024px) {
+    width: 200px;
+    height: 200px;
+    margin-top: 200px;
+  }
   border-radius: 100px;
   display:flex;
   justify-content: center;
@@ -125,7 +137,7 @@
   z-index: 10;
   background: #242424;;
   border: 2px solid #707070;
-  margin-top: 200px;
+  
 }
 
 .infoLabel {
@@ -170,8 +182,11 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  margin-top: 2px;
+  margin-top: -6px;
   text-align: center;
+  @media (min-width: 1024px) {
+    margin-top: 2px;
+  }
 }
 
 .uploadArea {

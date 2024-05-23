@@ -178,9 +178,6 @@ const MerchDTGSection = props => {
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
 
-    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
-      screenWidth = window.innerWidth
-    }
     let assetLeft
 
     if (technique === 'dtg') {
@@ -195,6 +192,14 @@ const MerchDTGSection = props => {
       } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
     }
 
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+      screenWidth = window.innerWidth
+      assetWidth = (assetWidth * screenWidth) / 700
+      assetHeight = (assetHeight * screenWidth) / 700
+      assetTop = (assetTop * screenWidth) / 700
+      assetLeft = (assetLeft * screenWidth) / 700
+    }
+    console.log(screenWidth, assetWidth, assetHeight, assetTop, assetLeft)
     newCanvas.setDimensions({
       width: screenWidth,
       height: screenWidth,
@@ -215,8 +220,19 @@ const MerchDTGSection = props => {
 
     setTimeout(() => {
       new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
+        const { width, height } = img.getOriginalSize()
+
         img.scale(screenWidth / 700, false)
         newCanvas.add(img)
+
+        if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
+          img.set({
+            scaleX: screenWidth / width,
+            scaleY: screenWidth / width,
+            top: 0,
+            left: 0,
+          })
+        }
 
         newCanvas.item(0).selectable = false
 
@@ -340,8 +356,8 @@ const MerchDTGSection = props => {
         <span onClick={() => setShowInfoModal(true)}>product extras and costs</span> for a breakdown of prices.
       </div>
       {/************* Desktop ************/}
-      <div className="w-full lg:flex hidden gap-[30px] mt-[45px]">
-        <div className={styles.leftPanel}>
+      <div className="w-full flex gap-[30px] mt-[45px]">
+        <div className={`${styles.leftPanel} lg:flex hidden`}>
           <div className={styles.studioDesinger}>Studio Designer</div>
           <div className={`${styles.garment} mt-[15px]`}>
             Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
@@ -548,85 +564,7 @@ const MerchDTGSection = props => {
         </div>
 
         <div className={styles.rightPanel}>
-          <div className="w-[700px] h-[700px]">
-            <canvas id={canvasId} />
-          </div>
-
-          {snapshotAsset[cardSide].length > 0 ? (
-            <div className="absolute w-[700px] h-[700px] flex justify-center">
-              <div className="absolute inset-0">
-                <img src={snapshotAsset[cardSide]} alt="" className="w-[700px] h-[700px]" />
-              </div>
-            </div>
-          ) : (
-            !assetUrl && (
-              <div className="absolute w-[700px] h-[700px] flex justify-center">
-                <div className="absolute inset-0">
-                  <img
-                    src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                    alt=""
-                    className="w-[700px] h-[700px]"
-                  />
-                </div>
-                <div className={`${styles.dropArea}`}>
-                  <Dropzone
-                    onDrop={acceptedFiles => {
-                      acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                    }}
-                    onDropRejected={rejectedFiles => {}}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [] }}
-                    maxSize={31457280}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section>
-                        <button onClick={open} style={{ display: 'none' }}>
-                          open
-                        </button>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <div className="flex flex-col justify-center items-center">
-                            <div className="w-[90px] h-[90px]">
-                              <Lottie animationData={animationData} loop={true} />
-                            </div>
-                            <div className={styles.uploadText}>
-                              Upload or drop
-                              <br />
-                              your design here
-                            </div>
-                          </div>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
-                </div>
-              </div>
-            )
-          )}
-          {/* <div className={styles.infoLabel}>
-            <div>
-              <div className="flex gap-[3px]">
-                <div className={styles.printQulity}>Print quality:</div>
-                <div className={styles.printDPI}>Good / 481 DPI</div>
-              </div>
-              <div className="flex gap-[15px] mt-[15px]">
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Width</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.width}</div>
-                </div>
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Height</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.height}</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
-      </div>
-      {/************* Mobile ************/}
-      <div className="w-full block lg:hidden gap-[30px] mt-[30px]">
-        <div className="w-full relative flex justify-center">
-          <div className="w-[375px] h-[375px]">
+          <div className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]">
             <canvas id={canvasId} />
           </div>
 
@@ -667,11 +605,19 @@ const MerchDTGSection = props => {
                             <div className="w-[90px] h-[90px]">
                               <Lottie animationData={animationData} loop={true} />
                             </div>
-                            <div className={styles.uploadText}>
-                              Upload or drop
-                              <br />
-                              your design here
-                            </div>
+                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                              <div className={styles.uploadText}>
+                                Upload your
+                                <br />
+                                design here
+                              </div>
+                            ) : (
+                              <div className={styles.uploadText}>
+                                Upload or drop
+                                <br />
+                                your design here
+                              </div>
+                            )}
                           </div>
                         </div>
                       </section>
@@ -681,29 +627,33 @@ const MerchDTGSection = props => {
               </div>
             )
           )}
-        </div>
-        <div className={styles.leftPanel}>
-          <div className={styles.studioDesinger}>Studio Designer</div>
-          <div className={`${styles.garment} mt-[15px]`}>
-            Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
-            in your studio store.
-          </div>
-          <div className="w-full mt-[15px]">
-            <div className={styles.technique}>
-              Technique
-              <div
-                onMouseEnter={() => {
-                  document.getElementById(alertId).style.display = 'block'
-                }}
-                onMouseLeave={() => {
-                  document.getElementById(alertId).style.display = 'none'
-                }}
-              >
-                <InfoIcon className="mt-[2px]" />
+
+          {/* <div className={styles.infoLabel}>
+            <div>
+              <div className="flex gap-[3px]">
+                <div className={styles.printQulity}>Print quality:</div>
+                <div className={styles.printDPI}>Good / 481 DPI</div>
               </div>
-              <TechniqueClipboardChip identifier={alertId} />
+              <div className="flex gap-[15px] mt-[15px]">
+                <div className="flex gap-[3px]">
+                  <div className={styles.printQulity}>Width</div>
+                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.width}</div>
+                </div>
+                <div className="flex gap-[3px]">
+                  <div className={styles.printQulity}>Height</div>
+                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.height}</div>
+                </div>
+              </div>
             </div>
-            <div className="w-full mt-[15px] flex gap-[15px]">
+          </div> */}
+        </div>
+      </div>
+      {/************* Mobile ************/}
+      <div className="w-full bloack lg:hidden mt-[15px]">
+        <div>
+          <div className="w-full mt-[15px]">
+            <div className={styles.technique}>Technique</div>
+            <div className="w-full mt-[10px] flex gap-[15px]">
               <div
                 className={technique === 'dtg' ? styles.selectedBtn : styles.unselectedBtn}
                 onClick={() => {
@@ -734,7 +684,7 @@ const MerchDTGSection = props => {
           </div>
           <div className="w-full mt-[20px]">
             <div className={styles.technique}>Color</div>
-            <div className="w-full mt-[15px] flex gap-[15px]">
+            <div className="w-full mt-[10px] flex gap-[12px]">
               <div
                 className={`${styles.whiteColor} ${color === 'white' && styles.selectedColor}`}
                 onClick={() => {
@@ -761,7 +711,7 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div className="flex gap-[12px] mt-[12px]">
+          <div className="flex gap-[9px] mt-[10px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={
@@ -857,7 +807,15 @@ const MerchDTGSection = props => {
             </div>
           ) : (
             <div className="w-full">
-              <div className={`w-full ${technique === 'dtg' ? 'mt-[44px]' : 'mt-[27px]'}`}>
+              <div
+                className={`w-full ${
+                  technique === 'dtg'
+                    ? viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
+                      ? 'mt-[20px]'
+                      : 'mt-[44px]'
+                    : 'mt-[27px]'
+                }`}
+              >
                 <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
               </div>
               <div className="w-full mt-[18px]">
