@@ -32,7 +32,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
 
   return (
     <div className="w-full pb-[60px]">
-      <div className="w-full h-[350px] relative">
+      <div className="w-full h-[200px] sm:h-[350px] relative">
         <img src={artistInfo.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
           <div className={styles.overlayBG}>
