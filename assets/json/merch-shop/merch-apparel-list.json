@@ -11,7 +11,7 @@
       },
       "emb": {
         "front": {"width": 90, "height": 90, "top": 180, "left": 394, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 255, "left": 240, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 255, "left": 230, "angle": 0 },
         "right": {"width": 47, "height": 70, "top": 560, "left": 345, "angle": -11 },
         "left": {"width": 47, "height": 70, "top": 555, "left": 310, "angle": 11 }
       }
@@ -63,7 +63,7 @@
       },
       "emb": {
         "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 240, "angle": 0 },
+        "back": {"width": 220, "height": 290, "top": 150, "left": 230, "angle": 0 },
         "right": {"width": 59, "height": 70, "top": 138, "left": 293, "angle": 0 },
         "left": {"width": 59, "height": 70, "top": 138, "left": 363, "angle": 0 }
       }
@@ -83,13 +83,13 @@
     "location": { 
       "dtg": {
         "front": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 117, "left": 240, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
         "right": {"width": 47, "height": 176, "top": 286, "left": 415, "angle": -11 },
         "left": {"width": 47, "height": 176, "top": 286, "left": 235, "angle": 11 }
       },
       "emb": {
         "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 150, "left": 240, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 150, "left": 230, "angle": 0 },
         "right": {"width": 47, "height": 70, "top": 535, "left": 465, "angle": -11 },
         "left": {"width": 47, "height": 70, "top": 525, "left": 185, "angle": 11 }
       }

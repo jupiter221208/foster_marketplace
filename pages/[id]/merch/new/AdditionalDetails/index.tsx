@@ -192,21 +192,21 @@ const AdditionalDetails = props => {
   }
 
   return (
-    <div className="w-full flex gap-[50px] mt-[45px]">
-      <div className="w-[46%]">
+    <div className="w-full lg:flex flex-col lg:flex-row gap-[50px] mt-[45px]">
+      <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
           <div className="w-[450px] h-[450px]">
             <ImageWithFoster src={apparelUrl} width={700} className="w-full h-full object-cover" />
           </div>
         </div>
-        <div className="w-full flex gap-[30px] mt-[30px] mb-[30px]">
+        <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
           {assetUrls.map((item, index) => (
             <div
               key={index}
               className={item.selected ? styles.selectedItem : styles.deselectedItem}
               onClick={() => selectAssetItem(item)}
             >
-              <div className="w-[110px] h-[110px]">
+              <div className="sm:w-[110px] sm:h-[110px] w-[70px] h-[70px]">
                 <ImageWithFoster src={item.url} width={110} className="w-full h-full object-cover" />
               </div>
             </div>
@@ -216,7 +216,7 @@ const AdditionalDetails = props => {
 
       {step === 3 &&
         (productDetail.product?.id === 0 ? (
-          <div className="w-[49%]">
+          <div className="w-full lg:w-[49%]">
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
@@ -319,7 +319,7 @@ const AdditionalDetails = props => {
           </div>
         ) : (
           /**************************** Product 2 *************************************/
-          <div className="w-[49%]">
+          <div className="w-full lg:w-[49%]">
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
@@ -383,7 +383,7 @@ const AdditionalDetails = props => {
 
       {step === 2 &&
         (productDetail.product?.id === 0 ? (
-          <div className="w-[49%]">
+          <div className="w-full lg:w-[49%] pb-[150px] lg:pb-[200px]">
             <div className={styles.title}>
               Product Name <span>*</span>
             </div>
@@ -442,7 +442,7 @@ const AdditionalDetails = props => {
               </div>
             )}
             {saleMethod.id === 1 && (
-              <div className="w-full mt-[30px] mb-[200px]">
+              <div className="w-full mt-[30px]">
                 <div className={styles.title}>
                   Selling Price <span>*</span>
                 </div>
@@ -509,7 +509,7 @@ const AdditionalDetails = props => {
                           Release Date <span>*</span>
                         </div>
                       </div>
-                      <div className="w-full flex gap-[112px]">
+                      <div className="w-full flex justify-between lg:justify-normal lg:gap-[112px]">
                         <div
                           className={`flex items-center ${
                             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
@@ -662,7 +662,7 @@ const AdditionalDetails = props => {
             )}
           </div>
         ) : (
-          <div className="w-[49%] mb-[200px]">
+          <div className="w-full lg:w-[49%] mb-[200px]">
             <div className={styles.title}>
               Selling Price <span>*</span>
             </div>
