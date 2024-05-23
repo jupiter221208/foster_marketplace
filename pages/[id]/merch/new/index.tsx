@@ -7,13 +7,14 @@ import NewMerchStepper from 'components/NewMerchStepper'
 import ProductDetails from './ProductDetails'
 import AdditionalDetails from './AdditionalDetails'
 import NoNavLayout from 'components/Layout/NoNavLayout'
+import GradientButton from 'components/Button/GradientButton'
 
 // images
 import ArrowLeft from 'assets/icons/arrow-left-black.svg?component'
 import ArrowRightBlack from 'assets/icons/arrow-right-black.svg?component'
 
 // styles
-import GradientButton from 'components/Button/GradientButton'
+import styles from './index.module.scss'
 
 const NewCreatorMerch = () => {
   const router = useRouter()
@@ -53,13 +54,13 @@ const NewCreatorMerch = () => {
 
   return (
     <div className="w-full relative">
-      <div className="fixed g-container" style={{ background: 'var(--bg-new-color)', zIndex: 10001 }}>
-        <div className="w-full mt-[22px] h-[78px] flex justify-between items-start">
+      <div className={`fixed g-container ${styles.navbar}`} style={{ zIndex: 10001 }}>
+        <div className="w-full mt-[20px] h-[60px] lg:mt-[22px] lg:h-[78px] flex justify-between items-start">
           <GradientButton
             icon1={<ArrowLeft />}
             direction="rtl"
             width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
-            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 45 : 53}
+            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 40 : 53}
             label="Back"
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
@@ -85,7 +86,7 @@ const NewCreatorMerch = () => {
           <GradientButton
             icon1={currentStep === 3 ? '' : <ArrowRightBlack />}
             width={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 105 : 122}
-            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 45 : 53}
+            height={viewport === 'xs' || viewport === 'xs' || viewport === 'xs' ? 40 : 53}
             label={currentStep === 3 ? 'Publish' : 'Next'}
             borderRadius={30}
             backgroundColor01="var(--place-bid-minimum-color)"
@@ -104,6 +105,7 @@ const NewCreatorMerch = () => {
           />
         </div>
       </div>
+
       <div className="g-container mt-[110px] lg:mt-[165px]">
         {currentStep === 1 && <ProductDetails productDetail={productDetail} setProductDetail={setProductDetail} />}
         {currentStep >= 2 && (
