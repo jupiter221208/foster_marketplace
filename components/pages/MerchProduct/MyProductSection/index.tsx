@@ -21,7 +21,7 @@ import ImageCard from './ImageCard'
 import Input from 'components/Input'
 import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
-import ProductionListMenu from 'components/ProductionListMenu'
+import ProductionListMenu from 'components/Menu/ProductionListMenu'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
@@ -89,8 +89,8 @@ const MyProductSection = props => {
 
   return (
     <div className="w-full">
-      <div className="w-full lg:flex hidden gap-[72px] justify-between">
-        <div className="w-[45%]">
+      <div className="w-full flex lg:flex-row flex-col gap-[20px] sm:gap-[72px] justify-between">
+        <div className="lg:w-[45%] w-full">
           <div className="flex gap-[5px] mb-[15px]">
             <div className={styles.fullfill}>Product Image (max 4)</div> <div className={styles.asterisk}>*</div>
           </div>
@@ -148,7 +148,7 @@ const MyProductSection = props => {
               )}
             </div>
           </div>
-          <div className="flex gap-[30px] mt-[32px] mb-[32px]">
+          <div className="flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[32px] lg:mb-[32px] mb-[0px]">
             {imageList.length > 0 && (
               <ImageCard
                 index={0}
@@ -212,7 +212,7 @@ const MyProductSection = props => {
             )}
           </div>
         </div>
-        <div className="w-[50%]">
+        <div className="lg:w-[50%] w-full">
           <div className="flex gap-[5px] mb-[15px]">
             <div className={styles.fullfill}>Product Name</div> <div className={styles.asterisk}>*</div>
           </div>
@@ -228,7 +228,7 @@ const MyProductSection = props => {
               }}
             />
           </div>
-          <div className="flex gap-[5px] mt-[30px]">
+          <div className="flex gap-[5px] mt-[20px] sm:mt-[30px]">
             <div className={styles.fullfill}>Product Description</div> <div className={styles.asterisk}>*</div>
           </div>
           <div className="w-full mt-[15px]">
@@ -245,14 +245,14 @@ const MyProductSection = props => {
               }}
             />
           </div>
-          <div className="mt-[30px]">
+          <div className="sm:mt-[30px] mt-[20px]">
             <div className="w-full flex gap-[5px] mb-[15px]">
               <div className={styles.fullfill}>
                 Product Type <span>*</span>
               </div>
             </div>
             <ProductionListMenu
-              width={600}
+              // width={600}
               label={productType.id === -1 ? 'Select a category that best describes this product' : productType.label}
               data={ProductType}
               selectedItem={productType}
@@ -262,14 +262,14 @@ const MyProductSection = props => {
               }}
             />
           </div>
-          <div className="mt-[30px] mb-[300px]">
+          <div className="sm:mt-[30px] mt-[20px] mb-[300px]">
             <div className="w-full flex gap-[5px] mb-[15px]">
               <div className={styles.fullfill}>
                 Shipping & Handling <span>*</span>
               </div>
             </div>
             <ProductionListMenu
-              width={600}
+              // width={600}
               label={shipping.id === -1 ? 'Select a category that best describes this product' : shipping.label}
               data={ShippingList}
               selectedItem={shipping}

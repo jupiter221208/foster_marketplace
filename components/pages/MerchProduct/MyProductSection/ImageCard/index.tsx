@@ -15,7 +15,7 @@ const ImageCard = props => {
   const { index, image, setImage, isSelected = false, onSelect, onDelete } = props
   const [showDelete, setShowDelete] = useState(false)
   return (
-    <div className="w-[130px] h-[130px]" onClick={() => onSelect(index)}>
+    <div className="w-[79px] h-[79px] sm:w-[130px] sm:h-[130px]" onClick={() => onSelect(index)}>
       {image ? (
         <div
           className={isSelected ? styles.selected : styles.noSelect}

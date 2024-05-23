@@ -195,8 +195,8 @@ const AdditionalDetails = props => {
     <div className="w-full lg:flex flex-col lg:flex-row gap-[50px] mt-[45px]">
       <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
-          <div className="w-[450px] h-[450px]">
-            <ImageWithFoster src={apparelUrl} width={700} className="w-full h-full object-cover" />
+          <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] ">
+            <img src={apparelUrl} width={700} className="w-full h-full object-cover" />
           </div>
         </div>
         <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
@@ -206,7 +206,7 @@ const AdditionalDetails = props => {
               className={item.selected ? styles.selectedItem : styles.deselectedItem}
               onClick={() => selectAssetItem(item)}
             >
-              <div className="sm:w-[110px] sm:h-[110px] w-[70px] h-[70px]">
+              <div className="sm:w-[110px] sm:h-[110px] w-[78px] h-[78px]">
                 <ImageWithFoster src={item.url} width={110} className="w-full h-full object-cover" />
               </div>
             </div>
@@ -684,7 +684,7 @@ const AdditionalDetails = props => {
                   Release Date <span>*</span>
                 </div>
               </div>
-              <div className="w-full flex gap-[112px]">
+              <div className="w-full flex justify-between lg:justify-normal lg:gap-[112px]">
                 <div
                   className={`flex items-center ${
                     viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'

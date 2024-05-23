@@ -33,7 +33,7 @@ const ProductDetails = props => {
           of your merch, or you can choose to handle it.
         </div>
       </div>
-      <div className="lg:mt-[27px] mt-[8px]">
+      <div className="lg:mt-[27px] mt-[8px] sm:mt-[20px] lg:mt-[10px]">
         <div className="w-full lg:flex hidden gap-[5px] mb-[15px]">
           <div className={styles.fullfill}>Production & Fulfillment</div>
         </div>
