@@ -721,7 +721,7 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px]">
+          <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px] mb-[160px] lg:mb-[0px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={
@@ -785,76 +785,141 @@ const MerchDTGSection = props => {
               />
             )}
           </div>
-          {showEmbPosModal ? (
-            <div className={styles.embFrontContainer}>
-              <div className="w-full flex justify-between">
-                <div className={styles.embFrontTitle}>Embroidery Placement</div>
-              </div>
-              <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
-              <div className="mt-[15px] flex gap-[16px] justify-end">
-                <div
-                  className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                  onClick={() => {
-                    setEmbPlace('left')
-                    setShowEmbPosModal(false)
-                  }}
-                >
-                  Left Chest
+          {/* **************Buttons desktop************** */}
+          <div className="w-full lg:block hidden">
+            {showEmbPosModal ? (
+              <div className={styles.embFrontContainer}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.embFrontTitle}>Embroidery Placement</div>
                 </div>
-                <div
-                  className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                  onClick={() => {
-                    setEmbPlace('center')
-                    setShowEmbPosModal(false)
-                  }}
-                >
-                  Center Chest
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="w-full">
-              <div
-                className={`w-full ${
-                  technique === 'dtg'
-                    ? viewport === 'xs'
-                      ? 'mt-[20px]'
-                      : viewport === 'sm'
-                      ? 'mt-[30px]'
-                      : viewport === 'lg'
-                      ? 'mt-[44px]'
-                      : 'mt-[30px]'
-                    : 'mt-[27px]'
-                }`}
-              >
-                <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
-              </div>
-              <div className="w-full mt-[18px]">
-                {processingImage ? (
-                  <LoadingButton fullWidth height={50} />
-                ) : snapshotAsset[cardSide].length > 0 ? (
-                  <div className="w-full flex flex-col gap-[8px] mt-[13px]">
-                    <div className={styles.savedTitle}>Your design has been saved!</div>
-                    <div className={styles.savedContent}>
-                      {"Click next if you're finished, otherwise add another design."}
-                    </div>
+                <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
+                <div className="mt-[15px] flex gap-[16px] justify-end">
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('left')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Left Chest
                   </div>
-                ) : (
-                  <GradientButton
-                    fullWidth
-                    height={50}
-                    fontSize={18}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
-                    label="Save"
-                    onClick={() => saveApparel()}
-                    disabled={assetUrl === null}
-                  />
-                )}
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('center')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Center Chest
+                  </div>
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="w-full">
+                <div
+                  className={`w-full ${
+                    technique === 'dtg'
+                      ? viewport === 'xs'
+                        ? 'mt-[20px]'
+                        : viewport === 'sm'
+                        ? 'mt-[30px]'
+                        : viewport === 'lg'
+                        ? 'mt-[44px]'
+                        : 'mt-[30px]'
+                      : 'mt-[27px]'
+                  }`}
+                >
+                  <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
+                </div>
+                <div className="w-full mt-[18px]">
+                  {processingImage ? (
+                    <LoadingButton fullWidth height={50} />
+                  ) : snapshotAsset[cardSide].length > 0 ? (
+                    <div className="w-full flex flex-col gap-[8px] mt-[13px]">
+                      <div className={styles.savedTitle}>Your design has been saved!</div>
+                      <div className={styles.savedContent}>
+                        {"Click next if you're finished, otherwise add another design."}
+                      </div>
+                    </div>
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={50}
+                      fontSize={18}
+                      backgroundColor01="var(--main-icon-color)"
+                      backgroundColor02="var(--main-icon-color)"
+                      color="var(--background-main-color)"
+                      label="Save"
+                      onClick={() => saveApparel()}
+                      disabled={assetUrl === null}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* ************mobile*********** */}
+          <div className={styles.buttonArea}>
+            {showEmbPosModal ? (
+              <div className={styles.embFrontContainer}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.embFrontTitle}>Embroidery Placement</div>
+                </div>
+                <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
+                <div className="mt-[15px] flex gap-[16px] justify-end">
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('left')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Left Chest
+                  </div>
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('center')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Center Chest
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full">
+                <div className={`w-full mt-[20px] px-[15px]`}>
+                  <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
+                </div>
+                <div className="w-full mt-[12px] px-[15px]">
+                  {processingImage ? (
+                    <LoadingButton fullWidth height={50} />
+                  ) : snapshotAsset[cardSide].length > 0 ? (
+                    <div className="w-full flex flex-col gap-[8px] mt-[13px]">
+                      <div className={styles.savedTitle}>Your design has been saved!</div>
+                      <div className={styles.savedContent}>
+                        {"Click next if you're finished, or add another design."}
+                      </div>
+                    </div>
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={50}
+                      fontSize={18}
+                      backgroundColor01="var(--main-icon-color)"
+                      backgroundColor02="var(--main-icon-color)"
+                      color="var(--background-main-color)"
+                      label="Save"
+                      onClick={() => saveApparel()}
+                      disabled={assetUrl === null}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <MerchShopInfoModal

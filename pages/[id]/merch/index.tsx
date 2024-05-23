@@ -50,11 +50,8 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          {/* <div className="w-full flex z-10 relative overflow-hidden h-[46px]">
-            <CreatorMerchTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-          </div> */}
-          <div className="w-full mt-[30px] flex justify-between">
-            <div className="flex gap-[15px]">
+          <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-normal lg:justify-between">
+            <div className="flex gap-[9px] sm:gap-[15px]">
               <div
                 className={styles.profile}
                 onClick={() => {
@@ -77,7 +74,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 <div className="mt-[-2px]">Badges</div>
               </div>
             </div>
-            <div className="flex gap-[15px]">
+            <div className="flex gap-[8px] sm:gap-[15px]">
               <div
                 className={styles.plus}
                 onClick={() => {
@@ -89,17 +86,28 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                   <PlusIcon />
                 </div>
               </div>
-              <div className={`${styles.iconContainer} w-[87px]`}>
-                <MenuSocialShare
-                  type="nft"
-                  vote={true}
-                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                  url={`/${artistInfo?.username}`}
-                />
+              <div className="hidden sm:block">
+                <div className={`${styles.iconContainer} w-[87px]`}>
+                  <MenuSocialShare
+                    type="nft"
+                    vote={true}
+                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                    url={`/${artistInfo?.username}`}
+                  />
+                </div>
+              </div>
+              <div className="block sm:hidden">
+                <div className={`${styles.iconContainer}`}>
+                  <MenuSocialShare
+                    vote={true}
+                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                    url={`/${artistInfo?.username}`}
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div className="w-full mt-[30px]">
+          <div className="w-full mt-[20px] sm:mt-[30px] ">
             {activeTab === 0 && <CreatorMerchShop username={artistInfo.username} />}
             {activeTab === 2 && <CreatorMerchBadges />}
           </div>

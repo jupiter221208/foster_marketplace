@@ -46,7 +46,7 @@ const FosterProductSection = props => {
     setProductList(cardList)
 
     window.scrollTo({
-      top: 860,
+      top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 790 : 860,
       behavior: 'smooth',
     })
   }, [selectedCard])

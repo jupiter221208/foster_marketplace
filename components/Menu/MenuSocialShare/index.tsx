@@ -95,8 +95,8 @@ const MenuSocialShare = ({
                 <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
               </div>
             ) : (
-              <div className="mt-[4px]">
-                <Image src={vote ? icon02 : icon01} alt="" />
+              <div className="">
+                <ShareSmallIcon />
               </div>
             )}
           </div>

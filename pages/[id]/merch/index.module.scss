@@ -64,12 +64,15 @@
   line-height: 18px;
   font-family: "Muli-Regular";
   color: var(--text-gray-200-color);
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 0px 15px;
   cursor: pointer;
+  display: none;
+  @media (min-width: 640px) {
+    display: flex;  
+  }
 }
 
 .plus {
@@ -121,6 +124,10 @@
 }
 
 .iconContainer {
+  width: 35px;
+  @media (min-width: 640px) {
+    width: auto;
+  }
   height: 35px;
   display: flex;
   align-items: center;
@@ -132,8 +139,11 @@
 }
 
 .selected {
-  width: 87px;
+  width: 80px;
   height: 35px;
+  @media (min-width: 640px) {
+    width: 87px;
+  }
   border-radius: 18px;
   background: var(--main-icon-color);
   color: var(--background-main-color);
@@ -148,8 +158,11 @@
 }
 
 .unselected {
-  width: 87px;
+  width: 80px;
   height: 35px;
+  @media (min-width: 640px) {
+    width: 87px;
+  }
   border-radius: 18px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   background: var(--background-main-color);
