@@ -723,7 +723,7 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px] mb-[160px] lg:mb-[0px]">
+          <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px] mb-[200px] lg:mb-[0px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={
