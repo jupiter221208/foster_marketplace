@@ -39,7 +39,7 @@ const MerchDTGCard = props => {
       <div className={`${styles.imageArea} ${selected ? styles.selected : ''}`}>
         <img src={image} alt="" />
       </div>
-      <div className="flex flex-col gap-[2px] lg:mt-[11px] mt-[6px] justify-center items-center">
+      <div className="flex flex-col gap-[2px] lg:mt-[11px] sm:mt-[23px] mt-[6px] justify-center items-center">
         <div className={styles.side}>{getLabel()}</div>
         {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
         {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}

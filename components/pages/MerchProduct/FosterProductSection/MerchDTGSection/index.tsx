@@ -192,8 +192,14 @@ const MerchDTGSection = props => {
       } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
     }
 
-    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
-      screenWidth = window.innerWidth
+    if (window.innerWidth < 640) {
+      screenWidth = 375
+      assetWidth = (assetWidth * screenWidth) / 700
+      assetHeight = (assetHeight * screenWidth) / 700
+      assetTop = (assetTop * screenWidth) / 700
+      assetLeft = (assetLeft * screenWidth) / 700
+    } else if (window.innerWidth < 1024) {
+      screenWidth = 630
       assetWidth = (assetWidth * screenWidth) / 700
       assetHeight = (assetHeight * screenWidth) / 700
       assetTop = (assetTop * screenWidth) / 700
@@ -357,13 +363,13 @@ const MerchDTGSection = props => {
       </div>
       {/************* Desktop ************/}
       <div className="w-full flex gap-[30px] mt-[45px]">
-        <div className={`${styles.leftPanel} lg:flex hidden`}>
+        <div className={`${styles.leftPanel} lg:block hidden`}>
           <div className={styles.studioDesinger}>Studio Designer</div>
           <div className={`${styles.garment} mt-[15px]`}>
             Select the printing technique and fabric color. Add your design, generate mockups, and showcase this merch
             in your studio store.
           </div>
-          <div className="w-full mt-[15px]">
+          <div className="w-full mt-[20px]">
             <div className={styles.technique}>
               Technique
               <div
@@ -564,24 +570,28 @@ const MerchDTGSection = props => {
         </div>
 
         <div className={styles.rightPanel}>
-          <div className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]">
+          <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]">
             <canvas id={canvasId} />
           </div>
 
           {snapshotAsset[cardSide].length > 0 ? (
-            <div className="absolute lg:w-[700px] lg:h-[700px] w-[375px] h-[375px] flex justify-center">
+            <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px] flex justify-center">
               <div className="absolute inset-0">
-                <img src={snapshotAsset[cardSide]} alt="" className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]" />
+                <img
+                  src={snapshotAsset[cardSide]}
+                  alt=""
+                  className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]"
+                />
               </div>
             </div>
           ) : (
             !assetUrl && (
-              <div className="absolute lg:w-[700px] lg:h-[700px] w-[375px] h-[375px] flex justify-center">
+              <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px] flex justify-center">
                 <div className="absolute inset-0">
                   <img
                     src={apparelList[selectedCard.id].apparel[cardSide][color]}
                     alt=""
-                    className="lg:w-[700px] lg:h-[700px] w-[375px] h-[375px]"
+                    className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[700px] lg:h-[700px]"
                   />
                 </div>
                 <div className={`${styles.dropArea}`}>
@@ -711,7 +721,7 @@ const MerchDTGSection = props => {
           </div>
 
           <div className={`${styles.technique} mt-[28px]`}>Placement</div>
-          <div className="flex gap-[9px] mt-[10px]">
+          <div className="w-full flex gap-[9px] sm:mt-[15px] lg:mt-[10px] mt-[10px]">
             <MerchDTGCard
               selected={cardSide === 'front'}
               image={
@@ -779,9 +789,6 @@ const MerchDTGSection = props => {
             <div className={styles.embFrontContainer}>
               <div className="w-full flex justify-between">
                 <div className={styles.embFrontTitle}>Embroidery Placement</div>
-                {/* <div className="mt-[-8px]" onClick={() => setShowEmbPosModal(false)}>
-                  <CloseIcon alt="" />
-                </div> */}
               </div>
               <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
               <div className="mt-[15px] flex gap-[16px] justify-end">
@@ -810,9 +817,13 @@ const MerchDTGSection = props => {
               <div
                 className={`w-full ${
                   technique === 'dtg'
-                    ? viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
+                    ? viewport === 'xs'
                       ? 'mt-[20px]'
-                      : 'mt-[44px]'
+                      : viewport === 'sm'
+                      ? 'mt-[30px]'
+                      : viewport === 'lg'
+                      ? 'mt-[44px]'
+                      : 'mt-[30px]'
                     : 'mt-[27px]'
                 }`}
               >

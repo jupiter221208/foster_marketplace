@@ -68,7 +68,7 @@ const FosterProductSection = props => {
     <div className="w-full">
       <Swiper
         navigation={true}
-        slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.23 : 5}
+        slidesPerView={viewport === 'xs' ? 1.23 : viewport === 'sm' || viewport === 'md' ? 2.4 : 5}
         spaceBetween={
           viewport === 'xs'
             ? 20
