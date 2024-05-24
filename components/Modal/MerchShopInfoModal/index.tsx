@@ -50,23 +50,31 @@ const MerchShopInfoModal = props => {
                       <CloseIcon alt="" />
                     </div>
                   </div>
-                  <div className="w-full px-[36px] pb-[36px]">
-                    <div className={`${styles.content} mt-[24px]`}>
+                  <div className="w-full pl-[16px] pr-[10px] sm:px-[36px] pb-[36px]">
+                    <div className={`${styles.content} mt-[24px] sm:block hidden`}>
                       The production price for each merch item depends on print technique and the placement options
                       selected.
                       <br />
                       Outlined below is a breakdown of placement costs based on the print technique selected.
                     </div>
 
+                    <div className={`${styles.content} mt-[24px] sm:hidden block`}>
+                      The production price for each merch item depends on print technique and placement
+                    </div>
+
                     <div className={`${styles.title} mt-[24px]`}>Embroidery</div>
-                    <div className={`${styles.content} mt-[24px]`}>
+                    <div className={`${styles.content} mt-[20px] sm:mt-[24px] sm:block hidden`}>
                       Your design will be machine-embroidered on the product. Available embroidery options include [1]
                       Left or Center Chest [2] Right Sleeve/Wrist [3] Left Sleeve/Wrist. You can also add a DTG print to
                       the back side.
                     </div>
+                    <div className={`${styles.content} mt-[24px] sm:hidden block`}>
+                      Your design will be machine-embroidered on the product. Available embroidery options
+                    </div>
                     <div className={`${styles.subTitle} mt-[20px] flex justify-between`}>
                       <div>Left or Center Chest</div>
-                      <div>Included in base price</div>
+                      <div className="sm:block hidden">Included in base price</div>
+                      <div className="sm:hidden block">Included</div>
                     </div>
                     <div className={`${styles.subTitle} mt-[20px] flex justify-between`}>
                       <div>Back (DTG)</div>
@@ -81,18 +89,35 @@ const MerchShopInfoModal = props => {
                       <div className={styles.content}>$7.00</div>
                     </div>
 
-                    <div className={`${styles.title} mt-[34px]`}>DTG printing</div>
-                    <div className={`${styles.content} mt-[20px]`}>
+                    <div className={`${styles.title} mt-[40px] sm:mt-[34px]`}>DTG printing</div>
+                    <div className={`${styles.content} mt-[20px] sm:block hidden`}>
                       Your design will be printed directly on the product with the DTG (direct-to-garment) technique
                       that yields bold and vibrant prints. Our base price includes one print, these are the extras you
                       can get.
                     </div>
-                    <div className={`${styles.subTitle} mt-[20px] flex justify-between`}>
+                    <div className={`${styles.content} mt-[20px] sm:hidden block`}>
+                      Your design will be printed directly on the product with the DTG (direct-to-garment)
+                    </div>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:block hidden`}>
                       <div>Front or Back (first placement)</div>
                       <div>Included in base price</div>
                     </div>
-                    <div className={`${styles.subTitle} mt-[20px] flex justify-between`}>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:hidden block`}>
+                      <div>
+                        <div className="text-start">Front or Back</div>
+                        <div className={styles.subContent}>(first placement)</div>
+                      </div>
+                      <div>Included</div>
+                    </div>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:block hidden`}>
                       <div>Front or Back (second placement)</div>
+                      <div className={styles.content}>$8.50</div>
+                    </div>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:hidden block`}>
+                      <div>
+                        <div className="text-start">Front or Back</div>
+                        <div className={styles.subContent}>(first placement)</div>
+                      </div>
                       <div className={styles.content}>$8.50</div>
                     </div>
                     <div className={`${styles.subTitle} mt-[20px] flex justify-between`}>

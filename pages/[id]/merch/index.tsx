@@ -51,7 +51,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-normal lg:justify-between">
-            <div className="flex gap-[9px] sm:gap-[15px]">
+            <div className="flex gap-[8px] sm:gap-[15px]">
               <div
                 className={styles.profile}
                 onClick={() => {
@@ -75,6 +75,15 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
               </div>
             </div>
             <div className="flex gap-[8px] sm:gap-[15px]">
+              <div className="block sm:hidden">
+                <div className={`${styles.iconContainer}`}>
+                  <MenuSocialShare
+                    vote={true}
+                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                    url={`/${artistInfo?.username}`}
+                  />
+                </div>
+              </div>
               <div
                 className={styles.plus}
                 onClick={() => {
@@ -90,15 +99,6 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 <div className={`${styles.iconContainer} w-[87px]`}>
                   <MenuSocialShare
                     type="nft"
-                    vote={true}
-                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                    url={`/${artistInfo?.username}`}
-                  />
-                </div>
-              </div>
-              <div className="block sm:hidden">
-                <div className={`${styles.iconContainer}`}>
-                  <MenuSocialShare
                     vote={true}
                     message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
                     url={`/${artistInfo?.username}`}
