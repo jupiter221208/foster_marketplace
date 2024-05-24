@@ -8,7 +8,8 @@
 .bgView {
   position: fixed;
   inset: 0;
-  @media (min-width: 1024px) {
+  background: rgba(26, 26, 26, 1);
+  @media (min-width: 640px) {
     background: rgba(26, 26, 26, 0.8);
   }
 }

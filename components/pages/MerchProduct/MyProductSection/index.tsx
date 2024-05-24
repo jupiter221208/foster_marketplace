@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useViewport } from 'utils'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -25,6 +26,8 @@ import ProductionListMenu from 'components/Menu/ProductionListMenu'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
+  const viewport = useViewport()
+
   const [productType, setProductType] = useState({ id: -1, label: '' })
   const [shipping, setShipping] = useState({ id: -1, label: '' })
   const [mainImage, setMainImage] = useState<any>(null)
@@ -65,8 +68,10 @@ const MyProductSection = props => {
         urls.push(snapshotAssetUrl.left)
       }
       setImageList(urls)
-      setMainImage(urls[0])
-      setSelectedIndex(0)
+      if (selectedIndex === -1) {
+        setMainImage(urls[0])
+        setSelectedIndex(0)
+      }
     }
     if (name) setProductName(name)
     if (description) setDescription(description)
@@ -253,7 +258,13 @@ const MyProductSection = props => {
             </div>
             <ProductionListMenu
               // width={600}
-              label={productType.id === -1 ? 'Select a category that best describes this product' : productType.label}
+              label={
+                productType.id === -1
+                  ? viewport === 'xs'
+                    ? 'Select a category for this product'
+                    : 'Select a category that best describes this product'
+                  : productType.label
+              }
               data={ProductType}
               selectedItem={productType}
               setSelectedItem={item => {
@@ -269,8 +280,13 @@ const MyProductSection = props => {
               </div>
             </div>
             <ProductionListMenu
-              // width={600}
-              label={shipping.id === -1 ? 'Select a category that best describes this product' : shipping.label}
+              label={
+                shipping.id === -1
+                  ? viewport === 'xs'
+                    ? 'Select responsible party for shipping fees'
+                    : 'Select a category that best describes this product'
+                  : shipping.label
+              }
               data={ShippingList}
               selectedItem={shipping}
               setSelectedItem={item => {

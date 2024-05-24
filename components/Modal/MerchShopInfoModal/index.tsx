@@ -33,7 +33,7 @@ const MerchShopInfoModal = props => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center text-center">
+            <div className="flex h-full sm:min-h-full items-center justify-center text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -98,7 +98,7 @@ const MerchShopInfoModal = props => {
                     <div className={`${styles.content} mt-[20px] sm:hidden block`}>
                       Your design will be printed directly on the product with the DTG (direct-to-garment)
                     </div>
-                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:block hidden`}>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:flex hidden`}>
                       <div>Front or Back (first placement)</div>
                       <div>Included in base price</div>
                     </div>
@@ -109,7 +109,7 @@ const MerchShopInfoModal = props => {
                       </div>
                       <div>Included</div>
                     </div>
-                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:block hidden`}>
+                    <div className={`${styles.subTitle} mt-[20px] flex justify-between sm:flex hidden`}>
                       <div>Front or Back (second placement)</div>
                       <div className={styles.content}>$8.50</div>
                     </div>
