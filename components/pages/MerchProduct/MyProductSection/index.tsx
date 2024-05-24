@@ -46,6 +46,11 @@ const MyProductSection = props => {
     let newList = [...imageList]
     newList.splice(index, 1)
     setImageList(newList)
+    setProductAssetUrl(newList)
+    if (newList.length > 0) {
+      setSelectedIndex(0)
+      setMainImage(newList[0])
+    }
   }
 
   useEffect(() => {

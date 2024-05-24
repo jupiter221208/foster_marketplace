@@ -67,12 +67,13 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-wrap: nowrap;
   letter-spacing: 0;
-  padding: 8px 12px;
+  padding: 8px 4px;
   
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
     font-size: 16px;
     line-height: 25px;
+    padding: 8px 12px;
   }
 }
 .label:hover {
