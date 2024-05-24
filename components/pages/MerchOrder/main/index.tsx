@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 
 // next component
 
@@ -18,8 +17,11 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
-const MerchOrderDetail = () => {
+const MerchOrderMain = props => {
+  const { onClickBuyNow, onBack } = props
+
   const sizeList = [
     { id: 0, name: 'S' },
     { id: 1, name: 'M' },
@@ -45,7 +47,7 @@ const MerchOrderDetail = () => {
           <div className={styles.productName}>product_name</div>
           <div className="mt-[30px]">
             <div className={styles.creator}>Creator</div>
-            <div className="mt-[7px] flex gap-[15px]">
+            <div className="mt-[7px] flex flex-wrap gap-[15px]">
               <div className={styles.creatorRound}>
                 <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                   <ImageWithFoster
@@ -69,7 +71,7 @@ const MerchOrderDetail = () => {
           </div>
         </div>
         <div className="w-full flex justify-between">
-          <div className="flex items-end gap-[6px]">
+          <div className="flex flex-wrap items-end gap-[6px]">
             <div>
               <ClockSandIcon />
             </div>
@@ -142,7 +144,7 @@ const MerchOrderDetail = () => {
           {buyNowLoading ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
-            <PrimaryButton fullWidth type="buy-now" label="Buy Now" disabled={mintQty === 0} onClick={() => {}} />
+            <PrimaryButton fullWidth type="buy-now" label="Buy Now" onClick={() => onClickBuyNow()} />
           )}
         </div>
       </div>
@@ -150,4 +152,4 @@ const MerchOrderDetail = () => {
   )
 }
 
-export default MerchOrderDetail
+export default MerchOrderMain

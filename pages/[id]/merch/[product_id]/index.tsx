@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
 
 // next component
 
 // components
-import MerchOrderDetail from './detail'
+import MerchOrderMain from 'components/pages/MerchOrder/main'
 
 // images
 
@@ -14,6 +13,7 @@ import MerchOrderDetail from './detail'
 import styles from './index.module.scss'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
+import MerchOrderShipping from 'components/pages/MerchOrder/shipping'
 
 const MerchOrderPage = () => {
   const [merchList, setMerchList] = useState([
@@ -35,6 +35,7 @@ const MerchOrderPage = () => {
     },
   ])
   const [selectedMerch, setSelectedMerch] = useState(merchList[0])
+  const [currentStep, setCurrentStep] = useState(1)
 
   const onClickMerch = key => {
     let list = []
@@ -49,9 +50,13 @@ const MerchOrderPage = () => {
     setMerchList(list)
   }
 
+  const onClickBuyNow = () => {
+    setCurrentStep(2)
+  }
+
   return (
-    <div className="g-container flex gap-[50px] mt-[75px]">
-      <div className="w-[130px] flex flex-col gap-[16px]">
+    <div className="g-container flex gap-[50px] ">
+      <div className="w-[130px] flex flex-col gap-[16px] mt-[75px]">
         {merchList.map((merch, index) => {
           return (
             <div
@@ -65,7 +70,7 @@ const MerchOrderPage = () => {
         })}
       </div>
       <div className="flex-1 flex justify-between">
-        <div className="w-[48%] h-[700px]">
+        <div className="w-[48%] h-[700px] mt-[75px]">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
               <ImageWithFoster width={700} src={selectedMerch.url} />
@@ -73,7 +78,16 @@ const MerchOrderPage = () => {
           </div>
         </div>
         <div className="w-[42%]">
-          <MerchOrderDetail />
+          {currentStep === 1 && (
+            <div className="w-full mt-[75px]">
+              <MerchOrderMain onClickBuyNow={onClickBuyNow} />
+            </div>
+          )}
+          {currentStep === 2 && (
+            <div className="w-full mt-[57px]">
+              <MerchOrderShipping onBack={() => setCurrentStep(1)} />
+            </div>
+          )}
         </div>
       </div>
     </div>
