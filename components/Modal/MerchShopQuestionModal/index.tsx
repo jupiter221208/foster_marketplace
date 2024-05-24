@@ -65,13 +65,13 @@ const MerchShopQuestionModal = props => {
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.titleSection}>
                     Do you want to change the {getTitle()}?
-                    <div className={styles.close} onClick={closeModal}>
+                    <div className={`${styles.close} sm:block hidden`} onClick={closeModal}>
                       <CloseIcon alt="" />
                     </div>
                   </div>
-                  <div className="w-full px-[36px] pb-[36px]">
-                    <div className={`${styles.content} mt-[24px]`}>{getContent()}</div>
-                    <div className="flex justify-end mt-[25px] gap-[20px]">
+                  <div className="w-full px-[21px] pb-[21px] sm:px-[36px] sm:pb-[36px]">
+                    <div className={`${styles.content} mt-[13px] sm:mt-[24px]`}>{getContent()}</div>
+                    <div className="flex justify-end mt-[15px] sm:mt-[25px] gap-[20px]">
                       <OutlineButton label="Cancel" width={100} height={40} fontSize={16} onClick={closeModal} />
                       <GradientButton
                         label="Yes, continue"

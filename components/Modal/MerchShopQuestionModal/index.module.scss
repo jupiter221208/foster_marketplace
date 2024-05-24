@@ -13,13 +13,12 @@
 
 .modalView {
   position: relative;
-  width: 95%;
+  width: 343px;
   height: 100%;
   background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 10px;
   @media (min-width: 1024px) {
-    width: 100%;
     width: 675px;
     height: auto;
     border-radius: 30px;
@@ -28,21 +27,24 @@
 
 .titleSection {
   width: 100%;
-  height: 78px;
+  height: 53px;
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 22px;
-  @media (min-width: 1024px) {
+  font-size: 14px;
+  line-height: 18px;
+  padding: 21px;
+  @media (min-width: 640px) {
+    height: 78px;
     font-family: 'Muli-SemiBold';
     font-size: 24px;
     line-height: 30px;
+    padding: 24px 40px;
   }
+  justify-content: space-between;
   font-weight: 100;
   color: var(--text-gray-200-color);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 24px 40px;
+  
   border-bottom: 1px solid #303030;
 }
 
@@ -72,8 +74,12 @@
 
 .content {
   font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 21px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 21px;
+  }
   font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
   text-align: start;
