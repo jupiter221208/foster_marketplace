@@ -18,8 +18,7 @@ import styles from './index.module.scss'
 import merchAPI from 'apis/merch'
 
 const MerchOrderShippingMethod = props => {
-  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext } = props
-  const { onBack } = props
+  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
@@ -182,7 +181,7 @@ const MerchOrderShippingMethod = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
         <div className={styles.selecteCategory}>Shipping Details</div>
         <div className="w-full">
           <div className="w-full min-w-[375px] mt-[12px]">
@@ -226,7 +225,7 @@ const MerchOrderShippingMethod = props => {
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full px-[30px] mt-[20px]">
+      <div className="w-full lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[20px]">
           {isLoading ? (
             <LoadingPrimaryButton fullWidth />

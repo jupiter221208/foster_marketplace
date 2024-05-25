@@ -147,7 +147,7 @@ const MerchOrderShipping = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
         <div className={styles.selecteCategory}>Shipping Details</div>
 
         <div className="w-full mt-[20px]">
@@ -231,7 +231,7 @@ const MerchOrderShipping = props => {
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full px-[30px] mt-[20px]">
+      <div className="w-full lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[22px]">
           {isLoading ? (
             <LoadingPrimaryButton fullWidth />

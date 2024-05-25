@@ -37,9 +37,9 @@ const MerchOrderMain = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full h-[540px] px-[30px] pt-[25px] pb-[15px] flex flex-col justify-between">
+      <div className="w-full h-auto sm:h-[540px] lg:px-[30px] pt-[25px] pb-[15px] flex flex-col justify-between">
         <div className="w-full">
-          <div className="w-full flex justify-between">
+          <div className="w-full lg:flex hidden justify-between">
             <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
               BACK TO STORE
             </div>
@@ -73,7 +73,7 @@ const MerchOrderMain = props => {
             </div>
           </div>
           {type === 'physical' && (
-            <div className="mt-[30px]">
+            <div className="mt-[30px] mb-[30px]">
               <div className={styles.desc}>Shipping & Handling</div>
               <div className={`mt-[10px] ${styles.content}`}>
                 Domestic & international shipping will be paid by the buyer.
@@ -107,7 +107,7 @@ const MerchOrderMain = props => {
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full px-[30px] mt-[20px]">
+      <div className="w-full lg:px-[30px] mt-[20px]">
         <div className="w-full flex justify-between">
           <div className="w-[180px]">
             <div className={styles.mintQty}>

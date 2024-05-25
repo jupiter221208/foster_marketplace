@@ -116,7 +116,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
 
   return (
     <div className="g-container flex gap-[50px] ">
-      <div className="w-[130px] flex flex-col gap-[16px] mt-[75px]">
+      <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[75px]">
         {merchList.map((merch, index) => {
           return (
             <div
@@ -124,27 +124,44 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
               className={merch.selected ? styles.selected : styles.unselected}
               onClick={() => onClickMerch(index)}
             >
-              <ImageWithFoster width={130} src={merch.url.src} />
+              <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
             </div>
           )
         })}
       </div>
-      <div className="flex-1 flex justify-between">
-        <div className="w-[48%] h-[700px] mt-[75px]">
-          <div className={styles.imageArea}>
-            <div className={styles.imageContent}>
-              <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
+      <div className="w-full lg:flex-1 flex lg:flex-row flex-col justify-between">
+        <div className="lg:w-[48%] w-full flex justify-center">
+          <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+            <div className={styles.imageArea}>
+              <div className={styles.imageContent}>
+                <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="w-[42%]">
+
+        <div className="w-full lg:hidden flex gap-[9px] sm:gap-[15px] mt-[0px] sm:mt-[30px]">
+          {merchList.map((merch, index) => {
+            return (
+              <div
+                key={index}
+                className={merch.selected ? styles.selected : styles.unselected}
+                onClick={() => onClickMerch(index)}
+              >
+                <ImageWithFoster width={130} src={merch.url.src} />
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="w-full lg:w-[42%]">
           {currentStep === 1 && (
-            <div className="w-full mt-[75px]">
+            <div className="w-full mt-[0px] lg:mt-[75px]">
               <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />
             </div>
           )}
           {currentStep === 2 && (
-            <div className="w-full mt-[57px]">
+            <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShipping
                 onBack={info => {
                   setShippingData(info)
@@ -161,7 +178,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
             </div>
           )}
           {currentStep === 3 && (
-            <div className="w-full mt-[57px]">
+            <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
                 type={type}
                 data={printData}
@@ -180,6 +197,9 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                   }
                   dispatch({ type: 'set', merchData: data })
                   router.push(`/orders/${orderId}`)
+                }}
+                onBack={() => {
+                  setCurrentStep(2)
                 }}
               />
             </div>
