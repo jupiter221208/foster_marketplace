@@ -1,0 +1,315 @@
+@import 'assets/scss/variable.module.scss';
+
+.assetView {
+  width: 100%;
+  height: 375px;
+  @media (min-width: 640px) {
+    height: 560px;
+  }
+  @media (min-width: 1024px) {
+    height: 560px;
+    background: rgba(var(--main-bg-color-rgb), 0.02);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedItem {
+  width: 78px;
+  height: 78px;
+  @media (min-width: 640px) {
+    width: 120px;
+    height: 120px;
+  }
+  @media (min-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+  border: 2px solid var(--main-icon-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.deselectedItem {
+  width: 78px;
+  height: 78px;
+  @media (min-width: 640px) {
+    width: 120px;
+    height: 120px;
+  }
+  @media (min-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+  border: 2px solid var(--bg-303030-DDDCDC);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color)
+  }
+}
+
+.desc {
+  font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);  
+  }
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.firstRow {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: 1024px) {
+    height: 37px;
+    padding: 0px 16px;
+    background: rgba(var(--main-bg-color-rgb), 0.05);
+  }
+}
+
+.secondRow {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: 1024px) {
+    height: 37px;
+    background: rgba(var(--main-bg-color-rgb), 0.03);
+    padding: 0px 16px;
+  }
+}
+
+.sideText {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.price {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.production {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color)
+}
+
+.priceUnit {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--main-icon-color)
+}
+
+.prodPrice {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+}
+
+.negotive {
+  color: #E25E62;
+}
+
+.reviewTitle {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.negotiveAlert {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  margin-top: 10px;
+  color: #E25E62;
+}
+
+.positive {
+  color: var(--main-icon-color)
+}
+
+.includePurchase {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 20px;
+}
+
+.sellingArea {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  gap: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+  align-items: center;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border-radius: 5px;
+}
+
+.dollar {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color)
+}
+
+.input {
+  width: 100%;
+  height: 24px;
+  background: transparent;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  &:focus {
+    outline: none;
+  }
+}
+
+.input::placeholder {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+}
+
+.radio {
+  appearance: none;
+  border: 2px solid rgba(var(--text-gray-200-color-rgb), 1);
+  background-color: transparent;
+  vertical-align: top;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  -webkit-tap-highlight-color: transparent;
+  &:checked {
+    border: 2px solid var(--radio-check-color);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      background-color: var(--radio-check-color);
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.radioText {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7 );
+  cursor: pointer;
+}
+
+.datePicker {
+  width: 100%;
+  max-width: 125px;
+  height: 45px;
+  background: var(--second-home-bg);
+  border-radius: 9px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  outline: none;
+  @media (min-width: 1024px) {
+    max-width: 428px;
+  }
+}
+
+.dateFont {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+}
+
+.label {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 100;
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+  text-align: start;
+}
+
+.dateLabel {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}

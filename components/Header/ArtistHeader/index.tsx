@@ -12,7 +12,6 @@ import NotifyAlarmIcon from 'assets/lottery/notify-alarm.json'
 
 // custom components
 import SearchBox from 'components/Input/SearchBox'
-import Menu from 'components/Menu'
 import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
@@ -33,7 +32,6 @@ import FosterLogo from 'assets/logo.svg?component'
 
 // json
 import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
-import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
 
@@ -43,7 +41,6 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import Link from 'next/link'
 import { getShortAddress } from 'utils/wallet.util'
 
 const PrimaryHeader = () => {

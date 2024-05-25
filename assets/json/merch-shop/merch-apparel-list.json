@@ -1,0 +1,132 @@
+[
+  {
+    "id": 0,
+    "name": "Hoodie",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 240, "top": 180, "left": 230, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 255, "left": 230, "angle": 0 },
+        "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "top": 180, "left": 394, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 255, "left": 230, "angle": 0 },
+        "right": {"width": 47, "height": 70, "top": 560, "left": 345, "angle": -11 },
+        "left": {"width": 47, "height": 70, "top": 555, "left": 310, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 11.04,
+      "front": { "white":"/images/apparel/man_hoodie_white.png", "black":"/images/apparel/man_hoodie_black.png" }, 
+      "back": { "white": "/images/apparel/man_hoodie_white_b.png", "black":"/images/apparel/man_hoodie_black_b.png" }, 
+      "right" :{ "white":"/images/apparel/man_hoodie_white_r.png", "black":"/images/apparel/man_hoodie_black_r.png" }, 
+      "left" : { "white":"/images/apparel/man_hoodie_white_l.png", "black":"/images/apparel/man_hoodie_black_l.png" } 
+    }
+  },
+  {
+    "id": 1,
+    "name": "Long Sleeve",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
+        "right": {"width": 44, "height": 176, "top": 286, "left": 275, "angle": -11 },
+        "left": {"width": 44, "height": 176, "top": 286, "left": 395, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
+        "right": {"width": 47, "height": 70, "top": 585, "left": 350, "angle": -20 },
+        "left": {"width": 47, "height": 70, "top": 570, "left": 320, "angle": 20 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
+      "front": { "white":"/images/apparel/man_longsleeve_white.png", "black":"/images/apparel/man_longsleeve_black.png"}, 
+      "back": { "white": "/images/apparel/man_longsleeve_white_b.png", "black":"/images/apparel/man_longsleeve_black_b.png"}, 
+      "right" :{ "white":"/images/apparel/man_longsleeve_white_r.png", "black":"/images/apparel/man_longsleeve_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_longsleeve_white_l.png", "black":"/images/apparel/man_longsleeve_black_l.png"} 
+    }
+  },
+  {
+    "id": 2,
+    "name": "T-Shirt",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
+        "right": {"width": 86, "height": 75, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 75, "top": 145, "left": 352, "angle": 0 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
+        "back": {"width": 220, "height": 290, "top": 150, "left": 230, "angle": 0 },
+        "right": {"width": 59, "height": 70, "top": 138, "left": 293, "angle": 0 },
+        "left": {"width": 59, "height": 70, "top": 138, "left": 363, "angle": 0 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
+      "front": { "white":"/images/apparel/man_t_white.png", "black":"/images/apparel/man_t_black.png"}, 
+      "back": { "white": "/images/apparel/man_t_white_b.png", "black":"/images/apparel/man_t_black_b.png"}, 
+      "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
+    }
+  },
+  {
+    "id": 3,
+    "name": "Sweatshirt",
+    "location": { 
+      "dtg": {
+        "front": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
+        "right": {"width": 47, "height": 176, "top": 286, "left": 415, "angle": -11 },
+        "left": {"width": 47, "height": 176, "top": 286, "left": 235, "angle": 11 }
+      },
+      "emb": {
+        "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
+        "back": {"width": 240, "height": 316, "top": 150, "left": 230, "angle": 0 },
+        "right": {"width": 47, "height": 70, "top": 535, "left": 465, "angle": -11 },
+        "left": {"width": 47, "height": 70, "top": 525, "left": 185, "angle": 11 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
+      "front": { "white":"/images/apparel/man_sweat_white.png", "black":"/images/apparel/man_sweat_black.png"}, 
+      "back": { "white": "/images/apparel/man_sweat_white_b.png", "black":"/images/apparel/man_sweat_black_b.png"}, 
+      "right" :{ "white":"/images/apparel/man_sweat_white_r.png", "black":"/images/apparel/man_sweat_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_sweat_white_l.png", "black":"/images/apparel/man_sweat_black_l.png"} 
+    }
+  },
+  {
+    "id": 4,
+    "name": "Women's T-Shirt",
+    "location": { 
+      "dtg": {
+        "front": { "width": 240, "height": 316, "top": 150, "left": 230 },
+        "back": { "width": 240, "height": 316, "top": 150, "left": 230 },
+        "right": {"width": 86, "height": 75, "top": 145, "left": 280, "angle": 0 },
+        "left": {"width": 86, "height": 75, "top": 145, "left": 352, "angle": 0 }
+      },
+      "emb": {
+        "front": { "width": 90, "height": 90, "top": 150, "left": 394 },
+        "back": { "width": 240, "height": 316, "top": 150, "left": 230 },
+        "right": {"width": 59, "height": 70, "top": 138, "left": 293, "angle": 0 },
+        "left": {"width": 59, "height": 70, "top": 138, "left": 363, "angle": 0 }
+      }
+    },
+    "apparel": { 
+      "width": 11.04,
+      "height": 14.72,
+      "front": { "white":"/images/apparel/women_t_white.png", "black":"/images/apparel/women_t_black.png" }, 
+      "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" },
+      "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
+    }
+  }
+]

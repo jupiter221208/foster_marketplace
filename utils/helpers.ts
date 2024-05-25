@@ -4,6 +4,10 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
+export const validInteger = (n) => {
+  return n.replace(/[^0-9]+/g, '')
+}
+
 export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
@@ -226,10 +230,17 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'flex'
+  document.getElementById(identifier).style.display = 'block'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
+}
+
+export const copyLongClipboardAlert = identifier => {
+  document.getElementById(identifier).style.display = 'block'
+  setTimeout(function () {
+    document.getElementById(identifier).style.display = 'none'
+  }, 3000)
 }
 
 export const getOwnerName = item => {
@@ -654,6 +665,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-3A3A3A-202427', '#202427')
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '255, 255, 255')
     doc.style.setProperty('--bg-242424-EFF0F605', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--bg-242424-FFF', '#FFF')
+    doc.style.setProperty('--bg-1a1a1a-EEEDEB', '238, 237, 235')
+    doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#DDDCDC')
+    doc.style.setProperty('--bg-TRANSPARENT-FFF', '#FFF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -1014,6 +1029,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-3A3A3A-202427', '#3A3A3A')
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '26, 26, 26')
     doc.style.setProperty('--bg-242424-EFF0F605', '#242424')
-
+    doc.style.setProperty('--bg-242424-FFF', '#242424')
+    doc.style.setProperty('--bg-1a1a1a-EEEDEB', '26, 26, 26')
+    doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#2B2B2B')
+    doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
   }
 }

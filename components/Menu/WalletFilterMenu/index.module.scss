@@ -1,13 +1,11 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 140px;
+  width: 84px;
   padding: 0px 8px;
-  gap: 6px;
+  gap: 8px;
   @media (min-width: 1024px) {  
-    width: 150px;
     padding: 0px 10px;
-    gap: 9px;
   }
   height: 35px;
   font-family: 'Muli-SemiBold';

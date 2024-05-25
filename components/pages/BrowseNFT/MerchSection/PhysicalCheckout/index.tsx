@@ -16,6 +16,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
+import CARDIcon from 'assets/icons/card-icon.svg'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -54,7 +55,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const { metaplex } = useMetaplex()
   const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
 
-  const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
+  const [currency, setCurrency] = useState<'sol' | 'usdc' | 'card'>('sol')
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
@@ -123,6 +124,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         let colorText = getFirstUpperString(color)
         let qty = 'Qty:' + itemQuantity
         itemList.push({ name: nftName, type, color: colorText, qty })
+      } else if (type === 'merch') {
+        var color = findElement(options, 'name', 'color')['value']
+        let type = 'Print Technique: Embroidery'
+        let colorText = 'Color: ' + getFirstUpperString(color)
+        let qty = 'Qty: ' + itemQuantity
+        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       }
     })
     setList(itemList)
@@ -208,11 +215,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div>
 
         <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
-          <div className="w-[286px] h-[160px] relative hidden lg:block">
+          <div className="w-full h-[160px] relative hidden lg:block">
             <div className={styles.paymentMethod}>
               Choose Payment Method <span>*</span>
             </div>
-            <div className="w-full flex justify-between mt-[16px]">
+            <div className="w-full flex gap-[30px] mt-[16px]">
               <div
                 className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
                 onClick={() => setCurrency('sol')}
@@ -230,6 +237,15 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
                   <Image src={USDCIcon} width={37} height={37} alt="" />
                 </div>
                 <div className={styles.currencyName}>USDC</div>
+              </div>
+              <div
+                className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('card')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={CARDIcon} width={37} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>CARD</div>
               </div>
             </div>
           </div>

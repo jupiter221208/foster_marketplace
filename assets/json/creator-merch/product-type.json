@@ -1,0 +1,46 @@
+[
+  {
+    "id": 0,
+    "label": "Physical Print"
+  },
+  {
+    "id": 1,
+    "label": "Shoes"
+  },
+  {
+    "id": 2,
+    "label": "Apparel"
+  },
+  {
+    "id": 3,
+    "label": "Bag"
+  },
+  {
+    "id": 4,
+    "label": "Textile Art"
+  },
+  {
+    "id": 5,
+    "label": "Hat"
+  },
+  {
+    "id": 6,
+    "label": "Accessory"
+  },
+  {
+    "id": 7,
+    "label": "Sculpture"
+  },
+  {
+    "id": 8,
+    "label": "Book"
+  },
+  {
+    "id": 9,
+    "label": "Glassware"
+  },
+  {
+    "id": 10,
+    "label": "Other"
+  }
+]

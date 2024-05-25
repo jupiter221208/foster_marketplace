@@ -9,19 +9,13 @@ import { useViewport } from 'utils'
 import Radio from 'components/Radio/SwipRadio'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
 import { getFirstUpperString } from 'utils/helpers'
-import ShippingSelect from 'components/Select/ShippingSelect'
 
 // api
 import merchAPI from 'apis/merch'
-import LoadingButton from 'components/Button/LoadingButton'
-import OutlineButton from 'components/Button/OutlineButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'

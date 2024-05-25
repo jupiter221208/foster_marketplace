@@ -11,6 +11,7 @@ import WebsiteIcon from 'assets/icons/website-white.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-green-new.svg?component'
 import LandIcon from 'assets/icons/land-icon-new.svg?component'
 import SolrPlexIcon from 'assets/icons/solrplex-icon-mobile.svg?component'
+import LinkIcon from 'assets/icons/link-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -22,8 +23,8 @@ const WalletFilterMenu = props => {
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
+            <LinkIcon alt="" />
             {label}
-            <ThreeDotIcon alt="" />
           </div>
         </Menu.Button>
 

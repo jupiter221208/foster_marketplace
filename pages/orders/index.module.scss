@@ -44,3 +44,19 @@
     min-height: calc(100vh - 100px - 60px);
   }
 }
+
+.selected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;  
+  border: 2px solid var(--main-icon-color);
+  overflow: hidden;
+}
+
+.unselected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;  
+  border: 2px solid var(--bg-303030-DDDCDC);
+  overflow: hidden;
+}
