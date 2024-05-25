@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next component
 
@@ -17,11 +18,11 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MerchOrderMain = props => {
-  const { onClickBuyNow, onBack } = props
+  const { type, username, onClickBuyNow } = props
 
+  const router = useRouter()
   const sizeList = [
     { id: 0, name: 'S' },
     { id: 1, name: 'M' },
@@ -39,7 +40,9 @@ const MerchOrderMain = props => {
       <div className="w-full h-[540px] px-[30px] pt-[25px] pb-[15px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
-            <div className={styles.backStore}>BACK TO STORE</div>
+            <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
+              BACK TO STORE
+            </div>
             <div className={styles.shareIcon}>
               <ShareSmallIcon alt="" />
             </div>
@@ -69,6 +72,14 @@ const MerchOrderMain = props => {
               Unisex Premium Hoodie | Cotton Heritage M2580 | Embroidery | White
             </div>
           </div>
+          {type === 'physical' && (
+            <div className="mt-[30px]">
+              <div className={styles.desc}>Shipping & Handling</div>
+              <div className={`mt-[10px] ${styles.content}`}>
+                Domestic & international shipping will be paid by the buyer.
+              </div>
+            </div>
+          )}
         </div>
         <div className="w-full flex justify-between">
           <div className="flex flex-wrap items-end gap-[6px]">
@@ -78,19 +89,21 @@ const MerchOrderMain = props => {
             <div className={styles.endsIn}>Ends in</div>
             <div className={styles.endsTime}>02:05:10:30</div>
           </div>
-          <div>
-            <DropdownSizeMenu
-              label={size.name}
-              data={sizeList}
-              selectedItem={size}
-              setSelectedItem={item => {
-                setSize(item)
-              }}
-            />
-            <div className="flex items-center mt-[10px]">
-              <div className={styles.sizeChart}>Size Chart</div>
+          {type !== 'physical' && (
+            <div>
+              <DropdownSizeMenu
+                label={size.name}
+                data={sizeList}
+                selectedItem={size}
+                setSelectedItem={item => {
+                  setSize(item)
+                }}
+              />
+              <div className="flex items-center mt-[10px]">
+                <div className={styles.sizeChart}>Size Chart</div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div className={styles.borderLine} />

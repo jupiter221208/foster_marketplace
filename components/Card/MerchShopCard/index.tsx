@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
 
@@ -17,9 +19,12 @@ import NextIcon from 'assets/icons/next-arrow.svg?component'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import { useDispatch } from 'react-redux'
 
 const MerchShopCard = props => {
-  const { data } = props
+  const { type = 'merch', username, data } = props
+  const router = useRouter()
+  const dispatch = useDispatch()
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
@@ -107,29 +112,49 @@ const MerchShopCard = props => {
 
         <div className={`${styles.divider} mt-[15px]`} />
 
-        <div className="w-full mt-[15px] flex justify-between">
-          <div>
-            {/* <div className={styles.shareBtn}>
-              <ShoppingCartIcon />
+        {type === 'merch' ? (
+          <div className="w-full mt-[15px] flex justify-between">
+            <div>
+              <div className={styles.saleType}>Open Supply</div>
+              <div className={styles.saleCount}>3 sold</div>
             </div>
-            <div className={styles.shareBtn}>
-              <ShareSocialIcon />
-            </div> */}
+            <GradientButton
+              borderRadius={10}
+              label="Buy Now"
+              backgroundColor01="var(--place-bid-minimum-color)"
+              backgroundColor02="var(--place-bid-minimum-color)"
+              color="var(--time-slog-bg)"
+              width={106}
+              height={42}
+              fontSize={16}
+              onClick={() => {
+                dispatch({ type: 'set', merchOrderType: type })
+                router.push(`/${username}/merch/${data.id}`)
+              }}
+            />
+          </div>
+        ) : (
+          <div className="w-full mt-[15px] flex justify-between">
+            {/* <div>
             <div className={styles.saleType}>Open Supply</div>
             <div className={styles.saleCount}>3 sold</div>
+          </div> */}
+            <GradientButton
+              borderRadius={10}
+              label="Buy Now"
+              backgroundColor01="var(--place-bid-minimum-color)"
+              backgroundColor02="var(--place-bid-minimum-color)"
+              color="var(--time-slog-bg)"
+              fullWidth
+              height={42}
+              fontSize={16}
+              onClick={() => {
+                dispatch({ type: 'set', merchOrderType: type })
+                router.push(`/${username}/merch/${data.id}`)
+              }}
+            />
           </div>
-          <GradientButton
-            borderRadius={10}
-            label="Buy Now"
-            backgroundColor01="var(--place-bid-minimum-color)"
-            backgroundColor02="var(--place-bid-minimum-color)"
-            color="var(--time-slog-bg)"
-            width={106}
-            height={42}
-            fontSize={16}
-            onClick={() => {}}
-          />
-        </div>
+        )}
       </div>
     </div>
   )

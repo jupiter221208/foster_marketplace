@@ -2,23 +2,32 @@ import React, { useState, useEffect } from 'react'
 
 // next component
 
-//components
+// components
 import { Country, State } from 'country-state-city'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import CountrySelect from 'components/Select/CountrySelect'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import Alert from 'components/Alert'
+
+// custom functions
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
+
 // json
 
 // styles
 import styles from './index.module.scss'
 
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import CountrySelect from 'components/Select/CountrySelect'
-import SecondaryButton from 'components/Button/SecondaryButton'
+// api
+import merchAPI from 'apis/merch'
 
 const MerchOrderShipping = props => {
-  const { onBack } = props
-  const [buyNowLoading, setBuyNowLoading] = useState(false)
+  const { onBack, onNext } = props
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
 
   const [enabled, setEnabled] = useState(false)
   const [email, setEmail] = useState('')
@@ -31,6 +40,15 @@ const MerchOrderShipping = props => {
   const [state, setState] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
+
+  const alertData = [
+    {
+      id: 0,
+      title: 'Shipping Method Failure',
+      description: `You didn't find shipping method!`,
+      type: 'failure',
+    },
+  ]
 
   useEffect(() => {
     if (email.length == 0) {
@@ -63,6 +81,69 @@ const MerchOrderShipping = props => {
     }
     setEnabled(true)
   }, [email, country, state, name, city, street, zipCode])
+
+  const proceedToCheckout = () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
+    let data = {
+      email,
+      country,
+      state,
+      name,
+      city,
+      street,
+      apartment,
+      zipCode,
+    }
+    let params
+
+    let item_id = 1
+    params = {
+      toPostalCode: zipCode,
+      toCountry: country.isoCode,
+      toState: state.isoCode,
+      cartItems: [
+        {
+          id: item_id.toString(),
+          quantity: 1,
+          options: {
+            size: 'L',
+            color: 'black',
+            sideOfPrint: 'Front Side',
+          },
+          notes: `This is apparel item`,
+        },
+      ],
+    }
+
+    setIsLoading(true)
+    merchAPI.prepareCart(params).then(
+      response => {
+        onNext({ data, method: response })
+        setIsLoading(false)
+      },
+      error => {
+        setIsLoading(false)
+        setShowAlert(true)
+      }
+    )
+  }
+
+  const backToPage = () => {
+    let checkout = {
+      email,
+      country,
+      state,
+      name,
+      city,
+      street,
+      apartment,
+      zipCode,
+    }
+    onBack(checkout)
+  }
 
   return (
     <div className={styles.container}>
@@ -152,16 +233,29 @@ const MerchOrderShipping = props => {
       <div className={styles.borderLine} />
       <div className="w-full px-[30px] mt-[20px]">
         <div className="w-full mt-[22px]">
-          {buyNowLoading ? (
+          {isLoading ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
-            <PrimaryButton label="Select Shipping" type="shipping" disabled={!enabled} fullWidth onClick={() => {}} />
+            <PrimaryButton
+              label="Select Shipping"
+              type="shipping"
+              disabled={!enabled}
+              fullWidth
+              onClick={() => proceedToCheckout()}
+            />
           )}
         </div>
         <div className="w-full mt-[15px] mb-[22px]">
-          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+          <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

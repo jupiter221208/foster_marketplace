@@ -12,6 +12,7 @@ const CreatorMerchShop = props => {
   useEffect(() => {
     setMerchList([
       {
+        id: 123,
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
@@ -23,6 +24,7 @@ const CreatorMerchShop = props => {
         price: '15',
       },
       {
+        id: 124,
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
@@ -33,6 +35,7 @@ const CreatorMerchShop = props => {
         price: '15',
       },
       {
+        id: 125,
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
@@ -43,6 +46,7 @@ const CreatorMerchShop = props => {
         price: '15',
       },
       {
+        id: 126,
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
@@ -53,6 +57,7 @@ const CreatorMerchShop = props => {
         price: '15',
       },
       {
+        id: 127,
         assets: [
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
           'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
@@ -71,7 +76,7 @@ const CreatorMerchShop = props => {
       <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {merchList.map((item, index) => (
           <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard data={item} />
+            <MerchShopCard username={username} data={item} />
           </div>
         ))}
       </div>
@@ -80,7 +85,7 @@ const CreatorMerchShop = props => {
       <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {merchList.map((item, index) => (
           <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard data={item} />
+            <MerchShopCard username={username} data={item} />
           </div>
         ))}
       </div>
@@ -89,7 +94,7 @@ const CreatorMerchShop = props => {
       <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {merchList.map((item, index) => (
           <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard data={item} />
+            <MerchShopCard type="physical" username={username} data={item} />
           </div>
         ))}
       </div>

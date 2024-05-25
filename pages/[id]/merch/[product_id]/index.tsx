@@ -14,8 +14,28 @@ import styles from './index.module.scss'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import MerchOrderShipping from 'components/pages/MerchOrder/shipping'
+import { useSelector } from 'react-redux'
+import MerchOrderShippingMethod from 'components/pages/MerchOrder/method'
 
-const MerchOrderPage = () => {
+interface MerchOrderPageProps {
+  username?: string
+  error?: string
+}
+
+const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
+  const type = useSelector(state => (state as any).merchOrderType)
+  const [shipppingMethod, setShippingMethod] = useState(null)
+  const [shippingData, setShippingData] = useState(null)
+  const [printData, setPrintData] = useState({
+    cost: '$56.4',
+    quantity: 1,
+    size: 'L',
+    color: 'white',
+    name: 'product_name1',
+    description: 'Unisex Premium Hoodie | Cotton Heritage M2580 | Embroidery | White',
+  })
+  const [totalCost, setTotalCost] = useState(null)
+
   const [merchList, setMerchList] = useState([
     {
       url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
@@ -80,12 +100,34 @@ const MerchOrderPage = () => {
         <div className="w-[42%]">
           {currentStep === 1 && (
             <div className="w-full mt-[75px]">
-              <MerchOrderMain onClickBuyNow={onClickBuyNow} />
+              <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />
             </div>
           )}
           {currentStep === 2 && (
             <div className="w-full mt-[57px]">
-              <MerchOrderShipping onBack={() => setCurrentStep(1)} />
+              <MerchOrderShipping
+                onBack={info => {
+                  setShippingData(info)
+                  setCurrentStep(1)
+                }}
+                onNext={info => {
+                  setShippingData(info.data)
+                  setShippingMethod(info.method)
+                  setCurrentStep(3)
+                }}
+                printData={printData}
+                data={shippingData}
+              />
+            </div>
+          )}
+          {currentStep === 3 && (
+            <div className="w-full mt-[57px]">
+              <MerchOrderShippingMethod
+                data={printData}
+                shippingData={shippingData}
+                allShippingMethod={shipppingMethod}
+                setTotalCost={setTotalCost}
+              />
             </div>
           )}
         </div>
@@ -98,4 +140,25 @@ export default MerchOrderPage
 
 MerchOrderPage.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
+}
+
+MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {
+  let username = encodeURIComponent(query.id)
+
+  try {
+    // let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+    //   r.json()
+    // )
+    // let artistPublicKey = publicArtistData.artist.wallet_id
+    // return {
+    //   artistPublicKey,
+    //   publicArtistData,
+    // }
+    return { username }
+  } catch (e: any) {
+    console.error(e)
+    return {
+      error: `could not load artist details: ${username}: ${e.message}`,
+    }
+  }
 }
