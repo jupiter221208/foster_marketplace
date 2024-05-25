@@ -77,7 +77,7 @@ const MerchShopCard = props => {
             <div key={index}>
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
+                  <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
                 </div>
               </div>
             </div>
