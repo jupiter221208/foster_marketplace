@@ -7,7 +7,14 @@ import { useRouter } from 'next/router'
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
 
 // images
+import merchImageFront from 'assets/images/merch-order-front.png'
+import merchImageBack from 'assets/images/merch-order-back.png'
+import merchImageLeft from 'assets/images/merch-order-left.png'
 
+import physicalImageFront from 'assets/images/merch-physical-front.jpg'
+import physicalImageBack from 'assets/images/merch-physical-back.jpg'
+import physicalImageRight from 'assets/images/merch-physical-right.jpg'
+import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
 // json
 
 // styles
@@ -40,25 +47,8 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   })
   const [totalCost, setTotalCost] = useState(null)
 
-  const [merchList, setMerchList] = useState([
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      selected: true,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-      selected: false,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
-      selected: false,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-      selected: false,
-    },
-  ])
-  const [selectedMerch, setSelectedMerch] = useState(merchList[0])
+  const [merchList, setMerchList] = useState([])
+  const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
 
   const onClickMerch = key => {
@@ -78,6 +68,52 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
     setCurrentStep(2)
   }
 
+  useEffect(() => {
+    if (type === 'merch') {
+      setMerchList([
+        {
+          url: merchImageFront,
+          selected: true,
+        },
+        {
+          url: merchImageBack,
+          selected: false,
+        },
+        {
+          url: merchImageLeft,
+          selected: false,
+        },
+      ])
+      setSelectedMerch({
+        url: merchImageFront,
+        selected: true,
+      })
+    } else {
+      setMerchList([
+        {
+          url: physicalImageFront,
+          selected: true,
+        },
+        {
+          url: physicalImageBack,
+          selected: false,
+        },
+        {
+          url: physicalImageRight,
+          selected: false,
+        },
+        {
+          url: physicalImageLeft,
+          selected: false,
+        },
+      ])
+      setSelectedMerch({
+        url: physicalImageFront,
+        selected: true,
+      })
+    }
+  }, [type])
+
   return (
     <div className="g-container flex gap-[50px] ">
       <div className="w-[130px] flex flex-col gap-[16px] mt-[75px]">
@@ -88,7 +124,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
               className={merch.selected ? styles.selected : styles.unselected}
               onClick={() => onClickMerch(index)}
             >
-              <ImageWithFoster width={130} src={merch.url} />
+              <ImageWithFoster width={130} src={merch.url.src} />
             </div>
           )
         })}
@@ -97,7 +133,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
         <div className="w-[48%] h-[700px] mt-[75px]">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
-              <ImageWithFoster width={700} src={selectedMerch.url} />
+              <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
             </div>
           </div>
         </div>
