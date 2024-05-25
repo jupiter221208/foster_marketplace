@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // next component
 
 // components
-import MerchOrderMain from 'components/pages/MerchOrder/main'
+import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
 
 // images
 
@@ -13,9 +14,9 @@ import MerchOrderMain from 'components/pages/MerchOrder/main'
 import styles from './index.module.scss'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
-import MerchOrderShipping from 'components/pages/MerchOrder/shipping'
-import { useSelector } from 'react-redux'
-import MerchOrderShippingMethod from 'components/pages/MerchOrder/method'
+import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
+import { useDispatch, useSelector } from 'react-redux'
+import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
 interface MerchOrderPageProps {
   username?: string
@@ -23,11 +24,14 @@ interface MerchOrderPageProps {
 }
 
 const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
+  const dispatch = useDispatch()
+  const router = useRouter()
   const type = useSelector(state => (state as any).merchOrderType)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [printData, setPrintData] = useState({
-    cost: '$56.4',
+    id: 1,
+    cost: '56.4',
     quantity: 1,
     size: 'L',
     color: 'white',
@@ -123,10 +127,24 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           {currentStep === 3 && (
             <div className="w-full mt-[57px]">
               <MerchOrderShippingMethod
+                type={type}
                 data={printData}
                 shippingData={shippingData}
                 allShippingMethod={shipppingMethod}
                 setTotalCost={setTotalCost}
+                merchList={merchList}
+                mintAddress="0xE3f338g2dk3f82qdk333dee333dd33"
+                onNext={orderId => {
+                  let data = {
+                    printData,
+                    shippingData,
+                    nftName: printData.name,
+                    nftCoverUrl: merchList[0].url,
+                    totalCost,
+                  }
+                  dispatch({ type: 'set', merchData: data })
+                  router.push(`/orders/${orderId}`)
+                }}
               />
             </div>
           )}

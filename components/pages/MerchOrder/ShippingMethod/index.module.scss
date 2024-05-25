@@ -58,3 +58,15 @@
   font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
+
+.subPrice {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 21px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  text-align: right;
+}

@@ -18,7 +18,7 @@ import styles from './index.module.scss'
 import merchAPI from 'apis/merch'
 
 const MerchOrderShippingMethod = props => {
-  const { shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext } = props
+  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext } = props
   const { onBack } = props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
@@ -110,6 +110,7 @@ const MerchOrderShippingMethod = props => {
     if (shipping) {
       let tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
       let total = parseFloat(data.cost) + shipping.shipmentCost + tax
+
       setTax(tax)
       setTotal(total)
       setTotalCost(total)
@@ -143,12 +144,12 @@ const MerchOrderShippingMethod = props => {
     item = {
       id: id.toString(),
       quantity,
-      previewUrl: merchList[0],
+      previewUrl: merchList[0].url,
       options: {
-        type: 'apparel',
+        type: type,
         nftName: name,
-        fosterUrl: merchList[0],
-        assetUrl: merchList[0],
+        fosterUrl: merchList[0].url,
+        assetUrl: merchList[0].url,
         nftAddress: mintAddress,
         apparel: description,
         size: size,
@@ -200,7 +201,7 @@ const MerchOrderShippingMethod = props => {
               <div className={styles.orderView}>
                 <div className="w-full flex justify-between">
                   <div className={styles.orderTotal}>Subtotal</div>
-                  <div className={styles.totalPrice}>${52.09}</div>
+                  <div className={styles.totalPrice}>${data.cost}</div>
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} />
                 <div className="w-full flex justify-between mt-[15px]">

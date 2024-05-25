@@ -22,6 +22,40 @@ const OrderSection = props => {
   const [coverUrl, setCoverUrl] = useState('')
   const [merchType, setMerchType] = useState('')
 
+  const [merchList, setMerchList] = useState([
+    {
+      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+      selected: true,
+    },
+    {
+      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+      selected: false,
+    },
+    {
+      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
+      selected: false,
+    },
+    {
+      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
+      selected: false,
+    },
+  ])
+
+  const [selectedMerch, setSelectedMerch] = useState(merchList[0])
+
+  const onClickMerch = key => {
+    let list = []
+    merchList.map((merch, index) => {
+      if (key === index) {
+        list.push({ url: merch.url, selected: true })
+        setSelectedMerch({ url: merch.url, selected: true })
+      } else {
+        list.push({ url: merch.url, selected: false })
+      }
+    })
+    setMerchList(list)
+  }
+
   useEffect(() => {
     dispatch({ type: 'set', isLoading: false })
   }, [])
@@ -44,7 +78,7 @@ const OrderSection = props => {
   return (
     <div className="g-container">
       <div className={styles.container}>
-        <div className="w-full flex lg:flex-row flex-col">
+        <div className="w-full flex lg:flex-row flex-col gap-[50px]">
           <div className="w-full">
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
@@ -59,14 +93,32 @@ const OrderSection = props => {
                 </div>
               </div>
             ) : (
-              <></>
+              <div className="w-full flex gap-[50px] h-[700px]">
+                <div className="w-[130px] flex flex-col gap-[16px]">
+                  {merchList.map((merch, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={merch.selected ? styles.selected : styles.unselected}
+                        onClick={() => onClickMerch(index)}
+                      >
+                        <ImageWithFoster width={130} src={merch.url} />
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex-1 h-full max-h-[700px] flex items-center justify-center">
+                  <ImageWithFoster
+                    src={selectedMerch.url}
+                    width={700}
+                    className="w-[80%] lg:w-auto h-auto object-cover"
+                  />
+                </div>
+              </div>
             )}
           </div>
           <div className="z-10">
             <div className={styles.contentContainer}>
-              {/* <div className="w-full mb-[45px] lg:flex hidden">
-                <MerchStepper currentStep={3} />
-              </div> */}
               {orderData && (
                 <PhysicalCheckout
                   orderData={orderData}
