@@ -181,7 +181,7 @@ const MerchOrderShippingMethod = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full lg:px-[30px] lg:h-[540px] pt-[25px] pb-[15px]">
         <div className={styles.selecteCategory}>Shipping Details</div>
         <div className="w-full">
           <div className="w-full min-w-[375px] mt-[12px]">
