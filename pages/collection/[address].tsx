@@ -89,7 +89,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         let newNftsArr: NftData[] = [...filteredNfts]
 
         newNftsArr.map((data, index) => {
-          newNftsArr[index].category = determineCategory(data.content.files)
+          newNftsArr[index].category = determineCategory(data.content.files, '')
         })
 
         sortedCollectionNfts.map((data, index) => {

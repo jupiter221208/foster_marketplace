@@ -227,7 +227,7 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
         image: imageCdn,
       },
 
-      category: determineCategory(content.files),
+      category: determineCategory(content.files, animation_url),
       creators: creators.map(({ address, share, verified }) => ({
         address: new PublicKey(address)?.toString(),
         share,
@@ -363,17 +363,7 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
   let image = content.links.image
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
-  let category = determineCategory(content.files)
-  
-  if (category.includes('video') && (animation_url === null || animation_url === undefined)) {
-    content.files.map(file => {
-      if (file.mime === category) {
-        animation_url = file.uri
-        return;
-      }
-    })
-  }
-
+  let category = determineCategory(content.files, animation_url)
   return {
     mintAddress: address,
     metadataAddress: metaplex
@@ -509,7 +499,7 @@ type determineCategoryType = {
   cdn_uri: string
 }[]
 
-export function determineCategory(files: determineCategoryType) {
+export function determineCategory(files: determineCategoryType, animation_url: string) {
   let category: string
   if (files.length > 1) {
     files.map((file, index) => {
@@ -519,6 +509,8 @@ export function determineCategory(files: determineCategoryType) {
         } else if (file.uri.includes('ext=glb')) {
           category = 'vr'
         }
+        if (animation_url === null || animation_url === undefined)
+          category = files[0].mime
       }
     })
   } else {
@@ -526,7 +518,6 @@ export function determineCategory(files: determineCategoryType) {
       category = 'uknown'
     } else {
       category = files[0].mime
-      console.log(category, '============category===========')
     }
   }
   return category || 'unknown'
