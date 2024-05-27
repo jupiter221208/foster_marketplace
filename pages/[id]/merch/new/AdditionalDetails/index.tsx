@@ -354,6 +354,15 @@ const AdditionalDetails = props => {
               <div className="w-full mt-[15px]">
                 <div>
                   <div className={styles.firstRow}>
+                    <div className={styles.sideText}>Supply</div>
+                    <div className={styles.price}>{maxSupplyItem.id === 0 ? 'No Max' : 'Limited Supply'}</div>
+                  </div>
+                  <div className={styles.secondRow}>
+                    <div className={styles.sideText}>Max Supply</div>
+                    <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
+                  </div>
+
+                  <div className={styles.firstRow}>
                     <div className={styles.sideText}>Release Date</div>
                     <div className={styles.price}>
                       {startType === 'soon'
@@ -679,156 +688,184 @@ const AdditionalDetails = props => {
               />
             </div>
 
-            <div className="w-full mt-[30px]">
-              <div className="w-full mt-[30px]">
-                <div className={styles.title}>
-                  Release Date <span>*</span>
-                </div>
+            <div className="sm:mt-[30px] mt-[20px]">
+              <div className={styles.title}>Max Supply (optional)</div>
+              <div className="mt-[15px]">
+                <ProductionListMenu
+                  label={maxSupplyItem.id === -1 ? 'Limited Supply' : maxSupplyItem.label}
+                  data={MaxSupplyList}
+                  selectedItem={maxSupplyItem}
+                  setSelectedItem={item => {
+                    setMaxSupplyItem(item)
+                  }}
+                />
               </div>
-              <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
-                <div
-                  className={`flex items-center ${
-                    viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                  }`}
-                >
-                  <input
-                    className={styles.radio}
-                    type="radio"
-                    id="reserve"
-                    checked={startType === 'soon'}
-                    onChange={() => {
-                      setStartDate(new Date())
-                      setStartType('soon')
-                    }}
-                  />
-                  <div
-                    className={styles.radioText}
-                    onClick={() => {
-                      setStartDate(new Date())
-                      setStartType('soon')
-                    }}
-                  >
-                    Immediately
+              {maxSupplyItem.id === 1 && (
+                <div className="w-full mt-[30px]">
+                  <div className={styles.title}>
+                    Limited Supply <span>*</span>
                   </div>
-                </div>
-                <div
-                  className={`flex items-center z-10001 ${
-                    viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                  }`}
-                >
-                  <input
-                    className={styles.radio}
-                    type="radio"
-                    id="reserve"
-                    checked={startType === 'later'}
-                    onChange={() => {
-                      setStartType('later')
-                    }}
-                  />
-                  <div>
-                    <div className="w-full startAuctionDatePicker">
-                      <div className="relative">
-                        <DatePicker
-                          selected={startDate}
-                          onChange={date => {
-                            setStartDate(date)
-                          }}
-                          dateFormat={
-                            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                              ? 'MM/dd/yyyy'
-                              : 'MM/dd/yyyy h:mm aa'
-                          }
-                          formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                          minDate={moment().toDate()}
-                          showTimeInput
-                          timeInputLabel=""
-                          className={styles.datePicker}
-                          disabled={startType === 'soon'}
-                          customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                        />
-                        <div className="absolute top-[20px] right-4">
-                          <ArrowDownIcon alt="" />
+                  <div className="mt-[15px]">
+                    <Input
+                      value={limitedSupply}
+                      placeholder="Set the total supply for this apparel item"
+                      onChange={value => {
+                        setLimitedSupply(validInteger(value))
+                      }}
+                    />
+                  </div>
+
+                  <div className="w-full mt-[30px]">
+                    <div className={styles.title}>
+                      Release Date <span>*</span>
+                    </div>
+                  </div>
+                  <div className="w-full flex justify-between sm:justify-normal sm:gap-[112px]">
+                    <div
+                      className={`flex items-center ${
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                      }`}
+                    >
+                      <input
+                        className={styles.radio}
+                        type="radio"
+                        id="reserve"
+                        checked={startType === 'soon'}
+                        onChange={() => {
+                          setStartDate(new Date())
+                          setStartType('soon')
+                        }}
+                      />
+                      <div
+                        className={styles.radioText}
+                        onClick={() => {
+                          setStartDate(new Date())
+                          setStartType('soon')
+                        }}
+                      >
+                        Immediately
+                      </div>
+                    </div>
+                    <div
+                      className={`flex items-center z-10001 ${
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                      }`}
+                    >
+                      <input
+                        className={styles.radio}
+                        type="radio"
+                        id="reserve"
+                        checked={startType === 'later'}
+                        onChange={() => {
+                          setStartType('later')
+                        }}
+                      />
+                      <div>
+                        <div className="w-full startAuctionDatePicker">
+                          <div className="relative">
+                            <DatePicker
+                              selected={startDate}
+                              onChange={date => {
+                                setStartDate(date)
+                              }}
+                              dateFormat={
+                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                  ? 'MM/dd/yyyy'
+                                  : 'MM/dd/yyyy h:mm aa'
+                              }
+                              formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                              minDate={moment().toDate()}
+                              showTimeInput
+                              timeInputLabel=""
+                              className={styles.datePicker}
+                              disabled={startType === 'soon'}
+                              customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                            />
+                            <div className="absolute top-[20px] right-4">
+                              <ArrowDownIcon alt="" />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="mt-[30px]">
-                <div className={styles.title}>Release Duration (optional)</div>
-                <div className="mt-[15px]">
-                  <ProductionListMenu
-                    label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
-                    data={ReleaseDurationList}
-                    selectedItem={releaseDurationItem}
-                    setSelectedItem={item => {
-                      setReleaseDurationItem(item)
-                    }}
-                  />
-                </div>
-              </div>
-              {releaseDurationItem.id === 1 && (
-                <div className="w-full mt-[30px]">
-                  <div className={styles.title}>
-                    Limited Duration <span>*</span>
-                  </div>
-                  <div className="mt-[15px] w-full flex gap-5">
-                    <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                      <Input
-                        value={days}
-                        placeholder="0"
-                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                        fullWidth
-                        borderColor="transparent"
-                        borderRadius="9px"
-                        min={0}
-                        onChange={value => {
-                          let days = validDigits(value)
-                          if (days < 0) {
-                            setDays('')
-                          } else {
-                            setDays(days)
-                          }
+                  <div className="mt-[30px]">
+                    <div className={styles.title}>Release Duration (optional)</div>
+                    <div className="mt-[15px]">
+                      <ProductionListMenu
+                        label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
+                        data={ReleaseDurationList}
+                        selectedItem={releaseDurationItem}
+                        setSelectedItem={item => {
+                          setReleaseDurationItem(item)
                         }}
                       />
-                      <div className={styles.dateFont}>Days</div>
-                    </div>
-                    <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                      <Input
-                        value={hours}
-                        placeholder="0"
-                        backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                        fullWidth
-                        borderColor="transparent"
-                        borderRadius="9px"
-                        min={0}
-                        onChange={value => {
-                          let hours = validDigits(value)
-                          if (hours < 0) {
-                            setHours('')
-                          } else {
-                            setHours(hours)
-                          }
-                        }}
-                      />
-                      <div className={styles.dateFont}>Hours</div>
                     </div>
                   </div>
-                  <div className="mt-2 w-full text-start">
-                    <div className={styles.label}>
-                      The release is due to end&nbsp;
-                      <span className={styles.dateLabel}>
-                        {day}
-                        {', '}
-                        {endDate.toLocaleDateString()}&nbsp;
-                      </span>
-                      {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
+                  {releaseDurationItem.id === 1 && (
+                    <div className="w-full mt-[30px]">
+                      <div className={styles.title}>
+                        Limited Duration <span>*</span>
+                      </div>
+                      <div className="mt-[15px] w-full flex gap-5">
+                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                          <Input
+                            value={days}
+                            placeholder="0"
+                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                            fullWidth
+                            borderColor="transparent"
+                            borderRadius="9px"
+                            min={0}
+                            onChange={value => {
+                              let days = validDigits(value)
+                              if (days < 0) {
+                                setDays('')
+                              } else {
+                                setDays(days)
+                              }
+                            }}
+                          />
+                          <div className={styles.dateFont}>Days</div>
+                        </div>
+                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                          <Input
+                            value={hours}
+                            placeholder="0"
+                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                            fullWidth
+                            borderColor="transparent"
+                            borderRadius="9px"
+                            min={0}
+                            onChange={value => {
+                              let hours = validDigits(value)
+                              if (hours < 0) {
+                                setHours('')
+                              } else {
+                                setHours(hours)
+                              }
+                            }}
+                          />
+                          <div className={styles.dateFont}>Hours</div>
+                        </div>
+                      </div>
+                      <div className="mt-2 w-full text-start">
+                        <div className={styles.label}>
+                          The release is due to end&nbsp;
+                          <span className={styles.dateLabel}>
+                            {day}
+                            {', '}
+                            {endDate.toLocaleDateString()}&nbsp;
+                          </span>
+                          {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
             </div>
