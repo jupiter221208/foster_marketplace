@@ -200,6 +200,7 @@ const MainSection = ({
   const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [isCancelProcessing, setIsCancelProcessing] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
 
   const [openOfferModal, setOpenOfferModal] = useState(false)
@@ -836,7 +837,7 @@ const MainSection = ({
   }
 
   const cancelAuction = async () => {
-    setOpenProgressingModal(true)
+    setIsCancelProcessing(true)
     try {
       const { auction } = await cancelListing(mx, new PublicKey(mintAddress), sellerAddress)
       AuctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
@@ -851,14 +852,14 @@ const MainSection = ({
           ])
           setLiveAuction(false)
           setEndTime(null)
-          setOpenProgressingModal(false)
+          setIsCancelProcessing(false)
           setTimeout(() => {
             setShowAlert(true)
           }, 500)
         }
       })
     } catch (e) {
-      setOpenProgressingModal(false)
+      setIsCancelProcessing(false)
     }
   }
 
@@ -1644,6 +1645,8 @@ const MainSection = ({
                             fullWidth
                             onClick={() => processFinalizeSale()}
                           />
+                        ) : isCancelProcessing ? (
+                          <LoadingSecondaryButton label={'Cancel Auction'} type="cancel" onClick={() => {}} fullWidth />
                         ) : (
                           <SecondaryButton
                             label="Cancel Auction"
