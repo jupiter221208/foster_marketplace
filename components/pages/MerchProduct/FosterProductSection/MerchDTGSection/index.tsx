@@ -613,7 +613,7 @@ const MerchDTGSection = props => {
                           <div {...getRootProps()}>
                             <input {...getInputProps()} />
                             <div className="flex flex-col justify-center items-center">
-                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px]">
+                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
                                 <Lottie animationData={animationData} loop={true} />
                               </div>
                               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

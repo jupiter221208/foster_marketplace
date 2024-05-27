@@ -44,3 +44,16 @@
   display: flex;
   justify-content: center;
 }
+
+.imageSlider {
+  width: 100%;
+  margin-top: 0px;
+  @media (min-width: 414px) {
+    margin-top: 30px;
+  }
+  @media (min-width: 1024px) {
+    display: none;
+  }
+  display: flex;
+  gap: 15px;
+}
