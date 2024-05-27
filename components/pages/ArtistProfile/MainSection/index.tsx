@@ -541,18 +541,6 @@ const MainSection = prop => {
             <div className="w-full h-[24px] mt-[19px]">
               <div className="flex gap-[11px] z-10 items-center">
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div className={`${styles.iconContainer} w-[35px]`}>
-                    <MenuSocialShare
-                      vote={true}
-                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                      url={`/${artistInfo?.username}`}
-                    />
-                  </div>
-                )}
-
-                {hasLoading ? (
                   <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
                 ) : (
                   <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
@@ -609,6 +597,18 @@ const MainSection = prop => {
                   >
                     <CreatorMerchIcon alt="" />
                     <div className={styles.refereshText}>Merch</div>
+                  </div>
+                )}
+
+                {hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+                ) : (
+                  <div className={`${styles.iconContainer} w-[35px]`}>
+                    <MenuSocialShare
+                      vote={true}
+                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                      url={`/${artistInfo?.username}`}
+                    />
                   </div>
                 )}
               </div>
@@ -931,18 +931,6 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex gap-[11px] mt-[15px]">
           {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[35px]`}>
-              <MenuSocialShare
-                vote={true}
-                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                url={`/${artistInfo?.username}`}
-              />
-            </div>
-          )}
-
-          {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
           ) : (
             <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
@@ -993,6 +981,18 @@ const MainSection = prop => {
             >
               <CreatorMerchIcon alt="" />
               <div className={styles.refereshText}>Merch</div>
+            </div>
+          )}
+
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+          ) : (
+            <div className={`${styles.iconContainer} w-[35px]`}>
+              <MenuSocialShare
+                vote={true}
+                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                url={`/${artistInfo?.username}`}
+              />
             </div>
           )}
         </div>
