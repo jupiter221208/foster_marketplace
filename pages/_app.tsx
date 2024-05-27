@@ -17,7 +17,7 @@ const MyApp = ({ Component, pageProps, cluster }) => {
     <ContextProvider>
       <Providers>
         <div className="w-full mt-[100px]">
-          <NextNProgress color="var(--main-icon-color)" showOnShallow={false} />
+          <NextNProgress color="var(--main-icon-color)" options={{ showSpinner: false }} />
         </div>
         {getLayout(<Component {...pageProps} />)}
       </Providers>
