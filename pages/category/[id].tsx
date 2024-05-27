@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import Head from 'next/head'
 
@@ -28,8 +28,6 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
 
@@ -37,16 +35,16 @@ const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       })
-      dispatch({ type: 'set', isLoading: false })
+      // dispatch({ type: 'set', isLoading: false })
     }, 500)
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }, [router.query.id])
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
@@ -123,7 +121,7 @@ const Category = () => {
             </div>
           </div>
         )}
-        <FullScreenLoadingModal open={isLoading} />
+        {/* <FullScreenLoadingModal open={isLoading} /> */}
       </div>
     </div>
   )

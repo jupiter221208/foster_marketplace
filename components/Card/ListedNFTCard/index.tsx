@@ -132,7 +132,7 @@ const ListedNFTCard = ({
                 ) : (
                   <div className="w-full h-full">
                     {assetJson && (
-                      <ImageWithFoster src={assetJson?.image} width={360} className="w-full h-full object-cover" />
+                      <ImageWithFoster src={assetJson?.image} width={720} className="w-full h-full object-cover" />
                     )}
                   </div>
                 )}

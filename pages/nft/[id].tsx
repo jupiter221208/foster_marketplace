@@ -48,7 +48,6 @@ import nftsAPI from 'apis/nfts'
 import activityAPI from 'apis/activity'
 import { isString, compareDate, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
 import { NftData } from 'types/nft'
@@ -91,7 +90,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const dispatch = useDispatch()
-  const [showLoading, setShowLoading] = useState(true)
+  // const [showLoading, setShowLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -108,9 +107,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     dispatch({ type: 'set', isLoading: false })
   }, [])
 
-  useEffect(() => {
-    if (isLoading === false) setShowLoading(false)
-  }, [isLoading])
+  // useEffect(() => {
+  //   if (isLoading === false) setShowLoading(false)
+  // }, [isLoading])
 
   useEffect(() => {
     if (detailShow === true) {
@@ -467,7 +466,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         </div>
       )}
 
-      <FullScreenLoadingModal open={showLoading} />
+      {/* <FullScreenLoadingModal open={showLoading} /> */}
     </div>
   )
 }

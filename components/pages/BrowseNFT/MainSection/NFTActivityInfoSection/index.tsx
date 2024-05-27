@@ -196,19 +196,21 @@ const NFTActivityInfoSection = props => {
               item.action_type === 'AuctionCancelled' ? (
                 <></>
               ) : (
-                <>
-                  <div className="w-fit-content h-4 lg:h-[25px] flex flex-row justify-end items-center">
-                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                      <SolanaLogoMobileIcon alt="" />
-                    ) : (
-                      <SolanaLogoIcon className="mt-[2px]" alt="" />
-                    )}
-                    <div className={styles.userName}>&nbsp;{item.amount}</div>
-                  </div>
-                  <div className={styles.usdValue}>
-                    ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
-                  </div>
-                </>
+                item.amount > 0 && (
+                  <>
+                    <div className="w-fit-content h-4 lg:h-[25px] flex flex-row justify-end items-center">
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <SolanaLogoMobileIcon alt="" />
+                      ) : (
+                        <SolanaLogoIcon className="mt-[2px]" alt="" />
+                      )}
+                      <div className={styles.userName}>&nbsp;{item.amount}</div>
+                    </div>
+                    <div className={styles.usdValue}>
+                      ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}
+                    </div>
+                  </>
+                )
               )}
             </div>
           </div>

@@ -20,7 +20,6 @@ import NextIcon from 'assets/icons/next-arrow.svg?component'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const MerchShopCard = props => {
   const { type = 'merch', username, data } = props
@@ -29,7 +28,7 @@ const MerchShopCard = props => {
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -62,7 +61,7 @@ const MerchShopCard = props => {
     <div className={styles.container}>
       <Swiper
         slidesPerView={1}
-        spaceBetween={0}
+        spaceBetween={10}
         pagination={{
           clickable: true,
         }}
@@ -130,7 +129,7 @@ const MerchShopCard = props => {
               height={42}
               fontSize={16}
               onClick={() => {
-                setIsLoading(true)
+                // setIsLoading(true)
                 dispatch({ type: 'set', merchOrderType: type })
                 router.push(`/${username}/merch/${data.id}`)
               }}
@@ -148,7 +147,7 @@ const MerchShopCard = props => {
               height={42}
               fontSize={16}
               onClick={() => {
-                setIsLoading(true)
+                // setIsLoading(true)
                 dispatch({ type: 'set', merchOrderType: type })
                 router.push(`/${username}/merch/${data.id}`)
               }}
@@ -156,7 +155,7 @@ const MerchShopCard = props => {
           </div>
         )}
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

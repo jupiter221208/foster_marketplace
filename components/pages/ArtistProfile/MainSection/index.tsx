@@ -28,7 +28,6 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
@@ -53,6 +52,7 @@ import nftsAPI from 'apis/nfts'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const MainSection = prop => {
   const {
@@ -541,18 +541,6 @@ const MainSection = prop => {
             <div className="w-full h-[24px] mt-[19px]">
               <div className="flex gap-[11px] z-10 items-center">
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div className={`${styles.iconContainer} w-[35px]`}>
-                    <MenuSocialShare
-                      vote={true}
-                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                      url={`/${artistInfo?.username}`}
-                    />
-                  </div>
-                )}
-
-                {hasLoading ? (
                   <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
                 ) : (
                   <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
@@ -605,10 +593,24 @@ const MainSection = prop => {
                 ) : (
                   <div
                     className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-                    onClick={() => router.push(`/${artistInfo?.username}/merch`)}
+                    onClick={() => {
+                      router.push(`/${artistInfo?.username}/merch`)
+                    }}
                   >
                     <CreatorMerchIcon alt="" />
                     <div className={styles.refereshText}>Merch</div>
+                  </div>
+                )}
+
+                {hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+                ) : (
+                  <div className={`${styles.iconContainer} w-[35px]`}>
+                    <MenuSocialShare
+                      vote={true}
+                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                      url={`/${artistInfo?.username}`}
+                    />
                   </div>
                 )}
               </div>
@@ -931,18 +933,6 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex gap-[11px] mt-[15px]">
           {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[35px]`}>
-              <MenuSocialShare
-                vote={true}
-                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                url={`/${artistInfo?.username}`}
-              />
-            </div>
-          )}
-
-          {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
           ) : (
             <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
@@ -989,10 +979,24 @@ const MainSection = prop => {
           ) : (
             <div
               className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-              onClick={() => router.push(`/${artistInfo?.username}/merch`)}
+              onClick={() => {
+                router.push(`/${artistInfo?.username}/merch`)
+              }}
             >
               <CreatorMerchIcon alt="" />
               <div className={styles.refereshText}>Merch</div>
+            </div>
+          )}
+
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+          ) : (
+            <div className={`${styles.iconContainer} w-[35px]`}>
+              <MenuSocialShare
+                vote={true}
+                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                url={`/${artistInfo?.username}`}
+              />
             </div>
           )}
         </div>

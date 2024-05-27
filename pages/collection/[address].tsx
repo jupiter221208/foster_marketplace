@@ -8,7 +8,6 @@ import Head from 'next/head'
 // components
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // styles
 import styles from './index.module.scss'
@@ -43,7 +42,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const router = useRouter()
   const { connected, publicKey } = useWallet()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [collectionData, setCollectionData] = useState()
@@ -90,7 +89,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         let newNftsArr: NftData[] = [...filteredNfts]
 
         newNftsArr.map((data, index) => {
-          newNftsArr[index].category = determineCategory(data.content.files)
+          newNftsArr[index].category = determineCategory(data.content.files, '')
         })
 
         sortedCollectionNfts.map((data, index) => {
@@ -113,7 +112,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   useEffect(() => {
     ;(async () => {
       setCollectionData(publicCollectionData)
-      dispatch({ type: 'set', isLoading: false })
+      // dispatch({ type: 'set', isLoading: false })
 
       if (!address) return
       try {
@@ -233,7 +232,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           </div>
         )}
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

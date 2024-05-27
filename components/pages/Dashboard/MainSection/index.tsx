@@ -227,7 +227,7 @@ const MainSection = () => {
                 <div>Settings</div>
               </div>
               <WalletFilterMenu
-                label={'Wallet & Socials'}
+                label="Links"
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {
@@ -249,7 +249,7 @@ const MainSection = () => {
             </div>
             <div className="flex lg:hidden gap-[9px] lg:gap-[15px] items-center">
               <WalletFilterMenu
-                label={'Wallet & Socials'}
+                label={'Links'}
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {

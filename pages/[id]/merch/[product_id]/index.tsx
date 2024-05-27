@@ -140,7 +140,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           </div>
         </div>
 
-        <div className="w-full lg:hidden flex gap-[9px] sm:gap-[15px] mt-[0px] sm:mt-[30px]">
+        <div className={styles.imageSlider}>
           {merchList.map((merch, index) => {
             return (
               <div

@@ -25,7 +25,6 @@ import animationData from 'assets/lottery/shopping-lottie.json'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
 import MerchAPI from 'apis/merch'
@@ -47,7 +46,7 @@ const MerchActivity = () => {
   const { connected, publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
   const router = useRouter()
@@ -86,12 +85,12 @@ const MerchActivity = () => {
 
   const [tokenId, setTokenId] = useState(false)
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: true })
-    if (!connected) {
-      setTimeout(() => {
-        dispatch({ type: 'set', isLoading: false })
-      }, 1000)
-    }
+    // dispatch({ type: 'set', isLoading: true })
+    // if (!connected) {
+    //   setTimeout(() => {
+    //     dispatch({ type: 'set', isLoading: false })
+    //   }, 1000)
+    // }
   }, [])
 
   useEffect(() => {
@@ -602,7 +601,7 @@ const MerchActivity = () => {
           setPreviewMode(false)
         }}
       />
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

@@ -73,6 +73,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isFetchingCollected, setIsFetchingCollected] = useState(false)
   const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
   const [hasLoading, setHasLoading] = useState(true)
+  // const [isShowLoading, setIsShowLoading] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -393,6 +394,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           </div>
         )}
       </div>
+      {/* <FullScreenLoadingModal open={isShowLoading} /> */}
     </div>
   )
 }

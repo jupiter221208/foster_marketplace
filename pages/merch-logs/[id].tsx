@@ -18,7 +18,6 @@ import OutlineButton from 'components/Button/OutlineButton'
 // api
 import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
@@ -30,7 +29,7 @@ const MerchDetail = () => {
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const type = useSelector<any>(state => state.orderType)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -49,7 +48,7 @@ const MerchDetail = () => {
   const [commission, setCommission] = useState(null)
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
+    // dispatch({ type: 'set', isLoading: false })
 
     if (!orderData) return
     let { order, ssorder, shipment } = orderData
@@ -232,7 +231,7 @@ const MerchDetail = () => {
   }
 
   const retryPayment = () => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
     router.push(`/orders/${id}`)
   }
   return (
@@ -242,7 +241,7 @@ const MerchDetail = () => {
           <div
             className={styles.backBG}
             onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
+              // dispatch({ type: 'set', isLoading: true })
               router.push('/merch-logs')
             }}
           >
@@ -956,7 +955,7 @@ const MerchDetail = () => {
           </div>
         </div>
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
