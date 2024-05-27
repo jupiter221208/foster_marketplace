@@ -22,7 +22,6 @@ import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import CreatorsSection from 'components/pages/Stats/CreatorsSection'
 import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import CollectionsSection from 'components/pages/Stats/CollectionsSection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
 import StatsAPI from 'apis/stats'
@@ -30,7 +29,7 @@ import StatsAPI from 'apis/stats'
 const Stats = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const status = useSelector<any>(state => state.activeTab)
 
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -43,7 +42,7 @@ const Stats = () => {
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
+    // dispatch({ type: 'set', isLoading: false })
     getArtworkData()
     getCollectionData()
     getCreatorData()
@@ -221,7 +220,7 @@ const Stats = () => {
           setPreviewMode(false)
         }}
       />
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

@@ -43,7 +43,6 @@ import styles from './single-nft.module.scss'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ModelViewer from 'components/ModelViewer'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
@@ -52,7 +51,7 @@ const SingleNft = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -60,7 +59,7 @@ const SingleNft = () => {
   const [isMinting, setIsMinting] = useState(false)
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
+    // dispatch({ type: 'set', isLoading: false })
     setTimeout(() => {
       setScreenLoaded(true)
     }, 1000)
@@ -983,7 +982,7 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
-      <FullScreenLoadingModal open={screenLoaded && isLoading} />
+      {/* <FullScreenLoadingModal open={screenLoaded && isLoading} /> */}
     </div>
   )
 }

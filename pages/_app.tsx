@@ -1,4 +1,5 @@
 import React from 'react'
+import NextNProgress from 'nextjs-progressbar'
 
 // styles
 import '@solana/wallet-adapter-react-ui/styles.css'
@@ -14,7 +15,12 @@ const MyApp = ({ Component, pageProps, cluster }) => {
 
   return (
     <ContextProvider>
-      <Providers>{getLayout(<Component {...pageProps} />)}</Providers>
+      <Providers>
+        <div className="w-full mt-[100px]">
+          <NextNProgress color="var(--main-icon-color)" showOnShallow={false} />
+        </div>
+        {getLayout(<Component {...pageProps} />)}
+      </Providers>
     </ContextProvider>
   )
 }

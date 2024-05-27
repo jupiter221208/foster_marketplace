@@ -17,7 +17,6 @@ import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
 import SelectedTab from 'components/Tab/SelectedTab'
 import EcosystemCard from 'components/Card/EcosystemCard'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -59,7 +58,7 @@ const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
 
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
@@ -255,7 +254,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         if (response.length === 0) {
           setIsVisibleFetching(false)
@@ -376,7 +375,7 @@ const Explore = () => {
         }
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -406,7 +405,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
 
         if (response.length === 0) return
@@ -432,7 +431,7 @@ const Explore = () => {
         else setCollectionList([...collectionList, ...collections])
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -440,7 +439,7 @@ const Explore = () => {
   }
 
   const getExploreArtistData = async (curPage, sort, count, reset = false) => {
-    if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
+    // if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
 
     let page = curPage
     if (reset === true) {
@@ -457,7 +456,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
@@ -470,7 +469,7 @@ const Explore = () => {
         else setEcosystemList([...ecosystemList, ...response])
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -731,7 +730,7 @@ const Explore = () => {
                             reservePrice={item.reserve_price}
                             endTime={item.end_time}
                             onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
+                              // dispatch({ type: 'set', isLoading: true })
                             }}
                             price={item.price}
                           />
@@ -749,7 +748,7 @@ const Explore = () => {
                             currentSupply={item.current_supply}
                             maxSupply={item.max_supply}
                             onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
+                              // dispatch({ type: 'set', isLoading: true })
                             }}
                             key={index}
                           />
@@ -768,7 +767,7 @@ const Explore = () => {
                               maxSupply={item.max_supply}
                               price={item.master_edition?.price}
                               onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
+                                // dispatch({ type: 'set', isLoading: true })
                                 // router.push('/nft/' + item.tokenId)
                               }}
                               key={index}
@@ -785,7 +784,7 @@ const Explore = () => {
                               reservePrice={item.reserve_price}
                               endTime={item.end_time}
                               onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
+                                // dispatch({ type: 'set', isLoading: true })
                               }}
                               price={item.price}
                             />
@@ -800,7 +799,7 @@ const Explore = () => {
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
+                                // dispatch({ type: 'set', isLoading: true })
                               }}
                             />
                           ) : (
@@ -812,7 +811,7 @@ const Explore = () => {
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
                               onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
+                                // dispatch({ type: 'set', isLoading: true })
                               }}
                               price={item.price}
                             />
@@ -828,7 +827,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
+                              // dispatch({ type: 'set', isLoading: true })
                             }}
                           />
                         ) : (
@@ -840,7 +839,7 @@ const Explore = () => {
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
                             onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
+                              // dispatch({ type: 'set', isLoading: true })
                             }}
                             price={item.price}
                           />
@@ -933,7 +932,7 @@ const Explore = () => {
           />
         )}
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

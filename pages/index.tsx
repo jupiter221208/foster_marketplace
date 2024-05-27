@@ -10,7 +10,6 @@ import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection
 import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
 import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
 import PreviewImage from 'assets/images/preview-image.png'
@@ -36,7 +35,7 @@ import ShopMerchSection from 'components/pages/Home/ShopMerchSection'
 const Home = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
   let pageTitle = 'Foster Marketplace'
@@ -208,7 +207,7 @@ const Home = () => {
       </div>
 
       {/* <CreateSellNFTSection /> */}
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

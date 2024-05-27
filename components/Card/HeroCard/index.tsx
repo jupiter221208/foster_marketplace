@@ -23,11 +23,11 @@ const HeroNewCard = ({ data }) => {
   const onClick = () => {}
 
   const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }
 
   const gotoNftDetailPage = () => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }
 
   return (

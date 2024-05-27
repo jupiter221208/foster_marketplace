@@ -5,7 +5,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Pagination } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -20,14 +19,13 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 // custom functions
-import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
+import { NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -38,9 +36,7 @@ import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
-import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import ShoppingCartMerchApparelSection from 'components/pages/BrowseNFT/MerchSection/ShoppingCartMerchApparelSection'
 import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
@@ -63,14 +59,14 @@ export interface BrowseNFTProps {
 
 const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const [openApparelDetail, setOpenApparelDetail] = useState(true)
   const [finishEditing, setFinishEditing] = useState(false)
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const [data, setData] = useState(null)
   const dispatch = useDispatch()
-  const [showLoading, setShowLoading] = useState(true)
+  // const [showLoading, setShowLoading] = useState(true)
   const [apparel, setApparel] = useState(null)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
@@ -102,12 +98,12 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }, [])
 
-  useEffect(() => {
-    if (isLoading === false) setShowLoading(false)
-  }, [isLoading])
+  // useEffect(() => {
+  //   if (isLoading === false) setShowLoading(false)
+  // }, [isLoading])
 
   useEffect(() => {
     setLoading(true)
@@ -291,7 +287,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         </div>
       )}
 
-      <FullScreenLoadingModal open={showLoading} />
+      {/* <FullScreenLoadingModal open={showLoading} /> */}
     </div>
   )
 }
