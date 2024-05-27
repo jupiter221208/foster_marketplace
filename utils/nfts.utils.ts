@@ -364,6 +364,16 @@ export async function getNftFromDAS(metaplex: Metaplex, address: string, maxRetr
   let imageCdn = content.files.find(({ uri }) => uri == image)?.cdn_uri
   let animation_url = content.links.animation_url
   let category = determineCategory(content.files)
+  
+  if (category.includes('video') && (animation_url === null || animation_url === undefined)) {
+    content.files.map(file => {
+      if (file.mime === category) {
+        animation_url = file.uri
+        return;
+      }
+    })
+  }
+
   return {
     mintAddress: address,
     metadataAddress: metaplex
@@ -516,6 +526,7 @@ export function determineCategory(files: determineCategoryType) {
       category = 'uknown'
     } else {
       category = files[0].mime
+      console.log(category, '============category===========')
     }
   }
   return category || 'unknown'
