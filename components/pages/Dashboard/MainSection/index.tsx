@@ -227,7 +227,7 @@ const MainSection = () => {
                 <div>Settings</div>
               </div>
               <WalletFilterMenu
-                label={'Wallet & Socials'}
+                label="Wallet & Socials"
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {
