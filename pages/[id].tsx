@@ -29,6 +29,7 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import TabSection from './profile/TabSection'
 import { ArtistsAPIData } from 'types/nft'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -73,6 +74,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isFetchingCollected, setIsFetchingCollected] = useState(false)
   const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
   const [hasLoading, setHasLoading] = useState(true)
+  const [isShowLoading, setIsShowLoading] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -345,6 +347,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
           hasLoading={hasLoading}
+          setIsShowLoading={setIsShowLoading}
         />
         <div className="w-full flex justify-center">
           <div className="g-container">
@@ -393,6 +396,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           </div>
         )}
       </div>
+      <FullScreenLoadingModal open={isShowLoading} />
     </div>
   )
 }

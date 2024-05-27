@@ -64,6 +64,7 @@ const MainSection = prop => {
     isLoaded,
     isColletorLoaded,
     setFullScreenView,
+    setIsShowLoading,
     wallet,
     reloadPage,
     hasLoading,
@@ -108,7 +109,6 @@ const MainSection = prop => {
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
   const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (publicKey?.toBase58() === artistInfo?.wallet_id) {
@@ -596,7 +596,7 @@ const MainSection = prop => {
                     className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
                     onClick={() => {
                       router.push(`/${artistInfo?.username}/merch`)
-                      setIsLoading(true)
+                      setIsShowLoading(true)
                     }}
                   >
                     <CreatorMerchIcon alt="" />
@@ -983,7 +983,7 @@ const MainSection = prop => {
               className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
               onClick={() => {
                 router.push(`/${artistInfo?.username}/merch`)
-                setIsLoading(true)
+                setIsShowLoading(true)
               }}
             >
               <CreatorMerchIcon alt="" />
@@ -1115,7 +1115,6 @@ const MainSection = prop => {
         }}
         data={alertData}
       />
-      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
