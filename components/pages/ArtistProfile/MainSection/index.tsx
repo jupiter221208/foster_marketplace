@@ -28,7 +28,6 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
@@ -53,6 +52,7 @@ import nftsAPI from 'apis/nfts'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const MainSection = prop => {
   const {
@@ -108,6 +108,7 @@ const MainSection = prop => {
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
   const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (publicKey?.toBase58() === artistInfo?.wallet_id) {
@@ -593,7 +594,10 @@ const MainSection = prop => {
                 ) : (
                   <div
                     className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-                    onClick={() => router.push(`/${artistInfo?.username}/merch`)}
+                    onClick={() => {
+                      router.push(`/${artistInfo?.username}/merch`)
+                      setIsLoading(true)
+                    }}
                   >
                     <CreatorMerchIcon alt="" />
                     <div className={styles.refereshText}>Merch</div>
@@ -977,7 +981,10 @@ const MainSection = prop => {
           ) : (
             <div
               className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
-              onClick={() => router.push(`/${artistInfo?.username}/merch`)}
+              onClick={() => {
+                router.push(`/${artistInfo?.username}/merch`)
+                setIsLoading(true)
+              }}
             >
               <CreatorMerchIcon alt="" />
               <div className={styles.refereshText}>Merch</div>
@@ -1108,6 +1115,7 @@ const MainSection = prop => {
         }}
         data={alertData}
       />
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

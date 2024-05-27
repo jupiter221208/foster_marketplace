@@ -62,7 +62,7 @@ const MerchShopCard = props => {
     <div className={styles.container}>
       <Swiper
         slidesPerView={1}
-        spaceBetween={0}
+        spaceBetween={10}
         pagination={{
           clickable: true,
         }}
