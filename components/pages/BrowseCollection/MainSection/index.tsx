@@ -327,7 +327,7 @@ const MainSection = props => {
                         <SolanaLogoIcon alt="" />
                       </div>
                       <div className={`${styles.nftInfoLabel} ml-[6px]`}>
-                        {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                        {totalVolume > 0 ? totalVolume.toFixed(2) : '0'}
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
@@ -338,7 +338,7 @@ const MainSection = props => {
                       <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : '-'}</div>
                     </div>
                     <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
                   </div>
@@ -521,7 +521,7 @@ const MainSection = props => {
                             <div className="flex gap-2 items-center">
                               <SolanaLogoIcon className="mt-[4px]" />
 
-                              <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                              <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : '-'}</div>
                             </div>
                           </div>
                           <div className={styles.nftInfoValueMobile}>Floor Price</div>
@@ -538,7 +538,7 @@ const MainSection = props => {
                               <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>
-                                {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                                {totalVolume > 0 ? totalVolume.toFixed(2) : '0'}
                               </div>
                             </div>
                           </div>
