@@ -66,11 +66,19 @@ const MerchDTGSection = props => {
     if (assetUrl) {
       drawApparel()
       return
+    } else {
+      let newCanvas = canvas as fabric.Canvas
+      if (newCanvas == '') {
+        newCanvas = new fabric.Canvas(canvasId)
+      }
+      newCanvas.clear()
+      newCanvas.renderAll()
     }
   }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
+    setProductDetail({ snapshotAssetUrl: { front: '', back: '', right: '', left: '' }, technique, color })
     setAssetUrl(null)
   }, [selectedCard, color, technique])
 
@@ -205,7 +213,7 @@ const MerchDTGSection = props => {
       assetTop = (assetTop * screenWidth) / 700
       assetLeft = (assetLeft * screenWidth) / 700
     }
-    console.log(screenWidth, assetWidth, assetHeight, assetTop, assetLeft)
+
     newCanvas.setDimensions({
       width: screenWidth,
       height: screenWidth,
