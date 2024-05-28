@@ -225,14 +225,14 @@ const MerchDTGSection = props => {
     })
 
     setTimeout(() => {
-      new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], img => {
-        const { width, height } = img.getOriginalSize()
+      new fabric.Image.fromURL(apparelList[selectedCard.id].apparel[cardSide][color], apparelImg => {
+        const { width } = apparelImg.getOriginalSize()
 
-        img.scale(screenWidth / 700, false)
-        newCanvas.add(img)
+        apparelImg.scale(screenWidth / 700, false)
+        newCanvas.add(apparelImg)
 
         if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
-          img.set({
+          apparelImg.set({
             scaleX: screenWidth / width,
             scaleY: screenWidth / width,
             top: 0,
@@ -241,9 +241,7 @@ const MerchDTGSection = props => {
         }
 
         newCanvas.item(0).selectable = false
-
         newCanvas.add(rect)
-
         newCanvas.item(1).selectable = false
 
         if (assetUrl) {
@@ -253,6 +251,16 @@ const MerchDTGSection = props => {
                 assetUrl,
                 overlayImg => {
                   const { width } = overlayImg.getOriginalSize()
+
+                  overlayImg.scaleToWidth(assetWidth, false)
+                  overlayImg.set({
+                    scaleX: assetWidth / width,
+                    scaleY: assetWidth / width,
+                    top: assetTop,
+                    left: assetLeft,
+                    angle: angle,
+                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
+                  })
 
                   var rectClippingPath = new fabric.Rect({
                     top: assetTop,
@@ -264,16 +272,7 @@ const MerchDTGSection = props => {
                     absolutePositioned: true,
                   })
                   overlayImg.clipPath = rectClippingPath
-                  overlayImg.scaleToWidth(assetWidth, false)
-                  overlayImg.set({
-                    scaleX: assetWidth / width,
-                    scaleY: assetWidth / width,
-                    top: assetTop,
-                    left: assetLeft,
-                    angle: angle,
-                  })
 
-                  newCanvas.add(overlayImg)
                   overlayImg.setControlsVisibility({
                     mt: false,
                     mb: false,
@@ -281,6 +280,7 @@ const MerchDTGSection = props => {
                     mr: false,
                   })
                   newCanvas.setActiveObject(overlayImg)
+                  newCanvas.add(overlayImg)
                   newCanvas.renderAll()
                 },
                 { crossOrigin: 'Anonymous' }
