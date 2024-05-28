@@ -216,11 +216,11 @@ const MerchDTGSection = props => {
       left: assetLeft,
       width: assetWidth,
       height: assetHeight,
-      stroke: '#707070',
+      stroke: 'rgba(0, 0, 0, 0.25)',
       strokeWidth: 1,
-      fill: '#1a1a1a',
+      fill: 'rgba(255, 255, 255, 0.05)',
       angle: angle,
-      opacity: 0.5,
+      opacity: 1,
       absolutePositioned: true,
     })
 
