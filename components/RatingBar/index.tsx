@@ -3,9 +3,8 @@ import React, { useState } from 'react'
 // styles
 import styles from './index.module.scss'
 
-const RatingBar = ({ totalStars = 5, onRating }) => {
-  const [rating, setRating] = useState(0)
-  const [hover, setHover] = useState(0)
+const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) => {
+  const [rating, setRating] = useState(value)
 
   return (
     <div className="flex">
@@ -19,8 +18,10 @@ const RatingBar = ({ totalStars = 5, onRating }) => {
             alt="star"
             className="star"
             onClick={() => {
-              setRating(ratingValue)
-              onRating(ratingValue)
+              if (clickable) {
+                setRating(ratingValue)
+                onRating(ratingValue)
+              }
             }}
             style={{ width: '20px', cursor: 'pointer' }}
           />

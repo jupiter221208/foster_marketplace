@@ -769,9 +769,11 @@ const MainSection = ({
   let count = viewport === '2xl' ? 450 : viewport === 'xl' ? 300 : viewport === 'lg' ? 280 : 450
   const processedNftDescription = isTruncated ? tempNftDescription.slice(0, count) : tempNftDescription
   const shouldShowReadMore = tempNftDescription.length > count
+
   useEffect(() => {
     setTempNftDescription(nftDescription)
   }, [nftDescription])
+
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
   }
