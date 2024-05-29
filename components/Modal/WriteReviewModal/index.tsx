@@ -43,6 +43,10 @@ const WriteReviewModal = ({ open, onClose }) => {
     setUrls(list)
   }
 
+  const handleRating = rating => {
+    console.log(`The user rated: ${rating}/5`)
+  }
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={onClose}>
@@ -72,7 +76,7 @@ const WriteReviewModal = ({ open, onClose }) => {
               <div className={styles.mainView}>
                 <div className={styles.contentView}>
                   <div className="w-full flex justify-between">
-                    <div className={styles.writeReview}>Wriet Review</div>
+                    <div className={styles.writeReview}>Write Review</div>
                     <div className="w-[40px] h-[40px]" onClick={onClose}>
                       <CloseIcon />
                     </div>
@@ -91,7 +95,8 @@ const WriteReviewModal = ({ open, onClose }) => {
                       Overall rating <span>*</span>
                     </div>
                     <div className="mt-[10px]">
-                      <RatingBar value={3.5} outOf={5} />
+                      {/* <RatingBar value={3.5} outOf={5} /> */}
+                      <RatingBar onRating={handleRating} />
                     </div>
                   </div>
                   <div className="mt-[20px]">
