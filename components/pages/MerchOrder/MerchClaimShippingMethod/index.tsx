@@ -181,10 +181,10 @@ const MerchClaimShippingMethod = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] lg:h-[540px] pt-[25px] pb-[15px]">
-        <div className={styles.selecteCategory}>Shipping Details</div>
+      <div className="w-full px-[16px] lg:px-[30px] lg:h-[540px] pt-[30px] lg:pt-[25px] pb-[15px]">
+        <div className={styles.selecteCategory}>Shipping Method</div>
         <div className="w-full">
-          <div className="w-full min-w-[375px] mt-[12px]">
+          <div className="w-full min-w-[375px] mt-[40px] lg:mt-[12px]">
             {shipping && (
               <Radio
                 data={shippingMethods}
@@ -203,11 +203,11 @@ const MerchClaimShippingMethod = props => {
                   <div className={styles.totalPrice}>${data.cost}</div>
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} /> */}
-                <div className="w-full flex justify-between mt-[0px]">
-                  <div className={styles.orderTotal}>Shipping and & Handling</div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.orderTotal}>Shipping & Handling</div>
                   <div className={styles.subPrice}>
                     <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                    <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                    <div className="mt-[15px] lg:mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
                   </div>
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} />
@@ -221,7 +221,7 @@ const MerchClaimShippingMethod = props => {
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      <div className="w-full px-[16px] lg:px-[30px] mt-[120px] lg:mt-[20px]">
         <div className="w-full mt-[20px]">
           {isLoading ? (
             <LoadingPrimaryButton fullWidth />

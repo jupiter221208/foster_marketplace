@@ -143,7 +143,7 @@ const MerchClaimShipping = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full px-[16px] lg:px-[30px] pt-[30px] lg:pt-[25px] pb-[15px]">
         <div className="w-full flex justify-between">
           <div className={styles.selecteCategory}>Shipping Details</div>
           <div onClick={onClose}>
@@ -151,7 +151,7 @@ const MerchClaimShipping = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[20px]">
+        <div className="w-full mt-[25px] lg:mt-[20px]">
           <div className={styles.label}>
             Contact Information <span>*</span>
           </div>
@@ -239,14 +239,14 @@ const MerchClaimShipping = props => {
                 setSize(item)
               }}
             />
-            {/* <div className="flex items-center mt-[10px]">
-              <div className={styles.sizeChart}>Size Chart</div>
-            </div> */}
+            <div className="flex items-center mt-[10px]">
+              <div className={styles.sizeChart}>Select Size</div>
+            </div>
           </div>
         </div>
       </div>
       <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      <div className="w-full px-[16px] lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[22px] mb-[25px]">
           {isLoading ? (
             <LoadingPrimaryButton fullWidth />
