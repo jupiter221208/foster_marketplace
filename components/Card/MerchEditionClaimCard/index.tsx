@@ -17,13 +17,17 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import MerchEditionViewModal from 'components/Modal/MerchEditionViewModal'
+import MerchClaimModal from 'components/Modal/MerchClaimModal'
 
 const MerchEditionClaimCard = props => {
   const { data } = props
   const [showEditBtn, setShowEditBtn] = useState(false)
   const [showViewCard, setShowViewCard] = useState(false)
+  const [showClaimCard, setShowClaimCard] = useState(false)
 
-  const onClaimCard = () => {}
+  const onClaimCard = () => {
+    setShowClaimCard(true)
+  }
 
   const onViewCard = () => {
     setShowViewCard(true)
@@ -74,6 +78,7 @@ const MerchEditionClaimCard = props => {
       </div>
 
       <MerchEditionViewModal urls={data.urls} open={showViewCard} onClose={() => setShowViewCard(false)} />
+      <MerchClaimModal urls={data.urls} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
     </div>
   )
 }
