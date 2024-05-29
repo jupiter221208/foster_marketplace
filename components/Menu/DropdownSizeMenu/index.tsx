@@ -14,13 +14,13 @@ import styles from './index.module.scss'
 import Radio from 'components/Radio'
 
 const DropdownSizeMenu = props => {
-  const { label, data, selectedItem, setSelectedItem } = props
+  const { data, selectedItem, setSelectedItem } = props
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
-            {selectedItem.name}
+            {selectedItem.label}
             <DownIcon />
           </div>
         </Menu.Button>
@@ -38,7 +38,13 @@ const DropdownSizeMenu = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem}>
-                  <Radio data={data} selected={selectedItem} direction="" onChange={item => setSelectedItem(item)} />
+                  {data.map((item, index) => (
+                    <div key={index} className="flex justify-between gap-4 z-10 ">
+                      <div className={styles.label} onClick={() => setSelectedItem(item)}>
+                        {item.label}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </Menu.Item>

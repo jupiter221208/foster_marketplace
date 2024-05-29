@@ -1,0 +1,60 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  background: var(--background-main-color);
+}
+
+.topSection {
+  width: 100%;
+  height: 80px;
+  padding: 0px 15px;
+  @media (min-width: 1024px) {
+    height: 90px;
+    padding: 0px 30px;
+  }
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reviewer {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}
+
+.username {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 1);
+}
+
+.productType {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 100;
+  color: var(--main-icon-color);
+}
+
+.desc {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--main-bg-color);
+  @media (min-width: 1024px) {
+    color: #656B72;
+  }
+}
+
+.greenText {
+  color: var(--main-icon-color);
+}

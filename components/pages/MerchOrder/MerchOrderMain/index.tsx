@@ -100,7 +100,7 @@ const MerchOrderMain = props => {
                 }}
               />
               <div className="flex items-center mt-[10px]">
-                <div className={styles.sizeChart}>Size Chart</div>
+                <div className={styles.sizeChart}>Select Size</div>
               </div>
             </div>
           )}

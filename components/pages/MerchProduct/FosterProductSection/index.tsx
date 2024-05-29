@@ -52,7 +52,7 @@ const FosterProductSection = props => {
   }, [selectedCard])
 
   const isSaved = () => {
-    if (!productDetail) return
+    if (!productDetail) return false
     let snapshotAssetUrl = productDetail.snapshotAssetUrl
     if (
       snapshotAssetUrl['front'] === '' &&
@@ -120,7 +120,7 @@ const FosterProductSection = props => {
           setShowQuestionModal(false)
         }}
         onContinue={type => {
-          setShowQuestionModal(false)
+          if (isSaved()) setShowQuestionModal(false)
           setSelectedCard(selectedItem)
         }}
       />

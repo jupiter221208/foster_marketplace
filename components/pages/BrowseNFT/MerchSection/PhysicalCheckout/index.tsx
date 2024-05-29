@@ -184,9 +184,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[0px] lg:px-[30px] mt-[0px] lg:mt-[30px]">
+      <div className="w-full px-[16px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
-        <div className="w-full mt-[15px] lg:mt-[30px] h-[130px] overflow-auto">
+        <div className="w-full mt-[45px] lg:mt-[30px] h-[130px] overflow-auto">
           <div className={styles.productDetails}>Product Details</div>
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
@@ -277,12 +277,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           <div className={styles.paymentMethod}>
             Choose Payment Method <span>*</span>
           </div>
-          <div className="w-full flex gap-[30px] mt-[10px]">
+          <div className="w-full flex gap-[8px] lg:gap-[30px] mt-[10px]">
             <div
               className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('sol')}
             >
-              <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
                 <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
               </div>
               <div className={styles.currencyName}>SOL</div>
@@ -291,10 +291,19 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('usdc')}
             >
-              <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
                 <Image src={USDCIcon} width={37} height={37} alt="" />
               </div>
               <div className={styles.currencyName}>USDC</div>
+            </div>
+            <div
+              className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+              onClick={() => setCurrency('card')}
+            >
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
+                <Image src={CARDIcon} width={37} height={37} alt="" />
+              </div>
+              <div className={styles.currencyName}>CARD</div>
             </div>
           </div>
         </div>
@@ -303,16 +312,16 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       <div className={styles.bottomSection}>
         <div className="w-full flex justify-between mb-[20px] px-[5px]">
           <div className={styles.orderTotal}>Total</div>
-          <div className="flex gap-2 items-center">
-            <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
-            <div className={styles.costDivider} />
-            <div className="flex gap-1 items-center">
+          <div className="">
+            {/* <div className={styles.costDivider} /> */}
+            <div className="flex gap-1 items-center justify-end">
               <SolanaIcon alt="" className="mt-[2px]" />
               <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
+            <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-[15px]">
+        <div className="w-full flex flex-col gap-[15px] mb-[30px]">
           {isLoad ? (
             <LoadingPrimaryButton fullWidth />
           ) : (

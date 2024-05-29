@@ -384,6 +384,15 @@ h6 {
   line-height: 60px;
 }
 
+.star {
+  margin: 0 1px;
+  transition: transform 200ms;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
 .g-container {
   max-width: 1920px;
   width: 100%;

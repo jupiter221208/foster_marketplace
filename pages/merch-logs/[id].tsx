@@ -23,6 +23,7 @@ import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import { useAuthentication } from 'hooks/useAuthentication'
+import WriteReviewModal from 'components/Modal/WriteReviewModal'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -46,7 +47,7 @@ const MerchDetail = () => {
   const [reviewTitle, setReviewTitle] = useState('')
   const [reviewBody, setReviewBody] = useState('')
   const [commission, setCommission] = useState(null)
-
+  const [showReviewModal, setShowReviewModal] = useState(false)
   useEffect(() => {
     // dispatch({ type: 'set', isLoading: true })
   }, [])
@@ -398,20 +399,21 @@ const MerchDetail = () => {
                 </a>
               </div>
               <div className="mt-[12px]">
-                <a
+                {/* <a
                   href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                     subject: reviewTitle,
                     body: reviewBody,
                   })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    // onClick={() => {}}
-                    onClick={() => {}}
-                  />
-                </a>
+                > */}
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a review"
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
+                {/* </a> */}
               </div>
             </div>
           </div>
@@ -519,22 +521,21 @@ const MerchDetail = () => {
                 </a>
               </div>
               <div className="mt-[12px]">
-                <a
+                {/* <a
                   href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                     subject: reviewTitle,
                     body: reviewBody,
                   })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    // onClick={() => {}}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </a>
+                > */}
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a review"
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
+                {/* </a> */}
               </div>
             </div>
           </div>
@@ -655,22 +656,23 @@ const MerchDetail = () => {
                   </a>
                 </div>
                 <div className="mt-[12px]">
-                  <a
+                  {/* <a
                     href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                       subject: reviewTitle,
                       body: reviewBody,
                     })}`}
-                  >
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      // onClick={() => {}}
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </a>
+                  > */}
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a review"
+                    // onClick={() => {}}
+                    onClick={() => {
+                      setShowReviewModal(true)
+                      // window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                  {/* </a> */}
                 </div>
               </div>
             </div>
@@ -923,7 +925,6 @@ const MerchDetail = () => {
                 paddingLeft="37px"
                 paddingRight="37px"
                 label="Get help"
-                disabled={true}
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
@@ -940,21 +941,22 @@ const MerchDetail = () => {
                 fontSize="16px"
                 paddingLeft="37px"
                 paddingRight="37px"
-                label="Write a product review"
-                disabled={true}
+                label="Write a review"
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
                 color={'var(--text-gray-200-color)'}
                 width={335}
                 onClick={() => {
-                  window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  setShowReviewModal(true)
+                  // window.location.href = 'mailto:admin@Fostermarketplace.app'
                 }}
               />
             </div>
           </div>
         </div>
       </div>
+      <WriteReviewModal open={showReviewModal} onClose={() => setShowReviewModal(false)} />
       {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
