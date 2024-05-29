@@ -77,11 +77,13 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
                 <CloseIcon alt="" />
               </div>
               <div className="mt-[100px]">
-                <div className="w-[600px] h-[600px]">
-                  <ImageWithFoster src={selectedAsset.src} width={600} className="w-full h-full" />
+                <div className="w-full flex justify-center">
+                  <div className="w-[375px] h-[375px] sm:w-[600px] sm:h-[600px]">
+                    <ImageWithFoster src={selectedAsset.src} width={600} className="w-full h-full" />
+                  </div>
                 </div>
-                <div className="w-full flex justify-center  mt-[30px]">
-                  <div className="flex gap-[30px]">
+                <div className="w-full flex justify-center mt-[30px]">
+                  <div className="flex gap-[9px] lg:gap-[30px]">
                     {assetUrls.map((item, index) => (
                       <div
                         key={index}
