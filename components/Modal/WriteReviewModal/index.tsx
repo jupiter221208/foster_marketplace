@@ -30,12 +30,9 @@ const WriteReviewModal = ({ open, onClose }) => {
 
   const removeItem = index => {
     let list = [...urls]
-    console.log(list, '===============1===========')
     list.splice(index, 1)
-    console.log(list, '===============2===========')
-    setUrls([...list])
+    setUrls(list)
   }
-  console.log(urls, '===============urls===========')
 
   const selectItem = id => {
     let list = []
@@ -84,6 +81,10 @@ const WriteReviewModal = ({ open, onClose }) => {
                     <div className={styles.productImage}>
                       <ImageWithFoster src={merchImageFront.src} width={65} />
                     </div>
+                    <div>
+                      <div className={styles.productTitle}>Product Name</div>
+                      <div className={styles.productType}>Unisex Premium Hoodie | Embroidery | White</div>
+                    </div>
                   </div>
                   <div className="mt-[20px]">
                     <div className={styles.subject}>
@@ -126,7 +127,7 @@ const WriteReviewModal = ({ open, onClose }) => {
                     <div className={styles.subject}>Add a photo (max 3)</div>
                     <div className="mt-[10px] flex gap-[10px]">
                       {urls.map((url, index) => (
-                        <div className={url.selected ? styles.selected : styles.deselected}>
+                        <div key={index} className={url.selected ? styles.selected : styles.deselected}>
                           <ImageWithFoster
                             src={url.src}
                             width={75}
