@@ -77,7 +77,7 @@ const WriteReviewModal = ({ open, onClose }) => {
                 <div className={styles.contentView}>
                   <div className="w-full flex justify-between">
                     <div className={styles.writeReview}>Write Review</div>
-                    <div className="w-[40px] h-[40px]" onClick={onClose}>
+                    <div className="w-[30px] h-[30px]" onClick={onClose}>
                       <CloseIcon />
                     </div>
                   </div>
@@ -179,10 +179,10 @@ const WriteReviewModal = ({ open, onClose }) => {
                     </div>
                   </div>
                 </div>
-                <div className="">
-                  <div className={styles.border} />
-                </div>
-                <div className="pt-[25px] px-[30px] pb-[25px]">
+
+                <div className={styles.border} />
+
+                <div className="pt-[0px] lg:pt-[25px] px-[16px] lg:px-[30px] pb-[25px]">
                   <GradientButton
                     fullWidth
                     height={50}

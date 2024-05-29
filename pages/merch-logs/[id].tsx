@@ -925,7 +925,6 @@ const MerchDetail = () => {
                 paddingLeft="37px"
                 paddingRight="37px"
                 label="Get help"
-                disabled={true}
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
@@ -943,7 +942,6 @@ const MerchDetail = () => {
                 paddingLeft="37px"
                 paddingRight="37px"
                 label="Write a review"
-                disabled={true}
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
