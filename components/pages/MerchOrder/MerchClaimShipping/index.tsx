@@ -230,7 +230,6 @@ const MerchClaimShipping = props => {
             />
           </div>
         </div>
-
         <div className="w-full flex justify-end mt-[30px]">
           <div>
             <DropdownSizeMenu
@@ -240,9 +239,9 @@ const MerchClaimShipping = props => {
                 setSize(item)
               }}
             />
-            <div className="flex items-center mt-[10px]">
+            {/* <div className="flex items-center mt-[10px]">
               <div className={styles.sizeChart}>Size Chart</div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

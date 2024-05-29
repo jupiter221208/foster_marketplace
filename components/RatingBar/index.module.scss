@@ -1,0 +1,26 @@
+@import 'assets/scss/variable.module.scss';
+
+.starRating {
+  display: inline-block;
+  unicode-bidi: bidi-override;
+}
+
+.starsOuter {
+  position: relative;
+  display: inline-block;
+  background: url('/images/star-empty.png') repeat-x;
+  font-size: 0; /* removes space between inline-block elements */
+  line-height: 0; /* aligns the image properly */
+  height: 23px;
+  width: 100px; /* Adjust based on your image size and number of stars */
+}
+
+.starsInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 23px;
+  background: url('/images/star-full.png') repeat-x;
+}

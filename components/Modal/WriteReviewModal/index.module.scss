@@ -1,0 +1,146 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--background-main-color-rgb), 0.9);
+  position: fixed;
+  inset: 0;
+}
+
+.close {
+  position: absolute;
+  right: 150px;
+  top: 100px;
+  width: 52px;
+  height: 52px;
+}
+
+.modalView {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.mainView {
+  width: 604px;
+  margin-top: 100px;
+  @media (min-width: 1024px) {
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+    border-radius: 10px;
+  }
+}
+
+.contentView {
+  width: 100%;
+  padding: 28px 25px 25px 25px;
+}
+
+.border {
+  width: 100%;
+  height: 1px;
+  background: var(--bg-303030-DDDCDC);
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}
+
+.writeReview {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  font-weight: 100;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+}
+
+.productContainer {
+  width: 100%;
+  height: 87px;
+  display: flex;
+  padding: 0px 16px;
+  align-items: center;
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.productImage {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  padding: 4px;
+}
+
+.subject {
+  font-family: "Muli-SemiBold";
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color);
+  }
+}
+
+.addPhoto {
+  width: 75px;
+  height: 75px;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected {
+  position: relative;
+  width: 75px;
+  height: 75px;
+  border: 2px solid var(--main-icon-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.deselected {
+  width: 75px;
+  height: 75px;
+  border: 2px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.remove {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 71px;
+  height: 71px;
+  background: rgba(var(--background-main-color-rgb), 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.border {
+  width: 100%;
+
+}
