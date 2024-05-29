@@ -12,6 +12,7 @@ import PaymentIcon from 'assets/icons/make-payment-icon.svg?component'
 import WithdrawIcon from 'assets/icons/withdraw-button-icon.svg?component'
 import DepositIcon from 'assets/icons/deposit-button-icon.svg?component'
 import SaveIcon from 'assets/icons/save-button-icon.svg?component'
+import MerchIcon from 'assets/icons/merch-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -52,6 +53,8 @@ const PrimaryDashboardButton = props => {
             <WithdrawIcon />
           ) : type === 'save' ? (
             <SaveIcon />
+          ) : type === 'merch' ? (
+            <MerchIcon />
           ) : (
             <></>
           )}
