@@ -19,6 +19,9 @@
   height: 100%;
   background: rgba(var(--bg-1a1a1a-EEEDEB), 1);
   padding: 27px 16px;
+  @media (min-width: 640px) {
+    padding: 30px 30px;
+  }
   @media (min-width: 1024px) {
     width: 73%;
     padding: 15px 20px;
@@ -33,7 +36,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 20px;
   line-height: 24px;
-  @media (min-width: 640px) {
+  @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 18px;
     line-height: 24px;
@@ -46,7 +49,7 @@
 .description {
   font-family: 'Muli-Regular';
   font-size: 16px;
-  @media (min-width: 640px) {
+  @media (min-width: 1024px) {
     font-family: 'Muli-Light';
   }
   line-height: 20px;
@@ -74,6 +77,10 @@
   margin-top: 25px;
   background: rgba(var(--main-bg-color-rgb), 0.1);
   @media (min-width: 640px) {
+    width: calc(100% + 64px);
+    margin-left: -32px;
+  }
+  @media (min-width: 1024px) {
     height: 0px;
     margin-top: 0px;
   }

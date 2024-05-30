@@ -90,17 +90,18 @@ const MerchShopSelectModal = props => {
                   <div className="w-full flex justify-between">
                     <div>
                       <div className={styles.title}>My merch items</div>
-                      <div className={styles.border} />
-                      <div className={`${styles.description} mt-[23px] sm:mt-[15px]`}>
-                        Select a merch item from your brand & design library or create a new one
-                      </div>
                     </div>
 
                     <div className={styles.close} onClick={closeModal}>
                       <CloseIcon alt="" />
                     </div>
                   </div>
-
+                  <div>
+                    <div className={styles.border} />
+                    <div className={`${styles.description} mt-[23px] sm:mt-[15px]`}>
+                      Select a merch item from your brand & design library or create a new one
+                    </div>
+                  </div>
                   <div
                     className="w-full flex gap-[15px] justify-end items-center h-[35px] mt-[20px] lg:mt-[0px]"
                     onClick={() => {
@@ -114,7 +115,7 @@ const MerchShopSelectModal = props => {
                     </div>
                     <div className={styles.createNew}>Create New</div>
                   </div>
-                  <div className="sm:block hidden w-full h-[524px] mt-[23px] pr-[20px] overflow-auto">
+                  <div className="sm:block hidden w-full h-full lg:h-[524px] mt-[23px] pr-[20px] overflow-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-12 gap gap-[20px] sm:gap-[20px] lg:gap-[30px] 2xl:gap-[20px]">
                       {merchList.map((item, index) => (
                         <div className="col-span-1 sm:col-span-6 lg:col-span-4 2xl:col-span-3" key={index}>
