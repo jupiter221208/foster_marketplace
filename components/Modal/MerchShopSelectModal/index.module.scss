@@ -15,11 +15,13 @@
 
 .modalView {
   position: relative;
-  width: 73%;
+  width: 100%;
   height: 100%;
   background: rgba(var(--bg-1a1a1a-EEEDEB), 1);
-  padding: 15px 20px;
+  padding: 27px 16px;
   @media (min-width: 1024px) {
+    width: 73%;
+    padding: 15px 20px;
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     height: auto;
     border-radius: 10px;
@@ -28,9 +30,14 @@
 }
 
 .title {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
   line-height: 24px;
+  @media (min-width: 640px) {
+    font-family: 'Muli-Bold';
+    font-size: 18px;
+    line-height: 24px;
+  }
   font-weight: 100;
   text-align: start;
   color: var(--text-gray-200-color);
@@ -39,6 +46,9 @@
 .description {
   font-family: 'Muli-Regular';
   font-size: 16px;
+  @media (min-width: 640px) {
+    font-family: 'Muli-Light';
+  }
   line-height: 20px;
   font-weight: 100;
   text-align: start;
@@ -47,9 +57,26 @@
 
 .close {
   position: absolute;
-  top: 36px;
-  right: 36px;
+  top: 25px;
+  right: 16px;
+
+  @media (min-width: 1024px) { 
+    top: 36px;
+    right: 36px;
+  }
   cursor: pointer;
+}
+
+.border {
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  height: 1px;
+  margin-top: 25px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+  @media (min-width: 640px) {
+    height: 0px;
+    margin-top: 0px;
+  }
 }
 
 .createNew {
