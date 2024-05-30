@@ -282,6 +282,7 @@
 }
 
 .merchArea {
+  position: relative;
   width: 100%;
   height: 87px;
   background: rgba(var(--main-bg-color-rgb), 0.02);
@@ -294,6 +295,7 @@
 
 .assetArea {
   width: 65px;
+  min-width: 65px;
   height: 65px;
   border-radius: 10px;
   background: rgba(var(--main-bg-color-rgb), 0.05);
@@ -307,6 +309,14 @@
   line-height: 20px;
   font-weight: 100;
   color: var(--text-gray-200-color);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  @media (min-width: 640px) {
+    overflow: visible;
+  }
 }
 
 .merchContent {
@@ -315,7 +325,20 @@
   line-height: 18px;
   font-weight: 100;
   color: var(--text-gray-200-color);
-  margin-top: 7px;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  @media (min-width: 640px) {
+    overflow: visible;
+    margin-top: 7px;
+  }
+}
+
+.contentArea {
+  width: calc(100% - 140px);
+  margin-top: 8px;
 }
 
 .merchButton {

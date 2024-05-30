@@ -117,7 +117,7 @@ const MerchDTGSection = props => {
       newCanvas.discardActiveObject()
       newCanvas.item(2).selectable = false
       newCanvas.remove(newCanvas.item(1))
-
+      newCanvas.setZoom(1)
       let imgDataString = newCanvas.toDataURL({
         format: 'png',
         quality: 1,
@@ -201,17 +201,19 @@ const MerchDTGSection = props => {
     }
 
     if (window.innerWidth < 640) {
-      screenWidth = 375
-      assetWidth = (assetWidth * screenWidth) / 700
-      assetHeight = (assetHeight * screenWidth) / 700
-      assetTop = (assetTop * screenWidth) / 700
-      assetLeft = (assetLeft * screenWidth) / 700
+      newCanvas.setZoom(375 / 700)
+      // screenWidth = 375
+      // assetWidth = (assetWidth * screenWidth) / 700
+      // assetHeight = (assetHeight * screenWidth) / 700
+      // assetTop = (assetTop * screenWidth) / 700
+      // assetLeft = (assetLeft * screenWidth) / 700
     } else if (window.innerWidth < 1024) {
-      screenWidth = 630
-      assetWidth = (assetWidth * screenWidth) / 700
-      assetHeight = (assetHeight * screenWidth) / 700
-      assetTop = (assetTop * screenWidth) / 700
-      assetLeft = (assetLeft * screenWidth) / 700
+      newCanvas.setZoom(630 / 700)
+      // screenWidth = 630
+      // assetWidth = (assetWidth * screenWidth) / 700
+      // assetHeight = (assetHeight * screenWidth) / 700
+      // assetTop = (assetTop * screenWidth) / 700
+      // assetLeft = (assetLeft * screenWidth) / 700
     }
 
     newCanvas.setDimensions({
@@ -579,8 +581,8 @@ const MerchDTGSection = props => {
 
         <div className="flex-1 flex justify-center">
           <div className={styles.rightPanel}>
-            <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]">
-              <canvas id={canvasId} />
+            <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
+              <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
             </div>
 
             {snapshotAsset[cardSide].length > 0 ? (

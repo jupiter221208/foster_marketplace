@@ -21,6 +21,7 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
 import ArrowTopWhiteIcon from 'assets/icons/arrow-up-white.svg?component'
+import TrashMobileIcon from 'assets/icons/trash-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -261,23 +262,34 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
-            <div className="flex gap-[15px] mt-[11px] ml-[16px]">
+            <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
               <div className={styles.assetArea}>
                 <ImageWithFoster width={65} src={merchCard.image} />
               </div>
-              <div className="mt-[8px]">
+              <div className={styles.contentArea}>
                 <div className={styles.merchTitle}>Merch item included for each sale</div>
                 <div className={styles.merchContent}>Unisex Premium Hoodie | Embroidery | White</div>
               </div>
             </div>
+            <div className="sm:block hidden">
+              <div
+                className={styles.merchButton}
+                onClick={() => {
+                  setMerchCard(null)
+                  setEnableMerch(false)
+                }}
+              >
+                Remove
+              </div>
+            </div>
             <div
-              className={styles.merchButton}
+              className="sm:hidden absolute flex top-[0px] right-[15px] h-full items-center justify-center"
               onClick={() => {
                 setMerchCard(null)
                 setEnableMerch(false)
               }}
             >
-              Remove
+              <TrashMobileIcon alt="" />
             </div>
           </div>
         )}
