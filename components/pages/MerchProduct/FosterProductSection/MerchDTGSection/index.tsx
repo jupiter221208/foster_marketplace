@@ -356,6 +356,36 @@ const MerchDTGSection = props => {
     setCanvas(newCanvas)
   }
 
+  const [curPercentage, setCurPercentage] = useState(0.5)
+
+  const calcClickedProgress = (e: any) => {
+    const clickPositionInPage = e.pageY
+    const bar = document.getElementById('bar__progress')!
+    const barStart = (bar.getBoundingClientRect().top || 0) + window.scrollY
+    const barHeight = bar.offsetHeight
+    const clickPositionInBar = clickPositionInPage - barStart
+    let pros = ((barHeight - clickPositionInBar) / barHeight) * 100
+    if (pros < 0) pros = 0
+    if (pros > 100) pros = 100
+    setCurPercentage(pros)
+  }
+
+  const handleTimeDrag = (e: any) => {
+    calcClickedProgress(e)
+
+    const updateTimeOnMove = eMove => {
+      calcClickedProgress(eMove)
+    }
+
+    document.addEventListener('mousemove', updateTimeOnMove)
+
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', updateTimeOnMove)
+    })
+  }
+
+  useEffect(() => {}, [curPercentage])
+
   return (
     <div className="w-full">
       <div className={styles.createDesign}>Create Design</div>
@@ -579,7 +609,7 @@ const MerchDTGSection = props => {
           )}
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="relative flex-1 flex justify-center">
           <div className={styles.rightPanel}>
             <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
               <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
@@ -667,6 +697,26 @@ const MerchDTGSection = props => {
               </div>
             </div>
           </div> */}
+          </div>
+          <div className={styles.progressBar}>
+            <div>
+              <div className={styles.prosText}>300%</div>
+              <div className="w-full h-[460px] flex justify-center mt-[10px]">
+                <div className={styles.bar}>
+                  <div
+                    id="bar__progress"
+                    className={styles.bar__progress}
+                    style={{
+                      background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                    }}
+                    onMouseDown={e => handleTimeDrag(e)}
+                  >
+                    <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage - 2}%` }} />
+                  </div>
+                </div>
+              </div>
+              <div className={`mt-[10px] ${styles.prosText}`}>0%</div>
+            </div>
           </div>
         </div>
       </div>
