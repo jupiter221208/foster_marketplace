@@ -117,7 +117,11 @@ const MerchDTGSection = props => {
       newCanvas.discardActiveObject()
       newCanvas.item(2).selectable = false
       newCanvas.remove(newCanvas.item(1))
-      newCanvas.setZoom(1)
+
+      setCurPercentage(0)
+      var center = newCanvas.getCenter()
+      var centerPoint = new fabric.Point(center.left, center.top)
+      newCanvas.zoomToPoint(centerPoint, 1)
       let imgDataString = newCanvas.toDataURL({
         format: 'png',
         quality: 1,
@@ -356,7 +360,7 @@ const MerchDTGSection = props => {
     setCanvas(newCanvas)
   }
 
-  const [curPercentage, setCurPercentage] = useState(0.5)
+  const [curPercentage, setCurPercentage] = useState(0)
 
   const calcClickedProgress = (e: any) => {
     const clickPositionInPage = e.pageY
@@ -367,6 +371,7 @@ const MerchDTGSection = props => {
     let pros = ((barHeight - clickPositionInBar) / barHeight) * 100
     if (pros < 0) pros = 0
     if (pros > 100) pros = 100
+
     setCurPercentage(pros)
   }
 
@@ -384,7 +389,15 @@ const MerchDTGSection = props => {
     })
   }
 
-  useEffect(() => {}, [curPercentage])
+  useEffect(() => {
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas == '') {
+      newCanvas = new fabric.Canvas(canvasId)
+    }
+    var center = newCanvas.getCenter()
+    var centerPoint = new fabric.Point(center.left, center.top)
+    newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+  }, [curPercentage])
 
   return (
     <div className="w-full">
@@ -678,46 +691,29 @@ const MerchDTGSection = props => {
                 </div>
               )
             )}
-
-            {/* <div className={styles.infoLabel}>
-            <div>
-              <div className="flex gap-[3px]">
-                <div className={styles.printQulity}>Print quality:</div>
-                <div className={styles.printDPI}>Good / 481 DPI</div>
-              </div>
-              <div className="flex gap-[15px] mt-[15px]">
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Width</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.width}</div>
-                </div>
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Height</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.height}</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           </div>
-          <div className={styles.progressBar}>
-            <div>
-              <div className={styles.prosText}>300%</div>
-              <div className="w-full h-[460px] flex justify-center mt-[10px]">
-                <div className={styles.bar}>
-                  <div
-                    id="bar__progress"
-                    className={styles.bar__progress}
-                    style={{
-                      background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
-                    }}
-                    onMouseDown={e => handleTimeDrag(e)}
-                  >
-                    <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage - 2}%` }} />
+          {assetUrl && snapshotAsset[cardSide].length === 0 && (
+            <div className={styles.progressBar}>
+              <div>
+                <div className={styles.prosText}>300%</div>
+                <div className="w-full h-[460px] mt-[12px] pl-[15px]">
+                  <div className={styles.bar}>
+                    <div
+                      id="bar__progress"
+                      className={styles.bar__progress}
+                      style={{
+                        background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                      }}
+                      onMouseDown={e => handleTimeDrag(e)}
+                    >
+                      <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage - 2}%` }} />
+                    </div>
                   </div>
                 </div>
+                <div className={`mt-[10px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
               </div>
-              <div className={`mt-[10px] ${styles.prosText}`}>0%</div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {/************* Mobile ************/}

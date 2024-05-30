@@ -79,6 +79,9 @@
   font-weight: 100;
   text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  &:focus {
+    outline: none;
+  }
 }
 
 .progressBar {
