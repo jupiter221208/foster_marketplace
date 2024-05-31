@@ -74,11 +74,11 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
-  }, [cardSide, assetUrl, embPlace])
+  }, [cardSide, assetUrl, embPlace, color, technique, selectedCard])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
-    setProductDetail({ snapshotAssetUrl: { front: '', back: '', right: '', left: '' }, technique, color })
+    //   setProductDetail({ snapshotAssetUrl: { front: '', back: '', right: '', left: '' }, technique, color })
     setAssetUrl(null)
     setCurPercentage(0)
 
@@ -88,7 +88,7 @@ const MerchDTGSection = props => {
     }
     newCanvas.clear()
     newCanvas.renderAll()
-  }, [selectedCard, color, technique])
+  }, [selectedCard])
 
   useEffect(() => {
     if (technique === 'emb') {
@@ -128,8 +128,14 @@ const MerchDTGSection = props => {
 
       setCurPercentage(0)
       var center = newCanvas.getCenter()
-      var centerPoint = new fabric.Point(center.left, center.top)
-      newCanvas.zoomToPoint(centerPoint, 1)
+      if (viewport === 'xs') {
+        var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
+        newCanvas.zoomToPoint(centerPoint, 375 / 700)
+      } else {
+        var centerPoint = new fabric.Point(center.left, center.top)
+        newCanvas.zoomToPoint(centerPoint, 1)
+      }
+
       let imgDataString = newCanvas.toDataURL({
         format: 'png',
         quality: 1,
@@ -424,9 +430,13 @@ const MerchDTGSection = props => {
       newCanvas = new fabric.Canvas(canvasId)
     }
     var center = newCanvas.getCenter()
-    var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
-    if (viewport === 'xs') newCanvas.zoomToPoint(centerPoint, (375 / 700) * (1 + curPercentage / 33.33))
-    else newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+    if (viewport === 'xs') {
+      var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
+      newCanvas.zoomToPoint(centerPoint, (375 / 700) * (1 + curPercentage / 33.33))
+    } else {
+      var centerPoint = new fabric.Point(center.left, center.top)
+      newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+    }
   }, [curPercentage])
 
   return (
@@ -744,7 +754,7 @@ const MerchDTGSection = props => {
                         </div>
                       </div>
                     </div>
-                    <div className={`mt-[10px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
+                    <div className={`mt-[15px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
                   </div>
                 </div>
               )))}
@@ -1051,10 +1061,32 @@ const MerchDTGSection = props => {
         }}
         onContinue={type => {
           setShowQuestionModal(false)
-          if (type === 'technique_dtg') setTechnique('dtg')
-          else if (type === 'technique_emb') setTechnique('emb')
-          else if (type === 'color_white') setColor('white')
-          else if (type === 'color_black') setColor('black')
+          let newTechnique = technique,
+            newColor = color
+
+          if (type === 'technique_dtg') newTechnique = 'dtg'
+          else if (type === 'technique_emb') newTechnique = 'emb'
+          else if (type === 'color_white') newColor = 'white'
+          else if (type === 'color_black') newColor = 'black'
+
+          setTechnique(newTechnique)
+          setColor(newColor)
+
+          setSnapshotAsset({ front: '', back: '', right: '', left: '' })
+          setProductDetail({
+            snapshotAssetUrl: { front: '', back: '', right: '', left: '' },
+            technique: newTechnique,
+            color: newColor,
+          })
+          setAssetUrl(null)
+          setCurPercentage(0)
+
+          let newCanvas = canvas as fabric.Canvas
+          if (newCanvas == '') {
+            newCanvas = new fabric.Canvas(canvasId)
+          }
+          newCanvas.clear()
+          newCanvas.renderAll()
         }}
       />
     </div>
