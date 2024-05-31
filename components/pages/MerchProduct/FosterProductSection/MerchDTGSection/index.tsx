@@ -44,6 +44,7 @@ const MerchDTGSection = props => {
   const [processingImage, setProcessingImage] = useState(false)
   const [questionType, setQuestionType] = useState('')
   const [showQuestionModal, setShowQuestionModal] = useState(false)
+  const [curPercentage, setCurPercentage] = useState(0)
 
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
@@ -100,7 +101,6 @@ const MerchDTGSection = props => {
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
-    //   setProductDetail({ snapshotAssetUrl: { front: '', back: '', right: '', left: '' }, technique, color })
     setAssetUrl(null)
     setCurPercentage(0)
 
@@ -140,42 +140,6 @@ const MerchDTGSection = props => {
     return url
   }
 
-  const saveApparel = async () => {
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas !== '') {
-      setProcessingImage(true)
-      newCanvas.discardActiveObject()
-      newCanvas.item(2).selectable = false
-      newCanvas.remove(newCanvas.item(1))
-
-      setCurPercentage(0)
-      var center = newCanvas.getCenter()
-      if (window.innerWidth < 640) {
-        newCanvas.zoomToPoint(new fabric.Point(0, 0), 1)
-      } else {
-        var centerPoint = new fabric.Point(center.left, center.top)
-        newCanvas.zoomToPoint(centerPoint, 1)
-      }
-
-      let imgDataString = newCanvas.toDataURL({
-        format: 'png',
-        quality: 1,
-      })
-      // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
-      let newAsset = { ...snapshotAsset }
-      newAsset[cardSide] = imgDataString
-      setSnapshotAsset(newAsset)
-      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
-      setProcessingImage(false)
-
-      if (newCanvas !== '') {
-        newCanvas.clear()
-        newCanvas.renderAll()
-      }
-      setAssetUrl(null)
-    }
-  }
-
   const clearApparel = () => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
@@ -206,6 +170,63 @@ const MerchDTGSection = props => {
       callback(canvas.toDataURL())
     }
     img.src = url
+  }
+
+  useEffect(() => {
+    if (!assetUrl) return
+
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas == '') {
+      newCanvas = new fabric.Canvas(canvasId)
+    }
+
+    var center = newCanvas.getCenter()
+    if (window.innerWidth < 640) {
+      var centerPoint = new fabric.Point((center.left * 340) / 700, (center.top * 340) / 700)
+      newCanvas.zoomToPoint(centerPoint, (340 / 700) * (1 + curPercentage / 33.33))
+    } else if (window.innerWidth < 1024) {
+      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(centerPoint, (630 / 700) * (1 + curPercentage / 33.33))
+    } else {
+      var centerPoint = new fabric.Point(center.left, center.top)
+      newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+    }
+  }, [curPercentage])
+
+  const saveApparel = async () => {
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas !== '') {
+      setProcessingImage(true)
+      newCanvas.discardActiveObject()
+      newCanvas.item(2).selectable = false
+      newCanvas.remove(newCanvas.item(1))
+
+      setCurPercentage(0)
+      var center = newCanvas.getCenter()
+      if (window.innerWidth < 1024) {
+        newCanvas.zoomToPoint(new fabric.Point(0, 0), 1)
+      } else {
+        var centerPoint = new fabric.Point(center.left, center.top)
+        newCanvas.zoomToPoint(centerPoint, 1)
+      }
+
+      let imgDataString = newCanvas.toDataURL({
+        format: 'png',
+        quality: 1,
+      })
+      // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
+      let newAsset = { ...snapshotAsset }
+      newAsset[cardSide] = imgDataString
+      setSnapshotAsset(newAsset)
+      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
+      setProcessingImage(false)
+
+      if (newCanvas !== '') {
+        newCanvas.clear()
+        newCanvas.renderAll()
+      }
+      setAssetUrl(null)
+    }
   }
 
   const drawApparel = () => {
@@ -245,9 +266,10 @@ const MerchDTGSection = props => {
       let ratio = 340 / 700
       newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     } else if (window.innerWidth < 1024) {
-      var center = newCanvas.getCenter()
-      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
-      newCanvas.zoomToPoint(centerPoint, 630 / 700)
+      let ratio = 630 / 700
+      // var center = newCanvas.getCenter()
+      // var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     }
 
     newCanvas.setDimensions({
@@ -390,8 +412,6 @@ const MerchDTGSection = props => {
     setCanvas(newCanvas)
   }
 
-  const [curPercentage, setCurPercentage] = useState(0)
-
   const calcClickedProgress = (e: any) => {
     let pros
     if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') {
@@ -424,37 +444,11 @@ const MerchDTGSection = props => {
     }
 
     document.addEventListener('mousemove', updateTimeOnMove)
-    // document.addEventListener('touchmove', updateTimeOnMove)
 
     document.addEventListener('mouseup', () => {
       document.removeEventListener('mousemove', updateTimeOnMove)
     })
-
-    // document.addEventListener('touchup', () => {
-    //   document.removeEventListener('touchmove', updateTimeOnMove)
-    // })
   }
-
-  useEffect(() => {
-    if (!assetUrl) return
-
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas == '') {
-      newCanvas = new fabric.Canvas(canvasId)
-    }
-
-    var center = newCanvas.getCenter()
-    if (window.innerWidth < 640) {
-      var centerPoint = new fabric.Point((center.left * 340) / 700, (center.top * 340) / 700)
-      newCanvas.zoomToPoint(centerPoint, (340 / 700) * (1 + curPercentage / 33.33))
-    } else if (window.innerWidth < 1024) {
-      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
-      newCanvas.zoomToPoint(centerPoint, (630 / 700) * (1 + curPercentage / 33.33))
-    } else {
-      var centerPoint = new fabric.Point(center.left, center.top)
-      newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
-    }
-  }, [curPercentage])
 
   return (
     <div className="w-full">
@@ -1053,7 +1047,13 @@ const MerchDTGSection = props => {
                         backgroundColor02="var(--main-icon-color)"
                         color="var(--background-main-color)"
                         label="Save"
-                        onClick={() => saveApparel()}
+                        onClick={() => {
+                          if (curPercentage > 0) setCurPercentage(0)
+
+                          setTimeout(() => {
+                            saveApparel()
+                          }, 500)
+                        }}
                         disabled={assetUrl === null}
                       />
                     )}
