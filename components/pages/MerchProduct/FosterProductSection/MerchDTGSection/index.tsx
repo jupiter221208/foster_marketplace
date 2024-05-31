@@ -215,6 +215,9 @@ const MerchDTGSection = props => {
     }
 
     if (window.innerWidth < 640) {
+      // var center = newCanvas.getCenter()
+      // var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
+      // newCanvas.zoomToPoint(centerPoint, 375 / 700)
       newCanvas.setZoom(375 / 700)
       // screenWidth = 375
       // assetWidth = (assetWidth * screenWidth) / 700
@@ -373,12 +376,23 @@ const MerchDTGSection = props => {
   const [curPercentage, setCurPercentage] = useState(0)
 
   const calcClickedProgress = (e: any) => {
-    const clickPositionInPage = e.pageY
-    const bar = document.getElementById('bar__progress')!
-    const barStart = (bar.getBoundingClientRect().top || 0) + window.scrollY
-    const barHeight = bar.offsetHeight
-    const clickPositionInBar = clickPositionInPage - barStart
-    let pros = ((barHeight - clickPositionInBar) / barHeight) * 100
+    let pros
+    if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') {
+      const clickPositionInPage = e.pageY
+      const bar = document.getElementById('bar__progress')!
+      const barStart = (bar.getBoundingClientRect().top || 0) + window.scrollY
+      const barHeight = bar.offsetHeight
+      let clickPositionInBar = clickPositionInPage - barStart
+      pros = ((barHeight - clickPositionInBar) / barHeight) * 100
+    } else {
+      const clickPositionInPage = e.pageX
+      const bar = document.getElementById('bar__progress')!
+      const barStart = (bar.getBoundingClientRect().left || 0) + window.scrollX
+      const barWidth = bar.offsetWidth
+      const clickPositionInBar = clickPositionInPage - barStart
+      pros = (clickPositionInBar / barWidth) * 100
+    }
+
     if (pros < 0) pros = 0
     if (pros > 100) pros = 100
 
@@ -393,10 +407,15 @@ const MerchDTGSection = props => {
     }
 
     document.addEventListener('mousemove', updateTimeOnMove)
+    // document.addEventListener('touchmove', updateTimeOnMove)
 
     document.addEventListener('mouseup', () => {
       document.removeEventListener('mousemove', updateTimeOnMove)
     })
+
+    // document.addEventListener('touchup', () => {
+    //   document.removeEventListener('touchmove', updateTimeOnMove)
+    // })
   }
 
   useEffect(() => {
@@ -405,8 +424,9 @@ const MerchDTGSection = props => {
       newCanvas = new fabric.Canvas(canvasId)
     }
     var center = newCanvas.getCenter()
-    var centerPoint = new fabric.Point(center.left, center.top)
-    newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+    var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
+    if (viewport === 'xs') newCanvas.zoomToPoint(centerPoint, (375 / 700) * (1 + curPercentage / 33.33))
+    else newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
   }, [curPercentage])
 
   return (
@@ -702,32 +722,56 @@ const MerchDTGSection = props => {
               )
             )}
           </div>
-          {assetUrl && snapshotAsset[cardSide].length === 0 && (
-            <div className={styles.progressBar}>
-              <div>
-                <div className={styles.prosText}>300%</div>
-                <div className="w-full h-[460px] mt-[12px] pl-[15px]">
-                  <div className={styles.bar}>
-                    <div
-                      id="bar__progress"
-                      className={styles.bar__progress}
-                      style={{
-                        background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
-                      }}
-                      onMouseDown={e => handleTimeDrag(e)}
-                    >
-                      <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage - 2}%` }} />
+          {assetUrl &&
+            snapshotAsset[cardSide].length === 0 &&
+            (viewport === 'lg' ||
+              viewport === 'xl' ||
+              (viewport === '2xl' && (
+                <div className={styles.progressBar}>
+                  <div>
+                    <div className={styles.prosText}>300%</div>
+                    <div className="w-full h-[460px] mt-[12px] pl-[15px]">
+                      <div className={styles.bar}>
+                        <div
+                          id="bar__progress"
+                          className={styles.bar__progress}
+                          style={{
+                            background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                          }}
+                          onMouseDown={e => handleTimeDrag(e)}
+                        >
+                          <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage}%` }} />
+                        </div>
+                      </div>
                     </div>
+                    <div className={`mt-[10px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
                   </div>
                 </div>
-                <div className={`mt-[10px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
-              </div>
-            </div>
-          )}
+              )))}
         </div>
       </div>
       {/************* Mobile ************/}
-      <div className="w-full bloack lg:hidden mt-[15px]">
+
+      <div className="w-full bloack lg:hidden">
+        {assetUrl && snapshotAsset[cardSide].length === 0 && (
+          <div className={styles.progressBarMobile}>
+            <div className={styles.prosText}>{(curPercentage * 3).toFixed(0)}%</div>
+            <div className="flex-1 h-[23px] mt-[9px] items-center">
+              <div className={styles.bar} onMouseDown={e => handleTimeDrag(e)}>
+                <div
+                  id="bar__progress"
+                  className={styles.bar__progress}
+                  style={{
+                    background: `linear-gradient(to right, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                  }}
+                >
+                  <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%`, top: '-4px' }} />
+                </div>
+              </div>
+            </div>
+            <div className={`${styles.prosText}`}>300%</div>
+          </div>
+        )}
         <div>
           <div className="w-full mt-[15px]">
             <div className={styles.technique}>Technique</div>
