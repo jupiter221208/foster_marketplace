@@ -44,9 +44,32 @@ const MerchDTGSection = props => {
   const [processingImage, setProcessingImage] = useState(false)
   const [questionType, setQuestionType] = useState('')
   const [showQuestionModal, setShowQuestionModal] = useState(false)
+  const [curPercentage, setCurPercentage] = useState(0)
 
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
+
+  useEffect(() => {
+    const handleMove = event => {
+      if (event.type === 'touchmove' && event.target.className.includes('bar__progress')) {
+        const clickPositionInPage = event.touches[0].clientX
+        const bar = document.getElementById('bar__progress')!
+        const barStart = bar.getBoundingClientRect().left || 0
+        const barWidth = bar.offsetWidth
+        const clickPositionInBar = clickPositionInPage - barStart
+        let pros = (clickPositionInBar / barWidth) * 100
+        if (pros < 0) pros = 0
+        if (pros > 100) pros = 100
+
+        setCurPercentage(pros)
+      }
+    }
+    window.addEventListener('touchmove', handleMove)
+
+    return () => {
+      window.removeEventListener('touchmove', handleMove)
+    }
+  }, [])
 
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
@@ -74,13 +97,20 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
-  }, [cardSide, assetUrl, color, selectedCard, technique, embPlace])
+  }, [cardSide, assetUrl, embPlace, color, technique, selectedCard])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
-    setProductDetail({ snapshotAssetUrl: { front: '', back: '', right: '', left: '' }, technique, color })
     setAssetUrl(null)
-  }, [selectedCard, color, technique])
+    setCurPercentage(0)
+
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas == '') {
+      newCanvas = new fabric.Canvas(canvasId)
+    }
+    newCanvas.clear()
+    newCanvas.renderAll()
+  }, [selectedCard])
 
   useEffect(() => {
     if (technique === 'emb') {
@@ -110,38 +140,13 @@ const MerchDTGSection = props => {
     return url
   }
 
-  const saveApparel = async () => {
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas !== '') {
-      setProcessingImage(true)
-      newCanvas.discardActiveObject()
-      newCanvas.item(2).selectable = false
-      newCanvas.remove(newCanvas.item(1))
-      newCanvas.setZoom(1)
-      let imgDataString = newCanvas.toDataURL({
-        format: 'png',
-        quality: 1,
-      })
-      // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
-      let newAsset = { ...snapshotAsset }
-      newAsset[cardSide] = imgDataString
-      setSnapshotAsset(newAsset)
-      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
-      setProcessingImage(false)
-
-      if (newCanvas !== '') {
-        newCanvas.clear()
-        newCanvas.renderAll()
-      }
-      setAssetUrl(null)
-    }
-  }
-
   const clearApparel = () => {
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
     setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
+
+    setCurPercentage(0)
 
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -165,6 +170,63 @@ const MerchDTGSection = props => {
       callback(canvas.toDataURL())
     }
     img.src = url
+  }
+
+  useEffect(() => {
+    if (!assetUrl) return
+
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas == '') {
+      newCanvas = new fabric.Canvas(canvasId)
+    }
+
+    var center = newCanvas.getCenter()
+    if (window.innerWidth < 640) {
+      var centerPoint = new fabric.Point((center.left * 340) / 700, (center.top * 340) / 700)
+      newCanvas.zoomToPoint(centerPoint, (340 / 700) * (1 + curPercentage / 33.33))
+    } else if (window.innerWidth < 1024) {
+      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(centerPoint, (630 / 700) * (1 + curPercentage / 33.33))
+    } else {
+      var centerPoint = new fabric.Point(center.left, center.top)
+      newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
+    }
+  }, [curPercentage])
+
+  const saveApparel = async () => {
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas !== '') {
+      setProcessingImage(true)
+      newCanvas.discardActiveObject()
+      newCanvas.item(2).selectable = false
+      newCanvas.remove(newCanvas.item(1))
+
+      setCurPercentage(0)
+      var center = newCanvas.getCenter()
+      if (window.innerWidth < 1024) {
+        newCanvas.zoomToPoint(new fabric.Point(0, 0), 1)
+      } else {
+        var centerPoint = new fabric.Point(center.left, center.top)
+        newCanvas.zoomToPoint(centerPoint, 1)
+      }
+
+      let imgDataString = newCanvas.toDataURL({
+        format: 'png',
+        quality: 1,
+      })
+      // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
+      let newAsset = { ...snapshotAsset }
+      newAsset[cardSide] = imgDataString
+      setSnapshotAsset(newAsset)
+      setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
+      setProcessingImage(false)
+
+      if (newCanvas !== '') {
+        newCanvas.clear()
+        newCanvas.renderAll()
+      }
+      setAssetUrl(null)
+    }
   }
 
   const drawApparel = () => {
@@ -201,19 +263,13 @@ const MerchDTGSection = props => {
     }
 
     if (window.innerWidth < 640) {
-      newCanvas.setZoom(375 / 700)
-      // screenWidth = 375
-      // assetWidth = (assetWidth * screenWidth) / 700
-      // assetHeight = (assetHeight * screenWidth) / 700
-      // assetTop = (assetTop * screenWidth) / 700
-      // assetLeft = (assetLeft * screenWidth) / 700
+      let ratio = 340 / 700
+      newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     } else if (window.innerWidth < 1024) {
-      newCanvas.setZoom(630 / 700)
-      // screenWidth = 630
-      // assetWidth = (assetWidth * screenWidth) / 700
-      // assetHeight = (assetHeight * screenWidth) / 700
-      // assetTop = (assetTop * screenWidth) / 700
-      // assetLeft = (assetLeft * screenWidth) / 700
+      let ratio = 630 / 700
+      // var center = newCanvas.getCenter()
+      // var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     }
 
     newCanvas.setDimensions({
@@ -354,6 +410,44 @@ const MerchDTGSection = props => {
     }, 500)
 
     setCanvas(newCanvas)
+  }
+
+  const calcClickedProgress = (e: any) => {
+    let pros
+    if (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') {
+      const clickPositionInPage = e.pageY
+      const bar = document.getElementById('bar__progress')!
+      const barStart = (bar.getBoundingClientRect().top || 0) + window.scrollY
+      const barHeight = bar.offsetHeight
+      let clickPositionInBar = clickPositionInPage - barStart
+      pros = ((barHeight - clickPositionInBar) / barHeight) * 100
+    } else {
+      const clickPositionInPage = e.pageX
+      const bar = document.getElementById('bar__progress')!
+      const barStart = (bar.getBoundingClientRect().left || 0) + window.scrollX
+      const barWidth = bar.offsetWidth
+      const clickPositionInBar = clickPositionInPage - barStart
+      pros = (clickPositionInBar / barWidth) * 100
+    }
+
+    if (pros < 0) pros = 0
+    if (pros > 100) pros = 100
+
+    setCurPercentage(pros)
+  }
+
+  const handleTimeDrag = (e: any) => {
+    calcClickedProgress(e)
+
+    const updateTimeOnMove = eMove => {
+      calcClickedProgress(eMove)
+    }
+
+    document.addEventListener('mousemove', updateTimeOnMove)
+
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', updateTimeOnMove)
+    })
   }
 
   return (
@@ -579,30 +673,31 @@ const MerchDTGSection = props => {
           )}
         </div>
 
-        <div className="flex-1 flex justify-center">
+        <div className="relative flex-1 flex justify-center">
           <div className={styles.rightPanel}>
-            <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
-              <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
+            <div className="w-full flex justify-center">
+              <div className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
+                <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
+              </div>
             </div>
-
             {snapshotAsset[cardSide].length > 0 ? (
-              <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px] flex justify-center">
+              <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px] flex justify-center">
                 <div className="absolute inset-0">
                   <img
                     src={snapshotAsset[cardSide]}
                     alt=""
-                    className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px]"
+                    className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px]"
                   />
                 </div>
               </div>
             ) : (
               !assetUrl && (
-                <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
                     <img
                       src={apparelList[selectedCard.id].apparel[cardSide][color]}
                       alt=""
-                      className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
                   <div className={`${styles.dropArea}`}>
@@ -648,30 +743,57 @@ const MerchDTGSection = props => {
                 </div>
               )
             )}
-
-            {/* <div className={styles.infoLabel}>
-            <div>
-              <div className="flex gap-[3px]">
-                <div className={styles.printQulity}>Print quality:</div>
-                <div className={styles.printDPI}>Good / 481 DPI</div>
-              </div>
-              <div className="flex gap-[15px] mt-[15px]">
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Width</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.width}</div>
-                </div>
-                <div className="flex gap-[3px]">
-                  <div className={styles.printQulity}>Height</div>
-                  <div className={styles.printText}>{apparelList[selectedCard.id].apparel.height}</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           </div>
+          {assetUrl &&
+            snapshotAsset[cardSide].length === 0 &&
+            (viewport === 'lg' ||
+              viewport === 'xl' ||
+              (viewport === '2xl' && (
+                <div className={styles.progressBar}>
+                  <div>
+                    <div className={styles.prosText}>300%</div>
+                    <div className="w-full h-[460px] mt-[12px] pl-[15px]">
+                      <div className={styles.bar}>
+                        <div
+                          id="bar__progress"
+                          className={styles.bar__progress}
+                          style={{
+                            background: `linear-gradient(to top, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                          }}
+                          onMouseDown={e => handleTimeDrag(e)}
+                        >
+                          <span className={styles.bar__progress__knob} style={{ top: `${100 - curPercentage}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                    <div className={`mt-[15px] ${styles.prosText}`}>{(curPercentage * 3).toFixed(0)}%</div>
+                  </div>
+                </div>
+              )))}
         </div>
       </div>
       {/************* Mobile ************/}
-      <div className="w-full bloack lg:hidden mt-[15px]">
+
+      <div className="w-full bloack lg:hidden">
+        {assetUrl && snapshotAsset[cardSide].length === 0 && (
+          <div className={styles.progressBarMobile}>
+            <div className={styles.prosText}>{(curPercentage * 3).toFixed(0)}%</div>
+            <div className="flex-1 h-[23px] mt-[9px] items-center">
+              <div className={styles.bar} onMouseDown={e => handleTimeDrag(e)}>
+                <div
+                  id="bar__progress"
+                  className={styles.bar__progress}
+                  style={{
+                    background: `linear-gradient(to right, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+                  }}
+                >
+                  <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%`, top: '-4px' }} />
+                </div>
+              </div>
+            </div>
+            <div className={`${styles.prosText}`}>300%</div>
+          </div>
+        )}
         <div>
           <div className="w-full mt-[15px]">
             <div className={styles.technique}>Technique</div>
@@ -925,7 +1047,13 @@ const MerchDTGSection = props => {
                         backgroundColor02="var(--main-icon-color)"
                         color="var(--background-main-color)"
                         label="Save"
-                        onClick={() => saveApparel()}
+                        onClick={() => {
+                          if (curPercentage > 0) setCurPercentage(0)
+
+                          setTimeout(() => {
+                            saveApparel()
+                          }, 500)
+                        }}
                         disabled={assetUrl === null}
                       />
                     )}
@@ -951,10 +1079,32 @@ const MerchDTGSection = props => {
         }}
         onContinue={type => {
           setShowQuestionModal(false)
-          if (type === 'technique_dtg') setTechnique('dtg')
-          else if (type === 'technique_emb') setTechnique('emb')
-          else if (type === 'color_white') setColor('white')
-          else if (type === 'color_black') setColor('black')
+          let newTechnique = technique,
+            newColor = color
+
+          if (type === 'technique_dtg') newTechnique = 'dtg'
+          else if (type === 'technique_emb') newTechnique = 'emb'
+          else if (type === 'color_white') newColor = 'white'
+          else if (type === 'color_black') newColor = 'black'
+
+          setTechnique(newTechnique)
+          setColor(newColor)
+
+          setSnapshotAsset({ front: '', back: '', right: '', left: '' })
+          setProductDetail({
+            snapshotAssetUrl: { front: '', back: '', right: '', left: '' },
+            technique: newTechnique,
+            color: newColor,
+          })
+          setAssetUrl(null)
+          setCurPercentage(0)
+
+          let newCanvas = canvas as fabric.Canvas
+          if (newCanvas == '') {
+            newCanvas = new fabric.Canvas(canvasId)
+          }
+          newCanvas.clear()
+          newCanvas.renderAll()
         }}
       />
     </div>

@@ -45,9 +45,11 @@
   align-items: center;
   width: 34px;
   height: 34px;
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     width: 52px;
+    min-width: 52px;
     height: 52px;
+    min-height: 52px;
   }
   border-radius: 100%;
   // background: linear-gradient(
@@ -61,12 +63,13 @@
 }
 
 .username {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
+  font-weight: 100;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--text-gray-200-color);
   text-align: start;
@@ -74,13 +77,14 @@
 }
 
 .text {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 12px;
   line-height: 15px;
+  font-weight: 100;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
   }
-
+  margin-top: 7px;
   color: var(--text-gray-200-color);
 }

@@ -10,7 +10,7 @@
 
 .menuArea {
   position: absolute;
-  top: 30px;
+  top: 33px;
   right: -4px;
   @media (min-width: 1024px) {
     top: 30px;
@@ -18,7 +18,7 @@
   }
 
   background: var(--social-share-bg);
-  border-radius: 15px;
+  border-radius: 10px;
   border: 1px solid rgba($background-light-color, 0.1);
   width: 172px;
   padding-top: 8px;

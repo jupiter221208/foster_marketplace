@@ -4,11 +4,12 @@ import { useRouter } from 'next/router'
 // next component
 
 //components
-
+import SocialShareModal from 'components/Menu/SocialShareModal'
 import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
-// images
 
+// images
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import LeftArrow from 'assets/icons/arrow-left-white-big.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 
@@ -30,6 +31,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<any>(0)
+  const [openShareModal, setOpenShareModal] = useState(false)
 
   return (
     <div className="w-full pb-[60px]">
@@ -77,12 +79,10 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             </div>
             <div className="flex gap-[8px] sm:gap-[15px]">
               <div className="block sm:hidden">
-                <div className={`${styles.iconContainer}`}>
-                  <MenuSocialShare
-                    vote={true}
-                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                    url={`/${artistInfo?.username}`}
-                  />
+                <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setOpenShareModal(true)}>
+                  <div>
+                    <ShareSmallIcon alt="" />
+                  </div>
                 </div>
               </div>
               <div
@@ -102,7 +102,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                     type="nft"
                     vote={true}
                     message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                    url={`/${artistInfo?.username}`}
+                    url={`/${artistInfo?.username}/merch`}
                   />
                 </div>
               </div>
@@ -115,6 +115,15 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           </div>
         </div>
       </div>
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={true}
+          message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+          url={`/${artistInfo?.username}/merch`}
+        />
+      )}
     </div>
   )
 }
