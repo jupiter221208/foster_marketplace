@@ -314,7 +314,7 @@ const MainSection = prop => {
     )
   }
 
-  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
       {hasLoading ? (
