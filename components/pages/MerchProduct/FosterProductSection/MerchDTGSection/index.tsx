@@ -128,9 +128,8 @@ const MerchDTGSection = props => {
 
       setCurPercentage(0)
       var center = newCanvas.getCenter()
-      if (viewport === 'xs') {
-        var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
-        newCanvas.zoomToPoint(centerPoint, 375 / 700)
+      if (window.innerWidth < 640) {
+        newCanvas.zoomToPoint(new fabric.Point(0, 0), 1)
       } else {
         var centerPoint = new fabric.Point(center.left, center.top)
         newCanvas.zoomToPoint(centerPoint, 1)
@@ -221,22 +220,12 @@ const MerchDTGSection = props => {
     }
 
     if (window.innerWidth < 640) {
-      // var center = newCanvas.getCenter()
-      // var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
-      // newCanvas.zoomToPoint(centerPoint, 375 / 700)
-      newCanvas.setZoom(375 / 700)
-      // screenWidth = 375
-      // assetWidth = (assetWidth * screenWidth) / 700
-      // assetHeight = (assetHeight * screenWidth) / 700
-      // assetTop = (assetTop * screenWidth) / 700
-      // assetLeft = (assetLeft * screenWidth) / 700
+      let ratio = 340 / 700
+      newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     } else if (window.innerWidth < 1024) {
-      newCanvas.setZoom(630 / 700)
-      // screenWidth = 630
-      // assetWidth = (assetWidth * screenWidth) / 700
-      // assetHeight = (assetHeight * screenWidth) / 700
-      // assetTop = (assetTop * screenWidth) / 700
-      // assetLeft = (assetLeft * screenWidth) / 700
+      var center = newCanvas.getCenter()
+      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(centerPoint, 630 / 700)
     }
 
     newCanvas.setDimensions({
@@ -425,14 +414,20 @@ const MerchDTGSection = props => {
   }
 
   useEffect(() => {
+    if (!assetUrl) return
+
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
     }
+
     var center = newCanvas.getCenter()
-    if (viewport === 'xs') {
-      var centerPoint = new fabric.Point((center.left * 375) / 700, (center.top * 375) / 700)
-      newCanvas.zoomToPoint(centerPoint, (375 / 700) * (1 + curPercentage / 33.33))
+    if (window.innerWidth < 640) {
+      var centerPoint = new fabric.Point((center.left * 340) / 700, (center.top * 340) / 700)
+      newCanvas.zoomToPoint(centerPoint, (340 / 700) * (1 + curPercentage / 33.33))
+    } else if (window.innerWidth < 1024) {
+      var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
+      newCanvas.zoomToPoint(centerPoint, (630 / 700) * (1 + curPercentage / 33.33))
     } else {
       var centerPoint = new fabric.Point(center.left, center.top)
       newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
@@ -664,28 +659,29 @@ const MerchDTGSection = props => {
 
         <div className="relative flex-1 flex justify-center">
           <div className={styles.rightPanel}>
-            <div className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
-              <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
+            <div className="w-full flex justify-center">
+              <div className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] overflow-hidden">
+                <canvas id={canvasId} className="ml-[-8px] md:ml-[0px]" />
+              </div>
             </div>
-
             {snapshotAsset[cardSide].length > 0 ? (
-              <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px] flex justify-center">
+              <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px] flex justify-center">
                 <div className="absolute inset-0">
                   <img
                     src={snapshotAsset[cardSide]}
                     alt=""
-                    className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px]"
+                    className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] xl:w-[700px] xl:h-[700px]"
                   />
                 </div>
               </div>
             ) : (
               !assetUrl && (
-                <div className="absolute w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
                   <div className="absolute inset-0">
                     <img
                       src={apparelList[selectedCard.id].apparel[cardSide][color]}
                       alt=""
-                      className="w-[375px] h-[375px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
                     />
                   </div>
                   <div className={`${styles.dropArea}`}>
