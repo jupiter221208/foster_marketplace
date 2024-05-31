@@ -11,13 +11,13 @@
   border-color: rgba(var(--main-bg-color-rgb), 0.25);
   font-size: 14px;
   @media (min-width: 1024px) {
-    border-width: 2px;
+    border-width: 1px;
     height: 46px;
     font-size: 18px;
     border-radius: 12px;
   }
   @media (min-width: 1536px) {
-    border-width: 2px;
+    border-width: 1px;
     height: 53px;
     font-size: 18px;
     border-radius: 12px;
