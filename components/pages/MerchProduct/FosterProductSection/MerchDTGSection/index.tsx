@@ -49,6 +49,28 @@ const MerchDTGSection = props => {
   const alertId = 'alert-tech'
 
   useEffect(() => {
+    const handleMove = event => {
+      if (event.type === 'touchmove' && event.target.className.includes('bar__progress')) {
+        const clickPositionInPage = event.touches[0].clientX
+        const bar = document.getElementById('bar__progress')!
+        const barStart = bar.getBoundingClientRect().left || 0
+        const barWidth = bar.offsetWidth
+        const clickPositionInBar = clickPositionInPage - barStart
+        let pros = (clickPositionInBar / barWidth) * 100
+        if (pros < 0) pros = 0
+        if (pros > 100) pros = 100
+
+        setCurPercentage(pros)
+      }
+    }
+    window.addEventListener('touchmove', handleMove)
+
+    return () => {
+      window.removeEventListener('touchmove', handleMove)
+    }
+  }, [])
+
+  useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
       setColor(productDetail?.color)

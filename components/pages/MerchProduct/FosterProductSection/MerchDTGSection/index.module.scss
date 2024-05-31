@@ -101,6 +101,9 @@
   gap: 10px;
   display: flex;
   align-items: center;
+  @media (min-width: 576px) {
+    gap: 14px;
+  }
 }
 
 .bar {
