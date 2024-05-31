@@ -102,7 +102,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                     type="nft"
                     vote={true}
                     message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                    url={`/${artistInfo?.username}`}
+                    url={`/${artistInfo?.username}/merch`}
                   />
                 </div>
               </div>
@@ -121,7 +121,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           close={() => setOpenShareModal(false)}
           vote={true}
           message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-          url={`/${artistInfo?.username}`}
+          url={`/${artistInfo?.username}/merch`}
         />
       )}
     </div>
