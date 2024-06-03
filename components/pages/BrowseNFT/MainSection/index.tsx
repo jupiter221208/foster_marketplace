@@ -1719,6 +1719,20 @@ const MainSection = ({
                                               setVisible(true)
                                               return
                                             }
+
+                                            if (parseFloat(price) > mainWalletBalance + biddingBalance) {
+                                              setAlertData([
+                                                {
+                                                  id: 0,
+                                                  title: 'Insufficient Funds',
+                                                  description: 'Not enough funds in wallet for bid amount',
+                                                  type: 'error',
+                                                },
+                                              ])
+                                              setShowAlert(true)
+                                              return
+                                            }
+
                                             placeBidAndSave(price)
                                           }}
                                         >
@@ -1732,6 +1746,7 @@ const MainSection = ({
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               }
+                                              onClick={() => {}}
                                             />
                                           )}
                                         </div>
