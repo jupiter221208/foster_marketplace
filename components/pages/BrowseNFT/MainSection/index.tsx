@@ -276,6 +276,19 @@ const MainSection = ({
       return
     }
 
+    if (nftPrice > mainWalletBalance) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Insufficient Funds',
+          description: 'Not enough funds in wallet for purchase',
+          type: 'error',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
+
     try {
       setBuyLoading(true)
       await refreshToken()
