@@ -55,7 +55,7 @@ const AdditionalDetails = props => {
         type="time"
         value={value}
         onChange={e => onChange(e.target.value)}
-        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
+        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)', cursor: 'pointer' }}
         className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
       />
     )
