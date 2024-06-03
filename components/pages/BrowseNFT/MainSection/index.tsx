@@ -276,6 +276,19 @@ const MainSection = ({
       return
     }
 
+    if (nftPrice > mainWalletBalance) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Insufficient Funds',
+          description: 'Not enough funds in wallet for purchase',
+          type: 'error',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
+
     try {
       setBuyLoading(true)
       await refreshToken()
@@ -993,48 +1006,30 @@ const MainSection = ({
       if (bid) {
         updateSolBalance()
 
-        // retry upto 3 times
-        let bidResponse = null
-        for (let i = 0; i < 3 && bidResponse == null; i++)
-          try {
-            bidResponse = await AuctionAPI.placeBid(mintAddress, {
-              mint_address: bid.mintAddress.toBase58(),
-              buyer_address: bid.buyerAddress.toBase58(),
-              amount: bid.amount.toString(),
-            })
-          } catch (e: any) {
-            console.error(`failed to post bid: attempt ${i + 1} of 3: ${(e as Error)?.message}`)
-            console.error(e)
-            setAuctionLoading(false)
-            setShowModalPlaceBid(false)
-          }
-
-        if (bidResponse) {
-          setShowModalPlaceBid(false)
-          setNftCurrentPrice(Number(bid.amount.toString()))
-          setTimeout(() => {
-            setAlertData([
-              {
-                id: 0,
-                title: 'Successful bid!',
-                description: `You've successfully placed a bid on ${nftName}`,
-                type: 'success',
-              },
-            ])
-            setShowAlert(true)
-            setAuctionLoading(false)
-          }, 500)
-          setHighBidder(publicKey?.toBase58())
-          usersAPI.getLockupValues().then(
-            response => {
-              dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-              dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+        setShowModalPlaceBid(false)
+        setNftCurrentPrice(Number(bid.amount.toString()))
+        setTimeout(() => {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Successful bid!',
+              description: `You've successfully placed a bid on ${nftName}`,
+              type: 'success',
             },
-            error => {
-              console.log(error)
-            }
-          )
-        }
+          ])
+          setShowAlert(true)
+          setAuctionLoading(false)
+        }, 500)
+        setHighBidder(publicKey?.toBase58())
+        usersAPI.getLockupValues().then(
+          response => {
+            dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+            dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+          },
+          error => {
+            console.log(error)
+          }
+        )
       }
     } catch (error) {
       console.error(error)
@@ -1737,6 +1732,20 @@ const MainSection = ({
                                               setVisible(true)
                                               return
                                             }
+
+                                            if (parseFloat(price) > mainWalletBalance + biddingBalance) {
+                                              setAlertData([
+                                                {
+                                                  id: 0,
+                                                  title: 'Insufficient Funds',
+                                                  description: 'Not enough funds in wallet for bid amount',
+                                                  type: 'error',
+                                                },
+                                              ])
+                                              setShowAlert(true)
+                                              return
+                                            }
+
                                             placeBidAndSave(price)
                                           }}
                                         >
@@ -1750,6 +1759,7 @@ const MainSection = ({
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               }
+                                              onClick={() => {}}
                                             />
                                           )}
                                         </div>
