@@ -70,14 +70,13 @@ const MerchDTGSection = props => {
       window.removeEventListener('touchmove', handleMove)
     }
   }, [])
-
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
       setColor(productDetail?.color)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
-      }, 1000)
+      }, 100)
     }
   }, [productDetail])
 
@@ -141,6 +140,8 @@ const MerchDTGSection = props => {
   }
 
   const clearApparel = () => {
+    setAssetUrl(null)
+
     let newAsset = { ...snapshotAsset }
     newAsset[cardSide] = ''
     setSnapshotAsset(newAsset)
@@ -155,7 +156,6 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
-    setAssetUrl(null)
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
