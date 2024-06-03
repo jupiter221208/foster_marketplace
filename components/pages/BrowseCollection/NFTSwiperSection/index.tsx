@@ -19,6 +19,9 @@ import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
+import { getPriceValue } from 'utils/strings'
+import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 
 type NFTSwiperSectionTypes = {
   nfts: NftData[]
@@ -79,6 +82,14 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
     }
   }, [isFetching])
 
+  const gotoNftPage = item_id => {
+    let token_id = item_id
+    if (token_id === null || token_id === undefined) token_id = item_id
+    if (token_id !== null && token_id !== undefined) {
+      router.push(`/nft/${token_id.toString()}`)
+    }
+  }
+
   return (
     nftList !== undefined && (
       <section className={styles.container}>
@@ -108,32 +119,72 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
           <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {nftList.map((item, index) => (
               <div className="col-span-12 lg:col-span-3" key={index}>
-                <NFTCard
-                  token_id={item.id}
-                  image={item.content.files[1]?.uri}
-                  nftName={item.content.metadata.name}
-                  assetType={item.category}
-                  coverImage={
-                    item.content.files[0]?.cdn_uri ||
-                    item.content.files[0]?.uri ||
-                    item.content.links.image ||
-                    DefaultNftBG.src
-                  }
-                  fallBack={item.content.links.image || DefaultNftBG.src}
-                  artistName={item.creators[0].artist_username}
-                  collectionName={collectionName}
-                  artistId={item.creators[0].address}
-                  price={item.auction?.list_price}
-                  showHideButton={showHideButton}
-                  onClick={() => {
-                    let token_id = item.id
-                    if (token_id === null || token_id === undefined) token_id = item.id
-                    if (token_id !== null && token_id !== undefined) {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/nft/${token_id.toString()}`)
+                {item.master_edition ? (
+                  <NFTEditionsCard
+                    tokenId={item.id}
+                    image={item.content.files[1]?.uri}
+                    nftName={item.content.metadata.name}
+                    artistName={item.creators[0].artist_username}
+                    assetType={item.category}
+                    coverImage={
+                      item.content.files[0]?.cdn_uri ||
+                      item.content.files[0]?.uri ||
+                      item.content.links.image ||
+                      DefaultNftBG.src
                     }
-                  }}
-                />
+                    statTime={item.master_edition?.startTime}
+                    endTime={item.master_edition?.endTime}
+                    price={item.master_edition?.price}
+                    currentSupply={item.current_supply}
+                    maxSupply={item.max_supply}
+                    onClick={() => {
+                      gotoNftPage(item.id)
+                    }}
+                    key={index}
+                  />
+                ) : item.auction ? (
+                  <NFTAuctionCard
+                    token_id={item.id}
+                    nftName={item.content.metadata.name}
+                    artistName={item.creators[0].artist_username}
+                    image={item.content.files[1]?.uri}
+                    assetType={item.category}
+                    coverImage={
+                      item.content.files[0]?.cdn_uri ||
+                      item.content.files[0]?.uri ||
+                      item.content.links.image ||
+                      DefaultNftBG.src
+                    }
+                    currentBid={item.auction.current_bid}
+                    reservePrice={item.auction.list_price}
+                    endTime={item.auction.end_time}
+                    onClick={() => {
+                      gotoNftPage(item.id)
+                    }}
+                  />
+                ) : (
+                  <NFTCard
+                    token_id={item.id}
+                    image={item.content.files[1]?.uri}
+                    nftName={item.content.metadata.name}
+                    assetType={item.category}
+                    coverImage={
+                      item.content.files[0]?.cdn_uri ||
+                      item.content.files[0]?.uri ||
+                      item.content.links.image ||
+                      DefaultNftBG.src
+                    }
+                    fallBack={item.content.links.image || DefaultNftBG.src}
+                    artistName={item.creators[0].artist_username}
+                    collectionName={collectionName}
+                    artistId={item.creators[0].address}
+                    price={item.list_price}
+                    showHideButton={showHideButton}
+                    onClick={() => {
+                      gotoNftPage(item.id)
+                    }}
+                  />
+                )}
               </div>
             ))}
           </div>

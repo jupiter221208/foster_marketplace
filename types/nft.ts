@@ -12,6 +12,16 @@ export interface NftData {
   description?: string
   uri?: string
 
+  master_edition?: {
+    mintAddress: string,
+    price: string,
+    startTime: string,
+    endTime: string,
+    buyLimit: 0,
+    authorityPublicKey: string,
+  }
+  max_supply: string
+  current_supply: string
   image?: string
   animation_url?: string
   original?: {
@@ -67,6 +77,7 @@ export interface NftData {
   grouping?: { group_key: string; group_value: string }[]
 
   marketplaceInfo?: NftMarketplaceInfo
+  list_price?: number
   auction?: AuctionInfo
 
   properties?: {
