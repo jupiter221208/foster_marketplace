@@ -40,9 +40,7 @@ const MerchDTGSection = props => {
   const [assetUrl, setAssetUrl] = useState<any>(null)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showEmbPosModal, setShowEmbPosModal] = useState(false)
-  const [snapshotAsset, setSnapshotAsset] = useState(
-    productDetail?.snapshotAssetUrl ?? { front: '', back: '', right: '', left: '' }
-  )
+  const [snapshotAsset, setSnapshotAsset] = useState({ front: '', back: '', right: '', left: '' })
   const [processingImage, setProcessingImage] = useState(false)
   const [questionType, setQuestionType] = useState('')
   const [showQuestionModal, setShowQuestionModal] = useState(false)
@@ -72,14 +70,13 @@ const MerchDTGSection = props => {
       window.removeEventListener('touchmove', handleMove)
     }
   }, [])
-
   useEffect(() => {
     if (productDetail?.snapshotAssetUrl) {
       setTechnique(productDetail?.technique)
       setColor(productDetail?.color)
       setTimeout(() => {
         setSnapshotAsset(productDetail?.snapshotAssetUrl)
-      }, 1000)
+      }, 100)
     }
   }, [productDetail])
 
