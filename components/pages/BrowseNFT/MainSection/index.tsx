@@ -276,7 +276,7 @@ const MainSection = ({
       return
     }
 
-    if (nftPrice > mainWalletBalance) {
+    if (nftPrice > mainWalletBalance - bidWalletLock) {
       setAlertData([
         {
           id: 0,
@@ -1733,7 +1733,10 @@ const MainSection = ({
                                               return
                                             }
 
-                                            if (parseFloat(price) > mainWalletBalance + biddingBalance) {
+                                            if (
+                                              parseFloat(price) >
+                                              mainWalletBalance + biddingBalance - bidWalletLock
+                                            ) {
                                               setAlertData([
                                                 {
                                                   id: 0,
