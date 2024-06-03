@@ -19,7 +19,6 @@ import styles from './index.module.scss'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { NftData } from 'types/nft'
-import { getPriceValue } from 'utils/strings'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 
@@ -38,11 +37,19 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
   const [nftList, setNFTList] = useState<any[]>([])
   const [artworkType, setArtworkType] = useState('all')
   const [quickBuyNfts, setQuickBuyNfts] = useState([])
+  const [liveEditionNfts, setLiveEditionNfts] = useState([])
+  const [liveAuctionNfts, setLiveAuctionNfts] = useState([])
 
   useEffect(() => {
     if (nfts) {
-      const listeNfts = nfts.filter(item => item.auction?.list_price != null)
+      const listeNfts = nfts.filter(item => item.list_price != null)
       setQuickBuyNfts(listeNfts)
+
+      const editionNfts = nfts.filter(item => item.master_edition != null)
+      setLiveEditionNfts(editionNfts)
+
+      const auctionNfts = nfts.filter(item => item.auction != null)
+      setLiveAuctionNfts(auctionNfts)
 
       setNFTList(nfts.slice(0, rowCount))
       if (nfts.length > rowCount) setIsVisibleFetching(true)
@@ -53,9 +60,15 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
     if (artworkType === 'all') {
       setNFTList(nfts.slice(0, rowCount))
       if (nfts.length > rowCount) setIsVisibleFetching(true)
-    } else {
+    } else if (artworkType === 'listed') {
       setNFTList(quickBuyNfts.slice(0, rowCount))
       if (quickBuyNfts.length > rowCount) setIsVisibleFetching(true)
+    } else if (artworkType === 'edition') {
+      setNFTList(liveEditionNfts.slice(0, rowCount))
+      if (liveEditionNfts.length > rowCount) setIsVisibleFetching(true)
+    } else if (artworkType === 'auction') {
+      setNFTList(liveAuctionNfts.slice(0, rowCount))
+      if (liveAuctionNfts.length > rowCount) setIsVisibleFetching(true)
     }
   }, [artworkType])
 
@@ -70,12 +83,28 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
           setNFTList([...nftList, ...nfts.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
-      } else {
+      } else if (artworkType === 'listed') {
         if (quickBuyNfts.length + rowCount > quickBuyNfts.length) {
           setNFTList([...nftList, ...quickBuyNfts.slice(nftList.length, quickBuyNfts.length)])
           setIsVisibleFetching(false)
         } else {
           setNFTList([...nftList, ...quickBuyNfts.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      } else if (artworkType === 'edition') {
+        if (liveEditionNfts.length + rowCount > liveEditionNfts.length) {
+          setNFTList([...nftList, ...liveEditionNfts.slice(nftList.length, liveEditionNfts.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNFTList([...nftList, ...liveEditionNfts.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      } else if (artworkType === 'auction') {
+        if (liveAuctionNfts.length + rowCount > liveAuctionNfts.length) {
+          setNFTList([...nftList, ...liveAuctionNfts.slice(nftList.length, liveAuctionNfts.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNFTList([...nftList, ...liveAuctionNfts.slice(nftList.length, nftList.length + rowCount)])
           setIsVisibleFetching(true)
         }
       }
@@ -112,6 +141,26 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
             selected={artworkType === 'listed'}
             onClick={() => {
               setArtworkType('listed')
+            }}
+          />
+
+          <TimeSlotButton
+            label="Live&nbsp;Auction"
+            height={42}
+            fontFamily={'Muli-Regular'}
+            selected={artworkType === 'auction'}
+            onClick={() => {
+              setArtworkType('auction')
+            }}
+          />
+
+          <TimeSlotButton
+            label="Live&nbsp;Edition"
+            height={42}
+            fontFamily={'Muli-Regular'}
+            selected={artworkType === 'edition'}
+            onClick={() => {
+              setArtworkType('edition')
             }}
           />
         </div>

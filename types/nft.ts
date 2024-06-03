@@ -20,8 +20,8 @@ export interface NftData {
     buyLimit: 0,
     authorityPublicKey: string,
   }
-  max_supply: string
-  current_supply: string
+  max_supply?: string
+  current_supply?: string
   image?: string
   animation_url?: string
   original?: {
