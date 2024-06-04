@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 
 // resources
-import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-green.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ImageWithFoster from 'components/ImageWithFoster'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
@@ -186,7 +186,7 @@ const HeroNewCard = ({ data }) => {
         <div className="h-full flex items-center">
           <div className={styles.listedFor}>Listed for</div>
           <div className="mt-1 ml-[9px]">
-            <SolanaIcon alt="" />
+            <img src={SolanaIcon.src} alt="" />
           </div>
           <div className={`${styles.price} ml-[5px]`}>{data.list_price}</div>
         </div>
