@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import ThreeDotIcon from 'assets/icons/three-dot.svg?component'
 import FileCopyIcon from 'assets/icons/file-copy-medium.svg?component'
 import TwitterWhiteIcon from 'assets/icons/twitter-white-new.svg?component'
 import WebsiteIcon from 'assets/icons/website-white.svg?component'
@@ -23,8 +22,10 @@ const WalletFilterMenu = props => {
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
-            <LinkIcon alt="" />
-            {label}
+            <div className="flex gap-[7px] lg:gap-[8px] items-center">
+              <LinkIcon alt="" />
+              {label}
+            </div>
           </div>
         </Menu.Button>
 

@@ -2,7 +2,6 @@ import React from 'react'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFoster from 'components/ImageWithFoster'
 
 const StudioCard = props => {
   const { data, onSelected } = props

@@ -87,7 +87,7 @@ const MainSection = props => {
     let prices = []
     if (nfts)
       nfts.forEach(nft => {
-        if (nft?.auction?.list_price) prices.push(parseFloat(nft.auction.list_price))
+        if (nft?.list_price) prices.push(parseFloat(nft.list_price))
       })
     setFloorPrice(prices.length === 0 ? 0 : Math.min.apply(Math, prices))
   }, [nfts])

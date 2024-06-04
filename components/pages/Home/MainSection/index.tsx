@@ -29,8 +29,8 @@ import 'react-slideshow-image/dist/styles.css'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-large.svg?component'
-import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-large.svg?component'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-icon.svg?component'
+import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-icon.svg?component'
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 import HeroNewCard from 'components/Card/HeroNewCard'
 

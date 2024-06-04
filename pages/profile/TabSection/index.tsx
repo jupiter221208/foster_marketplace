@@ -225,7 +225,7 @@ const TabSection = props => {
 
           {artworkType === 'studio' && (
             <div className="w-full">
-              <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+              <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} type="studio" />
               {merchNfts?.length > 0 && isLoaded && isVisibleFetchingMerch && (
                 <LoadingComponent isFetching={isFetchingMerch} setIsFetching={setIsFetchingMerch} />
               )}
