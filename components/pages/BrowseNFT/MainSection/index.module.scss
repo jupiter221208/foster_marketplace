@@ -79,7 +79,7 @@
   height: auto;
   overflow: visible;
   @media (min-width: 1024px) {
-    background: var(--bg-1C1C1C-F3F2F0);
+    background: var(--background-main-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -502,6 +502,14 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   margin-bottom: 10px;
+}
+
+.descBorder {
+  width: 100%;
+  height: 1px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background: rgba(#707070, 0.25);
 }
 
 .greenRoyalties {

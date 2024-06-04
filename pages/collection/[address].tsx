@@ -65,7 +65,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const getCollectionData = async () => {
     const result = await getCollectionFromDAS(address)
-
     let filteredNfts = result.filter(
       (arr, index, self) =>
         index ===

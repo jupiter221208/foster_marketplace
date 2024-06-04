@@ -3,18 +3,18 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 24px;
-  line-height: 26px;
+  line-height: 28px;
   @media (min-width: 640px) {
     font-size: 28px;
-    line-height: 36px;
+    line-height: 32px;
   }
   @media (min-width: 768px) {
     font-size: 32px;
-    line-height: 40px;
+    line-height: 46px;
   }
   @media (min-width: 1024px) {
     font-size: 30px;
-    line-height: 39px;
+    line-height: 36px;
   }
 
   color: var(--text-gray-200-color);
@@ -47,6 +47,33 @@
       text-decoration: underline;
     }
   }
+}
+
+.creator {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}
+
+.userTile {
+  width: auto;
+  height: 42px;
+  border-radius: 21px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--bg-1E1E1E-F3F2F0);
+  padding: 5px 12px 5px 10px;
+  display: inline-block;
+  margin-top: 7px;
+}
+
+.username {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 1);
 }
 
 .skeletonLoader:empty {

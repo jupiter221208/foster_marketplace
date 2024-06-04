@@ -1,0 +1,32 @@
+@import 'assets/scss/variable.module.scss';
+
+.details {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--main-bg-color)
+}
+
+.label {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 0.75)
+}
+
+.value {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 1)
+}
+
+.descBorder {
+  width: 100%;
+  height: 1px;
+  margin-top: 15px;
+  background: rgba(#707070, 0.25);
+}

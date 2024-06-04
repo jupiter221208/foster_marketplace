@@ -54,7 +54,6 @@ import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
-import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
@@ -117,6 +116,7 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import NFTDetailSection from './NFTDetailSection'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1367,7 +1367,7 @@ const MainSection = ({
                 <div className={`w-full ${styles.nftDetailCardPadding}`}>
                   {nftCollectionAddress && (
                     <div className={styles.collectionContainer}>
-                      <div className="justify-between items-center mt-[15px] lg:mt-[7px]">
+                      <div className="justify-between items-center mt-[15px] lg:mt-[0px] lg:mb-[15px]">
                         <Link href={`/collection/${nftCollectionAddress}`} passHref>
                           <a>
                             {!(nftCollectionImage || nftCollectionName) ? (
@@ -1397,9 +1397,10 @@ const MainSection = ({
                     nftCreatorname={nftCreatorname}
                     nftOwnerUsername={nftOwnerUsername}
                     nameLoading={nameLoading}
+                    profileImage={nftInfo?.creator_profile_image}
                   />
 
-                  {editionDetail && isNftMasterEdition() && (
+                  {/* {editionDetail && isNftMasterEdition() && (
                     <div className="flex flex-wrap gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
                       <div className={styles.editionTitle}>
                         {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
@@ -1417,22 +1418,10 @@ const MainSection = ({
                           : Number(editionDetail?.supply) + ' Sold'}
                       </div>
                     </div>
-                  )}
+                  )} */}
 
-                  {editionDetail && isNftPrintEdition() && (
+                  {/* {editionDetail && isNftPrintEdition() && (
                     <div className="mt-[30px]">
-                      {/* {nftPrice > 0 && (editionType === 'master_le' || editionType === 'master_oe') && (
-                      <div className={styles.editionSecondRow}>
-                        <div className={styles.editionTitle}>Mint Price</div>
-                        <div className="flex gap-[6px] items-center">
-                          <div className="mt-[2px]">
-                            <SolanaLogoMobileIcon alt="" />
-                          </div>
-                          <div className={styles.editionValue}>{nftPrice}</div>
-                        </div>
-                      </div>
-                    )} */}
-
                       <div className="w-full flex gap-[15px]">
                         <div className={styles.editionTitle}>
                           {editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}
@@ -1453,12 +1442,10 @@ const MainSection = ({
                         <ArrowRightIcon />
                       </div>
                     </div>
-                  )}
+                  )} */}
 
-                  <div
-                    className={`w-full lg:max-h-[130px] mt-[15px] lg:my-[30px] ${!isTruncated && 'overflow-scroll'}`}
-                  >
-                    {nftDescription ? (
+                  {nftDescription ? (
+                    <div className={`w-full lg:max-h-[130px] mt-[15px] ${!isTruncated && 'overflow-scroll'}`}>
                       <div>
                         <div className={styles.descLabel}>Description</div>
                         <div className={styles.whiteDescription}>
@@ -1475,15 +1462,28 @@ const MainSection = ({
                           </div>
                           <div className="lg:hidden block">{tempNftDescription}</div>
                         </div>
+                        <div className={styles.descBorder} />
                       </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  <NFTDetailSection
+                    nftOwnerUsername={nftOwnerUsername}
+                    nftType={nftType}
+                    nftCoverUrl={nftCoverUrl}
+                    editionDetail={editionDetail}
+                    editionType={editionType}
+                    supply={supply}
+                    isNftMasterEdition={isNftMasterEdition()}
+                    isNftPrintEdition={isNftPrintEdition()}
+                    royalties={nftRoyalties}
+                  />
                 </div>
 
                 <div className="w-full flex flex-wrap mt-[15px] lg:mt-0">
-                  <div className={`w-full ${styles.nftDetailCardPadding}`}>
+                  {/* <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     <div className="w-full flex lg:flex-row flex-col justify-between gap-0 lg:gap-3 xl:gap-4">
                       {nftCategories && nftCategories.length > 0 && (
                         <div className="flex flex-wrap flex-col gap-2">
@@ -1507,11 +1507,11 @@ const MainSection = ({
                         <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="w-[200%] min-h-max overflow-hidden">
+                  {/* <div className="w-[200%] min-h-max overflow-hidden">
                     <div className={`${styles.categoryBorder} lg:block block`} />
-                  </div>
+                  </div> */}
 
                   <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     {loadListing && (
