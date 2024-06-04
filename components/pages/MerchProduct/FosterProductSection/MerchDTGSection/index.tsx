@@ -547,7 +547,7 @@ const MerchDTGSection = props => {
               image={
                 snapshotAsset['front'].length > 0
                   ? snapshotAsset['front']
-                  : apparelList[selectedCard.id].apparel.front[color]
+                  : apparelList[selectedCard.id].card.front[color]
               }
               side="front"
               type="DTG"
@@ -560,9 +560,7 @@ const MerchDTGSection = props => {
             <MerchDTGCard
               selected={cardSide === 'back'}
               image={
-                snapshotAsset['back'].length > 0
-                  ? snapshotAsset['back']
-                  : apparelList[selectedCard.id].apparel.back[color]
+                snapshotAsset['back'].length > 0 ? snapshotAsset['back'] : apparelList[selectedCard.id].card.back[color]
               }
               side="back"
               type="DTG"
@@ -579,7 +577,7 @@ const MerchDTGSection = props => {
                 image={
                   snapshotAsset['right'].length > 0
                     ? snapshotAsset['right']
-                    : apparelList[selectedCard.id].apparel.right[color]
+                    : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
                 label="+$2.49"
@@ -596,7 +594,7 @@ const MerchDTGSection = props => {
                 image={
                   snapshotAsset['left'].length > 0
                     ? snapshotAsset['left']
-                    : apparelList[selectedCard.id].apparel.left[color]
+                    : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
                 label="+$2.49"
@@ -856,7 +854,7 @@ const MerchDTGSection = props => {
               image={
                 snapshotAsset['front'].length > 0
                   ? snapshotAsset['front']
-                  : apparelList[selectedCard.id].apparel.front[color]
+                  : apparelList[selectedCard.id].card.front[color]
               }
               side="front"
               type="DTG"
@@ -869,9 +867,7 @@ const MerchDTGSection = props => {
             <MerchDTGCard
               selected={cardSide === 'back'}
               image={
-                snapshotAsset['back'].length > 0
-                  ? snapshotAsset['back']
-                  : apparelList[selectedCard.id].apparel.back[color]
+                snapshotAsset['back'].length > 0 ? snapshotAsset['back'] : apparelList[selectedCard.id].card.back[color]
               }
               side="back"
               type="DTG"
@@ -888,7 +884,7 @@ const MerchDTGSection = props => {
                 image={
                   snapshotAsset['right'].length > 0
                     ? snapshotAsset['right']
-                    : apparelList[selectedCard.id].apparel.right[color]
+                    : apparelList[selectedCard.id].card.right[color]
                 }
                 side="right"
                 label="+$2.49"
@@ -905,7 +901,7 @@ const MerchDTGSection = props => {
                 image={
                   snapshotAsset['left'].length > 0
                     ? snapshotAsset['left']
-                    : apparelList[selectedCard.id].apparel.left[color]
+                    : apparelList[selectedCard.id].card.left[color]
                 }
                 side="left"
                 label="+$2.49"

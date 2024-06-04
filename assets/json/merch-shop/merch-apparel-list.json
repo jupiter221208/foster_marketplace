@@ -23,6 +23,12 @@
       "back": { "white": "/images/apparel/man_hoodie_white_b.png", "black":"/images/apparel/man_hoodie_black_b.png" }, 
       "right" :{ "white":"/images/apparel/man_hoodie_white_r.png", "black":"/images/apparel/man_hoodie_black_r.png" }, 
       "left" : { "white":"/images/apparel/man_hoodie_white_l.png", "black":"/images/apparel/man_hoodie_black_l.png" } 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/man_hoodie_white_card.png", "black":"/images/apparel/man_hoodie_black_card.png" }, 
+      "back": { "white": "/images/apparel/man_hoodie_white_b_card.png", "black":"/images/apparel/man_hoodie_black_b_card.png" }, 
+      "right" :{ "white":"/images/apparel/man_hoodie_white_r_card.png", "black":"/images/apparel/man_hoodie_black_r_card.png" }, 
+      "left" : { "white":"/images/apparel/man_hoodie_white_l_card.png", "black":"/images/apparel/man_hoodie_black_l_card.png" } 
     }
   },
   {
@@ -49,6 +55,12 @@
       "back": { "white": "/images/apparel/man_longsleeve_white_b.png", "black":"/images/apparel/man_longsleeve_black_b.png"}, 
       "right" :{ "white":"/images/apparel/man_longsleeve_white_r.png", "black":"/images/apparel/man_longsleeve_black_r.png"}, 
       "left" : { "white":"/images/apparel/man_longsleeve_white_l.png", "black":"/images/apparel/man_longsleeve_black_l.png"} 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/man_longsleeve_white_card.png", "black":"/images/apparel/man_longsleeve_black_card.png"}, 
+      "back": { "white": "/images/apparel/man_longsleeve_white_b_card.png", "black":"/images/apparel/man_longsleeve_black_b_card.png"}, 
+      "right" :{ "white":"/images/apparel/man_longsleeve_white_r_card.png", "black":"/images/apparel/man_longsleeve_black_r_card.png"}, 
+      "left" : { "white":"/images/apparel/man_longsleeve_white_l_card.png", "black":"/images/apparel/man_longsleeve_black_l_card.png"} 
     }
   },
   {
@@ -75,6 +87,12 @@
       "back": { "white": "/images/apparel/man_t_white_b.png", "black":"/images/apparel/man_t_black_b.png"}, 
       "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
       "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/man_t_white_card.png", "black":"/images/apparel/man_t_black_card.png"}, 
+      "back": { "white": "/images/apparel/man_t_white_b_card.png", "black":"/images/apparel/man_t_black_b_card.png"}, 
+      "right" :{ "white":"/images/apparel/man_t_white_r_card.png", "black":"/images/apparel/man_t_black_r_card.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l_card.png", "black":"/images/apparel/man_t_black_l_card.png"} 
     }
   },
   {
@@ -101,6 +119,12 @@
       "back": { "white": "/images/apparel/man_sweat_white_b.png", "black":"/images/apparel/man_sweat_black_b.png"}, 
       "right" :{ "white":"/images/apparel/man_sweat_white_r.png", "black":"/images/apparel/man_sweat_black_r.png"}, 
       "left" : { "white":"/images/apparel/man_sweat_white_l.png", "black":"/images/apparel/man_sweat_black_l.png"} 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/man_sweat_white_card.png", "black":"/images/apparel/man_sweat_black_card.png"}, 
+      "back": { "white": "/images/apparel/man_sweat_white_b_card.png", "black":"/images/apparel/man_sweat_black_b_card.png"}, 
+      "right" :{ "white":"/images/apparel/man_sweat_white_r_card.png", "black":"/images/apparel/man_sweat_black_r_card.png"}, 
+      "left" : { "white":"/images/apparel/man_sweat_white_l_card.png", "black":"/images/apparel/man_sweat_black_l_card.png"} 
     }
   },
   {
@@ -127,6 +151,12 @@
       "back": { "white": "/images/apparel/women_t_white_b.png", "black":"/images/apparel/women_t_black_b.png" },
       "right" :{ "white":"/images/apparel/man_t_white_r.png", "black":"/images/apparel/man_t_black_r.png"}, 
       "left" : { "white":"/images/apparel/man_t_white_l.png", "black":"/images/apparel/man_t_black_l.png"} 
+    },
+    "card": { 
+      "front": { "white":"/images/apparel/women_t_white_card.png", "black":"/images/apparel/women_t_black_card.png" }, 
+      "back": { "white": "/images/apparel/women_t_white_b_card.png", "black":"/images/apparel/women_t_black_b_card.png" },
+      "right" :{ "white":"/images/apparel/man_t_white_r_card.png", "black":"/images/apparel/man_t_black_r_card.png"}, 
+      "left" : { "white":"/images/apparel/man_t_white_l_card.png", "black":"/images/apparel/man_t_black_l_card.png"} 
     }
   }
 ]
