@@ -15,6 +15,7 @@ import styles from './index.module.scss'
 // redux
 import { useDispatch } from 'react-redux'
 import NFTCreatedCard from 'components/Card/NFTCreatedCard'
+import NFTStudioCard from 'components/Card/NFTStudioCard'
 
 const NFTSwiperSection = props => {
   const { nfts, showHideButton, isLoaded, type = 'normal' } = props
@@ -50,6 +51,19 @@ const NFTSwiperSection = props => {
                   artistName={item.artist_username}
                   price={item.list_price}
                   showHideButton={showHideButton}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/nft/${item.token_id}`)
+                  }}
+                  key={item}
+                />
+              ) : type === 'studio' ? (
+                <NFTStudioCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  coverImage={item.cover_image_url}
+                  nftName={item.nft_name}
+                  artistName={item.artist_username}
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
