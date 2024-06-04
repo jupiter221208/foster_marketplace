@@ -60,12 +60,10 @@ const MerchDTGSection = props => {
         let pros = (clickPositionInBar / barWidth) * 100
         if (pros < 0) pros = 0
         if (pros > 100) pros = 100
-
         setCurPercentage(pros)
       }
     }
     window.addEventListener('touchmove', handleMove)
-
     return () => {
       window.removeEventListener('touchmove', handleMove)
     }
@@ -88,15 +86,16 @@ const MerchDTGSection = props => {
     if (assetUrl) {
       drawApparel()
       return
-    } else {
-      let newCanvas = canvas as fabric.Canvas
-      if (newCanvas == '') {
-        newCanvas = new fabric.Canvas(canvasId)
-      }
-      newCanvas.clear()
-      newCanvas.renderAll()
     }
-  }, [cardSide, assetUrl, embPlace, color, technique, selectedCard])
+    // else {
+    //   let newCanvas = canvas as fabric.Canvas
+    //   if (newCanvas == '') {
+    //     newCanvas = new fabric.Canvas(canvasId)
+    //   }
+    //   newCanvas.clear()
+    //   newCanvas.renderAll()
+    // }
+  }, [cardSide, assetUrl, embPlace, color, technique])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
@@ -104,11 +103,10 @@ const MerchDTGSection = props => {
     setCurPercentage(0)
 
     let newCanvas = canvas as fabric.Canvas
-    if (newCanvas == '') {
-      newCanvas = new fabric.Canvas(canvasId)
+    if (newCanvas) {
+      newCanvas.clear()
+      newCanvas.renderAll()
     }
-    newCanvas.clear()
-    newCanvas.renderAll()
   }, [selectedCard])
 
   useEffect(() => {
@@ -267,8 +265,6 @@ const MerchDTGSection = props => {
       newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     } else if (window.innerWidth < 1024) {
       let ratio = 630 / 700
-      // var center = newCanvas.getCenter()
-      // var centerPoint = new fabric.Point((center.left * 630) / 700, (center.top * 630) / 700)
       newCanvas.zoomToPoint(new fabric.Point(0, 0), ratio)
     }
 
@@ -318,16 +314,6 @@ const MerchDTGSection = props => {
                 overlayImg => {
                   const { width } = overlayImg.getOriginalSize()
 
-                  overlayImg.scaleToWidth(assetWidth, false)
-                  overlayImg.set({
-                    scaleX: assetWidth / width,
-                    scaleY: assetWidth / width,
-                    top: assetTop,
-                    left: assetLeft,
-                    angle: angle,
-                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
-                  })
-
                   var rectClippingPath = new fabric.Rect({
                     top: assetTop,
                     left: assetLeft,
@@ -338,7 +324,17 @@ const MerchDTGSection = props => {
                     absolutePositioned: true,
                   })
                   overlayImg.clipPath = rectClippingPath
+                  overlayImg.scaleToWidth(assetWidth, false)
+                  overlayImg.set({
+                    scaleX: assetWidth / width,
+                    scaleY: assetWidth / width,
+                    top: assetTop,
+                    left: assetLeft,
+                    angle: angle,
+                    globalCompositeOperation: color === 'white' ? 'multiply' : 'color-dodge',
+                  })
 
+                  newCanvas.add(overlayImg)
                   overlayImg.setControlsVisibility({
                     mt: false,
                     mb: false,
@@ -346,7 +342,6 @@ const MerchDTGSection = props => {
                     mr: false,
                   })
                   newCanvas.setActiveObject(overlayImg)
-                  newCanvas.add(overlayImg)
                   newCanvas.renderAll()
                 },
                 { crossOrigin: 'Anonymous' }
