@@ -8,38 +8,16 @@ import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
-import { validUrl } from 'utils/helpers'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
-import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
-import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
-import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
-import LandIcon from 'assets/icons/land-icon.svg?component'
-import SolrPlexIcon from 'assets/icons/solrplex-icon.svg?component'
-import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
-import IconButton from 'components/Button/IconButton'
 import { getDisplayUserName } from 'utils/strings'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const ProfileArtistCard = props => {
-  const {
-    isOwn,
-    image,
-    name,
-    ig_url,
-    twitter_url,
-    site_url,
-    solarplex_url,
-    three_land_url,
-    avatarUploadingToS3,
-    handleChangeAvatar,
-    setFullScreenView,
-    hasLoading,
-  } = props
+  const { isOwn, image, name, avatarUploadingToS3, handleChangeAvatar, setFullScreenView, hasLoading } = props
   const viewport = useViewport()
-  const [loaded, setLoaded] = useState(false)
   const inputAvatarFile = useRef<any>(null)
 
   return (
@@ -55,7 +33,6 @@ const ProfileArtistCard = props => {
               width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
               height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
               className="rounded-full"
-              onLoadingComplete={() => setLoaded(true)}
               onClick={setFullScreenView}
             />
             {isOwn && (
@@ -93,36 +70,7 @@ const ProfileArtistCard = props => {
         hasLoading ? (
           <div className={`${styles.skeletonLoader} ${styles.name} w-[250px] h-[22px] rounded-full mt-[15px]`}></div>
         ) : (
-          <div className={styles.name}>
-            {getDisplayUserName(name)}
-            {/* <div className="w-full flex gap-[10px] items-center ml-[9px]">
-              {ig_url !== null && ig_url !== undefined && ig_url.length > 0 && (
-                <div>
-                  <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
-                </div>
-              )}
-              {twitter_url !== null && twitter_url !== undefined && twitter_url.length > 0 && (
-                <div>
-                  <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
-                </div>
-              )}
-              {site_url !== null && site_url !== undefined && site_url.length > 0 && (
-                <div>
-                  <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
-                </div>
-              )}
-              {three_land_url !== null && three_land_url !== undefined && three_land_url.length > 0 && (
-                <div>
-                  <LandIcon onClick={() => window.open(validUrl(three_land_url))} />
-                </div>
-              )}
-              {solarplex_url !== null && solarplex_url !== undefined && solarplex_url.length > 0 && (
-                <div>
-                  <SolrPlexIcon onClick={() => window.open(validUrl(solarplex_url))} />
-                </div>
-              )}
-            </div> */}
-          </div>
+          <div className={styles.name}>{getDisplayUserName(name)}</div>
         )
       ) : hasLoading ? (
         <div className={`${styles.skeletonLoader} ${styles.name} w-[150px] h-[22px] rounded-full`}></div>

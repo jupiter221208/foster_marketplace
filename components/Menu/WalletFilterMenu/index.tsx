@@ -23,8 +23,10 @@ const WalletFilterMenu = props => {
       <Menu>
         <Menu.Button>
           <div className={styles.btnArea}>
-            <LinkIcon alt="" />
-            {label}
+            <div className="flex gap-[7px] lg:gap-[8px] items-center">
+              <LinkIcon alt="" />
+              {label}
+            </div>
           </div>
         </Menu.Button>
 
