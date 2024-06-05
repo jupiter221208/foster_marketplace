@@ -199,11 +199,8 @@ const NFTActivityInfoSection = props => {
                 item.amount > 0 && (
                   <>
                     <div className="w-fit-content h-4 lg:h-[25px] flex flex-row justify-end items-center">
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <SolanaLogoMobileIcon alt="" />
-                      ) : (
-                        <SolanaLogoIcon alt="" />
-                      )}
+                      <SolanaLogoMobileIcon className="mt-[2px]" alt="" />
+
                       <div className={styles.solAmount}>&nbsp;{item.amount}</div>
                     </div>
                     <div className={styles.usdValue}>

@@ -98,15 +98,21 @@ const AuctionCard = props => {
                 <div className={styles.grayText}>{timeLeft['days']}:</div>
               </div>
             )}
-            <div className="flex block justify-center">
-              <div className={styles.grayText}>{timeLeft['hours']}:</div>
-            </div>
-            <div className="flex block justify-center ">
-              <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
-            </div>
-            <div className="flex block justify-center ">
-              <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
-            </div>
+            {timeLeft && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['hours']}:</div>
+              </div>
+            )}
+            {timeLeft && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft['minutes']}:</div>
+              </div>
+            )}
+            {timeLeft && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft['seconds']}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

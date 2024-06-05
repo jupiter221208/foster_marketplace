@@ -38,14 +38,11 @@
 }
 
 .solAmount {
-  font-size: 14px;
-  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  font-family: 'Muli-SemiBold';
   color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    font-family: 'Muli-Bold';
-    margin-top: -4px;
-  }
   cursor: pointer;
 }
 

@@ -81,7 +81,7 @@ const MintEditionCard = props => {
       {((auctionStarted && !auctionEnded) || endTime === null) && (
         <div className={styles.container}>
           <div className="w-full">
-            <div className="w-full flex justify-between items-center gap-[6px]">
+            <div className="w-full flex flex-wrap justify-between items-center gap-[15px]">
               {endTime !== null && (
                 <div className="flex gap-[6px] mt-[-5px] items-center">
                   {/* <div className={styles.whiteText}>Starts&nbsp;In</div> */}
@@ -125,19 +125,25 @@ const MintEditionCard = props => {
                         <div className={styles.grayText}>{timeLeft['days']}:</div>
                       </div>
                     )}
-                    <div className="flex block justify-center">
-                      <div className={styles.grayText}>{timeLeft['hours']}:</div>
-                    </div>
-                    <div className="flex block justify-center gap-[2px]">
-                      <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
-                    </div>
-                    <div className="flex block justify-center gap-[2px]">
-                      <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}:</div>
-                    </div>
+                    {timeLeft && (
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['hours']}:</div>
+                      </div>
+                    )}
+                    {timeLeft && (
+                      <div className="flex block justify-center gap-[2px]">
+                        <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
+                      </div>
+                    )}
+                    {timeLeft && (
+                      <div className="flex block justify-center gap-[2px]">
+                        <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
-              <div className={`${auctionStarted && !auctionEnded ? 'w-[160px] lg:w-[180px]' : 'w-full'}`}>
+              <div className={`${auctionStarted && !auctionEnded ? 'w-full lg:w-[180px]' : 'w-full'}`}>
                 <div className={styles.mintQty}>
                   <div
                     onClick={() => {
