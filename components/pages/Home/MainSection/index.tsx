@@ -68,7 +68,7 @@ const MainSection = () => {
     }, 2000)
     dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setHeroList(response.slice(0, 5))
+        setHeroList(response.filter(nft => nft.asset_type !== 'uknown').slice(0, 5))
       }
     }),
       error => {
