@@ -103,7 +103,11 @@ const NFTDetailSection = props => {
       {!isNftMasterEdition && (
         <div className="w-full flex justify-between items-center mt-[6px]">
           <div className={styles.label}>Owner</div>
-          <div className={styles.value}>{nftOwnerUsername}</div>
+          <Link href={`/${nftOwnerUsername}`} passHref>
+            <a>
+              <div className={styles.value}>{nftOwnerUsername}</div>
+            </a>
+          </Link>
         </div>
       )}
 

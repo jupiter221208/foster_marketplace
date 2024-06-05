@@ -112,11 +112,11 @@ import { getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1509,7 +1509,7 @@ const MainSection = ({
                   />
                 </div>
 
-                <div className="w-full flex flex-wrap mt-[15px] lg:mt-0">
+                <div className="w-full flex flex-wrap mt-[0px] lg:mt-0">
                   {/* <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     <div className="w-full flex lg:flex-row flex-col justify-between gap-0 lg:gap-3 xl:gap-4">
                       {nftCategories && nftCategories.length > 0 && (
@@ -1566,12 +1566,7 @@ const MainSection = ({
                             {cancelListLoading ? (
                               <LoadingSecondaryButton fullWidth />
                             ) : (
-                              <SecondaryButton
-                                fullWidth
-                                label="Cancel Listing"
-                                type="cancel"
-                                onClick={() => cancelListEdition()}
-                              />
+                              <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
                             )}
                           </div>
                         </div>
@@ -1603,17 +1598,13 @@ const MainSection = ({
                         <></>
                       ) : (
                         <>
-                          <div className={`w-full flex gap-2 ${styles.border_top}`}>
+                          <div className={`w-full flex gap-[6px] ${styles.border_top}`}>
                             <div className={styles.fixedPrice}>Listed&nbsp;for</div>
                             <div className="w-full flex items-center">
-                              <div className="flex items-center mt-[3px]">
-                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                  <SolanaLogoMobileIcon alt="" />
-                                ) : (
-                                  <SolanaLogoIcon alt="" />
-                                )}
+                              <div className="flex items-center mt-[4px]">
+                                <SolanaLogoMobileIcon alt="" />
                               </div>
-                              <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
+                              <div className={`${styles.whiteTitle} ml-[4px]`}>{nftPrice.toFixed(2)}</div>
                             </div>
                           </div>
 
@@ -1632,9 +1623,8 @@ const MainSection = ({
                               ) : (
                                 <LoadingPrimaryButton fullWidth />
                               )}
-                              <SecondaryButton
+                              <OutlineButton
                                 label="Make Offer"
-                                type="make-offer"
                                 fullWidth
                                 onClick={() => {
                                   if (!connected) {
@@ -1669,21 +1659,11 @@ const MainSection = ({
                       connected ? (
                       <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                         {nftCurrentPrice > 0 ? (
-                          <SecondaryButton
-                            label="Finalize Sale"
-                            type="finalize-sale"
-                            fullWidth
-                            onClick={() => processFinalizeSale()}
-                          />
+                          <OutlineButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
                         ) : isCancelProcessing ? (
                           <LoadingSecondaryButton label={'Cancel Auction'} type="cancel" onClick={() => {}} fullWidth />
                         ) : (
-                          <SecondaryButton
-                            label="Cancel Auction"
-                            type="cancel"
-                            fullWidth
-                            onClick={() => cancelAuction()}
-                          />
+                          <OutlineButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
                         )}
                       </div>
                     ) : liveAuction === true ? (
@@ -1701,9 +1681,8 @@ const MainSection = ({
                               />
                               {isOwnNft === true ? (
                                 <div className="lg:mt-[10px]">
-                                  <SecondaryButton
+                                  <OutlineButton
                                     label="Cancel Auction"
-                                    type="cancel"
                                     fullWidth
                                     onClick={() => nftCurrentPrice === 0 && cancelAuction()}
                                     disabled={nftCurrentPrice > 0}
@@ -1859,10 +1838,9 @@ const MainSection = ({
                               <></>
                             ) : (
                               <div className="w-full mt-[0px] lg:mt-[10px]">
-                                <SecondaryButton
+                                <OutlineButton
                                   fullWidth
                                   label="List Edition"
-                                  type="list-artwork"
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
@@ -1873,12 +1851,7 @@ const MainSection = ({
                             )
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
-                              <SecondaryButton
-                                fullWidth
-                                label="List Artwork"
-                                type="list-artwork"
-                                onClick={() => setShowListNFTModal(true)}
-                              />
+                              <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
                               <GradientButton
                                 fullWidth
                                 label="Start Auction"
@@ -1897,8 +1870,8 @@ const MainSection = ({
                         editionType === 'master_le' || editionType === 'master_oe' ? (
                           <></>
                         ) : (
-                          <div className="w-full flex gap-[20px] mt-[20px]">
-                            <SecondaryButton
+                          <div className="w-full flex gap-[20px] mt-[0px] lg:mt-[20px]">
+                            <OutlineButton
                               fullWidth
                               label="Make Offer"
                               type="make-offer"
