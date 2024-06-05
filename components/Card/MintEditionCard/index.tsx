@@ -10,10 +10,7 @@ import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
-import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const MintEditionCard = props => {
@@ -87,7 +84,14 @@ const MintEditionCard = props => {
             <div className="w-full flex justify-between items-center gap-[6px]">
               {endTime !== null && (
                 <div className="flex gap-[6px] mt-[-5px] items-center">
-                  <div className={styles.whiteText}>Starts&nbsp;In</div>
+                  {/* <div className={styles.whiteText}>Starts&nbsp;In</div> */}
+                  {auctionStarted === true ? (
+                    <div className="flex gap-[6px] items-center">
+                      <div className={styles.whiteText}>Ends&nbsp;in</div>
+                    </div>
+                  ) : (
+                    <div className={styles.whiteText}>Starts&nbsp;in</div>
+                  )}
                   <div className="flex gap-[4px]">
                     {timeLeft && timeLeft['days'] !== '00' && (
                       <div className="flex block justify-center">

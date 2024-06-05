@@ -105,7 +105,7 @@ const NFTDetailSection = props => {
           <div className={styles.label}>Owner</div>
           <Link href={`/${nftOwnerUsername}`} passHref>
             <a>
-              <div className={styles.value}>{nftOwnerUsername}</div>
+              <div className={styles.username}>{nftOwnerUsername}</div>
             </a>
           </Link>
         </div>

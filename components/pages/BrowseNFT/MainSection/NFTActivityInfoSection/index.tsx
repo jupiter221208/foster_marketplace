@@ -202,9 +202,9 @@ const NFTActivityInfoSection = props => {
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                         <SolanaLogoMobileIcon alt="" />
                       ) : (
-                        <SolanaLogoIcon className="mt-[2px]" alt="" />
+                        <SolanaLogoIcon className="mt-[5px]" alt="" />
                       )}
-                      <div className={styles.userName}>&nbsp;{item.amount}</div>
+                      <div className={styles.solAmount}>&nbsp;{item.amount}</div>
                     </div>
                     <div className={styles.usdValue}>
                       ${item.amount === 0 ? '---' : (item.amount * solToUsdRate).toFixed(2)}

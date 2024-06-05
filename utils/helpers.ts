@@ -11,7 +11,7 @@ export const validInteger = (n) => {
 export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
-  let difference = getTimeDifferenceWithAuction(endDate)
+  let difference = getTimeDifference(endDate)
   let timeLeft = {}
 
   if (difference > 0) {

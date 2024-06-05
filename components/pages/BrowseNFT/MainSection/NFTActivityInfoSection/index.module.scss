@@ -18,7 +18,7 @@
   font-family: 'Muli-Regular';
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Muli-Regular';
   }
 }
@@ -35,6 +35,17 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.solAmount {
+  font-size: 14px;
+  font-family: 'Muli-Bold';
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    font-family: 'Muli-Bold';
+  }
+  cursor: pointer;
 }
 
 .dateValue {
