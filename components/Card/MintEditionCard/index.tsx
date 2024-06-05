@@ -84,35 +84,33 @@ const MintEditionCard = props => {
       {((auctionStarted && !auctionEnded) || endTime === null) && (
         <div className={styles.container}>
           <div className="w-full">
-            <div className="w-full flex justify-between items-center gap-2">
+            <div className="w-full flex justify-between items-center gap-[6px]">
               {endTime !== null && (
-                <div className="flex gap-[14px] mt-[-5px] items-center">
-                  <div className={styles.grayText}>
-                    <ClockSandIcon />
-                  </div>
+                <div className="flex gap-[6px] mt-[-5px] items-center">
+                  <div className={styles.whiteText}>Starts&nbsp;In</div>
                   <div className="flex gap-[4px]">
                     {timeLeft && timeLeft['days'] !== '00' && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft['days']}</div>
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['days']}</div>
                         <div className={styles.grayText}>d</div>
                       </div>
                     )}
                     {timeLeft && timeLeft['hours'] !== '00' && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft['hours']}</div>
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['hours']}</div>
                         <div className={styles.grayText}>h</div>
                       </div>
                     )}
 
                     {timeLeft && timeLeft['minutes'] !== '00' && (
                       <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
+                        <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}</div>
                         <div className={styles.grayText}>m</div>
                       </div>
                     )}
                     {timeLeft && timeLeft['seconds'] !== '00' && (
                       <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
+                        <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
                         <div className={styles.grayText}>s</div>
                       </div>
                     )}
@@ -228,9 +226,11 @@ const MintEditionCard = props => {
             {mintEditionLoading ? (
               <LoadingPrimaryButton fullWidth />
             ) : (
-              <PrimaryButton
+              <GradientButton
                 fullWidth
-                type="buy-now"
+                backgroundColor01="var(--main-icon-color)"
+                backgroundColor02="var(--main-icon-color)"
+                color="var(--background-main-color)"
                 label="Buy Now"
                 disabled={mintQty === 0}
                 onClick={() => mintEdition()}

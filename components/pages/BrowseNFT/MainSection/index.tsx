@@ -112,11 +112,11 @@ import { getPriceValue } from 'utils/strings'
 import MintEditionCard from 'components/Card/MintEditionCard'
 import { revokeDelegateEdition } from 'utils/editions'
 import MenuEditNft from 'components/Menu/MenuEditNft'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1524,9 +1524,11 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <PrimaryButton
+                          <GradientButton
                             fullWidth
-                            type="update-relist"
+                            backgroundColor01="var(--main-icon-color)"
+                            backgroundColor02="var(--main-icon-color)"
+                            color="var(--background-main-color)"
                             label={'Update/Relist'}
                             onClick={() => {
                               setListEditionType('update')
@@ -1592,10 +1594,12 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <PrimaryButton
+                                <GradientButton
                                   fullWidth
-                                  type="buy-now"
                                   label="Buy Now"
+                                  backgroundColor01="var(--main-icon-color)"
+                                  backgroundColor02="var(--main-icon-color)"
+                                  color="var(--background-main-color)"
                                   disabled={!tradeStateAddress}
                                   onClick={() => quickBuy()}
                                 />
@@ -1619,9 +1623,11 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <PrimaryButton
+                              <GradientButton
                                 label="Delist or Update"
-                                type="update-relist"
+                                backgroundColor01="var(--main-icon-color)"
+                                backgroundColor02="var(--main-icon-color)"
+                                color="var(--background-main-color)"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
@@ -1756,9 +1762,11 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
-                                            <PrimaryButton
+                                            <GradientButton
                                               label="Place Bid"
-                                              type="place-bid"
+                                              backgroundColor01="var(--main-icon-color)"
+                                              backgroundColor02="var(--main-icon-color)"
+                                              color="var(--background-main-color)"
                                               fullWidth
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
@@ -1769,7 +1777,7 @@ const MainSection = ({
                                         </div>
                                         <div className="w-full flex items-center justify-between">
                                           <div className={styles.minText}>
-                                            Min:&nbsp;Bid Increment:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
+                                            Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
                                           </div>
                                           {endPhaseDuration > 0 && (
                                             <div
@@ -1845,10 +1853,12 @@ const MainSection = ({
                                 type="list-artwork"
                                 onClick={() => setShowListNFTModal(true)}
                               />
-                              <PrimaryButton
+                              <GradientButton
                                 fullWidth
                                 label="Start Auction"
-                                type="start-auction"
+                                backgroundColor01="var(--main-icon-color)"
+                                backgroundColor02="var(--main-icon-color)"
+                                color="var(--background-main-color)"
                                 onClick={() => {
                                   setShowAuctionDetail(true)
                                   setShowAuctionSection(true)
