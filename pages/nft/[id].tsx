@@ -403,7 +403,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     {activeTab === 0 ? (
                       <NFTActivityInfoSection activityList={activityList} />
                     ) : activeTab === 1 ? (
-                      <div>
+                      <div className="mt-[30px]">
                         {collectionId && collectionNFTs && (
                           <MoreCollectionSection
                             collectionNFTs={collectionNFTs}

@@ -49,15 +49,13 @@ const NFTDetailSection = props => {
     }
   }
 
-  console.log(editionDetail, isNftMasterEdition, isNftPrintEdition, nftType)
-
   return (
     <div className="w-full mt-[15px]">
       <div className={styles.details}>Details</div>
 
       {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
         <div>
-          <div className="w-full flex justify-between items-center mt-[6px]">
+          <div className="w-full flex justify-between items-center mt-[10px]">
             <div className={styles.label}>Token Type</div>
             <div className={styles.value}>{editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}</div>
           </div>
@@ -82,7 +80,7 @@ const NFTDetailSection = props => {
         </div>
       ) : (
         <div>
-          <div className="w-full flex justify-between items-center mt-[6px]">
+          <div className="w-full flex justify-between items-center mt-[10px]">
             <div className={styles.label}>Medium</div>
             <div className={styles.value}>{getType(nftType)}</div>
           </div>

@@ -83,7 +83,7 @@ const SuccessMintSingleNFTSection = props => {
       }, 1000)
     }, 1000)
   }
-  console.log(nftType, nftImage)
+
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (

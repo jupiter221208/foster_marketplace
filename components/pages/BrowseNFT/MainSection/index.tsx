@@ -1378,9 +1378,9 @@ const MainSection = ({
                                   <Image
                                     src={nftCollectionImage}
                                     alt=""
-                                    width={25}
-                                    height={25}
-                                    className="object-cover rounded-[4px]"
+                                    width={30}
+                                    height={30}
+                                    className="object-cover rounded-[10px]"
                                   />
                                 )}
                                 {nftCollectionName}
@@ -1463,11 +1463,12 @@ const MainSection = ({
                           <div className="lg:hidden block">{tempNftDescription}</div>
                         </div>
                       </div>
-                      <div className={styles.descBorder} />
                     </div>
                   ) : (
                     <></>
                   )}
+
+                  <div className={styles.descBorder} />
 
                   <NFTDetailSection
                     nftOwnerUsername={nftOwnerUsername}
@@ -1766,9 +1767,9 @@ const MainSection = ({
                                             />
                                           )}
                                         </div>
-                                        <div className="w-full flex items-center justify-between mb-[10px]">
+                                        <div className="w-full flex items-center justify-between">
                                           <div className={styles.minText}>
-                                            Min:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
+                                            Min:&nbsp;Bid Increment:&nbsp;{minBidAmount.toFixed(2)}&nbsp;SOL
                                           </div>
                                           {endPhaseDuration > 0 && (
                                             <div
