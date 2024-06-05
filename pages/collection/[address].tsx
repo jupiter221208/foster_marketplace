@@ -31,6 +31,7 @@ import TabSection from './TabSection'
 import EASection from './EASection'
 import { NftData } from 'types/nft'
 import { determineCategory } from 'utils/nfts.utils'
+import { isEndDateExpired } from 'utils/helpers'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -65,14 +66,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const getCollectionData = async () => {
     const result = await getCollectionFromDAS(address)
-
     let filteredNfts = result.filter(nft => nft['id'] !== address)
 
     if (filteredNfts) {
       let collectionNfts = await collectionsAPI.getCollectionNft(address)
 
       // Filter general NFT and Master edition NFT
-      collectionNfts = collectionNfts.filter(nft => nft.parent_nft === null)
+      collectionNfts = collectionNfts.filter(
+        nft =>
+          nft.parent_nft === null &&
+          (nft.end_time === null || (nft.end_time !== null && isEndDateExpired(nft.end_time)))
+      )
 
       let sortedCollectionNfts = filteredNfts
         .map(r => {
