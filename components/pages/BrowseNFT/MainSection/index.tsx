@@ -1445,8 +1445,8 @@ const MainSection = ({
                   )} */}
 
                   {nftDescription ? (
-                    <div className={`w-full lg:max-h-[130px] mt-[15px] ${!isTruncated && 'overflow-scroll'}`}>
-                      <div>
+                    <div>
+                      <div className={`w-full lg:max-h-[130px] mt-[15px] ${!isTruncated && 'overflow-scroll'}`}>
                         <div className={styles.descLabel}>Description</div>
                         <div className={styles.whiteDescription}>
                           <div className="lg:block hidden">
@@ -1462,8 +1462,8 @@ const MainSection = ({
                           </div>
                           <div className="lg:hidden block">{tempNftDescription}</div>
                         </div>
-                        <div className={styles.descBorder} />
                       </div>
+                      <div className={styles.descBorder} />
                     </div>
                   ) : (
                     <></>

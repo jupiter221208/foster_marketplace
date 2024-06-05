@@ -52,7 +52,7 @@ const NFTDetailSection = props => {
   console.log(editionDetail, isNftMasterEdition, isNftPrintEdition, nftType)
 
   return (
-    <div>
+    <div className="w-full mt-[15px]">
       <div className={styles.details}>Details</div>
 
       {editionDetail && (isNftMasterEdition || isNftPrintEdition) ? (
