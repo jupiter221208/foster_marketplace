@@ -75,7 +75,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       collectionNfts = collectionNfts.filter(
         nft =>
           nft.parent_nft === null &&
-          (nft.end_time === null || (nft.end_time !== null && isEndDateExpired(nft.end_time)))
+          (nft.end_time === null || (nft.end_time !== null && !isEndDateExpired(nft.end_time)))
       )
 
       let sortedCollectionNfts = filteredNfts
