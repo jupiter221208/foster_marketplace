@@ -219,22 +219,32 @@ const MainSection = ({
         type: 'success',
       },
     ])
-    let screenWidth = window.innerWidth
-    let count =
-      screenWidth >= 1900
-        ? 450
-        : screenWidth >= 1600
-        ? 430
-        : screenWidth >= 1400
-        ? 300
-        : viewport === 'xl'
-        ? 300
-        : viewport === 'lg'
-        ? 280
-        : 450
-    setDescCount(count)
-    console.log(screenWidth, count)
+
+    function handleResize() {
+      let screenWidth = window.innerWidth
+      let count =
+        screenWidth >= 1900
+          ? 450
+          : screenWidth >= 1768
+          ? 400
+          : screenWidth >= 1400
+          ? 300
+          : screenWidth >= 1280
+          ? 250
+          : screenWidth >= 1024
+          ? 200
+          : 300
+      setDescCount(count)
+      console.log(screenWidth, count)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
+
   useEffect(() => {
     if (isStarted && !isEnded) {
       setShowPlaceBIdButton(true)
