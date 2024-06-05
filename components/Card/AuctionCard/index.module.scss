@@ -6,9 +6,9 @@
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 12px;
-  padding: 0px 0px 8px 0px;
+  padding: 0px 2px 8px 2px;
   @media (min-width: 1024px) {
-    padding: 0;
+    padding: 0px 2px;
   }
 }
 

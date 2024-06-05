@@ -208,6 +208,7 @@ const MainSection = ({
   const [deficiency, setDeficiency] = useState(0)
   const [finalizeData, setFinalizeData] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [descCount, setDescCount] = useState(280)
 
   useEffect(() => {
     setAlertData([
@@ -218,6 +219,21 @@ const MainSection = ({
         type: 'success',
       },
     ])
+    let screenWidth = window.innerWidth
+    let count =
+      screenWidth >= 1900
+        ? 450
+        : screenWidth >= 1600
+        ? 430
+        : screenWidth >= 1400
+        ? 300
+        : viewport === 'xl'
+        ? 300
+        : viewport === 'lg'
+        ? 280
+        : 450
+    setDescCount(count)
+    console.log(screenWidth, count)
   }, [])
   useEffect(() => {
     if (isStarted && !isEnded) {
@@ -779,9 +795,9 @@ const MainSection = ({
   // Short description feature
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
-  let count = viewport === '2xl' ? 450 : viewport === 'xl' ? 300 : viewport === 'lg' ? 280 : 450
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, count) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > count
+
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > descCount
 
   useEffect(() => {
     setTempNftDescription(nftDescription)

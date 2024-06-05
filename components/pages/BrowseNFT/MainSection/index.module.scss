@@ -59,7 +59,7 @@
   flex-wrap: wrap;
   min-height: auto;
   border: 1px solid var(--bg-303030-DDDCDC);
-  background: var(--bg-1C1C1C-F3F2F0);
+  background: var(--background-main-color);
   border-radius: 5px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -70,7 +70,7 @@
     height: 700px;
     padding: 0px;
     border-width: 0px;
-    background: transparent;
+    background: var(--bg-1C1C1C-F3F2F0);
   }
 }
 
@@ -490,7 +490,7 @@
   font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .descLabel {
