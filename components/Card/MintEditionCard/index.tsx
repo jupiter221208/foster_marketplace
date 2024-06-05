@@ -8,7 +8,7 @@ import ArrowUpIcon from 'assets/icons/arrow-up-white.svg?component'
 // styles
 import styles from './index.module.scss'
 
-import { calculateTimeLeft } from 'utils/helpers'
+import { calculateAuctionTimeLeft, calculateTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
@@ -40,9 +40,9 @@ const MintEditionCard = props => {
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
-      setTimeLeft(calculateTimeLeft(getStartTime()))
+      setTimeLeft(calculateAuctionTimeLeft(getStartTime()))
       const timer = setInterval(() => {
-        let time_left = calculateTimeLeft(getStartTime())
+        let time_left = calculateAuctionTimeLeft(getStartTime())
         setTimeLeft(time_left)
       }, 1000)
 
