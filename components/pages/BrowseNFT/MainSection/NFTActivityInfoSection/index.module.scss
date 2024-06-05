@@ -64,10 +64,11 @@
   font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
   justify-content: end;
-  margin-top: 4px;
+  margin-top: 7px;
   @media (min-width: 1024px) {
     font-size: 14px;
     font-family: 'Muli-Light';
+    margin-top: 2px;
   }
 }
 
