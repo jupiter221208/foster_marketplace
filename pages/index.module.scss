@@ -121,3 +121,26 @@
   display: flex;
   justify-content: center;
 }
+
+.exploreBtn {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 16px;
+  @media (min-width: 1024px) {
+    width: 140px;
+    height: 50px;
+    border-radius: 25px;
+    font-size: 18px;
+  }
+  background: #95dbd5;
+  color: rgba(#1a1a1a, 0.8);
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: #1a1a1a;
+  }
+}

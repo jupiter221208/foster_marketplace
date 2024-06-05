@@ -202,7 +202,7 @@ const NFTActivityInfoSection = props => {
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                         <SolanaLogoMobileIcon alt="" />
                       ) : (
-                        <SolanaLogoIcon className="mt-[5px]" alt="" />
+                        <SolanaLogoIcon alt="" />
                       )}
                       <div className={styles.solAmount}>&nbsp;{item.amount}</div>
                     </div>

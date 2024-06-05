@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 import ArrowUpIcon from 'assets/icons/arrow-up-white.svg?component'
+import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
-import { calculateAuctionTimeLeft, calculateTimeLeft } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
@@ -33,7 +34,6 @@ const MintEditionCard = props => {
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(false)
   const [auctionEnded, setAuctionEnded] = useState(false)
-  const viewport = useViewport()
   const [total, setTotal] = useState(nftPrice)
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)
@@ -87,12 +87,13 @@ const MintEditionCard = props => {
                   {/* <div className={styles.whiteText}>Starts&nbsp;In</div> */}
                   {auctionStarted === true ? (
                     <div className="flex gap-[6px] items-center">
+                      <ClockSandIcon className="lg:hidden block" />
                       <div className={styles.whiteText}>Ends&nbsp;in</div>
                     </div>
                   ) : (
                     <div className={styles.whiteText}>Starts&nbsp;in</div>
                   )}
-                  <div className="flex gap-[4px]">
+                  <div className="lg:flex hidden gap-[4px]">
                     {timeLeft && timeLeft['days'] !== '00' && (
                       <div className="flex block justify-center">
                         <div className={styles.grayText}>{timeLeft['days']}</div>
@@ -105,7 +106,6 @@ const MintEditionCard = props => {
                         <div className={styles.grayText}>h</div>
                       </div>
                     )}
-
                     {timeLeft && timeLeft['minutes'] !== '00' && (
                       <div className="flex block justify-center gap-[2px]">
                         <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}</div>
@@ -118,6 +118,22 @@ const MintEditionCard = props => {
                         <div className={styles.grayText}>s</div>
                       </div>
                     )}
+                  </div>
+                  <div className="flex lg:hidden">
+                    {timeLeft && timeLeft['days'] !== '00' && (
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['days']}:</div>
+                      </div>
+                    )}
+                    <div className="flex block justify-center">
+                      <div className={styles.grayText}>{timeLeft['hours']}:</div>
+                    </div>
+                    <div className="flex block justify-center gap-[2px]">
+                      <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
+                    </div>
+                    <div className="flex block justify-center gap-[2px]">
+                      <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}:</div>
+                    </div>
                   </div>
                 </div>
               )}

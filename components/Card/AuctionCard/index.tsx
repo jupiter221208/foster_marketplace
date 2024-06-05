@@ -59,13 +59,13 @@ const AuctionCard = props => {
         <div className="flex justify-around items-center gap-[6px] mt-1 lg:mt-[8px]">
           {auctionStarted === true ? (
             <div className="flex gap-[6px] items-center">
-              {/* <ClockSandIcon /> */}
+              <ClockSandIcon className="lg:hidden block" />
               <div className={styles.whiteText}>Ends&nbsp;in</div>
             </div>
           ) : (
             <div className={styles.whiteText}>Starts&nbsp;in</div>
           )}
-          <div className="flex items-center gap-[4px]">
+          <div className="hidden lg:flex items-center gap-[4px]">
             {timeLeft && timeLeft['days'] !== '00' && (
               <div className="flex block justify-center">
                 <div className={styles.grayText}>{timeLeft['days']}</div>
@@ -91,6 +91,22 @@ const AuctionCard = props => {
                 <div className={styles.grayText}>s</div>
               </div>
             )}
+          </div>
+          <div className="flex lg:hidden items-center">
+            {timeLeft && timeLeft['days'] !== '00' && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['days']}:</div>
+              </div>
+            )}
+            <div className="flex block justify-center">
+              <div className={styles.grayText}>{timeLeft['hours']}:</div>
+            </div>
+            <div className="flex block justify-center ">
+              <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
+            </div>
+            <div className="flex block justify-center ">
+              <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
+            </div>
           </div>
         </div>
       </div>

@@ -437,12 +437,12 @@
 }
 
 .minText {
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Muli-Light';
   font-weight: 100;
-  line-height: 12px;
+  line-height: 14px;
   @media (min-width: 1024px) {
-    font-size: 12px;
+    font-size: 14px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 1);
 }
