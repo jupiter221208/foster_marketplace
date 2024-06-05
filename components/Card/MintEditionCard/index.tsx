@@ -83,11 +83,9 @@ const MintEditionCard = props => {
           <div className="w-full">
             <div className="w-full flex flex-wrap justify-between items-center gap-[15px]">
               {endTime !== null && (
-                <div className="flex gap-[6px] mt-[-5px] items-center">
-                  {/* <div className={styles.whiteText}>Starts&nbsp;In</div> */}
+                <div className="flex gap-[6px] mt-[-5px] items-center ml-[2px]">
                   {auctionStarted === true ? (
                     <div className="flex gap-[6px] items-center">
-                      <ClockSandIcon className="lg:hidden block" />
                       <div className={styles.whiteText}>Ends&nbsp;in</div>
                     </div>
                   ) : (

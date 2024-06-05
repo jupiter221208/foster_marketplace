@@ -14,7 +14,7 @@
 }
 
 .actionType {
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Muli-Regular';
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
@@ -24,7 +24,7 @@
 }
 
 .userName {
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Muli-Bold';
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
@@ -48,9 +48,10 @@
 
 .dateValue {
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
+  margin-top: 6px;
   @media (min-width: 1024px) {
     font-size: 14px;
     font-family: 'Muli-Light';
@@ -59,7 +60,7 @@
 
 .usdValue {
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
   justify-content: end;
