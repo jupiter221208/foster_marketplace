@@ -106,6 +106,7 @@ const AdditionalDetails = props => {
     }
 
     setEnableNext(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, saleMethod, profit, sellingPrice, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
 
   useEffect(() => {
@@ -176,6 +177,7 @@ const AdditionalDetails = props => {
   useEffect(() => {
     if (sellingPrice === '') return
     setProfit(parseFloat(sellingPrice) - (priceBase + priceFB + priceRight + priceLeft))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingPrice])
 
   const selectAssetItem = item => {

@@ -35,6 +35,7 @@ const LiveAuctionCard = props => {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
@@ -60,6 +61,7 @@ const LiveAuctionCard = props => {
 
       return () => clearTimeout(timer)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.start_time, data.end_time])
 
   const getStartTime = data => {
@@ -94,7 +96,7 @@ const LiveAuctionCard = props => {
               {data?.artist_profile_picture === undefined ||
               data?.artist_profile_picture === null ||
               data?.artist_profile_picture === '' ? (
-                <img src={DefaultAvatar.src} className="w-[44px] h-[44px] rounded-full" />
+                <Image src={DefaultAvatar} width={44} height={44} className="w-[44px] h-[44px] rounded-full" alt="" />
               ) : (
                 <img
                   src={data?.artist_profile_picture}

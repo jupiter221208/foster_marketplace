@@ -85,6 +85,7 @@ const PrimaryHeader = () => {
     }, 100)
 
     return () => clearInterval(intervalId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const PrimaryHeader = () => {
         }
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // update profile menu list
@@ -116,6 +118,7 @@ const PrimaryHeader = () => {
       })
       setProfileMenuList(array)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -142,6 +145,7 @@ const PrimaryHeader = () => {
     } else {
       setSearchList({ nfts: [], artists: [], collections: [] })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword])
 
   useEffect(() => {

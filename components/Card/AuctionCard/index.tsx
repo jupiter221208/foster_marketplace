@@ -31,6 +31,7 @@ const AuctionCard = props => {
         clearTimeout(timer)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, endTime])
 
   const getStartTime = () => {

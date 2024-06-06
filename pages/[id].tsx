@@ -98,7 +98,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }),
       500
     )
-    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   useEffect(() => {
@@ -109,6 +108,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       setCollectedNfts(newNfts2)
       dispatch({ type: 'set', hideNftToken: '' })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hideNftToken])
 
   useEffect(() => {
@@ -119,6 +119,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       await getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
       await getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true, true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected, loginAndRefresh, publicArtistData])
 
   useEffect(() => {
@@ -127,6 +128,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       setCollections(newCollections)
       dispatch({ type: 'set', removeCollectionId: '' })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [removeCollectionId])
 
   const reloadPage = () => {
@@ -310,6 +312,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       top: 0,
       behavior: 'smooth',
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artistPublicKey])
 
   let artistName = `${artistInfo?.username} | Foster Marketplace`

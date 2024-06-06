@@ -55,6 +55,7 @@ const MerchShopCard = props => {
       }
     })
     setIndicatorList(list)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep])
 
   return (

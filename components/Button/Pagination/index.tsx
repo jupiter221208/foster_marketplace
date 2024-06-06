@@ -34,6 +34,7 @@ const Pagination = props => {
 
   useEffect(() => {
     getCurrentData(currentData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentData])
 
   const handlePrev = () => {

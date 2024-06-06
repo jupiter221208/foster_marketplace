@@ -141,7 +141,7 @@ const HeroNewCard = ({ data }) => {
                         className="rounded-full"
                       />
                     ) : (
-                      <Image src={DefaultAvatar} width={60} height={60} className="rounded-full" />
+                      <Image src={DefaultAvatar} width={60} height={60} className="rounded-full" alt="" />
                     )}
                   </a>
                 </Link>

@@ -21,6 +21,7 @@ const Dashbord = () => {
   // const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
     dispatch({ type: 'set', isLoading: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div className="g-container">

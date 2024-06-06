@@ -12,7 +12,7 @@ const StudioCard = props => {
         onClick={() => onSelected(data.type, data.bases[0].name, data.bases[0].base)}
       >
         <div className={styles.imageStatus}>
-          <img src={data['asset_url']} className="object-cover w-full h-full" />
+          <img src={data['asset_url']} className="object-cover w-full h-full" alt="" />
         </div>
 
         <div className={styles.titleContainer}>

@@ -353,6 +353,7 @@ const NotificationsCard = props => {
                                 <Image
                                   src={DefaultAvatar}
                                   className="lg:w-[52px] w-[41px] lg:h-[52px] h-[41px] rounded-[8px] lg:rounded-[8px] object-cover"
+                                  alt=""
                                 />
                               )}
                             </div>

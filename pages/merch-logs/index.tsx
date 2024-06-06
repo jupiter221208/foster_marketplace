@@ -89,12 +89,14 @@ const MerchActivity = () => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
       loadMyNFTs()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mx, connection, publicKey, isVisibleDisabledFetching])
 
   useEffect(() => {
     if (publicKey) {
       getOrderStats()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey])
 
   useEffect(() => {
@@ -118,12 +120,14 @@ const MerchActivity = () => {
       else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, publicKey])
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
     setArray(storedData)
     dispatch({ type: 'set', activeTab: 0 })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getcartList = () => {

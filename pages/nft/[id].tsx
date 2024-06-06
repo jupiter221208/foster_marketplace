@@ -105,6 +105,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       })
     }, 500)
     dispatch({ type: 'set', isLoading: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // useEffect(() => {
@@ -133,6 +134,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         dispatch({ type: 'set', detailShow: false })
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailShow, apparelType])
 
   const [key, setKey] = useState('')
@@ -186,6 +188,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       )
     }
     fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftDetail, profileInfo])
 
   const collectionId = nftDetail?.collection?.address?.toString()
@@ -291,6 +294,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionId])
 
   // artist collections

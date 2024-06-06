@@ -57,10 +57,6 @@ const OrderSection = props => {
   }
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
-  }, [])
-
-  useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     getOrder(id).then(setOrderData)
   }, [id])

@@ -161,6 +161,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         error => {}
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftDetail, profileInfo])
 
   let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
