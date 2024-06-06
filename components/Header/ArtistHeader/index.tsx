@@ -153,6 +153,7 @@ const PrimaryHeader = () => {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markAsRead])
 
   async function checkNotifications(notifications) {

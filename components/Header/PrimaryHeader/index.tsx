@@ -99,6 +99,7 @@ const PrimaryHeader = () => {
         }
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // update profile menu list
@@ -113,6 +114,7 @@ const PrimaryHeader = () => {
       })
       setProfileMenuList(array)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -146,6 +148,7 @@ const PrimaryHeader = () => {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markAsRead])
 
   async function checkNotifications(notifications) {

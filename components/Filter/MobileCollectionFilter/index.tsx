@@ -33,7 +33,7 @@ const MobileCollectionFilter = props => {
       array.push(object)
     })
     setCategoryList(array)
-    const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSelectCategory = index => {
