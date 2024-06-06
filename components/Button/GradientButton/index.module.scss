@@ -25,7 +25,7 @@
   }
   font-weight: 100;
   letter-spacing: 0;
-  color: rgba(var(--background-main-color-rgb), 0.8) !important;
+  color: var(--gradient-btn-color);
 
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
@@ -40,7 +40,8 @@
 .hoverBtn {
   &:hover {
     @media (min-width: 1024px) {
-      color: var(--background-main-color) !important;
+      background: var(--gradient-btn-hover-bg) !important;
+      color: var(--gradient-btn-hover-color) !important;
     }
   }
 }

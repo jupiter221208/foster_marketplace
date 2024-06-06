@@ -115,8 +115,8 @@ import MenuEditNft from 'components/Menu/MenuEditNft'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
-import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import GreenButton from 'components/Button/GreenButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1550,11 +1550,8 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <GradientButton
+                          <GreenButton
                             fullWidth
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
-                            color="var(--background-main-color)"
                             label={'Update/Relist'}
                             onClick={() => {
                               setListEditionType('update')
@@ -1611,12 +1608,9 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <GradientButton
+                                <GreenButton
                                   fullWidth
                                   label="Buy Now"
-                                  backgroundColor01="var(--main-icon-color)"
-                                  backgroundColor02="var(--main-icon-color)"
-                                  color="var(--background-main-color)"
                                   disabled={!tradeStateAddress}
                                   onClick={() => quickBuy()}
                                 />
@@ -1639,11 +1633,8 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <GradientButton
+                              <GreenButton
                                 label="Delist or Update"
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
@@ -1767,11 +1758,8 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
-                                            <GradientButton
+                                            <GreenButton
                                               label="Place Bid"
-                                              backgroundColor01="var(--main-icon-color)"
-                                              backgroundColor02="var(--main-icon-color)"
-                                              color="var(--background-main-color)"
                                               fullWidth
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
@@ -1852,12 +1840,9 @@ const MainSection = ({
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                               <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                              <GradientButton
+                              <GreenButton
                                 fullWidth
                                 label="Start Auction"
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
                                 onClick={() => {
                                   setShowAuctionDetail(true)
                                   setShowAuctionSection(true)

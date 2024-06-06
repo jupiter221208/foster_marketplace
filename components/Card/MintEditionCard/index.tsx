@@ -4,15 +4,13 @@ import React, { useEffect, useState } from 'react'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 import ArrowUpIcon from 'assets/icons/arrow-up-white.svg?component'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 import { calculateAuctionTimeLeft } from 'utils/helpers'
-import { useViewport } from 'utils'
-import GradientButton from 'components/Button/GradientButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import GreenButton from 'components/Button/GreenButton'
 
 const MintEditionCard = props => {
   const {
@@ -250,15 +248,7 @@ const MintEditionCard = props => {
             {mintEditionLoading ? (
               <LoadingPrimaryButton fullWidth />
             ) : (
-              <GradientButton
-                fullWidth
-                backgroundColor01="var(--main-icon-color)"
-                backgroundColor02="var(--main-icon-color)"
-                color="var(--background-main-color)"
-                label="Buy Now"
-                disabled={mintQty === 0}
-                onClick={() => mintEdition()}
-              />
+              <GreenButton fullWidth label="Buy Now" disabled={mintQty === 0} onClick={() => mintEdition()} />
             )}
             {buyLimitAlert && (
               <div className={styles.buyLimitText}>A maximum of {buyLimit} editions can be minted per wallet</div>
