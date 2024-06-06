@@ -70,24 +70,24 @@ const MerchBadgeCard = props => {
           <div className={styles.badgeTitle}>Badge Benefits</div>
           {data.type === 'merch' ? (
             <div className={styles.badgeContent}>
-              <p>- Personalized marketing support, including social media features and artist spotlights.</p>
-              <p>- Featured placement in the "Studio Spotlight" section on Foster Marketplace.</p>
-              <p>- Personalized thank you notes included with each order.</p>
+              <p>{`- Personalized marketing support, including social media features and artist spotlights.`}</p>
+              <p>{`- Featured placement in the "Studio Spotlight" section on Foster Marketplace.`}</p>
+              <p>{`- Personalized thank you notes included with each order.`}</p>
             </div>
           ) : data.type === 'studio' ? (
             <div className={styles.badgeContent}>
-              <p>- Apparel added to IRL events sponsored by Foster Studio.</p>
-              <p>- Priority shipping on merch orders.</p>
-              <p>- Receive free samples of new merch products before they are available to others.</p>
-              <p>- Enhanced options for customizing the look and feel of your merch store.</p>
+              <p>{`- Apparel added to IRL events sponsored by Foster Studio.`}</p>
+              <p>{`- Priority shipping on merch orders.`}</p>
+              <p>{`- Receive free samples of new merch products before they are available to others.`}</p>
+              <p>{`- Enhanced options for customizing the look and feel of your merch store.`}</p>
             </div>
           ) : (
             <div className={styles.badgeContent}>
-              <p>- Custom packaging</p>
-              <p>- Custom Neck Label Tags</p>
-              <p>- Invitations to exclusive networking events with other top creators.</p>
-              <p>- Reduced fees for transactions on the platform.</p>
-              <p>- Participation in platform governance and treasury spending</p>
+              <p>{`- Custom packaging`}</p>
+              <p>{`- Custom Neck Label Tags`}</p>
+              <p>{`- Invitations to exclusive networking events with other top creators.`}</p>
+              <p>{`- Reduced fees for transactions on the platform.`}</p>
+              <p>{`- Participation in platform governance and treasury spending`}</p>
             </div>
           )}
           <div className={styles.dlgBottom} onClick={() => setShowDialog(false)}>
