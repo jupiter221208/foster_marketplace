@@ -11,10 +11,8 @@ import { limit } from 'utils/strings'
 // components
 import Alert from 'components/Alert'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import Chip from 'components/Chip'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
@@ -25,8 +23,6 @@ import { EACollectionInfo, getEACollectionInfo } from 'utils/collection.util'
 // images and icons
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
-// import FosterLogoSmall from 'assets/icons/foster-logo-small.svg?component'
-// import EAImportIcon from 'assets/icons/ea-import-icon.svg?component'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -139,6 +135,7 @@ const Step01CollectionSection = props => {
       }
       setEnableCoverImageDialog(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coverImage, enableImageDialog])
 
   useEffect(() => {
@@ -164,6 +161,7 @@ const Step01CollectionSection = props => {
       fetchData(bannerCroppedImage)
       setUpdateBannerImage(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBannerImage])
 
   const uploadBannerFile = async (file: any, filename: string) => {
@@ -185,6 +183,7 @@ const Step01CollectionSection = props => {
       fetchData(coverCroppedImage)
       setUpdateCoverImage(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateCoverImage])
 
   const uploadCoverfile = async (file: any, filename: string) => {
@@ -295,6 +294,7 @@ const Step01CollectionSection = props => {
       setDisabledNextButton(true)
       setDisabledButton(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     collectionName,
     description,
@@ -399,26 +399,6 @@ const Step01CollectionSection = props => {
                     )}
                   </div>
                 </div>
-                {/* <div className="absolute z-10">
-                  <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[10px] mb-[15px]`}>
-                    <div className={styles.collectionBannerImage}>Collection Banner Image</div>
-
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setBannerHelper(true)
-                        setTimeout(() => {
-                          setBannerHelper(false)
-                        }, 2000)
-                      }}
-                    >
-                      <InfoCircleLightGreenIcon alt="" />
-                    </div>
-                  </div>
-                  {bannerHelper && (
-                    <div className={styles.bannerRecommend}>Recommended dimensions are 1920px by 452px</div>
-                  )}
-                </div> */}
                 <div className="relative mt-[34px]">
                   <div className={styles.collectionBannerImage}>
                     Collection Cover Image<span>*</span>
@@ -497,25 +477,6 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
-                  {/* <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
-                    Collection Cover Image
-                    <div
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setCoverHelper(true)
-                        setTimeout(() => {
-                          setCoverHelper(false)
-                        }, 2000)
-                      }}
-                    >
-                      <InfoCircleLightGreenIcon alt="" />
-                    </div>
-                    {coverHelper && (
-                      <div className={`${styles.bannerRecommend} absolute right-0 top-5 2xl:top-0`}>
-                        Recommended dimensions are 1080px by 1080px
-                      </div>
-                    )}
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -589,55 +550,7 @@ const Step01CollectionSection = props => {
       ) : (
         // mobile part
         <div className="g-container mt-[26px] mb-[47px]">
-          {/* CollectionStepper part */}
-          {/* <div className="w-full">
-            <div className={styles.collectionTypeSection}>
-              <div
-                className={collectionType === 'foster' ? styles.selectedType : styles.deSelectedType}
-                onClick={() => setCollectionType('foster')}
-              >
-                <FosterLogoSmall />
-                <div className="lg:block hidden">Create New Collection</div>
-                <div className="lg:hidden block">New Collection</div>
-              </div>
-              <div
-                className={collectionType === 'ea' ? styles.selectedType : styles.deSelectedType}
-                onClick={() => {
-                  setShowEAModal(true)
-                  setCollectionType('ea')
-                }}
-              >
-                <EAImportIcon />
-                Import EA Series
-              </div>
-            </div>
-          </div> */}
-
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            {/* <div className="w-full relative z-10">
-              <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
-              >
-                Collection Banner Image
-                <div
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setBannerHelper(true)
-                    setTimeout(() => {
-                      setBannerHelper(false)
-                    }, 2000)
-                  }}
-                >
-                  <InfoCircleLightGreenIcon alt="" />
-                </div>
-              </div>
-
-              {bannerHelper && (
-                <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1920px by 452px
-                </div>
-              )}
-            </div> */}
             <div className="w-full flex justify-start">
               <div className={styles.collectionBannerImage}>
                 Collection Banner Image<span>*</span>
@@ -722,30 +635,6 @@ const Step01CollectionSection = props => {
           </div>
 
           <div className="w-full flex flex-wrap justify-center mt-[30px]">
-            {/* <div className="w-full relative z-10">
-              <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
-              >
-                Collection Cover Image
-                <div
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setCoverHelper(true)
-                    setTimeout(() => {
-                      setCoverHelper(false)
-                    }, 2000)
-                  }}
-                >
-                  <InfoCircleLightGreenIcon alt="" />
-                </div>
-              </div>
-
-              {coverHelper && (
-                <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1080px by 1080px
-                </div>
-              )}
-            </div> */}
             <div className="w-full flex justify-start">
               <div className={styles.collectionBannerImage}>
                 Collection Cover Image<span>*</span>
@@ -876,13 +765,6 @@ const Step01CollectionSection = props => {
               <ArrowDownIcon />
             </div>
             <div className="w-full mt-4">
-              {/* <div className="grid grid-cols-2 gap-5">
-                <div className="col-span-1">
-                  <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
-                    Choose Category
-                  </div>
-                </div>
-              </div> */}
               {showCategoryList && (
                 <CategoryListModal
                   data={CategoryList}
@@ -907,17 +789,6 @@ const Step01CollectionSection = props => {
                   onChangeCurrentStep(currentStep + 1)
                 }}
               />
-              {/* <GradientButton
-                label="Next"
-                fullWidth
-                height={50}
-                fontSize={18}
-                borderColor="transparent"
-                disabled={disabledNextButton}
-                onClick={() => {
-                  onChangeCurrentStep(currentStep + 1)
-                }}
-              /> */}
             </div>
             <div className="mt-[18px]">
               <SecondaryButton
@@ -929,21 +800,6 @@ const Step01CollectionSection = props => {
                 }}
                 fullWidth
               />
-              {/* <Button
-                label="Back"
-                onClick={() => {
-                  if (currentStep === 1) router.push('/create/single-nft')
-                  else onChangeCurrentStep(currentStep - 1)
-                }}
-                fullWidth
-                fontFamily="Muli-SemiBold"
-                height="50px"
-                backgroundColor="transparent"
-                color="var(--main-bg-color)"
-                borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                borderWidth={1}
-                fontSize={18}
-              /> */}
             </div>
           </div>
         </div>

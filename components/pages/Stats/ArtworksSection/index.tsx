@@ -62,6 +62,7 @@ const ArtworksSection = props => {
     if (isFetching === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   useEffect(() => {
@@ -69,6 +70,7 @@ const ArtworksSection = props => {
     setSearchLoading(true)
     setIsVisibleFetching(false)
     getArtworkData(currentPage, period, searchWord, rowCount, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [period])
 
   const getArtworkData = (curPage, curDate, search, count, reset = false) => {

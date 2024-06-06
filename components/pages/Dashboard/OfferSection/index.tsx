@@ -94,6 +94,7 @@ const OfferSection = () => {
       dispatch({ type: 'set', isLoading: false })
       setOfferLoaded(true)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shownOfferType, fetchOffersMade, fetchOffersReceived])
 
   useEffect(() => {
@@ -104,6 +105,7 @@ const OfferSection = () => {
   useEffect(() => {
     setShownOfferListChunk(shownOfferList.slice(0, rowCount))
     if (shownOfferList.length > rowCount) setIsVisibleFetching(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shownOfferList])
 
   useEffect(() => {
@@ -123,6 +125,7 @@ const OfferSection = () => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   const onCancel = async (listing: LazyBidWithAsset) => {

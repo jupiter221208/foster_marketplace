@@ -78,6 +78,7 @@ const CollectedSection = props => {
     setNFTList(list)
     setFilteredList(list)
     setLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myNftList])
 
   const handleStartProgress = () => {

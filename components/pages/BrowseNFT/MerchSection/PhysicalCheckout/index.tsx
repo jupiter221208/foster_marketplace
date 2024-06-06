@@ -129,6 +129,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       }
     })
     setList(itemList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCheckout = async () => {

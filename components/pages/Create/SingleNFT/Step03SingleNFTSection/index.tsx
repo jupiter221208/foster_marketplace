@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import Input from 'components/Input'
-import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
-import SwipRadio from 'components/Radio/SwipRadio'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -63,6 +60,7 @@ const Step03SingleNFTSection = props => {
   useEffect(() => {
     setDisabledNextButton(false)
     if (type !== 0) setEditionType(EditionList[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -100,6 +98,7 @@ const Step03SingleNFTSection = props => {
     }
     if (enabled === false) setDisabledNextButton(true)
     else if (disabledNextButton) setDisabledNextButton(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [creatorList])
 
   const addAnotherCreator = () => {

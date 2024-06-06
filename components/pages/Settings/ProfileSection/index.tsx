@@ -203,6 +203,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     userName,
     bio,

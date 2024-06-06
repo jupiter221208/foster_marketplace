@@ -115,6 +115,7 @@ const MainSection = prop => {
         setShowBannerBoard(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey])
 
   useEffect(() => {
@@ -202,6 +203,7 @@ const MainSection = prop => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerPictureUrl])
 
   useEffect(() => {
@@ -216,6 +218,7 @@ const MainSection = prop => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [avatarPictureUrl])
 
   useEffect(() => {
@@ -238,6 +241,7 @@ const MainSection = prop => {
         }, 1000)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBanner])
 
   useEffect(() => {
@@ -254,6 +258,7 @@ const MainSection = prop => {
       fetchData(croppedAvatar)
       setUpdateAvatar(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateAvatar])
 
   const uploadBannerFile = async (file: any, filename: string) => {

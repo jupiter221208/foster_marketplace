@@ -66,6 +66,7 @@ const CreatorsSection = props => {
     if (isFetching === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   useEffect(() => {
@@ -73,6 +74,7 @@ const CreatorsSection = props => {
     setSearchLoading(true)
     setIsVisibleFetching(false)
     getCreatorData(currentPage, period, searchWord, rowCount, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [period])
 
   const getCreatorData = (curPage, curDate, search, count, reset = false) => {

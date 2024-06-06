@@ -49,6 +49,7 @@ const FosterProductSection = props => {
       top: viewport === 'xs' || viewport === 'sm' ? 790 : viewport === 'md' ? 730 : 860,
       behavior: 'smooth',
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCard])
 
   const isSaved = () => {

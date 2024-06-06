@@ -66,6 +66,7 @@ const ActivitySection = () => {
       if (tempItem.length > rowCount) setIsVisibleFetching(true)
       setLoading(true)
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey])
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const ActivitySection = () => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   const searchNFT = key => {
@@ -147,6 +149,7 @@ const ActivitySection = () => {
     })
     setActivityList(filtered)
     setFilteredList(filtered.slice(0, rowCount))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterKey])
 
   return (

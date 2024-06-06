@@ -198,6 +198,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     else if (mintPrice === undefined || mintPrice === '' || mintPrice === null) disabled = true
     else if (buyLimitType !== 'no' && buyLimit === '') disabled = true
     setButtonDisabled(disabled)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (

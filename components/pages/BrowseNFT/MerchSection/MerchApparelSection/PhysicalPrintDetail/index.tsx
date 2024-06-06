@@ -87,6 +87,7 @@ const PhysicalPrintDetail = props => {
       setColor(ColorType[defaulteColor])
       dispatch({ type: 'set', apparelColor: -1 })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparelColor])
 
   useEffect(() => {
@@ -94,6 +95,7 @@ const PhysicalPrintDetail = props => {
       onShipping(data)
       dispatch({ type: 'set', shippingDetail: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shippingDetail])
 
   useEffect(() => {
@@ -155,6 +157,7 @@ const PhysicalPrintDetail = props => {
     } else {
       setEnabled(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gender])
 
   useEffect(() => {
@@ -167,6 +170,7 @@ const PhysicalPrintDetail = props => {
       setQualityType(newQualityType)
       setQuality(newQualityType[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel])
 
   useEffect(() => {
@@ -222,6 +226,7 @@ const PhysicalPrintDetail = props => {
     }
 
     setEnabled(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel, color, print, quality, size, quantity])
 
   const getApparelName = () => {
@@ -289,6 +294,7 @@ const PhysicalPrintDetail = props => {
       dispatch({ type: 'set', isAddToCart: false })
       dispatch({ type: 'set', printImageUrl: null })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printImageUrl, isAddToCart])
 
   return (

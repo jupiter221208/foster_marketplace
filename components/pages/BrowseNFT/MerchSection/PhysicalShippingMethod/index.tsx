@@ -144,6 +144,7 @@ const PhysicalShippingMethod = props => {
       setShippingMethods(methods)
       setShipping(methods[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -154,6 +155,7 @@ const PhysicalShippingMethod = props => {
       setTotal(total)
       setTotalCost(total)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shipping])
 
   const onCheckout = () => {

@@ -82,6 +82,7 @@ const WallArtActivity = props => {
   useEffect(() => {
     if (!isMounted) return
     getArtworkData(currentPage, period, searchWord, rowCount)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [period])
 
   const getSearchData = () => {

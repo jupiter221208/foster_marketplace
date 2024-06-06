@@ -54,6 +54,7 @@ const MainSection = ({ onChange, heroValue }) => {
         dispatch({ type: 'set', apparelType: item.name })
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleCloseCreateNFTModal = () => {
@@ -69,6 +70,7 @@ const MainSection = ({ onChange, heroValue }) => {
     error => {
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [items, setItems] = useState([

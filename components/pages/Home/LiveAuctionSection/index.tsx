@@ -52,6 +52,7 @@ const LiveAuctionSection = props => {
 
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist, category])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

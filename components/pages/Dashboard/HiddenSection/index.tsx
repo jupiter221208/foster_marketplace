@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // components
-import Pagination from 'components/Button/Pagination'
 
 // json
 
@@ -13,7 +12,6 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import LoadingModal from 'components/Modal/LoadingModal'
-import DashboardNFTCard from 'components/Card/NFTCard'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import { DashboardAPIData } from 'types/nft'
 import NewNftCard from 'components/Card/NewNftCard'
@@ -55,11 +53,13 @@ const HiddenSection = () => {
       dispatch({ type: 'set', unhideNftToken: '' })
       dispatch({ type: 'set', isLoading: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unhideNftToken])
 
   useEffect(() => {
     if (allNftList.length > rowCount) setIsVisibleFetching(true)
     setNftList(allNftList.slice(0, rowCount))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNftList])
 
   useEffect(() => {
@@ -73,6 +73,7 @@ const HiddenSection = () => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (

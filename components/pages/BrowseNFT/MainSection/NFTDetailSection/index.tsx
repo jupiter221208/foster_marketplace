@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 // utilies
-import { getDisplayUserName } from 'utils/strings'
 
 // resources
 import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
@@ -37,6 +36,7 @@ const NFTDetailSection = props => {
         setDimensions({ width: img.width, height: img.height })
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftCoverUrl])
 
   const getType = type => {

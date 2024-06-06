@@ -32,6 +32,7 @@ const NFTAssetSection = props => {
         setCurrentImageUrl(originalCoverUrl)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftCoverUrl, originalCoverUrl])
 
   return (

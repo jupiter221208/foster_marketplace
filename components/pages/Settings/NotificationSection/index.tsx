@@ -58,6 +58,7 @@ const NotificationSection = prop => {
     }
 
     setEnableSave(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bidActivity, bidAccepted, successfulSale, successfulBid])
 
   const handleSaveNotification = () => {

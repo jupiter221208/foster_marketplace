@@ -87,14 +87,7 @@ const MerchDTGSection = props => {
       drawApparel()
       return
     }
-    // else {
-    //   let newCanvas = canvas as fabric.Canvas
-    //   if (newCanvas == '') {
-    //     newCanvas = new fabric.Canvas(canvasId)
-    //   }
-    //   newCanvas.clear()
-    //   newCanvas.renderAll()
-    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardSide, assetUrl, embPlace, color, technique])
 
   useEffect(() => {
@@ -107,6 +100,7 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCard])
 
   useEffect(() => {
@@ -189,6 +183,7 @@ const MerchDTGSection = props => {
       var centerPoint = new fabric.Point(center.left, center.top)
       newCanvas.zoomToPoint(centerPoint, 1 + curPercentage / 33.33)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curPercentage])
 
   const saveApparel = async () => {
