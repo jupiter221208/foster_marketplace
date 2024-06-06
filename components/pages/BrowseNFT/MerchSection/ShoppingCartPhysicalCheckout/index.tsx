@@ -139,6 +139,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
     })
     setList(itemList)
     setMobileList(mobilelistData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCheckout = async () => {

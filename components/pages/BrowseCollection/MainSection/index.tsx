@@ -129,6 +129,7 @@ const MainSection = props => {
       fetchData(croppedBanner)
       setUpdateBanner(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBanner])
 
   useEffect(() => {
@@ -143,6 +144,7 @@ const MainSection = props => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerPictureUrl])
 
   const showAlertModal = () => {

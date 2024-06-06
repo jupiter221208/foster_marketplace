@@ -99,6 +99,7 @@ const LiveEditionsSection = props => {
 
   useEffect(() => {
     getLiveEditionsFromServer(category, artist, page)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist, category])
 
   useEffect(() => {}, [liveAuctionList])
@@ -111,6 +112,7 @@ const LiveEditionsSection = props => {
         getLiveEditionsFromServer(category, artist, nextpage)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return showSection ? (

@@ -71,6 +71,7 @@ const MobileMenu = () => {
       }
       setProfileImage(profileInfo.profile_picture)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -93,6 +94,7 @@ const MobileMenu = () => {
       ])
       setShowAlert(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected])
 
   const handleThemeMode = () => {

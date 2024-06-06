@@ -52,7 +52,6 @@ import nftsAPI from 'apis/nfts'
 import ImageWithFoster from 'components/ImageWithFoster'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import WalletFilterMenu from 'components/Menu/WalletFilterMenu'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const MainSection = prop => {
   const {

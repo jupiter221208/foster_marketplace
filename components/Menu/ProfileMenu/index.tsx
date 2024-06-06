@@ -63,6 +63,7 @@ const ProfileMenu = props => {
       ])
       setShowAlert(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected])
 
   useEffect(() => {
@@ -82,6 +83,7 @@ const ProfileMenu = props => {
         }, 1000)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginSignedFlag, connected])
 
   return (

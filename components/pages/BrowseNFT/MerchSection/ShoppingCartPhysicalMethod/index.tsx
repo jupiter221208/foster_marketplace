@@ -9,14 +9,10 @@ import { useViewport } from 'utils'
 import Radio from 'components/Radio/SwipRadio'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import { getFirstUpperString } from 'utils/helpers'
-import ShippingSelect from 'components/Select/ShippingSelect'
 
 // api
 import merchAPI from 'apis/merch'
@@ -133,6 +129,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
       setShippingMethods(methods)
       setShipping(methods[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -147,6 +144,7 @@ const ShoppingCartPhysicalShippingMethod = props => {
       setTotal(total)
       setTotalCost(total)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shipping])
 
   const onCheckout = () => {

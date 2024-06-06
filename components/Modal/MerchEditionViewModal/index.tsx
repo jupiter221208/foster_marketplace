@@ -1,10 +1,8 @@
 import { Fragment, useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
-import { useViewport } from 'utils'
 import { Dialog, Transition } from '@headlessui/react'
 
 // componenets
@@ -17,7 +15,6 @@ import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchEditionViewModal = ({ urls, open, onClose }) => {
-  const [play, setPlay] = useState(true)
   const [assetUrls, setAssetUrls] = useState([])
   const [selectedAsset, setSelectedAsset] = useState(urls[0])
 
@@ -32,6 +29,7 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
       else asset_urls.push({ id: index, url: asset, selected: false })
     })
     setAssetUrls(asset_urls)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const selectAssetItem = item => {

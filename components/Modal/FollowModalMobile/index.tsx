@@ -60,6 +60,7 @@ const FollowModalMobile = props => {
 
   useEffect(() => {
     onSearch(searchKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab])
 
   const handleSelectedTab = selectedItem => {
@@ -90,6 +91,7 @@ const FollowModalMobile = props => {
         reloadFollowing()
       }
     }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const reloadFollowing = () => {

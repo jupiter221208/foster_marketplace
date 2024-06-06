@@ -121,6 +121,7 @@ const MyWalletSubMenu = props => {
         setIsOfferLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
 
   const onChangeBiddingPrice = value => {
@@ -166,6 +167,7 @@ const MyWalletSubMenu = props => {
         setIsBidLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
 
   const { metaplex: mx } = useMetaplex()
