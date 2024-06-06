@@ -90,7 +90,7 @@ const MintEditionCard = props => {
                   ) : (
                     <div className={styles.whiteText}>Starts&nbsp;in</div>
                   )}
-                  <div className="lg:flex hidden gap-[4px]">
+                  <div className="flex gap-[4px]">
                     {timeLeft && timeLeft['days'] !== '00' && (
                       <div className="flex block justify-center">
                         <div className={styles.grayText}>{timeLeft['days']}</div>
@@ -113,28 +113,6 @@ const MintEditionCard = props => {
                       <div className="flex block justify-center gap-[2px]">
                         <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
                         <div className={styles.grayText}>s</div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex lg:hidden">
-                    {timeLeft && timeLeft['days'] !== '00' && (
-                      <div className="flex block justify-center">
-                        <div className={styles.grayText}>{timeLeft['days']}:</div>
-                      </div>
-                    )}
-                    {timeLeft && (
-                      <div className="flex block justify-center">
-                        <div className={styles.grayText}>{timeLeft['hours']}:</div>
-                      </div>
-                    )}
-                    {timeLeft && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
-                      </div>
-                    )}
-                    {timeLeft && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
                       </div>
                     )}
                   </div>
