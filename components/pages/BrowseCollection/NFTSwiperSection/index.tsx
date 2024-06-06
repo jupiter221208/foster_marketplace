@@ -184,7 +184,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
                     statTime={item.master_edition?.startTime}
                     endTime={item.master_edition?.endTime}
                     price={item.master_edition?.price}
-                    currentSupply={item.current_supply}
+                    currentSupply={item.supply?.print_current_supply}
                     maxSupply={item.max_supply}
                     onClick={() => {
                       gotoNftPage(item.id)

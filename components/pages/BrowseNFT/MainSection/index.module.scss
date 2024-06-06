@@ -59,7 +59,7 @@
   flex-wrap: wrap;
   min-height: auto;
   border: 1px solid var(--bg-303030-DDDCDC);
-  background: var(--bg-1C1C1C-F3F2F0);
+  background: var(--background-main-color);
   border-radius: 5px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -67,10 +67,9 @@
     flex-direction: column;
     justify-content: space-between;
     margin-top: 0px;
-    min-height: calc(100vh - 100px - 120px);
+    height: 700px;
     padding: 0px;
     border-width: 0px;
-    background: transparent;
   }
 }
 
@@ -78,32 +77,21 @@
   width: 100%;
   height: auto;
   overflow: visible;
+  padding: 0px 0px 20px 0px;
   @media (min-width: 1024px) {
-    background: var(--bg-1C1C1C-F3F2F0);
+    background: var(--background-main-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: calc(100vh - 100px - 80px);
+    height: 700px;
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 10px;
-  }
-
-  @media (min-width: 640px) {
-    padding: 28px 0 28px 0;
-  }
-  @media (min-width: 768px) {
-    padding: 32px 0 32px 0;
-  }
-  @media (min-width: 1024px) {
     padding: 20px 0 25px 0;
-  }
-  @media (min-width: 1680px) {
-    padding: 20px 0 25px 0;
-  }
+  }  
 }
 
 .nftDetailCardPadding {
-  padding: 0 13px 13px 13px;
+  padding: 0 13px 20px 13px;
   // @media (min-width: 640px) {
   //   padding: 0 25px 0 25px;
   // }
@@ -155,8 +143,6 @@
     font-size: 14px;
     line-height: 18px;
   }
-  // background: rgba(var(--background-light-color-rgb), 0.05);
-  // border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   white-space: nowrap;
   cursor: pointer;
@@ -181,12 +167,9 @@
 
 .whiteTitle {
   font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 26px;
-  @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 24px;
-  }
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
 }
 
@@ -219,7 +202,7 @@
   width: auto;
   margin: 12px 0px 6px 0px;
   @media (min-width: 1024px) {
-    margin: 15px 0px 11px 0px;
+    margin: 15px 0px 10px 0px;
   }
   display: flex;
   align-items: center;
@@ -397,10 +380,8 @@
 .fixedPrice {
   font-family: 'Muli-Light';
   font-size: 16px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
-  }
+  line-height: 20px;
+  font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
@@ -456,6 +437,17 @@
 }
 
 .minText {
+  font-size: 14px;
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 1);
+}
+
+.minValue {
   font-size: 12px;
   font-family: 'Muli-Light';
   @media (min-width: 1024px) {
@@ -493,7 +485,7 @@
   font-family: 'Muli-Light';
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .descLabel {
@@ -502,6 +494,18 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   margin-bottom: 10px;
+}
+
+.descBorder {
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @media (min-width: 1024px) {
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+  background: rgba(#707070, 0.25);
 }
 
 .greenRoyalties {

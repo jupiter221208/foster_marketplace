@@ -35,16 +35,13 @@ const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       })
-      // dispatch({ type: 'set', isLoading: false })
     }, 500)
-    // dispatch({ type: 'set', isLoading: true })
   }, [router.query.id])
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''

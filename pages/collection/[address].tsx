@@ -31,6 +31,7 @@ import TabSection from './TabSection'
 import EASection from './EASection'
 import { NftData } from 'types/nft'
 import { determineCategory } from 'utils/nfts.utils'
+import { isEndDateExpired } from 'utils/helpers'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -39,7 +40,6 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
-  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
   // const isLoading = useSelector<any>(state => state.isLoading)
@@ -65,25 +65,26 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const getCollectionData = async () => {
     const result = await getCollectionFromDAS(address)
-
-    let filteredNfts = result.filter(
-      (arr, index, self) =>
-        index ===
-        self.findIndex(
-          t => t.content.json_uri === arr.content.json_uri || t.content.metadata.name === arr.content.metadata.name
-        )
-    )
-
-    filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
+    let filteredNfts = result.filter(nft => nft['id'] !== address)
 
     if (filteredNfts) {
       let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+      // Filter general NFT and Master edition NFT
+      collectionNfts = collectionNfts.filter(
+        nft =>
+          nft.parent_nft === null &&
+          (nft.end_time === null || (nft.end_time !== null && !isEndDateExpired(nft.end_time)))
+      )
 
       let sortedCollectionNfts = filteredNfts
         .map(r => {
           return collectionNfts.find(nft => nft.token_id === r.id)
         })
         .filter(nft => nft !== undefined)
+
+      filteredNfts = filteredNfts.filter(nft => sortedCollectionNfts.find(item => item.token_id === nft.id))
+
       if (sortedCollectionNfts && filteredNfts) {
         let newNftsArr: NftData[] = [...filteredNfts]
 
@@ -105,6 +106,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           newNftsArr[index].master_edition = data.master_edition
           newNftsArr[index].max_supply = data.max_supply
         })
+
         setNfts(newNftsArr)
         fetchNftData(newNftsArr)
       }
@@ -126,6 +128,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       } finally {
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, publicCollectionData])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -162,14 +165,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const successImporting = async () => {
     await getCollectionData()
     setShowEAPreview(false)
-    // collectionsAPI.getCollectionNft(address).then(
-    //   response => {
-    //     // router.reload()
-    //     setNfts(response)
-    //     setShowEAPreview(false)
-    //   },
-    //   error => {}
-    // )
   }
 
   useEffect(() => {
@@ -177,6 +172,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected, loginAndRefresh])
 
   let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`

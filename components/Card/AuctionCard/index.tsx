@@ -56,51 +56,71 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className="flex justify-around items-center gap-2 mt-1">
+        <div className="flex justify-around items-center gap-[6px] mt-1 lg:mt-[8px] ml-[2px]">
           {auctionStarted === true ? (
-            <div className="mr-[4px] mt-[1px]">
-              <ClockSandIcon />
+            <div className="flex gap-[6px] items-center">
+              <div className={styles.whiteText}>Ends&nbsp;in</div>
             </div>
           ) : (
-            <div>Starts&nbsp;in</div>
+            <div className={styles.whiteText}>Starts&nbsp;in</div>
           )}
-          {timeLeft && timeLeft['days'] !== '00' && (
-            <div className="flex block justify-center gap-[2px]">
-              <div className={styles.whiteText}>{timeLeft['days']}</div>
-              <div className={styles.grayText}>d</div>
-            </div>
-          )}
-          {timeLeft && timeLeft['hours'] !== '00' && (
-            <div className="flex block justify-center gap-[2px]">
-              <div className={styles.whiteText}>{timeLeft['hours']}</div>
-              <div className={styles.grayText}>h</div>
-            </div>
-          )}
+          <div className="hidden lg:flex items-center gap-[4px]">
+            {timeLeft && timeLeft['days'] !== '00' && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['days']}</div>
+                <div className={styles.grayText}>d</div>
+              </div>
+            )}
+            {timeLeft && timeLeft['hours'] !== '00' && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['hours']}</div>
+                <div className={styles.grayText}>h</div>
+              </div>
+            )}
 
-          {timeLeft && timeLeft['minutes'] !== '00' && (
-            <div className="flex block justify-center gap-[2px]">
-              <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
-              <div className={styles.grayText}>m</div>
-            </div>
-          )}
-          {timeLeft && timeLeft['seconds'] !== '00' && (
-            <div className="flex block justify-center gap-[2px]">
-              <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
-              <div className={styles.grayText}>s</div>
-            </div>
-          )}
+            {timeLeft && timeLeft['minutes'] !== '00' && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}</div>
+                <div className={styles.grayText}>m</div>
+              </div>
+            )}
+            {timeLeft && timeLeft['seconds'] !== '00' && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
+                <div className={styles.grayText}>s</div>
+              </div>
+            )}
+          </div>
+          <div className="flex lg:hidden items-center">
+            {timeLeft && timeLeft['days'] !== '00' && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['days']}:</div>
+              </div>
+            )}
+            {timeLeft && (
+              <div className="flex block justify-center">
+                <div className={styles.grayText}>{timeLeft['hours']}:</div>
+              </div>
+            )}
+            {timeLeft && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft['minutes']}:</div>
+              </div>
+            )}
+            {timeLeft && (
+              <div className="flex block justify-center ">
+                <div className={styles.grayText}>{timeLeft['seconds']}</div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className="flex justify-start lg:justify-center gap-1 mt-[2px] lg:mt-[2px] items-center">
-          <div className="w-3 h-4 lg:w-5 lg:h-[25px] flex items-center">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <SolanaLogoMobileIcon alt="" />
-            ) : (
-              <SolanaLogoIcon alt="" />
-            )}
+        <div className="flex justify-start lg:justify-center gap-[3px] mt-[2px] lg:mt-[8px] items-center">
+          <div className="flex items-center mt-[4px]">
+            <SolanaLogoMobileIcon alt="" />
           </div>
-          <div className={styles.priceText}>
+          <div className={styles.whiteText}>
             {Math.round((currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
           </div>
         </div>

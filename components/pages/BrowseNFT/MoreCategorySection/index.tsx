@@ -65,7 +65,6 @@ const MoreCategorySection = props => {
             <SeeMoreButton
               onClick={() => {
                 if (categories && categories.length > 0) {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
@@ -109,7 +108,6 @@ const MoreCategorySection = props => {
               fullWidth
               onClick={() => {
                 if (categories && categories.length > 0) {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}

@@ -22,14 +22,6 @@ const HeroNewCard = ({ data }) => {
   const dispatch = useDispatch()
   const onClick = () => {}
 
-  const gotoAristPage = () => {
-    // dispatch({ type: 'set', isLoading: true })
-  }
-
-  const gotoNftDetailPage = () => {
-    // dispatch({ type: 'set', isLoading: true })
-  }
-
   return (
     <div className={styles.container}>
       <ImageWithFoster
@@ -46,7 +38,7 @@ const HeroNewCard = ({ data }) => {
             {data.asset_type.includes('image') ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
-                  <div className="w-full h-full flex justify-center" onClick={() => gotoNftDetailPage()}>
+                  <div className="w-full h-full flex justify-center">
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                       <ImageWithFoster
                         src={
@@ -71,7 +63,7 @@ const HeroNewCard = ({ data }) => {
             ) : data.asset_type.includes('vr') ? (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
-                  <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                  <div className={styles.nftShadow}>
                     {data.asset_url! !== '' || data.cover_image_url! !== '' ? (
                       <div className="w-full h-full relative">
                         <ImageWithFoster
@@ -96,7 +88,6 @@ const HeroNewCard = ({ data }) => {
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
-                    onClick={() => gotoNftDetailPage()}
                   />
                 </a>
               </Link>
@@ -104,7 +95,7 @@ const HeroNewCard = ({ data }) => {
               data.cover_image_url !== null && data.cover_image_url !== '' ? (
                 <Link href={`/nft/${data.token_id}`} passHref>
                   <a>
-                    <div className="w-full h-full object-contain" onClick={() => gotoNftDetailPage()}>
+                    <div className="w-full h-full object-contain">
                       <ImageWithFoster
                         src={data.cover_image_url}
                         className="w-full h-full object-contain"
@@ -142,7 +133,7 @@ const HeroNewCard = ({ data }) => {
               <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
             )}
             {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
-              <div className={styles.avatar} onClick={() => gotoAristPage()}>
+              <div className={styles.avatar}>
                 <Link href={`/${data.artist_username}`} passHref>
                   <a>
                     {data.artist_profile_picture.length > 0 ? (

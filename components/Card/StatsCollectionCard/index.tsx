@@ -17,12 +17,7 @@ const StatsCollectionCard = props => {
   return (
     <Link href={type === 'artworks' ? `/nft/${data.mint_address}` : `/collection/${data.collection_address}`} passHref>
       <a>
-        <div
-          className={styles.container}
-          onClick={() => {
-            dispatch({ type: 'set', isLoading: true })
-          }}
-        >
+        <div className={styles.container}>
           <div className={styles.imageArea}>
             <ImageWithFoster
               src={type === 'artworks' ? data.asset_url : data.cover_image}

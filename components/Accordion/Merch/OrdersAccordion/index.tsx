@@ -41,11 +41,6 @@ const OrdersAccordion = props => {
     openedRef.current = clickedButton
   }
 
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
-  }
-
   return (
     <div className="w-full flex flex-wrap gap-[10px]">
       {data.map((item, index) => (
@@ -96,7 +91,6 @@ const OrdersAccordion = props => {
                       label="View Order"
                       onClick={() => {
                         router.push(`merch-logs/${item.id}`)
-                        dispatch({ type: 'set', isLoading: true })
                       }}
                     />
                   </div>

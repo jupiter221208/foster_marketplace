@@ -60,10 +60,6 @@ const AccordionMenu = props => {
       else if (item.type === 'stats_collectors') dispatch({ type: 'set', activeTab: 3 })
     }
 
-    if (type != 'create') {
-      dispatch({ type: 'set', isLoading: true })
-    }
-
     if (type === 'create') {
       if (!connected) {
         setVisible(true)

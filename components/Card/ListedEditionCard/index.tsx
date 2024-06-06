@@ -27,6 +27,7 @@ import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import LoadingButton from 'components/Button/LoadingButton'
 import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface ListedEditionCardProps {
   data: any
@@ -128,7 +129,15 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
             </div>
             <div className={styles.bottomBtn}>
               <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-                <PrimaryButton label="Update or Relist" type="update-relist" onClick={() => onUpdateList()} fullWidth />
+                <GradientButton
+                  backgroundColor01="var(--main-icon-color)"
+                  backgroundColor02="var(--main-icon-color)"
+                  color="var(--background-main-color)"
+                  label="Update or Relist"
+                  type="update-relist"
+                  onClick={() => onUpdateList()}
+                  fullWidth
+                />
                 {cancelListLoading ? (
                   <LoadingSecondaryButton fullWidth />
                 ) : (

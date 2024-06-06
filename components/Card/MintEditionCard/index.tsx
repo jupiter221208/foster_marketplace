@@ -4,16 +4,14 @@ import React, { useEffect, useState } from 'react'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 import ArrowUpIcon from 'assets/icons/arrow-up-white.svg?component'
+import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
-import { calculateTimeLeft } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 import { useViewport } from 'utils'
-import LoadingButton from 'components/Button/LoadingButton'
 import GradientButton from 'components/Button/GradientButton'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const MintEditionCard = props => {
@@ -36,16 +34,15 @@ const MintEditionCard = props => {
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(false)
   const [auctionEnded, setAuctionEnded] = useState(false)
-  const viewport = useViewport()
   const [total, setTotal] = useState(nftPrice)
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
-      setTimeLeft(calculateTimeLeft(getStartTime()))
+      setTimeLeft(calculateAuctionTimeLeft(getStartTime()))
       const timer = setInterval(() => {
-        let time_left = calculateTimeLeft(getStartTime())
+        let time_left = calculateAuctionTimeLeft(getStartTime())
         setTimeLeft(time_left)
       }, 1000)
 
@@ -84,42 +81,67 @@ const MintEditionCard = props => {
       {((auctionStarted && !auctionEnded) || endTime === null) && (
         <div className={styles.container}>
           <div className="w-full">
-            <div className="w-full flex justify-between items-center gap-2">
+            <div className="w-full flex flex-wrap justify-between items-center gap-[15px]">
               {endTime !== null && (
-                <div className="flex gap-[14px] mt-[-5px] items-center">
-                  <div className={styles.grayText}>
-                    <ClockSandIcon />
-                  </div>
-                  <div className="flex gap-[4px]">
+                <div className="flex gap-[6px] mt-[-5px] items-center ml-[2px]">
+                  {auctionStarted === true ? (
+                    <div className="flex gap-[6px] items-center">
+                      <div className={styles.whiteText}>Ends&nbsp;in</div>
+                    </div>
+                  ) : (
+                    <div className={styles.whiteText}>Starts&nbsp;in</div>
+                  )}
+                  <div className="lg:flex hidden gap-[4px]">
                     {timeLeft && timeLeft['days'] !== '00' && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft['days']}</div>
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['days']}</div>
                         <div className={styles.grayText}>d</div>
                       </div>
                     )}
                     {timeLeft && timeLeft['hours'] !== '00' && (
-                      <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft['hours']}</div>
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['hours']}</div>
                         <div className={styles.grayText}>h</div>
                       </div>
                     )}
-
                     {timeLeft && timeLeft['minutes'] !== '00' && (
                       <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
+                        <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}</div>
                         <div className={styles.grayText}>m</div>
                       </div>
                     )}
                     {timeLeft && timeLeft['seconds'] !== '00' && (
                       <div className="flex block justify-center gap-[2px]">
-                        <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
+                        <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
                         <div className={styles.grayText}>s</div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex lg:hidden">
+                    {timeLeft && timeLeft['days'] !== '00' && (
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['days']}:</div>
+                      </div>
+                    )}
+                    {timeLeft && (
+                      <div className="flex block justify-center">
+                        <div className={styles.grayText}>{timeLeft['hours']}:</div>
+                      </div>
+                    )}
+                    {timeLeft && (
+                      <div className="flex block justify-center gap-[2px]">
+                        <div className={styles.grayText}>{timeLeft && timeLeft['minutes']}:</div>
+                      </div>
+                    )}
+                    {timeLeft && (
+                      <div className="flex block justify-center gap-[2px]">
+                        <div className={styles.grayText}>{timeLeft && timeLeft['seconds']}</div>
                       </div>
                     )}
                   </div>
                 </div>
               )}
-              <div className={`${auctionStarted && !auctionEnded ? 'w-[160px] lg:w-[180px]' : 'w-full'}`}>
+              <div className={`${auctionStarted && !auctionEnded ? 'w-full lg:w-[180px]' : 'w-full'}`}>
                 <div className={styles.mintQty}>
                   <div
                     onClick={() => {
@@ -228,9 +250,11 @@ const MintEditionCard = props => {
             {mintEditionLoading ? (
               <LoadingPrimaryButton fullWidth />
             ) : (
-              <PrimaryButton
+              <GradientButton
                 fullWidth
-                type="buy-now"
+                backgroundColor01="var(--main-icon-color)"
+                backgroundColor02="var(--main-icon-color)"
+                color="var(--background-main-color)"
                 label="Buy Now"
                 disabled={mintQty === 0}
                 onClick={() => mintEdition()}

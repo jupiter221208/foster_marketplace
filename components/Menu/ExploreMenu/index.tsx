@@ -1,4 +1,4 @@
-import React, { Fragment, MutableRefObject, useEffect, useRef } from 'react'
+import React, { MutableRefObject, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 // third party components
@@ -73,7 +73,6 @@ const ExploreMenu = props => {
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
-                            dispatch({ type: 'set', isLoading: true })
                             dispatch({ type: 'set', exploreTab: 0 })
                             if (item.query === 'live_auctions') {
                               dispatch({ type: 'set', availabilityFilter: 1 })
@@ -102,7 +101,6 @@ const ExploreMenu = props => {
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
-                            dispatch({ type: 'set', isLoading: true })
                             dispatch({ type: 'set', exploreTab: index })
                             router.push('/explore')
                           }}
@@ -124,7 +122,6 @@ const ExploreMenu = props => {
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
-                            if (router.pathname !== '/stats') dispatch({ type: 'set', isLoading: true })
                             dispatch({ type: 'set', activeTab: index })
                             router.push('/stats')
                           }}
@@ -146,8 +143,6 @@ const ExploreMenu = props => {
                           className={styles.text}
                           onClick={() => {
                             setIsMenuOpen(false)
-                            dispatch({ type: 'set', isLoading: true })
-                            router.push(`/category/${item.query.toLowerCase()}`)
                           }}
                         >
                           {item.label}

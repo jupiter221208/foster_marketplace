@@ -12,7 +12,7 @@ const OutlineButton = props => {
     borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',
     borderRadius = '',
     borderWidth = 1,
-    color = 'var(--text-gray-200-color)',
+    color = 'rgba(var(--text-gray-200-color-rgb), 0.8)',
     direction = 'ltr',
     fontSize = '',
     fontFamily = '',

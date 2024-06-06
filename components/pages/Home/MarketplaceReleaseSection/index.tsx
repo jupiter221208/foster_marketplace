@@ -58,7 +58,7 @@ const MarketplaceReleaseSection = props => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '', page, 15).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setAllMarketplaceReleaseList(response.slice(5, response.length))
+        setAllMarketplaceReleaseList(response.filter(nft => nft.asset_type !== 'uknown').slice(5, response.length))
         setVisibleBoundary(true)
       }
     }),
@@ -105,7 +105,6 @@ const MarketplaceReleaseSection = props => {
                 collectionName={item.collection_name}
                 price={item.list_price}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.token_id}`)
                 }}
               />

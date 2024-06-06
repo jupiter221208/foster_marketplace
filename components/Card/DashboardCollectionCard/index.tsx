@@ -46,7 +46,6 @@ const DashboardCollectionCard = props => {
             fullWidth
             label="Unsave"
             onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
               unSave()
             }}
           />

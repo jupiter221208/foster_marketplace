@@ -83,7 +83,7 @@ const SuccessMintSingleNFTSection = props => {
       }, 1000)
     }, 1000)
   }
-  console.log(nftType, nftImage)
+
   return (
     <div>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -121,22 +121,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
           <div className="max-w-[800px] mt-[47px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>
-              {nftName} has been minted successfully
-              {/* <a
-                className={styles.mintLinkText}
-                href={'/nft/' + nftAddress}
-                onClick={e => {
-                  e.preventDefault()
-                  dispatch({ type: 'set', isLoading: true })
-                  setTimeout(() => {
-                    window.location.href = (e.target as HTMLAnchorElement).href
-                  }, 3000)
-                }}
-              >
-                NFT page
-              </a> */}
-            </div>
+            <div className={styles.mintText}>{nftName} has been minted successfully</div>
             <div className="w-full flex justify-center gap-[30px] mt-[47px]">
               <div className="flex gap-[30px]">
                 <div className="w-full">
@@ -276,7 +261,6 @@ const SuccessMintSingleNFTSection = props => {
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            dispatch({ type: 'set', isLoading: true })
             router.push('/')
           }, 500)
         }}

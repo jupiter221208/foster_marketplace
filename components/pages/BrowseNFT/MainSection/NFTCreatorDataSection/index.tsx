@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 
 import Link from 'next/link'
 // components
@@ -11,29 +11,40 @@ import { getDisplayUserName } from 'utils/strings'
 // styles
 import styles from './index.module.scss'
 
-import { useDispatch } from 'react-redux'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const NFTCreatorDataSection = props => {
-  const { nftName, nftCreatorname, nftOwnerUsername, nameLoading } = props
-  const dispatch = useDispatch()
-
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-  }
+  const { nftName, nftCreatorname, nftOwnerUsername, nameLoading, profileImage } = props
 
   return (
     <div>
       {nameLoading ? (
         <div
-          className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[15px] lg:mt-[10px] rounded-full`}
+          className={`${styles.skeletonLoader} ${styles.title} w-[200px] lg:w-[360px] h-[40px] lg:h-[60px] mt-[15px] lg:mt-[0px] rounded-full`}
         ></div>
       ) : (
         <>
-          <div className="w-full flex mt-[15px] lg:mt-[10px]">
+          <div className="w-full flex mt-[15px] lg:mt-[0px]">
             <div className={styles.title}>{nftName}</div>
           </div>
-
-          <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
+          <div className="mt-[15px]">
+            <Link href={`/${nftCreatorname}`} passHref>
+              <a>
+                <div>
+                  <div className={styles.creator}>Creator</div>
+                  <div className={styles.userTile}>
+                    <div className="flex gap-[6px] items-center">
+                      <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                        <ImageWithFoster src={profileImage} width={60} className="w-full h-full object-cover" />
+                      </div>
+                      <div className={styles.username}>{getDisplayUserName(nftCreatorname)}</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </Link>
+          </div>
+          {/* <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
             <div className="flex gap-1 lg:gap-2">
               <div className={styles.grayText}>Created by</div>
               <Link href={`/${nftCreatorname}`} passHref>
@@ -57,7 +68,7 @@ const NFTCreatorDataSection = props => {
                 </Link>
               </div>
             )}
-          </div>
+          </div> */}
         </>
       )}
     </div>

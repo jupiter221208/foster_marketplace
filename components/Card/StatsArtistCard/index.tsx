@@ -26,7 +26,6 @@ const StatsArtistCard = props => {
     <div
       className={styles.container}
       onClick={() => {
-        dispatch({ type: 'set', isLoading: true })
         router.push(`/${type === 'creators' ? data.creator_name : data.collector_name}`)
       }}
     >

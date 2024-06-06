@@ -62,7 +62,6 @@ const MoreCollectionSection = props => {
         <div className="hidden lg:flex z-10">
           <SeeMoreButton
             onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
               router.push(`/collection/${collectionId}`)
             }}
           />
@@ -93,7 +92,6 @@ const MoreCollectionSection = props => {
                   collectionName={collectionName}
                   price={item.list_price}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                 />

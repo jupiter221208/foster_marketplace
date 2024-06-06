@@ -14,21 +14,21 @@
 }
 
 .actionType {
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Muli-Regular';
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Muli-Regular';
   }
 }
 
 .userName {
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Muli-Bold';
   color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Muli-Bold';
   }
   cursor: pointer;
@@ -37,11 +37,21 @@
   }
 }
 
+.solAmount {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  font-family: 'Muli-SemiBold';
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
 .dateValue {
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
+  margin-top: 6px;
   @media (min-width: 1024px) {
     font-size: 14px;
     font-family: 'Muli-Light';
@@ -50,13 +60,15 @@
 
 .usdValue {
   display: flex;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'Muli-Light';
   color: var(--text-gray-200-color);
-  justify-content: end;
+  justify-content: flex-end;
+  margin-top: 7px;
   @media (min-width: 1024px) {
     font-size: 14px;
     font-family: 'Muli-Light';
+    margin-top: 2px;
   }
 }
 

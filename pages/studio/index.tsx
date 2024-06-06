@@ -50,9 +50,7 @@ const Studio = () => {
         top: 0,
         behavior: 'smooth',
       })
-      // dispatch({ type: 'set', isLoading: false })
     }, 500)
-    // dispatch({ type: 'set', isLoading: true })
   }, [router.query.id])
 
   return (

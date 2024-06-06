@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -92,10 +92,10 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       setNftDetails(validNfts)
       setErrorList(errors)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaplex, mintList])
 
   const removeNft = index => {
-    // if (nftDetails.length === 1) return
     let list = [...nftDetails]
     list.splice(index, 1)
     setNftDetails(list)

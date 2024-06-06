@@ -139,17 +139,9 @@ const Home = () => {
                 <div className={styles.pushTitle}>Pushing the boundaries of Digital Art on Solana</div>
                 <div className={styles.pushText}>Home to creators, collectors, and curators around the world</div>
               </div>
-              <GradientButton
-                width={140}
-                height={50}
-                borderRadius={25}
-                label="Explore Art"
-                color="#1A1A1A"
-                borderColor="transparent"
-                backgroundColor01="#95DBD5"
-                backgroundColor02="#95DBD5"
-                onClick={() => router.push('/explore')}
-              />
+              <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
+                Explore Art
+              </div>
             </div>
             {/* Mobile */}
             <div className="lg:hidden block gap-[28px]">
@@ -166,18 +158,9 @@ const Home = () => {
                 </div>
               </div>
               <div className="w-full flex justify-center mt-[27px]">
-                <GradientButton
-                  width={120}
-                  height={40}
-                  borderRadius={20}
-                  label="Explore Art"
-                  color="#1A1A1A"
-                  fontSize={16}
-                  borderColor="transparent"
-                  backgroundColor01="#95DBD5"
-                  backgroundColor02="#95DBD5"
-                  onClick={() => router.push('/explore')}
-                />
+                <div className={styles.exploreBtn} onClick={() => router.push('/explore')}>
+                  Explore Art
+                </div>
               </div>
             </div>
           </div>

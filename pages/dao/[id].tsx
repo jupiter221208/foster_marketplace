@@ -49,6 +49,7 @@ const Dao = () => {
       }
       getProposal()
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaplex, connected])
 
   const [turkyNfts, setTurkeyNfts] = useState<NftData[] | null>(null)

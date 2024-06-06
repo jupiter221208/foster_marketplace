@@ -52,7 +52,6 @@ const NFTSwiperSection = props => {
                   price={item.list_price}
                   showHideButton={showHideButton}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                   key={item}
@@ -65,7 +64,6 @@ const NFTSwiperSection = props => {
                   nftName={item.nft_name}
                   artistName={item.artist_username}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                   key={item}
@@ -82,7 +80,6 @@ const NFTSwiperSection = props => {
                   price={item.list_price}
                   showHideButton={showHideButton}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                   key={item}

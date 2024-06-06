@@ -558,7 +558,6 @@ const WalletButton = props => {
                     className={styles.viewActiveOffer}
                     onClick={() => {
                       router.push(`/dashboard?tab=6`)
-                      dispatch({ type: 'set', isLoading: true })
                     }}
                   >
                     View active offers
@@ -753,7 +752,6 @@ const WalletButton = props => {
                     className={styles.viewActiveOffer}
                     onClick={() => {
                       router.push(`/dashboard?tab=3`)
-                      dispatch({ type: 'set', isLoading: true })
                     }}
                   >
                     View active bids

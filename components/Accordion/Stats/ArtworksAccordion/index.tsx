@@ -41,7 +41,6 @@ const ArtworksAccordion = props => {
   }
 
   const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/${link}`)
   }
 

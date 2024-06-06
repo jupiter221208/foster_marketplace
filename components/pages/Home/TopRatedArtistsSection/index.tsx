@@ -135,7 +135,6 @@ const TopRatedArtistsSection = () => {
                     <TrendingArtistCard
                       artist={item}
                       onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
                         router.push('/' + item.username)
                       }}
                       key={index}
@@ -151,7 +150,6 @@ const TopRatedArtistsSection = () => {
                 <TrendingArtistCard
                   artist={item}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push('/' + item.username)
                   }}
                   key={index}

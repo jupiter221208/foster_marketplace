@@ -70,7 +70,6 @@ const PopularCategorySection = props => {
                 name={item.name}
                 type={item.type}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/category/${item.query.toLowerCase()}`)
                 }}
               />
