@@ -113,7 +113,7 @@ const NFTDetailSection = props => {
 
       {editionDetail && isNftPrintEdition && (
         <div
-          className="w-full flex items-center  gap-[8px] mt-[6px]"
+          className={styles.masterEdition}
           onClick={() => {
             router.push(`/nft/${supply.parent}`)
           }}
