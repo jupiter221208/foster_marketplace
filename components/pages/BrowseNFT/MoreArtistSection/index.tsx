@@ -66,7 +66,6 @@ const MoreArtistSection = props => {
           <div className="hidden lg:flex">
             <SeeMoreButton
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
             />
@@ -109,7 +108,6 @@ const MoreArtistSection = props => {
               label="See More"
               fullWidth
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
               fontSize="16px"

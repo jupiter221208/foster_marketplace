@@ -212,7 +212,6 @@ const NewNftCard = props => {
                   label="Unsave"
                   type="unsave"
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     unSave()
                   }}
                 />

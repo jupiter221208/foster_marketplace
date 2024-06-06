@@ -120,7 +120,7 @@ const ListedNFTCard = ({
         </div>
         <Link href={`/nft/${address}`} passHref>
           <a>
-            <div className={styles.imageArea} onClick={() => dispatch({ type: 'set', isLoading: true })}>
+            <div className={styles.imageArea}>
               <div className={styles.imageContent}>
                 {assetJson?.properties?.category === 'video' ? (
                   <div

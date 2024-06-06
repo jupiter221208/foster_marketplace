@@ -30,7 +30,6 @@ const MerchDetail = () => {
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const type = useSelector<any>(state => state.orderType)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -48,9 +47,6 @@ const MerchDetail = () => {
   const [reviewBody, setReviewBody] = useState('')
   const [commission, setCommission] = useState(null)
   const [showReviewModal, setShowReviewModal] = useState(false)
-  useEffect(() => {
-    // dispatch({ type: 'set', isLoading: true })
-  }, [])
 
   useEffect(() => {
     if (publicKey) setEmailBody()
@@ -232,7 +228,6 @@ const MerchDetail = () => {
   }
 
   const retryPayment = () => {
-    // dispatch({ type: 'set', isLoading: true })
     router.push(`/orders/${id}`)
   }
   return (
@@ -242,7 +237,6 @@ const MerchDetail = () => {
           <div
             className={styles.backBG}
             onClick={() => {
-              // dispatch({ type: 'set', isLoading: true })
               router.push('/merch-logs')
             }}
           >

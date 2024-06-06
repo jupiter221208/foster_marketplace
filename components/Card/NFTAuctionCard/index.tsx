@@ -277,7 +277,6 @@ const NFTAuctionCard = props => {
               fullWidth
               label="Unsave"
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 unSave()
               }}
             />

@@ -314,12 +314,7 @@ const NotificationsCard = props => {
                       {elem.notification_type === 'offer' && (
                         <Link href={`${gotoDetailPage(elem)}`} passHref>
                           <a>
-                            <div
-                              className={styles.viewDetails}
-                              onClick={() => dispatch({ type: 'set', isLoading: true })}
-                            >
-                              {getViewDetail(elem)}
-                            </div>
+                            <div className={styles.viewDetails}>{getViewDetail(elem)}</div>
                           </a>
                         </Link>
                       )}

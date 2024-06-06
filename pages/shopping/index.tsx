@@ -98,12 +98,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         }),
       500
     )
-    // dispatch({ type: 'set', isLoading: true })
   }, [])
-
-  // useEffect(() => {
-  //   if (isLoading === false) setShowLoading(false)
-  // }, [isLoading])
 
   useEffect(() => {
     setLoading(true)

@@ -119,7 +119,6 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.id}`)
                   onClose()
                 }}
@@ -146,7 +145,6 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/${item.name}`)
                   onClose()
                 }}
@@ -184,7 +182,6 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/collection/${item.id}`)
                   onClose()
                 }}

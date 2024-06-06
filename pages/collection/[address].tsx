@@ -128,6 +128,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       } finally {
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, publicCollectionData])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -171,6 +172,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected, loginAndRefresh])
 
   let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`

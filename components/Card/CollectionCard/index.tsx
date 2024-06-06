@@ -24,12 +24,7 @@ const CollectionCard = props => {
         </div>
         <Link href={link} passHref>
           <a>
-            <div
-              className={styles.imageArea}
-              onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
-              }}
-            >
+            <div className={styles.imageArea}>
               <div className={styles.imageContent}>
                 <div className="w-full h-full overflow-hidden">
                   <ImageWithFoster width={800} src={image} className="w-full h-full object-cover" />
@@ -46,7 +41,6 @@ const CollectionCard = props => {
                 label="View"
                 type="next"
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(link)
                 }}
               />
@@ -58,7 +52,6 @@ const CollectionCard = props => {
                 label="Unsave"
                 type="unsave"
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   unSave()
                 }}
               />

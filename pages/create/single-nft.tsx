@@ -106,6 +106,7 @@ const SingleNft = () => {
       setCurrentStep(1)
       dispatch({ type: 'set', createTab: null })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createTab])
 
   useEffect(() => {
@@ -235,6 +236,7 @@ const SingleNft = () => {
         setNftType(type)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftArt])
 
   useEffect(() => {
@@ -277,10 +279,12 @@ const SingleNft = () => {
         setNftImage(URL.createObjectURL(nftCover[0]))
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftCover])
 
   useEffect(() => {
     handleFormValidate(1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
@@ -325,6 +329,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(currentStep)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftName, description, categoryList, editionType, currentStep, maxNum])
 
   // solana

@@ -92,12 +92,10 @@ const MainSection = () => {
   }, [heroList, router])
 
   const gotoNftPage = () => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/nft/${heroList[heroIndex].token_id}`)
   }
 
   const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/${heroList[heroIndex].artist_username}`)
   }
 

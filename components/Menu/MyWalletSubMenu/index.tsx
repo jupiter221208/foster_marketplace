@@ -509,7 +509,6 @@ const MyWalletSubMenu = props => {
                       className={styles.viewActiveOffer}
                       onClick={() => {
                         router.push(`/dashboard?tab=6`)
-                        dispatch({ type: 'set', isLoading: true })
                       }}
                     >
                       View active offers
@@ -707,17 +706,10 @@ const MyWalletSubMenu = props => {
                       className={styles.viewActiveOffer}
                       onClick={() => {
                         router.push(`/dashboard?tab=3`)
-                        dispatch({ type: 'set', isLoading: true })
                       }}
                     >
                       View active bids
                     </div>
-
-                    {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                    <p className={styles.cardGrayText}>
-                      Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
-                    </p>
-                  </div> */}
                   </div>
                 )}
               </div>

@@ -92,6 +92,7 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       setNftDetails(validNfts)
       setErrorList(errors)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaplex, mintList])
 
   const removeNft = index => {

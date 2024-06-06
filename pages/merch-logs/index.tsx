@@ -84,14 +84,6 @@ const MerchActivity = () => {
   const { solToUsdRate } = useSolToUsdRate()
 
   const [tokenId, setTokenId] = useState(false)
-  useEffect(() => {
-    // dispatch({ type: 'set', isLoading: true })
-    // if (!connected) {
-    //   setTimeout(() => {
-    //     dispatch({ type: 'set', isLoading: false })
-    //   }, 1000)
-    // }
-  }, [])
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {

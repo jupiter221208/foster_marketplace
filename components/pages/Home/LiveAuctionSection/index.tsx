@@ -233,7 +233,6 @@ const LiveAuctionSection = props => {
                 <LiveAuctionCard
                   data={item}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push('/nft/' + item.token_id)
                   }}
                   setCardExpired={item => {

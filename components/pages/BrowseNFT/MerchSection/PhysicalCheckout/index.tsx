@@ -336,19 +336,16 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
-      {/* <ProgressingModal open={isLoad} /> */}
       <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            // dispatch({ type: 'set', isLoading: true })
             router.push(`/merch-logs/${id}`)
           }, 1000)
         }}
         data={alertData}
       />
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </section>
   )
 }

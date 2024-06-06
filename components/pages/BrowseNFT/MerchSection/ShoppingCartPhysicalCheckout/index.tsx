@@ -312,13 +312,11 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            // dispatch({ type: 'set', isLoading: true })
             router.push(`/merch-logs/${id}`)
           }, 1000)
         }}
         data={alertData}
       />
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </section>
   )
 }

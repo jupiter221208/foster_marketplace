@@ -77,7 +77,6 @@ const ShoppingCartActivity = props => {
         colorValue = null
     }
     let apparelType = arrayData[index].apparel.description
-    dispatch({ type: 'set', isLoading: true })
     dispatch({ type: 'set', detailShow: true })
     dispatch({ type: 'set', apparelType })
     dispatch({ type: 'set', apparelColor: colorValue })

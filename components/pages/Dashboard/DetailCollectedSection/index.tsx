@@ -48,7 +48,6 @@ const DetailCollectedSection = props => {
               collectionName={item.collection_name}
               price={item.list_price}
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push(`/nft/${item.token_id}`)
               }}
               key={index}

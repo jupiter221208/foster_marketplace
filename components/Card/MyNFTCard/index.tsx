@@ -49,7 +49,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListEdition, onClickListN
         </div>
         <Link href={`/nft/${data.mintAddress.toString()}`} passHref>
           <a>
-            <div className={styles.imageArea} onClick={() => dispatch({ type: 'set', isLoading: true })}>
+            <div className={styles.imageArea}>
               <div className={styles.imageContent}>
                 {data.category.toString().includes('video') ? (
                   <div

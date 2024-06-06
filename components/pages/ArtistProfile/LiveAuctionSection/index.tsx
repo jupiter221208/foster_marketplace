@@ -136,7 +136,6 @@ const LiveAuctionSection = props => {
                 reservePrice={item.reserve_price}
                 endTime={item.end_time}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push('/nft/' + item.token_id)
                 }}
                 key={index}

@@ -144,7 +144,6 @@ const LiveEditionsSection = props => {
                 price={item.price}
                 endTime={item.endTime}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push('/nft/' + item.tokenId)
                 }}
                 key={index}

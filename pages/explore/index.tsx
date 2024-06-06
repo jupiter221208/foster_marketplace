@@ -431,7 +431,6 @@ const Explore = () => {
         else setCollectionList([...collectionList, ...collections])
       },
       error => {
-        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -439,8 +438,6 @@ const Explore = () => {
   }
 
   const getExploreArtistData = async (curPage, sort, count, reset = false) => {
-    // if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
-
     let page = curPage
     if (reset === true) {
       page = 0
@@ -729,9 +726,7 @@ const Explore = () => {
                             currentBid={item.current_bid}
                             reservePrice={item.reserve_price}
                             endTime={item.end_time}
-                            onClick={() => {
-                              // dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             price={item.price}
                           />
                         ) : selectedAvailability.value === 'editions' ? (
@@ -747,9 +742,7 @@ const Explore = () => {
                             price={item.master_edition?.price}
                             currentSupply={item.current_supply}
                             maxSupply={item.max_supply}
-                            onClick={() => {
-                              // dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             key={index}
                           />
                         ) : selectedAvailability.value === 'all' ? (
@@ -766,10 +759,7 @@ const Explore = () => {
                               currentSupply={item.current_supply}
                               maxSupply={item.max_supply}
                               price={item.master_edition?.price}
-                              onClick={() => {
-                                // dispatch({ type: 'set', isLoading: true })
-                                // router.push('/nft/' + item.tokenId)
-                              }}
+                              onClick={() => {}}
                               key={index}
                             />
                           ) : isAvailableAuctionCard(item) ? (
@@ -783,9 +773,7 @@ const Explore = () => {
                               currentBid={item.current_bid}
                               reservePrice={item.reserve_price}
                               endTime={item.end_time}
-                              onClick={() => {
-                                // dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                               price={item.price}
                             />
                           ) : !item.end_time && item.price ? (
@@ -798,9 +786,7 @@ const Explore = () => {
                               price={item.price}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
-                              onClick={() => {
-                                // dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                             />
                           ) : (
                             <ListedNftCardExplore
@@ -810,9 +796,7 @@ const Explore = () => {
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
-                              onClick={() => {
-                                // dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                               price={item.price}
                             />
                           )
@@ -826,9 +810,7 @@ const Explore = () => {
                             price={item.price}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
-                            onClick={() => {
-                              // dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                           />
                         ) : (
                           <ListedNftCardExplore
@@ -838,9 +820,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
-                            onClick={() => {
-                              // dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             price={item.price}
                           />
                         )}
