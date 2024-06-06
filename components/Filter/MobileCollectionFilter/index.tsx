@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 
 // components
-import IconButton from 'components/Button/IconButton'
-import Radio from 'components/Radio'
 import Checkbox from 'components/Checkbox'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
@@ -21,7 +19,6 @@ import styles from './index.module.scss'
 const MobileCollectionFilter = props => {
   const { category, onClose, onFilter } = props
 
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -36,6 +33,7 @@ const MobileCollectionFilter = props => {
       array.push(object)
     })
     setCategoryList(array)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSelectCategory = index => {
@@ -47,23 +45,6 @@ const MobileCollectionFilter = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {/* <Disclosure defaultOpen={true}>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between">
-                <div className={`${styles.subTitle} mt-[12px] mb-[12px]`}>Artist Verification</div>
-                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-              </Disclosure.Button>
-              <Disclosure.Panel>
-                <Radio
-                  data={ArtistVerificationList}
-                  selected={selectedVerifyType}
-                  onChange={item => setSelectedVerifyType(item)}
-                />
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure> */}
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>

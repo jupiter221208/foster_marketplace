@@ -40,6 +40,7 @@ const ResourcesAccordion = props => {
     }, 500)
 
     return () => clearInterval(myInterval)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   return (

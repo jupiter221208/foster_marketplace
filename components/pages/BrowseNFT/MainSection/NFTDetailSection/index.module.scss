@@ -44,3 +44,16 @@
   }
   background: rgba(#707070, 0.25);
 }
+
+.masterEdition {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--main-bg-color-rgb), 0.75);
+  }
+}

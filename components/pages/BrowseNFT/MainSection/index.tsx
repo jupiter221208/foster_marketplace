@@ -45,7 +45,6 @@ import {
 } from 'utils/auctioneer.util'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
@@ -58,9 +57,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
 // json
-// import TimeList from 'assets/json/browse-nft/time-list.json'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // styles
 import styles from './index.module.scss'
@@ -115,8 +112,8 @@ import MenuEditNft from 'components/Menu/MenuEditNft'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
-import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import GreenButton from 'components/Button/GreenButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -522,6 +519,7 @@ const MainSection = ({
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
       setLoadedNftInfo(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
 
   // set timeout to switch to end phase
@@ -638,6 +636,7 @@ const MainSection = ({
       setEditionType('normal')
       type = 'normal'
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supply])
 
   const isNftPrintEdition = () => {
@@ -672,6 +671,7 @@ const MainSection = ({
       setNameLoading(false)
       setTokenAccountInfo(tokenAccount)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftDetail])
 
   useEffect(() => {
@@ -763,6 +763,7 @@ const MainSection = ({
         if (auctionListenerHandle) mx.connection.removeAccountChangeListener(auctionListenerHandle)
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAccountInfo])
 
   useEffect(() => {
@@ -776,6 +777,7 @@ const MainSection = ({
         }
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftDetail])
 
   const processFinalizeSale = async () => {
@@ -1426,50 +1428,6 @@ const MainSection = ({
                     profileImage={nftInfo?.creator_profile_image}
                   />
 
-                  {/* {editionDetail && isNftMasterEdition() && (
-                    <div className="flex flex-wrap gap-[8px] lg:gap-[15px] mt-[15px] lg:mt-[30px]">
-                      <div className={styles.editionTitle}>
-                        {editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
-                      </div>
-                      {editionType === 'master_le' && (
-                        <div className={styles.editionTitle}>{editionDetail?.maxSupply + ' Editions'}</div>
-                      )}
-                      <div className={styles.editionTitle}>
-                        {editionType === 'master_le'
-                          ? Number(editionDetail?.maxSupply) -
-                            Number(editionDetail?.supply) +
-                            '/' +
-                            Number(editionDetail?.maxSupply) +
-                            ' Left'
-                          : Number(editionDetail?.supply) + ' Sold'}
-                      </div>
-                    </div>
-                  )} */}
-
-                  {/* {editionDetail && isNftPrintEdition() && (
-                    <div className="mt-[30px]">
-                      <div className="w-full flex gap-[15px]">
-                        <div className={styles.editionTitle}>
-                          {editionType === 'print_le' ? 'Limited Edition' : 'Open Edition'}
-                        </div>
-                        {editionType === 'print_le' && (
-                          <div className={styles.editionTitle}>{Number(editionDetail?.maxSupply) + ' Editions'}</div>
-                        )}
-                        <div className={styles.editionTitle}>{'Edition #' + Number(editionDetail?.print?.number)}</div>
-                      </div>
-
-                      <div
-                        className={styles.editionValue}
-                        onClick={() => {
-                          router.push(`/nft/${supply.parent}`)
-                        }}
-                      >
-                        View Master Edition
-                        <ArrowRightIcon />
-                      </div>
-                    </div>
-                  )} */}
-
                   {nftDescription ? (
                     <div>
                       <div className={`w-full lg:max-h-[130px] mt-[15px] ${!isTruncated && 'overflow-scroll'}`}>
@@ -1510,36 +1468,6 @@ const MainSection = ({
                 </div>
 
                 <div className="w-full flex flex-wrap mt-[0px] lg:mt-0">
-                  {/* <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                    <div className="w-full flex lg:flex-row flex-col justify-between gap-0 lg:gap-3 xl:gap-4">
-                      {nftCategories && nftCategories.length > 0 && (
-                        <div className="flex flex-wrap flex-col gap-2">
-                          <div className={styles.categories}>Categories</div>
-                          {nftCategories && nftCategories.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
-                              {nftCategories.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="flex flex-row">
-                              <SmallCategoryChip data={['N/A']} />
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      <div className="flex flex-col gap-2 text-center max-w-max lg:mt-0 mt-4">
-                        <div className={styles.whiteRoyalties}>Royalties</div>
-                        <div className={`${styles.greenRoyalties} ${styles.gray_border_01}`}>{nftRoyalties}%</div>
-                      </div>
-                    </div>
-                  </div> */}
-
-                  {/* <div className="w-[200%] min-h-max overflow-hidden">
-                    <div className={`${styles.categoryBorder} lg:block block`} />
-                  </div> */}
-
                   <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     {loadListing && (
                       <div
@@ -1550,11 +1478,8 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <GradientButton
+                          <GreenButton
                             fullWidth
-                            backgroundColor01="var(--main-icon-color)"
-                            backgroundColor02="var(--main-icon-color)"
-                            color="var(--background-main-color)"
                             label={'Update/Relist'}
                             onClick={() => {
                               setListEditionType('update')
@@ -1611,12 +1536,9 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <GradientButton
+                                <GreenButton
                                   fullWidth
                                   label="Buy Now"
-                                  backgroundColor01="var(--main-icon-color)"
-                                  backgroundColor02="var(--main-icon-color)"
-                                  color="var(--background-main-color)"
                                   disabled={!tradeStateAddress}
                                   onClick={() => quickBuy()}
                                 />
@@ -1639,11 +1561,8 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <GradientButton
+                              <GreenButton
                                 label="Delist or Update"
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
@@ -1767,11 +1686,8 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
-                                            <GradientButton
+                                            <GreenButton
                                               label="Place Bid"
-                                              backgroundColor01="var(--main-icon-color)"
-                                              backgroundColor02="var(--main-icon-color)"
-                                              color="var(--background-main-color)"
                                               fullWidth
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
@@ -1852,12 +1768,9 @@ const MainSection = ({
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                               <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                              <GradientButton
+                              <GreenButton
                                 fullWidth
                                 label="Start Auction"
-                                backgroundColor01="var(--main-icon-color)"
-                                backgroundColor02="var(--main-icon-color)"
-                                color="var(--background-main-color)"
                                 onClick={() => {
                                   setShowAuctionDetail(true)
                                   setShowAuctionSection(true)

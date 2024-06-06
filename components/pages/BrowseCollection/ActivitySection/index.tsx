@@ -44,6 +44,7 @@ const ActivitySection = props => {
       },
       error => {}
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionId])
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const ActivitySection = props => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (

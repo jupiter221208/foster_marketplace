@@ -7,7 +7,6 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // components
-import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import NoDataSection from '../NoDataSection'
@@ -48,6 +47,7 @@ const FavoriteSection = () => {
 
     getFavoriteNftData()
     getFavoriteCollectionData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getFavoriteNftData = () => {
@@ -134,6 +134,7 @@ const FavoriteSection = () => {
       if (collectionList.length > rowCount) setIsVisibleFetching(true)
       setNftList(collectionList.slice(0, rowCount))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allNftList, collectionList, active])
 
   useEffect(() => {
@@ -157,6 +158,7 @@ const FavoriteSection = () => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (

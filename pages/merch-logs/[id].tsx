@@ -50,6 +50,7 @@ const MerchDetail = () => {
 
   useEffect(() => {
     if (publicKey) setEmailBody()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo, publicKey])
 
   useEffect(() => {
@@ -192,6 +193,7 @@ const MerchDetail = () => {
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData])
 
   const setEmailBody = () => {

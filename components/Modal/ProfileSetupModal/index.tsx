@@ -108,6 +108,7 @@ const ProfileSetupModal = () => {
       fetchData(croppedAvatar)
       setUpdateImage(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateImage])
 
   const uploadFile = async (file: any, filename: string) => {

@@ -51,6 +51,7 @@ const ActiveListingSection = props => {
 
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist])
 
   const getExploreList = nextpage => {
@@ -96,6 +97,7 @@ const ActiveListingSection = props => {
         getExploreList(nextpage)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (

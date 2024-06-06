@@ -54,6 +54,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       setNFTList(nfts.slice(0, rowCount))
       if (nfts.length > rowCount) setIsVisibleFetching(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nfts])
 
   useEffect(() => {
@@ -70,6 +71,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
       setNFTList(liveAuctionNfts.slice(0, rowCount))
       if (liveAuctionNfts.length > rowCount) setIsVisibleFetching(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artworkType])
 
   useEffect(() => {
@@ -109,6 +111,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }: NFTSwiperSec
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   const gotoNftPage = item_id => {

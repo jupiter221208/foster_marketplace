@@ -92,6 +92,7 @@ const TabSection = props => {
       setMerchEnable(false)
       setCollectorEnable(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, artworkType, collections])
 
   const handleSelectedTab = item => {
@@ -120,24 +121,28 @@ const TabSection = props => {
         }, 2000)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   useEffect(() => {
     if (isFetchingCreated === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetchingCreated])
 
   useEffect(() => {
     if (isFetchingCollected === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetchingCollected])
 
   useEffect(() => {
     if (isFetchingMerch === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetchingMerch])
 
   return (

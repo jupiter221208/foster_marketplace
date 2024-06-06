@@ -82,6 +82,7 @@ const MyProductSection = props => {
     if (description) setDescription(description)
     if (type) setProductType(type)
     if (shipping) setShipping(shipping)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
   const setProductAssetUrl = newList => {

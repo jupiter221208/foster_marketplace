@@ -34,6 +34,7 @@ const ApparelSection = props => {
       }
       setLoader(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel])
 
   const uploadApparelSection = async (imgDataString: string) => {
@@ -68,6 +69,7 @@ const ApparelSection = props => {
         setCanvas(newCanvas)
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finishEditing])
 
   const drawApparel = () => {

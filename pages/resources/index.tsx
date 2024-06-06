@@ -46,6 +46,7 @@ const Resources = () => {
     if (selectedCard === -1) return
     if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') return
     searchResearch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword, selectedCard])
 
   useEffect(() => {
@@ -113,6 +114,7 @@ const Resources = () => {
         behavior: 'smooth',
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content])
 
   let pageTitle = 'Foster Marketplace | Resources'

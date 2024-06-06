@@ -66,6 +66,7 @@ const MobileSearchBox = () => {
     } else {
       setSearchData({ nfts: [], artists: [], collections: [] })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchList])
 
   return (

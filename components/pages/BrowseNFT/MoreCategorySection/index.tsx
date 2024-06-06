@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -30,10 +30,10 @@ const MoreCategorySection = props => {
 
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchCollectionListData(categoryCollectionList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryCollectionList])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

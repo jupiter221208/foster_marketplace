@@ -157,6 +157,7 @@ const PhysicalShipping = props => {
     if (country && shipping === null) {
       setState(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country])
 
   useEffect(() => {

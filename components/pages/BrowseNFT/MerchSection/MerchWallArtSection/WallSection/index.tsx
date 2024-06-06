@@ -97,6 +97,7 @@ const WallSection = props => {
       }
     }
     window.addEventListener('resize', resizeFunction)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artOrgSize, bgOrgSize])
 
   useEffect(() => {
@@ -111,6 +112,7 @@ const WallSection = props => {
       }
       setLoader(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wallArt])
 
   useEffect(() => {
@@ -136,6 +138,7 @@ const WallSection = props => {
         setCanvas(newCanvas)
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finishEditing])
 
   const getArtRatio = ratio => {

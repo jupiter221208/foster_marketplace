@@ -66,6 +66,7 @@ const CollectionsSection = props => {
     if (isFetching === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   useEffect(() => {
@@ -73,6 +74,7 @@ const CollectionsSection = props => {
     setSearchLoading(true)
     setIsVisibleFetching(false)
     getCollectionData(currentPage, period, searchWord, rowCount, true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [period])
 
   const getCollectionData = (curPage, curDate, search, count, reset = false) => {

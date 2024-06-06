@@ -51,6 +51,7 @@ const NFTEditionsCard = props => {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assetType])
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const NFTEditionsCard = props => {
     }, 1000)
 
     return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endTime])
 
   const getIntervalTime = () => {

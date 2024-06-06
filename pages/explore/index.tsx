@@ -197,6 +197,7 @@ const Explore = () => {
       default:
         break
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exploreTab, availabilityFilter])
 
   useEffect(() => {
@@ -226,6 +227,7 @@ const Explore = () => {
       default:
         break
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAvailability, selectedMedium, selectedMarket, selectedSort])
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
@@ -584,6 +586,7 @@ const Explore = () => {
     if (isFetching === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   let pageTitle = 'Explore'

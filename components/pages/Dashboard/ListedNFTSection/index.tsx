@@ -184,6 +184,7 @@ const ListedNFTSection = props => {
       if (!isGetListedNFTs) setMyListedNFTs()
       getLiveEditions()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mx, isGetListedNFTs])
 
   const onCancelList = async ({ address, tradeStateAddress }: ListingsAPIData) => {
@@ -410,6 +411,7 @@ const ListedNFTSection = props => {
         setSelectedItem(filterList[2])
       }
     }, 500)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fixedPriceNFTs, liveAuctionNFTs, liveEditions, active])
 
   useEffect(() => {
@@ -447,6 +449,7 @@ const ListedNFTSection = props => {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   const searchNFT = key => {

@@ -33,6 +33,7 @@ const ArtistLayout: FC<ArtistLayoutProps> = ({ children }) => {
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

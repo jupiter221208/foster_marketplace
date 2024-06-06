@@ -91,6 +91,7 @@ const DaoLandingDetail = props => {
       let threshold = await getCurrentTurkeyNftCount()
       setThreshold(Math.trunc(threshold * 0.51))
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [proposalDetail, connected])
 
   const getEndDate = () => {
@@ -122,6 +123,7 @@ const DaoLandingDetail = props => {
     ])
 
     handleSelectedTab(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

@@ -81,6 +81,7 @@ const FollowModal = props => {
         reloadFollowing()
       }
     }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const reloadFollowing = () => {

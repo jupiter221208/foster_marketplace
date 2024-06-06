@@ -35,6 +35,7 @@ const MobileApparelFilter = props => {
         return
       }
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterName])
 
   const onChangeType = type => {

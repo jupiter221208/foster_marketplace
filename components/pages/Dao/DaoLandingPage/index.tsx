@@ -79,6 +79,7 @@ const DaoLandingPage = props => {
     getProposals(currentPage, rowCount)
 
     getStats()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -213,23 +214,6 @@ const DaoLandingPage = props => {
   const getProposals = async (curPage, count) => {
     try {
       let response = await axios.post('/api/dao/proposals', { page: curPage, rows: count })
-      // let response = {
-      //   data: {
-      //     success: true,
-      //     proposals: [
-      //       {
-      //         id: 2,
-      //         title: 'CBC Product 0531',
-      //         category: 'Product',
-      //         author: 'Nicholas',
-      //         vote_start: '2023-09-10 12:00:00',
-      //         vote_duration: 120,
-      //         total_votes: 300,
-      //         approved_votes: 240,
-      //       },
-      //     ],
-      //   },
-      // }
       if (response.data.success === true) {
         let proposals = response.data.proposals
         if (proposals.length > 0) {
