@@ -87,7 +87,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
-  const { connected } = useWallet()
+  const { connected, autoConnect } = useWallet()
   const { profileInfo } = useAuthentication()
   const dispatch = useDispatch()
   // const [showLoading, setShowLoading] = useState(true)
@@ -147,6 +147,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
+              console.log(response, '================1==============')
               setNftInfo(response)
               if (response.creator_address !== null) {
                 setArtistInfo({
@@ -161,9 +162,11 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       } else {
+        if (autoConnect) return
         await nftsAPI.get(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
+              console.log(response, '================2==============')
               setNftInfo(response)
               if (response.creator_address !== null) {
                 setArtistInfo({
@@ -189,7 +192,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     }
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nftDetail, profileInfo])
+  }, [connected])
 
   const collectionId = nftDetail?.collection?.address?.toString()
 
@@ -223,6 +226,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       await nftsAPI.getDetail(nftDetail.mintAddress).then(
         (response: any) => {
           if (!isString(response)) {
+            console.log('================3==============')
             setNftInfo(response)
             if (response.creator_address !== null) {
               setArtistInfo({
@@ -239,6 +243,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       await nftsAPI.get(nftDetail.mintAddress).then(
         (response: any) => {
           if (!isString(response)) {
+            console.log('================4==============')
             setNftInfo(response)
             if (response.creator_address !== null) {
               setArtistInfo({
