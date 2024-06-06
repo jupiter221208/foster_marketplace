@@ -113,7 +113,7 @@ import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
-import GreenButton from 'components/Button/GreenButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1478,7 +1478,7 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <GreenButton
+                          <GradientButton
                             fullWidth
                             label={'Update/Relist'}
                             onClick={() => {
@@ -1536,7 +1536,7 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <GreenButton
+                                <GradientButton
                                   fullWidth
                                   label="Buy Now"
                                   disabled={!tradeStateAddress}
@@ -1561,7 +1561,7 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <GreenButton
+                              <GradientButton
                                 label="Delist or Update"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
@@ -1686,7 +1686,7 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
-                                            <GreenButton
+                                            <GradientButton
                                               label="Place Bid"
                                               fullWidth
                                               disabled={
@@ -1768,7 +1768,7 @@ const MainSection = ({
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                               <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                              <GreenButton
+                              <GradientButton
                                 fullWidth
                                 label="Start Auction"
                                 onClick={() => {

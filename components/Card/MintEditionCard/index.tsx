@@ -10,7 +10,7 @@ import styles from './index.module.scss'
 
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import GreenButton from 'components/Button/GreenButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const MintEditionCard = props => {
   const {
@@ -227,7 +227,7 @@ const MintEditionCard = props => {
             {mintEditionLoading ? (
               <LoadingPrimaryButton fullWidth />
             ) : (
-              <GreenButton fullWidth label="Buy Now" disabled={mintQty === 0} onClick={() => mintEdition()} />
+              <GradientButton fullWidth label="Buy Now" disabled={mintQty === 0} onClick={() => mintEdition()} />
             )}
             {buyLimitAlert && (
               <div className={styles.buyLimitText}>A maximum of {buyLimit} editions can be minted per wallet</div>

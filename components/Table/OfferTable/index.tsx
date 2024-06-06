@@ -8,11 +8,8 @@ import { LazyBidWithAsset } from 'utils/auction.util'
 import { getNFTOwner } from 'utils/nfts.utils'
 
 // components
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
@@ -91,16 +88,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
               <div className={styles.button} onClick={() => onAccept(listing)}>
                 Accept
               </div>
-              // <GradientButton
-              //   label="Accept"
-              //   backgroundColor01="var(--main-icon-color)"
-              //   backgroundColor02="var(--main-icon-color)"
-              //   color="var(--background-main-color)"
-              //   onClick={() => onAccept(listing)}
-              //   gradientDirection="right"
-              //   width="138px"
-              //   height="48px"
-              // />
             )}
           </div>
         </div>

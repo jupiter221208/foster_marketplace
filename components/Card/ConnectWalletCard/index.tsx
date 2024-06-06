@@ -31,8 +31,6 @@ const ConnectWalletCard = props => {
       </div>
       <div className="w-full max-w-[152px] lg:max-w-[234px]">
         <GradientButton
-          backgroundColor01="#315251"
-          backgroundColor02="#53AEA7"
           direction="both"
           fontFamily="KCDurhamboxcar"
           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '21px' : '30px'}

@@ -8,10 +8,10 @@ import { useRouter } from 'next/router'
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import OutlineButton from 'components/Button/OutlineButton'
-import GradientButton from 'components/Button/GradientButton'
 import Chart from 'components/Chart'
 import Radio from 'components/Radio'
 import ViewChartSortModal from 'components/Modal/ViewChartSortModal'
+import BlackButton from 'components/Button/BlackButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -83,7 +83,7 @@ const ViewChart = () => {
               <div className={styles.subTitle}>({selectedChartType.label})</div>
             </div>
             <div className="hidden md:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
-              <GradientButton
+              <BlackButton
                 label="24 hrs"
                 onClick={() => handleChangeActive(0)}
                 color={active === 0 ? '#202427' : '#979EA2'}
@@ -91,7 +91,7 @@ const ViewChart = () => {
                 backgroundColor02={active === 0 ? '#2D625D' : 'transparent'}
                 gradientDirection="bottom"
               />
-              <GradientButton
+              <BlackButton
                 label="7 days"
                 onClick={() => handleChangeActive(1)}
                 color={active === 1 ? '#202427' : '#979EA2'}
@@ -99,7 +99,7 @@ const ViewChart = () => {
                 backgroundColor02={active === 1 ? '#2D625D' : 'transparent'}
                 gradientDirection="bottom"
               />
-              <GradientButton
+              <BlackButton
                 label="30 days"
                 onClick={() => handleChangeActive(2)}
                 color={active === 2 ? '#202427' : '#979EA2'}
@@ -107,7 +107,7 @@ const ViewChart = () => {
                 backgroundColor02={active === 2 ? '#2D625D' : 'transparent'}
                 gradientDirection="bottom"
               />
-              <GradientButton
+              <BlackButton
                 label="All Time"
                 onClick={() => handleChangeActive(3)}
                 color={active === 3 ? '#202427' : '#979EA2'}
@@ -139,7 +139,7 @@ const ViewChart = () => {
             <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />
           </div>
           <div className="flex md:hidden w-full justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] mt-[38px] mb-[200px] z-10">
-            <GradientButton
+            <BlackButton
               label="24 hrs"
               onClick={() => handleChangeActive(0)}
               color={active === 0 ? '#202427' : '#979EA2'}
@@ -147,7 +147,7 @@ const ViewChart = () => {
               backgroundColor02={active === 0 ? '#2D625D' : 'transparent'}
               gradientDirection="bottom"
             />
-            <GradientButton
+            <BlackButton
               label="7 days"
               onClick={() => handleChangeActive(1)}
               color={active === 1 ? '#202427' : '#979EA2'}
@@ -155,7 +155,7 @@ const ViewChart = () => {
               backgroundColor02={active === 1 ? '#2D625D' : 'transparent'}
               gradientDirection="bottom"
             />
-            <GradientButton
+            <BlackButton
               label="30 days"
               onClick={() => handleChangeActive(2)}
               color={active === 2 ? '#202427' : '#979EA2'}
@@ -163,7 +163,7 @@ const ViewChart = () => {
               backgroundColor02={active === 2 ? '#2D625D' : 'transparent'}
               gradientDirection="bottom"
             />
-            <GradientButton
+            <BlackButton
               label="All Time"
               onClick={() => handleChangeActive(3)}
               color={active === 3 ? '#202427' : '#979EA2'}

@@ -125,24 +125,6 @@ const NotificationSection = prop => {
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
-            {/* <Switch
-              title="Auction Won"
-              description="When you win an auction and the sale is settled by the owner"
-              enabled={auctionWon}
-              onChange={() => setAuctionWon(!auctionWon)}
-            />
-            <Switch
-              title="Successful Auctions"
-              description="When an auction you published ends with a winner"
-              enabled={auctionBid}
-              onChange={() => setAuctionBid(!auctionBid)}
-            />
-            <Switch
-              title="Expired Auctions"
-              description="When an auction you published ends without a winner"
-              enabled={auctionExpiration}
-              onChange={() => setAuctionExpiration(!auctionExpiration)}
-            /> */}
             <Switch
               title="Foster Newsletter"
               description="Occasional updates from the Foster team"

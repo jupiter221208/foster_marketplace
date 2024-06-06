@@ -46,13 +46,13 @@ import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
-import GradientButton from 'components/Button/GradientButton'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import BlackButton from 'components/Button/BlackButton'
 
 const Explore = () => {
   const router = useRouter()
@@ -651,7 +651,7 @@ const Explore = () => {
 
           <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-[15px] mt-[15px]">
             {exploreTab !== 2 && (
-              <GradientButton
+              <BlackButton
                 label="Filter"
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
@@ -669,7 +669,7 @@ const Explore = () => {
                 direction="rtl"
               />
             )}
-            <GradientButton
+            <BlackButton
               label="Sort"
               onClick={() => setOpenMobileSort(!openMobileSort)}
               fullWidth
