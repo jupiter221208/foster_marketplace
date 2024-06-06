@@ -31,7 +31,7 @@ import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?componen
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
-import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
+import ExploreMenuList from 'assets/json/explore-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
 
@@ -50,6 +50,7 @@ const PrimaryHeader = () => {
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
+  const { activeList, filterList, categoryList, performerList } = ExploreMenuList
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)

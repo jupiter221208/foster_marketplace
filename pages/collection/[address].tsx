@@ -40,7 +40,6 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
-  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
   // const isLoading = useSelector<any>(state => state.isLoading)
@@ -165,14 +164,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const successImporting = async () => {
     await getCollectionData()
     setShowEAPreview(false)
-    // collectionsAPI.getCollectionNft(address).then(
-    //   response => {
-    //     // router.reload()
-    //     setNfts(response)
-    //     setShowEAPreview(false)
-    //   },
-    //   error => {}
-    // )
   }
 
   useEffect(() => {

@@ -51,7 +51,6 @@ const SingleNft = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const createTab = useSelector<any>(state => state.createTab)
 
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -59,7 +58,6 @@ const SingleNft = () => {
   const [isMinting, setIsMinting] = useState(false)
 
   useEffect(() => {
-    // dispatch({ type: 'set', isLoading: false })
     setTimeout(() => {
       setScreenLoaded(true)
     }, 1000)
@@ -623,12 +621,6 @@ const SingleNft = () => {
                               maxHeight: 560,
                             }}
                           >
-                            {/* {nftImage !== '' && artWidth !== 0 && (
-                              <div className="absolute inset-0 flex justify-center items-center">
-                                <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                              </div>
-                            )} */}
-                            {/* {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />} */}
                             {nftImage !== '' && artWidth !== 0 && (
                               <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                             )}
