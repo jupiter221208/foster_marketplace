@@ -153,7 +153,6 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
-  const [loadedNftInfo, setLoadedNftInfo] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
@@ -191,7 +190,6 @@ const MainSection = ({
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
-  const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
   const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
@@ -232,7 +230,6 @@ const MainSection = ({
           ? 200
           : 300
       setDescCount(count)
-      console.log(screenWidth, count)
     }
 
     window.addEventListener('resize', handleResize)
@@ -279,7 +276,6 @@ const MainSection = ({
   const [editionType, setEditionType] =
     useState<'normal' | 'master_le' | 'master_oe' | 'print_le' | 'print_oe'>('normal')
   const [isEditionListing, setIsEditionListing] = useState(false)
-  const [editionListingData, setEditionListingData] = useState<any>()
   const [cancelListLoading, setCancelListLoading] = useState(false)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
@@ -517,7 +513,6 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
-      setLoadedNftInfo(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
@@ -597,7 +592,6 @@ const MainSection = ({
       response => {
         if (response && response.price.length > 0) {
           setIsEditionListing(true)
-          setEditionListingData(response)
           setPrice(getPriceValue(Number(response.price)))
           setNftPrice(parseFloat(getPriceValue(Number(response.price))))
         }
@@ -652,7 +646,6 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-      console.log(nftDetail, '========nftDetail==========')
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
@@ -973,7 +966,6 @@ const MainSection = ({
           }
         }),
           error => {
-            console.log(error)
             setOpenProgressingModal(false)
           }
       }
@@ -1011,7 +1003,6 @@ const MainSection = ({
             }
           },
           error => {
-            console.log(error)
             setOpenProgressingModal(false)
           }
         )
