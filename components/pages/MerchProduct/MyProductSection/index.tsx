@@ -53,6 +53,8 @@ const MyProductSection = props => {
     }
   }
 
+  console.log(imageList, '==========imageList===========')
+
   useEffect(() => {
     if (!productDetail) return
 
@@ -175,6 +177,7 @@ const MyProductSection = props => {
                 index={1}
                 image={imageList.length === 1 ? null : imageList[1]}
                 setImage={image => {
+                  if (!image) return
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)
@@ -192,6 +195,7 @@ const MyProductSection = props => {
                 index={2}
                 image={imageList.length === 2 ? null : imageList[2]}
                 setImage={image => {
+                  if (!image) return
                   let newList = [...imageList]
                   newList.push(image)
                   setImageList(newList)

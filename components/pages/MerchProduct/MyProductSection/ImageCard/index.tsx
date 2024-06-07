@@ -21,8 +21,9 @@ const ImageCard = props => {
           className={isSelected ? styles.selected : styles.noSelect}
           onMouseEnter={() => setShowDelete(true)}
           onMouseLeave={() => setShowDelete(false)}
+          onClick={() => onSelect(index)}
         >
-          <img src={image} alt="" className="w-full h-full object-cover" onClick={() => onSelect(index)} />
+          <img src={image} alt="" className="w-full h-full object-cover" />
           {showDelete && (
             <div className={styles.deleteArea}>
               <div
