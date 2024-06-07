@@ -16,16 +16,18 @@
     font-size: 18px;
     padding-left: 12px;
     padding-right: 12px;
+    color: rgba(var(--background-main-color-rgb), 0.8);
   }
   @media (min-width: 1536px) {
     height: 53px;
     font-size: 18px;
     padding-left: 16px;
     padding-right: 16px;
+    color: rgba(var(--background-main-color-rgb), 0.8);
   }
   font-weight: 100;
   letter-spacing: 0;
-  color: rgba(var(--background-main-color-rgb), 0.8);
+  color: rgba(var(--background-main-color-rgb), 1);
   background: var(--main-icon-color) !important;
   transition: box-shadow 0.2s;
   transition-timing-function: ease-in-out;
