@@ -10,7 +10,7 @@ import { toMetaplexFile } from '@metaplex-foundation/js'
 
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
-import SolIcon from 'assets/icons/solana-logo-dark-big.svg?component'
+import SolIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
 
@@ -271,18 +271,13 @@ const DaoLandingPage = props => {
               </div>
             </div>
           </div>
-          <div className={styles.landingTitle}>
-            CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
-            submitted and voted on by verified Turkey Circus holders.
-            <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>1 Turkey</span>
-            &nbsp;is required to submit proposals.
-          </div>
+
           <div className={styles.treasuryContainer}>
             <div>
               <div className={styles.treasuryLabel}>Treasury</div>
-              <div className="flex gap-[40px]">
-                <div className="flex gap-[15px] items-center">
-                  <SolIcon />
+              <div className="flex gap-[15px] mt-[10px]">
+                <div className="flex gap-[6px] items-center">
+                  <SolIcon className="mt-[2px]" />
                   <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
                 </div>
                 <div className={styles.treasuryDivider}></div>
@@ -291,12 +286,9 @@ const DaoLandingPage = props => {
                 </div>
               </div>
             </div>
-            <div className="max-w-[500px] flex gap-[45px] items-center">
-              <div className={styles.treasuryDivider}></div>
-              <div className={styles.treasuryDescription}>
-                This treasury exists for Circus DAO participants to allocate resources for the long-term growth and
-                prosperity of Foster Marketplace.
-              </div>
+            <div className={styles.landingTitle}>
+              CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
+              submitted and voted on by verified Turkey Circus holders.
             </div>
           </div>
         </div>
