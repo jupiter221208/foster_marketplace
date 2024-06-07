@@ -7,6 +7,7 @@ import styles from './index.module.scss'
 import DaoLiveButton from './DaoLiveButton'
 import DaoPendingButton from './DaoPendingButton'
 import DaoClosedButton from './DaoClosedButton'
+import { getLocalDateWithoutTime } from 'utils/helpers'
 
 const LandingTable = props => {
   const { data, onDetail } = props
@@ -78,7 +79,7 @@ const LandingTable = props => {
               <tr key={index}>
                 <div className={styles.tableRow}>
                   <div className={`w-[28%] pl-[30px] ${styles.text}`}>{item.title}</div>
-                  <div className={`w-[15%] text-center ${styles.text}`}>12/24/2022</div>
+                  <div className={`w-[15%] text-center ${styles.text}`}>{getLocalDateWithoutTime(item.vote_start)}</div>
                   <div className={`w-[12%] text-center ${styles.text}`}>{item.category}</div>
                   <div className={`w-[12%] text-center ${styles.text}`}>10</div>
                   <div className={`w-[20%] text-center ${styles.text}`}>{item.author}</div>

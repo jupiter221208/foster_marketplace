@@ -2,17 +2,72 @@
 
 .button {
   width: 100%;
+  border-radius: 15px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  overflow: hidden;
+}
+
+.top {
+  width: 100%;
   height: auto;
-  padding: 18px;
-  border-radius: 20px;
-  background: var(--dao-treasury-bg);
+  padding: 15px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.orderNumber {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
 }
 
 .proposal {
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   color: var(--text-gray-200-color);
+  margin-top: 2px;
+}
+
+.label {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.value {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.pending {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color); 
+}
+
+.closed {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75); 
+}
+
+.live {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--main-icon-color); 
 }
 
 .liveBtn {

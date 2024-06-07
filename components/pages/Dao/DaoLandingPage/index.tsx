@@ -374,7 +374,7 @@ const DaoLandingPage = props => {
         />
       </div>
 
-      <div className="mt-[54px]">
+      <div className="mt-[15px] lg:mt-[54px]">
         <TableSection
           data={proposals}
           onDetail={item => {
