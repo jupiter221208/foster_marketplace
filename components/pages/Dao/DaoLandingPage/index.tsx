@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -9,10 +9,10 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { toMetaplexFile } from '@metaplex-foundation/js'
 
 // images and icons
+import DAOLogoIcon from 'assets/icons/dao-logo-small.svg?component'
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 import SolIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import SolMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
+import SolMobileIcon from 'assets/icons/solana-logo-13x11.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -36,7 +36,6 @@ const DaoLandingPage = props => {
   const { turkyNfts, nftIsLoaded } = props
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const { metaplex } = useMetaplex()
@@ -248,7 +247,7 @@ const DaoLandingPage = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div>
           <div className="w-full flex justify-between items-start">
-            <DAOLogoMobile />
+            <DAOLogoIcon />
             <div className="flex gap-[15px] items-center">
               <div className="flex gap-[6px]">
                 <div className={styles.statsValue}>{totalCount}</div>
@@ -277,7 +276,7 @@ const DaoLandingPage = props => {
               <div className={styles.treasuryLabel}>Treasury</div>
               <div className="flex gap-[15px] mt-[10px]">
                 <div className="flex gap-[6px] items-center">
-                  <SolIcon className="mt-[2px]" />
+                  <SolMobileIcon className="mt-[2px]" />
                   <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
                 </div>
                 <div className={styles.treasuryDivider}></div>
@@ -295,63 +294,69 @@ const DaoLandingPage = props => {
       ) : (
         <div>
           <div className="flex justify-center">
-            <div className={styles.logo}>CircusDAO Dashboard</div>
-            {/* <DAOLogoMobile /> */}
-          </div>
-          <div className={styles.landingTitle}>
-            In order to participate in CircusDAO governance, you must hold at least one turkey.
-          </div>
-
-          <div className="w-full flex flex-wrap gap-[5px] mt-[22px]">
-            <div className="w-full flex gap-[5px]">
-              <div className={styles.statsBG}>
-                <div className={styles.statsValue}>{totalCount}</div>
-                <div className={styles.statsTitle}>ALL</div>
-              </div>
-              <div className={styles.statsBG}>
-                <div className={styles.statsValue}>{liveCount}</div>
-                <div className={styles.statsTitle}>LIVE</div>
-              </div>
-            </div>
-            <div className="w-full flex gap-[5px]">
-              <div className={styles.statsBG}>
-                <div className={styles.statsValue}>{pendingCount}</div>
-                <div className={styles.statsTitle}>PENDING</div>
-              </div>
-              <div className={styles.statsBG}>
-                <div className={styles.statsValue}>{closedCount}</div>
-                <div className={styles.statsTitle}>CLOSED</div>
-              </div>
-            </div>
+            <DAOLogoMobile />
           </div>
 
           <div className={styles.treasuryContainer}>
-            <div className={styles.treasuryLabel}>Treasury</div>
-            <div className="flex gap-[10px] mt-[10px]">
-              <div className="flex gap-[10px] items-center">
-                <SolMobileIcon />
-                <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
-              </div>
-              <div className={styles.treasuryDivider}></div>
-              <div className="flex items-center">
-                <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+            <div>
+              <div className={styles.treasuryLabel}>Treasury</div>
+              <div className="flex gap-[15px] mt-[10px]">
+                <div className="flex gap-[6px] items-center">
+                  <SolIcon className="mt-[2px]" />
+                  <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
+                </div>
+                <div className={styles.treasuryDivider}></div>
+                <div className="flex items-center">
+                  <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+                </div>
               </div>
             </div>
-            <div className={styles.treasuryDescription}>
-              This treasury exists for Circus DAO participants to allocate resources for the long-term growth and
-              prosperity of Foster Marketplace.
+            <div className={styles.landingTitle}>
+              CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
+              submitted and voted on by verified Turkey Circus holders.
+            </div>
+          </div>
+
+          <div className="w-full flex flex-wrap gap-[5px] mt-[30px]">
+            <div className="w-full flex gap-[5px]">
+              <div className={styles.statsBG}>
+                <div>
+                  <div className={styles.statsValue}>{totalCount}</div>
+                  <div className={styles.statsTitle}>ALL</div>
+                </div>
+              </div>
+              <div className={styles.statsBG}>
+                <div>
+                  <div className={styles.statsValue}>{liveCount}</div>
+                  <div className={styles.statsTitle}>LIVE</div>
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex gap-[5px]">
+              <div className={styles.statsBG}>
+                <div>
+                  <div className={styles.statsValue}>{pendingCount}</div>
+                  <div className={styles.statsTitle}>PENDING</div>
+                </div>
+              </div>
+              <div className={styles.statsBG}>
+                <div>
+                  <div className={styles.statsValue}>{closedCount}</div>
+                  <div className={styles.statsTitle}>CLOSED</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       )}
-      <div className="w-full hidden lg:mt-[77px] lg:flex justify-between">
+      <div className="w-full hidden lg:mt-[30px] lg:flex justify-between">
         <StatsSearchBox
           value={searchWord}
           placeholder="Search by proposal name"
           onChange={value => setSearchWord(value)}
         />
         <div className={styles.submitProposal} onClick={() => onClickSubmitBtn()}>
-          <NotificationIcon />
+          {/* <NotificationIcon /> */}
           <div className={styles.submitText}>Submit Proposal</div>
         </div>
       </div>
@@ -369,7 +374,7 @@ const DaoLandingPage = props => {
         />
       </div>
 
-      <div className="mt-[20px]">
+      <div className="mt-[54px]">
         <TableSection
           data={proposals}
           onDetail={item => {
@@ -377,7 +382,7 @@ const DaoLandingPage = props => {
           }}
         />
       </div>
-      <div className="w-full flex justify-end">
+      {/* <div className="w-full flex justify-end">
         <ExplorePagination
           currentPage={currentPage}
           totalCount={totalCount}
@@ -388,7 +393,8 @@ const DaoLandingPage = props => {
           handleNext={handleNextPage}
           handlePrev={handlePreviousPage}
         />
-      </div>
+      </div> */}
+      <div className="w-full h-[100px]" />
       <DaoSubmitModal
         data={{}}
         open={showDaoSubmitModal}
