@@ -13,12 +13,12 @@
 }
 
 .statsTitle {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 12px;
   line-height: 24px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 20px;
   }
   text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
@@ -27,13 +27,11 @@
 .statsValue {
   font-family: 'Muli-SemiBold';
   font-size: 18px;
-  line-height: 20px;
-  margin-top: 9px;
+  font-weight: 100;
+  line-height: 22px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 22px;
-    line-height: 28px;
-    margin-top: 15px;
+    font-size: 16px;
+    line-height: 20px;
   }
   text-align: center;
   color: var(--text-gray-200-color);
@@ -41,8 +39,8 @@
 
 .divider {
   width: 1px;
-  height: 53px;
-  margin-top: 7px;
+  height: 20px;
+  margin-top: 2px;
   background: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 

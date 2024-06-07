@@ -247,33 +247,33 @@ const DaoLandingPage = props => {
     <div className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div>
-          <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between items-start">
             <DAOLogoMobile />
-            <div className="flex gap-[25px]">
-              <div>
-                <div className={styles.statsTitle}>All</div>
+            <div className="flex gap-[15px] items-center">
+              <div className="flex gap-[6px]">
                 <div className={styles.statsValue}>{totalCount}</div>
+                <div className={styles.statsTitle}>All</div>
               </div>
               <div className={styles.divider}></div>
-              <div>
-                <div className={styles.statsTitle}>Live</div>
+              <div className="flex gap-[6px]">
                 <div className={styles.statsValue}>{liveCount}</div>
+                <div className={styles.statsTitle}>Live</div>
               </div>
               <div className={styles.divider}></div>
-              <div>
-                <div className={styles.statsTitle}>Pending</div>
+              <div className="flex gap-[6px]">
                 <div className={styles.statsValue}>{pendingCount}</div>
+                <div className={styles.statsTitle}>Pending</div>
               </div>
               <div className={styles.divider}></div>
-              <div>
-                <div className={styles.statsTitle}>Closed</div>
+              <div className="flex gap-[6px]">
                 <div className={styles.statsValue}>{closedCount}</div>
+                <div className={styles.statsTitle}>Closed</div>
               </div>
             </div>
           </div>
           <div className={styles.landingTitle}>
-            CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus
-            DAO members can vote on proposals.
+            CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
+            submitted and voted on by verified Turkey Circus holders.
             <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>1 Turkey</span>
             &nbsp;is required to submit proposals.
           </div>
