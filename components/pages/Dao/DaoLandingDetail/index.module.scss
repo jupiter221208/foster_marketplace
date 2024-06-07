@@ -63,14 +63,9 @@
 }
 
 .backText {
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
-    font-size: 24px;
-    line-height: 30px;
-  }
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 30px;
   color: var(--text-gray-200-color);
 }
 
@@ -90,9 +85,9 @@
 }
 
 .proposalText {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 23px;
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 25px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
     font-size: 18px;
@@ -102,9 +97,10 @@
 }
 
 .proposedBy {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 16px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
@@ -113,12 +109,11 @@
 }
 
 .proposedText {
-  font-family: 'Muli-Bold';
-  font-size: 12px;
-  line-height: 16px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
   margin-left: 4px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
     font-size: 16px;
     line-height: 20px;
     margin-left: 10px;
@@ -143,9 +138,9 @@
 
 .totalVotes {
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 100;
-  height: 20px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 16px;
     height: 20px;
@@ -165,10 +160,10 @@
 }
 
 .approvedValue {
-  font-family: 'Muli-ExtraBold';
-  font-size: 18px;
-  height: 23px;
-  margin-top: 3px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  height: 20px;
+  margin-top: 5px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 20px;
@@ -179,12 +174,12 @@
 }
 
 .approvedPercent {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 16px;
-  height: 24px;
-  margin-top: 3px;
+  line-height: 20px;
+  font-weight: 100;
+  margin-top: 5px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Regular';
     font-size: 20px;
     height: 25px;
     margin-top: 9px;
@@ -198,7 +193,7 @@
   width: 100%;
   height: auto;
   border-radius: 12px;
-  padding: 21px 21px;
+  padding: 20px 16px;
   @media (min-width: 1024px) {
     display: flex;
     border-radius: 15px;
@@ -234,12 +229,12 @@
 .thresholdCurrent {
   font-family: 'Muli-Regular';
   font-size: 16px;
+  font-weight: 100;
   height: 20px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
   }
-
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: center;
 }
@@ -279,8 +274,8 @@
 
 .description {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
@@ -306,7 +301,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   font-weight: 100;
-  line-height: 26px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;

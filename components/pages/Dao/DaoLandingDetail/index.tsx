@@ -13,7 +13,6 @@ import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 
 // images and icons
-import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 
@@ -34,6 +33,7 @@ import axios from 'axios'
 import TableSection from './TableSection'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -53,7 +53,6 @@ const DaoLandingDetail = props => {
   const { connected, publicKey, signTransaction } = useWallet()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
-
   const [isLoading, setIsLoading] = useState(false)
   const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -261,9 +260,9 @@ const DaoLandingDetail = props => {
     <div className={styles.container}>
       <div className="flex mt-[20px] lg:mt-[100px] items-center justify-between">
         <div className="flex gap-[11px] items-center">
-          <BackIcon />
+          <BackIcon onClick={onBack} />
           <div className={styles.backText}>Proposal {proposalDetail.id}</div>
-          <div className="hidden lg:flex ml-[10px]">
+          <div className="ml-[4px] lg:ml-[10px]">
             <div className={styles.button}>
               {proposalDetail.status === 'pending' ? (
                 <div className={styles.pendingText}>Pending</div>
@@ -292,10 +291,10 @@ const DaoLandingDetail = props => {
         </div>
       </div>
 
-      <div className="flex mt-[6px] lg:mt-[45px] justify-between">
+      <div className="flex mt-[22px] lg:mt-[45px] justify-between">
         <div className={styles.proposalText}>{proposalDetail.title}</div>
       </div>
-      <div className="hidden lg:flex lg:mt-[15px]">
+      <div className="flex mt-[7px] lg:mt-[15px]">
         <div className={styles.proposedBy}>Proposed by</div>
         <Link href={`/${proposalDetail.author}`} passHref>
           <a>
@@ -304,19 +303,10 @@ const DaoLandingDetail = props => {
         </Link>
       </div>
 
-      <div className="flex lg:hidden mt-[6px] justify-between items-center">
-        <div className="flex">
-          <div className={styles.proposedBy}>Proposed by</div>
-          <div className={styles.proposedText}>{proposalDetail.author}</div>
-        </div>
-      </div>
-
       <div className="lg:hidden mt-[20px]">
         <GradientButton
           fullWidth
-          fontSize={12}
-          width={101}
-          height={35}
+          height={45}
           disabled={disabledVote}
           label="Cast Vote"
           borderRadius={8}
@@ -324,7 +314,7 @@ const DaoLandingDetail = props => {
         />
       </div>
 
-      <div className="mt-[32px] lg:mt-[43px]">
+      <div className="mt-[20px] lg:mt-[43px]">
         <div className="w-full flex justify-between">
           <div className={styles.totalVotes}>Total Votes</div>
           <div className={styles.totalVotes}>({proposalDetail.total_votes}/3200)</div>
@@ -349,7 +339,7 @@ const DaoLandingDetail = props => {
               {proposalDetail.total_votes === 0 ? '0%' : `${approvedRatio} %`}
             </div>
           </div>
-          <div>
+          <div className="text-end">
             <div className={styles.approvedText}>Opposed</div>
             <div className={styles.approvedValue}>{proposalDetail.opposed_votes}</div>
             <div className={styles.approvedPercent}>
@@ -394,22 +384,22 @@ const DaoLandingDetail = props => {
 
       {activeTab === 0 ? (
         <div>
-          <div className="mt-[24px] lg:mt-[30px]">
+          <div className="mt-[12px] lg:mt-[30px]">
             <div className={styles.description}>Overview</div>
             <div className={styles.descriptionText}>{proposalDetail.overview}</div>
           </div>
-          <div className="mt-[30px] lg:mt-[25px]">
+          <div className="mt-[20px] lg:mt-[25px]">
             <div className={styles.description}>Goals & Metrics</div>
             <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
           </div>
-          <div className="mt-[30px] lg:mt-[25px]">
+          <div className="mt-[20px] lg:mt-[25px]">
             <div className={styles.description}>Estimated Treasury Spending</div>
-            <div className="mt-[15px] lg:mt-[7px] w-full flex items-center gap-[6px]">
-              <SolMobileIcon className="mt-[3 px]" />
+            <div className="mt-[5px] lg:mt-[7px] w-full flex items-center gap-[6px]">
+              <SolMobileIcon className="mt-[3px]" />
               <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
             </div>
           </div>
-          <div className="mt-[25px]">
+          <div className="mt-[20px]">
             <div className={styles.description}>Estimated Timeline</div>
             <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
           </div>
