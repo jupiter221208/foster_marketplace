@@ -9,7 +9,7 @@ const webpack = require('webpack')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   env: {
     WALLET_ADAPTER_NETWORK: process.env.WALLET_ADAPTER_NETWORK,
     BUNDLR_ADDRESS: process.env.BUNDLR_ADDRESS,

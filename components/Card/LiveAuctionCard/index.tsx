@@ -25,6 +25,7 @@ const LiveAuctionCard = props => {
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
+  const [hover, setHover] = useState(false)
 
   useEffect(() => {
     if (
@@ -76,7 +77,7 @@ const LiveAuctionCard = props => {
     }
   }
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <div className={styles.container}>
         <div className={styles.profileContainer}>
           <div className="max-w-[70%]">
@@ -207,7 +208,7 @@ const LiveAuctionCard = props => {
           </div>
         </div>
 
-        <div className={styles.bidContainer}>
+        <div className={`${styles.bidContainer} ${hover ? styles.bottomHover : ''}`}>
           <div className={styles.bidContentView}>
             <div className="w-full flex justify-between">
               <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>

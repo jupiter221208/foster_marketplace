@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
-import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { getDisplayUserName, getShortAddress } from 'utils/strings'
 

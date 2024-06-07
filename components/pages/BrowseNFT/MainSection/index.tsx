@@ -113,7 +113,7 @@ import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
-import GreenButton from 'components/Button/GreenButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -153,7 +153,6 @@ const MainSection = ({
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
-  const [loadedNftInfo, setLoadedNftInfo] = useState(false)
   const [reservedPrice, setReservedPrice] = useState(0)
   const [highestBidAmount, setHighestBidAmount] = useState(0)
   const [minBidIncrement, setMinBidIncrement] = useState<number>(0)
@@ -191,7 +190,6 @@ const MainSection = ({
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [auctionInfoFocus, setAuctionInfoFocus] = useState(false)
-  const [merchHover, setMerchHover] = useState(false)
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
   const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
@@ -232,7 +230,6 @@ const MainSection = ({
           ? 200
           : 300
       setDescCount(count)
-      console.log(screenWidth, count)
     }
 
     window.addEventListener('resize', handleResize)
@@ -279,7 +276,6 @@ const MainSection = ({
   const [editionType, setEditionType] =
     useState<'normal' | 'master_le' | 'master_oe' | 'print_le' | 'print_oe'>('normal')
   const [isEditionListing, setIsEditionListing] = useState(false)
-  const [editionListingData, setEditionListingData] = useState<any>()
   const [cancelListLoading, setCancelListLoading] = useState(false)
 
   const minBidAmount = highestBidAmount > 0 ? highestBidAmount + minBidIncrement : reservedPrice
@@ -517,7 +513,6 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
-      setLoadedNftInfo(true)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
@@ -597,7 +592,6 @@ const MainSection = ({
       response => {
         if (response && response.price.length > 0) {
           setIsEditionListing(true)
-          setEditionListingData(response)
           setPrice(getPriceValue(Number(response.price)))
           setNftPrice(parseFloat(getPriceValue(Number(response.price))))
         }
@@ -652,7 +646,6 @@ const MainSection = ({
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
-
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.mintAddress))
       setSellerAddress(tokenAccount.owner)
 
@@ -973,7 +966,6 @@ const MainSection = ({
           }
         }),
           error => {
-            console.log(error)
             setOpenProgressingModal(false)
           }
       }
@@ -1011,7 +1003,6 @@ const MainSection = ({
             }
           },
           error => {
-            console.log(error)
             setOpenProgressingModal(false)
           }
         )
@@ -1270,15 +1261,12 @@ const MainSection = ({
 
               <div className={`${styles.iconContainer} w-[87px]`}>
                 <div className="flex items-center gap-[9px]">
-                  <MenuSocialShare
-                    type="nft"
-                    vote={share}
-                    setVote={setShare}
-                    voteCount={shareCount}
-                    setVoteCount={setShareCount}
-                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                    url={`/nft/${id}`}
-                  />
+                  <div className={`${styles.iconContainer} w-[87px] gap-[9px]`} onClick={() => setOpenShareModal(true)}>
+                    <div>
+                      <ShareSmallIcon alt="" />
+                    </div>
+                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                  </div>
                 </div>
               </div>
 
@@ -1478,7 +1466,7 @@ const MainSection = ({
                     {isEditionListing ? (
                       isOwnNft === true ? (
                         <div className="w-full lg:mt-[10px]">
-                          <GreenButton
+                          <GradientButton
                             fullWidth
                             label={'Update/Relist'}
                             onClick={() => {
@@ -1536,7 +1524,7 @@ const MainSection = ({
                           {(isOwnNft === false || isOwnNft === null) && (
                             <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
-                                <GreenButton
+                                <GradientButton
                                   fullWidth
                                   label="Buy Now"
                                   disabled={!tradeStateAddress}
@@ -1561,7 +1549,7 @@ const MainSection = ({
 
                           {isOwnNft === true ? (
                             <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
-                              <GreenButton
+                              <GradientButton
                                 label="Delist or Update"
                                 fullWidth
                                 onClick={() => setShowUpdateListNFTModal(true)}
@@ -1686,7 +1674,7 @@ const MainSection = ({
                                           {auctionLoading ? (
                                             <LoadingPrimaryButton fullWidth height={50} />
                                           ) : (
-                                            <GreenButton
+                                            <GradientButton
                                               label="Place Bid"
                                               fullWidth
                                               disabled={
@@ -1768,7 +1756,7 @@ const MainSection = ({
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
                               <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
-                              <GreenButton
+                              <GradientButton
                                 fullWidth
                                 label="Start Auction"
                                 onClick={() => {

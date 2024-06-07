@@ -648,9 +648,6 @@ const MerchDTGSection = props => {
                     fullWidth
                     height={50}
                     fontSize={18}
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
                     label="Save"
                     onClick={() => saveApparel()}
                     disabled={assetUrl === null}
@@ -966,9 +963,6 @@ const MerchDTGSection = props => {
                       fullWidth
                       height={50}
                       fontSize={18}
-                      backgroundColor01="var(--main-icon-color)"
-                      backgroundColor02="var(--main-icon-color)"
-                      color="var(--background-main-color)"
                       label="Save"
                       onClick={() => saveApparel()}
                       disabled={assetUrl === null}
@@ -1029,9 +1023,6 @@ const MerchDTGSection = props => {
                         fullWidth
                         height={50}
                         fontSize={18}
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
-                        color="var(--background-main-color)"
                         label="Save"
                         onClick={() => {
                           if (curPercentage > 0) setCurPercentage(0)

@@ -6,14 +6,19 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 
-const GreenButton = props => {
+const BlackButton = props => {
   const {
     label,
     onClick,
     fullWidth,
+    color = '',
+    backgroundColor,
+    backgroundColor01 = 'var(--primary-btn-bg)',
+    backgroundColor02 = 'var(--primary-btn-bg)',
     width = '',
     height = '',
     direction = 'ltr',
+    gradientDirection = 'left',
     icon = '',
     icon1 = '',
     fontFamily,
@@ -22,6 +27,9 @@ const GreenButton = props => {
     borderWidth = '1px',
     borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',
     disabled = false,
+    paddingLeft = '',
+    paddingRight = '',
+    opacity = 1,
   } = props
 
   return (
@@ -31,12 +39,19 @@ const GreenButton = props => {
       className={`${styles.container} min-w-max ${disabled ? styles.disabledBtn : styles.hoverBtn}`}
       style={{
         width: fullWidth ? '100%' : width,
+        color: color,
+        background: backgroundColor
+          ? 'var(--primary-btn-bg)'
+          : `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
         fontFamily: fontFamily,
         fontSize: fontSize,
         borderRadius: borderRadius,
         borderWidth: borderWidth,
         borderColor: borderColor,
+        paddingLeft: paddingLeft,
+        paddingRight: paddingRight,
+        opacity: opacity,
       }}
     >
       {(direction === 'both' || direction === 'rtl') &&
@@ -64,4 +79,4 @@ const GreenButton = props => {
   )
 }
 
-export default GreenButton
+export default BlackButton

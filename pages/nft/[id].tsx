@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
@@ -6,14 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import type { OriginalEditionAccountData, PrintEditionAccountData } from '@metaplex-foundation/js'
-import {
-  Metaplex,
-  toOriginalEditionAccount,
-  toOriginalOrPrintEditionAccount,
-  toNftOriginalEdition,
-} from '@metaplex-foundation/js'
-import { Key } from '@metaplex-foundation/mpl-token-metadata'
+import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -78,7 +71,6 @@ export interface BrowseNFTProps {
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const viewport = useViewport()
   const nftType = (nftDetail?.category as string) ?? 'image'
-  const isLoading = useSelector<any>(state => state.isLoading)
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
   const [categories, setCategories] = useState(getNFTCategories(nftDetail))
@@ -87,10 +79,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [nftInfo, setNftInfo] = useState<NftData>()
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
-  const { connected } = useWallet()
-  const { profileInfo } = useAuthentication()
+  const { connected, autoConnect } = useWallet()
   const dispatch = useDispatch()
-  // const [showLoading, setShowLoading] = useState(true)
   const [showAuctionSection, setShowAuctionSection] = useState(false)
   const [merchToggle, setMerchToggle] = useState(false)
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -107,10 +97,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     dispatch({ type: 'set', isLoading: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  // useEffect(() => {
-  //   if (isLoading === false) setShowLoading(false)
-  // }, [isLoading])
 
   useEffect(() => {
     if (detailShow === true) {
@@ -137,12 +123,10 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detailShow, apparelType])
 
-  const [key, setKey] = useState('')
-
   useEffect(() => {
     const fetchData = async () => {
       if (!nftDetail) return
-      setKey(nftDetail.mintAddress.toString())
+
       if (connected) {
         await nftsAPI.getDetail(nftDetail.mintAddress).then(
           (response: any) => {
@@ -161,6 +145,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       } else {
+        if (autoConnect) return
         await nftsAPI.get(nftDetail.mintAddress).then(
           (response: any) => {
             if (!isString(response)) {
@@ -189,7 +174,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     }
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nftDetail, profileInfo])
+  }, [connected])
 
   const collectionId = nftDetail?.collection?.address?.toString()
 
@@ -378,7 +363,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               <div className={styles.mainBG}>
                 <div className="g-container">
                   <MainSection
-                    key={key}
+                    key={nftDetail.mintAddress.toString()}
                     nftDetail={nftDetail}
                     editionDetail={editionDetail}
                     nftInfo={nftInfo}
@@ -469,8 +454,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         </div>
       )}
-
-      {/* <FullScreenLoadingModal open={showLoading} /> */}
     </div>
   )
 }
@@ -504,7 +487,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
 
     let nftDetail = (await getNftFromDAS(metaplex, query.id)) ?? (await getNftFromRpc(metaplex, query.id))
-
     let editionDetail: EditionDetail = {
       print: nftDetail.supply?.edition && { number: nftDetail.supply?.edition },
       supply: nftDetail.supply?.current,

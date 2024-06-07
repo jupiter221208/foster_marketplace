@@ -46,13 +46,13 @@ import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
-import GradientButton from 'components/Button/GradientButton'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import BlackButton from 'components/Button/BlackButton'
 
 const Explore = () => {
   const router = useRouter()
@@ -113,18 +113,6 @@ const Explore = () => {
       setIsMounted(true)
     }, 1000)
   }, [])
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log(availabilityFilter, '===================availabilityFilter222==============')
-  //     dispatch({ type: 'set', availabilityFilter: 3 })
-  //     dispatch({ type: 'set', collectionSort: '' })
-  //     dispatch({ type: 'set', artistSort: '' })
-  //     dispatch({ type: 'set', artworkSort: '' })
-  //     dispatch({ type: 'set', collectionCategory: '' })
-  //     dispatch({ type: 'set', artworkCategory: '' })
-  //   }
-  // }, [])
 
   useEffect(() => {
     setIsMounted(false)
@@ -476,7 +464,9 @@ const Explore = () => {
   }
 
   const handleNextPage = () => {
-    if (nftList.length === 0) return
+    if (exploreTab === 0 && nftList.length === 0) return
+    if (exploreTab === 1 && collectionList.length === 0) return
+    if (exploreTab === 2 && ecosystemList.length === 0) return
 
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
@@ -651,7 +641,7 @@ const Explore = () => {
 
           <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-[15px] mt-[15px]">
             {exploreTab !== 2 && (
-              <GradientButton
+              <BlackButton
                 label="Filter"
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
@@ -669,7 +659,7 @@ const Explore = () => {
                 direction="rtl"
               />
             )}
-            <GradientButton
+            <BlackButton
               label="Sort"
               onClick={() => setOpenMobileSort(!openMobileSort)}
               fullWidth

@@ -11,14 +11,9 @@ const GradientButton = props => {
     label,
     onClick,
     fullWidth,
-    color = '',
-    backgroundColor,
-    backgroundColor01 = 'var(--primary-btn-bg)',
-    backgroundColor02 = 'var(--primary-btn-bg)',
     width = '',
     height = '',
     direction = 'ltr',
-    gradientDirection = 'left',
     icon = '',
     icon1 = '',
     fontFamily,
@@ -39,10 +34,6 @@ const GradientButton = props => {
       className={`${styles.container} min-w-max ${disabled ? styles.disabledBtn : styles.hoverBtn}`}
       style={{
         width: fullWidth ? '100%' : width,
-        color: color,
-        background: backgroundColor
-          ? 'var(--primary-btn-bg)'
-          : `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
         fontFamily: fontFamily,
         fontSize: fontSize,

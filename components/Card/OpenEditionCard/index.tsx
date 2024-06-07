@@ -305,9 +305,6 @@ const OpenEditionCard = ({ data }) => {
                 <div className="flex justify-end">
                   <GradientButton
                     label="Buy Edition"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
                     borderRadius={25}
                     width={140}
                     height={50}

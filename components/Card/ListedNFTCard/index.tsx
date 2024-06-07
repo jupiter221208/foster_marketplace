@@ -5,7 +5,6 @@ import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
 import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
 // styles
@@ -22,7 +21,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { useDispatch } from 'react-redux'
-import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 

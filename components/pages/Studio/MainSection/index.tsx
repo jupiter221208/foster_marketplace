@@ -22,10 +22,6 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // images and icons
 import StudioClothBG from 'assets/images/studio-cloth-bg.png'
 import StudioCloth from 'assets/images/studio-cloth.png'
-import WorldWide from 'assets/icons/studio-world.svg?component'
-import EasyCheckout from 'assets/icons/studio-checkout.svg?component'
-import QualityThreads from 'assets/icons/studio-quality.svg?component'
-import Monetization from 'assets/icons/studio-monetization.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -82,34 +78,6 @@ const MainSection = ({ onChange, heroValue }) => {
     { label: `Women's Tees`, name: `Women's Short Sleeve`, selected: false },
   ])
 
-  // const onSelected = data => {
-  //   let newItems = []
-  //   items.map(item => {
-  //     if (data.name === item.name) {
-  //       newItems.push({ label: item.label, name: item.name, selected: true })
-  //     } else {
-  //       newItems.push({ label: item.label, name: item.name, selected: false })
-  //     }
-  //   })
-  //   setItems(newItems)
-
-  //   StudioApparelList.map(item => {
-  //     if (item.name === data.name) {
-  //       onChange({
-  //         selected: true,
-  //         data: item,
-  //       })
-  //       dispatch({ type: 'set', apparelType: item.name })
-  //     }
-  //     setTimeout(() => {
-  //       window.scrollTo({
-  //         top: window.innerHeight - 140,
-  //         behavior: 'smooth',
-  //       })
-  //     }, 1000)
-  //   })
-  // }
-
   return (
     <section id="main-section" className={styles.container}>
       <div className="g-container w-full h-full z-10">
@@ -152,67 +120,8 @@ const MainSection = ({ onChange, heroValue }) => {
               </div>
             </div>
           </div>
-          {/* <div className="w-full flex justify-center">
-            <div className="flex gap-[25px] mt-[244px]">
-              {items.map((item, index) => (
-                <div
-                  key={index}
-                  className={item.selected ? styles.selected : styles.unselected}
-                  onClick={() => onSelected(item)}
-                >
-                  {item.label}
-                </div>
-              ))}
-            </div>
-          </div> */}
-          {/* <div className="hidden lg:flex w-full justify-around mt-[75px] gap-[20px]">
-            {studioHeroList.map((item, index) => (
-              <div key={index}>
-                <StudioCard data={item} onSelected={onSelected} value={heroValue} />
-              </div>
-            ))}
-          </div>
-          <div className="lg:hidden w-full flex flex-wrap gap-[16px] mt-[16px]">
-            {studioHeroList.map((item, index) => (
-              <div key={index}>
-                <StudioCard data={item} onSelected={onSelected} value={heroValue} />
-              </div>
-            ))}
-          </div> */}
-          {/* <div className="w-full mt-[58px] flex gap-[20px] block lg:hidden">
-            <GradientButton
-              fontSize={16}
-              fontFamily="Muli-SemiBold"
-              fullWidth
-              height={45}
-              label="Start Earning"
-              onClick={() => {
-                if (!connected) {
-                  setVisible(true)
-                  return
-                }
-                dispatch({ type: 'set', activeTab: 1 })
-                router.push(`/merch-logs`)
-              }}
-            />
-            <OutlineButton
-              fullWidth
-              height={45}
-              fontFamily="Muli-SemiBold"
-              borderColor="var(--follow-btn-border-mobile)"
-              label="Dashboard"
-              onClick={() => {
-                if (!connected) {
-                  setVisible(true)
-                  return
-                }
-                router.push(`/merch-logs`)
-              }}
-            />
-          </div> */}
         </div>
       </div>
-      {/* <div className={styles.gradient}></div> */}
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )

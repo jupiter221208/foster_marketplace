@@ -8,7 +8,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/three-dot-icon.svg?component'
 import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
 
 // styles
@@ -20,12 +19,10 @@ import ImageWithFoster from 'components/ImageWithFoster'
 // api
 import { revokeDelegateEdition } from 'utils/editions'
 import { cancelListingEdition } from 'apis/editions'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
-import LoadingButton from 'components/Button/LoadingButton'
 import LoadingDashboardButton from 'components/Button/LoadingDashboardButton'
 import GradientButton from 'components/Button/GradientButton'
 
@@ -129,15 +126,7 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
             </div>
             <div className={styles.bottomBtn}>
               <div className="w-full hidden lg:flex flex-wrap gap-[8px] mt-[15px]">
-                <GradientButton
-                  backgroundColor01="var(--main-icon-color)"
-                  backgroundColor02="var(--main-icon-color)"
-                  color="var(--background-main-color)"
-                  label="Update or Relist"
-                  type="update-relist"
-                  onClick={() => onUpdateList()}
-                  fullWidth
-                />
+                <GradientButton label="Update or Relist" onClick={() => onUpdateList()} fullWidth />
                 {cancelListLoading ? (
                   <LoadingSecondaryButton fullWidth />
                 ) : (
