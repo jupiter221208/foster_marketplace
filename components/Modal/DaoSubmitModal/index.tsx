@@ -184,7 +184,7 @@ const DaoSubmitModal = props => {
               <Dialog.Panel className={styles.modalView}>
                 <div className="w-full hidden lg:flex gap-[70px]">
                   <div className="w-[50%]">
-                    <div className={styles.title}>DAO Proposal Submission</div>
+                    <div className={styles.title}>Submit Proposal</div>
                     <div className="mt-[22px]">
                       <div className={styles.text}>Category</div>
                       <div className="w-full mt-[12px]">
@@ -204,6 +204,8 @@ const DaoSubmitModal = props => {
                           placeholder="Give your proposal name"
                           label=""
                           fullWidth
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           onChange={value => setTitle(limit(value, 45))}
                           height="46px"
                         />
@@ -217,19 +219,23 @@ const DaoSubmitModal = props => {
                           placeholder="Provide a detailed explanation of your proposal, how it will be implemented, and who will be responsible for its execution."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           onChange={value => setOverview(limit(value, 5000))}
                           height="90px"
                         />
                       </div>
                     </div>
                     <div className="mt-[22px]">
-                      <div className={styles.text}>Goals & Metrics</div>
+                      <div className={styles.text}>Goals/Evaluation Metrics</div>
                       <div className="mt-[12px]">
                         <Textarea
                           value={goal}
                           placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?"
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           onChange={value => setGoal(value)}
                           height={172}
                         />
@@ -237,8 +243,8 @@ const DaoSubmitModal = props => {
                     </div>
                   </div>
                   <div className="w-[50%] relative">
-                    <div className="mt-[96px]">
-                      <div className={styles.text}>Treasury Spending</div>
+                    <div className="mt-[50px]">
+                      <div className={styles.text}>Treasury Spending Required</div>
                       <div className={styles.treasuryContainer}>
                         <div className="ml-4">
                           <SolanaLogoIcon />
@@ -250,6 +256,7 @@ const DaoSubmitModal = props => {
                             label=""
                             type="number"
                             color={'var(--text-gray-200-color)'}
+                            borderColor="transparent"
                             backgroundColor="transparent"
                             fullWidth
                             onChange={value => setTreasury(value)}
@@ -266,6 +273,8 @@ const DaoSubmitModal = props => {
                           placeholder="Please provide the timeline for each phase of the proposals implementation and the deliverables with as much detail as possible."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           onChange={value => setTimeline(limit(value, 5000))}
                           height="90px"
                         />
@@ -334,19 +343,18 @@ const DaoSubmitModal = props => {
                     <div className="absolute right-0 bottom-0">
                       <div className="flex gap-[24px]">
                         <OutlineButton
-                          width={173}
-                          height={57}
+                          width={110}
+                          height={50}
                           fontFamily="Muli-SemiBold"
                           fontSize={18}
                           label="Cancel"
                           onClick={closeModal}
                         />
                         <GradientButton
-                          width={173}
-                          height={57}
+                          width={110}
+                          height={50}
                           fontSize={18}
                           fontFamily="Muli-SemiBold"
-                          gradientDirection="bottom"
                           label="Submit"
                           disabled={enabledSubmit}
                           onClick={submitProposal}
