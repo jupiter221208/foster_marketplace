@@ -114,18 +114,6 @@ const Explore = () => {
     }, 1000)
   }, [])
 
-  // useEffect(() => {
-  //   return () => {
-  //     console.log(availabilityFilter, '===================availabilityFilter222==============')
-  //     dispatch({ type: 'set', availabilityFilter: 3 })
-  //     dispatch({ type: 'set', collectionSort: '' })
-  //     dispatch({ type: 'set', artistSort: '' })
-  //     dispatch({ type: 'set', artworkSort: '' })
-  //     dispatch({ type: 'set', collectionCategory: '' })
-  //     dispatch({ type: 'set', artworkCategory: '' })
-  //   }
-  // }, [])
-
   useEffect(() => {
     setIsMounted(false)
     setIsFetching(false)
@@ -476,7 +464,9 @@ const Explore = () => {
   }
 
   const handleNextPage = () => {
-    if (nftList.length === 0) return
+    if (exploreTab === 0 && nftList.length === 0) return
+    if (exploreTab === 1 && collectionList.length === 0) return
+    if (exploreTab === 2 && ecosystemList.length === 0) return
 
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
