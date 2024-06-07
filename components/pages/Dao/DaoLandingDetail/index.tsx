@@ -11,14 +11,11 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import SelectedTab from 'components/Tab/SelectedTab'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
-import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
-import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
-import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import NotificationIcon from 'assets/icons/notification-icon-black.svg?component'
+import SolMobileIcon from 'assets/icons/solana-logo-13x11.svg?component'
+import BackIcon from 'assets/icons/back-arrow.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -36,6 +33,7 @@ import TabList from 'assets/json/dao/tab-list.json'
 import axios from 'axios'
 import TableSection from './TableSection'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
+import Link from 'next/link'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -261,45 +259,49 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="flex mt-[20px] lg:mt-[40px] items-center">
-        <div className={styles.backText}>Proposal {proposalDetail.id}</div>
-        <div className="hidden lg:flex ml-[20px]">
-          {proposalDetail.status === 'pending' ? (
-            <DaoPendingButton label="Pending" />
-          ) : proposalDetail.status === 'closed' ? (
-            proposalDetail.vote_result === 'Passed' ? (
-              <DaoLiveButton label="Passed" />
-            ) : (
-              <DaoClosedButton label="Rejected" />
-            )
-          ) : (
-            <DaoLiveButton
-              label={
-                proposalDetail.status === 'closed' ? 'Closed' : proposalDetail.status === 'pending' ? 'Pending' : 'Live'
-              }
-            />
-          )}
+      <div className="flex mt-[20px] lg:mt-[100px] items-center justify-between">
+        <div className="flex gap-[11px] items-center">
+          <BackIcon />
+          <div className={styles.backText}>Proposal {proposalDetail.id}</div>
+          <div className="hidden lg:flex ml-[10px]">
+            <div className={styles.button}>
+              {proposalDetail.status === 'pending' ? (
+                <div className={styles.pendingText}>Pending</div>
+              ) : proposalDetail.status === 'closed' ? (
+                proposalDetail.vote_result === 'Passed' ? (
+                  <div className={styles.liveText}>Passed</div>
+                ) : (
+                  <div className={styles.rejectedText}>Rejected</div>
+                )
+              ) : (
+                <div className={styles.liveText}>Live</div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="flex mt-[6px] lg:mt-[25px] justify-between">
-        <div className={styles.proposalText}>{proposalDetail.title}</div>
         <div className="hidden lg:flex">
           <GradientButton
             direction="rtl"
             fontSize={18}
-            width={155}
-            height={53}
-            icon1={<NotificationIcon alt="" />}
+            width={113}
+            height={50}
             disabled={disabledVote}
             label="Cast&nbsp;Vote"
             onClick={() => onClickCastVoteBtn()}
           />
         </div>
       </div>
-      <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
+
+      <div className="flex mt-[6px] lg:mt-[45px] justify-between">
+        <div className={styles.proposalText}>{proposalDetail.title}</div>
+      </div>
+      <div className="hidden lg:flex lg:mt-[15px]">
         <div className={styles.proposedBy}>Proposed by</div>
-        <div className={styles.proposedText}>{proposalDetail.author}</div>
+        <Link href={`/${proposalDetail.author}`} passHref>
+          <a>
+            <div className={styles.proposedText}>{proposalDetail.author}</div>
+          </a>
+        </Link>
       </div>
 
       <div className="flex lg:hidden mt-[6px] justify-between items-center">
@@ -322,7 +324,7 @@ const DaoLandingDetail = props => {
         />
       </div>
 
-      <div className="mt-[32px] lg:mt-[60px]">
+      <div className="mt-[32px] lg:mt-[43px]">
         <div className="w-full flex justify-between">
           <div className={styles.totalVotes}>Total Votes</div>
           <div className={styles.totalVotes}>({proposalDetail.total_votes}/3200)</div>
@@ -355,7 +357,7 @@ const DaoLandingDetail = props => {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[60px] xl:gap-[94px] mt-[30px] lg:mt-[48px]">
+        <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[60px] xl:gap-[94px] mt-[30px] lg:mt-[44px]">
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Threshold</div>
             <div>
@@ -366,10 +368,7 @@ const DaoLandingDetail = props => {
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Ends</div>
             <div>
-              <div className={styles.thresholdCurrent}>
-                Proposal Expiration
-                {/* {getTimeLabel(getEndDate())} */}
-              </div>
+              <div className={styles.thresholdCurrent}>Proposal Expiration</div>
               <div className={styles.thresholdValue}>{getDateLabel(getEndDate())}</div>
             </div>
           </div>
@@ -388,34 +387,29 @@ const DaoLandingDetail = props => {
         </div>
       </div>
 
-      <div className="relative w-full mt-[32px] lg:mt-[50px] overflow-auto">
+      <div className="relative w-full mt-[32px] lg:mt-[45px] overflow-auto">
         <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
         <div className={styles.selectedTabBorder} />
       </div>
 
       {activeTab === 0 ? (
         <div>
-          <div className="mt-[24px] lg:mt-[40px]">
+          <div className="mt-[24px] lg:mt-[30px]">
             <div className={styles.description}>Overview</div>
             <div className={styles.descriptionText}>{proposalDetail.overview}</div>
           </div>
-          <div className="mt-[30px] lg:mt-[50px]">
+          <div className="mt-[30px] lg:mt-[25px]">
             <div className={styles.description}>Goals & Metrics</div>
             <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
           </div>
-          <div className="mt-[30px] lg:mt-[50px]">
+          <div className="mt-[30px] lg:mt-[25px]">
             <div className={styles.description}>Estimated Treasury Spending</div>
-            <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
-              <div className="hidden lg:flex">
-                <SolIcon />
-              </div>
-              <div className="flex lg:hidden">
-                <SolMobileIcon />
-              </div>
+            <div className="mt-[15px] lg:mt-[7px] w-full flex items-center gap-[6px]">
+              <SolMobileIcon className="mt-[3 px]" />
               <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
             </div>
           </div>
-          <div className="mt-[30px] mt-[50px]">
+          <div className="mt-[25px]">
             <div className={styles.description}>Estimated Timeline</div>
             <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
           </div>

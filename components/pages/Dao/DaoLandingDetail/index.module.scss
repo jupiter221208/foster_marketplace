@@ -14,6 +14,41 @@
   align-items: center;
 }
 
+.button {
+  min-width: 80px;
+  padding: 10px 15px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.pendingText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--main-bg-color);
+}
+
+.liveText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--main-icon-color);
+}
+
+.rejectedText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: rgba(var(--main-bg-color-rgb), 0.75);
+}
+
 .backEllipse {
   width: 26px;
   height: 26px;
@@ -32,9 +67,9 @@
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
+    font-family: 'Muli-SemiBold';
     font-size: 24px;
-    line-height: 36px;
+    line-height: 30px;
   }
   color: var(--text-gray-200-color);
 }
@@ -59,9 +94,9 @@
   font-size: 18px;
   line-height: 23px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 36px;
-    line-height: 45px;
+    font-family: 'Muli-Regular';
+    font-size: 18px;
+    line-height: 23px;
   }
   color: var(--text-gray-200-color);
 }
@@ -71,8 +106,8 @@
   font-size: 12px;
   line-height: 16px;
   @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
@@ -84,11 +119,12 @@
   margin-left: 4px;
   @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 20px;
     margin-left: 10px;
   }
-  color: var(--text-gray-200-color);
+  color: var(--main-icon-color);
+  cursor: pointer;
 }
 
 .clipboardBtn {
@@ -108,11 +144,11 @@
 .totalVotes {
   font-family: 'Muli-Regular';
   font-size: 16px;
+  font-weight: 100;
   height: 20px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
-    font-size: 20px;
-    height: 25px;
+    font-size: 16px;
+    height: 20px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
@@ -165,21 +201,21 @@
   padding: 21px 21px;
   @media (min-width: 1024px) {
     display: flex;
-    border-radius: 16px;
+    border-radius: 15px;
     padding: 15px 15px;
   }
   @media (min-width: 1280px) {
     display: flex;
-    border-radius: 16px;
-    padding: 26px 26px;
+    border-radius: 15px;
+    padding: 20px
   }
   @media (min-width: 1536px) {
     display: flex;
-    border-radius: 16px;
-    padding: 31px 34px;
+    border-radius: 15px;
+    padding: 20px
   }
-  border: 1px solid rgba($text-gray-200-color, 0.1);
-  background: var(--dao-treasury-bg);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
 }
 
 .thresholdText {
@@ -187,20 +223,11 @@
   font-size: 18px;
   height: 23px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Regular';
-    font-size: 20px;
-    height: 24px;
+    font-family: 'Muli-Bold';
+    font-size: 18px;
+    height: 23px;
   }
-  @media (min-width: 1440px) {
-    font-family: 'Muli-Regular';
-    font-size: 22px;
-    height: 26px;
-  }
-  @media (min-width: 1536px) {
-    font-family: 'Muli-Regular';
-    font-size: 24px;
-    height: 30px;
-  }
+
   color: var(--text-gray-200-color);
 }
 
@@ -209,21 +236,10 @@
   font-size: 16px;
   height: 20px;
   @media (min-width: 1024px) {
-    font-size: 13px;
-    height: 16px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 14px;
-    height: 18px;
-  }
-  @media (min-width: 1440px) {
     font-size: 16px;
-    height: 20px;
+    line-height: 20px;
   }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-    height: 24px;
-  }
+
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: center;
 }
@@ -231,27 +247,13 @@
 .thresholdValue {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  height: 20px;
+  font-weight: 100;
+  line-height: 20px;
   margin-top: 6px;
   @media (min-width: 1024px) {
-    font-size: 17px;
-    height: 22px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 18px;
-    height: 22px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1440px) {
-    font-size: 20px;
-    height: 24px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 22px;
-    height: 28px;
-    margin-top: 6px;
+    font-size: 16px;
+    height: 20px;
+    margin-top: 12px;
   }
   color: var(--text-gray-200-color);
   text-align: center;
@@ -263,24 +265,9 @@
   height: 20px;
   margin-top: 6px;
   @media (min-width: 1024px) {
-    font-size: 17px;
-    height: 22px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 18px;
-    height: 22px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1440px) {
-    font-size: 20px;
-    height: 24px;
-    margin-top: 6px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 22px;
-    height: 28px;
-    margin-top: 6px;
+    font-size: 16px;
+    height: 20px;
+    margin-top: 12px;
   }
   color: var(--text-gray-200-color);
   text-align: center;
@@ -291,36 +278,38 @@
 }
 
 .description {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 22px;
   @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--text-gray-200-color);
 }
 
 .descriptionText {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 20px;
-  margin-top: 15px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  margin-top: 8px;
   @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 36px;
-    margin-top: 30px;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 8px;
   }
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .estimateValue {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
+  font-weight: 100;
   line-height: 26px;
   @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 36px;
+    font-size: 16px;
+    line-height: 20px;
   }
   color: var(--text-gray-200-color);
 }
