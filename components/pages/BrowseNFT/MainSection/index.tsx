@@ -1261,15 +1261,12 @@ const MainSection = ({
 
               <div className={`${styles.iconContainer} w-[87px]`}>
                 <div className="flex items-center gap-[9px]">
-                  <MenuSocialShare
-                    type="nft"
-                    vote={share}
-                    setVote={setShare}
-                    voteCount={shareCount}
-                    setVoteCount={setShareCount}
-                    message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                    url={`/nft/${id}`}
-                  />
+                  <div className={`${styles.iconContainer} w-[87px] gap-[9px]`} onClick={() => setOpenShareModal(true)}>
+                    <div>
+                      <ShareSmallIcon alt="" />
+                    </div>
+                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                  </div>
                 </div>
               </div>
 

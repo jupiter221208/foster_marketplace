@@ -607,14 +607,18 @@ const MainSection = prop => {
                 )}
 
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
                 ) : (
-                  <div className={`${styles.iconContainer} w-[35px]`}>
-                    <MenuSocialShare
-                      vote={true}
-                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                      url={`/${artistInfo?.username}`}
-                    />
+                  <div
+                    className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                    onClick={() => {
+                      setOpenShareModal(true)
+                    }}
+                  >
+                    <div>
+                      <ShareSmallIcon alt="" />
+                    </div>
+                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
                   </div>
                 )}
               </div>
@@ -688,6 +692,16 @@ const MainSection = prop => {
           type={type}
           artistInfo={artistInfo}
           categoryList={categoryList}
+        />
+      )}
+
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={true}
+          message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+          url={`/${artistInfo?.username}`}
         />
       )}
 

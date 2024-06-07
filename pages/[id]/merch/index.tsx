@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 
 // next component
@@ -17,7 +17,6 @@ import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
 import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
 
@@ -97,13 +96,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 </div>
               </div>
               <div className="hidden sm:block">
-                <div className={`${styles.iconContainer} w-[87px]`}>
-                  <MenuSocialShare
-                    type="nft"
-                    vote={true}
-                    message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                    url={`/${artistInfo?.username}/merch`}
-                  />
+                <div className={`${styles.iconContainer} w-[87px] gap-[9px]`} onClick={() => setOpenShareModal(true)}>
+                  <div>
+                    <ShareSmallIcon alt="" />
+                  </div>
+                  <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
                 </div>
               </div>
             </div>

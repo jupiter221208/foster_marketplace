@@ -25,6 +25,7 @@ import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -304,12 +305,15 @@ const MainSection = props => {
                 ) : (
                   <div className={`${styles.iconContainer} w-[87px]`}>
                     <div className="flex items-center gap-[9px]">
-                      <MenuSocialShare
-                        type="nft"
-                        vote={true}
-                        message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                        url={`/collection/${data?.collection_id}`}
-                      />
+                      <div
+                        className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                        onClick={() => setOpenShareModal(true)}
+                      >
+                        <div>
+                          <ShareSmallIcon alt="" />
+                        </div>
+                        <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -469,12 +473,15 @@ const MainSection = props => {
                     ) : (
                       <div className={`${styles.iconContainer} w-[84px]`}>
                         <div className="flex items-center gap-[9px]">
-                          <MenuSocialShare
-                            type="nft"
-                            vote={true}
-                            message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                            url={`/collection/${data?.collection_id}`}
-                          />
+                          <div
+                            className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                            onClick={() => setOpenShareModal(true)}
+                          >
+                            <div>
+                              <ShareSmallIcon alt="" />
+                            </div>
+                            <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                          </div>
                         </div>
                       </div>
                     )}

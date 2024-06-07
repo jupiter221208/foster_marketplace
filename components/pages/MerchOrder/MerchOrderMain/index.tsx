@@ -18,9 +18,13 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import SocialShareModal from 'components/Menu/SocialShareModal'
 
 const MerchOrderMain = props => {
   const { type, username, onClickBuyNow } = props
+  const [openShareModal, setOpenShareModal] = useState(false)
+  const [share, setShare] = useState<boolean>(false)
+  const [shareCount, setShareCount] = useState(0)
 
   const router = useRouter()
   const sizeList = [
@@ -43,7 +47,7 @@ const MerchOrderMain = props => {
             <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
               BACK TO STORE
             </div>
-            <div className={styles.shareIcon}>
+            <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
               <ShareSmallIcon alt="" />
             </div>
           </div>
@@ -161,6 +165,18 @@ const MerchOrderMain = props => {
           )}
         </div>
       </div>
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={share}
+          setVote={setShare}
+          voteCount={shareCount}
+          setVoteCount={setShareCount}
+          message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+          url={`/${username}/merch/${123}`}
+        />
+      )}
     </div>
   )
 }
