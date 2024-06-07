@@ -23,15 +23,9 @@ const MobileSearchBox = () => {
   const [searchList, setSearchList] = useState<any>({ nfts: [], artists: [], collections: [] })
   const [searchData, setSearchData] = useState<any>({ nfts: [], artists: [], collections: [] })
 
-  let timer = null
-
   useEffect(() => {
     if (searchKeyword !== '') {
-      if (timer) {
-        clearTimeout(timer)
-        timer = null
-      }
-      timer = setTimeout(() => {
+      setTimeout(() => {
         setSearchList({ nfts: [], artists: [], collections: [] })
         searchAPI.search(searchKeyword).then(
           response => {

@@ -52,7 +52,7 @@ const CollectorsAccordion = props => {
                       {item.pfp_url !== null && item.pfp_url !== '' ? (
                         <ImageWithFoster src={item.pfp_url} className="rounded-full object-cover" />
                       ) : (
-                        <Image src={DefaultAvatar} className="rounded-full object-cover" />
+                        <Image src={DefaultAvatar} className="rounded-full object-cover" alt="" />
                       )}
                     </div>
                     <div className="block">
