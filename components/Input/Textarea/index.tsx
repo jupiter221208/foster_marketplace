@@ -21,6 +21,7 @@ const Textarea = props => {
     fontFamily = 'Muli-Regular',
     fontSize = '16px',
     color = '',
+    borderColor = '',
     width = '',
     height = '',
     maxHeight = '',
@@ -46,6 +47,7 @@ const Textarea = props => {
           fontFamily,
           fontSize: fontSize,
           color: color,
+          borderColor: borderColor,
         }}
       />
       {(label01 !== '' || label02 !== '') && (

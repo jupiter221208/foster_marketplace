@@ -1,4 +1,4 @@
 [
-  { "id": 0, "label": "Proposal Details", "value": "Proposal Details" },
+  { "id": 0, "label": "Details", "value": "Details" },
   { "id": 1, "label": "Vote History", "value": "Vote History" }
 ]

@@ -290,8 +290,6 @@ const EditMetaModal = props => {
     })
   }
 
-  console.log(viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
-
   return (
     <div>
       <Transition show={open} as={Fragment}>

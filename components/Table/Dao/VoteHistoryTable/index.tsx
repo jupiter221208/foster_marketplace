@@ -16,47 +16,47 @@ const VoteHistoryTable = props => {
   }
 
   return (
-    <table id={'ArtworksTable'} className="w-full table-auto">
-      <thead>
-        <tr className={styles.tableHeader}>
-          <th className="w-[30%] text-start">
-            <div className="ml-3">House Member</div>
-          </th>
-          <th>Vote Casted</th>
-          <th>Governance Weight</th>
-          <th>Date</th>
-          <th>Recorded Vote</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item, index) => {
-          return (
-            <tr key={index}>
-              <td>
-                <div className={`ml-4 ${styles.text}`}>{item.username}</div>
-              </td>
-              <td className="text-center">
-                <div className={styles.text}>{getFirstUpperString(item.vote_status)}</div>
-              </td>
-              <td className="text-center">
-                <div className={styles.text}>{item.weight} votes</div>
-              </td>
-              <td className="text-center">
-                <div className={styles.text}>{getLocalDate(item.created_at)}</div>
-              </td>
-              <td className="text-center">
-                <div
-                  className={styles.view}
-                  onClick={() => window.open(`https://explorer.solana.com/tx/${item.signature}`)}
-                >
-                  View
+    <div className="mt-[40px]">
+      <div className={styles.tableHeader}>
+        <div className="w-[25%] text-start pl-[30px]">
+          <div className={styles.headerTitle}>DAO Member</div>
+        </div>
+        <div className="w-[20%] text-center">
+          <div className={styles.headerTitle}>Vote Casted</div>
+        </div>
+        <div className="w-[20%] text-center">
+          <div className={styles.headerTitle}>Governance Weight</div>
+        </div>
+        <div className="w-[20%] text-center">
+          <div className={styles.headerTitle}>Date</div>
+        </div>
+        <div className="w-[15%] text-center">
+          <div className={styles.headerTitle}>Recorded Vote</div>
+        </div>
+      </div>
+      <table id={''} className="w-full table-auto mt-[26px]">
+        <tbody>
+          {data.map((item, index) => {
+            return (
+              <tr key={index}>
+                <div className={styles.tableRow}>
+                  <div className={`w-[25%] ${styles.text} pl-[30px]`}>{item.username}</div>
+                  <div className={`w-[20%] ${styles.text} text-center`}>{getFirstUpperString(item.vote_status)}</div>
+                  <div className={`w-[20%] ${styles.text} text-center`}>{item.weight} votes</div>
+                  <div className={`w-[20%] ${styles.text} text-center`}>{getLocalDate(item.created_at)}</div>
+                  <div
+                    className={`w-[15%] ${styles.view}`}
+                    onClick={() => window.open(`https://explorer.solana.com/tx/${item.signature}`)}
+                  >
+                    View
+                  </div>
                 </div>
-              </td>
-            </tr>
-          )
-        })}
-      </tbody>
-    </table>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
