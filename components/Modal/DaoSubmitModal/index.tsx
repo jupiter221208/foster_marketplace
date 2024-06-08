@@ -25,9 +25,10 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import { limit } from 'utils/strings'
 import { useAuthentication } from 'hooks/useAuthentication'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const DaoSubmitModal = props => {
-  const { data, open, onSubmit, onClose } = props
+  const { data, open, onSubmit, onClose, isLoading } = props
   const { publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
 
@@ -62,6 +63,10 @@ const DaoSubmitModal = props => {
     setMinDate(new Date(result))
     setStartDate(new Date(result))
   }, [])
+
+  useEffect(() => {
+    if (open) resetFields()
+  }, [open])
 
   useEffect(() => {
     if (
@@ -127,10 +132,6 @@ const DaoSubmitModal = props => {
     //   walletId: 'FPCjmizgwG6EsBYH4w3aMvPiZbEnRgCzsuwVJu6rT8eo',
     // }
     onSubmit(proposal)
-
-    setTimeout(() => {
-      resetFields()
-    }, 1000)
   }
 
   const chooseCategory = index => {
@@ -252,7 +253,7 @@ const DaoSubmitModal = props => {
                         <div className="w-full -ml-2">
                           <Input
                             value={treasury}
-                            placeholder="Enter the estimated amount of Solana (SOL) required to implement your proposal."
+                            placeholder="Estimated funds required for project."
                             label=""
                             type="number"
                             color={'var(--text-gray-200-color)'}
@@ -354,15 +355,19 @@ const DaoSubmitModal = props => {
                           label="Cancel"
                           onClick={closeModal}
                         />
-                        <GradientButton
-                          width={110}
-                          height={50}
-                          fontSize={18}
-                          fontFamily="Muli-SemiBold"
-                          label="Submit"
-                          disabled={enabledSubmit}
-                          onClick={submitProposal}
-                        />
+                        {isLoading ? (
+                          <LoadingButton width={110} height={50} />
+                        ) : (
+                          <GradientButton
+                            width={110}
+                            height={50}
+                            fontSize={18}
+                            fontFamily="Muli-SemiBold"
+                            label="Submit"
+                            disabled={enabledSubmit}
+                            onClick={submitProposal}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -443,7 +448,7 @@ const DaoSubmitModal = props => {
                       <div className="w-full -ml-2">
                         <Input
                           value={treasury}
-                          placeholder="Estimated funds required for project"
+                          placeholder="Estimated funds required for project."
                           label=""
                           fullWidth
                           type="number"
@@ -533,15 +538,19 @@ const DaoSubmitModal = props => {
                         label="Cancel"
                         onClick={closeModal}
                       />
-                      <GradientButton
-                        width={105}
-                        height={40}
-                        fontSize={16}
-                        fontFamily="Muli-SemiBold"
-                        gradientDirection="bottom"
-                        label="Submit"
-                        onClick={submitProposal}
-                      />
+                      {isLoading ? (
+                        <LoadingButton width={105} height={40} />
+                      ) : (
+                        <GradientButton
+                          width={105}
+                          height={40}
+                          fontSize={16}
+                          fontFamily="Muli-SemiBold"
+                          gradientDirection="bottom"
+                          label="Submit"
+                          onClick={submitProposal}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

@@ -179,6 +179,8 @@ const DaoLandingPage = props => {
 
       getProposals(currentPage, rowCount)
 
+      setShowDaoSubmitModal(false)
+
       setTimeout(() => {
         setIsLoading(false)
         setTimeout(() => {
@@ -399,12 +401,15 @@ const DaoLandingPage = props => {
         data={{}}
         open={showDaoSubmitModal}
         onSubmit={proposal => {
-          setShowDaoSubmitModal(false)
           setTimeout(() => {
             handleSubmitProposal(proposal)
           }, 1000)
         }}
-        onClose={() => setShowDaoSubmitModal(false)}
+        onClose={() => {
+          setIsLoading(false)
+          setShowDaoSubmitModal(false)
+        }}
+        isLoading={isLoading}
       />
 
       <Alert
@@ -423,7 +428,7 @@ const DaoLandingPage = props => {
         data={noTurkeyAlert}
       />
 
-      <ProgressingModal open={isLoading} />
+      {/* <ProgressingModal open={isLoading} /> */}
 
       <ProgressingModalWithContent
         open={isNftLoading}
