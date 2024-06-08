@@ -7,7 +7,7 @@
   padding-right: 14px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background: var(--stats-accordion-bg);
+  background: var(--background-main-color);
   border: 1px solid var(--stats-accordion-border);
   border-style: solid solid none solid;
   display: flex;
@@ -21,7 +21,7 @@
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 15px;
-  background: var(--stats-accordion-bg);
+  background: var(--background-main-color);
   border: 1px solid var(--stats-accordion-normal-border);
 
   display: flex;
@@ -68,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--accordion-first-row-bg);
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
 .secondRow {
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--accordion-second-row-bg);
+  background-color: rgba(var(--background-dark-color-rgb), 0.2);
 }
 
 .title {
@@ -97,7 +97,7 @@
 }
 
 .subTitle {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Bold';
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);
@@ -122,14 +122,17 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
+  font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .priceValue {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
+  margin-top: 6px;
 }
 
 .chevronUpIcon {

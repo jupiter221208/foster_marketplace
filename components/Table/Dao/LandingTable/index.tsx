@@ -11,43 +11,6 @@ import { getLocalDateWithoutTime } from 'utils/helpers'
 
 const LandingTable = props => {
   const { data, onDetail } = props
-
-  const getEndInValue = item => {
-    let voteStartTime = new Date(item.vote_start)
-    let offset = voteStartTime.getTimezoneOffset() * 60 * 1000
-    let voteStartLocalTime = voteStartTime.getTime() - offset
-    let nowDate = new Date().getTime()
-    let difference = voteStartLocalTime - nowDate
-
-    if (difference > 0) {
-      const hours = difference / (1000 * 60 * 60)
-      let days = ''
-      if (hours < 24) {
-        days = Math.ceil(hours) + ' hrs'
-      } else if (hours < 37) {
-        days = '1 day'
-      } else {
-        days = '2 days'
-      }
-      return 'Starts in ' + days
-    }
-
-    difference = voteStartLocalTime + item.vote_duration * 3600 * 1000 - nowDate
-
-    const hours = difference / (1000 * 60 * 60)
-    let endDays = ''
-    if (hours <= 0) {
-      endDays = 'Ended'
-    } else if (hours < 24) {
-      endDays = 'Ends in ' + Math.ceil(hours) + ' hrs'
-    } else if (hours < 37) {
-      endDays = 'Ends in 1 day'
-    } else {
-      endDays = 'Ends in ' + Math.round(difference / (1000 * 60 * 60 * 24)) + ' days'
-    }
-    return endDays
-  }
-
   return (
     <div>
       <div className={styles.tableHeader}>
@@ -78,10 +41,15 @@ const LandingTable = props => {
             return (
               <tr key={index}>
                 <div className={styles.tableRow}>
-                  <div className={`w-[28%] pl-[30px] ${styles.text}`}>{item.title}</div>
+                  <div className={`w-[28%] pl-[30px] flex ${styles.text}`}>
+                    {item.id}&nbsp;&nbsp;
+                    <div className="hover:underline" onClick={() => onDetail(item)}>
+                      {item.title}
+                    </div>
+                  </div>
                   <div className={`w-[15%] text-center ${styles.text}`}>{getLocalDateWithoutTime(item.vote_start)}</div>
                   <div className={`w-[12%] text-center ${styles.text}`}>{item.category}</div>
-                  <div className={`w-[12%] text-center ${styles.text}`}>10</div>
+                  <div className={`w-[12%] text-center ${styles.text}`}>{item.total_votes}</div>
                   <div className={`w-[20%] text-center ${styles.text}`}>{item.author}</div>
                   <div className="w-[20%] flex">
                     <div className="w-[20%] flex justify-center">
