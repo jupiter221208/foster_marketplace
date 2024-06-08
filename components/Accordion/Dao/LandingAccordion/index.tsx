@@ -17,7 +17,7 @@ const LandingAccordion = props => {
         <div key={index} className="w-full flex flex-wrap">
           <div className={styles.button}>
             <div className={styles.top}>
-              <div className={styles.orderNumber}>01</div>
+              <div className={styles.orderNumber}>{item.id}</div>
               <div className={styles.proposal}>{item.title}</div>
             </div>
             <div className="w-full p-[15px]">

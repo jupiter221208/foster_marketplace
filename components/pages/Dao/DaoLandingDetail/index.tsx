@@ -33,14 +33,13 @@ import axios from 'axios'
 import TableSection from './TableSection'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
   root: {
     height: '8px',
     '&.MuiLinearProgress-colorPrimary:not(.MuiLinearProgress-buffer)': {
-      backgroundColor: 'var(--stats-search-bg)',
+      backgroundColor: 'var(--bg-2B2B2B-DDDCDC)',
     },
     '& .MuiLinearProgress-barColorPrimary': {
       backgroundColor: 'var(--main-icon-color)',

@@ -17,10 +17,20 @@
   margin-bottom: 9px;
 }
 
+.headerTitle {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--main-bg-color);
+}
+
 .text {
   font-family: 'Muli-Regular';
   font-size: 16px;
+  font-weight: 100;
   line-height: 20px;
+  color: var(--main-bg-color);
 }
 
 .passed {
@@ -46,4 +56,5 @@
   &:hover {
     text-decoration: underline;
   }
+  color:  var(--main-bg-color);
 }

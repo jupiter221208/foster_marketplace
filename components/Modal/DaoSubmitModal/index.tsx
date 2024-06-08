@@ -314,6 +314,8 @@ const DaoSubmitModal = props => {
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
                               color="var(--main-bg-color)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                              borderColor="transparent"
                               borderRadius={9}
                               type="number"
                               onChange={value => {
@@ -329,6 +331,8 @@ const DaoSubmitModal = props => {
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
                               color="var(--main-bg-color)"
+                              backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                              borderColor="transparent"
                               borderRadius="9px"
                               type="number"
                               onChange={value => setHours(value)}
@@ -390,6 +394,8 @@ const DaoSubmitModal = props => {
                         label=""
                         fullWidth
                         color={'var(--text-gray-200-color)'}
+                        backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                        borderColor="transparent"
                         onChange={value => setTitle(value)}
                         height="46px"
                       />
@@ -404,6 +410,8 @@ const DaoSubmitModal = props => {
                         placeholder="Provide a detailed explanation of your proposal, how it will be implemented, and who will be responsible for its execution."
                         fullWidth
                         color={'var(--text-gray-200-color)'}
+                        backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                        borderColor="transparent"
                         onChange={value => setOverview(value)}
                         height="90px"
                       />
@@ -418,6 +426,8 @@ const DaoSubmitModal = props => {
                         placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?"
                         fullWidth
                         color={'var(--text-gray-200-color)'}
+                        backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                        borderColor="transparent"
                         onChange={value => setGoal(value)}
                         height="90px"
                       />
@@ -439,6 +449,7 @@ const DaoSubmitModal = props => {
                           type="number"
                           color={'var(--text-gray-200-color)'}
                           backgroundColor="transparent"
+                          borderColor="transparent"
                           onChange={value => setTreasury(value)}
                           height="46px"
                         />
@@ -458,6 +469,8 @@ const DaoSubmitModal = props => {
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
                           color="var(--main-bg-color)"
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           borderRadius={9}
                           type="number"
                           onChange={value => {
@@ -473,6 +486,8 @@ const DaoSubmitModal = props => {
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
                           color="var(--main-bg-color)"
+                          backgroundColor="rgba(var(--main-bg-color-rgb), 0.05)"
+                          borderColor="transparent"
                           borderRadius="9px"
                           type="number"
                           onChange={value => setHours(value)}
