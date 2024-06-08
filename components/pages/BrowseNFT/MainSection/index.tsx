@@ -219,7 +219,7 @@ const MainSection = ({
       let screenWidth = window.innerWidth
       let count =
         screenWidth >= 1900
-          ? 450
+          ? 440
           : screenWidth >= 1768
           ? 400
           : screenWidth >= 1400
