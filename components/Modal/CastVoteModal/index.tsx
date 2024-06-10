@@ -47,35 +47,30 @@ const CastVoteModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.title}>Cast your vote</div>
-                <div className="mt-[12px] lg:mt-[30px]">
-                  <div className={styles.subTitle}>Yay</div>
+                <div className="mt-[34px]">
+                  <div className={styles.subTitle}>Approve</div>
                   <div className={styles.subContent}>
-                    By voting &quot;yay&quot; you are casting a vote in favor of the said proposal.
+                    By voting &quot;Approve&quot; you are casting a vote in favor of the said proposal.
                   </div>
                 </div>
-                <div className="mt-[12px] mt-[26px]">
-                  <div className={styles.subTitle}>Nay</div>
+                <div className="mt-[30px]">
+                  <div className={styles.subTitle}>Reject</div>
                   <div className={styles.subContent}>
-                    By voting &quot;nay&quot; you are casting a vote against the said proposal.
+                    By voting &quot;Reject&quot; you are casting a vote against the said proposal.
                   </div>
                 </div>
                 <div className={styles.divider} />
                 <div className="mt-[29px] flex gap-[24px] justify-center lg:justify-end">
                   <OutlineButton
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 125 : 138}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 57}
-                    fontSize={35}
-                    fontFamily="KCDurhamboxcar"
-                    label="Nay"
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 145 : 110}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 50}
+                    label="Reject"
                     onClick={() => onSubmit(false)}
                   />
                   <GradientButton
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 125 : 138}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 57}
-                    fontSize={35}
-                    gradientDirection="top"
-                    fontFamily="KCDurhamboxcar"
-                    label="Yay"
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 145 : 110}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 50 : 50}
+                    label="Approve"
                     onClick={() => onSubmit(true)}
                   />
                 </div>

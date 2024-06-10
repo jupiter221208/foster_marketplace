@@ -54,7 +54,7 @@ const SocialShareModal = props => {
           <div className={styles.bgView} />
         </Transition.Child>
 
-        <div className="fixed inset-0">
+        <div className="fixed inset-0 lg:flex lg:justify-center lg:items-center">
           <div className={styles.modalView}>
             <Transition.Child
               as={Fragment}
@@ -66,7 +66,7 @@ const SocialShareModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full h-full">
-                <div className="flex justify-center mt-[15px] mb-[15px]">
+                <div className="flex justify-center mt-[23px] mb-[30px]">
                   <div className={styles.share}>Share</div>
                 </div>
                 <div className="w-full flex justify-between px-[24px]">
@@ -120,7 +120,7 @@ const SocialShareModal = props => {
                   </FacebookShareButton>
                 </div>
                 <div className={styles.separator}></div>
-                <div className="w-full flex justify-center mb-[30px]">
+                <div className="w-full flex justify-center mb-[35px]">
                   <div
                     className={styles.clipboard}
                     onClick={() => {

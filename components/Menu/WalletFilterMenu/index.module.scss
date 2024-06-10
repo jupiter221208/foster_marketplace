@@ -1,14 +1,8 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 140px;
-  padding: 0px 8px;
-  gap: 6px;
-  @media (min-width: 1024px) {  
-    width: 150px;
-    padding: 0px 10px;
-    gap: 9px;
-  }
+  width: 84px;
+  padding: 0px 10px;
   height: 35px;
   font-family: 'Muli-SemiBold';
   font-size: 14px;
@@ -17,7 +11,7 @@
   background: var(--background-main-color);
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   outline: none;
 }

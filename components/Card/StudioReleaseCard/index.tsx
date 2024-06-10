@@ -18,17 +18,17 @@ import styles from './index.module.scss'
 import { getDisplayUserName } from 'utils/strings'
 import ImageWithFoster from 'components/ImageWithFoster'
 
-import SweatshirtW from '../../../public/images/apparel/man_sweat_white_s.png'
-import ShortSleeveW from '../../../public/images/apparel/man_t_white_s.png'
-import HoodieW from '../../../public/images/apparel/man_hoodie_white_s.png'
-import WomenShortSleeveW from '../../../public/images/apparel/women_t_white_s.png'
-import ManLongsLeeveW from '../../../public/images/apparel/man_longsleeve_white_s.png'
+import SweatshirtW from '../../../public/images/apparel/man_sweat_white.png'
+import ShortSleeveW from '../../../public/images/apparel/man_t_white.png'
+import HoodieW from '../../../public/images/apparel/man_hoodie_white.png'
+import WomenShortSleeveW from '../../../public/images/apparel/women_t_white.png'
+import ManLongsLeeveW from '../../../public/images/apparel/man_longsleeve_white.png'
 
-import SweatshirtB from '../../../public/images/apparel/man_sweat_black_s.png'
-import ShortSleeveB from '../../../public/images/apparel/man_t_black_s.png'
-import HoodieB from '../../../public/images/apparel/man_hoodie_black_s.png'
-import WomenShortSleeveB from '../../../public/images/apparel/women_t_black_s.png'
-import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black_s.png'
+import SweatshirtB from '../../../public/images/apparel/man_sweat_black.png'
+import ShortSleeveB from '../../../public/images/apparel/man_t_black.png'
+import HoodieB from '../../../public/images/apparel/man_hoodie_black.png'
+import WomenShortSleeveB from '../../../public/images/apparel/women_t_black.png'
+import ManLongsLeeveB from '../../../public/images/apparel/man_longsleeve_black.png'
 
 const StudioReleaseCard = props => {
   const { type = 'release', image, userName = '', nftName, onClick, nftImage, size = null } = props
@@ -67,7 +67,7 @@ const StudioReleaseCard = props => {
 
   useEffect(() => {
     if (apparelList) {
-      setImagePath(apparelList.black.image.thumb)
+      setImagePath(apparelList.black.image.front)
     }
   }, [apparelList])
 
@@ -75,15 +75,16 @@ const StudioReleaseCard = props => {
     if (color && apparelList) {
       switch (color?.type) {
         case 'black':
-          setImagePath(apparelList.black.image.thumb)
+          setImagePath(apparelList.black.image.front)
           break
         case 'white':
-          setImagePath(apparelList.white.image.thumb)
+          setImagePath(apparelList.white.image.front)
           break
         default:
           break
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color])
 
   useEffect(() => {
@@ -118,25 +119,25 @@ const StudioReleaseCard = props => {
             <>
               <img
                 src={
-                  imagePath.endsWith('man_sweat_white_s.png')
+                  imagePath.endsWith('man_sweat_white.png')
                     ? SweatshirtW.src
-                    : imagePath.endsWith('man_t_white_s.png')
+                    : imagePath.endsWith('man_t_white.png')
                     ? ShortSleeveW.src
-                    : imagePath.endsWith('man_hoodie_white_s.png')
+                    : imagePath.endsWith('man_hoodie_white.png')
                     ? HoodieW.src
-                    : imagePath.endsWith('women_t_white_s.png')
+                    : imagePath.endsWith('women_t_white.png')
                     ? WomenShortSleeveW.src
-                    : imagePath.endsWith('man_longsleeve_white_s.png')
+                    : imagePath.endsWith('man_longsleeve_white.png')
                     ? ManLongsLeeveW.src
-                    : imagePath.endsWith('man_sweat_black_s.png')
+                    : imagePath.endsWith('man_sweat_black.png')
                     ? SweatshirtB.src
-                    : imagePath.endsWith('man_t_black_s.png')
+                    : imagePath.endsWith('man_t_black.png')
                     ? ShortSleeveB.src
-                    : imagePath.endsWith('man_hoodie_black_s.png')
+                    : imagePath.endsWith('man_hoodie_black.png')
                     ? HoodieB.src
-                    : imagePath.endsWith('women_t_black_s.png')
+                    : imagePath.endsWith('women_t_black.png')
                     ? WomenShortSleeveB.src
-                    : imagePath.endsWith('man_longsleeve_black_s.png')
+                    : imagePath.endsWith('man_longsleeve_black.png')
                     ? ManLongsLeeveB.src
                     : ''
                 }

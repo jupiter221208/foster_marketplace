@@ -7,8 +7,7 @@
       "cost": 37.94,
       "image": {
         "front": "/images/apparel/man_hoodie_black.png",
-        "back": "/images/apparel/man_hoodie_black_b.png",
-        "thumb": "/images/apparel/man_hoodie_black_s.png"
+        "back": "/images/apparel/man_hoodie_black_b.png"
       }
     },
     "white": {
@@ -16,8 +15,7 @@
       "cost": 37.94,
       "image": {
         "front": "/images/apparel/man_hoodie_white.png",
-        "back": "/images/apparel/man_hoodie_white_b.png",
-        "thumb": "/images/apparel/man_hoodie_white_s.png"
+        "back": "/images/apparel/man_hoodie_white_b.png"
       }
     }
   },
@@ -27,12 +25,12 @@
     "black": {
       "item_id": 2,
       "cost": 31,
-      "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png", "thumb": "/images/apparel/man_hoodie_black_s.png" }
+      "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
     },
     "white": {
       "item_id": 3,
       "cost": 31,
-      "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png", "thumb": "/images/apparel/man_hoodie_white_s.png" }
+      "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
     }
   },
   {
@@ -41,12 +39,12 @@
     "black": {
       "item_id": 2,
       "cost": 44.99,
-      "image": { "front": "/images/apparel/man_sweat_black.png", "back": "/images/apparel/man_sweat_black_b.png", "thumb": "/images/apparel/man_sweat_black_s.png" }
+      "image": { "front": "/images/apparel/man_sweat_black.png", "back": "/images/apparel/man_sweat_black_b.png" }
     },
     "white": {
       "item_id": 3,
       "cost": 44.99,
-      "image": { "front": "/images/apparel/man_sweat_white.png", "back": "/images/apparel/man_sweat_white_b.png",  "thumb": "/images/apparel/man_sweat_white_s.png" }
+      "image": { "front": "/images/apparel/man_sweat_white.png", "back": "/images/apparel/man_sweat_white_b.png" }
     }
   },
   {
@@ -57,8 +55,7 @@
       "cost": 30.24,
       "image": {
         "front": "/images/apparel/man_longsleeve_black.png",
-        "back": "/images/apparel/man_longsleeve_black_b.png",
-        "thumb": "/images/apparel/man_longsleeve_black_s.png"
+        "back": "/images/apparel/man_longsleeve_black_b.png"
       }
     },
     "white": {
@@ -66,8 +63,7 @@
       "cost": 30.24,
       "image": {
         "front": "/images/apparel/man_longsleeve_white.png",
-        "back": "/images/apparel/man_longsleeve_white_b.png",
-        "thumb": "/images/apparel/man_longsleeve_white_s.png"
+        "back": "/images/apparel/man_longsleeve_white_b.png"
       }
     }
   },
@@ -77,12 +73,12 @@
     "black": {
       "item_id": 2,
       "cost": 27.99,
-      "image": { "front": "/images/apparel/women_t_black.png", "back": "/images/apparel/women_t_black_b.png", "thumb": "/images/apparel/women_t_black_s.png" }
+      "image": { "front": "/images/apparel/women_t_black.png", "back": "/images/apparel/women_t_black_b.png" }
     },
     "white": {
       "item_id": 3,
       "cost": 27.99,
-      "image": { "front": "/images/apparel/women_t_white.png", "back": "/images/apparel/women_t_white_b.png", "thumb": "/images/apparel/women_t_white_s.png" }
+      "image": { "front": "/images/apparel/women_t_white.png", "back": "/images/apparel/women_t_white_b.png" }
     }
   },
   {
@@ -91,12 +87,12 @@
     "black": {
       "item_id": 2,
       "cost": 25.74,
-      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png", "thumb": "/images/apparel/man_t_black_s.png" }
+      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
     },
     "white": {
       "item_id": 3,
       "cost": 25.74,
-      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png", "thumb": "/images/apparel/man_t_white_s.png" }
+      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
     }
   },
   {
@@ -105,12 +101,12 @@
     "black": {
       "item_id": 2,
       "cost": 24,
-      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png", "thumb": "/images/apparel/man_t_black_s.png" }
+      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
     },
     "white": {
       "item_id": 3,
       "cost": 24,
-      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png", "thumb": "/images/apparel/man_t_white_s.png" }
+      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
     }
   }
 ]

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // third party components
 // swiper
@@ -14,7 +13,6 @@ import 'swiper/css/navigation'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import CollectionCard from 'components/Card/CollectionCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -32,10 +30,10 @@ const MoreArtistSection = props => {
   const { artistInfo, collectionList } = props
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
 
   useEffect(() => {
     fetchCollectionData(collectionList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionList])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -66,7 +64,6 @@ const MoreArtistSection = props => {
           <div className="hidden lg:flex">
             <SeeMoreButton
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
             />
@@ -109,7 +106,6 @@ const MoreArtistSection = props => {
               label="See More"
               fullWidth
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push(`/${artistInfo.name}`)
               }}
               fontSize="16px"

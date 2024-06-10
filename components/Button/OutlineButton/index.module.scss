@@ -27,11 +27,11 @@
   font-family: 'Muli-SemiBold';
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 
   &:hover {
     @media (min-width: 1024px) {
-      color: $brand-09-color;
+      color: rgba(var(--text-gray-200-color-rgb), 1) !important;
     }
   }
   transition: opacity 0.2s;

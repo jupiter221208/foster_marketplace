@@ -10,8 +10,6 @@
   width: 100%;
   height: 100%;
   max-width: 500px;
-  // min-width: 300px;
-  // height: 460px;
   background: var(--background-main-color);
   border-radius: 10px;
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
@@ -81,6 +79,7 @@
 .bidContainer {
   width: 100%;
   overflow: hidden;
+  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   padding: 13px 20px;
@@ -238,6 +237,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.bottomHover {
+  @media (min-width: 1024px) {
+    background: rgba(var(--main-bg-color-rgb), 0.05) !important;
+  }
 }
 
 .sol_icon_color {

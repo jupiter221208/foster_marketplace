@@ -75,6 +75,7 @@ const NewStudioReleasesSection = props => {
           console.log(error)
         }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -113,7 +114,6 @@ const NewStudioReleasesSection = props => {
                 assetType={item.asset_type}
                 artistName={item.artist_username}
                 onClick={(colorNumber, artistName, asset: any) => {
-                  dispatch({ type: 'set', isLoading: true })
                   if (filterName === 'All') {
                     dispatch({ type: 'set', apparelType: asset['name'] })
                   } else dispatch({ type: 'set', apparelType })

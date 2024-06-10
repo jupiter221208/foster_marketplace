@@ -52,6 +52,7 @@ const LiveAuctionSection = props => {
 
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist, category])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -233,7 +234,6 @@ const LiveAuctionSection = props => {
                 <LiveAuctionCard
                   data={item}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push('/nft/' + item.token_id)
                   }}
                   setCardExpired={item => {

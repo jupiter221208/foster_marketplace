@@ -28,6 +28,7 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
+import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
@@ -114,6 +115,7 @@ const MainSection = prop => {
         setShowBannerBoard(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey])
 
   useEffect(() => {
@@ -201,6 +203,7 @@ const MainSection = prop => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerPictureUrl])
 
   useEffect(() => {
@@ -215,6 +218,7 @@ const MainSection = prop => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [avatarPictureUrl])
 
   useEffect(() => {
@@ -237,6 +241,7 @@ const MainSection = prop => {
         }, 1000)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBanner])
 
   useEffect(() => {
@@ -253,6 +258,7 @@ const MainSection = prop => {
       fetchData(croppedAvatar)
       setUpdateAvatar(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateAvatar])
 
   const uploadBannerFile = async (file: any, filename: string) => {
@@ -312,7 +318,7 @@ const MainSection = prop => {
     )
   }
 
-  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
       {hasLoading ? (
@@ -494,69 +500,6 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex justify-center">
           <div className="w-full flex flex-wrap z-10">
-            {/* {artistInfo?.wallet_id &&
-              (hasLoading ? (
-                <div className={`${styles.skeletonLoader} w-[150px] h-[35px] rounded-full `}></div>
-              ) : (
-                <div className="relative z-100">
-                  <AddressButton
-                    label={getShortAddress(artistInfo?.wallet_id)}
-                    onClick={() => {
-                      copyToClipboard(artistInfo?.wallet_id || '')
-                      copyClipboardAlert('wallet-address')
-                    }}
-                  />
-                  <CopyClipboardChip identifier="wallet-address" />
-                </div>
-              ))} */}
-            {/* <div className="flex gap-[20px] items-center ml-[11px]">
-              {artistInfo?.ig_url !== null &&
-                artistInfo?.ig_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[30px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
-                  </div>
-                ))}
-              {artistInfo?.twitter_url !== null &&
-                artistInfo?.twitter_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
-                  </div>
-                ))}
-              {artistInfo?.site_url !== null &&
-                artistInfo?.site_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
-                  </div>
-                ))}
-              {artistInfo?.three_land_url !== null &&
-                artistInfo?.three_land_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <LandIcon onClick={() => window.open(validUrl(artistInfo?.three_land_url))} />
-                  </div>
-                ))}
-              {artistInfo?.solarplex_url !== null &&
-                artistInfo?.solarplex_url.length > 0 &&
-                (hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-full`}></div>
-                ) : (
-                  <div>
-                    <SolrPlexIcon onClick={() => window.open(validUrl(artistInfo?.solarplex_url))} />
-                  </div>
-                ))}
-            </div> */}
-
             <div className="w-full h-[24px] mt-[19px] flex items-center">
               <div className="flex gap-[15px] z-10 items-center">
                 {hasLoading ? (
@@ -578,7 +521,6 @@ const MainSection = prop => {
                     <div className={styles.grayText}>Followers</div>
                   </div>
                 )}
-
                 {hasLoading ? (
                   <div className={`${styles.skeletonLoader} ${styles.whiteText} w-[100px] h-[35px] rounded-full`}></div>
                 ) : (
@@ -598,22 +540,12 @@ const MainSection = prop => {
                     <div className={styles.grayText}>Following</div>
                   </div>
                 )}
-
+              </div>
+            </div>
+            <div className="w-full h-[24px] mt-[19px]">
+              <div className="flex gap-[11px] z-10 items-center">
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
-                ) : (
-                  <div className={`${styles.iconContainer} w-[87px]`}>
-                    <MenuSocialShare
-                      type="nft"
-                      vote={true}
-                      message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                      url={`/${artistInfo?.username}`}
-                    />
-                  </div>
-                )}
-
-                {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+                  <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
                 ) : (
                   <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
                     <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
@@ -636,10 +568,10 @@ const MainSection = prop => {
                 )}
 
                 {hasLoading ? (
-                  <div className={`${styles.skeletonLoader} w-[150px] h-[40px] rounded-md`}></div>
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
                 ) : (
                   <WalletFilterMenu
-                    label={'Wallet & Socials'}
+                    label={'Links'}
                     data={walletList}
                     selectedItem={selectedWallet}
                     setSelectedItem={item => {
@@ -658,6 +590,36 @@ const MainSection = prop => {
                       }
                     }}
                   />
+                )}
+
+                {/* {hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
+                ) : (
+                  <div
+                    className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
+                    onClick={() => {
+                      router.push(`/${artistInfo?.username}/merch`)
+                    }}
+                  >
+                    <CreatorMerchIcon alt="" />
+                    <div className={styles.refereshText}>Merch</div>
+                  </div>
+                )} */}
+
+                {hasLoading ? (
+                  <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
+                ) : (
+                  <div
+                    className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                    onClick={() => {
+                      setOpenShareModal(true)
+                    }}
+                  >
+                    <div>
+                      <ShareSmallIcon alt="" />
+                    </div>
+                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                  </div>
                 )}
               </div>
             </div>
@@ -730,6 +692,16 @@ const MainSection = prop => {
           type={type}
           artistInfo={artistInfo}
           categoryList={categoryList}
+        />
+      )}
+
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={true}
+          message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+          url={`/${artistInfo?.username}`}
         />
       )}
 
@@ -901,27 +873,6 @@ const MainSection = prop => {
           />
 
           <div className="absolute flex right-0 top-[60px]">
-            {/* <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
-              {hasLoading ? (
-                <div className={`${styles.skeletonLoader} w-[26px] h-[26px] rounded-md`}></div>
-              ) : refreshing ? (
-                <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
-              ) : (
-                <div onClick={() => refreshNFT()}>
-                  <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                </div>
-              )}
-            </div>
-            {hasLoading ? (
-              <div className={`${styles.skeletonLoader} w-[26px] h-[26px] mt-[4px] rounded-md`}></div>
-            ) : (
-              <div>
-                <div onClick={() => setOpenShareModal(true)}>
-                  <ShareSmallIcon alt="" />
-                </div>
-              </div>
-            )} */}
-
             {!isOwn && (
               <div className="w-[100px] h-[40px] ml-[11px] flex overflow-hidden">
                 {followLoaded ? (
@@ -964,27 +915,6 @@ const MainSection = prop => {
             )}
           </div>
         </div>
-        {/* <div className="mt-2 z-10">
-          {artistInfo?.wallet_id && (
-            <div className="relative w-[130px]">
-              {hasLoading ? (
-                <div className={`${styles.skeletonLoader} w-[120px] h-[22px] rounded-full`}></div>
-              ) : (
-                <>
-                  <AddressButton
-                    label={getShortAddress(artistInfo?.wallet_id)}
-                    onClick={() => {
-                      copyToClipboard(artistInfo?.wallet_id || '')
-                      copyClipboardAlert('wallet-address-mobile')
-                    }}
-                  />
-
-                  <CopyClipboardChip identifier="wallet-address-mobile" />
-                </>
-              )}
-            </div>
-          )}
-        </div> */}
 
         <div className="flex gap-[15px] mt-2">
           {hasLoading ? (
@@ -1019,20 +949,9 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-        <div className="w-full flex gap-[8px] mt-[15px]">
+        <div className="w-full flex gap-[11px] mt-[15px]">
           {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[87px] h-[40px] rounded-md`}></div>
-          ) : (
-            <div className={`${styles.iconContainer} w-[87px]`} onClick={() => setOpenShareModal(true)}>
-              <div className="flex gap-[9px]">
-                <ShareSmallIcon />
-                <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
-              </div>
-            </div>
-          )}
-
-          {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[100px] h-[40px] rounded-md`}></div>
+            <div className={`${styles.skeletonLoader} w-[100px] h-[35px] rounded-md`}></div>
           ) : (
             <div className={`${styles.iconContainer} w-[100px] px-[8px] gap-[8px]`} onClick={() => refreshNFT()}>
               <div className="w-[26px] h-[26px] flex items-center mt-[6px]">
@@ -1049,10 +968,10 @@ const MainSection = prop => {
           )}
 
           {hasLoading ? (
-            <div className={`${styles.skeletonLoader} w-[150px] h-[40px] rounded-md`}></div>
+            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
           ) : (
             <WalletFilterMenu
-              label={'Wallet & Socials'}
+              label={'Links'}
               data={walletList}
               selectedItem={selectedWallet}
               setSelectedItem={item => {
@@ -1071,6 +990,30 @@ const MainSection = prop => {
                 }
               }}
             />
+          )}
+
+          {/* {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
+          ) : (
+            <div
+              className={`${styles.iconContainer} w-[87px] px-[8px] gap-[8px]`}
+              onClick={() => {
+                router.push(`/${artistInfo?.username}/merch`)
+              }}
+            >
+              <CreatorMerchIcon alt="" />
+              <div className={styles.refereshText}>Merch</div>
+            </div>
+          )} */}
+
+          {hasLoading ? (
+            <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>
+          ) : (
+            <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setOpenShareModal(true)}>
+              <div>
+                <ShareSmallIcon alt="" />
+              </div>
+            </div>
           )}
         </div>
         {artistInfo?.bio && <div className={`w-full mt-[15px] ${styles.bioText}`}>{artistInfo?.bio}</div>}

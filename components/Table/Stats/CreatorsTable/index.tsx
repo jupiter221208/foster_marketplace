@@ -55,14 +55,7 @@ const CreatorsTable = props => {
                           />
                         </div>
                       </div>
-                      <div
-                        className="flex justify-center cursor-pointer"
-                        onClick={() => {
-                          dispatch({ type: 'set', isLoading: true })
-                        }}
-                      >
-                        {getDisplayUserName(item.creator_name)}
-                      </div>
+                      <div className="flex justify-center cursor-pointer">{getDisplayUserName(item.creator_name)}</div>
                     </div>
                   </a>
                 </Link>

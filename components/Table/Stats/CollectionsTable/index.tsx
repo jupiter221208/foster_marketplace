@@ -54,14 +54,7 @@ const CollectionsTable = props => {
                           className="rounded-[8px]"
                         />
                       </div>
-                      <div
-                        className="flex justify-center cursor-pointer"
-                        onClick={() => {
-                          dispatch({ type: 'set', isLoading: true })
-                        }}
-                      >
-                        {item.collection_name}
-                      </div>
+                      <div className="flex justify-center cursor-pointer">{item.collection_name}</div>
                     </div>
                   </a>
                 </Link>

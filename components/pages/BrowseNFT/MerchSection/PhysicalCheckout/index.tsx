@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
@@ -16,21 +16,18 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
+import CARDIcon from 'assets/icons/card-icon.svg'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
 import { OrderData, payOrder } from 'apis/merch'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import OutlineButton from 'components/Button/OutlineButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
@@ -47,14 +44,14 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
   const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
 
-  const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
+  const [currency, setCurrency] = useState<'sol' | 'usdc' | 'card'>('sol')
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
@@ -123,9 +120,16 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         let colorText = getFirstUpperString(color)
         let qty = 'Qty:' + itemQuantity
         itemList.push({ name: nftName, type, color: colorText, qty })
+      } else if (type === 'merch') {
+        var color = findElement(options, 'name', 'color')['value']
+        let type = 'Print Technique: Embroidery'
+        let colorText = 'Color: ' + getFirstUpperString(color)
+        let qty = 'Qty: ' + itemQuantity
+        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       }
     })
     setList(itemList)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCheckout = async () => {
@@ -181,9 +185,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[0px] lg:px-[30px] mt-[0px] lg:mt-[30px]">
+      <div className="w-full px-[16px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
-        <div className="w-full mt-[15px] lg:mt-[30px] h-[130px] overflow-auto">
+        <div className="w-full mt-[45px] lg:mt-[30px] h-[130px] overflow-auto">
           <div className={styles.productDetails}>Product Details</div>
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
@@ -208,11 +212,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div>
 
         <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[15px] lg:mt-[24px]">
-          <div className="w-[286px] h-[160px] relative hidden lg:block">
+          <div className="w-full h-[160px] relative hidden lg:block">
             <div className={styles.paymentMethod}>
               Choose Payment Method <span>*</span>
             </div>
-            <div className="w-full flex justify-between mt-[16px]">
+            <div className="w-full flex gap-[30px] mt-[16px]">
               <div
                 className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
                 onClick={() => setCurrency('sol')}
@@ -230,6 +234,15 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
                   <Image src={USDCIcon} width={37} height={37} alt="" />
                 </div>
                 <div className={styles.currencyName}>USDC</div>
+              </div>
+              <div
+                className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('card')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={CARDIcon} width={37} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>CARD</div>
               </div>
             </div>
           </div>
@@ -265,12 +278,12 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           <div className={styles.paymentMethod}>
             Choose Payment Method <span>*</span>
           </div>
-          <div className="w-full flex gap-[30px] mt-[10px]">
+          <div className="w-full flex gap-[8px] lg:gap-[30px] mt-[10px]">
             <div
               className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('sol')}
             >
-              <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
                 <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
               </div>
               <div className={styles.currencyName}>SOL</div>
@@ -279,10 +292,19 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
               className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('usdc')}
             >
-              <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
                 <Image src={USDCIcon} width={37} height={37} alt="" />
               </div>
               <div className={styles.currencyName}>USDC</div>
+            </div>
+            <div
+              className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+              onClick={() => setCurrency('card')}
+            >
+              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
+                <Image src={CARDIcon} width={37} height={37} alt="" />
+              </div>
+              <div className={styles.currencyName}>CARD</div>
             </div>
           </div>
         </div>
@@ -291,16 +313,16 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       <div className={styles.bottomSection}>
         <div className="w-full flex justify-between mb-[20px] px-[5px]">
           <div className={styles.orderTotal}>Total</div>
-          <div className="flex gap-2 items-center">
-            <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
-            <div className={styles.costDivider} />
-            <div className="flex gap-1 items-center">
+          <div className="">
+            {/* <div className={styles.costDivider} /> */}
+            <div className="flex gap-1 items-center justify-end">
               <SolanaIcon alt="" className="mt-[2px]" />
               <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
+            <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-[15px]">
+        <div className="w-full flex flex-col gap-[15px] mb-[30px]">
           {isLoad ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
@@ -315,19 +337,16 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
-      {/* <ProgressingModal open={isLoad} /> */}
       <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            dispatch({ type: 'set', isLoading: true })
             router.push(`/merch-logs/${id}`)
           }, 1000)
         }}
         data={alertData}
       />
-      <FullScreenLoadingModal open={isLoading} />
     </section>
   )
 }

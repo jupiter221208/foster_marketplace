@@ -1,0 +1,69 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--background-main-color-rgb), 1);
+  @media (min-width: 1024px) {
+    background: rgba(var(--background-main-color-rgb), 0.9);
+  }
+  position: fixed;
+  inset: 0;
+}
+
+.close {
+  position: absolute;
+  right: 16px;
+  top: 40px;
+  @media (min-width: 1024px) {
+    right: 150px;
+    top: 100px;
+  }
+  width: 30px;
+  height: 30px;
+}
+
+.modalView {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  @media (min-width: 1024px) {
+    padding: 0px;
+  }
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}
+
+.selected {
+  width: 79px;
+  height: 79px;
+  @media (min-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+  border-radius: 10px;
+  border: 2px solid var(--main-icon-color);
+}
+
+.unselected {
+  width: 79px;
+  height: 79px;
+  @media (min-width: 1024px) {
+    width: 130px;
+    height: 130px;
+  }
+  border-radius: 10px;
+  border: 2px solid var(--bg-303030-DDDCDC);
+}

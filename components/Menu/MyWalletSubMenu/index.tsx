@@ -13,41 +13,26 @@ import { PublicKey } from '@solana/web3.js'
 // components
 import Alert from 'components/Alert'
 import PriceInput from 'components/Input/PriceInput'
-import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white-mobile.svg?component'
-import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg?component'
-import NounAddLightGreenIcon from 'assets/icons/noun-add-light-green.svg?component'
-import NounSubtractGrayIcon from 'assets/icons/noun-subtract-gray.svg?component'
-import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
-import {
-  depositFunds as depositOfferFunds,
-  withdrawFunds as withdrawOfferFunds,
-  getEscrowPaymentAccount as getOfferEscrowAddress,
-} from 'utils/auction.util'
-import {
-  depositFunds as depositBiddingFunds,
-  withdrawFunds as withdrawBiddingFunds,
-  getEscrowPaymentAccount as getBiddingEscrowAddress,
-} from 'utils/auctioneer.util'
+import { depositFunds as depositOfferFunds, withdrawFunds as withdrawOfferFunds } from 'utils/auction.util'
+import { depositFunds as depositBiddingFunds, withdrawFunds as withdrawBiddingFunds } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 import WalletIcon from 'assets/icons/wallet-icon.svg?component'
-import WalletGrayIcon from 'assets/icons/wallet-white.svg?component'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
@@ -136,6 +121,7 @@ const MyWalletSubMenu = props => {
         setIsOfferLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
 
   const onChangeBiddingPrice = value => {
@@ -181,6 +167,7 @@ const MyWalletSubMenu = props => {
         setIsBidLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
 
   const { metaplex: mx } = useMetaplex()
@@ -524,7 +511,6 @@ const MyWalletSubMenu = props => {
                       className={styles.viewActiveOffer}
                       onClick={() => {
                         router.push(`/dashboard?tab=6`)
-                        dispatch({ type: 'set', isLoading: true })
                       }}
                     >
                       View active offers
@@ -722,17 +708,10 @@ const MyWalletSubMenu = props => {
                       className={styles.viewActiveOffer}
                       onClick={() => {
                         router.push(`/dashboard?tab=3`)
-                        dispatch({ type: 'set', isLoading: true })
                       }}
                     >
                       View active bids
                     </div>
-
-                    {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                    <p className={styles.cardGrayText}>
-                      Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
-                    </p>
-                  </div> */}
                   </div>
                 )}
               </div>

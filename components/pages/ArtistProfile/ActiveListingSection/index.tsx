@@ -51,6 +51,7 @@ const ActiveListingSection = props => {
 
       console.log(error)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist])
 
   const getExploreList = nextpage => {
@@ -96,6 +97,7 @@ const ActiveListingSection = props => {
         getExploreList(nextpage)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (
@@ -127,7 +129,6 @@ const ActiveListingSection = props => {
                   collectionName={item.collection_name}
                   price={item.list_price}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                 />

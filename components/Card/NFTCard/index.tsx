@@ -9,24 +9,17 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-tiny.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import HideIcon from 'assets/icons/hide-icon.svg?component'
 import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
-import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
-import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
-import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
-import UnhideSmallMobileIcon from 'assets/icons/unhide-small-icon-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
-import { formattedAmount } from 'utils/helpers'
-import GradientButton from 'components/Button/GradientButton'
 
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
@@ -207,47 +200,6 @@ const NFTCard = props => {
           )}
         </div>
 
-        {/* <div className={isHome ? styles.imageInfoHome : styles.imageInfo}>
-          <div className="w-full">
-            <div className="flex items-center">
-              <div className={isHome ? styles.nftNameForHome : styles.nftName}>{nftName}</div>
-            </div>
-            <div className="w-full flex justify-between items-center mt-[2px]">
-              <div className={isHome ? styles.artistNameHome : styles.artistName}>
-                <Link href={`/${artistName || collectionName}`} passHref>
-                  <a>{getDisplayUserName(artistName) || collectionName || 'Ecosystem Artist'}</a>
-                </Link>
-              </div>
-              {price && (
-                <div className="flex justify-center items-center mt-[2px]">
-                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                    isHome ? (
-                      <SolanaLogoIcon />
-                    ) : (
-                      <SolanaLogoMobileIcon />
-                    )
-                  ) : (
-                    <SolanaLogoIcon />
-                  )}
-                  <div className={isHome ? styles.priceHome : styles.price}>{formattedAmount(price)}</div>
-                </div>
-              )}
-            </div>
-          </div>
-          {unSave !== null && (
-            <div className="mt-[10px]">
-              <GradientButton
-                fullWidth
-                label="Unsave"
-                borderRadius="10"
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  unSave()
-                }}
-              />
-            </div>
-          )}
-        </div> */}
         <div className={styles.imageInfo}>
           <div className={styles.nftData}>
             <div>

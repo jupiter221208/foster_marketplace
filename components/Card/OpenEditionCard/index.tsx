@@ -29,14 +29,6 @@ const OpenEditionCard = ({ data }) => {
   const [loaded, setLoaded] = useState(false)
   const onClick = () => {}
 
-  const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-  }
-
-  const gotoNftDetailPage = () => {
-    dispatch({ type: 'set', isLoading: true })
-  }
-
   useEffect(() => {
     if (data.endTime !== undefined && data.endTime !== null) {
       setTimeLeft(calculateAuctionTimeLeft(data.endTime))
@@ -74,7 +66,7 @@ const OpenEditionCard = ({ data }) => {
           {data.assetType.includes('image') ? (
             <Link href={`/nft/${data.tokenId}`} passHref>
               <a>
-                <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                <div className={styles.nftShadow}>
                   {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
                     <img
                       src={
@@ -100,7 +92,7 @@ const OpenEditionCard = ({ data }) => {
           ) : data.assetType.includes('vr') ? (
             <Link href={`/nft/${data.tokenId}`} passHref>
               <a>
-                <div className={styles.nftShadow} onClick={() => gotoNftDetailPage()}>
+                <div className={styles.nftShadow}>
                   {data.assetUrl! !== '' || data.coverImageUrl! !== '' ? (
                     <div className="w-full h-full relative">
                       <img
@@ -126,7 +118,7 @@ const OpenEditionCard = ({ data }) => {
                 {data.coverImageUrl != null && data.coverImageUrl !== '' ? (
                   <Link href={`/nft/${data.tokenId}`} passHref>
                     <a>
-                      <div className="w-full xl:h-[418px] h-[300px] " onClick={() => gotoNftDetailPage()}>
+                      <div className="w-full xl:h-[418px] h-[300px]">
                         {!loaded && (
                           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                             <div></div>
@@ -163,7 +155,6 @@ const OpenEditionCard = ({ data }) => {
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full xl:h-[418px] h-[300px] object-contain overflow-hidden">
               <source src=${data.assetUrl} type="video/mp4" /></video>`,
                     }}
-                    onClick={() => gotoNftDetailPage()}
                   />
                 </a>
               </Link>
@@ -172,7 +163,7 @@ const OpenEditionCard = ({ data }) => {
             data.coverImageUrl !== null && data.coverImageUrl !== '' ? (
               <Link href={`/nft/${data.tokenId}`} passHref>
                 <a>
-                  <div className="w-full xl:h-[418px] h-[300px]" onClick={() => gotoNftDetailPage()}>
+                  <div className="w-full xl:h-[418px] h-[300px]">
                     {!loaded && (
                       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                         <div></div>
@@ -217,7 +208,7 @@ const OpenEditionCard = ({ data }) => {
             <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
           )}
           {data.artistProfilePicture !== null && data.artistProfilePicture !== undefined && (
-            <div className={styles.avatar} onClick={() => gotoAristPage()}>
+            <div className={styles.avatar}>
               <Link href={`/${data.artistUsername}`} passHref>
                 <a>
                   <img
@@ -314,9 +305,6 @@ const OpenEditionCard = ({ data }) => {
                 <div className="flex justify-end">
                   <GradientButton
                     label="Buy Edition"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
                     borderRadius={25}
                     width={140}
                     height={50}

@@ -80,6 +80,7 @@ const MyNFTSection = props => {
       if (!isGetMyNFTs) loadMyNFTs()
       getListedNft()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mx, connection, publicKey, isGetMyNFTs])
 
   const [nftList, setNFTList] = useState<NftData[]>([])
@@ -185,12 +186,14 @@ const MyNFTSection = props => {
 
     setFilteredList(list)
     setAllNftList(list)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myNftList, active])
 
   useEffect(() => {
     let new_list = filteredList as NftData[]
     if (new_list.length > rowCount) setIsVisibleFetching(true)
     setNFTList(new_list.slice(0, rowCount))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredList])
 
   useEffect(() => {
@@ -204,6 +207,7 @@ const MyNFTSection = props => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   useEffect(() => {
@@ -216,6 +220,7 @@ const MyNFTSection = props => {
         )
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredList, listedEdition])
 
   const searchNFT = key => {

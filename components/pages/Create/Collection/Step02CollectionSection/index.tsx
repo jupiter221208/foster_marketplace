@@ -13,7 +13,6 @@ import DimensionMenu from 'components/Menu/DimensionMenu'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-// import SwipRadio from 'components/Radio/SwipRadio'
 
 // Icons
 import ImageIcon from 'assets/icons/image-icon.svg?component'
@@ -154,6 +153,7 @@ const Step02CollectionSection = props => {
       selectedCollectionFile.croppedImage === undefined
     )
       onChangeCroppedImage(coverCroppedImage, selectedCollectionFile.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCollectionFile])
 
   const imageProcess = src => {
@@ -210,6 +210,7 @@ const Step02CollectionSection = props => {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
       setAddMoreClicked(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionFiles])
 
   // form validate

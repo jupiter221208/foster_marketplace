@@ -34,6 +34,7 @@ const ApparelSection = props => {
       }
       setLoader(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel])
 
   const uploadApparelSection = async (imgDataString: string) => {
@@ -68,6 +69,7 @@ const ApparelSection = props => {
         setCanvas(newCanvas)
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [finishEditing])
 
   const drawApparel = () => {
@@ -95,7 +97,7 @@ const ApparelSection = props => {
     })
     new fabric.Image.fromURL(apparel, img => {
       const { width, height } = img.getOriginalSize()
-      img.scale(screenWidth / 600, false)
+      img.scale(screenWidth / 700, false)
       newCanvas.add(img)
       if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
         img.set({
@@ -121,7 +123,7 @@ const ApparelSection = props => {
                 left: (screenWidth * 0.75) / 2,
               })
             } else {
-              let ratio = screenWidth / 600
+              let ratio = screenWidth / 700
               img.scaleToWidth(150 * ratio, false)
               img.set({
                 scaleX: (150 * ratio) / width,

@@ -29,8 +29,8 @@ import 'react-slideshow-image/dist/styles.css'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import HeroCardMobile from 'components/Card/HeroCardMobile'
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-large.svg?component'
-import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-large.svg?component'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-icon.svg?component'
+import ArrowLeftGreenIcon from 'assets/icons/arrow-left-white-icon.svg?component'
 import HeroEmptyList from 'assets/json/hero/hero-card-empty.json'
 import HeroNewCard from 'components/Card/HeroNewCard'
 
@@ -68,7 +68,7 @@ const MainSection = () => {
     }, 2000)
     dashboardAPI.getMarketplaceReleases('', '', 1, 13).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setHeroList(response.slice(0, 5))
+        setHeroList(response.filter(nft => nft.asset_type !== 'uknown').slice(0, 5))
       }
     }),
       error => {
@@ -92,12 +92,10 @@ const MainSection = () => {
   }, [heroList, router])
 
   const gotoNftPage = () => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/nft/${heroList[heroIndex].token_id}`)
   }
 
   const gotoAristPage = () => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/${heroList[heroIndex].artist_username}`)
   }
 

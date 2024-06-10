@@ -1,0 +1,10 @@
+@import 'assets/scss/variable.module.scss';
+
+.navbar {
+  background: var(--background-main-color);
+  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  @media (min-width: 1024px) {
+    background: var(--bg-new-color);
+    border-bottom: 0px solid rgba(var(--main-bg-color-rgb), 0.1);
+  }
+}

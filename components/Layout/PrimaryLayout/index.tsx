@@ -34,6 +34,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const lightDarkMode = useSelector(state => (state as any).lightMode)
   useEffect(() => {
     setColorTheme(lightDarkMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

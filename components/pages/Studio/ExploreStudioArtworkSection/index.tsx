@@ -62,6 +62,7 @@ const MarketplaceReleaseSection = props => {
       error => {
         console.log(error)
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
 
   return (
@@ -116,7 +117,6 @@ const MarketplaceReleaseSection = props => {
                       artistName={item.artist.username}
                       collectionName={item.collection_name}
                       onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
                         router.push(`/nft/${item.nft.token_id}`)
                       }}
                     />

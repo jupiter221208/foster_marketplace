@@ -25,24 +25,6 @@ const MobileEcosystemFilter = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {/* <Disclosure>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="flex w-full justify-between">
-                <div className={styles.subTitle}>PROFILE</div>
-                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-              </Disclosure.Button>
-              <Disclosure.Panel>
-                <Radio
-                  data={ProfileList}
-                  selected={selectedProfile}
-                  onChange={item => setSelectedProfile(item)}
-                  direction="rtl"
-                />
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure> */}
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>

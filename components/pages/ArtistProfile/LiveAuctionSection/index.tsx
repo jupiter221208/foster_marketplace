@@ -83,6 +83,7 @@ const LiveAuctionSection = props => {
 
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started', page)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist, category])
 
   const isExpired = endTime => {
@@ -105,6 +106,7 @@ const LiveAuctionSection = props => {
         getLiveAuctionsFromServer(category, artist, 'recent_started', nextpage)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return showSection ? (
@@ -136,7 +138,6 @@ const LiveAuctionSection = props => {
                 reservePrice={item.reserve_price}
                 endTime={item.end_time}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push('/nft/' + item.token_id)
                 }}
                 key={index}

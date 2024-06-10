@@ -56,14 +56,7 @@ const BrowseArtistCard = props => {
                 Created by&nbsp;
                 <Link href={`/${artistAddress}`} passHref>
                   <a>
-                    <span
-                      className={styles.greenText}
-                      onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
-                      }}
-                    >
-                      {getDisplayUserName(artistName)}
-                    </span>
+                    <span className={styles.greenText}>{getDisplayUserName(artistName)}</span>
                   </a>
                 </Link>
               </div>

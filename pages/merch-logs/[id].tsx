@@ -18,19 +18,18 @@ import OutlineButton from 'components/Button/OutlineButton'
 // api
 import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import { useAuthentication } from 'hooks/useAuthentication'
+import WriteReviewModal from 'components/Modal/WriteReviewModal'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
-  const isLoading = useSelector<any>(state => state.isLoading)
   const type = useSelector<any>(state => state.orderType)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -47,13 +46,11 @@ const MerchDetail = () => {
   const [reviewTitle, setReviewTitle] = useState('')
   const [reviewBody, setReviewBody] = useState('')
   const [commission, setCommission] = useState(null)
-
-  useEffect(() => {
-    dispatch({ type: 'set', isLoading: true })
-  }, [])
+  const [showReviewModal, setShowReviewModal] = useState(false)
 
   useEffect(() => {
     if (publicKey) setEmailBody()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo, publicKey])
 
   useEffect(() => {
@@ -64,7 +61,7 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
+    // dispatch({ type: 'set', isLoading: false })
 
     if (!orderData) return
     let { order, ssorder, shipment } = orderData
@@ -196,6 +193,7 @@ const MerchDetail = () => {
       service: getShippingServiceName(ssorder.requestedShippingService),
       delivery: getLocalDateWithoutTime(ssorder.paymentDate),
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData])
 
   const setEmailBody = () => {
@@ -232,7 +230,6 @@ const MerchDetail = () => {
   }
 
   const retryPayment = () => {
-    dispatch({ type: 'set', isLoading: true })
     router.push(`/orders/${id}`)
   }
   return (
@@ -242,7 +239,6 @@ const MerchDetail = () => {
           <div
             className={styles.backBG}
             onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
               router.push('/merch-logs')
             }}
           >
@@ -399,20 +395,21 @@ const MerchDetail = () => {
                 </a>
               </div>
               <div className="mt-[12px]">
-                <a
+                {/* <a
                   href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                     subject: reviewTitle,
                     body: reviewBody,
                   })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    // onClick={() => {}}
-                    onClick={() => {}}
-                  />
-                </a>
+                > */}
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a review"
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
+                {/* </a> */}
               </div>
             </div>
           </div>
@@ -520,22 +517,21 @@ const MerchDetail = () => {
                 </a>
               </div>
               <div className="mt-[12px]">
-                <a
+                {/* <a
                   href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                     subject: reviewTitle,
                     body: reviewBody,
                   })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a product review"
-                    // onClick={() => {}}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </a>
+                > */}
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a review"
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
+                {/* </a> */}
               </div>
             </div>
           </div>
@@ -656,22 +652,23 @@ const MerchDetail = () => {
                   </a>
                 </div>
                 <div className="mt-[12px]">
-                  <a
+                  {/* <a
                     href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                       subject: reviewTitle,
                       body: reviewBody,
                     })}`}
-                  >
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Write a product review"
-                      // onClick={() => {}}
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </a>
+                  > */}
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a review"
+                    // onClick={() => {}}
+                    onClick={() => {
+                      setShowReviewModal(true)
+                      // window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                  {/* </a> */}
                 </div>
               </div>
             </div>
@@ -924,7 +921,6 @@ const MerchDetail = () => {
                 paddingLeft="37px"
                 paddingRight="37px"
                 label="Get help"
-                disabled={true}
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
@@ -941,22 +937,23 @@ const MerchDetail = () => {
                 fontSize="16px"
                 paddingLeft="37px"
                 paddingRight="37px"
-                label="Write a product review"
-                disabled={true}
+                label="Write a review"
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
                 borderWidth={1}
                 color={'var(--text-gray-200-color)'}
                 width={335}
                 onClick={() => {
-                  window.location.href = 'mailto:admin@Fostermarketplace.app'
+                  setShowReviewModal(true)
+                  // window.location.href = 'mailto:admin@Fostermarketplace.app'
                 }}
               />
             </div>
           </div>
         </div>
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      <WriteReviewModal open={showReviewModal} onClose={() => setShowReviewModal(false)} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

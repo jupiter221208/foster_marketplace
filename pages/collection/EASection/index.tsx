@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -92,10 +92,10 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
       setNftDetails(validNfts)
       setErrorList(errors)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaplex, mintList])
 
   const removeNft = index => {
-    // if (nftDetails.length === 1) return
     let list = [...nftDetails]
     list.splice(index, 1)
     setNftDetails(list)
@@ -209,9 +209,6 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
                       <LoadingButton backgroundColor01="#95DBD5" backgroundColor02="#95DBD5" width={120} height={50} />
                     ) : (
                       <GradientButton
-                        backgroundColor01="var(--main-icon-color)"
-                        backgroundColor02="var(--main-icon-color)"
-                        color="var(--background-main-color)"
                         width={120}
                         height={50}
                         label="Import"
@@ -282,9 +279,6 @@ const EASection = ({ mintList, coverUrl, setMintList, onBack, onSuccess }: EASec
             ) : (
               <GradientButton
                 fullWidth
-                backgroundColor01="var(--main-icon-color)"
-                backgroundColor02="var(--main-icon-color)"
-                color="var(--background-main-color)"
                 height={45}
                 label="Import"
                 disabled={nftDetails.length === 0}

@@ -90,6 +90,7 @@ const MainSection = () => {
     if (solrPlexUrl.length > 0) list.push({ id: list.length, label: 'Solarplex', type: 'solar' })
     setWalletList(list)
     setSelectedWallet(list[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey, profileInfo])
 
   useEffect(() => {
@@ -140,6 +141,7 @@ const MainSection = () => {
       fetchData(croppedBanner)
       setUpdateBanner(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBanner])
 
   useEffect(() => {
@@ -156,6 +158,7 @@ const MainSection = () => {
       fetchData(croppedAvatar)
       setUpdateAvatar(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateAvatar])
 
   const uploadBannerFile = async (file: any, filename: string) => {
@@ -184,6 +187,7 @@ const MainSection = () => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerPictureUrl])
 
   useEffect(() => {
@@ -198,6 +202,7 @@ const MainSection = () => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [avatarPictureUrl])
 
   return (
@@ -227,7 +232,7 @@ const MainSection = () => {
                 <div>Settings</div>
               </div>
               <WalletFilterMenu
-                label={'Wallet & Socials'}
+                label="Links"
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {
@@ -249,7 +254,7 @@ const MainSection = () => {
             </div>
             <div className="flex lg:hidden gap-[9px] lg:gap-[15px] items-center">
               <WalletFilterMenu
-                label={'Wallet & Socials'}
+                label={'Links'}
                 data={walletList}
                 selectedItem={selectedWallet}
                 setSelectedItem={item => {

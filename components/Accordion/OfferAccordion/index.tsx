@@ -141,10 +141,6 @@ const OfferAccordionItem = ({
                     fullWidth
                     label="Accept"
                     onClick={() => onAccept(listing)}
-                    gradientDirection="right"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
                     fontSize={16}
                     width={300}
                     height={38}

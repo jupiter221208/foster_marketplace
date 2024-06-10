@@ -1,0 +1,69 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--background-main-color-rgb), 1);
+  @media (min-width: 1024px) {
+    background: rgba(var(--background-main-color-rgb), 0.9);
+  }
+  position: fixed;
+  inset: 0;
+}
+
+.close {
+  position: absolute;
+  right: 150px;
+  top: 100px;
+  width: 52px;
+  height: 52px;
+}
+
+.modalView {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    margin-top: 80px;
+  }
+}
+
+.childView {
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 604px;
+  }
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}
+
+.shippingDetails {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  font-weight: 100;
+  line-height: 30px;
+}
+
+.selected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  border: 2px solid var(--main-icon-color);
+}
+
+.unselected {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  border: 2px solid var(--bg-303030-DDDCDC);
+}

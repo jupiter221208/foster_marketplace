@@ -75,6 +75,7 @@ const NotificationMenu = () => {
         }
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo, isMenuOpen])
 
   function getSortedNotification(notifications) {

@@ -24,11 +24,15 @@ const NFTAssetSection = props => {
     if (nftType.includes('image')) {
       const img = new window.Image()
       img.src = nftCoverUrl
-      img.onload = () => setCurrentImageUrl(nftCoverUrl)
+      img.onload = () => {
+        setCurrentImageUrl(nftCoverUrl)
+        // setDimensions({ width: img.width, height: img.height })
+      }
       img.onerror = () => {
         setCurrentImageUrl(originalCoverUrl)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftCoverUrl, originalCoverUrl])
 
   return (
@@ -132,14 +136,6 @@ const NFTAssetSection = props => {
         <div className={styles.blurBackground}>
           {nftAssetUrl ? (
             <>
-              {/* <div className="absolute inset-0">
-                <ImageWithFoster
-                  src={nftCoverUrl}
-                  width={900}
-                  showPlaceHolder={false}
-                  className="min-w-full min-h-full object-cover"
-                />
-              </div> */}
               <div className={styles.videoArea}>
                 <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                   <source type="video/mp4" src={nftAssetUrl} />
@@ -148,7 +144,15 @@ const NFTAssetSection = props => {
             </>
           ) : (
             <>
-              <div className={styles.videoArea}>
+              <div className="absolute inset-0">
+                <ImageWithFoster
+                  src={nftCoverUrl}
+                  width={900}
+                  showPlaceHolder={false}
+                  className="min-w-full min-h-full object-cover"
+                />
+              </div>
+              {/* <div className={styles.videoArea}>
                 <video controls controlsList="nodownload" autoPlay loop className="max-w-full max-h-full">
                   <source type="video/mp4" src={nftAssetUrl} />
                 </video>
@@ -158,7 +162,7 @@ const NFTAssetSection = props => {
                   <ErrorMessageIcon />
                   <div>Video File Missing</div>
                 </div>
-              )}
+              )} */}
             </>
           )}
           <div className={styles.blurImage} />

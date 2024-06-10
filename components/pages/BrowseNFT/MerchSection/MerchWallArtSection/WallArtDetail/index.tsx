@@ -76,6 +76,7 @@ const WallArtDetail = props => {
         setData(null)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
@@ -88,6 +89,7 @@ const WallArtDetail = props => {
       setCropImage(null)
       setOrientation({ name: '', type: '' })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [print])
 
   useEffect(() => {
@@ -101,6 +103,7 @@ const WallArtDetail = props => {
       setSizes(sizes)
       setCost('----')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orientation])
 
   useEffect(() => {
@@ -115,6 +118,7 @@ const WallArtDetail = props => {
       setEnabled(false)
       return
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size])
 
   useEffect(() => {
@@ -124,6 +128,7 @@ const WallArtDetail = props => {
       setEnabled(false)
       return
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity])
 
   const setSelectSize = item => {

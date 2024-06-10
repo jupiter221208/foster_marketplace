@@ -61,16 +61,16 @@
 .arrowBG {
   width: 56px;
   height: 56px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), .25);
-  background: var(--second-home-bg);
+  border: 1px solid rgba(239, 240, 247, .25);
+  background: #242424;
   border-radius: 29px;
   display: flex;
   justify-content: center;
   align-items: center;
   &:hover {
-    border: 1px solid var(--main-icon-color);
+    border: 1px solid #95dbd5;
     svg {
-      fill: var(--main-icon-color);
+      fill: #eff0f6;
     }
   }
 }

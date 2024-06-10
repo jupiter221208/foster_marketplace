@@ -8,7 +8,6 @@ import Head from 'next/head'
 // components
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // styles
 import styles from './index.module.scss'
@@ -32,6 +31,7 @@ import TabSection from './TabSection'
 import EASection from './EASection'
 import { NftData } from 'types/nft'
 import { determineCategory } from 'utils/nfts.utils'
+import { isEndDateExpired } from 'utils/helpers'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -40,10 +40,9 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
-  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [collectionData, setCollectionData] = useState()
@@ -66,19 +65,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const getCollectionData = async () => {
     const result = await getCollectionFromDAS(address)
-
-    let filteredNfts = result.filter(
-      (arr, index, self) =>
-        index ===
-        self.findIndex(
-          t => t.content.json_uri === arr.content.json_uri || t.content.metadata.name === arr.content.metadata.name
-        )
-    )
-
-    filteredNfts = filteredNfts.filter(nft => nft['id'] !== address)
+    let filteredNfts = result.filter(nft => nft['id'] !== address)
 
     if (filteredNfts) {
       let collectionNfts = await collectionsAPI.getCollectionNft(address)
+
+      // Filter general NFT and Master edition NFT
+      collectionNfts = collectionNfts.filter(
+        nft =>
+          nft.parent_nft === null &&
+          (nft.end_time === null || (nft.end_time !== null && !isEndDateExpired(nft.end_time)))
+      )
 
       let sortedCollectionNfts = filteredNfts
         .map(r => {
@@ -86,23 +83,30 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         })
         .filter(nft => nft !== undefined)
 
+      filteredNfts = filteredNfts.filter(nft => sortedCollectionNfts.find(item => item.token_id === nft.id))
+
       if (sortedCollectionNfts && filteredNfts) {
         let newNftsArr: NftData[] = [...filteredNfts]
 
         newNftsArr.map((data, index) => {
-          newNftsArr[index].category = determineCategory(data.content.files)
+          newNftsArr[index].category = determineCategory(data.content.files, '')
         })
 
         sortedCollectionNfts.map((data, index) => {
           newNftsArr[index].mintAddress = data.token_id
           newNftsArr[index].creators[0].artist_username = data.artist_username
-          newNftsArr[index].auction = {
-            current_bid: data.current_bid,
-            start_time: data.start_time,
-            end_time: data.end_time,
-            list_price: data.list_price,
-          }
+          if (data.list_price) newNftsArr[index].list_price = data.list_price
+          else if (data.reserve_price)
+            newNftsArr[index].auction = {
+              current_bid: data.current_bid,
+              start_time: data.start_time,
+              end_time: data.end_time,
+              list_price: data.reserve_price,
+            }
+          newNftsArr[index].master_edition = data.master_edition
+          newNftsArr[index].max_supply = data.max_supply
         })
+
         setNfts(newNftsArr)
         fetchNftData(newNftsArr)
       }
@@ -113,7 +117,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   useEffect(() => {
     ;(async () => {
       setCollectionData(publicCollectionData)
-      dispatch({ type: 'set', isLoading: false })
+      // dispatch({ type: 'set', isLoading: false })
 
       if (!address) return
       try {
@@ -124,6 +128,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       } finally {
       }
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address, publicCollectionData])
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -160,14 +165,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const successImporting = async () => {
     await getCollectionData()
     setShowEAPreview(false)
-    // collectionsAPI.getCollectionNft(address).then(
-    //   response => {
-    //     // router.reload()
-    //     setNfts(response)
-    //     setShowEAPreview(false)
-    //   },
-    //   error => {}
-    // )
   }
 
   useEffect(() => {
@@ -175,6 +172,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected, loginAndRefresh])
 
   let collectionTitle = `${publicCollectionData?.collection_name} | Foster Marketplace`
@@ -233,7 +231,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           </div>
         )}
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

@@ -45,6 +45,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assetType])
 
   return (
@@ -166,6 +167,7 @@ const ListedNftCardExplore = (props: ListedNftCardExploreTypes) => {
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 200 : 360}
                     className={styles.imageNft}
                     onClick={() => onClick()}
+                    alt=""
                   />
                 </a>
               </Link>

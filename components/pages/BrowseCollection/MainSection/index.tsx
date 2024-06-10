@@ -25,6 +25,7 @@ import CameraWhiteIcon from 'assets/icons/editor-green.svg?component'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -87,7 +88,7 @@ const MainSection = props => {
     let prices = []
     if (nfts)
       nfts.forEach(nft => {
-        if (nft?.auction?.list_price) prices.push(parseFloat(nft.auction.list_price))
+        if (nft?.list_price) prices.push(parseFloat(nft.list_price))
       })
     setFloorPrice(prices.length === 0 ? 0 : Math.min.apply(Math, prices))
   }, [nfts])
@@ -129,6 +130,7 @@ const MainSection = props => {
       fetchData(croppedBanner)
       setUpdateBanner(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateBanner])
 
   useEffect(() => {
@@ -143,6 +145,7 @@ const MainSection = props => {
         console.log(error)
       }
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bannerPictureUrl])
 
   const showAlertModal = () => {
@@ -302,12 +305,15 @@ const MainSection = props => {
                 ) : (
                   <div className={`${styles.iconContainer} w-[87px]`}>
                     <div className="flex items-center gap-[9px]">
-                      <MenuSocialShare
-                        type="nft"
-                        vote={true}
-                        message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                        url={`/collection/${data?.collection_id}`}
-                      />
+                      <div
+                        className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                        onClick={() => setOpenShareModal(true)}
+                      >
+                        <div>
+                          <ShareSmallIcon alt="" />
+                        </div>
+                        <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                      </div>
                     </div>
                   </div>
                 )}
@@ -327,7 +333,7 @@ const MainSection = props => {
                         <SolanaLogoIcon alt="" />
                       </div>
                       <div className={`${styles.nftInfoLabel} ml-[6px]`}>
-                        {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                        {totalVolume > 0 ? totalVolume.toFixed(2) : '0'}
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
@@ -338,7 +344,7 @@ const MainSection = props => {
                       <div className="mt-[3px]">
                         <SolanaLogoIcon alt="" />
                       </div>
-                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                      <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : '-'}</div>
                     </div>
                     <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
                   </div>
@@ -467,12 +473,15 @@ const MainSection = props => {
                     ) : (
                       <div className={`${styles.iconContainer} w-[84px]`}>
                         <div className="flex items-center gap-[9px]">
-                          <MenuSocialShare
-                            type="nft"
-                            vote={true}
-                            message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                            url={`/collection/${data?.collection_id}`}
-                          />
+                          <div
+                            className={`${styles.iconContainer} w-[87px] gap-[9px]`}
+                            onClick={() => setOpenShareModal(true)}
+                          >
+                            <div>
+                              <ShareSmallIcon alt="" />
+                            </div>
+                            <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -521,7 +530,7 @@ const MainSection = props => {
                             <div className="flex gap-2 items-center">
                               <SolanaLogoIcon className="mt-[4px]" />
 
-                              <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                              <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : '-'}</div>
                             </div>
                           </div>
                           <div className={styles.nftInfoValueMobile}>Floor Price</div>
@@ -538,7 +547,7 @@ const MainSection = props => {
                               <SolanaLogoIcon className="mt-[4px]" />
 
                               <div className={styles.nftInfoLabelMobile}>
-                                {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                                {totalVolume > 0 ? totalVolume.toFixed(2) : '0'}
                               </div>
                             </div>
                           </div>

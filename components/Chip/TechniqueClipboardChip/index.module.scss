@@ -1,0 +1,33 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 890px;
+  height: auto;
+  padding: 20px;
+  position: absolute;
+  left: 120px;
+  top: 0;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1); 
+  border-radius: 6px;
+  color: var(--text-gray-200-color);
+  z-index: 10000;
+  display: block;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color)
+}
+
+.text {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+  margin-top: 10px;
+}

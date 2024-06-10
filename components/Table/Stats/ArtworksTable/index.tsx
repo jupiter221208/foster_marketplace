@@ -13,19 +13,13 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 import { getDisplayUserName } from 'utils/strings'
 import Link from 'next/link'
 
 const ArtworksTable = props => {
   const { data } = props
   const dispatch = useDispatch()
-  const router = useRouter()
   const [loaded, setLoaded] = useState(false)
-
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-  }
 
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
@@ -66,14 +60,7 @@ const ArtworksTable = props => {
                         />
                       </div>
 
-                      <div
-                        className="flex justify-start cursor-pointer"
-                        onClick={() => {
-                          dispatch({ type: 'set', isLoading: true })
-                        }}
-                      >
-                        {item.asset_name}
-                      </div>
+                      <div className="flex justify-start cursor-pointer">{item.asset_name}</div>
                     </div>
                   </a>
                 </Link>
@@ -86,12 +73,12 @@ const ArtworksTable = props => {
               </td>
               <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
-              <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getOwnerName(item))}>
+              <td className="text-center cursor-pointer">
                 <Link href={`/${getOwnerName(item)}`} passHref>
                   <a>{getDisplayUserName(getOwnerName(item))}</a>
                 </Link>
               </td>
-              <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getBuyerName(item))}>
+              <td className="text-center cursor-pointer">
                 <Link href={`/${getBuyerName(item)}`} passHref>
                   <a>{getDisplayUserName(getBuyerName(item))}</a>
                 </Link>

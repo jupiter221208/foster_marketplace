@@ -56,12 +56,7 @@ const CollectorsTable = props => {
                           />
                         </div>
                       </div>
-                      <div
-                        className="flex justify-center cursor-pointer"
-                        onClick={() => {
-                          dispatch({ type: 'set', isLoading: true })
-                        }}
-                      >
+                      <div className="flex justify-center cursor-pointer">
                         {getDisplayUserName(item.collector_name)}
                       </div>
                     </div>
@@ -83,7 +78,6 @@ const CollectorsTable = props => {
               <td
                 className="text-center cursor-pointer"
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/category/${item.favorite_category}`)
                 }}
               >

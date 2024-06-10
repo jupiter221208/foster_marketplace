@@ -30,7 +30,6 @@ const AccordionNewProfileMenu = props => {
       logout()
     } else {
       dispatch({ type: 'set', openMobileMenu: false })
-      dispatch({ type: 'set', isLoading: true })
     }
 
     router.push(item.path)

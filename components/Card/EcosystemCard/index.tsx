@@ -24,12 +24,7 @@ const EcosystemCard = props => {
   return (
     <Link href={`/${data.artist.username}`} passHref>
       <a>
-        <div
-          className={styles.container}
-          onClick={() => {
-            dispatch({ type: 'set', isLoading: true })
-          }}
-        >
+        <div className={styles.container} onClick={() => {}}>
           <div className="relative flex">
             <div className="w-full overflow-hidden">
               {data.artist.banner_picture ? (

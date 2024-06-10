@@ -70,13 +70,21 @@
 
 .totalPrice {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
+  font-size: 18px;
   line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 18px;
     line-height: 23px;
   }
   color: var(--text-gray-200-color);
+}
+
+.totalUSD {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  margin-top: 2px;
 }
 
 .divider {
@@ -120,8 +128,8 @@
 
 .summary {
   font-family: 'Muli-SemiBold';
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 30px;
 
   @media (min-width: 1024px) {
     font-size: 24px;
@@ -145,8 +153,12 @@
 }
 
 .paymentBG {
-  width: 125px;
-  height: 125px;
+  width: 109px;
+  height: 109px;
+  @media (min-width: 1024px) {
+    width: 125px;
+    height: 125px;
+  }
   border-radius: 15px;
   background: var(--dao-treasury-bg);
   cursor: pointer;
@@ -200,7 +212,7 @@
 
 .bottomSection {
   width: 100%;
-  padding: 0px;
+  padding: 0px 16px;
   margin-top: 45px;
   @media (min-width: 1024px) {
     border-top: 1px solid var(--bg-303030-DDDCDC);

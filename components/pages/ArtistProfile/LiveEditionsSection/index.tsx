@@ -21,10 +21,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { NftData } from 'types/nft'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
-import { getTimeDifference } from 'utils/helpers'
 
 const LiveEditionsSection = props => {
   const { category, artist = '', fromPage = 'home' } = props
@@ -49,10 +47,6 @@ const LiveEditionsSection = props => {
       setIsMounted(true)
       setIsFetching(false)
 
-      // if (response.length === rowCount) {
-      //   setIsVisibleFetching(true)
-      // } else setIsVisibleFetching(false)
-
       let openData = [],
         limitData = []
       if (Array.isArray(response.limitedEditions)) {
@@ -62,8 +56,6 @@ const LiveEditionsSection = props => {
       if (Array.isArray(response.openEditions)) {
         openData = response.openEditions
       }
-
-      // let liveData = response.filter(item => getTimeDifference(item.endTime) > 0 || item.endTime === null)
 
       setLiveAuctionList([...liveAuctionList, ...limitData, ...openData])
       fetchNftData([...limitData, ...openData])
@@ -99,6 +91,7 @@ const LiveEditionsSection = props => {
 
   useEffect(() => {
     getLiveEditionsFromServer(category, artist, page)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [artist, category])
 
   useEffect(() => {}, [liveAuctionList])
@@ -111,6 +104,7 @@ const LiveEditionsSection = props => {
         getLiveEditionsFromServer(category, artist, nextpage)
       }, 2000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return showSection ? (
@@ -144,7 +138,6 @@ const LiveEditionsSection = props => {
                 price={item.price}
                 endTime={item.endTime}
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push('/nft/' + item.tokenId)
                 }}
                 key={index}

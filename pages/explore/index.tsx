@@ -17,7 +17,6 @@ import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
 import SelectedTab from 'components/Tab/SelectedTab'
 import EcosystemCard from 'components/Card/EcosystemCard'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -47,19 +46,19 @@ import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
-import GradientButton from 'components/Button/GradientButton'
 import { ExploreAPIData } from 'types/nft'
 import IconTab from 'components/Tab/IconTab'
 import OrderSelect from 'components/Select/OrderSelect'
 import ListedNftCardExplore from 'components/Card/ListedNFTCardExplore'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 import NFTEditionsCard from 'components/Card/NFTEditionsCard'
+import BlackButton from 'components/Button/BlackButton'
 
 const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
 
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
@@ -114,18 +113,6 @@ const Explore = () => {
       setIsMounted(true)
     }, 1000)
   }, [])
-
-  // useEffect(() => {
-  //   return () => {
-  //     console.log(availabilityFilter, '===================availabilityFilter222==============')
-  //     dispatch({ type: 'set', availabilityFilter: 3 })
-  //     dispatch({ type: 'set', collectionSort: '' })
-  //     dispatch({ type: 'set', artistSort: '' })
-  //     dispatch({ type: 'set', artworkSort: '' })
-  //     dispatch({ type: 'set', collectionCategory: '' })
-  //     dispatch({ type: 'set', artworkCategory: '' })
-  //   }
-  // }, [])
 
   useEffect(() => {
     setIsMounted(false)
@@ -198,6 +185,7 @@ const Explore = () => {
       default:
         break
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exploreTab, availabilityFilter])
 
   useEffect(() => {
@@ -227,6 +215,7 @@ const Explore = () => {
       default:
         break
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAvailability, selectedMedium, selectedMarket, selectedSort])
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
@@ -255,7 +244,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         if (response.length === 0) {
           setIsVisibleFetching(false)
@@ -376,7 +365,7 @@ const Explore = () => {
         }
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -406,7 +395,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
 
         if (response.length === 0) return
@@ -432,7 +421,6 @@ const Explore = () => {
         else setCollectionList([...collectionList, ...collections])
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -440,8 +428,6 @@ const Explore = () => {
   }
 
   const getExploreArtistData = async (curPage, sort, count, reset = false) => {
-    if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
-
     let page = curPage
     if (reset === true) {
       page = 0
@@ -457,7 +443,7 @@ const Explore = () => {
       per_page: count,
     }).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
@@ -470,7 +456,7 @@ const Explore = () => {
         else setEcosystemList([...ecosystemList, ...response])
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         setIsVisibleFetching(false)
       }
@@ -478,7 +464,9 @@ const Explore = () => {
   }
 
   const handleNextPage = () => {
-    if (nftList.length === 0) return
+    if (exploreTab === 0 && nftList.length === 0) return
+    if (exploreTab === 1 && collectionList.length === 0) return
+    if (exploreTab === 2 && ecosystemList.length === 0) return
 
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
@@ -588,6 +576,7 @@ const Explore = () => {
     if (isFetching === true) {
       handleNextPage()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   let pageTitle = 'Explore'
@@ -652,7 +641,7 @@ const Explore = () => {
 
           <div className="flex w-full justify-between items-center gap-[11px] z-10 mb-[15px] mt-[15px]">
             {exploreTab !== 2 && (
-              <GradientButton
+              <BlackButton
                 label="Filter"
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
@@ -670,7 +659,7 @@ const Explore = () => {
                 direction="rtl"
               />
             )}
-            <GradientButton
+            <BlackButton
               label="Sort"
               onClick={() => setOpenMobileSort(!openMobileSort)}
               fullWidth
@@ -730,9 +719,7 @@ const Explore = () => {
                             currentBid={item.current_bid}
                             reservePrice={item.reserve_price}
                             endTime={item.end_time}
-                            onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             price={item.price}
                           />
                         ) : selectedAvailability.value === 'editions' ? (
@@ -748,9 +735,7 @@ const Explore = () => {
                             price={item.master_edition?.price}
                             currentSupply={item.current_supply}
                             maxSupply={item.max_supply}
-                            onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             key={index}
                           />
                         ) : selectedAvailability.value === 'all' ? (
@@ -767,10 +752,7 @@ const Explore = () => {
                               currentSupply={item.current_supply}
                               maxSupply={item.max_supply}
                               price={item.master_edition?.price}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                                // router.push('/nft/' + item.tokenId)
-                              }}
+                              onClick={() => {}}
                               key={index}
                             />
                           ) : isAvailableAuctionCard(item) ? (
@@ -784,9 +766,7 @@ const Explore = () => {
                               currentBid={item.current_bid}
                               reservePrice={item.reserve_price}
                               endTime={item.end_time}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                               price={item.price}
                             />
                           ) : !item.end_time && item.price ? (
@@ -799,9 +779,7 @@ const Explore = () => {
                               price={item.price}
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                             />
                           ) : (
                             <ListedNftCardExplore
@@ -811,9 +789,7 @@ const Explore = () => {
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
-                              onClick={() => {
-                                dispatch({ type: 'set', isLoading: true })
-                              }}
+                              onClick={() => {}}
                               price={item.price}
                             />
                           )
@@ -827,9 +803,7 @@ const Explore = () => {
                             price={item.price}
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
-                            onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                           />
                         ) : (
                           <ListedNftCardExplore
@@ -839,9 +813,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
-                            onClick={() => {
-                              dispatch({ type: 'set', isLoading: true })
-                            }}
+                            onClick={() => {}}
                             price={item.price}
                           />
                         )}
@@ -933,7 +905,7 @@ const Explore = () => {
           />
         )}
       </div>
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

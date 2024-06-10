@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
@@ -30,7 +30,6 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
 import { OrderData, payOrder } from 'apis/merch'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import OutlineButton from 'components/Button/OutlineButton'
 
 export interface PhysicalCheckoutProps {
@@ -45,7 +44,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -140,6 +139,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
     })
     setList(itemList)
     setMobileList(mobilelistData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCheckout = async () => {
@@ -313,13 +313,11 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            dispatch({ type: 'set', isLoading: true })
             router.push(`/merch-logs/${id}`)
           }, 1000)
         }}
         data={alertData}
       />
-      <FullScreenLoadingModal open={isLoading} />
     </section>
   )
 }

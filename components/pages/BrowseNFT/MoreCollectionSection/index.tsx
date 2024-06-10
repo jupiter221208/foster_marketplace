@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -17,7 +17,6 @@ import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -29,12 +28,12 @@ const MoreCollectionSection = props => {
   const { collectionId, collectionName = '', collectionNFTs } = props
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
   useEffect(() => {
     fetchNftData(collectionNFTs)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionNFTs])
 
   const fetchNftData = nfts => {
@@ -62,7 +61,6 @@ const MoreCollectionSection = props => {
         <div className="hidden lg:flex z-10">
           <SeeMoreButton
             onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
               router.push(`/collection/${collectionId}`)
             }}
           />
@@ -93,7 +91,6 @@ const MoreCollectionSection = props => {
                   collectionName={collectionName}
                   price={item.list_price}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
                     router.push(`/nft/${item.token_id}`)
                   }}
                 />

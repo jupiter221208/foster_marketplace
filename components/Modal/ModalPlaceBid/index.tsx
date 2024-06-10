@@ -63,6 +63,7 @@ const ModalPlaceBid = props => {
         setPrice(parseFloat(fixedPrice))
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   useEffect(() => {
@@ -85,6 +86,7 @@ const ModalPlaceBid = props => {
         setPriceCheckMode(0)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price])
 
   return (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
+import { Switch as HSwitch } from '@headlessui/react'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -17,6 +18,10 @@ import PriceInput from 'components/Input/PriceInput'
 // resource
 import BackIcon from 'assets/icons/back-small.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
+import ArrowTopWhiteIcon from 'assets/icons/arrow-up-white.svg?component'
+import TrashMobileIcon from 'assets/icons/trash-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -28,11 +33,11 @@ import { listMasterEdition, updateEditionListing, cancelListingEdition } from 'a
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
+import MerchShopSelectModal from 'components/Modal/MerchShopSelectModal'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface ListEditionDetailProps {
   data: {
@@ -65,7 +70,17 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [durationType, setDurationType] = useState<'noTime' | '24' | '72' | 'custom'>('24')
   const [buyLimitType, setBuyLimitType] = useState('no')
   const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [enableMerch, setEnableMerch] = useState(false)
+  const [showMerchModal, setShowMerchModal] = useState(false)
   const [day, setDay] = useState('')
+  const [merchCard, setMerchCard] = useState(null)
+  const [totalCostExpand, setTotalCostExpand] = useState(false)
+  const [merchProdCost, setMerchProdCost] = useState(0)
+
+  useEffect(() => {
+    if (merchCard) setMerchProdCost(0.3)
+    else setMerchProdCost(0)
+  }, [merchCard])
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
@@ -84,8 +99,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     setDay(dayOfWeek)
     return endDate
   }, [startDate, days, hours, durationType])
-
-  const cancelListEdition = async () => {}
 
   const handleListEdition = async () => {
     try {
@@ -185,6 +198,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     else if (mintPrice === undefined || mintPrice === '' || mintPrice === null) disabled = true
     else if (buyLimitType !== 'no' && buyLimit === '') disabled = true
     setButtonDisabled(disabled)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (
@@ -223,8 +237,65 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
+        {/* <div className="w-full mt-[20px]">
+          <div className="flex gap-[13px]">
+            <HSwitch
+              checked={enableMerch}
+              onChange={() => {
+                setEnableMerch(!enableMerch)
+                setShowMerchModal(!enableMerch)
+              }}
+              className={`${
+                enableMerch ? styles.active : styles.inactive
+              } relative inline-flex h-6 w-[42px] items-center rounded-full`}
+            >
+              <span
+                className={`transform transition ease-in-out duration-200 ${
+                  enableMerch ? 'translate-x-5' : 'translate-x-1'
+                } ${
+                  enableMerch ? styles.activeSwitch : styles.inactiveSwitch
+                } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
+              />
+            </HSwitch>
+            <div className={styles.merchText}>Include merch for each print</div>
+          </div>
+        </div> */}
+
+        {enableMerch && merchCard && (
+          <div className={styles.merchArea}>
+            <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
+              <div className={styles.assetArea}>
+                <ImageWithFoster width={65} src={merchCard.image} />
+              </div>
+              <div className={styles.contentArea}>
+                <div className={styles.merchTitle}>Merch item included for each sale</div>
+                <div className={styles.merchContent}>Unisex Premium Hoodie | Embroidery | White</div>
+              </div>
+            </div>
+            <div className="sm:block hidden">
+              <div
+                className={styles.merchButton}
+                onClick={() => {
+                  setMerchCard(null)
+                  setEnableMerch(false)
+                }}
+              >
+                Remove
+              </div>
+            </div>
+            <div
+              className="sm:hidden absolute flex top-[0px] right-[15px] h-full items-center justify-center"
+              onClick={() => {
+                setMerchCard(null)
+                setEnableMerch(false)
+              }}
+            >
+              <TrashMobileIcon alt="" />
+            </div>
+          </div>
+        )}
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[30px]">
+          <div className="w-full mt-[20px] lg:mt-[20px]">
             <div className={styles.auctionStart}>
               Start Time <span className={styles.auctionAsterisk}>*</span>
             </div>
@@ -505,7 +576,49 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
           </div>
         )}
-        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[80px] mb-[40px]'} w-full`}>
+        {totalCostExpand ? (
+          <div className={styles.totalCostExpand} onClick={() => setTotalCostExpand(false)}>
+            <div className="w-full flex justify-between">
+              <div className={styles.totalCost}>Total Cost Per Mint</div>
+              <div className="flex items-center">
+                <SolanaIcon className="mt-[2px]" />
+                <div className={styles.price}>
+                  {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + merchProdCost).toFixed(2)}
+                </div>
+                <div className="ml-[11px]">
+                  <ArrowTopWhiteIcon />
+                </div>
+              </div>
+            </div>
+            <div className={styles.costBorder} />
+            <div className="w-full mt-[15px] flex justify-between">
+              <div className={styles.mintPrice}>Artwork Mint Price</div>
+              <div className={styles.mintSol}>{mintPrice} SOL</div>
+            </div>
+            <div className="w-full mt-[15px] flex justify-between">
+              <div className={styles.mintPrice}>Merch Production Cost</div>
+              <div className={styles.mintSol}>{merchProdCost} SOL</div>
+            </div>
+            <div className="w-full mt-[15px] mb-[22px] flex justify-between">
+              <div className={styles.mintPrice}>Foster Fee (5%)</div>
+              <div className={styles.mintSol}>{(parseFloat(mintPrice) * 0.05).toFixed(2)} SOL</div>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.totalCostCollapse} onClick={() => setTotalCostExpand(true)}>
+            <div className={styles.totalCost}>Total Cost Per Mint</div>
+            <div className="flex h-[20px] items-center">
+              <SolanaIcon className="mt-[2px]" />
+              <div className={styles.price}>
+                {mintPrice === '' ? '---' : (parseFloat(mintPrice) * 1.05 + merchProdCost).toFixed(2)}
+              </div>
+              <div className="ml-[11px]">
+                <ArrowDownWhiteIcon />
+              </div>
+            </div>
+          </div>
+        )}
+        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[30px] mb-[40px]'} w-full`}>
           {isLoading ? (
             <LoadingSecondaryButton fullWidth />
           ) : (
@@ -529,6 +642,18 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           )}
         </div>
       </div>
+      <MerchShopSelectModal
+        open={showMerchModal}
+        close={status => {
+          setShowMerchModal(false)
+          setEnableMerch(false)
+        }}
+        selectCard={item => {
+          setShowMerchModal(false)
+          setEnableMerch(true)
+          setMerchCard(item)
+        }}
+      />
     </div>
   )
 }

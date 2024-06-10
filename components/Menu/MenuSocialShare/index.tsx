@@ -18,6 +18,7 @@ import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
 import ShareBlackDesktopIcon from 'assets/icons/share-black-desktop.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareGrayIcon from 'assets/icons/share-gray-menu.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -28,6 +29,7 @@ import { copyToClipboard } from 'utils/helpers'
 
 interface MenuSocialShareProps {
   type?: 'icon' | 'ellipse' | 'image' | 'nft'
+  align?: 'left' | 'right'
   icon01?: string
   icon02?: string
   vote: boolean
@@ -40,6 +42,7 @@ interface MenuSocialShareProps {
 
 const MenuSocialShare = ({
   type = 'icon',
+  align = 'right',
   icon01,
   icon02,
   vote,
@@ -91,12 +94,12 @@ const MenuSocialShare = ({
               </div>
             ) : type === 'nft' ? (
               <div className="flex gap-[9px]">
-                <ShareSmallIcon />
+                <ShareGrayIcon />
                 <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
               </div>
             ) : (
-              <div className="mt-[4px]">
-                <Image src={vote ? icon02 : icon01} alt="" />
+              <div className="">
+                <ShareSmallIcon />
               </div>
             )}
           </div>
@@ -111,7 +114,17 @@ const MenuSocialShare = ({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className={type === 'nft' ? styles.menuAreaNft : styles.menuArea}>
+          <Menu.Items
+            className={
+              type === 'icon'
+                ? align === 'right'
+                  ? styles.menuArea
+                  : styles.menuIcon
+                : type === 'nft'
+                ? styles.menuAreaNft
+                : styles.menuArea
+            }
+          >
             <Menu.Item>
               {({ active }) => (
                 <div

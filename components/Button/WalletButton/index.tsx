@@ -123,6 +123,7 @@ const WalletButton = props => {
         setIsOfferLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
 
   const onChangeBiddingPrice = value => {
@@ -168,6 +169,7 @@ const WalletButton = props => {
         setIsBidLocked(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
 
   const { metaplex: mx } = useMetaplex()
@@ -265,6 +267,7 @@ const WalletButton = props => {
     }
 
     setButtonClicked(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected])
 
   useEffect(() => {
@@ -558,7 +561,6 @@ const WalletButton = props => {
                     className={styles.viewActiveOffer}
                     onClick={() => {
                       router.push(`/dashboard?tab=6`)
-                      dispatch({ type: 'set', isLoading: true })
                     }}
                   >
                     View active offers
@@ -753,7 +755,6 @@ const WalletButton = props => {
                     className={styles.viewActiveOffer}
                     onClick={() => {
                       router.push(`/dashboard?tab=3`)
-                      dispatch({ type: 'set', isLoading: true })
                     }}
                   >
                     View active bids

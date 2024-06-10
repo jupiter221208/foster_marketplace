@@ -177,7 +177,7 @@ const HeroCardMobile = ({ data, gotoNftDetailPage, gotoAristPage }) => {
                       className="rounded-full"
                     />
                   ) : (
-                    <Image src={DefaultAvatar} width={44} height={44} className="rounded-full" />
+                    <Image src={DefaultAvatar} width={44} height={44} className="rounded-full" alt="" />
                   )}
                 </div>
               )}

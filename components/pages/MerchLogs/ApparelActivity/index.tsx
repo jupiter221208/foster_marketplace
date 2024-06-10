@@ -24,6 +24,7 @@ const ApparelActivity = props => {
 
   useEffect(() => {
     setActivityList()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, filter])
 
   const setActivityList = () => {
@@ -48,6 +49,7 @@ const ApparelActivity = props => {
         setActivityList()
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchWord])
 
   return (

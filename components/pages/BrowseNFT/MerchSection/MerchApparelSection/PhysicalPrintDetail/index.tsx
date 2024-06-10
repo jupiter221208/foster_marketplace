@@ -87,6 +87,7 @@ const PhysicalPrintDetail = props => {
       setColor(ColorType[defaulteColor])
       dispatch({ type: 'set', apparelColor: -1 })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparelColor])
 
   useEffect(() => {
@@ -94,6 +95,7 @@ const PhysicalPrintDetail = props => {
       onShipping(data)
       dispatch({ type: 'set', shippingDetail: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shippingDetail])
 
   useEffect(() => {
@@ -155,6 +157,7 @@ const PhysicalPrintDetail = props => {
     } else {
       setEnabled(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gender])
 
   useEffect(() => {
@@ -167,6 +170,7 @@ const PhysicalPrintDetail = props => {
       setQualityType(newQualityType)
       setQuality(newQualityType[0])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel])
 
   useEffect(() => {
@@ -222,6 +226,7 @@ const PhysicalPrintDetail = props => {
     }
 
     setEnabled(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apparel, color, print, quality, size, quantity])
 
   const getApparelName = () => {
@@ -289,6 +294,7 @@ const PhysicalPrintDetail = props => {
       dispatch({ type: 'set', isAddToCart: false })
       dispatch({ type: 'set', printImageUrl: null })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [printImageUrl, isAddToCart])
 
   return (
@@ -383,14 +389,6 @@ const PhysicalPrintDetail = props => {
               <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
                 Size Chart
               </div>
-              {/* <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
-                <path
-                  id="angle-down-9"
-                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
-                  transform="translate(-6.754 -8.879)"
-                  fill="var(--chevron-up-icon-color)"
-                />
-              </svg> */}
             </div>
           </div>
           {/* <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} /> */}

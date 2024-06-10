@@ -8,7 +8,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(var(--background-main-color-rgb), 0.85);
+  background: rgba(26, 26, 26, 0.85);
   -webkit-backdrop-filter: blur(30px);
   backdrop-filter: blur(30px);
 }
@@ -46,7 +46,7 @@
 
 .nftNames {
   max-width: 200px;
-  color: var(--pagination-down-icon);
+  color: white;
   p:first-child {
     font-family: 'Muli-SemiBold';
     font-size: 18px;
@@ -66,28 +66,28 @@
     @media (min-width: 1400px) {
       font-size: 18px;
     }
-    color: rgba(var(--main-bg-color-rgb), 0.9);
+    color: rgba(239, 240, 247, 0.9);
   }
 }
 
 .listedFor {
   font-family: 'Muli-Light';
   font-size: 18px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9) 
+  color: rgba(239, 240, 247, 0.9) 
 }
 
 
 .price {
   font-family: 'Muli-SemiBold';
   font-size: 20px;
-  color: var(--text-gray-200-color) 
+  color: rgb(239, 240, 247) 
 }
 
 
 .skeletonLoader:empty {
   display: block;
-  background-color: var(--main-bg-color) !important;
-  border-color: var(--main-bg-color) !important;
+  background-color: rgb(239, 240, 247) !important;
+  border-color: rgb(239, 240, 247) !important;
   animation-name: skeletonAnimation;
   animation-duration: 1.5s;
   animation-iteration-count: infinite;

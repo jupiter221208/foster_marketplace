@@ -1,0 +1,131 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  padding: 30px 0px 0px 0px;
+}
+
+.greenTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--main-icon-color);
+  text-align: center;
+}
+
+.grayTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: #636363;
+  text-align: center;
+}
+
+.text {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--stats-btn-icon-color);
+}
+
+.lineBG {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg-2B2B2B-DDDCDC);
+}
+
+.progressBG {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--main-icon-color); 
+}
+
+.locked {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.bottomSection {
+  margin-top: 35px;
+  width: 100%;
+  height: 98px;
+  border-top: 1px solid var(--bg-303030-DDDCDC);
+  background: var(--bg-171717-FFF);
+  padding: 0px 21px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonText {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  margin-top: 6px;
+}
+
+.dialog {
+  position: absolute;
+  height: 395px;
+  @media (min-width: 1024px) {
+    height: 408px;
+  }
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: var(--bg-171717-FFF);
+  border-top: 1px solid var(--bg-303030-DDDCDC);
+  border-radius: 30px;
+  padding: 25px 22px 0px 22px;
+}
+
+.badgeTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+}
+
+.badgeContent {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  margin-top: 10px;
+}
+
+.dlgBottom {
+  position: absolute;
+  height: 68px;
+  left: 22px;
+  right: 22px;
+  bottom: 0px;
+  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}

@@ -11,6 +11,7 @@ import MyCollectionSection from 'components/pages/Dashboard/MyCollectionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
 import OfferSection from 'components/pages/Dashboard/OfferSection'
+import MerchEditionSection from 'components/pages/Dashboard/MerchEditionSection'
 
 // json
 import TabList from 'assets/json/dashboard/tab-list.json'
@@ -109,6 +110,11 @@ const TabSection = () => {
           <HiddenSection />
         </div>
       )}
+      {/* {activeTab === 8 && (
+        <div className="w-full flex flex-wrap">
+          <MerchEditionSection />
+        </div>
+      )} */}
     </div>
   )
 }

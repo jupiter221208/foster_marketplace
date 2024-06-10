@@ -37,14 +37,13 @@ import {
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import ProgressSection from 'components/ProgressSection'
 import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
 
 const Collection = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionMintName = useSelector(state => (state as any).collectionMintName)
@@ -74,7 +73,7 @@ const Collection = () => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
+    // dispatch({ type: 'set', isLoading: false })
     setTimeout(() => {
       setScreenLoaded(true)
     }, 1000)
@@ -102,6 +101,8 @@ const Collection = () => {
 
       await refreshToken()
       // TODO: calculate real file size
+      await ensureLocalWalletBalance(0.1 * 1e9, 'confirmed')
+
       // for now, just fund with 0.1 sol which is little over 1GB
       const categories = categoryList.filter(item => item.checked)
 
@@ -647,7 +648,7 @@ const Collection = () => {
           />
         )}
       </div>
-      <FullScreenLoadingModal open={screenLoaded && isLoading} />
+      {/* <FullScreenLoadingModal open={screenLoaded && isLoading} /> */}
       <Alert
         open={showAlert}
         close={() => {

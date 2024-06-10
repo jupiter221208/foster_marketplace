@@ -52,8 +52,8 @@
 .collectionName {
   width: 100%;
   font-family: 'Muli-ExtraBold';
-  font-size: 18px;
-  line-height: 20px;
+  font-size: 20px;
+  line-height: 24px;
   @media (min-width: 1024px) {
     font-family: 'Muli-ExtraBold';
     font-size: 28px;
@@ -66,7 +66,7 @@
 .artistName {
   width: 100%;
   font-family: 'Muli-Light';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 24px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Light';
@@ -85,7 +85,7 @@
 
 .greenText {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 24px;
   color: var(--checkbox-border-color);
   @media (min-width: 1024px) {

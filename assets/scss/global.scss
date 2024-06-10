@@ -384,6 +384,15 @@ h6 {
   line-height: 60px;
 }
 
+.star {
+  margin: 0 1px;
+  transition: transform 200ms;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
 .g-container {
   max-width: 1920px;
   width: 100%;
@@ -480,33 +489,6 @@ h6 {
   }
 }
 
-#heroStudioSwiper .swiper-horizontal > .swiper-pagination-bullets,
-#heroStudioSwiper .swiper-pagination-bullets.swiper-pagination-horizontal,
-.swiper-pagination-custom,
-.swiper-pagination-fraction {
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 18px;
-  z-index: 10;
-  @media (min-width: 1024px) {
-    left: -10px;
-    bottom: 0px;
-  }
-}
-
-#heroStudioSwiper .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--text-gray-200-color);
-  @media (max-width: 640px) {
-    width: 4px;
-    height: 4px;
-    border-radius: 2px;
-  }
-}
-
 #heroSwiper .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
@@ -514,19 +496,6 @@ h6 {
   background: var(--text-gray-200-color);
   @media (max-width: 640px) {
     width: 4px;
-    height: 4px;
-    border-radius: 2px;
-  }
-}
-
-#heroStudioSwiper .swiper-pagination-bullet-active {
-  color: var(--white-color);
-  background: var(--home-swiper-bg);
-  width: 35px;
-  height: 8px;
-  border-radius: 4px;
-  @media (max-width: 640px) {
-    width: 18px;
     height: 4px;
     border-radius: 2px;
   }
@@ -683,6 +652,51 @@ h6 {
   }
 }
 #trendArtistMobile .swiper-pagination-bullet-active {
+  color: var(--white-color);
+  background: var(--home-swiper-bg);
+  width: 35px;
+  height: 8px;
+  border-radius: 4px;
+  @media (max-width: 640px) {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+
+// Merch Shop Card Swiper
+#merchShopCardSwiper .swiper-wrapper {
+  padding-bottom: 30px;
+}
+#merchShopCardSwiper .swiper-horizontal > .swiper-pagination-bullets,
+#merchShopCardSwiper .swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 18px;
+  z-index: 10;
+  @media (min-width: 414px) {
+    bottom: 0px;
+  }
+  @media (min-width: 1024px) {
+    left: -10px;
+    bottom: 0px;
+  }
+}
+#merchShopCardSwiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--text-gray-200-color);
+  @media (max-width: 640px) {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+#merchShopCardSwiper .swiper-pagination-bullet-active {
   color: var(--white-color);
   background: var(--home-swiper-bg);
   width: 35px;
@@ -1593,6 +1607,13 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='close-icon'] {
+  fill: var(--main-bg-color);
+  [data-fill='a'] {
+    fill: rgba(var(--main-bg-color-rgb), 0.05);
+  }
+}
+
 [data-name='button-divider'] {
   fill: var(--bg-1A1A1A-4A4D50)
 }
@@ -1618,7 +1639,7 @@ h6 {
 }
 
 [data-name='fullscreen-icon'] {
-  fill: rgba(var(--main-bg-color-rgb), 0.03);
+  fill: rgba(var(--main-bg-color-rgb), 0.05);
   [data-fill='a'] {
     fill: var(--main-bg-color);
   }

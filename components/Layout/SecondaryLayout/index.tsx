@@ -1,11 +1,10 @@
 import React, { FC, useEffect } from 'react'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom components
-import Navbar from 'components/Navbar'
 import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
@@ -33,6 +32,7 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

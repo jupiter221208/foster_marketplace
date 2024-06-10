@@ -36,6 +36,7 @@ const HomeEditionCard = props => {
       let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
       hidden_video.currentTime = 3
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
   useEffect(() => {
@@ -71,9 +72,14 @@ const HomeEditionCard = props => {
               {data?.artistProfilePicture === undefined ||
               data?.artistProfilePicture === null ||
               data?.artistProfilePicture === '' ? (
-                <img src={DefaultAvatar.src} className="w-[45px]  h-[45px] rounded-full" />
+                <img src={DefaultAvatar.src} className="w-[45px]  h-[45px] rounded-full" alt="" />
               ) : (
-                <img src={data?.artistProfilePicture} onClick={() => {}} className="w-[45px] h-[45px] rounded-full" />
+                <img
+                  src={data?.artistProfilePicture}
+                  onClick={() => {}}
+                  className="w-[45px] h-[45px] rounded-full"
+                  alt=""
+                />
               )}
             </a>
           </Link>

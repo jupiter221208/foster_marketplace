@@ -37,6 +37,7 @@ import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
 import AccordionNewProfileMenu from '../AccordionNewProfileMenu'
+import Link from 'next/link'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -71,6 +72,7 @@ const MobileMenu = () => {
       }
       setProfileImage(profileInfo.profile_picture)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -93,6 +95,7 @@ const MobileMenu = () => {
       ])
       setShowAlert(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [connected])
 
   const handleThemeMode = () => {
@@ -176,14 +179,8 @@ const MobileMenu = () => {
               About
             </a>
           </div>
-          <div className={styles.footerText}>
-            <a
-              target="_blank"
-              href="https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603"
-              rel="noopener noreferrer"
-            >
-              Governance
-            </a>
+          <div className={styles.footerText} onClick={() => router.push('/dao')}>
+            Governance
           </div>
           <div className={styles.footerText}>
             <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">

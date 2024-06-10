@@ -81,6 +81,7 @@ const FollowModal = props => {
         reloadFollowing()
       }
     }, 2000)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const reloadFollowing = () => {
@@ -201,10 +202,11 @@ const FollowModal = props => {
                                 </div>
                               </div>
                               {ownWallet !== item.wallet_id && (
-                                <div className="w-[90px] lg:w-[122px]">
+                                <div className="w-[90px] lg:w-[110px]">
                                   {item.following === false ? (
                                     <PositiveButton
                                       label="Follow"
+                                      height={50}
                                       onClick={() => {
                                         followArtist(item.wallet_id)
                                       }}
@@ -212,6 +214,7 @@ const FollowModal = props => {
                                   ) : (
                                     <NegativeButton
                                       label="Following"
+                                      height={50}
                                       onClick={() => {
                                         unfollowArtist(item.wallet_id)
                                       }}
@@ -252,10 +255,11 @@ const FollowModal = props => {
                                 </div>
                               </div>
                               {ownWallet !== item.wallet_id && (
-                                <div className="w-24 lg:w-[122px]">
+                                <div className="w-24 lg:w-[110px]">
                                   {item.following === false ? (
                                     <PositiveButton
                                       label="Follow"
+                                      height={50}
                                       onClick={() => {
                                         followArtist(item.wallet_id)
                                       }}
@@ -263,6 +267,7 @@ const FollowModal = props => {
                                   ) : (
                                     <NegativeButton
                                       label="Following"
+                                      height={50}
                                       onClick={() => {
                                         unfollowArtist(item.wallet_id)
                                       }}
@@ -275,9 +280,12 @@ const FollowModal = props => {
                         </div>
                       </div>
                     )}
-                    <div className="mb-[400px] mr-[50px]">
-                      {isLoading && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
-                    </div>
+
+                    {isLoading && (
+                      <div className="mb-[400px] mr-[50px]">
+                        <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+                      </div>
+                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

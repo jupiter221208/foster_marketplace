@@ -42,16 +42,6 @@ const StudioHeroCardMobile = props => {
     })
   }
 
-  // const gotoAristPage = () => {
-  //   dispatch({ type: 'set', isLoading: true })
-  //   router.push(`/${data.artist_username}`)
-  // }
-
-  // const gotoNftDetailPage = () => {
-  //   dispatch({ type: 'set', isLoading: true })
-  //   router.push(`/nft/${data.token_id}`)
-  // }
-
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}></div>

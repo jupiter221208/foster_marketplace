@@ -37,8 +37,6 @@ const AccordionProfileMenu = props => {
 
     if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
 
-    dispatch({ type: 'set', isLoading: true })
-
     router.push(item.path)
   }
 

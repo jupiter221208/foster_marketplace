@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
+import Alert from 'components/Alert'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -11,17 +12,13 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
-import LoadingButton from 'components/Button/LoadingButton'
-import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
 import CountrySelect from 'components/Select/CountrySelect'
-import GradientButton from 'components/Button/GradientButton'
 
 // api
 import merchAPI from 'apis/merch'
-import OutlineButton from 'components/Button/OutlineButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -160,6 +157,7 @@ const PhysicalShipping = props => {
     if (country && shipping === null) {
       setState(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [country])
 
   useEffect(() => {

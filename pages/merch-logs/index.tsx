@@ -25,7 +25,6 @@ import animationData from 'assets/lottery/shopping-lottie.json'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
 import MerchAPI from 'apis/merch'
@@ -47,7 +46,7 @@ const MerchActivity = () => {
   const { connected, publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
   const router = useRouter()
@@ -85,25 +84,19 @@ const MerchActivity = () => {
   const { solToUsdRate } = useSolToUsdRate()
 
   const [tokenId, setTokenId] = useState(false)
-  useEffect(() => {
-    dispatch({ type: 'set', isLoading: true })
-    if (!connected) {
-      setTimeout(() => {
-        dispatch({ type: 'set', isLoading: false })
-      }, 1000)
-    }
-  }, [])
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
       loadMyNFTs()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mx, connection, publicKey, isVisibleDisabledFetching])
 
   useEffect(() => {
     if (publicKey) {
       getOrderStats()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey])
 
   useEffect(() => {
@@ -127,12 +120,14 @@ const MerchActivity = () => {
       else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, publicKey])
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
     setArray(storedData)
     dispatch({ type: 'set', activeTab: 0 })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getcartList = () => {
@@ -602,7 +597,7 @@ const MerchActivity = () => {
           setPreviewMode(false)
         }}
       />
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }

@@ -13,18 +13,15 @@ import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 
 // styles
-import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import DaoLandingDetail from 'components/pages/Dao/DaoLandingDetail'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { isExpiredDate } from 'utils/helpers'
-import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { getCurrentTurkeyNftCount } from 'utils/dao'
 import { NftData } from 'types/nft'
 
 const Dao = () => {
@@ -34,7 +31,7 @@ const Dao = () => {
   const { connected, publicKey } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   const [nfts, setNfts] = useState([])
 
   const { id } = router.query
@@ -44,7 +41,7 @@ const Dao = () => {
 
   useEffect(() => {
     ;(async () => {
-      setIsLoading(true)
+      // setIsLoading(true)
       if (connected) {
         let nfts: any = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
@@ -52,6 +49,7 @@ const Dao = () => {
       }
       getProposal()
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [metaplex, connected])
 
   const [turkyNfts, setTurkeyNfts] = useState<NftData[] | null>(null)
@@ -67,7 +65,7 @@ const Dao = () => {
 
   const getProposal = async () => {
     if (proposal_id === null) {
-      setIsLoading(false)
+      // setIsLoading(false)
       return
     }
 
@@ -76,7 +74,7 @@ const Dao = () => {
         proposal_id,
       }
       let response = await axios.post('/api/dao/proposal-detail', vote)
-      setIsLoading(false)
+      // setIsLoading(false)
       // let response = {
       //   data: {
       //     success: true,
@@ -119,7 +117,7 @@ const Dao = () => {
         }
       }
     } catch {
-      setIsLoading(false)
+      // setIsLoading(false)
     }
   }
 
@@ -148,7 +146,7 @@ const Dao = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full relative flex justify-center">
-        <FullScreenLoadingModal open={isLoading} />
+        {/* <FullScreenLoadingModal open={isLoading} /> */}
 
         {proposal !== null && (
           <DaoLandingDetail

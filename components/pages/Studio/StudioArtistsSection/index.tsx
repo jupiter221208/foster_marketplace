@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
-import Lottie from 'lottie-react'
-import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -65,6 +63,7 @@ const TopRatedArtistsSection = () => {
       error => {
         console.log(error)
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
 
   return (
@@ -153,7 +152,6 @@ const TopRatedArtistsSection = () => {
                       }
                       username={item.username}
                       onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
                         router.push('/' + item.username)
                       }}
                       key={index}

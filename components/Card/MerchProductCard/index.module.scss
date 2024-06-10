@@ -1,0 +1,90 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 508:383 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.name {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.description {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  color: var(--main-icon-color);
+  margin-top: 10px;
+}
+
+.size {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.blackColor {
+  width: 20px;
+  height: 20px;
+  background: black;
+}
+
+.whiteColor {
+  width: 20px;
+  height: 20px;
+  background: white;
+}
+
+.startEnableBtn {
+  width: 100%;
+  height: 50px;
+  background: var(--main-icon-color);
+  color: var(--background-main-color);
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.startDisableBtn {
+  width: 100%;
+  height: 50px;
+  background: var(--second-home-bg);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

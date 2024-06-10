@@ -12,7 +12,6 @@ import NotifyAlarmIcon from 'assets/lottery/notify-alarm.json'
 
 // custom components
 import SearchBox from 'components/Input/SearchBox'
-import Menu from 'components/Menu'
 import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
@@ -32,8 +31,7 @@ import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?componen
 import FosterLogo from 'assets/logo.svg?component'
 
 // json
-import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
-import CreateMenuList from 'assets/json/create-menu.json'
+import ExploreMenuList from 'assets/json/explore-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
 
@@ -43,7 +41,6 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import Link from 'next/link'
 import { getShortAddress } from 'utils/wallet.util'
 
 const PrimaryHeader = () => {
@@ -53,6 +50,7 @@ const PrimaryHeader = () => {
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
+  const { activeList, filterList, categoryList, performerList } = ExploreMenuList
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)
@@ -87,6 +85,7 @@ const PrimaryHeader = () => {
     }, 100)
 
     return () => clearInterval(intervalId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -104,6 +103,7 @@ const PrimaryHeader = () => {
         }
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // update profile menu list
@@ -118,6 +118,7 @@ const PrimaryHeader = () => {
       })
       setProfileMenuList(array)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profileInfo])
 
   useEffect(() => {
@@ -144,6 +145,7 @@ const PrimaryHeader = () => {
     } else {
       setSearchList({ nfts: [], artists: [], collections: [] })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword])
 
   useEffect(() => {
@@ -151,6 +153,7 @@ const PrimaryHeader = () => {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markAsRead])
 
   async function checkNotifications(notifications) {

@@ -9,7 +9,6 @@ import MainSection from 'components/pages/Studio/MainSection'
 import StudioArtistsSection from 'components/pages/Studio/StudioArtistsSection'
 import NewStudioReleasesSection from 'components/pages/Studio/NewStudioReleasesSection'
 import ExploreStudioArtworkSection from 'components/pages/Studio/ExploreStudioArtworkSection'
-import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
 import StudioPreviewImage from 'assets/images/studio-preview-image.png'
@@ -30,7 +29,7 @@ const Studio = () => {
     selected: true,
     data: 'all',
   })
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const router = useRouter()
   useDetectRouterPath(useRouter())
@@ -43,6 +42,7 @@ const Studio = () => {
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -51,9 +51,7 @@ const Studio = () => {
         top: 0,
         behavior: 'smooth',
       })
-      dispatch({ type: 'set', isLoading: false })
     }, 500)
-    dispatch({ type: 'set', isLoading: true })
   }, [router.query.id])
 
   return (
@@ -89,7 +87,7 @@ const Studio = () => {
         <div className="w-full flex justify-center mt-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
-            <FullScreenLoadingModal open={isLoading} />
+            {/* <FullScreenLoadingModal open={isLoading} /> */}
           </div>
         </div>
       )}
@@ -97,7 +95,7 @@ const Studio = () => {
         <div className="w-full flex justify-center mb-[30px]">
           <div className="g-container">
             <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
-            <FullScreenLoadingModal open={isLoading} />
+            {/* <FullScreenLoadingModal open={isLoading} /> */}
           </div>
         </div>
       )}

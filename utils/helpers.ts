@@ -4,6 +4,10 @@ export const validDigits = (n) => {
   return n.replace(/[^0-9.]+/g, '')
 }
 
+export const validInteger = (n) => {
+  return n.replace(/[^0-9]+/g, '')
+}
+
 export const CDN_PREFIX = "https://cdn.helius-rpc.com/cdn-cgi/image//"
 export const calculateTimeLeft = endDate => {
   
@@ -71,6 +75,16 @@ export const getTimeDifferenceWithAuction = endTime => {
   let nowDate = new Date().getTime()
   let difference = endLocalTime - nowDate
   return difference
+}
+
+export const isEndDateExpired = endTime => {
+  let endDate = new Date(endTime)
+  let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = endDate.getTime() - offsetEnd
+
+  let end_difference = proposalEndTime - new Date().getTime()
+  if (end_difference < 0) return true
+  return false
 }
 
 export const isExpiredDate = (start, duration) => {
@@ -226,10 +240,17 @@ export const copyToClipboard = value => {
 }
 
 export const copyClipboardAlert = identifier => {
-  document.getElementById(identifier).style.display = 'flex'
+  document.getElementById(identifier).style.display = 'block'
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
+}
+
+export const copyLongClipboardAlert = identifier => {
+  document.getElementById(identifier).style.display = 'block'
+  setTimeout(function () {
+    document.getElementById(identifier).style.display = 'none'
+  }, 3000)
 }
 
 export const getOwnerName = item => {
@@ -654,6 +675,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-3A3A3A-202427', '#202427')
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '255, 255, 255')
     doc.style.setProperty('--bg-242424-EFF0F605', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--bg-242424-FFF', '#FFF')
+    doc.style.setProperty('--bg-1a1a1a-EEEDEB', '238, 237, 235')
+    doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#DDDCDC')
+    doc.style.setProperty('--bg-TRANSPARENT-FFF', '#FFF')
+    doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-171717-FFF', '#FFF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -665,7 +692,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
     doc.style.setProperty('--g-left-container-bg', '#1B1B1B')
     doc.style.setProperty('--g-right-container-bg', '#121212')
-    doc.style.setProperty('--bg-new-color', '#171717')
+    doc.style.setProperty('--bg-new-color', '#151515')
     doc.style.setProperty('--background-main-color', '#1a1a1a')
     doc.style.setProperty('--background-main-color-rgb', '26, 26, 26')
     doc.style.setProperty('--background-black-color', '#121212')
@@ -1014,6 +1041,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-3A3A3A-202427', '#3A3A3A')
     doc.style.setProperty('--bg-1A1A1A-FFF-RGB', '26, 26, 26')
     doc.style.setProperty('--bg-242424-EFF0F605', '#242424')
-
+    doc.style.setProperty('--bg-242424-FFF', '#242424')
+    doc.style.setProperty('--bg-1a1a1a-EEEDEB', '26, 26, 26')
+    doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#2B2B2B')
+    doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
+    doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')
+    doc.style.setProperty('--bg-171717-FFF', '#171717')
   }
 }

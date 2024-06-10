@@ -41,6 +41,7 @@ const MyCollectionSection = () => {
       setMyCollections(collections.slice(0, rowCount))
       if (collections.length > rowCount) setIsVisibleFetching(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collections])
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const MyCollectionSection = () => {
         setIsVisibleFetching(true)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching])
 
   return (

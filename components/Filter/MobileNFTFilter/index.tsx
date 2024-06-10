@@ -39,6 +39,7 @@ const MobileNFTFilter = props => {
       array.push(object)
     })
     setCategoryList(array)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSelectCategory = index => {

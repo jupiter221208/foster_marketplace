@@ -59,7 +59,6 @@ const MerchActivityTable = props => {
                   <div
                     className={`${styles.viewOrder} w-[15%]`}
                     onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
                       dispatch({ type: 'set', orderType: type })
                       router.push(`merch-logs/${item.id}`)
                     }}

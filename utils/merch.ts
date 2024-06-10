@@ -53,7 +53,7 @@ export interface CreatePaymentTransactionArgs {
     artistAmount: number
   }
   solToUsdRate: number
-  currency: 'sol' | 'usdc'
+  currency: 'sol' | 'usdc' | 'card'
 }
 
 function addTransferAmount(amountSplits: Map<string, number>, addressOrKey: string | PublicKey, amount: number): void {
@@ -109,6 +109,8 @@ export async function createPaymentTransaction({
       ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, Math.floor(amount)))
       instructions.push(ixs)
     }
+  } else if (currency == 'card') {
+
   } else throw new Error(`unsupported currency: ${currency}`)
 
   // TODO: handle transfers that don't fit into one tx
