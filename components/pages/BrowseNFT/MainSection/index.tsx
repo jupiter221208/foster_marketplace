@@ -658,8 +658,12 @@ const MainSection = ({
       let { username: creatorName } = await usersAPI.get(createAddress)
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
-      let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-      setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+      if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
+        let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+        setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+      } else {
+        setNftOwnerUsername(creatorName)
+      }
 
       setNameLoading(false)
       setTokenAccountInfo(tokenAccount)
@@ -826,8 +830,12 @@ const MainSection = ({
     let { username: creatorName } = await usersAPI.get(createAddress)
     setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
-    let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-    setNftOwnerUsername(ownerUsername)
+    if (createAddress.toBase58() != tokenAccount.owner.toBase58()) {
+      let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+      setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
+    } else {
+      setNftOwnerUsername(creatorName)
+    }
   }
 
   const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
