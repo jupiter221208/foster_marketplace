@@ -616,7 +616,7 @@ const MainSection = prop => {
                     <div>
                       <ShareSmallIcon alt="" />
                     </div>
-                    <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
+                    <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                   </div>
                 )}
               </div>
