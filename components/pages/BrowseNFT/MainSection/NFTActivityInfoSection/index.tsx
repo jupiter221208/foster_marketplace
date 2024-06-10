@@ -1,7 +1,4 @@
 import React from 'react'
-
-import { useViewport } from 'utils'
-import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // components
