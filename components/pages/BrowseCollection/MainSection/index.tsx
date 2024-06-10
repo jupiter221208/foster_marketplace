@@ -76,8 +76,8 @@ const MainSection = props => {
   const shouldShowReadMore = tempNftDescription.length > descCount
 
   useEffect(() => {
-    setTempNftDescription(data.description)
-  }, [data.description])
+    if (data?.description !== undefined && data?.description !== null) setTempNftDescription(data?.description)
+  }, [data?.description])
 
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
