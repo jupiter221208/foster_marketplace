@@ -592,7 +592,7 @@ const MainSection = prop => {
                   />
                 )}
 
-                {hasLoading ? (
+                {/* {hasLoading ? (
                   <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
                 ) : (
                   <div
@@ -604,7 +604,7 @@ const MainSection = prop => {
                     <CreatorMerchIcon alt="" />
                     <div className={styles.refereshText}>Merch</div>
                   </div>
-                )}
+                )} */}
 
                 {hasLoading ? (
                   <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
@@ -992,7 +992,7 @@ const MainSection = prop => {
             />
           )}
 
-          {hasLoading ? (
+          {/* {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[87px] h-[35px] rounded-md`}></div>
           ) : (
             <div
@@ -1004,7 +1004,7 @@ const MainSection = prop => {
               <CreatorMerchIcon alt="" />
               <div className={styles.refereshText}>Merch</div>
             </div>
-          )}
+          )} */}
 
           {hasLoading ? (
             <div className={`${styles.skeletonLoader} w-[35px] h-[35px] rounded-md`}></div>

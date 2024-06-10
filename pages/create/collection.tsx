@@ -101,6 +101,8 @@ const Collection = () => {
 
       await refreshToken()
       // TODO: calculate real file size
+      await ensureLocalWalletBalance(0.1 * 1e9, 'confirmed')
+
       // for now, just fund with 0.1 sol which is little over 1GB
       const categories = categoryList.filter(item => item.checked)
 
