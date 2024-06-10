@@ -98,6 +98,14 @@
   background: var(--category-bottom-mask);
 }
 
+.shareText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
 .statsArea {
   width: 100%;
   display: flex;
