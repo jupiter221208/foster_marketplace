@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
-import { Switch as HSwitch } from '@headlessui/react'
 
 // third party components
 import DatePicker from 'react-datepicker'
