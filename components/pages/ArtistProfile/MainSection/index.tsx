@@ -106,20 +106,6 @@ const MainSection = prop => {
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
   const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
-  const [descCount, setDescCount] = useState(250)
-  const [tempNftDescription, setTempNftDescription] = useState('')
-  const [isTruncated, setIsTruncated] = useState(true)
-
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > descCount
-
-  useEffect(() => {
-    if (artistInfo?.bio !== undefined && artistInfo?.bio !== null) setTempNftDescription(artistInfo?.bio)
-  }, [artistInfo?.bio])
-
-  function toggleIsTruncated() {
-    setIsTruncated(!isTruncated)
-  }
 
   useEffect(() => {
     if (publicKey?.toBase58() === artistInfo?.wallet_id) {
@@ -1029,17 +1015,7 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-        {artistInfo?.bio && (
-          <div className={`w-full mt-[15px] ${styles.bioText}`}>
-            {/* {artistInfo?.bio} */}
-            {processedNftDescription}
-            {shouldShowReadMore && (
-              <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
-                {isTruncated ? '... Expand' : ' Collapse'}
-              </span>
-            )}
-          </div>
-        )}
+        {artistInfo?.bio && <div className={`w-full mt-[15px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
         <div className="w-full mt-[15px] flex gap-[5px]">
           <div className={styles.statsConatiner}>
             {!isColletorLoaded ? (
