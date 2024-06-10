@@ -28,12 +28,10 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
-import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
-import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { copyToClipboard, isLoggedIn } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'

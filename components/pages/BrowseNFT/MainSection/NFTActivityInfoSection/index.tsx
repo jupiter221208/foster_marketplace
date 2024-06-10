@@ -1,19 +1,12 @@
-import React, { Suspense, useEffect, useState } from 'react'
-
-import { useViewport } from 'utils'
-import { useRouter } from 'next/router'
+import React from 'react'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // components
-import TabList from 'assets/json/browse-nft/auction-list.json'
-import SelectedTab from 'components/Tab/SelectedTab'
-import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // utilies
 import { getDisplayUserName } from 'utils/strings'
 
 // resources
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
 // styles
@@ -22,8 +15,6 @@ import Link from 'next/link'
 
 const NFTActivityInfoSection = props => {
   const { activityList } = props
-  const viewport = useViewport()
-  const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
 
   return (
