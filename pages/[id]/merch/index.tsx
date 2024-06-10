@@ -35,12 +35,12 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   return (
     <div className="w-full pb-[60px]">
       <div className="w-full h-[200px] sm:h-[350px] relative">
-        <img src={artistInfo.banner_picture} alt="" className="w-full h-full object-cover" />
+        <img src={artistInfo?.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
           <div className={styles.overlayBG}>
             <div className={styles.titleBG}>
               <div>
-                <div className={styles.userName}>{artistInfo.username}</div>
+                <div className={styles.userName}>{artistInfo?.username}</div>
                 <div className={styles.merchStore}>Official Merch Store</div>
               </div>
             </div>
@@ -106,7 +106,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             </div>
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] ">
-            {activeTab === 0 && <CreatorMerchShop username={artistInfo.username} />}
+            {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} />}
             {activeTab === 1 && <CreatorMerchReviews />}
             {activeTab === 2 && <CreatorMerchBadges />}
           </div>
