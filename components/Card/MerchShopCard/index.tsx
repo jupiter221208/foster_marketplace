@@ -89,10 +89,12 @@ const MerchShopCard = props => {
           <div className={styles.controlBtn} onClick={goPrev}>
             <BackIcon />
           </div>
-          <div className="gap-[14px] h-[5px] flex justify-around">
-            {indicatorList.map((item, index) => (
-              <div key={index} className={item ? styles.selected : styles.nonSelected} />
-            ))}
+          <div className="w-full flex justify-center">
+            <div className="gap-[14px] h-[5px] flex justify-around">
+              {indicatorList.map((item, index) => (
+                <div key={index} className={item ? styles.selected : styles.nonSelected} />
+              ))}
+            </div>
           </div>
           <div className={styles.controlBtn} onClick={goNext}>
             <NextIcon />
@@ -100,41 +102,43 @@ const MerchShopCard = props => {
         </div>
         <div className="w-full mt-[15px] flex justify-between items-center">
           <div className={styles.nftName}>{data.productName}</div>
-          <div className="flex gap-[4px] items-center">
+          <div className="sm:flex hidden gap-[4px] items-center">
             <div className="mt-[2px]">
               <SolanaLogoIcon />
             </div>
             <div className={styles.price}>{data.price}</div>
           </div>
         </div>
+
         <div className="w-full mt-[7px] flex justify-between items-center">
-          <div className={styles.artistName}>{data.merchType}</div>
+          <div className={`sm:block hidden ${styles.artistName}`}>{data.merchType}</div>
           <div className={styles.dollarPrice}>$642.00</div>
         </div>
 
-        <div className={`${styles.divider} mt-[15px]`} />
+        <div className={`${styles.divider} mt-[8px] sm:mt-[15px]`} />
 
         {type === 'merch' ? (
-          <div className="w-full mt-[15px] flex justify-between">
+          <div className="w-full mt-[8px] sm:mt-[15px] flex justify-between">
             <div>
               <div className={styles.saleType}>Open Supply</div>
               <div className={styles.saleCount}>3 sold</div>
             </div>
-            <GradientButton
-              borderRadius={10}
-              label="Buy Now"
-              backgroundColor01="var(--place-bid-minimum-color)"
-              backgroundColor02="var(--place-bid-minimum-color)"
-              color="var(--time-slog-bg)"
-              width={106}
-              height={42}
-              fontSize={16}
-              onClick={() => {
-                // setIsLoading(true)
-                dispatch({ type: 'set', merchOrderType: type })
-                router.push(`/${username}/merch/${data.id}`)
-              }}
-            />
+            <div className="sm:block hidden">
+              <GradientButton
+                borderRadius={10}
+                label="Buy Now"
+                backgroundColor01="var(--place-bid-minimum-color)"
+                backgroundColor02="var(--place-bid-minimum-color)"
+                color="var(--time-slog-bg)"
+                width={106}
+                height={42}
+                fontSize={16}
+                onClick={() => {
+                  dispatch({ type: 'set', merchOrderType: type })
+                  router.push(`/${username}/merch/${data.id}`)
+                }}
+              />
+            </div>
           </div>
         ) : (
           <div className="w-full mt-[15px] flex justify-between">
