@@ -69,14 +69,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full h-[150px] sm:h-[350px] relative">
         <img src={artistInfo?.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
-          <div className={styles.overlayBG}>
-            {/* <div className={styles.titleBG}>
-              <div>
-                <div className={styles.userName}>{artistInfo?.username}</div>
-                <div className={styles.merchStore}>Official Merch Store</div>
-              </div>
-            </div> */}
-          </div>
+          <div className={styles.overlayBG}></div>
         </div>
         <div className="absolute inset-0">
           <div className={styles.tabBorder} />
