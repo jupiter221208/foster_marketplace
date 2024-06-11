@@ -48,6 +48,7 @@ import {
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
@@ -1271,7 +1272,7 @@ const MainSection = ({
                 <div className="flex items-center gap-[9px]">
                   <div className={`${styles.iconContainer} w-[87px] gap-[9px]`} onClick={() => setOpenShareModal(true)}>
                     <div>
-                      <ShareSmallIcon alt="" />
+                      <ShareDesktopIcon alt="" />
                     </div>
                     <div className={`${styles.share_text} mt-[-2px]`}>Share</div>
                   </div>

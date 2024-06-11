@@ -29,6 +29,8 @@ import { useViewport, namePublicFile } from 'utils'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
+
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
@@ -615,7 +617,7 @@ const MainSection = prop => {
                     }}
                   >
                     <div>
-                      <ShareSmallIcon alt="" />
+                      <ShareDesktopIcon alt="" />
                     </div>
                     <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                   </div>
