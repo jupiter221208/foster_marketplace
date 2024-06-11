@@ -9,6 +9,13 @@
   overflow: hidden;
 }
 
+.swiperContainer {
+  height: 167px;
+  @media (min-width: 640px) {
+    height: auto;
+  }
+}
+
 .imageArea {
   position: relative;
   width: 100%;

@@ -56,6 +56,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           </div>
         </div>
         <div className={`flex w-[20px] sm:w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
+<<<<<<< HEAD
           <div className="sm:block hidden">
             <ShareDesktopIcon alt="" />
           </div>
@@ -63,6 +64,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             <ShareSmallIcon alt="" />
           </div>
 
+=======
+          <div>
+            <ShareSmallIcon alt="" />
+          </div>
+>>>>>>> eed6dea35 (Update merch page for desktop and mobile)
           <div className={`${styles.shareText} mt-[-2px] sm:block hidden`}>Share</div>
         </div>
       </div>
@@ -85,7 +91,11 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-between">
+<<<<<<< HEAD
             <div className="flex gap-[8px] sm:gap-[15px]">
+=======
+            <div className="flex gap-[12px] sm:gap-[15px]">
+>>>>>>> eed6dea35 (Update merch page for desktop and mobile)
               <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
                 <div className="mt-[-2px]">Shop</div>
               </div>
