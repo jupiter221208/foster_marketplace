@@ -146,11 +146,8 @@
 }
 
 .selected {
-  width: 70px;
+  width: 80px;
   height: 35px;
-  @media (min-width: 640px) {
-    width: 87px;
-  }
   border-radius: 18px;
   background: var(--main-icon-color);
   color: var(--background-main-color);
@@ -165,11 +162,9 @@
 }
 
 .unselected {
-  width: 70px;
+  width: 80px;
   height: 35px;
-  @media (min-width: 640px) {
-    width: 87px;
-  }
+  
   border-radius: 18px;
   // border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   // background: var(--background-main-color);

@@ -80,7 +80,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-between">
-            <div className="flex gap-[12px] sm:gap-[15px]">
+            <div className="flex gap-[8px] sm:gap-[15px]">
               <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
                 <div className="mt-[-2px]">Shop</div>
               </div>
