@@ -10,10 +10,7 @@
 }
 
 .swiperContainer {
-  height: 167px;
-  @media (min-width: 640px) {
-    height: auto;
-  }
+  overflow: visible !important;
 }
 
 .imageArea {
@@ -55,11 +52,15 @@
   padding: 0px 0px 11px 0px;
   @media (min-width: 640px) {
     height: 220px;    
+    margin-top: 20px;
     padding: 0px 20px;
     background: var(--background-main-color);
     border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 0px;
   }
  
 }

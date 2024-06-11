@@ -68,6 +68,7 @@ const MerchShopCard = props => {
         }}
         onSlideChange={handleOnChange}
         onSwiper={setSwiper}
+        className={styles.swiperContainer}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         // loop
       >
@@ -88,7 +89,7 @@ const MerchShopCard = props => {
         ))}
       </Swiper>
       <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between mt-[10px] sm:mt-[20px] items-center">
+        <div className="w-full flex justify-between mt-[30px] sm:mt-[20px] items-center">
           <div className={styles.controlBtn} onClick={goPrev}>
             <BackIcon />
           </div>
