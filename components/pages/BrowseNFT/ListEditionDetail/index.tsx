@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 // next components
+import { Switch as HSwitch } from '@headlessui/react'
 
 // third party components
 import DatePicker from 'react-datepicker'
@@ -197,7 +198,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     else if (mintPrice === undefined || mintPrice === '' || mintPrice === null) disabled = true
     else if (buyLimitType !== 'no' && buyLimit === '') disabled = true
     setButtonDisabled(disabled)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   return (
@@ -236,7 +236,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
-        {/* <div className="w-full mt-[20px]">
+        <div className="w-full mt-[20px]">
           <div className="flex gap-[13px]">
             <HSwitch
               checked={enableMerch}
@@ -258,7 +258,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </HSwitch>
             <div className={styles.merchText}>Include merch for each print</div>
           </div>
-        </div> */}
+        </div>
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>

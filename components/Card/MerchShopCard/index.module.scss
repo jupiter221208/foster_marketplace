@@ -9,6 +9,10 @@
   overflow: hidden;
 }
 
+.swiperContainer {
+  overflow: visible !important;
+}
+
 .imageArea {
   position: relative;
   width: 100%;
@@ -25,6 +29,7 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  padding: 11px;
 }
 
 .selected {
@@ -43,13 +48,21 @@
 
 .bottomSection {
   width: 100%;
-  height: 220px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  height: auto;
+  padding: 0px 0px 11px 0px;
+  @media (min-width: 640px) {
+    height: 220px;    
+    margin-top: 20px;
+    padding: 0px 20px;
+    background: var(--background-main-color);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+ 
 }
 
 .nftName {
@@ -84,13 +97,18 @@
 
 .dollarPrice {
   font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 14px;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--main-icon-color);
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 16px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  }
 }
 
 .shareBtn {
@@ -105,13 +123,18 @@
 }
 
 .controlBtn {
+  min-width: 50px;
+  min-height: 50px;
   width: 50px;
   height: 50px;
   background: var(--bg-242424-FFF);
   border-radius: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none;
+  @media (min-width: 640px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } 
 }
 
 .divider {
@@ -122,15 +145,23 @@
 
 .saleType {
   font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 18px;
   color: rgba(var(--main-bg-color-rgb), 0.8);
+  @media (min-width: 640px) {
+    font-size: 12px;
+    line-height: 15px;
+  }
 }
 
 .saleCount {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-bg-color);
   margin-top: 7px;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }

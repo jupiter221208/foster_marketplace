@@ -26,6 +26,7 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -68,6 +69,45 @@ const MainSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [banner, setBanner] = useState<any>()
   const [editCollection, setEditCollection] = useState(false)
+  const [descCount, setDescCount] = useState(235)
+  const [tempNftDescription, setTempNftDescription] = useState('')
+  const [isTruncated, setIsTruncated] = useState(true)
+
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > descCount
+
+  useEffect(() => {
+    if (data?.description !== undefined && data?.description !== null) setTempNftDescription(data?.description)
+  }, [data?.description])
+
+  function toggleIsTruncated() {
+    setIsTruncated(!isTruncated)
+  }
+
+  // useEffect(() => {
+  //   function handleResize() {
+  //     let screenWidth = window.innerWidth
+  //     let count =
+  //       screenWidth >= 1900
+  //         ? 440
+  //         : screenWidth >= 1768
+  //         ? 400
+  //         : screenWidth >= 1400
+  //         ? 300
+  //         : screenWidth >= 1280
+  //         ? 250
+  //         : screenWidth >= 1024
+  //         ? 200
+  //         : 235
+  //     setDescCount(count)
+  //   }
+
+  //   window.addEventListener('resize', handleResize)
+
+  //   handleResize()
+
+  //   return () => window.removeEventListener('resize', handleResize)
+  // }, [])
 
   useEffect(() => {
     if (data) {
@@ -310,7 +350,7 @@ const MainSection = props => {
                         onClick={() => setOpenShareModal(true)}
                       >
                         <div>
-                          <ShareSmallIcon alt="" />
+                          <ShareDesktopIcon alt="" />
                         </div>
                         <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                       </div>
@@ -489,7 +529,17 @@ const MainSection = props => {
                 </div>
               </div>
 
-              {data?.description?.length > 0 && <div className={styles.description}>{data?.description}</div>}
+              {data?.description?.length > 0 && (
+                <div className={styles.description}>
+                  {/* {data?.description} */}
+                  {processedNftDescription}
+                  {shouldShowReadMore && (
+                    <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                      {isTruncated ? '... Expand' : ' Collapse'}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <div className="w-full flex justify-center mt-[30px]">
                 <div className={styles.statesBack}>
