@@ -68,23 +68,20 @@ const MerchShopCard = props => {
         }}
         onSlideChange={handleOnChange}
         onSwiper={setSwiper}
-        className={styles.swiperContainer}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         // loop
       >
         {data.assets.map((item, index) => (
           <SwiperSlide key={index}>
-            <div key={index}>
-              <div className={styles.imageArea}>
-                <div
-                  className={styles.imageContent}
-                  onClick={() => {
-                    dispatch({ type: 'set', merchOrderType: type })
-                    router.push(`/${username}/merch/${data.id}`)
-                  }}
-                >
-                  <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
-                </div>
+            <div className={styles.imageArea}>
+              <div
+                className={styles.imageContent}
+                onClick={() => {
+                  dispatch({ type: 'set', merchOrderType: type })
+                  router.push(`/${username}/merch/${data.id}`)
+                }}
+              >
+                <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
               </div>
             </div>
           </SwiperSlide>

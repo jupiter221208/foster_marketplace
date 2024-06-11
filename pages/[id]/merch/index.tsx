@@ -10,6 +10,7 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 
 // images
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import LeftArrowMobile from 'assets/icons/arrow-left-24x24.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 import LeftArrowIcon from 'assets/icons/arrow-left-35x35.svg?component'
@@ -55,9 +56,13 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           </div>
         </div>
         <div className={`flex w-[20px] sm:w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
-          <div>
+          <div className="sm:block hidden">
+            <ShareDesktopIcon alt="" />
+          </div>
+          <div className="sm:hidden block">
             <ShareSmallIcon alt="" />
           </div>
+
           <div className={`${styles.shareText} mt-[-2px] sm:block hidden`}>Share</div>
         </div>
       </div>

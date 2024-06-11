@@ -26,6 +26,7 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import EditMetaIcon from 'assets/icons/edit-meta.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -349,7 +350,7 @@ const MainSection = props => {
                         onClick={() => setOpenShareModal(true)}
                       >
                         <div>
-                          <ShareSmallIcon alt="" />
+                          <ShareDesktopIcon alt="" />
                         </div>
                         <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                       </div>

@@ -9,13 +9,6 @@
   overflow: hidden;
 }
 
-.swiperContainer {
-  height: 167px;
-  @media (min-width: 640px) {
-    height: auto;
-  }
-}
-
 .imageArea {
   position: relative;
   width: 100%;
@@ -122,6 +115,8 @@
 }
 
 .controlBtn {
+  min-width: 50px;
+  min-height: 50px;
   width: 50px;
   height: 50px;
   background: var(--bg-242424-FFF);
