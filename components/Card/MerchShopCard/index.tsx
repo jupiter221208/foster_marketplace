@@ -68,7 +68,7 @@ const MerchShopCard = props => {
         }}
         onSlideChange={handleOnChange}
         onSwiper={setSwiper}
-        // className={'merchShopCardSwiper'}
+        className={styles.swiperContainer}
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         // loop
       >
@@ -76,7 +76,13 @@ const MerchShopCard = props => {
           <SwiperSlide key={index}>
             <div key={index}>
               <div className={styles.imageArea}>
-                <div className={styles.imageContent}>
+                <div
+                  className={styles.imageContent}
+                  onClick={() => {
+                    dispatch({ type: 'set', merchOrderType: type })
+                    router.push(`/${username}/merch/${data.id}`)
+                  }}
+                >
                   <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
                 </div>
               </div>
@@ -85,7 +91,7 @@ const MerchShopCard = props => {
         ))}
       </Swiper>
       <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between mt-[20px] items-center">
+        <div className="w-full flex justify-between mt-[10px] sm:mt-[20px] items-center">
           <div className={styles.controlBtn} onClick={goPrev}>
             <BackIcon />
           </div>
@@ -100,7 +106,7 @@ const MerchShopCard = props => {
             <NextIcon />
           </div>
         </div>
-        <div className="w-full mt-[15px] flex justify-between items-center">
+        <div className="w-full mt-[10px] sm:mt-[15px] flex justify-between items-center">
           <div className={styles.nftName}>{data.productName}</div>
           <div className="sm:flex hidden gap-[4px] items-center">
             <div className="mt-[2px]">
