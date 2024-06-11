@@ -115,7 +115,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }, [type])
 
   return (
-    <div className="g-container flex gap-[50px] ">
+    <div className="g-container flex">
       <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[75px]">
         {merchList.map((merch, index) => {
           return (
@@ -130,8 +130,8 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
         })}
       </div>
       <div className="w-full lg:flex-1 flex lg:flex-row flex-col justify-between">
-        <div className="lg:w-[48%] w-full flex justify-center">
-          <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+        <div className="2xl:w-[58%] lg:w-[50%] w-full flex justify-center">
+          <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
             <div className={styles.imageArea}>
               <div className={styles.imageContent}>
                 <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
@@ -154,7 +154,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           })}
         </div>
 
-        <div className="w-full lg:w-[42%]">
+        <div className="w-full 2xl:w-[42%] lg:w-[50%]">
           {currentStep === 1 && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
               <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />
