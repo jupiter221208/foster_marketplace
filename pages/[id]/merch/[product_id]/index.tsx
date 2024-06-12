@@ -15,6 +15,8 @@ import physicalImageFront from 'assets/images/merch-physical-front.jpg'
 import physicalImageBack from 'assets/images/merch-physical-back.jpg'
 import physicalImageRight from 'assets/images/merch-physical-right.jpg'
 import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+
 // json
 
 // styles
@@ -116,19 +118,28 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
 
   return (
     <div className="g-container flex">
-      <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[75px]">
-        {merchList.map((merch, index) => {
-          return (
-            <div
-              key={index}
-              className={merch.selected ? styles.selected : styles.unselected}
-              onClick={() => onClickMerch(index)}
-            >
-              <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
-            </div>
-          )
-        })}
+      <div className="mt-[75px]">
+        <div className="lg:block hidden">
+          <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
+            <ArrowLeftIcon />
+            Back to store
+          </div>
+        </div>
+        <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
+          {merchList.map((merch, index) => {
+            return (
+              <div
+                key={index}
+                className={merch.selected ? styles.selected : styles.unselected}
+                onClick={() => onClickMerch(index)}
+              >
+                <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
+              </div>
+            )
+          })}
+        </div>
       </div>
+
       <div className="w-full lg:flex-1 flex lg:flex-row flex-col justify-between">
         <div className="2xl:w-[58%] lg:w-[50%] w-full flex justify-center">
           <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">

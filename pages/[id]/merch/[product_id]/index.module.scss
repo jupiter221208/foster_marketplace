@@ -45,6 +45,19 @@
   justify-content: center;
 }
 
+.backStore {
+  display: flex;
+  gap: 7px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  &:hover {
+    text-decoration: underline;
+  }
+  cursor: pointer;
+}
+
 .imageSlider {
   width: 100%;
   margin-top: 0px;
