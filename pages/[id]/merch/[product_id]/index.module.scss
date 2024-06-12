@@ -58,6 +58,18 @@
   cursor: pointer;
 }
 
+.mobileImageArea {
+  width: calc(100% + 32px);
+  left: -16px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+  object-fit: cover;
+}
+
 .imageSlider {
   width: 100%;
   margin-top: 0px;

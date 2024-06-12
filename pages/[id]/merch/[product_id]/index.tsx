@@ -141,12 +141,25 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
         </div>
       </div>
 
-      <div className="w-full lg:flex-1 flex lg:flex-row flex-col justify-between">
-        <div className="2xl:w-[58%] lg:w-[50%] w-full flex justify-center">
-          <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+      <div className="w-full lg:flex-1 flex flex-wrap justify-between">
+        <div className="2xl:w-[58%] lg:w-[55%] w-full flex justify-center lg:px-[20px]">
+          <div className={`sm:hidden block h-auto w-full mb-[20px] h-[375px] mt-[${type === 'foster' ? 20 : 0}px]`}>
+            <div className={styles.mobileImageArea}>
+              <ImageWithFoster
+                width={700}
+                src={selectedMerch ? selectedMerch.url.src : ''}
+                className="w-full object-cover"
+              />
+            </div>
+          </div>
+          <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
             <div className={styles.imageArea}>
               <div className={styles.imageContent}>
-                <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
+                <ImageWithFoster
+                  width={700}
+                  src={selectedMerch ? selectedMerch.url.src : ''}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -166,7 +179,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           })}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[50%]">
+        <div className="w-full 2xl:w-[42%] lg:w-[45%]">
           {currentStep === 1 && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
               <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />

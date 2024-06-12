@@ -438,7 +438,7 @@ const MainSection = prop => {
       )}
 
       <div className="g-container">
-        <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
+        <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
           <div className="col-span-9">
             <div className="w-content relative">
               <ProfileArtistCard
@@ -457,7 +457,7 @@ const MainSection = prop => {
             </div>
           </div>
 
-          <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
+          <div className="col-span-3 h-full flex justify-end items-center pt-[30px] lg:pt-[10px]">
             {!isOwn && (
               <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
                 {!followLoaded && (

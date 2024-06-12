@@ -295,7 +295,7 @@ const MerchOrderMain = props => {
                 </div>
                 <div className="lg:block hidden">
                   <MerchShopClipboardChip
-                    width={'500px'}
+                    width={type === 'foster' ? null : '500px'}
                     title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
                     text={
                       type === 'foster'
