@@ -78,7 +78,7 @@ const MerchShopCard = props => {
               <div
                 className={styles.imageContent}
                 onClick={() => {
-                  dispatch({ type: 'set', merchOrderType: type })
+                  dispatch({ type: 'set', merchOrderType: 'foster' })
                   router.push(`/${username}/merch/${data.id}`)
                 }}
               >
@@ -138,7 +138,7 @@ const MerchShopCard = props => {
                 height={42}
                 fontSize={16}
                 onClick={() => {
-                  dispatch({ type: 'set', merchOrderType: type })
+                  dispatch({ type: 'set', merchOrderType: 'foster' })
                   router.push(`/${username}/merch/${data.id}`)
                 }}
               />
@@ -156,8 +156,7 @@ const MerchShopCard = props => {
               height={42}
               fontSize={16}
               onClick={() => {
-                // setIsLoading(true)
-                dispatch({ type: 'set', merchOrderType: type })
+                dispatch({ type: 'set', merchOrderType: 'foster' })
                 router.push(`/${username}/merch/${data.id}`)
               }}
             />

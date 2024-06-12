@@ -35,11 +35,11 @@
     margin-top: 3px;
     transform: scale(0.7);
     overflow: visible;
-    fill: var(--main-bg-color);
+    fill: var(--main-bg-color) !important;
   }
   .profileIconFill {
     margin-top: 3px;
-    fill: var(--main-bg-color);
+    fill: var(--main-bg-color) !important;
   }
 }
 

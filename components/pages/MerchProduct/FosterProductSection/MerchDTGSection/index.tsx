@@ -476,7 +476,13 @@ const MerchDTGSection = props => {
               >
                 <InfoIcon className="mt-[2px]" />
               </div>
-              <TechniqueClipboardChip identifier={alertId} />
+              <TechniqueClipboardChip
+                title="Which technique should I choose?"
+                text="DTG is ideal for complex designs/artwork (i.e., large print areas, multiple colors, and gradients within the
+        artwork). Embroidery is better suited to simpler, smaller designs, such as logos, and for those who might want
+        to achieve a 3D effect with their branding."
+                identifier={alertId}
+              />
             </div>
             <div className="w-full mt-[15px] flex gap-[15px]">
               <div

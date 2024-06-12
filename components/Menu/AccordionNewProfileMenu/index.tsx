@@ -6,11 +6,16 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
-import DashboardIcon from 'assets/icons/dashboard-icon-menu.svg?component'
+
 import NotificationIcon from 'assets/icons/notification-icon-menu.svg?component'
-import LogoutIcon from 'assets/icons/logout-mobile-icon.svg?component'
-import SettingsIcon from 'assets/icons/setting-icon.svg?component'
-import OrderIcon from 'assets/icons/order-icon.svg?component'
+import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
+import MyProfileIcon from 'assets/icons/myprofile-icon.svg?component'
+import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
+import StatsIcon from 'assets/icons/statistic-icon.svg?component'
+import SettingIcon from 'assets/icons/setting-icon.svg?component'
+import LogoutIcon from 'assets/icons/logout-icon.svg?component'
+import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
+
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
@@ -31,6 +36,8 @@ const AccordionNewProfileMenu = props => {
     } else {
       dispatch({ type: 'set', openMobileMenu: false })
     }
+
+    if (item.type === 'order') dispatch({ type: 'set', activeTab: 2 })
 
     router.push(item.path)
   }
@@ -61,20 +68,24 @@ const AccordionNewProfileMenu = props => {
                     </div>
                   ) : item.type === 'order' ? (
                     <div className="px-[1px]">
-                      <OrderIcon />
+                      <ShoppingCartIcon className={styles.profileIconFill} />
+                    </div>
+                  ) : item.type === 'store' ? (
+                    <div className="px-[1px]">
+                      <MerchHubIcon className={styles.profileIconFill} />
                     </div>
                   ) : item.type === 'dashboard' ? (
                     <div className="px-[10px] py-2">
-                      <DashboardIcon />
+                      <DashboardIcon className={styles.iconFill} />
                     </div>
                   ) : item.type === 'notifications' ? (
                     <div className="px-[10px] py-2">
-                      <NotificationIcon />
+                      <NotificationIcon className={styles.iconFill} />
                     </div>
                   ) : item.type === 'settings' ? (
-                    <SettingsIcon />
+                    <SettingIcon className={styles.iconFill} />
                   ) : item.type === 'logout' ? (
-                    <LogoutIcon />
+                    <LogoutIcon className={styles.iconFill} />
                   ) : (
                     <div className="w-10 h-10">
                       <Image src={item.icon} alt="" width={40} height={40} />

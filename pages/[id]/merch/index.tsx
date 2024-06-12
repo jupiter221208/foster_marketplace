@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next component
 
@@ -30,9 +31,11 @@ interface CreatorMerchProps {
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
+  const { connected, publicKey } = useWallet()
+
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
-
+  console.log(artistInfo, '=======artistInfo======')
   return (
     <div className="w-full pb-[60px]">
       <div className={`g-container ${styles.topSection}`}>
@@ -90,15 +93,17 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
               </div>
             </div>
 
-            <div
-              className={styles.plus}
-              onClick={() => {
-                let path = window.location.href
-                router.push(`${path}/new`)
-              }}
-            >
-              <PlusIcon />
-            </div>
+            {publicKey?.toBase58() === artistInfo?.wallet_id && (
+              <div
+                className={styles.plus}
+                onClick={() => {
+                  let path = window.location.href
+                  router.push(`${path}/new`)
+                }}
+              >
+                <PlusIcon />
+              </div>
+            )}
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] ">
             {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} />}
