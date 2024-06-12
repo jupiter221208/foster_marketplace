@@ -63,6 +63,8 @@ const MobileMenu = () => {
       array.forEach(item => {
         if (item.label === 'Profile' && item.path === '/') {
           item.path += profileInfo.username.replaceAll(' ', '%20')
+        } else if (item.label === 'My Store' && item.path === '/') {
+          item.path += profileInfo.username.replaceAll(' ', '%20') + '/merch/new'
         }
       })
       setProfileMenuList(array)

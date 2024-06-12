@@ -15,6 +15,8 @@ import StatsIcon from 'assets/icons/statistic-icon.svg?component'
 import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
+import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
+
 import { deleteCookie } from 'cookies-next'
 import { getDisplayUserName } from 'utils/strings'
 import { useRouter } from 'next/router'
@@ -79,6 +81,8 @@ const ProfileMenuItem = props => {
             ) : item.id === 1 ? (
               <DashboardIcon className={styles.iconFill} />
             ) : item.id === 2 ? (
+              <ShoppingCartIcon className={styles.profileIconFill} />
+            ) : item.id === 4 ? (
               <MerchHubIcon className={styles.profileIconFill} />
             ) : item.id === 3 ? (
               <StatsIcon />
