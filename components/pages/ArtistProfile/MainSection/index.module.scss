@@ -6,7 +6,8 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
-  @media (min-width: 1024px) {
+  margin-top: 16px;
+  @media (min-width: 768px) {
     margin-top: 0px;
   }
   z-index: 10;

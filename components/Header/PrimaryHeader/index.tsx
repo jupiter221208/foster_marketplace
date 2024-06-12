@@ -111,7 +111,7 @@ const PrimaryHeader = () => {
         if (item.label === 'Profile' && item.path === '/') {
           item.path += profileInfo.username.replaceAll(' ', '%20')
         } else if (item.label === 'My Store' && item.path === '/') {
-          item.path += profileInfo.username.replaceAll(' ', '%20') + '/merch/new'
+          item.path += profileInfo.username.replaceAll(' ', '%20') + '/merch'
         }
       })
       setProfileMenuList(array)
