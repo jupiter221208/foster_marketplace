@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // next component
 
 //components
+import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
 
 // images
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
-import ClockSandIcon from 'assets/icons/clock-sand-icon-medium.svg?component'
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
@@ -28,6 +28,10 @@ const MerchOrderMain = props => {
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
+  const alertEmb = 'alert-emb'
+  const alertEmbMobile = 'alert-emb-mobile'
+  const alertNote = 'alert-note'
+  const alertNoteMobile = 'alert-mobile'
 
   const [sizeList, setSizeList] = useState([
     { id: 0, name: 'XS', selected: false },
@@ -41,10 +45,16 @@ const MerchOrderMain = props => {
     { id: 8, name: '5XL', selected: false },
   ])
 
-  const [size, setSize] = useState(sizeList[0])
   const [mintQty, setMintQty] = useState(0)
   const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
+
+  useEffect(() => {
+    document.getElementById(alertEmb).style.display = 'none'
+    document.getElementById(alertEmbMobile).style.display = 'none'
+    document.getElementById(alertNote).style.display = 'none'
+    document.getElementById(alertNoteMobile).style.display = 'none'
+  }, [])
 
   const onClickSize = index => {
     let newSize = []
@@ -191,17 +201,82 @@ const MerchOrderMain = props => {
 
           <div className={`mt-[20px] ${styles.divider}`} />
 
-          <div className="w-full flex justify-between mt-[20px]">
+          <div className="w-full flex justify-between mt-[20px] relative">
             <div>
-              <div className="flex gap-[7px] items-center">
+              <div className="flex gap-[7px] items-center relative">
                 <div className={styles.infoText}>Embroidery Disclaimer</div>
-                <InfoIcon />
+                <div
+                  onMouseEnter={() => {
+                    document.getElementById(alertEmb).style.display = 'block'
+                  }}
+                  onMouseLeave={() => {
+                    document.getElementById(alertEmb).style.display = 'none'
+                  }}
+                  onClick={() => {
+                    document.getElementById(alertEmbMobile).style.display = 'block'
+                    setTimeout(() => {
+                      document.getElementById(alertEmbMobile).style.display = 'none'
+                    }, 3000)
+                  }}
+                >
+                  <InfoIcon />
+                </div>
+                <div className="lg:block hidden">
+                  <MerchShopClipboardChip
+                    title="Embroidery Disclaimer"
+                    text="Please note that the actual embroidered design may vary from the digital preview shown. While we strive
+                for accuracy, the nature of embroidery can result in differences in color, texture, and placement."
+                    identifier={alertEmb}
+                  />
+                </div>
               </div>
-              <div className="flex gap-[7px] items-center mt-[10px]">
+
+              <div className="flex gap-[7px] items-center mt-[10px] relative">
                 <div className={styles.infoText}>Customs Notice</div>
-                <InfoIcon />
+                <div
+                  onMouseEnter={() => {
+                    document.getElementById(alertNote).style.display = 'block'
+                  }}
+                  onMouseLeave={() => {
+                    document.getElementById(alertNote).style.display = 'none'
+                  }}
+                  onClick={() => {
+                    document.getElementById(alertNoteMobile).style.display = 'block'
+                    setTimeout(() => {
+                      document.getElementById(alertNoteMobile).style.display = 'none'
+                    }, 3000)
+                  }}
+                >
+                  <InfoIcon />
+                </div>
+                <div className="lg:block hidden">
+                  <MerchShopClipboardChip
+                    title="Customs Notice"
+                    text="All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees."
+                    identifier={alertNote}
+                  />
+                </div>
+              </div>
+
+              <div className="lg:hidden block w-full">
+                <MerchShopClipboardChip
+                  type="Embroidery"
+                  title="Embroidery Disclaimer"
+                  text="Please note that the actual embroidered design may vary from the digital preview shown. While we strive
+                for accuracy, the nature of embroidery can result in differences in color, texture, and placement."
+                  identifier={alertEmbMobile}
+                />
+              </div>
+              <div className="lg:hidden block w-full">
+                <MerchShopClipboardChip
+                  type="custom"
+                  title="Customs Notice"
+                  text="All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees."
+                  identifier={alertNoteMobile}
+                />
               </div>
             </div>
+
             <div>
               <div className="flex gap-[6px] items-center mb-[2px]">
                 <SolanaLogoIcon className="mt-[4px]" />
@@ -220,9 +295,7 @@ const MerchOrderMain = props => {
           </div>
         </div>
       </div>
-      <div className="w-full lg:px-[30px] mt-[20px]">
-        <div className="w-full flex justify-between"></div>
-      </div>
+
       {openShareModal && (
         <SocialShareModal
           open={openShareModal}
