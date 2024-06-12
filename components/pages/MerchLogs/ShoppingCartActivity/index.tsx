@@ -19,12 +19,13 @@ import SimpleCheckbox from 'components/Checkbox/SimpleCheckbox'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const ShoppingCartActivity = props => {
-  const { data, setCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } = props
+  const { data, setCart, selectAllCart, getcartList, cart, setCurrentSelect, currentSelect, setTotalCost, totalCost } =
+    props
 
   const [cartList, setCartList] = useState<any[]>([])
   const router = useRouter()
   const dispatch = useDispatch()
-  const [selectAll, setSelectALl] = useState(false)
+  const [selectAll, setSelectAll] = useState(false)
   const [checked, setChecked] = useState(false)
   useEffect(() => {
     setCartList(props.data)
@@ -87,14 +88,13 @@ const ShoppingCartActivity = props => {
 
     getcartList()
   }
-
-  const handleSelectAll = () => {
+  useEffect(() => {
     const allSelected = !selectAll
     let sumitemArray = 0
     cartList.forEach(item => {
       sumitemArray += item.quantity
     })
-    setSelectALl(allSelected)
+    setSelectAll(allSelected)
     setCurrentSelect(allSelected ? sumitemArray : 0)
     setTotalCost(allSelected ? cartList.reduce((total, item) => total + parseFloat(item.cost), 0) : 0)
     setChecked(!checked)
@@ -103,31 +103,48 @@ const ShoppingCartActivity = props => {
       return item
     })
     setCart(updatedCart)
-  }
+  }, [selectAllCart])
+
+  // const handleSelectAll = () => {
+  //   const allSelected = !selectAll
+  //   let sumitemArray = 0
+  //   cartList.forEach(item => {
+  //     sumitemArray += item.quantity
+  //   })
+  //   setSelectAll(allSelected)
+  //   setCurrentSelect(allSelected ? sumitemArray : 0)
+  //   setTotalCost(allSelected ? cartList.reduce((total, item) => total + parseFloat(item.cost), 0) : 0)
+  //   setChecked(!checked)
+  //   const updatedCart = cartList.map(item => {
+  //     item.checked = allSelected
+  //     return item
+  //   })
+  //   setCart(updatedCart)
+  // }
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.title}>Studio Shopping Cart</div>
+        {/* <div className={styles.title}>Studio Shopping Cart</div>
         <div className={styles.subTitle} onClick={() => handleSelectAll()}>
           {selectAll ? 'Deselect all items' : 'Select all items'}
-        </div>
+        </div> */}
         <div className={styles.listContainer}>
           {cartList &&
             cartList.map((item, index) => (
               <div key={index}>
                 {item?.printImageUrl && (
                   <>
-                    <div className={styles.divider}></div>
-                    <div className="w-full h-full flex flex-row justify-between ml-[40px]">
+                    <div className={styles.divider} />
+                    <div className="w-full h-full flex flex-row my-[30px]">
                       <div className="flex items-center">
                         <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                       </div>
-                      <div className="w-[35%] h-[35%] flex ">
-                        <ImageWithFoster src={item.printImageUrl} className="px-[50px] py-[50px]" />
+                      <div className="w-[183px] h-[183px] ml-[30px]">
+                        <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                       </div>
-                      <div className="w-full flex flex-col px-[100px] mt-[40px]">
-                        <div className={`${styles.detail} text-right flex`}>Item Details</div>
+                      <div className="ml-[74px] mt-[10px]">
+                        <div className={styles.detail}>Item Details</div>
                         <div className={styles.content}>
                           <div>{item.nftName}</div>
                           <div>
@@ -153,7 +170,7 @@ const ShoppingCartActivity = props => {
                             Remove Item
                           </div>
                           <div className={styles.costDivider} />
-                          <div className={styles.edit} onClick={() => handleEdit(index)}>
+                          <div className={styles.remove} onClick={() => handleEdit(index)}>
                             Edit
                           </div>
                         </div>

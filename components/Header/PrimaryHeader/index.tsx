@@ -41,6 +41,7 @@ import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import NotificationMenu from 'components/Menu/NotificationMenu'
+import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
 
 const PrimaryHeader = () => {
   const router = useRouter()
@@ -265,14 +266,8 @@ const PrimaryHeader = () => {
                       <div>
                         <WalletButton />
                       </div>
-                      <div
-                        className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
-                        onClick={() => {
-                          dispatch({ type: 'set', activeTab: 4 })
-                          router.push(`/merch-logs`)
-                        }}
-                      >
-                        <ShoppingCartIcon alt="" />
+                      <div>
+                        <ShoppingCartMenu />
                       </div>
                       <div>
                         <NotificationMenu />
