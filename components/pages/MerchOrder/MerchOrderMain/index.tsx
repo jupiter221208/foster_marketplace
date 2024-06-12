@@ -14,6 +14,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -21,6 +22,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import SizeChartModal from 'components/Modal/SizeChartModal'
 
 const MerchOrderMain = props => {
   const { type, username, onClickBuyNow } = props
@@ -32,7 +34,7 @@ const MerchOrderMain = props => {
   const alertEmbMobile = 'alert-emb-mobile'
   const alertNote = 'alert-note'
   const alertNoteMobile = 'alert-mobile'
-
+  const [tableModal, setTableModal] = useState(false)
   const [sizeList, setSizeList] = useState([
     { id: 0, name: 'XS', selected: false },
     { id: 1, name: 'S', selected: false },
@@ -66,6 +68,22 @@ const MerchOrderMain = props => {
       }
     })
     setSizeList(newSize)
+  }
+
+  const getApparelName = () => {
+    let type = 'Unisex'
+    let name = 'Hoodie'
+    let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
+    if (list.length > 0) return list[0].name
+    else return name
+  }
+
+  const getApparelLabel = () => {
+    let type = 'Unisex'
+    let name = 'Hoodie'
+    let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
+    if (list.length > 0) return list[0].label
+    else return name
   }
 
   return (
@@ -138,7 +156,9 @@ const MerchOrderMain = props => {
           <div className="mt-[20px]">
             <div className="w-full flex justify-between items-center">
               <div className={styles.desc}>Select Size</div>
-              <div className={styles.sizeChart}>Size Chart »</div>
+              <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                Size Chart »
+              </div>
             </div>
             <div className="mt-[15px]">
               <div className="w-full flex flex-wrap gap-[9px]">
@@ -308,6 +328,13 @@ const MerchOrderMain = props => {
           url={`/${username}/merch/${123}`}
         />
       )}
+
+      <SizeChartModal
+        open={tableModal}
+        title={getApparelName()}
+        label={getApparelLabel()}
+        onClose={() => setTableModal(false)}
+      />
     </div>
   )
 }
