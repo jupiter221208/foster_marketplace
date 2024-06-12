@@ -84,30 +84,19 @@ const MainSection = props => {
     setIsTruncated(!isTruncated)
   }
 
-  // useEffect(() => {
-  //   function handleResize() {
-  //     let screenWidth = window.innerWidth
-  //     let count =
-  //       screenWidth >= 1900
-  //         ? 440
-  //         : screenWidth >= 1768
-  //         ? 400
-  //         : screenWidth >= 1400
-  //         ? 300
-  //         : screenWidth >= 1280
-  //         ? 250
-  //         : screenWidth >= 1024
-  //         ? 200
-  //         : 235
-  //     setDescCount(count)
-  //   }
+  useEffect(() => {
+    function handleResize() {
+      let screenWidth = window.innerWidth
+      let count = screenWidth >= 1536 ? 200 : screenWidth >= 1280 ? 400 : screenWidth >= 1024 ? 300 : 235
+      setDescCount(count)
+    }
 
-  //   window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize)
 
-  //   handleResize()
+    handleResize()
 
-  //   return () => window.removeEventListener('resize', handleResize)
-  // }, [])
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     if (data) {
@@ -531,7 +520,6 @@ const MainSection = props => {
 
               {data?.description?.length > 0 && (
                 <div className={styles.description}>
-                  {/* {data?.description} */}
                   {processedNftDescription}
                   {shouldShowReadMore && (
                     <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
