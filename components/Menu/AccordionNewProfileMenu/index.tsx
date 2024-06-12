@@ -37,6 +37,8 @@ const AccordionNewProfileMenu = props => {
       dispatch({ type: 'set', openMobileMenu: false })
     }
 
+    if (item.type === 'order') dispatch({ type: 'set', activeTab: 2 })
+
     router.push(item.path)
   }
 
