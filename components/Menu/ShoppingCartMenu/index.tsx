@@ -58,7 +58,7 @@ const ShoppingCartMenu = () => {
         </HMenu.Button>
         {isMenuOpen && (
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
-            <ShoppingCartSection />
+            <ShoppingCartSection onClose={() => toggleMenu()} />
           </div>
         )}
         {/* </Transition> */}

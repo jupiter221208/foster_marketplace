@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // component
 import PrimaryButton from 'components/Button/PrimaryButton'
@@ -14,12 +15,14 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import styles from './index.module.scss'
 
 const ShoppingCartSection = props => {
-  const onCheckout = () => {}
+  const { onClose } = props
+  const router = useRouter()
   const [cartList, setCartList] = useState([])
   const [cart, setCart] = useState([])
   const [currentSelect, setCurrentSelect] = useState(0)
   const [totalCost, setTotalCost] = useState(0)
   const { solToUsdRate } = useSolToUsdRate()
+  const [selectAllCart, setSelectAllCart] = useState(false)
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
@@ -32,21 +35,41 @@ const ShoppingCartSection = props => {
     setCartList(storedData)
   }
 
+  const onCheckout = () => {
+    const checkedData = []
+    cart.forEach(item => {
+      if (item.checked === true) checkedData.push(item)
+    })
+    if (checkedData.length > 0) {
+      localStorage.setItem('checked', JSON.stringify(checkedData))
+      router.push(`/shopping/`)
+      onClose()
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Studio Shopping Cart</div>
       <div className="w-full flex justify-between mt-[15px]">
-        <div className={styles.selectAll}>Select all</div>
+        <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
+          {selectAllCart ? 'Deselect All' : 'Select all'}
+        </div>
         <div className="flex gap-[13px]">
           <div className={styles.subtotal}>Subtotal</div>
           <div className="flex gap-[6px] items-center">
             <SolIcon className="mt-[2px]" />
-            <div className={styles.price}>0.65</div>
+            <div className={styles.price}>{totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}</div>
           </div>
         </div>
       </div>
       <div className="w-full mt-[18px]">
-        <PrimaryButton label="Checkout" type="buy-now" fullWidth onClick={() => onCheckout()} />
+        <PrimaryButton
+          disabled={totalCost === 0}
+          label="Checkout"
+          type="buy-now"
+          fullWidth
+          onClick={() => onCheckout()}
+        />
       </div>
       <div className="mt-[15px]">
         <ShoppingCartActivity
@@ -54,6 +77,7 @@ const ShoppingCartSection = props => {
           getcartList={getcartList}
           cart={cart}
           setCart={setCart}
+          selectAllCart={selectAllCart}
           setCurrentSelect={setCurrentSelect}
           currentSelect={currentSelect}
           setTotalCost={setTotalCost}
