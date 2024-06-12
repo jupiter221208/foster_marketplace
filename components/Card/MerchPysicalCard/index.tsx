@@ -22,13 +22,12 @@ import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
 
 const MerchPhysicalCard = props => {
-  const { type = 'merch', username, data } = props
+  const { username, data } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -114,47 +113,23 @@ const MerchPhysicalCard = props => {
 
         <div className={`${styles.divider} mt-[15px]`} />
 
-        {type === 'merch' ? (
-          <div className="w-full mt-[15px] flex justify-between">
-            <div>
-              <div className={styles.saleType}>Open Supply</div>
-              <div className={styles.saleCount}>3 sold</div>
-            </div>
-            <GradientButton
-              borderRadius={10}
-              label="Buy Now"
-              backgroundColor01="var(--place-bid-minimum-color)"
-              backgroundColor02="var(--place-bid-minimum-color)"
-              color="var(--time-slog-bg)"
-              width={106}
-              height={42}
-              fontSize={16}
-              onClick={() => {
-                // setIsLoading(true)
-                dispatch({ type: 'set', merchOrderType: type })
-                router.push(`/${username}/merch/${data.id}`)
-              }}
-            />
-          </div>
-        ) : (
-          <div className="w-full mt-[15px] flex justify-between">
-            <GradientButton
-              borderRadius={10}
-              label="Buy Now"
-              backgroundColor01="var(--place-bid-minimum-color)"
-              backgroundColor02="var(--place-bid-minimum-color)"
-              color="var(--time-slog-bg)"
-              fullWidth
-              height={42}
-              fontSize={16}
-              onClick={() => {
-                // setIsLoading(true)
-                dispatch({ type: 'set', merchOrderType: type })
-                router.push(`/${username}/merch/${data.id}`)
-              }}
-            />
-          </div>
-        )}
+        <div className="w-full mt-[15px] flex justify-between">
+          <GradientButton
+            borderRadius={10}
+            label="Buy Now"
+            backgroundColor01="var(--place-bid-minimum-color)"
+            backgroundColor02="var(--place-bid-minimum-color)"
+            color="var(--time-slog-bg)"
+            fullWidth
+            height={42}
+            fontSize={16}
+            onClick={() => {
+              // setIsLoading(true)
+              dispatch({ type: 'set', merchOrderType: 'user' })
+              router.push(`/${username}/merch/${data.id}`)
+            }}
+          />
+        </div>
       </div>
       {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>

@@ -46,7 +46,7 @@ const initialState = {
   collectionCoverUrl: '',
   collectionKind: 'foster',
   merchBy: '',
-  merchOrderType: 'merch'
+  merchOrderType: 'foster'
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

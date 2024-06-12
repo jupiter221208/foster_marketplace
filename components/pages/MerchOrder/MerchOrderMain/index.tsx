@@ -46,10 +46,39 @@ const MerchOrderMain = props => {
     { id: 7, name: '4XL', selected: false },
     { id: 8, name: '5XL', selected: false },
   ])
+  const [descCount, setDescCount] = useState(280)
+  const description =
+    'Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.'
+  const [isTruncated, setIsTruncated] = useState(true)
+  const [tempNftDescription, setTempNftDescription] = useState('')
+  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription.length > descCount
 
   const [mintQty, setMintQty] = useState(0)
   const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
+
+  useEffect(() => {
+    function handleResize() {
+      let screenWidth = window.innerWidth
+      let count = screenWidth >= 1536 ? 240 : screenWidth >= 1280 ? 220 : screenWidth >= 1024 ? 200 : 200
+      setDescCount(count)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    setTempNftDescription(description)
+  }, [description])
+
+  function toggleIsTruncated() {
+    setIsTruncated(!isTruncated)
+  }
 
   useEffect(() => {
     document.getElementById(alertEmb).style.display = 'none'
@@ -94,7 +123,7 @@ const MerchOrderMain = props => {
           Back to store
         </div>
       </div>
-      <div className="w-full h-auto lg:px-[30px] pt-[20px] pb-[0px] flex flex-col justify-between">
+      <div className="w-full min-h-[680px] lg:px-[30px] pt-[20px] pb-[0px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
             <div className={styles.productName}>product_name</div>
@@ -131,52 +160,73 @@ const MerchOrderMain = props => {
 
           <div className={`mt-[20px] ${styles.divider}`} />
 
-          <div className="mt-[15px]">
-            <div className={styles.desc}>Details</div>
-            <div className="w-full flex justify-between mt-[7px]">
-              <div className={styles.content}>Apparel Type</div>
-              <div className={styles.contentValue}>Premimum Hoodie</div>
-            </div>
-            <div className="w-full flex justify-between mt-[6px]">
-              <div className={styles.content}>Print Technique</div>
-              <div className={styles.contentValue}>Embroidery</div>
-            </div>
-            <div className="w-full flex justify-between mt-[6px]">
-              <div className={styles.content}>Print Areas</div>
-              <div className={styles.contentValue}>Center Chest, Left Wrist</div>
-            </div>
-            <div className="w-full flex justify-between mt-[6px]">
-              <div className={styles.content}>Color</div>
-              <div className={styles.contentValue}>Black</div>
-            </div>
-          </div>
-
-          <div className={`mt-[15px] ${styles.divider}`} />
-
-          <div className="mt-[20px]">
-            <div className="w-full flex justify-between items-center">
-              <div className={styles.desc}>Select Size</div>
-              <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
-                Size Chart »
-              </div>
-            </div>
+          {type === 'foster' && (
             <div className="mt-[15px]">
-              <div className="w-full flex flex-wrap gap-[9px]">
-                {sizeList.map((item, index) => (
-                  <div
-                    key={index}
-                    className={item.selected ? styles.selectedSize : styles.unselectedSize}
-                    onClick={() => onClickSize(index)}
-                  >
-                    {item.name}
-                  </div>
-                ))}
+              <div className={styles.desc}>Details</div>
+              <div className="w-full flex justify-between mt-[7px]">
+                <div className={styles.content}>Apparel Type</div>
+                <div className={styles.contentValue}>Premimum Hoodie</div>
+              </div>
+              <div className="w-full flex justify-between mt-[6px]">
+                <div className={styles.content}>Print Technique</div>
+                <div className={styles.contentValue}>Embroidery</div>
+              </div>
+              <div className="w-full flex justify-between mt-[6px]">
+                <div className={styles.content}>Print Areas</div>
+                <div className={styles.contentValue}>Center Chest, Left Wrist</div>
+              </div>
+              <div className="w-full flex justify-between mt-[6px]">
+                <div className={styles.content}>Color</div>
+                <div className={styles.contentValue}>Black</div>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className={`mt-[20px] ${styles.divider}`} />
+          {type === 'user' && (
+            <div className="mt-[15px]">
+              <div className={styles.desc}>Description</div>
 
+              <div className={`mt-[10px] ${styles.content}`}>
+                {processedNftDescription}
+                {shouldShowReadMore && (
+                  <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                    {isTruncated ? '... Expand' : ' Collapse'}
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />}
+
+          {type === 'foster' && (
+            <div className="mt-[20px]">
+              <div className="w-full flex justify-between items-center">
+                <div className={styles.desc}>Select Size</div>
+                <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                  Size Chart »
+                </div>
+              </div>
+              <div className="mt-[15px]">
+                <div className="w-full flex flex-wrap gap-[9px]">
+                  {sizeList.map((item, index) => (
+                    <div
+                      key={index}
+                      className={item.selected ? styles.selectedSize : styles.unselectedSize}
+                      onClick={() => onClickSize(index)}
+                    >
+                      {item.name}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {type === 'foster' && <div className={`mt-[20px] ${styles.divider}`} />}
+        </div>
+
+        <div className="w-full">
           <div className="mt-[20px]">
             <div className="flex flex-wrap items-end gap-[6px]">
               <div className={styles.endsIn}>Ends in</div>
@@ -224,7 +274,9 @@ const MerchOrderMain = props => {
           <div className="w-full flex justify-between mt-[20px] relative">
             <div>
               <div className="flex gap-[7px] items-center relative">
-                <div className={styles.infoText}>Embroidery Disclaimer</div>
+                <div className={styles.infoText}>
+                  {type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+                </div>
                 <div
                   onMouseEnter={() => {
                     document.getElementById(alertEmb).style.display = 'block'
@@ -243,16 +295,20 @@ const MerchOrderMain = props => {
                 </div>
                 <div className="lg:block hidden">
                   <MerchShopClipboardChip
-                    title="Embroidery Disclaimer"
-                    text="Please note that the actual embroidered design may vary from the digital preview shown. While we strive
-                for accuracy, the nature of embroidery can result in differences in color, texture, and placement."
+                    width={'500px'}
+                    title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+                    text={
+                      type === 'foster'
+                        ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
+                        : 'Domestic & international shipping will be paid by the buyer.'
+                    }
                     identifier={alertEmb}
                   />
                 </div>
               </div>
 
               <div className="flex gap-[7px] items-center mt-[10px] relative">
-                <div className={styles.infoText}>Customs Notice</div>
+                <div className={styles.infoText}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
                 <div
                   onMouseEnter={() => {
                     document.getElementById(alertNote).style.display = 'block'
@@ -271,8 +327,12 @@ const MerchOrderMain = props => {
                 </div>
                 <div className="lg:block hidden">
                   <MerchShopClipboardChip
-                    title="Customs Notice"
-                    text="All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees."
+                    title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
+                    text={
+                      type === 'foster'
+                        ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
+                        : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
+                    }
                     identifier={alertNote}
                   />
                 </div>
@@ -281,17 +341,24 @@ const MerchOrderMain = props => {
               <div className="lg:hidden block w-full">
                 <MerchShopClipboardChip
                   type="Embroidery"
-                  title="Embroidery Disclaimer"
-                  text="Please note that the actual embroidered design may vary from the digital preview shown. While we strive
-                for accuracy, the nature of embroidery can result in differences in color, texture, and placement."
+                  title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+                  text={
+                    type === 'foster'
+                      ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
+                      : 'Domestic & international shipping will be paid by the buyer.'
+                  }
                   identifier={alertEmbMobile}
                 />
               </div>
               <div className="lg:hidden block w-full">
                 <MerchShopClipboardChip
                   type="custom"
-                  title="Customs Notice"
-                  text="All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees."
+                  title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
+                  text={
+                    type === 'foster'
+                      ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
+                      : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
+                  }
                   identifier={alertNoteMobile}
                 />
               </div>

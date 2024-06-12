@@ -36,6 +36,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const type = useSelector(state => (state as any).merchOrderType)
+
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [printData, setPrintData] = useState({
@@ -71,7 +72,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (type === 'merch') {
+    if (type === 'foster') {
       setMerchList([
         {
           url: merchImageFront,

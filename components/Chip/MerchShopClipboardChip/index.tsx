@@ -4,12 +4,13 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const MerchShopClipboardChip = props => {
-  const { type = '', title, text, identifier } = props
+  const { width = null, type = 'custom', title, text, identifier } = props
   return (
     <div
       id={identifier}
       className={styles.container}
       style={{
+        width: width && width,
         bottom: type === 'custom' ? '30px' : '60px',
       }}
     >
