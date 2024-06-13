@@ -73,8 +73,8 @@ const MainSection = props => {
   const [tempNftDescription, setTempNftDescription] = useState('')
   const [isTruncated, setIsTruncated] = useState(true)
 
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > descCount
+  const processedNftDescription = isTruncated ? tempNftDescription?.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription?.length > descCount
 
   useEffect(() => {
     if (data?.description !== undefined && data?.description !== null) setTempNftDescription(data?.description)
