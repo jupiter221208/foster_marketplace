@@ -209,8 +209,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       </Head>
       <div className="g-container">
         <div className={styles.container}>
-          <div className="w-full flex">
-            <div className="w-[calc(100%-604px)] justify-center px-[50px]">
+          <div className="w-full lg:flex-row flex-col">
+            <div className="w-full lg:w-[calc(100%-604px)] justify-center lg:px-[50px] p-[10px]">
               {!loading ? (
                 <Swiper
                   slidesPerView={1}
@@ -242,7 +242,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                             <ImageWithFoster src={item?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
                           </div> */}
                           {/* <div className={styles.blurImage} /> */}
-                          <div className="w-[500px] h-[500px]">
+                          <div className="w-full h-full lg:w-[500px] lg:h-[500px]">
                             <ImageWithFoster
                               width={500}
                               src={item?.printImageUrl}
@@ -259,7 +259,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 </div>
               )}
             </div>
-            <div className="lg:min-w-[604px] lg:max-w-[604px] z-10">
+            <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10">
               {openApparelDetail && (
                 <ShoppingCartMerchApparelSection
                   apparelData={data}

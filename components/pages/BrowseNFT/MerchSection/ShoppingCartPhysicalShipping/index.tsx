@@ -202,7 +202,7 @@ const ShoppingCartPhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="p-[30px]">
+      <div className="lg:p-[30px]">
         <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center justify-between">
           <div className={styles.selecteCategory}>Add Shipping Details</div>
         </div>
