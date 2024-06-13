@@ -56,22 +56,28 @@ const ShoppingCartSection = props => {
   return (
     <div className={styles.container}>
       {cartList?.length > 0 ? (
-        <div>
-          <div className="w-full flex justify-center sm:hidden relative">
-            <div className={styles.title}>Shopping Cart</div>
-            <div
-              className="absolute left-0 top-0"
-              onClick={() => {
-                dispatch({ type: 'set', openShoppingCart: false })
-              }}
-            >
-              <LeftArrowIcon />
+        <div className="relative">
+          <div className="w-full flex justify-between sm:hidden">
+            <div className="flex gap-[13px] items-center">
+              <div
+                onClick={() => {
+                  dispatch({ type: 'set', openShoppingCart: false })
+                }}
+              >
+                <LeftArrowIcon />
+              </div>
+              <div className={styles.title}>Shopping Cart</div>
+            </div>
+            <div className="flex items-end">
+              <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
+                {selectAllCart ? 'Deselect All' : 'Select all'}
+              </div>
             </div>
           </div>
           <div className="sm:block hidden">
             <div className={styles.title}>Studio Shopping Cart</div>
           </div>
-          <div className="w-full flex justify-between mt-[15px]">
+          <div className="w-full sm:flex hidden justify-between mt-[15px]">
             <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
               {selectAllCart ? 'Deselect All' : 'Select all'}
             </div>
@@ -83,16 +89,15 @@ const ShoppingCartSection = props => {
               </div>
             </div>
           </div>
-          <div className="w-full mt-[18px]">
-            <PrimaryButton
+          <div className="w-full mt-[18px] sm:block hidden">
+            <GradientButton
               disabled={totalCost === 0}
-              label="Checkout"
-              type="buy-now"
+              label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
               fullWidth
               onClick={() => onCheckout()}
             />
           </div>
-          <div className="mt-[20px] sm:mt-[15px]">
+          <div className="mt-[20px] sm:mt-[30px] sm:h-[400px] overflow-auto">
             <ShoppingCartActivity
               data={cartList}
               getcartList={getcartList}
@@ -104,6 +109,23 @@ const ShoppingCartSection = props => {
               setTotalCost={setTotalCost}
               totalCost={totalCost}
             />
+          </div>
+          <div className={styles.bottomSection}>
+            <div className="flex justify-between">
+              <div className={styles.subtotal}>Subtotal</div>
+              <div className="flex gap-[6px] items-center">
+                <SolIcon className="mt-[2px]" />
+                <div className={styles.price}>{totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}</div>
+              </div>
+            </div>
+            <div className="w-full flex justify-center  mt-[19px]">
+              <GradientButton
+                disabled={totalCost === 0}
+                label={currentSelect === 0 ? 'Checkout' : 'Checkout (' + currentSelect + ' items)'}
+                fullWidth
+                onClick={() => onCheckout()}
+              />
+            </div>
           </div>
         </div>
       ) : (

@@ -10,15 +10,12 @@
 }
 
 .title {
-  font-family: 'Muli-SemiBold';
-  font-weight: 100;
-  font-size: 18px;
-  line-height: 23px;
+  font-family: 'Muli-Regular';
+  font-size: 24px;
+  line-height: 30px;
   color: var(--text-gray-200-color);
   @media (min-width: 640px) {
     font-family: 'Muli-Bold';
-    font-size: 24px;
-    line-height: 30px;
   }
 }
 
@@ -26,8 +23,28 @@
   font-family: 'Muli-Regular';
   font-weight: 100;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 16px;
+  @media (min-width: 640px) {
+    line-height: 20px;
+  }
   color: var(--main-icon-color);
+  cursor: pointer;
+}
+
+.bottomSection {
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+  height: 137px;
+  background: var(--background-main-color);
+  padding: 20px 16px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 20px 20px 0px 0px;
+  @media (min-width: 640px) {
+    display: none;
+  }
 }
 
 .subtotal {
@@ -35,7 +52,11 @@
   font-weight: 100;
   font-size: 16px;
   line-height: 20px;
-  color: rgba(var(--main-bg-color-rgb), 0.9);
+  color: var(--main-bg-color);
+  @media (min-width: 640px) {
+    display: none;
+    color: rgba(var(--main-bg-color-rgb), 0.9);
+  }
 }
 
 .price {

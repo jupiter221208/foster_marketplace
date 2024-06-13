@@ -177,13 +177,11 @@ const ShoppingCartActivity = props => {
                     </div>
                     <div className="flex flex-col px-[10px]">
                       <div className={styles.mobileContent}>
-                        <div className={styles.detail}>Item Details</div>
-
                         <div className="mt-[6px] w-[150px]">{item.nftName}</div>
                         <div>{item.apparel.name}</div>
                         <div>{item.color.type}</div>
                         <div>Qty: {item.quantity}</div>
-                        <div>Price: ${item.cost}</div>
+                        <div className={styles.cost}>${item.cost}</div>
                       </div>
                     </div>
                   </div>
@@ -198,7 +196,7 @@ const ShoppingCartActivity = props => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
+                      <SimpleCheckbox isChecked={item.checked} onChange={() => handleSelectData(index)} />
                     </div>
                   </div>
                   <div className={`${styles.divider} mt-[20px]`}></div>
