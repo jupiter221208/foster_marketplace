@@ -209,8 +209,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       </Head>
       <div className="g-container">
         <div className={styles.container}>
-          <div className="w-full lg:flex-row flex-col">
-            <div className="w-full lg:w-[calc(100%-604px)] justify-center lg:px-[50px] p-[10px]">
+          <div className="w-full lg:flex lg:flex-row flex-col">
+            <div className="lg:w-[calc(100%-604px)] justify-center lg:px-[50px] p-[10px]">
               {!loading ? (
                 <Swiper
                   slidesPerView={1}
