@@ -2,7 +2,12 @@
 
 .container {
   width: 100%;
-  height: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 140px);
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+    border-radius: 10px;
+  }
 }
 
 .selecteCategory {
@@ -72,3 +77,11 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
 
+.btnContainer {
+  margin-top: 60px;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+    padding: 0px 30px 20px 30px;
+    border-top: 1px solid var(--bg-303030-DDDCDC);
+  }
+}
