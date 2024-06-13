@@ -120,7 +120,11 @@ const ShoppingCartSection = props => {
                 height={50}
                 label={'Shop Studio'}
                 borderRadius={30}
-                onClick={() => router.push('/studio/')}
+                onClick={() => {
+                  dispatch({ type: 'set', openShoppingCart: false })
+
+                  router.push('/studio/')
+                }}
               />
             </div>
           </div>

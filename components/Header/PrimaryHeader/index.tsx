@@ -26,7 +26,7 @@ import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterLogo from 'assets/logo.svg?component'
+import FosterLogo from 'assets/logo-new.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -193,8 +193,12 @@ const PrimaryHeader = () => {
   }
 
   const handleOpenShoppingCart = () => {
-    dispatch({ type: 'set', openMobileMenu: false })
-    dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
+    if (connected) {
+      dispatch({ type: 'set', openMobileMenu: false })
+      dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
+    } else {
+      setVisible(true)
+    }
   }
 
   const handleOpenMobileSearchBox = () => {
@@ -235,12 +239,16 @@ const PrimaryHeader = () => {
 
           <div className="w-full h-full flex justify-between g-container">
             <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
-              <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
+              <div
+                className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
+                onClick={() => handleGotoHomepage()}
+              >
                 <FosterLogo className={styles.logoIcon} />
+                <div className={styles.logoFont}>foster</div>
               </div>
 
               <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                Merch
+                Studio
               </div>
 
               <div>
@@ -328,19 +336,25 @@ const PrimaryHeader = () => {
         } top-0 transition-all block lg:hidden`}
       >
         <div className={styles.mobileContainer}>
-          <div className="g-container flex justify-between items-center">
-            <div className="flex">
-              <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                <FosterNavLogo width={101} height={23} />
+          <div className="g-container flex justify-between items-center relative">
+            <div className="absolute inset-0 w-full flex justify-center items-center z-[10]">
+              <div className="flex gap-[6px] cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
+                <FosterLogo className={styles.logoIcon} />
+                <div className={styles.logoFont}>foster</div>
               </div>
             </div>
-            <div className="flex">
-              <div className="w-[39px] h-[39px] flex justify-center items-center">
-                <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
-              </div>
+
+            <div className="flex items-center z-[1000]">
               <div className="w-[39px] h-[39px] flex justify-center items-center">
                 <ShoppingCartIcon onClick={() => handleOpenShoppingCart()} />
               </div>
+            </div>
+
+            <div className="flex z-[1000]">
+              <div className="w-[39px] h-[39px] flex justify-center items-center">
+                <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+              </div>
+
               <div>
                 <IconButtonWithSVG
                   icon={
@@ -361,15 +375,7 @@ const PrimaryHeader = () => {
           </div>
         </div>
 
-        {router.pathname === '/' ? (
-          !isScrollTop ? (
-            <div className={styles.divider} />
-          ) : (
-            <></>
-          )
-        ) : (
-          <div className={styles.divider} />
-        )}
+        {router.pathname === '/' ? <div className={styles.divider} /> : <div className={styles.divider} />}
       </div>
     </div>
   )
