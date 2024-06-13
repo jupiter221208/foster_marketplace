@@ -363,7 +363,7 @@ const PrimaryHeader = () => {
 
                 <div className="flex z-[1000]">
                   <div className="w-[39px] h-[39px] flex justify-center items-center">
-                    <ShoppingCartIcon onClick={() => handleOpenShoppingCart()} />
+                    <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
                   </div>
                   <div>
                     <IconButtonWithSVG
