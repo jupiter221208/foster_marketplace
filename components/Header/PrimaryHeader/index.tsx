@@ -238,7 +238,9 @@ const PrimaryHeader = () => {
           </div>
 
           <div className="w-full h-full flex justify-between g-container">
-            <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
+            <div
+              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}
+            >
               <div
                 className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
                 onClick={() => handleGotoHomepage()}

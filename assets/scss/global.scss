@@ -418,10 +418,14 @@ h6 {
     padding-right: 60px;
   }
   @media (min-width: 1280px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  @media (min-width: 1536px) {
     padding-left: 120px;
     padding-right: 120px;
   }
-  @media (min-width: 1536px) {
+  @media (min-width: 1680px) {
     padding-left: 150px;
     padding-right: 150px;
   }
@@ -435,13 +439,13 @@ h6 {
     padding-left: 16px;
   }
   @media (min-width: 768px) {
-    padding-left: 100px;
+    padding-left: 80px;
   }
   @media (min-width: 1024px) {
-    padding-left: 100px;
+    padding-left: 80px;
   }
   @media (min-width: 1280px) {
-    padding-left: 120px;
+    padding-left: 100px;
   }
   @media (min-width: 1536px) {
     padding-left: 150px;
