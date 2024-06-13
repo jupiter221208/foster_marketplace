@@ -105,30 +105,9 @@ const ShoppingCartActivity = props => {
     setCart(updatedCart)
   }, [selectAllCart])
 
-  // const handleSelectAll = () => {
-  //   const allSelected = !selectAll
-  //   let sumitemArray = 0
-  //   cartList.forEach(item => {
-  //     sumitemArray += item.quantity
-  //   })
-  //   setSelectAll(allSelected)
-  //   setCurrentSelect(allSelected ? sumitemArray : 0)
-  //   setTotalCost(allSelected ? cartList.reduce((total, item) => total + parseFloat(item.cost), 0) : 0)
-  //   setChecked(!checked)
-  //   const updatedCart = cartList.map(item => {
-  //     item.checked = allSelected
-  //     return item
-  //   })
-  //   setCart(updatedCart)
-  // }
-
   return (
     <>
       <div className={styles.container}>
-        {/* <div className={styles.title}>Studio Shopping Cart</div>
-        <div className={styles.subTitle} onClick={() => handleSelectAll()}>
-          {selectAll ? 'Deselect all items' : 'Select all items'}
-        </div> */}
         <div className={styles.listContainer}>
           {cartList &&
             cartList.map((item, index) => (
@@ -143,7 +122,7 @@ const ShoppingCartActivity = props => {
                       <div className="w-[183px] h-[183px] ml-[30px]">
                         <ImageWithFoster src={item.printImageUrl} className="p-[10px]" />
                       </div>
-                      <div className="ml-[74px] mt-[10px]">
+                      <div className="ml-[74px] sm:mt-[10px]">
                         <div className={styles.detail}>Item Details</div>
                         <div className={styles.content}>
                           <div>{item.nftName}</div>
@@ -164,6 +143,7 @@ const ShoppingCartActivity = props => {
                           </div>
                           <div>{item.color.type}</div>
                           <div>Qty: {item.quantity}</div>
+                          <div>Price: ${item.cost}</div>
                         </div>
                         <div className="flex mt-[20px] items-center">
                           <div className={styles.remove} onClick={() => handleRemove(index)}>
@@ -191,29 +171,37 @@ const ShoppingCartActivity = props => {
             <div key={index}>
               {item.printImageUrl && (
                 <div className={styles.tableColor}>
-                  <div className="flex items-center ml-[30px]">
-                    <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
-                  </div>
-                  <div className="w-[100px] h-[100px] flex ml-[15px] mt-[10px]">
-                    <ImageWithFoster src={item.printImageUrl} className="w-full h-full px-3 py-3" />
-                  </div>
-                  <div className="flex flex-col px-[10px]">
-                    <div className={styles.mobileContent}>
-                      <div className="w-[150px] overflow-x-auto">{item.nftName}</div>
-                      <div>{item.apparel.name}</div>
-                      <div>{item.color.type}</div>
-                      <div>Qty: {item.quantity}</div>
+                  <div className="flex gap-[9px]">
+                    <div className="w-[117px] h-[117px]">
+                      <ImageWithFoster src={item.printImageUrl} className="w-full h-full" />
                     </div>
-                    <div className="flex mt-[5px] items-center">
+                    <div className="flex flex-col px-[10px]">
+                      <div className={styles.mobileContent}>
+                        <div className={styles.detail}>Item Details</div>
+
+                        <div className="mt-[6px] w-[150px]">{item.nftName}</div>
+                        <div>{item.apparel.name}</div>
+                        <div>{item.color.type}</div>
+                        <div>Qty: {item.quantity}</div>
+                        <div>Price: ${item.cost}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center mt-[15px] ml-[5px]">
+                    <div className="flex items-center gap-[15px]">
                       <div className={styles.mobileRemove} onClick={() => handleRemove(index)}>
-                        Delete
+                        Remove Item
                       </div>
                       <div className={styles.costDivider} />
-                      <div className={styles.mobileEdit} onClick={() => handleEdit(index)}>
+                      <div className={styles.mobileRemove} onClick={() => handleEdit(index)}>
                         Edit
                       </div>
                     </div>
+                    <div className="flex items-center">
+                      <SimpleCheckbox checked={item.checked} onChange={() => handleSelectData(index)} />
+                    </div>
                   </div>
+                  <div className={`${styles.divider} mt-[20px]`}></div>
                 </div>
               )}
             </div>

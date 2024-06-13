@@ -499,7 +499,7 @@ const MerchActivity = () => {
                       <div className={styles.subCartTitle} onClick={() => setSelectAllCart(!selectAllCart)}>
                         {selectAllCart ? 'Deselect all items' : 'Select all items'}
                       </div>
-                      <div className="mt-[30px]">
+                      <div className="mt-[10px] sm:mt-[30px]">
                         <ShoppingCartActivity
                           data={array}
                           getcartList={getcartList}

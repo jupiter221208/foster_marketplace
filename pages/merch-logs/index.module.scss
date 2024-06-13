@@ -170,15 +170,25 @@
 
 .shopCartContainer {
   width: 100%;
-  background: var(--background-main-color);
   border-radius: 15px;
-  padding: 30px;
+  @media (min-width: 640px) {
+    padding: 30px;
+    background: var(--background-main-color);
+  }
 }
 
 .cartTitle {
-  font-family: 'Muli-Bold';
-  font-size: 30px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
   color: var(--text-gray-200-color);
+  margin-top: 20px;
+  @media (min-width: 640px) {
+    font-size: 22px;
+    margin-top: 0px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 30px;
+  }
 }
 
 .subCartTitle {
