@@ -25,7 +25,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
-import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterLogo from 'assets/logo-new.svg?component'
@@ -243,7 +242,10 @@ const PrimaryHeader = () => {
 
             <div className="w-full h-full flex justify-between g-container">
               <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
-                <div className="flex gap-[6px] cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
+                <div
+                  className="flex items-center gap-[6px] cursor-pointer mr-[15px]"
+                  onClick={() => handleGotoHomepage()}
+                >
                   <FosterLogo className={styles.logoIcon} />
                   <div className={styles.logoFont}>foster</div>
                 </div>

@@ -607,7 +607,7 @@ h6 {
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background: var(--text-gray-200-color);
+  background: #eff0f6;
   @media (max-width: 640px) {
     width: 4px;
     height: 4px;
@@ -616,7 +616,7 @@ h6 {
 }
 #heroSwiperMobile .swiper-pagination-bullet-active {
   color: var(--white-color);
-  background: var(--home-swiper-bg);
+  background: #9e9da0;
   width: 35px;
   height: 8px;
   border-radius: 4px;

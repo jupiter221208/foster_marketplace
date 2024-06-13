@@ -114,8 +114,8 @@
 
 .nftName {
   font-family: 'Muli-SemiBold';
-  font-size: 22px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  font-size: 18px;
+  color: rgba(239, 240, 247, 0.9);
   letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -168,16 +168,10 @@
   }
 }
 
-.nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  color: var(--main-bg-color);
-}
-
 .creatorName {
   font-family: 'Muli-Light';
   font-size: 14px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  color: rgba(239, 240, 247, 0.9);
   display: flex;
   align-items: center;
 }

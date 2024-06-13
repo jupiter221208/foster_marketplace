@@ -101,9 +101,23 @@
   color: var(--text-gray-200-color);
   opacity: 0.6;
 }
+
 .lightDarkMode {
   margin-top: 70px;
   @media (min-width: 1024px) {
     margin-top: 60px;
   }
+}
+
+.logoFont {
+  font-family: "Ibrand" !important;
+  font-size: 37px !important;
+  margin-top: 6px;
+  color: var(--text-gray-200-color)
+}
+
+.logoIcon {
+  scale: 1;
+  overflow: visible;
+  fill: var(--main-icon-color);
 }
