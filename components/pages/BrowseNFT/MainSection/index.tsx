@@ -1816,10 +1816,12 @@ const MainSection = ({
         open={showListNFTModal}
         onClose={(status: string, price) => {
           setShowListNFTModal(false)
-          setIsOwnNft(true)
-          setNftPrice(parseFloat(price))
-          reloadNftData()
-          if (status === 'listed') router.reload()
+          if (status === 'listed') {
+            setIsOwnNft(true)
+            setNftPrice(parseFloat(price))
+            reloadNftData()
+            router.reload()
+          }
         }}
       />
 
