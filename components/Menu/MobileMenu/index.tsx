@@ -37,7 +37,6 @@ import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
 import AccordionNewProfileMenu from '../AccordionNewProfileMenu'
-import Link from 'next/link'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()

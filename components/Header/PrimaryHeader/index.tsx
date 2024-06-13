@@ -198,14 +198,17 @@ const PrimaryHeader = () => {
   }
 
   const handleOpenMobileSearchBox = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
   }
 
   const handleOpenMobileMenu = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
   }
 
   const handleGotoHomepage = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileSearchBox: false })
     dispatch({ type: 'set', openMobileMenu: false })
     router.push('/')
