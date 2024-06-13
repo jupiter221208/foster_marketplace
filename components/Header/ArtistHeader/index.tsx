@@ -25,10 +25,9 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
-import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
-import FosterLogo from 'assets/logo.svg?component'
+import FosterLogo from 'assets/logo-new.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -57,6 +56,7 @@ const PrimaryHeader = () => {
   const [isScrollTop, setIsScrollTop] = useState(true)
   const [isScrollingTop, setIsScrollingTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
+  const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
@@ -194,15 +194,27 @@ const PrimaryHeader = () => {
     }
   }
 
+  const handleOpenShoppingCart = () => {
+    if (connected) {
+      dispatch({ type: 'set', openMobileMenu: false })
+      dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
+    } else {
+      setVisible(true)
+    }
+  }
+
   const handleOpenMobileSearchBox = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
   }
 
   const handleOpenMobileMenu = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
   }
 
   const handleGotoHomepage = () => {
+    dispatch({ type: 'set', openShoppingCart: false })
     dispatch({ type: 'set', openMobileSearchBox: false })
     dispatch({ type: 'set', openMobileMenu: false })
     router.push('/')
@@ -230,12 +242,16 @@ const PrimaryHeader = () => {
 
             <div className="w-full h-full flex justify-between g-container">
               <div className={`${styles.linkNames} flex gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}>
-                <div className="cursor-pointer mr-[15px]" onClick={() => handleGotoHomepage()}>
+                <div
+                  className="flex items-center gap-[6px] cursor-pointer mr-[15px]"
+                  onClick={() => handleGotoHomepage()}
+                >
                   <FosterLogo className={styles.logoIcon} />
+                  <div className={styles.logoFont}>foster</div>
                 </div>
 
                 <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
-                  Merch
+                  Studio
                 </div>
 
                 <div>
@@ -330,17 +346,24 @@ const PrimaryHeader = () => {
           className={`${
             isScrollTop && router.pathname === '/' ? styles.mobileNonBlurContainer : styles.mobileBlurContainer
           } ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
-          // className={`${styles.mobileBlurContainer} ${isScrollingTop ? 'top-0' : '-top-28'} transition-all`}
         >
           {isScrollingTop && (
             <div className={styles.mobileContainer}>
               <div className="g-container flex justify-between items-center">
-                <div className="flex">
-                  <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-                    <FosterNavLogo width={101} height={23} />
+                <div className="absolute inset-0 w-full flex justify-center items-center z-[10]">
+                  <div className="flex gap-[6px] cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
+                    <FosterLogo className={styles.logoIcon} />
+                    <div className={styles.logoFont}>foster</div>
                   </div>
                 </div>
-                <div className="flex">
+
+                <div className="flex items-center z-[1000]">
+                  <div className="w-[39px] h-[39px] flex justify-center items-center">
+                    <ShoppingCartIcon onClick={() => handleOpenShoppingCart()} />
+                  </div>
+                </div>
+
+                <div className="flex z-[1000]">
                   <div className="w-[39px] h-[39px] flex justify-center items-center">
                     <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
                   </div>

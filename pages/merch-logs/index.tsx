@@ -84,6 +84,7 @@ const MerchActivity = () => {
   const { solToUsdRate } = useSolToUsdRate()
 
   const [tokenId, setTokenId] = useState(false)
+  const [selectAllCart, setSelectAllCart] = useState(false)
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
@@ -493,16 +494,25 @@ const MerchActivity = () => {
               {array && array.length && array.length > 0 ? (
                 <>
                   <div className="col-span-2">
-                    <ShoppingCartActivity
-                      data={array}
-                      getcartList={getcartList}
-                      cart={cart}
-                      setCart={setCart}
-                      setCurrentSelect={setCurrentSelect}
-                      currentSelect={currentSelect}
-                      setTotalCost={setTotalCost}
-                      totalCost={totalCost}
-                    />
+                    <div className={styles.shopCartContainer}>
+                      <div className={styles.cartTitle}>Studio Shopping Cart</div>
+                      <div className={styles.subCartTitle} onClick={() => setSelectAllCart(!selectAllCart)}>
+                        {selectAllCart ? 'Deselect all items' : 'Select all items'}
+                      </div>
+                      <div className="mt-[10px] sm:mt-[30px]">
+                        <ShoppingCartActivity
+                          data={array}
+                          getcartList={getcartList}
+                          cart={cart}
+                          setCart={setCart}
+                          selectAllCart={selectAllCart}
+                          setCurrentSelect={setCurrentSelect}
+                          currentSelect={currentSelect}
+                          setTotalCost={setTotalCost}
+                          totalCost={totalCost}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
                     <div className={styles.tableColor}>

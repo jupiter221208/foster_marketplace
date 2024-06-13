@@ -74,6 +74,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Ibrand';
+  src: url('../fonts/Ibrand/Ibrand.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
 :root {
   --brand-01-color: #5ac3ba;
   --brand-02-color: #378287;
@@ -411,10 +418,14 @@ h6 {
     padding-right: 60px;
   }
   @media (min-width: 1280px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  @media (min-width: 1536px) {
     padding-left: 120px;
     padding-right: 120px;
   }
-  @media (min-width: 1536px) {
+  @media (min-width: 1680px) {
     padding-left: 150px;
     padding-right: 150px;
   }
@@ -428,13 +439,13 @@ h6 {
     padding-left: 16px;
   }
   @media (min-width: 768px) {
-    padding-left: 100px;
+    padding-left: 80px;
   }
   @media (min-width: 1024px) {
-    padding-left: 100px;
+    padding-left: 80px;
   }
   @media (min-width: 1280px) {
-    padding-left: 120px;
+    padding-left: 100px;
   }
   @media (min-width: 1536px) {
     padding-left: 150px;
@@ -600,7 +611,7 @@ h6 {
   width: 8px;
   height: 8px;
   border-radius: 4px;
-  background: var(--text-gray-200-color);
+  background: #eff0f6;
   @media (max-width: 640px) {
     width: 4px;
     height: 4px;
@@ -609,7 +620,7 @@ h6 {
 }
 #heroSwiperMobile .swiper-pagination-bullet-active {
   color: var(--white-color);
-  background: var(--home-swiper-bg);
+  background: #9e9da0;
   width: 35px;
   height: 8px;
   border-radius: 4px;

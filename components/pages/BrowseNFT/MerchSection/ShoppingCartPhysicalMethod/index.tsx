@@ -18,6 +18,9 @@ import GradientButton from 'components/Button/GradientButton'
 import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const ShoppingCartPhysicalShippingMethod = props => {
   const { onBack, onNext, apparelData, shippingData, allShippingMethod, type, setTotalCost, printData } = props
@@ -30,30 +33,6 @@ const ShoppingCartPhysicalShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // let name = ''
-    // if (type === 'apparel') {
-    //   name =
-    //     nftName +
-    //     '<br/>' +
-    //     data['apparel'].description +
-    //     ' (' +
-    //     data['size'].name +
-    //     ')' +
-    //     '<br/>' +
-    //     getFirstUpperString(data['color'].type)
-    // } else {
-    //   name =
-    //     nftName +
-    //     '<br/>' +
-    //     getFirstUpperString(data.print.type) +
-    //     ' (' +
-    //     getFirstUpperString(data.orientation.type) +
-    //     ')<br/>' +
-    //     data.size.width +
-    //     ' x ' +
-    //     data.size.height
-    // }
-
     let methods = []
     if (isUniteState()) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
@@ -235,76 +214,69 @@ const ShoppingCartPhysicalShippingMethod = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        <div className={styles.selecteCategory}>Select Shipping Method</div>
-      </div>
-      <div className="w-full flex xl:flex-row flex-col mt-[20px] justify-between">
-        <div className="min-w-[300px] mt-[12px]">
-          {shipping && (
-            <Radio
-              data={shippingMethods}
-              selected={shipping}
-              onChange={item => {
-                setShipping(item)
-              }}
-            />
-          )}
+      <div className="pt-[13px] lg:p-[30px]">
+        <div className="flex gap-[15px] mt-[0px] lg:mt-[0px] items-center">
+          <div className={styles.selecteCategory}>Select Shipping Method</div>
         </div>
-        <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
-          <div className="w-full relative">
-            <div className={styles.orderView}>
-              <div className="w-full flex justify-between">
-                <div className={styles.orderTotal}>Subtotal</div>
-                <div className={styles.totalPrice}>
-                  ${printData.reduce((totalCost, item) => totalCost + parseFloat(item.cost), 0).toFixed(2)}
+        <div className="w-full mt-[20px] justify-between">
+          <div className="min-w-[300px] mt-[12px]">
+            {shipping && (
+              <Radio
+                data={shippingMethods}
+                selected={shipping}
+                onChange={item => {
+                  setShipping(item)
+                }}
+              />
+            )}
+          </div>
+          <div className="w-full h-auto gap-[30px] mt-[24px]">
+            <div className="w-full relative">
+              <div className={styles.orderView}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.orderTotal}>Subtotal</div>
+                  <div className={styles.totalPrice}>
+                    ${printData.reduce((totalCost, item) => totalCost + parseFloat(item.cost), 0).toFixed(2)}
+                  </div>
                 </div>
-              </div>
-              <div className={`${styles.divider} mt-[15px]`} />
-              <div className="w-full flex justify-between mt-[15px]">
-                <div className={styles.orderTotal}>
-                  Shipping and
-                  <br />
-                  Handling
+                <div className={`${styles.divider} mt-[15px]`} />
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.orderTotal}>
+                    Shipping and
+                    <br />
+                    Handling
+                  </div>
+                  <div className={styles.subPrice}>
+                    <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
+                    <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                  </div>
                 </div>
-                <div className={styles.subPrice}>
-                  <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                  <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                <div className={`${styles.divider} mt-[15px]`} />
+                <div className="w-full flex justify-between mt-[20px]">
+                  <div className={styles.orderTotal}>Total</div>
+                  <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
                 </div>
-              </div>
-              <div className={`${styles.divider} mt-[15px]`} />
-              <div className="w-full flex justify-between mt-[20px]">
-                <div className={styles.orderTotal}>Total</div>
-                <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div className="xl:absolute xl:bottom-[120px] w-full flex gap-[30px] mt-[30px]">
-        <OutlineButton
-          label="Back"
-          onClick={onBack}
-          fullWidth
-          fontFamily="Muli-SemiBold"
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-          color={'var(--text-gray-200-color)'}
-        />
-        <div className="w-full">
+      <div className={styles.btnContainer}>
+        <div className="w-full mt-[20px]">
           {isLoading ? (
-            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+            <LoadingPrimaryButton fullWidth />
           ) : (
-            <GradientButton
+            <PrimaryButton
               disabled={!total}
               label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
-              fontFamily="Muli-SemiBold"
+              type="buy-now"
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
               onClick={() => onCheckout()}
             />
           )}
+        </div>
+        <div className="w-full mt-[15px] lg:mt-[20px] mb-[20px] lg:mb-[20px] flex">
+          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
         </div>
       </div>
     </section>

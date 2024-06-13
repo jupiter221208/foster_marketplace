@@ -112,8 +112,8 @@ const MainSection = prop => {
   const [tempNftDescription, setTempNftDescription] = useState('')
   const [isTruncated, setIsTruncated] = useState(true)
 
-  const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
-  const shouldShowReadMore = tempNftDescription.length > descCount
+  const processedNftDescription = isTruncated ? tempNftDescription?.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription?.length > descCount
 
   useEffect(() => {
     function handleResize() {
@@ -130,7 +130,7 @@ const MainSection = prop => {
   }, [])
 
   useEffect(() => {
-    setTempNftDescription(artistInfo?.bio)
+    if (artistInfo?.bio !== undefined && artistInfo?.bio !== null) setTempNftDescription(artistInfo?.bio)
   }, [artistInfo?.bio])
 
   function toggleIsTruncated() {
@@ -781,6 +781,7 @@ const MainSection = prop => {
       ) : (
         <div className={styles.headerImage}>
           <ImageWithFoster
+            showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover rounded-none"
           />

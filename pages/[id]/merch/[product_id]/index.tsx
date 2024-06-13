@@ -143,13 +143,17 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
 
       <div className="w-full lg:flex-1 flex flex-wrap justify-between">
         <div className="2xl:w-[58%] lg:w-[55%] w-full flex justify-center lg:px-[20px]">
-          <div className={`sm:hidden block h-auto w-full mb-[20px] h-[375px] mt-[${type === 'foster' ? 20 : 0}px]`}>
+          <div className={`sm:hidden block h-auto w-full mb-[20px] mt-[${type === 'foster' ? 20 : 0}px]`}>
             <div className={styles.mobileImageArea}>
-              <ImageWithFoster
-                width={700}
-                src={selectedMerch ? selectedMerch.url.src : ''}
-                className="w-full object-cover"
-              />
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  <ImageWithFoster
+                    width={700}
+                    src={selectedMerch ? selectedMerch.url.src : ''}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
