@@ -242,9 +242,9 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                             <ImageWithFoster src={item?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
                           </div> */}
                           {/* <div className={styles.blurImage} /> */}
-                          <div className="w-full h-full lg:w-[500px] lg:h-[500px]">
+                          <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
                             <ImageWithFoster
-                              width={500}
+                              width={700}
                               src={item?.printImageUrl}
                               className="w-full h-full object-cover"
                             />
@@ -254,7 +254,7 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     ))}
                 </Swiper>
               ) : (
-                <div className="w-full mt-[200px]">
+                <div className="w-full mt-[90px] lg:mt-[200px] h-[230px]">
                   <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
                 </div>
               )}
