@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import Lottie from 'lottie-react'
 
 // component
-import PrimaryButton from 'components/Button/PrimaryButton'
 import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
 
 // resources
