@@ -57,6 +57,7 @@ const PrimaryHeader = () => {
   const [isScrollTop, setIsScrollTop] = useState(true)
   const [isScrollingTop, setIsScrollingTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
+  const openShoppingCart = useSelector(state => (state as any).openShoppingCart)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
@@ -192,6 +193,11 @@ const PrimaryHeader = () => {
     } else {
       setVisible(true)
     }
+  }
+
+  const handleOpenShoppingCart = () => {
+    dispatch({ type: 'set', openMobileMenu: false })
+    dispatch({ type: 'set', openShoppingCart: !openShoppingCart })
   }
 
   const handleOpenMobileSearchBox = () => {
@@ -343,6 +349,9 @@ const PrimaryHeader = () => {
                 <div className="flex">
                   <div className="w-[39px] h-[39px] flex justify-center items-center">
                     <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+                  </div>
+                  <div className="w-[39px] h-[39px] flex justify-center items-center">
+                    <ShoppingCartIcon onClick={() => handleOpenShoppingCart()} />
                   </div>
                   <div>
                     <IconButtonWithSVG

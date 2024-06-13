@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // component
 import PrimaryButton from 'components/Button/PrimaryButton'
@@ -7,6 +8,7 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 
 // resources
 import SolIcon from 'assets/icons/solana-logo-14x12.svg?component'
+import LeftArrowIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // solana
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
@@ -17,6 +19,7 @@ import styles from './index.module.scss'
 const ShoppingCartSection = props => {
   const { onClose } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const [cartList, setCartList] = useState([])
   const [cart, setCart] = useState([])
   const [currentSelect, setCurrentSelect] = useState(0)
@@ -49,7 +52,20 @@ const ShoppingCartSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Studio Shopping Cart</div>
+      <div className="w-full flex justify-center sm:hidden relative">
+        <div className={styles.title}>Shopping Cart</div>
+        <div
+          className="absolute left-0 top-0"
+          onClick={() => {
+            dispatch({ type: 'set', openShoppingCart: false })
+          }}
+        >
+          <LeftArrowIcon />
+        </div>
+      </div>
+      <div className="sm:block hidden">
+        <div className={styles.title}>Studio Shopping Cart</div>
+      </div>
       <div className="w-full flex justify-between mt-[15px]">
         <div className={styles.selectAll} onClick={() => setSelectAllCart(!selectAllCart)}>
           {selectAllCart ? 'Deselect All' : 'Select all'}
@@ -71,7 +87,7 @@ const ShoppingCartSection = props => {
           onClick={() => onCheckout()}
         />
       </div>
-      <div className="mt-[15px]">
+      <div className="mt-[20px] sm:mt-[15px]">
         <ShoppingCartActivity
           data={cartList}
           getcartList={getcartList}

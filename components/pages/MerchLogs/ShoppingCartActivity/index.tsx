@@ -89,7 +89,7 @@ const ShoppingCartActivity = props => {
     getcartList()
   }
   useEffect(() => {
-    const allSelected = !selectAll
+    const allSelected = selectAllCart
     let sumitemArray = 0
     cartList.forEach(item => {
       sumitemArray += item.quantity

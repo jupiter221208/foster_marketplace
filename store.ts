@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   isCollectionMinting: false,
   expired: false,
+  openShoppingCart: false,
   openMobileMenu: false,
   openMobileSearchBox: false,
   openConnectWallet: false,
