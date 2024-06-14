@@ -105,15 +105,6 @@ const PhysicalPrintDetail = props => {
     window.scrollTo({
       top: 0,
     })
-
-    setAlertData([
-      {
-        id: 0,
-        title: 'Item added to cart',
-        description: "You've successfully added [Item Name] to your shopping cart.",
-        type: 'success',
-      },
-    ])
   }, [])
 
   useEffect(() => {
@@ -277,6 +268,14 @@ const PhysicalPrintDetail = props => {
   const handleSaveData = () => {
     let data = { apparel, gender, color, print, quality, size, quantity, cost }
     onAddCart(data)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Item added to cart',
+        description: `You've successfully added ${nftName} ${apparel?.name} to your shopping cart.`,
+        type: 'success',
+      },
+    ])
     setShowAlert(true)
   }
 
