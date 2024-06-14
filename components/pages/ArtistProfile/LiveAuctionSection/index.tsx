@@ -129,6 +129,7 @@ const LiveAuctionSection = props => {
             {liveAuctionList.map((item: any, index) => (
               <div key={index}>
                 <NFTAuctionCard
+                  token_id={item.token_id}
                   image={item.asset_url}
                   nftName={item.nft_name}
                   artistName={item.artist_username}
@@ -137,9 +138,7 @@ const LiveAuctionSection = props => {
                   currentBid={item.current_bid}
                   reservePrice={item.reserve_price}
                   endTime={item.end_time}
-                  onClick={() => {
-                    router.push('/nft/' + item.token_id)
-                  }}
+                  onClick={() => {}}
                   key={index}
                 />
               </div>
