@@ -17,18 +17,16 @@ import Alert from 'components/Alert'
 // styles
 import styles from './index.module.scss'
 import CountrySelect from 'components/Select/CountrySelect'
-import GradientButton from 'components/Button/GradientButton'
 
 // api
 import merchAPI from 'apis/merch'
-import OutlineButton from 'components/Button/OutlineButton'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import { useRouter } from 'next/router'
 
 const ShoppingCartPhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
-  const viewport = useViewport()
+  const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -74,17 +72,7 @@ const ShoppingCartPhysicalShipping = props => {
   }, [shipping])
 
   const backToPage = () => {
-    let checkout = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
-    onBack(checkout)
+    router.push('/')
   }
 
   const proceedToCheckout = () => {
