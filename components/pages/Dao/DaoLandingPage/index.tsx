@@ -296,7 +296,7 @@ const DaoLandingPage = props => {
         <div>
           <div className={styles.topSection}>
             <div className="flex justify-center">
-              <DAOLogoMobile />
+              <DAOLogoMobile className={styles.daoLogoIcon} />
             </div>
 
             <div className="g-container mt-[30px]">
@@ -304,7 +304,7 @@ const DaoLandingPage = props => {
                 <div className={styles.treasuryLabel}>Treasury</div>
                 <div className="flex gap-[15px] mt-[10px]">
                   <div className="flex gap-[6px] items-center">
-                    <SolIcon className="mt-[2px]" />
+                    <SolIcon className={styles.solIcon} />
                     <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
                   </div>
                   <div className={styles.treasuryDivider}></div>

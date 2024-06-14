@@ -257,7 +257,7 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="flex mt-[20px] lg:mt-[100px] items-center justify-between">
+      <div className="flex mt-[20px] lg:mt-[66px] items-center justify-between">
         <div className="flex gap-[11px] items-center">
           <BackIcon onClick={onBack} />
           <div className={styles.backText}>Proposal {proposalDetail.id}</div>
