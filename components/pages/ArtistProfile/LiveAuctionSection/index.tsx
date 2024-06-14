@@ -40,7 +40,8 @@ const LiveAuctionSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   const getLiveAuctionsFromServer = (category, artist, mode, nextpage) => {
-    setIsLoading(true)
+    if (liveAuctionList.length === 0) setIsLoading(true)
+
     dashboardAPI.getLiveAuctions(category, artist, mode, nextpage).then(response => {
       setIsLoading(false)
       setIsMounted(true)
@@ -96,8 +97,6 @@ const LiveAuctionSection = props => {
     return false
   }
 
-  useEffect(() => {}, [liveAuctionList])
-
   useEffect(() => {
     if (isFetching) {
       setTimeout(() => {
@@ -128,20 +127,22 @@ const LiveAuctionSection = props => {
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 grid-cols-1 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
             {liveAuctionList.map((item: any, index) => (
-              <NFTAuctionCard
-                image={item.asset_url}
-                nftName={item.nft_name}
-                artistName={item.artist_username}
-                assetType={item.asset_type}
-                coverImage={item.cover_image_url}
-                currentBid={item.current_bid}
-                reservePrice={item.reserve_price}
-                endTime={item.end_time}
-                onClick={() => {
-                  router.push('/nft/' + item.token_id)
-                }}
-                key={index}
-              />
+              <div key={index}>
+                <NFTAuctionCard
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  artistName={item.artist_username}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  currentBid={item.current_bid}
+                  reservePrice={item.reserve_price}
+                  endTime={item.end_time}
+                  onClick={() => {
+                    router.push('/nft/' + item.token_id)
+                  }}
+                  key={index}
+                />
+              </div>
             ))}
           </div>
         )}
