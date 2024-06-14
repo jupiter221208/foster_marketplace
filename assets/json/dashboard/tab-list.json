@@ -79,15 +79,5 @@
     "label": "Hidden",
     "value": "Hidden",
     "coming_soon": true
-  },
-  {
-    "id": 8,
-    "icon01": "",
-    "icon02": "",
-    "icon03": "",
-    "icon04": "",
-    "label": "Merch Editions",
-    "value": "Merch Editions",
-    "coming_soon": true
   }
 ]

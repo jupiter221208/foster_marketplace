@@ -236,7 +236,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
-        <div className="w-full mt-[20px]">
+        {/* <div className="w-full mt-[20px]">
           <div className="flex gap-[13px]">
             <HSwitch
               checked={enableMerch}
@@ -258,7 +258,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </HSwitch>
             <div className={styles.merchText}>Include merch for each print</div>
           </div>
-        </div>
+        </div> */}
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
