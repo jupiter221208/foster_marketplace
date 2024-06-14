@@ -406,20 +406,6 @@ const DaoLandingDetail = props => {
         </div>
       ) : (
         <div>
-          {/* <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
-            <StatsSearchBox
-              value={searchWord}
-              placeholder="Search by proposal name"
-              onChange={value => setSearchWord(value)}
-            />
-          </div>
-          <div className="w-full mt-[20px] lg:hidden justify-between">
-            <StatsSearchBox
-              value={searchWord}
-              placeholder="Search by proposal name"
-              onChange={value => setSearchWord(value)}
-            />
-          </div> */}
           <div className="mt-[20px] mb-[100px]">
             <TableSection data={voteHistory} />
           </div>

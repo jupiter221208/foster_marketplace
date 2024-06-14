@@ -3,6 +3,7 @@
 .container {
   width: 100%;
   z-index: 10;
+  
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -12,12 +13,12 @@
 
 .topSection {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  background: var(--bg-1A1A1A-202427);
+    background: var(--bg-1A1A1A-202427);
   border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   padding: 30px 0px;
   @media (min-width: 1024px) {
+    display: flex;
+    justify-content: center;
     padding: 66px 0px;
   }
 }

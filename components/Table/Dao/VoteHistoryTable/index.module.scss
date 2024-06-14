@@ -19,11 +19,11 @@
 }
 
 .headerTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--main-bg-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
 }
 
 .text {

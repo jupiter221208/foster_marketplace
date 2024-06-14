@@ -143,7 +143,7 @@
   line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 16px;
-    height: 20px;
+    line-height: 20px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
@@ -151,38 +151,37 @@
 .approvedText {
   font-family: 'Muli-Regular';
   font-size: 16px;
-  height: 20px;
+  line-height: 20px;
   @media (min-width: 1024px) {
-    font-size: 20px;
-    height: 25px;
+    font-size: 18px;
+    line-height: 22px;
   }
   color: var(--text-gray-200-color);
 }
 
 .approvedValue {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 16px;
-  height: 20px;
+  line-height: 20px;
   margin-top: 5px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 20px;
-    height: 25px;
-    margin-top: 9px;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 7px;
   }
   color: var(--text-gray-200-color);
 }
 
 .approvedPercent {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
   margin-top: 5px;
   @media (min-width: 1024px) {
-    font-size: 20px;
-    height: 25px;
-    margin-top: 9px;
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 7px;
   }
   color: var(--main-icon-color);
 }
@@ -313,5 +312,5 @@
   z-index: 10;
   width: 100%;
   height: 1px;
-  background: #303030;
+  background: var(--bg-303030-D1D1CF);
 }
