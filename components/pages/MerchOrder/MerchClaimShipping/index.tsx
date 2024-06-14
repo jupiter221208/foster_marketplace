@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 // api
 import merchAPI from 'apis/merch'
 import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchClaimShipping = props => {
   const { onClose, onNext } = props
@@ -249,7 +250,7 @@ const MerchClaimShipping = props => {
       <div className="w-full px-[16px] lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[22px] mb-[25px]">
           {isLoading ? (
-            <LoadingPrimaryButton fullWidth />
+            <LoadingButton fullWidth />
           ) : (
             <PrimaryButton
               label="Select Shipping"

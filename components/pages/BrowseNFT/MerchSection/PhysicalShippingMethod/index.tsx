@@ -19,6 +19,7 @@ import merchAPI from 'apis/merch'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const PhysicalShippingMethod = props => {
   const {
@@ -294,7 +295,7 @@ const PhysicalShippingMethod = props => {
         <div className={styles.btnContainer}>
           <div className="w-full mt-[20px]">
             {isLoading ? (
-              <LoadingPrimaryButton fullWidth />
+              <LoadingButton fullWidth />
             ) : (
               <PrimaryButton
                 disabled={!total}

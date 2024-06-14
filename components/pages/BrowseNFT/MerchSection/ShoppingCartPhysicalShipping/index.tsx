@@ -289,7 +289,7 @@ const ShoppingCartPhysicalShipping = props => {
       <div className={styles.btnContainer}>
         <div className="w-full mt-[15px] lg:mt-[30px]">
           {isLoading ? (
-            <LoadingPrimaryButton fullWidth />
+            <LoadingButton fullWidth />
           ) : (
             <PrimaryButton
               label="Select Shipping"
