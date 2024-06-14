@@ -16,25 +16,27 @@ const VoteHistoryTable = props => {
   }
 
   return (
-    <div className="mt-[40px]">
+    <div className="mt-[30px]">
       <div className={styles.tableHeader}>
-        <div className="w-[25%] text-start pl-[30px]">
-          <div className={styles.headerTitle}>DAO Member</div>
-        </div>
-        <div className="w-[20%] text-center">
-          <div className={styles.headerTitle}>Vote Casted</div>
-        </div>
-        <div className="w-[20%] text-center">
-          <div className={styles.headerTitle}>Governance Weight</div>
-        </div>
-        <div className="w-[20%] text-center">
-          <div className={styles.headerTitle}>Date</div>
-        </div>
-        <div className="w-[15%] text-center">
-          <div className={styles.headerTitle}>Recorded Vote</div>
+        <div className="w-full flex">
+          <div className="w-[25%] text-start pl-[30px]">
+            <div className={styles.headerTitle}>DAO Member</div>
+          </div>
+          <div className="w-[20%] text-center">
+            <div className={styles.headerTitle}>Vote Casted</div>
+          </div>
+          <div className="w-[20%] text-center">
+            <div className={styles.headerTitle}>Governance Weight</div>
+          </div>
+          <div className="w-[20%] text-center">
+            <div className={styles.headerTitle}>Date</div>
+          </div>
+          <div className="w-[15%] text-center">
+            <div className={styles.headerTitle}>Recorded Vote</div>
+          </div>
         </div>
       </div>
-      <table id={''} className="w-full table-auto mt-[26px]">
+      <table id={''} className="w-full table-auto">
         <tbody>
           {data.map((item, index) => {
             return (

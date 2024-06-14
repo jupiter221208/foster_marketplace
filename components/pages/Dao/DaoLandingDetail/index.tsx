@@ -377,8 +377,8 @@ const DaoLandingDetail = props => {
       </div>
 
       <div className="relative w-full mt-[32px] lg:mt-[45px] overflow-auto">
-        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
         <div className={styles.selectedTabBorder} />
+        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
       </div>
 
       {activeTab === 0 ? (

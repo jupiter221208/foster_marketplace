@@ -7,7 +7,7 @@
   height: 70px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);;
+  border-bottom: 1px solid var(--bg-EFF0F610-F3F2F0);
 }
 
 .headerTitle {
@@ -29,7 +29,7 @@
 
 .passed {
   font-family: 'Muli-Regular';
-  font-size: 20px;
+  font-size: 20px; 
   line-height: 24px;
   color: $brand-09-color;
 }
@@ -46,6 +46,7 @@
   height: 70px;
   display: flex;
   align-items: center;
+  background: var(--background-main-color);
 }
 
 .daoPassed {
