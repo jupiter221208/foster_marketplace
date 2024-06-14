@@ -17,16 +17,16 @@ import Alert from 'components/Alert'
 // styles
 import styles from './index.module.scss'
 import CountrySelect from 'components/Select/CountrySelect'
-import GradientButton from 'components/Button/GradientButton'
 
 // api
 import merchAPI from 'apis/merch'
-import OutlineButton from 'components/Button/OutlineButton'
-import Radio from 'components/Radio/SimpleRadio'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
+import { useRouter } from 'next/router'
 
 const ShoppingCartPhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
-  const viewport = useViewport()
+  const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -72,17 +72,7 @@ const ShoppingCartPhysicalShipping = props => {
   }, [shipping])
 
   const backToPage = () => {
-    let checkout = {
-      email,
-      country,
-      state,
-      name,
-      city,
-      street,
-      apartment,
-      zipCode,
-    }
-    onBack(checkout)
+    router.push('/')
   }
 
   const proceedToCheckout = () => {
@@ -200,112 +190,106 @@ const ShoppingCartPhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:items-center justify-between">
-        <div className={styles.selecteCategory}>Add Shipping Details</div>
-      </div>
-      <div className="w-full mt-[20px]">
-        <div className={styles.label}>
-          Contact Information <span>*</span>
+      <div className="lg:p-[30px]">
+        <div className="flex flex-col lg:flex-row gap-[15px] mt-[20px] lg:mt-[0px] lg:items-center justify-between">
+          <div className={styles.selecteCategory}>Add Shipping Details</div>
+        </div>
+        <div className="w-full mt-[20px]">
+          <div className={styles.label}>
+            Contact Information <span>*</span>
+          </div>
+          <div className="w-full mt-[10px]">
+            <input
+              value={email}
+              placeholder="Email"
+              className={styles.inputArea}
+              onChange={event => setEmail(event.target.value)}
+            />
+          </div>
+          <div className="w-full mt-[10px]">
+            <input
+              value={name}
+              placeholder="Name"
+              className={styles.inputArea}
+              onChange={event => setName(event.target.value)}
+            />
+          </div>
         </div>
         <div className="w-full mt-[10px]">
-          <input
-            value={email}
-            placeholder="Email"
-            className={styles.inputArea}
-            onChange={event => setEmail(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={name}
-            placeholder="Name"
-            className={styles.inputArea}
-            onChange={event => setName(event.target.value)}
-          />
-        </div>
-      </div>
-      <div className="w-full mt-[10px]">
-        <div className={styles.label}>
-          Shipping Address <span>*</span>
-        </div>
-        <div className="mt-[10px] ">
-          <CountrySelect
-            className={styles.countrySelect}
-            data={Country.getAllCountries()}
-            selected={country}
-            onChange={item => setCountry(item)}
-            maxHeight="none"
-            placeholder="Country"
-          />
-        </div>
-        <div className="mt-[10px] ">
-          <CountrySelect
-            className={styles.countrySelect}
-            data={State?.getStatesOfCountry(country?.isoCode)}
-            selected={state}
-            onChange={item => setState(item)}
-            maxHeight="none"
-            placeholder="State"
-          />
-        </div>
+          <div className={styles.label}>
+            Shipping Address <span>*</span>
+          </div>
+          <div className="mt-[10px] ">
+            <CountrySelect
+              className={styles.countrySelect}
+              data={Country.getAllCountries()}
+              selected={country}
+              onChange={item => setCountry(item)}
+              maxHeight="none"
+              placeholder="Country"
+            />
+          </div>
+          <div className="mt-[10px] ">
+            <CountrySelect
+              className={styles.countrySelect}
+              data={State?.getStatesOfCountry(country?.isoCode)}
+              selected={state}
+              onChange={item => setState(item)}
+              maxHeight="none"
+              placeholder="State"
+            />
+          </div>
 
-        <div className="w-full mt-[10px]">
-          <input
-            value={city}
-            placeholder="City"
-            className={styles.inputArea}
-            onChange={event => setCity(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={street}
-            placeholder="Street"
-            className={styles.inputArea}
-            onChange={event => setStreet(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={zipCode}
-            placeholder="ZIP Code"
-            className={styles.inputArea}
-            onChange={event => setZipCode(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={apartment}
-            placeholder="Apartment / Suite"
-            className={styles.inputArea}
-            onChange={event => setApartment(event.target.value)}
-          />
+          <div className="w-full mt-[10px]">
+            <input
+              value={city}
+              placeholder="City"
+              className={styles.inputArea}
+              onChange={event => setCity(event.target.value)}
+            />
+          </div>
+          <div className="w-full mt-[10px]">
+            <input
+              value={street}
+              placeholder="Street"
+              className={styles.inputArea}
+              onChange={event => setStreet(event.target.value)}
+            />
+          </div>
+          <div className="w-full mt-[10px]">
+            <input
+              value={zipCode}
+              placeholder="ZIP Code"
+              className={styles.inputArea}
+              onChange={event => setZipCode(event.target.value)}
+            />
+          </div>
+          <div className="w-full mt-[10px]">
+            <input
+              value={apartment}
+              placeholder="Apartment / Suite"
+              className={styles.inputArea}
+              onChange={event => setApartment(event.target.value)}
+            />
+          </div>
         </div>
       </div>
-      <div className="w-full flex mt-[20px] gap-[30px] mb-[30px]">
-        <OutlineButton
-          label="Back"
-          onClick={() => backToPage()}
-          fullWidth
-          fontFamily="Muli-SemiBold"
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-          color={'var(--text-gray-200-color)'}
-        />
-        <div className="w-full">
+      <div className={styles.btnContainer}>
+        <div className="w-full mt-[15px] lg:mt-[30px]">
           {isLoading ? (
-            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+            <LoadingButton height={50} fullWidth />
           ) : (
-            <GradientButton
-              disabled={!enabled}
+            <PrimaryButton
               label="Select Shipping"
-              fontFamily="Muli-SemiBold"
+              type="shipping"
+              disabled={!enabled}
               fullWidth
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
               onClick={() => proceedToCheckout()}
             />
           )}
+        </div>
+        <div className="mt-[15px] mb-[15px] lg:mb-[30px]">
+          <SecondaryButton label="Back" type="back" onClick={() => backToPage()} fullWidth />
         </div>
       </div>
 

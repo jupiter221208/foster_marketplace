@@ -15,6 +15,8 @@ import physicalImageFront from 'assets/images/merch-physical-front.jpg'
 import physicalImageBack from 'assets/images/merch-physical-back.jpg'
 import physicalImageRight from 'assets/images/merch-physical-right.jpg'
 import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+
 // json
 
 // styles
@@ -34,6 +36,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const type = useSelector(state => (state as any).merchOrderType)
+
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [printData, setPrintData] = useState({
@@ -69,7 +72,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (type === 'merch') {
+    if (type === 'foster') {
       setMerchList([
         {
           url: merchImageFront,
@@ -115,26 +118,52 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }, [type])
 
   return (
-    <div className="g-container flex gap-[50px] ">
-      <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[75px]">
-        {merchList.map((merch, index) => {
-          return (
-            <div
-              key={index}
-              className={merch.selected ? styles.selected : styles.unselected}
-              onClick={() => onClickMerch(index)}
-            >
-              <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
-            </div>
-          )
-        })}
+    <div className="g-container flex">
+      <div className="mt-[75px]">
+        <div className="lg:block hidden">
+          <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
+            <ArrowLeftIcon />
+            Back to store
+          </div>
+        </div>
+        <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
+          {merchList.map((merch, index) => {
+            return (
+              <div
+                key={index}
+                className={merch.selected ? styles.selected : styles.unselected}
+                onClick={() => onClickMerch(index)}
+              >
+                <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
+              </div>
+            )
+          })}
+        </div>
       </div>
-      <div className="w-full lg:flex-1 flex lg:flex-row flex-col justify-between">
-        <div className="lg:w-[48%] w-full flex justify-center">
-          <div className="w-[375px] h-[375px] sm:w-[640px] sm:h-[640px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+
+      <div className="w-full lg:flex-1 flex flex-wrap justify-between">
+        <div className="2xl:w-[58%] lg:w-[55%] w-full flex justify-center lg:px-[20px]">
+          <div className={`sm:hidden block h-auto w-full mb-[20px] mt-[${type === 'foster' ? 20 : 0}px]`}>
+            <div className={styles.mobileImageArea}>
+              <div className={styles.imageArea}>
+                <div className={styles.imageContent}>
+                  <ImageWithFoster
+                    width={700}
+                    src={selectedMerch ? selectedMerch.url.src : ''}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
             <div className={styles.imageArea}>
               <div className={styles.imageContent}>
-                <ImageWithFoster width={700} src={selectedMerch ? selectedMerch.url.src : ''} />
+                <ImageWithFoster
+                  width={700}
+                  src={selectedMerch ? selectedMerch.url.src : ''}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -154,7 +183,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           })}
         </div>
 
-        <div className="w-full lg:w-[42%]">
+        <div className="w-full 2xl:w-[42%] lg:w-[45%]">
           {currentStep === 1 && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
               <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />

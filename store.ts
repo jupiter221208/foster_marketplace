@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   isCollectionMinting: false,
   expired: false,
+  openShoppingCart: false,
   openMobileMenu: false,
   openMobileSearchBox: false,
   openConnectWallet: false,
@@ -46,7 +47,7 @@ const initialState = {
   collectionCoverUrl: '',
   collectionKind: 'foster',
   merchBy: '',
-  merchOrderType: 'merch'
+  merchOrderType: 'foster'
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

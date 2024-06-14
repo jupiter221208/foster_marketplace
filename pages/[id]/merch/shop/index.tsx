@@ -13,6 +13,7 @@ import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
 
 // styles
 import styles from './index.module.scss'
+import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
 
 const CreatorMerchShop = props => {
   const { username } = props
@@ -99,28 +100,28 @@ const CreatorMerchShop = props => {
   return (
     <div className="w-full">
       <div className={styles.title}>Available merch for sale</div>
-      <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+      <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {merchList.map((item, index) => (
-          <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+          <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
             <MerchShopCard username={username} data={item} />
           </div>
         ))}
       </div>
 
-      <div className={`${styles.title} mt-[50px]`}>Merch editions</div>
-      <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+      <div className={`${styles.title} mt-[20px] lg:mt-[50px]`}>Merch editions</div>
+      <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {merchList.map((item, index) => (
-          <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+          <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
             <MerchShopCard username={username} data={item} />
           </div>
         ))}
       </div>
 
-      <div className={`${styles.title} mt-[50px]`}>Physicals by {username}</div>
+      <div className={`${styles.title} mt-[20px] lg:mt-[50px]`}>Physicals by {username}</div>
       <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {physicalList.map((item, index) => (
           <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchShopCard type="physical" username={username} data={item} />
+            <MerchPhysicalCard username={username} data={item} />
           </div>
         ))}
       </div>

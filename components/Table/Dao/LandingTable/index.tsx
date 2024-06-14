@@ -14,28 +14,30 @@ const LandingTable = props => {
   return (
     <div>
       <div className={styles.tableHeader}>
-        <div className="w-[28%] text-start pl-[30px]">
-          <div className={styles.headerTitle}>Proposal</div>
-        </div>
-        <div className="w-[15%] text-center">
-          <div className={styles.headerTitle}>Submission Date</div>
-        </div>
-        <div className="w-[12%] text-center">
-          <div className={styles.headerTitle}>Category</div>
-        </div>
-        <div className="w-[12%] text-center">
-          <div className={styles.headerTitle}>Votes</div>
-        </div>
-        <div className="w-[20%] text-center">
-          <div className={styles.headerTitle}>Author</div>
-        </div>
+        <div className="w-full flex">
+          <div className="w-[28%] text-start pl-[30px]">
+            <div className={styles.headerTitle}>Proposal</div>
+          </div>
+          <div className="w-[15%] text-center">
+            <div className={styles.headerTitle}>Submission Date</div>
+          </div>
+          <div className="w-[12%] text-center">
+            <div className={styles.headerTitle}>Category</div>
+          </div>
+          <div className="w-[12%] text-center">
+            <div className={styles.headerTitle}>Votes</div>
+          </div>
+          <div className="w-[20%] text-center">
+            <div className={styles.headerTitle}>Author</div>
+          </div>
 
-        <div className="w-[20%] text-start pl-[6px]">
-          <div className={styles.headerTitle}>Status</div>
+          <div className="w-[20%] text-start pl-[6px]">
+            <div className={styles.headerTitle}>Status</div>
+          </div>
         </div>
       </div>
 
-      <table id={'landingTable'} className="w-full table-auto mt-[26px]">
+      <table id={'landingTable'} className="w-full table-auto">
         <tbody>
           {data.map((item, index) => {
             return (

@@ -45,10 +45,35 @@
   justify-content: center;
 }
 
+.backStore {
+  display: flex;
+  gap: 7px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  &:hover {
+    text-decoration: underline;
+  }
+  cursor: pointer;
+}
+
+.mobileImageArea {
+  width: calc(100% + 32px);
+  left: -16px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+  object-fit: cover;
+}
+
 .imageSlider {
   width: 100%;
   margin-top: 0px;
-  @media (min-width: 414px) {
+  @media (min-width: 640px) {
     margin-top: 30px;
   }
   @media (min-width: 1024px) {

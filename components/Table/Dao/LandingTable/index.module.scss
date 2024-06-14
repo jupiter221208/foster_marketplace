@@ -3,14 +3,19 @@
 .tableHeader {
   width: 100%;
   display: flex;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--bg-EFF0F610-F3F2F0);
 }
 
 .headerTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--main-bg-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
 }
 
 .text {
@@ -24,7 +29,7 @@
 
 .passed {
   font-family: 'Muli-Regular';
-  font-size: 20px;
+  font-size: 20px; 
   line-height: 24px;
   color: $brand-09-color;
 }
@@ -38,13 +43,10 @@
 
 .tableRow {
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   align-items: center;
-  background: var(--background-main-color) ;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 30px;
-  margin-bottom: 9px;
+  background: var(--background-main-color);
 }
 
 .daoPassed {

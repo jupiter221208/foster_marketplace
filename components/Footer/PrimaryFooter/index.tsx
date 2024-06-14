@@ -11,12 +11,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useViewport } from 'utils'
 
 // images and icons
-import LogoText01Icon from 'assets/icons/logo-text-01.svg?component'
 import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg?component'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg?component'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg?component'
 import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
+import FosterLogo from 'assets/logo-new.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -33,8 +33,9 @@ const PrimaryFooter = () => {
         <div className="g-container flex justify-between gap-4 z-10 py-[104px]">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer">
-              <div onClick={() => router.push('/')}>
-                <LogoText01Icon alt="" />
+              <div className="flex items-center gap-[6px]" onClick={() => router.push('/')}>
+                <FosterLogo className={styles.logoIcon} />
+                <div className={styles.logoFont}>foster</div>
               </div>
             </div>
 
@@ -167,8 +168,12 @@ const PrimaryFooter = () => {
       ) : (
         <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
           <div className="w-full flex flex-wrap justify-center">
-            <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <LogoText01MobileIcon width={176} height={40} alt="" />
+            <div
+              className="w-full flex items-center gap-[6px] justify-center cursor-pointer"
+              onClick={() => router.push('/')}
+            >
+              <FosterLogo className={styles.logoIcon} />
+              <div className={styles.logoFont}>foster</div>
             </div>
             {/* <div
               className="w-full mt-[70px] mr-[50px] flex justify-end cursor-pointer"

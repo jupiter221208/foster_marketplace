@@ -53,8 +53,6 @@ const MyProductSection = props => {
     }
   }
 
-  console.log(imageList, '==========imageList===========')
-
   useEffect(() => {
     if (!productDetail) return
 

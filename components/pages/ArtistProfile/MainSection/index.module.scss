@@ -7,7 +7,7 @@
   width: 100%;
   justify-content: center;
   margin-top: 16px;
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     margin-top: 0px;
   }
   z-index: 10;
@@ -51,6 +51,10 @@
   color: var(--text-gray-200-color);
 }
 
+.greenText {
+  color: var(--main-icon-color);
+}
+
 .shareText {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
@@ -91,12 +95,12 @@
 
 .statisticLabel {
   font-family: 'Muli-Light';
-  font-size: 12px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 18px;
   text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   margin-top: 2px;
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     margin-top: 2px;
     font-size: 16px;
     line-height: 20px;

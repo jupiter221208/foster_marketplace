@@ -29,8 +29,11 @@ import { useViewport, namePublicFile } from 'utils'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
+import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
+
 import EditorGreenIcon from 'assets/icons/editor-green.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import CreatorMerchIcon from 'assets/icons/creator-merch-icon.svg?component'
 
 import { copyToClipboard, isLoggedIn } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
@@ -105,6 +108,34 @@ const MainSection = prop => {
   const [showSocialBoard, setShowSocialBoard] = useState(false)
   const [walletList, setWalletList] = useState([])
   const [selectedWallet, setSelectedWallet] = useState({ id: 0, label: getShortAddress(publicKey) })
+  const [descCount, setDescCount] = useState(235)
+  const [tempNftDescription, setTempNftDescription] = useState('')
+  const [isTruncated, setIsTruncated] = useState(true)
+
+  const processedNftDescription = isTruncated ? tempNftDescription?.slice(0, descCount) : tempNftDescription
+  const shouldShowReadMore = tempNftDescription?.length > descCount
+
+  useEffect(() => {
+    function handleResize() {
+      let screenWidth = window.innerWidth
+      let count = screenWidth >= 1024 ? 1000 : 235
+      setDescCount(count)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    if (artistInfo?.bio !== undefined && artistInfo?.bio !== null) setTempNftDescription(artistInfo?.bio)
+  }, [artistInfo?.bio])
+
+  function toggleIsTruncated() {
+    setIsTruncated(!isTruncated)
+  }
 
   useEffect(() => {
     if (publicKey?.toBase58() === artistInfo?.wallet_id) {
@@ -435,7 +466,7 @@ const MainSection = prop => {
       )}
 
       <div className="g-container">
-        <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
+        <div className="grid grid-cols-12 items-center mt-[-45px] lg:mt-[-70px] z-10">
           <div className="col-span-9">
             <div className="w-content relative">
               <ProfileArtistCard
@@ -454,7 +485,7 @@ const MainSection = prop => {
             </div>
           </div>
 
-          <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
+          <div className="col-span-3 h-full flex justify-end items-center pt-[30px] lg:pt-[10px]">
             {!isOwn && (
               <div className="w-[120px] h-[45px] lg:ml-[10px] overflow-hidden">
                 {!followLoaded && (
@@ -614,7 +645,7 @@ const MainSection = prop => {
                     }}
                   >
                     <div>
-                      <ShareSmallIcon alt="" />
+                      <ShareDesktopIcon alt="" />
                     </div>
                     <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
                   </div>
@@ -622,7 +653,16 @@ const MainSection = prop => {
               </div>
             </div>
 
-            {artistInfo?.bio && <div className={`w-full mt-[30px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
+            {artistInfo?.bio && (
+              <div className={`w-full mt-[30px] ${styles.bioText}`}>
+                {processedNftDescription}
+                {shouldShowReadMore && (
+                  <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                    {isTruncated ? '... Expand' : ' Collapse'}
+                  </span>
+                )}
+              </div>
+            )}
 
             <div className="w-full mt-[30px] mb-[30px] flex gap-[15px] items-center">
               {!isColletorLoaded ? (
@@ -741,6 +781,7 @@ const MainSection = prop => {
       ) : (
         <div className={styles.headerImage}>
           <ImageWithFoster
+            showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover rounded-none"
           />
@@ -1014,7 +1055,18 @@ const MainSection = prop => {
             </div>
           )}
         </div>
-        {artistInfo?.bio && <div className={`w-full mt-[15px] ${styles.bioText}`}>{artistInfo?.bio}</div>}
+
+        {artistInfo?.bio && (
+          <div className={`w-full mt-[15px] ${styles.bioText}`}>
+            {processedNftDescription}
+            {shouldShowReadMore && (
+              <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>
+                {isTruncated ? '... Expand' : ' Collapse'}
+              </span>
+            )}
+          </div>
+        )}
+
         <div className="w-full mt-[15px] flex gap-[5px]">
           <div className={styles.statsConatiner}>
             {!isColletorLoaded ? (

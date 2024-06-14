@@ -14,6 +14,7 @@ import PrimaryHeader from 'components/Header/PrimaryHeader'
 import PrimaryFooter from 'components/Footer/PrimaryFooter'
 import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
+import ShoppingCartMobileMenu from 'components/Menu/ShoppingCartMobileMenu'
 
 // resource
 
@@ -28,6 +29,7 @@ interface PrimaryLayoutProps {
 const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const viewport = useViewport()
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
+  const openShoppingCart = useSelector<any>(state => state.openShoppingCart)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
@@ -45,6 +47,9 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
         <ConnectWalletModal />
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
         {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
+        {openShoppingCart && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+          <ShoppingCartMobileMenu />
+        )}
 
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
           {children}

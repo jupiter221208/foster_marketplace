@@ -1,0 +1,136 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 500px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 508:383 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.selected {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(var(--main-bg-color-rgb), 1);
+}
+
+.nonSelected {
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(var(--main-bg-color-rgb), 0.5);
+}
+
+.bottomSection {
+  width: 100%;
+  height: 220px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.nftName {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artistName {
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  font-weight: 100;
+}
+
+.price {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dollarPrice {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shareBtn {
+  background: var(--second-home-bg);
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlBtn {
+  width: 50px;
+  height: 50px;
+  background: var(--bg-242424-FFF);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+.saleType {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(var(--main-bg-color-rgb), 0.8);
+}
+
+.saleCount {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--main-bg-color);
+  margin-top: 7px;
+}

@@ -30,9 +30,6 @@ const ShoppingCartMerchApparelSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full mb-[45px] lg:flex hidden">
-        <MerchStepper currentStep={currentStep} />
-      </div>
       {openShippingDetail ? (
         <ShoppingCartPhysicalShipping
           onBack={() => {

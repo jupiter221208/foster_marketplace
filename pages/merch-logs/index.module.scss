@@ -167,3 +167,33 @@
   height: 1px;
   background: #303030;
 }
+
+.shopCartContainer {
+  width: 100%;
+  border-radius: 15px;
+  @media (min-width: 640px) {
+    padding: 30px;
+    background: var(--background-main-color);
+  }
+}
+
+.cartTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  margin-top: 20px;
+  @media (min-width: 640px) {
+    font-size: 22px;
+    margin-top: 0px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 30px;
+  }
+}
+
+.subCartTitle {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  color: (var(--main-icon-color));
+  cursor: pointer;
+}

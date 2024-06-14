@@ -22,6 +22,7 @@ import merchAPI from 'apis/merch'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -288,7 +289,7 @@ const PhysicalShipping = props => {
         <div className={styles.btnContainer}>
           <div className="w-full mt-[15px] lg:mt-[30px]">
             {isLoading ? (
-              <LoadingPrimaryButton fullWidth />
+              <LoadingButton fullWidth />
             ) : (
               <PrimaryButton
                 label="Select Shipping"

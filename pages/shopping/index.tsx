@@ -209,8 +209,8 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       </Head>
       <div className="g-container">
         <div className={styles.container}>
-          <div className="w-full grid grid-cols-2 gap-10">
-            <div className="col-span-2 lg:col-span-1">
+          <div className="w-full lg:flex lg:flex-row flex-col">
+            <div className="lg:w-[calc(100%-604px)] justify-center lg:px-[50px] p-[10px]">
               {!loading ? (
                 <Swiper
                   slidesPerView={1}
@@ -238,24 +238,28 @@ const Shopping = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     data.map((item, index) => (
                       <SwiperSlide key={index}>
                         <div className={styles.blurBackground}>
-                          <div className="absolute inset-0">
+                          {/* <div className="absolute inset-0">
                             <ImageWithFoster src={item?.nftCoverUrl} className="min-w-full min-h-full object-cover" />
-                          </div>
-                          <div className={styles.blurImage} />
-                          <div style={{ zIndex: 10 }}>
-                            <ImageWithFoster src={item?.printImageUrl} />
+                          </div> */}
+                          {/* <div className={styles.blurImage} /> */}
+                          <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
+                            <ImageWithFoster
+                              width={700}
+                              src={item?.printImageUrl}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
                         </div>
                       </SwiperSlide>
                     ))}
                 </Swiper>
               ) : (
-                <div className="w-full mt-[200px]">
+                <div className="w-full mt-[90px] lg:mt-[200px] h-[230px]">
                   <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
                 </div>
               )}
             </div>
-            <div className="col-span-2 lg:col-span-1 z-10">
+            <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10 mb-[30px]">
               {openApparelDetail && (
                 <ShoppingCartMerchApparelSection
                   apparelData={data}

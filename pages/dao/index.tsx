@@ -53,7 +53,7 @@ const Dao = () => {
   let pageDescription = 'A community of artists and builders shaping the evolution of Foster Marketplace.'
 
   return (
-    <div className="g-container">
+    <div className="w-full">
       <Head>
         <title>{pageTitle}</title>
 
@@ -70,13 +70,12 @@ const Dao = () => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="w-full relative flex justify-center">
-        {/* {daoPage === 'start' ? (
+
+      {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
         ) :  */}
-        <div className="w-full mt-[30px] lg:mt-[100px] z-10">
-          <DaoLandingPage turkyNfts={turkyNfts} nftIsLoaded={nftIsLoaded} />
-        </div>
+      <div className="w-full z-10">
+        <DaoLandingPage turkyNfts={turkyNfts} nftIsLoaded={nftIsLoaded} />
       </div>
     </div>
   )
