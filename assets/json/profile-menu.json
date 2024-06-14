@@ -3,7 +3,6 @@
   { "id": 3, "label": "My Profile", "path": "/" },
   { "id": 1, "label": "Dashboard", "path": "/dashboard" },
   { "id": 6, "label": "Settings", "path": "/settings" },
-  { "id": 4, "label": "My Store", "path": "/" },
   { "id": 2, "label": "Order History", "path": "/merch-logs" },
   { "id": 7, "label": "Logout", "path": "/" }
 ]
