@@ -57,6 +57,7 @@ const ApparelSection = props => {
             quality: 1,
           })
           let imgUrl = await uploadApparelSection(imgDataString)
+          console.log(imgUrl, '================imgUrl===========')
           dispatch({ type: 'set', printImageUrl: imgUrl })
         } else {
           newCanvas.item(1).selectable = true
@@ -79,9 +80,9 @@ const ApparelSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
-    let screenWidth
-    if (viewport === '3xl') screenWidth = window.innerWidth * 0.36
-    else screenWidth = window.innerWidth * 0.3
+    let screenWidth = 700
+    if (window.innerWidth < 1280) screenWidth = window.innerWidth * 0.43
+
     if (viewport === 'xs') {
       screenWidth = window.innerWidth * 0.8
     } else if (viewport === 'sm' || viewport === 'md') {
