@@ -4,6 +4,7 @@
   width: 100%;
   @media (min-width: 1024px) {
     height: calc(100vh - 140px);
+    min-height: 770px;
     background: var(--background-main-color);
     border: 1px solid var(--bg-303030-DDDCDC);
     border-radius: 10px;

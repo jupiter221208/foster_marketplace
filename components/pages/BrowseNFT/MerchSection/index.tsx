@@ -62,7 +62,7 @@ const MerchSection = props => {
           <></>
         )}
 
-        <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10">
+        <div className="w-full lg:min-w-[604px] lg:max-w-[604px] z-10 mb-[30px]">
           {openApparelDetail ? (
             <MerchApparelSection
               nftName={data?.nftName}

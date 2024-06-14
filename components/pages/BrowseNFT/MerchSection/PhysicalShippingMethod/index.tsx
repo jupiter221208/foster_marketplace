@@ -295,7 +295,7 @@ const PhysicalShippingMethod = props => {
         <div className={styles.btnContainer}>
           <div className="w-full mt-[20px]">
             {isLoading ? (
-              <LoadingButton fullWidth />
+              <LoadingButton height={50} fullWidth />
             ) : (
               <PrimaryButton
                 disabled={!total}

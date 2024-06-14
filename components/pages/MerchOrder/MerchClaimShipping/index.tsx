@@ -250,7 +250,7 @@ const MerchClaimShipping = props => {
       <div className="w-full px-[16px] lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[22px] mb-[25px]">
           {isLoading ? (
-            <LoadingButton fullWidth />
+            <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
               label="Select Shipping"
