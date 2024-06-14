@@ -143,7 +143,6 @@ const ShoppingCartSection = props => {
                 borderRadius={30}
                 onClick={() => {
                   dispatch({ type: 'set', openShoppingCart: false })
-
                   router.push('/studio/')
                 }}
               />

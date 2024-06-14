@@ -32,6 +32,7 @@ import QuantityCard from 'components/Card/QuantityCard'
 import { useAuthentication } from 'hooks/useAuthentication'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import Alert from 'components/Alert'
 
 // api
 
@@ -75,6 +76,8 @@ const PhysicalPrintDetail = props => {
   const printImageUrl = useSelector<any>(state => state.printImageUrl)
   const isAddToCart = useSelector(state => (state as any).isAddToCart)
   const [apparelAssets, setApparelAssets] = useState(null)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
     const defaulteColor = apparelColor as number
@@ -265,6 +268,15 @@ const PhysicalPrintDetail = props => {
   const handleSaveData = () => {
     let data = { apparel, gender, color, print, quality, size, quantity, cost }
     onAddCart(data)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Item added to cart',
+        description: `You've successfully added ${nftName} ${apparel?.name} to your shopping cart.`,
+        type: 'success',
+      },
+    ])
+    setShowAlert(true)
   }
 
   useEffect(() => {
@@ -440,6 +452,13 @@ const PhysicalPrintDetail = props => {
         title={getApparelName()}
         label={getApparelLabel()}
         onClose={() => setTableModal(false)}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </section>
   )

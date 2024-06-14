@@ -23,6 +23,7 @@ import styles from './index.module.scss'
 
 // api
 import merchAPI from 'apis/merch'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchOrderShipping = props => {
   const { onBack, onNext } = props
@@ -234,7 +235,7 @@ const MerchOrderShipping = props => {
       <div className="w-full lg:px-[30px] mt-[20px]">
         <div className="w-full mt-[22px]">
           {isLoading ? (
-            <LoadingPrimaryButton fullWidth />
+            <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
               label="Select Shipping"
