@@ -161,7 +161,7 @@ const ShoppingCartActivity = props => {
               </div>
             ))}
         </div>
-        <div className={`${styles.divider} mb-[50px]`}></div>
+        {/* <div className={`${styles.divider} mb-[50px]`}></div> */}
       </div>
 
       {/* Mobile Table */}

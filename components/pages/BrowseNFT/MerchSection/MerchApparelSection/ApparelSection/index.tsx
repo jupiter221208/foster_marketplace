@@ -58,10 +58,6 @@ const ApparelSection = props => {
           })
           let imgUrl = await uploadApparelSection(imgDataString)
           dispatch({ type: 'set', printImageUrl: imgUrl })
-          if (isAddToCart) {
-            dispatch({ type: 'set', activeTab: 4 })
-            router.push(`/merch-logs/`)
-          }
         } else {
           newCanvas.item(1).selectable = true
         }

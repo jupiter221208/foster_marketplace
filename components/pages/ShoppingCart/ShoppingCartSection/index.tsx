@@ -47,6 +47,8 @@ const ShoppingCartSection = props => {
     })
     if (checkedData.length > 0) {
       localStorage.setItem('checked', JSON.stringify(checkedData))
+      console.log(checkedData, '==============storedData================')
+
       router.push(`/shopping/`)
       onClose()
     }
