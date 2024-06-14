@@ -17,6 +17,7 @@ import ShoppingCartPhysicalCheckout from 'components/pages/BrowseNFT/MerchSectio
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { NextButton, PreviewButton } from 'components/pages/Studio/MainSection/customButton'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const OrderSection = props => {
   const router = useRouter()
@@ -65,7 +66,7 @@ const OrderSection = props => {
   return (
     <div className="g-container">
       <div className={styles.container}>
-        <div className="w-full grid grid-cols-2 gap-10">
+        <div className="w-full grid grid-cols-2 gap-10 mt-[20px] lg:mt-[0px]">
           <div className="col-span-2 lg:col-span-1">
             {merchType === 'apparel' && data && (
               <Swiper
@@ -78,7 +79,7 @@ const OrderSection = props => {
                 onSwiper={setSwiper}
               >
                 {data && data.length > 1 && (
-                  <>
+                  <div className="mt-[25px]">
                     <div className={styles.orderTitle}>
                       {currentStep + 1}/{orderData?.ssorder.items.length} cart items included in order
                     </div>
@@ -88,19 +89,14 @@ const OrderSection = props => {
                     <div className={styles.nextButton} onClick={goNext}>
                       <NextButton />
                     </div>
-                  </>
+                  </div>
                 )}
                 {data &&
                   data?.map((item, index) => (
                     <SwiperSlide key={index}>
                       <div className={styles.blurBackground}>
-                        <div className="absolute inset-0">
-                          <img src={item.coverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                        </div>
-
-                        <div className={styles.blurImage} />
-                        <div style={{ zIndex: 10 }}>
-                          <img src={item.previewUrl} alt="" />
+                        <div className="w-full h-full lg:w-[700px] lg:h-[700px] mb-[20px]">
+                          <ImageWithFoster width={700} src={item?.previewUrl} className="w-full h-full object-cover" />
                         </div>
                       </div>
                     </SwiperSlide>
@@ -110,9 +106,6 @@ const OrderSection = props => {
           </div>
           <div className="col-span-2 lg:col-span-1 z-10">
             <div className={styles.contentContainer}>
-              <div className="w-full mb-[45px] lg:flex hidden">
-                <MerchStepper currentStep={3} />
-              </div>
               {orderData && (
                 <ShoppingCartPhysicalCheckout
                   orderData={orderData}

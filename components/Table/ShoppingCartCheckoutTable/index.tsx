@@ -10,13 +10,13 @@ const ShoppingCartCheckoutTable = props => {
       <tbody className={styles.tableColor}>
         {data.map((item, index) => {
           return (
-            <tr key={index} className="flex py-2">
+            <tr key={index} className="flex py-0 lg:py-2 mb-[10px]">
               <td>
-                <div className="w-full h-full">
-                  <img src={item.url} className="w-full h-full" />
+                <div className="w-full h-full min-w-[80px] min-h-[80px] ml-[-10px]">
+                  <img src={item.url} className="w-full h-full object-cover" />
                 </div>
               </td>
-              <div className="w-full flex justify-between">
+              <div className="w-full flex justify-between ml-[20px]">
                 <div className={`${styles.value} w-[80px] lg:w-full`}>
                   <p dangerouslySetInnerHTML={{ __html: item.name }} />
                 </div>

@@ -41,7 +41,7 @@
     min-height: calc(100vh - 100px - 60px);
   }
 
-  padding: 0px 16px 20px 16px;
+  padding: 0px;
   @media (min-width: 640px) {
     padding: 28px 25px 28px 25px;
   }
@@ -57,7 +57,10 @@
   @media (min-width: 1536px) {
     padding: 10px 45px 0px 45px;
   }
+  display: flex;
+  justify-content: end;
 }
+
 .prevButton {
   position: absolute;
   top: 40%;

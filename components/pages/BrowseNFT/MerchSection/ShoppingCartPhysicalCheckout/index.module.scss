@@ -2,9 +2,19 @@
 
 .container {
   width: 100%;
+  
+  @media (min-width: 1024px) {  
+    max-width: 604px;
+    min-width: 604px;
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+  }
   height: 100%;
   position: relative;
-  margin-bottom: 250px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .selecteCategory {
@@ -175,4 +185,13 @@
   border-radius: 15px;
   background: var(--order-table-color);
   margin-bottom: 10px;
+}
+.bottomSection {
+  width: 100%;
+  padding: 0px 16px;
+  margin-top: 45px;
+  @media (min-width: 1024px) {
+    border-top: 1px solid var(--bg-303030-DDDCDC);
+    padding: 20px 30px;
+  }
 }

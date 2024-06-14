@@ -31,6 +31,9 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 // api
 import { OrderData, payOrder } from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import PrimaryButton from 'components/Button/PrimaryButton'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -195,12 +198,63 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
 
   return (
     <section className={styles.container}>
-      <div className={styles.summary}>Order Summary</div>
-      <div className="mt-[20px] hidden lg:block">
-        <TableSection data={list} />
-      </div>
-      <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
-        <div className="w-[286px] h-[160px] relative hidden lg:block">
+      <div className="w-full px-[0px] lg:px-[30px] mt-[0px] lg:mt-[20px]">
+        <div className={styles.summary}>Order Summary</div>
+        <div className="hidden lg:block mt-[-10px]">
+          <TableSection data={list} />
+        </div>
+        <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[10px]">
+          <div className="w-[286px] h-[160px] relative hidden lg:block">
+            <div className={styles.paymentMethod}>Choose Payment Method*</div>
+            <div className="w-full flex justify-between mt-[16px]">
+              <div
+                className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('sol')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>SOL</div>
+              </div>
+              <div
+                className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
+                onClick={() => setCurrency('usdc')}
+              >
+                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
+                  <Image src={USDCIcon} width={37} height={37} alt="" />
+                </div>
+                <div className={styles.currencyName}>USDC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Table */}
+        <div className="w-full lg:hidden">
+          <div className="flex flex-col overflow-auto mt-[15px]">
+            {list.map((item, index) => (
+              <div key={index} className={styles.tableColor}>
+                <div className="w-full flex justify-between px-2 py-2">
+                  <div className="w-full h-full flex items-center ml-[10px]">
+                    <img src={item?.url} className="w-[50%] h-[50%] " />
+                  </div>
+                  <div className={`${styles.value} w-full text-right mr-[10px]`}>
+                    <p dangerouslySetInnerHTML={{ __html: item.name }} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="w-full flex flex-col mt-[30px] mb-[30px]">
+            <div className={styles.shipping}>{'Shipping\nAddress:'}</div>
+            <div className={`${styles.shipping} text-left mt-[12px]`}>
+              <p dangerouslySetInnerHTML={{ __html: list[0]?.shipping }} />
+            </div>
+          </div>
+        </div>
+
+        {/* SOL / USDC */}
+        <div className="w-full h-auto relative lg:hidden mt-[30px]">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
           <div className="w-full flex justify-between mt-[16px]">
             <div
@@ -224,57 +278,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
           </div>
         </div>
       </div>
-
-      {/* Mobile Table */}
-      <div className="w-full lg:hidden">
-        <div className="flex flex-col overflow-auto mt-[20px]">
-          {list.map((item, index) => (
-            <div key={index} className={styles.tableColor}>
-              <div className="w-full flex justify-between px-2 py-2">
-                <div className="w-full h-full flex items-center ml-[10px]">
-                  <img src={item?.url} className="w-[50%] h-[50%] px-2 py-2" />
-                </div>
-                <div className={`${styles.value} w-full text-right mr-[10px]`}>
-                  <p dangerouslySetInnerHTML={{ __html: item.name }} />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
-          <div className={styles.shipping}>{'Shipping\nAddress:'}</div>
-          <div className={`${styles.shipping} text-left mt-[12px]`}>
-            <p dangerouslySetInnerHTML={{ __html: list[0]?.shipping }} />
-          </div>
-        </div>
-      </div>
-
-      {/* SOL / USDC */}
-      <div className="w-full h-auto relative lg:hidden mt-[30px]">
-        <div className={styles.paymentMethod}>Choose Payment Method*</div>
-        <div className="w-full flex justify-between mt-[16px]">
-          <div
-            className={`${styles.paymentBG} ${currency === 'sol' ? styles.selectedCurrency : ''}`}
-            onClick={() => setCurrency('sol')}
-          >
-            <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-              <Image src={SolanaLogoIcon} width={43} height={37} alt="" />
-            </div>
-            <div className={styles.currencyName}>SOL</div>
-          </div>
-          <div
-            className={`${styles.paymentBG} ${currency === 'usdc' ? styles.selectedCurrency : ''}`}
-            onClick={() => setCurrency('usdc')}
-          >
-            <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-              <Image src={USDCIcon} width={37} height={37} alt="" />
-            </div>
-            <div className={styles.currencyName}>USDC</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full mt-[80px]">
+      <div className={styles.bottomSection}>
         <div className="w-full flex justify-between mb-[30px] px-[5px]">
           <div className={styles.orderTotal}>TOTAL</div>
           <div className="flex gap-2 items-center">
@@ -286,7 +290,23 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
             </div>
           </div>
         </div>
-        <div className="w-full flex gap-[30px]">
+
+        <div className="w-full flex flex-col gap-[15px] mb-[0px]">
+          {isLoad ? (
+            <LoadingPrimaryButton fullWidth />
+          ) : (
+            <PrimaryButton
+              disabled={currency.length === 0}
+              label="Make Payment"
+              type="payment"
+              fullWidth
+              onClick={() => onCheckout()}
+            />
+          )}
+          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+        </div>
+
+        {/* <div className="w-full flex gap-[30px]">
           <OutlineButton
             label="Back"
             onClick={onBack}
@@ -305,7 +325,7 @@ const ShoppingCartPhysicalCheckout = ({ orderData, onBack, onNext, total }: Phys
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             onClick={() => onCheckout()}
           />
-        </div>
+        </div> */}
       </div>
       <ProgressingModal open={isLoad} />
       <Alert
