@@ -5,6 +5,15 @@
   z-index: 10;
 }
 
+.topSection {
+  background: var(--bg-1A1A1A-202427);
+  border-bottom: 1px solid rgba(var(--main-bg-color-rgb), 0.1);;
+  padding: 30px 0px;
+  @media (min-width: 1024px) {
+    padding: 66px 0px;
+  }
+}
+
 .statsBG {
   width: 50%;
   height: 58px;
@@ -25,7 +34,7 @@
     line-height: 20px;
   }
   text-align: center;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba(#eff0f6, 0.75);
 }
 
 .statsValue {
@@ -38,7 +47,12 @@
     line-height: 20px;
   }
   text-align: center;
-  color: var(--text-gray-200-color);
+  color: #eff0f6;
+}
+
+
+.daoLogoIcon {
+  fill: #eff0f6 !important;
 }
 
 .divider {
@@ -49,18 +63,20 @@
 }
 
 .landingTitle {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 14px;
+  font-weight: 100;
   line-height: 18px;
   margin-top: 15px;
   text-align: start;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
     font-size: 16px;
     line-height: 24px;
     margin-top: 25px;
     text-align: start;
   }
-  color: var(--text-gray-200-color);
+  color: #eff0f6;
 }
 
 .landingTitleBold {
@@ -77,14 +93,13 @@
   width: 100%;
   border-radius: 20px;
   margin-top: 30px;
-  padding: 15px 18px;
   @media (min-width: 1024px) {
     border-radius: 30px;
     margin-top: 30px;
-    padding: 28px 38px;
+    padding: 0;
+    border-width: 0px;
+    background: transparent;
   }
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  background: var(--background-main-color);
 }
 
 .treasuryTitle {
@@ -96,7 +111,12 @@
     font-size: 18px;
     line-height: 23px;
   }
-  color: var(--text-gray-200-color);
+  color: #eff0f6;
+}
+
+.solIcon {
+  fill: #95dbd5 !important;
+  margin-top: 2px;
 }
 
 .treasuryDivider {
@@ -113,7 +133,7 @@
   font-size: 14px;
   line-height: 18px;
   font-weight: 100;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba(#eff0f6, 0.75);
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
@@ -130,7 +150,7 @@
     font-size: 20px;
     line-height: 36px;
   }
-  color: var(--text-gray-200-color);
+  color: #eff0f6;
 }
 
 .submitProposal {
