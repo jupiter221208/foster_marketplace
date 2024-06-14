@@ -4,25 +4,26 @@
 .tableHeader {
   width: 100%;
   display: flex;
+  align-items: center;
+  height: 70px;
+  background: rgba(var(--main-bg-color-rgb), 0.05); 
+  border-bottom: 1px solid var(--bg-EFF0F610-F3F2F0);
 }
 
 .tableRow {
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   align-items: center;
   background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  border-radius: 30px;
-  margin-bottom: 9px;
 }
 
 .headerTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--main-bg-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
 }
 
 .text {

@@ -257,7 +257,7 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="flex mt-[20px] lg:mt-[100px] items-center justify-between">
+      <div className="flex mt-[20px] lg:mt-[66px] items-center justify-between">
         <div className="flex gap-[11px] items-center">
           <BackIcon onClick={onBack} />
           <div className={styles.backText}>Proposal {proposalDetail.id}</div>
@@ -377,8 +377,8 @@ const DaoLandingDetail = props => {
       </div>
 
       <div className="relative w-full mt-[32px] lg:mt-[45px] overflow-auto">
-        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
         <div className={styles.selectedTabBorder} />
+        <SelectedTab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
       </div>
 
       {activeTab === 0 ? (
@@ -406,20 +406,6 @@ const DaoLandingDetail = props => {
         </div>
       ) : (
         <div>
-          {/* <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
-            <StatsSearchBox
-              value={searchWord}
-              placeholder="Search by proposal name"
-              onChange={value => setSearchWord(value)}
-            />
-          </div>
-          <div className="w-full mt-[20px] lg:hidden justify-between">
-            <StatsSearchBox
-              value={searchWord}
-              placeholder="Search by proposal name"
-              onChange={value => setSearchWord(value)}
-            />
-          </div> */}
           <div className="mt-[20px] mb-[100px]">
             <TableSection data={voteHistory} />
           </div>

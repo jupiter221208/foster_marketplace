@@ -244,79 +244,82 @@ const DaoLandingPage = props => {
   return (
     <div className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div>
-          <div className="w-full flex justify-between items-start">
-            <DAOLogoIcon />
-            <div className="flex gap-[15px] items-center">
-              <div className="flex gap-[6px]">
-                <div className={styles.statsValue}>{totalCount}</div>
-                <div className={styles.statsTitle}>All</div>
-              </div>
-              <div className={styles.divider}></div>
-              <div className="flex gap-[6px]">
-                <div className={styles.statsValue}>{liveCount}</div>
-                <div className={styles.statsTitle}>Live</div>
-              </div>
-              <div className={styles.divider}></div>
-              <div className="flex gap-[6px]">
-                <div className={styles.statsValue}>{pendingCount}</div>
-                <div className={styles.statsTitle}>Pending</div>
-              </div>
-              <div className={styles.divider}></div>
-              <div className="flex gap-[6px]">
-                <div className={styles.statsValue}>{closedCount}</div>
-                <div className={styles.statsTitle}>Closed</div>
+        <div className={styles.topSection}>
+          <div className="w-full g-container">
+            <div className="w-full flex justify-between items-start">
+              <DAOLogoIcon className={styles.daoLogoIcon} />
+              <div className="flex gap-[15px] items-center">
+                <div className="flex gap-[6px]">
+                  <div className={styles.statsValue}>{totalCount}</div>
+                  <div className={styles.statsTitle}>All</div>
+                </div>
+                <div className={styles.divider}></div>
+                <div className="flex gap-[6px]">
+                  <div className={styles.statsValue}>{liveCount}</div>
+                  <div className={styles.statsTitle}>Live</div>
+                </div>
+                <div className={styles.divider}></div>
+                <div className="flex gap-[6px]">
+                  <div className={styles.statsValue}>{pendingCount}</div>
+                  <div className={styles.statsTitle}>Pending</div>
+                </div>
+                <div className={styles.divider}></div>
+                <div className="flex gap-[6px]">
+                  <div className={styles.statsValue}>{closedCount}</div>
+                  <div className={styles.statsTitle}>Closed</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className={styles.treasuryContainer}>
-            <div>
-              <div className={styles.treasuryLabel}>Treasury</div>
-              <div className="flex gap-[15px] mt-[10px]">
-                <div className="flex gap-[6px] items-center">
-                  <SolMobileIcon className="mt-[2px]" />
-                  <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
-                </div>
-                <div className={styles.treasuryDivider}></div>
-                <div className="flex items-center">
-                  <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+            <div className={styles.treasuryContainer}>
+              <div>
+                <div className={styles.treasuryLabel}>Treasury</div>
+                <div className="flex gap-[15px] mt-[10px]">
+                  <div className="flex gap-[6px] items-center">
+                    <SolMobileIcon className={styles.solIcon} />
+                    <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
+                  </div>
+                  <div className={styles.treasuryDivider}></div>
+                  <div className="flex items-center">
+                    <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className={styles.landingTitle}>
-              CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
-              submitted and voted on by verified Turkey Circus holders.
+              <div className={styles.landingTitle}>
+                CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
+                submitted and voted on by verified Turkey Circus holders.
+              </div>
             </div>
           </div>
         </div>
       ) : (
         <div>
-          <div className="flex justify-center">
-            <DAOLogoMobile />
-          </div>
+          <div className={styles.topSection}>
+            <div className="flex justify-center">
+              <DAOLogoMobile className={styles.daoLogoIcon} />
+            </div>
 
-          <div className={styles.treasuryContainer}>
-            <div>
-              <div className={styles.treasuryLabel}>Treasury</div>
-              <div className="flex gap-[15px] mt-[10px]">
-                <div className="flex gap-[6px] items-center">
-                  <SolIcon className="mt-[2px]" />
-                  <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
-                </div>
-                <div className={styles.treasuryDivider}></div>
-                <div className="flex items-center">
-                  <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+            <div className="g-container mt-[30px]">
+              <div>
+                <div className={styles.treasuryLabel}>Treasury</div>
+                <div className="flex gap-[15px] mt-[10px]">
+                  <div className="flex gap-[6px] items-center">
+                    <SolIcon className={styles.solIcon} />
+                    <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
+                  </div>
+                  <div className={styles.treasuryDivider}></div>
+                  <div className="flex items-center">
+                    <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className={styles.landingTitle}>
-              CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
-              submitted and voted on by verified Turkey Circus holders.
+              <div className={styles.landingTitle}>
+                CircusDAO is the governing body of Foster Marketplace. Its treasury funds community proposals that are
+                submitted and voted on by verified Turkey Circus holders.
+              </div>
             </div>
           </div>
-
-          <div className="w-full flex flex-wrap gap-[5px] mt-[30px]">
+          <div className="w-full flex flex-wrap gap-[5px] mt-[30px] g-container">
             <div className="w-full flex gap-[5px]">
               <div className={styles.statsBG}>
                 <div>
@@ -348,7 +351,7 @@ const DaoLandingPage = props => {
           </div>
         </div>
       )}
-      <div className="w-full hidden lg:mt-[30px] lg:flex justify-between">
+      <div className="g-container w-full hidden lg:mt-[30px] lg:flex justify-between">
         <StatsSearchBox
           value={searchWord}
           placeholder="Search by proposal name"
@@ -360,7 +363,7 @@ const DaoLandingPage = props => {
         </div>
       </div>
 
-      <div className="w-full mt-[30px] lg:hidden justify-between">
+      <div className="g-container w-full mt-[30px] lg:hidden justify-between">
         <div className="w-full flex justify-end mb-[15px]">
           <div className={styles.submitProposal} onClick={() => onClickSubmitBtn()}>
             <div className={styles.submitText}>Submit Proposal</div>
@@ -373,7 +376,7 @@ const DaoLandingPage = props => {
         />
       </div>
 
-      <div className="mt-[15px] lg:mt-[54px]">
+      <div className="mt-[15px] lg:mt-[16px] g-container">
         <TableSection
           data={proposals}
           onDetail={item => {
