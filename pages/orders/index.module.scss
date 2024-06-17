@@ -7,6 +7,7 @@
   justify-content: center;
   @media (min-width: 1024px) {
     padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 
@@ -18,7 +19,7 @@
     height: 375px;
   }
   @media (min-width: 1024px) {
-    height: calc(100vh - 100px - 60px);
+    height: calc(80vh);
     border-radius: 27px;
   }
   display: flex;

@@ -72,14 +72,14 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     ])
 
     let shippingData = orderData?.ssorder.shipTo
-
-    setShipping({
-      address: shippingData['street1'] + ' ' + shippingData['street2'],
-      city: shippingData['city'],
-      state: shippingData['state'],
-      code: shippingData['postalCode'],
-      country: shippingData['country'],
-    })
+    if (shippingData)
+      setShipping({
+        address: shippingData['street1'] + ' ' + shippingData['street2'],
+        city: shippingData['city'],
+        state: shippingData['state'],
+        code: shippingData['postalCode'],
+        country: shippingData['country'],
+      })
 
     let itemList = []
     orderData?.ssorder.items.forEach(item => {
