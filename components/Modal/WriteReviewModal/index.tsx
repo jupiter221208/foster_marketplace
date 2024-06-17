@@ -86,7 +86,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
                       <ImageWithFoster src={previewUrl} width={65} />
                     </div>
                     <div>
-                      <div className={styles.productTitle}>Product Name</div>
+                      <div className={styles.productTitle}>{itemDetails?.print}</div>
                       <div className={styles.productType}>
                         {itemDetails?.apparel}&nbsp;/&nbsp;
                         {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
