@@ -233,6 +233,30 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
+        <div className="w-full mt-[20px]">
+          <div className="flex gap-[13px]">
+            <HSwitch
+              checked={enableMerch}
+              onChange={() => {
+                setEnableMerch(!enableMerch)
+                setShowMerchModal(!enableMerch)
+              }}
+              className={`${
+                enableMerch ? styles.active : styles.inactive
+              } relative inline-flex h-6 w-[42px] items-center rounded-full`}
+            >
+              <span
+                className={`transform transition ease-in-out duration-200 ${
+                  enableMerch ? 'translate-x-5' : 'translate-x-1'
+                } ${
+                  enableMerch ? styles.activeSwitch : styles.inactiveSwitch
+                } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
+              />
+            </HSwitch>
+            <div className={styles.merchText}>Include merch for each print</div>
+          </div>
+        </div>
+
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
             <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
