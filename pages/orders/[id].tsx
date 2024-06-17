@@ -88,7 +88,7 @@ const OrderSection = props => {
                   <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-auto h-full object-cover" />
                 </div>
               </div>
-            ) : (
+            ) : merchType === 'foster' ? (
               <div className="w-full flex gap-[50px] h-[700px]">
                 <div className="w-[130px] flex flex-col gap-[16px]">
                   {merchList.map((merch, index) => {
@@ -111,6 +111,8 @@ const OrderSection = props => {
                   />
                 </div>
               </div>
+            ) : (
+              <div></div>
             )}
           </div>
           <div className="z-10">
