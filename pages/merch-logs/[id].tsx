@@ -952,7 +952,12 @@ const MerchDetail = () => {
           </div>
         </div>
       </div>
-      <WriteReviewModal open={showReviewModal} onClose={() => setShowReviewModal(false)} />
+      <WriteReviewModal
+        open={showReviewModal}
+        previewUrl={previewUrl}
+        itemDetails={itemDetails}
+        onClose={() => setShowReviewModal(false)}
+      />
       {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )

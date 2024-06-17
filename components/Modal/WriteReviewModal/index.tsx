@@ -23,7 +23,7 @@ import Textarea from 'components/Input/Textarea'
 import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
 
-const WriteReviewModal = ({ open, onClose }) => {
+const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
@@ -83,11 +83,25 @@ const WriteReviewModal = ({ open, onClose }) => {
                   </div>
                   <div className={styles.productContainer}>
                     <div className={styles.productImage}>
-                      <ImageWithFoster src={merchImageFront.src} width={65} />
+                      <ImageWithFoster src={previewUrl} width={65} />
                     </div>
                     <div>
-                      <div className={styles.productTitle}>Product Name</div>
-                      <div className={styles.productType}>Unisex Premium Hoodie | Embroidery | White</div>
+                      <div className={styles.productTitle}>{itemDetails?.print}</div>
+                      <div className={styles.productType}>
+                        {itemDetails?.apparel}&nbsp;/&nbsp;
+                        {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
+                          ? 'Small'
+                          : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
+                          ? 'Medium'
+                          : itemDetails?.size === 'L' || itemDetails?.size === 'YM'
+                          ? 'Large'
+                          : itemDetails?.size === 'XL' || itemDetails?.size === 'YL'
+                          ? 'X-Large'
+                          : itemDetails?.size === '2XL' || itemDetails?.size === 'YXL'
+                          ? '2X-Large'
+                          : ''}
+                        &nbsp;/&nbsp;{itemDetails?.color}
+                      </div>
                     </div>
                   </div>
                   <div className="mt-[20px]">
