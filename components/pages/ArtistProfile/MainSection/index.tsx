@@ -354,8 +354,8 @@ const MainSection = prop => {
         <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
       ) : (
         <div className={styles.bannerImage}>
-          <ImageWithFoster
-            showPlaceHolder={false}
+          <img
+            // showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
           />

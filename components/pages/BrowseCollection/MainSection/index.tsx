@@ -236,23 +236,23 @@ const MainSection = props => {
                   </div>
                 ) : data?.banner_image ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={data.banner_image}
                       className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.cover_image ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={data?.cover_image}
                       className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
+                  <img
+                    // showPlaceHolder={false}
                     src={bannerImage.src}
                     className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] "
                   />
