@@ -151,10 +151,8 @@
   padding: 0px 0px 16px 16px;
   margin-top: 16px;
   @media (min-width: 1024px) {
-    padding: 0px 20px 20px 50px;
+    padding: 0px 0px 20px 50px;
     margin-top: 50px;
-    height: 72vh;
-    overflow: scroll;
   }
   display: flex;
   justify-content: center;
@@ -175,6 +173,21 @@
   display: flex;
   align-items: center;
   border-radius: 5px;
+}
+
+.uploadText {
+  font-family: 'Muli-SemiBold';
+  font-size: 15px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 25px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  span {
+    color: var(--main-icon-color);
+  }
 }
 
 .selectArea {

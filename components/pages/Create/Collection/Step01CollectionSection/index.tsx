@@ -40,6 +40,7 @@ import { useRouter } from 'next/router'
 import Button from 'components/Button'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 
 const Step01CollectionSection = props => {
   const {
@@ -342,7 +343,7 @@ const Step01CollectionSection = props => {
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectBannerArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitle}>Upload file</p>
+                                <p className={styles.uploadText}>Upload File</p>
                                 <p className={styles.text}>Supported File Formats .png and .jpeg</p>
                                 <p className={styles.greenText}>Max File Size 100mb</p>
                               </div>
@@ -424,7 +425,7 @@ const Step01CollectionSection = props => {
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitleCover}>Upload file</p>
+                                <p className={styles.uploadText}>Upload File</p>
                                 <p className={styles.textCover}>Supported File Formats .png and .jpeg</p>
                                 <p className={styles.greenTextCover}>Max File Size 10mb</p>
                               </div>
@@ -537,11 +538,13 @@ const Step01CollectionSection = props => {
                       }}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
-                  <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+                  <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
+                  <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
+                  <div className="w-full h-[350px]" />
+                  {/* <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
                   <div className="w-full mt-[15px]">
                     <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -578,7 +581,7 @@ const Step01CollectionSection = props => {
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectBannerArea}>
                             <input {...getInputProps()} />
-                            <p className={styles.subTitle}>Upload Here</p>
+                            <p className={styles.uploadText}>Upload Here</p>
                             <p className={styles.text}>Supported file formats are .png .jpeg</p>
                             <p className={styles.greenText}>Max File Size 100mb</p>
                           </div>
@@ -661,7 +664,7 @@ const Step01CollectionSection = props => {
                       <section className={styles.dropzone}>
                         <div {...getRootProps()} className={styles.selectArea}>
                           <input {...getInputProps()} />
-                          <p className={styles.subTitle}>Upload Here</p>
+                          <p className={styles.uploadText}>Upload Here</p>
                           <p className={styles.text}>Supported file formats are .png .jpeg</p>
                           <p className={styles.greenText}>Max File Size 100mb</p>
                         </div>

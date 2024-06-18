@@ -95,16 +95,26 @@ const FollowModalMobile = props => {
   }, [open])
 
   const reloadFollowing = () => {
-    artistsAPI.getFollowers(wallet).then(response => {
-      setIsLoading(false)
-      setFilterFollowersList(response)
-      setFollowersList(response)
-    })
-    artistsAPI.getFollowings(wallet).then(response => {
-      setIsLoading(false)
-      setFilterFollowingList(response)
-      setFollowingList(response)
-    })
+    artistsAPI.getFollowers(wallet).then(
+      response => {
+        setIsLoading(false)
+        setFilterFollowersList(response)
+        setFollowersList(response)
+      },
+      error => {
+        setIsLoading(false)
+      }
+    )
+    artistsAPI.getFollowings(wallet).then(
+      response => {
+        setIsLoading(false)
+        setFilterFollowingList(response)
+        setFollowingList(response)
+      },
+      error => {
+        setIsLoading(false)
+      }
+    )
   }
 
   const followArtist = wallet => {
