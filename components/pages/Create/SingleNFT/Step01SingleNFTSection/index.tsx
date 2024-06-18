@@ -98,7 +98,7 @@ const Step01SingleNFTSection = props => {
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="w-full h-[66vh] overflow-auto pr-[20px]">
+        <div className="w-full pr-[20px]">
           <div className={`${styles.subTitle}`}>
             Upload Art <span>*</span>
           </div>
