@@ -319,10 +319,13 @@ const Step01SingleNFTSection = props => {
             {nftType === 'vr' && (
               <>
                 <div className={styles.coverImgMsg}>
-                  <h6>
+                  <div className="my-1">
                     Cover Photo <span>*</span>
-                  </h6>
-                  <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                  </div>
+
+                  <div className={styles.pick}>
+                    Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+                  </div>
                 </div>
 
                 <div className={styles.coverBtnBox}>
@@ -365,12 +368,13 @@ const Step01SingleNFTSection = props => {
                 </div>
 
                 {nftImage && (
-                  <div className={styles.glbNftImageSection}>
-                    <img className="w-full aspect-square" src={nftImage} alt="" />
-                    <button onClick={() => setNftImage('')}>
-                      <TrashBin />
-                      &nbsp;Remove Cover Image
-                    </button>
+                  <div>
+                    <div className={styles.glbNftImageSection}>
+                      <img className="w-full aspect-square" src={nftImage} alt="" />
+                      <button className="absolute right-[8px] bottom-[8px]" onClick={() => setNftImage('')}>
+                        <TrashBin />
+                      </button>
+                    </div>
                   </div>
                 )}
               </>

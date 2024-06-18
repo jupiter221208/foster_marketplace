@@ -182,8 +182,8 @@
 
 .text {
   font-family: 'Muli-Regular';
-  font-size: 11px;
-  line-height: 19px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;
@@ -194,8 +194,8 @@
 
 .greenText {
   font-family: 'Muli-Regular';
-  font-size: 11px;
-  line-height: 19px;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
   @media (min-width: 1024px) {
     font-size: 14px;
@@ -292,15 +292,18 @@
 }
 
 .pick {
-  margin-top: 8px;
   font-family: 'Muli-Light';
-  font-size: 14px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.5);
+  font-size: 16px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+  @media (min-width: 1024px) {
+    margin-top: 8px;
+  }
 }
 
 .glbNftImageSection {
+  position: relative;
   background: rgba(var(--text-gray-200-color-rgb), 0.05);
-  max-width: 300px;
+  max-width: 200px;
   width: 100%;
   margin-top: 1rem;
 }
@@ -312,8 +315,7 @@
   justify-content: flex-start;
   align-items: center;
   font-size: 1rem;
-  margin-top: 10px;
-  margin: 1rem auto 0 auto;
+  margin: 8px auto 0 auto;
   color: var(--main-bg-color);
   fill: none;
   stroke: var(--primary-btn-bg);
