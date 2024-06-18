@@ -22,23 +22,23 @@ const BrowseArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        {hasloading ? (
+        {/* {hasloading ? (
           <div className={`${styles.skeletonLoader} ${styles.avatar}`}></div>
-        ) : (
-          <>
-            <div className={styles.avatar}>
-              {image && (
-                <Image
-                  src={image}
-                  alt=""
-                  width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-                  height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-                  className="w-full h-full object-cover rounded-full"
-                />
-              )}
-            </div>
-          </>
-        )}
+        ) : ( */}
+        <>
+          <div className={styles.avatar}>
+            {image && (
+              <Image
+                src={image}
+                alt=""
+                width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+                height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+                className="w-full h-full object-cover rounded-full"
+              />
+            )}
+          </div>
+        </>
+        {/* )} */}
       </div>
       <div className={styles.bottomSection}>
         {hasloading ? (

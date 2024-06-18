@@ -23,47 +23,47 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        {hasLoading ? (
+        {/* {hasLoading ? (
           <div className={`${styles.skeletonLoader} ${styles.avatarArea}`}></div>
-        ) : (
-          <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
-            <Image
-              src={image}
-              alt=""
-              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              className="rounded-full"
-              onClick={setFullScreenView}
-            />
-            {isOwn && (
-              <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
-                <div className={styles.iconProfileBlurView}>
-                  <div className="w-full h-full flex justify-center items-center">
-                    <IconButtonWithSVG
-                      icon={<EditorGreenIcon />}
-                      onClick={() => inputAvatarFile.current.click()}
-                      backgroundColor="transparent"
-                      borderRadius="100%"
-                      width={40}
-                      height={40}
-                      iconWidth={40}
-                      iconHeight={40}
-                      disabled={avatarUploadingToS3}
-                    />
-                  </div>
+        ) : ( */}
+        <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
+          <Image
+            src={image}
+            alt=""
+            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+            className="rounded-full"
+            onClick={setFullScreenView}
+          />
+          {isOwn && (
+            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
+              <div className={styles.iconProfileBlurView}>
+                <div className="w-full h-full flex justify-center items-center">
+                  <IconButtonWithSVG
+                    icon={<EditorGreenIcon />}
+                    onClick={() => inputAvatarFile.current.click()}
+                    backgroundColor="transparent"
+                    borderRadius="100%"
+                    width={40}
+                    height={40}
+                    iconWidth={40}
+                    iconHeight={40}
+                    disabled={avatarUploadingToS3}
+                  />
                 </div>
-                <input
-                  type="file"
-                  id="avatar-file"
-                  accept="image/png, image/jpeg, image/gif"
-                  ref={inputAvatarFile}
-                  style={{ display: 'none' }}
-                  onChange={event => handleChangeAvatar(event)}
-                />
               </div>
-            )}
-          </div>
-        )}
+              <input
+                type="file"
+                id="avatar-file"
+                accept="image/png, image/jpeg, image/gif"
+                ref={inputAvatarFile}
+                style={{ display: 'none' }}
+                onChange={event => handleChangeAvatar(event)}
+              />
+            </div>
+          )}
+        </div>
+        {/* )} */}
       </div>
 
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

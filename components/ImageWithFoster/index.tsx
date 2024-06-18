@@ -141,7 +141,7 @@ const ImageWithFoster = ({
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
         <div
           className={`${styles.skeletonLoaderOuterBox} absolute z-50 top-0 transition-all ${
-            loaded || !showPlaceHolder ? 'invisible' : 'visible'
+            loaded || !showPlaceHolder ? 'hidden' : 'visible'
           }`}
         >
           <div className={styles.skeletonLoader} />

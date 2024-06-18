@@ -133,7 +133,7 @@ const NftImageEditorModal = props => {
                       <Button
                         label="Crop"
                         backgroundColor="transparent"
-                        color="rgba(239, 240, 246, 0.75)"
+                        color="#95dbd5"
                         fullWidth
                         fontSize="16px"
                         onClick={() => showCroppedImage()}
@@ -178,7 +178,14 @@ const NftImageEditorModal = props => {
                     {loading ? (
                       <LoadingButton fullWidth height={45} />
                     ) : (
-                      <GradientButton label="Crop" fullWidth height="45px" onClick={() => showCroppedImage()} />
+                      <Button
+                        label="Crop"
+                        fullWidth
+                        height="45px"
+                        color="#1a1a1a"
+                        backgroundColor="#95dbd5"
+                        onClick={() => showCroppedImage()}
+                      />
                     )}
                   </div>
                 </div>

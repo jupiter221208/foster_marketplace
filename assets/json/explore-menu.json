@@ -183,6 +183,30 @@
       "label": "Circus",
       "query": "circus",
       "path": "/explore"
+    },
+    {
+      "id": 24,
+      "label": "Physical",
+      "query": "physical",
+      "path": "/explore"
+    },
+    {
+      "id": 25,
+      "label": "Comic Book",
+      "query": "comic book",
+      "path": "/explore"
+    },
+    {
+      "id": 26,
+      "label": "Novel",
+      "query": "novel",
+      "path": "/explore"
+    },
+    {
+      "id": 27,
+      "label": "Typewriter Art",
+      "query": "typewriter art",
+      "path": "/explore"
     }
   ],
   "performerList": [

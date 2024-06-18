@@ -27,6 +27,7 @@ import ArrowRightGreenIcon from 'assets/icons/arrow-right-white-medium.svg?compo
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 import { DashboardAPIData } from 'types/nft'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const FreshMintSection = props => {
   const { category } = props
@@ -66,18 +67,6 @@ const FreshMintSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>Fresh Mints</div>
-                <div className="flex gap-[8px] items-center">
-                  <div
-                    className={styles.seeMore}
-                    onClick={() => {
-                      dispatch({ type: 'set', exploreTab: 1 })
-                      router.push('/explore')
-                    }}
-                  >
-                    See More
-                  </div>
-                  <ArrowRightGreenIcon alt="" />
-                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
@@ -95,9 +84,21 @@ const FreshMintSection = props => {
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            slidesPerView={
+              viewport === 'xs'
+                ? 1.13
+                : viewport === 'sm'
+                ? 1.92
+                : viewport === 'md'
+                ? 2
+                : viewport === '2xl'
+                ? 5
+                : viewport === 'xl'
+                ? 4
+                : 4
+            }
             spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={freshMintsList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
@@ -127,6 +128,21 @@ const FreshMintSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
+          <div className="w-full max-w-[300px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 1 })
+                router.push('/explore')
+              }}
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
+            />
+          </div>
         </div>
       </section>
     )

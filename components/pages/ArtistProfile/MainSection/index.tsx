@@ -354,7 +354,8 @@ const MainSection = prop => {
         <div className={`${styles.skeletonLoader} ${styles.bannerImage}`}></div>
       ) : (
         <div className={styles.bannerImage}>
-          <ImageWithFoster
+          <img
+            // showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
           />
@@ -776,118 +777,123 @@ const MainSection = prop => {
   ) : (
     // mobile view
     <div className={styles.container}>
-      {hasLoading ? (
+      {/* {hasLoading ? (
         <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
-      ) : (
-        <div className={styles.headerImage}>
-          <ImageWithFoster
+      ) : ( */}
+      <div className={styles.headerImage}>
+        {/* <ImageWithFoster
             showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover rounded-none"
-          />
-          {isOwn && (
-            <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
-              <div className={styles.iconBlurView}>
-                <div className="w-full h-full flex justify-center items-center">
-                  <IconButtonWithSVG
-                    icon={<EditorGreenIcon />}
-                    onClick={() => {
-                      if (showBannerBoard || showSocialBoard) return
-                      inputBannerFile.current.click()
-                    }}
-                    backgroundColor="transparent"
-                    borderRadius="100%"
-                    width={40}
-                    height={40}
-                    iconWidth={40}
-                    iconHeight={40}
-                    disabled={bannerUploadingToS3}
-                  />
-                </div>
-              </div>
-              <input
-                type="file"
-                id="banner-file"
-                accept="image/png, image/jpeg, image/gif"
-                ref={inputBannerFile}
-                style={{ display: 'none' }}
-                onChange={event => handleChangeBannerImage(event)}
-              />
-            </div>
-          )}
-          {showBannerBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Upload your profile banner</div>
-              <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
-              <div className="flex justify-end mt-[25px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
-                      setTimeout(() => {
-                        setShowSocialBoard(true)
-                      }, 1000)
-                    }}
-                  />
-                  <GradientButton
-                    label="Upload"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontSize={14}
-                    onClick={() => {
-                      setShowBannerBoard(false)
-                      localStorage.setItem('isVisibleBannerBoard', 'false')
-                      inputBannerFile.current.click()
-                    }}
-                  />
-                </div>
+          /> */}
+        <img
+          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
+          alt=""
+          className="w-full h-full object-cover rounded-none"
+        />
+        {isOwn && (
+          <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
+            <div className={styles.iconBlurView}>
+              <div className="w-full h-full flex justify-center items-center">
+                <IconButtonWithSVG
+                  icon={<EditorGreenIcon />}
+                  onClick={() => {
+                    if (showBannerBoard || showSocialBoard) return
+                    inputBannerFile.current.click()
+                  }}
+                  backgroundColor="transparent"
+                  borderRadius="100%"
+                  width={40}
+                  height={40}
+                  iconWidth={40}
+                  iconHeight={40}
+                  disabled={bannerUploadingToS3}
+                />
               </div>
             </div>
-          )}
-          {showSocialBoard && (
-            <div className={styles.bannerBoard}>
-              <div className={styles.boardTitle}>Setup your socials and bio</div>
-              <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
-              <div className="flex justify-end mt-[15px]">
-                <div className="flex gap-[9px]">
-                  <OutlineButton
-                    width={78}
-                    height={37}
-                    borderRadius={12}
-                    label="Skip"
-                    fontFamily="Muli-SemiBold"
-                    fontSize={14}
-                    onClick={() => {
-                      setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                    }}
-                  />
-                  <GradientButton
-                    label="Settings"
-                    width={78}
-                    height={37}
-                    border={12}
-                    fontSize={14}
-                    onClick={() => {
-                      setShowSocialBoard(false)
-                      localStorage.setItem('isVisibleSocialBoard', 'false')
-                      router.push('/settings')
-                    }}
-                  />
-                </div>
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
+            />
+          </div>
+        )}
+        {showBannerBoard && (
+          <div className={styles.bannerBoard}>
+            <div className={styles.boardTitle}>Upload your profile banner</div>
+            <div className={styles.boardText}>Recommended dimensions are 1920 x 452</div>
+            <div className="flex justify-end mt-[25px]">
+              <div className="flex gap-[9px]">
+                <OutlineButton
+                  width={78}
+                  height={37}
+                  borderRadius={12}
+                  label="Skip"
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowBannerBoard(false)
+                    localStorage.setItem('isVisibleBannerBoard', 'false')
+                    setTimeout(() => {
+                      setShowSocialBoard(true)
+                    }, 1000)
+                  }}
+                />
+                <GradientButton
+                  label="Upload"
+                  width={78}
+                  height={37}
+                  border={12}
+                  fontSize={14}
+                  onClick={() => {
+                    setShowBannerBoard(false)
+                    localStorage.setItem('isVisibleBannerBoard', 'false')
+                    inputBannerFile.current.click()
+                  }}
+                />
               </div>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+        {showSocialBoard && (
+          <div className={styles.bannerBoard}>
+            <div className={styles.boardTitle}>Setup your socials and bio</div>
+            <div className={styles.boardText}>Edit your profile bio and link your social accounts</div>
+            <div className="flex justify-end mt-[15px]">
+              <div className="flex gap-[9px]">
+                <OutlineButton
+                  width={78}
+                  height={37}
+                  borderRadius={12}
+                  label="Skip"
+                  fontFamily="Muli-SemiBold"
+                  fontSize={14}
+                  onClick={() => {
+                    setShowSocialBoard(false)
+                    localStorage.setItem('isVisibleSocialBoard', 'false')
+                  }}
+                />
+                <GradientButton
+                  label="Settings"
+                  width={78}
+                  height={37}
+                  border={12}
+                  fontSize={14}
+                  onClick={() => {
+                    setShowSocialBoard(false)
+                    localStorage.setItem('isVisibleSocialBoard', 'false')
+                    router.push('/settings')
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      {/* )} */}
 
       <div className="g-container">
         <div className="z-0"></div>
@@ -962,6 +968,10 @@ const MainSection = prop => {
             <div
               className="cursor-pointer flex hover:opacity-60 z-10"
               onClick={() => {
+                if (!isLoggedIn()) {
+                  setVisible(true)
+                  return
+                }
                 setType(0)
                 setShowFollowModal(true)
               }}
@@ -978,6 +988,10 @@ const MainSection = prop => {
             <div
               className="cursor-pointer flex hover:opacity-60 z-10"
               onClick={() => {
+                if (!isLoggedIn()) {
+                  setVisible(true)
+                  return
+                }
                 setType(1)
                 setShowFollowModal(true)
               }}

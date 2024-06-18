@@ -236,23 +236,23 @@ const MainSection = props => {
                   </div>
                 ) : data?.banner_image ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={data.banner_image}
                       className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : data?.cover_image ? (
                   <div className={styles.headerImage}>
-                    <ImageWithFoster
-                      showPlaceHolder={false}
+                    <img
+                      // showPlaceHolder={false}
                       src={data?.cover_image}
                       className="w-full h-[350px] object-cover"
                     />
                   </div>
                 ) : (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
+                  <img
+                    // showPlaceHolder={false}
                     src={bannerImage.src}
                     className="w-full h-[350px] lg:h-[350px] object-cover mb-[12px] "
                   />
@@ -396,63 +396,66 @@ const MainSection = props => {
       ) : (
         <div>
           <div className={styles.container}>
-            {hasloading ? (
+            {/* {hasloading ? (
               <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
-            ) : (
-              <div className={styles.headerImage}>
-                {data?.banner_image !== null && data?.banner_image.length > 0 ? (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={data?.banner_image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                ) : data?.cover_image ? (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={data?.cover_image}
-                    alt=""
-                    className="w-full h-[132px] object-cover"
-                  />
-                ) : (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={bannerImage.src}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                )}
-                {publicKey?.toBase58() === data?.minter_id && (
-                  <div className="absolute right-6 bottom-2 cursor-pointer">
-                    <div className={styles.iconBlurView}>
-                      <div className="w-full h-full flex justify-center items-center">
-                        <IconButtonWithSVG
-                          icon={<CameraWhiteIcon />}
-                          onClick={() => inputBannerFile.current.click()}
-                          backgroundColor="transparent"
-                          borderRadius="100%"
-                          borderColor="transparent"
-                          borderWidth={0}
-                          width={40}
-                          height={40}
-                          iconWidth={40}
-                          iconHeight={40}
-                          disabled={bannerUploadingToS3}
-                        />
-                      </div>
+            ) : ( */}
+            <div className={styles.headerImage}>
+              {data?.banner_image !== null && data?.banner_image.length > 0 ? (
+                // <ImageWithFoster
+                //   showPlaceHolder={false}
+                //   src={data?.banner_image}
+                //   alt=""
+                //   className="w-full h-full object-cover"
+                // />
+                <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
+              ) : data?.cover_image ? (
+                // <ImageWithFoster
+                //   showPlaceHolder={false}
+                //   src={data?.cover_image}
+                //   alt=""
+                //   className="w-full h-[132px] object-cover"
+                // />
+                <img src={data?.cover_image} alt="" className="w-full h-[132px] object-cover" />
+              ) : (
+                // <ImageWithFoster
+                //   showPlaceHolder={false}
+                //   src={bannerImage.src}
+                //   alt=""
+                //   className="w-full h-full object-cover"
+                // />
+                <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
+              )}
+              {publicKey?.toBase58() === data?.minter_id && (
+                <div className="absolute right-6 bottom-2 cursor-pointer">
+                  <div className={styles.iconBlurView}>
+                    <div className="w-full h-full flex justify-center items-center">
+                      <IconButtonWithSVG
+                        icon={<CameraWhiteIcon />}
+                        onClick={() => inputBannerFile.current.click()}
+                        backgroundColor="transparent"
+                        borderRadius="100%"
+                        borderColor="transparent"
+                        borderWidth={0}
+                        width={40}
+                        height={40}
+                        iconWidth={40}
+                        iconHeight={40}
+                        disabled={bannerUploadingToS3}
+                      />
                     </div>
-                    <input
-                      type="file"
-                      id="banner-file"
-                      accept="image/png, image/jpeg, image/gif"
-                      ref={inputBannerFile}
-                      style={{ display: 'none' }}
-                      onChange={event => handleChangeBannerImage(event)}
-                    />
                   </div>
-                )}
-              </div>
-            )}
+                  <input
+                    type="file"
+                    id="banner-file"
+                    accept="image/png, image/jpeg, image/gif"
+                    ref={inputBannerFile}
+                    style={{ display: 'none' }}
+                    onChange={event => handleChangeBannerImage(event)}
+                  />
+                </div>
+              )}
+            </div>
+            {/* )} */}
 
             <div className="g-container">
               <div className="w-full">

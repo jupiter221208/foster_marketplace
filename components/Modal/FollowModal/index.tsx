@@ -85,14 +85,24 @@ const FollowModal = props => {
   }, [open])
 
   const reloadFollowing = () => {
-    artistsAPI.getFollowers(wallet).then(response => {
-      setIsLoading(false)
-      setFollowersList(response)
-    })
-    artistsAPI.getFollowings(wallet).then(response => {
-      setIsLoading(false)
-      setFollowingList(response)
-    })
+    artistsAPI.getFollowers(wallet).then(
+      response => {
+        setIsLoading(false)
+        setFollowersList(response)
+      },
+      error => {
+        setIsLoading(false)
+      }
+    )
+    artistsAPI.getFollowings(wallet).then(
+      response => {
+        setIsLoading(false)
+        setFollowingList(response)
+      },
+      error => {
+        setIsLoading(false)
+      }
+    )
   }
 
   const followArtist = wallet => {

@@ -69,20 +69,6 @@ const MostPopularSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-between items-center z-10">
                 <div className={styles.title}>Most Popular</div>
-                <div className="flex gap-[8px] items-center">
-                  <div
-                    className={styles.seeMore}
-                    onClick={() => {
-                      dispatch({ type: 'set', artworkSort: 'popular' })
-                      dispatch({ type: 'set', exploreTab: 0 })
-                      dispatch({ type: 'set', artworkCategory: category })
-                      router.push('/explore')
-                    }}
-                  >
-                    See More
-                  </div>
-                  <ArrowRightGreenIcon alt="" />
-                </div>
               </div>
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
@@ -102,9 +88,21 @@ const MostPopularSection = props => {
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            slidesPerView={
+              viewport === 'xs'
+                ? 1.13
+                : viewport === 'sm'
+                ? 1.92
+                : viewport === 'md'
+                ? 2
+                : viewport === '2xl'
+                ? 5
+                : viewport === 'xl'
+                ? 4
+                : 4
+            }
             spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={mostPopularList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
@@ -130,6 +128,23 @@ const MostPopularSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
+          <div className="w-full max-w-[300px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', artworkSort: 'popular' })
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+              fontSize="16px"
+              height="41px"
+              borderRadius="8px"
+            />
+          </div>
         </div>
       </section>
     )

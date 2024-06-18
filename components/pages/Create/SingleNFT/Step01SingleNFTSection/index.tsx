@@ -32,6 +32,7 @@ import styles from './index.module.scss'
 // resources
 import { limit } from 'utils/strings'
 import Chip from 'components/Chip'
+import CategorySelectionMenu from '../../../../Menu/CategorySelectionMenu'
 
 const Step01SingleNFTSection = props => {
   const {
@@ -55,7 +56,7 @@ const Step01SingleNFTSection = props => {
   } = props
 
   const viewport = useViewport()
-
+  const [showDelete, setShowDelete] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
@@ -97,7 +98,7 @@ const Step01SingleNFTSection = props => {
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="w-full h-[66vh] overflow-auto pr-[20px]">
+        <div className="w-full pr-[20px]">
           <div className={`${styles.subTitle}`}>
             Upload Art <span>*</span>
           </div>
@@ -214,10 +215,27 @@ const Step01SingleNFTSection = props => {
 
               {nftImage && (
                 <div>
-                  <div className={styles.glbNftImageSection}>
+                  <div
+                    className={styles.glbNftImageSection}
+                    onMouseEnter={() => setShowDelete(true)}
+                    onMouseLeave={() => setShowDelete(false)}
+                  >
                     <img className="w-full aspect-square" src={nftImage} alt="" />
+                    {showDelete && (
+                      <div className={styles.deleteArea}>
+                        <div
+                          onClick={() => {
+                            setShowDelete(false)
+                            setNftImage('')
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <button
+
+                  {/* <button
                     className={styles.glbButton}
                     onClick={() => {
                       setNftImage('')
@@ -226,7 +244,7 @@ const Step01SingleNFTSection = props => {
                   >
                     <TrashBin />
                     &nbsp;Remove Cover Image
-                  </button>
+                  </button> */}
                 </div>
               )}
             </>
@@ -260,13 +278,16 @@ const Step01SingleNFTSection = props => {
                 onChange={value => setDescription(limit(value, 1000))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-[30px]`}>Category (optional)</div>
-            <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
+
+            <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
+            <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
+            <div className="w-full h-[350px]" />
+            {/* <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
             <div className="w-full mt-[15px]">
               {categoryList && (
                 <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (
@@ -315,10 +336,13 @@ const Step01SingleNFTSection = props => {
             {nftType === 'vr' && (
               <>
                 <div className={styles.coverImgMsg}>
-                  <h6>
+                  <div className="my-1">
                     Cover Photo <span>*</span>
-                  </h6>
-                  <p>Pick the best angle to take a snapshot or upload an image to use as the cover photo.</p>
+                  </div>
+
+                  <div className={styles.pick}>
+                    Pick the best angle to take a snapshot or upload an image to use as the cover photo.
+                  </div>
                 </div>
 
                 <div className={styles.coverBtnBox}>
@@ -361,12 +385,30 @@ const Step01SingleNFTSection = props => {
                 </div>
 
                 {nftImage && (
-                  <div className={styles.glbNftImageSection}>
-                    <img className="w-full aspect-square" src={nftImage} alt="" />
-                    <button onClick={() => setNftImage('')}>
-                      <TrashBin />
-                      &nbsp;Remove Cover Image
-                    </button>
+                  <div>
+                    <div
+                      className={styles.glbNftImageSection}
+                      onMouseEnter={() => setShowDelete(true)}
+                      onMouseLeave={() => setShowDelete(false)}
+                      onClick={() => setShowDelete(!showDelete)}
+                    >
+                      <img className="w-full aspect-square" src={nftImage} alt="" />
+                      {showDelete && (
+                        <div className={styles.deleteArea}>
+                          <div
+                            onClick={() => {
+                              setShowDelete(false)
+                              setNftImage('')
+                            }}
+                          >
+                            Delete
+                          </div>
+                        </div>
+                      )}
+                      {/* <button className="absolute right-[8px] bottom-[8px]" onClick={() => setNftImage('')}>
+                        <TrashBin />
+                      </button> */}
+                    </div>
                   </div>
                 )}
               </>
