@@ -345,7 +345,7 @@
 .coverBtnBox {
   margin-top: 20px;
   display: flex;
-  gap: 24px;
+  gap: 20px;
   font-family: 'Muli-Regular';
   font-weight: 100;
   font-size: 14px;
@@ -358,7 +358,8 @@
     }
     color: var(--main-icon-color);
     fill: var(--primary-btn-bg);
-    background-color: rgba(var(--main-bg-color-rgb), 0.05);
+    background-color: var(--background-main-color);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
     border-radius: 10px;
   }
   button:first-child {
@@ -367,6 +368,7 @@
     padding: 16px 12px;
     align-items: center;
     justify-content: center;
+    color: var(--main-icon-color);
     @media (min-width: 1024px) {
       padding: 16px 21px;
     }
