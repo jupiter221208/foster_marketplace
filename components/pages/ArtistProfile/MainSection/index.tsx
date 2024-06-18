@@ -355,6 +355,7 @@ const MainSection = prop => {
       ) : (
         <div className={styles.bannerImage}>
           <ImageWithFoster
+            showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
             className="w-full h-full object-cover"
           />
@@ -780,9 +781,14 @@ const MainSection = prop => {
         <div className={`${styles.skeletonLoader} ${styles.headerImage}`}></div>
       ) : (
         <div className={styles.headerImage}>
-          <ImageWithFoster
+          {/* <ImageWithFoster
             showPlaceHolder={false}
             src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
+            className="w-full h-full object-cover rounded-none"
+          /> */}
+          <img
+            src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
+            alt=""
             className="w-full h-full object-cover rounded-none"
           />
           {isOwn && (
