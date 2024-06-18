@@ -401,26 +401,29 @@ const MainSection = props => {
             ) : (
               <div className={styles.headerImage}>
                 {data?.banner_image !== null && data?.banner_image.length > 0 ? (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={data?.banner_image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
+                  // <ImageWithFoster
+                  //   showPlaceHolder={false}
+                  //   src={data?.banner_image}
+                  //   alt=""
+                  //   className="w-full h-full object-cover"
+                  // />
+                  <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
                 ) : data?.cover_image ? (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={data?.cover_image}
-                    alt=""
-                    className="w-full h-[132px] object-cover"
-                  />
+                  // <ImageWithFoster
+                  //   showPlaceHolder={false}
+                  //   src={data?.cover_image}
+                  //   alt=""
+                  //   className="w-full h-[132px] object-cover"
+                  // />
+                  <img src={data?.cover_image} alt="" className="w-full h-[132px] object-cover" />
                 ) : (
-                  <ImageWithFoster
-                    showPlaceHolder={false}
-                    src={bannerImage.src}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
+                  // <ImageWithFoster
+                  //   showPlaceHolder={false}
+                  //   src={bannerImage.src}
+                  //   alt=""
+                  //   className="w-full h-full object-cover"
+                  // />
+                  <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
                 )}
                 {publicKey?.toBase58() === data?.minter_id && (
                   <div className="absolute right-6 bottom-2 cursor-pointer">
