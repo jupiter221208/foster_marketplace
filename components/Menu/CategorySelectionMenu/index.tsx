@@ -16,6 +16,7 @@ import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 const CategorySelectionMenu = props => {
   const { categoryList, handleSelectCategory } = props
   const [label, setLabel] = useState('')
+  const [showDropdown, setShowDropdown] = useState(false)
 
   useEffect(() => {
     let names = []
@@ -28,36 +29,19 @@ const CategorySelectionMenu = props => {
 
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
-      <Menu>
-        <Menu.Button className="w-full">
-          <div className={styles.btnArea}>
-            {label}
-            <div>
-              <DownIcon alt="" />
-            </div>
+      <div className={styles.btnArea} onClick={() => setShowDropdown(!showDropdown)}>
+        {label}
+        <div>
+          <DownIcon alt="" />
+        </div>
+      </div>
+      {showDropdown && (
+        <div className={styles.menuArea}>
+          <div className={styles.menuItem}>
+            <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
           </div>
-        </Menu.Button>
-
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className={styles.menuArea}>
-            <Menu.Item>
-              {({ active }) => (
-                <div className={styles.menuItem}>
-                  <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
-                </div>
-              )}
-            </Menu.Item>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+        </div>
+      )}
     </div>
   )
 }

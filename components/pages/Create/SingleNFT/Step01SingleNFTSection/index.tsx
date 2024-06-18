@@ -264,7 +264,7 @@ const Step01SingleNFTSection = props => {
 
             <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
             <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
-            <div className="w-full h-[300px]" />
+            <div className="w-full h-[350px]" />
             {/* <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
             <div className="w-full mt-[15px]">
               {categoryList && (

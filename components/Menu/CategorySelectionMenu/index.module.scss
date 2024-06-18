@@ -20,6 +20,7 @@
   justify-content: space-between;
   align-items: center;
   outline: none;
+  cursor: pointer;
 }
 
 .text {
@@ -41,8 +42,7 @@
   
   top: 50px;
   padding: 6px 8px;
-  
-  background: var(--bg-TRANSPARENT-FFF);
+    background: var(--bg-TRANSPARENT-FFF);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
   -webkit-backdrop-filter: blur(30px);
