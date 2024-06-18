@@ -56,7 +56,7 @@ const Step01SingleNFTSection = props => {
   } = props
 
   const viewport = useViewport()
-
+  const [showDelete, setShowDelete] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
@@ -215,10 +215,27 @@ const Step01SingleNFTSection = props => {
 
               {nftImage && (
                 <div>
-                  <div className={styles.glbNftImageSection}>
+                  <div
+                    className={styles.glbNftImageSection}
+                    onMouseEnter={() => setShowDelete(true)}
+                    onMouseLeave={() => setShowDelete(false)}
+                  >
                     <img className="w-full aspect-square" src={nftImage} alt="" />
+                    {showDelete && (
+                      <div className={styles.deleteArea}>
+                        <div
+                          onClick={() => {
+                            setShowDelete(false)
+                            setNftImage('')
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <button
+
+                  {/* <button
                     className={styles.glbButton}
                     onClick={() => {
                       setNftImage('')
@@ -227,7 +244,7 @@ const Step01SingleNFTSection = props => {
                   >
                     <TrashBin />
                     &nbsp;Remove Cover Image
-                  </button>
+                  </button> */}
                 </div>
               )}
             </>
@@ -369,11 +386,28 @@ const Step01SingleNFTSection = props => {
 
                 {nftImage && (
                   <div>
-                    <div className={styles.glbNftImageSection}>
+                    <div
+                      className={styles.glbNftImageSection}
+                      onMouseEnter={() => setShowDelete(true)}
+                      onMouseLeave={() => setShowDelete(false)}
+                      onClick={() => setShowDelete(!showDelete)}
+                    >
                       <img className="w-full aspect-square" src={nftImage} alt="" />
-                      <button className="absolute right-[8px] bottom-[8px]" onClick={() => setNftImage('')}>
+                      {showDelete && (
+                        <div className={styles.deleteArea}>
+                          <div
+                            onClick={() => {
+                              setShowDelete(false)
+                              setNftImage('')
+                            }}
+                          >
+                            Delete
+                          </div>
+                        </div>
+                      )}
+                      {/* <button className="absolute right-[8px] bottom-[8px]" onClick={() => setNftImage('')}>
                         <TrashBin />
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 )}
