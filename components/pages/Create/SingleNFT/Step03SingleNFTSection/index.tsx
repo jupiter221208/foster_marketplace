@@ -24,6 +24,7 @@ import EditionList from 'assets/json/single-nft/edition-type.json'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import ProductionListMenu from 'components/ProductionListMenu'
+import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -36,6 +37,8 @@ const Step03SingleNFTSection = props => {
     setCreatorList,
     disabledNextButton,
     setDisabledNextButton,
+    categoryList,
+    handleSelectCategory,
     onNextStep,
     onBack,
   } = props
@@ -139,7 +142,7 @@ const Step03SingleNFTSection = props => {
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-    <div className="w-full h-[66vh] overflow-auto pr-[20px]">
+    <div className="w-full pr-[20px]">
       {type !== 0 && (
         <div className="mb-[30px]">
           <div className={styles.subTitle}>
@@ -201,7 +204,11 @@ const Step03SingleNFTSection = props => {
           )}
         </div>
       )}
-      <div className={`${styles.subTitle}`}>
+
+      <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
+      <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
+
+      <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>
       <div className="max-w-[370px] w-full mt-[15px]">

@@ -29,7 +29,7 @@ import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeS
 import { useViewport } from 'utils'
 
 // images and icons
-
+import BackIcon from 'assets/icons/back-arrow.svg?component'
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
@@ -46,7 +46,9 @@ import ModelViewer from 'components/ModelViewer'
 import ProgressSection from 'components/ProgressSection'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
-import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
+import Dropzone from 'react-dropzone'
+import GradientButton from 'components/Button/GradientButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -73,7 +75,7 @@ const SingleNft = () => {
   }, [])
 
   // variables
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStep, setCurrentStep] = useState(2)
   const [type, setType] = useState<any>()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
@@ -130,8 +132,8 @@ const SingleNft = () => {
         width = screenWidth
         break
     }
-    if (width > 760) {
-      setArtWidth(760)
+    if (width > 550) {
+      setArtWidth(550)
     } else {
       setArtWidth(width)
     }
@@ -240,7 +242,7 @@ const SingleNft = () => {
   }, [nftArt])
 
   useEffect(() => {
-    if (nftCover !== null && !(nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path))) {
+    if (nftCover !== null && !(nftArt?.length > 0 && nftArt[0].type === '' && /\.glb$/.test(nftArt[0].path))) {
       if (nftCover[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftCover[0])
@@ -268,8 +270,8 @@ const SingleNft = () => {
               windowWidth = screenWidth
               break
           }
-          if (windowWidth > 760) {
-            setArtWidth(760)
+          if (windowWidth > 550) {
+            setArtWidth(550)
           } else {
             setArtWidth(windowWidth)
           }
@@ -564,6 +566,44 @@ const SingleNft = () => {
     }
   }
 
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+
+  const handleShowAlert = (type, error) => {
+    if (error === 'file-invalid-type') {
+      let description = ''
+      if (type === 'nft') description = `Supported file formats .png, .jpeg, .mp3, .mp4 and .gif`
+      else if (type === 'audio') description = `Supported file formats for cover image include .png, .jpeg and .gif`
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description,
+          type: 'error',
+        },
+      ])
+    } else if (error === 'file-too-large') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          type: 'error',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Unknown Error',
+          description: `Unknown Error`,
+          type: 'error',
+        },
+      ])
+    }
+    setShowAlert(true)
+  }
+
   const [takeSnapshotStatus, setTakeSnapshotStatus] = useState(false)
 
   return (
@@ -579,8 +619,26 @@ const SingleNft = () => {
             <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
           ) : (
             <div className="w-full">
-              <div className="w-full flex justify-center">
-                <div className="w-full g-container mt-[66px]">
+              <div
+                className="w-full flex gap-[28px] items-center g-container mt-[44px]"
+                onClick={() => {
+                  if (currentStep >= 1) {
+                    setEditionType(null)
+                  }
+                  handleChangeCurrentStep(currentStep - 1)
+                }}
+              >
+                <BackIcon />
+                <div className={styles.createEdition}>
+                  {currentStep === 1
+                    ? 'Create Edition'
+                    : currentStep === 2
+                    ? 'Additional Details'
+                    : currentStep === 3
+                    ? 'Review'
+                    : ''}
+                </div>
+                {/* <div className="w-full g-container mt-[66px]">
                   <ProgressSection
                     currentStep={currentStep}
                     nextDisabled={disabledNextButton}
@@ -594,104 +652,145 @@ const SingleNft = () => {
                     loading={isMinting}
                     labels={['Artwork Details', 'Additional Details', 'Review']}
                   />
-                </div>
+                </div> */}
               </div>
-              <div className="w-full flex justify-center">
-                <div className="max-w-[1920px] relative w-full grid grid-cols-12 gap-0">
+              <div className="w-full flex justify-center g-container mt-[45px]">
+                <div
+                  className={`${styles.conatiner} max-w-[1920px] relative w-full flex lg:flex-row flex-col gap-[95px] mb-[50px]`}
+                >
                   {/* left part */}
-                  <div className="relative col-span-12 lg:col-span-6 g-left-container">
+                  <div className="relative">
                     <div className={styles.leftContainer}>
-                      <div className={`relative w-full flex flex-wrap justify-center z-10 mt-[10px] `}>
-                        {nftType === 'vr' && nftUrl ? (
-                          <div className="max-w-[760px] w-full mx-auto aspect-square">
-                            <ModelViewer
-                              path={nftUrl}
-                              preserveDrawingBuffer
-                              getSnapshot={{
-                                onSnapshot: image => {
-                                  setNftImage(URL.createObjectURL(image))
-                                  setTakeSnapshotStatus(false)
-                                },
-                                status: takeSnapshotStatus,
-                              }}
-                            />
-                          </div>
-                        ) : nftType === 'image' || nftType === 'image/gif' ? (
-                          <div
-                            className={styles.artArea}
-                            style={{
-                              width: 760,
-                              maxWidth: 760,
-                              height: 560,
-                              maxHeight: 560,
+                      {nftArt === null ? (
+                        <div className="w-full">
+                          <Dropzone
+                            onDropAccepted={acceptedFiles => {
+                              acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
                             }}
+                            onDropRejected={rejectedFiles => {
+                              handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
+                            }}
+                            accept={{
+                              'image/jpeg': [],
+                              'image/png': [],
+                              'image/gif': [],
+                              'video/mp4': [],
+                              'audio/mpeg': [],
+                              'audio/wav': [],
+                              'model/gltf-binary': ['.glb'],
+                            }}
+                            maxFiles={1}
+                            maxSize={104857600}
                           >
-                            {nftImage !== '' && artWidth !== 0 && (
-                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                            {({ getRootProps, getInputProps }) => (
+                              <section className={styles.dropzone}>
+                                <div {...getRootProps()} className={styles.selectArea}>
+                                  <input {...getInputProps()} />
+                                  <p className={styles.uploadText}>Upload Artwork</p>
+                                  <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
+                                  <p className={styles.greenText}>Max File Size 100mb</p>
+                                </div>
+                              </section>
                             )}
-                          </div>
-                        ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
-                            <div className="absolute inset-0">
+                          </Dropzone>
+                        </div>
+                      ) : (
+                        <div className={`max-w-[550px] relative w-full flex flex-wrap justify-center z-10`}>
+                          {nftType === 'vr' && nftUrl ? (
+                            <div className="w-[550px] w-full mx-auto aspect-square">
+                              <ModelViewer
+                                path={nftUrl}
+                                preserveDrawingBuffer
+                                getSnapshot={{
+                                  onSnapshot: image => {
+                                    setNftImage(URL.createObjectURL(image))
+                                    setTakeSnapshotStatus(false)
+                                  },
+                                  status: takeSnapshotStatus,
+                                }}
+                              />
+                            </div>
+                          ) : nftType === 'image' || nftType === 'image/gif' ? (
+                            <div
+                              className={styles.artArea}
+                              style={{
+                                width: 550,
+                                maxWidth: 550,
+                                height: 550,
+                                maxHeight: 550,
+                              }}
+                            >
                               {nftImage !== '' && artWidth !== 0 && (
-                                <img src={nftImage} alt="" className="w-full h-full object-cover" />
+                                <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
                               )}
                             </div>
-                            <div className={styles.blurImage} />
-                            {nftType === 'video' && nftArt !== null ? (
-                              <video controls className="w-full h-full z-10" id="video">
-                                <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                                Your browser does not support the video tag.
-                              </video>
-                            ) : nftType === 'audio' && nftArt !== null ? (
-                              <div className="w-full h-full z-10">
-                                <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                          ) : (
+                            <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+                              <div className="absolute inset-0">
                                 {nftImage !== '' && artWidth !== 0 && (
-                                  <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                                  <img src={nftImage} alt="" className="w-full h-full object-cover" />
                                 )}
                               </div>
-                            ) : nftImage !== '' && artWidth !== 0 ? (
-                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
-                            ) : (
-                              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
-                            )}
-                          </div>
-                        )}
+                              <div className={styles.blurImage} />
+                              {nftType === 'video' && nftArt !== null ? (
+                                <video controls className="w-full h-full z-10" id="video">
+                                  <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                                  Your browser does not support the video tag.
+                                </video>
+                              ) : nftType === 'audio' && nftArt !== null ? (
+                                <div className="w-full h-full z-10">
+                                  <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                                  {nftImage !== '' && artWidth !== 0 && (
+                                    <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                                  )}
+                                </div>
+                              ) : nftImage !== '' && artWidth !== 0 ? (
+                                <img
+                                  src={nftImage}
+                                  alt=""
+                                  className="w-full h-full rounded-[12px] object-contain z-10"
+                                />
+                              ) : (
+                                <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
+                              )}
+                            </div>
+                          )}
 
-                        {nftArt !== null ? (
-                          <div className="w-full mt-[5px] flex justify-between">
-                            {currentStep === 1 &&
-                            (nftType === 'image' ||
-                              (nftType === 'audio' &&
-                                nftImage !== '' &&
-                                nftCover !== null &&
-                                nftCover[0].type !== 'image/gif')) ? (
-                              <DimensionMenu
-                                dimensionList={dimensionList}
-                                selectedDimension={selectedDimension}
-                                onSelect={item => handleChangeDimension(item)}
-                              />
-                            ) : (
-                              <>&nbsp;</>
-                            )}
-                            {currentStep === 1 ? (
-                              <IconButtonWithSVG
-                                icon={<TrashBin className={styles.trashIcon} />}
-                                onClick={() => handleDeleteNftArt()}
-                                backgroundColor="transparent"
-                              />
-                            ) : (
-                              <>&nbsp;</>
-                            )}
-                          </div>
-                        ) : (
-                          <div className={styles.preview}>Preview will display here</div>
-                        )}
-                      </div>
+                          {nftArt !== null ? (
+                            <div className="w-full mt-[5px] flex justify-between">
+                              {currentStep === 1 &&
+                              (nftType === 'image' ||
+                                (nftType === 'audio' &&
+                                  nftImage !== '' &&
+                                  nftCover !== null &&
+                                  nftCover[0].type !== 'image/gif')) ? (
+                                <DimensionMenu
+                                  dimensionList={dimensionList}
+                                  selectedDimension={selectedDimension}
+                                  onSelect={item => handleChangeDimension(item)}
+                                />
+                              ) : (
+                                <>&nbsp;</>
+                              )}
+                              {currentStep === 1 ? (
+                                <IconButtonWithSVG
+                                  icon={<TrashBin className={styles.trashIcon} />}
+                                  onClick={() => handleDeleteNftArt()}
+                                  backgroundColor="transparent"
+                                />
+                              ) : (
+                                <>&nbsp;</>
+                              )}
+                            </div>
+                          ) : (
+                            <div className={styles.preview}>Preview will display here</div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                   {/* right part */}
-                  <div className="col-span-12 lg:col-span-6 g-right-container z-0">
+                  <div className="z-0 flex-1">
                     <div className={styles.rightContainer}>
                       <div className="w-full relative">
                         {/* upload artwork part */}
@@ -730,6 +829,8 @@ const SingleNft = () => {
                             setCreatorList={setCreatorList}
                             setDisabledNextButton={setDisabledNextButton}
                             disabledNextButton={disabledNextButton}
+                            categoryList={categoryList}
+                            handleSelectCategory={index => handleSelectCategory(index)}
                             onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                             onBack={() => handleChangeCurrentStep(currentStep - 1)}
                           />
@@ -754,6 +855,21 @@ const SingleNft = () => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="absolute w-[122px] h-[53px] right-[57px] bottom-[41px]">
+                    {isMinting ? (
+                      <LoadingButton width={122} height={53} borderRadius={30} />
+                    ) : (
+                      <GradientButton
+                        label="Next"
+                        disabled={disabledNextButton}
+                        width={122}
+                        height={53}
+                        borderRadius={30}
+                        onClick={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -770,7 +886,7 @@ const SingleNft = () => {
             <div className="g-container mb-[47px]">
               <div className="w-full flex flex-wrap justify-center flex-row">
                 {nftType === 'vr' ? (
-                  <div className="max-w-[760px] w-full mx-auto aspect-square">
+                  <div className="max-w-[550px] w-full mx-auto aspect-square">
                     <ModelViewer
                       path={nftUrl}
                       preserveDrawingBuffer
@@ -906,6 +1022,8 @@ const SingleNft = () => {
                   setCreatorList={setCreatorList}
                   setDisabledNextButton={setDisabledNextButton}
                   disabledNextButton={disabledNextButton}
+                  categoryList={categoryList}
+                  handleSelectCategory={index => handleSelectCategory(index)}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                 />

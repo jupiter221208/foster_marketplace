@@ -99,10 +99,10 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full pr-[20px]">
-          <div className={`${styles.subTitle}`}>
+          {/* <div className={`${styles.subTitle}`}>
             Upload Art <span>*</span>
-          </div>
-          <div className="mt-[21px]">
+          </div> */}
+          {/* <div className="mt-[21px]">
             <Dropzone
               onDropAccepted={acceptedFiles => {
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
@@ -133,14 +133,43 @@ const Step01SingleNFTSection = props => {
                 </section>
               )}
             </Dropzone>
+          </div> */}
+          <div className="w-full">
+            <div className={`${styles.subTitle}`}>
+              Name <span>*</span>
+            </div>
+            <div className="max-w-[370px] w-full mt-[15px]">
+              <Input
+                value={limit(nftName, 32)}
+                placeholder="Give your art name"
+                fontFamily="Muli-Light"
+                label01="Max Characters 32"
+                label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
+                onChange={value => setNftName(limit(value, 32))}
+              />
+            </div>
+            <div className={`${styles.subTitle} mt-[30px]`}>
+              Description <span>*</span>
+            </div>
+            <div className="w-full mt-[15px]">
+              <Textarea
+                height={150}
+                value={limit(description, 1000)}
+                color={'var(--text-gray-200-color)'}
+                placeholder="Add a short description..."
+                fontFamily="Muli-Light"
+                label01="Max Characters 1000"
+                label02={1000 - description?.length === 1000 ? '' : `${1000 - description?.length} Characters left`}
+                onChange={value => setDescription(limit(value, 1000))}
+              />
+            </div>
           </div>
-
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-[30px]`}>
+              <div className={`${styles.subTitle} `}>
                 Audio Cover <span>*</span>
               </div>
-              <div className="mt-5">
+              <div className="mt-5 mb-[30px]">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
                     acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
@@ -167,7 +196,7 @@ const Step01SingleNFTSection = props => {
             </>
           )}
           {nftType === 'vr' && (
-            <>
+            <div className="mb-[30px]">
               <div className={styles.coverImgMsg}>
                 Cover Photo <span>*</span>
               </div>
@@ -247,48 +276,8 @@ const Step01SingleNFTSection = props => {
                   </button> */}
                 </div>
               )}
-            </>
+            </div>
           )}
-          <div className="w-full">
-            <div className={`${styles.subTitle} mt-[30px]`}>
-              Artwork Name <span>*</span>
-            </div>
-            <div className="max-w-[370px] w-full mt-[15px]">
-              <Input
-                value={limit(nftName, 32)}
-                placeholder="Give your art name"
-                fontFamily="Muli-Light"
-                label01="Max Characters 32"
-                label02={32 - nftName?.length === 32 ? '' : `${32 - nftName?.length} Characters left`}
-                onChange={value => setNftName(limit(value, 32))}
-              />
-            </div>
-            <div className={`${styles.subTitle} mt-[30px]`}>
-              Artwork Description <span>*</span>
-            </div>
-            <div className="w-full mt-[15px]">
-              <Textarea
-                height={150}
-                value={limit(description, 1000)}
-                color={'var(--text-gray-200-color)'}
-                placeholder="Add a short description..."
-                fontFamily="Muli-Light"
-                label01="Max Characters 1000"
-                label02={1000 - description?.length === 1000 ? '' : `${1000 - description?.length} Characters left`}
-                onChange={value => setDescription(limit(value, 1000))}
-              />
-            </div>
-
-            <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
-            <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
-            <div className="w-full h-[350px]" />
-            {/* <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
-            <div className="w-full mt-[15px]">
-              {categoryList && (
-                <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
-              )}
-            </div> */}
-          </div>
         </div>
       ) : (
         <div className="w-full">
