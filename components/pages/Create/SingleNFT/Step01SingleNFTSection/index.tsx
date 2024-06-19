@@ -9,7 +9,6 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Textarea from 'components/Input/Textarea'
-import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 import Input from 'components/Input'
 
@@ -20,7 +19,6 @@ import { useViewport } from 'utils'
 import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
-import TrashBin from 'assets/icons/trash-bin.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 
 // json
@@ -32,7 +30,6 @@ import styles from './index.module.scss'
 // resources
 import { limit } from 'utils/strings'
 import Chip from 'components/Chip'
-import CategorySelectionMenu from '../../../../Menu/CategorySelectionMenu'
 
 const Step01SingleNFTSection = props => {
   const {
@@ -48,11 +45,6 @@ const Step01SingleNFTSection = props => {
     setNftName,
     description,
     setDescription,
-    categoryList,
-    showCategoryList,
-    setShowCategoryList,
-    handleSelectCategory,
-    handleCancelCategory,
   } = props
 
   const viewport = useViewport()
@@ -470,7 +462,7 @@ const Step01SingleNFTSection = props => {
                 onChange={value => setDescription(value)}
               />
             </div>
-            <div className="w-full mt-[30px]">
+            {/* <div className="w-full mt-[30px]">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-2">
                   <div className={styles.chooseCategory}>Category (optional)</div>
@@ -492,7 +484,7 @@ const Step01SingleNFTSection = props => {
                   onClickCancel={() => handleCancelCategory()}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       )}

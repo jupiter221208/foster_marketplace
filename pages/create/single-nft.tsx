@@ -75,7 +75,7 @@ const SingleNft = () => {
   }, [])
 
   // variables
-  const [currentStep, setCurrentStep] = useState(2)
+  const [currentStep, setCurrentStep] = useState(0)
   const [type, setType] = useState<any>()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
@@ -809,11 +809,6 @@ const SingleNft = () => {
                               setNftName={value => setNftName(value)}
                               description={description}
                               setDescription={value => setDescription(value)}
-                              categoryList={categoryList}
-                              showCategoryList={showCategoryList}
-                              setShowCategoryList={value => setShowCategoryList(value)}
-                              handleSelectCategory={index => handleSelectCategory(index)}
-                              handleCancelCategory={() => handleCancelCategory()}
                             />
                           </>
                         )}
@@ -831,6 +826,7 @@ const SingleNft = () => {
                             disabledNextButton={disabledNextButton}
                             categoryList={categoryList}
                             handleSelectCategory={index => handleSelectCategory(index)}
+                            handleCancelCategory={() => handleCancelCategory()}
                             onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                             onBack={() => handleChangeCurrentStep(currentStep - 1)}
                           />
@@ -987,11 +983,6 @@ const SingleNft = () => {
                     setNftName={value => setNftName(value)}
                     description={description}
                     setDescription={value => setDescription(value)}
-                    categoryList={categoryList}
-                    showCategoryList={showCategoryList}
-                    setShowCategoryList={value => setShowCategoryList(value)}
-                    handleSelectCategory={index => handleSelectCategory(index)}
-                    handleCancelCategory={() => handleCancelCategory()}
                   />
                 </>
               )}
@@ -1024,6 +1015,8 @@ const SingleNft = () => {
                   disabledNextButton={disabledNextButton}
                   categoryList={categoryList}
                   handleSelectCategory={index => handleSelectCategory(index)}
+                  showCategoryList={showCategoryList}
+                  setShowCategoryList={value => setShowCategoryList(value)}
                   onBack={() => handleChangeCurrentStep(currentStep - 1)}
                   onNextStep={() => handleChangeCurrentStep(currentStep + 1)}
                 />

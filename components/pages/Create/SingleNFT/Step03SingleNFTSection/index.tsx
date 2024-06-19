@@ -25,6 +25,10 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import ProductionListMenu from 'components/ProductionListMenu'
 import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
+import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
+import CategoryListModal from 'components/Modal/CategoryListModal'
+import CategoryList from 'assets/json/popular-category.json'
+import Chip from 'components/Chip'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -39,6 +43,9 @@ const Step03SingleNFTSection = props => {
     setDisabledNextButton,
     categoryList,
     handleSelectCategory,
+    showCategoryList,
+    setShowCategoryList,
+    handleCancelCategory,
     onNextStep,
     onBack,
   } = props
@@ -350,6 +357,31 @@ const Step03SingleNFTSection = props => {
           )}
         </div>
       )}
+
+      <div className="w-full mt-[30px]">
+        <div className="grid grid-cols-2 gap-5">
+          <div className="col-span-2">
+            <div className={styles.chooseCategory}>Category (optional)</div>
+            <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
+              <>Select up to three categories</>
+              <ArrowDownIcon />
+            </div>
+          </div>
+        </div>
+        <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
+          {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
+        </div>
+        {showCategoryList && (
+          <CategoryListModal
+            data={CategoryList}
+            categoryList={categoryList}
+            onChange={index => handleSelectCategory(index)}
+            onClick={() => setShowCategoryList(!showCategoryList)}
+            onClickCancel={() => handleCancelCategory()}
+          />
+        )}
+      </div>
+
       <div className={`${styles.subTitle} mt-[30px]`}>
         Royalties <span>*</span>
       </div>
