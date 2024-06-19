@@ -40,6 +40,13 @@ const Step03CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
+
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
   })
@@ -82,7 +89,7 @@ const Step03CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="col-span-12 lg:col-span-5 g-right-container z-0">
+          <div className="col-span-12 lg:col-span-5 g-right-container z-0 relative">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">
@@ -140,6 +147,24 @@ const Step03CollectionSection = props => {
                       </div>
                     ))}
                 </div>
+              </div>
+            </div>
+            <div className="absolute w-[122px] h-[53px] bottom-[100px] right-[0px]">
+              {/* button group part */}
+              <div>
+                {isMinting ? (
+                  <LoadingButton width={122} height={53} borderRadius={30} />
+                ) : (
+                  <GradientButton
+                    label="Mint"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => {
+                      mintCollection()
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>

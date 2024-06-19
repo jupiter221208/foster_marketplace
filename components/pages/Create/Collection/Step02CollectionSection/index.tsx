@@ -38,6 +38,7 @@ import { useRouter } from 'next/router'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const Step02CollectionSection = props => {
   const {
@@ -58,6 +59,7 @@ const Step02CollectionSection = props => {
     onChangeSupply,
     disabledNextButton,
     setDisabledNextButton,
+    onNext,
   } = props
 
   const viewport = useViewport()
@@ -337,7 +339,7 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="flex-[50%] g-right-container z-0">
+          <div className="flex-[50%] g-right-container z-0 relative">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">
@@ -622,6 +624,18 @@ const Step02CollectionSection = props => {
                   )}
                 </div>
               </div>
+              {collectionFiles.length > 0 && (
+                <div className="w-full flex justify-end mt-[40px]">
+                  <GradientButton
+                    disabled={disabledNextButton}
+                    label="Next"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => onNext()}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div>

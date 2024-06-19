@@ -542,7 +542,15 @@ const Collection = () => {
         >
           <BackIcon />
           <div className={styles.createEdition}>
-            {currentStep === 1 ? 'Create Collection' : currentStep === 2 ? 'Review' : currentStep === 3 ? 'Review' : ''}
+            {currentStep === 1
+              ? 'Create Collection'
+              : currentStep === 2
+              ? 'Review'
+              : currentStep === 3
+              ? 'Add to collection'
+              : currentStep === 4
+              ? 'Review'
+              : ''}
           </div>
         </div>
 
@@ -633,6 +641,9 @@ const Collection = () => {
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
             disabledNextButton={disabledButton}
             setDisabledNextButton={setDisabledButton}
+            onNext={() => {
+              setCurrentStep(currentStep + 1)
+            }}
           />
         )}
 
