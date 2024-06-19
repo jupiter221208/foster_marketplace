@@ -35,7 +35,8 @@ const useAudioPlayer = () => {
       audio.removeEventListener('loadeddata', setAudioData)
       audio.removeEventListener('timeupdate', setAudioTime)
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing, clickedTime, curTime, duration])
 
   return {
     curTime,

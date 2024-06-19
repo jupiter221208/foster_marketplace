@@ -1,13 +1,9 @@
 import React from 'react'
 
-// next components
-
 // components
 import useAudioPlayer from './useAudioPlayer'
 // import AudioBar from 'components/MediaPlayer/AudioPlayer/AudioBar'
 import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
-
-// custom functions
 
 // images and icons
 import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
