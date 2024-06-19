@@ -46,6 +46,7 @@ import ModelViewer from 'components/ModelViewer'
 import ProgressSection from 'components/ProgressSection'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -236,7 +237,6 @@ const SingleNft = () => {
         setNftType(type)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftArt])
 
   useEffect(() => {
