@@ -17,6 +17,7 @@ import Alert from 'components/Alert'
 // json
 import CategoryList from 'assets/json/popular-category.json'
 import EditionList from 'assets/json/collections/edition-type.json'
+import BackIcon from 'assets/icons/back-arrow.svg?component'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -37,8 +38,8 @@ import {
 import collectionsAPI from 'apis/collections'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
-import ProgressSection from 'components/ProgressSection'
 import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
+import styles from './single-nft.module.scss'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -532,7 +533,20 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
-        <div className="lg:flex hidden w-full justify-center">
+        <div
+          className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px]"
+          onClick={() => {
+            if (currentStep === 1 || currentStep === 3) router.back()
+            else setCurrentStep(currentStep - 1)
+          }}
+        >
+          <BackIcon />
+          <div className={styles.createEdition}>
+            {currentStep === 1 ? 'Create Collection' : currentStep === 2 ? 'Review' : currentStep === 3 ? 'Review' : ''}
+          </div>
+        </div>
+
+        {/* <div className="lg:flex hidden w-full justify-center">
           <div className="w-full g-container mt-[66px]">
             <ProgressSection
               currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
@@ -552,7 +566,7 @@ const Collection = () => {
               labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
             />
           </div>
-        </div>
+        </div> */}
         {currentStep === 1 && (
           <Step01CollectionSection
             currentStep={currentStep}
@@ -576,6 +590,9 @@ const Collection = () => {
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
             setDisabledButton={setDisabledButton}
+            onNext={() => {
+              setCurrentStep(currentStep + 1)
+            }}
           />
         )}
         {currentStep === 2 && (
@@ -648,7 +665,7 @@ const Collection = () => {
           />
         )}
       </div>
-      {/* <FullScreenLoadingModal open={screenLoaded && isLoading} /> */}
+
       <Alert
         open={showAlert}
         close={() => {
