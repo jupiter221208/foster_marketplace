@@ -16,8 +16,9 @@ const useAudioPlayer = () => {
       setCurTime(audio.currentTime)
     }
 
-    const setAudioTime = () => setCurTime(audio.currentTime)
-
+    const setAudioTime = () => {
+      setCurTime(audio.currentTime)
+    }
     // DOM listeners: update React state on DOM events
     audio.addEventListener('loadeddata', setAudioData)
 
@@ -37,7 +38,8 @@ const useAudioPlayer = () => {
       audio.removeEventListener('loadeddata', setAudioData)
       audio.removeEventListener('timeupdate', setAudioTime)
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playing, clickedTime])
 
   return {
     curTime,
