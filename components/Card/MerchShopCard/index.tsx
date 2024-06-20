@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -15,6 +16,7 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
+import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -22,9 +24,10 @@ import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
 
 const MerchShopCard = props => {
-  const { type = 'merch', username, data } = props
-  const router = useRouter()
+  const { type = 'foster', username, data } = props
   const dispatch = useDispatch()
+  const router = useRouter()
+  const { solToUsdRate } = useSolToUsdRate()
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
@@ -46,8 +49,8 @@ const MerchShopCard = props => {
 
   useEffect(() => {
     let list = []
-    data.assets.map((item, index) => {
-      let step = currentStep % data.assets.length
+    data.options.addons.map((item, index) => {
+      let step = currentStep % data.data.options.addons.length
       if (index === step) {
         list.push(true)
       } else {
@@ -72,7 +75,7 @@ const MerchShopCard = props => {
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         // loop
       >
-        {data.assets.map((item, index) => (
+        {data.options.addons.map((item, index) => (
           <SwiperSlide key={index}>
             <div className={styles.imageArea}>
               <div
@@ -82,7 +85,7 @@ const MerchShopCard = props => {
                   router.push(`/${username}/merch/${data.id}`)
                 }}
               >
-                <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
+                <ImageWithFoster src={item.mockup_url} width={500} className="max-w-full max-h-full object-cover" />
               </div>
             </div>
           </SwiperSlide>
@@ -105,23 +108,23 @@ const MerchShopCard = props => {
           </div>
         </div>
         <div className="w-full mt-[10px] sm:mt-[15px] flex justify-between items-center">
-          <div className={styles.nftName}>{data.productName}</div>
+          <div className={styles.nftName}>{data.name}</div>
           <div className="sm:flex hidden gap-[4px] items-center">
             <div className="mt-[2px]">
               <SolanaLogoIcon />
             </div>
-            <div className={styles.price}>{data.price}</div>
+            <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
           </div>
         </div>
 
         <div className="w-full mt-[7px] flex justify-between items-center">
-          <div className={`sm:block hidden ${styles.artistName}`}>{data.merchType}</div>
-          <div className={styles.dollarPrice}>$642.00</div>
+          <div className={`sm:block hidden ${styles.artistName}`}>{ProductTypeList[data.product_type_id - 1].name}</div>
+          <div className={styles.dollarPrice}>{data.selling_price}</div>
         </div>
 
         <div className={`${styles.divider} mt-[8px] sm:mt-[15px]`} />
 
-        {type === 'merch' ? (
+        {type === 'foster' ? (
           <div className="w-full mt-[8px] sm:mt-[15px] flex justify-between">
             <div>
               <div className={styles.saleType}>Open Supply</div>

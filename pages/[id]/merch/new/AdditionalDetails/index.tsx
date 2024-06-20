@@ -85,6 +85,11 @@ const AdditionalDetails = props => {
     }
 
     if (productDetail.product?.id === 0) {
+      if (saleMethod.id === -1) {
+        setEnableNext(false)
+        return
+      }
+
       if (saleMethod.id === 1 && profit <= 0) {
         setEnableNext(false)
         return
@@ -124,6 +129,10 @@ const AdditionalDetails = props => {
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, sale_method: saleMethod.id === 0 ? 'edition' : 'standalone' })
+    if (saleMethod.id === 0) {
+      console.log(priceBase, priceFB, '=================priceBase=======')
+      setAdditionDetail({ ...additionDetail, selling_price: priceBase + priceFB + priceRight + priceLeft })
+    }
   }, [saleMethod])
 
   useEffect(() => {
