@@ -64,69 +64,79 @@ const MerchShopCard = props => {
 
   return (
     <div className={styles.container}>
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={10}
-        pagination={{
-          clickable: true,
-        }}
-        onSlideChange={handleOnChange}
-        onSwiper={setSwiper}
-        className={styles.swiperContainer}
-        modules={[Autoplay, Lazy, Navigation, Pagination]}
-        // loop
-      >
-        {data.options.addons.map((item, index) => (
-          <SwiperSlide key={index}>
-            <div className={styles.imageArea}>
-              <div
-                className={styles.imageContent}
-                onClick={() => {
-                  dispatch({ type: 'set', merchOrderType: 'foster' })
-                  router.push(`/${username}/merch/${data.id}`)
-                }}
-              >
-                <ImageWithFoster src={item.mockup_url} width={500} className="max-w-full max-h-full object-cover" />
+      <div className="relative">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          pagination={{
+            clickable: true,
+          }}
+          onSlideChange={handleOnChange}
+          onSwiper={setSwiper}
+          className={styles.swiperContainer}
+          modules={[Autoplay, Lazy, Navigation, Pagination]}
+          // loop
+        >
+          {data.options.addons.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className={styles.imageArea}>
+                <div
+                  className={styles.imageContent}
+                  onClick={() => {
+                    dispatch({ type: 'set', merchOrderType: 'foster' })
+                    router.push(`/${username}/merch/${data.id}`)
+                  }}
+                >
+                  <ImageWithFoster src={item.mockup_url} width={500} className="max-w-full max-h-full object-cover" />
+                </div>
               </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {indicatorList.length > 1 && (
+          <div className="absolute left-0 top-[46%] w-full flex justify-between items-center px-[20px]">
+            <div className={styles.controlBtn} onClick={goPrev}>
+              <BackIcon />
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div className={styles.bottomSection}>
-        <div className="w-full flex justify-between mt-[30px] sm:mt-[20px] items-center">
-          <div className={styles.controlBtn} onClick={goPrev}>
-            <BackIcon />
+
+            <div className={styles.controlBtn} onClick={goNext}>
+              <NextIcon />
+            </div>
           </div>
-          <div className="w-full flex justify-center">
+        )}
+        {indicatorList.length > 1 && (
+          <div className="absolute left-0 bottom-[15px] w-full flex justify-center z-[100]">
             <div className="gap-[14px] h-[5px] flex justify-around">
               {indicatorList.map((item, index) => (
                 <div key={index} className={item ? styles.selected : styles.nonSelected} />
               ))}
             </div>
           </div>
-          <div className={styles.controlBtn} onClick={goNext}>
-            <NextIcon />
-          </div>
-        </div>
-        <div className="w-full mt-[10px] sm:mt-[15px] flex justify-between items-center">
+        )}
+      </div>
+
+      <div className={styles.bottomSection}>
+        <div className="w-full mt-[20px] sm:mt-[15px] flex justify-between gap-[20px]">
           <div className={styles.nftName}>{data.name}</div>
-          <div className="sm:flex hidden gap-[4px] items-center">
-            <div className="mt-[2px]">
-              <SolanaLogoIcon />
+          <div>
+            <div className="sm:flex hidden gap-[4px] items-center">
+              <div className="mt-[2px]">
+                <SolanaLogoIcon />
+              </div>
+              <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
             </div>
-            <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
+            <div className={`${styles.dollarPrice} text-end mt-[7px]`}>${data.selling_price.toFixed(2)}</div>
           </div>
         </div>
 
-        <div className="w-full mt-[7px] flex justify-between items-center">
-          <div className={`sm:block hidden ${styles.artistName}`}>{ProductTypeList[data.product_type_id - 1].name}</div>
-          <div className={styles.dollarPrice}>${data.selling_price}</div>
-        </div>
+        {/* <div className="w-full mt-[7px] flex justify-end items-center">
+           <div className={`sm:block hidden ${styles.artistName}`}>{ProductTypeList[data.product_type_id - 1].name}</div> 
+        </div> */}
 
-        <div className={`${styles.divider} mt-[8px] sm:mt-[15px]`} />
+        <div className={`${styles.divider} mt-[15px] sm:mt-[15px]`} />
 
         {type === 'foster' ? (
-          <div className="w-full mt-[8px] sm:mt-[15px] flex justify-between">
+          <div className="w-full mt-[15px] sm:mt-[15px] flex justify-between">
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
                 <div className={styles.saleType}>Goes live on </div>
