@@ -130,7 +130,6 @@ const AdditionalDetails = props => {
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, sale_method: saleMethod.id === 0 ? 'edition' : 'standalone' })
     if (saleMethod.id === 0) {
-      console.log(priceBase, priceFB, '=================priceBase=======')
       setAdditionDetail({ ...additionDetail, selling_price: priceBase + priceFB + priceRight + priceLeft })
     }
   }, [saleMethod])

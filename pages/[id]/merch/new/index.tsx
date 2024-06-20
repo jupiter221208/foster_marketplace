@@ -31,7 +31,15 @@ const NewCreatorMerch = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [productDetail, setProductDetail] = useState(null)
   const [nextEnabled, setNextEnabled] = useState(false)
-  const [additionDetail, setAdditionDetail] = useState(null)
+  const [additionDetail, setAdditionDetail] = useState({
+    name: '',
+    description: '',
+    sale_method: '',
+    selling_price: 0,
+    supply: null,
+    sale_start_at: null,
+    sale_end_at: null,
+  })
   const [isCreating, setIsCreating] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -93,9 +101,9 @@ const NewCreatorMerch = () => {
   }
 
   const createProduct = async () => {
-    console.log(profileInfo, '==========profileInfo==========')
-    console.log(productDetail, '==========productDetail==========')
-    console.log(additionDetail, '==========additionDetail==========')
+    // console.log(profileInfo, '==========profileInfo==========')
+    // console.log(productDetail, '==========productDetail==========')
+    // console.log(additionDetail, '==========additionDetail==========')
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id
@@ -234,7 +242,6 @@ const NewCreatorMerch = () => {
       console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
-          console.log(res, '=============resssssssssssss===========')
           if (res) {
             setAlertData([
               {
@@ -335,7 +342,7 @@ const NewCreatorMerch = () => {
                   // publish API
                   createProduct()
                 } else {
-                  if (currentStep === 1) setAdditionDetail({ sale_start_at: new Date() })
+                  if (currentStep === 1) setAdditionDetail({ ...additionDetail, sale_start_at: new Date() })
                   setCurrentStep(currentStep + 1)
                 }
               }}
