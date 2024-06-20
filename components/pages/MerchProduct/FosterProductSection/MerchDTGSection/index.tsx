@@ -23,8 +23,6 @@ import InfoIcon from 'assets/icons/info-green-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import MerchShopInfoModal from 'components/Modal/MerchShopInfoModal'
-import { dataURLtoFile } from 'utils/helpers'
-import uploadFileToS3 from 'apis/aws'
 import LoadingButton from 'components/Button/LoadingButton'
 import MerchShopQuestionModal from 'components/Modal/MerchShopQuestionModal'
 import { useViewport } from 'utils'
@@ -123,14 +121,6 @@ const MerchDTGSection = props => {
     return true
   }
 
-  const uploadApparelSection = async (name: string, imgDataString: string) => {
-    let timestamp = new Date().getTime()
-    let filename = name + timestamp + '.png'
-    var imgFile = dataURLtoFile(imgDataString, filename)
-    const { url } = await uploadFileToS3(imgFile, filename)
-    return url
-  }
-
   const clearApparel = () => {
     setAssetUrl(null)
 
@@ -210,6 +200,7 @@ const MerchDTGSection = props => {
       // let imgUrl = await uploadApparelSection(apparelList[selectedCard.id].name + '-' + cardSide, imgDataString)
       let newAsset = { ...snapshotAsset }
       newAsset[cardSide] = imgDataString
+      newAsset[cardSide + '_raw'] = assetUrl
       setSnapshotAsset(newAsset)
       setProductDetail({ snapshotAssetUrl: newAsset, technique, color })
       setProcessingImage(false)

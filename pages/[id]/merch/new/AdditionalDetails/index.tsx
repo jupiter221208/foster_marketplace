@@ -25,7 +25,7 @@ import { useViewport } from 'utils'
 import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step, setEnableNext } = props
+  const { productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -74,6 +74,7 @@ const AdditionalDetails = props => {
     const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     const dayOfWeek = day[endDate.getDay()]
     setDay(dayOfWeek)
+    setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
     return endDate
   }, [startDate, days, hours])
 
@@ -108,6 +109,35 @@ const AdditionalDetails = props => {
     setEnableNext(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, saleMethod, profit, sellingPrice, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, name: title })
+  }, [title])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, description })
+  }, [description])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, selling_price: parseFloat(sellingPrice) })
+  }, [sellingPrice])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_method: saleMethod.id === 0 ? 'edition' : 'standalone' })
+  }, [saleMethod])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, supply: parseInt(limitedSupply) })
+  }, [limitedSupply])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_start_at: startDate })
+  }, [startDate])
+
+  useEffect(() => {
+    if (releaseDurationItem.id === 0) setAdditionDetail({ ...additionDetail, sale_end_at: null })
+    else setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+  }, [releaseDurationItem])
 
   useEffect(() => {
     let urls = []
