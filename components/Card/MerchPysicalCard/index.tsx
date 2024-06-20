@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -15,6 +16,7 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
+import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -25,6 +27,7 @@ const MerchPhysicalCard = props => {
   const { username, data } = props
   const router = useRouter()
   const dispatch = useDispatch()
+  const { solToUsdRate } = useSolToUsdRate()
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
@@ -45,8 +48,8 @@ const MerchPhysicalCard = props => {
 
   useEffect(() => {
     let list = []
-    data.assets.map((item, index) => {
-      let step = currentStep % data.assets.length
+    data.options.product_images.map((item, index) => {
+      let step = currentStep % data.options.product_images.length
       if (index === step) {
         list.push(true)
       } else {
@@ -71,12 +74,12 @@ const MerchPhysicalCard = props => {
         modules={[Autoplay, Lazy, Navigation, Pagination]}
         // loop
       >
-        {data.assets.map((item, index) => (
+        {data.options.product_images.map((item, index) => (
           <SwiperSlide key={index}>
             <div key={index}>
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  <ImageWithFoster src={item.src} width={500} className="max-w-full max-h-full object-cover" />
+                  <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -98,17 +101,17 @@ const MerchPhysicalCard = props => {
           </div>
         </div>
         <div className="w-full mt-[15px] flex justify-between items-center">
-          <div className={styles.nftName}>{data.productName}</div>
+          <div className={styles.nftName}>{data.name}</div>
           <div className="flex gap-[4px] items-center">
             <div className="mt-[2px]">
               <SolanaLogoIcon />
             </div>
-            <div className={styles.price}>{data.price}</div>
+            <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
           </div>
         </div>
         <div className="w-full mt-[7px] flex justify-between items-center">
-          <div className={styles.artistName}>{data.merchType}</div>
-          <div className={styles.dollarPrice}>$642.00</div>
+          <div className={styles.artistName}>{ProductTypeList[data.product_type_id - 1].name}</div>
+          <div className={styles.dollarPrice}>${data.selling_price}</div>
         </div>
 
         <div className={`${styles.divider} mt-[15px]`} />

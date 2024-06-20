@@ -21,6 +21,13 @@ const CreatorMerchShop = props => {
       },
       error => {}
     )
+
+    StoreAPI.getStoreItemByUser(53).then(
+      res => {
+        setPhysicalList(res)
+      },
+      error => {}
+    )
   }, [])
 
   return (
@@ -42,7 +49,7 @@ const CreatorMerchShop = props => {
           </div>
         ))}
       </div>
-
+ */}
       <div className={`${styles.title} mt-[20px] lg:mt-[50px]`}>Physicals by {username}</div>
       <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {physicalList.map((item, index) => (
@@ -50,7 +57,7 @@ const CreatorMerchShop = props => {
             <MerchPhysicalCard username={username} data={item} />
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   )
 }

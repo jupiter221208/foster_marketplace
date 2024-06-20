@@ -187,7 +187,7 @@ const NewCreatorMerch = () => {
             supply: null,
             master_edition_address: null,
             sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
-            sale_end_at: additionDetail.sale_end_at?.toISOString().split('.')[0],
+            sale_end_at: null,
             options: {
               shipping_responsibility: 'di_seller',
               product_images: addonList,

@@ -36,8 +36,6 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
 
-  console.log(artistInfo, '=========artistInfo=========')
-
   return (
     <div className="w-full pb-[60px]">
       <div className={`g-container ${styles.topSection}`}>
