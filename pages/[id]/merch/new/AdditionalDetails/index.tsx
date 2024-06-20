@@ -143,7 +143,7 @@ const AdditionalDetails = props => {
   }, [startDate])
 
   useEffect(() => {
-    setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+    if (releaseDurationItem.id === 1) setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
   }, [endDate])
 
   useEffect(() => {
