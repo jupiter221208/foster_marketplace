@@ -41,6 +41,7 @@ const AdditionalDetails = props => {
 
   const [startType, setStartType] = useState('soon')
   const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('24')
   const [day, setDay] = useState('')
@@ -61,21 +62,20 @@ const AdditionalDetails = props => {
     )
   }
 
-  const endDate = useMemo(() => {
+  useEffect(() => {
     let plusDays = Number(days)
     let plusHours = Number(hours)
 
     if (days === '') plusDays = 0
     if (hours === '') plusHours = 0
 
-    const endDate = new Date(startDate)
-    endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
+    const endTime = new Date(startDate)
+    endTime.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
 
     const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const dayOfWeek = day[endDate.getDay()]
+    const dayOfWeek = day[endTime.getDay()]
     setDay(dayOfWeek)
-    setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
-    return endDate
+    setEndDate(endTime)
   }, [startDate, days, hours])
 
   useEffect(() => {
@@ -141,6 +141,10 @@ const AdditionalDetails = props => {
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, sale_start_at: startDate })
   }, [startDate])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+  }, [endDate])
 
   useEffect(() => {
     if (releaseDurationItem.id === 0) setAdditionDetail({ ...additionDetail, sale_end_at: null })

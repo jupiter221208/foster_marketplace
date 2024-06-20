@@ -239,7 +239,7 @@ const NewCreatorMerch = () => {
         }
       }
 
-      console.log(params, '==========params==========')
+      // console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
           if (res) {
