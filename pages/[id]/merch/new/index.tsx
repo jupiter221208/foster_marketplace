@@ -96,8 +96,8 @@ const NewCreatorMerch = () => {
     console.log(profileInfo, '==========profileInfo==========')
     console.log(productDetail, '==========productDetail==========')
     console.log(additionDetail, '==========additionDetail==========')
-    if (additionDetail && productDetail) {
-      // setIsCreating(true)
+    if (profileInfo && additionDetail && productDetail) {
+      setIsCreating(true)
       var userId = profileInfo?.id
       let addonList = []
 
@@ -232,29 +232,28 @@ const NewCreatorMerch = () => {
       }
 
       console.log(params, '==========params==========')
-      setIsCreating(false)
-      // StoreAPI.createProduct(userId, params).then(
-      //   res => {
-      //     console.log(res, '=============resssssssssssss===========')
-      //     if (res) {
-      //       setAlertData([
-      //         {
-      //           id: 0,
-      //           title: 'Product Creation',
-      //           description: 'New project is created successfully.',
-      //           type: 'success',
-      //         },
-      //       ])
-      //       setShowAlert(true)
-      //       router.push(`/${profileInfo.username}/merch`)
-      //     } else {
-      //       setIsCreating(false)
-      //     }
-      //   },
-      //   error => {
-      //     setIsCreating(false)
-      //   }
-      // )
+      StoreAPI.createProduct(userId, params).then(
+        res => {
+          console.log(res, '=============resssssssssssss===========')
+          if (res) {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Product Creation',
+                description: 'New project is created successfully.',
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
+            router.push(`/${profileInfo.username}/merch`)
+          } else {
+            setIsCreating(false)
+          }
+        },
+        error => {
+          setIsCreating(false)
+        }
+      )
     }
   }
 
@@ -266,6 +265,15 @@ const NewCreatorMerch = () => {
       } else if (productDetail.selectedCard.id === 1) {
         if (productDetail.technique === 'dtg') return 3
         else return 4
+      } else if (productDetail.selectedCard.id === 2) {
+        if (productDetail.technique === 'dtg') return 5
+        else return 6
+      } else if (productDetail.selectedCard.id === 3) {
+        if (productDetail.technique === 'dtg') return 7
+        else return 8
+      } else if (productDetail.selectedCard.id === 4) {
+        if (productDetail.technique === 'dtg') return 9
+        else return 10
       }
     } else {
       return 11 + productDetail.type.id

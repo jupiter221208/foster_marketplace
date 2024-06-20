@@ -22,6 +22,7 @@ import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
+import { getTimeDifference } from 'utils/helpers'
 
 const MerchShopCard = props => {
   const { type = 'foster', username, data } = props
@@ -50,7 +51,7 @@ const MerchShopCard = props => {
   useEffect(() => {
     let list = []
     data.options.addons.map((item, index) => {
-      let step = currentStep % data.data.options.addons.length
+      let step = currentStep % data.options.addons.length
       if (index === step) {
         list.push(true)
       } else {
@@ -119,17 +120,25 @@ const MerchShopCard = props => {
 
         <div className="w-full mt-[7px] flex justify-between items-center">
           <div className={`sm:block hidden ${styles.artistName}`}>{ProductTypeList[data.product_type_id - 1].name}</div>
-          <div className={styles.dollarPrice}>{data.selling_price}</div>
+          <div className={styles.dollarPrice}>${data.selling_price}</div>
         </div>
 
         <div className={`${styles.divider} mt-[8px] sm:mt-[15px]`} />
 
         {type === 'foster' ? (
           <div className="w-full mt-[8px] sm:mt-[15px] flex justify-between">
-            <div>
-              <div className={styles.saleType}>Open Supply</div>
-              <div className={styles.saleCount}>3 sold</div>
-            </div>
+            {getTimeDifference(data.sale_start_at) > 0 ? (
+              <div>
+                <div className={styles.saleType}>Goes live on </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
+            ) : (
+              <div>
+                <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                <div className={styles.saleCount}>{data.supply ? `8/${data.supply} left` : '3 sold'}</div>
+              </div>
+            )}
+
             <div className="sm:block hidden">
               <GradientButton
                 borderRadius={10}
