@@ -116,9 +116,9 @@ const MerchPhysicalCard = props => {
               <div className="mt-[2px]">
                 <SolanaLogoIcon />
               </div>
-              <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
+              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
             </div>
-            <div className={`${styles.dollarPrice} text-end mt-[7px]`}>${data.selling_price.toFixed(2)}</div>
+            <div className={`${styles.dollarPrice} text-end mt-[7px]`}>${(data.selling_price / 100).toFixed(2)}</div>
           </div>
         </div>
         {/* <div className="w-full mt-[7px] flex justify-between items-center">

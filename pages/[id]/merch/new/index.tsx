@@ -101,9 +101,9 @@ const NewCreatorMerch = () => {
   }
 
   const createProduct = async () => {
-    // console.log(profileInfo, '==========profileInfo==========')
-    // console.log(productDetail, '==========productDetail==========')
-    // console.log(additionDetail, '==========additionDetail==========')
+    console.log(profileInfo, '==========profileInfo==========')
+    console.log(productDetail, '==========productDetail==========')
+    console.log(additionDetail, '==========additionDetail==========')
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id
@@ -239,7 +239,7 @@ const NewCreatorMerch = () => {
         }
       }
 
-      // console.log(params, '==========params==========')
+      console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
           if (res) {
