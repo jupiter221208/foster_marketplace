@@ -250,7 +250,7 @@ const AdditionalDetails = props => {
               className={item.selected ? styles.selectedItem : styles.deselectedItem}
               onClick={() => selectAssetItem(item)}
             >
-              <div className="sm:w-[110px] sm:h-[110px] w-[78px] h-[78px]">
+              <div className="w-full h-full">
                 <ImageWithFoster src={item.url} width={110} className="w-full h-full object-cover" />
               </div>
             </div>

@@ -192,7 +192,7 @@ const NewCreatorMerch = () => {
             product_type_id: getProductTypeId(),
             selling_price: additionDetail.selling_price * 100,
             supply: null,
-            master_edition_address: null,
+            master_edition_address: '',
             sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
             sale_end_at: null,
             options: {
