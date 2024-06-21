@@ -59,10 +59,10 @@
 
 .creatorRound {
   height: 40px;
-  background: rgba(var(--text-gray-200-color-rgb), 0.05);
+  background: var(--background-main-color);
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 20px;
-  padding: 5px 8px;
+  padding: 5px 13px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -233,7 +233,7 @@
   display: flex;
   align-items: center;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
-  background: var(--second-home-bg);
+  background: var(--bg-1E1E1E-F7F6F4);
   border-radius: 10px;
   justify-content: space-between;
 }

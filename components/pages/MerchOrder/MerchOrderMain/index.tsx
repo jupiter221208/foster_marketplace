@@ -284,7 +284,7 @@ const MerchOrderMain = props => {
             <div className={styles.creator}>Creator</div>
             <div className="mt-[7px] flex flex-wrap gap-[15px]">
               <div className={styles.creatorRound}>
-                <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
                   <ImageWithFoster src={userDetail.artist.profile_picture} alt="" />
                 </div>
                 {userDetail.artist.username}
