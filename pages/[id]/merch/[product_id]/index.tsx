@@ -82,9 +82,15 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
         if (response) {
           setProductDetail(response)
           let imageList = []
-          response.options.addons.map((item, index) => {
-            imageList.push({ url: item.mockup_url, selected: index === 0 })
-          })
+          if (response.fulfillment_type === 'foster') {
+            response.options.addons.map((item, index) => {
+              imageList.push({ url: item.mockup_url, selected: index === 0 })
+            })
+          } else {
+            response.options.product_images.map((item, index) => {
+              imageList.push({ url: item, selected: index === 0 })
+            })
+          }
           setMerchList(imageList)
           setSelectedMerch(imageList[0])
         }
@@ -92,52 +98,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
       error => {}
     )
   }, [publicArtistData])
-
-  // useEffect(() => {
-  //   if (type === 'foster') {
-  //     setMerchList([
-  //       {
-  //         url: merchImageFront,
-  //         selected: true,
-  //       },
-  //       {
-  //         url: merchImageBack,
-  //         selected: false,
-  //       },
-  //       {
-  //         url: merchImageLeft,
-  //         selected: false,
-  //       },
-  //     ])
-  //     setSelectedMerch({
-  //       url: merchImageFront,
-  //       selected: true,
-  //     })
-  //   } else {
-  //     setMerchList([
-  //       {
-  //         url: physicalImageFront,
-  //         selected: true,
-  //       },
-  //       {
-  //         url: physicalImageBack,
-  //         selected: false,
-  //       },
-  //       {
-  //         url: physicalImageRight,
-  //         selected: false,
-  //       },
-  //       {
-  //         url: physicalImageLeft,
-  //         selected: false,
-  //       },
-  //     ])
-  //     setSelectedMerch({
-  //       url: physicalImageFront,
-  //       selected: true,
-  //     })
-  //   }
-  // }, [type])
 
   return (
     <div className="g-container flex">
@@ -205,7 +165,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           })}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[45%]">
+        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px]">
           {currentStep === 1 && productDetail && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
               <MerchOrderMain

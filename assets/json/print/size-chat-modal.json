@@ -238,5 +238,67 @@
         "Sleeves": "7"
       }
     ]
+  } ,
+  {
+    "id": 5,
+    "type": "User Defined Model",
+    "size": [
+      {
+        "id": 0,
+        "Size": "S",
+        "Length": "25",
+        "Width": "17.5",
+        "Sleeves": "6"
+      },
+      {
+        "id": 1,
+        "Size": "M",
+        "Length": "26",
+        "Width": "19",
+        "Sleeves": "7"
+      },
+      {
+        "id": 2,
+        "Size": "L",
+        "Length": "27",
+        "Width": "20",
+        "Sleeves": "7"
+      },
+      {
+        "id": 3,
+        "Size": "XL",
+        "Length": "27",
+        "Width": "21",
+        "Sleeves": "7"
+      },
+      {
+        "id": 4,
+        "Size": "2XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      },
+      {
+        "id": 5,
+        "Size": "3XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      },
+      {
+        "id": 6,
+        "Size": "4XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      },
+      {
+        "id": 6,
+        "Size": "5XL",
+        "Length": "27",
+        "Width": "22",
+        "Sleeves": "7"
+      }
+    ]
   } 
 ]

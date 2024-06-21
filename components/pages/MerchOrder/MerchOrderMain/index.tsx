@@ -49,7 +49,7 @@ const MerchOrderMain = props => {
   const [tempNftDescription, setTempNftDescription] = useState('')
   const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
   const shouldShowReadMore = tempNftDescription.length > descCount
-
+  const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(0)
   const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
@@ -74,6 +74,7 @@ const MerchOrderMain = props => {
 
   useEffect(() => {
     console.log(productDetail, '==========productDetail======')
+
     let size_list
     switch (productDetail.product_type_id) {
       case 1:
@@ -97,6 +98,7 @@ const MerchOrderMain = props => {
         size_list = SizeList[4].size
         break
       default:
+        size_list = SizeList[5].size
         break
     }
     let sizes = []
@@ -104,6 +106,27 @@ const MerchOrderMain = props => {
       sizes.push({ id: index, name: size.Size, selected: index === Math.round(size_list.length / 2) })
     )
     setSizeList(sizes)
+
+    if (productDetail.fulfillment_type === 'foster') {
+      // Print Area
+      let directiction = []
+      let list = productDetail.options.addons
+      list.map(item => {
+        let direct_id = item.product_addon_id.split('-')[1]
+        directiction.push(
+          direct_id === '1'
+            ? 'Front'
+            : direct_id === '2'
+            ? 'Back'
+            : direct_id === '3'
+            ? 'Right'
+            : direct_id === '4'
+            ? 'Left'
+            : 'Front'
+        )
+      })
+      setPrintArea(directiction.join().replaceAll(',', ', '))
+    }
 
     if (productDetail.sale_start_at !== null) {
       if (getStartTime() === null) return
@@ -205,6 +228,7 @@ const MerchOrderMain = props => {
 
   const getPrintArea = list => {
     let directiction = []
+
     list.map(item => {
       let direct_id = item.product_addon_id.split('-')[1]
       directiction.push(
@@ -219,6 +243,8 @@ const MerchOrderMain = props => {
           : 'Front'
       )
     })
+    console.log(directiction, '======1111============')
+
     return directiction.join().replaceAll(',', ', ')
   }
 
@@ -287,7 +313,7 @@ const MerchOrderMain = props => {
               </div>
               <div className="w-full flex justify-between mt-[6px]">
                 <div className={styles.content}>Print Areas</div>
-                <div className={styles.contentValue}>{getPrintArea(productDetail.options.addons)}</div>
+                <div className={styles.contentValue}>{printArea}</div>
               </div>
               <div className="w-full flex justify-between mt-[6px]">
                 <div className={styles.content}>Color</div>
@@ -349,26 +375,26 @@ const MerchOrderMain = props => {
                   <div>
                     <div className={styles.endTime}>
                       {timeLeft && timeLeft['days']}
-                      <div className={styles.bidDesc}>D</div>
+                      {timeLeft && <div className={styles.bidDesc}>D</div>}
                     </div>
                   </div>
                 )}
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['hours']}
-                    <div className={styles.bidDesc}>H</div>
+                    {timeLeft && <div className={styles.bidDesc}>H</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['minutes']}
-                    <div className={styles.bidDesc}>M</div>
+                    {timeLeft && <div className={styles.bidDesc}>M</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['seconds']}
-                    <div className={styles.bidDesc}>S</div>
+                    {timeLeft && <div className={styles.bidDesc}>S</div>}
                   </div>
                 </div>
               </div>
