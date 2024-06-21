@@ -31,7 +31,7 @@ const CreatorMerchShop = props => {
 
     StoreAPI.getStoreItemByUser(userId).then(
       res => {
-        setPhysicalList(res)
+        setPhysicalList(res.filter(item => item.master_edition_address === null))
       },
       error => {}
     )
