@@ -315,8 +315,8 @@ const AdditionalDetails = props => {
               {saleMethod.id === 0 ? (
                 <div className={`${styles.releaseDetail} mt-[15px]`}>
                   Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
-                  activate it by listing an edition and toggling on the merch item as a bonus for each edition
-                  purchased. Your profit will be the difference between the listing price and the production cost.
+                  activate it when listing an edition as a bonus for each purchase. The production cost will be added to
+                  the listing price.
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
