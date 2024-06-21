@@ -27,16 +27,20 @@ import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch, useSelector } from 'react-redux'
 import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
+// API
+import StoreAPI from 'apis/store'
+
 interface MerchOrderPageProps {
-  username?: string
+  publicArtistData?: any
   error?: string
 }
 
-const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
+const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const type = useSelector(state => (state as any).merchOrderType)
 
+  const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [printData, setPrintData] = useState({
@@ -72,56 +76,75 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (type === 'foster') {
-      setMerchList([
-        {
-          url: merchImageFront,
-          selected: true,
-        },
-        {
-          url: merchImageBack,
-          selected: false,
-        },
-        {
-          url: merchImageLeft,
-          selected: false,
-        },
-      ])
-      setSelectedMerch({
-        url: merchImageFront,
-        selected: true,
-      })
-    } else {
-      setMerchList([
-        {
-          url: physicalImageFront,
-          selected: true,
-        },
-        {
-          url: physicalImageBack,
-          selected: false,
-        },
-        {
-          url: physicalImageRight,
-          selected: false,
-        },
-        {
-          url: physicalImageLeft,
-          selected: false,
-        },
-      ])
-      setSelectedMerch({
-        url: physicalImageFront,
-        selected: true,
-      })
-    }
-  }, [type])
+    console.log(publicArtistData, '==========publicArtistData========')
+    StoreAPI.getStoreById(53, router.query.product_id).then(
+      response => {
+        console.log(response, '=========response============')
+        if (response) {
+          setProductDetail(response)
+          let imageList = []
+          response.options.addons.map((item, index) => {
+            imageList.push({ url: item.mockup_url, selected: index === 0 })
+          })
+          setMerchList(imageList)
+          setSelectedMerch(imageList[0])
+        }
+      },
+      error => {}
+    )
+  }, [publicArtistData])
+
+  // useEffect(() => {
+  //   if (type === 'foster') {
+  //     setMerchList([
+  //       {
+  //         url: merchImageFront,
+  //         selected: true,
+  //       },
+  //       {
+  //         url: merchImageBack,
+  //         selected: false,
+  //       },
+  //       {
+  //         url: merchImageLeft,
+  //         selected: false,
+  //       },
+  //     ])
+  //     setSelectedMerch({
+  //       url: merchImageFront,
+  //       selected: true,
+  //     })
+  //   } else {
+  //     setMerchList([
+  //       {
+  //         url: physicalImageFront,
+  //         selected: true,
+  //       },
+  //       {
+  //         url: physicalImageBack,
+  //         selected: false,
+  //       },
+  //       {
+  //         url: physicalImageRight,
+  //         selected: false,
+  //       },
+  //       {
+  //         url: physicalImageLeft,
+  //         selected: false,
+  //       },
+  //     ])
+  //     setSelectedMerch({
+  //       url: physicalImageFront,
+  //       selected: true,
+  //     })
+  //   }
+  // }, [type])
 
   return (
     <div className="g-container flex">
       <div className="mt-[75px]">
         <div className="lg:block hidden">
-          <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
+          <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
             <ArrowLeftIcon />
             Back to store
           </div>
@@ -134,7 +157,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                 className={merch.selected ? styles.selected : styles.unselected}
                 onClick={() => onClickMerch(index)}
               >
-                <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
+                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full" />
               </div>
             )
           })}
@@ -149,7 +172,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                 <div className={styles.imageContent}>
                   <ImageWithFoster
                     width={700}
-                    src={selectedMerch ? selectedMerch.url.src : ''}
+                    src={selectedMerch ? selectedMerch.url : ''}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -161,7 +184,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
               <div className={styles.imageContent}>
                 <ImageWithFoster
                   width={700}
-                  src={selectedMerch ? selectedMerch.url.src : ''}
+                  src={selectedMerch ? selectedMerch.url : ''}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -184,9 +207,15 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
         </div>
 
         <div className="w-full 2xl:w-[42%] lg:w-[45%]">
-          {currentStep === 1 && (
+          {currentStep === 1 && productDetail && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
-              <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />
+              <MerchOrderMain
+                username={router.query.id}
+                type={type}
+                productDetail={productDetail}
+                userDetail={publicArtistData}
+                onClickBuyNow={onClickBuyNow}
+              />
             </div>
           )}
           {currentStep === 2 && (
@@ -246,22 +275,19 @@ MerchOrderPage.getLayout = function getLayout(page) {
 }
 
 MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {
-  let username = encodeURIComponent(query.id)
+  let artistUsername = encodeURIComponent(query.id)
 
   try {
-    // let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
-    //   r.json()
-    // )
-    // let artistPublicKey = publicArtistData.artist.wallet_id
-    // return {
-    //   artistPublicKey,
-    //   publicArtistData,
-    // }
-    return { username }
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+      r.json()
+    )
+    return {
+      publicArtistData,
+    }
   } catch (e: any) {
     console.error(e)
     return {
-      error: `could not load artist details: ${username}: ${e.message}`,
+      error: `could not load artist details: ${artistUsername}: ${e.message}`,
     }
   }
 }

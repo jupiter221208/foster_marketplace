@@ -29,6 +29,14 @@ class Store {
       return response.data
     })
   }
+
+  getStoreById(user_id, product_id) {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items/' + product_id).then(response => {
+      if (typeof response.data === 'string') throw new Error(response.data)
+        
+      return response.data
+    })
+  }
 }
 
 export default new Store()
