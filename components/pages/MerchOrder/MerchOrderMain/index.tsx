@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // next component
 
@@ -16,6 +17,7 @@ import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
+import SizeList from 'assets/json/print/size-chat-modal.json'
 
 // styles
 import styles from './index.module.scss'
@@ -29,6 +31,7 @@ import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow } = props
   const router = useRouter()
+  const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
@@ -37,17 +40,7 @@ const MerchOrderMain = props => {
   const alertNote = 'alert-note'
   const alertNoteMobile = 'alert-mobile'
   const [tableModal, setTableModal] = useState(false)
-  const [sizeList, setSizeList] = useState([
-    { id: 0, name: 'XS', selected: false },
-    { id: 1, name: 'S', selected: false },
-    { id: 2, name: 'M', selected: false },
-    { id: 3, name: 'L', selected: false },
-    { id: 4, name: 'XL', selected: true },
-    { id: 5, name: '2XL', selected: false },
-    { id: 6, name: '3XL', selected: false },
-    { id: 7, name: '4XL', selected: false },
-    { id: 8, name: '5XL', selected: false },
-  ])
+  const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
   const [cardExpired, setCardExpired] = useState(false)
   const [descCount, setDescCount] = useState(280)
@@ -80,6 +73,32 @@ const MerchOrderMain = props => {
   }, [description])
 
   useEffect(() => {
+    let size_list
+    switch (productDetail.product_type_id) {
+      case 1:
+        size_list = SizeList[2].size
+        break
+      case 2:
+        size_list = SizeList[3].size
+        break
+      case 3:
+        size_list = SizeList[0].size
+        break
+      case 4:
+        size_list = SizeList[1].size
+        break
+      case 5:
+        size_list = SizeList[4].size
+        break
+      default:
+        break
+    }
+    let sizes = []
+    size_list.map((size, index) =>
+      sizes.push({ id: index, name: size.Size, selected: index === Math.round(size_list.length / 2) })
+    )
+    setSizeList(sizes)
+
     if (productDetail.sale_start_at !== null) {
       if (getStartTime() === null) return
 
@@ -98,8 +117,8 @@ const MerchOrderMain = props => {
       }, 1000)
 
       return () => clearTimeout(timer)
-    } else {
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
@@ -139,6 +158,19 @@ const MerchOrderMain = props => {
   const getApparelName = () => {
     let type = 'Unisex'
     let name = 'Hoodie'
+
+    if (productDetail.product_type_id === 1) {
+      name = 'Hoodie'
+    } else if (productDetail.product_type_id === 2) {
+      name = 'Long Sleeve'
+    } else if (productDetail.product_type_id === 3) {
+      name = 'Sweatshirt'
+    } else if (productDetail.product_type_id === 4) {
+      name = 'Short Sleeve'
+    } else if (productDetail.product_type_id === 5) {
+      name = "Women's Short Sleeve"
+    }
+
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
     if (list.length > 0) return list[0].name
     else return name
@@ -187,7 +219,7 @@ const MerchOrderMain = props => {
           Back to store
         </div>
       </div>
-      <div className="w-full min-h-[680px] lg:px-[30px] pt-[20px] pb-[0px] flex flex-col justify-between">
+      <div className="w-full lg:px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
             <div className={styles.productName}>{productDetail?.name}</div>
@@ -457,9 +489,9 @@ const MerchOrderMain = props => {
             <div>
               <div className="flex gap-[6px] items-center mb-[2px]">
                 <SolanaLogoIcon className="mt-[4px]" />
-                <div className={styles.price}>0.65</div>
+                <div className={styles.price}>{(productDetail.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
               </div>
-              <div className={styles.priceUS}>$642.00</div>
+              <div className={styles.priceUS}> ${(productDetail.selling_price / 100).toFixed(2)}</div>
             </div>
           </div>
 

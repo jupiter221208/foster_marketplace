@@ -7,14 +7,14 @@ import { useRouter } from 'next/router'
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
 
 // images
-import merchImageFront from 'assets/images/merch-order-front.png'
-import merchImageBack from 'assets/images/merch-order-back.png'
-import merchImageLeft from 'assets/images/merch-order-left.png'
+// import merchImageFront from 'assets/images/merch-order-front.png'
+// import merchImageBack from 'assets/images/merch-order-back.png'
+// import merchImageLeft from 'assets/images/merch-order-left.png'
 
-import physicalImageFront from 'assets/images/merch-physical-front.jpg'
-import physicalImageBack from 'assets/images/merch-physical-back.jpg'
-import physicalImageRight from 'assets/images/merch-physical-right.jpg'
-import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
+// import physicalImageFront from 'assets/images/merch-physical-front.jpg'
+// import physicalImageBack from 'assets/images/merch-physical-back.jpg'
+// import physicalImageRight from 'assets/images/merch-physical-right.jpg'
+// import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
@@ -76,10 +76,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    console.log(publicArtistData, '==========publicArtistData========')
     StoreAPI.getStoreById(53, router.query.product_id).then(
       response => {
-        console.log(response, '=========response============')
         if (response) {
           setProductDetail(response)
           let imageList = []

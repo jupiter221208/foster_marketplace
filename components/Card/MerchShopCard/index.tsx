@@ -105,7 +105,7 @@ const MerchShopCard = props => {
           </div>
         )}
         {indicatorList.length > 1 && (
-          <div className="absolute left-0 bottom-[15px] w-full flex justify-center z-[100]">
+          <div className="absolute left-0 bottom-[15px] w-full sm:flex hidden justify-center z-[10]">
             <div className="gap-[14px] h-[5px] flex justify-around">
               {indicatorList.map((item, index) => (
                 <div key={index} className={item ? styles.selected : styles.nonSelected} />
@@ -116,16 +116,30 @@ const MerchShopCard = props => {
       </div>
 
       <div className={styles.bottomSection}>
-        <div className="w-full mt-[20px] sm:mt-[15px] flex justify-between gap-[20px]">
+        {indicatorList.length > 1 ? (
+          <div className="w-full flex sm:hidden justify-center mt-[30px]">
+            <div className="gap-[14px] h-[5px] flex justify-around">
+              {indicatorList.map((item, index) => (
+                <div key={index} className={item ? styles.selected : styles.nonSelected} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="w-full flex sm:hidden h-[20px]" />
+        )}
+
+        <div className="w-full mt-[10px] sm:mt-[15px] sm:flex sm:flex-row flex-col justify-between gap-[20px]">
           <div className={styles.nftName}>{data.name}</div>
           <div>
             <div className="sm:flex hidden gap-[4px] items-center">
               <div className="mt-[2px]">
                 <SolanaLogoIcon />
               </div>
-              <div className={styles.price}>{(data.selling_price / solToUsdRate).toFixed(2)}</div>
+              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
             </div>
-            <div className={`${styles.dollarPrice} text-end mt-[7px]`}>${data.selling_price.toFixed(2)}</div>
+            <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
+              ${(data.selling_price / 100).toFixed(2)}
+            </div>
           </div>
         </div>
 

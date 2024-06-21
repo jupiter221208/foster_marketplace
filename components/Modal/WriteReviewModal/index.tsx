@@ -11,7 +11,6 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // resources
 import CloseIcon from 'assets/icons/close-wallet.svg?component'
-import merchImageFront from 'assets/images/merch-order-front.png'
 import PlusIcon from 'assets/icons/plus-circle-icon.svg?component'
 
 // styles
