@@ -314,9 +314,9 @@ const AdditionalDetails = props => {
               {/* <div className={styles.title}>Release Details</div> */}
               {saleMethod.id === 0 ? (
                 <div className={`${styles.releaseDetail} mt-[15px]`}>
-                  Once published, this merch item will appear on your store under "Merch Editions." You can activate it
-                  by listing an edition and toggling on the merch item as a bonus for each edition purchased. Your
-                  profit will be the difference between the listing price and the production cost.
+                  Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
+                  activate it by listing an edition and toggling on the merch item as a bonus for each edition
+                  purchased. Your profit will be the difference between the listing price and the production cost.
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -487,9 +487,9 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                Once published, this merch item will appear on your store under "Merch Editions." You can activate it
-                during an edition listing as a bonus for each purchase. The production cost will be added to the listing
-                price.
+                Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
+                activate it when listing an edition as a bonus for each purchase. The production cost will be added to
+                the listing price.
               </div>
             )}
             {saleMethod.id === 1 && (
