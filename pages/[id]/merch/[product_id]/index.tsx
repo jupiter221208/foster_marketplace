@@ -76,7 +76,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    StoreAPI.getStoreById(53, router.query.product_id).then(
+    console.log(publicArtistData, '=========publicArtistData=====')
+    StoreAPI.getStoreById(publicArtistData.artist.id, router.query.product_id).then(
       response => {
         if (response) {
           setProductDetail(response)

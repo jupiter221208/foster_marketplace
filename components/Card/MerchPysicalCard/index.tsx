@@ -109,10 +109,10 @@ const MerchPhysicalCard = props => {
         )}
       </div>
       <div className={styles.bottomSection}>
-        <div className="w-full mt-[20px] flex justify-between gap-[20px]">
+        <div className="w-full mt-[20px] flex justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
           <div>
-            <div className="flex gap-[4px] items-center">
+            <div className="flex gap-[4px] mt-[4px] items-center">
               <div className="mt-[2px]">
                 <SolanaLogoIcon />
               </div>

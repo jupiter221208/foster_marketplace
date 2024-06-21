@@ -101,9 +101,8 @@ const NewCreatorMerch = () => {
   }
 
   const createProduct = async () => {
-    console.log(profileInfo, '==========profileInfo==========')
-    console.log(productDetail, '==========productDetail==========')
-    console.log(additionDetail, '==========additionDetail==========')
+    // console.log(productDetail, '==========productDetail==========')
+    // console.log(additionDetail, '==========additionDetail==========')
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id
@@ -239,15 +238,15 @@ const NewCreatorMerch = () => {
         }
       }
 
-      console.log(params, '==========params==========')
+      // console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
           if (res) {
             setAlertData([
               {
                 id: 0,
-                title: 'Product Creation',
-                description: 'New project is created successfully.',
+                title: 'Product Created!',
+                description: `${productDetail.name} has been successfully added to your store.`,
                 type: 'success',
               },
             ])

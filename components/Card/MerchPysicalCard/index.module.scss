@@ -61,9 +61,7 @@
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-lines: 2;
 }
 
 .artistName {
@@ -87,9 +85,9 @@
 }
 
 .dollarPrice {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 16px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 14px;
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   white-space: nowrap;

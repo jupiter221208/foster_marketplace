@@ -128,10 +128,10 @@ const MerchShopCard = props => {
           <div className="w-full flex sm:hidden h-[20px]" />
         )}
 
-        <div className="w-full mt-[10px] sm:mt-[15px] sm:flex sm:flex-row flex-col justify-between gap-[20px]">
+        <div className="w-full mt-[10px] sm:mt-[15px] sm:flex sm:flex-row flex-col justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
           <div>
-            <div className="sm:flex hidden gap-[4px] items-center">
+            <div className="sm:flex hidden gap-[4px] mt-1 items-center">
               <div className="mt-[2px]">
                 <SolanaLogoIcon />
               </div>

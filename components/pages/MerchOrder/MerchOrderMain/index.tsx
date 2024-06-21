@@ -73,21 +73,27 @@ const MerchOrderMain = props => {
   }, [description])
 
   useEffect(() => {
+    console.log(productDetail, '==========productDetail======')
     let size_list
     switch (productDetail.product_type_id) {
       case 1:
+      case 2:
         size_list = SizeList[2].size
         break
-      case 2:
+      case 3:
+      case 4:
         size_list = SizeList[3].size
         break
-      case 3:
+      case 5:
+      case 6:
         size_list = SizeList[0].size
         break
-      case 4:
+      case 7:
+      case 8:
         size_list = SizeList[1].size
         break
-      case 5:
+      case 9:
+      case 10:
         size_list = SizeList[4].size
         break
       default:
@@ -159,15 +165,15 @@ const MerchOrderMain = props => {
     let type = 'Unisex'
     let name = 'Hoodie'
 
-    if (productDetail.product_type_id === 1) {
+    if (productDetail.product_type_id === 1 || productDetail.product_type_id === 2) {
       name = 'Hoodie'
-    } else if (productDetail.product_type_id === 2) {
+    } else if (productDetail.product_type_id === 3 || productDetail.product_type_id === 4) {
       name = 'Long Sleeve'
-    } else if (productDetail.product_type_id === 3) {
-      name = 'Sweatshirt'
-    } else if (productDetail.product_type_id === 4) {
+    } else if (productDetail.product_type_id === 5 || productDetail.product_type_id === 6) {
       name = 'Short Sleeve'
-    } else if (productDetail.product_type_id === 5) {
+    } else if (productDetail.product_type_id === 7 || productDetail.product_type_id === 8) {
+      name = 'Sweatshirt'
+    } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
       name = "Women's Short Sleeve"
     }
 
@@ -179,6 +185,19 @@ const MerchOrderMain = props => {
   const getApparelLabel = () => {
     let type = 'Unisex'
     let name = 'Hoodie'
+
+    if (productDetail.product_type_id === 1 || productDetail.product_type_id === 2) {
+      name = 'Hoodie'
+    } else if (productDetail.product_type_id === 3 || productDetail.product_type_id === 4) {
+      name = 'Long Sleeve'
+    } else if (productDetail.product_type_id === 5 || productDetail.product_type_id === 6) {
+      name = 'Short Sleeve'
+    } else if (productDetail.product_type_id === 7 || productDetail.product_type_id === 8) {
+      name = 'Sweatshirt'
+    } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
+      name = "Women's Short Sleeve"
+    }
+
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
     if (list.length > 0) return list[0].label
     else return name
