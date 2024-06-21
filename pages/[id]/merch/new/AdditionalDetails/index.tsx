@@ -311,15 +311,12 @@ const AdditionalDetails = props => {
               </div>
             </div>
             <div className="w-full mt-[20px] sm:mt-[30px] mb-[100px]">
-              <div className={styles.title}>Release Details</div>
+              {/* <div className={styles.title}>Release Details</div> */}
               {saleMethod.id === 0 ? (
-                <div className={`${styles.desc} mt-[15px]`}>
-                  Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
-                  an edition, you can choose to toggle this merch item for every edition purchased. Once you have
-                  enabled this merch item, it will become available as an added bonus to your collectors. If you enable
-                  this merch item when listing an edition, please note that the production price for this merch item
-                  will be added to the listing price. As a merch edition, your profit will be dictated by the listing
-                  price of the edition.
+                <div className={`${styles.releaseDetail} mt-[15px]`}>
+                  Once published, this merch item will appear on your store under "Merch Editions." You can activate it
+                  by listing an edition and toggling on the merch item as a bonus for each edition purchased. Your
+                  profit will be the difference between the listing price and the production cost.
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -490,8 +487,9 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                This method of sale allows will save the item to your merch brand & design library. When you are listing
-                an edition, you can choose to toggle on merch for every edition purchased
+                Once published, this merch item will appear on your store under "Merch Editions." You can activate it
+                during an edition listing as a bonus for each purchase. The production cost will be added to the listing
+                price.
               </div>
             )}
             {saleMethod.id === 1 && (
