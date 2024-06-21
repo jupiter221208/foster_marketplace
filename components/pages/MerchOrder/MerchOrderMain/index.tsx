@@ -298,7 +298,7 @@ const MerchOrderMain = props => {
 
           <div className={`mt-[20px] ${styles.divider}`} />
 
-          {type === 'foster' && (
+          {productDetail.fulfillment_type === 'foster' && (
             <div className="mt-[15px]">
               <div className={styles.desc}>Details</div>
               <div className="w-full flex justify-between mt-[7px]">
@@ -322,7 +322,7 @@ const MerchOrderMain = props => {
             </div>
           )}
 
-          {type === 'user' && (
+          {productDetail.fulfillment_type === 'user' && (
             <div className="mt-[15px]">
               <div className={styles.desc}>Description</div>
 
