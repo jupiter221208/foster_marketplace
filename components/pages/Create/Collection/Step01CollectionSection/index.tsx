@@ -339,7 +339,11 @@ const Step01CollectionSection = props => {
                             <div {...getRootProps()} className={styles.selectBannerArea}>
                               <input {...getInputProps()} />
                               <p className={styles.uploadText}>Upload File</p>
-                              <p className={styles.text}>Supported File Formats .png and .jpeg</p>
+                              <p className={styles.text}>
+                                Supported File Formats
+                                <br />
+                                .png and .jpeg
+                              </p>
                               <p className={styles.greenText}>Max File Size 100mb</p>
                             </div>
                           </section>
@@ -347,7 +351,14 @@ const Step01CollectionSection = props => {
                       </Dropzone>
                     ) : (
                       <div>
-                        <Image src={bannerCroppedImage} width={550} height={158} alt="" objectFit="cover" />
+                        <Image
+                          src={bannerCroppedImage}
+                          width={550}
+                          height={158}
+                          alt=""
+                          objectFit="cover"
+                          className="rounded-[10px] overflow-hidden"
+                        />
                         <div className="absolute bottom-2 right-[10px] z-[1000]">
                           <Dropzone
                             onDrop={acceptedFiles => {
@@ -420,15 +431,26 @@ const Step01CollectionSection = props => {
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
                                 <p className={styles.uploadText}>Upload File</p>
-                                <p className={styles.textCover}>Supported File Formats .png and .jpeg</p>
-                                <p className={styles.greenTextCover}>Max File Size 10mb</p>
+                                <p className={styles.text}>
+                                  Supported File Formats
+                                  <br />
+                                  .png and .jpeg
+                                </p>
+                                <p className={styles.greenText}>Max File Size 10mb</p>
                               </div>
                             </section>
                           )}
                         </Dropzone>
                       ) : (
                         <div>
-                          <Image src={coverCroppedImage} width={304} height={304} alt="" objectFit="cover" />
+                          <Image
+                            src={coverCroppedImage}
+                            width={304}
+                            height={304}
+                            alt=""
+                            objectFit="cover"
+                            className="rounded-[10px] overflow-hidden"
+                          />
                           <div className="absolute bottom-2 right-[10px]">
                             <Dropzone
                               onDropAccepted={acceptedFiles => {
@@ -537,24 +559,19 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  {/* <div className={`${styles.categoryDesc} mt-[9px]`}>Select up to three categories</div>
-                  <div className="w-full mt-[15px]">
-                    <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
-                  </div> */}
+                  <div className="absolute w-[122px] h-[53px] right-[0px] bottom-[0px] z-[10]">
+                    <GradientButton
+                      label="Next"
+                      disabled={disabledNextButton}
+                      width={122}
+                      height={53}
+                      borderRadius={30}
+                      onClick={() => onNext()}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="absolute w-[122px] h-[53px] right-[57px] bottom-[41px]">
-            <GradientButton
-              label="Next"
-              disabled={disabledNextButton}
-              width={122}
-              height={53}
-              borderRadius={30}
-              onClick={() => onNext()}
-            />
           </div>
         </div>
       ) : (
@@ -587,8 +604,12 @@ const Step01CollectionSection = props => {
                       <section className={styles.dropzone}>
                         <div {...getRootProps()} className={styles.selectBannerArea}>
                           <input {...getInputProps()} />
-                          <p className={styles.uploadText}>Upload Here</p>
-                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                          <p className={styles.uploadText}>Upload File</p>
+                          <p className={styles.text}>
+                            Supported file formats
+                            <br />
+                            .png and .jpeg
+                          </p>
                           <p className={styles.greenText}>Max File Size 100mb</p>
                         </div>
                       </section>
@@ -596,7 +617,14 @@ const Step01CollectionSection = props => {
                   </Dropzone>
                 ) : (
                   <div className="relative">
-                    <Image src={bannerCroppedImage} width={375} height={120} alt="" objectFit="cover" />
+                    <Image
+                      src={bannerCroppedImage}
+                      width={375}
+                      height={120}
+                      alt=""
+                      objectFit="cover"
+                      className="rounded-[10px] overflow-hidden"
+                    />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDrop={acceptedFiles => {
@@ -669,8 +697,12 @@ const Step01CollectionSection = props => {
                       <section className={styles.dropzone}>
                         <div {...getRootProps()} className={styles.selectArea}>
                           <input {...getInputProps()} />
-                          <p className={styles.uploadText}>Upload Here</p>
-                          <p className={styles.text}>Supported file formats are .png .jpeg</p>
+                          <p className={styles.uploadText}>Upload File</p>
+                          <p className={styles.text}>
+                            Supported file formats
+                            <br />
+                            .png and .jpeg
+                          </p>
                           <p className={styles.greenText}>Max File Size 100mb</p>
                         </div>
                       </section>
@@ -678,7 +710,14 @@ const Step01CollectionSection = props => {
                   </Dropzone>
                 ) : (
                   <div>
-                    <Image src={coverCroppedImage} width={140} height={140} alt="" objectFit="cover" />
+                    <Image
+                      src={coverCroppedImage}
+                      width={140}
+                      height={140}
+                      alt=""
+                      objectFit="cover"
+                      className="rounded-[10px] overflow-hidden"
+                    />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDropAccepted={acceptedFiles => {

@@ -89,6 +89,9 @@
   span {
     color: var(--main-icon-color);
   }
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .descriptionArea {
@@ -232,8 +235,8 @@
 
 .text {
   font-family: 'Muli-Regular';
-  font-size: 11px;
-  line-height: 19px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 18px;

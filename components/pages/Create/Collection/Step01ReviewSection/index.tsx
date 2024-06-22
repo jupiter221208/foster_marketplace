@@ -60,7 +60,7 @@ const Step01ReviewSection = props => {
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="w-full mt-[44px]">
+        <div className="w-full mt-[44px] mb-[100px]">
           <div className="w-full g-container">
             <div className={styles.container}>
               <div className="w-full">
@@ -76,31 +76,24 @@ const Step01ReviewSection = props => {
                     </div>
                     <div className={`${styles.subTitle} mt-[10px] w-full text-center`}>{collectionName}</div>
                   </div>
-                  <div className="mt-[82px]">
-                    <div className={`${styles.subTitle} mt-[24px]`}>Description</div>
-                    <div className={`${styles.desc} mt-[15px]`}>{description}</div>
+                </div>
+              </div>
+              <div className="mt-[30px] px-[50px]">
+                <div className={`${styles.subTitle}`}>Description</div>
+                <div className={`${styles.desc} mt-[10px]`}>{description}</div>
 
-                    {displayCategory && <div className={`${styles.subTitle} mt-[22px]`}>Categories</div>}
+                {displayCategory && <div className={`${styles.subTitle} mt-[20px]`}>Categories</div>}
 
-                    {displayCategory && (
-                      <div className="w-full flex flex-wrap justify-start items-center mt-[15px] gap-[10px]">
-                        {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                      </div>
-                    )}
-
-                    <div className={`${styles.subTitle} mt-[22px] flex justify-start`}>Royalties</div>
-                    <div className="max-w-[370px] w-full mt-[9px]">
-                      <Input
-                        value={royalties + ' %'}
-                        width={70}
-                        height={27}
-                        fontSize={13}
-                        fontFamily="Muli-SemiBold"
-                        min="0"
-                        onChange={() => {}}
-                      />
-                    </div>
+                {displayCategory && (
+                  <div className="w-full flex flex-wrap justify-start items-center mt-[15px] gap-[10px]">
+                    {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
                   </div>
+                )}
+
+                <div className={`${styles.subTitle} mt-[22px] flex justify-start`}>Royalties</div>
+
+                <div className="max-w-[370px] w-full mt-[9px]">
+                  <div className={styles.desc}>{royalties + ' %'}</div>
                 </div>
               </div>
               <div className="absolute w-[122px] h-[53px] right-[57px] bottom-[41px]">
