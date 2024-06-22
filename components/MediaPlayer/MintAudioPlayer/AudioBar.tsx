@@ -45,16 +45,19 @@ const Bar = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-around items-center h-[31px] lg:h-[45px] lg:mb-[25px] mb-[20px] px-[10px] lg:px-[30px]">
-        <span className={styles.time}>{formatDuration(curTime)}</span>
-
-        <IconButtonWithSVG
-          icon={playing ? <PauseWhiteIcon /> : <PlayWhiteIcon />}
-          onClick={() => onPlay()}
-          backgroundColor="transparent"
-        />
-
-        <span className={styles.time}>{formatDuration(duration)}</span>
+      <div className="w-full flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[10px] lg:px-[0px]">
+        <div className={styles.playButton}>
+          <IconButtonWithSVG
+            icon={playing ? <PauseWhiteIcon className="ml-[2px]" /> : <PlayWhiteIcon className="ml-[2px]" />}
+            onClick={() => onPlay()}
+            backgroundColor="transparent"
+          />
+        </div>
+        <div className="flex gap-1">
+          <span className={styles.time}>{formatDuration(curTime)}</span>
+          <div className={styles.time}>/</div>
+          <span className={styles.time}>{formatDuration(duration)}</span>
+        </div>
       </div>
 
       <div className={styles.bar}>
@@ -62,7 +65,7 @@ const Bar = props => {
           id="bar__progress"
           className={styles.bar__progress}
           style={{
-            background: `linear-gradient(to right, var(--main-icon-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
+            background: `linear-gradient(to right, var(--main-bg-color) ${curPercentage}%, rgba(var(--main-bg-color-rgb), 0.2) 0)`,
           }}
           onMouseDown={e => handleTimeDrag(e)}
         >
