@@ -30,6 +30,8 @@ import { useViewport } from 'utils'
 
 // images and icons
 import BackIcon from 'assets/icons/back-arrow.svg?component'
+import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
+
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
@@ -49,6 +51,7 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -631,7 +634,7 @@ const SingleNft = () => {
                 <BackIcon />
                 <div className={styles.createEdition}>
                   {currentStep === 1
-                    ? 'Create Edition'
+                    ? 'Create'
                     : currentStep === 2
                     ? 'Additional Details'
                     : currentStep === 3
@@ -686,9 +689,14 @@ const SingleNft = () => {
                               <section className={styles.dropzone}>
                                 <div {...getRootProps()} className={styles.selectArea}>
                                   <input {...getInputProps()} />
-                                  <p className={styles.uploadText}>Upload Artwork</p>
-                                  <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
-                                  <p className={styles.greenText}>Max File Size 100mb</p>
+                                  <UploadGreenIcon alt="" />
+                                  <p className={styles.uploadText}>Upload Here</p>
+                                  <p className={styles.text}>
+                                    Supported File Formats
+                                    <br />
+                                    .png .jpeg .mp4 .mp3 .gif .glb
+                                  </p>
+                                  <p className={`${styles.greenText} mt-[15px]`}>Max File Size 100mb</p>
                                 </div>
                               </section>
                             )}
@@ -880,93 +888,133 @@ const SingleNft = () => {
             <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
           ) : (
             <div className="g-container mb-[47px]">
-              <div className="w-full flex flex-wrap justify-center flex-row">
-                {nftType === 'vr' ? (
-                  <div className="max-w-[550px] w-full mx-auto aspect-square">
-                    <ModelViewer
-                      path={nftUrl}
-                      preserveDrawingBuffer
-                      getSnapshot={{
-                        onSnapshot: image => {
-                          setNftImage(URL.createObjectURL(image))
-                          setTakeSnapshotStatus(false)
-                        },
-                        status: takeSnapshotStatus,
-                      }}
-                    />
-                  </div>
-                ) : nftType === 'image' ? (
-                  <div
-                    className={`${styles.artArea}`}
-                    style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+              {nftArt === null ? (
+                <div className="w-full">
+                  <Dropzone
+                    onDropAccepted={acceptedFiles => {
+                      acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
+                    }}
+                    onDropRejected={rejectedFiles => {
+                      handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
+                    }}
+                    accept={{
+                      'image/jpeg': [],
+                      'image/png': [],
+                      'image/gif': [],
+                      'video/mp4': [],
+                      'audio/mpeg': [],
+                      'audio/wav': [],
+                      'model/gltf-binary': ['.glb'],
+                    }}
+                    maxFiles={1}
+                    maxSize={104857600}
                   >
-                    {nftImage !== '' && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
-                    ) : (
-                      <div
-                        className={`${styles.artArea}`}
-                        style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
-                      />
+                    {({ getRootProps, getInputProps }) => (
+                      <section className={styles.dropzone}>
+                        <div {...getRootProps()} className={styles.selectArea}>
+                          <input {...getInputProps()} />
+                          <UploadGreenIcon alt="" className="mb-[20px]" />
+                          <p className={styles.uploadText}>Upload Here</p>
+                          <p className={styles.text}>
+                            Supported File Formats
+                            <br />
+                            .png .jpeg .mp4 .mp3 .gif .glb
+                          </p>
+                          <p className={`${styles.greenText} mt-[15px]`}>Max File Size 100mb</p>
+                        </div>
+                      </section>
                     )}
-                  </div>
-                ) : (
-                  <div
-                    className={`${styles.artArea}`}
-                    style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
-                  >
-                    {nftType === 'video' && nftArt !== null ? (
-                      <video controls className="w-full h-full" id="video">
-                        <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : nftType === 'audio' && nftArt !== null ? (
-                      <div className="w-full h-full z-10">
-                        <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
-                        {nftImage !== '' && artWidth !== 0 && (
-                          <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
-                        )}
-                      </div>
-                    ) : nftImage !== '' && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
-                    ) : (
-                      <div
-                        className={`${styles.artArea}`}
-                        style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                  </Dropzone>
+                </div>
+              ) : (
+                <div className="w-full flex flex-wrap justify-center flex-row">
+                  {nftType === 'vr' ? (
+                    <div className="max-w-[550px] w-full mx-auto aspect-square">
+                      <ModelViewer
+                        path={nftUrl}
+                        preserveDrawingBuffer
+                        getSnapshot={{
+                          onSnapshot: image => {
+                            setNftImage(URL.createObjectURL(image))
+                            setTakeSnapshotStatus(false)
+                          },
+                          status: takeSnapshotStatus,
+                        }}
                       />
-                    )}
-                  </div>
-                )}
-
-                {nftArt !== null && currentStep === 1 && (
-                  <div className="w-full mt-4 flex justify-center">
-                    <div className="w-full flex justify-between">
-                      {currentStep === 1 &&
-                      (nftType === 'image' ||
-                        (nftType === 'audio' &&
-                          nftImage !== '' &&
-                          nftCover !== null &&
-                          nftCover[0].type !== 'image/gif')) ? (
-                        <DimensionMenu
-                          dimensionList={dimensionList}
-                          selectedDimension={selectedDimension}
-                          onSelect={item => handleChangeDimension(item)}
-                        />
+                    </div>
+                  ) : nftType === 'image' ? (
+                    <div
+                      className={`${styles.artArea}`}
+                      style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                    >
+                      {nftImage !== '' && artWidth !== 0 ? (
+                        <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
                       ) : (
-                        <>&nbsp;</>
-                      )}
-                      {currentStep === 1 && (
-                        <IconButtonWithSVG
-                          icon={<TrashBin className={styles.trashIcon} />}
-                          onClick={() => handleDeleteNftArt()}
-                          backgroundColor="transparent"
-                          width="32px"
-                          height="32px"
+                        <div
+                          className={`${styles.artArea}`}
+                          style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                         />
                       )}
                     </div>
-                  </div>
-                )}
-              </div>
+                  ) : (
+                    <div
+                      className={`${styles.artArea}`}
+                      style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                    >
+                      {nftType === 'video' && nftArt !== null ? (
+                        <video controls className="w-full h-full" id="video">
+                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : nftType === 'audio' && nftArt !== null ? (
+                        <div className="w-full h-full z-10">
+                          <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                          {nftImage !== '' && artWidth !== 0 && (
+                            <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                          )}
+                        </div>
+                      ) : nftImage !== '' && artWidth !== 0 ? (
+                        <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
+                      ) : (
+                        <div
+                          className={`${styles.artArea}`}
+                          style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  {nftArt !== null && currentStep === 1 && (
+                    <div className="w-full mt-4 flex justify-center">
+                      <div className="w-full flex justify-between">
+                        {currentStep === 1 &&
+                        (nftType === 'image' ||
+                          (nftType === 'audio' &&
+                            nftImage !== '' &&
+                            nftCover !== null &&
+                            nftCover[0].type !== 'image/gif')) ? (
+                          <DimensionMenu
+                            dimensionList={dimensionList}
+                            selectedDimension={selectedDimension}
+                            onSelect={item => handleChangeDimension(item)}
+                          />
+                        ) : (
+                          <>&nbsp;</>
+                        )}
+                        {currentStep === 1 && (
+                          <IconButtonWithSVG
+                            icon={<TrashBin className={styles.trashIcon} />}
+                            onClick={() => handleDeleteNftArt()}
+                            backgroundColor="transparent"
+                            width="32px"
+                            height="32px"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <>
@@ -1043,21 +1091,20 @@ const SingleNft = () => {
                 {/* button group part */}
                 {currentStep === 1 && (
                   <div className="w-full">
-                    <div className="w-full">
-                      <PrimaryButton
-                        fullWidth
-                        label="Next"
-                        type="next"
-                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
-                        disabled={disabledNextButton}
-                      />
-                    </div>
-                    <div className="mt-[18px]">
-                      <SecondaryButton
+                    <div className="">
+                      <OutlineButton
                         fullWidth
                         label="Back"
                         type="back"
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                      />
+                    </div>
+                    <div className="w-full mt-[18px]">
+                      <GradientButton
+                        fullWidth
+                        label="Next"
+                        onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                        disabled={disabledNextButton}
                       />
                     </div>
                   </div>

@@ -18,22 +18,17 @@
 .collaborationTitle {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  margin-top: 30px;
+  line-height: 20px;
+  margin-top: 24px;
   color:var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 .collaborationText {
   font-family: 'Muli-Light';
-  color: rgba(var(--text-gray-200-color-rgb), 0.5);
-  font-size: 14px;
-  margin-top: 7px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    margin-top: 5px;  
-  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+  font-size: 16px;
+  line-height: 18px;
+  margin-top: 14px;
 }
 
 .tokenIndex {
@@ -76,17 +71,15 @@
 }
 
 .button {
-  width: 100%;
-  max-width: 540px;
+  width: 140px;
+  height: 50px;
   font-family: 'Muli-Regular';
   color: var(--text-gray-200-color);
   font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  line-height: 20px;
+  border-radius: 30px;
   background: var(--second-home-bg);
-  height: 50px;
   display: flex;
-  gap: 17px;
   justify-content: center;
   align-items: center;
   cursor: pointer;

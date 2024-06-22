@@ -273,13 +273,13 @@ const Step01SingleNFTSection = props => {
         </div>
       ) : (
         <div className="w-full">
-          {nftType === 'audio' && (
+          {/* {nftType === 'audio' && (
             <div className={`${styles.subTitle} mt-5`}>
               Art <span>*</span>
             </div>
-          )}
+          )} */}
           <div className="mt-5">
-            <Dropzone
+            {/* <Dropzone
               onDropAccepted={acceptedFiles => {
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
               }}
@@ -313,7 +313,7 @@ const Step01SingleNFTSection = props => {
                   </div>
                 </section>
               )}
-            </Dropzone>
+            </Dropzone> */}
             {nftType === 'vr' && (
               <>
                 <div className={styles.coverImgMsg}>

@@ -215,29 +215,16 @@ const Step03SingleNFTSection = props => {
       <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
       <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
 
-      <div className={`${styles.subTitle} mt-[30px]`}>
-        Royalties <span>*</span>
+      <div className={styles.collaborationTitle}>Creators</div>
+      <div className={styles.collaborationText}>
+        The creators fields are used to define who should receive royalties from secondary sales. By default the minter
+        receives 100% of royalties.{' '}
       </div>
-      <div className="max-w-[370px] w-full mt-[15px]">
-        <Input
-          value={royalties}
-          placeholder="Insert a royalty percentage"
-          label01="From 0 to 10%"
-          min={0}
-          onChange={value => {
-            let royal = validDigits(value)
-            if (royal > 10) setRoyalties(10)
-            else setRoyalties(Math.floor(royal))
-          }}
-        />
-      </div>
-      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
-      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
 
       <div className="max-w-[575px] max-h-[370px] w-full mt-[15px]">
         {creatorList.map(({ address, share }, index) => {
           return (
-            <div key={index} className="w-full flex mb-[20px] gap-[15px] items-center">
+            <div key={index} className="w-full flex mb-[15px] gap-[15px] items-center">
               <div className="w-full max-w-[540px] flex gap-[18px]">
                 <div className="w-full relative">
                   <input
@@ -275,11 +262,27 @@ const Step03SingleNFTSection = props => {
         })}
       </div>
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
-      <div className="max-w-[575px] w-full pr-[35px]">
-        <div className={styles.button} onClick={() => addAnotherCreator()}>
-          <CrossPlusIcon />
-          Add another wallet
-        </div>
+
+      <div className={styles.button} onClick={() => addAnotherCreator()}>
+        {/* <CrossPlusIcon /> */}
+        Add Creator
+      </div>
+
+      <div className={`${styles.subTitle} mt-[30px]`}>
+        Royalties <span>*</span>
+      </div>
+      <div className="max-w-[370px] w-full mt-[15px]">
+        <Input
+          value={royalties}
+          placeholder="Insert a royalty percentage"
+          label01="From 0 to 10%"
+          min={0}
+          onChange={value => {
+            let royal = validDigits(value)
+            if (royal > 10) setRoyalties(10)
+            else setRoyalties(Math.floor(royal))
+          }}
+        />
       </div>
       <div className="w-full flex justify-end mt-[50px]">
         <div className="flex gap-10"></div>
@@ -443,8 +446,8 @@ const Step03SingleNFTSection = props => {
       </div>
       {showAlert && <div className={styles.prosErrorText}>Total Percentage should be 100%</div>}
       <div className={styles.button} onClick={() => addAnotherCreator()}>
-        <CrossPlusIcon />
-        Add another wallet
+        {/* <CrossPlusIcon /> */}
+        Add Creator
       </div>
 
       <div className="w-full flex flex-wrap gap-[18px] mt-[30px]">
