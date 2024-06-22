@@ -91,41 +91,6 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full pr-[20px]">
-          {/* <div className={`${styles.subTitle}`}>
-            Upload Art <span>*</span>
-          </div> */}
-          {/* <div className="mt-[21px]">
-            <Dropzone
-              onDropAccepted={acceptedFiles => {
-                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
-              }}
-              onDropRejected={rejectedFiles => {
-                handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
-              }}
-              accept={{
-                'image/jpeg': [],
-                'image/png': [],
-                'image/gif': [],
-                'video/mp4': [],
-                'audio/mpeg': [],
-                'audio/wav': [],
-                'model/gltf-binary': ['.glb'],
-              }}
-              maxFiles={1}
-              maxSize={104857600}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section className={styles.dropzone}>
-                  <div {...getRootProps()} className={styles.selectArea}>
-                    <input {...getInputProps()} />
-                    <p className={styles.uploadText}>Upload Here</p>
-                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 .gif .glb</p>
-                    <p className={styles.greenText}>Max File Size 100mb</p>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
-          </div> */}
           <div className="w-full">
             <div className={`${styles.subTitle}`}>
               Name <span>*</span>

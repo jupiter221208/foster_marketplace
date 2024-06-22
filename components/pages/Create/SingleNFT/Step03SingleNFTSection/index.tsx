@@ -214,7 +214,7 @@ const Step03SingleNFTSection = props => {
         </div>
       )}
 
-      <div className={`${styles.subTitle} mt-[30px] mb-[15px]`}>Category (optional)</div>
+      <div className={`${styles.subTitle} mb-[15px]`}>Category (optional)</div>
       <CategorySelectionMenu categoryList={categoryList} handleSelectCategory={handleSelectCategory} />
 
       <div className={styles.collaborationTitle}>Creators</div>
@@ -289,7 +289,7 @@ const Step03SingleNFTSection = props => {
           }}
         />
       </div>
-      <div className="w-full flex justify-end mt-[50px]">
+      <div className="w-full flex justify-end mt-[20px]">
         <div className="flex gap-10"></div>
       </div>
     </div>

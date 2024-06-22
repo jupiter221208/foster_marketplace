@@ -125,7 +125,7 @@ const SingleNft = () => {
         width = screenWidth / 2 - 120 - 80 - 32 - 8
         break
       case 'lg':
-        width = screenWidth / 2 - 100 - 50 - 32 - 8
+        width = 400
         break
       case 'md':
         width = screenWidth - 200 - 32 - 8
@@ -641,21 +641,6 @@ const SingleNft = () => {
                     ? 'Review'
                     : ''}
                 </div>
-                {/* <div className="w-full g-container mt-[66px]">
-                  <ProgressSection
-                    currentStep={currentStep}
-                    nextDisabled={disabledNextButton}
-                    onBack={() => {
-                      if (currentStep >= 1) {
-                        setEditionType(null)
-                      }
-                      handleChangeCurrentStep(currentStep - 1)
-                    }}
-                    onNext={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
-                    loading={isMinting}
-                    labels={['Artwork Details', 'Additional Details', 'Review']}
-                  />
-                </div> */}
               </div>
               <div className="w-full flex justify-center g-container mt-[45px]">
                 <div
@@ -703,9 +688,11 @@ const SingleNft = () => {
                           </Dropzone>
                         </div>
                       ) : (
-                        <div className={`max-w-[550px] relative w-full flex flex-wrap justify-center z-10`}>
+                        <div
+                          className={`max-w-[400px] xl:max-w-[550px] relative w-full flex flex-wrap justify-center z-10`}
+                        >
                           {nftType === 'vr' && nftUrl ? (
-                            <div className="w-[550px] w-full mx-auto aspect-square">
+                            <div className="max-w-[400px] xl:max-w-[550px] w-full mx-auto aspect-square">
                               <ModelViewer
                                 path={nftUrl}
                                 preserveDrawingBuffer
@@ -722,10 +709,9 @@ const SingleNft = () => {
                             <div
                               className={styles.artArea}
                               style={{
-                                width: 550,
-                                maxWidth: 550,
-                                height: 550,
-                                maxHeight: 550,
+                                width: viewport === 'lg' ? '400px' : '550px',
+                                minWidth: viewport === 'lg' ? '400px' : '550px',
+                                height: viewport === 'lg' ? '400px' : '550px',
                               }}
                             >
                               {nftImage !== '' && artWidth !== 0 && (
