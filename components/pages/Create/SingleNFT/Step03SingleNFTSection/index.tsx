@@ -29,6 +29,8 @@ import ArrowDownIcon from 'assets/icons/arrow-down-white.svg?component'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 import CategoryList from 'assets/json/popular-category.json'
 import Chip from 'components/Chip'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const Step03SingleNFTSection = props => {
   const {
@@ -240,20 +242,23 @@ const Step03SingleNFTSection = props => {
                     <div className={styles.addressErrorText}>Please provide a valid Solana address</div>
                   )}
                 </div>
-                {creatorList.length > 1 && (
-                  <input
-                    className={styles.inputPros}
-                    value={share}
-                    placeholder={'100'}
-                    onChange={event => {
-                      let pros = validDigits(event.target.value)
-                      if (pros === '') {
-                        setCreatorShare(index, '')
-                      } else {
-                        setCreatorShare(index, event.target.value)
-                      }
-                    }}
-                  />
+                {creatorList.length > 0 && (
+                  <div className="flex gap-[4px] items-center">
+                    <input
+                      className={styles.inputPros}
+                      value={share}
+                      placeholder={'100'}
+                      onChange={event => {
+                        let pros = validDigits(event.target.value)
+                        if (pros === '') {
+                          setCreatorShare(index, '')
+                        } else {
+                          setCreatorShare(index, event.target.value)
+                        }
+                      }}
+                    />
+                    <div className={styles.percent}>%</div>
+                  </div>
                 )}
               </div>
               <div className="w-[20px]">{index > 0 && <TrashIcon onClick={() => removeCreator(index)} />}</div>
@@ -385,25 +390,11 @@ const Step03SingleNFTSection = props => {
         )}
       </div>
 
-      <div className={`${styles.subTitle} mt-[30px]`}>
-        Royalties <span>*</span>
+      <div className={styles.collaborationTitle}>Creators</div>
+      <div className={styles.collaborationText}>
+        The creators fields are used to define who should receive royalties from secondary sales. By default the minter
+        receives 100% of royalties.{' '}
       </div>
-      <div className="max-w-[370px] w-full mt-[15px]">
-        <Input
-          value={royalties}
-          placeholder="Insert a royalty percentage"
-          label01="From 0 to 10%"
-          color={'var(--text-gray-200-color)'}
-          min={0}
-          onChange={value => {
-            let royal = validDigits(value)
-            if (royal > 10) setRoyalties(10)
-            else setRoyalties(Math.floor(royal))
-          }}
-        />
-      </div>
-      <div className={styles.collaborationTitle}>Add Collaborators (optional)</div>
-      <div className={styles.collaborationText}>The split percentage applies to royalties on secondary sales.</div>
       <div className="max-w-[540px] max-h-[350px] w-full mt-[18px]">
         {creatorList.map(({ address, share }, index) => {
           return (
@@ -450,9 +441,27 @@ const Step03SingleNFTSection = props => {
         Add Creator
       </div>
 
+      <div className={`${styles.subTitle} mt-[30px]`}>
+        Royalties <span>*</span>
+      </div>
+      <div className="max-w-[370px] w-full mt-[15px]">
+        <Input
+          value={royalties}
+          placeholder="Insert a royalty percentage"
+          label01="From 0 to 10%"
+          color={'var(--text-gray-200-color)'}
+          min={0}
+          onChange={value => {
+            let royal = validDigits(value)
+            if (royal > 10) setRoyalties(10)
+            else setRoyalties(Math.floor(royal))
+          }}
+        />
+      </div>
+
       <div className="w-full flex flex-wrap gap-[18px] mt-[30px]">
-        <PrimaryButton fullWidth label="Next" type="next" onClick={() => onNextStep()} disabled={disabledNextButton} />
-        <SecondaryButton fullWidth label="Back" type="back" onClick={() => onBack()} />
+        <OutlineButton fullWidth label="Back" onClick={() => onBack()} />
+        <GradientButton fullWidth label="Next" onClick={() => onNextStep()} disabled={disabledNextButton} />
       </div>
     </div>
   )

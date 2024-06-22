@@ -27,6 +27,7 @@
   font-family: 'Muli-Light';
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
   font-size: 16px;
+  font-weight: 100;
   line-height: 18px;
   margin-top: 14px;
 }
@@ -68,6 +69,14 @@
   outline: none;
   padding: 0px 5px;
   text-align: center;
+}
+
+.percent {
+  font-family: 'Muli-Light';
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 18px;
 }
 
 .button {
