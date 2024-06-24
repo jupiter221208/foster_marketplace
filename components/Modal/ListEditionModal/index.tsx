@@ -7,7 +7,6 @@ import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 
 // componenets
-import AuctionDetail from 'components/pages/BrowseNFT/AuctionDetail'
 import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 

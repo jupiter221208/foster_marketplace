@@ -26,11 +26,14 @@
   }
 }
 
-.auctionDetail {
-  font-family: 'Muli-Bold';
+.auctionDetailText {
+  font-family: 'Muli-SemiBold';
   font-size: 22px;
   font-weight: 100;
   color: var(--text-gray-200-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
   @media (min-width: 1024px) {
     font-size: 22px;
   }
