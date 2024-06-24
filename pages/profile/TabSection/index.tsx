@@ -176,6 +176,17 @@ const TabSection = props => {
             />
 
             <TimeSlotButton
+              label="Live Editions"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'editions'}
+              onClick={() => {
+                setArtworkType('editions')
+              }}
+              className="min-w-max"
+            />
+
+            <TimeSlotButton
               label="Studio"
               height={42}
               fontFamily={'Muli-Regular'}
@@ -203,17 +214,6 @@ const TabSection = props => {
               onClick={() => {
                 setArtworkType('collected')
               }}
-            />
-
-            <TimeSlotButton
-              label="Live Editions"
-              height={42}
-              fontFamily={'Muli-Regular'}
-              selected={artworkType === 'editions'}
-              onClick={() => {
-                setArtworkType('editions')
-              }}
-              className="min-w-max"
             />
           </div>
 
