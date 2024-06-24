@@ -111,18 +111,20 @@ const Step04SingleNFTSection = props => {
 
       {type !== 0 && (
         <div>
-          <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Token Type</div>
-          <div className="w-[130px]">
-            <Chip data={{ name: editionType?.name }} key={0} />
-          </div>
-          {editionType?.name === 'Limited Edition' && (
+          <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Edition Details</div>
+          <div className="flex gap-[10px] mt-[15px]">
             <div>
-              <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Total Supply</div>
-              <div className="w-[110px]">
-                <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
-              </div>
+              <Chip data={{ name: editionType?.name }} key={0} />
             </div>
-          )}
+            {editionType?.name === 'Limited Edition' && (
+              <div>
+                {/* <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Total Supply</div> */}
+                <div>
+                  <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -171,18 +173,20 @@ const Step04SingleNFTSection = props => {
       )}
       {type !== 0 && (
         <div>
-          <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Token Type</div>
-          <div className="w-[120px]">
-            <Chip data={{ name: editionType?.name }} key={0} />
-          </div>
-          {editionType?.name === 'Limited Edition' && (
+          <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Edition Details</div>
+          <div className="flex gap-[10px] mt-[15px]">
             <div>
-              <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div>
-              <div className="w-[100px]">
-                <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
-              </div>
+              <Chip data={{ name: editionType?.name }} key={0} />
             </div>
-          )}
+            {editionType?.name === 'Limited Edition' && (
+              <div>
+                {/* <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div> */}
+                <div className="w-[100px]">
+                  <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
