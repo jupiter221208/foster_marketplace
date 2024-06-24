@@ -211,6 +211,7 @@ const MainSection = props => {
   const uploadNew = () => {
     dispatch({ type: 'set', mintCollectionStep: 3 })
     dispatch({ type: 'set', collectionMintAddress: collectionId })
+    dispatch({ type: 'set', collectionMintCategories: data?.categories.split(',') })
     dispatch({ type: 'set', collectionCoverUrl: coverUrl })
     dispatch({ type: 'set', collectionMintName: collectionName })
     dispatch({ type: 'set', collectionKind: 'foster' })

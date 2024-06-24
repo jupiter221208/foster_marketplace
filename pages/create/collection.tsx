@@ -40,6 +40,8 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import { useRouter } from 'next/router'
 import Step01ReviewSection from 'components/pages/Create/Collection/Step01ReviewSection'
 import styles from './single-nft.module.scss'
+import LoadingButton from 'components/Button/LoadingButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -534,24 +536,45 @@ const Collection = () => {
       </Head>
       <div className="w-full">
         <div
-          className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px]"
+          className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px] flex justify-between"
           onClick={() => {
             if (currentStep === 1 || currentStep === 3) router.back()
             else setCurrentStep(currentStep - 1)
           }}
         >
-          <BackIcon />
-          <div className={styles.createEdition}>
-            {currentStep === 1
-              ? 'Create Collection'
-              : currentStep === 2
-              ? 'Review'
-              : currentStep === 3
-              ? 'Add to collection'
-              : currentStep === 4
-              ? 'Review'
-              : ''}
+          <div className="flex gap-[25px] items-center">
+            <BackIcon />
+            <div className={styles.createEdition}>
+              {currentStep === 1
+                ? 'Create Collection'
+                : currentStep === 2
+                ? 'Review'
+                : currentStep === 3
+                ? 'Add to collection'
+                : currentStep === 4
+                ? 'Review'
+                : ''}
+            </div>
           </div>
+          {currentStep === 4 && (
+            <div className="w-[122px] h-[53px]">
+              <div>
+                {isMinting ? (
+                  <LoadingButton width={122} height={53} borderRadius={30} />
+                ) : (
+                  <GradientButton
+                    label="Mint"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => {
+                      mintCollection()
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* <div className="lg:flex hidden w-full justify-center">

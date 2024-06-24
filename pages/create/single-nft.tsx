@@ -727,7 +727,7 @@ const SingleNft = () => {
                                       <img
                                         src={nftImage}
                                         alt=""
-                                        className="mt-[10%] w-[70%] h-[70%] object-contain z-10"
+                                        className="mt-[10%] w-[69%] h-[69%] object-contain z-10"
                                       />
                                     </div>
                                   )}

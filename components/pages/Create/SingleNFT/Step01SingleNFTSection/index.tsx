@@ -153,7 +153,7 @@ const Step01SingleNFTSection = props => {
             </>
           )}
           {nftType === 'vr' && (
-            <div className="mb-[30px]">
+            <div className="mt-[24px] mb-[30px]">
               <div className={styles.coverImgMsg}>
                 Cover Photo <span>*</span>
               </div>
@@ -335,9 +335,6 @@ const Step01SingleNFTSection = props => {
                           </div>
                         </div>
                       )}
-                      {/* <button className="absolute right-[8px] bottom-[8px]" onClick={() => setNftImage('')}>
-                        <TrashBin />
-                      </button> */}
                     </div>
                   </div>
                 )}
