@@ -183,17 +183,16 @@ const Step03CollectionSection = props => {
                         </div>
                       </div>
                     )} */}
-                    {item.editionType.id != 2 && (
-                      <div className="mt-[25px]">
-                        <div className={styles.nftName}>Token Type</div>
-                        <div className="flex gap-[15px] mt-[15px]">
-                          <div className={styles.editionType}>{item.editionType.label}</div>
-                          {item.editionType.id === 0 && (
-                            <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
-                          )}
-                        </div>
+
+                    <div className="mt-[25px]">
+                      <div className={styles.nftName}>Token Type</div>
+                      <div className="flex gap-[15px] mt-[15px]">
+                        <div className={styles.editionType}>{item.editionType.label}</div>
+                        {item.editionType.id === 0 && (
+                          <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
               </div>
