@@ -211,6 +211,7 @@ const MainSection = props => {
   const uploadNew = () => {
     dispatch({ type: 'set', mintCollectionStep: 3 })
     dispatch({ type: 'set', collectionMintAddress: collectionId })
+    dispatch({ type: 'set', collectionMintCategories: data?.categories.length > 0 ? data?.categories.split(',') : [] })
     dispatch({ type: 'set', collectionCoverUrl: coverUrl })
     dispatch({ type: 'set', collectionMintName: collectionName })
     dispatch({ type: 'set', collectionKind: 'foster' })
@@ -298,13 +299,15 @@ const MainSection = props => {
                 description={data?.description}
                 artistAddress={data?.artist_username}
                 hasloading={hasloading}
+                onClickEdit={() => setEditCollection(true)}
               />
               <div className="flex gap-[15px]">
                 {publicKey?.toBase58() === data?.minter_id ? (
-                  <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
-                    <EditMetaIcon />
-                  </div>
+                  <></>
                 ) : (
+                  // <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
+                  //   <EditMetaIcon />
+                  // </div>
                   <div className="w-[35px]">
                     {hasloading ? (
                       <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>
@@ -467,13 +470,15 @@ const MainSection = props => {
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
                     description={data?.description}
+                    onClickEdit={() => setEditCollection(true)}
                   />
                   <div className="flex gap-[10px]">
                     {publicKey?.toBase58() === data?.minter_id ? (
-                      <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
-                        <EditMetaIcon />
-                      </div>
+                      <></>
                     ) : (
+                      // <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
+                      //   <EditMetaIcon />
+                      // </div>
                       <div className="w-[35px]">
                         {hasloading ? (
                           <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>

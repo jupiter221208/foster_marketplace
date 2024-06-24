@@ -27,6 +27,15 @@
   }
 }
 
+.backText {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  color: var(--text-gray-200-color);
+}
+
 .artImage {
   position: relative;
   width: 200px;
@@ -43,8 +52,9 @@
 }
 
 .artName {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
+  font-weight: 100;
   text-align: start;
   color: var(--text-gray-200-color);
 }
@@ -64,8 +74,9 @@
 }
 
 .roaylties {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
   text-align: start;
 }

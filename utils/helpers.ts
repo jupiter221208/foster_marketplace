@@ -116,6 +116,15 @@ export const isAvailableDate = (start, end) => {
   else return false
 }
 
+export const containsSpecialChars = (text) => {
+  return /[\\\/:*?<>#]/.test(text);
+}
+
+export const containsEmoji = (text) => {
+  const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{2B55}\u{2934}\u{2935}\u{2B05}-\u{2B07}\u{2B1B}\u{2B1C}\u{25AA}\u{25AB}\u{25FE}\u{25FD}\u{25FB}\u{25FC}\u{25AA}\u{25AB}\u{25FE}\u{25FD}\u{3030}\u{303D}\u{3297}\u{3299}\u{FE0F}\u{200D}\u{20E3}]+/u;
+  return emojiRegex.test(text);
+}
+
 export const dataURLtoFile = (dataurl, filename) => {
   var arr = dataurl.split(','),
     mime = arr[0].match(/:(.*?);/)[1],
@@ -373,7 +382,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-bg-color', '#F3F2F0')
     doc.style.setProperty('--category-bg-color', '#F3F2F0')
     doc.style.setProperty('--time-slog-bg', '#FFF')
-    doc.style.setProperty('--menu-footer-color', '#CFD0D6')
     doc.style.setProperty('--primary-btn-hover', '#202427')
     doc.style.setProperty('--primary-btn-color', '#eff0f6')
     doc.style.setProperty('--twitter-text-color', '#eff0f6')
@@ -445,7 +453,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #E5E6EB, #C5C6CB)')
     doc.style.setProperty('--profile-border-color', '#ADAEB2')
     doc.style.setProperty('--profile-active-border-color', '#202427')
-    doc.style.setProperty('--stats-accordion-bg', '#FFF')
+    doc.style.setProperty('--stats-accordion-bg', '#F3F2F0')
     doc.style.setProperty('--stats-accordion-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--stats-accordion-normal-border', 'transparent') //'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(32, 36, 39, 1)')
@@ -601,7 +609,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
     doc.style.setProperty('--profile-setup-left-bg', '#242424')
-    doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--fade-loader-color', '#202427')
@@ -683,6 +690,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-171717-FFF', '#FFF')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#D1D1CF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -740,7 +748,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-bg-color', '#1a1a1a')
     doc.style.setProperty('--category-bg-color', '#242424')
     doc.style.setProperty('--time-slog-bg', '#1a1a1a')
-    doc.style.setProperty('--menu-footer-color', '#1a1a1a')
     doc.style.setProperty('--primary-btn-hover', '#95dbd5')
     doc.style.setProperty('--primary-btn-color', '#1a1a1a')
     doc.style.setProperty('--hero-artist-color', '#95dbd5')
@@ -817,7 +824,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #1B1B1B, #2B2B2B)')
     doc.style.setProperty('--profile-border-color', '#95dbd5')
     doc.style.setProperty('--profile-active-border-color', '#95dbd5')
-    doc.style.setProperty('--stats-accordion-bg', '#242424')
+    doc.style.setProperty('--stats-accordion-bg', '#1A1A1A')
     doc.style.setProperty('--stats-accordion-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--stats-accordion-normal-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(255, 255, 255, 0.2)')
@@ -970,7 +977,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', 'linear-gradient(300deg, #4a9791 55%, #202427 100%)')
     doc.style.setProperty('--profile-setup-left-bg', '#242424')
-    doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
     doc.style.setProperty('--fade-loader-color', '#63D6CD')
@@ -1051,5 +1057,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')
     doc.style.setProperty('--bg-171717-FFF', '#171717')
+    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
   }
 }

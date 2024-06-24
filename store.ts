@@ -43,6 +43,7 @@ const initialState = {
   isAddToCart: false,
   mintCollectionStep: 1,
   collectionMintAddress: '',
+  collectionMintCategories: [],
   collectionMintName: '',
   collectionCoverUrl: '',
   collectionKind: 'foster',

@@ -27,27 +27,26 @@
 .activeTab {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
-  border: 1px solid var(--selected-tab-border-color);
-  border-radius: 10px 10px 0px 0px;
-  padding: 15px;
-  background: var(--background-main-color);
+  border-bottom: 3px solid var(--main-icon-color);
+  margin: 0px 25px 0px 0px;
+  // background: var(--background-main-color);
   color: var(--text-gray-200-color);
   font-weight: 100;
   @media(min-width: 1024px) {
-    padding: 0px 15px;
+    margin: 0px 30px;
     font-family: 'Muli-SemiBold';
     font-size: 18px;
   }
 }
 
 .activeTab1 {
-  padding: 15px;
   font-family: 'Muli-Regular';
   font-size: 16px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   font-weight: 100;
+  margin: 0px 25px 0px 0px;
   @media (min-width: 1024px) {
-    padding: 0px 15px;
+    margin: 0px 30px;
     font-size: 18px;
   }
 }

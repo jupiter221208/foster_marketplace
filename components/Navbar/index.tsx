@@ -75,7 +75,6 @@ const Navbar = props => {
               className={styles.navItemArea}
               onMouseOver={() => setSelectedNavMenu('notifications')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/notifications')}
             >
               <Image
                 src={
@@ -160,7 +159,6 @@ const Navbar = props => {
                   ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
-              onClick={() => router.push('/notifications')}
             >
               Notifications
             </div>

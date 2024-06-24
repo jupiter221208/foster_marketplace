@@ -16,7 +16,7 @@ import Input from 'components/Input'
 import PriceInput from 'components/Input/PriceInput'
 
 // resource
-import BackIcon from 'assets/icons/back-small.svg?component'
+import BackIcon from 'assets/icons/back-arrow.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
@@ -204,12 +204,9 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     <div className="w-full h-full flex flex-col justify-between">
       <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
         <div className="w-full flex justify-between">
-          <div className={styles.title}>List Edition</div>
-          <div className={styles.backBtn} onClick={() => closeModal()}>
-            <div className="w-full flex gap-[13px] justify-center items-center">
-              <BackIcon />
-              Back
-            </div>
+          <div className={styles.title} onClick={() => closeModal()}>
+            <BackIcon />
+            List Edition
           </div>
         </div>
 
@@ -235,30 +232,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             }}
           />
         </div>
-
-        {/* <div className="w-full mt-[20px]">
-          <div className="flex gap-[13px]">
-            <HSwitch
-              checked={enableMerch}
-              onChange={() => {
-                setEnableMerch(!enableMerch)
-                setShowMerchModal(!enableMerch)
-              }}
-              className={`${
-                enableMerch ? styles.active : styles.inactive
-              } relative inline-flex h-6 w-[42px] items-center rounded-full`}
-            >
-              <span
-                className={`transform transition ease-in-out duration-200 ${
-                  enableMerch ? 'translate-x-5' : 'translate-x-1'
-                } ${
-                  enableMerch ? styles.activeSwitch : styles.inactiveSwitch
-                } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
-              />
-            </HSwitch>
-            <div className={styles.merchText}>Include merch for each print</div>
-          </div>
-        </div> */}
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>

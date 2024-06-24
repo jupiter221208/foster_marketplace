@@ -1,0 +1,9 @@
+@import 'assets/scss/variable.module.scss';
+
+.createEdition {
+  font-family: 'Muli-Regular';
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}

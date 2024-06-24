@@ -23,6 +23,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const Step01ReviewSection = props => {
   const {
@@ -36,6 +37,7 @@ const Step01ReviewSection = props => {
     mintCollection,
     isMinting,
     onChangeCurrentStep,
+    onNext,
   } = props
   const viewport = useViewport()
 
@@ -58,57 +60,54 @@ const Step01ReviewSection = props => {
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="w-full grid grid-cols-12 gap-0">
-          {/* left part */}
-          <div className="relative col-span-12 lg:col-span-6 g-left-container">
-            <div className={styles.leftContainer}>
+        <div className="w-full mt-[44px] mb-[100px]">
+          <div className="w-full g-container">
+            <div className={styles.container}>
               <div className="w-full">
-                <div className="w-full mt-[15px]">
+                <div className="w-full">
                   <div className={styles.bannerImageArea}>
-                    <Image src={bannerCroppedImage} width={760} height={218} alt="" objectFit="cover" />
+                    <img src={bannerCroppedImage} alt="" className="w-full h-[295px]" />
                   </div>
                 </div>
-                <div className="relative mt-[-109px]">
-                  <div className="w-full flex justify-center z-0 mt-[15px]">
+                <div className="mt-[-82px] flex gap-[44px]">
+                  <div className="w-[165px] z-0 mt-[15px] ml-[55px]">
                     <div className={styles.coverImageArea}>
-                      <Image src={coverCroppedImage} width={218} height={218} alt="" objectFit="cover" />
+                      <Image src={coverCroppedImage} width={163} height={163} alt="" objectFit="cover" />
                     </div>
+                    <div className={`${styles.subTitle} mt-[10px] w-full text-center`}>{collectionName}</div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          {/* right part */}
-          <div className="col-span-12 lg:col-span-6 g-right-container z-0">
-            <div className={styles.rightContainer}>
-              <div className="w-full relative">
-                {/* upload artwork part */}
-                <div className="w-full">
-                  <div className={`${styles.subTitle} mt-[20px]`}>{collectionName}</div>
+              <div className="mt-[30px] px-[50px]">
+                <div className={`${styles.subTitle}`}>Description</div>
+                <div className={`${styles.desc} mt-[10px]`}>{description}</div>
 
-                  <div className={`${styles.desc} mt-[9px]`}>{description}</div>
+                {displayCategory && <div className={`${styles.subTitle} mt-[20px]`}>Categories</div>}
 
-                  {displayCategory && <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>}
-
-                  {displayCategory && (
-                    <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
-                      {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-                    </div>
-                  )}
-
-                  <div className={`${styles.cateLabel} mt-[16px] flex justify-start items-center gap-2`}>Royalties</div>
-                  <div className="max-w-[370px] w-full mt-[10px]">
-                    <Input
-                      value={royalties + ' %'}
-                      width={70}
-                      height={27}
-                      fontSize={13}
-                      fontFamily="Muli-SemiBold"
-                      min="0"
-                      onChange={() => {}}
-                    />
+                {displayCategory && (
+                  <div className="w-full flex flex-wrap justify-start items-center mt-[15px] gap-[10px]">
+                    {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
                   </div>
+                )}
+
+                <div className={`${styles.subTitle} mt-[22px] flex justify-start`}>Royalties</div>
+
+                <div className="max-w-[370px] w-full mt-[9px]">
+                  <div className={styles.desc}>{royalties + ' %'}</div>
                 </div>
+              </div>
+              <div className="absolute w-[122px] h-[53px] right-[57px] bottom-[41px]">
+                {isMinting ? (
+                  <LoadingButton width={122} height={53} borderRadius={30} />
+                ) : (
+                  <GradientButton
+                    label="Mint"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => mintCollection()}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -116,70 +115,53 @@ const Step01ReviewSection = props => {
       ) : (
         // mobile part
         <div className="g-container mt-[26px] mb-[47px]">
-          <div className="w-full flex flex-wrap justify-center mt-[38px]">
-            <div className={styles.bannerImageArea}>
-              <div className="relative">
-                <Image src={bannerCroppedImage} width={375} height={100} alt="" objectFit="cover" />
+          <div className={styles.container}>
+            <div className="w-full flex flex-wrap justify-center">
+              <div className={styles.bannerImageArea}>
+                <img src={bannerCroppedImage} alt="" className="w-full h-[120px] object-cover" />
               </div>
             </div>
-          </div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[-50px]">
-            <div className={styles.coverImageArea}>
-              <Image src={coverCroppedImage} width={100} height={100} alt="" objectFit="cover" />
-            </div>
-          </div>
-
-          {/* upload artwork part */}
-          <div className="w-full">
-            <div className={`${styles.subTitle} mt-[40px]`}>{collectionName}</div>
-
-            <div className={`${styles.desc} mt-[9px]`}>{description}</div>
-
-            {displayCategory && <div className={`${styles.cateLabel} mt-[30px]`}>Categories</div>}
-            {displayCategory && (
-              <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
-                {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
+            <div className="w-full flex flex-wrap justify-center mt-[-60px]">
+              <div className={styles.coverImageArea}>
+                <Image src={coverCroppedImage} width={120} height={120} alt="" objectFit="cover" />
               </div>
-            )}
+            </div>
+            <div className="w-full flex justify-center">
+              <div className={`${styles.subTitle} mt-[10px]`}>{collectionName}</div>
+            </div>
+            {/* upload artwork part */}
+            <div className="w-full g-container">
+              <div className={`${styles.subTitle} mt-[30px]`}>Description</div>
+              <div className={`${styles.desc} mt-[15px]`}>{description}</div>
+              {displayCategory && <div className={`${styles.subTitle} mt-[20px]`}>Categories</div>}
+              {displayCategory && (
+                <div className="w-full flex flex-wrap justify-start items-center mt-[10px] gap-[10px]">
+                  {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
+                </div>
+              )}
 
-            <div className={`${styles.cateLabel} mt-[30px] flex justify-start items-center gap-2`}>Royalties</div>
-            <div className="max-w-[370px] w-full mt-[10px]">
-              <Input
-                value={royalties + ' %'}
-                width={70}
-                height={27}
-                fontSize={13}
-                fontFamily="Muli-SemiBold"
-                min="0"
-                onChange={() => {}}
-              />
+              <div className={`${styles.subTitle} mt-[20px] flex justify-start items-center gap-2`}>Royalties</div>
+              <div className={`${styles.desc} mt-[15px]`}>{royalties}%</div>
             </div>
           </div>
-
-          <div className="w-full my-10">
+          <div className="w-full mt-[35px] mb-[50px]">
             {/* button group part */}
-            <div>
+            <div className="mt-[15px]">
+              <OutlineButton label="Back" onClick={() => onChangeCurrentStep(currentStep - 1)} fullWidth />
+            </div>
+            <div className="mt-[18px]">
               {isMinting ? (
-                <LoadingPrimaryButton fullWidth />
+                <LoadingButton fullWidth />
               ) : (
-                <PrimaryButton
+                <GradientButton
                   fullWidth
-                  type="next"
                   label="Mint"
                   onClick={() => {
                     mintCollection()
                   }}
                 />
               )}
-            </div>
-            <div className="mt-[15px]">
-              <SecondaryButton
-                label="Back"
-                type="back"
-                onClick={() => onChangeCurrentStep(currentStep - 1)}
-                fullWidth
-              />
             </div>
           </div>
         </div>

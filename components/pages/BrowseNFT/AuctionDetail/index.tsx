@@ -17,7 +17,7 @@ import Input from 'components/Input'
 import PriceInput from 'components/Input/PriceInput'
 
 // resource
-import BackIcon from 'assets/icons/back-small.svg?component'
+import BackIcon from 'assets/icons/back-arrow.svg?component'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 
 // styles
@@ -165,19 +165,20 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
   return (
     <div className="w-full">
-      <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${fromNFT ? 'mt-[0px]' : 'mt-[55px]'}`}>
-        <div className={`w-full flex justify-between mt-[30px]`}>
-          <div className={styles.auctionDetail}>Start Auction</div>
-          <div className={styles.backBtn} onClick={() => closeModal()}>
-            <div className="w-full flex gap-[13px] justify-center items-center">
-              <BackIcon />
-              Back
-            </div>
+      <div
+        className={`${styles.container} ${fromNFT ? styles.nftBG : ''} ${
+          fromNFT ? 'mt-[0px]' : 'mt-[24px] lg:mt-[55px]'
+        }`}
+      >
+        <div className={`w-full flex justify-between mt-[0px] lg:mt-[30px]`}>
+          <div className={styles.auctionDetailText} onClick={() => closeModal()}>
+            <BackIcon />
+            Start Auction
           </div>
         </div>
 
         <div className="w-full">
-          <div className="w-full mt-[20px] lg:mt-[10px]">
+          <div className="w-full mt-[20px] lg:mt-[24px]">
             <div className={styles.auctionStart}>
               Auction Start <span className={styles.auctionAsterisk}>*</span>
             </div>

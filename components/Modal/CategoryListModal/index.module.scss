@@ -109,5 +109,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--menu-footer-color);
+  background-color: var(--background-main-color);
+  border-top: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
 }

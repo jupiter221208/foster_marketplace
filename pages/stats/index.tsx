@@ -29,7 +29,6 @@ import StatsAPI from 'apis/stats'
 const Stats = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const status = useSelector<any>(state => state.activeTab)
 
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -42,7 +41,6 @@ const Stats = () => {
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
-    // dispatch({ type: 'set', isLoading: false })
     getArtworkData()
     getCollectionData()
     getCreatorData()

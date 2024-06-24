@@ -2,16 +2,13 @@
 
 .audioBG {
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
     border-radius: 0px;
+    padding: 16px 16px 10px 16px;
     @media (min-width: 1024px) {
         border-radius: 15px;
+        padding: 0px;
     }
     overflow: hidden;
-    background: rgba(var(--background-main-color-rgb), 0.6);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
 }
 
 .mintAudioBG {

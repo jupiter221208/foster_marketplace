@@ -21,7 +21,7 @@ const Input = props => {
     error = '',
     color = '',
     fontSize = '16px',
-    fontFamily = 'Muli-Regular',
+    fontFamily = 'Muli-Light',
     fullWidth = false,
     backgroundColor = '',
     borderColor = 'rgba(var(--main-bg-color-rgb), 0.1)',

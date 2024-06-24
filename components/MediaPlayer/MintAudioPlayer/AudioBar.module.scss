@@ -9,6 +9,16 @@
   }
 }
 
+.playButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(var(--main-icon-color-rgb), 0.1);
+  border-radius: 20px;
+}
+
 .time {
   color: var(--text-gray-200-color);
   font-family: 'Muli-Regular';
@@ -23,10 +33,10 @@
 
   .bar__progress {
     flex: 1;
-    border-radius: 5px;
+
     margin-left: 10px;
     @media (min-width: 1024px) {
-      margin-left: 20px;
+      margin-left: 10px;
     }
     height: 5px;
     display: flex;
@@ -38,7 +48,7 @@
       height: 16px;
       width: 16px;
       border-radius: 50%;
-      background-color: var(--main-icon-color);
+      background-color: var(--main-bg-color);
     }
   }
 }

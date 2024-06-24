@@ -80,7 +80,7 @@ const ActivityTable = ({ data, type }: ActivityTableTypes) => {
         type = 'placed a bid'
         break
       case 'MasterEditionListingCreated':
-        type = 'listed master edition'
+        type = 'published master edition'
         break
       case 'MasterEditionListingUpdated':
         type = 'updated listing master edition'
