@@ -682,7 +682,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-171717-FFF', '#FFF')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', '#F3F2F0')
-    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
+    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#D1D1CF')
     // =====================================================
     // =====================================================
     // =====================================================
