@@ -135,7 +135,7 @@ const Step03CollectionSection = props => {
           {collectionFiles.length !== 0 &&
             collectionFiles.map((item, index) => (
               <div className={styles.nftContainer} key={index} onClick={() => setSelectedCollectionFile(item)}>
-                <div className="w-full flex justify-between">
+                <div className="w-full flex justify-between px-[20px]">
                   <div className={styles.collectionName}>
                     <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} />
                     {collectionMintName}
@@ -164,7 +164,7 @@ const Step03CollectionSection = props => {
                     />
                   )}
                 </div>
-                <div className="mt-[15px]">
+                <div className="mt-[15px] px-[20px]">
                   <div className={styles.nftName}>Name</div>
                   <div className={styles.nftDesc}>{item.name} </div>
                   <div className={`${styles.nftName} mt-[25px]`}>Description</div>
