@@ -113,60 +113,6 @@ const ArtworksSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-      {/* {!loading &&
-        (list.length === 0 ? (
-          !searchLoading ? (
-            <div />
-          ) : (
-            <div className="w-full mb-0 lg:mb-3 h-[293px] lg:mt-[25px] lg:h-[418px]">
-              <LoadingModal open={searchLoading} />
-            </div>
-          )
-        ) : (
-          <div className="w-full mb-0 lg:mb-3 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-            <Swiper
-              navigation={true}
-              slidesPerView={
-                viewport === 'xs'
-                  ? 1.3
-                  : viewport === 'sm'
-                  ? 2.5
-                  : viewport === 'md'
-                  ? 2.9
-                  : viewport === 'lg'
-                  ? 2.5
-                  : viewport === 'xl'
-                  ? screenWidth >= 1300
-                    ? 3
-                    : 2.8
-                  : viewport === '2xl'
-                  ? screenWidth >= 1768
-                    ? 4
-                    : 3.5
-                  : 4
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 10 : 25
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              className={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                  ? 'noScrollNavigationSwiper'
-                  : 'auctionNavigationSwiper'
-              }
-            >
-              {list.map((item: any, index) => (
-                <SwiperSlide key={index}>
-                  <StatsCollectionCard key={index} data={item} type="artworks" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ))} */}
 
       {!loading && (
         <div className="w-full mt-[25px]">
