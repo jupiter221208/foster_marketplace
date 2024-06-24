@@ -40,6 +40,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import Chip from 'components/Chip'
 
 const Step01CollectionSection = props => {
   const {
@@ -811,6 +812,9 @@ const Step01CollectionSection = props => {
             <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
               <>Select up to three categories</>
               <ArrowDownIcon />
+            </div>
+            <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
+              {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
             </div>
             <div className="w-full mt-4">
               {showCategoryList && (
