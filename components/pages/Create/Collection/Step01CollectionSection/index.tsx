@@ -772,7 +772,7 @@ const Step01CollectionSection = props => {
             <div className="max-w-[370px] w-full mt-[15px] z-10">
               <Input
                 value={limit(collectionName, 32)}
-                placeholder="Give your art a name"
+                placeholder="Give your collection a name"
                 label01="Max Characters 32"
                 label02={32 - collectionName.length === 32 ? '' : `${32 - collectionName.length} Characters left`}
                 onChange={value => onChangeCollectionName(limit(value, 32))}

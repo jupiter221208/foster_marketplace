@@ -111,14 +111,14 @@ const Step04SingleNFTSection = props => {
 
       {type !== 0 && (
         <div>
-          <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Token Type</div>
-          <div className="w-[120px]">
+          <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Token Type</div>
+          <div className="w-[130px]">
             <Chip data={{ name: editionType?.name }} key={0} />
           </div>
           {editionType?.name === 'Limited Edition' && (
             <div>
-              <div className={`${styles.subTitle} mt-[30px] mb-[10px]`}>Total Supply</div>
-              <div className="w-[100px]">
+              <div className={`${styles.nftName} mt-[30px] mb-[10px]`}>Total Supply</div>
+              <div className="w-[110px]">
                 <Chip data={{ name: maxSupply + ' Editions' }} key={0} />
               </div>
             </div>

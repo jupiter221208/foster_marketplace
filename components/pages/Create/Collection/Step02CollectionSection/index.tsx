@@ -198,7 +198,17 @@ const Step02CollectionSection = props => {
       }
     })
     if (count === collectionFiles.length && collectionFiles.length !== 0) {
-      setDisabledNextButton(false)
+      let isMaxSupply = true
+      collectionFiles.map(item => {
+        if (item.editionType.id === 0) {
+          if (item.maxSupply === undefined || item.maxSupply === null) {
+            isMaxSupply = false
+            return
+          }
+        }
+      })
+      if (isMaxSupply) setDisabledNextButton(false)
+      else setDisabledNextButton(true)
     } else {
       if (collectionFiles.length === 0) {
         setSelectedCollectionFile(undefined)
@@ -209,6 +219,7 @@ const Step02CollectionSection = props => {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
       setAddMoreClicked(false)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionFiles])
 

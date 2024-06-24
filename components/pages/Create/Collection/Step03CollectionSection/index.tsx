@@ -91,7 +91,7 @@ const Step03CollectionSection = props => {
                   <div className={`${styles.nftDesc} mr-[60px]`}>{item.description} </div>
 
                   <div className="flex gap-[45px] mt-[25px]">
-                    {categories?.length > 0 && (
+                    {/* {categories?.length > 0 && (
                       <div>
                         <div className={styles.nftName}>Categories</div>
                         <div className="flex gap-[8px] mt-[15px]">
@@ -102,7 +102,7 @@ const Step03CollectionSection = props => {
                           ))}
                         </div>
                       </div>
-                    )}
+                    )} */}
 
                     {item.editionType.id != 2 && (
                       <div>
@@ -177,7 +177,7 @@ const Step03CollectionSection = props => {
                   <div className={styles.nftDesc}>{item.description} </div>
 
                   <div className="mt-[25px]">
-                    {categories?.length > 0 && (
+                    {/* {categories?.length > 0 && (
                       <div>
                         <div className={styles.nftName}>Categories</div>
                         <div className="flex gap-[8px] mt-[15px]">
@@ -188,7 +188,7 @@ const Step03CollectionSection = props => {
                           ))}
                         </div>
                       </div>
-                    )}
+                    )} */}
                     {item.editionType.id != 2 && (
                       <div className="mt-[25px]">
                         <div className={styles.nftName}>Token Type</div>

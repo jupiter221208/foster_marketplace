@@ -535,47 +535,49 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
-        <div className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px] flex justify-between">
-          <div
-            className="flex gap-[25px] items-center"
-            onClick={() => {
-              if (currentStep === 1 || currentStep === 3) router.back()
-              else setCurrentStep(currentStep - 1)
-            }}
-          >
-            <BackIcon />
-            <div className={styles.createEdition}>
-              {currentStep === 1
-                ? 'Create Collection'
-                : currentStep === 2
-                ? 'Review'
-                : currentStep === 3
-                ? 'Add to collection'
-                : currentStep === 4
-                ? 'Review'
-                : ''}
-            </div>
-          </div>
-          {currentStep === 4 && (
-            <div className="w-[122px] h-[53px]">
-              <div>
-                {isMinting ? (
-                  <LoadingButton width={122} height={53} borderRadius={30} />
-                ) : (
-                  <GradientButton
-                    label="Mint"
-                    width={122}
-                    height={53}
-                    borderRadius={30}
-                    onClick={() => {
-                      setStartUpload(true)
-                      readFilesAndUplaod()
-                    }}
-                  />
-                )}
+        <div className="w-full flex justify-center">
+          <div className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px] flex justify-between">
+            <div
+              className="flex gap-[25px] items-center"
+              onClick={() => {
+                if (currentStep === 1 || currentStep === 3) router.back()
+                else setCurrentStep(currentStep - 1)
+              }}
+            >
+              <BackIcon />
+              <div className={styles.createEdition}>
+                {currentStep === 1
+                  ? 'Create Collection'
+                  : currentStep === 2
+                  ? 'Review'
+                  : currentStep === 3
+                  ? 'Add to collection'
+                  : currentStep === 4
+                  ? 'Review'
+                  : ''}
               </div>
             </div>
-          )}
+            {currentStep === 4 && (
+              <div className="w-[122px] h-[53px]">
+                <div>
+                  {isMinting ? (
+                    <LoadingButton width={122} height={53} borderRadius={30} />
+                  ) : (
+                    <GradientButton
+                      label="Mint"
+                      width={122}
+                      height={53}
+                      borderRadius={30}
+                      onClick={() => {
+                        setStartUpload(true)
+                        readFilesAndUplaod()
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {currentStep === 4 && (
@@ -609,27 +611,7 @@ const Collection = () => {
             </div>
           </div>
         )}
-        {/* <div className="lg:flex hidden w-full justify-center">
-          <div className="w-full g-container mt-[66px]">
-            <ProgressSection
-              currentStep={currentStep > 2 ? currentStep - 2 : currentStep}
-              nextDisabled={disabledButton}
-              onBack={() => {
-                if (currentStep === 1 || currentStep === 3) router.back()
-                else setCurrentStep(currentStep - 1)
-              }}
-              onNext={() => {
-                if (currentStep === 2) mintCollection()
-                else if (currentStep === 4) {
-                  setStartUpload(true)
-                  readFilesAndUplaod()
-                } else setCurrentStep(currentStep + 1)
-              }}
-              loading={isMinting}
-              labels={currentStep > 2 ? ['Add Collection Items', 'Review'] : ['Create Collection', 'Review']}
-            />
-          </div>
-        </div> */}
+
         {currentStep === 1 && (
           <Step01CollectionSection
             currentStep={currentStep}
@@ -707,21 +689,23 @@ const Collection = () => {
         </div>
 
         {currentStep === 4 && (
-          <Step03CollectionSection
-            currentStep={currentStep}
-            onChangeCurrentStep={step => setCurrentStep(step)}
-            bannerCroppedImage={collectionCoverUrl}
-            collectionMintName={collectionMintName}
-            collectionFiles={collectionFiles}
-            uploadedCount={uploadedCount}
-            startUpload={startUpload}
-            setStartUpload={setStartUpload}
-            isMinting={isMinting}
-            mintCollection={() => {
-              setStartUpload(true)
-              readFilesAndUplaod()
-            }}
-          />
+          <div className="w-full flex justify-center">
+            <Step03CollectionSection
+              currentStep={currentStep}
+              onChangeCurrentStep={step => setCurrentStep(step)}
+              bannerCroppedImage={collectionCoverUrl}
+              collectionMintName={collectionMintName}
+              collectionFiles={collectionFiles}
+              uploadedCount={uploadedCount}
+              startUpload={startUpload}
+              setStartUpload={setStartUpload}
+              isMinting={isMinting}
+              mintCollection={() => {
+                setStartUpload(true)
+                readFilesAndUplaod()
+              }}
+            />
+          </div>
         )}
         {currentStep === 5 && (
           <SuccessMintCollectionSection

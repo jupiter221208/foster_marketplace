@@ -27,6 +27,15 @@
   }
 }
 
+.backText {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  color: var(--text-gray-200-color);
+}
+
 .artImage {
   position: relative;
   width: 200px;

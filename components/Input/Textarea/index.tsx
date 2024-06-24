@@ -18,7 +18,7 @@ const Textarea = props => {
     backgroundColor,
     onChange,
     fullWidth = false,
-    fontFamily = 'Muli-Regular',
+    fontFamily = 'Muli-Light',
     fontSize = '16px',
     color = '',
     borderColor = '',

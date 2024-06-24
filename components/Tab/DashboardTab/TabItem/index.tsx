@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux'
 const TabItem = props => {
   const { item, onChange } = props
   const [hover, setHover] = useState(false)
-  const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative">
