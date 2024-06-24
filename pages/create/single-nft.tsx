@@ -845,7 +845,7 @@ const SingleNft = () => {
                       <LoadingButton width={122} height={53} borderRadius={30} />
                     ) : (
                       <GradientButton
-                        label="Next"
+                        label={currentStep === 3 ? 'Mint' : 'Next'}
                         disabled={disabledNextButton}
                         width={122}
                         height={53}

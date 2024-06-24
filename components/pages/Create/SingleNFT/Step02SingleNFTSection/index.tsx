@@ -41,7 +41,7 @@ const Step02SingleNFTSection = props => {
       <div className="max-w-[370px] w-full mt-[15px]">
         <Input
           value={limit(nftName, 32)}
-          placeholder="Give your art name"
+          placeholder="Give your art a name"
           label01="Max Characters 32"
           label02={32 - nftName.length === 32 ? '' : `${32 - nftName.length} Characters left`}
           onChange={value => setNftName(limit(value, 32))}
@@ -74,7 +74,7 @@ const Step02SingleNFTSection = props => {
       <div className="max-w-[370px] w-full mt-4">
         <Input
           value={limit(nftName, 32)}
-          placeholder="Give your art name"
+          placeholder="Give your art a name"
           color={'var(--text-gray-200-color)'}
           backgroundColor={'var(--shipping-board-bg)'}
           label01="Max Characters 32"

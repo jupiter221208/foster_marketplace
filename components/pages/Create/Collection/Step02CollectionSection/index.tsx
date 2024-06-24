@@ -454,7 +454,7 @@ const Step02CollectionSection = props => {
                             <div>
                               <Input
                                 value={limit(item.name, 32)}
-                                placeholder="Give your art name"
+                                placeholder="Give your art a name"
                                 label01={item.file?.name}
                                 label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                                 fullWidth
@@ -834,7 +834,7 @@ const Step02CollectionSection = props => {
                       <div>
                         <Input
                           value={limit(item.name, 32)}
-                          placeholder="Give your art name"
+                          placeholder="Give your art a name"
                           label01={item.file?.name}
                           label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                           fullWidth

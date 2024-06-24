@@ -389,7 +389,7 @@ const EditMetaModal = props => {
                           <div className="w-full mt-[15px]">
                             <Input
                               value={limit(artName, 32)}
-                              placeholder="Give your art name"
+                              placeholder="Give your art a name"
                               label01="Max Characters 32"
                               label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
                               onChange={value => setArtName(limit(value, 32))}
@@ -399,7 +399,7 @@ const EditMetaModal = props => {
                           <div className="w-full mt-[15px]">
                             <Textarea
                               value={limit(artDesc, 1000)}
-                              placeholder="Give your art name"
+                              placeholder="Give your art a name"
                               label01="Max Characters 1000"
                               label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
                               onChange={value => setArtDesc(limit(value, 1000))}
@@ -534,7 +534,7 @@ const EditMetaModal = props => {
                           <Input
                             height={47}
                             value={limit(artName, 32)}
-                            placeholder="Give your art name"
+                            placeholder="Give your art a name"
                             label01="Max Characters 32"
                             label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
                             onChange={value => setArtName(limit(value, 32))}
@@ -545,7 +545,7 @@ const EditMetaModal = props => {
                           <Textarea
                             height={140}
                             value={limit(artDesc, 1000)}
-                            placeholder="Give your art name"
+                            placeholder="Give your art a name"
                             label01="Max Characters 1000"
                             label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
                             onChange={value => setArtDesc(limit(value, 1000))}
