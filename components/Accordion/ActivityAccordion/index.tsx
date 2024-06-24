@@ -102,7 +102,7 @@ const ActivityAccordion = ({ data }) => {
         type = 'purchased print edition'
         break
       case 'MasterEditionListingCreated':
-        type = 'listed master edition'
+        type = 'published master edition'
         break
       case 'MasterEditionListingUpdated':
         type = 'updated listing master edition'

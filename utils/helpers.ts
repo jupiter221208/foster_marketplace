@@ -601,7 +601,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
     doc.style.setProperty('--profile-setup-left-bg', '#242424')
-    doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--fade-loader-color', '#202427')
@@ -683,6 +682,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-171717-FFF', '#FFF')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', '#F3F2F0')
+    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -970,7 +970,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--profile-setup-avatar-bg', 'linear-gradient(300deg, #4a9791 55%, #202427 100%)')
     doc.style.setProperty('--profile-setup-left-bg', '#242424')
-    doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
     doc.style.setProperty('--fade-loader-color', '#63D6CD')
@@ -1051,5 +1050,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')
     doc.style.setProperty('--bg-171717-FFF', '#171717')
+    doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
   }
 }
