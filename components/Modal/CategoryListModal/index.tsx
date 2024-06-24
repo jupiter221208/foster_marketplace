@@ -20,14 +20,15 @@ const CategoryListModal = props => {
         <div className={styles.footer}>
           <div className="w-[228px] flex justify-between gap-10">
             <OutlineButton
-              borderColor="var(--outline-btn-border)"
+              borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
               label="Cancel"
+              fontSize={16}
               fullWidth
-              borderWidth={2}
+              borderWidth={1}
               onClick={() => onClickCancel()}
               height="40px"
             />
-            <GradientButton label="Done" fullWidth onClick={() => onClick()} height="40px" />
+            <GradientButton fontSize={16} label="Done" fullWidth onClick={() => onClick()} height="40px" />
           </div>
         </div>
       </div>

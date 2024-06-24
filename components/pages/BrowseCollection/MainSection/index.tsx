@@ -470,13 +470,15 @@ const MainSection = props => {
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
                     description={data?.description}
+                    onClickEdit={() => setEditCollection(true)}
                   />
                   <div className="flex gap-[10px]">
                     {publicKey?.toBase58() === data?.minter_id ? (
-                      <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
-                        <EditMetaIcon />
-                      </div>
+                      <></>
                     ) : (
+                      // <div className={`${styles.iconContainer} w-[35px]`} onClick={() => setEditCollection(true)}>
+                      //   <EditMetaIcon />
+                      // </div>
                       <div className="w-[35px]">
                         {hasloading ? (
                           <div className={`${styles.skeletonLoader} w-[35px] h-[35px] mt-[50px] rounded-md`}></div>

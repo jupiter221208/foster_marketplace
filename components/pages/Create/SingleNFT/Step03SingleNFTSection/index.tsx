@@ -47,7 +47,7 @@ const Step03SingleNFTSection = props => {
     handleSelectCategory,
     showCategoryList,
     setShowCategoryList,
-    handleCancelCategory,
+    onClickCancelCategory,
     onNextStep,
     onBack,
   } = props
@@ -385,7 +385,7 @@ const Step03SingleNFTSection = props => {
             categoryList={categoryList}
             onChange={index => handleSelectCategory(index)}
             onClick={() => setShowCategoryList(!showCategoryList)}
-            onClickCancel={() => handleCancelCategory()}
+            onClickCancel={() => setShowCategoryList(false)}
           />
         )}
       </div>

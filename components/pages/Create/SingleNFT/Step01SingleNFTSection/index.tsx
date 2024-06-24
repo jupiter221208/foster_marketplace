@@ -403,29 +403,6 @@ const Step01SingleNFTSection = props => {
                 onChange={value => setDescription(value)}
               />
             </div>
-            {/* <div className="w-full mt-[30px]">
-              <div className="grid grid-cols-2 gap-5">
-                <div className="col-span-2">
-                  <div className={styles.chooseCategory}>Category (optional)</div>
-                  <div className={styles.categoryBtn} onClick={() => setShowCategoryList(true)}>
-                    <>Select up to three categories</>
-                    <ArrowDownIcon />
-                  </div>
-                </div>
-              </div>
-              <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
-                {categoryList?.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
-              </div>
-              {showCategoryList && (
-                <CategoryListModal
-                  data={CategoryList}
-                  categoryList={categoryList}
-                  onChange={index => handleSelectCategory(index)}
-                  onClick={() => setShowCategoryList(!showCategoryList)}
-                  onClickCancel={() => handleCancelCategory()}
-                />
-              )}
-            </div> */}
           </div>
         </div>
       )}
