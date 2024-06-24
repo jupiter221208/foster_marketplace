@@ -18,7 +18,6 @@ const Dashbord = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isGetMyNFTs: false })
   dispatch({ type: 'set', isGetListedNFTs: false })
-  // const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
     dispatch({ type: 'set', isLoading: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +32,6 @@ const Dashbord = () => {
       <div className={styles.container}>
         <MainSection />
         <TabSection />
-        {/* <FullScreenLoadingModal open={isLoading} /> */}
       </div>
     </div>
   )
