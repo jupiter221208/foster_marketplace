@@ -578,6 +578,37 @@ const Collection = () => {
           )}
         </div>
 
+        {currentStep === 4 && (
+          <div className="w-full flex lg:hidden g-container mt-[30px]">
+            <div
+              className="w-full flex gap-[25px] items-center"
+              onClick={() => {
+                setCurrentStep(currentStep - 1)
+              }}
+            >
+              <BackIcon />
+              <div className={styles.createEdition}>{'Review'}</div>
+            </div>
+            <div className="w-[122px] h-[53px]">
+              <div>
+                {isMinting ? (
+                  <LoadingButton width={122} height={53} borderRadius={30} />
+                ) : (
+                  <GradientButton
+                    label="Mint"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => {
+                      setStartUpload(true)
+                      readFilesAndUplaod()
+                    }}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         {/* <div className="lg:flex hidden w-full justify-center">
           <div className="w-full g-container mt-[66px]">
             <ProgressSection
