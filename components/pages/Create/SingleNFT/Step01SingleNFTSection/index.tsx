@@ -105,7 +105,7 @@ const Step01SingleNFTSection = props => {
                 onChange={value => setNftName(limit(value, 32))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-[30px]`}>
+            <div className={`${styles.subTitle} mt-[24px]`}>
               Description <span>*</span>
             </div>
             <div className="w-full mt-[15px]">
@@ -123,10 +123,11 @@ const Step01SingleNFTSection = props => {
           </div>
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} `}>
+              <div className={`${styles.subTitle} mt-[24px]`}>
                 Audio Cover <span>*</span>
               </div>
-              <div className="mt-5 mb-[30px]">
+              <div className={`${styles.description} mt-[15px]`}>Add a cover image for your audio file</div>
+              <div className="mt-5 mt-[15px] mb-[30px]">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
                     acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
@@ -139,12 +140,11 @@ const Step01SingleNFTSection = props => {
                   maxSize={104857600}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
-                      <div {...getRootProps()} className={styles.selectArea}>
+                    <section className={styles.audioDropzone}>
+                      <div {...getRootProps()} className="flex gap-[15px]">
                         <input {...getInputProps()} />
-                        <p className={styles.uploadText}>Upload Here</p>
-                        <p className={styles.text}>Supported File Formats .png .jpeg</p>
-                        <p className={styles.greenText}>Max File Size 100mb</p>
+                        <ShareIcon />
+                        <div className={styles.audioText}>Upload Photo</div>
                       </div>
                     </section>
                   )}
@@ -220,17 +220,6 @@ const Step01SingleNFTSection = props => {
                       </div>
                     )}
                   </div>
-
-                  {/* <button
-                    className={styles.glbButton}
-                    onClick={() => {
-                      setNftImage('')
-                      setNftCover(null)
-                    }}
-                  >
-                    <TrashBin />
-                    &nbsp;Remove Cover Image
-                  </button> */}
                 </div>
               )}
             </div>
@@ -238,11 +227,6 @@ const Step01SingleNFTSection = props => {
         </div>
       ) : (
         <div className="w-full">
-          {/* {nftType === 'audio' && (
-            <div className={`${styles.subTitle} mt-5`}>
-              Art <span>*</span>
-            </div>
-          )} */}
           <div className="mt-5">
             {/* <Dropzone
               onDropAccepted={acceptedFiles => {
@@ -365,6 +349,7 @@ const Step01SingleNFTSection = props => {
               <div className={`${styles.subTitle} mt-[30px]`}>
                 Audio Cover <span>*</span>
               </div>
+              <div className={`${styles.description} mt-[15px]`}>Add a cover image for your audio file</div>
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
@@ -378,17 +363,11 @@ const Step01SingleNFTSection = props => {
                   maxSize={104857600}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={nftType === 'audio' ? styles.dropzone : styles.dropzone}>
-                      <div {...getRootProps()} className={styles.selectArea}>
+                    <section className={styles.audioDropzone}>
+                      <div {...getRootProps()} className="flex gap-[15px]">
                         <input {...getInputProps()} />
-                        <UploadGreenIcon alt="" />
-                        <p className={styles.uploadText}>Upload Here</p>
-                        <p className={styles.text}>
-                          Supported File Formats
-                          <br />
-                          .png .jpeg
-                        </p>
-                        <p className={styles.greenText}>Max File Size 100mb</p>
+                        <ShareIcon />
+                        <div className={styles.audioText}>Upload Photo</div>
                       </div>
                     </section>
                   )}

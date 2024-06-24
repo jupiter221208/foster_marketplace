@@ -115,11 +115,9 @@ const SingleNft = () => {
   useEffect(() => {
     let width = 0
     switch (viewport) {
-      case '2xl':
-        width = screenWidth / 2 - 150 - 80 - 32 - 8
-        break
       case 'xl':
-        width = screenWidth / 2 - 120 - 80 - 32 - 8
+      case '2xl':
+        width = 550
         break
       case 'lg':
         width = 400
@@ -180,14 +178,12 @@ const SingleNft = () => {
 
           let windowWidth = 0
           switch (viewport) {
-            case '2xl':
-              windowWidth = screenWidth / 2 - 150 - 80 - 32 - 8
-              break
             case 'xl':
-              windowWidth = screenWidth / 2 - 120 - 80 - 32 - 8
+            case '2xl':
+              windowWidth = 550
               break
             case 'lg':
-              windowWidth = screenWidth / 2 - 100 - 50 - 32 - 8
+              windowWidth = 400
               break
             case 'md':
               windowWidth = screenWidth - 200 - 32 - 8
@@ -196,8 +192,8 @@ const SingleNft = () => {
               windowWidth = screenWidth
               break
           }
-          if (windowWidth > 672) {
-            setArtWidth(672)
+          if (windowWidth > 550) {
+            setArtWidth(550)
           } else {
             setArtWidth(windowWidth)
           }
@@ -717,11 +713,6 @@ const SingleNft = () => {
                             </div>
                           ) : (
                             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
-                              <div className="absolute inset-0">
-                                {nftImage !== '' && artWidth !== 0 && (
-                                  <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                                )}
-                              </div>
                               <div className={styles.blurImage} />
                               {nftType === 'video' && nftArt !== null ? (
                                 <video controls className="w-full h-full z-10" id="video">
@@ -732,7 +723,13 @@ const SingleNft = () => {
                                 <div className="w-full h-full z-10">
                                   <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                                   {nftImage !== '' && artWidth !== 0 && (
-                                    <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                                    <div className="w-full h-full flex justify-center z-10">
+                                      <img
+                                        src={nftImage}
+                                        alt=""
+                                        className="mt-[10%] w-[70%] h-[70%] object-contain z-10"
+                                      />
+                                    </div>
                                   )}
                                 </div>
                               ) : nftImage !== '' && artWidth !== 0 ? (
@@ -872,7 +869,7 @@ const SingleNft = () => {
           ) : (
             <div className="g-container mb-[47px]">
               {nftArt === null ? (
-                <div className="w-full">
+                <div className="w-full mt-[30px]">
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
                       acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
@@ -942,7 +939,12 @@ const SingleNft = () => {
                   ) : (
                     <div
                       className={`${styles.artArea}`}
-                      style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                      style={{
+                        width: artWidth,
+                        height: artWidth + (nftType === 'audio' ? 100 : 0),
+                        marginLeft: '-16px',
+                        marginRight: '-16px',
+                      }}
                     >
                       {nftType === 'video' && nftArt !== null ? (
                         <video controls className="w-full h-full" id="video">
@@ -951,10 +953,15 @@ const SingleNft = () => {
                         </video>
                       ) : nftType === 'audio' && nftArt !== null ? (
                         <div className="w-full h-full z-10">
-                          <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                           {nftImage !== '' && artWidth !== 0 && (
-                            <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                            <img
+                              src={nftImage}
+                              alt=""
+                              className="object-contain z-10"
+                              style={{ width: artWidth, height: artWidth }}
+                            />
                           )}
+                          <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                         </div>
                       ) : nftImage !== '' && artWidth !== 0 ? (
                         <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
@@ -1017,20 +1024,6 @@ const SingleNft = () => {
                   />
                 </>
               )}
-
-              {/* {currentStep === 2 && (
-                <Step02SingleNFTSection
-                  nftName={nftName}
-                  setNftName={value => setNftName(value)}
-                  description={description}
-                  categoryList={categoryList}
-                  setDescription={value => setDescription(value)}
-                  showCategoryList={showCategoryList}
-                  setShowCategoryList={value => setShowCategoryList(value)}
-                  handleSelectCategory={index => handleSelectCategory(index)}
-                  handleCancelCategory={() => handleCancelCategory()}
-                />
-              )} */}
 
               {currentStep === 2 && (
                 <Step03SingleNFTSection

@@ -39,6 +39,7 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import CategorySelectionMenu from 'components/Menu/CategorySelectionMenu'
 import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const Step01CollectionSection = props => {
   const {
@@ -827,25 +828,23 @@ const Step01CollectionSection = props => {
           <div className="w-full my-[30px]">
             {/* button group part */}
             <div>
-              <PrimaryButton
-                fullWidth
-                label="Next"
-                type="next"
-                disabled={disabledNextButton}
-                onClick={() => {
-                  onChangeCurrentStep(currentStep + 1)
-                }}
-              />
-            </div>
-            <div className="mt-[18px]">
-              <SecondaryButton
+              <OutlineButton
                 label="Back"
-                type="back"
                 onClick={() => {
                   if (currentStep === 1) router.push('/create/single-nft')
                   else onChangeCurrentStep(currentStep - 1)
                 }}
                 fullWidth
+              />
+            </div>
+            <div className="mt-[18px]">
+              <GradientButton
+                fullWidth
+                label="Next"
+                disabled={disabledNextButton}
+                onClick={() => {
+                  onChangeCurrentStep(currentStep + 1)
+                }}
               />
             </div>
           </div>
