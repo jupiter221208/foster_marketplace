@@ -13,15 +13,11 @@ import { useViewport } from 'utils'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
-import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
 import { useSelector } from 'react-redux'
-import OutlineButton from 'components/Button/OutlineButton'
-import GradientButton from 'components/Button/GradientButton'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 const Step03CollectionSection = props => {
   const {
