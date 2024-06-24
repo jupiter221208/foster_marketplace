@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
@@ -8,8 +8,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
+import ArrowLeftIcon from 'assets/icons/back-arrow.svg?component'
 
 // Styles
 import styles from './id.module.scss'
@@ -31,7 +30,6 @@ const MerchDetail = () => {
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
   const type = useSelector<any>(state => state.orderType)
-  const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
@@ -237,16 +235,12 @@ const MerchDetail = () => {
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
         <Link href="/merch-logs">
           <div
-            className={styles.backBG}
             onClick={() => {
               router.push('/merch-logs')
             }}
           >
-            <div className="hidden lg:flex mr-[2px]">
+            <div className="mr-[4px]">
               <ArrowLeftIcon alt="" />
-            </div>
-            <div className="flex lg:hidden">
-              <ArrowLeftIconMobile alt="" />
             </div>
           </div>
         </Link>
