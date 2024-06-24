@@ -396,7 +396,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           </div>
         )}
       </div>
-      {/* <FullScreenLoadingModal open={isShowLoading} /> */}
     </div>
   )
 }
