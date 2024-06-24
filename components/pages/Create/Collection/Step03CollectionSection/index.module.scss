@@ -172,6 +172,7 @@
 }
 
 .selectedImage {
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   display: flex;
   justify-content: center;
   align-items: center;

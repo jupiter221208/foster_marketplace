@@ -18,9 +18,6 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
-import Button from 'components/Button'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -83,7 +80,7 @@ const Step03CollectionSection = props => {
                     <img
                       src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
                       alt=""
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   )}
                 </div>
@@ -119,7 +116,7 @@ const Step03CollectionSection = props => {
                   </div>
                 </div>
                 {startUpload && (
-                  <div className="absolute right-0 top-4 w-10 h-10">
+                  <div className="absolute right-[30px] top-[40%] w-10 h-10">
                     {index < uploadedCount ? (
                       <Lottie animationData={CheckLottery} loop={true} />
                     ) : (

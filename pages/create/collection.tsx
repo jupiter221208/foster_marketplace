@@ -535,14 +535,14 @@ const Collection = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full">
-        <div
-          className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px] flex justify-between"
-          onClick={() => {
-            if (currentStep === 1 || currentStep === 3) router.back()
-            else setCurrentStep(currentStep - 1)
-          }}
-        >
-          <div className="flex gap-[25px] items-center">
+        <div className="w-full lg:flex hidden gap-[28px] items-center g-container lg:mt-[44px] mt-[30px] flex justify-between">
+          <div
+            className="flex gap-[25px] items-center"
+            onClick={() => {
+              if (currentStep === 1 || currentStep === 3) router.back()
+              else setCurrentStep(currentStep - 1)
+            }}
+          >
             <BackIcon />
             <div className={styles.createEdition}>
               {currentStep === 1
@@ -568,7 +568,8 @@ const Collection = () => {
                     height={53}
                     borderRadius={30}
                     onClick={() => {
-                      mintCollection()
+                      setStartUpload(true)
+                      readFilesAndUplaod()
                     }}
                   />
                 )}
