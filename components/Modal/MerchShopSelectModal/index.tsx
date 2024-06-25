@@ -12,6 +12,7 @@ import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import MerchEditionCard from 'components/Card/MerchEditionCard'
+import StoreAPI from 'apis/store'
 
 const MerchShopSelectModal = props => {
   const { open, close, selectCard } = props
@@ -21,39 +22,18 @@ const MerchShopSelectModal = props => {
   const [merchList, setMerchList] = useState([])
 
   useEffect(() => {
-    setMerchList([
-      {
-        title: 'Merch Craftsman',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Solana Visionary',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        title: 'Studio God',
-        image:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-    ])
-  }, [])
+    if (open) {
+      StoreAPI.getStoreItemByEdition(profileInfo?.id).then(
+        res => {
+          console.log(res, '===========res==========')
+          if (res) {
+            setMerchList(res)
+          }
+        },
+        error => {}
+      )
+    }
+  }, [open])
 
   const closeModal = () => {
     close('cancel')

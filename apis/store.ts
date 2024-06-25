@@ -30,6 +30,12 @@ class Store {
     })
   }
 
+  getStoreItemByNewEdition(user_id) {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items?edition=true&edition_assigned=false').then(response => {
+      return response.data
+    })
+  }
+
   getStoreById(user_id, product_id) {
     return client.get(API_URL + 'v1/stores/' + user_id + '/items/' + product_id).then(response => {
       if (typeof response.data === 'string') throw new Error(response.data)

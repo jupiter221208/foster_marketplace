@@ -329,9 +329,9 @@
   font-weight: 100;
   color: var(--text-gray-200-color);
   margin-top: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  // white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
   width: 100%;
   @media (min-width: 640px) {
     overflow: visible;
