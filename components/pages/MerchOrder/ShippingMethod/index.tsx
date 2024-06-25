@@ -177,7 +177,7 @@ const MerchOrderShippingMethod = props => {
       item = {
         id: id.toString(),
         quantity,
-        previewUrl: mockupUrls.join(','),
+        previewUrl: mockupUrls[0],
         options: {
           type: type,
           nftName: data.name,
