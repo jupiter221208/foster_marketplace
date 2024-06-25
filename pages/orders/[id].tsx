@@ -54,7 +54,8 @@ const OrderSection = props => {
         setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
       } else {
         let list = []
-        itemData.imageUrl.split(',').map((item, index) => list.push({ url: item, selected: index === 0 }))
+        let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
+        mockupUrl.split(',').map((item, index) => list.push({ url: item, selected: index === 0 }))
         setSelectedMerch(list[0])
         setMerchList(list)
       }

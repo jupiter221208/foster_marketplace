@@ -182,6 +182,7 @@ const MerchOrderShippingMethod = props => {
           type: type,
           nftName: data.name,
           fosterUrl: window.location.href,
+          mockupUrl: mockupUrls.join(','),
           assetUrl: rawUrls.join(','),
           nftAddress: '',
           apparel: description,
