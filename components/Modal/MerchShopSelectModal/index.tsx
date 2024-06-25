@@ -25,7 +25,6 @@ const MerchShopSelectModal = props => {
     if (open) {
       StoreAPI.getStoreItemByEdition(profileInfo?.id).then(
         res => {
-          console.log(res, '===========res==========')
           if (res) {
             setMerchList(res)
           }

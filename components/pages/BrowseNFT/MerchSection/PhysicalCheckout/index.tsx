@@ -43,8 +43,6 @@ export interface PhysicalCheckoutProps {
 const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -120,9 +118,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         let colorText = getFirstUpperString(color)
         let qty = 'Qty:' + itemQuantity
         itemList.push({ name: nftName, type, color: colorText, qty })
-      } else if (type === 'merch') {
+      } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
-        let type = 'Print Technique: Embroidery'
+        var technique = findElement(options, 'name', 'technique')['value']
+        let type = 'Print Technique: ' + technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery'
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })

@@ -22,26 +22,9 @@ const OrderSection = props => {
   const [coverUrl, setCoverUrl] = useState('')
   const [merchType, setMerchType] = useState('')
 
-  const [merchList, setMerchList] = useState([
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      selected: true,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-      selected: false,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=900/https%3A%2F%2Farweave.net%2FxpAX_Uj698MWASLs4jUJD9PcrZBeYogUaJ9BOzFxbPk',
-      selected: false,
-    },
-    {
-      url: 'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM',
-      selected: false,
-    },
-  ])
+  const [merchList, setMerchList] = useState([])
 
-  const [selectedMerch, setSelectedMerch] = useState(merchList[0])
+  const [selectedMerch, setSelectedMerch] = useState(null)
 
   const onClickMerch = key => {
     let list = []
@@ -71,11 +54,14 @@ const OrderSection = props => {
         setPreviewUrl(itemData.imageUrl)
         setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
       } else {
+        let list = []
+        itemData.imageUrl.split(',').map((item, index) => list.push({ url: item, selected: index === 0 }))
+        setSelectedMerch(list[0])
+        setMerchList(list)
       }
     }
   }, [orderData])
 
-  console.log(merchType, '==========type=========')
   return (
     <div className="g-container">
       <div className={styles.container}>
@@ -108,13 +94,15 @@ const OrderSection = props => {
                     )
                   })}
                 </div>
-                <div className="flex-1 h-full max-h-[700px] flex items-center justify-center">
-                  <ImageWithFoster
-                    src={selectedMerch.url}
-                    width={700}
-                    className="w-[80%] lg:w-auto h-auto object-cover"
-                  />
-                </div>
+                {selectedMerch && (
+                  <div className="flex-1 h-full max-h-[700px] flex items-center justify-center">
+                    <ImageWithFoster
+                      src={selectedMerch.url}
+                      width={700}
+                      className="w-[80%] lg:w-auto h-auto object-cover"
+                    />
+                  </div>
+                )}
               </div>
             ) : (
               <div></div>
@@ -122,10 +110,10 @@ const OrderSection = props => {
           </div>
           <div className="z-10">
             <div className={styles.contentContainer}>
-              {orderData && merchType === 'apparel' && (
+              {orderData && (
                 <PhysicalCheckout
                   orderData={orderData}
-                  type="apparel"
+                  type=""
                   onBack={() => {
                     router.back()
                   }}

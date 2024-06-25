@@ -102,9 +102,14 @@ const MerchOrderMain = props => {
         break
     }
     let sizes = []
-    size_list.map((size, index) =>
-      sizes.push({ id: index, name: size.Size, selected: index === Math.round(size_list.length / 2) })
-    )
+    size_list.map((size, index) => {
+      if (index === Math.round(size_list.length / 2)) {
+        sizes.push({ id: index, name: size.Size, selected: true })
+        setMerchSize({ id: index, name: size.Size, selected: true })
+      } else {
+        sizes.push({ id: index, name: size.Size, selected: false })
+      }
+    })
     setSizeList(sizes)
 
     if (productDetail.fulfillment_type === 'foster') {
@@ -244,8 +249,6 @@ const MerchOrderMain = props => {
           : 'Front'
       )
     })
-    console.log(directiction, '======1111============')
-
     return directiction.join().replaceAll(',', ', ')
   }
 

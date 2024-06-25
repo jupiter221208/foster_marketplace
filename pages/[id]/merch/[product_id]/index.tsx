@@ -39,6 +39,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [merchSize, setMerchSize] = useState('L')
   const [merchCost, setMerchCost] = useState(0)
   const [merchList, setMerchList] = useState([])
+  const [rawUrlList, setRawUrlList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
 
@@ -64,10 +65,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
       response => {
         if (response) {
           setProductDetail(response)
-          let imageList = []
+          let imageList = [],
+            rawList = []
           if (response.fulfillment_type === 'foster') {
             response.options.addons.map((item, index) => {
               imageList.push({ url: item.mockup_url, selected: index === 0 })
+              rawList.push({ url: item.mockup_url })
             })
           } else {
             response.options.product_images.map((item, index) => {
@@ -75,6 +78,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             })
           }
           setMerchList(imageList)
+          setRawUrlList(rawList)
           setSelectedMerch(imageList[0])
           setPrintData({
             id: 1,
@@ -211,7 +215,9 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 allShippingMethod={shipppingMethod}
                 setTotalCost={setTotalCost}
                 merchList={merchList}
-                mintAddress="0xE3f338g2dk3f82qdk333dee333dd33"
+                rawList={rawUrlList}
+                size={merchSize}
+                mintAddress=""
                 onNext={orderId => {
                   let data = {
                     printData,

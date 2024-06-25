@@ -16,7 +16,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
-import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
+import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
@@ -72,19 +72,26 @@ const MerchDetail = () => {
       let options = itemData.options
       let nftName = findElement(options, 'name', 'nftName')
       let size = findElement(options, 'name', 'size')
+      let optionType = findElement(options, 'name', 'type')
       let color = findElement(options, 'name', 'color')
       let apparel = findElement(options, 'name', 'apparel')
-      let previewUrl = itemData.imageUrl
+      apparel = apparel ? apparel['value'] : ''
+      console.log(optionType, '========optionType=========')
+      if (optionType['value'] === 'foster' && apparel.length > 0) {
+        apparel = apparel.split(' | ')[0]
+      }
+      let previewUrl = itemData.imageUrl.split(',')[0]
       let fosterUrl = findElement(options, 'name', 'fosterUrl')
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
+
       if (options) {
         let itemDetails = {
           print: nftName ? nftName['value'] : '',
           quantity: itemData.quantity,
           product: itemData.name,
           size: size ? size['value'] : '',
-          color: color ? color['value'] : '',
-          apparel: apparel ? apparel['value'] : '',
+          color: color ? getFirstUpperString(color['value']) : '',
+          apparel: apparel,
         }
         setItemDetails(itemDetails)
       }
@@ -110,18 +117,24 @@ const MerchDetail = () => {
         let nftName = findElement(options, 'name', 'nftName')
         let size = findElement(options, 'name', 'size')
         let color = findElement(options, 'name', 'color')
+        let optionType = findElement(options, 'name', 'type')
         let fosterUrl = findElement(options, 'name', 'fosterUrl')
         let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
+        apparel = apparel ? apparel['value'] : ''
+        if (optionType['value'] === 'foster' && apparel.lenght > 0) {
+          apparel = apparel.split(' | ')[0]
+        }
+
         let quantity = itemData.quantity
         if (options) {
           let itemDetails = {
             quantity: quantity,
             print: nftName ? nftName['value'] : '',
             size: size ? size['value'] : '',
-            color: color ? color['value'] : '',
+            color: color ? getFirstUpperString(color['value']) : '',
             fosterUrl: previewUrl,
-            apparel: apparel ? apparel['value'] : '',
+            apparel: apparel,
           }
           itemList.push(itemDetails)
         }
@@ -318,7 +331,7 @@ const MerchDetail = () => {
             <div className="w-[183px] h-[183px] object-cover">
               <div className="skeletonLoaderBasic w-[183px] h-[183px] rounded-[12px]"></div>
             </div>
-            <div>
+            <div className="max-w-[300px]">
               <div className={styles.detailTitle}>Item Details</div>
               <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[100px] h-[20px] rounded-full mt-[9px]"></div>
@@ -416,7 +429,7 @@ const MerchDetail = () => {
                 <img src={previewUrl} alt="" />
               )}
             </div>
-            <div>
+            <div className="max-w-[300px]">
               <div className={styles.detailTitle}>Item Details</div>
               <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
@@ -752,7 +765,7 @@ const MerchDetail = () => {
           <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
         ) : orderData?.ssorder.items.length === 1 ? (
           <div className={styles.tableColor}>
-            <div className="w-full flex">
+            <div className="w-[auto]">
               <div className="w-[100px] h-auto object-cover ml-[15px]">
                 <img src={previewUrl} alt="" />
               </div>
