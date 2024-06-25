@@ -73,8 +73,6 @@ const MerchOrderMain = props => {
   }, [description])
 
   useEffect(() => {
-    console.log(productDetail, '==========productDetail======')
-
     let size_list
     switch (productDetail.product_type_id) {
       case 1:
@@ -105,7 +103,7 @@ const MerchOrderMain = props => {
     size_list.map((size, index) => {
       if (index === Math.round(size_list.length / 2)) {
         sizes.push({ id: index, name: size.Size, selected: true })
-        setMerchSize({ id: index, name: size.Size, selected: true })
+        setMerchSize(size.Size)
       } else {
         sizes.push({ id: index, name: size.Size, selected: false })
       }
@@ -182,7 +180,7 @@ const MerchOrderMain = props => {
     sizeList.map(item => {
       if (item.id === index) {
         newSize.push({ ...item, selected: true })
-        setMerchSize(item.Size)
+        setMerchSize(item.name)
       } else {
         newSize.push({ ...item, selected: false })
       }

@@ -45,6 +45,7 @@ const MerchDetail = () => {
   const [reviewBody, setReviewBody] = useState('')
   const [commission, setCommission] = useState(null)
   const [showReviewModal, setShowReviewModal] = useState(false)
+  const [merchType, setMerchType] = useState('')
 
   useEffect(() => {
     if (publicKey) setEmailBody()
@@ -76,7 +77,7 @@ const MerchDetail = () => {
       let color = findElement(options, 'name', 'color')
       let apparel = findElement(options, 'name', 'apparel')
       apparel = apparel ? apparel['value'] : ''
-      console.log(optionType, '========optionType=========')
+      setMerchType(optionType['value'])
       if (optionType['value'] === 'foster' && apparel.length > 0) {
         apparel = apparel.split(' | ')[0]
       }
@@ -118,6 +119,7 @@ const MerchDetail = () => {
         let size = findElement(options, 'name', 'size')
         let color = findElement(options, 'name', 'color')
         let optionType = findElement(options, 'name', 'type')
+        setMerchType(optionType['value'])
         let fosterUrl = findElement(options, 'name', 'fosterUrl')
         let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
@@ -458,9 +460,11 @@ const MerchDetail = () => {
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
               </div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-              </div>
+              {merchType !== 'foster' && (
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+                </div>
+              )}
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
               </div>

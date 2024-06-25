@@ -46,7 +46,6 @@ const OrderSection = props => {
 
   useEffect(() => {
     if (orderData) {
-      console.log(orderData, '==========orderData=========')
       let itemData = orderData?.ssorder.items[0]
       let type = findElement(itemData.options, 'name', 'type')['value']
       setMerchType(type)

@@ -37,8 +37,6 @@ const MerchOrderShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    let name = ''
-
     let methods = []
     if (isUniteState()) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
@@ -187,14 +185,13 @@ const MerchOrderShippingMethod = props => {
           assetUrl: rawUrls.join(','),
           nftAddress: '',
           apparel: description,
-          size: size.name,
+          size: size,
           color: color,
           technique: data.technique,
         },
         notes: `This is studio merch V2 item`,
       }
     }
-
     let params = {
       customerEmail: shippingData.email,
       shippingServiceCode: shipping.serviceCode,

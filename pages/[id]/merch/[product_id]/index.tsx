@@ -42,7 +42,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [rawUrlList, setRawUrlList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
-
   const onClickMerch = key => {
     let list = []
     merchList.map((merch, index) => {
@@ -70,7 +69,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           if (response.fulfillment_type === 'foster') {
             response.options.addons.map((item, index) => {
               imageList.push({ url: item.mockup_url, selected: index === 0 })
-              rawList.push({ url: item.mockup_url })
+              rawList.push({ url: item.raw_url })
             })
           } else {
             response.options.product_images.map((item, index) => {
@@ -216,7 +215,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 setTotalCost={setTotalCost}
                 merchList={merchList}
                 rawList={rawUrlList}
-                size={merchSize}
                 mintAddress=""
                 onNext={orderId => {
                   let data = {
@@ -226,7 +224,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                     nftCoverUrl: merchList[0].url,
                     totalCost,
                   }
-                  console.log(data, '==========data=========')
                   dispatch({ type: 'set', merchData: data })
                   router.push(`/orders/${orderId}`)
                 }}

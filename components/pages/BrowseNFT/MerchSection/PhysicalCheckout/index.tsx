@@ -121,7 +121,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
         var technique = findElement(options, 'name', 'technique')['value']
-        let type = 'Print Technique: ' + technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery'
+        let type = 'Print Technique: ' + (technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery')
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
