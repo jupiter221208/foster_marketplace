@@ -298,6 +298,7 @@ const MainSection = props => {
                 artistName={data?.artist_username}
                 description={data?.description}
                 artistAddress={data?.artist_username}
+                showEditIcon={data?.minter_id === publicKey?.toBase58()}
                 hasloading={hasloading}
                 onClickEdit={() => setEditCollection(true)}
               />
@@ -470,6 +471,7 @@ const MainSection = props => {
                     artistAddress={data?.artist_username}
                     hasloading={hasloading}
                     description={data?.description}
+                    showEditIcon={data?.minter_id === publicKey?.toBase58()}
                     onClickEdit={() => setEditCollection(true)}
                   />
                   <div className="flex gap-[10px]">
