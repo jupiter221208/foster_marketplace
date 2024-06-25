@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { getDisplayUserName } from 'utils/strings'
 
 const BrowseArtistCard = props => {
-  const { image, collectionName, artistName, artistAddress, hasloading, onClickEdit } = props
+  const { image, collectionName, artistName, artistAddress, hasloading, showEditIcon, onClickEdit } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
@@ -39,19 +39,21 @@ const BrowseArtistCard = props => {
               />
             )}
           </div>
-          <div className="absolute left-[64px] lg:left-[120px] bottom-[-4px] lg:bottom-0">
-            <IconButtonWithSVG
-              icon={<CameraWhiteIcon />}
-              width={38}
-              height={38}
-              iconWidth={38}
-              iconHeight={38}
-              onClick={onClickEdit}
-              backgroundColor="var(--background-main-color)"
-              borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
-              borderRadius="100%"
-            />
-          </div>
+          {showEditIcon && (
+            <div className="absolute left-[64px] lg:left-[120px] bottom-[-4px] lg:bottom-0">
+              <IconButtonWithSVG
+                icon={<CameraWhiteIcon />}
+                width={38}
+                height={38}
+                iconWidth={38}
+                iconHeight={38}
+                onClick={onClickEdit}
+                backgroundColor="var(--background-main-color)"
+                borderColor="rgba(var(--main-bg-color-rgb), 0.1)"
+                borderRadius="100%"
+              />
+            </div>
+          )}
         </div>
         {/* )} */}
       </div>

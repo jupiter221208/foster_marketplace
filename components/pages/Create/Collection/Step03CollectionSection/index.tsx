@@ -141,7 +141,7 @@ const Step03CollectionSection = props => {
                     {collectionMintName}
                   </div>
                   {startUpload && (
-                    <div className="absolute right-[20px] top-[20px] w-10 h-10">
+                    <div className="absolute right-[20px] top-[18px] w-10 h-10">
                       {index < uploadedCount ? (
                         <Lottie animationData={CheckLottery} loop={true} />
                       ) : (
@@ -150,7 +150,7 @@ const Step03CollectionSection = props => {
                     </div>
                   )}
                 </div>
-                <div className={`mt-[15px] ${styles.selectedImage}`}>
+                <div className={`mt-[20px] ${styles.selectedImage}`}>
                   {item.type === 'video' ? (
                     <video loop autoPlay className="w-full h-full" id="video">
                       <source src={URL.createObjectURL(item.file)} type={item.file.type} />
