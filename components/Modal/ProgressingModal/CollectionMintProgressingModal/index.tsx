@@ -94,7 +94,7 @@ const CollectionMintProgressingModal = props => {
                             <div>
                               <Input
                                 value={item.name}
-                                placeholder="Give your art name"
+                                placeholder="Give your art a name"
                                 label=""
                                 fullWidth
                                 onChange={() => {}}
@@ -167,7 +167,7 @@ const CollectionMintProgressingModal = props => {
                             <div>
                               <Input
                                 value={item.name}
-                                placeholder="Give your art name"
+                                placeholder="Give your art a name"
                                 label=""
                                 fullWidth
                                 onChange={() => {}}

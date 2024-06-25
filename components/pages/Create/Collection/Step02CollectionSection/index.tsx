@@ -17,7 +17,6 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 // Icons
 import ImageIcon from 'assets/icons/image-icon.svg?component'
 import ShareIcon from 'assets/icons/share-icon.svg?component'
-import TrashBin from 'assets/icons/trash-bin.svg?component'
 import TrashBinSmall from 'assets/icons/trash-bin-18x18.svg?component'
 
 // custom functions
@@ -35,9 +34,9 @@ import { limit } from 'utils/strings'
 import { validDigits } from 'utils/helpers'
 import ProductionListMenu from 'components/ProductionListMenu'
 import { useRouter } from 'next/router'
-import PrimaryButton from 'components/Button/PrimaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const Step02CollectionSection = props => {
   const {
@@ -58,6 +57,7 @@ const Step02CollectionSection = props => {
     onChangeSupply,
     disabledNextButton,
     setDisabledNextButton,
+    onNext,
   } = props
 
   const viewport = useViewport()
@@ -68,7 +68,7 @@ const Step02CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [addMoreClicked, setAddMoreClicked] = useState(false)
-  const [edition, setEdition] = useState(2)
+  const [showDelete, setShowDelete] = useState(false)
 
   const handleShowAlert = error => {
     if (error === 'file-invalid-type') {
@@ -143,7 +143,6 @@ const Step02CollectionSection = props => {
 
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
-  // const [disabledNextButton, setDisabledNextButton] = useState(true)
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -199,7 +198,17 @@ const Step02CollectionSection = props => {
       }
     })
     if (count === collectionFiles.length && collectionFiles.length !== 0) {
-      setDisabledNextButton(false)
+      let isMaxSupply = true
+      collectionFiles.map(item => {
+        if (item.editionType.id === 0) {
+          if (item.maxSupply === undefined || item.maxSupply === null) {
+            isMaxSupply = false
+            return
+          }
+        }
+      })
+      if (isMaxSupply) setDisabledNextButton(false)
+      else setDisabledNextButton(true)
     } else {
       if (collectionFiles.length === 0) {
         setSelectedCollectionFile(undefined)
@@ -210,6 +219,7 @@ const Step02CollectionSection = props => {
       handleSelectedCollectionFile(collectionFiles[collectionFiles.length - 1])
       setAddMoreClicked(false)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionFiles])
 
@@ -337,7 +347,7 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           {/* right part */}
-          <div className="flex-[50%] g-right-container z-0">
+          <div className="flex-[50%] g-right-container z-0 relative">
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">
@@ -455,7 +465,7 @@ const Step02CollectionSection = props => {
                             <div>
                               <Input
                                 value={limit(item.name, 32)}
-                                placeholder="Give your art name"
+                                placeholder="Give your art a name"
                                 label01={item.file?.name}
                                 label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                                 fullWidth
@@ -518,12 +528,24 @@ const Step02CollectionSection = props => {
                               </div>
 
                               {item.nftCoverImage && (
-                                <div className={styles.glbNftImageSection}>
+                                <div
+                                  className={styles.glbNftImageSection}
+                                  onMouseEnter={() => setShowDelete(true)}
+                                  onMouseLeave={() => setShowDelete(false)}
+                                >
                                   <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
-                                  <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
-                                    <TrashBin />
-                                    &nbsp;Remove Cover Image
-                                  </button>
+                                  {showDelete && (
+                                    <div className={styles.deleteArea}>
+                                      <div
+                                        onClick={() => {
+                                          setShowDelete(false)
+                                          addCoverImageToFile(selectedCollectionFile, null)
+                                        }}
+                                      >
+                                        Delete
+                                      </div>
+                                    </div>
+                                  )}
                                 </div>
                               )}
                             </div>
@@ -534,13 +556,6 @@ const Step02CollectionSection = props => {
                             <div className={styles.subTitle}>
                               Edition type <span>*</span>
                             </div>
-                            {/* <SwipRadio
-                              data={EditionList}
-                              selected={item.editionType}
-                              onChange={item => {
-                                onChangeEditionType(item, item)
-                              }}
-                            /> */}
                             <div className="mt-[15px]">
                               <ProductionListMenu
                                 label={item.editionType.label}
@@ -622,6 +637,18 @@ const Step02CollectionSection = props => {
                   )}
                 </div>
               </div>
+              {collectionFiles.length > 0 && (
+                <div className="w-full flex justify-end mt-[40px]">
+                  <GradientButton
+                    disabled={disabledNextButton}
+                    label="Next"
+                    width={122}
+                    height={53}
+                    borderRadius={30}
+                    onClick={() => onNext()}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -818,7 +845,7 @@ const Step02CollectionSection = props => {
                       <div>
                         <Input
                           value={limit(item.name, 32)}
-                          placeholder="Give your art name"
+                          placeholder="Give your art a name"
                           label01={item.file?.name}
                           label02={32 - item.name.length === 32 ? '' : `${32 - item.name.length} Characters left`}
                           fullWidth
@@ -876,13 +903,26 @@ const Step02CollectionSection = props => {
                         </div>
 
                         {item.nftCoverImage && (
-                          <div className="w-full flex justify-center">
-                            <div className={styles.glbNftImageSection}>
+                          <div className="w-full">
+                            <div
+                              className={styles.glbNftImageSection}
+                              onMouseEnter={() => setShowDelete(true)}
+                              onMouseLeave={() => setShowDelete(false)}
+                              onClick={() => setShowDelete(!showDelete)}
+                            >
                               <img className="w-full aspect-square" src={item.nftCoverImage} alt="" />
-                              <button onClick={() => addCoverImageToFile(selectedCollectionFile, null)}>
-                                <TrashBin />
-                                &nbsp;Remove Cover Image
-                              </button>
+                              {showDelete && (
+                                <div className={styles.deleteArea}>
+                                  <div
+                                    onClick={() => {
+                                      setShowDelete(false)
+                                      addCoverImageToFile(selectedCollectionFile, null)
+                                    }}
+                                  >
+                                    Delete
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </div>
                         )}
@@ -970,20 +1010,19 @@ const Step02CollectionSection = props => {
           )}
           <div className="w-full my-[30px]">
             <div className="w-full">
+              <OutlineButton fullWidth label="Back" type="back" onClick={() => router.back()} />
+            </div>
+            <div className="w-full mt-[15px]">
               {coverImageProcessing ? (
                 <LoadingPrimaryButton fullWidth />
               ) : (
-                <PrimaryButton
+                <GradientButton
                   fullWidth
                   label="Next"
-                  type="next"
                   disabled={disabledNextButton}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
                 />
               )}
-            </div>
-            <div className="w-full mt-[15px]">
-              <SecondaryButton fullWidth label="Back" type="back" onClick={() => router.back()} />
             </div>
           </div>
         </div>

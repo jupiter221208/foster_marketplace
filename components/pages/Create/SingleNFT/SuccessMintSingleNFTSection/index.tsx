@@ -35,6 +35,7 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import ImageWithFoster from 'components/ImageWithFoster'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import GradientButton from 'components/Button/GradientButton'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
@@ -132,16 +133,11 @@ const SuccessMintSingleNFTSection = props => {
                     onShareWindowClose={() => {}}
                     className="w-full"
                   >
-                    <PrimaryButton width={300} label="Tweet your Mint" type="tweet" onClick={() => {}} />
+                    <GradientButton width={300} label="Tweet your Mint" onClick={() => {}} />
                   </TwitterShareButton>
                 </div>
                 <div className="w-full">
-                  <SecondaryButton
-                    width={300}
-                    label="List Artwork"
-                    type="list-artwork"
-                    onClick={() => router.push('/nft/' + nftAddress)}
-                  />
+                  <OutlineButton width={300} label="List Artwork" onClick={() => router.push('/nft/' + nftAddress)} />
                 </div>
               </div>
             </div>
@@ -202,16 +198,11 @@ const SuccessMintSingleNFTSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <PrimaryButton fullWidth label="Tweet your Mint" type="tweet" onClick={() => {}} />
+                  <GradientButton fullWidth label="Tweet your Mint" onClick={() => {}} />
                 </TwitterShareButton>
               </div>
               <div className="w-full">
-                <SecondaryButton
-                  fullWidth
-                  label="List Artwork"
-                  type="list-artwork"
-                  onClick={() => router.push('/nft/' + nftAddress)}
-                />
+                <OutlineButton fullWidth label="List Artwork" onClick={() => router.push('/nft/' + nftAddress)} />
               </div>
             </div>
           </div>

@@ -38,7 +38,7 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
-import { copyToClipboard, isValidUrl, validUrl } from 'utils/helpers'
+import { containsEmoji, containsSpecialChars, copyToClipboard, isValidUrl, validUrl } from 'utils/helpers'
 import PrimaryButton from 'components/Button/PrimaryButton'
 
 const ProfileSection = prop => {
@@ -237,6 +237,8 @@ const ProfileSection = prop => {
                 onChange={value => {
                   if (errorMessage.length > 0) setErrorMessage('')
                   setUsername(value)
+                  if (containsSpecialChars(value) || containsEmoji(value))
+                    setErrorMessage("Usernames can't contain the following special characters:  /:*?<>#")
                 }}
               />
             </div>
@@ -606,10 +608,9 @@ const ProfileSection = prop => {
             )}
 
             <div className="mt-[60px] lg:mt-[61px] mb-[140px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
-              <PrimaryButton
+              <GradientButton
                 fullWidth
                 label="Save"
-                type="save"
                 disabled={!enableSave}
                 onClick={() => {
                   handleSaveUserInfo()

@@ -5,8 +5,7 @@ import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
 // swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import SwiperCore, { Autoplay, Lazy, Navigation } from 'swiper'
+import SwiperCore, { Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -17,8 +16,6 @@ import styles from './index.module.scss'
 
 // apis
 import StatsAPI from 'apis/stats'
-import { useViewport } from 'utils'
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 SwiperCore.use([Navigation])
@@ -26,7 +23,6 @@ SwiperCore.use([Navigation])
 const CollectionsSection = props => {
   const { collections } = props
 
-  const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
   const [isMounted, setIsMounted] = useState(false)
   const [list, setList] = useState<any[]>([])
@@ -116,61 +112,6 @@ const CollectionsSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-
-      {/* {!loading &&
-        (list.length === 0 ? (
-          !searchLoading ? (
-            <div />
-          ) : (
-            <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
-              <LoadingModal open={searchLoading} />
-            </div>
-          )
-        ) : (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-            <Swiper
-              navigation={true}
-              slidesPerView={
-                viewport === 'xs'
-                  ? 1.3
-                  : viewport === 'sm'
-                  ? 2.5
-                  : viewport === 'md'
-                  ? 2.9
-                  : viewport === 'lg'
-                  ? 2.5
-                  : viewport === 'xl'
-                  ? screenWidth >= 1300
-                    ? 3
-                    : 2.8
-                  : viewport === '2xl'
-                  ? screenWidth >= 1768
-                    ? 4
-                    : 3.5
-                  : 4
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              className={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                  ? 'noScrollNavigationSwiper'
-                  : 'auctionNavigationSwiper'
-              }
-            >
-              {list.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <StatsCollectionCard data={item} type="collections" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ))} */}
 
       {!loading && (
         <div className="w-full mt-[25px]">

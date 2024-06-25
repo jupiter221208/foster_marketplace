@@ -12,9 +12,9 @@
   padding: 13px 10px;
   font-family: 'Muli-Light';
   font-size: 14px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+  color: var(--text-gray-200-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-  background: var(--bg-TRANSPARENT-FFF);
+  background: transparent;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
@@ -42,11 +42,11 @@
   
   top: 50px;
   padding: 6px 8px;
-    background: var(--bg-TRANSPARENT-FFF);
+  background: var(--background-main-color);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+  // -webkit-backdrop-filter: blur(30px);
+  // backdrop-filter: blur(30px);
   overflow: auto;
   cursor: pointer;
   z-index: 100;

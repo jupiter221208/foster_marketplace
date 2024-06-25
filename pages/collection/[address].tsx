@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
@@ -42,7 +41,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
 
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [collectionData, setCollectionData] = useState()

@@ -18,6 +18,7 @@ import Textarea from 'components/Input/Textarea'
 
 // resources
 import EditImageIcon from 'assets/icons/edit-icon.svg?component'
+import BackArrow from 'assets/icons/back-arrow.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -194,7 +195,8 @@ const CollectionDetailModal = props => {
                         <div className="w-full mt-[15px]">
                           <Input
                             value={limit(artName, 32)}
-                            placeholder="Give your art name"
+                            placeholder="Give your collection a name"
+                            fontFamily="Muli-Light"
                             label01="Max Characters 32"
                             label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
                             onChange={value => setArtName(limit(value, 32))}
@@ -204,7 +206,8 @@ const CollectionDetailModal = props => {
                         <div className="w-full mt-[15px]">
                           <Textarea
                             value={limit(artDesc, 1000)}
-                            placeholder="Give your art name"
+                            placeholder="Add a short description"
+                            fontFamily="Muli-Light"
                             label01="Max Characters 1000"
                             label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
                             onChange={value => setArtDesc(limit(value, 1000))}
@@ -242,7 +245,11 @@ const CollectionDetailModal = props => {
                   {/* Mobile */}
                   <div className="w-full h-full overflow-scroll">
                     <div className="block lg:hidden g-container">
-                      <div className={`${styles.artImage} mt-[56px]`}>
+                      <div className={`${styles.backText} mt-[30px]`} onClick={() => close()}>
+                        <BackArrow />
+                        Edit Metadata
+                      </div>
+                      <div className={`${styles.artImage} mt-[20px]`}>
                         <img src={imageUrl} alt="" className="w-full h-full object-cover" />
                         <div className="absolute right-[17px] bottom-[19px] z-[1000]">
                           <Dropzone
@@ -274,7 +281,8 @@ const CollectionDetailModal = props => {
                           <Input
                             height={47}
                             value={limit(artName, 32)}
-                            placeholder="Give your art name"
+                            fontFamily="Muli-Light"
+                            placeholder="Give your collection a name"
                             label01="Max Characters 32"
                             label02={32 - artName.length === 32 ? '' : `${32 - artName.length} Characters left`}
                             onChange={value => setArtName(limit(value, 32))}
@@ -285,7 +293,8 @@ const CollectionDetailModal = props => {
                           <Textarea
                             height={140}
                             value={limit(artDesc, 1000)}
-                            placeholder="Give your art name"
+                            fontFamily="Muli-Light"
+                            placeholder="Add a short description"
                             label01="Max Characters 1000"
                             label02={1000 - artDesc.length === 1000 ? '' : `${1000 - artDesc.length} Characters left`}
                             onChange={value => setArtName(limit(value, 1000))}
@@ -293,20 +302,12 @@ const CollectionDetailModal = props => {
                         </div>
                       </div>
                       <div className="w-full flex gap-[24px] mt-[70px] mb-[70px]">
-                        <OutlineButton
-                          fullWidth
-                          height={45}
-                          label="Cancel"
-                          onClick={() => close()}
-                          borderWidth={1}
-                          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                        />
                         {loading ? (
-                          <LoadingButton fullWidth height={45} />
+                          <LoadingButton fullWidth height={50} />
                         ) : (
                           <GradientButton
                             fullWidth
-                            height={45}
+                            height={50}
                             label="Save"
                             backgroundColor01="var(--main-icon-color)"
                             backgroundColor02="var(--main-icon-color)"

@@ -11,9 +11,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Muli-SemiBold';
-  font-size: 13px;
-  line-height: 16px;
+  font-family: 'Muli-Light';
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }

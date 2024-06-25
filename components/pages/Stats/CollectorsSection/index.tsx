@@ -19,14 +19,12 @@ import styles from './index.module.scss'
 
 //apis
 import StatsAPI from 'apis/stats'
-import StatsArtistCard from 'components/Card/StatsArtistCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 SwiperCore.use([Navigation])
 
 const CollectorsSection = props => {
   const { collectors } = props
-  const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
   const [period, setPeriod] = useState('all')
@@ -120,62 +118,6 @@ const CollectorsSection = props => {
           <LoadingModal open={loading} />
         </div>
       )}
-
-      {/* {list.length === 0 ? (
-        !searchLoading ? (
-          <div />
-        ) : (
-          <div className="w-full mb-0 lg:mb-20 h-[293px] lg:mt-[25px] lg:h-[418px]">
-            <LoadingModal open={searchLoading} />
-          </div>
-        )
-      ) : (
-        !loading && (
-          <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
-            <Swiper
-              navigation={true}
-              slidesPerView={
-                viewport === 'xs'
-                  ? 2
-                  : viewport === 'sm'
-                  ? 2.5
-                  : viewport === 'md'
-                  ? 3
-                  : viewport === 'lg'
-                  ? 3
-                  : viewport === 'xl'
-                  ? screenWidth >= 1400
-                    ? 4
-                    : 3.7
-                  : viewport === '2xl'
-                  ? screenWidth >= 1768
-                    ? 5
-                    : 4
-                  : 3
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              className={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                  ? 'noScrollNavigationSwiper'
-                  : 'auctionNavigationSwiper'
-              }
-            >
-              {list.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <StatsArtistCard data={item} type="collectors" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        )
-      )} */}
 
       {!loading && (
         <div className="w-full mt-[25px]">

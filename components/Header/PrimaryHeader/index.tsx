@@ -297,7 +297,7 @@ const PrimaryHeader = () => {
                 )}
 
                 {connected && isNewNotification && (
-                  <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                  <div className="absolute ml-[155px] mt-[-10px]">
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}

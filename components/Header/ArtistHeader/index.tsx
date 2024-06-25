@@ -296,10 +296,7 @@ const PrimaryHeader = () => {
                         >
                           <ShoppingCartIcon alt="" />
                         </div>
-                        <div
-                          className={`${styles.iconArea} flex relative cursor-pointer`}
-                          onClick={() => router.push('/notifications')}
-                        >
+                        <div className={`${styles.iconArea} flex relative cursor-pointer`}>
                           <NotificationIcon alt="" />
                         </div>
                       </div>
@@ -307,7 +304,7 @@ const PrimaryHeader = () => {
                   )}
 
                   {connected && isNewNotification && (
-                    <div className="absolute ml-[155px] mt-[-10px]" onClick={() => router.push('/notifications')}>
+                    <div className="absolute ml-[155px] mt-[-10px]">
                       <Lottie animationData={NotifyAlarmIcon} loop={true} />
                     </div>
                   )}

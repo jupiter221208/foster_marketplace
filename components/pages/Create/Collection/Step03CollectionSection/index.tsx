@@ -13,17 +13,11 @@ import { useViewport } from 'utils'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
-import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
-import Button from 'components/Button'
-import LoadingButton from 'components/Button/LoadingButton'
-import GradientButton from 'components/Button/GradientButton'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
+import { useSelector } from 'react-redux'
 
 const Step03CollectionSection = props => {
   const {
@@ -40,6 +34,14 @@ const Step03CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
+  const categories = useSelector(state => (state as any).collectionMintCategories)
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
+
   useEffect(() => {
     if (uploadedCount === collectionFiles.length) setStartUpload(false)
   })
@@ -58,203 +60,143 @@ const Step03CollectionSection = props => {
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   return (
-    <div className="w-full">
+    <div className="w-full g-container">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div className="relative w-full grid grid-cols-12 gap-0">
-          {/* left part */}
-          <div className="col-span-12 lg:col-span-6 g-left-container">
-            <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>{collectionMintName}</div>
-              <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                {/* banner image */}
-                <div className={styles.bannerImageArea}>
-                  <Image
-                    src={bannerCroppedImage}
-                    alt=""
-                    width={640}
-                    height={640}
-                    layout="responsive"
-                    objectFit="cover"
-                    className="rounded-[20px]"
-                  />
+        <div className="mt-[70px]">
+          {collectionFiles.length !== 0 &&
+            collectionFiles.map((item, index) => (
+              <div className={styles.nftContainer} key={index} onClick={() => setSelectedCollectionFile(item)}>
+                <div className={styles.selectedImage}>
+                  {item.type === 'video' ? (
+                    <video loop autoPlay className="w-full h-full" id="video">
+                      <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img
+                      src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
+                      alt=""
+                      className="w-full h-full object-contain"
+                    />
+                  )}
                 </div>
-              </div>
-            </div>
-          </div>
-          {/* right part */}
-          <div className="col-span-12 lg:col-span-5 g-right-container z-0">
-            <div className={styles.rightContainer}>
-              <div className="w-full relative">
-                <div className="w-full">
-                  {/* {!showMore && */}
-                  {collectionFiles.length !== 0 &&
-                    collectionFiles.map((item, index) => (
-                      <div className="w-full" key={index}>
-                        <div
-                          className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                          onClick={() => setSelectedCollectionFile(item)}
-                        >
-                          <div
-                            className={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                                ? styles.selectedImage
-                                : styles.nonSelectedImage
-                            }
-                          >
-                            {item.type === 'video' ? (
-                              <video loop autoPlay className="w-full h-full" id="video">
-                                <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                                Your browser does not support the video tag.
-                              </video>
-                            ) : (
-                              <Image
-                                src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
-                                alt=""
-                                width={95}
-                                height={95}
-                                objectFit="cover"
-                                className="rounded-lg"
-                              />
-                            )}
-                          </div>
-                          <div className="w-full">
-                            <div className={styles.nftName}>{item.name} </div>
-                            <div className={styles.nftDesc}>{item.description} </div>
-                          </div>
-                          {startUpload && (
-                            <div className="absolute -right-20 top-4 w-10 h-10">
-                              {index < uploadedCount ? (
-                                <Lottie animationData={CheckLottery} loop={true} />
-                              ) : (
-                                <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
-                              )}
+                <div>
+                  <div className={styles.nftName}>Name</div>
+                  <div className={styles.nftDesc}>{item.name} </div>
+                  <div className={`${styles.nftName} mt-[25px]`}>Description</div>
+                  <div className={`${styles.nftDesc} mr-[60px]`}>{item.description} </div>
+
+                  <div className="flex gap-[45px] mt-[25px]">
+                    {/* {categories?.length > 0 && (
+                      <div>
+                        <div className={styles.nftName}>Categories</div>
+                        <div className="flex gap-[8px] mt-[15px]">
+                          {categories?.map((item, index) => (
+                            <div className={styles.categories} key={index}>
+                              {item}
                             </div>
-                          )}
-                        </div>
-                        <div className="flex gap-[15px] mt-[20px]">
-                          <div className={styles.editionType}>{item.editionType.label}</div>
-                          {item.editionType.id === 0 && (
-                            <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
-                          )}
+                          ))}
                         </div>
                       </div>
-                    ))}
+                    )} */}
+
+                    <div>
+                      <div className={styles.nftName}>Token Type</div>
+                      <div className="flex gap-[15px] mt-[15px]">
+                        <div className={styles.editionType}>{item.editionType.label}</div>
+                        {item.editionType.id === 0 && (
+                          <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {startUpload && (
+                  <div className="absolute right-[30px] top-[40%] w-10 h-10">
+                    {index < uploadedCount ? (
+                      <Lottie animationData={CheckLottery} loop={true} />
+                    ) : (
+                      <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                    )}
+                  </div>
+                )}
+                <div className="absolute right-[111px] top-[25px]">
+                  <div className={styles.collectionName}>
+                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} />
+                    {collectionMintName}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            ))}
         </div>
       ) : (
         // mobile part
-        <div className="g-container mb-[47px]">
-          {/* CollectionStepper part */}
+        <div className="mt-[30px] mb-[50px]">
+          {collectionFiles.length !== 0 &&
+            collectionFiles.map((item, index) => (
+              <div className={styles.nftContainer} key={index} onClick={() => setSelectedCollectionFile(item)}>
+                <div className="w-full flex justify-between px-[20px]">
+                  <div className={styles.collectionName}>
+                    <img className="w-[30px] h-[30px] rounded-[15px]" src={bannerCroppedImage} />
+                    {collectionMintName}
+                  </div>
+                  {startUpload && (
+                    <div className="absolute right-[20px] top-[18px] w-10 h-10">
+                      {index < uploadedCount ? (
+                        <Lottie animationData={CheckLottery} loop={true} />
+                      ) : (
+                        <FadeLoader margin="0px" height={10} speedMultiplier={1} color="#63D6CD" />
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className={`mt-[20px] ${styles.selectedImage}`}>
+                  {item.type === 'video' ? (
+                    <video loop autoPlay className="w-full h-full" id="video">
+                      <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img
+                      src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
+                      alt=""
+                      className="w-full h-full object-contain"
+                    />
+                  )}
+                </div>
+                <div className="mt-[15px] px-[20px]">
+                  <div className={styles.nftName}>Name</div>
+                  <div className={styles.nftDesc}>{item.name} </div>
+                  <div className={`${styles.nftName} mt-[25px]`}>Description</div>
+                  <div className={styles.nftDesc}>{item.description} </div>
 
-          <div className="w-full flex flex-wrap justify-center">
-            {/* banner part */}
-            <div className="w-full flex flex-wrap justify-center z-10">
-              {/* banner image */}
-              <div className={styles.bannerImageArea}>
-                {bannerCroppedImage !== undefined && (
-                  <Image
-                    src={bannerCroppedImage}
-                    alt=""
-                    width={256}
-                    height={256}
-                    layout="responsive"
-                    objectFit="cover"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+                  <div className="mt-[25px]">
+                    {/* {categories?.length > 0 && (
+                      <div>
+                        <div className={styles.nftName}>Categories</div>
+                        <div className="flex gap-[8px] mt-[15px]">
+                          {categories?.map((item, index) => (
+                            <div className={styles.categories} key={index}>
+                              {item}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )} */}
 
-          <div className={`${styles.title} w-full mt-[15px]`}>{collectionMintName}</div>
-
-          <div className="w-full">
-            <div className="w-full">
-              {/* {!showMore && */}
-              {collectionFiles.length !== 0 &&
-                collectionFiles.map((item, index) => (
-                  <div
-                    className="w-full flex flex-wrap justify-between items-center gap-[15px] mt-[30px] lg:mt-10 cursor-pointer"
-                    key={index}
-                    onClick={() => setSelectedCollectionFile(item)}
-                  >
-                    <div className="w-full flex justify-between items-center">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.selectedImage
-                            : styles.nonSelectedImage
-                        }
-                      >
-                        {item.type === 'video' ? (
-                          <video loop autoPlay className="w-full h-full" id="video">
-                            <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                            Your browser does not support the video tag.
-                          </video>
-                        ) : (
-                          <Image
-                            src={item.type === 'vr' && item.nftCoverImage ? item.nftCoverImage : item.croppedImage}
-                            alt=""
-                            width={68}
-                            height={68}
-                            objectFit="cover"
-                            className="rounded-lg"
-                          />
+                    <div className="mt-[25px]">
+                      <div className={styles.nftName}>Token Type</div>
+                      <div className="flex gap-[15px] mt-[15px]">
+                        <div className={styles.editionType}>{item.editionType.label}</div>
+                        {item.editionType.id === 0 && (
+                          <div className={styles.editionType}>{item.maxSupply + ' editions'} </div>
                         )}
                       </div>
-                      {startUpload && (
-                        <div className="w-10 h-10">
-                          {index < uploadedCount ? (
-                            <Lottie animationData={CheckLottery} loop={true} />
-                          ) : (
-                            <Lottie animationData={LoaderLottery} loop={true} />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                    <div className="w-full">
-                      <div className={styles.nftName}>{item.name} </div>
-                    </div>
-                    <div className="w-full">
-                      <div className={styles.nftDesc}>{item.description} </div>
-                    </div>
-                    <div className="w-full flex gap-[15px]">
-                      <div className={styles.editionType}>{item.editionType.label}</div>
-                      {item.editionType.id === 0 && (
-                        <div className={styles.editionType}>{item.maxSupply + ' editions'}</div>
-                      )}
                     </div>
                   </div>
-                ))}
-            </div>
-            <div className="w-full my-[30px]">
-              {/* button group part */}
-              <div>
-                {isMinting ? (
-                  <LoadingPrimaryButton fullWidth />
-                ) : (
-                  <PrimaryButton
-                    label="Mint"
-                    type="next"
-                    fullWidth
-                    onClick={() => {
-                      mintCollection()
-                    }}
-                  />
-                )}
+                </div>
               </div>
-              <div className="mt-[15px]">
-                <SecondaryButton
-                  fullWidth
-                  label="Back"
-                  type="back"
-                  onClick={() => onChangeCurrentStep(currentStep - 1)}
-                />
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
       )}
     </div>

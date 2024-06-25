@@ -176,6 +176,17 @@ const TabSection = props => {
             />
 
             <TimeSlotButton
+              label="Live Editions"
+              height={42}
+              fontFamily={'Muli-Regular'}
+              selected={artworkType === 'editions'}
+              onClick={() => {
+                setArtworkType('editions')
+              }}
+              className="min-w-max"
+            />
+
+            <TimeSlotButton
               label="Studio"
               height={42}
               fontFamily={'Muli-Regular'}
@@ -203,17 +214,6 @@ const TabSection = props => {
               onClick={() => {
                 setArtworkType('collected')
               }}
-            />
-
-            <TimeSlotButton
-              label="Live Editions"
-              height={42}
-              fontFamily={'Muli-Regular'}
-              selected={artworkType === 'editions'}
-              onClick={() => {
-                setArtworkType('editions')
-              }}
-              className="min-w-max"
             />
           </div>
 
@@ -273,47 +273,6 @@ const TabSection = props => {
           )}
         </div>
       )}
-
-      {/* {activeTab === 2 && (
-        <div className={styles.statsSection}>
-          <div className="flex justify-between">
-            <div>Total Volume Sold</div>
-            <div className="flex gap-2 items-center">
-              <div>
-                <SolanaLogoIcon alt="" />
-              </div>
-              <div>{artistStatsInfo?.sales_volume}</div>
-            </div>
-          </div>
-          <div className="flex justify-between mt-[30px]">
-            <div>Total Volume Purchased</div>
-            <div className="flex gap-2 items-center">
-              <div>
-                <SolanaLogoIcon alt="" />
-              </div>
-              <div>{collectorStatsInfo?.purchase_volume}</div>
-            </div>
-          </div>
-          <div className="flex justify-between mt-[30px]">
-            <div>Artwork Created</div>
-            <div>{artistStatsInfo?.nfts_created}</div>
-          </div>
-          <div className="flex justify-between mt-[30px]">
-            <div>Artwork Collected</div>
-            <div>{collectorStatsInfo?.nfts_collected}</div>
-          </div>
-          <div className="flex justify-between mt-[30px]">
-            <div>Collections Published</div>
-            <div>{artistStatsInfo?.collections_created}</div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 3 && (
-        <div className="w-full flex flex-wrap z-10">
-          <AboutSection description={description} categories={categoryList} />
-        </div>
-      )} */}
     </div>
   )
 }
