@@ -248,31 +248,6 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
 
-        {/* Mobile Table */}
-        {/* <div className="w-full lg:hidden">
-          {list.map((item, index) => {
-            return (
-              <div key={index}>
-                <div className={`${styles.tableColor} w-full flex justify-between px-3 mt-[30px]`}>
-                  <div className="w-full h-full">
-                    <img src={item.url} className="w-[50%] h-[50%]" />
-                  </div>
-                  <div className={`${styles.value} w-[200px] text-right`}>
-                    <p dangerouslySetInnerHTML={{ __html: item.name }} />
-                  </div>
-                </div>
-
-                <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
-                  <div className={styles.value}>{'Shipping\nAddress:'}</div>
-                  <div className={`${styles.value} text-left mt-[12px]`}>
-                    <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div> */}
-
         {/* SOL / USDC */}
         <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">
           <div className={styles.paymentMethod}>

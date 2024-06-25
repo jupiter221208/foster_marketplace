@@ -29,7 +29,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
 
 const MerchOrderMain = props => {
-  const { type, username, productDetail, userDetail, onClickBuyNow } = props
+  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize, setCost } = props
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -50,7 +50,7 @@ const MerchOrderMain = props => {
   const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
   const shouldShowReadMore = tempNftDescription.length > descCount
   const [printArea, setPrintArea] = useState('')
-  const [mintQty, setMintQty] = useState(0)
+  const [mintQty, setMintQty] = useState(1)
   const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 
@@ -177,6 +177,7 @@ const MerchOrderMain = props => {
     sizeList.map(item => {
       if (item.id === index) {
         newSize.push({ ...item, selected: true })
+        setMerchSize(item.Size)
       } else {
         newSize.push({ ...item, selected: false })
       }
@@ -403,14 +404,10 @@ const MerchOrderMain = props => {
               <div className={styles.mintQty}>
                 <div
                   onClick={() => {
-                    if (mintQty > 0) {
+                    if (mintQty > 1) {
                       setMintQty(mintQty - 1)
-                      let price = (
-                        nftPrice * (mintQty - 1) * 1.05 +
-                        0.01 * (mintQty - 1) +
-                        0.013 * (mintQty - 1) +
-                        0.0003
-                      ).toFixed(2)
+                      setQuantity(mintQty - 1)
+                      setCost((productDetail.selling_price / 100) * (mintQty - 1))
                     }
                   }}
                 >
@@ -421,13 +418,9 @@ const MerchOrderMain = props => {
                 </div>
                 <div
                   onClick={() => {
-                    let price = (
-                      nftPrice * (mintQty + 1) * 1.05 +
-                      0.01 * (mintQty + 1) +
-                      0.013 * (mintQty + 1) +
-                      0.0003
-                    ).toFixed(2)
                     setMintQty(mintQty + 1)
+                    setQuantity(mintQty + 1)
+                    setCost((productDetail.selling_price / 100) * (mintQty + 1))
                   }}
                 >
                   <div className={styles.minus}>+</div>
@@ -534,9 +527,11 @@ const MerchOrderMain = props => {
             <div>
               <div className="flex gap-[6px] items-center mb-[2px]">
                 <SolanaLogoIcon className="mt-[4px]" />
-                <div className={styles.price}>{(productDetail.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
+                <div className={styles.price}>
+                  {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+                </div>
               </div>
-              <div className={styles.priceUS}> ${(productDetail.selling_price / 100).toFixed(2)}</div>
+              <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
             </div>
           </div>
 

@@ -142,21 +142,42 @@ const MerchOrderShippingMethod = props => {
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
-    item = {
-      id: id.toString(),
-      quantity,
-      previewUrl: merchList[0].url,
-      options: {
-        type: type,
-        nftName: name,
-        fosterUrl: merchList[0].url,
-        assetUrl: merchList[0].url,
-        nftAddress: mintAddress,
-        apparel: description,
-        size: size,
-        color: color,
-      },
-      notes: `This is apparel merch item`,
+    if (type === 'appparel' || type === 'wallart') {
+      item = {
+        id: id.toString(),
+        quantity,
+        previewUrl: merchList[0].url,
+        options: {
+          type: type,
+          nftName: name,
+          fosterUrl: merchList[0].url,
+          assetUrl: merchList[0].url,
+          nftAddress: mintAddress,
+          apparel: description,
+          size: size,
+          color: color,
+        },
+        notes: `This is apparel merch item`,
+      }
+    } else {
+      // foster merch
+      let urls = []
+      merchList.map(item => urls.push(item.url))
+      item = {
+        id: id.toString(),
+        quantity,
+        previewUrl: merchList[0].url,
+        options: {
+          type: type,
+          nftName: name,
+          merchUrls: urls,
+          nftAddress: mintAddress,
+          apparel: description,
+          size: size,
+          color: color,
+        },
+        notes: `This is apparel merch item`,
+      }
     }
 
     let params = {

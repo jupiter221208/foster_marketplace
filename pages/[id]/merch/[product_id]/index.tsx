@@ -5,16 +5,6 @@ import { useRouter } from 'next/router'
 
 // components
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
-
-// images
-// import merchImageFront from 'assets/images/merch-order-front.png'
-// import merchImageBack from 'assets/images/merch-order-back.png'
-// import merchImageLeft from 'assets/images/merch-order-left.png'
-
-// import physicalImageFront from 'assets/images/merch-physical-front.jpg'
-// import physicalImageBack from 'assets/images/merch-physical-back.jpg'
-// import physicalImageRight from 'assets/images/merch-physical-right.jpg'
-// import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
@@ -43,17 +33,11 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
-  const [printData, setPrintData] = useState({
-    id: 1,
-    cost: '56.4',
-    quantity: 1,
-    size: 'L',
-    color: 'white',
-    name: 'product_name1',
-    description: 'Unisex Premium Hoodie | Cotton Heritage M2580 | Embroidery | White',
-  })
+  const [printData, setPrintData] = useState(null)
   const [totalCost, setTotalCost] = useState(null)
-
+  const [quantity, setQuantity] = useState(1)
+  const [merchSize, setMerchSize] = useState('L')
+  const [merchCost, setMerchCost] = useState(0)
   const [merchList, setMerchList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
@@ -76,7 +60,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    console.log(publicArtistData, '=========publicArtistData=====')
     StoreAPI.getStoreById(publicArtistData.artist.id, router.query.product_id).then(
       response => {
         if (response) {
@@ -93,11 +76,33 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           }
           setMerchList(imageList)
           setSelectedMerch(imageList[0])
+          setPrintData({
+            id: 1,
+            quantity,
+            size: merchSize,
+            color: response.options.color,
+            name: response.name,
+            description: response.description,
+            technique: response.options.print_technique,
+            cost: response.selling_price / 100,
+          })
         }
       },
       error => {}
     )
   }, [publicArtistData])
+
+  useEffect(() => {
+    setPrintData({ ...printData, size: merchSize })
+  }, [merchSize])
+
+  useEffect(() => {
+    setPrintData({ ...printData, quantity: quantity })
+  }, [quantity])
+
+  useEffect(() => {
+    setPrintData({ ...printData, cost: merchCost })
+  }, [merchCost])
 
   return (
     <div className="g-container flex">
@@ -174,6 +179,9 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 productDetail={productDetail}
                 userDetail={publicArtistData}
                 onClickBuyNow={onClickBuyNow}
+                setQuantity={setQuantity}
+                setMerchSize={setMerchSize}
+                setCost={setMerchCost}
               />
             </div>
           )}
@@ -212,6 +220,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                     nftCoverUrl: merchList[0].url,
                     totalCost,
                   }
+                  console.log(data, '==========data=========')
                   dispatch({ type: 'set', merchData: data })
                   router.push(`/orders/${orderId}`)
                 }}

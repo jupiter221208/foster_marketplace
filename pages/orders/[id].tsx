@@ -63,14 +63,19 @@ const OrderSection = props => {
 
   useEffect(() => {
     if (orderData) {
+      console.log(orderData, '==========orderData=========')
       let itemData = orderData?.ssorder.items[0]
       let type = findElement(itemData.options, 'name', 'type')['value']
       setMerchType(type)
-      setPreviewUrl(itemData.imageUrl)
-      setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
+      if (type === 'apparel' || type === 'wallart') {
+        setPreviewUrl(itemData.imageUrl)
+        setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
+      } else {
+      }
     }
   }, [orderData])
 
+  console.log(merchType, '==========type=========')
   return (
     <div className="g-container">
       <div className={styles.container}>
@@ -117,7 +122,7 @@ const OrderSection = props => {
           </div>
           <div className="z-10">
             <div className={styles.contentContainer}>
-              {orderData && (
+              {orderData && merchType === 'apparel' && (
                 <PhysicalCheckout
                   orderData={orderData}
                   type="apparel"
