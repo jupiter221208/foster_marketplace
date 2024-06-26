@@ -76,6 +76,7 @@
   gap: 10px;
   align-items: center;
   cursor: pointer;
+  color: var(--text-gray-200-color);
 }
 
 .add {
@@ -85,18 +86,18 @@
   font-family: "Muli-SemiBold";
   font-size: 16px;
   line-height: 20px;
+  color: var(--text-gray-200-color);
 }
 
 .plus {
-  width: 16px;
-  height: 16px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover {
-    border: 1px solid var(--main-icon-color);
-  }
 }
 
 .overlayBG {

@@ -1,0 +1,67 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  width: auto;
+  height: 35px;
+  padding: 0px 13px;
+  gap: 7px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  background: rgba(var(--background-main-color-rgb), 0.8);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  border-radius: 15px;
+  width: 120px;
+  padding: 10px 25px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+
+  display: flex;
+  flex-direction: column;
+
+  *:first-child {
+    padding-top: 8px;
+  }
+  *:last-child {
+    margin-bottom: 8px;
+  }
+  *:not(:last-child) {
+    border-bottom: 1px solid rgb(var(--main-bg-color-rgb), 0.1); /* Change color as needed */
+    padding: 0 0 8px 0;
+  }
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}
