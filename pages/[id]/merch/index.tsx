@@ -50,14 +50,14 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
               <div className="flex justify-center mb-[15px]">
                 <div className="w-[60px] sm:w-[100px] rounded-full overflow-hidden">
                   <img
-                    src={artistInfo.profile_picture}
+                    src={artistInfo?.profile_picture}
                     alt=""
                     className="w-[60px] sm:w-[100px] h-[60px] sm:h-[100px] object-cover"
                   />
                 </div>
               </div>
               <div className={styles.merchBy}>Merch by</div>
-              <div className={styles.userName}>{artistInfo.username}</div>
+              <div className={styles.userName}>{artistInfo?.username}</div>
             </div>
           </div>
         </div>

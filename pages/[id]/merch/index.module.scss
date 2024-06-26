@@ -47,6 +47,9 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .merchStore {
@@ -77,6 +80,9 @@
   align-items: center;
   cursor: pointer;
   color: var(--text-gray-200-color);
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .add {
@@ -87,6 +93,10 @@
   font-size: 16px;
   line-height: 20px;
   color: var(--text-gray-200-color);
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .plus {
