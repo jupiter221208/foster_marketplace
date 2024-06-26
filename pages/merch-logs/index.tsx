@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // next components
 import Head from 'next/head'
@@ -18,7 +19,8 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import PreviewImage from 'assets/images/preview-image.png'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-
+import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
+import FosterLogoMobileIcon from 'assets/icons/foster-hero-logo-mobile.svg?component'
 import Lottie from 'lottie-react'
 import animationData from 'assets/lottery/shopping-lottie.json'
 
@@ -30,6 +32,7 @@ import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import MerchAPI from 'apis/merch'
 import ArtistAPI from 'apis/artists'
 import NftAPI from 'apis/nfts'
+import StoreAPI from 'apis/store'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
@@ -40,13 +43,14 @@ import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivit
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
+import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 
 const MerchActivity = () => {
   const viewport = useViewport()
   const { connected, publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
-  // const isLoading = useSelector<any>(state => state.isLoading)
+  const { profileInfo } = useAuthentication()
   const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
   const router = useRouter()
@@ -59,6 +63,9 @@ const MerchActivity = () => {
   const [sales, setSales] = useState([])
   const [noTxSales, setNoTxSales] = useState([])
   const [allSales, setAllSales] = useState([])
+  const [merchStoreList, setMerchStoreList] = useState([])
+  const [fosterMerchList, setFosterMerchList] = useState([])
+  const [userMerchList, setUserMerchList] = useState([])
   const [enabledItems, setEnabledItems] = useState([])
   const [disabledItems, setDisabledItems] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
@@ -69,6 +76,7 @@ const MerchActivity = () => {
   const [sellerPages, setSellerPages] = useState(1)
   const [enabledPages, setEnabledPages] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
+  const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
   const [isVisibleEnabledFetching, setIsVisibleEnabledFetching] = useState(true)
@@ -116,10 +124,9 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (isFetching) {
-      if (activeTab === 0) getEnabledItem(enabledPages, rowCount)
-      else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
-      else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
-      // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
+      if (activeTab === 1) getEnabledItem(enabledPages, rowCount)
+      else if (activeTab === 3) getBuyerOrder(buyerPages, rowCount)
+      else if (activeTab === 4) getSellerOrder(sellerPages, rowCount)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, publicKey])
@@ -150,6 +157,33 @@ const MerchActivity = () => {
       router.push(`/shopping/`)
     }
   }
+
+  useEffect(() => {
+    if (profileInfo && merchStoreList.length === 0) {
+      StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+        res => {
+          setFosterMerchList(res)
+          setIsMerchStoreFetching(false)
+        },
+        error => {
+          setIsMerchStoreFetching(false)
+        }
+      )
+      StoreAPI.getStoreItemByUser(profileInfo?.id).then(
+        res => {
+          setUserMerchList(res.filter(item => item.master_edition_address === null))
+          setIsMerchStoreFetching(false)
+        },
+        error => {
+          setIsMerchStoreFetching(false)
+        }
+      )
+    }
+  }, [profileInfo])
+
+  useEffect(() => {
+    setMerchStoreList([...fosterMerchList, ...userMerchList])
+  }, [fosterMerchList, userMerchList])
 
   const getBuyerOrder = (page, rowCount) => {
     MerchAPI.getBuyerOrder(page, rowCount).then(
@@ -395,12 +429,16 @@ const MerchActivity = () => {
       <div className={styles.container}>
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-between">
+              <div>
+                <FosterLogoIcon />
+              </div>
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
                   <div className={styles.countValue}>Total&nbsp;Commissions</div>
                 </div>
+                <div className={styles.divider} />
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${totalAmount.toFixed(2)}</div>
                   <div className={styles.countValue}>Total&nbsp;Purchases</div>
@@ -408,7 +446,10 @@ const MerchActivity = () => {
               </div>
             </div>
           ) : (
-            <div className="w-full mb-[30px] mt-[15px]">
+            <div className="w-full mb-[30px]">
+              <div className="w-full flex justify-center my-[30px]">
+                <FosterLogoMobileIcon />
+              </div>
               <div className="flex gap-[5px] mt-[0px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
@@ -416,6 +457,7 @@ const MerchActivity = () => {
                     <div className={styles.countValue}>TOTAL&nbsp;COMISSIONS</div>
                   </div>
                 </div>
+
                 <div className={styles.countBG}>
                   <div className="w-full">
                     <div className={styles.countLabel}>${totalAmount.toFixed(2)}</div>
@@ -425,7 +467,7 @@ const MerchActivity = () => {
               </div>
             </div>
           )}
-          <div className="relative mt-[0px] lg:mt-[90px] mb-[10px] lg:mb-[30px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
+          <div className="relative mt-[0px] lg:mt-[86px] w-full h-auto flex overflow-hidden lg:justify-start justify-center z-10">
             <SelectedTab
               tabList={tabList}
               onChange={item => {
@@ -435,7 +477,16 @@ const MerchActivity = () => {
             <div className={styles.selectedTabBorder} />
           </div>
 
+          <div className={styles.description}>
+            Displayed below are the merch items you created and added to your store
+          </div>
+
           {activeTab === 0 && (
+            <div className="w-full z-10">
+              <MerchStoreActivity storeList={merchStoreList} isLoading={isMerchStoreFetching} />
+            </div>
+          )}
+          {activeTab === 1 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={enabledItems}
@@ -451,7 +502,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 1 && (
+          {activeTab === 2 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={disabledItems}
@@ -467,7 +518,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 2 && (
+          {activeTab === 3 && (
             <div className="w-full z-10">
               <ApparelActivity
                 activities={purchases}
@@ -478,7 +529,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 3 && (
+          {activeTab === 4 && (
             <div className="w-full z-10">
               <ApparelActivity
                 activities={sales}
@@ -562,10 +613,11 @@ const MerchActivity = () => {
               )}
             </div>
           )}
-          {((activeTab === 0 && isVisibleEnabledFetching) ||
-            (activeTab === 1 && isVisibleDisabledFetching) ||
-            (activeTab === 2 && isVisibleBuyerFetching) ||
-            (activeTab === 3 && isVisibleSellerFetching)) && (
+          {((activeTab === 0 && isMerchStoreFetching) ||
+            (activeTab === 1 && isVisibleEnabledFetching) ||
+            (activeTab === 2 && isVisibleDisabledFetching) ||
+            (activeTab === 3 && isVisibleBuyerFetching) ||
+            (activeTab === 4 && isVisibleSellerFetching)) && (
             <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>

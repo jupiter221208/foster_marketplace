@@ -145,6 +145,11 @@ export const getDateLabel = date => {
   return month + ' ' + day + ', ' + year
 }
 
+export const getYMDString = date => {
+  let month = date.getMonth() + 1
+  return month + '/' + date.getDate() + '/' + date.getFullYear()
+}
+
 export const getTimeLabel = date => {
   var localDate = new Date(date)
   let hours = localDate.getHours()

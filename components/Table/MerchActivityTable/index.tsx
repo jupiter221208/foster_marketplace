@@ -1,27 +1,47 @@
 import React from 'react'
 
 // next components
-import Link from 'next/link'
 import 'react-placeholder/lib/reactPlaceholder.css'
-
-// images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getSliceAddress } from 'utils/helpers'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
+import ImageWithFoster from 'components/ImageWithFoster'
+import { getTimeDifference, getYMDString } from 'utils/helpers'
 
 const MerchActivityTable = props => {
-  const { data, type } = props
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { connection } = useConnection()
-  const { solToUsdRate } = useSolToUsdRate()
+  const { data } = props
+
+  const getTechnique = item => {
+    if (item.fulfillment_type === 'foster') {
+      if (item.options.print_technique === 'direct_to_garment') return 'Direct To Garment'
+      else return 'Embroidery'
+    } else {
+      return 'General'
+    }
+  }
+
+  const getPreviewUrl = item => {
+    if (item.fulfillment_type === 'foster') {
+      return item.options.addons[0].mockup_url
+    } else {
+      return item.options.product_images[0]
+    }
+  }
+
+  const getStatus = item => {
+    if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
+    else {
+      if (item.sale_end_at === null) {
+        return 'live'
+      } else {
+        if (getTimeDifference(item.sale_end_at) > 0) {
+          return 'live'
+        } else {
+          return 'expired'
+        }
+      }
+    }
+  }
 
   return (
     <table id={'MerchTable'} className="w-full table-auto">
@@ -29,11 +49,12 @@ const MerchActivityTable = props => {
         <tr>
           <th>
             <div className={styles.tableHeader}>
-              <div className="w-[15%] text-start">Order Number</div>
-              <div className="w-[20%]">Amount</div>
-              <div className="w-[25%]">Transaction ID</div>
-              <div className="w-[25%]">{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
-              <div className="w-[15%]">Order Details</div>
+              <div className="w-[20%] text-start">Merch Item</div>
+              <div className="w-[20%] text-center">Created on</div>
+              <div className="w-[20%] text-center">Print Technique</div>
+              <div className="w-[10%] text-center">Price</div>
+              <div className="w-[15%] text-center">Sales</div>
+              <div className="w-[15%] text-start">Status</div>
             </div>
           </th>
         </tr>
@@ -44,26 +65,39 @@ const MerchActivityTable = props => {
             <tr key={item.id}>
               <td className="w-full pt-[10px] pb-[10px]">
                 <div className={styles.tableRow}>
-                  <div className="w-[15%]">{item.id}</div>
-                  <div className="w-[20%] flex justify-center items-center gap-[5px]">
-                    <SolanaLogoIcon />
-                    {(item.amount / solToUsdRate).toFixed(2)}
+                  <div className="w-[20%] flex gap-[12px] items-center">
+                    <div className="w-[40px]">
+                      <ImageWithFoster
+                        src={getPreviewUrl(item)}
+                        width={40}
+                        className="w-[40px] h-[40px] object-contain"
+                      />
+                    </div>
+                    {item.name}
                   </div>
-                  <div
-                    className={`w-[25%] ${styles.transactionId} `}
-                    onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id, 'tx'))}
-                  >
-                    {getSliceAddress(item.transaction_id)}
-                  </div>
-                  <div className="w-[25%] text-center ">{getSliceAddress(item.creator)}</div>
-                  <div
-                    className={`${styles.viewOrder} w-[15%]`}
-                    onClick={() => {
-                      dispatch({ type: 'set', orderType: type })
-                      router.push(`merch-logs/${item.id}`)
-                    }}
-                  >
-                    View Order
+                  <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>
+                  <div className="w-[20%] text-center">{getTechnique(item)}</div>
+                  <div className="w-[10%] text-center">${item.selling_price / 100}</div>
+                  <div className="w-[15%] text-center">10</div>
+                  <div className="w-[15%]">
+                    {getStatus(item) === 'scheduled' ? (
+                      <div className={styles.scheduled}>
+                        <div className="w-[60%]">scheduled</div>
+                        <div className={styles.remove}>Remove</div>
+                      </div>
+                    ) : getStatus(item) === 'live' ? (
+                      <div className={styles.live}>
+                        <div className="w-[60%]">Live</div>
+                        <div className={styles.remove}>Remove</div>
+                      </div>
+                    ) : getStatus(item) === 'expired' ? (
+                      <div className={styles.expired}>
+                        <div className="w-[60%]">Expired</div>
+                        <div className={styles.remove}>Republic</div>
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
                   </div>
                 </div>
               </td>
