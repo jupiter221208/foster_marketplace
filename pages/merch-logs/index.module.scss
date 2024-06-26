@@ -130,6 +130,36 @@
   background: #707070;
 }
 
+.activeNftBtn {
+  width: 86px;
+  height: 42px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--background-main-color);
+  background: var(--main-icon-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.inactiveNftBtn {
+  width: 86px;
+  height: 42px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  background: rgba(var(--main-icon-color-rgb), 0.05);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 .tableColor {
   width: 100%;
   height: 100%;
@@ -141,6 +171,7 @@
   color: var(--text-gray-200-color);
   padding: 30px;
 }
+
 .subTotal {
   display: flex;
   font-family: 'Muli-Regular';

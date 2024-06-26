@@ -24,23 +24,23 @@ const NftItemActivity = props => {
   const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
 
-  useEffect(() => {
-    let length = searchWord?.length
-    if (length > 0) {
-      const results = activities.filter(({ nft_name }) => {
-        return nft_name.toLowerCase().includes(searchWord.toLowerCase())
-      })
-      setList(results)
-    } else {
-      if (length === 0) {
-        setList(activities)
-      }
-    }
-  }, [searchWord, activities])
+  // useEffect(() => {
+  //   let length = searchWord?.length
+  //   if (length > 0) {
+  //     const results = activities.filter(({ nft_name }) => {
+  //       return nft_name.toLowerCase().includes(searchWord.toLowerCase())
+  //     })
+  //     setList(results)
+  //   } else {
+  //     if (length === 0) {
+  //       setList(activities)
+  //     }
+  //   }
+  // }, [searchWord, activities])
 
   return (
     <div className={styles.container}>
-      <div className="w-full hidden lg:flex justify-between ">
+      {/* <div className="w-full hidden lg:flex justify-between ">
         {activities.length > 0 && (
           <SearchSection
             placeholder={'Search'}
@@ -58,11 +58,11 @@ const NftItemActivity = props => {
             }}
           />
         )}
-      </div>
+      </div> */}
 
-      {list.length > 0 && (
+      {activities.length > 0 && (
         <div className="w-full mt-[10px]">
-          <TableSections data={list} type={type} action={action} actionAll={actionAll} />
+          <TableSections data={activities} type={type} action={action} actionAll={actionAll} />
         </div>
       )}
       {!isLoading && activities.length === 0 && searchWord.length === 0 && (

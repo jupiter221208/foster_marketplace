@@ -76,6 +76,7 @@ const MerchActivity = () => {
   const [sellerPages, setSellerPages] = useState(1)
   const [enabledPages, setEnabledPages] = useState(1)
   const [loadMerchStore, setLoadMerchStore] = useState(false)
+  const [isActiveNFT, setIsActiveNft] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
@@ -124,11 +125,10 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
-    console.log(isFetching, activeTab, publicKey, '==============publicKey==============')
     if (isFetching && publicKey) {
-      if (activeTab === 1) getEnabledItem(enabledPages, rowCount)
-      else if (activeTab === 3) getBuyerOrder(buyerPages, rowCount)
-      else if (activeTab === 4) getSellerOrder(sellerPages, rowCount)
+      if (activeTab === 1 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
+      else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
+      else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, publicKey, activeTab])
@@ -189,7 +189,6 @@ const MerchActivity = () => {
   }, [fosterMerchList, userMerchList])
 
   const getBuyerOrder = (page, rowCount) => {
-    console.log(page, rowCount, '===========getBuyerOrder=================')
     MerchAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
@@ -481,18 +480,34 @@ const MerchActivity = () => {
             <div className={styles.selectedTabBorder} />
           </div>
 
-          <div className={styles.description}>
-            {activeTab === 0
-              ? 'Displayed below are the merch items you created and added to your store.'
-              : activeTab === 1
-              ? 'Displayed below are legacy studio items.'
-              : activeTab === 2
-              ? 'Displayed below are legacy studio items.'
-              : activeTab === 3
-              ? 'Displayed below is a record of all your orders.'
-              : activeTab === 4
-              ? 'Displayed below is a record of all your sales.'
-              : ''}
+          <div className="w-full flex justify-between items-center">
+            <div className={styles.description}>
+              {activeTab === 0
+                ? 'Displayed below are the merch items you created and added to your store.'
+                : activeTab === 1
+                ? 'Displayed below are legacy studio items.'
+                : activeTab === 2
+                ? 'Displayed below is a record of all your orders.'
+                : activeTab === 3
+                ? 'Displayed below is a record of all your sales.'
+                : ''}
+            </div>
+            {activeTab === 1 && (
+              <div className="flex gap-[16px]">
+                <div
+                  className={isActiveNFT ? styles.activeNftBtn : styles.inactiveNftBtn}
+                  onClick={() => setIsActiveNft(true)}
+                >
+                  Active
+                </div>
+                <div
+                  className={isActiveNFT ? styles.inactiveNftBtn : styles.activeNftBtn}
+                  onClick={() => setIsActiveNft(false)}
+                >
+                  Eligible
+                </div>
+              </div>
+            )}
           </div>
 
           {activeTab === 0 && (
@@ -500,39 +515,40 @@ const MerchActivity = () => {
               <MerchStoreActivity storeList={merchStoreList} isLoading={isMerchStoreFetching} />
             </div>
           )}
-          {activeTab === 1 && (
-            <div className="w-full z-10">
-              <NftItemActivity
-                activities={enabledItems}
-                type="enabled"
-                isLoading={isVisibleEnabledFetching}
-                action={token_id => {
-                  setTokenId(token_id)
-                  setDisableMerchModal(true)
-                }}
-                actionAll={() => {
-                  setDisableAllMerchModal(true)
-                }}
-              />
-            </div>
-          )}
+          {activeTab === 1 &&
+            (isActiveNFT ? (
+              <div className="w-full z-10">
+                <NftItemActivity
+                  activities={enabledItems}
+                  type={isActiveNFT}
+                  isLoading={isVisibleEnabledFetching}
+                  action={token_id => {
+                    setTokenId(token_id)
+                    setDisableMerchModal(true)
+                  }}
+                  actionAll={() => {
+                    setDisableAllMerchModal(true)
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="w-full z-10">
+                <NftItemActivity
+                  activities={disabledItems}
+                  type={isActiveNFT}
+                  isLoading={isVisibleDisabledFetching}
+                  action={token_id => {
+                    setTokenId(token_id)
+                    setEnableMerchModal(true)
+                  }}
+                  actionAll={() => {
+                    setEnableAllMerchModal(true)
+                  }}
+                />
+              </div>
+            ))}
+
           {activeTab === 2 && (
-            <div className="w-full z-10">
-              <NftItemActivity
-                activities={disabledItems}
-                type="disabled"
-                isLoading={isVisibleDisabledFetching}
-                action={token_id => {
-                  setTokenId(token_id)
-                  setEnableMerchModal(true)
-                }}
-                actionAll={() => {
-                  setEnableAllMerchModal(true)
-                }}
-              />
-            </div>
-          )}
-          {activeTab === 3 && (
             <div className="w-full z-10">
               <ApparelActivity
                 activities={purchases}
@@ -543,7 +559,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 4 && (
+          {activeTab === 3 && (
             <div className="w-full z-10">
               <ApparelActivity
                 activities={sales}
@@ -554,7 +570,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 4 && (
+          {activeTab === 3 && (
             <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
               {array && array.length && array.length > 0 ? (
                 <>
