@@ -280,7 +280,7 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
-        // setEnabledItems([...enabledItems, ...response])
+        setEnabledItems([...enabledItems, ...response])
         if (response.length < rowCount) {
           setIsVisibleEnabledFetching(false)
         } else {
