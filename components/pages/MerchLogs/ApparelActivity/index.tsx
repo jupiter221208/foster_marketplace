@@ -14,6 +14,7 @@ import 'swiper/css/navigation'
 
 // styles
 import styles from './index.module.scss'
+import GradientButton from 'components/Button/GradientButton'
 
 const ApparelActivity = props => {
   const { activities, pendingList, allList, type, isLoading } = props
@@ -73,14 +74,19 @@ const ApparelActivity = props => {
 
       {!isLoading && activities?.length === 0 && searchWord.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>
-            {type === 'purchases' ? 'No order history detected' : 'No sales history detected'}
-          </div>
-          <div className={styles.noData}>
-            {type === 'purchases'
-              ? "This tab displays any orders you've placed via Creator Studio"
-              : "This tab displays the orders received for artwork you've enabled Creator Studio"}
-          </div>
+          {type === 'purchases' ? (
+            <div className="w-full mt-[50px] lg:mt-[0px]">
+              <div className={styles.noArtwork}>No order history detected</div>
+              <div className={styles.text}>Explore merch from your favorite artists </div>
+              <div className="w-full flex justify-center mt-[30px]">
+                <GradientButton label="Shop Studio" width={144} height={54} borderRadius={30} onClick={() => {}} />
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className={styles.noArtwork}>No results found</div>
+            </div>
+          )}
         </div>
       )}
     </div>

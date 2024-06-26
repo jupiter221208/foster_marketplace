@@ -66,14 +66,10 @@ const NftItemActivity = props => {
         </div>
       )}
       {!isLoading && activities.length === 0 && searchWord.length === 0 && (
-        <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>
-            {type === 'enabled' ? 'You have no artworks currently enabled for merch' : 'No eligible artworks detected'}
-          </div>
-          <div className={styles.noData}>
-            {type === 'enabled'
-              ? 'Go to the eligible artwork tab to select the artwork you would like enabled for merch orders'
-              : 'This tab displays any artworks you created that are eligible for Creator Studio'}
+        <div className="w-full mt-[50px] lg:mt-[50px]">
+          <div className={styles.noArtwork}>No Eligible Artworks Detected</div>
+          <div className={styles.text}>
+            To be eligible for the studio, you must be both the creator and the owner of the NFT.
           </div>
         </div>
       )}

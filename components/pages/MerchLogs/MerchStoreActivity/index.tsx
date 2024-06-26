@@ -13,6 +13,7 @@ import 'swiper/css/navigation'
 
 // styles
 import styles from './index.module.scss'
+import GradientButton from 'components/Button/GradientButton'
 
 const MerchStoreActivity = props => {
   const { storeList, isLoading } = props
@@ -27,7 +28,11 @@ const MerchStoreActivity = props => {
 
       {!isLoading && storeList?.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>{'No Merch Store Data'}</div>
+          <div className={styles.noArtwork}>Your merch store is empty.</div>
+          <div className={styles.text}>Ready to design?</div>
+          <div className="w-full flex justify-center mt-[30px]">
+            <GradientButton label="Get Started" width={144} height={54} borderRadius={30} onClick={() => {}} />
+          </div>
         </div>
       )}
     </div>

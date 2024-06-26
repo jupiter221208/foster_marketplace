@@ -280,7 +280,7 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
-        setEnabledItems([...enabledItems, ...response])
+        // setEnabledItems([...enabledItems, ...response])
         if (response.length < rowCount) {
           setIsVisibleEnabledFetching(false)
         } else {
@@ -483,7 +483,9 @@ const MerchActivity = () => {
           <div className="w-full flex justify-between items-center">
             <div className={styles.description}>
               {activeTab === 0
-                ? 'Displayed below are the merch items you created and added to your store.'
+                ? merchStoreList.length > 0 || isMerchStoreFetching
+                  ? 'Displayed below are the merch items you created and added to your store.'
+                  : ''
                 : activeTab === 1
                 ? 'Displayed below are legacy studio items.'
                 : activeTab === 2
@@ -689,7 +691,6 @@ const MerchActivity = () => {
           setPreviewMode(false)
         }}
       />
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
