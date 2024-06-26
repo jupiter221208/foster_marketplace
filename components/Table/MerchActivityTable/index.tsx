@@ -62,8 +62,8 @@ const MerchActivityTable = props => {
       <tbody>
         {data.map(item => {
           return (
-            <tr key={item.id}>
-              <td className="w-full pt-[10px] pb-[10px]">
+            <div key={item.id}>
+              <div className="w-full">
                 <div className={styles.tableRow}>
                   <div className="w-[20%] flex gap-[12px] items-center">
                     <div className="w-[40px]">
@@ -100,8 +100,8 @@ const MerchActivityTable = props => {
                     )}
                   </div>
                 </div>
-              </td>
-            </tr>
+              </div>
+            </div>
           )
         })}
       </tbody>
