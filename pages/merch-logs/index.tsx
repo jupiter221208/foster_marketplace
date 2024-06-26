@@ -75,6 +75,7 @@ const MerchActivity = () => {
   const [buyerPages, setBuyerPages] = useState(1)
   const [sellerPages, setSellerPages] = useState(1)
   const [enabledPages, setEnabledPages] = useState(1)
+  const [loadMerchStore, setLoadMerchStore] = useState(false)
   const [isFetching, setIsFetching] = useState(false)
   const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
@@ -123,13 +124,14 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
-    if (isFetching) {
+    console.log(isFetching, activeTab, publicKey, '==============publicKey==============')
+    if (isFetching && publicKey) {
       if (activeTab === 1) getEnabledItem(enabledPages, rowCount)
       else if (activeTab === 3) getBuyerOrder(buyerPages, rowCount)
       else if (activeTab === 4) getSellerOrder(sellerPages, rowCount)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching, publicKey])
+  }, [isFetching, publicKey, activeTab])
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('data'))
@@ -159,7 +161,8 @@ const MerchActivity = () => {
   }
 
   useEffect(() => {
-    if (profileInfo && merchStoreList.length === 0) {
+    if (profileInfo && loadMerchStore === false) {
+      setLoadMerchStore(true)
       StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
         res => {
           setFosterMerchList(res)
@@ -186,6 +189,7 @@ const MerchActivity = () => {
   }, [fosterMerchList, userMerchList])
 
   const getBuyerOrder = (page, rowCount) => {
+    console.log(page, rowCount, '===========getBuyerOrder=================')
     MerchAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
@@ -478,7 +482,17 @@ const MerchActivity = () => {
           </div>
 
           <div className={styles.description}>
-            Displayed below are the merch items you created and added to your store
+            {activeTab === 0
+              ? 'Displayed below are the merch items you created and added to your store.'
+              : activeTab === 1
+              ? 'Displayed below are legacy studio items.'
+              : activeTab === 2
+              ? 'Displayed below are legacy studio items.'
+              : activeTab === 3
+              ? 'Displayed below is a record of all your orders.'
+              : activeTab === 4
+              ? 'Displayed below is a record of all your sales.'
+              : ''}
           </div>
 
           {activeTab === 0 && (

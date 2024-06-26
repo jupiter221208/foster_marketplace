@@ -22,39 +22,39 @@ const ApparelActivity = props => {
   const [filter, setFilter] = useState(0)
   const [list, setList] = useState<any[]>([])
 
-  useEffect(() => {
-    setActivityList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading, filter])
+  // useEffect(() => {
+  //   setActivityList()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading, filter])
 
-  const setActivityList = () => {
-    if (filter === 0) setList(activities)
-    else if (filter === 1) setList(pendingList)
-    else setList(allList)
-  }
+  // const setActivityList = () => {
+  //   if (filter === 0) setList(activities)
+  //   else if (filter === 1) setList(pendingList)
+  //   else setList(allList)
+  // }
 
-  useEffect(() => {
-    let length = searchWord?.length
-    let searchData = []
-    if (length > 0) {
-      if (filter === 0) searchData = activities
-      else if (filter === 1) searchData = pendingList
-      else searchData = allList
-      const results = searchData.filter(({ id }) => {
-        return id.toString().includes(searchWord.toLowerCase())
-      })
-      setList(results)
-    } else {
-      if (length === 0) {
-        setActivityList()
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchWord])
+  // useEffect(() => {
+  //   let length = searchWord?.length
+  //   let searchData = []
+  //   if (length > 0) {
+  //     if (filter === 0) searchData = activities
+  //     else if (filter === 1) searchData = pendingList
+  //     else searchData = allList
+  //     const results = searchData.filter(({ id }) => {
+  //       return id.toString().includes(searchWord.toLowerCase())
+  //     })
+  //     setList(results)
+  //   } else {
+  //     if (length === 0) {
+  //       setActivityList()
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchWord])
 
   return (
     <div className={styles.container}>
-      <div className="hidden lg:block">
+      {/* <div className="hidden lg:block">
         {activities.length > 0 && (
           <CreatorSearchSection
             placeholder={'Search'}
@@ -63,11 +63,11 @@ const ApparelActivity = props => {
             onFilter={value => setFilter(value)}
           />
         )}
-      </div>
+      </div> */}
 
-      {list.length > 0 && (
+      {activities.length > 0 && (
         <div className="mt-[10px]">
-          <TableSections data={list} type={type} />
+          <TableSections data={activities} type={type} />
         </div>
       )}
 
