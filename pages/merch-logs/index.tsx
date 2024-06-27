@@ -125,6 +125,8 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
+    console.log(isFetching, publicKey, '============================')
+
     if (isFetching && publicKey) {
       if (activeTab === 1 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
       else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
@@ -486,7 +488,7 @@ const MerchActivity = () => {
                 ? merchStoreList.length > 0 || isMerchStoreFetching
                   ? 'Displayed below are the merch items you created and added to your store.'
                   : ''
-                : activeTab === 1
+                : activeTab === 1 && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
                 ? 'Displayed below are legacy studio items.'
                 : activeTab === 2
                 ? 'Displayed below is a record of all your orders.'
@@ -494,8 +496,9 @@ const MerchActivity = () => {
                 ? 'Displayed below is a record of all your sales.'
                 : ''}
             </div>
+
             {activeTab === 1 && (
-              <div className="flex gap-[16px]">
+              <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
                 <div
                   className={isActiveNFT ? styles.activeNftBtn : styles.inactiveNftBtn}
                   onClick={() => setIsActiveNft(true)}
@@ -570,79 +573,6 @@ const MerchActivity = () => {
                 type="sales"
                 isLoading={isVisibleSellerFetching}
               />
-            </div>
-          )}
-          {activeTab === 3 && (
-            <div className="w-full flex flex-col-reverse lg:grid grid-cols-3">
-              {array && array.length && array.length > 0 ? (
-                <>
-                  <div className="col-span-2">
-                    <div className={styles.shopCartContainer}>
-                      <div className={styles.cartTitle}>Studio Shopping Cart</div>
-                      <div className={styles.subCartTitle} onClick={() => setSelectAllCart(!selectAllCart)}>
-                        {selectAllCart ? 'Deselect all items' : 'Select all items'}
-                      </div>
-                      <div className="mt-[10px] sm:mt-[30px]">
-                        <ShoppingCartActivity
-                          data={array}
-                          getcartList={getcartList}
-                          cart={cart}
-                          setCart={setCart}
-                          selectAllCart={selectAllCart}
-                          setCurrentSelect={setCurrentSelect}
-                          currentSelect={currentSelect}
-                          setTotalCost={setTotalCost}
-                          totalCost={totalCost}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex lg:col-span-1 lg:ml-[40px] h-[200px]">
-                    <div className={styles.tableColor}>
-                      <div className="flex flex-row items-center justify-between">
-                        <div className={styles.subTotal}>Subtotal&nbsp;({currentSelect} items):</div>
-                        <div className={`${styles.subTotal} flex flex-row items-center`}>
-                          $&nbsp;{totalCost ? totalCost.toFixed(2) : '---'}&nbsp;
-                          <div className={styles.costDivider} />
-                          <div className="flex ml-[5px] items-center">
-                            <SolanaIcon alt="" className="text-[20px] mt-[4px]" />
-                            &nbsp;
-                            {totalCost === 0 ? '---' : (totalCost / solToUsdRate).toFixed(2)}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-full flex">
-                        <GradientButton
-                          label="Place Order"
-                          fullWidth
-                          disabled={currentSelect == 0}
-                          fontFamily="Muli-SemiBold"
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-                          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-                          onClick={() => handleOnClick()}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="lg:mt-[-100px] col-start-2 col-span-1">
-                  <Lottie animationData={animationData}></Lottie>
-                  <div className="mt-[-50px] mb-[250px] lg:mt-[-70px]">
-                    <div className={styles.lootieTitle}>Your cart is empty</div>
-                    <div className={styles.lootieSubTitle}>Explore studio and foster your flavor</div>
-                    <div className={styles.shopButton}>
-                      <OutlineButton
-                        width={145}
-                        backgroundColor={'var(--second-home-bg)'}
-                        borderColor={'var(--back-btn-border-mobile)'}
-                        label={'Shop Studio'}
-                        onClick={() => router.push('/studio/')}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           )}
           {((activeTab === 0 && isMerchStoreFetching) ||

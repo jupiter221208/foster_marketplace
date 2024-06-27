@@ -93,7 +93,7 @@ const MerchStoreTable = props => {
                     ) : getStatus(item) === 'expired' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Expired</div>
-                        <div className={styles.remove}>Republic</div>
+                        <div className={styles.remove}>Republish</div>
                       </div>
                     ) : (
                       <div></div>

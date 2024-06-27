@@ -9,9 +9,9 @@
 }
 
 .itemName {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   margin-left: 15px;
   color: var(--text-gray-200-color);
   cursor: pointer;
@@ -23,11 +23,11 @@
   display: flex;
   align-items: center;
   padding: 0px 40px;
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
   font-weight: 100;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
   background: rgba(var(--text-gray-200-color-rgb), 0.05);
 }
 
@@ -40,9 +40,10 @@
 }
 
 .button {
-  font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
   color: var(--text-gray-200-color);
+  text-decoration: underline;
   cursor: pointer;
   &:hover {
     text-decoration: underline;

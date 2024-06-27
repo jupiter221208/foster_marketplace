@@ -70,6 +70,9 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   text-align: start;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chevronUpIcon {

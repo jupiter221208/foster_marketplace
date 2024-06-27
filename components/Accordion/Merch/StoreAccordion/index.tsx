@@ -90,7 +90,7 @@ const StoreAccordion = props => {
                       <div className={styles.subTitle}>{item.name}</div>
                       <div className="mt-[7px]">
                         {getStatus(item) === 'scheduled' ? (
-                          <div className={styles.scheduled}>scheduled</div>
+                          <div className={styles.scheduled}>Scheduled</div>
                         ) : getStatus(item) === 'live' ? (
                           <div className={styles.live}>Live</div>
                         ) : getStatus(item) === 'expired' ? (
@@ -122,7 +122,7 @@ const StoreAccordion = props => {
                     {getStatus(item) === 'scheduled' || getStatus(item) === 'live' ? (
                       <GradientButton label="Remove" fontSize={16} width={100} height={43} onClick={() => {}} />
                     ) : getStatus(item) === 'expired' ? (
-                      <GradientButton label="Republic" fontSize={16} width={100} height={43} onClick={() => {}} />
+                      <GradientButton label="Republish" fontSize={16} width={100} height={43} onClick={() => {}} />
                     ) : (
                       <div></div>
                     )}
