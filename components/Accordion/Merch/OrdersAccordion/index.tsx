@@ -1,40 +1,17 @@
 import React, { useRef, useState } from 'react'
 
-// next components
-import Link from 'next/link'
-
-// third party components
-import { Disclosure } from '@headlessui/react'
-
 // images and icons
 import RightIcon from 'assets/icons/right-icon-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { useConnection } from '@solana/wallet-adapter-react'
 
 const OrdersAccordion = props => {
   const { data, type } = props
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
-  const [item, setItem] = useState(null)
-  const [openModal, setOpenModal] = useState(false)
-
-  const clickRecent = index => {
-    const clickedButton = buttonRefs.current[index]
-    if (clickedButton === openedRef.current) {
-      openedRef.current = null
-      return
-    }
-    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
-      openedRef.current?.click()
-    }
-    openedRef.current = clickedButton
-  }
 
   return (
     <div className="w-full flex flex-wrap mt-[30px]">
