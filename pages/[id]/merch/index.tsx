@@ -104,18 +104,18 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             </div>
             <div className="flex gap-[15px] sm:gap-[25px]">
               {publicKey?.toBase58() === artistInfo?.wallet_id && (
-                <div className={styles.add}>
+                <div
+                  className={styles.add}
+                  onClick={() => {
+                    let path = window.location.href
+                    router.push(`${path}/new`)
+                  }}
+                >
                   <div className="hidden sm:block">
                     <PlusIcon />
                   </div>
                   <div className="block sm:hidden">
-                    <div
-                      className={styles.plus}
-                      onClick={() => {
-                        let path = window.location.href
-                        router.push(`${path}/new`)
-                      }}
-                    >
+                    <div className={styles.plus}>
                       <PlusIconMobile />
                     </div>
                   </div>

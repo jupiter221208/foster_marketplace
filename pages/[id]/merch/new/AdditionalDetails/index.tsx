@@ -240,7 +240,7 @@ const AdditionalDetails = props => {
       <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
           <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] ">
-            <img src={apparelUrl} width={700} className="w-full h-full object-cover" />
+            <img src={apparelUrl} width={700} className="w-full h-full object-contain" />
           </div>
         </div>
         <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
