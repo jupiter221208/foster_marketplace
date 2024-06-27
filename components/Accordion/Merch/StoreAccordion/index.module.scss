@@ -101,16 +101,16 @@
 .scheduled {
   display: flex;
   font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   color: var(--text-gray-200-color)
 }
 
 .remove {
   font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   color: var(--text-gray-200-color);
   text-decoration: underline;
@@ -119,8 +119,8 @@
 .live {
   display: flex;
   font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   color: var(--main-icon-color)
 }
@@ -128,8 +128,8 @@
 .expired {
   display: flex;
   font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   color: rgba(var(--text-gray-200-color-rgb), 0.5)
 }

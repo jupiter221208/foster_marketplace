@@ -52,7 +52,7 @@ const StoreAccordion = props => {
               </div>
               <div className="block">
                 <div className={styles.subTitle}>{item.name}</div>
-                <div className="mt-[5px]">
+                <div className="mt-[4px]">
                   {getStatus(item) === 'scheduled' ? (
                     <div className={styles.scheduled}>Scheduled</div>
                   ) : getStatus(item) === 'live' ? (
