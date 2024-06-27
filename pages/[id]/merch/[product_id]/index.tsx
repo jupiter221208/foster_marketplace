@@ -5,16 +5,6 @@ import { useRouter } from 'next/router'
 
 // components
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
-
-// images
-import merchImageFront from 'assets/images/merch-order-front.png'
-import merchImageBack from 'assets/images/merch-order-back.png'
-import merchImageLeft from 'assets/images/merch-order-left.png'
-
-import physicalImageFront from 'assets/images/merch-physical-front.jpg'
-import physicalImageBack from 'assets/images/merch-physical-back.jpg'
-import physicalImageRight from 'assets/images/merch-physical-right.jpg'
-import physicalImageLeft from 'assets/images/merch-physical-left.jpg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
@@ -27,33 +17,31 @@ import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch, useSelector } from 'react-redux'
 import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
+// API
+import StoreAPI from 'apis/store'
+
 interface MerchOrderPageProps {
-  username?: string
+  publicArtistData?: any
   error?: string
 }
 
-const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
+const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const type = useSelector(state => (state as any).merchOrderType)
 
+  const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
-  const [printData, setPrintData] = useState({
-    id: 1,
-    cost: '56.4',
-    quantity: 1,
-    size: 'L',
-    color: 'white',
-    name: 'product_name1',
-    description: 'Unisex Premium Hoodie | Cotton Heritage M2580 | Embroidery | White',
-  })
+  const [printData, setPrintData] = useState(null)
   const [totalCost, setTotalCost] = useState(null)
-
+  const [quantity, setQuantity] = useState(1)
+  const [merchSize, setMerchSize] = useState('L')
+  const [merchCost, setMerchCost] = useState(0)
   const [merchList, setMerchList] = useState([])
+  const [rawUrlList, setRawUrlList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
-
   const onClickMerch = key => {
     let list = []
     merchList.map((merch, index) => {
@@ -72,56 +60,58 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (type === 'foster') {
-      setMerchList([
-        {
-          url: merchImageFront,
-          selected: true,
-        },
-        {
-          url: merchImageBack,
-          selected: false,
-        },
-        {
-          url: merchImageLeft,
-          selected: false,
-        },
-      ])
-      setSelectedMerch({
-        url: merchImageFront,
-        selected: true,
-      })
-    } else {
-      setMerchList([
-        {
-          url: physicalImageFront,
-          selected: true,
-        },
-        {
-          url: physicalImageBack,
-          selected: false,
-        },
-        {
-          url: physicalImageRight,
-          selected: false,
-        },
-        {
-          url: physicalImageLeft,
-          selected: false,
-        },
-      ])
-      setSelectedMerch({
-        url: physicalImageFront,
-        selected: true,
-      })
-    }
-  }, [type])
+    StoreAPI.getStoreById(publicArtistData.artist.id, router.query.product_id).then(
+      response => {
+        if (response) {
+          setProductDetail(response)
+          let imageList = [],
+            rawList = []
+          if (response.fulfillment_type === 'foster') {
+            response.options.addons.map((item, index) => {
+              imageList.push({ url: item.mockup_url, selected: index === 0 })
+              rawList.push({ url: item.raw_url })
+            })
+          } else {
+            response.options.product_images.map((item, index) => {
+              imageList.push({ url: item, selected: index === 0 })
+            })
+          }
+          setMerchList(imageList)
+          setRawUrlList(rawList)
+          setSelectedMerch(imageList[0])
+          setPrintData({
+            id: 1,
+            quantity,
+            size: merchSize,
+            color: response.options.color,
+            name: response.name,
+            description: response.description,
+            technique: response.options.print_technique,
+            cost: response.selling_price / 100,
+          })
+        }
+      },
+      error => {}
+    )
+  }, [publicArtistData])
+
+  useEffect(() => {
+    setPrintData({ ...printData, size: merchSize })
+  }, [merchSize])
+
+  useEffect(() => {
+    setPrintData({ ...printData, quantity: quantity })
+  }, [quantity])
+
+  useEffect(() => {
+    setPrintData({ ...printData, cost: merchCost })
+  }, [merchCost])
 
   return (
     <div className="g-container flex">
       <div className="mt-[75px]">
         <div className="lg:block hidden">
-          <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
+          <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
             <ArrowLeftIcon />
             Back to store
           </div>
@@ -134,7 +124,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                 className={merch.selected ? styles.selected : styles.unselected}
                 onClick={() => onClickMerch(index)}
               >
-                <ImageWithFoster width={130} height={130} src={merch.url.src} className="w-full h-full" />
+                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full" />
               </div>
             )
           })}
@@ -149,7 +139,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                 <div className={styles.imageContent}>
                   <ImageWithFoster
                     width={700}
-                    src={selectedMerch ? selectedMerch.url.src : ''}
+                    src={selectedMerch ? selectedMerch.url : ''}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -161,7 +151,7 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
               <div className={styles.imageContent}>
                 <ImageWithFoster
                   width={700}
-                  src={selectedMerch ? selectedMerch.url.src : ''}
+                  src={selectedMerch ? selectedMerch.url : ''}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -183,10 +173,19 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
           })}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[45%]">
-          {currentStep === 1 && (
+        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px]">
+          {currentStep === 1 && productDetail && (
             <div className="w-full mt-[0px] lg:mt-[75px]">
-              <MerchOrderMain username={username} type={type} onClickBuyNow={onClickBuyNow} />
+              <MerchOrderMain
+                username={router.query.id}
+                type={type}
+                productDetail={productDetail}
+                userDetail={publicArtistData}
+                onClickBuyNow={onClickBuyNow}
+                setQuantity={setQuantity}
+                setMerchSize={setMerchSize}
+                setCost={setMerchCost}
+              />
             </div>
           )}
           {currentStep === 2 && (
@@ -215,7 +214,8 @@ const MerchOrderPage = ({ username }: MerchOrderPageProps) => {
                 allShippingMethod={shipppingMethod}
                 setTotalCost={setTotalCost}
                 merchList={merchList}
-                mintAddress="0xE3f338g2dk3f82qdk333dee333dd33"
+                rawList={rawUrlList}
+                mintAddress=""
                 onNext={orderId => {
                   let data = {
                     printData,
@@ -246,22 +246,19 @@ MerchOrderPage.getLayout = function getLayout(page) {
 }
 
 MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {
-  let username = encodeURIComponent(query.id)
+  let artistUsername = encodeURIComponent(query.id)
 
   try {
-    // let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
-    //   r.json()
-    // )
-    // let artistPublicKey = publicArtistData.artist.wallet_id
-    // return {
-    //   artistPublicKey,
-    //   publicArtistData,
-    // }
-    return { username }
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+      r.json()
+    )
+    return {
+      publicArtistData,
+    }
   } catch (e: any) {
     console.error(e)
     return {
-      error: `could not load artist details: ${username}: ${e.message}`,
+      error: `could not load artist details: ${artistUsername}: ${e.message}`,
     }
   }
 }

@@ -41,6 +41,8 @@ import styles from './index.module.scss'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
+import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
+import NotificationMenu from 'components/Menu/NotificationMenu'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -284,20 +286,16 @@ const PrimaryHeader = () => {
                   {connected && (
                     <>
                       <div className="flex flex-row">
-                        <div>
-                          <WalletButton />
-                        </div>
-                        <div
-                          className={`${styles.iconArea} flex mr-[20px] cursor-pointer`}
-                          onClick={() => {
-                            dispatch({ type: 'set', activeTab: 4 })
-                            router.push(`/merch-logs`)
-                          }}
-                        >
-                          <ShoppingCartIcon alt="" />
-                        </div>
-                        <div className={`${styles.iconArea} flex relative cursor-pointer`}>
-                          <NotificationIcon alt="" />
+                        <div className="flex flex-row">
+                          <div>
+                            <WalletButton />
+                          </div>
+                          <div>
+                            <ShoppingCartMenu />
+                          </div>
+                          <div>
+                            <NotificationMenu />
+                          </div>
                         </div>
                       </div>
                     </>

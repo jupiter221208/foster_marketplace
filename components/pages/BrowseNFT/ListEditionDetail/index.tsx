@@ -200,6 +200,10 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     setButtonDisabled(disabled)
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
+  const getMerchContent = data => {
+    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+  }
+
   return (
     <div className="w-full h-full flex flex-col justify-between">
       <div className={`${styles.container} ${fromNFT ? styles.nftBG : ''}`}>
@@ -233,15 +237,39 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           />
         </div>
 
+        <div className="w-full mt-[20px]">
+          <div className="flex gap-[13px]">
+            <HSwitch
+              checked={enableMerch}
+              onChange={() => {
+                setEnableMerch(!enableMerch)
+                setShowMerchModal(!enableMerch)
+              }}
+              className={`${
+                enableMerch ? styles.active : styles.inactive
+              } relative inline-flex h-6 w-[42px] items-center rounded-full`}
+            >
+              <span
+                className={`transform transition ease-in-out duration-200 ${
+                  enableMerch ? 'translate-x-5' : 'translate-x-1'
+                } ${
+                  enableMerch ? styles.activeSwitch : styles.inactiveSwitch
+                } inline-block h-[18px] w-[18px] transform rounded-full bg-white`}
+              />
+            </HSwitch>
+            <div className={styles.merchText}>Include merch for each print</div>
+          </div>
+        </div>
+
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
             <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
               <div className={styles.assetArea}>
-                <ImageWithFoster width={65} src={merchCard.image} />
+                <ImageWithFoster width={65} src={merchCard.options.product_images[0]} />
               </div>
               <div className={styles.contentArea}>
                 <div className={styles.merchTitle}>Merch item included for each sale</div>
-                <div className={styles.merchContent}>Unisex Premium Hoodie | Embroidery | White</div>
+                <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
               </div>
             </div>
             <div className="sm:block hidden">

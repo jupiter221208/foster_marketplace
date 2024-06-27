@@ -31,10 +31,21 @@
 .noArtwork {
   width: 100%;
   text-align: center;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 20px;
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 18px;
+    line-height: 23px;
   }
   color: var(--text-gray-200-color);
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 8px;
 }

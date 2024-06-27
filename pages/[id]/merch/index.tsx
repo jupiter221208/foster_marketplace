@@ -12,15 +12,18 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 // images
 import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import LeftArrowMobile from 'assets/icons/arrow-left-24x24.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
-import LeftArrowIcon from 'assets/icons/arrow-left-35x35.svg?component'
+import PlusIconMobile from 'assets/icons/plus-icon-white.svg?component'
+import LeftArrowIcon from 'assets/icons/arrow-left-white-big.svg?component'
+
 // json
+import ShopList from 'assets/json/merch-shop/menu-list.json'
 
 // styles
 import styles from './index.module.scss'
 import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
 import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
+import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -35,44 +38,28 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
+  const [merchMenu, setMerchMenu] = useState(ShopList[0])
 
   return (
     <div className="w-full pb-[60px]">
-      <div className={`g-container ${styles.topSection}`}>
-        <div
-          onClick={() => {
-            let path = window.location.href
-            router.push(path.substring(0, path.lastIndexOf('/')))
-          }}
-        >
-          <div className="sm:block hidden">
-            <LeftArrowIcon />
-          </div>
-          <div className="sm:hidden block">
-            <LeftArrowMobile />
-          </div>
-        </div>
-        <div className="flex h-full items-center">
-          <div>
-            <div className={styles.userName}>{artistInfo?.username}</div>
-            <div className={styles.merchStore}>Official Merch Store</div>
-          </div>
-        </div>
-        <div className={`flex w-[20px] sm:w-[70px] gap-[9px] items-center`} onClick={() => setOpenShareModal(true)}>
-          <div className="sm:block hidden">
-            <ShareDesktopIcon alt="" />
-          </div>
-          <div className="sm:hidden block">
-            <ShareSmallIcon alt="" />
-          </div>
-
-          <div className={`${styles.shareText} mt-[-2px] sm:block hidden`}>Share</div>
-        </div>
-      </div>
-      <div className="w-full h-[150px] sm:h-[350px] relative">
+      <div className="w-full h-[187px] sm:h-[350px] relative">
         <img src={artistInfo?.banner_picture} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0">
-          <div className={styles.overlayBG}></div>
+          <div className={styles.overlayBG}>
+            <div>
+              <div className="flex justify-center mb-[15px]">
+                <div className="w-[60px] sm:w-[100px] rounded-full overflow-hidden">
+                  <img
+                    src={artistInfo?.profile_picture}
+                    alt=""
+                    className="w-[60px] sm:w-[100px] h-[60px] sm:h-[100px] object-cover"
+                  />
+                </div>
+              </div>
+              <div className={styles.merchBy}>Merch by</div>
+              <div className={styles.userName}>{artistInfo?.username}</div>
+            </div>
+          </div>
         </div>
         <div className="absolute inset-0">
           <div className={styles.tabBorder} />
@@ -81,32 +68,78 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <div className="w-full lg:mt-[30px] mt-[20px] flex gap-[9px] justify-between">
-            <div className="flex gap-[8px] sm:gap-[15px]">
-              <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
-                <div className="mt-[-2px]">Shop</div>
-              </div>
-              <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
-                <div className="mt-[-2px]">Reviews</div>
-              </div>
-              <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
-                <div className="mt-[-2px]">Badges</div>
-              </div>
-            </div>
-
-            {publicKey?.toBase58() === artistInfo?.wallet_id && (
+            <div className="gap-[24px] hidden sm:flex">
               <div
-                className={styles.plus}
+                className={styles.profile}
                 onClick={() => {
                   let path = window.location.href
-                  router.push(`${path}/new`)
+                  router.push(path.substring(0, path.lastIndexOf('/')))
                 }}
               >
-                <PlusIcon />
+                <LeftArrowIcon className="mt-[2px]" />
+                Profile
               </div>
-            )}
+              <div className="flex gap-[8px] sm:gap-[15px]">
+                <div className={activeTab === 0 ? styles.selected : styles.unselected} onClick={() => setActiveTab(0)}>
+                  <div className="mt-[-2px]">Shop</div>
+                </div>
+                <div className={activeTab === 1 ? styles.selected : styles.unselected} onClick={() => setActiveTab(1)}>
+                  <div className="mt-[-2px]">Reviews</div>
+                </div>
+                <div className={activeTab === 2 ? styles.selected : styles.unselected} onClick={() => setActiveTab(2)}>
+                  <div className="mt-[-2px]">Badges</div>
+                </div>
+              </div>
+            </div>
+            <div className="block sm:hidden">
+              <MerchFilterMenu
+                label={merchMenu.label}
+                data={ShopList}
+                selectedItem={merchMenu}
+                setSelectedItem={item => {
+                  setMerchMenu(item)
+                  setActiveTab(item.id)
+                }}
+              />
+            </div>
+            <div className="flex gap-[15px] sm:gap-[25px]">
+              {publicKey?.toBase58() === artistInfo?.wallet_id && (
+                <div
+                  className={styles.add}
+                  onClick={() => {
+                    let path = window.location.href
+                    router.push(`${path}/new`)
+                  }}
+                >
+                  <div className="hidden sm:block">
+                    <PlusIcon />
+                  </div>
+                  <div className="block sm:hidden">
+                    <div className={styles.plus}>
+                      <PlusIconMobile />
+                    </div>
+                  </div>
+                  <div className="hidden sm:block">Add</div>
+                </div>
+              )}
+              <div
+                className={`flex w-[35px] sm:w-[70px] gap-[9px] items-center`}
+                onClick={() => setOpenShareModal(true)}
+              >
+                <div className="sm:block hidden">
+                  <ShareDesktopIcon alt="" />
+                </div>
+                <div className="sm:hidden block">
+                  <div className={styles.plus}>
+                    <ShareSmallIcon alt="" />
+                  </div>
+                </div>
+                <div className={`${styles.shareText} mt-[-2px] sm:block hidden`}>Share</div>
+              </div>
+            </div>
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] ">
-            {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} />}
+            {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} userId={artistInfo?.id} />}
             {activeTab === 1 && <CreatorMerchReviews />}
             {activeTab === 2 && <CreatorMerchBadges />}
           </div>

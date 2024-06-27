@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // next component
 
@@ -15,6 +16,8 @@ import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
+import SizeList from 'assets/json/print/size-chat-modal.json'
 
 // styles
 import styles from './index.module.scss'
@@ -23,10 +26,12 @@ import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import SizeChartModal from 'components/Modal/SizeChartModal'
+import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
 
 const MerchOrderMain = props => {
-  const { type, username, onClickBuyNow } = props
+  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize, setCost } = props
   const router = useRouter()
+  const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
@@ -35,26 +40,17 @@ const MerchOrderMain = props => {
   const alertNote = 'alert-note'
   const alertNoteMobile = 'alert-mobile'
   const [tableModal, setTableModal] = useState(false)
-  const [sizeList, setSizeList] = useState([
-    { id: 0, name: 'XS', selected: false },
-    { id: 1, name: 'S', selected: false },
-    { id: 2, name: 'M', selected: false },
-    { id: 3, name: 'L', selected: false },
-    { id: 4, name: 'XL', selected: true },
-    { id: 5, name: '2XL', selected: false },
-    { id: 6, name: '3XL', selected: false },
-    { id: 7, name: '4XL', selected: false },
-    { id: 8, name: '5XL', selected: false },
-  ])
+  const [sizeList, setSizeList] = useState([])
+  const [timeLeft, setTimeLeft] = useState(null)
+  const [cardExpired, setCardExpired] = useState(false)
   const [descCount, setDescCount] = useState(280)
-  const description =
-    'Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas. Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.Untitled Abstract #17 Physical Acrylic Brick Painting on 10x8 inch Canvas.'
+  const description = productDetail.description
   const [isTruncated, setIsTruncated] = useState(true)
   const [tempNftDescription, setTempNftDescription] = useState('')
   const processedNftDescription = isTruncated ? tempNftDescription.slice(0, descCount) : tempNftDescription
   const shouldShowReadMore = tempNftDescription.length > descCount
-
-  const [mintQty, setMintQty] = useState(0)
+  const [printArea, setPrintArea] = useState('')
+  const [mintQty, setMintQty] = useState(1)
   const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 
@@ -76,6 +72,98 @@ const MerchOrderMain = props => {
     setTempNftDescription(description)
   }, [description])
 
+  useEffect(() => {
+    let size_list
+    switch (productDetail.product_type_id) {
+      case 1:
+      case 2:
+        size_list = SizeList[2].size
+        break
+      case 3:
+      case 4:
+        size_list = SizeList[3].size
+        break
+      case 5:
+      case 6:
+        size_list = SizeList[0].size
+        break
+      case 7:
+      case 8:
+        size_list = SizeList[1].size
+        break
+      case 9:
+      case 10:
+        size_list = SizeList[4].size
+        break
+      default:
+        size_list = SizeList[5].size
+        break
+    }
+    let sizes = []
+    size_list.map((size, index) => {
+      if (index === Math.round(size_list.length / 2)) {
+        sizes.push({ id: index, name: size.Size, selected: true })
+        setMerchSize(size.Size)
+      } else {
+        sizes.push({ id: index, name: size.Size, selected: false })
+      }
+    })
+    setSizeList(sizes)
+
+    if (productDetail.fulfillment_type === 'foster') {
+      // Print Area
+      let directiction = []
+      let list = productDetail.options.addons
+      list.map(item => {
+        let direct_id = item.product_addon_id.split('-')[1]
+        directiction.push(
+          direct_id === '1'
+            ? 'Front'
+            : direct_id === '2'
+            ? 'Back'
+            : direct_id === '3'
+            ? 'Right'
+            : direct_id === '4'
+            ? 'Left'
+            : 'Front'
+        )
+      })
+      setPrintArea(directiction.join().replaceAll(',', ', '))
+    }
+
+    if (productDetail.sale_start_at !== null) {
+      if (getStartTime() === null) return
+
+      setTimeLeft(calculateAuctionTimeLeft(getStartTime()))
+
+      const timer = setInterval(() => {
+        let timeLeft = calculateAuctionTimeLeft(getStartTime())
+        if (
+          timeLeft['days'] === '00' &&
+          timeLeft['hours'] === '00' &&
+          timeLeft['minutes'] === '00' &&
+          timeLeft['seconds'] === '00'
+        )
+          setCardExpired(true)
+        setTimeLeft(timeLeft)
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail])
+
+  const getStartTime = () => {
+    let difference = getTimeDifference(productDetail.sale_start_at)
+
+    if (difference >= 0) {
+      return productDetail.sale_start_at
+    } else {
+      return productDetail.sale_end_at
+    }
+  }
+
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
   }
@@ -92,6 +180,7 @@ const MerchOrderMain = props => {
     sizeList.map(item => {
       if (item.id === index) {
         newSize.push({ ...item, selected: true })
+        setMerchSize(item.name)
       } else {
         newSize.push({ ...item, selected: false })
       }
@@ -102,6 +191,19 @@ const MerchOrderMain = props => {
   const getApparelName = () => {
     let type = 'Unisex'
     let name = 'Hoodie'
+
+    if (productDetail.product_type_id === 1 || productDetail.product_type_id === 2) {
+      name = 'Hoodie'
+    } else if (productDetail.product_type_id === 3 || productDetail.product_type_id === 4) {
+      name = 'Long Sleeve'
+    } else if (productDetail.product_type_id === 5 || productDetail.product_type_id === 6) {
+      name = 'Short Sleeve'
+    } else if (productDetail.product_type_id === 7 || productDetail.product_type_id === 8) {
+      name = 'Sweatshirt'
+    } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
+      name = "Women's Short Sleeve"
+    }
+
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
     if (list.length > 0) return list[0].name
     else return name
@@ -110,9 +212,50 @@ const MerchOrderMain = props => {
   const getApparelLabel = () => {
     let type = 'Unisex'
     let name = 'Hoodie'
+
+    if (productDetail.product_type_id === 1 || productDetail.product_type_id === 2) {
+      name = 'Hoodie'
+    } else if (productDetail.product_type_id === 3 || productDetail.product_type_id === 4) {
+      name = 'Long Sleeve'
+    } else if (productDetail.product_type_id === 5 || productDetail.product_type_id === 6) {
+      name = 'Short Sleeve'
+    } else if (productDetail.product_type_id === 7 || productDetail.product_type_id === 8) {
+      name = 'Sweatshirt'
+    } else if (productDetail.product_type_id === 9 || productDetail.product_type_id === 10) {
+      name = "Women's Short Sleeve"
+    }
+
     let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
     if (list.length > 0) return list[0].label
     else return name
+  }
+
+  const getPrintArea = list => {
+    let directiction = []
+
+    list.map(item => {
+      let direct_id = item.product_addon_id.split('-')[1]
+      directiction.push(
+        direct_id === 1
+          ? 'Front'
+          : direct_id === 2
+          ? 'Back'
+          : direct_id === 3
+          ? 'Right'
+          : direct_id === 4
+          ? 'Left'
+          : 'Front'
+      )
+    })
+    return directiction.join().replaceAll(',', ', ')
+  }
+
+  const getStartStatus = () => {
+    if (getTimeDifference(productDetail.sale_start_at) > 0) return 'Starts in'
+
+    if (productDetail.sale_end_at === null) return ''
+
+    return 'Ends in'
   }
 
   return (
@@ -123,10 +266,10 @@ const MerchOrderMain = props => {
           Back to store
         </div>
       </div>
-      <div className="w-full min-h-[680px] lg:px-[30px] pt-[20px] pb-[0px] flex flex-col justify-between">
+      <div className="w-full lg:px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
-            <div className={styles.productName}>product_name</div>
+            <div className={styles.productName}>{productDetail?.name}</div>
 
             <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
               <div className="lg:block hidden">
@@ -143,46 +286,45 @@ const MerchOrderMain = props => {
             <div className={styles.creator}>Creator</div>
             <div className="mt-[7px] flex flex-wrap gap-[15px]">
               <div className={styles.creatorRound}>
-                <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
-                  <ImageWithFoster
-                    src={
-                      'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=500/https%3A%2F%2Farweave.net%2F2vtcGtzEh-I7c8QRYfWD6XmFvbKf_kvULxb4lOtrXdM'
-                    }
-                    alt=""
-                  />
+                <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
+                  <ImageWithFoster src={userDetail.artist.profile_picture} alt="" />
                 </div>
-                creator_name
+                {userDetail.artist.username}
               </div>
-              <div className={styles.creatorRound}>Limited Supply</div>
-              <div className={styles.creatorRound}>23/50 left</div>
+              <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+              <div className={styles.creatorRound}>
+                {productDetail.supply ? `8/${productDetail.supply} left` : `3 sold`}
+              </div>
             </div>
           </div>
 
           <div className={`mt-[20px] ${styles.divider}`} />
 
-          {type === 'foster' && (
+          {productDetail.fulfillment_type === 'foster' && (
             <div className="mt-[15px]">
               <div className={styles.desc}>Details</div>
               <div className="w-full flex justify-between mt-[7px]">
                 <div className={styles.content}>Apparel Type</div>
-                <div className={styles.contentValue}>Premimum Hoodie</div>
+                <div className={styles.contentValue}>{ProductTypeList[productDetail.product_type_id - 1].name}</div>
               </div>
               <div className="w-full flex justify-between mt-[6px]">
                 <div className={styles.content}>Print Technique</div>
-                <div className={styles.contentValue}>Embroidery</div>
+                <div className={styles.contentValue}>
+                  {productDetail.options.print_technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery'}
+                </div>
               </div>
               <div className="w-full flex justify-between mt-[6px]">
                 <div className={styles.content}>Print Areas</div>
-                <div className={styles.contentValue}>Center Chest, Left Wrist</div>
+                <div className={styles.contentValue}>{printArea}</div>
               </div>
               <div className="w-full flex justify-between mt-[6px]">
                 <div className={styles.content}>Color</div>
-                <div className={styles.contentValue}>Black</div>
+                <div className={styles.contentValue}>{getFirstUpperString(productDetail.options.color)}</div>
               </div>
             </div>
           )}
 
-          {type === 'user' && (
+          {productDetail.fulfillment_type === 'user' && (
             <div className="mt-[15px]">
               <div className={styles.desc}>Description</div>
 
@@ -228,22 +370,45 @@ const MerchOrderMain = props => {
 
         <div className="w-full">
           <div className="mt-[20px]">
-            <div className="flex flex-wrap items-end gap-[6px]">
-              <div className={styles.endsIn}>Ends in</div>
-              <div className={styles.endsTime}>02d 05h 10m 30s</div>
+            <div className="flex gap-[6px] items-center">
+              <div className={styles.endsIn}>{getStartStatus()}</div>
+              <div className={styles.bidCountContainer}>
+                {timeLeft && timeLeft['days'] !== '00' && (
+                  <div>
+                    <div className={styles.endTime}>
+                      {timeLeft && timeLeft['days']}
+                      {timeLeft && <div className={styles.bidDesc}>D</div>}
+                    </div>
+                  </div>
+                )}
+                <div className={styles.endTimeContainer}>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['hours']}
+                    {timeLeft && <div className={styles.bidDesc}>H</div>}
+                  </div>
+                </div>
+                <div className={styles.endTimeContainer}>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['minutes']}
+                    {timeLeft && <div className={styles.bidDesc}>M</div>}
+                  </div>
+                </div>
+                <div className={styles.endTimeContainer}>
+                  <div className={styles.endTime}>
+                    {timeLeft && timeLeft['seconds']}
+                    {timeLeft && <div className={styles.bidDesc}>S</div>}
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="w-full mt-[10px]">
               <div className={styles.mintQty}>
                 <div
                   onClick={() => {
-                    if (mintQty > 0) {
+                    if (mintQty > 1) {
                       setMintQty(mintQty - 1)
-                      let price = (
-                        nftPrice * (mintQty - 1) * 1.05 +
-                        0.01 * (mintQty - 1) +
-                        0.013 * (mintQty - 1) +
-                        0.0003
-                      ).toFixed(2)
+                      setQuantity(mintQty - 1)
+                      setCost((productDetail.selling_price / 100) * (mintQty - 1))
                     }
                   }}
                 >
@@ -254,13 +419,9 @@ const MerchOrderMain = props => {
                 </div>
                 <div
                   onClick={() => {
-                    let price = (
-                      nftPrice * (mintQty + 1) * 1.05 +
-                      0.01 * (mintQty + 1) +
-                      0.013 * (mintQty + 1) +
-                      0.0003
-                    ).toFixed(2)
                     setMintQty(mintQty + 1)
+                    setQuantity(mintQty + 1)
+                    setCost((productDetail.selling_price / 100) * (mintQty + 1))
                   }}
                 >
                   <div className={styles.minus}>+</div>
@@ -367,9 +528,11 @@ const MerchOrderMain = props => {
             <div>
               <div className="flex gap-[6px] items-center mb-[2px]">
                 <SolanaLogoIcon className="mt-[4px]" />
-                <div className={styles.price}>0.65</div>
+                <div className={styles.price}>
+                  {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+                </div>
               </div>
-              <div className={styles.priceUS}>$642.00</div>
+              <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
             </div>
           </div>
 
@@ -392,7 +555,7 @@ const MerchOrderMain = props => {
           voteCount={shareCount}
           setVoteCount={setShareCount}
           message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-          url={`/${username}/merch/${123}`}
+          url={`/${username}/merch/${productDetail.id}`}
         />
       )}
 

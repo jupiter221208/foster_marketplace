@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "name": "Unisex Premium Hoodie"
+    },
+    {
+        "id": 2,
+        "name": "Unisex Premium Hoodie"
+    },
+    {
+        "id": 3,
+        "name": "Unisex Long Sleeve Tee"
+    },
+    {
+        "id": 4,
+        "name": "Unisex Long Sleeve Tee"
+    },
+    {
+        "id": 5,
+        "name": "Unisex Organic Cotton T-Shirt"
+    },
+    {
+        "id": 6,
+        "name": "Unisex Organic Cotton T-Shirt"
+    },
+    {
+        "id": 7,
+        "name": "Unisex Eco Sweatshirt"
+    },
+    {
+        "id": 8,
+        "name": "Unisex Eco Sweatshirt"
+    },
+    {
+        "id": 9,
+        "name": "Women's Fitted Eco Tee"
+    },
+    {
+        "id": 10,
+        "name": "Women's Fitted Eco Tee"
+    },
+    {
+        "id": 11,
+        "name": "Physical Print"
+    },
+    {
+        "id": 12,
+        "name": "Shoes"
+    },
+    {
+        "id": 13,
+        "name": "Apparel"
+    },
+    {
+        "id": 14,
+        "name": "Bag"
+    },
+    {
+        "id": 15,
+        "name": "Textile Art"
+    },
+    {
+        "id": 16,
+        "name": "Hat"
+    },
+    {
+        "id": 17,
+        "name": "Accessory"
+    },
+    {
+        "id": 18,
+        "name": "Sculpture"
+    },
+    {
+        "id": 19,
+        "name": "Book"
+    },
+    {
+        "id": 20,
+        "name": "Glassware"
+    },
+    {
+        "id": 21,
+        "name": "Other"
+    }
+]

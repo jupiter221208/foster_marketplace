@@ -25,7 +25,7 @@ import { useViewport } from 'utils'
 import { getFirstUpperString, validDigits, validInteger } from 'utils/helpers'
 
 const AdditionalDetails = props => {
-  const { productDetail, step, setEnableNext } = props
+  const { productDetail, step, setEnableNext, additionDetail, setAdditionDetail } = props
   const viewport = useViewport()
 
   const [assetUrls, setAssetUrls] = useState([])
@@ -41,6 +41,7 @@ const AdditionalDetails = props => {
 
   const [startType, setStartType] = useState('soon')
   const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('24')
   const [day, setDay] = useState('')
@@ -61,20 +62,20 @@ const AdditionalDetails = props => {
     )
   }
 
-  const endDate = useMemo(() => {
+  useEffect(() => {
     let plusDays = Number(days)
     let plusHours = Number(hours)
 
     if (days === '') plusDays = 0
     if (hours === '') plusHours = 0
 
-    const endDate = new Date(startDate)
-    endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
+    const endTime = new Date(startDate)
+    endTime.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
 
     const day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    const dayOfWeek = day[endDate.getDay()]
+    const dayOfWeek = day[endTime.getDay()]
     setDay(dayOfWeek)
-    return endDate
+    setEndDate(endTime)
   }, [startDate, days, hours])
 
   useEffect(() => {
@@ -84,6 +85,11 @@ const AdditionalDetails = props => {
     }
 
     if (productDetail.product?.id === 0) {
+      if (saleMethod.id === -1) {
+        setEnableNext(false)
+        return
+      }
+
       if (saleMethod.id === 1 && profit <= 0) {
         setEnableNext(false)
         return
@@ -108,6 +114,42 @@ const AdditionalDetails = props => {
     setEnableNext(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, saleMethod, profit, sellingPrice, maxSupplyItem, limitedSupply, releaseDurationItem, days, hours])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, name: title })
+  }, [title])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, description })
+  }, [description])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, selling_price: parseFloat(sellingPrice) })
+  }, [sellingPrice])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_method: saleMethod.id === 0 ? 'edition' : 'standalone' })
+    if (saleMethod.id === 0) {
+      setAdditionDetail({ ...additionDetail, selling_price: priceBase + priceFB + priceRight + priceLeft })
+    }
+  }, [saleMethod])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, supply: parseInt(limitedSupply) })
+  }, [limitedSupply])
+
+  useEffect(() => {
+    setAdditionDetail({ ...additionDetail, sale_start_at: startDate })
+  }, [startDate])
+
+  useEffect(() => {
+    if (releaseDurationItem.id === 1) setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+  }, [endDate])
+
+  useEffect(() => {
+    if (releaseDurationItem.id === 0) setAdditionDetail({ ...additionDetail, sale_end_at: null })
+    else setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+  }, [releaseDurationItem])
 
   useEffect(() => {
     let urls = []
@@ -198,7 +240,7 @@ const AdditionalDetails = props => {
       <div className="w-full lg:w-[46%]">
         <div className={styles.assetView}>
           <div className="w-[340px] h-[340px] sm:w-[450px] sm:h-[450px] ">
-            <img src={apparelUrl} width={700} className="w-full h-full object-cover" />
+            <img src={apparelUrl} width={700} className="w-full h-full object-contain" />
           </div>
         </div>
         <div className="w-full flex gap-[9px] sm:gap-[15px] lg:gap-[30px] mt-[30px] mb-[30px]">
@@ -208,7 +250,7 @@ const AdditionalDetails = props => {
               className={item.selected ? styles.selectedItem : styles.deselectedItem}
               onClick={() => selectAssetItem(item)}
             >
-              <div className="sm:w-[110px] sm:h-[110px] w-[78px] h-[78px]">
+              <div className="w-full h-full">
                 <ImageWithFoster src={item.url} width={110} className="w-full h-full object-cover" />
               </div>
             </div>
@@ -269,15 +311,12 @@ const AdditionalDetails = props => {
               </div>
             </div>
             <div className="w-full mt-[20px] sm:mt-[30px] mb-[100px]">
-              <div className={styles.title}>Release Details</div>
+              {/* <div className={styles.title}>Release Details</div> */}
               {saleMethod.id === 0 ? (
-                <div className={`${styles.desc} mt-[15px]`}>
-                  Upon publishing this merch item, it will be saved to your brand & design library. When you are listing
-                  an edition, you can choose to toggle this merch item for every edition purchased. Once you have
-                  enabled this merch item, it will become available as an added bonus to your collectors. If you enable
-                  this merch item when listing an edition, please note that the production price for this merch item
-                  will be added to the listing price. As a merch edition, your profit will be dictated by the listing
-                  price of the edition.
+                <div className={`${styles.releaseDetail} mt-[15px]`}>
+                  Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
+                  activate it when listing an edition as a bonus for each purchase. The production cost will be added to
+                  the listing price.
                 </div>
               ) : (
                 <div className="w-full mt-[15px]">
@@ -448,8 +487,9 @@ const AdditionalDetails = props => {
             </div>
             {saleMethod.id === 0 && (
               <div className={styles.includePurchase}>
-                This method of sale allows will save the item to your merch brand & design library. When you are listing
-                an edition, you can choose to toggle on merch for every edition purchased
+                Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
+                activate it when listing an edition as a bonus for each purchase. The production cost will be added to
+                the listing price.
               </div>
             )}
             {saleMethod.id === 1 && (

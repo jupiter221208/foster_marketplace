@@ -43,8 +43,6 @@ export interface PhysicalCheckoutProps {
 const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -120,9 +118,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         let colorText = getFirstUpperString(color)
         let qty = 'Qty:' + itemQuantity
         itemList.push({ name: nftName, type, color: colorText, qty })
-      } else if (type === 'merch') {
+      } else if (type === 'foster') {
         var color = findElement(options, 'name', 'color')['value']
-        let type = 'Print Technique: Embroidery'
+        var technique = findElement(options, 'name', 'technique')['value']
+        let type = 'Print Technique: ' + (technique === 'direct_to_garment' ? 'Direct To Garment' : 'Embroidery')
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
@@ -247,31 +246,6 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             </div>
           </div>
         </div>
-
-        {/* Mobile Table */}
-        {/* <div className="w-full lg:hidden">
-          {list.map((item, index) => {
-            return (
-              <div key={index}>
-                <div className={`${styles.tableColor} w-full flex justify-between px-3 mt-[30px]`}>
-                  <div className="w-full h-full">
-                    <img src={item.url} className="w-[50%] h-[50%]" />
-                  </div>
-                  <div className={`${styles.value} w-[200px] text-right`}>
-                    <p dangerouslySetInnerHTML={{ __html: item.name }} />
-                  </div>
-                </div>
-
-                <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
-                  <div className={styles.value}>{'Shipping\nAddress:'}</div>
-                  <div className={`${styles.value} text-left mt-[12px]`}>
-                    <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div> */}
 
         {/* SOL / USDC */}
         <div className="w-full h-auto relative lg:hidden mt-[15px] lg:mt-[30px]">

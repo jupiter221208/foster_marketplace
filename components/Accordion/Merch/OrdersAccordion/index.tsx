@@ -1,51 +1,37 @@
 import React, { useRef, useState } from 'react'
 
-// next components
-import Link from 'next/link'
-
-// third party components
-import { Disclosure } from '@headlessui/react'
-
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
+import RightIcon from 'assets/icons/right-icon-white.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getSliceAddress } from 'utils/helpers'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import OutlineButton from 'components/Button/OutlineButton'
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
 
 const OrdersAccordion = props => {
   const { data, type } = props
-  const { solToUsdRate } = useSolToUsdRate()
-  const dispatch = useDispatch()
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
-  const { connection } = useConnection()
-
-  const clickRecent = index => {
-    const clickedButton = buttonRefs.current[index]
-    if (clickedButton === openedRef.current) {
-      openedRef.current = null
-      return
-    }
-    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
-      openedRef.current?.click()
-    }
-    openedRef.current = clickedButton
-  }
 
   return (
-    <div className="w-full flex flex-wrap gap-[10px]">
+    <div className="w-full flex flex-wrap mt-[30px]">
       {data.map((item, index) => (
-        <div key={index} className="w-full flex flex-wrap">
-          <Disclosure>
+        <div key={index} className="w-full flex flex-wrap mt-[-2px]">
+          <div className={styles.button}>
+            <div className="w-full flex items-center justify-between">
+              <div className={styles.subTitle}>Order #{item.id}</div>
+              <div
+                className={styles.viewDetail}
+                onClick={() => {
+                  router.push(`merch-logs/${item.id}`)
+                }}
+              >
+                View Details
+                <RightIcon />
+              </div>
+            </div>
+          </div>
+          {/* <Disclosure>
             {({ open }) => (
               <>
                 <Disclosure.Button
@@ -77,10 +63,6 @@ const OrdersAccordion = props => {
                       {getSliceAddress(item.transaction_id)}
                     </div>
                   </div>
-                  {/* <div className={styles.secondRow}>
-                    <div className={styles.secondTitle}>Date</div>
-                    <div className={styles.secondText}>{'08/16/2023'}</div>
-                  </div> */}
                   <div className={styles.secondRow}>
                     <div className={styles.title}>{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
                     <div className={styles.text}>{getSliceAddress(item.creator)}</div>
@@ -97,7 +79,7 @@ const OrdersAccordion = props => {
                 </Disclosure.Panel>
               </>
             )}
-          </Disclosure>
+          </Disclosure> */}
         </div>
       ))}
     </div>

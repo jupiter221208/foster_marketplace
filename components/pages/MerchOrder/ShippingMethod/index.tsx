@@ -18,7 +18,18 @@ import styles from './index.module.scss'
 import merchAPI from 'apis/merch'
 
 const MerchOrderShippingMethod = props => {
-  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
+  const {
+    type,
+    shippingData,
+    allShippingMethod,
+    data,
+    setTotalCost,
+    merchList,
+    rawList = [],
+    mintAddress,
+    onNext,
+    onBack,
+  } = props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
@@ -26,8 +37,6 @@ const MerchOrderShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    let name = ''
-
     let methods = []
     if (isUniteState()) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
@@ -142,23 +151,48 @@ const MerchOrderShippingMethod = props => {
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
-    item = {
-      id: id.toString(),
-      quantity,
-      previewUrl: merchList[0].url,
-      options: {
-        type: type,
-        nftName: name,
-        fosterUrl: merchList[0].url,
-        assetUrl: merchList[0].url,
-        nftAddress: mintAddress,
-        apparel: description,
-        size: size,
-        color: color,
-      },
-      notes: `This is apparel merch item`,
+    if (type === 'appparel' || type === 'wallart') {
+      item = {
+        id: id.toString(),
+        quantity,
+        previewUrl: merchList[0].url,
+        options: {
+          type: type,
+          nftName: name,
+          fosterUrl: merchList[0].url,
+          assetUrl: merchList[0].url,
+          nftAddress: mintAddress,
+          apparel: description,
+          size: size,
+          color: color,
+        },
+        notes: `This is apparel merch V1 item`,
+      }
+    } else {
+      // foster merch
+      let mockupUrls = [],
+        rawUrls = []
+      merchList.map(item => mockupUrls.push(item.url))
+      rawList.map(item => rawUrls.push(item.url))
+      item = {
+        id: id.toString(),
+        quantity,
+        previewUrl: mockupUrls[0],
+        options: {
+          type: type,
+          nftName: data.name,
+          fosterUrl: window.location.href,
+          mockupUrl: mockupUrls.join(','),
+          assetUrl: rawUrls.join(','),
+          nftAddress: '',
+          apparel: description,
+          size: size,
+          color: color,
+          technique: data.technique,
+        },
+        notes: `This is studio merch V2 item`,
+      }
     }
-
     let params = {
       customerEmail: shippingData.email,
       shippingServiceCode: shipping.serviceCode,

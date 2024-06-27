@@ -94,7 +94,7 @@
 .divider {
   width: 100%;
   height: 1px;
-  background: var(--text-gray-200-color);
+  background: rgba(var(--text-gray-200-color-rgb), 0.3);
 }
 
 .tableDivider {
