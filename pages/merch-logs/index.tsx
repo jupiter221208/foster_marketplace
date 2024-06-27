@@ -35,7 +35,6 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 
 const MerchActivity = () => {
@@ -242,7 +241,7 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
-        setEnabledItems([...enabledItems, ...response])
+        // setEnabledItems([...enabledItems, ...response])
         if (response.length < rowCount) {
           setIsVisibleEnabledFetching(false)
         } else {
@@ -445,15 +444,21 @@ const MerchActivity = () => {
           <div className="w-full flex justify-between items-center">
             <div className={`${styles.description} lg:block hidden`}>
               {activeTab === 0
-                ? merchStoreList.length > 0 || isMerchStoreFetching
+                ? merchStoreList.length > 0
                   ? 'Displayed below are the merch items you created and added to your store.'
                   : ''
                 : activeTab === 1
-                ? 'Displayed below are legacy studio items.'
+                ? (isActiveNFT && enabledItems.length > 0) || (!isActiveNFT && disabledItems.length > 0)
+                  ? 'Displayed below are legacy studio items.'
+                  : ''
                 : activeTab === 2
-                ? 'Displayed below is a record of all your orders.'
+                ? purchases.length > 0
+                  ? 'Displayed below is a record of all your orders.'
+                  : ''
                 : activeTab === 3
-                ? 'Displayed below is a record of all your sales.'
+                ? sales.length > 0
+                  ? 'Displayed below is a record of all your sales.'
+                  : ''
                 : ''}
             </div>
 
@@ -477,7 +482,11 @@ const MerchActivity = () => {
 
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <MerchStoreActivity storeList={merchStoreList} isLoading={isMerchStoreFetching} />
+              <MerchStoreActivity
+                storeList={merchStoreList}
+                isLoading={isMerchStoreFetching}
+                username={profileInfo?.username}
+              />
             </div>
           )}
           {activeTab === 1 &&
@@ -536,10 +545,9 @@ const MerchActivity = () => {
             </div>
           )}
           {((activeTab === 0 && isMerchStoreFetching) ||
-            (activeTab === 1 && isVisibleEnabledFetching) ||
-            (activeTab === 2 && isVisibleDisabledFetching) ||
-            (activeTab === 3 && isVisibleBuyerFetching) ||
-            (activeTab === 4 && isVisibleSellerFetching)) && (
+            (activeTab === 1 && (isVisibleEnabledFetching || isVisibleDisabledFetching)) ||
+            (activeTab === 2 && isVisibleBuyerFetching) ||
+            (activeTab === 3 && isVisibleSellerFetching)) && (
             <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>

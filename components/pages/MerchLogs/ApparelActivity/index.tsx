@@ -15,14 +15,12 @@ import 'swiper/css/navigation'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import { useRouter } from 'next/router'
 
 const ApparelActivity = props => {
   const { activities, pendingList, allList, type, isLoading } = props
-
-  const [searchWord, setSearchWord] = useState<any>('')
-  const [filter, setFilter] = useState(0)
-  const [list, setList] = useState<any[]>([])
-
+  const router = useRouter()
+  console.log(isLoading, activities, '===============111111111=======')
   return (
     <div className={styles.container}>
       {activities.length > 0 && (
@@ -31,14 +29,20 @@ const ApparelActivity = props => {
         </div>
       )}
 
-      {!isLoading && activities?.length === 0 && searchWord.length === 0 && (
+      {!isLoading && activities?.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
           {type === 'purchases' ? (
             <div className="w-full mt-[50px] lg:mt-[0px]">
               <div className={styles.noArtwork}>No order history detected</div>
               <div className={styles.text}>Explore merch from your favorite artists </div>
               <div className="w-full flex justify-center mt-[30px]">
-                <GradientButton label="Shop Studio" width={144} height={54} borderRadius={30} onClick={() => {}} />
+                <GradientButton
+                  label="Shop Studio"
+                  width={144}
+                  height={54}
+                  borderRadius={30}
+                  onClick={() => router.push('/studio')}
+                />
               </div>
             </div>
           ) : (

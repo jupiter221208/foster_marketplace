@@ -14,10 +14,11 @@ import 'swiper/css/navigation'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import { useRouter } from 'next/router'
 
 const MerchStoreActivity = props => {
-  const { storeList, isLoading } = props
-
+  const { storeList, isLoading, username } = props
+  const router = useRouter()
   return (
     <div className={styles.container}>
       {storeList.length > 0 && (
@@ -31,7 +32,15 @@ const MerchStoreActivity = props => {
           <div className={styles.noArtwork}>Your merch store is empty.</div>
           <div className={styles.text}>Ready to design?</div>
           <div className="w-full flex justify-center mt-[30px]">
-            <GradientButton label="Get Started" width={144} height={54} borderRadius={30} onClick={() => {}} />
+            <GradientButton
+              label="Get Started"
+              width={144}
+              height={54}
+              borderRadius={30}
+              onClick={() => {
+                router.push(`/${username}/merch/new`)
+              }}
+            />
           </div>
         </div>
       )}
