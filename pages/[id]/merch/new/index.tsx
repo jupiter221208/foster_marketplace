@@ -112,6 +112,7 @@ const NewCreatorMerch = () => {
 
       var params = {}
 
+      let productName = ''
       if (productDetail.product.id === 0) {
         if (additionDetail.sale_method === 'standalone') {
           // Foster
@@ -149,6 +150,7 @@ const NewCreatorMerch = () => {
             setIsCreating(false)
             return
           }
+          productName = additionDetail.name
           params = {
             name: additionDetail.name,
             description: additionDetail.description,
@@ -185,6 +187,7 @@ const NewCreatorMerch = () => {
             setIsCreating(false)
             return
           }
+          productName = additionDetail.name
           params = {
             name: additionDetail.name,
             description: additionDetail.description,
@@ -221,6 +224,7 @@ const NewCreatorMerch = () => {
           setIsCreating(false)
           return
         }
+        productName = productDetail.name
         params = {
           name: productDetail.name,
           description: productDetail.description,
@@ -246,7 +250,7 @@ const NewCreatorMerch = () => {
               {
                 id: 0,
                 title: 'Product Created!',
-                description: `${productDetail.name} has been successfully added to your store.`,
+                description: `${productName} has been successfully added to your store.`,
                 type: 'success',
               },
             ])
