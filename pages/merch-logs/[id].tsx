@@ -471,7 +471,7 @@ const MerchDetail = () => {
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
               </div>
-              <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
             </div>
 
             <div>
@@ -696,85 +696,17 @@ const MerchDetail = () => {
         </div>
       </div>
       {/* Mobile */}
-      <div className="w-full lg:hidden block">
-        <div className={styles.orderInfoBG}>
-          <div className="w-full flex justify-between">
-            <div>
-              <div className={styles.infoTitle}>ORDER PLACED</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[6px]"></div>
-              ) : (
-                <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
-              )}
-            </div>
-            <div className="text-end">
-              <div className={styles.infoTitle}>TOTAL</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
-              ) : (
-                <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
-              )}
-            </div>
-          </div>
-
-          <div className="w-full mt-[15px]">
-            <div className="text-start">
-              <div className={styles.infoTitle}>SHIP TO</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-              ) : (
-                <div>
-                  {orderDetails?.orderNumber === '' && !isOwn ? (
-                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
-                  ) : (
-                    <div>
-                      <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-                      <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="w-full mt-[15px]">
-            <div className="text-start">
-              <div className={styles.infoTitle}>SHIPPING METHOD</div>
-              {!orderDetails ? (
-                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-              ) : (
-                <div className={styles.infoValue}>
-                  {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="w-full mt-[15px]">
-            <div className={styles.infoTitle}>TRACKING NUMBER</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
-            ) : (
-              <div className={styles.infoValue}>
-                {orderDetails?.orderNumber === '' && !isOwn
-                  ? 'Hidden for Buyer Safety'
-                  : trackingDetails === null && connected
-                  ? 'Pending Order Creation'
-                  : trackingDetails?.trackingNumber}
-              </div>
-            )}
-          </div>
-        </div>
+      <div className="w-full lg:hidden block mt-[30px]">
         {!orderData ? (
           <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
         ) : orderData?.ssorder.items.length === 1 ? (
           <div className={styles.tableColor}>
             <div className="w-[auto]">
-              <div className="w-[100px] h-auto object-cover ml-[15px]">
+              <div className="w-[110px] h-auto object-cover">
                 <img src={previewUrl} alt="" />
               </div>
             </div>
-            <div className="w-full text-right mt-[-10px]">
+            <div className="w-full text-left ml-[22px]">
               <div className={styles.detailValue}>{itemDetails?.print}</div>
               <div className={styles.detailValue}>
                 {itemDetails?.apparel}&nbsp;
@@ -794,6 +726,13 @@ const MerchDetail = () => {
               </div>
               <div className={styles.detailValue}>{itemDetails?.color}</div>
               <div className={styles.detailValue}>Qty: {itemDetails?.quantity}</div>
+              <div className="mt-[20px]">
+                {!orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
+                ) : (
+                  <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
+                )}
+              </div>
             </div>
           </div>
         ) : (
@@ -803,11 +742,11 @@ const MerchDetail = () => {
                 list.map((item, index) => (
                   <div key={index} className={styles.tableColor}>
                     <div className="w-full flex">
-                      <div className="w-[100px] h-auto object-cover ml-[15px]">
+                      <div className="w-[110px] h-auto object-cover">
                         <img src={item.fosterUrl} alt="" />
                       </div>
                     </div>
-                    <div className="w-full text-right mt-[-10px]">
+                    <div className="w-full text-left ml-[22px]">
                       <div className={styles.detailValue}>&nbsp;{item?.print}</div>
                       <div className={styles.detailValue}>
                         &nbsp;{item?.apparel}&nbsp;
@@ -827,6 +766,13 @@ const MerchDetail = () => {
                       </div>
                       <div className={styles.detailValue}>&nbsp;{item?.color}</div>
                       <div className={styles.detailValue}>&nbsp;Qty: {item?.quantity}</div>
+                      <div className="mt-[20px]">
+                        {!orderDetails ? (
+                          <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
+                        ) : (
+                          <div className={styles.priceValue}>${orderDetails ? orderDetails.total : '---'}</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -834,56 +780,151 @@ const MerchDetail = () => {
           </div>
         )}
 
-        <div className="w-full mt-[30px]">
-          <div className={styles.detailTitle}>Payment&nbsp;Details</div>
+        <div className={styles.orderInfoBG}>
+          <div className={styles.orderSummary}>Order Summary</div>
 
-          {!orderDetails ? (
-            <div className="skeletonLoaderBasic w-[170px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-          )}
-          {!orderDetails ? (
-            <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={styles.detailValue}>
-              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+          <div className="mt-[25px]">
+            <div className={styles.infoTitle}>Order Date</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[6px]"></div>
+            ) : (
+              <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
+            )}
+          </div>
+
+          <div className="mt-[20px]">
+            <div className={styles.infoTitle}>Total</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[40px] h-[20px] rounded-full mt-[6px]"></div>
+            ) : (
+              <div className={styles.infoValue}>${orderDetails ? orderDetails.total : '---'}</div>
+            )}
+          </div>
+
+          <div className="w-full mt-[20px]">
+            <div className="text-start">
+              <div className={styles.infoTitle}>Ship to</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+              ) : (
+                <div>
+                  {orderDetails?.orderNumber === '' && !isOwn ? (
+                    <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+                  ) : (
+                    <div>
+                      <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                      <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="w-full mt-[20px]">
+            <div className="text-start">
+              <div className={styles.infoTitle}>Shipping Method</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+              ) : (
+                <div className={styles.infoValue}>
+                  {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Tracking Number</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+            ) : (
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn
+                  ? 'Hidden for Buyer Safety'
+                  : trackingDetails === null && connected
+                  ? 'Pending Order Creation'
+                  : trackingDetails?.trackingNumber}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.orderInfoBG}>
+          <div className={styles.orderSummary}>Payment&nbsp;Details</div>
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Payment Method</div>
+
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[170px] h-[20px] rounded-full mt-[8px]"></div>
+            ) : (
+              <div className={styles.infoValue}>{paymentDetails?.method}</div>
+            )}
+          </div>
+
+          {/* <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Complete</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[8px]"></div>
+            ) : (
+              <div className={styles.infoValue}>
+                {paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+              </div>
+            )}
+          </div> */}
+
+          {merchType !== 'foster' && (
+            <div className="w-full mt-[20px]">
+              <div className={styles.infoTitle}>Creator&nbsp;Commission</div>
+              {type && type === 'sales' ? (
+                !orderDetails ? (
+                  <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
+                ) : (
+                  <div className={`mt-[15px] ${styles.infoValue}`}>${commission?.toFixed(2)}</div>
+                )
+              ) : !orderDetails ? (
+                <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
+              ) : (
+                <div className={`mt-[15px] ${styles.infoValue}`}>${paymentDetails?.commission}</div>
+              )}
             </div>
           )}
-          {type && type === 'sales' ? (
-            !orderDetails ? (
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Paid&nbsp;By</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
+            ) : (
+              <div className={styles.infoValue}>{getShortAddress(paymentDetails?.paidBy)}</div>
+            )}
+          </div>
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Shipping&nbsp;&&nbsp;Handling</div>
+            {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
             ) : (
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Creator&nbsp;Commission:&nbsp;${commission?.toFixed(2)}
-              </div>
-            )
-          ) : !orderDetails ? (
-            <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={`mt-[15px] ${styles.detailValue}`}>
-              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
-            </div>
-          )}
-          {!orderDetails ? (
-            <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
-          )}
-          {!orderDetails ? (
-            <div className="skeletonLoaderBasic w-[220px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
-          )}
-          {!orderDetails ? (
-            <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[8px]"></div>
-          ) : (
-            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
-          )}
+              <div className={styles.infoValue}>${paymentDetails?.shipping}</div>
+            )}
+          </div>
+
+          <div className="w-full mt-[20px]">
+            <div className={styles.infoTitle}>Tax</div>
+            {!orderDetails ? (
+              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[8px]"></div>
+            ) : (
+              <div className={styles.infoValue}>${paymentDetails?.tax}</div>
+            )}
+          </div>
         </div>
-        <div className="w-full mt-[45px] flex justify-center">
+        <div className="w-full mt-[30px] flex justify-center">
           <div className="flex">
             <div className={styles.shipStatusTitle}>
-              Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+              Shipping Status:&nbsp;
+              <div className={styles.shipStatusValue}>
+                {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+              </div>
             </div>
           </div>
         </div>
@@ -931,23 +972,6 @@ const MerchDetail = () => {
                 fontSize="16px"
                 paddingLeft="37px"
                 paddingRight="37px"
-                label="Get help"
-                backgroundColor="transparent"
-                borderColor="var(--follow-btn-border-mobile)"
-                borderWidth={1}
-                color={'var(--text-gray-200-color)'}
-                width={335}
-                onClick={() => {
-                  window.location.href = 'mailto:admin@Fostermarketplace.app'
-                }}
-              />
-            </div>
-            <div className="mt-[12px]">
-              <Button
-                height="48px"
-                fontSize="16px"
-                paddingLeft="37px"
-                paddingRight="37px"
                 label="Write a review"
                 backgroundColor="transparent"
                 borderColor="var(--follow-btn-border-mobile)"
@@ -957,6 +981,24 @@ const MerchDetail = () => {
                 onClick={() => {
                   setShowReviewModal(true)
                   // window.location.href = 'mailto:admin@Fostermarketplace.app'
+                }}
+              />
+            </div>
+
+            <div className="mt-[12px]">
+              <Button
+                height="48px"
+                fontSize="16px"
+                paddingLeft="37px"
+                paddingRight="37px"
+                label="Get help"
+                backgroundColor="transparent"
+                borderColor="var(--follow-btn-border-mobile)"
+                borderWidth={1}
+                color={'var(--text-gray-200-color)'}
+                width={335}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@Fostermarketplace.app'
                 }}
               />
             </div>
