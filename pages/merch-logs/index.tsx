@@ -18,11 +18,8 @@ import { useMetaplex } from 'hooks/useMetaplex'
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import PreviewImage from 'assets/images/preview-image.png'
-import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
 import FosterLogoMobileIcon from 'assets/icons/foster-hero-logo-mobile.svg?component'
-import Lottie from 'lottie-react'
-import animationData from 'assets/lottery/shopping-lottie.json'
 
 // styles
 import styles from './index.module.scss'
@@ -38,22 +35,17 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
-import GradientButton from 'components/Button/GradientButton'
-import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
-import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import OutlineButton from 'components/Button/OutlineButton'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 
 const MerchActivity = () => {
   const viewport = useViewport()
-  const { connected, publicKey } = useWallet()
+  const { publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
   const { profileInfo } = useAuthentication()
   const defaultActiveTab = useSelector<any>(state => state.activeTab)
   const dispatch = useDispatch()
-  const router = useRouter()
   const [activeTab, setActiveTab] = useState<any>(defaultActiveTab)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
@@ -87,14 +79,7 @@ const MerchActivity = () => {
   const [disableMerchModal, setDisableMerchModal] = useState(false)
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
-  const [array, setArray] = useState([])
-  const [cart, setCart] = useState([])
-  const [currentSelect, setCurrentSelect] = useState(0)
-  const [totalCost, setTotalCost] = useState(0)
-  const { solToUsdRate } = useSolToUsdRate()
-
   const [tokenId, setTokenId] = useState(false)
-  const [selectAllCart, setSelectAllCart] = useState(false)
 
   useEffect(() => {
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
@@ -125,8 +110,6 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
-    console.log(isFetching, publicKey, '============================')
-
     if (isFetching && publicKey) {
       if (activeTab === 1 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
       else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
@@ -135,31 +118,8 @@ const MerchActivity = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching, publicKey, activeTab])
 
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('data'))
-    setArray(storedData)
-    dispatch({ type: 'set', activeTab: 0 })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const getcartList = () => {
-    const storedData = JSON.parse(localStorage.getItem('data'))
-    setArray(storedData)
-  }
-
   const handleSelectedTab = item => {
     setActiveTab(item.id)
-  }
-
-  const handleOnClick = () => {
-    const checkedData = []
-    cart.forEach(item => {
-      if (item.checked === true) checkedData.push(item)
-    })
-    if (checkedData.length > 0) {
-      localStorage.setItem('checked', JSON.stringify(checkedData))
-      router.push(`/shopping/`)
-    }
   }
 
   useEffect(() => {

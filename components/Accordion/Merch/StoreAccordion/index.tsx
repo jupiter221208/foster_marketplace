@@ -1,39 +1,24 @@
 import React, { useRef, useState } from 'react'
 
 // third party components
-import { Disclosure } from '@headlessui/react'
 
 // images and icons
-import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 // components
-import { getTimeDifference, getYMDString } from 'utils/helpers'
+import { getTimeDifference } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useConnection } from '@solana/wallet-adapter-react'
 import ImageWithFoster from 'components/ImageWithFoster'
-import GradientButton from 'components/Button/GradientButton'
+import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
+import StudioStoreModal from 'components/Menu/StudioStoreModal'
 
 const StoreAccordion = props => {
   const { data } = props
-  const router = useRouter()
-  const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any | null>(null)
-  const { connection } = useConnection()
-
-  const clickRecent = index => {
-    const clickedButton = buttonRefs.current[index]
-    if (clickedButton === openedRef.current) {
-      openedRef.current = null
-      return
-    }
-    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
-      openedRef.current?.click()
-    }
-    openedRef.current = clickedButton
-  }
+  const [item, setItem] = useState(null)
+  const [openModal, setOpenModal] = useState(false)
 
   const getStatus = item => {
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
@@ -58,19 +43,40 @@ const StoreAccordion = props => {
     }
   }
 
-  const getTechnique = item => {
-    if (item.fulfillment_type === 'foster') {
-      if (item.options.print_technique === 'direct_to_garment') return 'Direct To Garment'
-      else return 'Embroidery'
-    } else {
-      return 'General'
-    }
-  }
-
   return (
-    <div className="w-full flex flex-wrap gap-[10px]">
+    <div className="w-full flex flex-wrap">
       {data.map((item, index) => (
-        <div key={index} className="w-full flex flex-wrap">
+        <div key={index} className="w-full flex flex-wrap mt-[-2px]">
+          <div className={styles.button}>
+            <div className="w-full flex items-center gap-[15px]">
+              <div className="w-[47px] h-[47px]">
+                <ImageWithFoster src={getPreviewUrl(item)} width={47} className="w-full h-full object-contain" />
+              </div>
+              <div className="block">
+                <div className={styles.subTitle}>{item.name}</div>
+                <div className="mt-[7px]">
+                  {getStatus(item) === 'scheduled' ? (
+                    <div className={styles.scheduled}>Scheduled</div>
+                  ) : getStatus(item) === 'live' ? (
+                    <div className={styles.live}>Live</div>
+                  ) : getStatus(item) === 'expired' ? (
+                    <div className={styles.expired}>Expired</div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div
+              onClick={() => {
+                setItem(item)
+                setOpenModal(true)
+              }}
+            >
+              <ThreeDotIcon />
+            </div>
+          </div>
+          {/*
           <Disclosure>
             {({ open }) => (
               <>
@@ -131,8 +137,11 @@ const StoreAccordion = props => {
               </>
             )}
           </Disclosure>
+          */}
         </div>
       ))}
+
+      {openModal && item && <StudioStoreModal open={openModal} close={() => setOpenModal(false)} item={item} />}
     </div>
   )
 }
