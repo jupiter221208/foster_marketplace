@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // components
-import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
 
 // Import Swiper styles
@@ -15,51 +14,14 @@ import 'swiper/css/navigation'
 // styles
 import styles from './index.module.scss'
 
-// apis
-import OutlineButton from 'components/Button/OutlineButton'
-
 const NftItemActivity = props => {
   const { activities, type, isLoading, action, actionAll } = props
 
   const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
 
-  // useEffect(() => {
-  //   let length = searchWord?.length
-  //   if (length > 0) {
-  //     const results = activities.filter(({ nft_name }) => {
-  //       return nft_name.toLowerCase().includes(searchWord.toLowerCase())
-  //     })
-  //     setList(results)
-  //   } else {
-  //     if (length === 0) {
-  //       setList(activities)
-  //     }
-  //   }
-  // }, [searchWord, activities])
-
   return (
     <div className={styles.container}>
-      {/* <div className="w-full hidden lg:flex justify-between ">
-        {activities.length > 0 && (
-          <SearchSection
-            placeholder={'Search'}
-            searchWord={searchWord}
-            setSearchWord={value => setSearchWord(value.toString())}
-          />
-        )}
-        {activities.length > 0 && (
-          <OutlineButton
-            width={138}
-            borderColor={'var(--back-btn-border-mobile)'}
-            label={type === 'enabled' ? 'Disable All' : 'Enable All'}
-            onClick={() => {
-              actionAll()
-            }}
-          />
-        )}
-      </div> */}
-
       {activities.length > 0 && (
         <div className="w-full mt-[10px]">
           <TableSections data={activities} type={type} action={action} actionAll={actionAll} />

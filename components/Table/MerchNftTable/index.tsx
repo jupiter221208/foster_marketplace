@@ -37,7 +37,7 @@ const MerchNftTable = props => {
                   </div>
                   <div className="w-[10%] flex justify-center">
                     <div className={styles.button} onClick={() => action(item.token_id)}>
-                      {type === 'enabled' ? 'Disable' : 'Enable'}
+                      {type ? 'Disable' : 'Enable'}
                     </div>
                   </div>
                 </div>

@@ -443,12 +443,12 @@ const MerchActivity = () => {
           </div>
 
           <div className="w-full flex justify-between items-center">
-            <div className={styles.description}>
+            <div className={`${styles.description} lg:block hidden`}>
               {activeTab === 0
                 ? merchStoreList.length > 0 || isMerchStoreFetching
                   ? 'Displayed below are the merch items you created and added to your store.'
                   : ''
-                : activeTab === 1 && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl')
+                : activeTab === 1
                 ? 'Displayed below are legacy studio items.'
                 : activeTab === 2
                 ? 'Displayed below is a record of all your orders.'
@@ -485,7 +485,7 @@ const MerchActivity = () => {
               <div className="w-full z-10">
                 <NftItemActivity
                   activities={enabledItems}
-                  type={isActiveNFT}
+                  type={true}
                   isLoading={isVisibleEnabledFetching}
                   action={token_id => {
                     setTokenId(token_id)
@@ -500,7 +500,7 @@ const MerchActivity = () => {
               <div className="w-full z-10">
                 <NftItemActivity
                   activities={disabledItems}
-                  type={isActiveNFT}
+                  type={false}
                   isLoading={isVisibleDisabledFetching}
                   action={token_id => {
                     setTokenId(token_id)

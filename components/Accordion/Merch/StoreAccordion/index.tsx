@@ -9,8 +9,6 @@ import styles from './index.module.scss'
 
 // components
 import { getTimeDifference } from 'utils/helpers'
-import { useRouter } from 'next/router'
-import { useConnection } from '@solana/wallet-adapter-react'
 import ImageWithFoster from 'components/ImageWithFoster'
 import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 import StudioStoreModal from 'components/Menu/StudioStoreModal'
@@ -44,7 +42,7 @@ const StoreAccordion = props => {
   }
 
   return (
-    <div className="w-full flex flex-wrap">
+    <div className="w-full flex flex-wrap mt-[30px]">
       {data.map((item, index) => (
         <div key={index} className="w-full flex flex-wrap mt-[-2px]">
           <div className={styles.button}>
@@ -54,7 +52,7 @@ const StoreAccordion = props => {
               </div>
               <div className="block">
                 <div className={styles.subTitle}>{item.name}</div>
-                <div className="mt-[7px]">
+                <div className="mt-[5px]">
                   {getStatus(item) === 'scheduled' ? (
                     <div className={styles.scheduled}>Scheduled</div>
                   ) : getStatus(item) === 'live' ? (
@@ -76,68 +74,6 @@ const StoreAccordion = props => {
               <ThreeDotIcon />
             </div>
           </div>
-          {/*
-          <Disclosure>
-            {({ open }) => (
-              <>
-                <Disclosure.Button
-                  className={open ? styles.activeButton : styles.button}
-                  data-value={open}
-                  ref={ref => {
-                    buttonRefs.current[index] = ref
-                  }}
-                  onClick={() => clickRecent(index)}
-                >
-                  <div className="flex items-center gap-[15px]">
-                    <div className="w-[47px] h-[47px]">
-                      <ImageWithFoster src={getPreviewUrl(item)} width={47} className="w-full h-full object-contain" />
-                    </div>
-                    <div className="block">
-                      <div className={styles.subTitle}>{item.name}</div>
-                      <div className="mt-[7px]">
-                        {getStatus(item) === 'scheduled' ? (
-                          <div className={styles.scheduled}>Scheduled</div>
-                        ) : getStatus(item) === 'live' ? (
-                          <div className={styles.live}>Live</div>
-                        ) : getStatus(item) === 'expired' ? (
-                          <div className={styles.expired}>Expired</div>
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
-                </Disclosure.Button>
-                <Disclosure.Panel className={styles.panel}>
-                  <div className="w-full flex justify-between">
-                    <div>
-                      <div className={styles.label}>Print Technique</div>
-                      <div className={styles.content}>{getTechnique(item)}</div>
-                    </div>
-                    <div className="text-end">
-                      <div className={styles.label}>Created on</div>
-                      <div className={styles.content}>{getYMDString(new Date(item.created_at))}</div>
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-between mt-[20px]">
-                    <div>
-                      <div className={styles.label}>Price</div>
-                      <div className={styles.content}>${item.selling_price / 100}</div>
-                    </div>
-                    {getStatus(item) === 'scheduled' || getStatus(item) === 'live' ? (
-                      <GradientButton label="Remove" fontSize={16} width={100} height={43} onClick={() => {}} />
-                    ) : getStatus(item) === 'expired' ? (
-                      <GradientButton label="Republish" fontSize={16} width={100} height={43} onClick={() => {}} />
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-          */}
         </div>
       ))}
 
