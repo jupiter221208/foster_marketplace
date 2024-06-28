@@ -2,7 +2,7 @@ import React from 'react'
 
 // components
 import useAudioPlayer from './useAudioPlayer'
-import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
+import AudioBar from 'components/MediaPlayer/AudioPlayer/AudioBar'
 
 // images and icons
 import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'

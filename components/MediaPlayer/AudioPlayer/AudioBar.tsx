@@ -3,11 +3,14 @@ import React from 'react'
 // third party components
 import * as moment from 'moment'
 import momentDurationFormatSetup from 'moment-duration-format'
+import PlayWhiteIcon from 'assets/icons/play-video-big.svg?component'
+import PauseWhiteIcon from 'assets/icons/pause-video-big.svg?component'
 
 import styles from './AudioBar.module.scss'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const Bar = props => {
-  const { duration, curTime, onTimeUpdate } = props
+  const { playing, onPlay, duration, curTime, onTimeUpdate } = props
 
   const curPercentage = (curTime / duration) * 100
 
@@ -41,19 +44,40 @@ const Bar = props => {
   }
 
   return (
-    <div className={styles.bar}>
-      <span className={styles.bar__time}>{formatDuration(curTime)}</span>
-      <div
-        id="bar__progress"
-        className={styles.bar__progress}
-        style={{
-          background: `linear-gradient(to right, #9DB2B4 ${curPercentage}%, #484A42 0)`,
-        }}
-        onMouseDown={e => handleTimeDrag(e)}
-      >
-        <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%` }} />
+    <div className={styles.container}>
+      <div className="w-full flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[0px] lg:px-[0px]">
+        <div className={styles.playButton}>
+          <IconButtonWithSVG
+            icon={
+              playing ? (
+                <PauseWhiteIcon className={styles.controlBtn} />
+              ) : (
+                <PlayWhiteIcon className={styles.controlBtn} />
+              )
+            }
+            onClick={() => onPlay()}
+            backgroundColor="transparent"
+          />
+        </div>
+        <div className="flex gap-1">
+          <span className={styles.time}>{formatDuration(curTime)}</span>
+          <div className={styles.time}>/</div>
+          <span className={styles.time}>{formatDuration(duration)}</span>
+        </div>
       </div>
-      <span className={styles.bar__time}>{formatDuration(duration)}</span>
+
+      <div className={styles.bar}>
+        <div
+          id="bar__progress"
+          className={styles.bar__progress}
+          style={{
+            background: `linear-gradient(to right, rgb(239, 240, 247) ${curPercentage}%, rgba(239, 240, 247, 0.2) 0)`,
+          }}
+          onMouseDown={e => handleTimeDrag(e)}
+        >
+          <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%` }} />
+        </div>
+      </div>
     </div>
   )
 }
