@@ -293,11 +293,10 @@ const Step03SingleNFTSection = props => {
   ) : (
     <div className="w-full">
       {type !== 0 && (
-        <div className="mt-[38px]">
+        <div className="mt-[20px]">
           <div className={styles.subTitle}>
             Edition type <span>*</span>
           </div>
-          <div className={styles.editionDescription}>Editions are created on-demand</div>
           <div className="w-full mt-[15px]">
             <ProductionListMenu
               width={343}

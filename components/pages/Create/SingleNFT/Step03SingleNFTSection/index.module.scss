@@ -119,9 +119,14 @@
 }
 
 .editionDescription {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 20px;
   font-family: 'Muli-Light';
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  margin-top: 15px;
+  @media (min-width:1024px) {
+  margin-top: 10px;
+  }
 }
 
 .selectSupply {
@@ -197,7 +202,7 @@
 }
 
 .maxSupplyTitle {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
   @media (min-width: 1024px) {
