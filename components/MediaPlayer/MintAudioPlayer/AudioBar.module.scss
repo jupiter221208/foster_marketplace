@@ -20,9 +20,11 @@
 }
 
 .time {
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
   font-family: 'Muli-Regular';
-  font-size: 18px;
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .bar {

@@ -2,7 +2,6 @@ import React from 'react'
 
 // components
 import useAudioPlayer from './useAudioPlayer'
-// import AudioBar from 'components/MediaPlayer/AudioPlayer/AudioBar'
 import AudioBar from 'components/MediaPlayer/MintAudioPlayer/AudioBar'
 
 // images and icons
