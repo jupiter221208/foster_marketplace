@@ -75,7 +75,7 @@ const Bar = props => {
           }}
           onMouseDown={e => handleTimeDrag(e)}
         >
-          <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%` }} />
+          <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 1}%` }} />
         </div>
       </div>
     </div>

@@ -42,8 +42,11 @@
     flex: 1;
 
     margin-left: 10px;
+    margin-right: 10px;
     @media (min-width: 1024px) {
       margin-left: 10px;
+      margin-right: 0px;
+      
     }
     height: 5px;
     display: flex;

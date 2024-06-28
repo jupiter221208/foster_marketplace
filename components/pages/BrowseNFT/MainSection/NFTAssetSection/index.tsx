@@ -65,8 +65,8 @@ const NFTAssetSection = props => {
               <div className={styles.audioBlurView} />
             </div>
             <div className="w-full h-full">
-              <div className="w-full flex justify-center mt-[30px]">
-                <div className="w-[65%] flex items-center">
+              <div className="w-full flex justify-center mt-[30px] sm:mt-[70px] lg:mt-[30px]">
+                <div className="w-[243px] sm:w-[430px] lg:w-[65%] flex items-center">
                   <ImageWithFoster
                     src={nftCoverUrl}
                     width={900}
