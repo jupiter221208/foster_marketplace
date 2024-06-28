@@ -151,6 +151,31 @@
   cursor: pointer;
 }
 
+.mobileSelectSupply {
+  height: 50px;
+  border-radius: 30px;
+  background: var(--main-icon-color);
+  color: var(--background-main-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+}
+
+.mobileNoneSupply {
+  height: 50px;
+  border-radius: 28px;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
+  color: var(--text-gray-200-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  cursor: pointer;
+}
+
 
 .maxTitle {
   font-family: 'Muli-SemiBold';
