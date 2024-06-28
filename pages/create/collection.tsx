@@ -46,7 +46,6 @@ import GradientButton from 'components/Button/GradientButton'
 const Collection = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  // const isLoading = useSelector<any>(state => state.isLoading)
   const mintCollectionStep = useSelector(state => (state as any).mintCollectionStep)
   const collectionMintAddress = useSelector(state => (state as any).collectionMintAddress)
   const collectionMintName = useSelector(state => (state as any).collectionMintName)

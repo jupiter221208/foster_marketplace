@@ -710,8 +710,8 @@ const Step01CollectionSection = props => {
                   <div>
                     <Image
                       src={coverCroppedImage}
-                      width={140}
-                      height={140}
+                      width={250}
+                      height={250}
                       alt=""
                       objectFit="cover"
                       className="rounded-[10px] overflow-hidden"
