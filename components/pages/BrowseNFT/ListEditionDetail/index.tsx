@@ -383,7 +383,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           }`}
         >
           <div
-            className={durationType === 'noTime' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === 'noTime' ? styles.noneSelected : styles.noneDeselected}
             onClick={() => {
               setDays('')
               setHours('')
@@ -401,7 +401,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               setDurationType('24')
             }}
           >
-            24 hours
+            {viewport === 'xs' ? '24' : '24 hours'}
           </div>
 
           <div
@@ -412,11 +412,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               setDurationType('72')
             }}
           >
-            72 hours
+            {viewport === 'xs' ? '72' : '72 hours'}
           </div>
 
           <div
-            className={durationType === 'custom' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === 'custom' ? styles.customSelected : styles.customDeselected}
             onClick={() => {
               setDays('')
               setHours('')
@@ -506,7 +506,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           }`}
         >
           <div
-            className={buyLimitType === 'no' ? styles.durationSelected : styles.durationDeselected}
+            className={buyLimitType === 'no' ? styles.noneSelected : styles.noneDeselected}
             onClick={() => {
               setBuyLimitType('no')
             }}
@@ -532,7 +532,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             5
           </div>
           <div
-            className={buyLimitType === 'custom' ? styles.durationSelected : styles.durationDeselected}
+            className={buyLimitType === 'custom' ? styles.customSelected : styles.customDeselected}
             onClick={() => {
               setBuyLimitType('custom')
               setBuyLimit('10')
