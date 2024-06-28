@@ -23,10 +23,10 @@
   width: 800px;
   height: 360px;
   padding: 8px;
-  background-color: var(--header-bg-color);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 1.5rem;
+  background-color: var(--background-main-color);
+  // backdrop-filter: blur(30px);
+  // -webkit-backdrop-filter: blur(30px);
+  border-radius: 10px;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   color: var(--text-gray-200-color);
   cursor: pointer;
