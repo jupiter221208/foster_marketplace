@@ -289,40 +289,41 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           }`}
         >
           <div
-            className={durationType === '24' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '24' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('24')
               setDurationType('24')
             }}
           >
-            24 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24' : '24 hours'}
           </div>
 
           <div
-            className={durationType === '48' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '48' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('48')
               setDurationType('48')
             }}
           >
-            48 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '48' : '48 hours'}
           </div>
 
           <div
-            className={durationType === '72' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '72' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('72')
               setDurationType('72')
             }}
           >
-            72 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '72' : '48 hours'}
           </div>
 
           <div
             className={durationType === 'custom' ? styles.durationSelected : styles.durationDeselected}
+            style={{ width: 120 }}
             onClick={() => {
               setDays('')
               setHours('')
