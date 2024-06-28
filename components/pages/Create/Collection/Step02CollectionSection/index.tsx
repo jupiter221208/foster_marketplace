@@ -956,14 +956,14 @@ const Step02CollectionSection = props => {
                               key={index}
                               className={`${
                                 item.maxNum?.id === number.id ? styles.mobileSelectSupply : styles.mobileNoneSupply
-                              } ${item.id === 3 ? 'w-[120px]' : 'w-[50px]'}`}
+                              } ${number.id === 3 ? 'w-[120px]' : 'w-[50px]'}`}
                               onClick={() => {
                                 onChangeMaxNum(item, number)
                                 onChangeMaxSupply(item, number.value)
                                 onChangeSupply(item, 0)
                               }}
                             >
-                              {number.value}
+                              {number.id === 3 ? number.label : number.value}
                             </div>
                           ))}
                         </div>
