@@ -485,7 +485,7 @@ const WalletButton = props => {
                 </div>
               )}
               {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1 px-4">
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
                   <div className="w-full flex justify-between itmes-center">
                     <div className="">
                       <div className={styles.subText}>
@@ -570,7 +570,7 @@ const WalletButton = props => {
             </div>
 
             {/* bidding wallet part */}
-            <div className="w-full my-3">
+            <div className="w-full mb-3">
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Bidding wallet</div>
                 <div className="flex items-center gap-1">
@@ -680,7 +680,7 @@ const WalletButton = props => {
                 </div>
               )}
               {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1 px-4">
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
                   <div className="w-full flex justify-between items-center">
                     <div className="">
                       <div className={styles.subText}>
