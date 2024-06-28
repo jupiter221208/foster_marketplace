@@ -364,7 +364,7 @@ const AdditionalDetails = props => {
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-              <div className={`mt-[30px] ${styles.title}`}>Product Description</div>
+              <div className={`mt-[20px] ${styles.title}`}>Product Description</div>
               <div className={`${styles.desc} mt-[10px]`}>{description}</div>
               <div className={`mt-[20px] ${styles.title}`}>Product Type</div>
               <div className={`${styles.desc} mt-[10px]`}>{productDetail.type.label}</div>

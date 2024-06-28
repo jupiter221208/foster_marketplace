@@ -39,6 +39,12 @@
 .bannerImageArea {
   width: 100%;
   height: 120px;
+  @media (min-width: 414px) {
+    height: 140px;
+  }
+  @media (min-width: 768px) {
+    height: 158px;
+  }
   @media (min-width: 1024px) {
     width: 550px;
     height: 158px;
@@ -64,8 +70,8 @@
 }
 
 .coverImageArea {
-  width: 140px;
-  height: 140px;
+  width: 250px;
+  height: 250px;
   @media (min-width: 1024px) {
     width: 304px;
     height: 304px;
@@ -265,8 +271,8 @@
 
 .greenText {
   font-family: 'Muli-Light';
-  font-size: 11px;
-  line-height: 19px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;

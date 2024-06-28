@@ -8,9 +8,6 @@ import { useViewport } from 'utils'
 import ModelViewer from 'components/ModelViewer'
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 
-// resources
-import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
-
 // styles
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
@@ -26,7 +23,6 @@ const NFTAssetSection = props => {
       img.src = nftCoverUrl
       img.onload = () => {
         setCurrentImageUrl(nftCoverUrl)
-        // setDimensions({ width: img.width, height: img.height })
       }
       img.onerror = () => {
         setCurrentImageUrl(originalCoverUrl)
@@ -55,10 +51,32 @@ const NFTAssetSection = props => {
             <ImageWithFoster src={currentImageUrl} width={900} showPlaceHolder={false} className="w-full" />
           </div>
         ) : nftType.includes('audio') ? (
-          <div className={styles.mobileImageArea}>
-            <ImageWithFoster src={nftCoverUrl} width={900} showPlaceHolder={false} className="w-full" />
-            <div className={styles.audioMobileArea}>
-              <AudioPlayer src={nftAssetUrl} />
+          <div className={styles.audioContainer}>
+            <div className="absolute inset-0">
+              <div className="w-full h-full ">
+                <ImageWithFoster
+                  src={nftCoverUrl}
+                  width={900}
+                  showPlaceHolder={false}
+                  className="min-w-full min-h-full object-contain"
+                />
+              </div>
+              <div className={styles.audioBlurView} />
+            </div>
+            <div className="w-full h-full">
+              <div className="w-full flex justify-center mt-[30px] sm:mt-[70px] lg:mt-[30px]">
+                <div className="w-[243px] sm:w-[430px] lg:w-[65%] flex items-center">
+                  <ImageWithFoster
+                    src={nftCoverUrl}
+                    width={900}
+                    showPlaceHolder={false}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className={styles.audioMobileArea}>
+                <AudioPlayer src={nftAssetUrl} />
+              </div>
             </div>
           </div>
         ) : nftType.includes('video') ? (
@@ -114,18 +132,31 @@ const NFTAssetSection = props => {
         </div>
       ) : nftType.includes('audio') ? (
         <div className={styles.audioContainer}>
+          <div className="absolute inset-0">
+            <div className="w-full h-full ">
+              <ImageWithFoster
+                src={nftCoverUrl}
+                width={900}
+                showPlaceHolder={false}
+                className="min-w-full min-h-full object-contain"
+              />
+            </div>
+            <div className={styles.audioBlurView} />
+          </div>
           <div className={styles.audioBackground}>
             {nftAssetUrl && (
-              <div className="w-full max-w-[530px] h-full overflow-hidden">
-                <ImageWithFoster
-                  src={nftCoverUrl}
-                  width={900}
-                  showPlaceHolder={false}
-                  className="min-w-full min-h-full object-cover rounded-[10px] overflow-hidden"
-                />
+              <div className="w-full h-full flex justify-center overflow-hidden">
+                <div className="w-[394px] h-[394px] mt-[20px]">
+                  <ImageWithFoster
+                    src={nftCoverUrl}
+                    width={900}
+                    showPlaceHolder={false}
+                    className="min-w-full min-h-full object-cover overflow-hidden"
+                  />
+                </div>
               </div>
             )}
-            <div className="w-full flex justify-center mb-[20px]">
+            <div className="w-full flex justify-center">
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
               </div>

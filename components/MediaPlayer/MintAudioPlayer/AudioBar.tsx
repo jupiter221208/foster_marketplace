@@ -45,7 +45,7 @@ const Bar = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:flex hidden justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[10px] lg:px-[0px]">
+      <div className="w-full flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[0px] lg:px-[0px]">
         <div className={styles.playButton}>
           <IconButtonWithSVG
             icon={playing ? <PauseWhiteIcon className="ml-[2px]" /> : <PlayWhiteIcon className="ml-[2px]" />}
@@ -60,7 +60,7 @@ const Bar = props => {
         </div>
       </div>
 
-      <div className="w-full lg:hidden flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[10px] lg:px-[0px]">
+      {/* <div className="w-full lg:hidden flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[20px] mb-[20px] px-[10px] lg:px-[0px]">
         <span className={styles.time}>{formatDuration(curTime)}</span>
         <div className={styles.playButton}>
           <IconButtonWithSVG
@@ -70,7 +70,7 @@ const Bar = props => {
           />
         </div>
         <span className={styles.time}>{formatDuration(duration)}</span>
-      </div>
+      </div> */}
 
       <div className={styles.bar}>
         <div

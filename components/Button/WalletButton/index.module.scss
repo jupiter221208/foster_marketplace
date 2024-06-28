@@ -56,10 +56,10 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: var(--header-bg-color);
-  border-radius: 12px;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background-color: var(--background-main-color);
+  border-radius: 10px;
+  // backdrop-filter: blur(30px);
+  // -webkit-backdrop-filter: blur(30px);
 }
 
 .menuArea {
@@ -209,8 +209,8 @@
 .walletCard {
   width: 100%;
   border-radius: 12px;
-  background: rgba(var(--background-light-color), 0.05);
-  padding: 13px;
+  // background: rgba(var(--background-light-color), 0.05);
+  // padding: 13px;
 
   display: flex;
   flex-wrap: wrap;
@@ -218,7 +218,7 @@
 }
 
 .depositWithdraw {
-  background: var(--social-bg-color);
+  // background: var(--social-bg-color);
   border-radius: 16px;
 }
 

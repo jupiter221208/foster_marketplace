@@ -185,7 +185,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           </div>
           <div
             className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[30px]' : 'gap-[70px]'
             }`}
           >
             <div
@@ -280,7 +280,10 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* Auction Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Auction Duration <span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'Auction Duration (hrs)'
+              : 'Auction Duration'}{' '}
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
@@ -289,36 +292,36 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           }`}
         >
           <div
-            className={durationType === '24' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '24' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('24')
               setDurationType('24')
             }}
           >
-            24 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24' : '24 hours'}
           </div>
 
           <div
-            className={durationType === '48' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '48' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('48')
               setDurationType('48')
             }}
           >
-            48 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '48' : '48 hours'}
           </div>
 
           <div
-            className={durationType === '72' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === '72' ? styles.timeSelected : styles.timeDeselected}
             onClick={() => {
               setDays('')
               setHours('72')
               setDurationType('72')
             }}
           >
-            72 hours
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '72' : '48 hours'}
           </div>
 
           <div
@@ -426,19 +429,18 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* End Phase */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            End Phase <span className={styles.auctionAsterisk}>*</span>
+            End Phase
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
           <div className={styles.description}>
             Setting the end phase to <span className={styles.descriptionSpan}>clock reset</span> will apply a 5-minute
-            clock reset if a bid is placed in the last five minutes of the auction. If you select{' '}
-            <span className={styles.descriptionSpan}>knife fight</span>, the auction duration will not be extended by
-            final bids.
+            clock reset if a bid is placed in the last five minutes of the auction.
           </div>
         </div>
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-8'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-6' : 'gap-8'
           }`}
         >
           <div
@@ -463,7 +465,10 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* End Phase Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            End Phase Duration&nbsp;<span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'End Phase Duration (mins)'
+              : 'End Phase Duration'}
+            &nbsp;<span className={styles.auctionAsterisk}>*</span>
           </div>
           <div className={styles.description}>
             Applying an end phase duration allows you to set a higher bid increment during the remaining given time
@@ -477,36 +482,36 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           }`}
         >
           <div
+            className={endPhaseDurationType === '15' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('15')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '15' : '15 mins'}
+          </div>
+          <div
+            className={endPhaseDurationType === '30' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('30')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30' : '30 mins'}
+          </div>
+          <div
+            className={endPhaseDurationType === '60' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('60')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '60' : '60 mins'}
+          </div>
+          <div
             className={endPhaseDurationType === 'none' ? styles.durationSelected : styles.durationDeselected}
             onClick={() => {
               setEndPhaseDurationType('none')
             }}
           >
             None
-          </div>
-          <div
-            className={endPhaseDurationType === '15' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('15')
-            }}
-          >
-            15 mins
-          </div>
-          <div
-            className={endPhaseDurationType === '30' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('30')
-            }}
-          >
-            30 mins
-          </div>
-          <div
-            className={endPhaseDurationType === '60' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('60')
-            }}
-          >
-            60 mins
           </div>
         </div>
 

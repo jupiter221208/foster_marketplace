@@ -12,6 +12,7 @@ import ArrowRightIcon from 'assets/icons/arrow-right-line.svg?component'
 // styles
 import styles from './index.module.scss'
 import { getFirstUpperString } from 'utils/helpers'
+import { getDisplayUserName } from 'utils/strings'
 
 const NFTDetailSection = props => {
   const {
@@ -105,7 +106,7 @@ const NFTDetailSection = props => {
           <div className={styles.label}>Owner</div>
           <Link href={`/${nftOwnerUsername}`} passHref>
             <a>
-              <div className={styles.username}>{nftOwnerUsername}</div>
+              <div className={styles.username}>{getDisplayUserName(nftOwnerUsername)}</div>
             </a>
           </Link>
         </div>

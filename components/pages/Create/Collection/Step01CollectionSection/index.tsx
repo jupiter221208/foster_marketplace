@@ -334,7 +334,7 @@ const Step01CollectionSection = props => {
                         }}
                         maxFiles={1}
                         accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                        maxSize={104857600}
+                        maxSize={10485760}
                       >
                         {({ getRootProps, getInputProps, open }) => (
                           <section className={styles.dropzone}>
@@ -346,7 +346,7 @@ const Step01CollectionSection = props => {
                                 <br />
                                 .png and .jpeg
                               </p>
-                              <p className={styles.greenText}>Max File Size 100mb</p>
+                              <p className={styles.greenText}>Max File Size 10mb</p>
                             </div>
                           </section>
                         )}
@@ -600,33 +600,22 @@ const Step01CollectionSection = props => {
                     }}
                     maxFiles={1}
                     accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={104857600}
+                    maxSize={10485760}
                   >
                     {({ getRootProps, getInputProps, open }) => (
                       <section className={styles.dropzone}>
                         <div {...getRootProps()} className={styles.selectBannerArea}>
                           <input {...getInputProps()} />
                           <p className={styles.uploadText}>Upload File</p>
-                          <p className={styles.text}>
-                            Supported file formats
-                            <br />
-                            .png and .jpeg
-                          </p>
-                          <p className={styles.greenText}>Max File Size 100mb</p>
+                          <p className={styles.text}>Supported file formats .png and .jpeg</p>
+                          <p className={styles.greenText}>Max File Size 10mb</p>
                         </div>
                       </section>
                     )}
                   </Dropzone>
                 ) : (
-                  <div className="relative">
-                    <Image
-                      src={bannerCroppedImage}
-                      width={375}
-                      height={120}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[10px] overflow-hidden"
-                    />
+                  <div className="w-full h-full relative">
+                    <img src={bannerCroppedImage} alt="" className="rounded-[10px] w-full h-full object-cover" />
                     <div className="absolute bottom-2 right-[10px]">
                       <Dropzone
                         onDrop={acceptedFiles => {
@@ -693,7 +682,7 @@ const Step01CollectionSection = props => {
                     }}
                     maxFiles={1}
                     accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                    maxSize={104857600}
+                    maxSize={10485760}
                   >
                     {({ getRootProps, getInputProps, open }) => (
                       <section className={styles.dropzone}>
@@ -705,7 +694,7 @@ const Step01CollectionSection = props => {
                             <br />
                             .png and .jpeg
                           </p>
-                          <p className={styles.greenText}>Max File Size 100mb</p>
+                          <p className={styles.greenText}>Max File Size 10mb</p>
                         </div>
                       </section>
                     )}
@@ -714,8 +703,8 @@ const Step01CollectionSection = props => {
                   <div>
                     <Image
                       src={coverCroppedImage}
-                      width={140}
-                      height={140}
+                      width={250}
+                      height={250}
                       alt=""
                       objectFit="cover"
                       className="rounded-[10px] overflow-hidden"

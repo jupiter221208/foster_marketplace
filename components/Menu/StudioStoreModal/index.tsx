@@ -22,7 +22,7 @@ const StudioStoreModal = props => {
       if (item.options.print_technique === 'direct_to_garment') return 'Direct To Garment'
       else return 'Embroidery'
     } else {
-      return 'General'
+      return 'Not Applicable'
     }
   }
 

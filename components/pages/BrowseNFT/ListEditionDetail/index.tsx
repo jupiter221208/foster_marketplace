@@ -10,6 +10,7 @@ import moment from 'moment'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // custom component
 import Input from 'components/Input'
@@ -52,7 +53,7 @@ export interface ListEditionDetailProps {
 
 const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
-
+  const { solToUsdRate } = useSolToUsdRate()
   const { metaplex } = useMetaplex()
 
   const closeModal = () => {
@@ -78,7 +79,8 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [merchProdCost, setMerchProdCost] = useState(0)
 
   useEffect(() => {
-    if (merchCard) setMerchProdCost(0.3)
+    console.log(merchCard, '================1==================')
+    if (merchCard) setMerchProdCost(merchCard.selling_price / 100 / solToUsdRate)
     else setMerchProdCost(0)
   }, [merchCard])
 
@@ -263,12 +265,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
-            <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
+            <div className="w-full flex gap-[10px] lg:gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
               <div className={styles.assetArea}>
                 <ImageWithFoster width={65} src={merchCard.options.product_images[0]} />
               </div>
               <div className={styles.contentArea}>
-                <div className={styles.merchTitle}>Merch item included for each sale</div>
+                <div className={styles.merchTitle}>Merch included for each sale</div>
                 <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
               </div>
             </div>
@@ -302,7 +304,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           </div>
           <div
             className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[30px]' : 'gap-[70px]'
             }`}
           >
             <div
@@ -374,16 +376,15 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Listing Expiration <span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
+              ? 'Listing Expiration (hrs)'
+              : 'Listing Expiration'}{' '}
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
-        <div
-          className={`w-full flex flex-wrap mt-[12px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
-          }`}
-        >
+        <div className={`w-full flex flex-wrap mt-[12px] ${viewport === 'xs' ? 'gap-[11px]' : 'gap-[25px]'}`}>
           <div
-            className={durationType === 'noTime' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === 'noTime' ? styles.noneSelected : styles.noneDeselected}
             onClick={() => {
               setDays('')
               setHours('')
@@ -401,7 +402,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               setDurationType('24')
             }}
           >
-            24 hours
+            {viewport === 'xs' ? '24' : '24 hours'}
           </div>
 
           <div
@@ -412,11 +413,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               setDurationType('72')
             }}
           >
-            72 hours
+            {viewport === 'xs' ? '72' : '72 hours'}
           </div>
 
           <div
-            className={durationType === 'custom' ? styles.durationSelected : styles.durationDeselected}
+            className={durationType === 'custom' ? styles.customSelected : styles.customDeselected}
             onClick={() => {
               setDays('')
               setHours('')
@@ -502,11 +503,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[11px]' : 'gap-[25px]'
           }`}
         >
           <div
-            className={buyLimitType === 'no' ? styles.durationSelected : styles.durationDeselected}
+            className={buyLimitType === 'no' ? styles.noneSelected : styles.noneDeselected}
             onClick={() => {
               setBuyLimitType('no')
             }}
@@ -532,7 +533,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             5
           </div>
           <div
-            className={buyLimitType === 'custom' ? styles.durationSelected : styles.durationDeselected}
+            className={buyLimitType === 'custom' ? styles.customSelected : styles.customDeselected}
             onClick={() => {
               setBuyLimitType('custom')
               setBuyLimit('10')
@@ -597,7 +598,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
             <div className="w-full mt-[15px] flex justify-between">
               <div className={styles.mintPrice}>Merch Production Cost</div>
-              <div className={styles.mintSol}>{merchProdCost} SOL</div>
+              <div className={styles.mintSol}>{merchProdCost.toFixed(2)} SOL</div>
             </div>
             <div className="w-full mt-[15px] mb-[22px] flex justify-between">
               <div className={styles.mintPrice}>Foster Fee (5%)</div>

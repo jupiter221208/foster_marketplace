@@ -954,14 +954,16 @@ const Step02CollectionSection = props => {
                           {MaxNumberList.map((number, index) => (
                             <div
                               key={index}
-                              className={`${item.maxNum?.id === number.id ? styles.selectSupply : styles.noneSupply}`}
+                              className={`${
+                                item.maxNum?.id === number.id ? styles.mobileSelectSupply : styles.mobileNoneSupply
+                              } ${number.id === 3 ? 'w-[120px]' : 'w-[50px]'}`}
                               onClick={() => {
                                 onChangeMaxNum(item, number)
                                 onChangeMaxSupply(item, number.value)
                                 onChangeSupply(item, 0)
                               }}
                             >
-                              {number.label}
+                              {number.id === 3 ? number.label : number.value}
                             </div>
                           ))}
                         </div>

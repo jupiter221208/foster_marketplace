@@ -1,6 +1,5 @@
 import React, { MutableRefObject, useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { compareDate, getDateLabel } from 'utils/helpers'
 
@@ -23,7 +22,6 @@ import NotificationsCard from 'components/Card/NotificationsCard'
 
 const NotificationMenu = () => {
   const dispatch = useDispatch()
-  const viewport = useViewport()
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
   const [allNotification, setAllNotification] = useState<any[]>([])
@@ -65,9 +63,6 @@ const NotificationMenu = () => {
               getNotifications([...response.notifications])
             }
           }
-          setTimeout(() => {
-            setLoading(false)
-          }, 1000)
         },
         error => {
           setLoading(false)
@@ -158,6 +153,10 @@ const NotificationMenu = () => {
     setAllNotification(dateSorted)
     const sorted = getSortedNotification(dateSorted)
     setSearchedNotification(sorted)
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
   }
 
   const onClickMarkAsRead = async () => {
