@@ -20,7 +20,7 @@ import { useRouter } from 'next/router'
 const ApparelActivity = props => {
   const { activities, pendingList, allList, type, isLoading } = props
   const router = useRouter()
-  console.log(isLoading, activities, '===============111111111=======')
+
   return (
     <div className={styles.container}>
       {activities.length > 0 && (
