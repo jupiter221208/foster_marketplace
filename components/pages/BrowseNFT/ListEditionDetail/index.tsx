@@ -302,7 +302,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           </div>
           <div
             className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[30px]' : 'gap-[70px]'
             }`}
           >
             <div
@@ -374,14 +374,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         {/* Listing Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Listing Expiration <span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
+              ? 'Listing Expiration (hrs)'
+              : 'Listing Expiration'}{' '}
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
-        <div
-          className={`w-full flex flex-wrap mt-[12px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
-          }`}
-        >
+        <div className={`w-full flex flex-wrap mt-[12px] ${viewport === 'xs' ? 'gap-[11px]' : 'gap-[25px]'}`}>
           <div
             className={durationType === 'noTime' ? styles.noneSelected : styles.noneDeselected}
             onClick={() => {
@@ -502,7 +501,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[15px]' : 'gap-[25px]'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[11px]' : 'gap-[25px]'
           }`}
         >
           <div

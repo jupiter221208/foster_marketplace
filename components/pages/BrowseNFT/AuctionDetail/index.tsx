@@ -185,7 +185,7 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           </div>
           <div
             className={`w-full flex mt-[5px] ${
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-[70px]'
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-[30px]' : 'gap-[70px]'
             }`}
           >
             <div
@@ -280,7 +280,10 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* Auction Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            Auction Duration <span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'Auction Duration (hrs)'
+              : 'Auction Duration'}{' '}
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
         <div
@@ -426,19 +429,18 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* End Phase */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            End Phase <span className={styles.auctionAsterisk}>*</span>
+            End Phase
+            <span className={styles.auctionAsterisk}>*</span>
           </div>
           <div className={styles.description}>
             Setting the end phase to <span className={styles.descriptionSpan}>clock reset</span> will apply a 5-minute
-            clock reset if a bid is placed in the last five minutes of the auction. If you select{' '}
-            <span className={styles.descriptionSpan}>knife fight</span>, the auction duration will not be extended by
-            final bids.
+            clock reset if a bid is placed in the last five minutes of the auction.
           </div>
         </div>
 
         <div
           className={`w-full flex flex-wrap mt-[15px] ${
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'justify-between' : 'gap-8'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-6' : 'gap-8'
           }`}
         >
           <div
@@ -463,7 +465,10 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
         {/* End Phase Duration */}
         <div className="w-full mt-[20px] lg:mt-[30px]">
           <div className={styles.auctionStart}>
-            End Phase Duration&nbsp;<span className={styles.auctionAsterisk}>*</span>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 'End Phase Duration (mins)'
+              : 'End Phase Duration'}
+            &nbsp;<span className={styles.auctionAsterisk}>*</span>
           </div>
           <div className={styles.description}>
             Applying an end phase duration allows you to set a higher bid increment during the remaining given time

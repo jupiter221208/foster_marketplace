@@ -213,17 +213,17 @@
 
 .description {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
   margin-top: 10px;
 }
 
 .descriptionSpan {
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .radio {
