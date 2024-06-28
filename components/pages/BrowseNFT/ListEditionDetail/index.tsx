@@ -10,6 +10,7 @@ import moment from 'moment'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // custom component
 import Input from 'components/Input'
@@ -52,7 +53,7 @@ export interface ListEditionDetailProps {
 
 const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
   const viewport = useViewport()
-
+  const { solToUsdRate } = useSolToUsdRate()
   const { metaplex } = useMetaplex()
 
   const closeModal = () => {
@@ -78,7 +79,8 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [merchProdCost, setMerchProdCost] = useState(0)
 
   useEffect(() => {
-    if (merchCard) setMerchProdCost(0.3)
+    console.log(merchCard, '================1==================')
+    if (merchCard) setMerchProdCost(merchCard.selling_price / 100 / solToUsdRate)
     else setMerchProdCost(0)
   }, [merchCard])
 
@@ -263,12 +265,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
         {enableMerch && merchCard && (
           <div className={styles.merchArea}>
-            <div className="w-full flex gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
+            <div className="w-full flex gap-[10px] lg:gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
               <div className={styles.assetArea}>
                 <ImageWithFoster width={65} src={merchCard.options.product_images[0]} />
               </div>
               <div className={styles.contentArea}>
-                <div className={styles.merchTitle}>Merch item included for each sale</div>
+                <div className={styles.merchTitle}>Merch included for each sale</div>
                 <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
               </div>
             </div>
@@ -596,7 +598,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
             <div className="w-full mt-[15px] flex justify-between">
               <div className={styles.mintPrice}>Merch Production Cost</div>
-              <div className={styles.mintSol}>{merchProdCost} SOL</div>
+              <div className={styles.mintSol}>{merchProdCost.toFixed(2)} SOL</div>
             </div>
             <div className="w-full mt-[15px] mb-[22px] flex justify-between">
               <div className={styles.mintPrice}>Foster Fee (5%)</div>

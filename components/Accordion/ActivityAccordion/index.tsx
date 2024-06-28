@@ -18,8 +18,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?compon
 import styles from './index.module.scss'
 import { getDateString, getDisplayUserName } from 'utils/strings'
 
-import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { countDecimals, getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
+import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'

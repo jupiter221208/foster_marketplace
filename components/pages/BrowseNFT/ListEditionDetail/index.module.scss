@@ -392,8 +392,8 @@
 
 .merchTitle {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   font-weight: 100;
   color: var(--text-gray-200-color);
   width: 100%;
@@ -413,10 +413,11 @@
   font-weight: 100;
   color: var(--text-gray-200-color);
   margin-top: 5px;
-  // white-space: nowrap;
-  // overflow: hidden;
-  // text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width: 100%;
+  max-width: 192px;
   @media (min-width: 640px) {
     overflow: visible;
     margin-top: 7px;
@@ -424,8 +425,8 @@
 }
 
 .contentArea {
-  width: calc(100% - 140px);
-  margin-top: 8px;
+  width: calc(100% - 115px);
+  margin-top: 9px;
 }
 
 .merchButton {
