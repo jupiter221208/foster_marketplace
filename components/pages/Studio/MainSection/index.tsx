@@ -27,18 +27,13 @@ import StudioCloth from 'assets/images/studio-cloth.png'
 import styles from './index.module.scss'
 
 // call apis
-import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 SwiperCore.use([Navigation])
 
 const MainSection = ({ onChange, heroValue }) => {
-  const router = useRouter()
   const dispatch = useDispatch()
-  const { connected } = useWallet()
-  const { setVisible } = useWalletModal()
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
-  const [studioHeroList, setStudioHeroList] = useState(StudioHeroList)
 
   useEffect(() => {
     StudioApparelList.map(item => {
