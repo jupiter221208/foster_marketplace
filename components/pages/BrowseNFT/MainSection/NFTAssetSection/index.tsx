@@ -23,7 +23,6 @@ const NFTAssetSection = props => {
       img.src = nftCoverUrl
       img.onload = () => {
         setCurrentImageUrl(nftCoverUrl)
-        // setDimensions({ width: img.width, height: img.height })
       }
       img.onerror = () => {
         setCurrentImageUrl(originalCoverUrl)
