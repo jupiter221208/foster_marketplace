@@ -323,7 +323,6 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
 
           <div
             className={durationType === 'custom' ? styles.durationSelected : styles.durationDeselected}
-            style={{ width: 120 }}
             onClick={() => {
               setDays('')
               setHours('')
@@ -478,36 +477,36 @@ const AuctionDetail = ({ data, onSuccess, onClose, onRefreshPage, fromNFT }: Auc
           }`}
         >
           <div
+            className={endPhaseDurationType === '15' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('15')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '15' : '15 mins'}
+          </div>
+          <div
+            className={endPhaseDurationType === '30' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('30')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30' : '30 mins'}
+          </div>
+          <div
+            className={endPhaseDurationType === '60' ? styles.timeSelected : styles.timeDeselected}
+            onClick={() => {
+              setEndPhaseDurationType('60')
+            }}
+          >
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '60' : '60 mins'}
+          </div>
+          <div
             className={endPhaseDurationType === 'none' ? styles.durationSelected : styles.durationDeselected}
             onClick={() => {
               setEndPhaseDurationType('none')
             }}
           >
             None
-          </div>
-          <div
-            className={endPhaseDurationType === '15' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('15')
-            }}
-          >
-            15 mins
-          </div>
-          <div
-            className={endPhaseDurationType === '30' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('30')
-            }}
-          >
-            30 mins
-          </div>
-          <div
-            className={endPhaseDurationType === '60' ? styles.durationSelected : styles.durationDeselected}
-            onClick={() => {
-              setEndPhaseDurationType('60')
-            }}
-          >
-            60 mins
           </div>
         </div>
 
