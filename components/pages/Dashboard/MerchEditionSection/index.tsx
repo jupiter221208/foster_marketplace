@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // next components
 
@@ -9,6 +10,9 @@ import merchImageLeft from 'assets/images/merch-order-left.png'
 
 // components
 import ListedNFTCard from 'components/Card/ListedNFTCard'
+import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
+import DashboardSearchBox from 'components/Input/DashboardSearchBox'
+import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
 
 // styles
 import styles from './index.module.scss'
@@ -16,10 +20,7 @@ import styles from './index.module.scss'
 // solana
 
 // call apis
-
-import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
-import DashboardSearchBox from 'components/Input/DashboardSearchBox'
-import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
+import StoreAPI from 'apis/store'
 
 type SelectedDataType = {
   category: string
@@ -32,6 +33,8 @@ type SelectedDataType = {
 
 const MerchEditionSection = props => {
   const { filter } = props
+  const { profileInfo } = useAuthentication()
+
   const [active, setActive] = useState(0)
   const [filterList, setFilterList] = useState([
     { id: 0, label: 'Unclaimed' },
@@ -78,7 +81,22 @@ const MerchEditionSection = props => {
     ]
     setMerchList(list)
     setFilteredList(list)
-  }, [])
+    // if (profileInfo) {
+    //   getMerchList()
+    // }
+  }, [profileInfo])
+
+  const getMerchList = () => {
+    StoreAPI.getStoreByUserId(profileInfo.id).then(
+      response => {
+        if (response) {
+          setMerchList(response)
+          setFilteredList(response)
+        }
+      },
+      error => {}
+    )
+  }
 
   const searchNFT = key => {
     if (key === '') {

@@ -191,7 +191,9 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                <div className={styles.saleCount}>{data.supply ? `8/${data.supply} left` : '3 sold'}</div>
+                <div className={styles.saleCount}>
+                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                </div>
               </div>
             )}
 

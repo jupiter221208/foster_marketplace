@@ -12,6 +12,14 @@ class Store {
     })
   }
 
+  getStoreByUserId(user_id) {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items').then(response => {
+      if (typeof response.data === 'string') throw new Error(response.data)
+
+      return response.data
+    })
+  }
+
   getStoreItemByFoster(user_id) {
     return client.get(API_URL + 'v1/stores/' + user_id + '/items?fulfillment=foster').then(response => {
       return response.data
