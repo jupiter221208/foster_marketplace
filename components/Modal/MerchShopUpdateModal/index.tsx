@@ -46,6 +46,12 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
   }, [data])
 
   useEffect(() => {
+    if (open) {
+      setReleaseDurationItem(ReleaseDurationList[0])
+    }
+  }, [open])
+
+  useEffect(() => {
     let plusDays = Number(days)
     let plusHours = Number(hours)
 
@@ -132,7 +138,7 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
                   </div>
                 )}
 
-                <div className="w-full g-container lg:px-0 lg:flex-1">
+                <div className="w-full g-container lg:px-0 lg:flex-1 relative">
                   <div className="w-full mt-[25px] lg:mt-[0px]">
                     <div className={styles.title}>
                       Republish Date <span>*</span>
@@ -209,9 +215,9 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
                     </div>
                   </div>
 
-                  <div className="w-full sm:mt-[30px] mt-[20px]">
+                  <div className="w-full mt-[20px]">
                     <div className={styles.title}>
-                      Limited Duration <span>*</span>
+                      Duration <span>*</span>
                     </div>
                     <div className="mt-[15px]">
                       <ProductionListMenu
@@ -225,73 +231,84 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
                       />
                     </div>
                   </div>
-
-                  <div className="w-full sm:mt-[30px] mt-[20px]">
-                    <div className={styles.title}>
-                      Limited Duration <span>*</span>
+                  {releaseDurationItem.id === 1 && (
+                    <div className="w-full mt-[20px]">
+                      <div className={styles.title}>
+                        Limited Duration <span>*</span>
+                      </div>
+                      <div className="mt-[15px] w-full flex gap-5">
+                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                          <Input
+                            value={days}
+                            placeholder="0"
+                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                            fullWidth
+                            borderColor="transparent"
+                            borderRadius="9px"
+                            min={0}
+                            onChange={value => {
+                              let days = validDigits(value)
+                              if (days < 0) {
+                                setDays('')
+                              } else {
+                                setDays(days)
+                              }
+                            }}
+                          />
+                          <div className={styles.dateFont}>Days</div>
+                        </div>
+                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                          <Input
+                            value={hours}
+                            placeholder="0"
+                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                            fullWidth
+                            borderColor="transparent"
+                            borderRadius="9px"
+                            min={0}
+                            onChange={value => {
+                              let hours = validDigits(value)
+                              if (hours < 0) {
+                                setHours('')
+                              } else {
+                                setHours(hours)
+                              }
+                            }}
+                          />
+                          <div className={styles.dateFont}>Hours</div>
+                        </div>
+                      </div>
+                      <div className="mt-2 w-full text-start">
+                        <div className={styles.label}>
+                          The release is due to end&nbsp;
+                          <span className={styles.dateLabel}>
+                            {day}
+                            {', '}
+                            {endDate.toLocaleDateString()}&nbsp;
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-[15px] w-full flex gap-5">
-                      <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                        <Input
-                          value={days}
-                          placeholder="0"
-                          backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                          fullWidth
-                          borderColor="transparent"
-                          borderRadius="9px"
-                          min={0}
-                          onChange={value => {
-                            let days = validDigits(value)
-                            if (days < 0) {
-                              setDays('')
-                            } else {
-                              setDays(days)
-                            }
-                          }}
-                        />
-                        <div className={styles.dateFont}>Days</div>
-                      </div>
-                      <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                        <Input
-                          value={hours}
-                          placeholder="0"
-                          backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                          fullWidth
-                          borderColor="transparent"
-                          borderRadius="9px"
-                          min={0}
-                          onChange={value => {
-                            let hours = validDigits(value)
-                            if (hours < 0) {
-                              setHours('')
-                            } else {
-                              setHours(hours)
-                            }
-                          }}
-                        />
-                        <div className={styles.dateFont}>Hours</div>
-                      </div>
+                  )}
+                  <div className="absolute w-full bottom-0 right-0 lg:block hidden">
+                    <div className="w-full mt-[20px]">
+                      <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
                     </div>
-                    <div className="mt-2 w-full text-start">
-                      <div className={styles.label}>
-                        The release is due to end&nbsp;
-                        <span className={styles.dateLabel}>
-                          {day}
-                          {', '}
-                          {endDate.toLocaleDateString()}&nbsp;
-                        </span>
-                      </div>
+                    <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                      <OutlineButton fullWidth label="Remove" height={50} onClick={closeModal} />
                     </div>
                   </div>
-                  <div className="w-full mt-[20px]">
-                    <GradientButton fullWidth label="Republish" height={50} />
-                  </div>
-                  <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
-                    <OutlineButton fullWidth label="Remove" height={50} />
+                  <div className="lg:hidden block">
+                    <div className="w-full mt-[20px]">
+                      <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
+                    </div>
+                    <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                      <OutlineButton fullWidth label="Remove" height={50} onClick={closeModal} />
+                    </div>
                   </div>
                   <div className="w-full h-[50px] block lg:hidden" />
                 </div>

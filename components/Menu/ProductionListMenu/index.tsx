@@ -36,7 +36,12 @@ const ProductionListMenu = props => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className={styles.menuArea}>
+          <Menu.Items
+            className={styles.menuArea}
+            style={{
+              width,
+            }}
+          >
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem}>

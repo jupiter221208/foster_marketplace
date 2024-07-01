@@ -24,7 +24,6 @@ const MerchStoreActivity = props => {
   const [showUpdateModal, setShowUpdateModal] = useState(false)
 
   const onUpdateMerch = data => {
-    console.log(data, '===========data==========')
     seSelectedCard(data)
     setShowUpdateModal(true)
   }
