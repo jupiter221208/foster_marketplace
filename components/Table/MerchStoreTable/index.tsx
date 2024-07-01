@@ -78,7 +78,7 @@ const MerchStoreTable = props => {
                   <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>
                   <div className="w-[20%] text-center">{getTechnique(item)}</div>
                   <div className="w-[10%] text-center">${item.selling_price / 100}</div>
-                  <div className="w-[15%] text-center">10</div>
+                  <div className="w-[15%] text-center">{item.current_supply}</div>
                   <div className="w-[15%]">
                     {getStatus(item) === 'scheduled' ? (
                       <div className={styles.scheduled}>

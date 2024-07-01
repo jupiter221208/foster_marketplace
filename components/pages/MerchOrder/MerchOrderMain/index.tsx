@@ -293,7 +293,9 @@ const MerchOrderMain = props => {
               </div>
               <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
               <div className={styles.creatorRound}>
-                {productDetail.supply ? `8/${productDetail.supply} left` : `3 sold`}
+                {productDetail.supply
+                  ? `${productDetail.current_supply}/${productDetail.supply} left`
+                  : `${productDetail.current_supply} sold`}
               </div>
             </div>
           </div>
