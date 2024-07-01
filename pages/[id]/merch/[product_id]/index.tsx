@@ -35,7 +35,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [shippingData, setShippingData] = useState(null)
   const [printData, setPrintData] = useState(null)
   const [totalCost, setTotalCost] = useState(null)
-  const [quantity, setQuantity] = useState(1)
+  const [merchQuantity, setMerchQuantity] = useState(1)
   const [merchSize, setMerchSize] = useState('L')
   const [merchCost, setMerchCost] = useState(0)
   const [merchList, setMerchList] = useState([])
@@ -60,6 +60,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
+    if (printData) return
+
     StoreAPI.getStoreById(publicArtistData.artist.id, router.query.product_id).then(
       response => {
         if (response) {
@@ -81,7 +83,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           setSelectedMerch(imageList[0])
           setPrintData({
             id: 1,
-            quantity,
+            quantity: merchQuantity,
             size: merchSize,
             color: response.options.color,
             name: response.name,
@@ -100,12 +102,11 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }, [merchSize])
 
   useEffect(() => {
-    setPrintData({ ...printData, quantity: quantity })
-  }, [quantity])
-
-  useEffect(() => {
-    setPrintData({ ...printData, cost: merchCost })
-  }, [merchCost])
+    let newData = { ...printData }
+    newData.quantity = merchQuantity
+    newData.cost = (productDetail?.selling_price / 100) * merchQuantity
+    setPrintData(newData)
+  }, [merchQuantity])
 
   return (
     <div className="g-container flex">
@@ -182,9 +183,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 productDetail={productDetail}
                 userDetail={publicArtistData}
                 onClickBuyNow={onClickBuyNow}
-                setQuantity={setQuantity}
+                setQuantity={setMerchQuantity}
                 setMerchSize={setMerchSize}
-                setCost={setMerchCost}
               />
             </div>
           )}

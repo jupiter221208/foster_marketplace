@@ -29,7 +29,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
 
 const MerchOrderMain = props => {
-  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize, setCost } = props
+  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -408,7 +408,6 @@ const MerchOrderMain = props => {
                     if (mintQty > 1) {
                       setMintQty(mintQty - 1)
                       setQuantity(mintQty - 1)
-                      setCost((productDetail.selling_price / 100) * (mintQty - 1))
                     }
                   }}
                 >
@@ -421,7 +420,6 @@ const MerchOrderMain = props => {
                   onClick={() => {
                     setMintQty(mintQty + 1)
                     setQuantity(mintQty + 1)
-                    setCost((productDetail.selling_price / 100) * (mintQty + 1))
                   }}
                 >
                   <div className={styles.minus}>+</div>
