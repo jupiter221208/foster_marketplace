@@ -184,7 +184,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[16px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
+      <div className="w-full px-[0px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
         <div className="w-full mt-[45px] lg:mt-[30px] h-[130px] overflow-auto">
           <div className={styles.productDetails}>Product Details</div>

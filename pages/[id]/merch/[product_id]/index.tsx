@@ -168,7 +168,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 className={merch.selected ? styles.selected : styles.unselected}
                 onClick={() => onClickMerch(index)}
               >
-                <ImageWithFoster width={130} src={merch.url.src} />
+                <ImageWithFoster width={130} src={merch.url} />
               </div>
             )
           })}

@@ -65,7 +65,7 @@ const OrderSection = props => {
   return (
     <div className="g-container">
       <div className={styles.container}>
-        <div className="w-full flex lg:flex-row flex-col gap-[50px]">
+        <div className="w-full flex lg:flex-row flex-col lg:gap-[50px]">
           <div className="w-full">
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
@@ -80,8 +80,8 @@ const OrderSection = props => {
                 </div>
               </div>
             ) : merchType === 'foster' ? (
-              <div className="w-full flex gap-[50px] h-[700px]">
-                <div className="w-[130px] flex flex-col gap-[16px]">
+              <div className="w-full lg:flex lg:gap-[50px] lg:h-[700px]">
+                <div className="w-[130px] lg:flex hidden flex-col gap-[16px]">
                   {merchList.map((merch, index) => {
                     return (
                       <div
@@ -95,7 +95,7 @@ const OrderSection = props => {
                   })}
                 </div>
                 {selectedMerch && (
-                  <div className="flex-1 h-full max-h-[700px] flex items-center justify-center">
+                  <div className="hidden lg:flex-1 h-full lg:max-h-[700px] lg:flex items-center justify-center">
                     <ImageWithFoster
                       src={selectedMerch.url}
                       width={700}
@@ -103,6 +103,34 @@ const OrderSection = props => {
                     />
                   </div>
                 )}
+
+                <div className={`lg:hidden block h-auto w-full mb-[20px] mt-[20px]`}>
+                  <div className={styles.mobileImageArea}>
+                    <div className={styles.imageArea}>
+                      <div className={styles.imageContent}>
+                        <ImageWithFoster
+                          width={700}
+                          src={selectedMerch ? selectedMerch.url : ''}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.imageSlider}>
+                  {merchList.map((merch, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={merch.selected ? styles.selected : styles.unselected}
+                        onClick={() => onClickMerch(index)}
+                      >
+                        <ImageWithFoster width={130} src={merch.url} />
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             ) : (
               <div></div>
