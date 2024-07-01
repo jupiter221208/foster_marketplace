@@ -9,7 +9,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import { getTimeDifference, getYMDString } from 'utils/helpers'
 
 const MerchStoreTable = props => {
-  const { data } = props
+  const { data, onUpdate } = props
 
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
@@ -82,18 +82,22 @@ const MerchStoreTable = props => {
                   <div className="w-[15%]">
                     {getStatus(item) === 'scheduled' ? (
                       <div className={styles.scheduled}>
-                        <div className="w-[60%]">scheduled</div>
-                        <div className={styles.remove}>Remove</div>
+                        <div className="w-[60%]">Upcoming</div>
+                        <div className={styles.remove}>Cancel</div>
                       </div>
                     ) : getStatus(item) === 'live' ? (
                       <div className={styles.live}>
                         <div className="w-[60%]">Live</div>
-                        <div className={styles.remove}>Remove</div>
+                        <div className={styles.remove} onClick={() => onUpdate(item)}>
+                          Delist
+                        </div>
                       </div>
                     ) : getStatus(item) === 'expired' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Expired</div>
-                        <div className={styles.remove}>Republish</div>
+                        <div className={styles.remove} onClick={() => onUpdate(item)}>
+                          Update
+                        </div>
                       </div>
                     ) : (
                       <div></div>

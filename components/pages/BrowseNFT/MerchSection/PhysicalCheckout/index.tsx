@@ -87,8 +87,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
       var name = item.name
-      var apparel = findElement(options, 'name', 'apparel')['value']
+      var apparel = findElement(options, 'name', 'apparel')
+      apparel = apparel ? apparel['value'] : ''
       var size = findElement(options, 'name', 'size')['value']
+      size = size ? size['value'] : ''
+
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
         let type =

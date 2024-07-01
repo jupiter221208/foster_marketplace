@@ -15,15 +15,25 @@ import 'swiper/css/navigation'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { useRouter } from 'next/router'
+import MerchShopUpdateModal from 'components/Modal/MerchShopUpdateModal'
 
 const MerchStoreActivity = props => {
   const { storeList, isLoading, username } = props
   const router = useRouter()
+  const [selectedCard, seSelectedCard] = useState(null)
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+
+  const onUpdateMerch = data => {
+    console.log(data, '===========data==========')
+    seSelectedCard(data)
+    setShowUpdateModal(true)
+  }
+
   return (
     <div className={styles.container}>
       {storeList.length > 0 && (
         <div className="mt-[10px]">
-          <TableSections data={storeList} />
+          <TableSections data={storeList} onUpdate={data => onUpdateMerch(data)} />
         </div>
       )}
 
@@ -44,6 +54,8 @@ const MerchStoreActivity = props => {
           </div>
         </div>
       )}
+
+      <MerchShopUpdateModal data={selectedCard} open={showUpdateModal} onClose={() => setShowUpdateModal(false)} />
     </div>
   )
 }

@@ -14,12 +14,12 @@ import styles from './index.module.scss'
 import ProductMenuItem from './ProductMenuItem'
 
 const ProductionListMenu = props => {
-  const { label, data, selectedItem, setSelectedItem } = props
+  const { label, data, selectedItem, setSelectedItem, width = 660 } = props
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
       <Menu>
         <Menu.Button className="lg:w-auto w-full">
-          <div className={styles.btnArea}>
+          <div className={styles.btnArea} style={{ width }}>
             {label}
             <div>
               <DownIcon alt="" />
