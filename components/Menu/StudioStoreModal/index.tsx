@@ -15,7 +15,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const StudioStoreModal = props => {
-  const { open, close, item } = props
+  const { open, close, item, onUpdate, onDelist, onCancel } = props
 
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
@@ -113,10 +113,48 @@ const StudioStoreModal = props => {
                       <div className={styles.label}>Price</div>
                       <div className={styles.content}>${item.selling_price / 100}</div>
                     </div>
-                    {getStatus(item) === 'scheduled' || getStatus(item) === 'live' ? (
-                      <GradientButton label="Remove" fontSize={16} width={100} height={43} onClick={() => {}} />
+                    <div>
+                      <div className={styles.label}>Sales</div>
+                      <div className={`${styles.content} text-end`}>{item.current_supply}</div>
+                    </div>
+                  </div>
+                  <div className="w-full mt-[15px]">
+                    {getStatus(item) === 'scheduled' ? (
+                      <GradientButton
+                        fullWidth
+                        label="Cancel"
+                        fontSize={16}
+                        width={100}
+                        height={43}
+                        onClick={() => {
+                          onCancel(item)
+                          close()
+                        }}
+                      />
+                    ) : getStatus(item) === 'live' ? (
+                      <GradientButton
+                        fullWidth
+                        label="Delist"
+                        fontSize={16}
+                        width={100}
+                        height={43}
+                        onClick={() => {
+                          onDelist(item)
+                          close()
+                        }}
+                      />
                     ) : getStatus(item) === 'expired' ? (
-                      <GradientButton label="Republish" fontSize={16} width={100} height={43} onClick={() => {}} />
+                      <GradientButton
+                        fullWidth
+                        label="Update"
+                        fontSize={16}
+                        width={100}
+                        height={43}
+                        onClick={() => {
+                          onUpdate(item)
+                          close()
+                        }}
+                      />
                     ) : (
                       <div></div>
                     )}

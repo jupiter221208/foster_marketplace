@@ -12,6 +12,14 @@ class Store {
     })
   }
 
+  getStoreByUserId(user_id) {
+    return client.get(API_URL + 'v1/stores/' + user_id + '/items').then(response => {
+      if (typeof response.data === 'string') throw new Error(response.data)
+
+      return response.data
+    })
+  }
+
   getStoreItemByFoster(user_id) {
     return client.get(API_URL + 'v1/stores/' + user_id + '/items?fulfillment=foster').then(response => {
       return response.data
@@ -40,6 +48,12 @@ class Store {
     return client.get(API_URL + 'v1/stores/' + user_id + '/items/' + product_id).then(response => {
       if (typeof response.data === 'string') throw new Error(response.data)
         
+      return response.data
+    })
+  }
+
+  updateStoreById(user_id, product_id, item) {
+    return client.patch(API_URL + 'v1/stores/' + user_id + '/items/' + product_id, item).then(response => {
       return response.data
     })
   }

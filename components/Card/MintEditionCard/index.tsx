@@ -22,6 +22,7 @@ const MintEditionCard = props => {
     setIsEnded,
     setIsStarted,
     nftPrice,
+    merchCost,
     setPrice,
     mintQty,
     setMintQty,
@@ -32,9 +33,19 @@ const MintEditionCard = props => {
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [auctionStarted, setAuctionStarted] = useState(false)
   const [auctionEnded, setAuctionEnded] = useState(false)
-  const [total, setTotal] = useState(nftPrice)
+  const [total, setTotal] = useState('0.00')
   const [showDetailTotal, setShowDetailTotal] = useState(false)
   const [buyLimitAlert, setBuyLimitAlert] = useState(false)
+
+  useEffect(() => {
+    let total = nftPrice * 1.05 + (merchCost ? merchCost : 0) + 0.01 * 1 + 0.013 * 1 + 0.0003
+    setTotal(total.toFixed(2))
+  }, [])
+
+  useEffect(() => {
+    let total = nftPrice * 1.05 + (merchCost ? merchCost : 0) + 0.01 * 1 + 0.013 * 1 + 0.0003
+    setTotal(total.toFixed(2))
+  }, [merchCost])
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
@@ -126,6 +137,7 @@ const MintEditionCard = props => {
                         setMintQty(mintQty - 1)
                         let price = (
                           nftPrice * (mintQty - 1) * 1.05 +
+                          (merchCost ? merchCost * (mintQty - 1) : 0) +
                           0.01 * (mintQty - 1) +
                           0.013 * (mintQty - 1) +
                           0.0003
@@ -156,6 +168,7 @@ const MintEditionCard = props => {
                       }
                       let price = (
                         nftPrice * (mintQty + 1) * 1.05 +
+                        (merchCost ? merchCost * (mintQty + 1) : 0) +
                         0.01 * (mintQty + 1) +
                         0.013 * (mintQty + 1) +
                         0.0003
@@ -202,6 +215,12 @@ const MintEditionCard = props => {
                     <div className={styles.priceLabel}>Artwork Cost</div>
                     <div className={styles.priceValue}>{(nftPrice * mintQty).toFixed(2)}</div>
                   </div>
+                  {merchCost && (
+                    <div className="w-full flex justify-between mt-[9px]">
+                      <div className={styles.priceLabel}>Merch Production Cost</div>
+                      <div className={styles.priceValue}>{merchCost.toFixed(2)}</div>
+                    </div>
+                  )}
                   <div className="w-full flex justify-between mt-[9px]">
                     <div className={styles.priceLabel}>Foster Fee (5%)</div>
                     <div className={styles.priceValue}>{(nftPrice * mintQty * 0.05).toFixed(2)}&nbsp;SOL</div>

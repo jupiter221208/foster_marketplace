@@ -7,6 +7,7 @@ import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
 
 //apis
 import StoreAPI from 'apis/store'
+import { getTimeDifference } from 'utils/helpers'
 
 const CreatorMerchShop = props => {
   const { username, userId } = props
@@ -17,21 +18,27 @@ const CreatorMerchShop = props => {
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
-        setMerchList(res)
+        setMerchList(res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0))
       },
       error => {}
     )
 
     StoreAPI.getStoreItemByEdition(userId).then(
       res => {
-        setEditionList(res)
+        setEditionList(res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0))
       },
       error => {}
     )
 
     StoreAPI.getStoreItemByUser(userId).then(
       res => {
-        setPhysicalList(res.filter(item => item.master_edition_address === null))
+        setPhysicalList(
+          res.filter(
+            item =>
+              item.master_edition_address === null &&
+              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0)
+          )
+        )
       },
       error => {}
     )

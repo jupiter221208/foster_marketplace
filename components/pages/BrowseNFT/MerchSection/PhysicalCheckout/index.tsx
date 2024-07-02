@@ -87,8 +87,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
       var name = item.name
-      var apparel = findElement(options, 'name', 'apparel')['value']
+      var apparel = findElement(options, 'name', 'apparel')
+      apparel = apparel ? apparel['value'] : ''
       var size = findElement(options, 'name', 'size')['value']
+      size = size ? size['value'] : ''
+
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
         let type =
@@ -184,7 +187,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[16px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
+      <div className="w-full px-[0px] lg:px-[30px] mt-[40px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
         <div className="w-full mt-[45px] lg:mt-[30px] h-[130px] overflow-auto">
           <div className={styles.productDetails}>Product Details</div>

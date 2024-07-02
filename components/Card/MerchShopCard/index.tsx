@@ -16,13 +16,14 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
-import ProductTypeList from 'assets/json/merch-shop/product-type-list.json'
+import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
 import { getTimeDifference } from 'utils/helpers'
+import { calculateAuctionTimeLeft } from 'utils/helpers'
 
 const MerchShopCard = props => {
   const { type = 'foster', username, data } = props
@@ -32,7 +33,8 @@ const MerchShopCard = props => {
   const [swiper, setSwiper] = useState(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [indicatorList, setIndicatorList] = useState([])
-  // const [isLoading, setIsLoading] = useState(false)
+  const [showTimer, setShowTimer] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<any>(null)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -47,6 +49,24 @@ const MerchShopCard = props => {
   const handleOnChange = () => {
     if (swiper) setCurrentStep(swiper.activeIndex)
   }
+
+  useEffect(() => {
+    if (data.sale_end_at !== null) {
+      let timeDiff = getTimeDifference(data.sale_end_at)
+      if (timeDiff > 0) {
+        setShowTimer(true)
+        setTimeLeft(calculateAuctionTimeLeft(data.sale_end_at))
+        const timer = setInterval(() => {
+          let time_left = calculateAuctionTimeLeft(data.sale_end_at)
+          setTimeLeft(time_left)
+        }, 1000)
+
+        return () => {
+          clearTimeout(timer)
+        }
+      }
+    }
+  }, [data])
 
   useEffect(() => {
     let list = []
@@ -145,6 +165,37 @@ const MerchShopCard = props => {
             </div>
           </div>
         )}
+        {showTimer && (
+          <div className={styles.timerBG}>
+            <ClockSandIcon />
+            <div className="flex gap-[4px]">
+              {timeLeft && timeLeft['days'] !== '00' && (
+                <div className="flex block justify-center gap-[2px]">
+                  <div className={styles.grayTime}>{timeLeft['days']}</div>
+                  <div className={styles.grayText}>d</div>
+                </div>
+              )}
+              {timeLeft && timeLeft['hours'] !== '00' && (
+                <div className="flex block justify-center gap-[2px]">
+                  <div className={styles.grayTime}>{timeLeft['hours']}</div>
+                  <div className={styles.grayText}>h</div>
+                </div>
+              )}
+              {timeLeft && timeLeft['minutes'] !== '00' && (
+                <div className="flex block justify-center gap-[2px]">
+                  <div className={styles.grayTime}>{timeLeft && timeLeft['minutes']}</div>
+                  <div className={styles.grayText}>m</div>
+                </div>
+              )}
+              {timeLeft && timeLeft['seconds'] !== '00' && (
+                <div className="flex block justify-center gap-[2px]">
+                  <div className={styles.grayTime}>{timeLeft && timeLeft['seconds']}</div>
+                  <div className={styles.grayText}>s</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       <div className={styles.bottomSection}>
@@ -191,11 +242,48 @@ const MerchShopCard = props => {
             ) : (
               <div>
                 <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                <div className={styles.saleCount}>{data.supply ? `8/${data.supply} left` : '3 sold'}</div>
+                <div className={styles.saleCount}>
+                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                </div>
               </div>
             )}
 
-            <div className="sm:block hidden">
+            {getTimeDifference(data.sale_start_at) <= 0 && (
+              <div className="sm:block hidden">
+                <GradientButton
+                  borderRadius={10}
+                  label="Buy Now"
+                  backgroundColor01="var(--place-bid-minimum-color)"
+                  backgroundColor02="var(--place-bid-minimum-color)"
+                  color="var(--time-slog-bg)"
+                  width={106}
+                  height={42}
+                  fontSize={16}
+                  onClick={() => {
+                    dispatch({ type: 'set', merchOrderType: 'foster' })
+                    router.push(`/${username}/merch/${data.id}`)
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="w-full mt-[15px] flex justify-between">
+            {getTimeDifference(data.sale_start_at) > 0 ? (
+              <div>
+                <div className={styles.saleType}>Goes live on </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
+            ) : (
+              <div>
+                <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                <div className={styles.saleCount}>
+                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                </div>
+              </div>
+            )}
+
+            {getTimeDifference(data.sale_start_at) <= 0 && (
               <GradientButton
                 borderRadius={10}
                 label="Buy Now"
@@ -210,29 +298,7 @@ const MerchShopCard = props => {
                   router.push(`/${username}/merch/${data.id}`)
                 }}
               />
-            </div>
-          </div>
-        ) : (
-          <div className="w-full mt-[15px] flex justify-between">
-            <div>
-              <div className={styles.saleType}>Goes live on </div>
-              <div className={styles.saleCount}>TBD</div>
-            </div>
-
-            <GradientButton
-              borderRadius={10}
-              label="Buy Now"
-              backgroundColor01="var(--place-bid-minimum-color)"
-              backgroundColor02="var(--place-bid-minimum-color)"
-              color="var(--time-slog-bg)"
-              width={106}
-              height={42}
-              fontSize={16}
-              onClick={() => {
-                dispatch({ type: 'set', merchOrderType: 'foster' })
-                router.push(`/${username}/merch/${data.id}`)
-              }}
-            />
+            )}
           </div>
         )}
       </div>

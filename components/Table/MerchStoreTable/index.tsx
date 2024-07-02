@@ -9,7 +9,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import { getTimeDifference, getYMDString } from 'utils/helpers'
 
 const MerchStoreTable = props => {
-  const { data } = props
+  const { data, onUpdate, onDelist, onCancel } = props
 
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
@@ -78,22 +78,28 @@ const MerchStoreTable = props => {
                   <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>
                   <div className="w-[20%] text-center">{getTechnique(item)}</div>
                   <div className="w-[10%] text-center">${item.selling_price / 100}</div>
-                  <div className="w-[15%] text-center">10</div>
+                  <div className="w-[15%] text-center">{item.current_supply}</div>
                   <div className="w-[15%]">
                     {getStatus(item) === 'scheduled' ? (
                       <div className={styles.scheduled}>
-                        <div className="w-[60%]">scheduled</div>
-                        <div className={styles.remove}>Remove</div>
+                        <div className="w-[60%]">Upcoming</div>
+                        <div className={styles.remove} onClick={() => onCancel(item)}>
+                          Cancel
+                        </div>
                       </div>
                     ) : getStatus(item) === 'live' ? (
                       <div className={styles.live}>
                         <div className="w-[60%]">Live</div>
-                        <div className={styles.remove}>Remove</div>
+                        <div className={styles.remove} onClick={() => onDelist(item)}>
+                          Delist
+                        </div>
                       </div>
                     ) : getStatus(item) === 'expired' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Expired</div>
-                        <div className={styles.remove}>Republish</div>
+                        <div className={styles.remove} onClick={() => onUpdate(item)}>
+                          Update
+                        </div>
                       </div>
                     ) : (
                       <div></div>

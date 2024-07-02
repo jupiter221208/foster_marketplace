@@ -24,7 +24,6 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
-import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
@@ -70,7 +69,7 @@ import { LAMPORTS_PER_SOL, PublicKey, Transaction } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
-
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { cancelListingEdition, createPrint } from 'apis/editions'
 
 import { useWallets } from 'hooks/useWallets'
@@ -81,6 +80,7 @@ import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
+
 import 'react-placeholder/lib/reactPlaceholder.css'
 import LikeModal from 'components/Modal/LikeModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
@@ -115,6 +115,7 @@ import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -126,6 +127,8 @@ export interface MainSectionProps {
   setCollectionName: any
   fullScreen: boolean
   setShowAuctionSection: any
+  setFullScreenMerch: any
+  setMerchImages: any
 }
 
 const MainSection = ({
@@ -138,6 +141,8 @@ const MainSection = ({
   setCollectionName,
   fullScreen,
   setShowAuctionSection,
+  setFullScreenMerch,
+  setMerchImages,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -146,7 +151,7 @@ const MainSection = ({
   const { refreshToken } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-
+  const { solToUsdRate } = useSolToUsdRate()
   const [loading, setLoading] = useState<boolean>(true)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
@@ -194,7 +199,7 @@ const MainSection = ({
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
   const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
-
+  const [merchCard, setMerchCard] = useState(null)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [isCancelProcessing, setIsCancelProcessing] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -264,6 +269,7 @@ const MainSection = ({
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
   const [nftPrice, setNftPrice] = useState(0)
+  const [merchCost, setMerchCost] = useState(null)
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorname, setNftCreatorname] = useState('')
   const [nftListingData, setNftListingData] = useState(null)
@@ -514,9 +520,18 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
+      if (nftInfo.master_edition?.merchProduct) {
+        setMerchCard(nftInfo.master_edition?.merchProduct)
+        setMerchImages(nftInfo.master_edition?.merchProduct.options.product_images)
+        setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
+
+  const getMerchContent = data => {
+    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+  }
 
   // set timeout to switch to end phase
   useEffect(() => {
@@ -1449,6 +1464,36 @@ const MainSection = ({
                     <></>
                   )}
 
+                  {merchCard && (
+                    <div className={styles.merchArea}>
+                      <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[11px] ml-[10px] sm:ml-[12px] sm:ml-[16px]">
+                        <div className={styles.assetArea}>
+                          <ImageWithFoster
+                            width={65}
+                            src={merchCard.options.product_images[0]}
+                            onClick={() => setFullScreenMerch(true)}
+                          />
+                        </div>
+                        <div className={styles.contentArea}>
+                          <div className="w-full flex justify-between items-center mt-[4px] lg:mt-[2px]">
+                            <div className={styles.merchTitle}>Merch included for each purchase</div>
+                            <div className="hidden sm:block w-[82px] h-[32px] mr-[12px]">
+                              <GradientButton
+                                label="View"
+                                borderRadius={16}
+                                fontSize={16}
+                                width={82}
+                                height={32}
+                                onClick={() => setFullScreenMerch(true)}
+                              />
+                            </div>
+                          </div>
+                          <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className={styles.descBorder} />
 
                   <NFTDetailSection
@@ -1503,6 +1548,7 @@ const MainSection = ({
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
                             nftPrice={nftPrice}
+                            merchCost={merchCost}
                             setPrice={setPrice}
                             mintQty={mintQty}
                             setMintQty={setMintQty}

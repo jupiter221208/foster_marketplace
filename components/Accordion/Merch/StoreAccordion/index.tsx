@@ -14,7 +14,7 @@ import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 import StudioStoreModal from 'components/Menu/StudioStoreModal'
 
 const StoreAccordion = props => {
-  const { data } = props
+  const { data, onUpdate, onDelist, onCancel } = props
   const [item, setItem] = useState(null)
   const [openModal, setOpenModal] = useState(false)
 
@@ -54,7 +54,7 @@ const StoreAccordion = props => {
                 <div className={styles.subTitle}>{item.name}</div>
                 <div className="mt-[4px]">
                   {getStatus(item) === 'scheduled' ? (
-                    <div className={styles.scheduled}>Scheduled</div>
+                    <div className={styles.scheduled}>Upcoming</div>
                   ) : getStatus(item) === 'live' ? (
                     <div className={styles.live}>Live</div>
                   ) : getStatus(item) === 'expired' ? (
@@ -77,7 +77,16 @@ const StoreAccordion = props => {
         </div>
       ))}
 
-      {openModal && item && <StudioStoreModal open={openModal} close={() => setOpenModal(false)} item={item} />}
+      {openModal && item && (
+        <StudioStoreModal
+          open={openModal}
+          close={() => setOpenModal(false)}
+          item={item}
+          onUpdate={onUpdate}
+          onDelist={onDelist}
+          onCancel={onCancel}
+        />
+      )}
     </div>
   )
 }

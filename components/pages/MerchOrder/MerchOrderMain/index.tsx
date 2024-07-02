@@ -29,7 +29,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
 
 const MerchOrderMain = props => {
-  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize, setCost } = props
+  const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -293,7 +293,9 @@ const MerchOrderMain = props => {
               </div>
               <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
               <div className={styles.creatorRound}>
-                {productDetail.supply ? `8/${productDetail.supply} left` : `3 sold`}
+                {productDetail.supply
+                  ? `${productDetail.current_supply}/${productDetail.supply} left`
+                  : `${productDetail.current_supply} sold`}
               </div>
             </div>
           </div>
@@ -377,26 +379,26 @@ const MerchOrderMain = props => {
                   <div>
                     <div className={styles.endTime}>
                       {timeLeft && timeLeft['days']}
-                      {timeLeft && <div className={styles.bidDesc}>D</div>}
+                      {timeLeft && <div className={styles.bidDesc}>d</div>}
                     </div>
                   </div>
                 )}
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['hours']}
-                    {timeLeft && <div className={styles.bidDesc}>H</div>}
+                    {timeLeft && <div className={styles.bidDesc}>h</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['minutes']}
-                    {timeLeft && <div className={styles.bidDesc}>M</div>}
+                    {timeLeft && <div className={styles.bidDesc}>m</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['seconds']}
-                    {timeLeft && <div className={styles.bidDesc}>S</div>}
+                    {timeLeft && <div className={styles.bidDesc}>s</div>}
                   </div>
                 </div>
               </div>
@@ -408,7 +410,6 @@ const MerchOrderMain = props => {
                     if (mintQty > 1) {
                       setMintQty(mintQty - 1)
                       setQuantity(mintQty - 1)
-                      setCost((productDetail.selling_price / 100) * (mintQty - 1))
                     }
                   }}
                 >
@@ -421,7 +422,6 @@ const MerchOrderMain = props => {
                   onClick={() => {
                     setMintQty(mintQty + 1)
                     setQuantity(mintQty + 1)
-                    setCost((productDetail.selling_price / 100) * (mintQty + 1))
                   }}
                 >
                   <div className={styles.minus}>+</div>
