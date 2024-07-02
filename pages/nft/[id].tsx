@@ -484,7 +484,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       )}
 
       {fullScreenMerch && (
-        <div className={styles.fullScreen}>
+        <div className={styles.fullScreenMerch}>
           <div>
             <div className="w-[370px] h-[370px] sm:w-[500px] sm:w-[500px] lg:w-[600px] lg:h-[600px]">
               <img src={selectedMerchImage} alt="" className="w-full h-full max-w-full max-h-full object-contain" />

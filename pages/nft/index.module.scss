@@ -42,6 +42,18 @@
   align-items: center;
 }
 
+.fullScreenMerch {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(var(--background-main-color-rgb), 0.8);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .selectedMerch {
   width: 100px;
   height: 100px;
