@@ -115,6 +115,7 @@ import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -126,6 +127,8 @@ export interface MainSectionProps {
   setCollectionName: any
   fullScreen: boolean
   setShowAuctionSection: any
+  setFullScreenMerch: any
+  setMerchImages: any
 }
 
 const MainSection = ({
@@ -138,6 +141,8 @@ const MainSection = ({
   setCollectionName,
   fullScreen,
   setShowAuctionSection,
+  setFullScreenMerch,
+  setMerchImages,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -194,7 +199,7 @@ const MainSection = ({
   const [price, setPrice] = useState<string>('')
   const [mintQty, setMintQty] = useState(1)
   const [mintEditionLoading, setMintEditionLoading] = useState<boolean>(false)
-
+  const [merchCard, setMerchCard] = useState(null)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [isCancelProcessing, setIsCancelProcessing] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -514,9 +519,17 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
+      if (nftInfo.master_edition?.merchProduct) {
+        setMerchCard(nftInfo.master_edition?.merchProduct)
+        setMerchImages(nftInfo.master_edition?.merchProduct.options.product_images)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftInfo])
+
+  const getMerchContent = data => {
+    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+  }
 
   // set timeout to switch to end phase
   useEffect(() => {
@@ -1447,6 +1460,36 @@ const MainSection = ({
                     </div>
                   ) : (
                     <></>
+                  )}
+
+                  {merchCard && (
+                    <div className={styles.merchArea}>
+                      <div className="w-full flex flex-1 gap-[10px] lg:gap-[15px] mt-[11px] ml-[10px] sm:ml-[12px] sm:ml-[16px]">
+                        <div className={styles.assetArea}>
+                          <ImageWithFoster
+                            width={65}
+                            src={merchCard.options.product_images[0]}
+                            onClick={() => setFullScreenMerch(true)}
+                          />
+                        </div>
+                        <div className={styles.contentArea}>
+                          <div className="w-full flex justify-between items-center mt-[4px] lg:mt-[2px]">
+                            <div className={styles.merchTitle}>Merch included for each purchase</div>
+                            <div className="hidden lg:block w-[82px] h-[32px] mr-[12px]">
+                              <GradientButton
+                                label="View"
+                                borderRadius={16}
+                                fontSize={16}
+                                width={82}
+                                height={32}
+                                onClick={() => setFullScreenMerch(true)}
+                              />
+                            </div>
+                          </div>
+                          <div className={styles.merchContent}>{getMerchContent(merchCard.description)}</div>
+                        </div>
+                      </div>
+                    </div>
                   )}
 
                   <div className={styles.descBorder} />

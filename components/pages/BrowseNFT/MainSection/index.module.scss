@@ -74,6 +74,100 @@
   }
 }
 
+.merchArea {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  @media (min-width: 1024px) {
+    height: 87px;
+  }
+  background: rgba(var(--main-bg-color-rgb), 0.02);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.assetArea {
+  width: 57px;
+  min-width: 57px;
+  height: 57px;
+  @media (min-width: 640px) {
+    width: 65px;
+    min-width: 65px;
+    height: 65px;
+  }
+  border-radius: 10px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  overflow: hidden;
+}
+
+.contentArea {
+  width: 100%;
+  overflow: hidden;
+}
+
+.merchTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  width: 65%;
+  white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
+    // overflow: visible;
+  }
+}
+
+.merchContent {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  margin-top: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 230px;
+  @media (min-width: 640px) {
+    max-width: 330px;
+    // overflow: visible;
+    margin-top: 5px;
+  }
+}
+
+.merchButton {
+  width: 82px;
+  height: 32px;
+  color: var(--text-gray-200-color);
+  border-radius: 16px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Muli-SemiBold";
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 13px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+
+
 .nftDetailCard {
   width: 100%;
   height: auto;
@@ -504,7 +598,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   @media (min-width: 1024px) {
-    margin-top: 25px;
+    margin-top: 15px;
     margin-bottom: 15px;
   }
   background: rgba(#707070, 0.25);

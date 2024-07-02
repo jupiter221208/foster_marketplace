@@ -248,7 +248,42 @@ const MerchShopCard = props => {
               </div>
             )}
 
-            <div className="sm:block hidden">
+            {getTimeDifference(data.sale_start_at) <= 0 && (
+              <div className="sm:block hidden">
+                <GradientButton
+                  borderRadius={10}
+                  label="Buy Now"
+                  backgroundColor01="var(--place-bid-minimum-color)"
+                  backgroundColor02="var(--place-bid-minimum-color)"
+                  color="var(--time-slog-bg)"
+                  width={106}
+                  height={42}
+                  fontSize={16}
+                  onClick={() => {
+                    dispatch({ type: 'set', merchOrderType: 'foster' })
+                    router.push(`/${username}/merch/${data.id}`)
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="w-full mt-[15px] flex justify-between">
+            {getTimeDifference(data.sale_start_at) > 0 ? (
+              <div>
+                <div className={styles.saleType}>Goes live on </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
+            ) : (
+              <div>
+                <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                <div className={styles.saleCount}>
+                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                </div>
+              </div>
+            )}
+
+            {getTimeDifference(data.sale_start_at) <= 0 && (
               <GradientButton
                 borderRadius={10}
                 label="Buy Now"
@@ -263,29 +298,7 @@ const MerchShopCard = props => {
                   router.push(`/${username}/merch/${data.id}`)
                 }}
               />
-            </div>
-          </div>
-        ) : (
-          <div className="w-full mt-[15px] flex justify-between">
-            <div>
-              <div className={styles.saleType}>Goes live on </div>
-              <div className={styles.saleCount}>TBD</div>
-            </div>
-
-            <GradientButton
-              borderRadius={10}
-              label="Buy Now"
-              backgroundColor01="var(--place-bid-minimum-color)"
-              backgroundColor02="var(--place-bid-minimum-color)"
-              color="var(--time-slog-bg)"
-              width={106}
-              height={42}
-              fontSize={16}
-              onClick={() => {
-                dispatch({ type: 'set', merchOrderType: 'foster' })
-                router.push(`/${username}/merch/${data.id}`)
-              }}
-            />
+            )}
           </div>
         )}
       </div>

@@ -88,6 +88,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [activityList, setActivityList] = useState([])
+  const [merchImages, setMerchImages] = useState([])
+  const [selectedMerchImage, setSelectedMerchImage] = useState('')
 
   useEffect(() => {
     setTimeout(() => {
@@ -99,6 +101,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
     dispatch({ type: 'set', isLoading: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const setProcessMerchImage = (images, idx) => {
+    let list = []
+    images.map((image, index) => list.push({ url: image, selected: index === idx }))
+    setMerchImages(list)
+    setSelectedMerchImage(list[idx].url)
+  }
 
   useEffect(() => {
     if (detailShow === true) {
@@ -195,6 +204,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreen, setFullScreen] = useState(false)
+  const [fullScreenMerch, setFullScreenMerch] = useState(false)
+
   const setFullScreenView = url => {
     window.scrollTo({
       top: 0,
@@ -375,6 +386,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     setCollectionName={setCollectionName}
                     fullScreen={fullScreen}
                     setShowAuctionSection={enable => setShowAuctionSection(enable)}
+                    setMerchImages={images => setProcessMerchImage(images, 0)}
+                    setFullScreenMerch={setFullScreenMerch}
                   />
                 </div>
               </div>
@@ -462,6 +475,40 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             className={styles.closeScreen}
             onClick={() => {
               setFullScreen(false)
+              document.body.style.overflow = 'unset'
+            }}
+          >
+            <Image src={CloseIcon} alt="" width={18} height={18} />
+          </div>
+        </div>
+      )}
+
+      {fullScreenMerch && (
+        <div className={styles.fullScreen}>
+          <div>
+            <div className="w-[370px] h-[370px] sm:w-[500px] sm:w-[500px] lg:w-[600px] lg:h-[600px]">
+              <img src={selectedMerchImage} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
+            </div>
+            <div className="mt-[30px] flex justify-center gap-[10px]">
+              {merchImages.map((item, index) => (
+                <div
+                  className={item.selected ? styles.selectedMerch : styles.unselectedMerch}
+                  key={index}
+                  onClick={() => {
+                    let images = []
+                    merchImages.map(merch => images.push(merch.url))
+                    setProcessMerchImage(images, index)
+                  }}
+                >
+                  <img src={item.url} className="max-w-full max-h-full object-conver" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div
+            className={styles.closeScreen}
+            onClick={() => {
+              setFullScreenMerch(false)
               document.body.style.overflow = 'unset'
             }}
           >
