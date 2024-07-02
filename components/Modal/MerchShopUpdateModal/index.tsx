@@ -26,7 +26,7 @@ import { validDigits } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
-const MerchShopUpdateModal = ({ data, open, onClose }) => {
+const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
   const viewport = useViewport()
   const [merchImage, setMerchImage] = useState('')
   const [startType, setStartType] = useState('soon')
@@ -299,7 +299,7 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
                       <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
                     </div>
                     <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
-                      <OutlineButton fullWidth label="Remove" height={50} onClick={closeModal} />
+                      <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
                     </div>
                   </div>
                   <div className="lg:hidden block">
@@ -307,7 +307,7 @@ const MerchShopUpdateModal = ({ data, open, onClose }) => {
                       <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
                     </div>
                     <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
-                      <OutlineButton fullWidth label="Remove" height={50} onClick={closeModal} />
+                      <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
                     </div>
                   </div>
                   <div className="w-full h-[50px] block lg:hidden" />
