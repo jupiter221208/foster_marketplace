@@ -37,16 +37,17 @@
     width: 600px;
     top: 50px;
     padding: 10px 15px;
+    background: var(--bg-TRANSPARENT-FFF);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
   }
-  
+  background: var(--background-main-color);
   top: 50px;
   padding: 6px 8px;
   
-  background: var(--bg-TRANSPARENT-FFF);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 5px;
-  -webkit-backdrop-filter: blur(30px);
-  backdrop-filter: blur(30px);
+
   overflow: auto;
   cursor: pointer;
   z-index: 100;
