@@ -29,9 +29,11 @@ import styles from './index.module.scss'
 
 // backend
 import { listMasterEdition, updateEditionListing, cancelListingEdition } from 'apis/editions'
+import StoreAPI from 'apis/store'
 
 // solana
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { validDigits } from 'utils/helpers'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
@@ -55,6 +57,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const { metaplex } = useMetaplex()
+  const { profileInfo } = useAuthentication()
 
   const closeModal = () => {
     setBuyLimit('')
@@ -79,7 +82,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const [merchProdCost, setMerchProdCost] = useState(0)
 
   useEffect(() => {
-    console.log(merchCard, '================1==================')
     if (merchCard) setMerchProdCost(merchCard.selling_price / 100 / solToUsdRate)
     else setMerchProdCost(0)
   }, [merchCard])
@@ -112,8 +114,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         startTime: startDate.toISOString().split('.')[0],
         endTime: endDate?.toISOString().split('.')[0],
         buyLimit: buyLimit.length === 0 ? 0 : parseInt(buyLimit),
+        linkedMerchProduct: merchCard ? merchCard.id : null,
       })
 
+      if (profileInfo && merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: data.mintAddress,
+        })
       let mint = new PublicKey(data.mintAddress)
       let owner = metaplex.identity().publicKey
       let delegate = new PublicKey(listing.authorityPublicKey)

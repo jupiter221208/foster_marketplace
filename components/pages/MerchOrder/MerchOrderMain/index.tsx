@@ -379,26 +379,26 @@ const MerchOrderMain = props => {
                   <div>
                     <div className={styles.endTime}>
                       {timeLeft && timeLeft['days']}
-                      {timeLeft && <div className={styles.bidDesc}>D</div>}
+                      {timeLeft && <div className={styles.bidDesc}>d</div>}
                     </div>
                   </div>
                 )}
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['hours']}
-                    {timeLeft && <div className={styles.bidDesc}>H</div>}
+                    {timeLeft && <div className={styles.bidDesc}>h</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['minutes']}
-                    {timeLeft && <div className={styles.bidDesc}>M</div>}
+                    {timeLeft && <div className={styles.bidDesc}>m</div>}
                   </div>
                 </div>
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['seconds']}
-                    {timeLeft && <div className={styles.bidDesc}>S</div>}
+                    {timeLeft && <div className={styles.bidDesc}>s</div>}
                   </div>
                 </div>
               </div>
