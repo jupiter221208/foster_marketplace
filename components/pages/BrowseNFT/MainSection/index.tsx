@@ -24,7 +24,6 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
-import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
@@ -70,7 +69,7 @@ import { LAMPORTS_PER_SOL, PublicKey, Transaction } from '@solana/web3.js'
 import { toLazyListing, toListingReceiptAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Metadata, Nft } from '@metaplex-foundation/js'
 import type { ListingConfig as AuctionListing } from '@metaplex-foundation/mpl-auctioneer'
-
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { cancelListingEdition, createPrint } from 'apis/editions'
 
 import { useWallets } from 'hooks/useWallets'
@@ -81,6 +80,7 @@ import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
+
 import 'react-placeholder/lib/reactPlaceholder.css'
 import LikeModal from 'components/Modal/LikeModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
@@ -151,7 +151,7 @@ const MainSection = ({
   const { refreshToken } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-
+  const { solToUsdRate } = useSolToUsdRate()
   const [loading, setLoading] = useState<boolean>(true)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
@@ -269,6 +269,7 @@ const MainSection = ({
   const [nftCollectionImage, setNftCollectionImage] = useState('')
 
   const [nftPrice, setNftPrice] = useState(0)
+  const [merchCost, setMerchCost] = useState(null)
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorname, setNftCreatorname] = useState('')
   const [nftListingData, setNftListingData] = useState(null)
@@ -522,6 +523,7 @@ const MainSection = ({
       if (nftInfo.master_edition?.merchProduct) {
         setMerchCard(nftInfo.master_edition?.merchProduct)
         setMerchImages(nftInfo.master_edition?.merchProduct.options.product_images)
+        setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1546,6 +1548,7 @@ const MainSection = ({
                             setIsEnded={setIsEnded}
                             setIsStarted={setIsStarted}
                             nftPrice={nftPrice}
+                            merchCost={merchCost}
                             setPrice={setPrice}
                             mintQty={mintQty}
                             setMintQty={setMintQty}
