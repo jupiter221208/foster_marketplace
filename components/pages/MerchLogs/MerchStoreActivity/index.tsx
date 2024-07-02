@@ -19,7 +19,7 @@ import MerchShopUpdateModal from 'components/Modal/MerchShopUpdateModal'
 import MerchShopEditModal from 'components/Modal/MerchShopEditModal'
 
 const MerchStoreActivity = props => {
-  const { storeList, isLoading, username } = props
+  const { storeList, isLoading, username, userId, reloadMerchStore } = props
   const router = useRouter()
   const [selectedCard, seSelectedCard] = useState(null)
   const [showUpdateModal, setShowUpdateModal] = useState(false)
@@ -43,6 +43,15 @@ const MerchStoreActivity = props => {
     setShowEditModal(true)
   }
 
+  const onSuccess = () => {
+    setShowEditModal(false)
+    reloadMerchStore()
+  }
+
+  const onSuccessUpdate = () => {
+    setShowUpdateModal(false)
+    reloadMerchStore()
+  }
   return (
     <div className={styles.container}>
       {storeList.length > 0 && (
@@ -75,6 +84,7 @@ const MerchStoreActivity = props => {
       )}
 
       <MerchShopUpdateModal
+        userId={userId}
         data={selectedCard}
         open={showUpdateModal}
         onClose={() => setShowUpdateModal(false)}
@@ -85,9 +95,17 @@ const MerchStoreActivity = props => {
             setShowEditModal(true)
           }, 500)
         }}
+        onSuccess={() => onSuccessUpdate()}
       />
 
-      <MerchShopEditModal type={editType} open={showEditModal} onClose={() => setShowEditModal(false)} />
+      <MerchShopEditModal
+        userId={userId}
+        data={selectedCard}
+        type={editType}
+        open={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        onSuccess={() => onSuccess()}
+      />
     </div>
   )
 }

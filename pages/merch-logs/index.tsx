@@ -253,6 +253,30 @@ const MerchActivity = () => {
     )
   }
 
+  const reloadMerchStore = () => {
+    setFosterMerchList([])
+    setUserMerchList([])
+    setIsMerchStoreFetching(true)
+    StoreAPI.getStoreItemByFoster(profileInfo?.id).then(
+      res => {
+        setFosterMerchList(res)
+        setIsMerchStoreFetching(false)
+      },
+      error => {
+        setIsMerchStoreFetching(false)
+      }
+    )
+    StoreAPI.getStoreItemByUser(profileInfo?.id).then(
+      res => {
+        setUserMerchList(res.filter(item => item.master_edition_address === null))
+        setIsMerchStoreFetching(false)
+      },
+      error => {
+        setIsMerchStoreFetching(false)
+      }
+    )
+  }
+
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
     let nfts = await getMyNFTs(mx)
@@ -486,6 +510,8 @@ const MerchActivity = () => {
                 storeList={merchStoreList}
                 isLoading={isMerchStoreFetching}
                 username={profileInfo?.username}
+                userId={profileInfo?.id}
+                reloadMerchStore={reloadMerchStore}
               />
             </div>
           )}

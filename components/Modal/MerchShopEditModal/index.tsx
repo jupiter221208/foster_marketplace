@@ -13,11 +13,38 @@ import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
-const MerchShopEditModal = ({ type, open, onClose }) => {
+import StoreAPI from 'apis/store'
+import LoadingButton from 'components/Button/LoadingButton'
+
+const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const closeModal = () => {
     onClose()
   }
 
+  const auctionMerch = () => {
+    setIsLoading(true)
+    if (type === 'delist' || type === 'cancel') {
+      let current_date = new Date()
+      current_date.setHours(current_date.getHours() - 1)
+
+      StoreAPI.updateStoreById(userId, data.id, {
+        sale_start_at: current_date.toISOString().split('.')[0],
+        sale_end_at: current_date.toISOString().split('.')[0],
+      }).then(response => {
+        setIsLoading(false)
+        onSuccess()
+      }),
+        error => {
+          setIsLoading(false)
+          console.log(error)
+        }
+    } else if (type === 'remove') {
+      setIsLoading(false)
+      onSuccess()
+    }
+  }
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -78,13 +105,17 @@ const MerchShopEditModal = ({ type, open, onClose }) => {
                         fontSize={16}
                         onClick={() => closeModal()}
                       />
-                      <GradientButton
-                        label="Yes, continue"
-                        width={130}
-                        height={40}
-                        fontSize={16}
-                        onClick={() => closeModal()}
-                      />
+                      {isLoading ? (
+                        <LoadingButton width={130} height={40} />
+                      ) : (
+                        <GradientButton
+                          label="Yes, continue"
+                          width={130}
+                          height={40}
+                          fontSize={16}
+                          onClick={() => auctionMerch()}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

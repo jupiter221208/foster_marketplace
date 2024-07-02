@@ -51,6 +51,12 @@ class Store {
       return response.data
     })
   }
+
+  updateStoreById(user_id, product_id, item) {
+    return client.patch(API_URL + 'v1/stores/' + user_id + '/items/' + product_id, item).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Store()

@@ -17,7 +17,7 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 // styles
 import styles from './index.module.scss'
 
-//json
+// json
 import ReleaseDurationList from 'assets/json/creator-merch/release-duration-list.json'
 
 import { useViewport } from 'utils'
@@ -26,7 +26,11 @@ import { validDigits } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
-const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
+// api
+import StoreAPI from 'apis/store'
+import LoadingButton from 'components/Button/LoadingButton'
+
+const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess }) => {
   const viewport = useViewport()
   const [merchImage, setMerchImage] = useState('')
   const [startType, setStartType] = useState('soon')
@@ -36,6 +40,7 @@ const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
   const [hours, setHours] = useState('24')
   const [day, setDay] = useState('')
   const [releaseDurationItem, setReleaseDurationItem] = useState(ReleaseDurationList[0])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (data) {
@@ -48,6 +53,12 @@ const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
   useEffect(() => {
     if (open) {
       setReleaseDurationItem(ReleaseDurationList[0])
+      setStartType('soon')
+      setStartDate(new Date())
+      setEndDate(new Date())
+      setDays('')
+      setHours('24')
+      setDay('')
     }
   }, [open])
 
@@ -81,6 +92,21 @@ const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
         className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
       />
     )
+  }
+
+  const republishMerch = () => {
+    setIsLoading(true)
+    StoreAPI.updateStoreById(userId, data.id, {
+      sale_start_at: startDate.toISOString().split('.')[0],
+      sale_end_at: releaseDurationItem.id === 0 ? null : endDate.toISOString().split('.')[0],
+    }).then(response => {
+      setIsLoading(false)
+      onSuccess()
+    }),
+      error => {
+        setIsLoading(false)
+        console.log(error)
+      }
   }
 
   return (
@@ -296,7 +322,11 @@ const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
                   )}
                   <div className="absolute w-full bottom-0 right-0 lg:block hidden">
                     <div className="w-full mt-[20px]">
-                      <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
+                      {isLoading ? (
+                        <LoadingButton fullWidth height={50} />
+                      ) : (
+                        <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
+                      )}
                     </div>
                     <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
                       <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
@@ -304,7 +334,11 @@ const MerchShopUpdateModal = ({ data, open, onClose, onRemove }) => {
                   </div>
                   <div className="lg:hidden block">
                     <div className="w-full mt-[20px]">
-                      <GradientButton fullWidth label="Republish" height={50} onClick={closeModal} />
+                      {isLoading ? (
+                        <LoadingButton fullWidth height={50} />
+                      ) : (
+                        <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
+                      )}
                     </div>
                     <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
                       <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
