@@ -55,11 +55,11 @@ const MerchShopEditModal = ({ type, open, onClose }) => {
                       ? 'Do you want to remove this item?'
                       : ''}
                   </div>
-                  <div onClick={closeModal}>
+                  <div className="lg:block hidden" onClick={closeModal}>
                     <CloseIcon />
                   </div>
                 </div>
-                <div className="w-full px-[33px] pt-[24px]">
+                <div className="w-full px-[16px] lg:px-[33px] pt-[24px]">
                   <div className={styles.content}>
                     {type === 'delist'
                       ? 'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
@@ -69,7 +69,7 @@ const MerchShopEditModal = ({ type, open, onClose }) => {
                       ? 'This action is irreversible. If you choose to remove, it will remove the item from your merch store and dashboard.'
                       : ''}
                   </div>
-                  <div className="w-full flex justify-end mt-[15px]">
+                  <div className="w-full flex justify-end mt-[30px] lg:mt-[15px]">
                     <div className="flex gap-[20px]">
                       <OutlineButton
                         label="Cancel"
