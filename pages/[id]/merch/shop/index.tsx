@@ -77,12 +77,14 @@ const CreatorMerchShop = props => {
           Physicals by {username}
         </div>
       )}
-      <div className="sm:block hidden grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
-        {physicalList.map((item, index) => (
-          <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
-            <MerchPhysicalCard username={username} data={item} />
-          </div>
-        ))}
+      <div className="sm:block hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+          {physicalList.map((item, index) => (
+            <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
+              <MerchPhysicalCard username={username} data={item} />
+            </div>
+          ))}
+        </div>
       </div>
       <div className="sm:hidden block mt-[20px]">
         <Swiper
