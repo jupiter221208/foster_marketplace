@@ -43,7 +43,7 @@ const CreatorMerchShop = props => {
       error => {}
     )
   }, [])
-  console.log(editionList, '==========editionList=========')
+
   return (
     <div className="w-full">
       {/* {merchList.length > 0 && <div className={styles.title}>Available merch for sale</div>} */}
