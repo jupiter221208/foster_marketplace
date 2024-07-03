@@ -231,7 +231,7 @@ const NewCreatorMerch = () => {
           fulfillment_type: 'user',
           product_type_id: getProductTypeId(),
           selling_price: Math.floor(additionDetail.selling_price * 100),
-          supply: null,
+          supply: additionDetail.supply,
           master_edition_address: null,
           sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
           sale_end_at: additionDetail.sale_end_at?.toISOString().split('.')[0],
