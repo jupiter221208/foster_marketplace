@@ -16,14 +16,12 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
-import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
-import { getTimeDifference } from 'utils/helpers'
+import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
-import StoreMerchModal from 'components/Menu/StoreMerchModal'
 
 const MerchPhysicalCard = props => {
   const { username, data } = props
@@ -35,7 +33,6 @@ const MerchPhysicalCard = props => {
   const [indicatorList, setIndicatorList] = useState([])
   const [showTimer, setShowTimer] = useState(false)
   const [timeLeft, setTimeLeft] = useState<any>(null)
-  const [openModal, setOpenModal] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -200,7 +197,7 @@ const MerchPhysicalCard = props => {
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
                 <div className={styles.saleType}>Goes live on </div>
-                <div className={styles.saleCount}>TBD</div>
+                <div className={styles.saleCount}>{getDateTimeLabel(new Date(data.sale_start_at))}</div>
               </div>
             ) : (
               <div>

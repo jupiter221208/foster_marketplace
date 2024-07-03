@@ -145,6 +145,16 @@ export const getDateLabel = date => {
   return month + ' ' + day + ', ' + year
 }
 
+export const getDateTimeLabel = date => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month = months[date.getMonth()]
+  let day = date.getDate()
+  let year = date.getFullYear()
+  let hours = date.getHours()
+  let mins = date.getMinutes()
+  return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
+}
+
 export const getYMDString = date => {
   let month = date.getMonth() + 1
   return month + '/' + date.getDate() + '/' + date.getFullYear()

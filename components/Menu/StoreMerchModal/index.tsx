@@ -13,6 +13,13 @@ import GradientButton from 'components/Button/GradientButton'
 const StoreMerchModal = props => {
   const { open, close, item, onBuyNow, showTimer, timeLeft } = props
 
+  const convertDescription = desc => {
+    if (desc === 'Unisex Premium Hoodie') return 'Premium Hoodie'
+    else if (desc === 'Unisex Organic Cotton T-Shirt') return 'Premium Tee'
+    else if (desc === 'Unisex Long Sleeve Tee') return 'Premium Long Sleeve'
+    else if (desc === 'Unisex Eco Sweatshirt') return 'Premium Crewneck'
+    else if (desc === "Women's Fitted Eco Tee") return 'Women’s Tee'
+  }
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={close}>
@@ -53,17 +60,17 @@ const StoreMerchModal = props => {
                   </div>
                   <div className="flex flex-col justify-between">
                     <div className={styles.storeName}>{item.name}</div>
-                    <div className={styles.storeDesc}>{item.description.split('|')[0]}</div>
+                    <div className={styles.storeDesc}>{convertDescription(item.description.split(' | ')[0])}</div>
                   </div>
                 </div>
                 <div className="w-full px-[31px] mt-[15px] mb-[40px]">
                   <div className="w-full flex justify-between">
                     <div className={styles.label}>Price</div>
-                    <div>${item.selling_price / 100}</div>
+                    <div className={styles.time}>${item.selling_price / 100}</div>
                   </div>
                   <div className="w-full flex justify-between mt-[9px]">
                     <div className={styles.label}>{item.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                    <div>
+                    <div className={styles.time}>
                       {item.supply ? `${item.current_supply}/${item.supply} left` : `${item.current_supply} sold`}
                     </div>
                   </div>

@@ -50,6 +50,7 @@ const CreatorMerchShop = props => {
     )
   }, [])
 
+  console.log(physicalList, '============physicalList========')
   return (
     <div className="w-full">
       {/* {merchList.length > 0 && <div className={styles.title}>Available merch for sale</div>} */}

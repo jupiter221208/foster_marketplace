@@ -21,7 +21,7 @@ import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
-import { getTimeDifference } from 'utils/helpers'
+import { getDateTimeLabel, getTimeDifference, getYMDString } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 
@@ -224,7 +224,11 @@ const MerchShopCard = props => {
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
                 <div className={styles.saleType}>Goes live on </div>
-                <div className={styles.saleCount}>TBD</div>
+                {data.fulfillment_type === 'foster' ? (
+                  <div className={styles.saleCount}>{getDateTimeLabel(new Date(data.sale_start_at))}</div>
+                ) : (
+                  <div className={styles.saleCount}>TBD</div>
+                )}
               </div>
             ) : (
               <div>
