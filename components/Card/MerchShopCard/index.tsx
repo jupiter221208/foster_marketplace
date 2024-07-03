@@ -94,6 +94,15 @@ const MerchShopCard = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep])
 
+  const gotoDetail = () => {
+    if (data.fulfillment_type === 'foster') {
+      dispatch({ type: 'set', merchOrderType: 'foster' })
+      router.push(`/${username}/merch/${data.id}`)
+    } else {
+      if (getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0)
+        router.push(`/nft/${data.master_edition_address}`)
+    }
+  }
   return (
     <div className={styles.container}>
       <div className="relative">
@@ -112,7 +121,7 @@ const MerchShopCard = props => {
           {data.fulfillment_type === 'foster'
             ? data.options.addons.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea}>
+                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
                     <div
                       className={styles.imageContent}
                       onClick={() => {
@@ -131,7 +140,7 @@ const MerchShopCard = props => {
               ))
             : data.options.product_images.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea}>
+                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
                     <div
                       className={styles.imageContent}
                       onClick={() => {
@@ -162,37 +171,6 @@ const MerchShopCard = props => {
               {indicatorList.map((item, index) => (
                 <div key={index} className={item ? styles.selected : styles.nonSelected} />
               ))}
-            </div>
-          </div>
-        )}
-        {showTimer && (
-          <div className={styles.timerBG}>
-            <ClockSandIcon />
-            <div className="flex gap-[4px]">
-              {timeLeft && timeLeft['days'] !== '00' && (
-                <div className="flex block justify-center gap-[2px]">
-                  <div className={styles.grayTime}>{timeLeft['days']}</div>
-                  <div className={styles.grayText}>d</div>
-                </div>
-              )}
-              {timeLeft && timeLeft['hours'] !== '00' && (
-                <div className="flex block justify-center gap-[2px]">
-                  <div className={styles.grayTime}>{timeLeft['hours']}</div>
-                  <div className={styles.grayText}>h</div>
-                </div>
-              )}
-              {timeLeft && timeLeft['minutes'] !== '00' && (
-                <div className="flex block justify-center gap-[2px]">
-                  <div className={styles.grayTime}>{timeLeft && timeLeft['minutes']}</div>
-                  <div className={styles.grayText}>m</div>
-                </div>
-              )}
-              {timeLeft && timeLeft['seconds'] !== '00' && (
-                <div className="flex block justify-center gap-[2px]">
-                  <div className={styles.grayTime}>{timeLeft && timeLeft['seconds']}</div>
-                  <div className={styles.grayText}>s</div>
-                </div>
-              )}
             </div>
           </div>
         )}
@@ -228,8 +206,8 @@ const MerchShopCard = props => {
 
         <div className={`${styles.divider} mt-[15px] sm:mt-[15px]`} />
 
-        {data.fulfillment_type === 'foster' ? (
-          <div className="w-full mt-[15px] sm:mt-[15px] flex justify-between">
+        <div className="w-full">
+          <div className="w-full mt-[15px] sm:mt-[15px]">
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
                 <div className={styles.saleType}>Goes live on </div>
@@ -237,66 +215,47 @@ const MerchShopCard = props => {
               </div>
             ) : (
               <div>
-                <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                <div className={styles.saleCount}>
-                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                  {showTimer && <div className={styles.saleType}>Ends in</div>}
+                </div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleCount}>
+                    {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                  </div>
+                  {showTimer && (
+                    <div className="flex gap-[4px] mt-[7px]">
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.grayTime}>{timeLeft['days']}</div>
+                          <div className={styles.grayText}>d</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['hours'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.grayTime}>{timeLeft['hours']}</div>
+                          <div className={styles.grayText}>h</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['minutes'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.grayTime}>{timeLeft && timeLeft['minutes']}</div>
+                          <div className={styles.grayText}>m</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['seconds'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.grayTime}>{timeLeft && timeLeft['seconds']}</div>
+                          <div className={styles.grayText}>s</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
-
-            {getTimeDifference(data.sale_start_at) <= 0 && (
-              <div className="sm:block hidden">
-                <GradientButton
-                  borderRadius={10}
-                  label="Buy Now"
-                  backgroundColor01="var(--place-bid-minimum-color)"
-                  backgroundColor02="var(--place-bid-minimum-color)"
-                  color="var(--time-slog-bg)"
-                  width={106}
-                  height={42}
-                  fontSize={16}
-                  onClick={() => {
-                    dispatch({ type: 'set', merchOrderType: 'foster' })
-                    router.push(`/${username}/merch/${data.id}`)
-                  }}
-                />
-              </div>
-            )}
           </div>
-        ) : (
-          <div className="w-full mt-[15px] flex justify-between">
-            {getTimeDifference(data.sale_start_at) > 0 ? (
-              <div>
-                <div className={styles.saleType}>Goes live on </div>
-                <div className={styles.saleCount}>TBD</div>
-              </div>
-            ) : (
-              <div>
-                <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                <div className={styles.saleCount}>
-                  {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
-                </div>
-              </div>
-            )}
-
-            {getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0 && (
-              <GradientButton
-                borderRadius={10}
-                label="Buy Now"
-                backgroundColor01="var(--place-bid-minimum-color)"
-                backgroundColor02="var(--place-bid-minimum-color)"
-                color="var(--time-slog-bg)"
-                width={106}
-                height={42}
-                fontSize={16}
-                onClick={() => {
-                  // dispatch({ type: 'set', merchOrderType: 'foster' })
-                  router.push(`/nft/${data.master_edition_address}`)
-                }}
-              />
-            )}
-          </div>
-        )}
+        </div>
       </div>
     </div>
   )

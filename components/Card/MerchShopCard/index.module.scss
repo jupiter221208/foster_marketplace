@@ -50,23 +50,6 @@
   background: rgba(var(--main-bg-color-rgb), 0.5);
 }
 
-.timerBG {
-  z-index: 10;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 50px;
-  min-height: 50px;
-  background: rgba(var(--background-main-color-rgb), 0.5);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-}
-
 .grayTime {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
@@ -75,7 +58,7 @@
 }
 
 .grayText {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
@@ -90,7 +73,7 @@
     margin-top: 20px;
     padding: 0px 20px;
     background: var(--background-main-color);
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+    border: 1px solid rgba(var(--main-bg-color-rgb), 0.05);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
