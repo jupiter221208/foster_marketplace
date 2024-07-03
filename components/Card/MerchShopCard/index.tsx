@@ -16,14 +16,14 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
-import ClockSandIcon from 'assets/icons/clock-sand-icon.svg?component'
+import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import GradientButton from 'components/Button/GradientButton'
 import { useDispatch } from 'react-redux'
 import { getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
+import StoreMerchModal from 'components/Menu/StoreMerchModal'
 
 const MerchShopCard = props => {
   const { type = 'foster', username, data } = props
@@ -35,6 +35,7 @@ const MerchShopCard = props => {
   const [indicatorList, setIndicatorList] = useState([])
   const [showTimer, setShowTimer] = useState(false)
   const [timeLeft, setTimeLeft] = useState<any>(null)
+  const [openModal, setOpenModal] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -166,7 +167,7 @@ const MerchShopCard = props => {
           </div>
         )}
         {indicatorList.length > 1 && (
-          <div className="absolute left-0 bottom-[15px] w-full sm:flex hidden justify-center z-[10]">
+          <div className="absolute left-0 bottom-[15px] w-full sm:flex flex justify-center z-[10]">
             <div className="gap-[14px] h-[5px] flex justify-around">
               {indicatorList.map((item, index) => (
                 <div key={index} className={item ? styles.selected : styles.nonSelected} />
@@ -177,19 +178,7 @@ const MerchShopCard = props => {
       </div>
 
       <div className={styles.bottomSection}>
-        {indicatorList.length > 1 ? (
-          <div className="w-full flex sm:hidden justify-center mt-[30px]">
-            <div className="gap-[14px] h-[5px] flex justify-around">
-              {indicatorList.map((item, index) => (
-                <div key={index} className={item ? styles.selected : styles.nonSelected} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="w-full flex sm:hidden h-[20px]" />
-        )}
-
-        <div className="w-full mt-[10px] sm:mt-[15px] sm:flex sm:flex-row flex-col justify-between gap-[10px]">
+        <div className="sm:flex hidden w-full mt-[15px] justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
           <div>
             <div className="sm:flex hidden gap-[4px] mt-1 items-center">
@@ -204,9 +193,33 @@ const MerchShopCard = props => {
           </div>
         </div>
 
-        <div className={`${styles.divider} mt-[15px] sm:mt-[15px]`} />
+        <div className="sm:hidden block w-full">
+          <div className={styles.nftName}>{data.name}</div>
+          <div>
+            <div className="sm:flex hidden gap-[4px] mt-1 items-center">
+              <div className="mt-[2px]">
+                <SolanaLogoIcon />
+              </div>
+              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
+            </div>
+            <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
+              ${(data.selling_price / 100).toFixed(2)}
+            </div>
+          </div>
+        </div>
 
-        <div className="w-full">
+        <div className="sm:hidden block absolute right-[10px] bottom-[15px]">
+          <div
+            onClick={() => {
+              setOpenModal(true)
+            }}
+          >
+            <ThreeDotIcon />
+          </div>
+        </div>
+        <div className={`${styles.divider} mt-[15px] sm:block hidden`} />
+
+        <div className="w-full sm:block hidden">
           <div className="w-full mt-[15px] sm:mt-[15px]">
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
@@ -257,6 +270,20 @@ const MerchShopCard = props => {
           </div>
         </div>
       </div>
+
+      {openModal && (
+        <StoreMerchModal
+          open={openModal}
+          close={() => setOpenModal(false)}
+          item={data}
+          showTimer={showTimer}
+          timeLeft={timeLeft}
+          onBuyNow={() => {
+            setOpenModal(false)
+            gotoDetail()
+          }}
+        />
+      )}
     </div>
   )
 }

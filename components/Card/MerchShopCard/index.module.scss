@@ -66,27 +66,24 @@
 
 .bottomSection {
   width: 100%;
-  height: auto;
-  padding: 0px 0px 11px 0px;
+  height: 81px;
+  padding: 9px 10px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.05);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: 20px;
   @media (min-width: 640px) {
     height: 155px;    
-    margin-top: 20px;
-    padding: 0px 20px;
-    background: var(--background-main-color);
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.05);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    padding: 0px 20px; 
   }
-  @media (min-width: 1024px) {
-    margin-top: 0px;
-  }
- 
 }
 
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
+  word-break: break-all;
   color: var(--text-gray-200-color);
 }
 
