@@ -52,10 +52,11 @@
 }
 
 .orderTotal {
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Light';
     font-size: 16px;
     line-height: 20px;
   }
@@ -83,6 +84,7 @@
   font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
+  text-align: end;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
   margin-top: 2px;
 }
