@@ -96,7 +96,7 @@
   height: 40px;
   overflow: hidden;
   @media (min-width: 640px) {
-    height: 60px;
+    max-height: 40px;
   }
   color: var(--text-gray-200-color);
 }
