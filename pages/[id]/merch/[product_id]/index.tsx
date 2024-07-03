@@ -28,7 +28,6 @@ interface MerchOrderPageProps {
 const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const type = useSelector(state => (state as any).merchOrderType)
 
   const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
@@ -37,11 +36,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [totalCost, setTotalCost] = useState(null)
   const [merchQuantity, setMerchQuantity] = useState(1)
   const [merchSize, setMerchSize] = useState('L')
-  const [merchCost, setMerchCost] = useState(0)
   const [merchList, setMerchList] = useState([])
   const [rawUrlList, setRawUrlList] = useState([])
   const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
+  const [type, setType] = useState('')
+
   const onClickMerch = key => {
     let list = []
     merchList.map((merch, index) => {
@@ -73,10 +73,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               imageList.push({ url: item.mockup_url, selected: index === 0 })
               rawList.push({ url: item.raw_url })
             })
+            setType('foster')
           } else {
             response.options.product_images.map((item, index) => {
               imageList.push({ url: item, selected: index === 0 })
             })
+            setType('user')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
@@ -125,7 +127,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 className={merch.selected ? styles.selected : styles.unselected}
                 onClick={() => onClickMerch(index)}
               >
-                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full" />
+                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full object-cover" />
               </div>
             )
           })}
@@ -141,7 +143,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                   <ImageWithFoster
                     width={700}
                     src={selectedMerch ? selectedMerch.url : ''}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>
@@ -153,7 +155,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 <ImageWithFoster
                   width={700}
                   src={selectedMerch ? selectedMerch.url : ''}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
             </div>
