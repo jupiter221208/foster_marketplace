@@ -4,15 +4,13 @@ import { useAuthentication } from 'hooks/useAuthentication'
 // next components
 
 // image
-import merchImageFront from 'assets/images/merch-order-front.png'
-import merchImageBack from 'assets/images/merch-order-back.png'
-import merchImageLeft from 'assets/images/merch-order-left.png'
 
 // components
-import ListedNFTCard from 'components/Card/ListedNFTCard'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import MerchEditionClaimCard from 'components/Card/MerchEditionClaimCard'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // styles
 import styles from './index.module.scss'
@@ -43,58 +41,63 @@ const MerchEditionSection = props => {
   const [merchList, setMerchList] = useState<any>([])
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Unclaimed' })
   const [filteredList, setFilteredList] = useState<any>([])
+  const [isFetching, setIsFetching] = useState(false)
 
   useEffect(() => {
-    let list = [
-      {
-        id: 0,
-        product_name: 'Product Name1',
-        edition_name: 'edition Name #1',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        id: 1,
-        product_name: 'Product Name2',
-        edition_name: 'edition Name #2',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        id: 2,
-        product_name: 'Product Name3',
-        edition_name: 'edition Name #3',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-      {
-        id: 3,
-        product_name: 'Product Name4',
-        edition_name: 'edition Name #4',
-        urls: [merchImageFront, merchImageBack, merchImageLeft],
-        avatar_url:
-          'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-      },
-    ]
-    setMerchList(list)
-    setFilteredList(list)
-    // if (profileInfo) {
-    //   getMerchList()
-    // }
+    // let list = [
+    //   {
+    //     id: 0,
+    //     product_name: 'Product Name1',
+    //     edition_name: 'edition Name #1',
+    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
+    //     avatar_url:
+    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+    //   },
+    //   {
+    //     id: 1,
+    //     product_name: 'Product Name2',
+    //     edition_name: 'edition Name #2',
+    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
+    //     avatar_url:
+    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+    //   },
+    //   {
+    //     id: 2,
+    //     product_name: 'Product Name3',
+    //     edition_name: 'edition Name #3',
+    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
+    //     avatar_url:
+    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+    //   },
+    //   {
+    //     id: 3,
+    //     product_name: 'Product Name4',
+    //     edition_name: 'edition Name #4',
+    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
+    //     avatar_url:
+    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
+    //   },
+    // ]
+    // setMerchList(list)
+    // setFilteredList(list)
+    if (profileInfo) {
+      getMerchList()
+    }
   }, [profileInfo])
 
   const getMerchList = () => {
-    StoreAPI.getStoreByUserId(profileInfo.id).then(
+    setIsFetching(false)
+    StoreAPI.getStoreUnclaimed().then(
       response => {
         if (response) {
           setMerchList(response)
           setFilteredList(response)
+          setIsFetching(true)
         }
       },
-      error => {}
+      error => {
+        setIsFetching(true)
+      }
     )
   }
 
@@ -113,19 +116,24 @@ const MerchEditionSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between z-10">
-        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+      {isFetching && merchList.length > 0 && (
+        <div className="w-full flex justify-between z-10">
+          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
 
-        <DropdownFilterMenu
-          label={selectedItem['label']}
-          data={filterList}
-          selectedItem={selectedItem}
-          setSelectedItem={item => {
-            setSelectedItem(item)
-            setActive(item.id)
-          }}
-        />
-      </div>
+          <DropdownFilterMenu
+            label={selectedItem['label']}
+            data={filterList}
+            selectedItem={selectedItem}
+            setSelectedItem={item => {
+              setSelectedItem(item)
+              setActive(item.id)
+            }}
+          />
+        </div>
+      )}
+      {isFetching && merchList.length === 0 && (
+        <div className={styles.comingSoon}>You don&apos;t have any merch editions.</div>
+      )}
 
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {filteredList.map(item => (
@@ -134,6 +142,14 @@ const MerchEditionSection = props => {
           </div>
         ))}
       </div>
+
+      {!isFetching && (
+        <div className="w-full flex justify-center">
+          <div className="w-[500px] h-[40px]">
+            <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
+          </div>
+        </div>
+      )}
     </section>
   )
 }

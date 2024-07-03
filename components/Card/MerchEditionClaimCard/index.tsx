@@ -38,18 +38,22 @@ const MerchEditionClaimCard = props => {
       <div className="relative w-full overflow-hidden">
         <div className={styles.topSection}>
           <div>
-            <div className={styles.productName}>{data.product_name}</div>
-            <div className={styles.editionName}>{data.edition_name}</div>
+            <div className={styles.productName}>{data.name}</div>
+            {/* <div className={styles.editionName}>{data.edition_name}</div> */}
           </div>
-          <div className={styles.avatarArea}>
+          {/* <div className={styles.avatarArea}>
             <ImageWithFoster src={data.avatar_url} width={800} className="w-full h-full object-cover" />
-          </div>
+          </div> */}
         </div>
 
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             <div className="w-full h-full p-4">
-              <ImageWithFoster src={data.urls[0].src} width={800} className="w-full h-full object-cover" />
+              <ImageWithFoster
+                src={data.options.product_images[0]}
+                width={800}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
@@ -77,8 +81,16 @@ const MerchEditionClaimCard = props => {
         )}
       </div>
 
-      <MerchEditionViewModal urls={data.urls} open={showViewCard} onClose={() => setShowViewCard(false)} />
-      <MerchClaimModal urls={data.urls} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
+      <MerchEditionViewModal
+        urls={data.options.product_images}
+        open={showViewCard}
+        onClose={() => setShowViewCard(false)}
+      />
+      <MerchClaimModal
+        urls={data.options.product_images}
+        open={showClaimCard}
+        onClose={() => setShowClaimCard(false)}
+      />
     </div>
   )
 }

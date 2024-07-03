@@ -145,6 +145,16 @@ export const getDateLabel = date => {
   return month + ' ' + day + ', ' + year
 }
 
+export const getDateTimeLabel = date => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month = months[date.getMonth()]
+  let day = date.getDate()
+  let year = date.getFullYear()
+  let hours = date.getHours()
+  let mins = date.getMinutes()
+  return month + ' ' + day + ', ' + year + ' ' + hours + ':' + mins
+}
+
 export const getYMDString = date => {
   let month = date.getMonth() + 1
   return month + '/' + date.getDate() + '/' + date.getFullYear()
@@ -690,11 +700,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-242424-EFF0F605', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--bg-242424-FFF', '#FFF')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '238, 237, 235')
+    doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#EEEDEB')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#DDDCDC')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', '#FFF')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-1E1E1E-F7F6F4', '#F7F6F4')
-    doc.style.setProperty('--bg-242424-F7F6F4', '#F7F6F4')
     doc.style.setProperty('--bg-171717-FFF', '#FFF')
     doc.style.setProperty('--bg-EFF0F610-F3F2F0', '#F3F2F0')
     doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#D1D1CF')
@@ -1060,11 +1070,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--bg-242424-EFF0F605', '#242424')
     doc.style.setProperty('--bg-242424-FFF', '#242424')
     doc.style.setProperty('--bg-1a1a1a-EEEDEB', '26, 26, 26')
+    doc.style.setProperty('--bg-1E1E1E-EEEDEB', '#1E1E1E')
     doc.style.setProperty('--bg-2B2B2B-DDDCDC', '#2B2B2B')
     doc.style.setProperty('--bg-TRANSPARENT-FFF', 'transparent')
     doc.style.setProperty('--bg-1E1E1E-F3F2F0', '#1E1E1E')
     doc.style.setProperty('--bg-1E1E1E-F7F6F4', '#1E1E1E')
-    doc.style.setProperty('--bg-242424-F7F6F4', '#242424')
     doc.style.setProperty('--bg-171717-FFF', '#171717')
     doc.style.setProperty('--bg-2C2C2C-D1D1CF', '#2C2C2C')
   }

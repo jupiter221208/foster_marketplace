@@ -46,6 +46,7 @@ const ProductDetails = props => {
                 : 'Select who will handle production and fulfillment'
               : product.label
           }
+          width={viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? 343 : 600}
           data={ProductList}
           selectedItem={product}
           setSelectedItem={item => {

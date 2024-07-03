@@ -52,10 +52,11 @@
 }
 
 .orderTotal {
-  font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Light';
     font-size: 16px;
     line-height: 20px;
   }
@@ -83,6 +84,7 @@
   font-family: 'Muli-Light';
   font-size: 16px;
   line-height: 20px;
+  text-align: end;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
   margin-top: 2px;
 }
@@ -160,7 +162,7 @@
     height: 125px;
   }
   border-radius: 15px;
-  background: var(--dao-treasury-bg);
+  background: var(--bg-1E1E1E-F7F6F4);
   cursor: pointer;
 }
 
@@ -212,7 +214,7 @@
 
 .bottomSection {
   width: 100%;
-  padding: 0px 16px;
+  padding: 0px 0px;
   margin-top: 45px;
   @media (min-width: 1024px) {
     border-top: 1px solid var(--bg-303030-DDDCDC);
