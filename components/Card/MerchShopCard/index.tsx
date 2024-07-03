@@ -226,10 +226,6 @@ const MerchShopCard = props => {
           </div>
         </div>
 
-        {/* <div className="w-full mt-[7px] flex justify-end items-center">
-           <div className={`sm:block hidden ${styles.artistName}`}>{ProductTypeList[data.product_type_id - 1].name}</div> 
-        </div> */}
-
         <div className={`${styles.divider} mt-[15px] sm:mt-[15px]`} />
 
         {data.fulfillment_type === 'foster' ? (
@@ -283,7 +279,7 @@ const MerchShopCard = props => {
               </div>
             )}
 
-            {getTimeDifference(data.sale_start_at) <= 0 && (
+            {getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0 && (
               <GradientButton
                 borderRadius={10}
                 label="Buy Now"
@@ -294,15 +290,14 @@ const MerchShopCard = props => {
                 height={42}
                 fontSize={16}
                 onClick={() => {
-                  dispatch({ type: 'set', merchOrderType: 'foster' })
-                  router.push(`/${username}/merch/${data.id}`)
+                  // dispatch({ type: 'set', merchOrderType: 'foster' })
+                  router.push(`/nft/${data.master_edition_address}`)
                 }}
               />
             )}
           </div>
         )}
       </div>
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
