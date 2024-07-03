@@ -207,7 +207,9 @@ const MerchPhysicalCard = props => {
                 </div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleCount}>
-                    {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
+                    {data.supply
+                      ? `${data.supply - data.current_supply}/${data.supply} left`
+                      : `${data.current_supply} sold`}
                   </div>
                   {showTimer && (
                     <div className="flex gap-[4px]">
