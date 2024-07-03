@@ -1475,7 +1475,7 @@ const MainSection = ({
                           />
                         </div>
                         <div className={styles.contentArea}>
-                          <div className="w-full flex justify-between items-center mt-[4px] lg:mt-[2px]">
+                          <div className="w-full flex justify-between items-center mt-[4px] lg:mt-[0px]">
                             <div className={styles.merchTitle}>Merch included for each purchase</div>
                             <div className="hidden sm:block w-[82px] h-[32px] mr-[12px]">
                               <GradientButton

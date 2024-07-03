@@ -64,6 +64,18 @@ class Store {
       return response.data
     })
   }
+
+  prepareCart(data) {
+    return client.post(API_URL + 'v1/stores/prepare_cart', data).then(response => {
+      return response.data
+    })
+  }
+
+  checkout(data) {
+    return client.post(API_URL + 'v1/stores/checkout', data).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Store()

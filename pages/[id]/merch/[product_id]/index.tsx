@@ -218,6 +218,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 mintAddress=""
                 onNext={orderId => {
                   let data = {
+                    type: 'store',
                     printData,
                     shippingData,
                     nftName: printData.name,
