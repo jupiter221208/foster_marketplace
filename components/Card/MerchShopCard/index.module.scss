@@ -77,6 +77,14 @@
     height: 155px;    
     padding: 0px 20px; 
   }
+  @media (min-width: 1024px) {
+    height: 155px;    
+    padding: 0px 16px; 
+  }
+  @media (min-width: 1280px) {
+    height: 155px;    
+    padding: 0px 20px; 
+  }
 }
 
 .nftName {
@@ -176,5 +184,15 @@
   @media (min-width: 640px) {
     font-size: 16px;
     line-height: 20px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 15px;
+    line-height: 20px;
+    margin-top: 10px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 7px;
   }
 }

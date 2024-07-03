@@ -237,29 +237,29 @@ const MerchShopCard = props => {
                     {data.supply ? `${data.current_supply}/${data.supply} left` : `${data.current_supply} sold`}
                   </div>
                   {showTimer && (
-                    <div className="flex gap-[4px] mt-[7px]">
+                    <div className="flex gap-[4px]">
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.grayTime}>{timeLeft['days']}</div>
-                          <div className={styles.grayText}>d</div>
+                          <div className={styles.saleCount}>{timeLeft['days']}</div>
+                          <div className={styles.saleCount}>d</div>
                         </div>
                       )}
                       {timeLeft && timeLeft['hours'] !== '00' && (
                         <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.grayTime}>{timeLeft['hours']}</div>
-                          <div className={styles.grayText}>h</div>
+                          <div className={styles.saleCount}>{timeLeft['hours']}</div>
+                          <div className={styles.saleCount}>h</div>
                         </div>
                       )}
                       {timeLeft && timeLeft['minutes'] !== '00' && (
                         <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.grayTime}>{timeLeft && timeLeft['minutes']}</div>
-                          <div className={styles.grayText}>m</div>
+                          <div className={styles.saleCount}>{timeLeft && timeLeft['minutes']}</div>
+                          <div className={styles.saleCount}>m</div>
                         </div>
                       )}
                       {timeLeft && timeLeft['seconds'] !== '00' && (
                         <div className="flex block justify-center gap-[1px]">
-                          <div className={styles.grayTime}>{timeLeft && timeLeft['seconds']}</div>
-                          <div className={styles.grayText}>s</div>
+                          <div className={styles.saleCount}>{timeLeft && timeLeft['seconds']}</div>
+                          <div className={styles.saleCount}>s</div>
                         </div>
                       )}
                     </div>
