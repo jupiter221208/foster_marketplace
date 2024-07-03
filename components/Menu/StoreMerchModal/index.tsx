@@ -9,9 +9,10 @@ import { Dialog, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 
 const StoreMerchModal = props => {
-  const { open, close, item, onBuyNow, showTimer, timeLeft } = props
+  const { open, close, item, onBuyNow, showTimer, timeLeft, startDate } = props
 
   const convertDescription = desc => {
     if (desc === 'Unisex Premium Hoodie') return 'Premium Hoodie'
@@ -71,45 +72,58 @@ const StoreMerchModal = props => {
                   <div className="w-full flex justify-between mt-[9px]">
                     <div className={styles.label}>{item.supply ? 'Limited Supply' : 'Open Supply'}</div>
                     <div className={styles.time}>
-                      {item.supply ? `${item.current_supply}/${item.supply} left` : `${item.current_supply} sold`}
+                      {item.supply
+                        ? `${item.supply - item.current_supply}/${item.supply} left`
+                        : `${item.current_supply} sold`}
                     </div>
                   </div>
-                  {showTimer && (
+                  {getTimeDifference(startDate) > 0 ? (
                     <div className="w-full flex justify-between mt-[9px]">
-                      <div className={styles.label}>Ends in</div>
-                      <div>
-                        <div className="flex gap-[4px] mt-[7px]">
-                          {timeLeft && timeLeft['days'] !== '00' && (
-                            <div className="flex block justify-center gap-[1px]">
-                              <div className={styles.time}>{timeLeft['days']}</div>
-                              <div className={styles.time}>d</div>
-                            </div>
-                          )}
-                          {timeLeft && timeLeft['hours'] !== '00' && (
-                            <div className="flex block justify-center gap-[1px]">
-                              <div className={styles.time}>{timeLeft['hours']}</div>
-                              <div className={styles.time}>h</div>
-                            </div>
-                          )}
-                          {timeLeft && timeLeft['minutes'] !== '00' && (
-                            <div className="flex block justify-center gap-[1px]">
-                              <div className={styles.time}>{timeLeft && timeLeft['minutes']}</div>
-                              <div className={styles.time}>m</div>
-                            </div>
-                          )}
-                          {timeLeft && timeLeft['seconds'] !== '00' && (
-                            <div className="flex block justify-center gap-[1px]">
-                              <div className={styles.time}>{timeLeft && timeLeft['seconds']}</div>
-                              <div className={styles.time}>s</div>
-                            </div>
-                          )}
+                      <div className={styles.label}>Goes live on </div>
+                      {item.fulfillment_type === 'foster' ? (
+                        <div className={styles.time}>{getDateTimeLabel(new Date(startDate))}</div>
+                      ) : (
+                        <div className={styles.time}>TBD</div>
+                      )}
+                    </div>
+                  ) : (
+                    showTimer && (
+                      <div className="w-full flex justify-between mt-[9px]">
+                        <div className={styles.label}>Ends in</div>
+                        <div>
+                          <div className="flex gap-[4px]">
+                            {timeLeft && timeLeft['days'] !== '00' && (
+                              <div className="flex block justify-center gap-[1px]">
+                                <div className={styles.time}>{timeLeft['days']}</div>
+                                <div className={styles.time}>d</div>
+                              </div>
+                            )}
+                            {timeLeft && timeLeft['hours'] !== '00' && (
+                              <div className="flex block justify-center gap-[1px]">
+                                <div className={styles.time}>{timeLeft['hours']}</div>
+                                <div className={styles.time}>h</div>
+                              </div>
+                            )}
+                            {timeLeft && timeLeft['minutes'] !== '00' && (
+                              <div className="flex block justify-center gap-[1px]">
+                                <div className={styles.time}>{timeLeft && timeLeft['minutes']}</div>
+                                <div className={styles.time}>m</div>
+                              </div>
+                            )}
+                            {timeLeft && timeLeft['seconds'] !== '00' && (
+                              <div className="flex block justify-center gap-[1px]">
+                                <div className={styles.time}>{timeLeft && timeLeft['seconds']}</div>
+                                <div className={styles.time}>s</div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )
                   )}
                   <div className="w-full mt-[15px]">
                     <GradientButton
-                      label="Buy Now"
+                      label={getTimeDifference(startDate) > 0 ? 'View' : 'Buy Now'}
                       fullWidth
                       height={43}
                       onClick={onBuyNow}

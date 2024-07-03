@@ -282,6 +282,7 @@ const MerchShopCard = props => {
           open={openModal}
           close={() => setOpenModal(false)}
           item={data}
+          startDate={data.sale_start_at}
           showTimer={showTimer}
           timeLeft={timeLeft}
           onBuyNow={() => {

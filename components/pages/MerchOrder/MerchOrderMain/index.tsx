@@ -294,7 +294,7 @@ const MerchOrderMain = props => {
               <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
               <div className={styles.creatorRound}>
                 {productDetail.supply
-                  ? `${productDetail.current_supply}/${productDetail.supply} left`
+                  ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
                   : `${productDetail.current_supply} sold`}
               </div>
             </div>
@@ -540,7 +540,13 @@ const MerchOrderMain = props => {
             {buyNowLoading ? (
               <LoadingPrimaryButton fullWidth />
             ) : (
-              <PrimaryButton fullWidth type="buy-now" label="Buy Now" onClick={() => onClickBuyNow()} />
+              <PrimaryButton
+                fullWidth
+                type="buy-now"
+                label="Buy Now"
+                disabled={getStartStatus() === 'Starts in'}
+                onClick={() => onClickBuyNow()}
+              />
             )}
           </div>
         </div>
