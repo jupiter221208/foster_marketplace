@@ -3,12 +3,19 @@
 .container {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 480px;
+  @media (min-width: 1024px) {
+    height: 100%;
+  }
   max-width: 500px;
   background: transparent;
   overflow: hidden;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.swiperContainer {
+  overflow: visible !important;
 }
 
 .imageArea {
@@ -27,6 +34,7 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  padding: 11px;
 }
 
 .selected {
@@ -45,23 +53,49 @@
   background: rgba(var(--main-bg-color-rgb), 0.5);
 }
 
+.grayTime {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.grayText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
 .bottomSection {
   width: 100%;
-  height: 155px;
-  padding-left: 20px;
-  padding-right: 20px;
+  height: 157px;
+  padding: 0px 20px; 
   background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.05);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  margin-top: 20px;
+  @media (min-width: 640px) {
+    height: 155px;    
+    padding: 0px 20px; 
+  }
+  @media (min-width: 1024px) {
+    height: 150px;    
+    padding: 0px 16px; 
+  }
+  @media (min-width: 1280px) {
+    height: 155px;    
+    padding: 0px 20px; 
+  }
 }
 
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
+  word-break: break-all;
   color: var(--text-gray-200-color);
-  max-lines: 2;
 }
 
 .artistName {
@@ -71,17 +105,17 @@
   line-height: 18px;
   color: var(--main-icon-color);
   font-weight: 100;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 16px;
   letter-spacing: 0;
   color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .dollarPrice {
@@ -89,10 +123,12 @@
   font-size: 14px;
   line-height: 14px;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color-rgb), 0.8);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: var(--main-icon-color);
+  @media (min-width: 640px) {
+    font-size: 14px;
+    line-height: 14px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  }
 }
 
 .shareBtn {
@@ -111,7 +147,7 @@
   min-height: 50px;
   width: 50px;
   height: 50px;
-  z-index: 100;
+  z-index: 10;
   background: rgba(var(--background-main-color-rgb), 0.5);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   -webkit-backdrop-filter: blur(30px);
@@ -128,20 +164,38 @@
 .divider {
   width: 100%;
   height: 1px;
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: rgba(var(--main-bg-color-rgb), 0.1);
 }
 
 .saleType {
   font-family: 'Muli-Light';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 15px;
   color: rgba(var(--main-bg-color-rgb), 0.8);
+  @media (min-width: 640px) {
+    font-size: 14px;
+    line-height: 15px;
+  }
 }
 
 .saleCount {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-bg-color);
-  margin-top: 7px;
+  margin-top: 4px;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 15px;
+    line-height: 20px;
+    margin-top: 8px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 4px;
+  }
 }

@@ -5,6 +5,12 @@ import MerchShopCard from 'components/Card/MerchShopCard'
 import styles from './index.module.scss'
 import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
 
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Lazy, Pagination, Navigation } from 'swiper'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 //apis
 import StoreAPI from 'apis/store'
 import { getTimeDifference } from 'utils/helpers'
@@ -55,7 +61,9 @@ const CreatorMerchShop = props => {
         ))}
       </div>
 
-      {editionList.length > 0 && <div className={`${styles.title} mt-[20px] lg:mt-[50px]`}>Merch editions</div>}
+      {editionList.length > 0 && (
+        <div className={`${styles.title} mt-[20px] lg:mt-[50px] w-full text-center lg:text-start`}>Merch editions</div>
+      )}
       <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {editionList.map((item, index) => (
           <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
@@ -65,14 +73,34 @@ const CreatorMerchShop = props => {
       </div>
 
       {physicalList.length > 0 && (
-        <div className={`${styles.title} mt-[20px] lg:mt-[50px]`}>Physicals by {username}</div>
+        <div className={`${styles.title} mt-[20px] lg:mt-[50px] w-full text-center lg:text-start`}>
+          Physicals by {username}
+        </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+      <div className="sm:block hidden grid grid-cols-1 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
         {physicalList.map((item, index) => (
           <div className="col-span-1 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
             <MerchPhysicalCard username={username} data={item} />
           </div>
         ))}
+      </div>
+      <div className="sm:hidden block mt-[20px]">
+        <Swiper
+          slidesPerView={1.14}
+          spaceBetween={10}
+          pagination={{
+            clickable: true,
+          }}
+          className={styles.swiperContainer}
+          modules={[Autoplay, Lazy, Navigation, Pagination]}
+          // loop
+        >
+          {physicalList.map((item, index) => (
+            <SwiperSlide key={index}>
+              <MerchPhysicalCard username={username} data={item} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   )

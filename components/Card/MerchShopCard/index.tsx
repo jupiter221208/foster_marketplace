@@ -26,7 +26,7 @@ import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 
 const MerchShopCard = props => {
-  const { type = 'foster', username, data } = props
+  const { username, data } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()

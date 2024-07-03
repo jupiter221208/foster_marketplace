@@ -7,15 +7,8 @@
 }
 
 .title {
-  font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 24px;
-  font-weight: 100;
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 30px;  
   color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 24px;
-    
-    line-height: 30px;  
-  }
 }
