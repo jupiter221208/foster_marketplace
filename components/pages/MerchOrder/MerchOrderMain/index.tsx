@@ -52,7 +52,6 @@ const MerchOrderMain = props => {
   const shouldShowReadMore = tempNftDescription.length > descCount
   const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(1)
-  const [nftPrice, setNftPrice] = useState(1.4)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
 
   useEffect(() => {
@@ -231,26 +230,6 @@ const MerchOrderMain = props => {
     else return name
   }
 
-  const getPrintArea = list => {
-    let directiction = []
-
-    list.map(item => {
-      let direct_id = item.product_addon_id.split('-')[1]
-      directiction.push(
-        direct_id === 1
-          ? 'Front'
-          : direct_id === 2
-          ? 'Back'
-          : direct_id === 3
-          ? 'Right'
-          : direct_id === 4
-          ? 'Left'
-          : 'Front'
-      )
-    })
-    return directiction.join().replaceAll(',', ', ')
-  }
-
   const getStartStatus = () => {
     if (getTimeDifference(productDetail.sale_start_at) > 0) return 'Starts in'
 
@@ -261,25 +240,25 @@ const MerchOrderMain = props => {
 
   return (
     <div className={styles.container}>
-      <div className="lg:hidden flex mt-[20px]">
+      {/* <div className="lg:hidden flex mt-[20px]">
         <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
           <ArrowLeftIcon />
           Back to store
         </div>
-      </div>
-      <div className="w-full h-[700px] lg:px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
+      </div> */}
+      <div className="w-full h-auto lg:h-[700px] lg:px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
             <div className={styles.productName}>{productDetail?.name}</div>
 
             <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
-              <div className="lg:block hidden">
+              <div className="">
                 <ShareDesktopIcon alt="" />
               </div>
-              <div className="lg:hidden block">
+              {/* <div className="lg:hidden block">
                 <ShareSmallIcon alt="" />
-              </div>
-              <div className={`${styles.shareText} mt-[-2px] lg:block hidden`}>Share</div>
+              </div> */}
+              <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
             </div>
           </div>
 

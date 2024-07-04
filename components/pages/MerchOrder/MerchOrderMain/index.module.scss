@@ -2,8 +2,8 @@
 
 .container {
   width: 100%;
-  min-height: 700px;
   @media (min-width: 1024px) {
+    min-height: 700px;
     background: var(--background-main-color);
     border: 1px solid var(--bg-303030-DDDCDC);
     border-radius: 10px;
@@ -18,10 +18,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 35px;
-  border-radius: 100%;
-  background: var(--background-main-color);
-  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  width: auto;
+  border-radius: 100%;  
   @media (min-width: 1024px) {
     width: auto;
     background: transparent;
