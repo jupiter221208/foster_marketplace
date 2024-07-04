@@ -122,6 +122,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             Back to store
           </div>
         </div>
+
         <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
           {merchList.map((merch, index) => {
             return (
@@ -166,33 +167,70 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
         </div>
 
         <div className={styles.imageSlider}>
-          {merchList.map((merch, index) => {
-            return (
-              <div
-                key={index}
-                className={merch.selected ? styles.selected : styles.unselected}
-                onClick={() => onClickMerch(index)}
-              >
-                <ImageWithFoster width={130} src={merch.url} />
+          {productDetail === null ? (
+            <div className="w-full flex gap-[15px]">
+              <div className="w-[81px] h-[81px] rounded-[10px] overflow-hidden">
+                <div className="skeletonLoader"></div>
               </div>
-            )
-          })}
+              <div className="w-[81px] h-[81px] rounded-[10px] overflow-hidden">
+                <div className="skeletonLoader"></div>
+              </div>
+              <div className="w-[81px] h-[81px] rounded-[10px] overflow-hidden">
+                <div className="skeletonLoader"></div>
+              </div>
+            </div>
+          ) : (
+            merchList.map((merch, index) => {
+              return (
+                <div
+                  key={index}
+                  className={merch.selected ? styles.selected : styles.unselected}
+                  onClick={() => onClickMerch(index)}
+                >
+                  <ImageWithFoster width={130} src={merch.url} />
+                </div>
+              )
+            })
+          )}
         </div>
 
         <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px]">
-          {currentStep === 1 && productDetail && (
-            <div className="w-full mt-[0px] lg:mt-[75px]">
-              <MerchOrderMain
-                username={router.query.id}
-                type={type}
-                productDetail={productDetail}
-                userDetail={publicArtistData}
-                onClickBuyNow={onClickBuyNow}
-                setQuantity={setMerchQuantity}
-                setMerchSize={setMerchSize}
-              />
-            </div>
-          )}
+          {currentStep === 1 &&
+            (productDetail ? (
+              <div className="w-full mt-[0px] lg:mt-[75px]">
+                <MerchOrderMain
+                  username={router.query.id}
+                  type={type}
+                  productDetail={productDetail}
+                  userDetail={publicArtistData}
+                  onClickBuyNow={onClickBuyNow}
+                  setQuantity={setMerchQuantity}
+                  setMerchSize={setMerchSize}
+                />
+              </div>
+            ) : (
+              <div className="mt-[20px] lg:hidden block">
+                <div className="w-full flex justify-between">
+                  <div className="w-[200px] h-[35px] rounded-[10px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[80px] h-[35px] rounded-[10px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="flex gap-[15px] mt-[20px]">
+                  <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-full h-[150px] mt-[20px] rounded-[10px] overflow-hidden">
+                  <div className="skeletonLoader" />
+                </div>
+              </div>
+            ))}
           {currentStep === 2 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShipping
