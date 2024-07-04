@@ -97,10 +97,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
       },
       error => {}
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicArtistData])
 
   useEffect(() => {
     setPrintData({ ...printData, size: merchSize })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchSize])
 
   useEffect(() => {
@@ -108,6 +110,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
     newData.quantity = merchQuantity
     newData.cost = (productDetail?.selling_price / 100) * merchQuantity
     setPrintData(newData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchQuantity])
 
   return (

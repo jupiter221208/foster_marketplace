@@ -62,9 +62,9 @@ const PrimaryHeader = () => {
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
 
-  let timer = null
+  const [timer, setTimer] = useState(null)
 
-  let lastScrollPosition = 0
+  const [lastScrollPosition, setLastScrollPosition] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -74,13 +74,13 @@ const PrimaryHeader = () => {
       else setIsScrollTop(true)
 
       if (position < 250) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(true)
       } else if (position > lastScrollPosition) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(false)
       } else if (position < lastScrollPosition) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(true)
       }
     }, 100)
@@ -128,23 +128,25 @@ const PrimaryHeader = () => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
       if (timer) {
         clearTimeout(timer)
-        timer = null
+        setTimer(null)
       }
-      timer = setTimeout(() => {
-        setSearchList({ nfts: [], artists: [], collections: [] })
-        searchAPI.search(searchKeyword).then(
-          response => {
-            let object: any = {}
-            object.nfts = response.nfts
-            object.artists = response.artists
-            object.collections = response.collections
-            setSearchList(object)
-          },
-          error => {
-            console.log(error)
-          }
-        )
-      }, 500)
+      setTimer(
+        setTimeout(() => {
+          setSearchList({ nfts: [], artists: [], collections: [] })
+          searchAPI.search(searchKeyword).then(
+            response => {
+              let object: any = {}
+              object.nfts = response.nfts
+              object.artists = response.artists
+              object.collections = response.collections
+              setSearchList(object)
+            },
+            error => {
+              console.log(error)
+            }
+          )
+        }, 500)
+      )
     } else {
       setSearchList({ nfts: [], artists: [], collections: [] })
     }

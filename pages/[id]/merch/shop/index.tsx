@@ -48,9 +48,9 @@ const CreatorMerchShop = props => {
       },
       error => {}
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(physicalList, '============physicalList========')
   return (
     <div className="w-full">
       {/* {merchList.length > 0 && <div className={styles.title}>Available merch for sale</div>} */}

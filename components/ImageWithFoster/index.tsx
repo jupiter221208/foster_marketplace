@@ -124,6 +124,7 @@ const ImageWithFoster = ({
             onLoadingComplete={handleLoad}
             loading="lazy"
             layout="fill"
+            alt=""
             onError={handleError}
             {...rest}
           />

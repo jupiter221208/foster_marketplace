@@ -32,6 +32,7 @@ const MerchShopSelectModal = props => {
         error => {}
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   const closeModal = () => {

@@ -24,7 +24,6 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
-import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import ShoppingCartIcon from 'assets/icons/shoppingcart-icon-navbar.svg?component'
 import FosterLogo from 'assets/logo-new.svg?component'
 
@@ -61,9 +60,9 @@ const PrimaryHeader = () => {
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
 
-  let timer = null
+  const [timer, setTimer] = useState(null)
 
-  let lastScrollPosition = 0
+  const [lastScrollPosition, setLastScrollPosition] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -73,18 +72,19 @@ const PrimaryHeader = () => {
       else setIsScrollTop(true)
 
       if (position < 250) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(true)
       } else if (position > lastScrollPosition) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(false)
       } else if (position < lastScrollPosition) {
-        lastScrollPosition = position
+        setLastScrollPosition(position)
         setIsScrollingTop(true)
       }
     }, 50)
 
     return () => clearInterval(intervalId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -126,26 +126,29 @@ const PrimaryHeader = () => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
       if (timer) {
         clearTimeout(timer)
-        timer = null
+        setTimer(null)
       }
-      timer = setTimeout(() => {
-        setSearchList({ nfts: [], artists: [], collections: [] })
-        searchAPI.search(searchKeyword).then(
-          response => {
-            let object: any = {}
-            object.nfts = response.nfts
-            object.artists = response.artists
-            object.collections = response.collections
-            setSearchList(object)
-          },
-          error => {
-            console.log(error)
-          }
-        )
-      }, 500)
+      setTimer(
+        setTimeout(() => {
+          setSearchList({ nfts: [], artists: [], collections: [] })
+          searchAPI.search(searchKeyword).then(
+            response => {
+              let object: any = {}
+              object.nfts = response.nfts
+              object.artists = response.artists
+              object.collections = response.collections
+              setSearchList(object)
+            },
+            error => {
+              console.log(error)
+            }
+          )
+        }, 500)
+      )
     } else {
       setSearchList({ nfts: [], artists: [], collections: [] })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword])
 
   useEffect(() => {
