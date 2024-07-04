@@ -27,6 +27,7 @@ import PrimaryButton from 'components/Button/PrimaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import SizeChartModal from 'components/Modal/SizeChartModal'
 import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
+import Link from 'next/link'
 
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
@@ -285,12 +286,16 @@ const MerchOrderMain = props => {
           <div className="mt-[20px]">
             <div className={styles.creator}>Creator</div>
             <div className="mt-[7px] flex flex-wrap gap-[15px]">
-              <div className={styles.creatorRound}>
-                <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
-                  <ImageWithFoster src={userDetail.artist.profile_picture} alt="" />
-                </div>
-                {userDetail.artist.username}
-              </div>
+              <Link href={`/${userDetail.artist.username}`} passHref>
+                <a>
+                  <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.artist.username}`)}>
+                    <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
+                      <ImageWithFoster src={userDetail.artist.profile_picture} alt="" />
+                    </div>
+                    {userDetail.artist.username}
+                  </div>
+                </a>
+              </Link>
               <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
               <div className={styles.creatorRound}>
                 {productDetail.supply
