@@ -1,4 +1,3 @@
-import { isLoggedIn } from 'utils/helpers'
 import client from './client'
 
 const API_URL = process.env.BACKEND_URL
@@ -74,6 +73,12 @@ class Store {
   checkout(data) {
     return client.post(API_URL + 'v1/stores/checkout', data).then(response => {
       return response.data
+    })
+  }
+
+  getOrder(id) {
+    return client.get(`${API_URL}v1/stores/orders/${id}`).then(response => {
+      return response?.data
     })
   }
 }

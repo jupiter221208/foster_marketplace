@@ -15,7 +15,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import merchAPI from 'apis/store'
 
 const MerchOrderShippingMethod = props => {
   const {

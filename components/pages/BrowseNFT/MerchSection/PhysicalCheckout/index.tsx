@@ -33,14 +33,14 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 
 export interface PhysicalCheckoutProps {
-  orderData?: OrderData
-  type: string
+  orderData?: any
+  orderType: string
   total?: number
   onBack: () => any
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: PhysicalCheckoutProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const { id } = router.query
@@ -55,7 +55,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const [list, setList] = useState([])
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
-  total ??= orderData?.order.amount
+  total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
   useEffect(() => {
@@ -69,7 +69,8 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       },
     ])
 
-    let shippingData = orderData?.ssorder.shipTo
+    let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+    let shippingData = ssorder.shipTo
     if (shippingData)
       setShipping({
         address: shippingData['street1'] + ' ' + shippingData['street2'],
@@ -80,7 +81,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       })
 
     let itemList = []
-    orderData?.ssorder.items.forEach(item => {
+    ssorder.items.forEach(item => {
       let itemQuantity = item.quantity
       let imageUrl = item.imageUrl
       let options = item.options

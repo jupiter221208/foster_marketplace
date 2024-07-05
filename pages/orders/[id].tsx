@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { getOrder, OrderData } from 'apis/merch'
+import StoreAPI from 'apis/store'
 import { findElement } from 'utils/helpers'
 
 // styles
@@ -11,17 +12,18 @@ import styles from './index.module.scss'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
+import { error } from 'console'
 
 const OrderSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const { id } = router.query
 
-  const [orderData, setOrderData] = useState<OrderData | null>(null)
+  const [orderData, setOrderData] = useState<any | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
   const [merchType, setMerchType] = useState('')
-
+  const [orderType, setOrderType] = useState('v1')
   const [merchList, setMerchList] = useState([])
 
   const [selectedMerch, setSelectedMerch] = useState(null)
@@ -41,12 +43,24 @@ const OrderSection = props => {
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
-    getOrder(id).then(setOrderData)
+    if (parseInt(id) > 1000) {
+      setOrderType('v2')
+      StoreAPI.getOrder(id).then(
+        response => {
+          setOrderData(response)
+        },
+        error => {}
+      )
+    } else {
+      setOrderType('v1')
+      getOrder(id).then(setOrderData)
+    }
   }, [id])
 
   useEffect(() => {
     if (orderData) {
-      let itemData = orderData?.ssorder.items[0]
+      let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+      let itemData = ssorder.items[0]
       let type = findElement(itemData.options, 'name', 'type')['value']
       setMerchType(type)
       if (type === 'apparel' || type === 'wallart') {
@@ -141,7 +155,7 @@ const OrderSection = props => {
               {orderData && (
                 <PhysicalCheckout
                   orderData={orderData}
-                  type=""
+                  orderType={orderType}
                   onBack={() => {
                     router.back()
                   }}
