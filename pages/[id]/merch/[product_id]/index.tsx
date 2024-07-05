@@ -78,7 +78,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             response.options.product_images.map((item, index) => {
               imageList.push({ url: item, selected: index === 0 })
             })
-            setType('user')
+            if (response.master_edition_address === null) setType('physical')
+            else setType('user')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
@@ -143,7 +144,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           <div className={`sm:hidden block h-auto w-full mb-[20px] mt-[${type === 'foster' ? 20 : 0}px]`}>
             <div className={styles.mobileImageArea}>
               <div className={styles.imageArea}>
-                <div className={styles.imageContent}>
+                <div
+                  className={styles.imageContent}
+                  style={{
+                    background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                  }}
+                >
                   <ImageWithFoster
                     width={700}
                     src={selectedMerch ? selectedMerch.url : ''}
@@ -155,7 +161,12 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           </div>
           <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
             <div className={styles.imageArea}>
-              <div className={styles.imageContent}>
+              <div
+                className={styles.imageContent}
+                style={{
+                  background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                }}
+              >
                 <ImageWithFoster
                   width={700}
                   src={selectedMerch ? selectedMerch.url : ''}
@@ -251,7 +262,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           {currentStep === 3 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
-                type={type}
+                type={'foster'}
                 data={printData}
                 shippingData={shippingData}
                 allShippingMethod={shipppingMethod}
