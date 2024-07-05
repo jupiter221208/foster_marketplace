@@ -146,12 +146,11 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
     try {
       if (!orderData) throw new Error('orderData cannot be null for checkout')
 
-      let {
-        order,
-        ssorder: { items },
-      } = orderData
+      let { order } = orderData
 
-      if (items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
+      let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+
+      if (ssorder.items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
 
       let transaction = await createPaymentTransaction({
         metaplex,

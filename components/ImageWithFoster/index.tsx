@@ -128,7 +128,7 @@ const ImageWithFoster = ({
             onError={handleError}
             {...rest}
           />
-        ) : (
+        ) : srcSpecs[currentSrcSpecIndex]?.url ? (
           // <img {...rest} src={srcUrls[currentSrcIndex]} onLoad={handleLoad} loading="lazy" onError={handleError} />
           <img
             src={srcSpecs[currentSrcSpecIndex]?.url}
@@ -137,6 +137,8 @@ const ImageWithFoster = ({
             onError={handleError}
             {...rest}
           />
+        ) : (
+          <div></div>
         )}
       </div>
       <div className="w-full h-full absolute top-0 overflow-hidden" onClick={onClick}>
