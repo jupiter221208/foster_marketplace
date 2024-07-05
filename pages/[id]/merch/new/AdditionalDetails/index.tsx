@@ -117,14 +117,17 @@ const AdditionalDetails = props => {
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, name: title })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title])
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, description })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [description])
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, selling_price: parseFloat(sellingPrice) })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sellingPrice])
 
   useEffect(() => {
@@ -132,23 +135,28 @@ const AdditionalDetails = props => {
     if (saleMethod.id === 0) {
       setAdditionDetail({ ...additionDetail, selling_price: priceBase + priceFB + priceRight + priceLeft })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saleMethod])
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, supply: parseInt(limitedSupply) })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limitedSupply])
 
   useEffect(() => {
     setAdditionDetail({ ...additionDetail, sale_start_at: startDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate])
 
   useEffect(() => {
     if (releaseDurationItem.id === 1) setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endDate])
 
   useEffect(() => {
     if (releaseDurationItem.id === 0) setAdditionDetail({ ...additionDetail, sale_end_at: null })
     else setAdditionDetail({ ...additionDetail, sale_end_at: endDate })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [releaseDurationItem])
 
   useEffect(() => {

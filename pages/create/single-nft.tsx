@@ -235,6 +235,7 @@ const SingleNft = () => {
         setNftType(type)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nftArt])
 
   useEffect(() => {

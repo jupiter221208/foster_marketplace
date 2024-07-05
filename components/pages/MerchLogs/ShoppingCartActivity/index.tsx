@@ -103,6 +103,7 @@ const ShoppingCartActivity = props => {
       return item
     })
     setCart(updatedCart)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectAllCart])
 
   return (

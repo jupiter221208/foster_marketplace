@@ -84,6 +84,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   useEffect(() => {
     if (merchCard) setMerchProdCost(merchCard.selling_price / 100 / solToUsdRate)
     else setMerchProdCost(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchCard])
 
   const endDate = useMemo(() => {
@@ -200,13 +201,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
 
   useEffect(() => {
     let disabled = false
-
     if (parseFloat(days) > 30) disabled = true
     else if (durationType === 'custom' && (parseFloat(hours) > 23 || parseFloat(hours) === 0)) disabled = true
     else if (durationType === 'custom' && days === '' && hours === '') disabled = true
     else if (mintPrice === undefined || mintPrice === '' || mintPrice === null) disabled = true
     else if (buyLimitType !== 'no' && buyLimit === '') disabled = true
     setButtonDisabled(disabled)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   const getMerchContent = data => {

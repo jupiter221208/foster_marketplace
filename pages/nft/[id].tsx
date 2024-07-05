@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useMetaplex } from 'hooks/useMetaplex'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -21,7 +22,7 @@ import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 import SelectedTab from 'components/Tab/SelectedTab'
 
 // custom functions
-import { getNFTCategories, getNftFromDAS, getNftFromRpc, NFTArtistInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNftFromDAS, getNftFromRpc, getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-screen.svg'
@@ -72,6 +73,7 @@ export interface BrowseNFTProps {
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const router = useRouter()
   const viewport = useViewport()
+  const { metaplex: mx } = useMetaplex()
   const nftType = (nftDetail?.category as string) ?? 'image'
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
@@ -90,6 +92,13 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
+  const [nftOwner, setNftOwner] = useState(null)
+
+  useEffect(() => {
+    if (nftDetail) {
+      getNFTOwner(mx, new PublicKey(nftDetail.mintAddress)).then(setNftOwner)
+    }
+  }, [nftDetail])
 
   useEffect(() => {
     setTimeout(() => {
@@ -372,7 +381,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         ) : (
           <div className="z-10">
-            {nftDetail ? (
+            {nftDetail && nftOwner ? (
               <div className={styles.mainBG}>
                 <div className="g-container">
                   <MainSection
@@ -406,7 +415,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               </div>
             )}
 
-            {!showAuctionSection && nftDetail && (
+            {!showAuctionSection && nftDetail && nftOwner && (
               <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
                 <div className={styles.selectedTab}>
                   <div className="g-container">

@@ -14,12 +14,22 @@ import 'swiper/css/navigation'
 //apis
 import StoreAPI from 'apis/store'
 import { getTimeDifference } from 'utils/helpers'
+import { useViewport } from 'utils'
 
 const CreatorMerchShop = props => {
   const { username, userId } = props
+  const viewport = useViewport()
   const [merchList, setMerchList] = useState([])
   const [editionList, setEditionList] = useState([])
   const [physicalList, setPhysicalList] = useState([])
+  const [screenWidth, setScreenWidth] = useState(375)
+
+  useEffect(() => {
+    const resizeFunction = () => {
+      setScreenWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', resizeFunction)
+  }, [])
 
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(userId).then(
@@ -48,9 +58,9 @@ const CreatorMerchShop = props => {
       },
       error => {}
     )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  console.log(physicalList, '============physicalList========')
   return (
     <div className="w-full">
       {/* {merchList.length > 0 && <div className={styles.title}>Available merch for sale</div>} */}
@@ -89,7 +99,7 @@ const CreatorMerchShop = props => {
       </div>
       <div className="sm:hidden block mt-[20px]">
         <Swiper
-          slidesPerView={1.14}
+          slidesPerView={screenWidth / 327} //1.14
           spaceBetween={10}
           pagination={{
             clickable: true,

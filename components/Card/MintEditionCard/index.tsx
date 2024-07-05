@@ -40,11 +40,13 @@ const MintEditionCard = props => {
   useEffect(() => {
     let total = nftPrice * 1.05 + (merchCost ? merchCost : 0) + 0.01 * 1 + 0.013 * 1 + 0.0003
     setTotal(total.toFixed(2))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     let total = nftPrice * 1.05 + (merchCost ? merchCost : 0) + 0.01 * 1 + 0.013 * 1 + 0.0003
     setTotal(total.toFixed(2))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchCost])
 
   useEffect(() => {

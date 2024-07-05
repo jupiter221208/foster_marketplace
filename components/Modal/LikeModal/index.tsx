@@ -38,6 +38,7 @@ const LikeModal = props => {
     if (open && wallet) {
       reloadFollowing()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, wallet])
 
   const reloadFollowing = () => {
