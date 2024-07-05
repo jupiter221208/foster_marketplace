@@ -149,7 +149,7 @@ export async function getSellerOrder(page, per_page) {
 }
 
 export async function getOrder(id): Promise<OrderData> {
-  return client.get(`${API_URL}v1/store/orders/${id}`).then(response => {
+  return client.get(`${API_URL}v1/merch/orders/${id}`).then(response => {
     return response?.data
   })
 }
