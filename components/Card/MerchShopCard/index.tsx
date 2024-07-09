@@ -218,6 +218,13 @@ const MerchShopCard = props => {
                   <div className={styles.saleCount}>TBD</div>
                 )}
               </div>
+            ) : data.fulfillment_type !== 'foster' && data.master_edition_address?.length === 0 ? (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>Goes live on</div>
+                </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
             ) : (
               <div>
                 <div className="w-full flex justify-between">
