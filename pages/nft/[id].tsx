@@ -92,11 +92,15 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
-  const [nftOwner, setNftOwner] = useState(null)
+  const [nftOwner, setNftOwner] = useState<any>(null)
+  const [nftDetailLoaded, setNftDetailLoaded] = useState(false)
 
   useEffect(() => {
     if (nftDetail) {
-      getNFTOwner(mx, new PublicKey(nftDetail.mintAddress)).then(setNftOwner)
+      getNFTOwner(mx, new PublicKey(nftDetail.mintAddress)).then(response => {
+        setNftOwner(response)
+        setNftDetailLoaded(true)
+      })
     }
   }, [nftDetail])
 
@@ -381,39 +385,41 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         ) : (
           <div className="z-10">
-            {nftDetail && nftOwner ? (
-              <div className={styles.mainBG}>
-                <div className="g-container">
-                  <MainSection
-                    key={nftDetail.mintAddress.toString()}
-                    nftDetail={nftDetail}
-                    editionDetail={editionDetail}
-                    nftInfo={nftInfo}
-                    setFullScreenView={setFullScreenView}
-                    reloadNftData={reloadNftData}
-                    enableMerch={setMerchToggle}
-                    setCollectionName={setCollectionName}
-                    fullScreen={fullScreen}
-                    setShowAuctionSection={enable => setShowAuctionSection(enable)}
-                    setMerchImages={images => setProcessMerchImage(images, 0)}
-                    setFullScreenMerch={setFullScreenMerch}
-                  />
+            {nftDetail &&
+              nftDetailLoaded &&
+              (nftOwner ? (
+                <div className={styles.mainBG}>
+                  <div className="g-container">
+                    <MainSection
+                      key={nftDetail.mintAddress.toString()}
+                      nftDetail={nftDetail}
+                      editionDetail={editionDetail}
+                      nftInfo={nftInfo}
+                      setFullScreenView={setFullScreenView}
+                      reloadNftData={reloadNftData}
+                      enableMerch={setMerchToggle}
+                      setCollectionName={setCollectionName}
+                      fullScreen={fullScreen}
+                      setShowAuctionSection={enable => setShowAuctionSection(enable)}
+                      setMerchImages={images => setProcessMerchImage(images, 0)}
+                      setFullScreenMerch={setFullScreenMerch}
+                    />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="w-full flex justify-center lg:mt-[200px] mt-[150px]">
-                <div>
-                  <div className={styles.noResult}>No results found</div>
-                  <div className={styles.tokenFetch}>Token metadata unable to be fetched</div>
-                  <div className="flex justify-center mt-[30px]">
-                    <div className={styles.backHome} onClick={() => router.push('/')}>
-                      Back Home
-                      <ArrowRightIcon className={styles.rightIcon} />
+              ) : (
+                <div className="w-full flex justify-center lg:mt-[200px] mt-[150px]">
+                  <div>
+                    <div className={styles.noResult}>No results found</div>
+                    <div className={styles.tokenFetch}>Token metadata unable to be fetched</div>
+                    <div className="flex justify-center mt-[30px]">
+                      <div className={styles.backHome} onClick={() => router.push('/')}>
+                        Back Home
+                        <ArrowRightIcon className={styles.rightIcon} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              ))}
 
             {!showAuctionSection && nftDetail && nftOwner && (
               <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
