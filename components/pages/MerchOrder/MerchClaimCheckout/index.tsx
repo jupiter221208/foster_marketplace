@@ -33,7 +33,7 @@ const MerchClaimCheckout = props => {
       {orderData && (
         <PhysicalCheckout
           orderData={orderData}
-          type="merch"
+          orderType="v2"
           onBack={() => {
             onBack()
           }}

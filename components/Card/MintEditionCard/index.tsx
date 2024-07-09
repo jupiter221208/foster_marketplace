@@ -220,7 +220,7 @@ const MintEditionCard = props => {
                   {merchCost && (
                     <div className="w-full flex justify-between mt-[9px]">
                       <div className={styles.priceLabel}>Merch Production Cost</div>
-                      <div className={styles.priceValue}>{merchCost.toFixed(2)}</div>
+                      <div className={styles.priceValue}>{(merchCost * mintQty).toFixed(2)}</div>
                     </div>
                   )}
                   <div className="w-full flex justify-between mt-[9px]">

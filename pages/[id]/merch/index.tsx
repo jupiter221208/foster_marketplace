@@ -34,7 +34,7 @@ interface CreatorMerchProps {
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const router = useRouter()
-  const { connected, publicKey } = useWallet()
+  const { publicKey } = useWallet()
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)

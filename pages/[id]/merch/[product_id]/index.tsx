@@ -14,7 +14,7 @@ import styles from './index.module.scss'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
 // API

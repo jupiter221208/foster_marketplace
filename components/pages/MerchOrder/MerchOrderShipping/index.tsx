@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -22,7 +21,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import merchAPI from 'apis/store'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchOrderShipping = props => {

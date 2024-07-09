@@ -123,13 +123,7 @@ const MerchShopCard = props => {
             ? data.options.addons.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div
-                      className={styles.imageContent}
-                      onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
-                        router.push(`/${username}/merch/${data.id}`)
-                      }}
-                    >
+                    <div className={styles.imageContent}>
                       <ImageWithFoster
                         src={item.mockup_url}
                         width={500}
@@ -142,13 +136,7 @@ const MerchShopCard = props => {
             : data.options.product_images.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div
-                      className={styles.imageContent}
-                      onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
-                        router.push(`/${username}/merch/${data.id}`)
-                      }}
-                    >
+                    <div className={styles.imageContent}>
                       <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
                     </div>
                   </div>
@@ -208,12 +196,13 @@ const MerchShopCard = props => {
           </div>
         </div>
 
-        <div className="sm:hidden block absolute right-[10px] bottom-[15px]">
-          <div
-            onClick={() => {
-              setOpenModal(true)
-            }}
-          >
+        <div
+          className="sm:hidden block absolute px-[10px] py-[15px] right-0 bottom-0"
+          onClick={() => {
+            setOpenModal(true)
+          }}
+        >
+          <div>
             <ThreeDotIcon />
           </div>
         </div>
@@ -229,6 +218,13 @@ const MerchShopCard = props => {
                 ) : (
                   <div className={styles.saleCount}>TBD</div>
                 )}
+              </div>
+            ) : data.fulfillment_type !== 'foster' && data.master_edition_address?.length === 0 ? (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>Goes live on</div>
+                </div>
+                <div className={styles.saleCount}>TBD</div>
               </div>
             ) : (
               <div>

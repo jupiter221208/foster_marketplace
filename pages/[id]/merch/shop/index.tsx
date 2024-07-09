@@ -18,7 +18,6 @@ import { useViewport } from 'utils'
 
 const CreatorMerchShop = props => {
   const { username, userId } = props
-  const viewport = useViewport()
   const [merchList, setMerchList] = useState([])
   const [editionList, setEditionList] = useState([])
   const [physicalList, setPhysicalList] = useState([])

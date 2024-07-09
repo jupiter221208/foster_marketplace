@@ -74,16 +74,21 @@
   border-bottom-right-radius: 10px;
   margin-top: 20px;
   @media (min-width: 640px) {
-    height: 155px;    
+    height: 145px;    
+    padding: 0px 20px; 
+    margin-top: 0px;
+  }
+  @media (min-width: 768px) {
+    height: 140px;    
     padding: 0px 20px; 
     margin-top: 0px;
   }
   @media (min-width: 1024px) {
-    height: 150px;    
+    height: 146px;    
     padding: 0px 16px; 
   }
   @media (min-width: 1280px) {
-    height: 155px;    
+    height: 146px;    
     padding: 0px 20px; 
   }
 }
