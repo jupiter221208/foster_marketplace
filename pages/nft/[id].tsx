@@ -65,15 +65,15 @@ export interface EditionDetail {
 
 export interface BrowseNFTProps {
   nftDetail?: NftData
+  nftOwner?: any
   editionDetail?: EditionDetail
   mintAddress?: PublicKey
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   const router = useRouter()
   const viewport = useViewport()
-  const { metaplex: mx } = useMetaplex()
   const nftType = (nftDetail?.category as string) ?? 'image'
   const apparelType = useSelector<any>(state => state.apparelType)
   const detailShow = useSelector<any>(state => state.detailShow)
@@ -92,17 +92,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
-  const [nftOwner, setNftOwner] = useState<any>(null)
-  const [nftDetailLoaded, setNftDetailLoaded] = useState(false)
-
-  useEffect(() => {
-    if (nftDetail) {
-      getNFTOwner(mx, new PublicKey(nftDetail.mintAddress)).then(response => {
-        setNftOwner(response)
-        setNftDetailLoaded(true)
-      })
-    }
-  }, [nftDetail])
 
   useEffect(() => {
     setTimeout(() => {
@@ -386,8 +375,20 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         ) : (
           <div className="z-10">
             {nftDetail &&
-              nftDetailLoaded &&
-              (nftOwner ? (
+              (nftOwner === null ? (
+                <div className="w-full flex justify-center lg:mt-[200px] mt-[150px]">
+                  <div>
+                    <div className={styles.noResult}>No results found</div>
+                    <div className={styles.tokenFetch}>Token metadata unable to be fetched</div>
+                    <div className="flex justify-center mt-[30px]">
+                      <div className={styles.backHome} onClick={() => router.push('/')}>
+                        Back Home
+                        <ArrowRightIcon className={styles.rightIcon} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
                 <div className={styles.mainBG}>
                   <div className="g-container">
                     <MainSection
@@ -404,19 +405,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       setMerchImages={images => setProcessMerchImage(images, 0)}
                       setFullScreenMerch={setFullScreenMerch}
                     />
-                  </div>
-                </div>
-              ) : (
-                <div className="w-full flex justify-center lg:mt-[200px] mt-[150px]">
-                  <div>
-                    <div className={styles.noResult}>No results found</div>
-                    <div className={styles.tokenFetch}>Token metadata unable to be fetched</div>
-                    <div className="flex justify-center mt-[30px]">
-                      <div className={styles.backHome} onClick={() => router.push('/')}>
-                        Back Home
-                        <ArrowRightIcon className={styles.rightIcon} />
-                      </div>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -574,8 +562,10 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
       isLimitedEdition: !nftDetail.supply?.edition && nftDetail.supply?.max > 0,
     }
 
+    let nftOwner = await getNFTOwner(metaplex, new PublicKey(nftDetail.mintAddress))
     return {
       nftDetail,
+      nftOwner,
       editionDetail,
       mintAddress,
     }
