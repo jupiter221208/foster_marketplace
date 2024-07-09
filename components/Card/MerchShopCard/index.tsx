@@ -123,13 +123,7 @@ const MerchShopCard = props => {
             ? data.options.addons.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div
-                      className={styles.imageContent}
-                      onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
-                        router.push(`/${username}/merch/${data.id}`)
-                      }}
-                    >
+                    <div className={styles.imageContent}>
                       <ImageWithFoster
                         src={item.mockup_url}
                         width={500}
@@ -142,13 +136,7 @@ const MerchShopCard = props => {
             : data.options.product_images.map((item, index) => (
                 <SwiperSlide key={index}>
                   <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div
-                      className={styles.imageContent}
-                      onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
-                        router.push(`/${username}/merch/${data.id}`)
-                      }}
-                    >
+                    <div className={styles.imageContent}>
                       <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
                     </div>
                   </div>
