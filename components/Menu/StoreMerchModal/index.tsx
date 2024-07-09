@@ -69,14 +69,16 @@ const StoreMerchModal = props => {
                     <div className={styles.label}>Price</div>
                     <div className={styles.time}>${item.selling_price / 100}</div>
                   </div>
-                  <div className="w-full flex justify-between mt-[9px]">
-                    <div className={styles.label}>{item.supply ? 'Limited Supply' : 'Open Supply'}</div>
-                    <div className={styles.time}>
-                      {item.supply
-                        ? `${item.supply - item.current_supply}/${item.supply} left`
-                        : `${item.current_supply} sold`}
+                  {(item.fulfillment_type === 'foster' || item.master_edition_address?.length > 0) && (
+                    <div className="w-full flex justify-between mt-[9px]">
+                      <div className={styles.label}>{item.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                      <div className={styles.time}>
+                        {item.supply
+                          ? `${item.supply - item.current_supply}/${item.supply} left`
+                          : `${item.current_supply} sold`}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   {getTimeDifference(startDate) > 0 ? (
                     <div className="w-full flex justify-between mt-[9px]">
                       <div className={styles.label}>Goes live on </div>
@@ -85,6 +87,13 @@ const StoreMerchModal = props => {
                       ) : (
                         <div className={styles.time}>TBD</div>
                       )}
+                    </div>
+                  ) : item.fulfillment_type !== 'foster' && item.master_edition_address?.length === 0 ? (
+                    <div className="w-full flex justify-between mt-[9px]">
+                      <div className="w-full flex justify-between">
+                        <div className={styles.label}>Goes live on</div>
+                      </div>
+                      <div className={styles.time}>TBD</div>
                     </div>
                   ) : (
                     showTimer && (

@@ -196,12 +196,13 @@ const MerchShopCard = props => {
           </div>
         </div>
 
-        <div className="sm:hidden block absolute right-[10px] bottom-[15px]">
-          <div
-            onClick={() => {
-              setOpenModal(true)
-            }}
-          >
+        <div
+          className="sm:hidden block absolute px-[10px] py-[15px] right-0 bottom-0"
+          onClick={() => {
+            setOpenModal(true)
+          }}
+        >
+          <div>
             <ThreeDotIcon />
           </div>
         </div>
