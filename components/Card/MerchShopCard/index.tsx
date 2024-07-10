@@ -24,6 +24,7 @@ import { useDispatch } from 'react-redux'
 import { getDateTimeLabel, getTimeDifference, getYMDString } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
+import { getPriceValue } from 'utils/strings'
 
 const MerchShopCard = props => {
   const { username, data } = props
@@ -168,17 +169,32 @@ const MerchShopCard = props => {
       <div className={styles.bottomSection}>
         <div className="sm:flex hidden w-full mt-[15px] justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
-          <div>
-            <div className="sm:flex hidden gap-[4px] mt-1 items-center">
-              <div className="mt-[2px]">
-                <SolanaLogoIcon />
+          {(data.fulfillment_type === 'foster' || data.master_edition_address?.length > 0) && (
+            <div>
+              <div className="sm:flex hidden gap-[4px] mt-1 items-center">
+                <div className="mt-[2px]">
+                  <SolanaLogoIcon />
+                </div>
+                <div className={styles.price}>
+                  {(
+                    data.selling_price / 100 / solToUsdRate +
+                    (data.listed_master_edition
+                      ? parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                      : 0)
+                  ).toFixed(2)}
+                </div>
               </div>
-              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
+              <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
+                $
+                {(
+                  data.selling_price / 100 +
+                  (data.listed_master_edition
+                    ? solToUsdRate * parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                    : 0)
+                ).toFixed(2)}
+              </div>
             </div>
-            <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
-              ${(data.selling_price / 100).toFixed(2)}
-            </div>
-          </div>
+          )}
         </div>
 
         <div className="sm:hidden block w-full">
