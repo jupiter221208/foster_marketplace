@@ -9,18 +9,11 @@ import { Dialog, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
+import { convertMerchDescription, getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 
 const StoreMerchModal = props => {
   const { open, close, item, onBuyNow, showTimer, timeLeft, startDate } = props
 
-  const convertDescription = desc => {
-    if (desc === 'Unisex Premium Hoodie') return 'Premium Hoodie'
-    else if (desc === 'Unisex Organic Cotton T-Shirt') return 'Premium Tee'
-    else if (desc === 'Unisex Long Sleeve Tee') return 'Premium Long Sleeve'
-    else if (desc === 'Unisex Eco Sweatshirt') return 'Premium Crewneck'
-    else if (desc === "Women's Fitted Eco Tee") return 'Women’s Tee'
-  }
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={close}>
@@ -61,7 +54,7 @@ const StoreMerchModal = props => {
                   </div>
                   <div className="flex flex-col justify-between">
                     <div className={styles.storeName}>{item.name}</div>
-                    <div className={styles.storeDesc}>{convertDescription(item.description.split(' | ')[0])}</div>
+                    <div className={styles.storeDesc}>{convertMerchDescription(item.description.split(' | ')[0])}</div>
                   </div>
                 </div>
                 <div className="w-full px-[31px] mt-[15px] mb-[40px]">

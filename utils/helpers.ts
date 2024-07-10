@@ -168,6 +168,14 @@ export const getTimeLabel = date => {
   return hours + ':' + mins
 }
 
+export const convertMerchDescription = desc => {
+  if (desc === 'Unisex Premium Hoodie') return 'Premium Hoodie'
+  else if (desc === 'Unisex Organic Cotton T-Shirt') return 'Premium Tee'
+  else if (desc === 'Unisex Long Sleeve Tee') return 'Premium Long Sleeve'
+  else if (desc === 'Unisex Eco Sweatshirt') return 'Premium Crewneck'
+  else if (desc === "Women's Fitted Eco Tee") return 'Women’s Tee'
+}
+
 export const findElement = (arr, propName, propValue) => {
   for (var i = 0; i < arr.length; i++) if (arr[i][propName] == propValue) return arr[i]
 }

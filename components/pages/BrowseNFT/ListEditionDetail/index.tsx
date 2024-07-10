@@ -35,7 +35,7 @@ import StoreAPI from 'apis/store'
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { validDigits } from 'utils/helpers'
+import { convertMerchDescription, validDigits } from 'utils/helpers'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
@@ -213,8 +213,19 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
+  const convertMerchType = type => {
+    if (type === 'Direct-to-Garment') return 'DTG'
+    return type
+  }
+
   const getMerchContent = data => {
-    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+    return (
+      convertMerchDescription(data.split(' | ')[0]) +
+      ' | ' +
+      convertMerchType(data.split(' | ')[2]) +
+      ' | ' +
+      data.split(' | ')[3]
+    )
   }
 
   return (
