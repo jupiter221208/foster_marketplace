@@ -130,7 +130,7 @@ const MainSection = () => {
             </div>
           </div>
         </div>
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex w-full">
           <div className="w-full h-[592px] relative">
             <div className="absolute w-full h-[590px] inset-0">
               <Fade
