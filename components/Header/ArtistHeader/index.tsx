@@ -227,9 +227,10 @@ const PrimaryHeader = () => {
     <div className="fixed top-0 left-0 z-50 w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div
-          className={`${styles.blurContainer} ${
-            isScrollingTop ? 'top-0' : '-top-28'
-          } flex justify-center transition-all`}
+          className={`${styles.blurContainer}  flex justify-center transition-all`}
+          // className={`${styles.blurContainer} ${
+          //   isScrollingTop ? 'top-0' : '-top-28'
+          // } flex justify-center transition-all`}
         >
           <nav className="w-full max-w-[1920px] relative">
             <div className="absolute inset-0 w-full flex justify-center items-center">
