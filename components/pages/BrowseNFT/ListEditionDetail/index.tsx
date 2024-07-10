@@ -46,6 +46,7 @@ export interface ListEditionDetailProps {
   data: {
     mintAddress: string
     name?: string
+    supply?: any
   }
   listingType: string
   onSuccess: (name: string) => void
@@ -118,10 +119,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         linkedMerchProduct: merchCard ? merchCard.id : null,
       })
 
-      if (profileInfo && merchCard)
-        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
-          master_edition_address: data.mintAddress,
-        })
       let mint = new PublicKey(data.mintAddress)
       let owner = metaplex.identity().publicKey
       let delegate = new PublicKey(listing.authorityPublicKey)
@@ -152,6 +149,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         setIsLoading(false)
         return
       }
+
+      if (profileInfo && merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: data.mintAddress,
+          supply: data.supply?.max,
+        })
 
       onSuccess(data?.name)
 
@@ -386,7 +389,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           <div className={styles.auctionStart}>
             {viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
               ? 'Listing Expiration (hrs)'
-              : 'Listing Expiration'}{' '}
+              : 'Listing Expiration'}
             <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>
