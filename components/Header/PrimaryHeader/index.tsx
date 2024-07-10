@@ -171,6 +171,12 @@ const PrimaryHeader = () => {
   const handleThemeMode = (changeTo = !lightMode) => {
     setColorTheme(changeTo)
     dispatch({ type: 'set', lightMode: changeTo })
+    if (changeTo) {
+      localStorage.setItem('lightDarkMode', 'true')
+    } else {
+      localStorage.setItem('lightDarkMode', 'false')
+    }
+
     setLightMode(changeTo)
   }
 
@@ -224,9 +230,10 @@ const PrimaryHeader = () => {
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
       <div
-        className={`${styles.blurContainer} ${
-          isScrollingTop ? 'top-0' : '-top-28'
-        }  justify-center transition-all lg:flex hidden`}
+        className={`${styles.blurContainer} justify-center transition-all lg:flex hidden`}
+        // className={`${styles.blurContainer} ${
+        //   isScrollingTop ? 'top-0' : '-top-28'
+        // }  justify-center transition-all lg:flex hidden`}
       >
         <nav className="w-full max-w-[1920px] relative">
           <div className="absolute inset-0 w-full flex justify-center items-center">

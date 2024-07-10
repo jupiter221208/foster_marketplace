@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 //component
 import PhysicalPrintDetail from './PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
-import MerchStepper from 'components/MerchStepper'
 
 import styles from './index.module.scss'
 import PhysicalShippingMethod from '../PhysicalShippingMethod'

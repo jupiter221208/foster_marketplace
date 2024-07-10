@@ -50,7 +50,7 @@ const Bar = props => {
           <IconButtonWithSVG
             icon={
               playing ? (
-                <PauseWhiteIcon className={styles.controlBtn} />
+                <PauseWhiteIcon className={styles.pauseControlBtn} />
               ) : (
                 <PlayWhiteIcon className={styles.controlBtn} />
               )

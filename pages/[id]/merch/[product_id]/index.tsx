@@ -124,19 +124,35 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           </div>
         </div>
 
-        <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
-          {merchList.map((merch, index) => {
-            return (
-              <div
-                key={index}
-                className={merch.selected ? styles.selected : styles.unselected}
-                onClick={() => onClickMerch(index)}
-              >
-                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full object-cover" />
-              </div>
-            )
-          })}
-        </div>
+        {productDetail ? (
+          <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
+            {merchList.map((merch, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => onClickMerch(index)}
+                  className={merch.selected ? '' : styles.imageHover}
+                >
+                  <div className={merch.selected ? styles.selected : styles.unselected}>
+                    <ImageWithFoster width={350} height={350} src={merch.url} className="w-full h-full object-cover" />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="mt-[30px]">
+            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden">
+              <div className="skeletonLoader" />
+            </div>
+            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+              <div className="skeletonLoader" />
+            </div>
+            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+              <div className="skeletonLoader" />
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="w-full lg:flex-1 flex flex-wrap justify-between">
@@ -198,7 +214,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                   className={merch.selected ? styles.selected : styles.unselected}
                   onClick={() => onClickMerch(index)}
                 >
-                  <ImageWithFoster width={130} src={merch.url} />
+                  <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
                 </div>
               )
             })
@@ -220,25 +236,99 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 />
               </div>
             ) : (
-              <div className="mt-[20px] lg:hidden block">
-                <div className="w-full flex justify-between">
-                  <div className="w-[200px] h-[35px] rounded-[10px] overflow-hidden">
-                    <div className="skeletonLoader" />
-                  </div>
-                  <div className="w-[80px] h-[35px] rounded-[10px] overflow-hidden">
-                    <div className="skeletonLoader" />
+              <div>
+                <div className="lg:block hidden mt-[75px]">
+                  <div className={styles.skeltonContainer}>
+                    <div className="w-full h-[700px] px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
+                      <div className="w-full">
+                        <div className="w-full flex justify-between">
+                          <div className="w-[200px] h-[35px] rounded-full overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                          <div className="w-[65px] h-[35px] rounded-full overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                        </div>
+
+                        <div className="mt-[20px] flex gap-[20px]">
+                          <div className="w-[150px] h-[35px] rounded-full overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                          <div className="w-[110px] h-[35px] rounded-full overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                          <div className="w-[70px] h-[35px] rounded-full overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                        </div>
+
+                        <div className={`mt-[20px] ${styles.divider}`} />
+
+                        <div className="w-full h-[110px] rounded-[10px] overflow-hidden mt-[20px]">
+                          <div className="skeletonLoader" />
+                        </div>
+
+                        <div className={`mt-[20px] ${styles.divider}`} />
+
+                        <div className="w-full h-[70px] rounded-[10px] overflow-hidden mt-[20px]">
+                          <div className="skeletonLoader" />
+                        </div>
+
+                        <div className={`mt-[20px] ${styles.divider}`} />
+
+                        <div className="w-[250px] h-[30px] rounded-[10px] overflow-hidden mt-[20px]">
+                          <div className="skeletonLoader" />
+                        </div>
+
+                        <div className="w-full h-[45px] rounded-[10px] overflow-hidden mt-[10px]">
+                          <div className="skeletonLoader" />
+                        </div>
+
+                        <div className={`mt-[20px] ${styles.divider}`} />
+
+                        <div className="w-full flex justify-between mt-[20px]">
+                          <div className="w-[200px] h-[30px] rounded-[10px] overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                          <div className="w-[60px] h-[30px] rounded-[10px] overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                        </div>
+                        <div className="w-full flex justify-between mt-[20px]">
+                          <div className="w-[150px] h-[30px] rounded-[10px] overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                          <div className="w-[60px] h-[30px] rounded-[10px] overflow-hidden">
+                            <div className="skeletonLoader" />
+                          </div>
+                        </div>
+                        <div className="w-full h-[45px] rounded-[10px] overflow-hidden mt-[20px]">
+                          <div className="skeletonLoader" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="flex gap-[15px] mt-[20px]">
-                  <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
+                <div className="mt-[20px] lg:hidden block">
+                  <div className="w-full flex justify-between">
+                    <div className="w-[200px] h-[35px] rounded-[10px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[80px] h-[35px] rounded-[10px] overflow-hidden">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="flex gap-[15px] mt-[20px]">
+                    <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
+                      <div className="skeletonLoader" />
+                    </div>
+                    <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
+                      <div className="skeletonLoader" />
+                    </div>
+                  </div>
+                  <div className="w-full h-[150px] mt-[20px] rounded-[10px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[140px] h-[40px] rounded-full overflow-hidden ">
-                    <div className="skeletonLoader" />
-                  </div>
-                </div>
-                <div className="w-full h-[150px] mt-[20px] rounded-[10px] overflow-hidden">
-                  <div className="skeletonLoader" />
                 </div>
               </div>
             ))}

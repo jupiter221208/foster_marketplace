@@ -35,7 +35,7 @@ import StoreAPI from 'apis/store'
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { validDigits } from 'utils/helpers'
+import { convertMerchDescription, convertMerchType, validDigits } from 'utils/helpers'
 import { delegateEdition, findPrintDelegate } from 'utils/editions'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
@@ -46,6 +46,7 @@ export interface ListEditionDetailProps {
   data: {
     mintAddress: string
     name?: string
+    supply?: any
   }
   listingType: string
   onSuccess: (name: string) => void
@@ -118,10 +119,6 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         linkedMerchProduct: merchCard ? merchCard.id : null,
       })
 
-      if (profileInfo && merchCard)
-        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
-          master_edition_address: data.mintAddress,
-        })
       let mint = new PublicKey(data.mintAddress)
       let owner = metaplex.identity().publicKey
       let delegate = new PublicKey(listing.authorityPublicKey)
@@ -152,6 +149,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         setIsLoading(false)
         return
       }
+
+      if (profileInfo && merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: data.mintAddress,
+          supply: data.supply?.max,
+        })
 
       onSuccess(data?.name)
 
@@ -211,7 +214,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   }, [days, hours, mintPrice, buyLimitType, buyLimit])
 
   const getMerchContent = data => {
-    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+    return (
+      convertMerchDescription(data.split(' | ')[0]) +
+      ' | ' +
+      convertMerchType(data.split(' | ')[2]) +
+      ' | ' +
+      data.split(' | ')[3]
+    )
   }
 
   return (
@@ -386,7 +395,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           <div className={styles.auctionStart}>
             {viewport === 'xs' || viewport === 'xs' || viewport === 'xs'
               ? 'Listing Expiration (hrs)'
-              : 'Listing Expiration'}{' '}
+              : 'Listing Expiration'}
             <span className={styles.auctionAsterisk}>*</span>
           </div>
         </div>

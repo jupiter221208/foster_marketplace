@@ -1,35 +1,60 @@
 @import 'assets/scss/variable.module.scss';
 
+.skeltonContainer {
+  width: 100%;
+  @media (min-width: 1024px) {
+    min-height: 700px;
+    background: var(--background-main-color);
+    border: 1px solid var(--bg-303030-DDDCDC);
+    border-radius: 10px;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
 .selected {
-  width: 79px;
-  height: 79px;
+  width: 75px;
+  height: 75px;
   @media (min-width: 640px) {
-    width: 120px;
-    height: 120px;
+    width: 116px;
+    height: 116px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
   border-radius: 10px;  
-  border: 2px solid var(--main-icon-color);
+  // border: 2px solid var(--main-icon-color);
+  opacity: 100%;
   overflow: hidden;
 }
 
 .unselected {
-  width: 79px;
-  height: 79px;
+  width: 75px;
+  height: 75px;
   @media (min-width: 640px) {
-    width: 120px;
-    height: 120px;
+    width: 116px;
+    height: 116px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
+  opacity: 60%;
   border-radius: 10px;  
-  border: 2px solid var(--bg-303030-DDDCDC);
+  // border: 2px solid var(--bg-303030-DDDCDC);
   overflow: hidden;
+}
+
+.imageHover {
+  &:hover {
+    border-radius: 10px;  
+    border: 2px solid var(--main-icon-color);
+  }
 }
 
 .imageArea {

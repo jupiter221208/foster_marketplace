@@ -75,7 +75,7 @@ import { cancelListingEdition, createPrint } from 'apis/editions'
 import { useWallets } from 'hooks/useWallets'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { CDN_PREFIX, getTimeDifferenceWithAuction } from 'utils/helpers'
+import { CDN_PREFIX, convertMerchDescription, convertMerchType, getTimeDifferenceWithAuction } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -530,7 +530,13 @@ const MainSection = ({
   }, [nftInfo])
 
   const getMerchContent = data => {
-    return data.split(' | ')[0] + ' | ' + data.split(' | ')[2] + ' | ' + data.split(' | ')[3]
+    return (
+      convertMerchDescription(data.split(' | ')[0]) +
+      ' | ' +
+      convertMerchType(data.split(' | ')[2]) +
+      ' | ' +
+      data.split(' | ')[3]
+    )
   }
 
   // set timeout to switch to end phase

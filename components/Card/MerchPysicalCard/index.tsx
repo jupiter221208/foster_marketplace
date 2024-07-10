@@ -127,11 +127,7 @@ const MerchPhysicalCard = props => {
                         router.push(`/${username}/merch/${data.id}`)
                       }}
                     >
-                      <ImageWithFoster
-                        src={item.mockup_url}
-                        width={500}
-                        className="max-w-full max-h-full object-cover"
-                      />
+                      <ImageWithFoster src={item.mockup_url} width={500} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 </SwiperSlide>
@@ -146,7 +142,7 @@ const MerchPhysicalCard = props => {
                         router.push(`/${username}/merch/${data.id}`)
                       }}
                     >
-                      <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
+                      <ImageWithFoster src={item} width={500} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 </SwiperSlide>
