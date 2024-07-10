@@ -140,7 +140,7 @@ const HeroNewCard = ({ data }) => {
                         src={data.artist_profile_picture}
                         width={60}
                         height={60}
-                        className="rounded-full"
+                        className="rounded-full overflow-hidden"
                       />
                     ) : (
                       <Image src={DefaultAvatar} width={60} height={60} className="rounded-full" alt="" />

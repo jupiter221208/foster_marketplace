@@ -40,7 +40,10 @@ const MerchDTGCard = props => {
         <img src={image} alt="" />
       </div>
       <div className="flex flex-col gap-[2px] lg:mt-[11px] sm:mt-[11px] mt-[6px] justify-center items-center">
-        <div className={styles.side}>{getLabel()}</div>
+        <div className={styles.side}>
+          <p>{getLabel()}</p>
+          {side === 'back' && technique !== 'dtg' && <div>(DTG)</div>}
+        </div>
         {/* {label.length > 0 && <div className={styles.label}>{label}</div>}
         {type === 'DTG' && <div className={styles.dtg}>DTG</div>} */}
       </div>
