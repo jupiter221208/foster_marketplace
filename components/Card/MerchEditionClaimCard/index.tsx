@@ -39,11 +39,7 @@ const MerchEditionClaimCard = props => {
         <div className={styles.topSection}>
           <div>
             <div className={styles.productName}>{data.name}</div>
-            {/* <div className={styles.editionName}>{data.edition_name}</div> */}
           </div>
-          {/* <div className={styles.avatarArea}>
-            <ImageWithFoster src={data.avatar_url} width={800} className="w-full h-full object-cover" />
-          </div> */}
         </div>
 
         <div className={styles.imageArea}>

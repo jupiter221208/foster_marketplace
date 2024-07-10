@@ -111,7 +111,7 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
-  background: rgba(var(--main-bg-color-rgb), 0.05);
+  background: var(--background-main-color);
 }
 
 .imageArea {

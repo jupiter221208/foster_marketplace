@@ -20,17 +20,7 @@ import styles from './index.module.scss'
 // call apis
 import StoreAPI from 'apis/store'
 
-type SelectedDataType = {
-  category: string
-  name: string
-  animation_url: string
-  image: string
-  address: string
-  tradeStateAddress: string
-}
-
-const MerchEditionSection = props => {
-  const { filter } = props
+const MerchEditionSection = () => {
   const { profileInfo } = useAuthentication()
 
   const [active, setActive] = useState(0)
@@ -44,42 +34,6 @@ const MerchEditionSection = props => {
   const [isFetching, setIsFetching] = useState(false)
 
   useEffect(() => {
-    // let list = [
-    //   {
-    //     id: 0,
-    //     product_name: 'Product Name1',
-    //     edition_name: 'edition Name #1',
-    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
-    //     avatar_url:
-    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-    //   },
-    //   {
-    //     id: 1,
-    //     product_name: 'Product Name2',
-    //     edition_name: 'edition Name #2',
-    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
-    //     avatar_url:
-    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-    //   },
-    //   {
-    //     id: 2,
-    //     product_name: 'Product Name3',
-    //     edition_name: 'edition Name #3',
-    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
-    //     avatar_url:
-    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-    //   },
-    //   {
-    //     id: 3,
-    //     product_name: 'Product Name4',
-    //     edition_name: 'edition Name #4',
-    //     urls: [merchImageFront, merchImageBack, merchImageLeft],
-    //     avatar_url:
-    //       'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=360/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU',
-    //   },
-    // ]
-    // setMerchList(list)
-    // setFilteredList(list)
     if (profileInfo) {
       getMerchList()
     }
