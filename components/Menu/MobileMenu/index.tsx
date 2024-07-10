@@ -100,6 +100,11 @@ const MobileMenu = () => {
   }, [connected])
 
   const handleThemeMode = () => {
+    if (lightMode) {
+      localStorage.setItem('lightDarkMode', 'false')
+    } else {
+      localStorage.setItem('lightDarkMode', 'true')
+    }
     setColorTheme(!lightMode)
     dispatch({ type: 'set', lightMode: !lightMode })
     setLightMode(!lightMode)

@@ -173,6 +173,11 @@ const PrimaryHeader = () => {
   const handleThemeMode = (changeTo = !lightMode) => {
     setColorTheme(changeTo)
     dispatch({ type: 'set', lightMode: changeTo })
+    if (changeTo) {
+      localStorage.setItem('lightDarkMode', 'true')
+    } else {
+      localStorage.setItem('lightDarkMode', 'false')
+    }
     setLightMode(changeTo)
   }
 
