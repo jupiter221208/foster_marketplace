@@ -24,7 +24,7 @@ const HeroNewCard = ({ data }) => {
       <ImageWithFoster
         src={data.asset_url}
         originalSrc={data.cover_image_url}
-        showPlaceHolder={false}
+        // showPlaceHolder={false}
         width={1280}
         className="w-full h-full inset-0"
       />
@@ -127,7 +127,9 @@ const HeroNewCard = ({ data }) => {
         <div className="flex items-center">
           <div className="">
             {data.artist_profile_picture === null && (
-              <div className={`${styles.skeletonLoader} w-[66px] h-[66px] rounded-full`}></div>
+              <div className={`w-[66px] h-[66px] rounded-full overflow-hidden`}>
+                <div className="skeletonLoader" />
+              </div>
             )}
             {data.artist_profile_picture !== null && data.artist_profile_picture !== undefined && (
               <div className={styles.avatar}>
@@ -150,7 +152,9 @@ const HeroNewCard = ({ data }) => {
           </div>
           <div className={`${styles.nftNames} ml-[10px] 2xl:ml-[20px]`}>
             {data.nft_name === '' ? (
-              <div className={`${styles.skeletonLoader} w-[200px] h-[24px] rounded-full`}></div>
+              <div className={`w-[200px] h-[24px] rounded-full overflow-hidden`}>
+                <div className="skeletonLoader" />
+              </div>
             ) : (
               <Link href={`/nft/${data.token_id}`} passHref>
                 <a>
@@ -159,7 +163,9 @@ const HeroNewCard = ({ data }) => {
               </Link>
             )}
             {data.nft_name === '' ? (
-              <div className={`${styles.skeletonLoader} w-[100px] h-[20px] rounded-full mt-4`}></div>
+              <div className={`w-[100px] h-[20px] rounded-full overflow-hidden mt-4`}>
+                <div className="skeletonLoader" />
+              </div>
             ) : (
               <p>
                 <Link href={`/${data.artist_username}`} passHref>
@@ -171,12 +177,20 @@ const HeroNewCard = ({ data }) => {
             )}
           </div>
         </div>
-        <div className="h-full flex items-center">
-          <div className={styles.listedFor}>Listed for</div>
-          <div className="mt-1 ml-[9px]">
-            <img src={SolanaIcon.src} alt="" />
-          </div>
-          <div className={`${styles.price} ml-[5px]`}>{data.list_price}</div>
+        <div className="h-full">
+          {data.list_price === undefined ? (
+            <div className={`w-[100px] h-[30px] rounded-full overflow-hidden mt-4`}>
+              <div className="skeletonLoader" />
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <div className={styles.listedFor}>Listed for</div>
+              <div className="mt-1 ml-[9px]">
+                <img src={SolanaIcon.src} alt="" />
+              </div>
+              <div className={`${styles.price} ml-[5px]`}>{data.list_price}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
