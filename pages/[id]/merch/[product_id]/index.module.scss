@@ -17,15 +17,15 @@
 }
 
 .selected {
-  width: 79px;
-  height: 79px;
+  width: 75px;
+  height: 75px;
   @media (min-width: 640px) {
-    width: 120px;
-    height: 120px;
+    width: 116px;
+    height: 116px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
   border-radius: 10px;  
   // border: 2px solid var(--main-icon-color);
@@ -34,24 +34,27 @@
 }
 
 .unselected {
-  width: 79px;
-  height: 79px;
+  width: 75px;
+  height: 75px;
   @media (min-width: 640px) {
-    width: 120px;
-    height: 120px;
+    width: 116px;
+    height: 116px;
   }
   @media (min-width: 1024px) {
-    width: 130px;
-    height: 130px;
+    width: 126px;
+    height: 126px;
   }
   opacity: 60%;
+  border-radius: 10px;  
+  // border: 2px solid var(--bg-303030-DDDCDC);
+  overflow: hidden;
+}
+
+.imageHover {
   &:hover {
     border-radius: 10px;  
     border: 2px solid var(--main-icon-color);
   }
-  border-radius: 10px;  
-  // border: 2px solid var(--bg-303030-DDDCDC);
-  overflow: hidden;
 }
 
 .imageArea {
