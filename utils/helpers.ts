@@ -176,6 +176,11 @@ export const convertMerchDescription = desc => {
   else if (desc === "Women's Fitted Eco Tee") return 'Women’s Tee'
 }
 
+export const convertMerchType = type => {
+    if (type === 'Direct-to-Garment') return 'DTG'
+    return type
+  }
+
 export const findElement = (arr, propName, propValue) => {
   for (var i = 0; i < arr.length; i++) if (arr[i][propName] == propValue) return arr[i]
 }
