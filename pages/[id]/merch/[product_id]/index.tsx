@@ -132,7 +132,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 className={merch.selected ? styles.selected : styles.unselected}
                 onClick={() => onClickMerch(index)}
               >
-                <ImageWithFoster width={130} height={130} src={merch.url} className="w-full h-full object-cover" />
+                <ImageWithFoster width={350} height={350} src={merch.url} className="w-full h-full object-cover" />
               </div>
             )
           })}
@@ -198,7 +198,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                   className={merch.selected ? styles.selected : styles.unselected}
                   onClick={() => onClickMerch(index)}
                 >
-                  <ImageWithFoster width={130} src={merch.url} />
+                  <ImageWithFoster width={350} src={merch.url} />
                 </div>
               )
             })
