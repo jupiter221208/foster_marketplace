@@ -20,7 +20,7 @@
       "description": "Buy your first merch item",
       "benefits": "Platform fee removal on next purchase.",
       "selected": true,
-      "locked": false,
+      "locked": true,
       "list": [
         {
           "label": "Buy your first merch item",

@@ -8,11 +8,8 @@ import { Dialog, Transition } from '@headlessui/react'
 // componenets
 
 // resources
-import PloygonSmallBG from 'assets/icons/polygon-small-bg.svg?component'
 import PloygonSmallMobileBG from 'assets/icons/polygon-bg-41x44.svg?component'
-import DiamondEnable from 'assets/icons/diamond-enable.svg?component'
 import DiamondEnableMobile from 'assets/icons/diamond-enable-mobile.svg?component'
-import DiamondDisable from 'assets/icons/diamond-disable.svg?component'
 import DiamondDisableMobile from 'assets/icons/diamond-disable-mobile.svg?component'
 // styles
 import styles from './index.module.scss'
@@ -62,7 +59,7 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                     </div>
                   </div>
                   {data.locked ? (
-                    <div className={styles.unlocked}>locked</div>
+                    <div className={styles.unlocked}>Locked</div>
                   ) : (
                     <div className={styles.locked}>Unlocked</div>
                   )}
