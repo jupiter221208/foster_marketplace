@@ -23,19 +23,19 @@ const MerchBadgeNewCard = props => {
 
   return (
     <div className={styles.container} onClick={() => onSelect(data.id)}>
-      <div className="lg:block hidden">
+      <div className="md:block hidden">
         <PloygonBG />
       </div>
-      <div className="lg:hidden block">
+      <div className="md:hidden block">
         <PloygonMobileBG />
       </div>
       <div className="absolute inset-0">
-        <div className="mt-[20px] lg:mt-[39px] w-full flex justify-center">
-          <div className="relative w-[46px] lg:w-[56px] h-[50px] lg:h-[60px]">
-            <div className="lg:block hidden">
+        <div className="mt-[20px] md:mt-[39px] w-full flex justify-center">
+          <div className="relative w-[46px] md:w-[56px] h-[50px] md:h-[60px]">
+            <div className="md:block hidden">
               <PloygonSmallBG />
             </div>
-            <div className="lg:hidden block">
+            <div className="md:hidden block">
               <PloygonSmallMobileBG />
             </div>
             <div className="absolute inset-0 flex justify-center items-center">
@@ -43,17 +43,17 @@ const MerchBadgeNewCard = props => {
             </div>
           </div>
         </div>
-        <div className="mt-[9px] lg:mt-[39px] w-full flex justify-center">
+        <div className="mt-[9px] md:mt-[39px] w-full flex justify-center">
           <div className={styles.title}>{data.title}</div>
         </div>
-        <div className="lg:flex hidden mt-[9px] w-full justify-center">
+        <div className="md:flex hidden mt-[9px] w-full justify-center">
           {data.locked ? (
             <div className={styles.description}>{data.description}</div>
           ) : (
             <div className={styles.unlocked}>Unlocked</div>
           )}
         </div>
-        <div className="mt-[9px] lg:mt-[78px] w-full flex justify-center">
+        <div className="mt-[9px] md:mt-[78px] w-full flex justify-center">
           <div className={styles.perks} onClick={() => setShowDialog(true)}>{`Badge Perks »`}</div>
         </div>
       </div>

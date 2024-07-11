@@ -29,7 +29,7 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     margin-top: 100px;
   }
 }
@@ -40,7 +40,7 @@
   height: 348px;
   bottom: 0px;
   left: 0px;
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     position: relative;
     width: 545px;
     height: 411px;

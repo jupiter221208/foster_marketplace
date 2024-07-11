@@ -21,7 +21,6 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
   const closeModal = () => {
     onClose()
   }
-
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -63,12 +62,12 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                     </div>
                   </div>
                   {data.locked ? (
-                    <div className={styles.unlocked}>Unlocked</div>
+                    <div className={styles.unlocked}>locked</div>
                   ) : (
                     <div className={styles.locked}>Unlocked</div>
                   )}
                 </div>
-                <div className="relative w-full h-[238px] lg:h-[300px] px-[25px]">
+                <div className="relative w-full h-[238px] md:h-[300px] px-[25px]">
                   <div className="w-full">
                     {data.list.map((item, index) => (
                       <div key={index} className="w-full mt-[25px]">
@@ -79,7 +78,11 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                           </div>
                         </div>
                         <div className={`${styles.lineBG} mt-[15px]`}>
-                          <div className={`w-[${(item.value / item.total) * 100}%] ${styles.progressBG}`} />
+                          <div
+                            className={`w-[${(parseInt(item.value) / parseInt(item.total)) * 100}%] ${
+                              styles.progressBG
+                            }`}
+                          />
                         </div>
                       </div>
                     ))}
