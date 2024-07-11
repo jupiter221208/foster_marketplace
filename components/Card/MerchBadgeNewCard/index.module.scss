@@ -19,11 +19,17 @@
 }
 
 .unlocked {
-  font-family: 'Muli-Regular';
+  font-family: 'Labirt';
   font-size: 24px;
   font-weight: 100;
   line-height: 20px;
-  color: var(--main-icon-color);
+  color: var(--background-main-color);
+  text-shadow: 
+    1px 1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color), 
+    -1px -1px 0 var(--main-icon-color);
 }
 
 .description {
