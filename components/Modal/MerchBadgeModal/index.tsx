@@ -18,6 +18,7 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
   const closeModal = () => {
     onClose()
   }
+  console.log(data.list, '==========data.list==========')
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -76,10 +77,12 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                         </div>
                         <div className={`${styles.lineBG} mt-[15px]`}>
                           <div
-                            className={`w-[${(parseInt(item.value) / parseInt(item.total)) * 100}%] ${
-                              styles.progressBG
-                            }`}
-                          />
+                            className={
+                              item.value === 0
+                                ? 'w-[0px]'
+                                : `w-[${(item.value * 100) / item.total}%] ${styles.progressBG}`
+                            }
+                          ></div>
                         </div>
                       </div>
                     ))}
