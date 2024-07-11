@@ -2,8 +2,12 @@
 
 .container {
   position: relative;
-  width: 300px;
-  height: 324px;
+  width: 163px;
+  height: 176px;
+  @media (min-width: 1024px) {
+    width: 300px;
+    height: 324px;
+  }
 }
 
 .title {

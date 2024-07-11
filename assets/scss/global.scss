@@ -1510,6 +1510,11 @@ h6 {
   fill: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
+[data-name='diamond-bg'] {
+  fill: rgba(var(--bg-F3F2F0-202427), 0.05);
+}
+
+
 [data-name='activity-down-icon'] {
   fill: var(--main-icon-color);
 }

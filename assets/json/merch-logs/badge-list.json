@@ -1,128 +1,231 @@
 [
-    {
-      "id": 0,
-      "title": "Merch Manlet",
-      "description": "Design your first merch item",
-      "benefits": "Featured in \"Studio Spotlight\" on Foster Marketplace.",
+  {
+    "id": 0,
+    "title": "Merch Manlet",
+    "description": "Design your first merch item",
+    "benefits": "Featured in \"Studio Spotlight\" on Foster Marketplace.",
+    "selected": true,
+    "locked": true,
+    "list": [
+      {
+        "label": "Design your first merch item",
+        "total": 1,
+        "value": 0
+      }
+    ]
+  },
+  {
+      "id": 1,
+      "title": "ALPHA",
+      "description": "Buy your first merch item",
+      "benefits": "Platform fee removal on next purchase.",
       "selected": true,
-      "locked": true,
+      "locked": false,
       "list": [
         {
-          "label": "Design your first merch item",
+          "label": "Buy your first merch item",
           "total": 1,
           "value": 0
         }
       ]
     },
     {
-        "id": 1,
-        "title": "ALPHA",
-        "description": "Buy your first merch item",
-        "benefits": "Platform fee removal on next purchase.",
-        "selected": true,
-        "locked": false,
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
+      "id": 2,
+      "title": "GMI",
+      "description": "Make your first sale",
+      "benefits": "Featured in \"Trending Spotlight\" on Foster Marketplace.",
+      "selected": true,
+      "locked": true,
 
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
+      "list": [
+        {
+          "label": "Make your first sale",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Mythic",
+      "description": "Buy a limited-edition merch item",
+      "benefits": "Free domestic shipping when claiming merch item.",
+      "selected": true,
+      "locked": true,
 
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 4,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
+      "list": [
+        {
+          "label": "Buy a limited-edition merch item",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "NFA",
+      "description": "Write your first review",
+      "benefits": "$5 off your next purchase.",
+      "selected": true,
+      "locked": true,
 
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
+      "list": [
+        {
+          "label": "Write your first review",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Merch Whale",
+      "description": "Place ten orders",
+      "benefits": "Purchase credit for studio items.",
+      "selected": true,
+      "locked": true,
 
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 6,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
-
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      },
-      {
-        "id": 7,
-        "title": "Merch Manlet",
-        "description": "",
-        "benefits": "",
-        "selected": true,
-        "locked": true,
-
-        "list": [
-          {
-            "label": "Design your first merch item",
-            "total": 1,
-            "value": 0
-          }
-        ]
-      }
+      "list": [
+        {
+          "label": "Place ten orders",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Wen Lambo?",
+      "description": "Design one of each type of garment",
+      "benefits": "Featured in \"Studio Spotlight\" on Foster Marketplace",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Design one of each type of garment",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Choose Rich",
+      "description": "Generate $1k in merch sales",
+      "benefits": "Custom neck label tags for merch.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Generate $1k in merch sales",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Bullish",
+      "description": "Achieve 10 five-star reviews",
+      "benefits": "Expedited fulfillment for all future customers.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Achieve 10 five-star reviews",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "KOL",
+      "description": "Write a review on 6 orders",
+      "benefits": "Entered in raffle for quarterly grand prize.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Write a review on 6 orders",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Studio God",
+      "description": "Achieve 100+ sales",
+      "benefits": "Custom packaging on orders",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Achieve 100+ sales",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Based",
+      "description": "Obtain four repeat customers",
+      "benefits": "Free samples of new products.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Obtain four repeat customers",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Giga Chad",
+      "description": "Purchase merch from 7 creators",
+      "benefits": "Whitelisted for exclusive items.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Purchase merch from 7 creators",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Hype Lord",
+      "description": "Sell out a merch edition supply of 10",
+      "benefits": "Add a personalized thank you note to your merch collectors.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Sell out a merch edition supply of 10",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Studio Shipooor",
+      "description": "Sell one of each type of garment",
+      "benefits": "Access to exclusive merch products.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Sell one of each type of garment",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    }
   ]

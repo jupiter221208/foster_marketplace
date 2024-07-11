@@ -21,7 +21,7 @@ const CreatorMerchBadges = () => {
 
   return (
     <div className="w-full">
-      <div className="w-full flex flex-wrap gap-[28px]">
+      <div className="flex flex-wrap gap-[17px] lg:gap-[28px]">
         {merchList.map((item, index) => (
           <div key={index}>
             <MerchBadgeNewCard data={item} onSelect={id => onSelectCard(id)} />

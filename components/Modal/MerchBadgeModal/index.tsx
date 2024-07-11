@@ -9,9 +9,11 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // resources
 import PloygonSmallBG from 'assets/icons/polygon-small-bg.svg?component'
+import PloygonSmallMobileBG from 'assets/icons/polygon-bg-41x44.svg?component'
 import DiamondEnable from 'assets/icons/diamond-enable.svg?component'
+import DiamondEnableMobile from 'assets/icons/diamond-enable-mobile.svg?component'
 import DiamondDisable from 'assets/icons/diamond-disable.svg?component'
-
+import DiamondDisableMobile from 'assets/icons/diamond-disable-mobile.svg?component'
 // styles
 import styles from './index.module.scss'
 
@@ -49,15 +51,15 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
               <div className={styles.mainView}>
                 <div className={styles.topSection}>
                   <div className="flex gap-[15px]">
-                    <div className="relative w-[56px] h-[60px]">
-                      <PloygonSmallBG />
+                    <div className="relative w-[41px] h-[44px]">
+                      <PloygonSmallMobileBG />
                       <div className="absolute inset-0 flex justify-center items-center">
-                        {data.locked ? <DiamondDisable /> : <DiamondEnable />}
+                        {data.locked ? <DiamondDisableMobile /> : <DiamondEnableMobile />}
                       </div>
                     </div>
                     <div>
                       <div className={styles.title}>{data.title}</div>
-                      <div className={styles.description}>{data.description}</div>
+                      <div className={styles.description}>Badge Criteria & Perks</div>
                     </div>
                   </div>
                   {data.locked ? (
@@ -66,7 +68,7 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                     <div className={styles.locked}>Unlocked</div>
                   )}
                 </div>
-                <div className="w-full h-full px-[25px]">
+                <div className="relative w-full h-[238px] lg:h-[300px] px-[25px]">
                   <div className="w-full">
                     {data.list.map((item, index) => (
                       <div key={index} className="w-full mt-[25px]">
@@ -84,6 +86,10 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
                   </div>
                   <div className={styles.badgeBenefits}>Badge Benefits</div>
                   <div className={styles.badgeText}>{data.benefits}</div>
+
+                  <div className={styles.bottom} onClick={onClose}>
+                    Close
+                  </div>
                 </div>
               </div>
             </Dialog.Panel>
