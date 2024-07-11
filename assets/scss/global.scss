@@ -1501,6 +1501,14 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='merch-badge-bg'] {
+  fill: var(--background-main-color);
+  stroke: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+[data-name='small-merch-badge-bg'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.05);
+}
 
 [data-name='activity-down-icon'] {
   fill: var(--main-icon-color);

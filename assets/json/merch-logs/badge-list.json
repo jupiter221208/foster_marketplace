@@ -1,0 +1,128 @@
+[
+    {
+      "id": 0,
+      "title": "Merch Manlet",
+      "description": "Design your first merch item",
+      "benefits": "Featured in \"Studio Spotlight\" on Foster Marketplace.",
+      "selected": true,
+      "locked": true,
+      "list": [
+        {
+          "label": "Design your first merch item",
+          "total": 1,
+          "value": 0
+        }
+      ]
+    },
+    {
+        "id": 1,
+        "title": "ALPHA",
+        "description": "Buy your first merch item",
+        "benefits": "Platform fee removal on next purchase.",
+        "selected": true,
+        "locked": false,
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Merch Manlet",
+        "description": "",
+        "benefits": "",
+        "selected": true,
+        "locked": true,
+
+        "list": [
+          {
+            "label": "Design your first merch item",
+            "total": 1,
+            "value": 0
+          }
+        ]
+      }
+  ]
