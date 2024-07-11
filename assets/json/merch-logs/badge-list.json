@@ -88,7 +88,7 @@
       "list": [
         {
           "label": "Place ten orders",
-          "total": 1,
+          "total": 10,
           "value": 0
         }
       ]
@@ -103,7 +103,7 @@
       "list": [
         {
           "label": "Design one of each type of garment",
-          "total": 1,
+          "total": 5,
           "value": 0
         }
       ]
@@ -118,7 +118,7 @@
       "list": [
         {
           "label": "Generate $1k in merch sales",
-          "total": 1,
+          "total": 1000,
           "value": 0
         }
       ]
@@ -133,7 +133,7 @@
       "list": [
         {
           "label": "Achieve 10 five-star reviews",
-          "total": 1,
+          "total": 10,
           "value": 0
         }
       ]
@@ -148,7 +148,7 @@
       "list": [
         {
           "label": "Write a review on 6 orders",
-          "total": 1,
+          "total": 6,
           "value": 0
         }
       ]
@@ -163,7 +163,7 @@
       "list": [
         {
           "label": "Achieve 100+ sales",
-          "total": 1,
+          "total": 100,
           "value": 0
         }
       ]
@@ -178,7 +178,7 @@
       "list": [
         {
           "label": "Obtain four repeat customers",
-          "total": 1,
+          "total": 4,
           "value": 0
         }
       ]
@@ -193,7 +193,7 @@
       "list": [
         {
           "label": "Purchase merch from 7 creators",
-          "total": 1,
+          "total": 7,
           "value": 0
         }
       ]
@@ -208,7 +208,7 @@
       "list": [
         {
           "label": "Sell out a merch edition supply of 10",
-          "total": 1,
+          "total": 10,
           "value": 0
         }
       ]
@@ -223,7 +223,7 @@
       "list": [
         {
           "label": "Sell one of each type of garment",
-          "total": 1,
+          "total": 5,
           "value": 0
         }
       ]
