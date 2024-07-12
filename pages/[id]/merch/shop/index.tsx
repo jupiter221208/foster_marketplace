@@ -72,9 +72,9 @@ const CreatorMerchShop = props => {
       </div>
 
       {editionList.length > 0 && (
-        <div className={`${styles.title} mt-[20px] lg:mt-[50px] w-full text-center lg:text-start`}>Merch editions</div>
+        <div className={`${styles.title} mt-[30px] lg:mt-[50px] w-full text-center lg:text-start`}>Merch editions</div>
       )}
-      <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
+      <div className="grid grid-cols-10 sm:grid-cols-20 gap gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[15px] xl:mt-[30px]">
         {editionList.map((item, index) => (
           <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
             <MerchShopCard username={username} data={item} />
@@ -83,7 +83,7 @@ const CreatorMerchShop = props => {
       </div>
 
       {physicalList.length > 0 && (
-        <div className={`${styles.title} mt-[20px] lg:mt-[50px] w-full text-center lg:text-start`}>
+        <div className={`${styles.title} mt-[30px] lg:mt-[50px] w-full text-center lg:text-start`}>
           Physicals by {username}
         </div>
       )}
@@ -96,7 +96,7 @@ const CreatorMerchShop = props => {
           ))}
         </div>
       </div>
-      <div className="sm:hidden block mt-[20px]">
+      <div className="sm:hidden block mt-[15px]">
         <Swiper
           slidesPerView={screenWidth / 327} //1.14
           spaceBetween={10}

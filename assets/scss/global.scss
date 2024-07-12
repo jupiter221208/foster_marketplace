@@ -54,6 +54,13 @@
 }
 
 @font-face {
+  font-family: 'Labirt';
+  src: url('../fonts/Labirt/Labirt.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Betha';
   src: url('../fonts/Betha/Betha.ttf');
   font-weight: normal;
@@ -1499,6 +1506,19 @@ h6 {
 
 [data-name='info-gray-small'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='merch-badge-bg'] {
+  fill: var(--background-main-color);
+  stroke: rgba(var(--main-bg-color-rgb), 0.1);
+}
+
+[data-name='small-merch-badge-bg'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.05);
+}
+
+[data-name='diamond-bg'] {
+  fill: rgba(var(--bg-F3F2F0-202427), 0.05);
 }
 
 

@@ -122,3 +122,66 @@ export async function createPaymentTransaction({
 
   return transaction
 }
+
+export interface CreateV2PaymentTransactionArgs {
+  metaplex: Metaplex
+  sellerShares: Record<string, number>
+  solToUsdRate: number
+  currency: 'sol' | 'usdc' | 'card'
+}
+export async function createV2PaymentTransaction({
+  metaplex,
+  sellerShares,
+  solToUsdRate,
+  currency,
+}: CreateV2PaymentTransactionArgs): Promise<Transaction> {
+  let conversionRate = currency == 'usdc' ? 1 : solToUsdRate * 100
+
+  let amountSplits = new Map<string, number>()
+  for (let [address, share] of Object.entries(sellerShares)) {
+    addTransferAmount(amountSplits, address, share / conversionRate)
+  }
+
+  let identity = metaplex.identity()
+  let instructions: TransactionInstruction[][] = []
+  if (currency == 'sol')
+    for (let [address, amount] of amountSplits)
+      instructions.push([
+        SystemProgram.transfer({
+          fromPubkey: identity.publicKey,
+          toPubkey: new PublicKey(address),
+          lamports: Math.floor(amount * LAMPORTS_PER_SOL),
+        }),
+      ])
+  else if (currency == 'usdc') {
+    let addresses = Array.from(amountSplits.keys())
+    let ataAddresses = addresses.map(address => getAssociatedTokenAddressSync(USDC_ADDRESS, new PublicKey(address)))
+    let ataAccountInfos = await metaplex.connection.getMultipleAccountsInfo(ataAddresses)
+
+    let sourceAta = getAssociatedTokenAddressSync(USDC_ADDRESS, identity.publicKey)
+    for (let i = 0; i < addresses.length; i++) {
+      let amount = amountSplits.get(addresses[i])
+      if (!amount) throw new Error(`unknown address: ${addresses[i]}`)
+      // amounts are in cents
+      amount *= 10 ** (USDC_DECIMALS - 2)
+
+      let address = new PublicKey(addresses[i])
+      let ixs: TransactionInstruction[] = []
+      if (!ataAccountInfos[i])
+        ixs.push(createAssociatedTokenAccountInstruction(identity.publicKey, ataAddresses[i], address, USDC_ADDRESS))
+      ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, Math.floor(amount)))
+      instructions.push(ixs)
+    }
+  } else if (currency == 'card') {
+
+  } else throw new Error(`unsupported currency: ${currency}`)
+
+  // TODO: handle transfers that don't fit into one tx
+  // splitIntoTransactions(instructions)
+
+  let transaction = new Transaction()
+  transaction.feePayer = identity.publicKey
+  transaction.add(...instructions.flat())
+
+  return transaction
+}

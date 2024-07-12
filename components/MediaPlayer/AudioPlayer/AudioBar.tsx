@@ -45,7 +45,7 @@ const Bar = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[20px] px-[0px] lg:px-[0px]">
+      <div className="w-full flex justify-between items-center h-[31px] lg:h-[45px] lg:mb-[15px] mb-[0px] px-[0px] lg:px-[0px]">
         <div className={styles.playButton}>
           <IconButtonWithSVG
             icon={
