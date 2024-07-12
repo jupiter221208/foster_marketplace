@@ -26,6 +26,7 @@ export const SHIPPING_SERVICE_NAMES = {
   usps_priority_mail_express_international: 'USPS Priority Mail Express Intl',
   usps_first_class_mail_international: 'USPS First Class Mail Intl',
   globalpost_parcel_select_smart_saver: 'GlobalPost Parcel Select SmartSaver',
+  international: 'International'
 }
 
 export function getShippingServiceName(code: string): string {

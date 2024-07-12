@@ -479,14 +479,16 @@ const MerchDetail = () => {
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
               </div>
-              {merchType !== 'foster' && (
+              {merchType !== 'foster' && merchType !== 'user' && (
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
                 </div>
               )}
-              <div className={`mt-[15px] ${styles.detailValue}`}>
-                Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-              </div>
+              {paymentDetails?.paidBy && (
+                <div className={`mt-[15px] ${styles.detailValue}`}>
+                  Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+                </div>
+              )}
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
               </div>
@@ -619,9 +621,11 @@ const MerchDetail = () => {
                   </div>
                 )}
 
-                <div className={`mt-[15px] ${styles.detailValue}`}>
-                  Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
-                </div>
+                {paymentDetails?.paidBy && (
+                  <div className={`mt-[15px] ${styles.detailValue}`}>
+                    Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+                  </div>
+                )}
                 <div className={`mt-[15px] ${styles.detailValue}`}>
                   Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
                 </div>
@@ -893,7 +897,7 @@ const MerchDetail = () => {
             )}
           </div> */}
 
-          {merchType !== 'foster' && (
+          {merchType !== 'foster' && merchType !== 'user' && (
             <div className="w-full mt-[20px]">
               <div className={styles.infoTitle}>Creator&nbsp;Commission</div>
               {type && type === 'sales' ? (
