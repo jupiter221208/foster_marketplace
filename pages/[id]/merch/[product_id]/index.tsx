@@ -79,7 +79,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               imageList.push({ url: item, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
-            else setType('user')
+            else setType('edition')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
@@ -335,6 +335,8 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           {currentStep === 2 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShipping
+                productId={router.query.product_id}
+                type={type}
                 onBack={info => {
                   setShippingData(info)
                   setCurrentStep(1)
@@ -344,15 +346,29 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                   setShippingMethod(info.method)
                   setCurrentStep(3)
                 }}
-                printData={printData}
-                data={shippingData}
+                onNextOrder={orderId => {
+                  let data = {
+                    type: 'store',
+                    printData,
+                    shippingData,
+                    nftName: printData.name,
+                    nftCoverUrl: merchList[0].url,
+                    totalCost,
+                  }
+                  dispatch({ type: 'set', merchData: data })
+                  router.push(`/orders/${orderId}`)
+                }}
+                data={printData}
+                merchList={merchList}
+                rawList={rawUrlList}
               />
             </div>
           )}
           {currentStep === 3 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
-                type={'foster'}
+                productId={router.query.product_id}
+                type={type}
                 data={printData}
                 shippingData={shippingData}
                 allShippingMethod={shipppingMethod}

@@ -15,10 +15,11 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/store'
+import storeAPI from 'apis/store'
 
 const MerchOrderShippingMethod = props => {
   const {
+    productId,
     type,
     shippingData,
     allShippingMethod,
@@ -147,17 +148,18 @@ const MerchOrderShippingMethod = props => {
       phone: '',
       residential: true,
     }
+
     const { id, name, description, color, quantity, size } = data
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
     if (type === 'appparel' || type === 'wallart') {
       item = {
-        id: id.toString(),
+        id: productId.toString(),
         quantity,
         previewUrl: merchList[0].url,
         options: {
-          type: type,
+          type: 'foster',
           nftName: name,
           fosterUrl: merchList[0].url,
           assetUrl: merchList[0].url,
@@ -175,11 +177,11 @@ const MerchOrderShippingMethod = props => {
       merchList.map(item => mockupUrls.push(item.url))
       rawList.map(item => rawUrls.push(item.url))
       item = {
-        id: id.toString(),
+        id: productId.toString(),
         quantity,
         previewUrl: mockupUrls[0],
         options: {
-          type: type,
+          type: 'foster',
           nftName: data.name,
           fosterUrl: window.location.href,
           mockupUrl: mockupUrls.join(','),
@@ -204,7 +206,7 @@ const MerchOrderShippingMethod = props => {
       notes: 'Checkout Note',
     }
 
-    merchAPI.checkout(params).then(
+    storeAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
         // setIsLoading(false)

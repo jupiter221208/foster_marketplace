@@ -14,7 +14,6 @@ import 'swiper/css/navigation'
 //apis
 import StoreAPI from 'apis/store'
 import { getTimeDifference } from 'utils/helpers'
-import { useViewport } from 'utils'
 
 const CreatorMerchShop = props => {
   const { username, userId } = props

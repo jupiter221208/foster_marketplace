@@ -18,7 +18,6 @@ const MerchBadgeModal = ({ open, onClose, data }) => {
   const closeModal = () => {
     onClose()
   }
-  console.log(data.list, '==========data.list==========')
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>

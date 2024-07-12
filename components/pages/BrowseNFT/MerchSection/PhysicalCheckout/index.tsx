@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 // custom functions
 import { useViewport, ensureMaxDecimals } from 'utils'
-import { createPaymentTransaction } from 'utils/merch'
+import { createPaymentTransaction, createV2PaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -27,7 +27,8 @@ import Alert from 'components/Alert'
 import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
-import { OrderData, payOrder } from 'apis/merch'
+import StoreAPI from 'apis/store'
+import { payOrder } from 'apis/merch'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
@@ -129,6 +130,11 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
+      } else if (type === 'user') {
+        let type = 'User Fulfilled Physical Print'
+        let colorText = 'Color: '
+        let qty = 'Qty: ' + itemQuantity
+        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       }
     })
     setList(itemList)
@@ -149,20 +155,29 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
       let { order } = orderData
 
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
-
       if (ssorder.items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
 
-      let transaction = await createPaymentTransaction({
-        metaplex,
-        sellerShares: order.seller_shares,
-        usdAmounts: {
-          maddiesAmount: order.maddies_cost + order.shipping_amount,
-          fosterAmount: order.foster_commission + order.tax_amount,
-          artistAmount: order.artist_commission,
-        },
-        solToUsdRate: solToUsdWithSlippage(),
-        currency,
-      })
+      let transaction
+      if (orderData.id > 1000) {
+        transaction = await createV2PaymentTransaction({
+          metaplex,
+          sellerShares: orderData.paymentSplits,
+          solToUsdRate: solToUsdWithSlippage(),
+          currency,
+        })
+      } else {
+        transaction = await createPaymentTransaction({
+          metaplex,
+          sellerShares: order.seller_shares,
+          usdAmounts: {
+            maddiesAmount: order.maddies_cost + order.shipping_amount,
+            fosterAmount: order.foster_commission + order.tax_amount,
+            artistAmount: order.artist_commission,
+          },
+          solToUsdRate: solToUsdWithSlippage(),
+          currency,
+        })
+      }
       let { blockhash } = await metaplex.connection.getLatestBlockhash()
       transaction.recentBlockhash = blockhash
       let signedTransaction = await metaplex.identity().signTransaction(transaction)
@@ -173,8 +188,15 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         payment_method: currency.toUpperCase(),
         payment_reference: signature,
       }
-      let response = await payOrder(id, params)
+      let response
+      if (orderData.id > 1000) {
+        response = await StoreAPI.payStoreOrder(id, params)
+      } else {
+        response = await payOrder(id, params)
+      }
       if (response?.status === 'success') result = true
+    } catch {
+      setIsLoad(false)
     } finally {
       // setIsLoad(false)
       if (result) {
