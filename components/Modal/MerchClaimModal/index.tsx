@@ -18,20 +18,12 @@ import MerchClaimShipping from 'components/pages/MerchOrder/MerchClaimShipping'
 import MerchClaimShippingMethod from 'components/pages/MerchOrder/MerchClaimShippingMethod'
 import MerchClaimCheckout from 'components/pages/MerchOrder/MerchClaimCheckout'
 
-const MerchClaimModal = ({ urls, open, onClose }) => {
+const MerchClaimModal = ({ urls, open, printData, onClose }) => {
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [orderId, setOrderId] = useState('')
   const [currentStep, setCurrentStep] = useState(1)
   const [shippingData, setShippingData] = useState(null)
-  const [printData, setPrintData] = useState({
-    id: 1,
-    cost: '56.4',
-    quantity: 1,
-    size: 'L',
-    color: 'white',
-    name: 'product_name1',
-    description: 'Unisex Premium Hoodie | Cotton Heritage M2580 | Embroidery | White',
-  })
+
   const [totalCost, setTotalCost] = useState(0)
 
   const closeModal = () => {

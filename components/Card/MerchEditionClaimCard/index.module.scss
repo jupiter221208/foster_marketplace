@@ -40,8 +40,17 @@
   font-style: "Muli-SemiBold";
   font-size: 16px;
   line-height: 20px;
-  font-weight: 1px;
+  font-weight: 100;
   color: var(--text-gray-200-color);
+}
+
+.nftName {
+  font-style: "Muli-Light";
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 100;
+  color: var(--main-icon-color);
+  margin-top: 8px;
 }
 
 .editionName {
@@ -114,6 +123,15 @@
   background: var(--background-main-color);
 }
 
+.avatar {
+  width: 46px;
+  height: 46px;
+  padding: 1px;
+  background: rgba(var(--main-bg-color-rgb), 0.3);
+  border-radius: 23px;
+  overflow: hidden;
+}
+
 .imageArea {
   position: relative;
   width: 100%;
@@ -124,17 +142,6 @@
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
-
-.nftName {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0;
-  color: var(--text-gray-200-color);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .price {

@@ -15,7 +15,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/merch'
+import StoreAPI from 'apis/store'
 
 const MerchClaimShippingMethod = props => {
   const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
@@ -139,7 +139,6 @@ const MerchClaimShippingMethod = props => {
       residential: true,
     }
     const { id, name, description, color, quantity, size } = data
-    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item
     item = {
@@ -147,7 +146,7 @@ const MerchClaimShippingMethod = props => {
       quantity,
       previewUrl: merchList[0].src,
       options: {
-        type: 'merch',
+        type: 'user',
         nftName: name,
         fosterUrl: merchList[0].src,
         assetUrl: merchList[0].src,
@@ -170,9 +169,9 @@ const MerchClaimShippingMethod = props => {
       notes: 'Checkout Note',
     }
 
-    merchAPI.checkout(params).then(
+    StoreAPI.checkout(params).then(
       response => {
-        onNext(response.orderNumber)
+        // onNext(response.orderNumber)
         setIsLoading(false)
       },
       error => {

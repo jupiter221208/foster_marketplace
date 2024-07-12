@@ -215,7 +215,7 @@ const MerchDetail = () => {
     setOrderDetails({
       orderNumber: orderVersion === 'v1' ? ssorder.orderNumber : orderData.id,
       orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
-      total: orderVersion === 'v1' ? order.amount.toFixed(2) : ssorder.amountPaid.toFixed(2),
+      total: orderVersion === 'v1' ? order.amount.toFixed(2) : ssorder?.amountPaid.toFixed(2),
       shipTo: billTo
         ? {
             street: billTo.street1 + ' ' + billTo.street2,
@@ -364,8 +364,13 @@ const MerchDetail = () => {
               <div className="skeletonLoaderBasic w-[250px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
               <div className="skeletonLoaderBasic w-[260px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
-              <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[15px]"></div>
+              {orderVersion === 'v1' && (
+                <div className="skeletonLoaderBasic w-[200px] h-[20px] rounded-full mt-[15px]"></div>
+              )}
+              {orderVersion === 'v1' && (
+                <div className="skeletonLoaderBasic w-[80px] h-[20px] rounded-full mt-[15px]"></div>
+              )}
+
               <div className="skeletonLoaderBasic w-[50px] h-[20px] rounded-full mt-[15px]"></div>
             </div>
 
@@ -492,6 +497,7 @@ const MerchDetail = () => {
               <div className={`mt-[15px] ${styles.detailValue}`}>
                 Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
               </div>
+
               <div className={`mt-[15px] ${styles.detailValue}`}>Tax:&nbsp;${paymentDetails?.tax}</div>
             </div>
 
@@ -914,14 +920,16 @@ const MerchDetail = () => {
             </div>
           )}
 
-          <div className="w-full mt-[20px]">
-            <div className={styles.infoTitle}>Paid&nbsp;By</div>
-            {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
-            ) : (
-              <div className={styles.infoValue}>{getShortAddress(paymentDetails?.paidBy)}</div>
-            )}
-          </div>
+          {paymentDetails?.paidBy && (
+            <div className="w-full mt-[20px]">
+              <div className={styles.infoTitle}>Paid&nbsp;By</div>
+              {!orderDetails ? (
+                <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[8px]"></div>
+              ) : (
+                <div className={styles.infoValue}>{getShortAddress(paymentDetails?.paidBy)}</div>
+              )}
+            </div>
+          )}
 
           <div className="w-full mt-[20px]">
             <div className={styles.infoTitle}>Shipping&nbsp;&&nbsp;Handling</div>
