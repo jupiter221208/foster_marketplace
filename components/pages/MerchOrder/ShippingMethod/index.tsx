@@ -15,7 +15,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import styles from './index.module.scss'
 
 // api
-import merchAPI from 'apis/store'
+import storeAPI from 'apis/store'
 
 const MerchOrderShippingMethod = props => {
   const {
@@ -147,6 +147,7 @@ const MerchOrderShippingMethod = props => {
       phone: '',
       residential: true,
     }
+
     const { id, name, description, color, quantity, size } = data
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
@@ -204,7 +205,7 @@ const MerchOrderShippingMethod = props => {
       notes: 'Checkout Note',
     }
 
-    merchAPI.checkout(params).then(
+    storeAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
         // setIsLoading(false)

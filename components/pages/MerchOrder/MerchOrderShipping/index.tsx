@@ -22,10 +22,12 @@ import styles from './index.module.scss'
 
 // api
 import merchAPI from 'apis/store'
+import storeAPI from 'apis/store'
+
 import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchOrderShipping = props => {
-  const { onBack, onNext } = props
+  const { type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -119,14 +121,85 @@ const MerchOrderShipping = props => {
     }
 
     setIsLoading(true)
-    merchAPI.prepareCart(params).then(
+    if (country.isoCode === 'US') {
+      merchAPI.prepareCart(params).then(
+        response => {
+          onNext({ data, method: response })
+          setIsLoading(false)
+        },
+        error => {
+          setIsLoading(false)
+          setShowAlert(true)
+        }
+      )
+    } else {
+      onCheckout('usps_priority_mail_international')
+    }
+  }
+
+  const onCheckout = serviceCode => {
+    let address = {
+      name: name,
+      // company: 'USPS',
+      street1: street,
+      street2: apartment,
+      street3: '',
+      city: city,
+      state: state.isoCode,
+      postalCode: zipCode,
+      country: country.isoCode,
+      phone: '',
+      residential: true,
+    }
+
+    const { id, description, color, quantity, size } = data
+    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+
+    let item
+
+    // foster merch
+    let mockupUrls = [],
+      rawUrls = []
+    merchList.map(item => mockupUrls.push(item.url))
+    rawList.map(item => rawUrls.push(item.url))
+    item = {
+      id: id.toString(),
+      quantity,
+      previewUrl: mockupUrls[0],
+      options: {
+        type: type,
+        nftName: data.name,
+        fosterUrl: window.location.href,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
+        nftAddress: '',
+        apparel: description,
+        size: size,
+        color: color,
+        technique: data.technique,
+      },
+      notes: `This is studio merch V2 item`,
+    }
+
+    let params = {
+      customerEmail: email,
+      shippingServiceCode: serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage: 'Fantastic Gift',
+      notes: 'Checkout Note',
+    }
+
+    console.log(params, '===========params==========')
+
+    storeAPI.checkout(params).then(
       response => {
-        onNext({ data, method: response })
-        setIsLoading(false)
+        onNextOrder(response.orderNumber)
       },
       error => {
         setIsLoading(false)
-        setShowAlert(true)
       }
     )
   }

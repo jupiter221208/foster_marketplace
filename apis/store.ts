@@ -81,6 +81,12 @@ class Store {
       return response?.data
     })
   }
+
+  payStoreOrder(id, params) {
+    return client.post(`${API_URL}v1/stores/orders/${id}/pay`, params).then(response => {
+      return response?.data
+    })
+  }
 }
 
 export default new Store()
