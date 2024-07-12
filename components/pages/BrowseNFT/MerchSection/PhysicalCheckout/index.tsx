@@ -130,6 +130,11 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         let colorText = 'Color: ' + getFirstUpperString(color)
         let qty = 'Qty: ' + itemQuantity
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
+      } else if (type === 'user') {
+        let type = 'User Fulfilled Physical Print'
+        let colorText = 'Color: '
+        let qty = 'Qty: ' + itemQuantity
+        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       }
     })
     setList(itemList)
@@ -150,14 +155,13 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
       let { order } = orderData
 
       let ssorder = orderType === 'v1' ? orderData?.ssorder : orderData?.externalOrder
-
       if (ssorder.items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
 
       let transaction
       if (orderData.id > 1000) {
         transaction = await createV2PaymentTransaction({
           metaplex,
-          sellerShares: orderData.paymentSplits.Ok,
+          sellerShares: orderData.paymentSplits,
           solToUsdRate: solToUsdWithSlippage(),
           currency,
         })

@@ -15,6 +15,7 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
+import StoreAPI from 'apis/store'
 import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
@@ -29,9 +30,11 @@ const MerchDetail = () => {
   const { id } = router.query
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
-  const type = useSelector<any>(state => state.orderType)
-  const [orderData, setOrderData] = useState<OrderData | null>(null)
+  const type = useSelector<any>(state => state.orderVersion)
+  const [orderData, setOrderData] = useState<any | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
+  const [SSOrder, setSSOrder] = useState(null)
+  const [orderVersion, setOrderVersion] = useState('v1')
   const [itemDetails, setItemDetails] = useState(null)
   const [list, setList] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
@@ -55,7 +58,18 @@ const MerchDetail = () => {
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
-      getOrder(id).then(setOrderData)
+      if (parseInt(id) > 1000) {
+        setOrderVersion('v2')
+        StoreAPI.getOrder(id).then(
+          response => {
+            setOrderData(response)
+          },
+          error => {}
+        )
+      } else {
+        setOrderVersion('v1')
+        getOrder(id).then(setOrderData)
+      }
     }
   }, [id])
 
@@ -63,13 +77,15 @@ const MerchDetail = () => {
     // dispatch({ type: 'set', isLoading: false })
 
     if (!orderData) return
-    let { order, ssorder, shipment } = orderData
+    let { order, shipment } = orderData
+    let ssorder = orderVersion === 'v1' ? orderData?.ssorder : orderData?.externalOrder
+    setSSOrder(ssorder)
 
     if (shipment) setTrackingDetails(shipment)
-    if (orderData?.ssorder.items.length === 1) {
+    if (ssorder?.items.length === 1) {
       let localData = JSON.parse(localStorage.getItem('data'))
 
-      let itemData = orderData?.ssorder.items[0]
+      let itemData = ssorder?.items[0]
       let options = itemData.options
       let nftName = findElement(options, 'name', 'nftName')
       let size = findElement(options, 'name', 'size')
@@ -81,7 +97,7 @@ const MerchDetail = () => {
       if (optionType['value'] === 'foster' && apparel.length > 0) {
         apparel = apparel.split(' | ')[0]
       }
-      let previewUrl = itemData.imageUrl.split(',')[0]
+      let previewUrl = orderVersion === 'v1' ? itemData.imageUrl.split(',')[0] : itemData.imageUrl
       let fosterUrl = findElement(options, 'name', 'fosterUrl')
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
@@ -113,7 +129,7 @@ const MerchDetail = () => {
       let localData = JSON.parse(localStorage.getItem('data'))
 
       let itemList = []
-      orderData.ssorder.items.forEach(itemData => {
+      ssorder?.items.forEach(itemData => {
         let options = itemData.options
         let nftName = findElement(options, 'name', 'nftName')
         let size = findElement(options, 'name', 'size')
@@ -156,9 +172,11 @@ const MerchDetail = () => {
     }
 
     if (type === 'sales') {
-      let commissionData = Object.entries(order.seller_shares).map(([address, value]) => {
-        return { address, value }
-      })
+      let commissionData = Object.entries(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits).map(
+        ([address, value]) => {
+          return { address, value }
+        }
+      )
 
       commissionData?.forEach(item => {
         if (item.address == publicKey?.toBase58()) {
@@ -168,35 +186,36 @@ const MerchDetail = () => {
       })
 
       setPaymentDetails({
-        method: order.payment_method,
+        method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
         status: 'Complete',
-        shipping: order.shipping_amount.toFixed(2),
-        tax: order.tax_amount.toFixed(2),
-        txId: order.transaction_id,
-        paidBy: order.buyer_address,
+        shipping: orderVersion === 'v1' ? order.shipping_amount.toFixed(2) : ssorder.shippingAmount.toFixed(2),
+        tax: orderVersion === 'v1' ? order.tax_amount.toFixed(2) : ssorder.taxAmount.toFixed(2),
+        txId: orderVersion === 'v1' ? order.transaction_id : orderData.transactionId,
+        paidBy: orderVersion === 'v1' ? order.buyer_address : '',
       })
     } else {
       setPaymentDetails({
-        method: order.payment_method,
+        method: orderVersion === 'v1' ? order.payment_method : orderData.paymentMethod,
         status: 'Complete',
-        shipping: order.shipping_amount.toFixed(2),
-        tax: order.tax_amount.toFixed(2),
-        txId: order.transaction_id,
-        paidBy: order.buyer_address,
-        commission: order.artist_commission.toFixed(2),
+        shipping: orderVersion === 'v1' ? order.shipping_amount.toFixed(2) : ssorder.shippingAmount.toFixed(2),
+        tax: orderVersion === 'v1' ? order.tax_amount.toFixed(2) : ssorder.taxAmount.toFixed(2),
+        txId: orderVersion === 'v1' ? order.transaction_id : orderData.transactionId,
+        paidBy: orderVersion === 'v1' ? order.buyer_address : '',
+        commission: orderVersion === 'v1' ? order.artist_commission.toFixed(2) : '',
       })
     }
 
-    setIsOwn(order.buyer_address === publicKey?.toBase58())
+    if (orderVersion === 'v1') setIsOwn(order.buyer_address === publicKey?.toBase58())
+    else setIsOwn(true)
 
-    let keys = Object.keys(order.seller_shares)
+    let keys = Object.keys(orderVersion === 'v1' ? order.seller_shares : orderData.paymentSplits)
     if (keys.length > 0) setPaidBy(keys[0])
 
     let billTo = ssorder.billTo
     setOrderDetails({
-      orderNumber: ssorder.orderNumber,
+      orderNumber: orderVersion === 'v1' ? ssorder.orderNumber : orderData.id,
       orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
-      total: order.amount.toFixed(2),
+      total: orderVersion === 'v1' ? order.amount.toFixed(2) : ssorder.amountPaid.toFixed(2),
       shipTo: billTo
         ? {
             street: billTo.street1 + ' ' + billTo.street2,
@@ -422,7 +441,7 @@ const MerchDetail = () => {
               </div>
             </div>
           </div>
-        ) : orderData?.ssorder.items.length === 1 ? (
+        ) : SSOrder?.items.length === 1 ? (
           <div className="w-full flex justify-between mt-[70px]">
             <div className="w-[183px] h-[183px] object-cover">
               {!orderData ? (
@@ -688,7 +707,7 @@ const MerchDetail = () => {
 
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
-            Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+            Shipping Status: {SSOrder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
@@ -699,7 +718,7 @@ const MerchDetail = () => {
       <div className="w-full lg:hidden block mt-[30px]">
         {!orderData ? (
           <div className="skeletonLoaderBasic w-full h-[120px] rounded-[12px]"></div>
-        ) : orderData?.ssorder.items.length === 1 ? (
+        ) : SSOrder?.items.length === 1 ? (
           <div className={styles.tableColor}>
             <div className="w-[auto]">
               <div className="w-[110px] h-auto object-cover">
@@ -923,7 +942,7 @@ const MerchDetail = () => {
             <div className={styles.shipStatusTitle}>
               Shipping Status:&nbsp;
               <div className={styles.shipStatusValue}>
-                {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+                {SSOrder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import { getOrder, OrderData } from 'apis/merch'
+import { getOrder } from 'apis/merch'
 import StoreAPI from 'apis/store'
 import { findElement } from 'utils/helpers'
 
@@ -93,7 +93,7 @@ const OrderSection = props => {
                   <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-auto h-full object-cover" />
                 </div>
               </div>
-            ) : merchType === 'foster' ? (
+            ) : merchType === 'foster' || merchType === 'user' ? (
               <div className="w-full lg:flex lg:gap-[50px] lg:h-[700px]">
                 <div className="w-[130px] lg:flex hidden flex-col gap-[16px]">
                   {merchList.map((merch, index) => {

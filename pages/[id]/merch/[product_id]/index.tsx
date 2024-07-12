@@ -79,7 +79,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               imageList.push({ url: item, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
-            else setType('user')
+            else setType('edition')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
@@ -335,6 +335,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           {currentStep === 2 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShipping
+                productId={router.query.product_id}
                 type={type}
                 onBack={info => {
                   setShippingData(info)
@@ -366,6 +367,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           {currentStep === 3 && (
             <div className="w-full mt-[0px] lg:mt-[57px]">
               <MerchOrderShippingMethod
+                productId={router.query.product_id}
                 type={type}
                 data={printData}
                 shippingData={shippingData}

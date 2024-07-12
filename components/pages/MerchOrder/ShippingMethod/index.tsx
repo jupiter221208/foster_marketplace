@@ -19,6 +19,7 @@ import storeAPI from 'apis/store'
 
 const MerchOrderShippingMethod = props => {
   const {
+    productId,
     type,
     shippingData,
     allShippingMethod,
@@ -154,11 +155,11 @@ const MerchOrderShippingMethod = props => {
     let item
     if (type === 'appparel' || type === 'wallart') {
       item = {
-        id: id.toString(),
+        id: productId.toString(),
         quantity,
         previewUrl: merchList[0].url,
         options: {
-          type: type,
+          type: 'foster',
           nftName: name,
           fosterUrl: merchList[0].url,
           assetUrl: merchList[0].url,
@@ -176,11 +177,11 @@ const MerchOrderShippingMethod = props => {
       merchList.map(item => mockupUrls.push(item.url))
       rawList.map(item => rawUrls.push(item.url))
       item = {
-        id: id.toString(),
+        id: productId.toString(),
         quantity,
         previewUrl: mockupUrls[0],
         options: {
-          type: type,
+          type: 'foster',
           nftName: data.name,
           fosterUrl: window.location.href,
           mockupUrl: mockupUrls.join(','),

@@ -27,7 +27,7 @@ import storeAPI from 'apis/store'
 import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchOrderShipping = props => {
-  const { type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
+  const { productId, type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -121,7 +121,9 @@ const MerchOrderShipping = props => {
     }
 
     setIsLoading(true)
-    if (country.isoCode === 'US') {
+    if (type === 'physical') {
+      onCheckout('', 'user') // user fulfilled physical
+    } else if (country.isoCode === 'US') {
       merchAPI.prepareCart(params).then(
         response => {
           onNext({ data, method: response })
@@ -133,11 +135,11 @@ const MerchOrderShipping = props => {
         }
       )
     } else {
-      onCheckout('usps_priority_mail_international')
+      if (type === 'foster') onCheckout('international', 'foster')
     }
   }
 
-  const onCheckout = serviceCode => {
+  const onCheckout = (serviceCode, type) => {
     let address = {
       name: name,
       // company: 'USPS',
@@ -163,7 +165,7 @@ const MerchOrderShipping = props => {
     merchList.map(item => mockupUrls.push(item.url))
     rawList.map(item => rawUrls.push(item.url))
     item = {
-      id: id.toString(),
+      id: productId.toString(),
       quantity,
       previewUrl: mockupUrls[0],
       options: {
@@ -192,10 +194,12 @@ const MerchOrderShipping = props => {
       notes: 'Checkout Note',
     }
 
-    console.log(params, '===========params==========')
-
     storeAPI.checkout(params).then(
       response => {
+        if (response.orderNumber === undefined) {
+          setIsLoading(false)
+          return
+        }
         onNextOrder(response.orderNumber)
       },
       error => {
