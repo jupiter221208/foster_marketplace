@@ -228,7 +228,7 @@ const NewCreatorMerch = () => {
         params = {
           name: productDetail.name,
           description: productDetail.description,
-          fulfillment_type: 'user',
+          fulfillment_type: 'foster',
           product_type_id: getProductTypeId(),
           selling_price: Math.floor(additionDetail.selling_price * 100),
           supply: additionDetail.supply,
