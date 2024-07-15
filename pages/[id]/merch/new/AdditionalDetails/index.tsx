@@ -32,7 +32,7 @@ const AdditionalDetails = props => {
   const [apparelUrl, setApparelUrl] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [saleMethod, setSaleMethod] = useState({ id: -1, label: '' })
+  const [saleMethod, setSaleMethod] = useState({ id: -1, label: '', type: '' })
   const [sellingPrice, setSellingPrice] = useState('')
   const [profit, setProfit] = useState(0)
   const [maxSupplyItem, setMaxSupplyItem] = useState(MaxSupplyList[0])
@@ -131,9 +131,14 @@ const AdditionalDetails = props => {
   }, [sellingPrice])
 
   useEffect(() => {
-    setAdditionDetail({ ...additionDetail, sale_method: saleMethod.id === 0 ? 'edition' : 'standalone' })
     if (saleMethod.id === 0) {
-      setAdditionDetail({ ...additionDetail, selling_price: priceBase + priceFB + priceRight + priceLeft })
+      setAdditionDetail({
+        ...additionDetail,
+        sale_method: saleMethod.type,
+        selling_price: priceBase + priceFB + priceRight + priceLeft,
+      })
+    } else {
+      setAdditionDetail({ ...additionDetail, sale_method: saleMethod.type })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saleMethod])

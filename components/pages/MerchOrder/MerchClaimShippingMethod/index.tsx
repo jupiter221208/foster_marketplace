@@ -18,7 +18,8 @@ import styles from './index.module.scss'
 import StoreAPI from 'apis/store'
 
 const MerchClaimShippingMethod = props => {
-  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, mintAddress, onNext, onBack } = props
+  const { type, shippingData, allShippingMethod, data, setTotalCost, merchList, rawList, mintAddress, onNext, onBack } =
+    props
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
@@ -141,15 +142,21 @@ const MerchClaimShippingMethod = props => {
     const { id, name, description, color, quantity, size } = data
 
     let item
+    let mockupUrls = [],
+      rawUrls = []
+    merchList.map(item => mockupUrls.push(item.url))
+    rawList.map(item => rawUrls.push(item.url))
+
     item = {
       id: id.toString(),
       quantity,
-      previewUrl: merchList[0].src,
+      previewUrl: mockupUrls[0],
       options: {
-        type: 'user',
+        type: 'foster',
         nftName: name,
-        fosterUrl: merchList[0].src,
-        assetUrl: merchList[0].src,
+        fosterUrl: window.location.href,
+        mockupUrl: mockupUrls.join(','),
+        assetUrl: rawUrls.join(','),
         nftAddress: mintAddress,
         apparel: description,
         size: size,
@@ -171,7 +178,7 @@ const MerchClaimShippingMethod = props => {
 
     StoreAPI.checkout(params).then(
       response => {
-        // onNext(response.orderNumber)
+        onNext(response.orderNumber)
         setIsLoading(false)
       },
       error => {

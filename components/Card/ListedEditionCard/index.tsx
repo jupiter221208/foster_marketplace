@@ -56,11 +56,11 @@ const ListedEditionCard = ({ data, onClick, onUpdateList, onCancelSuccess }: Lis
         throw new Error(`could not revoke delegate for ${mint} to ${delegate}`)
       }
 
-      cancelListingEdition(item?.address).then(res => {
-        if (res) {
-          onCancelSuccess()
-        }
-      })
+      // cancelListingEdition(item?.address).then(res => {
+      //   if (res) {
+      //     onCancelSuccess()
+      //   }
+      // })
     } catch (e) {
       setCancelListLoading(false)
     }

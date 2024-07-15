@@ -146,6 +146,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
       if (!printDelegateAccount.exists) {
         // show error to user
         await cancelListingEdition(data.mintAddress)
+        if (merchCard)
+          await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+            master_edition_address: '',
+            supply: null,
+          })
         setIsLoading(false)
         return
       }
@@ -162,6 +167,11 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     } catch (e: any) {
       console.error(e)
       await cancelListingEdition(data.mintAddress)
+      if (merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: '',
+          supply: null,
+        })
       setIsLoading(false)
     }
   }

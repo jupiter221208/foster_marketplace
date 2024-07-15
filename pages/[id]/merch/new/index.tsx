@@ -103,6 +103,7 @@ const NewCreatorMerch = () => {
   const createProduct = async () => {
     // console.log(productDetail, '==========productDetail==========')
     // console.log(additionDetail, '==========additionDetail==========')
+
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id
@@ -191,7 +192,7 @@ const NewCreatorMerch = () => {
           params = {
             name: additionDetail.name,
             description: additionDetail.description,
-            fulfillment_type: 'user',
+            fulfillment_type: 'foster',
             product_type_id: getProductTypeId(),
             selling_price: Math.floor(additionDetail.selling_price * 100),
             supply: null,
@@ -199,7 +200,8 @@ const NewCreatorMerch = () => {
             sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
             sale_end_at: null,
             options: {
-              shipping_responsibility: 'di_seller',
+              print_technique: productDetail.technique === 'dtg' ? 'direct_to_garment' : 'embroidery',
+              color: productDetail.color,
               product_images: addonList,
             },
           }
@@ -228,7 +230,7 @@ const NewCreatorMerch = () => {
         params = {
           name: productDetail.name,
           description: productDetail.description,
-          fulfillment_type: 'foster',
+          fulfillment_type: 'user',
           product_type_id: getProductTypeId(),
           selling_price: Math.floor(additionDetail.selling_price * 100),
           supply: additionDetail.supply,
@@ -242,7 +244,6 @@ const NewCreatorMerch = () => {
         }
       }
 
-      // console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
           if (res) {

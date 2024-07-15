@@ -42,9 +42,7 @@ export interface PhysicalCheckoutProps {
 }
 
 const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: PhysicalCheckoutProps) => {
-  const viewport = useViewport()
   const router = useRouter()
-  const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
@@ -65,7 +63,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         id: 0,
         title: 'Order Placed!',
         description: 'You will receive an email once the order has been shipped. ',
-        description2: `Your order number is #${id}.`,
+        description2: `Your order number is #${orderData.id}.`,
         type: 'success',
       },
     ])
@@ -183,18 +181,22 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
       let signedTransaction = await metaplex.identity().signTransaction(transaction)
       let { signature } = await metaplex.rpc().sendAndConfirmTransaction(signedTransaction)
 
-      // TODO: send signature to backend and update order
-      let params = {
-        payment_method: currency.toUpperCase(),
-        payment_reference: signature,
-      }
-      let response
-      if (orderData.id > 1000) {
-        response = await StoreAPI.payStoreOrder(id, params)
+      if (signature?.length > 0) {
+        // TODO: send signature to backend and update order
+        let params = {
+          payment_method: currency.toUpperCase(),
+          payment_reference: signature,
+        }
+        let response
+        if (orderData.id > 1000) {
+          response = await StoreAPI.payStoreOrder(orderData.id, params)
+        } else {
+          response = await payOrder(orderData.id, params)
+        }
+        if (response?.status === 'success') result = true
       } else {
-        response = await payOrder(id, params)
+        setIsLoad(false)
       }
-      if (response?.status === 'success') result = true
     } catch {
       setIsLoad(false)
     } finally {
@@ -341,7 +343,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            router.push(`/merch-logs/${id}`)
+            router.push(`/merch-logs/${orderData.id}`)
           }, 1000)
         }}
         data={alertData}

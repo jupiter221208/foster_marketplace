@@ -18,7 +18,6 @@ import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 // api
-import StoreAPI from 'apis/store'
 import Link from 'next/link'
 
 const MerchEditionClaimCard = props => {
@@ -26,49 +25,6 @@ const MerchEditionClaimCard = props => {
   const [showEditBtn, setShowEditBtn] = useState(false)
   const [showViewCard, setShowViewCard] = useState(false)
   const [showClaimCard, setShowClaimCard] = useState(false)
-  const [printData, setPrintData] = useState(null)
-  const [productDetail, setProductDetail] = useState(null)
-  const [merchList, setMerchList] = useState([])
-  const [rawUrlList, setRawUrlList] = useState([])
-  const [type, setType] = useState('')
-
-  useEffect(() => {
-    StoreAPI.getStoreById(data.user_id, data.id).then(
-      response => {
-        if (response) {
-          setProductDetail(response)
-          let imageList = [],
-            rawList = []
-          if (response.fulfillment_type === 'foster') {
-            response.options.addons.map((item, index) => {
-              imageList.push({ url: item.mockup_url, selected: index === 0 })
-              rawList.push({ url: item.raw_url })
-            })
-            setType('foster')
-          } else {
-            response.options.product_images.map((item, index) => {
-              imageList.push({ url: item, selected: index === 0 })
-            })
-            if (response.master_edition_address === null) setType('physical')
-            else setType('edition')
-          }
-          setMerchList(imageList)
-          setRawUrlList(rawList)
-          setPrintData({
-            id: 1,
-            quantity: 1,
-            size: 'L',
-            color: response.options.color,
-            name: response.name,
-            description: response.description,
-            technique: response.options.print_technique,
-            cost: response.selling_price / 100,
-          })
-        }
-      },
-      error => {}
-    )
-  }, [data])
 
   const onClaimCard = () => {
     setShowClaimCard(true)
@@ -139,12 +95,8 @@ const MerchEditionClaimCard = props => {
         open={showViewCard}
         onClose={() => setShowViewCard(false)}
       />
-      <MerchClaimModal
-        printData={data}
-        urls={data.options.product_images}
-        open={showClaimCard}
-        onClose={() => setShowClaimCard(false)}
-      />
+
+      <MerchClaimModal data={data} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
     </div>
   )
 }
