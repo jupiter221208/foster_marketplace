@@ -522,6 +522,7 @@ const MainSection = ({
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
       if (nftInfo.master_edition?.merchProduct) {
         setMerchCard(nftInfo.master_edition?.merchProduct)
+        console.log(nftInfo.master_edition?.merchProduct, '============nftInfo.master_edition?.merchProduct========')
         setMerchImages(nftInfo.master_edition?.merchProduct.options.addons)
         setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
       }
