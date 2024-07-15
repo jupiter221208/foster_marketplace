@@ -97,8 +97,7 @@ const MerchShopCard = props => {
   }, [currentStep])
 
   const gotoDetail = () => {
-    if (data.fulfillment_type === 'foster') {
-      dispatch({ type: 'set', merchOrderType: 'foster' })
+    if (data.master_edition_address === null) {
       router.push(`/${username}/merch/${data.id}`)
     } else {
       if (getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0)
@@ -169,7 +168,7 @@ const MerchShopCard = props => {
       <div className={styles.bottomSection}>
         <div className="sm:flex hidden w-full mt-[15px] justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
-          {(data.fulfillment_type === 'foster' || data.master_edition_address?.length > 0) && (
+          {(data.master_edition_address === null || data.master_edition_address?.length > 0) && (
             <div>
               <div className="sm:flex hidden gap-[4px] mt-1 items-center">
                 <div className="mt-[2px]">
@@ -229,13 +228,13 @@ const MerchShopCard = props => {
             {getTimeDifference(data.sale_start_at) > 0 ? (
               <div>
                 <div className={styles.saleType}>Goes live on </div>
-                {data.fulfillment_type === 'foster' ? (
+                {data.master_edition_address === null ? (
                   <div className={styles.saleCount}>{getDateTimeLabel(new Date(data.sale_start_at))}</div>
                 ) : (
                   <div className={styles.saleCount}>TBD</div>
                 )}
               </div>
-            ) : data.fulfillment_type !== 'foster' && data.master_edition_address?.length === 0 ? (
+            ) : data.master_edition_address?.length === 0 ? (
               <div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>Goes live on</div>
