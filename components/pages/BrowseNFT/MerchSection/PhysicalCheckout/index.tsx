@@ -130,9 +130,8 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       } else if (type === 'user') {
         let type = 'User Fulfilled Physical Print'
-        let colorText = 'Color: '
         let qty = 'Qty: ' + itemQuantity
-        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
+        itemList.push({ name: 'Product: ' + nftName, type, color: '', qty })
       }
     })
     setList(itemList)
@@ -220,7 +219,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
               <div key={index} className="pb-[5px]">
                 <div className={styles.itemDetails}>{item.name}</div>
                 <div className={styles.itemDetails}>{item.type}</div>
-                <div className={styles.itemDetails}>{item.color}</div>
+                {item.type != 'User Fulfilled Physical Print' && <div className={styles.itemDetails}>{item.color}</div>}
                 <div className={styles.itemDetails}>{item.qty}</div>
               </div>
             ))}
