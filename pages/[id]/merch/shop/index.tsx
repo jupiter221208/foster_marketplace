@@ -32,7 +32,13 @@ const CreatorMerchShop = props => {
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
-        setMerchList(res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0))
+        setMerchList(
+          res.filter(
+            item =>
+              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
+              item.master_edition_address === null
+          )
+        )
       },
       error => {}
     )
