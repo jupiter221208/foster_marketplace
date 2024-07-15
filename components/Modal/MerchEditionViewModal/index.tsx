@@ -17,7 +17,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 const MerchEditionViewModal = ({ urls, open, onClose }) => {
   const [assetUrls, setAssetUrls] = useState([])
   const [selectedAsset, setSelectedAsset] = useState(urls[0].mockup_url)
-  console.log(urls, '==========urls==========')
+
   const closeModal = () => {
     onClose()
   }
