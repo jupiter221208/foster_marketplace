@@ -18,7 +18,7 @@ import GradientButton from 'components/Button/GradientButton'
 import { useRouter } from 'next/router'
 
 const ApparelActivity = props => {
-  const { activities, pendingList, allList, type, isLoading } = props
+  const { activities, type, isLoading } = props
   const router = useRouter()
 
   return (
