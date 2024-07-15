@@ -72,25 +72,14 @@ const MerchShopCard = props => {
 
   useEffect(() => {
     let list = []
-    if (data.fulfillment_type === 'foster') {
-      data.options.addons.map((item, index) => {
-        let step = currentStep % data.options.addons.length
-        if (index === step) {
-          list.push(true)
-        } else {
-          list.push(false)
-        }
-      })
-    } else {
-      data.options.product_images.map((item, index) => {
-        let step = currentStep % data.options.product_images.length
-        if (index === step) {
-          list.push(true)
-        } else {
-          list.push(false)
-        }
-      })
-    }
+    data.options.addons.map((item, index) => {
+      let step = currentStep % data.options.addons.length
+      if (index === step) {
+        list.push(true)
+      } else {
+        list.push(false)
+      }
+    })
 
     setIndicatorList(list)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,29 +108,15 @@ const MerchShopCard = props => {
           modules={[Autoplay, Lazy, Navigation, Pagination]}
           // loop
         >
-          {data.fulfillment_type === 'foster'
-            ? data.options.addons.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div className={styles.imageContent}>
-                      <ImageWithFoster
-                        src={item.mockup_url}
-                        width={500}
-                        className="max-w-full max-h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))
-            : data.options.product_images.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
-                    <div className={styles.imageContent}>
-                      <ImageWithFoster src={item} width={500} className="max-w-full max-h-full object-cover" />
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
+          {data.options.addons.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                <div className={styles.imageContent}>
+                  <ImageWithFoster src={item.mockup_url} width={500} className="max-w-full max-h-full object-cover" />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
         {indicatorList.length > 1 && (
           <div className="absolute left-0 top-[46%] w-full flex justify-between items-center px-[20px]">

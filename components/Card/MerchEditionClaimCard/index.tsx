@@ -59,7 +59,7 @@ const MerchEditionClaimCard = props => {
           <div className={styles.imageContent}>
             <div className="w-full h-full p-4">
               <ImageWithFoster
-                src={data.options.product_images[0]}
+                src={data.options.addons[0].mockup_url}
                 width={800}
                 className="w-full h-full object-cover"
               />
@@ -90,11 +90,7 @@ const MerchEditionClaimCard = props => {
         )}
       </div>
 
-      <MerchEditionViewModal
-        urls={data.options.product_images}
-        open={showViewCard}
-        onClose={() => setShowViewCard(false)}
-      />
+      <MerchEditionViewModal urls={data.options.addons} open={showViewCard} onClose={() => setShowViewCard(false)} />
 
       <MerchClaimModal data={data} open={showClaimCard} onClose={() => setShowClaimCard(false)} />
     </div>

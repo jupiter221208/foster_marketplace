@@ -294,7 +294,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
           <div className={styles.merchArea}>
             <div className="w-full flex gap-[10px] lg:gap-[15px] mt-[11px] ml-[12px] sm:ml-[16px]">
               <div className={styles.assetArea}>
-                <ImageWithFoster width={65} src={merchCard.options.product_images[0]} />
+                <ImageWithFoster width={65} src={merchCard.options.addons[0].mockup_url} />
               </div>
               <div className={styles.contentArea}>
                 <div className={styles.merchTitle}>Merch included for each sale</div>

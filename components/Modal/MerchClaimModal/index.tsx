@@ -49,8 +49,8 @@ const MerchClaimModal = ({ open, onClose, data }) => {
             })
             setType('foster')
           } else {
-            response.options.product_images.map((item, index) => {
-              imageList.push({ url: item, selected: index === 0 })
+            response.options.addons.map((item, index) => {
+              imageList.push({ url: item.mockup_url, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
             else setType('edition')

@@ -79,7 +79,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               imageList.push({ url: item, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
-            else setType('edition')
+            else setType('')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
