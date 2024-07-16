@@ -496,7 +496,6 @@ const AdditionalDetails = props => {
                   selectedItem={saleMethod}
                   setSelectedItem={item => {
                     setSaleMethod(item)
-                    console.log(item, '=============item=============')
                   }}
                 />
               </div>
