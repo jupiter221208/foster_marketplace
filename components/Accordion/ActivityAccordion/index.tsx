@@ -8,7 +8,6 @@ import { Disclosure } from '@headlessui/react'
 // components
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
@@ -16,18 +15,12 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?compon
 
 // styles
 import styles from './index.module.scss'
-import { getDateString, getDisplayUserName } from 'utils/strings'
-
+import { getDisplayUserName } from 'utils/strings'
 import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-import { NftData } from 'types/nft'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const ActivityAccordion = ({ data }) => {
-  const dispatch = useDispatch()
-  const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
 
   const buttonRefs = useRef<any>([])

@@ -21,6 +21,7 @@ const MerchOrderShippingMethod = props => {
   const {
     productId,
     type,
+    shippingLocal,
     shippingData,
     allShippingMethod,
     data,
@@ -39,7 +40,7 @@ const MerchOrderShippingMethod = props => {
 
   useEffect(() => {
     let methods = []
-    if (isUniteState()) {
+    if (shippingLocal) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
         item => item.serviceCode === 'usps_priority_mail' || item.serviceCode === 'usps_priority_mail_express'
       )
@@ -86,28 +87,32 @@ const MerchOrderShippingMethod = props => {
       methods.push(minCostMethodOne)
       methods.push(minCostMethodTwo)
     } else {
-      let index = 0
-      let minCost = Number.MAX_VALUE
-      let minCostMethod
-      allShippingMethod.shippingMethods
-        .filter(item => item.serviceCode === 'usps_priority_mail_international')
-        .forEach(method => {
-          let newMethod = {
-            ...method,
-            id: index,
-            label: 'USPS Priority Mail International',
-            value: method.serviceCode,
-            disabled: false,
-            price: method.shipmentCost,
-          }
-          if (newMethod.price < minCost) {
-            minCost = newMethod.price
-            minCostMethod = newMethod
-          }
-          index++
-        })
-      minCostMethod.price = minCost.toFixed(2)
-      methods.push(minCostMethod)
+      // allShippingMethod.shippingMethods
+      //   .filter(item => item.serviceCode === 'usps_priority_mail_international')
+      //   .forEach(method => {
+      //     let newMethod = {
+      //       ...method,
+      //       id: index,
+      //       label: 'USPS Priority Mail International',
+      //       value: method.serviceCode,
+      //       disabled: false,
+      //       price: method.shipmentCost,
+      //     }
+      //     if (newMethod.price < minCost) {
+      //       minCost = newMethod.price
+      //       minCostMethod = newMethod
+      //     }
+      //     index++
+      //   })
+      let newMethod = {
+        id: 0,
+        label: 'International Shipping',
+        value: '',
+        disabled: false,
+        price: 15,
+        shipmentCost: 15,
+      }
+      methods.push(newMethod)
     }
     if (methods?.length > 0) {
       setShippingMethods(methods)
@@ -118,7 +123,10 @@ const MerchOrderShippingMethod = props => {
 
   useEffect(() => {
     if (shipping) {
-      let tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      let tax
+      if (shippingLocal)
+        tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
+      else tax = 0
       let total = parseFloat(data.cost) + shipping.shipmentCost + tax
 
       setTax(tax)
@@ -197,7 +205,7 @@ const MerchOrderShippingMethod = props => {
     }
     let params = {
       customerEmail: shippingData.email,
-      shippingServiceCode: shipping.serviceCode,
+      shippingServiceCode: shippingLocal ? shipping.serviceCode : 'international',
       billTo: address,
       shipTo: address,
       items: [item],
@@ -250,7 +258,7 @@ const MerchOrderShippingMethod = props => {
                   </div>
                   <div className={styles.subPrice}>
                     <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                    <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                    <div className="mt-[20px]">Tax: ${tax !== null ? tax.toFixed(2) : '---'}</div>
                   </div>
                 </div>
                 <div className={`${styles.divider} mt-[15px]`} />

@@ -16,7 +16,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 import StoreAPI from 'apis/store'
-import { getOrder, OrderData, ShipStationShipment } from 'apis/merch'
+import { getOrder, ShipStationShipment } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
@@ -24,6 +24,7 @@ import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import { useAuthentication } from 'hooks/useAuthentication'
 import WriteReviewModal from 'components/Modal/WriteReviewModal'
+import MakeShippedModal from 'components/Modal/MakeShippedModal'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -31,6 +32,7 @@ const MerchDetail = () => {
   const { connected, publicKey } = useWallet()
   const { profileInfo } = useAuthentication()
   const type = useSelector<any>(state => state.orderVersion)
+  const orderTabType = useSelector<any>(state => state.orderType)
   const [orderData, setOrderData] = useState<any | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [SSOrder, setSSOrder] = useState(null)
@@ -48,6 +50,8 @@ const MerchDetail = () => {
   const [reviewBody, setReviewBody] = useState('')
   const [commission, setCommission] = useState(null)
   const [showReviewModal, setShowReviewModal] = useState(false)
+  const [showShippedModal, setShowShippedModal] = useState(false)
+
   const [merchType, setMerchType] = useState('')
 
   useEffect(() => {
@@ -136,7 +140,6 @@ const MerchDetail = () => {
         let color = findElement(options, 'name', 'color')
         let optionType = findElement(options, 'name', 'type')
         setMerchType(optionType['value'])
-        let fosterUrl = findElement(options, 'name', 'fosterUrl')
         let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
         apparel = apparel ? apparel['value'] : ''
@@ -383,7 +386,8 @@ const MerchDetail = () => {
                 <div>
                   <Button
                     height="48px"
-                    fontSize="16px"
+                    fontSize="18px"
+                    fontFamily="Muli-SemiBold"
                     paddingLeft="37px"
                     paddingRight="37px"
                     label="Track package"
@@ -393,9 +397,7 @@ const MerchDetail = () => {
                     borderWidth={1}
                     color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                     width={335}
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
+                    onClick={() => {}}
                   />
                 </div>
               ) : (
@@ -410,6 +412,35 @@ const MerchDetail = () => {
                   />
                 </div>
               )}
+
+              <div className="mt-[12px]">
+                {orderTabType === 'sales' ? (
+                  <Button
+                    height="48px"
+                    fontSize="18px"
+                    fontFamily="Muli-SemiBold"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Write a product review"
+                    disabled={true}
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                    width={335}
+                    onClick={() => {}}
+                  />
+                ) : (
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    onClick={() => {
+                      setShowReviewModal(true)
+                    }}
+                  />
+                )}
+              </div>
               <div className="mt-[12px]">
                 <a
                   href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
@@ -427,23 +458,17 @@ const MerchDetail = () => {
                   />
                 </a>
               </div>
-              <div className="mt-[12px]">
-                {/* <a
-                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                    subject: reviewTitle,
-                    body: reviewBody,
-                  })}`}
-                > */}
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Write a review"
-                  onClick={() => {
-                    setShowReviewModal(true)
-                  }}
-                />
-                {/* </a> */}
-              </div>
+              {merchType === 'user' && orderTabType === 'sales' && (
+                <div className="mt-[12px]">
+                  <GradientButton
+                    width={335}
+                    label="Mark as Shipped"
+                    onClick={() => {
+                      setShowShippedModal(true)
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ) : SSOrder?.items.length === 1 ? (
@@ -457,10 +482,10 @@ const MerchDetail = () => {
             </div>
             <div className="max-w-[300px]">
               <div className={styles.detailTitle}>Item Details</div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>Name:&nbsp;{itemDetails?.print}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>
-                Product:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
+                Description:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
                 {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                   ? 'Small'
                   : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
@@ -510,7 +535,7 @@ const MerchDetail = () => {
                 <div>
                   <Button
                     height="48px"
-                    fontSize="16px"
+                    fontSize="18px"
                     paddingLeft="37px"
                     paddingRight="37px"
                     label="Track package"
@@ -555,22 +580,44 @@ const MerchDetail = () => {
                 </a>
               </div>
               <div className="mt-[12px]">
-                {/* <a
-                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                    subject: reviewTitle,
-                    body: reviewBody,
-                  })}`}
-                > */}
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
-                  label="Write a review"
-                  onClick={() => {
-                    setShowReviewModal(true)
-                  }}
-                />
-                {/* </a> */}
+                {orderTabType === 'sales' ? (
+                  <Button
+                    height="48px"
+                    fontSize="18px"
+                    fontFamily="Muli-SemiBold"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Write a product review"
+                    disabled={true}
+                    backgroundColor="transparent"
+                    borderColor="var(--follow-btn-border-mobile)"
+                    borderWidth={1}
+                    color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                    width={335}
+                    onClick={() => {}}
+                  />
+                ) : (
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Write a product review"
+                    onClick={() => {
+                      setShowReviewModal(true)
+                    }}
+                  />
+                )}
               </div>
+              {merchType === 'user' && orderTabType === 'sales' && (
+                <div className="mt-[12px]">
+                  <GradientButton
+                    width={335}
+                    label="Mark as Shipped"
+                    onClick={() => {
+                      setShowShippedModal(true)
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ) : (
@@ -647,7 +694,7 @@ const MerchDetail = () => {
                   <div>
                     <Button
                       height="48px"
-                      fontSize="16px"
+                      fontSize="18px"
                       paddingLeft="37px"
                       paddingRight="37px"
                       label="Track package"
@@ -675,6 +722,35 @@ const MerchDetail = () => {
                   </div>
                 )}
                 <div className="mt-[12px]">
+                  {orderTabType === 'sales' ? (
+                    <Button
+                      height="48px"
+                      fontSize="18px"
+                      fontFamily="Muli-SemiBold"
+                      paddingLeft="37px"
+                      paddingRight="37px"
+                      label="Write a product review"
+                      disabled={true}
+                      backgroundColor="transparent"
+                      borderColor="var(--follow-btn-border-mobile)"
+                      borderWidth={1}
+                      color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                      width={335}
+                      onClick={() => {}}
+                    />
+                  ) : (
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Write a product review"
+                      disabled={orderTabType === 'sales'}
+                      onClick={() => {
+                        setShowReviewModal(true)
+                      }}
+                    />
+                  )}
+                </div>
+                <div className="mt-[12px]">
                   <a
                     href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
                       subject: helpTitle,
@@ -691,25 +767,18 @@ const MerchDetail = () => {
                     />
                   </a>
                 </div>
-                <div className="mt-[12px]">
-                  {/* <a
-                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                      subject: reviewTitle,
-                      body: reviewBody,
-                    })}`}
-                  > */}
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Write a review"
-                    // onClick={() => {}}
-                    onClick={() => {
-                      setShowReviewModal(true)
-                      // window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                  {/* </a> */}
-                </div>
+
+                {merchType === 'user' && orderTabType === 'sales' && (
+                  <div className="mt-[12px]">
+                    <GradientButton
+                      width={335}
+                      label="Mark as Shipped"
+                      onClick={() => {
+                        setShowShippedModal(true)
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -738,7 +807,7 @@ const MerchDetail = () => {
             <div className="w-full text-left ml-[22px]">
               <div className={styles.detailValue}>{itemDetails?.print}</div>
               <div className={styles.detailValue}>
-                {itemDetails?.apparel}&nbsp;
+                {itemDetails?.apparel.slice(0, 40)}&nbsp;
                 {`(${
                   itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                     ? 'Small'
@@ -778,7 +847,7 @@ const MerchDetail = () => {
                     <div className="w-full text-left ml-[22px]">
                       <div className={styles.detailValue}>&nbsp;{item?.print}</div>
                       <div className={styles.detailValue}>
-                        &nbsp;{item?.apparel}&nbsp;
+                        &nbsp;{item?.apparel.slice(30)}&nbsp;
                         {`(${
                           item?.size === 'S' || item?.size === 'YXS'
                             ? 'Small'
@@ -998,22 +1067,39 @@ const MerchDetail = () => {
             )}
 
             <div className="mt-[12px]">
-              <Button
-                height="48px"
-                fontSize="16px"
-                paddingLeft="37px"
-                paddingRight="37px"
-                label="Write a review"
-                backgroundColor="transparent"
-                borderColor="var(--follow-btn-border-mobile)"
-                borderWidth={1}
-                color={'var(--text-gray-200-color)'}
-                width={335}
-                onClick={() => {
-                  setShowReviewModal(true)
-                  // window.location.href = 'mailto:admin@Fostermarketplace.app'
-                }}
-              />
+              {orderTabType === 'sales' ? (
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  fontFamily="Muli-SemiBold"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Write a product review"
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
+                  width={335}
+                  onClick={() => {}}
+                />
+              ) : (
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Write a product review"
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color={'var(--text-gray-200-color)'}
+                  width={335}
+                  onClick={() => {
+                    setShowReviewModal(true)
+                  }}
+                />
+              )}
             </div>
 
             <div className="mt-[12px]">
@@ -1033,6 +1119,18 @@ const MerchDetail = () => {
                 }}
               />
             </div>
+
+            {merchType === 'user' && orderTabType === 'sales' && (
+              <div className="mt-[12px]">
+                <GradientButton
+                  width={335}
+                  label="Mark as Shipped"
+                  onClick={() => {
+                    setShowShippedModal(true)
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -1042,7 +1140,8 @@ const MerchDetail = () => {
         itemDetails={itemDetails}
         onClose={() => setShowReviewModal(false)}
       />
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
+
+      <MakeShippedModal open={showShippedModal} orderId={orderData?.id} onClose={() => setShowShippedModal(false)} />
     </div>
   )
 }

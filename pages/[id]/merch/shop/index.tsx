@@ -63,7 +63,7 @@ const CreatorMerchShop = props => {
       error => {}
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [userId])
 
   return (
     <div className="w-full">

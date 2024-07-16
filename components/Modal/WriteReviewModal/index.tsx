@@ -26,6 +26,21 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
+  const [descCount, setDescCount] = useState(110)
+
+  useEffect(() => {
+    function handleResize() {
+      let screenWidth = window.innerWidth
+      let count = screenWidth >= 640 ? 110 : screenWidth >= 480 ? 110 : screenWidth >= 414 ? 58 : 40
+      setDescCount(count)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const removeItem = index => {
     let list = [...urls]
@@ -87,7 +102,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
                     <div>
                       <div className={styles.productTitle}>{itemDetails?.print}</div>
                       <div className={styles.productType}>
-                        {itemDetails?.apparel}&nbsp;/&nbsp;
+                        {itemDetails?.apparel.slice(0, descCount)}&nbsp;/&nbsp;
                         {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                           ? 'Small'
                           : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
