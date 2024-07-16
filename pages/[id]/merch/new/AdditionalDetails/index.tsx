@@ -341,32 +341,32 @@ const AdditionalDetails = props => {
                     <div className={styles.sideText}>Max Supply</div>
                     <div className={styles.price}>{maxSupplyItem.id === 0 ? '∞' : limitedSupply}</div>
                   </div>
-                  {maxSupplyItem.id === 1 && (
-                    <div>
-                      <div className={styles.firstRow}>
-                        <div className={styles.sideText}>Release Date</div>
-                        <div className={styles.price}>
-                          {startType === 'soon'
-                            ? 'Immediately'
-                            : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
-                        </div>
-                      </div>
-                      <div className={styles.secondRow}>
-                        <div className={styles.sideText}>Release Duration</div>
-                        <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
-                      </div>
-                      <div className={styles.firstRow}>
-                        <div className={styles.sideText}>Limited Duration</div>
-                        <div className={styles.price}>
-                          {releaseDurationItem.id === 0
-                            ? '∞'
-                            : days.length === 0
-                            ? hours + ' hours'
-                            : days + ' days' + ', ' + hours + ' hours'}
-                        </div>
+                  {/* {maxSupplyItem.id === 1 && ( */}
+                  <div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Release Date</div>
+                      <div className={styles.price}>
+                        {startType === 'soon'
+                          ? 'Immediately'
+                          : startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}
                       </div>
                     </div>
-                  )}
+                    <div className={styles.secondRow}>
+                      <div className={styles.sideText}>Release Duration</div>
+                      <div className={styles.price}>{releaseDurationItem.id === 0 ? '∞' : 'Limited'}</div>
+                    </div>
+                    <div className={styles.firstRow}>
+                      <div className={styles.sideText}>Limited Duration</div>
+                      <div className={styles.price}>
+                        {releaseDurationItem.id === 0
+                          ? '∞'
+                          : days.length === 0
+                          ? hours + ' hours'
+                          : days + ' days' + ', ' + hours + ' hours'}
+                      </div>
+                    </div>
+                  </div>
+                  {/* )} */}
                 </div>
               )}
             </div>
