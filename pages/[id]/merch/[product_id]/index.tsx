@@ -32,6 +32,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
+  const [shippingLocal, setShippingLocal] = useState(true)
   const [printData, setPrintData] = useState(null)
   const [totalCost, setTotalCost] = useState(null)
   const [merchQuantity, setMerchQuantity] = useState(1)
@@ -343,6 +344,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 }}
                 onNext={info => {
                   setShippingData(info.data)
+                  setShippingLocal(info.local)
                   setShippingMethod(info.method)
                   setCurrentStep(3)
                 }}
@@ -370,6 +372,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 productId={router.query.product_id}
                 type={type}
                 data={printData}
+                shippingLocal={shippingLocal}
                 shippingData={shippingData}
                 allShippingMethod={shipppingMethod}
                 setTotalCost={setTotalCost}

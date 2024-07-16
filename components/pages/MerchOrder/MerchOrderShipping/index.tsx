@@ -126,7 +126,7 @@ const MerchOrderShipping = props => {
     } else if (country.isoCode === 'US') {
       merchAPI.prepareCart(params).then(
         response => {
-          onNext({ data, method: response })
+          onNext({ data, local: true, method: response })
           setIsLoading(false)
         },
         error => {
@@ -135,7 +135,7 @@ const MerchOrderShipping = props => {
         }
       )
     } else {
-      if (type === 'foster') onCheckout('international', 'foster')
+      if (type === 'foster') onNext({ data, local: false, method: null })
     }
   }
 

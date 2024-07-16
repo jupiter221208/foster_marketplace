@@ -29,7 +29,6 @@ const CreatorMerchShop = props => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
-  console.log(userId, '=============userId========')
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
