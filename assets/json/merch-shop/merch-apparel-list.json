@@ -69,13 +69,13 @@
     "location": { 
       "dtg": {
         "front": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 117, "left": 230, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 70, "left": 230, "angle": 0 },
         "right": {"width": 86, "height": 75, "top": 145, "left": 280, "angle": 0 },
         "left": {"width": 86, "height": 75, "top": 145, "left": 352, "angle": 0 }
       },
       "emb": {
         "front": {"width": 90, "height": 90, "top": 150, "left": 394, "angle": 0},
-        "back": {"width": 220, "height": 290, "top": 150, "left": 230, "angle": 0 },
+        "back": {"width": 220, "height": 290, "top": 70, "left": 230, "angle": 0 },
         "right": {"width": 59, "height": 70, "top": 138, "left": 293, "angle": 0 },
         "left": {"width": 59, "height": 70, "top": 138, "left": 363, "angle": 0 }
       }

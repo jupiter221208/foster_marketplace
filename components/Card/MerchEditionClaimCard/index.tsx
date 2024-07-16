@@ -25,7 +25,7 @@ const MerchEditionClaimCard = props => {
   const [showEditBtn, setShowEditBtn] = useState(false)
   const [showViewCard, setShowViewCard] = useState(false)
   const [showClaimCard, setShowClaimCard] = useState(false)
-  console.log(data, '===========data=========')
+
   const onClaimCard = () => {
     setShowClaimCard(true)
   }
