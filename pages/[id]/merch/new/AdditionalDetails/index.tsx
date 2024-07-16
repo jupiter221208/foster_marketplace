@@ -324,7 +324,7 @@ const AdditionalDetails = props => {
               </div>
             </div>
             <div className="w-full mt-[20px] sm:mt-[30px] mb-[100px]">
-              {/* <div className={styles.title}>Release Details</div> */}
+              <div className={styles.title}>Release Details</div>
               {saleMethod.id === 0 ? (
                 <div className={`${styles.releaseDetail} mt-[15px]`}>
                   Once published, this merch item will appear on your store under &quot;Merch Editions.&quot; You can
