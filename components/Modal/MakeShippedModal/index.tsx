@@ -101,7 +101,7 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
                     <div className={styles.name}>
                       Ship Date <span>*</span>
                     </div>
-                    <div className="mt-[15px]">
+                    <div className="mt-[15px] lg:fixed ">
                       <div className="w-full startAuctionDatePicker">
                         <div className="relative w-[200px]">
                           <DatePicker
@@ -109,11 +109,7 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
                             onChange={date => {
                               setShipDate(date)
                             }}
-                            dateFormat={
-                              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                ? 'MM/dd/yyyy'
-                                : 'MM/dd/yyyy h:mm aa'
-                            }
+                            dateFormat={'MM/dd/yyyy h:mm aa'}
                             formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
                             maxDate={moment().toDate()}
                             showTimeInput
@@ -129,7 +125,7 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
                     </div>
                   </div>
 
-                  <div className="mt-[30px] flex justify-end">
+                  <div className="mt-[30px] lg:mt-[80px] flex justify-end">
                     <div className="flex gap-[20px]">
                       <OutlineButton width={100} height={40} fontSize={16} label="Cancel" onClick={onClose} />
                       <GradientButton width={160} height={40} fontSize={16} label="Mark as Shipped" onClick={onClose} />

@@ -140,7 +140,6 @@ const MerchDetail = () => {
         let color = findElement(options, 'name', 'color')
         let optionType = findElement(options, 'name', 'type')
         setMerchType(optionType['value'])
-        let fosterUrl = findElement(options, 'name', 'fosterUrl')
         let previewUrl = itemData.imageUrl
         let apparel = findElement(options, 'name', 'apparel')
         apparel = apparel ? apparel['value'] : ''
@@ -808,7 +807,7 @@ const MerchDetail = () => {
             <div className="w-full text-left ml-[22px]">
               <div className={styles.detailValue}>{itemDetails?.print}</div>
               <div className={styles.detailValue}>
-                {itemDetails?.apparel}&nbsp;
+                {itemDetails?.apparel.slice(0, 40)}&nbsp;
                 {`(${
                   itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                     ? 'Small'
@@ -848,7 +847,7 @@ const MerchDetail = () => {
                     <div className="w-full text-left ml-[22px]">
                       <div className={styles.detailValue}>&nbsp;{item?.print}</div>
                       <div className={styles.detailValue}>
-                        &nbsp;{item?.apparel}&nbsp;
+                        &nbsp;{item?.apparel.slice(30)}&nbsp;
                         {`(${
                           item?.size === 'S' || item?.size === 'YXS'
                             ? 'Small'
