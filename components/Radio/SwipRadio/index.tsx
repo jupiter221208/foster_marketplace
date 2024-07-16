@@ -54,7 +54,7 @@ const Radio = props => {
       </div>
       {item.shipmentCost && (
         <label className={styles.label1} htmlFor={item.id} style={{ opacity: item.disabled ? 0.5 : 1 }}>
-          {'(' + item.shipmentCost + ')'}
+          {'($' + item.shipmentCost.toFixed(2) + ')'}
         </label>
       )}
 

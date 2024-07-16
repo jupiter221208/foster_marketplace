@@ -106,7 +106,7 @@ const MerchOrderShippingMethod = props => {
       //   })
       let newMethod = {
         id: 0,
-        label: 'International Shippiong',
+        label: 'International Shipping',
         value: '',
         disabled: false,
         price: 15,
