@@ -87,7 +87,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
                     <div>
                       <div className={styles.productTitle}>{itemDetails?.print}</div>
                       <div className={styles.productType}>
-                        {itemDetails?.apparel}&nbsp;/&nbsp;
+                        {itemDetails?.apparel.slice(0, 110)}&nbsp;/&nbsp;
                         {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                           ? 'Small'
                           : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
