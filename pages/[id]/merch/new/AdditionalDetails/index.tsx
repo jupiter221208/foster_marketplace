@@ -90,14 +90,16 @@ const AdditionalDetails = props => {
         return
       }
 
-      if (saleMethod.id === 1 && profit <= 0) {
-        setEnableNext(false)
-        return
-      }
+      if (saleMethod.id === 1) {
+        if (profit <= 0) {
+          setEnableNext(false)
+          return
+        }
 
-      if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
-        setEnableNext(false)
-        return
+        if (maxSupplyItem.id === 1 && (limitedSupply === '' || parseInt(limitedSupply) === 0)) {
+          setEnableNext(false)
+          return
+        }
       }
     } else {
       if (sellingPrice === '' || parseFloat(sellingPrice) <= 0) {
@@ -396,9 +398,9 @@ const AdditionalDetails = props => {
                   <div className={styles.price}>${(parseFloat(sellingPrice) * 0.05).toFixed(2)}</div>
                 </div>
                 <div className={styles.firstRow}>
-                  <div className={styles.sideText}>Total</div>
+                  <div className={styles.sideText}>Seller Payout</div>
                   <div className={styles.price}>
-                    ${(parseFloat(sellingPrice) + parseFloat(sellingPrice) * 0.05).toFixed(2)}
+                    ${(parseFloat(sellingPrice) - parseFloat(sellingPrice) * 0.05).toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -494,6 +496,7 @@ const AdditionalDetails = props => {
                   selectedItem={saleMethod}
                   setSelectedItem={item => {
                     setSaleMethod(item)
+                    console.log(item, '=============item=============')
                   }}
                 />
               </div>
