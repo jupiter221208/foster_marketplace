@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -10,10 +10,8 @@ import CreatorMerchShop from './shop'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 
 // images
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
-import PlusIconMobile from 'assets/icons/plus-icon-white.svg?component'
 import LeftArrowIcon from 'assets/icons/arrow-left-white-big.svg?component'
 
 // json
@@ -32,7 +30,11 @@ interface CreatorMerchProps {
 }
 
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
-  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
+  const [artistInfo, setArtistInfo] = useState<any>(null)
+  useEffect(() => {
+    setArtistInfo(publicArtistData?.artist)
+  }, [publicArtistData])
+
   const router = useRouter()
   const { publicKey } = useWallet()
 
@@ -163,7 +165,6 @@ CreatorMerch.getLayout = function getLayout(page) {
 
 CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorMerchProps> {
   let artistUsername = encodeURIComponent(query.id)
-
   try {
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
       r.json()

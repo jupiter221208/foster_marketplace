@@ -29,6 +29,7 @@ const CreatorMerchShop = props => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
+  console.log(userId, '=============userId========')
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
@@ -63,7 +64,7 @@ const CreatorMerchShop = props => {
       error => {}
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [userId])
 
   return (
     <div className="w-full">
