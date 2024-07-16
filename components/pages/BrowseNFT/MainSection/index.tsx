@@ -522,7 +522,7 @@ const MainSection = ({
       setEndPhaseDuration(auction?.auction?.end_phase_duration ?? 0)
       if (nftInfo.master_edition?.merchProduct) {
         setMerchCard(nftInfo.master_edition?.merchProduct)
-        setMerchImages(nftInfo.master_edition?.merchProduct.options.product_images)
+        setMerchImages(nftInfo.master_edition?.merchProduct.options.addons)
         setMerchCost(nftInfo.master_edition?.merchProduct.selling_price / 100 / solToUsdRate)
       }
     }
@@ -1476,7 +1476,7 @@ const MainSection = ({
                         <div className={styles.assetArea}>
                           <ImageWithFoster
                             width={65}
-                            src={merchCard.options.product_images[0]}
+                            src={merchCard.options.addons[0].mockup_url}
                             onClick={() => setFullScreenMerch(true)}
                           />
                         </div>

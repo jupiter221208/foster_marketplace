@@ -16,7 +16,7 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 const MerchEditionViewModal = ({ urls, open, onClose }) => {
   const [assetUrls, setAssetUrls] = useState([])
-  const [selectedAsset, setSelectedAsset] = useState(urls[0])
+  const [selectedAsset, setSelectedAsset] = useState(urls[0].mockup_url)
 
   const closeModal = () => {
     onClose()
@@ -25,8 +25,8 @@ const MerchEditionViewModal = ({ urls, open, onClose }) => {
   useEffect(() => {
     let asset_urls = []
     urls.map((asset, index) => {
-      if (index === 0) asset_urls.push({ id: index, url: asset, selected: true })
-      else asset_urls.push({ id: index, url: asset, selected: false })
+      if (index === 0) asset_urls.push({ id: index, url: asset.mockup_url, selected: true })
+      else asset_urls.push({ id: index, url: asset.mockup_url, selected: false })
     })
     setAssetUrls(asset_urls)
     // eslint-disable-next-line react-hooks/exhaustive-deps

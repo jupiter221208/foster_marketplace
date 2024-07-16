@@ -106,7 +106,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
 
   const setProcessMerchImage = (images, idx) => {
     let list = []
-    images.map((image, index) => list.push({ url: image, selected: index === idx }))
+    images.map((image, index) => list.push({ url: image.mockup_url, selected: index === idx }))
     setMerchImages(list)
     setSelectedMerchImage(list[idx].url)
   }

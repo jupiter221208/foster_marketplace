@@ -42,9 +42,7 @@ export interface PhysicalCheckoutProps {
 }
 
 const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: PhysicalCheckoutProps) => {
-  const viewport = useViewport()
   const router = useRouter()
-  const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
@@ -65,7 +63,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         id: 0,
         title: 'Order Placed!',
         description: 'You will receive an email once the order has been shipped. ',
-        description2: `Your order number is #${id}.`,
+        description2: `Your order number is #${orderData.id}.`,
         type: 'success',
       },
     ])
@@ -132,9 +130,8 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
       } else if (type === 'user') {
         let type = 'User Fulfilled Physical Print'
-        let colorText = 'Color: '
         let qty = 'Qty: ' + itemQuantity
-        itemList.push({ name: 'Product: ' + nftName, type, color: colorText, qty })
+        itemList.push({ name: 'Product: ' + nftName, type, color: '', qty })
       }
     })
     setList(itemList)
@@ -183,18 +180,22 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
       let signedTransaction = await metaplex.identity().signTransaction(transaction)
       let { signature } = await metaplex.rpc().sendAndConfirmTransaction(signedTransaction)
 
-      // TODO: send signature to backend and update order
-      let params = {
-        payment_method: currency.toUpperCase(),
-        payment_reference: signature,
-      }
-      let response
-      if (orderData.id > 1000) {
-        response = await StoreAPI.payStoreOrder(id, params)
+      if (signature?.length > 0) {
+        // TODO: send signature to backend and update order
+        let params = {
+          payment_method: currency.toUpperCase(),
+          payment_reference: signature,
+        }
+        let response
+        if (orderData.id > 1000) {
+          response = await StoreAPI.payStoreOrder(orderData.id, params)
+        } else {
+          response = await payOrder(orderData.id, params)
+        }
+        if (response?.status === 'success') result = true
       } else {
-        response = await payOrder(id, params)
+        setIsLoad(false)
       }
-      if (response?.status === 'success') result = true
     } catch {
       setIsLoad(false)
     } finally {
@@ -211,14 +212,14 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
     <section className={styles.container}>
       <div className="w-full px-[0px] lg:px-[30px] mt-[20px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
-        <div className="w-full mt-[20px] lg:mt-[30px] h-[130px] overflow-auto">
+        <div className="w-full mt-[20px] lg:mt-[30px] h-[auto] overflow-auto">
           <div className={styles.productDetails}>Product Details</div>
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
               <div key={index} className="pb-[5px]">
                 <div className={styles.itemDetails}>{item.name}</div>
                 <div className={styles.itemDetails}>{item.type}</div>
-                <div className={styles.itemDetails}>{item.color}</div>
+                {item.type != 'User Fulfilled Physical Print' && <div className={styles.itemDetails}>{item.color}</div>}
                 <div className={styles.itemDetails}>{item.qty}</div>
               </div>
             ))}
@@ -341,7 +342,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
-            router.push(`/merch-logs/${id}`)
+            router.push(`/merch-logs/${orderData.id}`)
           }, 1000)
         }}
         data={alertData}

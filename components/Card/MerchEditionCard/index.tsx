@@ -26,7 +26,7 @@ const MerchEditionCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           <ImageWithFoster
-            src={data.options.product_images[0]}
+            src={data.options.addons[0].mockup_url}
             width={500}
             className="max-w-full max-h-full object-cover"
             onClick={() => {}}

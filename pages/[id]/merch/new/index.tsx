@@ -103,6 +103,7 @@ const NewCreatorMerch = () => {
   const createProduct = async () => {
     // console.log(productDetail, '==========productDetail==========')
     // console.log(additionDetail, '==========additionDetail==========')
+
     if (profileInfo && additionDetail && productDetail) {
       setIsCreating(true)
       var userId = profileInfo?.id
@@ -114,95 +115,60 @@ const NewCreatorMerch = () => {
 
       let productName = ''
       if (productDetail.product.id === 0) {
-        if (additionDetail.sale_method === 'standalone') {
-          // Foster
-          try {
-            let upload_url = additionDetail.name + '-' + productDetail.selectedCard.id + '-' + productDetail.product.id
-            if (snapUrls.front !== '') {
-              addonList.push({
-                product_addon_id: getProductTypeId() + '-' + 1,
-                mockup_url: await uploadApparelSection(upload_url + 'front', snapUrls.front),
-                raw_url: await uploadRawUrl(upload_url + 'front' + '_raw', snapUrls.front_raw),
-              })
-            }
-            if (snapUrls.back !== '') {
-              addonList.push({
-                product_addon_id: getProductTypeId() + '-' + 2,
-                mockup_url: await uploadApparelSection(upload_url + 'back', snapUrls.back),
-                raw_url: await uploadRawUrl(upload_url + 'back' + '_raw', snapUrls.back_raw),
-              })
-            }
-            if (snapUrls.right !== '') {
-              addonList.push({
-                product_addon_id: getProductTypeId() + '-' + 3,
-                mockup_url: await uploadApparelSection(upload_url + 'right', snapUrls.right),
-                raw_url: await uploadRawUrl(upload_url + 'right' + '_raw', snapUrls.right_raw),
-              })
-            }
-            if (snapUrls.left !== '') {
-              addonList.push({
-                product_addon_id: getProductTypeId() + '-' + 4,
-                mockup_url: await uploadApparelSection(upload_url + 'left', snapUrls.left),
-                raw_url: await uploadRawUrl(upload_url + 'left' + '_raw', snapUrls.left_raw),
-              })
-            }
-          } catch {
-            setIsCreating(false)
-            return
+        // Foster
+        try {
+          let upload_url = additionDetail.name + '-' + productDetail.selectedCard.id + '-' + productDetail.product.id
+          if (snapUrls.front !== '') {
+            addonList.push({
+              product_addon_id: getProductTypeId() + '-' + 1,
+              mockup_url: await uploadApparelSection(upload_url + 'front', snapUrls.front),
+              raw_url: await uploadRawUrl(upload_url + 'front' + '_raw', snapUrls.front_raw),
+            })
           }
-          productName = additionDetail.name
-          params = {
-            name: additionDetail.name,
-            description: additionDetail.description,
-            fulfillment_type: 'foster',
-            product_type_id: getProductTypeId(),
-            selling_price: Math.floor(additionDetail.selling_price * 100),
-            supply: additionDetail.supply,
-            master_edition_address: null,
-            sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
-            sale_end_at: additionDetail.sale_end_at?.toISOString().split('.')[0],
-            options: {
-              print_technique: productDetail.technique === 'dtg' ? 'direct_to_garment' : 'embroidery',
-              color: productDetail.color,
-              addons: addonList,
-            },
+          if (snapUrls.back !== '') {
+            addonList.push({
+              product_addon_id: getProductTypeId() + '-' + 2,
+              mockup_url: await uploadApparelSection(upload_url + 'back', snapUrls.back),
+              raw_url: await uploadRawUrl(upload_url + 'back' + '_raw', snapUrls.back_raw),
+            })
           }
-        } else {
-          // Edition
-          let upload_url = additionDetail.name + '-' + productDetail.product.id
-          try {
-            if (snapUrls.front !== '') {
-              addonList.push(await uploadApparelSection(upload_url + 'front', snapUrls.front))
-            }
-            if (snapUrls.back !== '') {
-              addonList.push(await uploadApparelSection(upload_url + 'back', snapUrls.back))
-            }
-            if (snapUrls.right !== '') {
-              addonList.push(await uploadApparelSection(upload_url + 'right', snapUrls.right))
-            }
-            if (snapUrls.left !== '') {
-              addonList.push(await uploadApparelSection(upload_url + 'left', snapUrls.left))
-            }
-          } catch {
-            setIsCreating(false)
-            return
+          if (snapUrls.right !== '') {
+            addonList.push({
+              product_addon_id: getProductTypeId() + '-' + 3,
+              mockup_url: await uploadApparelSection(upload_url + 'right', snapUrls.right),
+              raw_url: await uploadRawUrl(upload_url + 'right' + '_raw', snapUrls.right_raw),
+            })
           }
-          productName = additionDetail.name
-          params = {
-            name: additionDetail.name,
-            description: additionDetail.description,
-            fulfillment_type: 'user',
-            product_type_id: getProductTypeId(),
-            selling_price: Math.floor(additionDetail.selling_price * 100),
-            supply: null,
-            master_edition_address: '',
-            sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
-            sale_end_at: null,
-            options: {
-              shipping_responsibility: 'di_seller',
-              product_images: addonList,
-            },
+          if (snapUrls.left !== '') {
+            addonList.push({
+              product_addon_id: getProductTypeId() + '-' + 4,
+              mockup_url: await uploadApparelSection(upload_url + 'left', snapUrls.left),
+              raw_url: await uploadRawUrl(upload_url + 'left' + '_raw', snapUrls.left_raw),
+            })
           }
+        } catch {
+          setIsCreating(false)
+          return
+        }
+        productName = additionDetail.name
+        params = {
+          name: additionDetail.name,
+          description: additionDetail.description,
+          fulfillment_type: 'foster',
+          product_type_id: getProductTypeId(),
+          selling_price: Math.floor(additionDetail.selling_price * 100),
+          supply: additionDetail.sale_method === 'standalone' ? additionDetail.supply : null,
+          master_edition_address: additionDetail.sale_method === 'standalone' ? null : '',
+          sale_start_at: additionDetail.sale_start_at.toISOString().split('.')[0],
+          sale_end_at:
+            additionDetail.sale_method === 'standalone'
+              ? additionDetail.sale_end_at?.toISOString().split('.')[0]
+              : null,
+          options: {
+            print_technique: productDetail.technique === 'dtg' ? 'direct_to_garment' : 'embroidery',
+            color: productDetail.color,
+            addons: addonList,
+          },
         }
       } else {
         // Physical User
@@ -228,7 +194,7 @@ const NewCreatorMerch = () => {
         params = {
           name: productDetail.name,
           description: productDetail.description,
-          fulfillment_type: 'foster',
+          fulfillment_type: 'user',
           product_type_id: getProductTypeId(),
           selling_price: Math.floor(additionDetail.selling_price * 100),
           supply: additionDetail.supply,
@@ -242,7 +208,6 @@ const NewCreatorMerch = () => {
         }
       }
 
-      // console.log(params, '==========params==========')
       StoreAPI.createProduct(userId, params).then(
         res => {
           if (res) {
