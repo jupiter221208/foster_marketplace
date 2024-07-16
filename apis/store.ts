@@ -82,6 +82,12 @@ class Store {
     })
   }
 
+  getSellerOrder(page, per_page) {
+    return client.get(`${API_URL}v1/stores/orders/by-seller?page=${page}&per_page=${per_page}`).then(response => {
+      return response?.data
+    })
+  }
+
   getOrder(id) {
     return client.get(`${API_URL}v1/stores/orders/${id}`).then(response => {
       return response?.data

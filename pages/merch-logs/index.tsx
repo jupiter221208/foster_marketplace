@@ -36,6 +36,7 @@ import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -57,6 +58,9 @@ const MerchActivity = () => {
   const [sales, setSales] = useState([])
   const [noTxSales, setNoTxSales] = useState([])
   const [allSales, setAllSales] = useState([])
+  const [merchSales, setMerchSales] = useState([])
+  const [merchNoTxSales, setMerchNoTxSales] = useState([])
+  const [merchAllSales, setMerchAllSales] = useState([])
   const [merchStoreList, setMerchStoreList] = useState([])
   const [fosterMerchList, setFosterMerchList] = useState([])
   const [userMerchList, setUserMerchList] = useState([])
@@ -74,11 +78,14 @@ const MerchActivity = () => {
   const [loadMerchStore, setLoadMerchStore] = useState(false)
   const [isActiveNFT, setIsActiveNft] = useState(true)
   const [isStudioNFT, setIsStudioNft] = useState(true)
+  const [isStudioSalesNFT, setIsStudioSalesNFT] = useState(true)
+
   const [isFetching, setIsFetching] = useState(false)
   const [isMerchStoreFetching, setIsMerchStoreFetching] = useState(true)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
   const [isVisibleMerchBuyerFetching, setIsVisibleMerchBuyerFetching] = useState(true)
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
+  const [isVisibleMerchSellerFetching, setIsVisibleMerchSellerFetching] = useState(true)
   const [isVisibleEnabledFetching, setIsVisibleEnabledFetching] = useState(true)
   const [isVisibleDisabledFetching, setIsVisibleDisabledFetching] = useState(true)
   const [enableMerchModal, setEnableMerchModal] = useState(false)
@@ -119,15 +126,15 @@ const MerchActivity = () => {
     if (isFetching && publicKey) {
       if (activeTab === 1 && isActiveNFT) getEnabledItem(enabledPages, rowCount)
       else if (activeTab === 2) {
-        if (isStudioNFT) {
-          getBuyerOrder(buyerPages, rowCount)
-        } else {
-          getMerchBuyerOrder(merchBuyerPages, rowCount)
-        }
-      } else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
+        if (isStudioNFT) getBuyerOrder(buyerPages, rowCount)
+        else getMerchBuyerOrder(merchBuyerPages, rowCount)
+      } else if (activeTab === 3) {
+        if (isStudioSalesNFT) getSellerOrder(sellerPages, rowCount)
+        else getMerchSellerOrder(merchSellerPages, rowCount)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching, publicKey, activeTab, isStudioNFT])
+  }, [isFetching, publicKey, activeTab, isStudioNFT, isStudioSalesNFT])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -245,6 +252,8 @@ const MerchActivity = () => {
   }
 
   const getMerchBuyerOrder = (page, rowCount) => {
+    if (!isVisibleMerchBuyerFetching) return
+
     StoreAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
@@ -280,6 +289,52 @@ const MerchActivity = () => {
           }, 2000)
           setIsVisibleMerchBuyerFetching(true)
           setMerchBuyerPages(page + 1)
+        }
+      },
+      error => {}
+    )
+  }
+
+  const getMerchSellerOrder = (page, rowCount) => {
+    if (!isVisibleMerchSellerFetching) return
+
+    StoreAPI.getSellerOrder(page, rowCount).then(
+      response => {
+        setIsFetching(false)
+        if (isLoadingData) setIsLoadingData(false)
+
+        let salesOrders = []
+        let noTxOrders = []
+        let allOrders = []
+        response.forEach(order => {
+          let keys = Object.keys(order.paymentSplits)
+          let creator = ''
+          if (keys.length > 0) creator = keys[1]
+
+          let new_order = { id: order.id, transaction_id: order.transactionId, amount: order.totalAmountUsd, creator }
+
+          if (order.transactionId != null && order.transactionId !== '') {
+            salesOrders.push(new_order)
+          } else {
+            noTxOrders.push(new_order)
+          }
+          allOrders.push(new_order)
+        })
+
+        setMerchSales([...merchSales, ...salesOrders])
+        setMerchNoTxSales([...merchNoTxSales, ...noTxOrders])
+        setMerchAllSales([...merchAllSales, ...allOrders])
+
+        if (response.length < rowCount) {
+          setIsVisibleMerchSellerFetching(false)
+        } else {
+          setTimeout(() => {
+            if (salesOrders.length != response.length) {
+              setIsFetching(true)
+            }
+          }, 2000)
+          setIsVisibleMerchSellerFetching(true)
+          setMerchSellerPages(page + 1)
         }
       },
       error => {}
@@ -543,34 +598,71 @@ const MerchActivity = () => {
 
             {activeTab === 1 && (
               <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                <div
-                  className={isActiveNFT ? styles.activeNftBtn : styles.inactiveNftBtn}
-                  onClick={() => setIsActiveNft(true)}
-                >
-                  Active
-                </div>
-                <div
-                  className={isActiveNFT ? styles.inactiveNftBtn : styles.activeNftBtn}
-                  onClick={() => setIsActiveNft(false)}
-                >
-                  Eligible
-                </div>
+                <TimeSlotButton
+                  label="Active"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isActiveNFT === true}
+                  onClick={() => {
+                    setIsActiveNft(true)
+                  }}
+                />
+
+                <TimeSlotButton
+                  label="Eligible"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isActiveNFT === false}
+                  onClick={() => {
+                    setIsActiveNft(false)
+                  }}
+                />
               </div>
             )}
             {activeTab === 2 && (
               <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
-                <div
-                  className={isStudioNFT ? styles.activeNftBtn : styles.inactiveNftBtn}
-                  onClick={() => setIsStudioNft(true)}
-                >
-                  Studio NFTs
-                </div>
-                <div
-                  className={isStudioNFT ? styles.inactiveNftBtn : styles.activeNftBtn}
-                  onClick={() => setIsStudioNft(false)}
-                >
-                  Merch Store
-                </div>
+                <TimeSlotButton
+                  label="Studio NFTs"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isStudioNFT === true}
+                  onClick={() => {
+                    setIsStudioNft(true)
+                  }}
+                />
+
+                <TimeSlotButton
+                  label="Merch Store"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isStudioNFT === false}
+                  onClick={() => {
+                    setIsStudioNft(false)
+                  }}
+                />
+              </div>
+            )}
+            {activeTab === 3 && (
+              <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
+                <TimeSlotButton
+                  label="Studio NFTs"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isStudioSalesNFT === true}
+                  onClick={() => {
+                    setIsStudioSalesNFT(true)
+                  }}
+                />
+
+                <TimeSlotButton
+                  label="Merch Store"
+                  height={42}
+                  fontFamily={'Muli-Regular'}
+                  selected={isStudioSalesNFT === false}
+                  onClick={() => {
+                    setIsStudioSalesNFT(false)
+                  }}
+                />
               </div>
             )}
           </div>
@@ -630,14 +722,21 @@ const MerchActivity = () => {
           )}
           {activeTab === 3 && (
             <div className="w-full z-10">
-              <ApparelActivity activities={sales} type="sales" isLoading={isVisibleSellerFetching} />
+              <ApparelActivity
+                activities={isStudioSalesNFT ? sales : merchSales}
+                type="sales"
+                isLoading={isStudioSalesNFT ? isVisibleSellerFetching : isVisibleMerchSellerFetching}
+              />
             </div>
           )}
+
           {((activeTab === 0 && isMerchStoreFetching) ||
             (activeTab === 1 && (isVisibleEnabledFetching || isVisibleDisabledFetching)) ||
             (activeTab === 2 &&
               ((isStudioNFT && isVisibleBuyerFetching) || (!isStudioNFT && isVisibleMerchBuyerFetching))) ||
-            (activeTab === 3 && isVisibleSellerFetching)) && (
+            (activeTab === 3 &&
+              ((isStudioSalesNFT && isVisibleSellerFetching) ||
+                (!isStudioSalesNFT && isVisibleMerchSellerFetching)))) && (
             <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>
