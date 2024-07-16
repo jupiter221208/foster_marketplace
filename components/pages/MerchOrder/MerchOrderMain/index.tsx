@@ -404,8 +404,12 @@ const MerchOrderMain = props => {
                 </div>
                 <div
                   onClick={() => {
-                    setMintQty(mintQty + 1)
-                    setQuantity(mintQty + 1)
+                    if (productDetail.supply) {
+                      if (mintQty < productDetail.supply - productDetail.current_supply) {
+                        setMintQty(mintQty + 1)
+                        setQuantity(mintQty + 1)
+                      }
+                    }
                   }}
                 >
                   <div className={styles.minus}>+</div>
