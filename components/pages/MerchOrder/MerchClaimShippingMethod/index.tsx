@@ -139,7 +139,7 @@ const MerchClaimShippingMethod = props => {
       phone: '',
       residential: true,
     }
-    const { id, name, description, color, quantity, size } = data
+    const { id, name, description, color, quantity, size, technique } = data
 
     let item
     let mockupUrls = [],
@@ -161,6 +161,7 @@ const MerchClaimShippingMethod = props => {
         apparel: description,
         size: size,
         color: color,
+        technique: technique,
       },
       notes: `This is apparel merch item`,
     }
