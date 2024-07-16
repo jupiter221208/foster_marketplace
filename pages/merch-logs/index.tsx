@@ -33,6 +33,7 @@ import StoreAPI from 'apis/store'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
@@ -40,6 +41,7 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const MerchActivity = () => {
   const viewport = useViewport()
+  const { solToUsdRate } = useSolToUsdRate()
   const { publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
@@ -266,7 +268,12 @@ const MerchActivity = () => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
           if (keys.length > 0) creator = keys[1]
-          let new_order = { id: order.id, transaction_id: order.transactionId, amount: order.totalAmountUsd, creator }
+          let new_order = {
+            id: order.id,
+            transaction_id: order.transactionId,
+            amount: order.totalAmountUsd / solToUsdRate,
+            creator,
+          }
           if (order.transactionId != null && order.transactionId !== '') {
             purchaseOrders.push(new_order)
           } else {
@@ -311,7 +318,12 @@ const MerchActivity = () => {
           let creator = ''
           if (keys.length > 0) creator = keys[1]
 
-          let new_order = { id: order.id, transaction_id: order.transactionId, amount: order.totalAmountUsd, creator }
+          let new_order = {
+            id: order.id,
+            transaction_id: order.transactionId,
+            amount: order.totalAmountUsd / solToUsdRate,
+            creator,
+          }
 
           if (order.transactionId != null && order.transactionId !== '') {
             salesOrders.push(new_order)

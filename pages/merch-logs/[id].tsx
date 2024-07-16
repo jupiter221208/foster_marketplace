@@ -483,10 +483,10 @@ const MerchDetail = () => {
             </div>
             <div className="max-w-[300px]">
               <div className={styles.detailTitle}>Item Details</div>
-              <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
+              <div className={`mt-[15px] ${styles.detailValue}`}>Name:&nbsp;{itemDetails?.print}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
               <div className={`mt-[9px] ${styles.detailValue}`}>
-                Product:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
+                Description:&nbsp;{itemDetails?.apparel}&nbsp;/&nbsp;
                 {itemDetails?.size === 'S' || itemDetails?.size === 'YXS'
                   ? 'Small'
                   : itemDetails?.size === 'M' || itemDetails?.size === 'YS'
@@ -1143,7 +1143,6 @@ const MerchDetail = () => {
       />
 
       <MakeShippedModal open={showShippedModal} orderId={orderData?.id} onClose={() => setShowShippedModal(false)} />
-        
     </div>
   )
 }
