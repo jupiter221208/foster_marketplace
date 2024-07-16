@@ -169,10 +169,12 @@ const MerchOrderMain = props => {
   }
 
   useEffect(() => {
-    document.getElementById(alertEmb).style.display = 'none'
-    document.getElementById(alertEmbMobile).style.display = 'none'
-    document.getElementById(alertNote).style.display = 'none'
-    document.getElementById(alertNoteMobile).style.display = 'none'
+    if (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) {
+      document.getElementById(alertEmb).style.display = 'none'
+      document.getElementById(alertEmbMobile).style.display = 'none'
+      document.getElementById(alertNote).style.display = 'none'
+      document.getElementById(alertNoteMobile).style.display = 'none'
+    }
   }, [])
 
   const onClickSize = index => {
@@ -387,156 +389,161 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            <div className="w-full mt-[10px]">
-              <div className={styles.mintQty}>
-                <div
-                  onClick={() => {
-                    if (mintQty > 1) {
-                      setMintQty(mintQty - 1)
-                      setQuantity(mintQty - 1)
-                    }
-                  }}
-                >
-                  <div className={styles.minus}>-</div>
-                </div>
-                <div className={styles.mintLabel}>
-                  Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
-                </div>
-                <div
-                  onClick={() => {
-                    if (productDetail.supply) {
-                      if (mintQty < productDetail.supply - productDetail.current_supply) {
-                        setMintQty(mintQty + 1)
-                        setQuantity(mintQty + 1)
+            {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+              <div className="w-full mt-[10px]">
+                <div className={styles.mintQty}>
+                  <div
+                    onClick={() => {
+                      if (mintQty > 1) {
+                        setMintQty(mintQty - 1)
+                        setQuantity(mintQty - 1)
                       }
-                    }
-                  }}
-                >
-                  <div className={styles.minus}>+</div>
+                    }}
+                  >
+                    <div className={styles.minus}>-</div>
+                  </div>
+                  <div className={styles.mintLabel}>
+                    Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+                  </div>
+                  <div
+                    onClick={() => {
+                      if (productDetail.supply) {
+                        if (mintQty < productDetail.supply - productDetail.current_supply) {
+                          setMintQty(mintQty + 1)
+                          setQuantity(mintQty + 1)
+                        }
+                      }
+                    }}
+                  >
+                    <div className={styles.minus}>+</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
-
-          <div className={`mt-[20px] ${styles.divider}`} />
-
-          <div className="w-full flex justify-between mt-[20px] relative">
-            <div>
-              <div className="flex gap-[7px] items-center relative">
-                <div className={styles.infoText}>
-                  {type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+          {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+            <div className={`mt-[20px] ${styles.divider}`} />
+          )}
+          {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+            <div className="w-full flex justify-between mt-[20px] relative">
+              <div>
+                <div className="flex gap-[7px] items-center relative">
+                  <div className={styles.infoText}>
+                    {type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+                  </div>
+                  <div
+                    onMouseEnter={() => {
+                      document.getElementById(alertEmb).style.display = 'block'
+                    }}
+                    onMouseLeave={() => {
+                      document.getElementById(alertEmb).style.display = 'none'
+                    }}
+                    onClick={() => {
+                      document.getElementById(alertEmbMobile).style.display = 'block'
+                      setTimeout(() => {
+                        document.getElementById(alertEmbMobile).style.display = 'none'
+                      }, 3000)
+                    }}
+                  >
+                    <InfoIcon />
+                  </div>
+                  <div className="lg:block hidden">
+                    <MerchShopClipboardChip
+                      width={type === 'foster' ? null : '500px'}
+                      title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
+                      text={
+                        type === 'foster'
+                          ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
+                          : 'Domestic & international shipping will be paid by the buyer.'
+                      }
+                      identifier={alertEmb}
+                    />
+                  </div>
                 </div>
-                <div
-                  onMouseEnter={() => {
-                    document.getElementById(alertEmb).style.display = 'block'
-                  }}
-                  onMouseLeave={() => {
-                    document.getElementById(alertEmb).style.display = 'none'
-                  }}
-                  onClick={() => {
-                    document.getElementById(alertEmbMobile).style.display = 'block'
-                    setTimeout(() => {
-                      document.getElementById(alertEmbMobile).style.display = 'none'
-                    }, 3000)
-                  }}
-                >
-                  <InfoIcon />
+
+                <div className="flex gap-[7px] items-center mt-[10px] relative">
+                  <div className={styles.infoText}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
+                  <div
+                    onMouseEnter={() => {
+                      document.getElementById(alertNote).style.display = 'block'
+                    }}
+                    onMouseLeave={() => {
+                      document.getElementById(alertNote).style.display = 'none'
+                    }}
+                    onClick={() => {
+                      document.getElementById(alertNoteMobile).style.display = 'block'
+                      setTimeout(() => {
+                        document.getElementById(alertNoteMobile).style.display = 'none'
+                      }, 3000)
+                    }}
+                  >
+                    <InfoIcon />
+                  </div>
+                  <div className="lg:block hidden">
+                    <MerchShopClipboardChip
+                      title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
+                      text={
+                        type === 'foster'
+                          ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
+                          : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
+                      }
+                      identifier={alertNote}
+                    />
+                  </div>
                 </div>
-                <div className="lg:block hidden">
+
+                <div className="lg:hidden block w-full">
                   <MerchShopClipboardChip
-                    width={type === 'foster' ? null : '500px'}
+                    type="Embroidery"
                     title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
                     text={
                       type === 'foster'
                         ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
                         : 'Domestic & international shipping will be paid by the buyer.'
                     }
-                    identifier={alertEmb}
+                    identifier={alertEmbMobile}
                   />
                 </div>
-              </div>
-
-              <div className="flex gap-[7px] items-center mt-[10px] relative">
-                <div className={styles.infoText}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
-                <div
-                  onMouseEnter={() => {
-                    document.getElementById(alertNote).style.display = 'block'
-                  }}
-                  onMouseLeave={() => {
-                    document.getElementById(alertNote).style.display = 'none'
-                  }}
-                  onClick={() => {
-                    document.getElementById(alertNoteMobile).style.display = 'block'
-                    setTimeout(() => {
-                      document.getElementById(alertNoteMobile).style.display = 'none'
-                    }, 3000)
-                  }}
-                >
-                  <InfoIcon />
-                </div>
-                <div className="lg:block hidden">
+                <div className="lg:hidden block w-full">
                   <MerchShopClipboardChip
+                    type="custom"
                     title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
                     text={
                       type === 'foster'
                         ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
                         : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
                     }
-                    identifier={alertNote}
+                    identifier={alertNoteMobile}
                   />
                 </div>
               </div>
 
-              <div className="lg:hidden block w-full">
-                <MerchShopClipboardChip
-                  type="Embroidery"
-                  title={type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}
-                  text={
-                    type === 'foster'
-                      ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                      : 'Domestic & international shipping will be paid by the buyer.'
-                  }
-                  identifier={alertEmbMobile}
-                />
-              </div>
-              <div className="lg:hidden block w-full">
-                <MerchShopClipboardChip
-                  type="custom"
-                  title={type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}
-                  text={
-                    type === 'foster'
-                      ? 'All customers outside of the United States are responsible for the customs fees/duties that may be charged by their country for import. This amount may vary depending on your country. We advise looking up your country’s policies before purchasing so you are aware of any potential fees.'
-                      : 'Users are solely responsible for conducting their own due diligence before engaging in any transaction. All transactions are conducted at your own risk. Any disputes arising from transactions conducted on the platform are to be resolved directly between the buyer and seller.'
-                  }
-                  identifier={alertNoteMobile}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex gap-[6px] items-center mb-[2px]">
-                <SolanaLogoIcon className="mt-[4px]" />
-                <div className={styles.price}>
-                  {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+              <div>
+                <div className="flex gap-[6px] items-center mb-[2px]">
+                  <SolanaLogoIcon className="mt-[4px]" />
+                  <div className={styles.price}>
+                    {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+                  </div>
                 </div>
+                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
               </div>
-              <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
             </div>
-          </div>
-
-          <div className="w-full mt-[20px]">
-            {buyNowLoading ? (
-              <LoadingPrimaryButton fullWidth />
-            ) : (
-              <PrimaryButton
-                fullWidth
-                type="buy-now"
-                label="Buy Now"
-                disabled={getStartStatus() === 'Starts in'}
-                onClick={() => onClickBuyNow()}
-              />
-            )}
-          </div>
+          )}
+          {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+            <div className="w-full mt-[20px]">
+              {buyNowLoading ? (
+                <LoadingPrimaryButton fullWidth />
+              ) : (
+                <PrimaryButton
+                  fullWidth
+                  type="buy-now"
+                  label="Buy Now"
+                  disabled={getStartStatus() === 'Starts in'}
+                  onClick={() => onClickBuyNow()}
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
 
