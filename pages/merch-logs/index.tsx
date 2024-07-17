@@ -33,7 +33,6 @@ import StoreAPI from 'apis/store'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
-import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
@@ -41,7 +40,6 @@ import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const MerchActivity = () => {
   const viewport = useViewport()
-  const { solToUsdRate } = useSolToUsdRate()
   const { publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
@@ -267,11 +265,12 @@ const MerchActivity = () => {
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
-          if (keys.length > 0) creator = keys[1]
+          if (keys.length > 0) creator = keys[0]
+
           let new_order = {
             id: order.id,
             transaction_id: order.transactionId,
-            amount: order.totalAmountUsd / solToUsdRate,
+            amount: order.totalAmountUsd / 100,
             creator,
           }
           if (order.transactionId != null && order.transactionId !== '') {
@@ -316,12 +315,12 @@ const MerchActivity = () => {
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
-          if (keys.length > 0) creator = keys[1]
+          if (keys.length > 0) creator = keys[0]
 
           let new_order = {
             id: order.id,
             transaction_id: order.transactionId,
-            amount: order.totalAmountUsd / solToUsdRate,
+            amount: order.totalAmountUsd / 100,
             creator,
           }
 
