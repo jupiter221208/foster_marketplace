@@ -22,11 +22,15 @@ import { useViewport } from 'utils'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
+import StoreAPI from 'apis/store'
+import LoadingButton from 'components/Button/LoadingButton'
+
 const MakeShippedModal = ({ open, onClose, orderId }) => {
   const viewport = useViewport()
   const [name, setName] = useState('')
   const [trackingNumber, setTrackingNumber] = useState('')
   const [shipDate, setShipDate] = useState(new Date())
+  const [isMarking, setIsMarking] = useState(false)
 
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
@@ -37,6 +41,23 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
         style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)', cursor: 'pointer' }}
         className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
       />
+    )
+  }
+
+  const markAsShipped = () => {
+    let params = {
+      carrierCode: name,
+      trackingNumber: trackingNumber,
+      shipTimestamp: shipDate.toISOString().split('.')[0],
+    }
+    setIsMarking(true)
+    StoreAPI.addShippingOrder(orderId, params).then(
+      response => {
+        if (response) {
+          onClose()
+        }
+      },
+      error => {}
     )
   }
 
@@ -128,7 +149,17 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
                   <div className="mt-[30px] lg:mt-[80px] flex justify-end">
                     <div className="flex gap-[20px]">
                       <OutlineButton width={100} height={40} fontSize={16} label="Cancel" onClick={onClose} />
-                      <GradientButton width={160} height={40} fontSize={16} label="Mark as Shipped" onClick={onClose} />
+                      {isMarking ? (
+                        <LoadingButton width={160} height={40} />
+                      ) : (
+                        <GradientButton
+                          width={160}
+                          height={40}
+                          fontSize={16}
+                          label="Mark as Shipped"
+                          onClick={() => markAsShipped()}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

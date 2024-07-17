@@ -99,6 +99,12 @@ class Store {
       return response?.data
     })
   }
+
+  addShippingOrder(id, params) {
+    return client.post(`${API_URL}v1/stores/orders/${id}/shipping`, params).then(response => {
+      return response?.data
+    })
+  }
 }
 
 export default new Store()

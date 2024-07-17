@@ -32,7 +32,7 @@ interface CreatorMerchProps {
 const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [artistInfo, setArtistInfo] = useState<any>(null)
   useEffect(() => {
-    setArtistInfo(publicArtistData?.artist)
+    setArtistInfo(publicArtistData)
   }, [publicArtistData])
 
   const router = useRouter()
@@ -169,7 +169,7 @@ CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorM
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
       r.json()
     )
-    let artistPublicKey = publicArtistData.artist.wallet_id
+    let artistPublicKey = publicArtistData.wallet_id
     return {
       artistPublicKey,
       publicArtistData,
