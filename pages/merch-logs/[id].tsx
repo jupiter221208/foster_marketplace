@@ -85,7 +85,7 @@ const MerchDetail = () => {
     let { order, shipment } = orderData
     let ssorder = orderVersion === 'v1' ? orderData?.ssorder : orderData?.externalOrder
     setSSOrder(ssorder)
-    if (orderData?.fulfillments.length > 0) setFulfillment(orderData?.fulfillments[0])
+    if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
     if (shipment) setTrackingDetails(shipment)
     if (ssorder?.items.length === 1) {
@@ -464,7 +464,7 @@ const MerchDetail = () => {
                   />
                 </a>
               </div>
-              {merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -613,7 +613,7 @@ const MerchDetail = () => {
                   />
                 )}
               </div>
-              {merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -774,7 +774,7 @@ const MerchDetail = () => {
                   </a>
                 </div>
 
-                {merchType === 'user' && orderTabType === 'sales' && (
+                {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                   <div className="mt-[12px]">
                     <GradientButton
                       width={335}
@@ -1130,7 +1130,7 @@ const MerchDetail = () => {
               />
             </div>
 
-            {merchType === 'user' && orderTabType === 'sales' && (
+            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
               <div className="mt-[12px]">
                 <GradientButton
                   width={335}
