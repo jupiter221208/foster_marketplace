@@ -9,10 +9,8 @@ import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
 
 // images
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import ShareSmallIcon from 'assets/icons/share-black-menu.svg?component'
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
@@ -242,12 +240,6 @@ const MerchOrderMain = props => {
 
   return (
     <div className={styles.container}>
-      {/* <div className="lg:hidden flex mt-[20px]">
-        <div className={styles.backStore} onClick={() => router.push(`/${username}/merch`)}>
-          <ArrowLeftIcon />
-          Back to store
-        </div>
-      </div> */}
       <div className="w-full h-auto lg:h-[700px] lg:px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
         <div className="w-full">
           <div className="w-full flex justify-between">
@@ -257,9 +249,6 @@ const MerchOrderMain = props => {
               <div className="">
                 <ShareDesktopIcon alt="" />
               </div>
-              {/* <div className="lg:hidden block">
-                <ShareSmallIcon alt="" />
-              </div> */}
               <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
             </div>
           </div>
