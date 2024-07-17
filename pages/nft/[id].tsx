@@ -9,7 +9,6 @@ import Image from 'next/image'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { useMetaplex } from 'hooks/useMetaplex'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -500,7 +499,10 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                   onClick={() => {
                     let images = []
                     merchImages.map(merch => images.push(merch.url))
-                    setProcessMerchImage(images, index)
+                    let list = []
+                    images.map((image, idx) => list.push({ url: image, selected: index === idx }))
+                    setMerchImages(list)
+                    setSelectedMerchImage(list[index].url)
                   }}
                 >
                   <img src={item.url} className="max-w-full max-h-full object-conver" />
