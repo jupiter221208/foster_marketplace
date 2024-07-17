@@ -19,13 +19,13 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const TableSection = props => {
-  const { data, type } = props
+  const { data, type, isStudioNFT } = props
   const viewport = useViewport()
 
   return (
     <section className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <MerchActivityTable data={data} type={type} />
+        <MerchActivityTable data={data} type={type} isStudioNFT={isStudioNFT} />
       ) : (
         <OrdersAccordion data={data} type={type} />
       )}

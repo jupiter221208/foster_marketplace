@@ -36,6 +36,7 @@ const MerchDetail = () => {
   const [orderData, setOrderData] = useState<any | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [SSOrder, setSSOrder] = useState(null)
+  const [fulfillment, setFulfillment] = useState(null)
   const [orderVersion, setOrderVersion] = useState('v1')
   const [itemDetails, setItemDetails] = useState(null)
   const [list, setList] = useState(null)
@@ -84,6 +85,7 @@ const MerchDetail = () => {
     let { order, shipment } = orderData
     let ssorder = orderVersion === 'v1' ? orderData?.ssorder : orderData?.externalOrder
     setSSOrder(ssorder)
+    if (orderData?.fulfillments?.length > 0) setFulfillment(orderData?.fulfillments[0])
 
     if (shipment) setTrackingDetails(shipment)
     if (ssorder?.items.length === 1) {
@@ -328,7 +330,9 @@ const MerchDetail = () => {
           <div>
             <div className={styles.infoTitle}>SHIPPING METHOD</div>
             {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
+              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+            ) : SSOrder?.orderStatus === 'shipped' ? (
+              <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
             ) : (
               <div className={styles.infoValue}>
                 {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
@@ -339,6 +343,8 @@ const MerchDetail = () => {
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
             {!orderDetails ? (
               <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
+            ) : SSOrder?.orderStatus === 'shipped' ? (
+              <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
             ) : (
               <div className={`${styles.infoValue} text-right`}>
                 {orderDetails?.orderNumber === '' && !isOwn
@@ -458,7 +464,7 @@ const MerchDetail = () => {
                   />
                 </a>
               </div>
-              {merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -607,7 +613,7 @@ const MerchDetail = () => {
                   />
                 )}
               </div>
-              {merchType === 'user' && orderTabType === 'sales' && (
+              {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
                     width={335}
@@ -768,7 +774,7 @@ const MerchDetail = () => {
                   </a>
                 </div>
 
-                {merchType === 'user' && orderTabType === 'sales' && (
+                {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                   <div className="mt-[12px]">
                     <GradientButton
                       width={335}
@@ -924,6 +930,8 @@ const MerchDetail = () => {
               <div className={styles.infoTitle}>Shipping Method</div>
               {!orderDetails ? (
                 <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+              ) : SSOrder?.orderStatus === 'shipped' ? (
+                <div className={styles.infoValue}>{fulfillment ? fulfillment.carrierCode : ''}</div>
               ) : (
                 <div className={styles.infoValue}>
                   {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
@@ -935,9 +943,11 @@ const MerchDetail = () => {
           <div className="w-full mt-[20px]">
             <div className={styles.infoTitle}>Tracking Number</div>
             {!orderDetails ? (
-              <div className="skeletonLoaderBasic w-[150px] h-[20px] rounded-full mt-[4px]"></div>
+              <div className="skeletonLoaderBasic w-[200px] h-[40px] rounded-[8px] mt-[4px]"></div>
+            ) : SSOrder?.orderStatus === 'shipped' ? (
+              <div className={styles.infoValue}>{fulfillment ? fulfillment.trackingNumber : ''}</div>
             ) : (
-              <div className={styles.infoValue}>
+              <div className={`${styles.infoValue} text-right`}>
                 {orderDetails?.orderNumber === '' && !isOwn
                   ? 'Hidden for Buyer Safety'
                   : trackingDetails === null && connected
@@ -1120,7 +1130,7 @@ const MerchDetail = () => {
               />
             </div>
 
-            {merchType === 'user' && orderTabType === 'sales' && (
+            {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
               <div className="mt-[12px]">
                 <GradientButton
                   width={335}
@@ -1141,7 +1151,12 @@ const MerchDetail = () => {
         onClose={() => setShowReviewModal(false)}
       />
 
-      <MakeShippedModal open={showShippedModal} orderId={orderData?.id} onClose={() => setShowShippedModal(false)} />
+      <MakeShippedModal
+        open={showShippedModal}
+        orderId={orderData?.id}
+        onClose={() => setShowShippedModal(false)}
+        onSuccess={() => router.reload()}
+      />
     </div>
   )
 }

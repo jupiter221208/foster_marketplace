@@ -57,6 +57,11 @@ class Store {
     })
   }
 
+  getStoreClaimed() {
+    return client.get(API_URL + 'v1/stores/claimed-products').then(response => {
+      return response.data
+    })
+  }
 
   updateStoreById(user_id, product_id, item) {
     return client.patch(API_URL + 'v1/stores/' + user_id + '/items/' + product_id, item).then(response => {
@@ -96,6 +101,12 @@ class Store {
 
   payStoreOrder(id, params) {
     return client.post(`${API_URL}v1/stores/orders/${id}/pay`, params).then(response => {
+      return response?.data
+    })
+  }
+
+  addShippingOrder(id, params) {
+    return client.post(`${API_URL}v1/stores/orders/${id}/shipping`, params).then(response => {
       return response?.data
     })
   }

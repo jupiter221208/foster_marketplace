@@ -4,11 +4,10 @@ import React, { useState, useEffect } from 'react'
 
 // components
 import { Country, State } from 'country-state-city'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import CountrySelect from 'components/Select/CountrySelect'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import Alert from 'components/Alert'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // custom functions
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -18,17 +17,18 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // json
+import SizeList from 'assets/json/print/size-chat-modal.json'
 
 // styles
 import styles from './index.module.scss'
 
 // api
 import merchAPI from 'apis/merch'
-import DropdownSizeMenu from 'components/Menu/DropdownSizeMenu'
 import LoadingButton from 'components/Button/LoadingButton'
+import SizeChartModal from 'components/Modal/SizeChartModal'
 
 const MerchClaimShipping = props => {
-  const { onClose, onNext } = props
+  const { onClose, onNext, productId, setMerchSize } = props
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -43,14 +43,8 @@ const MerchClaimShipping = props => {
   const [state, setState] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const sizeList = [
-    { id: 0, label: 'S' },
-    { id: 1, label: 'M' },
-    { id: 2, label: 'L' },
-    { id: 3, label: 'XL' },
-    { id: 4, label: '2XL' },
-  ]
-  const [size, setSize] = useState(sizeList[0])
+  const [sizeList, setSizeList] = useState([])
+  const [tableModal, setTableModal] = useState(false)
 
   const alertData = [
     {
@@ -60,6 +54,102 @@ const MerchClaimShipping = props => {
       type: 'failure',
     },
   ]
+
+  const getApparelName = () => {
+    let type = 'Unisex'
+    let name = 'Hoodie'
+
+    if (productId === 1 || productId === 2) {
+      name = 'Hoodie'
+    } else if (productId === 3 || productId === 4) {
+      name = 'Long Sleeve'
+    } else if (productId === 5 || productId === 6) {
+      name = 'Short Sleeve'
+    } else if (productId === 7 || productId === 8) {
+      name = 'Sweatshirt'
+    } else if (productId === 9 || productId === 10) {
+      name = "Women's Short Sleeve"
+    }
+
+    let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
+    if (list.length > 0) return list[0].name
+    else return name
+  }
+
+  const getApparelLabel = () => {
+    let type = 'Unisex'
+    let name = 'Hoodie'
+
+    if (productId === 1 || productId === 2) {
+      name = 'Hoodie'
+    } else if (productId === 3 || productId === 4) {
+      name = 'Long Sleeve'
+    } else if (productId === 5 || productId === 6) {
+      name = 'Short Sleeve'
+    } else if (productId === 7 || productId === 8) {
+      name = 'Sweatshirt'
+    } else if (productId === 9 || productId === 10) {
+      name = "Women's Short Sleeve"
+    }
+
+    let list = ShopApparelList.filter(item => item.base === name && item.sub_type == type)
+    if (list.length > 0) return list[0].label
+    else return name
+  }
+
+  const onClickSize = index => {
+    let newSize = []
+    sizeList.map(item => {
+      if (item.id === index) {
+        newSize.push({ ...item, selected: true })
+        setMerchSize(item.name)
+      } else {
+        newSize.push({ ...item, selected: false })
+      }
+    })
+    setSizeList(newSize)
+  }
+
+  useEffect(() => {
+    if (productId) {
+      let size_list
+      switch (productId) {
+        case 1:
+        case 2:
+          size_list = SizeList[2].size
+          break
+        case 3:
+        case 4:
+          size_list = SizeList[3].size
+          break
+        case 5:
+        case 6:
+          size_list = SizeList[0].size
+          break
+        case 7:
+        case 8:
+          size_list = SizeList[1].size
+          break
+        case 9:
+        case 10:
+          size_list = SizeList[4].size
+          break
+        default:
+          size_list = SizeList[5].size
+          break
+      }
+      let sizes = []
+      size_list.map((size, index) => {
+        if (index === Math.round(size_list.length / 2)) {
+          sizes.push({ id: index, name: size.Size, selected: true })
+          setMerchSize(size.Size)
+        } else {
+          sizes.push({ id: index, name: size.Size, selected: false })
+        }
+      })
+      setSizeList(sizes)
+    }
+  }, [productId])
 
   useEffect(() => {
     if (email.length == 0) {
@@ -231,8 +321,29 @@ const MerchClaimShipping = props => {
             />
           </div>
         </div>
-        <div className="w-full flex justify-end mt-[30px]">
-          <div>
+        <div className="w-full mt-[30px]">
+          <div className="mt-[15px]">
+            <div className="w-full flex justify-between items-center">
+              <div className={styles.desc}>Select Size</div>
+              <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+                Size Chart »
+              </div>
+            </div>
+            <div className="mt-[15px]">
+              <div className="w-full flex flex-wrap gap-[9px]">
+                {sizeList.map((item, index) => (
+                  <div
+                    key={index}
+                    className={item.selected ? styles.selectedSize : styles.unselectedSize}
+                    onClick={() => onClickSize(index)}
+                  >
+                    {item.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* <div>
             <DropdownSizeMenu
               data={sizeList}
               selectedItem={size}
@@ -243,7 +354,7 @@ const MerchClaimShipping = props => {
             <div className="flex items-center mt-[10px]">
               <div className={styles.sizeChart}>Select Size</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.borderLine} />
@@ -262,6 +373,12 @@ const MerchClaimShipping = props => {
           )}
         </div>
       </div>
+      <SizeChartModal
+        open={tableModal}
+        title={getApparelName()}
+        label={getApparelLabel()}
+        onClose={() => setTableModal(false)}
+      />
       <Alert
         open={showAlert}
         close={() => {

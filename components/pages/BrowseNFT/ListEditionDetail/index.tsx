@@ -646,7 +646,9 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
             </div>
           </div>
         )}
-        <div className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px]' : 'lg:mt-[30px] mb-[40px]'} w-full`}>
+        <div
+          className={`mt-[35px]  ${fromNFT ? 'lg:mt-[30px] mb-[20px]' : 'lg:mt-[30px] mb-[40px] lg:mb-[0px]'} w-full`}
+        >
           {isLoading ? (
             <LoadingSecondaryButton fullWidth />
           ) : (

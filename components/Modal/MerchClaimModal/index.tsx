@@ -32,6 +32,7 @@ const MerchClaimModal = ({ open, onClose, data }) => {
   const [productDetail, setProductDetail] = useState(null)
   const [merchList, setMerchList] = useState([])
   const [rawUrlList, setRawUrlList] = useState([])
+  const [merchSize, setMerchSize] = useState(null)
   const [type, setType] = useState('')
 
   useEffect(() => {
@@ -72,6 +73,12 @@ const MerchClaimModal = ({ open, onClose, data }) => {
       error => {}
     )
   }, [open])
+
+  useEffect(() => {
+    if (merchSize) {
+      setPrintData({ ...printData, size: merchSize })
+    }
+  }, [merchSize])
 
   const closeModal = () => {
     onClose()
@@ -114,7 +121,8 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                       setShippingMethod(info.method)
                       setCurrentStep(2)
                     }}
-                    printData={printData}
+                    productId={productDetail?.product_type_id}
+                    setMerchSize={setMerchSize}
                     data={shippingData}
                   />
                 )}

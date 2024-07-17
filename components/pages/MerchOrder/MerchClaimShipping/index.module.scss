@@ -48,6 +48,7 @@
   font-weight: 100;
   line-height: 20px;
   color: var(--text-gray-200-color);
+  cursor: pointer;
 }
 
 .inputArea {
@@ -74,4 +75,39 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
+
+.selectedSize {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: var(--main-icon-color);
+  color: var(--background-main-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-Regular';
+  font-size: 15px;
+  font-weight: 100;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.unselectedSize {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  color: var(--text-gray-200-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-Regular';
+  font-size: 15px;
+  font-weight: 100;
+  line-height: 20px;
+  cursor: pointer;
 }
