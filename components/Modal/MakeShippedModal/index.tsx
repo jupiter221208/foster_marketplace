@@ -25,7 +25,7 @@ import GradientButton from 'components/Button/GradientButton'
 import StoreAPI from 'apis/store'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const MakeShippedModal = ({ open, onClose, orderId }) => {
+const MakeShippedModal = ({ open, onClose, orderId, onSuccess }) => {
   const viewport = useViewport()
   const [name, setName] = useState('')
   const [trackingNumber, setTrackingNumber] = useState('')
@@ -54,7 +54,7 @@ const MakeShippedModal = ({ open, onClose, orderId }) => {
     StoreAPI.addShippingOrder(orderId, params).then(
       response => {
         if (response) {
-          onClose()
+          onSuccess()
         }
       },
       error => {}

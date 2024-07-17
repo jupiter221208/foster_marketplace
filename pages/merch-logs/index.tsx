@@ -265,7 +265,7 @@ const MerchActivity = () => {
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
-          if (keys.length > 0) creator = keys[0]
+          if (keys.length > 0) creator = keys[1]
 
           let new_order = {
             id: order.id,
