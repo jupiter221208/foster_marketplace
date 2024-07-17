@@ -736,6 +736,7 @@ const MerchActivity = () => {
               <ApparelActivity
                 activities={isStudioSalesNFT ? sales : merchSales}
                 type="sales"
+                isStudioNFT={isStudioSalesNFT}
                 isLoading={isStudioSalesNFT ? isVisibleSellerFetching : isVisibleMerchSellerFetching}
               />
             </div>

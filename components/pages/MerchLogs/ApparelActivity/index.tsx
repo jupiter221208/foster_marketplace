@@ -18,14 +18,14 @@ import GradientButton from 'components/Button/GradientButton'
 import { useRouter } from 'next/router'
 
 const ApparelActivity = props => {
-  const { activities, type, isLoading } = props
+  const { activities, type, isLoading, isStudioNFT = false } = props
   const router = useRouter()
 
   return (
     <div className={styles.container}>
       {activities.length > 0 && (
         <div className="mt-[10px]">
-          <TableSections data={activities} type={type} />
+          <TableSections data={activities} type={type} isStudioNFT={isStudioNFT} />
         </div>
       )}
 
