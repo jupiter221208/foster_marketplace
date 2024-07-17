@@ -63,7 +63,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   useEffect(() => {
     if (printData) return
 
-    StoreAPI.getStoreById(publicArtistData.artist.id, router.query.product_id).then(
+    StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
       response => {
         if (response) {
           setProductDetail(response)
@@ -413,7 +413,7 @@ MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchO
   let artistUsername = encodeURIComponent(query.id)
 
   try {
-    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
     return {

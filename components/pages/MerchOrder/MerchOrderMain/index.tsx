@@ -267,13 +267,13 @@ const MerchOrderMain = props => {
           <div className="mt-[20px]">
             <div className={styles.creator}>Creator</div>
             <div className="mt-[7px] flex flex-wrap gap-[15px]">
-              <Link href={`/${userDetail.artist.username}`} passHref>
+              <Link href={`/${userDetail.username}`} passHref>
                 <a>
-                  <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.artist.username}`)}>
+                  <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
                     <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
-                      <ImageWithFoster src={userDetail.artist.profile_picture} alt="" />
+                      <ImageWithFoster src={userDetail.profile_picture} alt="" />
                     </div>
-                    {userDetail.artist.username}
+                    {userDetail.username}
                   </div>
                 </a>
               </Link>

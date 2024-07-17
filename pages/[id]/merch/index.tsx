@@ -166,7 +166,7 @@ CreatorMerch.getLayout = function getLayout(page) {
 CreatorMerch.getInitialProps = async function ({ res, query }): Promise<CreatorMerchProps> {
   let artistUsername = encodeURIComponent(query.id)
   try {
-    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
     let artistPublicKey = publicArtistData.wallet_id
