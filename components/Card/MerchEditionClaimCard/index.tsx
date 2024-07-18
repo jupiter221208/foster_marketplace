@@ -5,9 +5,7 @@ import React, { useState, useEffect } from 'react'
 // Web3
 
 // images and icons
-import CloseIcon from 'assets/icons/close-white-13x13.svg?component'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
+
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'
 import SecondaryDashboardButton from 'components/Button/SecondaryDashboardButton'
 import MerchEditionViewModal from 'components/Modal/MerchEditionViewModal'
@@ -69,14 +67,14 @@ const MerchEditionClaimCard = props => {
         </div>
 
         <div className={styles.bottomSection}>
-          {data.claimed === true ? (
+          {data.order_id ? (
             <div className="w-full">
               <SecondaryDashboardButton
                 label="Order Details"
                 type="order-details"
                 fullWidth
                 onClick={() => {
-                  router.push(`/merch-logs/${data.nft.id}`)
+                  router.push(`/merch-logs/${data.order_id}`)
                 }}
               />
             </div>

@@ -56,8 +56,8 @@ const MerchEditionSection = () => {
     StoreAPI.getStoreMerchEditions().then(
       response => {
         if (response) {
-          let claimed = response.filter(item => item.claimed === true)
-          let unclaimed = response.filter(item => item.claimed === false)
+          let claimed = response.filter(item => item.order_id !== null)
+          let unclaimed = response.filter(item => item.order_id === null)
           setClaimedList(claimed)
           setUnclaimedList(unclaimed)
           setMerchList(unclaimed)
