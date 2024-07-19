@@ -92,7 +92,7 @@ const MerchDTGSection = props => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
     setAssetUrl(null)
     setCurPercentage(0)
-
+    setShowEmbPosModal(true)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas) {
       newCanvas.clear()
@@ -134,6 +134,8 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
+
+    if (cardSide === 'front') setShowEmbPosModal(true)
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -221,23 +223,26 @@ const MerchDTGSection = props => {
 
     if (apparelList[selectedCard.id].id === 4 && technique === 'dtg' && (cardSide === 'left' || cardSide === 'right'))
       return
-    let assetWidth, assetHeight
+    let assetWidth, assetHeight, assetTop
     if (cardSide === 'front') {
       if (embPlace === 'center') {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_center
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_center
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
       } else if (embPlace === 'chest') {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_chest
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_chest
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top_chest
       } else {
         assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
         assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
       }
     } else {
       assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
       assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+      assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
     }
-    let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
 
@@ -637,7 +642,7 @@ const MerchDTGSection = props => {
                       setShowEmbPosModal(false)
                     }}
                   >
-                    Full Front
+                    Front
                   </div>
                 )}
               </div>
@@ -953,7 +958,7 @@ const MerchDTGSection = props => {
                         setShowEmbPosModal(false)
                       }}
                     >
-                      Full Front
+                      Front
                     </div>
                   )}
                 </div>
@@ -1038,7 +1043,7 @@ const MerchDTGSection = props => {
                         setShowEmbPosModal(false)
                       }}
                     >
-                      Full Front
+                      Front
                     </div>
                   )}
                 </div>
