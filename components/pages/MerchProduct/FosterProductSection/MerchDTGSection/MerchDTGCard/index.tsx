@@ -16,7 +16,7 @@ const MerchDTGCard = props => {
   const getLabel = () => {
     let label = ''
     if (side === 'front') {
-      if (technique === 'dtg') label = 'Full Front'
+      if (technique === 'dtg') label = 'Front'
       else {
         if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') label = 'Left/Center Chest'
         else label = 'Left or Center Chest'
