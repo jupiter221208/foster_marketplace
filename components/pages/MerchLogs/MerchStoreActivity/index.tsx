@@ -57,6 +57,7 @@ const MerchStoreActivity = props => {
       {storeList.length > 0 && (
         <div className="mt-[10px]">
           <TableSections
+            username={username}
             data={storeList}
             onUpdate={data => onUpdateMerch(data)}
             onDelist={data => onDelistMerch(data)}

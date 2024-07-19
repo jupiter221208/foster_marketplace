@@ -7,9 +7,12 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { getTimeDifference, getYMDString } from 'utils/helpers'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const MerchStoreTable = props => {
-  const { data, onUpdate, onDelist, onCancel } = props
+  const { username, data, onUpdate, onDelist, onCancel } = props
+  const router = useRouter()
 
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
@@ -73,7 +76,11 @@ const MerchStoreTable = props => {
                         className="w-[40px] h-[40px] object-contain"
                       />
                     </div>
-                    {item.name}
+                    <div className={styles.name}>
+                      <Link href={`/${username}/merch/${item.id}`} passHref>
+                        <a>{item.name}</a>
+                      </Link>
+                    </div>
                   </div>
                   <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>
                   <div className="w-[20%] text-center">{getTechnique(item)}</div>

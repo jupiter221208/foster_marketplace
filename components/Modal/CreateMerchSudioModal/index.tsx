@@ -65,8 +65,8 @@ const CreateMerchSudioModal = props => {
                 <div className="w-full mt-3 lg:mt-3">
                   <div className={styles.text}>
                     Foster Studio allows creators to monetize physical offerings including apparel and wall art. If a
-                    user purchases a physical offering of this artwork, the creator receives a 20% commission for wall
-                    art purchases and a $5.00 commission on apparel purchases.
+                    user purchases a physical offering of this artwork, the creator receives a $5.00 commission on
+                    apparel purchases.
                     <br />
                     <br />
                     By clicking &apos;continue&apos; you are providing consent to Foster Marketplace to enable
