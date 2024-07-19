@@ -112,7 +112,7 @@ const CreateMenu = () => {
               <div
                 className={styles.text}
                 onClick={() => {
-                  router.push(`${profileInfo.username.replaceAll(' ', '%20')}/merch/new`)
+                  router.push(`/${profileInfo.username.replaceAll(' ', '%20')}/merch/new`)
                   setIsMenuOpen(false)
                 }}
               >
