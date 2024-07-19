@@ -19,7 +19,6 @@ import MerchClaimShippingMethod from 'components/pages/MerchOrder/MerchClaimShip
 import MerchClaimCheckout from 'components/pages/MerchOrder/MerchClaimCheckout'
 
 // API
-import StoreAPI from 'apis/store'
 
 const MerchClaimModal = ({ open, onClose, data }) => {
   const [shipppingMethod, setShippingMethod] = useState(null)
@@ -37,41 +36,37 @@ const MerchClaimModal = ({ open, onClose, data }) => {
 
   useEffect(() => {
     if (!open || productDetail) return
-    StoreAPI.getStoreById(data.user_id, data.id).then(
-      response => {
-        if (response) {
-          setProductDetail(response)
-          let imageList = [],
-            rawList = []
-          if (response.fulfillment_type === 'foster') {
-            response.options.addons.map((item, index) => {
-              imageList.push({ url: item.mockup_url, selected: index === 0 })
-              rawList.push({ url: item.raw_url })
-            })
-            setType('foster')
-          } else {
-            response.options.addons.map((item, index) => {
-              imageList.push({ url: item.mockup_url, selected: index === 0 })
-            })
-            if (response.master_edition_address === null) setType('physical')
-            else setType('edition')
-          }
-          setMerchList(imageList)
-          setRawUrlList(rawList)
-          setPrintData({
-            id: data.id,
-            quantity: 1,
-            size: 'L',
-            color: response.options.color,
-            name: response.name,
-            description: response.description,
-            technique: response.options.print_technique,
-            cost: response.selling_price / 100,
-          })
-        }
-      },
-      error => {}
-    )
+
+    if (data) {
+      setProductDetail(data)
+      let imageList = [],
+        rawList = []
+      if (data.fulfillment_type === 'foster') {
+        data.options.addons.map((item, index) => {
+          imageList.push({ url: item.mockup_url, selected: index === 0 })
+          rawList.push({ url: item.raw_url })
+        })
+        setType('foster')
+      } else {
+        data.options.addons.map((item, index) => {
+          imageList.push({ url: item.mockup_url, selected: index === 0 })
+        })
+        if (data.master_edition_address === null) setType('physical')
+        else setType('edition')
+      }
+      setMerchList(imageList)
+      setRawUrlList(rawList)
+      setPrintData({
+        id: data.id,
+        quantity: 1,
+        size: 'L',
+        color: data.options.color,
+        name: data.name,
+        description: data.description,
+        technique: data.options.print_technique,
+        cost: data.selling_price / 100,
+      })
+    }
   }, [open])
 
   useEffect(() => {
@@ -134,7 +129,7 @@ const MerchClaimModal = ({ open, onClose, data }) => {
                     setTotalCost={setTotalCost}
                     merchList={merchList}
                     rawList={rawUrlList}
-                    mintAddress={data.master_edition_address}
+                    mintAddress={data.nft.token_id}
                     onNext={orderId => {
                       setOrderId(orderId)
                       setCurrentStep(3)

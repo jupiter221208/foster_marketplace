@@ -12,9 +12,11 @@ import { getTimeDifference } from 'utils/helpers'
 import ImageWithFoster from 'components/ImageWithFoster'
 import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 import StudioStoreModal from 'components/Menu/StudioStoreModal'
+import { useRouter } from 'next/router'
 
 const StoreAccordion = props => {
-  const { data, onUpdate, onDelist, onCancel } = props
+  const { username, data, onUpdate, onDelist, onCancel } = props
+  const router = useRouter()
   const [item, setItem] = useState(null)
   const [openModal, setOpenModal] = useState(false)
 
@@ -51,7 +53,14 @@ const StoreAccordion = props => {
                 <ImageWithFoster src={getPreviewUrl(item)} width={47} className="w-full h-full object-contain" />
               </div>
               <div className="block">
-                <div className={styles.subTitle}>{item.name}</div>
+                <div
+                  className={styles.subTitle}
+                  onClick={() => {
+                    router.push(`/${username}/merch/${item.id}`)
+                  }}
+                >
+                  {item.name}
+                </div>
                 <div className="mt-[4px]">
                   {getStatus(item) === 'scheduled' ? (
                     <div className={styles.scheduled}>Upcoming</div>

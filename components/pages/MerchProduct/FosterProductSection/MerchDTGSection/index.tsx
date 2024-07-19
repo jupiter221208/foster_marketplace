@@ -34,7 +34,7 @@ const MerchDTGSection = props => {
   const [color, setColor] = useState('white')
   const [technique, setTechnique] = useState('dtg')
   const [cardSide, setCardSide] = useState('front')
-  const [embPlace, setEmbPlace] = useState('left')
+  const [embPlace, setEmbPlace] = useState('front')
   const [assetUrl, setAssetUrl] = useState<any>(null)
   const [showInfoModal, setShowInfoModal] = useState(false)
   const [showEmbPosModal, setShowEmbPosModal] = useState(false)
@@ -92,7 +92,8 @@ const MerchDTGSection = props => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
     setAssetUrl(null)
     setCurPercentage(0)
-
+    setEmbPlace('front')
+    setShowEmbPosModal(true)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas) {
       newCanvas.clear()
@@ -102,13 +103,14 @@ const MerchDTGSection = props => {
   }, [selectedCard])
 
   useEffect(() => {
-    if (technique === 'emb') {
-      if (cardSide === 'front') setShowEmbPosModal(true)
-      else setShowEmbPosModal(false)
-    } else {
-      setShowEmbPosModal(false)
-    }
+    if (cardSide === 'front' && snapshotAsset[cardSide].length === 0) setShowEmbPosModal(true)
+    else setShowEmbPosModal(false)
   }, [technique, cardSide])
+
+  useEffect(() => {
+    if (technique === 'dtg') setEmbPlace('front')
+    else setEmbPlace('chest')
+  }, [technique])
 
   const isSaved = () => {
     if (
@@ -138,6 +140,8 @@ const MerchDTGSection = props => {
       newCanvas.clear()
       newCanvas.renderAll()
     }
+
+    if (cardSide === 'front') setShowEmbPosModal(true)
   }
 
   function resizeImage(url, maxWidth, maxHeight, callback) {
@@ -225,26 +229,40 @@ const MerchDTGSection = props => {
 
     if (apparelList[selectedCard.id].id === 4 && technique === 'dtg' && (cardSide === 'left' || cardSide === 'right'))
       return
-
-    let assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
-    let assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
-    let assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+    let assetWidth, assetHeight, assetTop
+    if (cardSide === 'front') {
+      if (embPlace === 'center') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_center
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_center
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      } else if (embPlace === 'chest') {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width_chest
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height_chest
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top_chest
+      } else {
+        assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
+        assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+        assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+      }
+    } else {
+      assetWidth = apparelList[selectedCard.id].location[technique][cardSide].width
+      assetHeight = apparelList[selectedCard.id].location[technique][cardSide].height
+      assetTop = apparelList[selectedCard.id].location[technique][cardSide].top
+    }
     let angle = apparelList[selectedCard.id].location[technique][cardSide].angle
     let screenWidth = 700
 
     let assetLeft
 
-    if (technique === 'dtg') {
-      assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
-    } else {
-      if (cardSide === 'front') {
-        if (embPlace === 'center') {
-          assetLeft = (screenWidth - assetWidth) / 2
-        } else {
-          assetLeft = screenWidth * 0.56
-        }
-      } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
-    }
+    if (cardSide === 'front') {
+      if (embPlace === 'center') {
+        assetLeft = (screenWidth - assetWidth) / 2
+      } else if (embPlace === 'chest') {
+        assetLeft = screenWidth * 0.56
+      } else {
+        assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
+      }
+    } else assetLeft = apparelList[selectedCard.id].location[technique][cardSide].left
 
     if (window.innerWidth < 640) {
       let ratio = 340 / 700
@@ -546,7 +564,7 @@ const MerchDTGSection = props => {
               technique={technique}
               onSelect={type => {
                 setCardSide(type)
-                if (technique === 'emb') setShowEmbPosModal(true)
+                setShowEmbPosModal(true)
               }}
             />
             <MerchDTGCard
@@ -598,22 +616,12 @@ const MerchDTGSection = props => {
           {showEmbPosModal ? (
             <div className={styles.embFrontContainer}>
               <div className="w-full flex justify-between">
-                <div className={styles.embFrontTitle}>Embroidery Placement</div>
-                {/* <div className="mt-[-8px]" onClick={() => setShowEmbPosModal(false)}>
-                  <CloseIcon alt="" />
-                </div> */}
+                <div className={styles.embFrontTitle}>
+                  {technique === 'emb' ? 'Embroidery Placement' : 'Print Placement'}
+                </div>
               </div>
               <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
               <div className="mt-[15px] flex gap-[16px] justify-end">
-                <div
-                  className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                  onClick={() => {
-                    setEmbPlace('left')
-                    setShowEmbPosModal(false)
-                  }}
-                >
-                  Left Chest
-                </div>
                 <div
                   className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
                   onClick={() => {
@@ -623,6 +631,26 @@ const MerchDTGSection = props => {
                 >
                   Center Chest
                 </div>
+                <div
+                  className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
+                  onClick={() => {
+                    setEmbPlace('chest')
+                    setShowEmbPosModal(false)
+                  }}
+                >
+                  Left Chest
+                </div>
+                {technique === 'dtg' && (
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('front')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Full Front
+                  </div>
+                )}
               </div>
             </div>
           ) : (
@@ -673,57 +701,61 @@ const MerchDTGSection = props => {
                 </div>
               </div>
             ) : (
-              !assetUrl && (
-                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
-                  <div className="absolute inset-0">
-                    <img
-                      src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                      alt=""
-                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
-                    />
-                  </div>
-                  <div className={`${styles.dropArea}`}>
-                    <Dropzone
-                      onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 && setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                      }}
-                      onDropRejected={rejectedFiles => {}}
-                      maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [] }}
-                      maxSize={31457280}
-                    >
-                      {({ getRootProps, getInputProps, open }) => (
-                        <section>
-                          <button onClick={open} style={{ display: 'none' }}>
-                            open
-                          </button>
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            <div className="flex flex-col justify-center items-center">
-                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
-                                <Lottie animationData={animationData} loop={true} />
-                              </div>
-                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                <div className={styles.uploadText}>
-                                  Upload your
-                                  <br />
-                                  design here
-                                </div>
-                              ) : (
-                                <div className={styles.uploadText}>
-                                  Upload or drop
-                                  <br />
-                                  your design here
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </section>
-                      )}
-                    </Dropzone>
-                  </div>
+              <div></div>
+            )}
+            {snapshotAsset[cardSide].length === 0 && !assetUrl && (
+              <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                <div className="absolute inset-0">
+                  <img
+                    src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                    alt=""
+                    className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                  />
                 </div>
-              )
+                <div className={`${styles.dropArea}`}>
+                  <Dropzone
+                    onDrop={acceptedFiles => {
+                      if (acceptedFiles.length !== 0) {
+                        setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                        setShowEmbPosModal(false)
+                      }
+                    }}
+                    onDropRejected={rejectedFiles => {}}
+                    maxFiles={1}
+                    accept={{ 'image/jpeg': [], 'image/png': [] }}
+                    maxSize={31457280}
+                  >
+                    {({ getRootProps, getInputProps, open }) => (
+                      <section>
+                        <button onClick={open} style={{ display: 'none' }}>
+                          open
+                        </button>
+                        <div {...getRootProps()}>
+                          <input {...getInputProps()} />
+                          <div className="flex flex-col justify-center items-center">
+                            <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                              <Lottie animationData={animationData} loop={true} />
+                            </div>
+                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                              <div className={styles.uploadText}>
+                                Upload your
+                                <br />
+                                design here
+                              </div>
+                            ) : (
+                              <div className={styles.uploadText}>
+                                Upload or drop
+                                <br />
+                                your design here
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </section>
+                    )}
+                  </Dropzone>
+                </div>
+              </div>
             )}
           </div>
           {assetUrl &&
@@ -850,7 +882,7 @@ const MerchDTGSection = props => {
               technique={technique}
               onSelect={type => {
                 setCardSide(type)
-                if (technique === 'emb') setShowEmbPosModal(true)
+                setShowEmbPosModal(true)
               }}
             />
             <MerchDTGCard
@@ -904,19 +936,12 @@ const MerchDTGSection = props => {
             {showEmbPosModal ? (
               <div className={styles.embFrontContainer}>
                 <div className="w-full flex justify-between">
-                  <div className={styles.embFrontTitle}>Embroidery Placement</div>
+                  <div className={styles.embFrontTitle}>
+                    {technique === 'emb' ? 'Embroidery Placement' : 'Print Placement'}
+                  </div>
                 </div>
                 <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
                 <div className="mt-[15px] flex gap-[16px] justify-end">
-                  <div
-                    className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                    onClick={() => {
-                      setEmbPlace('left')
-                      setShowEmbPosModal(false)
-                    }}
-                  >
-                    Left Chest
-                  </div>
                   <div
                     className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
                     onClick={() => {
@@ -926,6 +951,26 @@ const MerchDTGSection = props => {
                   >
                     Center Chest
                   </div>
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('chest')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Left Chest
+                  </div>
+                  {technique === 'dtg' && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('full')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Full Front
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -971,71 +1016,84 @@ const MerchDTGSection = props => {
           </div>
 
           {/* ************mobile*********** */}
-          {(assetUrl || snapshotAsset[cardSide].length > 0) && (
-            <div className={styles.buttonArea}>
-              {showEmbPosModal ? (
-                <div className={styles.embFrontContainer}>
-                  <div className="w-full flex justify-between">
-                    <div className={styles.embFrontTitle}>Embroidery Placement</div>
-                  </div>
-                  <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
-                  <div className="mt-[15px] flex gap-[16px] justify-end">
-                    <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'left' ? styles.enabled : styles.disabled}`}
-                      onClick={() => {
-                        setEmbPlace('left')
-                        setShowEmbPosModal(false)
-                      }}
-                    >
-                      Left Chest
-                    </div>
-                    <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
-                      onClick={() => {
-                        setEmbPlace('center')
-                        setShowEmbPosModal(false)
-                      }}
-                    >
-                      Center Chest
-                    </div>
+          {/* {(assetUrl || snapshotAsset[cardSide].length > 0) && ( */}
+          <div className={styles.buttonArea}>
+            {showEmbPosModal ? (
+              <div className={styles.embFrontContainer}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.embFrontTitle}>
+                    {technique === 'emb' ? 'Embroidery Placement' : 'Print Placement'}
                   </div>
                 </div>
-              ) : (
-                <div className="w-full">
-                  <div className={`w-full mt-[20px] px-[15px]`}>
-                    <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
+                <div className={styles.embFrontContent}>Which placement option would you like to use?</div>
+                <div className="mt-[10px] flex gap-[10px] justify-end">
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'center' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('center')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Center Chest
                   </div>
-                  <div className="w-full mt-[12px] px-[15px]">
-                    {processingImage ? (
-                      <LoadingButton fullWidth height={50} />
-                    ) : snapshotAsset[cardSide].length > 0 ? (
-                      <div className="w-full flex flex-col gap-[8px] mt-[13px]">
-                        <div className={styles.savedTitle}>Your design has been saved!</div>
-                        <div className={styles.savedContent}>
-                          {"Click next if you're finished, or add another design."}
-                        </div>
+                  <div
+                    className={`${styles.embFrontBtn} ${embPlace === 'chest' ? styles.enabled : styles.disabled}`}
+                    onClick={() => {
+                      setEmbPlace('chest')
+                      setShowEmbPosModal(false)
+                    }}
+                  >
+                    Left Chest
+                  </div>
+                  {technique === 'dtg' && (
+                    <div
+                      className={`${styles.embFrontBtn} ${embPlace === 'full' ? styles.enabled : styles.disabled}`}
+                      onClick={() => {
+                        setEmbPlace('full')
+                        setShowEmbPosModal(false)
+                      }}
+                    >
+                      Full Front
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="w-full">
+                <div className={`w-full mt-[20px] px-[15px]`}>
+                  <OutlineButton fullWidth height={50} fontSize={18} label="Clear" onClick={clearApparel} />
+                </div>
+                <div className="w-full mt-[12px] px-[15px]">
+                  {processingImage ? (
+                    <LoadingButton fullWidth height={50} />
+                  ) : snapshotAsset[cardSide].length > 0 ? (
+                    <div className="w-full flex flex-col gap-[8px] mt-[13px]">
+                      <div className={styles.savedTitle}>Your design has been saved!</div>
+                      <div className={styles.savedContent}>
+                        {"Click next if you're finished, or add another design."}
                       </div>
-                    ) : (
-                      <GradientButton
-                        fullWidth
-                        height={50}
-                        fontSize={18}
-                        label="Save"
-                        onClick={() => {
-                          if (curPercentage > 0) setCurPercentage(0)
+                    </div>
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={50}
+                      fontSize={18}
+                      label="Save"
+                      onClick={() => {
+                        if (curPercentage > 0) setCurPercentage(0)
 
-                          setTimeout(() => {
-                            saveApparel()
-                          }, 500)
-                        }}
-                        disabled={assetUrl === null}
-                      />
-                    )}
-                  </div>
+                        setTimeout(() => {
+                          saveApparel()
+                        }, 500)
+                      }}
+                      disabled={assetUrl === null}
+                    />
+                  )}
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+          </div>
+          {/* )} */}
         </div>
       </div>
       <MerchShopInfoModal
@@ -1072,7 +1130,7 @@ const MerchDTGSection = props => {
           })
           setAssetUrl(null)
           setCurPercentage(0)
-
+          setShowEmbPosModal(false)
           let newCanvas = canvas as fabric.Canvas
           if (newCanvas == '') {
             newCanvas = new fabric.Canvas(canvasId)

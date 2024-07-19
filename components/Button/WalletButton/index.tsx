@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
@@ -38,14 +38,12 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getDisplayUserName } from 'utils/strings'
-import LoadingButton from '../LoadingButton'
 import PrimaryButton from '../PrimaryButton'
 import LoadingPrimaryButton from '../LoadingPrimaryButton'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
   const router = useRouter()
-  const dispatch = useDispatch()
 
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()

@@ -42,6 +42,7 @@ import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
 import NotificationMenu from 'components/Menu/NotificationMenu'
+import CreateMenu from 'components/Menu/CreateMenu'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -266,6 +267,10 @@ const PrimaryHeader = () => {
                 </div>
 
                 <div>
+                  <CreateMenu />
+                </div>
+
+                <div>
                   <ExploreMenu
                     label="Explore"
                     activeList={activeList}
@@ -275,7 +280,7 @@ const PrimaryHeader = () => {
                   />
                 </div>
 
-                <div
+                {/* <div
                   className={styles.studioMenu}
                   onClick={() => {
                     if (!connected) {
@@ -287,7 +292,7 @@ const PrimaryHeader = () => {
                   }}
                 >
                   Create
-                </div>
+                </div> */}
               </div>
 
               <div className="flex items-center my-auto min-w-max z-[10001]">

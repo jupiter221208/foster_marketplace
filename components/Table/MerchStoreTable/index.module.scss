@@ -59,6 +59,13 @@
   color: var(--text-gray-200-color)
 }
 
+.name {
+  &:hover {
+    text-decoration: underline;
+  }
+  cursor: pointer;
+}
+
 .scheduled {
   display: flex;
   font-family: 'Muli-Regular';

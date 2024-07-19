@@ -57,6 +57,12 @@ class Store {
     })
   }
 
+  getStoreMerchEditions() {
+    return client.get(API_URL + 'v1/stores/merch-editions').then(response => {
+      return response.data
+    })
+  }
+
   getStoreClaimed() {
     return client.get(API_URL + 'v1/stores/claimed-products').then(response => {
       return response.data

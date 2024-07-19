@@ -32,6 +32,8 @@ const MerchEditionSection = () => {
   const [selectedItem, setSelectedItem] = useState({ id: 0, label: 'Unclaimed' })
   const [filteredList, setFilteredList] = useState<any>([])
   const [isFetching, setIsFetching] = useState(false)
+  const [claimedList, setClaimedList] = useState([])
+  const [unclaimedList, setUnclaimedList] = useState([])
 
   useEffect(() => {
     if (profileInfo) {
@@ -39,13 +41,27 @@ const MerchEditionSection = () => {
     }
   }, [profileInfo])
 
+  useEffect(() => {
+    if (active === 0) {
+      setMerchList(unclaimedList)
+      setFilteredList(unclaimedList)
+    } else {
+      setMerchList(claimedList)
+      setFilteredList(claimedList)
+    }
+  }, [active])
+
   const getMerchList = () => {
     setIsFetching(false)
-    StoreAPI.getStoreUnclaimed().then(
+    StoreAPI.getStoreMerchEditions().then(
       response => {
         if (response) {
-          setMerchList(response)
-          setFilteredList(response)
+          let claimed = response.filter(item => item.order_id !== null)
+          let unclaimed = response.filter(item => item.order_id === null)
+          setClaimedList(claimed)
+          setUnclaimedList(unclaimed)
+          setMerchList(unclaimed)
+          setFilteredList(unclaimed)
           setIsFetching(true)
         }
       },
@@ -70,7 +86,7 @@ const MerchEditionSection = () => {
 
   return (
     <section className={styles.container}>
-      {isFetching && merchList.length > 0 && (
+      {isFetching && (
         <div className="w-full flex justify-between z-10">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
 
@@ -91,7 +107,7 @@ const MerchEditionSection = () => {
 
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] 2xl:gap-[60px] grid grid-cols-12 z-10">
         {filteredList.map(item => (
-          <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.address}>
+          <div className="col-span-12 lg:col-span-4 2xl:col-span-3 gap-[34px]" key={item.id}>
             <MerchEditionClaimCard data={item} />
           </div>
         ))}

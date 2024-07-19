@@ -19,15 +19,15 @@ import styles from './index.module.scss'
 import StoreAccordion from 'components/Accordion/Merch/StoreAccordion'
 
 const TableSection = props => {
-  const { data, onUpdate, onDelist, onCancel } = props
+  const { username, data, onUpdate, onDelist, onCancel } = props
   const viewport = useViewport()
 
   return (
     <section className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <MerchStoreTable data={data} onUpdate={onUpdate} onDelist={onDelist} onCancel={onCancel} />
+        <MerchStoreTable username={username} data={data} onUpdate={onUpdate} onDelist={onDelist} onCancel={onCancel} />
       ) : (
-        <StoreAccordion data={data} onUpdate={onUpdate} onDelist={onDelist} onCancel={onCancel} />
+        <StoreAccordion username={username} data={data} onUpdate={onUpdate} onDelist={onDelist} onCancel={onCancel} />
       )}
     </section>
   )

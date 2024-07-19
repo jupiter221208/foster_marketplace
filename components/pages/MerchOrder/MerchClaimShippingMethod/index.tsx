@@ -162,6 +162,7 @@ const MerchClaimShippingMethod = props => {
         size: size,
         color: color,
         technique: technique,
+        printEditionAddress: mintAddress,
       },
       notes: `This is apparel merch item`,
     }
@@ -177,7 +178,7 @@ const MerchClaimShippingMethod = props => {
         'Thank you for your order! Your support helps indie creators thrive and fuels innovation in the Solana Art Ecosystem. Enjoy your new piece!',
       notes: 'Checkout Note',
     }
-    console.log(params)
+
     StoreAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
