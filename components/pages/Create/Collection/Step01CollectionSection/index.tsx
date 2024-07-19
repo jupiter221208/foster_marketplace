@@ -847,7 +847,7 @@ const Step01CollectionSection = props => {
       <ImportEAModal
         open={showEAModal}
         onClose={() => {
-          router.push('/create/single-nft')
+          router.push('/')
           // setShowEAModal(false)
         }}
         onImportUrl={importEACollection}

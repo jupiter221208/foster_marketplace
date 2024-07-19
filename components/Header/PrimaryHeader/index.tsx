@@ -41,6 +41,7 @@ import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import NotificationMenu from 'components/Menu/NotificationMenu'
 import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
+import CreateMenu from 'components/Menu/CreateMenu'
 
 const PrimaryHeader = () => {
   const router = useRouter()
@@ -263,17 +264,7 @@ const PrimaryHeader = () => {
                 Studio
               </div>
 
-              <div>
-                <ExploreMenu
-                  label="Explore"
-                  activeList={ExploreMenuList.activeList}
-                  filterList={ExploreMenuList.filterList}
-                  categoryList={ExploreMenuList.categoryList}
-                  performerList={ExploreMenuList.performerList}
-                />
-              </div>
-
-              <div
+              {/* <div
                 className={styles.studioMenu}
                 onClick={() => {
                   if (!connected) {
@@ -285,6 +276,20 @@ const PrimaryHeader = () => {
                 }}
               >
                 Create
+              </div> */}
+
+              <div>
+                <CreateMenu />
+              </div>
+
+              <div>
+                <ExploreMenu
+                  label="Explore"
+                  activeList={ExploreMenuList.activeList}
+                  filterList={ExploreMenuList.filterList}
+                  categoryList={ExploreMenuList.categoryList}
+                  performerList={ExploreMenuList.performerList}
+                />
               </div>
             </div>
 
