@@ -20,7 +20,7 @@
 .menuArea {
   position: fixed;
   top: 105px;
-  width: 180px;
+  width: 200px;
   height: auto;
   padding: 15px 20px;
   background-color: var(--background-main-color);
@@ -52,4 +52,7 @@
   &:hover {
     color: var(--main-icon-color);
   }
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

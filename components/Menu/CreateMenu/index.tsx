@@ -6,6 +6,13 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // third party components
 import { Menu as HMenu } from '@headlessui/react'
 
+// resources
+import SingleNftIcon from 'assets/icons/create-nft-icon.svg?component'
+import EditionIcon from 'assets/icons/create-edition-icon.svg?component'
+import CollectionIcon from 'assets/icons/create-collection-icon.svg?component'
+import EAIcon from 'assets/icons/create-ea-icon.svg?component'
+import MerchIcon from 'assets/icons/create-merch-icon.svg?component'
+
 // styles
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
@@ -71,6 +78,7 @@ const CreateMenu = () => {
                   setIsMenuOpen(false)
                 }}
               >
+                <SingleNftIcon />
                 1/1 Collectible
               </div>
               <div
@@ -81,6 +89,7 @@ const CreateMenu = () => {
                   setIsMenuOpen(false)
                 }}
               >
+                <EditionIcon />
                 Editions
               </div>
               <div
@@ -94,6 +103,7 @@ const CreateMenu = () => {
                   setIsMenuOpen(false)
                 }}
               >
+                <CollectionIcon />
                 Collection
               </div>
               <div
@@ -107,6 +117,7 @@ const CreateMenu = () => {
                   setIsMenuOpen(false)
                 }}
               >
+                <EAIcon />
                 Import EA Series
               </div>
               <div
@@ -116,6 +127,7 @@ const CreateMenu = () => {
                   setIsMenuOpen(false)
                 }}
               >
+                <MerchIcon />
                 Custom Merch
               </div>
             </div>
