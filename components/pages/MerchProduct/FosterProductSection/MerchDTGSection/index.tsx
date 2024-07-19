@@ -701,61 +701,60 @@ const MerchDTGSection = props => {
                 </div>
               </div>
             ) : (
-              <div></div>
-            )}
-            {!assetUrl && (
-              <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
-                <div className="absolute inset-0">
-                  <img
-                    src={apparelList[selectedCard.id].apparel[cardSide][color]}
-                    alt=""
-                    className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
-                  />
-                </div>
-                <div className={`${styles.dropArea}`}>
-                  <Dropzone
-                    onDrop={acceptedFiles => {
-                      if (acceptedFiles.length !== 0) {
-                        setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
-                        setShowEmbPosModal(false)
-                      }
-                    }}
-                    onDropRejected={rejectedFiles => {}}
-                    maxFiles={1}
-                    accept={{ 'image/jpeg': [], 'image/png': [] }}
-                    maxSize={31457280}
-                  >
-                    {({ getRootProps, getInputProps, open }) => (
-                      <section>
-                        <button onClick={open} style={{ display: 'none' }}>
-                          open
-                        </button>
-                        <div {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <div className="flex flex-col justify-center items-center">
-                            <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
-                              <Lottie animationData={animationData} loop={true} />
+              !assetUrl && (
+                <div className="absolute w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px] flex justify-center">
+                  <div className="absolute inset-0">
+                    <img
+                      src={apparelList[selectedCard.id].apparel[cardSide][color]}
+                      alt=""
+                      className="w-[340px] h-[340px] md:w-[630px] md:h-[630px] lg:w-[550px] lg:h-[550px] xl:w-[700px] xl:h-[700px]"
+                    />
+                  </div>
+                  <div className={`${styles.dropArea}`}>
+                    <Dropzone
+                      onDrop={acceptedFiles => {
+                        if (acceptedFiles.length !== 0) {
+                          setAssetUrl(URL.createObjectURL(acceptedFiles[0]))
+                          setShowEmbPosModal(false)
+                        }
+                      }}
+                      onDropRejected={rejectedFiles => {}}
+                      maxFiles={1}
+                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      maxSize={31457280}
+                    >
+                      {({ getRootProps, getInputProps, open }) => (
+                        <section>
+                          <button onClick={open} style={{ display: 'none' }}>
+                            open
+                          </button>
+                          <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <div className="flex flex-col justify-center items-center">
+                              <div className="w-[90px] h-[90px] mt-[-20px] sm:mt-[0px">
+                                <Lottie animationData={animationData} loop={true} />
+                              </div>
+                              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                <div className={styles.uploadText}>
+                                  Upload your
+                                  <br />
+                                  design here
+                                </div>
+                              ) : (
+                                <div className={styles.uploadText}>
+                                  Upload or drop
+                                  <br />
+                                  your design here
+                                </div>
+                              )}
                             </div>
-                            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                              <div className={styles.uploadText}>
-                                Upload your
-                                <br />
-                                design here
-                              </div>
-                            ) : (
-                              <div className={styles.uploadText}>
-                                Upload or drop
-                                <br />
-                                your design here
-                              </div>
-                            )}
                           </div>
-                        </div>
-                      </section>
-                    )}
-                  </Dropzone>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
                 </div>
-              </div>
+              )
             )}
           </div>
           {assetUrl &&
