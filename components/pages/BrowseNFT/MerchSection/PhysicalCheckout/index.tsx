@@ -213,7 +213,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
       <div className="w-full px-[0px] lg:px-[30px] mt-[20px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
         <div className="w-full mt-[20px] lg:mt-[30px] h-[auto] overflow-auto">
-          <div className={styles.productDetails}>Product Details</div>
+          <div className={styles.productDetails}>Production Details</div>
           <div className="mt-[7px] mb-[7px]">
             {list.map((item, index) => (
               <div key={index} className="pb-[5px]">

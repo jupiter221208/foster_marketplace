@@ -128,7 +128,7 @@ const CreateMenu = () => {
                 }}
               >
                 <MerchIcon />
-                Custom Merch
+                Studio Merch
               </div>
             </div>
           </div>

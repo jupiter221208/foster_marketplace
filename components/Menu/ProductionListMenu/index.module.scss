@@ -1,9 +1,9 @@
 @import 'assets/scss/variable.module.scss';
 
 .btnArea {
-  width: 100%;
+  width: 100% !important;
   @media (min-width: 1024px) {
-    width: 600px;
+    width: 600px !important;
     font-size: 16px;
     gap: 7px;
     padding: 13px 15px;
@@ -31,10 +31,10 @@
 
 .menuArea {
   position: absolute;
-  width: 100%;
+  width: 100% !important;
   max-height: 200px;
   @media (min-width: 1024px) {
-    width: 600px;
+    width: 600px !important;
     top: 50px;
     padding: 10px 15px;
     background: var(--background-main-color);

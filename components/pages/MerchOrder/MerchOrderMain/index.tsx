@@ -113,15 +113,15 @@ const MerchOrderMain = props => {
       let directiction = []
       let list = productDetail.options.addons
       list.map(item => {
-        let direct_id = item.product_addon_id.split('-')[1]
+        let direct_id = item.product_addon_id
         directiction.push(
-          direct_id === '1'
+          direct_id === 1
             ? 'Front'
-            : direct_id === '2'
+            : direct_id === 2
             ? 'Back'
-            : direct_id === '3'
+            : direct_id === 3
             ? 'Right'
-            : direct_id === '4'
+            : direct_id === 4
             ? 'Left'
             : 'Front'
         )

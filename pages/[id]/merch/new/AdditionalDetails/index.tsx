@@ -279,8 +279,8 @@ const AdditionalDetails = props => {
             <div className="w-full">
               <div className={styles.title}>Product Name</div>
               <div className={`mt-[8px] sm:mt-[15px] ${styles.reviewTitle}`}>{title}</div>
-              <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Product & Design Details</div>
-              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className={`mt-[20px] sm:mt-[30px] ${styles.title}`}>Production Details</div>
+              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
@@ -462,8 +462,8 @@ const AdditionalDetails = props => {
               />
             </div>
             <div className="w-full sm:mt-[30px] mt-[20px]">
-              <div className={styles.title}>Product & Design Details</div>
-              <div className={`${styles.desc} mt-[10px]`}>{description}</div>
+              <div className={styles.title}>Production Details</div>
+              <div className={`${styles.desc} mt-[10px] sm:block hidden`}>{description}</div>
               <div className="w-full mt-[15px]">
                 <div className={styles.firstRow}>
                   <div className={styles.sideText}>Base (includes front or back print)</div>
