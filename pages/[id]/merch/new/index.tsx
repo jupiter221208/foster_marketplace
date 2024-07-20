@@ -120,28 +120,28 @@ const NewCreatorMerch = () => {
           let upload_url = additionDetail.name + '-' + productDetail.selectedCard.id + '-' + productDetail.product.id
           if (snapUrls.front !== '') {
             addonList.push({
-              product_addon_id: getProductTypeId() + '-' + 1,
+              product_addon_id: 1,
               mockup_url: await uploadApparelSection(upload_url + 'front', snapUrls.front),
               raw_url: await uploadRawUrl(upload_url + 'front' + '_raw', snapUrls.front_raw),
             })
           }
           if (snapUrls.back !== '') {
             addonList.push({
-              product_addon_id: getProductTypeId() + '-' + 2,
+              product_addon_id: 2,
               mockup_url: await uploadApparelSection(upload_url + 'back', snapUrls.back),
               raw_url: await uploadRawUrl(upload_url + 'back' + '_raw', snapUrls.back_raw),
             })
           }
           if (snapUrls.right !== '') {
             addonList.push({
-              product_addon_id: getProductTypeId() + '-' + 3,
+              product_addon_id: 3,
               mockup_url: await uploadApparelSection(upload_url + 'right', snapUrls.right),
               raw_url: await uploadRawUrl(upload_url + 'right' + '_raw', snapUrls.right_raw),
             })
           }
           if (snapUrls.left !== '') {
             addonList.push({
-              product_addon_id: getProductTypeId() + '-' + 4,
+              product_addon_id: 4,
               mockup_url: await uploadApparelSection(upload_url + 'left', snapUrls.left),
               raw_url: await uploadRawUrl(upload_url + 'left' + '_raw', snapUrls.left_raw),
             })
