@@ -240,7 +240,7 @@ const Step03SingleNFTSection = props => {
                   )}
                 </div>
                 {creatorList.length > 0 && (
-                  <div className="flex gap-[4px] items-center">
+                  <div className="flex gap-[4px] items-center mt-[-5px]">
                     <input
                       className={styles.inputPros}
                       value={share}
