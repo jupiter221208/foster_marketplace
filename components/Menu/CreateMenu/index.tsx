@@ -79,7 +79,7 @@ const CreateMenu = () => {
                 }}
               >
                 <SingleNftIcon />
-                1/1 Collectible
+                Single Artwork
               </div>
               <div
                 className={styles.text}
