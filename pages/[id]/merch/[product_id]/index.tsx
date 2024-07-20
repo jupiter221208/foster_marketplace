@@ -142,7 +142,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             })}
           </div>
         ) : (
-          <div className="mt-[30px]">
+          <div className="mt-[30px] lg:block hidden">
             <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden">
               <div className="skeletonLoader" />
             </div>
