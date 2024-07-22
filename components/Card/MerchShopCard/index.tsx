@@ -20,15 +20,13 @@ import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
-import { getDateTimeLabel, getTimeDifference, getYMDString } from 'utils/helpers'
+import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 import { getPriceValue } from 'utils/strings'
 
 const MerchShopCard = props => {
   const { username, data } = props
-  const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
   const [swiper, setSwiper] = useState(null)

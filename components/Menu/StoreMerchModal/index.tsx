@@ -62,7 +62,7 @@ const StoreMerchModal = props => {
                     <div className={styles.label}>Price</div>
                     <div className={styles.time}>${item.selling_price / 100}</div>
                   </div>
-                  {(item.fulfillment_type === 'foster' || item.master_edition_address?.length > 0) && (
+                  {(item.master_edition_address === null || item.master_edition_address?.length > 0) && (
                     <div className="w-full flex justify-between mt-[9px]">
                       <div className={styles.label}>{item.supply ? 'Limited Supply' : 'Open Supply'}</div>
                       <div className={styles.time}>
@@ -81,7 +81,7 @@ const StoreMerchModal = props => {
                         <div className={styles.time}>TBD</div>
                       )}
                     </div>
-                  ) : item.fulfillment_type !== 'foster' && item.master_edition_address?.length === 0 ? (
+                  ) : item.master_edition_address?.length === 0 ? (
                     <div className="w-full flex justify-between mt-[9px]">
                       <div className="w-full flex justify-between">
                         <div className={styles.label}>Goes live on</div>
@@ -124,14 +124,18 @@ const StoreMerchModal = props => {
                     )
                   )}
                   <div className="w-full mt-[15px]">
-                    <GradientButton
-                      label={getTimeDifference(startDate) > 0 ? 'View' : 'Buy Now'}
-                      fullWidth
-                      height={43}
-                      onClick={onBuyNow}
-                      borderRadius={10}
-                      fontSize={16}
-                    />
+                    {item.master_edition_address?.length === 0 ? (
+                      <></>
+                    ) : (
+                      <GradientButton
+                        label={getTimeDifference(startDate) > 0 ? 'View' : 'Buy Now'}
+                        fullWidth
+                        height={43}
+                        onClick={onBuyNow}
+                        borderRadius={10}
+                        fontSize={16}
+                      />
+                    )}
                   </div>
                 </div>
               </Dialog.Panel>
