@@ -3,7 +3,7 @@
   { "id": 1, "icon": "", "label": "Dashboard", "type": "dashboard", "path": "/dashboard" },
   { "id": 4, "icon": "/icons/setting-green.svg", "label": "Settings", "type": "settings", "path": "/settings" },
   { "id": 6, "icon": "", "label": "My Store", "type": "store", "path": "/" },
-  { "id": 2, "icon": "", "label": "Order History", "type": "order", "path": "/merch-logs" },
+  { "id": 2, "icon": "", "label": "Studio Hub", "type": "order", "path": "/merch-logs" },
   { "id": 3, "icon": "", "label": "Notifications", "type": "notifications", "path": "/notifications" },
   { "id": 5, "icon": "", "label": "Logout", "type": "logout", "path": "/" }
 ]
