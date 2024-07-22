@@ -239,20 +239,9 @@ const PrimaryHeader = () => {
           // } flex justify-center transition-all`}
         >
           <nav className="w-full max-w-[1920px] relative">
-            <div className="absolute inset-0 w-full flex justify-center items-center">
-              <SearchBox
-                value={searchKeyword}
-                placeholder="Search"
-                onChange={value => setSearchKeyword(value)}
-                searchList={searchList}
-                onClick={() => handleClear()}
-                onClose={() => handleClose()}
-              />
-            </div>
-
             <div className="w-full h-full flex justify-between g-container">
               <div
-                className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}
+                className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center z-[10001]`}
               >
                 <div
                   className="flex items-center gap-[6px] cursor-pointer mr-[15px]"
@@ -279,20 +268,17 @@ const PrimaryHeader = () => {
                     performerList={performerList}
                   />
                 </div>
+              </div>
 
-                {/* <div
-                  className={styles.studioMenu}
-                  onClick={() => {
-                    if (!connected) {
-                      setVisible(true)
-                      return
-                    }
-                    dispatch({ type: 'set', createTab: null })
-                    router.push('/create/single-nft')
-                  }}
-                >
-                  Create
-                </div> */}
+              <div className="w-full flex items-center mt-[4px] ml-[15px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
+                <SearchBox
+                  value={searchKeyword}
+                  placeholder="Search"
+                  onChange={value => setSearchKeyword(value)}
+                  searchList={searchList}
+                  onClick={() => handleClear()}
+                  onClose={() => handleClose()}
+                />
               </div>
 
               <div className="flex items-center my-auto min-w-max z-[10001]">
@@ -316,13 +302,13 @@ const PrimaryHeader = () => {
                   )}
 
                   {connected && isNewNotification && (
-                    <div className="absolute ml-[155px] mt-[-10px]">
+                    <div className="absolute ml-[175px] mt-[-10px]">
                       <Lottie animationData={NotifyAlarmIcon} loop={true} />
                     </div>
                   )}
 
                   {connected && (
-                    <button className="mr-[20px]" onClick={() => handleThemeMode()}>
+                    <button className="mr-[30px]" onClick={() => handleThemeMode()}>
                       {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                     </button>
                   )}
@@ -342,7 +328,7 @@ const PrimaryHeader = () => {
                 </div>
 
                 {!connected && (
-                  <button className="ml-7" onClick={() => handleThemeMode()}>
+                  <button className="ml-[30px]" onClick={() => handleThemeMode()}>
                     {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                   </button>
                 )}

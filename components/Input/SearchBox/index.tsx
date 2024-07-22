@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -24,9 +23,10 @@ const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
+  const [focus, setFocus] = useState(false)
+
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${focus ? styles.borderLine : ''}`}>
       <div className={styles.searchArea}>
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className={styles.iconArea} onClick={() => onClick()}>
@@ -63,7 +63,7 @@ const SearchBox = props => {
           </div>
         ) : (
           <div className={styles.iconArea} onClick={() => onClick()}>
-            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={0.7}>
+            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 22.017 22" opacity={1}>
               <path
                 id="search-32"
                 d="M23.687,22.124,19.6,18.076A9.9,9.9,0,1,0,18.076,19.6l4.049,4.049a1.093,1.093,0,1,0,1.562-1.529ZM11.9,19.6a7.7,7.7,0,1,1,7.7-7.7,7.7,7.7,0,0,1-7.7,7.7Z"
@@ -78,6 +78,7 @@ const SearchBox = props => {
           className={styles.inputArea}
           value={value}
           placeholder={placeholder}
+          onFocus={() => setFocus(true)}
           onChange={event => onChange(event.target.value)}
         />
       </div>
@@ -86,7 +87,10 @@ const SearchBox = props => {
         <div>
           <OutlineButton
             label="Cancel"
-            onClick={() => onClose()}
+            onClick={() => {
+              setFocus(false)
+              onClose()
+            }}
             backgroundColor="transparent"
             borderColor="transparent"
             color={'var(--text-gray-200-color)'}
@@ -96,7 +100,10 @@ const SearchBox = props => {
         <div>
           <OutlineButton
             label="Cancel"
-            onClick={() => onClose()}
+            onClick={() => {
+              setFocus(false)
+              onClose()
+            }}
             fontSize={16}
             width={60}
             fontFamily="Muli-Regular"
@@ -110,7 +117,119 @@ const SearchBox = props => {
       )}
       <div className="absolute top-[80px] w-full h-[1px] left-0 bg-[#707070]/50 z-10 flex lg:hidden" />
 
-      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
+      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? (
+        value?.length > 0 ? (
+          <div className={styles.contentArea}>
+            <div className="flex flex-wrap gap-[28px] px-[16px] py-[10px]">
+              <div>
+                <div className={styles.searchTopic}>ARTWORKS</div>
+                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className={styles.searchTopic}>USERS</div>
+                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                  <div className="w-[44px] h-[44px] rounded-[22px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[22px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[22px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[22px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className={styles.searchTopic}>COLLECTIONS</div>
+                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                  <div className="w-[44px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                  <div className="w-[171px] h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="skeletonLoader" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null
+      ) : (
         <div className={styles.contentArea}>
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Artwork</div>}
           <div className="w-full flex flex-wrap">
