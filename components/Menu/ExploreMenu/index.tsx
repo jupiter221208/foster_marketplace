@@ -62,8 +62,8 @@ const ExploreMenu = props => {
         </HMenu.Button>
         {isMenuOpen && (
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
-            <div className="flex flex-row justify-between w-full px-6 py-4 h-full">
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
+            <div className="flex flex-row justify-between w-full gap-[60px] px-[16px] py-[12px] h-full">
+              <div className="flex flex-col gap-4">
                 <div className={styles.title}>Shop</div>
                 <div className="flex flex-col gap-4 font-normal">
                   {activeList?.map((item, index) => (
@@ -92,8 +92,8 @@ const ExploreMenu = props => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
-                <div className={styles.title}>Filter & Sorting</div>
+              <div className="flex flex-col gap-4">
+                <div className={styles.title}>Discover</div>
                 <div className="flex flex-col gap-4 font-normal">
                   {filterList?.map((item, index) => (
                     <Link key={index} href={`/explore`} passHref>
@@ -113,8 +113,8 @@ const ExploreMenu = props => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
-                <div className={styles.title}>Top Performers</div>
+              <div className="flex flex-col gap-4">
+                <div className={styles.title}>Leaderboard</div>
                 <div className="flex flex-col gap-4 font-normal">
                   {performerList?.map((item, index) => (
                     <Link key={index} href={`/stats`} passHref>
@@ -134,7 +134,7 @@ const ExploreMenu = props => {
                   ))}
                 </div>
               </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 h-full gap-4">
+              <div className="flex flex-col h-full gap-4">
                 <div className={styles.title}>Categories</div>
                 <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 font-normal">
                   {displayItems?.map((item, index) => (

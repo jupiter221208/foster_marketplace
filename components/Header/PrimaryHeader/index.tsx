@@ -237,22 +237,8 @@ const PrimaryHeader = () => {
         // }  justify-center transition-all lg:flex hidden`}
       >
         <nav className="w-full max-w-[1920px] relative">
-          {/*
-          <div className="absolute inset-0 w-full flex justify-center items-center">
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              onClick={() => handleClear()}
-              onClose={() => handleClose()}
-            />
-          </div>
-*/}
           <div className="w-full h-full flex justify-between g-container">
-            <div
-              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}
-            >
+            <div className={`flex lg:gap-[15px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}>
               <div
                 className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
                 onClick={() => handleGotoHomepage()}
@@ -279,7 +265,7 @@ const PrimaryHeader = () => {
                 />
               </div>
             </div>
-            <div className="w-full flex items-center mt-[4px] ml-[25px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
+            <div className="w-full flex items-center mt-[4px] lg:ml-[5px] xl:ml-[10px] 2xl:ml-[20px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search"
