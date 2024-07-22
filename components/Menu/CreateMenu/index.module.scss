@@ -22,11 +22,10 @@
   width: 200px;
   height: auto;
   padding: 15px 20px;
-  background-color: var(--background-main-color);
-  // backdrop-filter: blur(30px);
-  // -webkit-backdrop-filter: blur(30px);
+  background-color: var(--bg-1E1E1E-F3F2F0);
   border-radius: 10px;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
   color: var(--text-gray-200-color);
   cursor: pointer;
 }

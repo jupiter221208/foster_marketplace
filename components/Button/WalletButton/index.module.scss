@@ -56,15 +56,16 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: var(--background-main-color);
+  background-color: var(--bg-1E1E1E-F3F2F0);
   border-radius: 10px;
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
   // backdrop-filter: blur(30px);
   // -webkit-backdrop-filter: blur(30px);
 }
 
 .menuArea {
   background: transparent;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
   border-radius: 12px;
   padding: 15px;
 }

@@ -56,7 +56,7 @@ const MerchShopSelectModal = props => {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center text-center">
+            <div className={styles.modalFrame}>
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"

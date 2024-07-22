@@ -23,11 +23,11 @@ import ImageWithFoster from 'components/ImageWithFoster'
 import searchAPI from 'apis/search'
 
 const SearchBox = props => {
-  const { placeholder } = props
+  const { onCloseSearch = null } = props
   const [searchKeyword, setSearchKeyword] = useState('')
   const [timer, setTimer] = useState(null)
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
-
+  const [placeholder, setPlaceHolder] = useState('')
   const viewport = useViewport()
   const router = useRouter()
   const [focus, setFocus] = useState(false)
@@ -74,6 +74,7 @@ const SearchBox = props => {
   const handleClose = () => {
     setSearchKeyword('')
     setSearchList({ nfts: [], artists: [], collections: [] })
+    if (onCloseSearch) onCloseSearch()
   }
 
   return (
@@ -128,9 +129,11 @@ const SearchBox = props => {
         <input
           className={styles.inputArea}
           value={searchKeyword}
-          placeholder={placeholder}
+          placeholder={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Search' : placeholder}
           onFocus={() => setFocus(true)}
           onChange={event => setSearchKeyword(event.target.value)}
+          onMouseEnter={() => setPlaceHolder('Search')}
+          onMouseLeave={() => (focus ? setPlaceHolder('Search') : setPlaceHolder(''))}
         />
       </div>
 
@@ -183,7 +186,7 @@ const SearchBox = props => {
                     <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
-                    <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
                   </div>
@@ -191,7 +194,7 @@ const SearchBox = props => {
                     <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
-                    <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
                   </div>
@@ -199,7 +202,7 @@ const SearchBox = props => {
                     <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
-                    <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
                   </div>
@@ -207,7 +210,7 @@ const SearchBox = props => {
                     <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
-                    <div className="w-36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                    <div className="w-[176px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                       <div className="skeletonLoader" />
                     </div>
                   </div>

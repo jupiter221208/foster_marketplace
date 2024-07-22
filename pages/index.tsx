@@ -109,20 +109,20 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      {openEditionList.length > 0 && (
-        <div className={styles.editionSection}>
-          <div className="g-container">
-            <OpenEditionSection category={''} editionList={openEditionList} />
-          </div>
+      {/* {openEditionList.length > 0 && ( */}
+      <div className={styles.editionSection}>
+        <div className="g-container w-full">
+          <OpenEditionSection category={''} editionList={openEditionList} />
         </div>
-      )}
-      {limitedEditionList.length > 0 && (
-        <div className={styles.limitEditionSection}>
-          <div className="g-container">
-            <LimitedEditionSection category={''} editionList={limitedEditionList} />
-          </div>
+      </div>
+      {/* )} */}
+      {/* {limitedEditionList.length > 0 && ( */}
+      <div className={styles.limitEditionSection}>
+        <div className="g-container">
+          <LimitedEditionSection category={''} editionList={limitedEditionList} />
         </div>
-      )}
+      </div>
+      {/* )} */}
       <div className={styles.newReleaseSection}>
         <div className="g-container">
           <MarketplaceReleaseSection category={''} setVisibleBoundary={setVisibleBoundary} />
