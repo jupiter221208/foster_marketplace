@@ -401,6 +401,9 @@ const MerchOrderMain = props => {
                           setMintQty(mintQty + 1)
                           setQuantity(mintQty + 1)
                         }
+                      } else {
+                        setMintQty(mintQty + 1)
+                        setQuantity(mintQty + 1)
                       }
                     }}
                   >

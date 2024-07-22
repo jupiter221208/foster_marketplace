@@ -36,7 +36,6 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 // call apis
-import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import NotificationMenu from 'components/Menu/NotificationMenu'
@@ -49,8 +48,6 @@ const PrimaryHeader = () => {
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
   const [isScrollingTop, setIsScrollingTop] = useState(true)
@@ -60,8 +57,6 @@ const PrimaryHeader = () => {
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const markAsRead = useSelector(state => (state as any).markAsRead)
-
-  const [timer, setTimer] = useState(null)
 
   const [lastScrollPosition, setLastScrollPosition] = useState(0)
 
@@ -124,35 +119,6 @@ const PrimaryHeader = () => {
   }, [profileInfo])
 
   useEffect(() => {
-    if (searchKeyword !== '' && searchKeyword.length >= 2) {
-      if (timer) {
-        clearTimeout(timer)
-        setTimer(null)
-      }
-      setTimer(
-        setTimeout(() => {
-          setSearchList({ nfts: [], artists: [], collections: [] })
-          searchAPI.search(searchKeyword).then(
-            response => {
-              let object: any = {}
-              object.nfts = response.nfts
-              object.artists = response.artists
-              object.collections = response.collections
-              setSearchList(object)
-            },
-            error => {
-              console.log(error)
-            }
-          )
-        }, 500)
-      )
-    } else {
-      setSearchList({ nfts: [], artists: [], collections: [] })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchKeyword])
-
-  useEffect(() => {
     if (markAsRead) {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
@@ -179,16 +145,6 @@ const PrimaryHeader = () => {
     }
 
     setLightMode(changeTo)
-  }
-
-  const handleClear = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
-  }
-
-  const handleClose = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
   const handleSelectMenu = (item: any) => {
@@ -237,21 +193,8 @@ const PrimaryHeader = () => {
         // }  justify-center transition-all lg:flex hidden`}
       >
         <nav className="w-full max-w-[1920px] relative">
-          <div className="absolute inset-0 w-full flex justify-center items-center">
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              onClick={() => handleClear()}
-              onClose={() => handleClose()}
-            />
-          </div>
-
           <div className="w-full h-full flex justify-between g-container">
-            <div
-              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center w-full max-w-max z-[10001]`}
-            >
+            <div className={`flex lg:gap-[15px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}>
               <div
                 className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
                 onClick={() => handleGotoHomepage()}
@@ -260,22 +203,8 @@ const PrimaryHeader = () => {
                 <div className={styles.logoFont}>foster</div>
               </div>
 
-              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+              {/* <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
                 Studio
-              </div>
-
-              {/* <div
-                className={styles.studioMenu}
-                onClick={() => {
-                  if (!connected) {
-                    setVisible(true)
-                    return
-                  }
-                  dispatch({ type: 'set', createTab: null })
-                  router.push('/create/single-nft')
-                }}
-              >
-                Create
               </div> */}
 
               <div>
@@ -292,7 +221,9 @@ const PrimaryHeader = () => {
                 />
               </div>
             </div>
-
+            <div className="w-full flex items-center mt-[4px] lg:ml-[5px] xl:ml-[10px] 2xl:ml-[20px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
+              <SearchBox placeholder="Search" />
+            </div>
             <div className="flex items-center my-auto min-w-max z-[10001]">
               <div className="flex">
                 {connected && (
@@ -312,13 +243,13 @@ const PrimaryHeader = () => {
                 )}
 
                 {connected && isNewNotification && (
-                  <div className="absolute ml-[155px] mt-[-10px]">
+                  <div className="absolute ml-[175px] mt-[-10px]">
                     <Lottie animationData={NotifyAlarmIcon} loop={true} />
                   </div>
                 )}
 
                 {connected && (
-                  <button className="mr-[20px]" onClick={() => handleThemeMode()}>
+                  <button className="mr-[30px]" onClick={() => handleThemeMode()}>
                     {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                   </button>
                 )}
@@ -338,7 +269,7 @@ const PrimaryHeader = () => {
               </div>
 
               {!connected && (
-                <button className="ml-7" onClick={() => handleThemeMode()}>
+                <button className="ml-[30px]" onClick={() => handleThemeMode()}>
                   {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
                 </button>
               )}
