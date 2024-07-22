@@ -49,7 +49,7 @@ const OpenEditionSection = props => {
     }
   }, [editionList])
 
-  return editionList.length > 0 ? (
+  return editionList.length === 0 ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
         <div className={styles.title}>Open&nbsp;Editions</div>
@@ -117,11 +117,11 @@ const OpenEditionSection = props => {
       </div>
     </section>
   ) : (
-    <div className="w-full h-[760px]">
+    <div className="w-full h-[645px] lg:h-[760px]">
       <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
         <div className="skeletonLoader" />
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full lg:flex hidden justify-center">
         <div className="min-w-[100%] flex gap-[50px] items-center">
           <div className="min-w-[56px] h-[56px] rounded-[28px] overflow-hidden">
             <div className="skeletonLoader" />
@@ -132,6 +132,22 @@ const OpenEditionSection = props => {
           <div className="min-w-[56px] h-[56px] rounded-[28px] overflow-hidden">
             <div className="skeletonLoader" />
           </div>
+        </div>
+      </div>
+
+      <div className="w-full lg:hidden flex gap-[15px] justify-center mt-[20px]">
+        <div className="min-w-[300px] w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+          <div className="skeletonLoader" />
+        </div>
+
+        <div className="w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+          <div className="skeletonLoader" />
+        </div>
+      </div>
+
+      <div className="w-full lg:hidden flex justify-center mt-[30px]">
+        <div className="w-[300px] h-[45px] rounded-[10px] overflow-hidden">
+          <div className="skeletonLoader" />
         </div>
       </div>
     </div>
