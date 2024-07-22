@@ -128,7 +128,7 @@ const SearchBox = props => {
         <input
           className={styles.inputArea}
           value={searchKeyword}
-          placeholder={placeholder}
+          // placeholder={placeholder}
           onFocus={() => setFocus(true)}
           onChange={event => setSearchKeyword(event.target.value)}
         />

@@ -150,8 +150,6 @@ const LiveAuctionSection = props => {
     }
   }
 
-  useEffect(() => {}, [liveAuctionList])
-
   const removeExipredAuction = item => {
     let list = liveAuctionList.filter(auction => auction.token_id !== item.token_id)
     setLiveAuctionList(list)
@@ -267,7 +265,7 @@ const LiveAuctionSection = props => {
       )}
     </section>
   ) : isLoaded === false ? (
-    <div className="w-full h-[300px] lg:h-[300px]" />
+    <div className="w-full h-[0px] lg:h-[0px]" />
   ) : fromPage === 'profile' ? (
     <div className="w-full h-[30px] lg:h-[50px]" />
   ) : (
