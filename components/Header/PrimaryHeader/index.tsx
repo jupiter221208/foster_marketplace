@@ -251,7 +251,7 @@ const PrimaryHeader = () => {
 */}
           <div className="w-full h-full flex justify-between g-container">
             <div
-              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[30px] my-auto items-center z-[10001]`}
+              className={`${styles.linkNames} flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}
             >
               <div
                 className="flex gap-[6px] cursor-pointer items-center mr-[15px]"
@@ -261,9 +261,9 @@ const PrimaryHeader = () => {
                 <div className={styles.logoFont}>foster</div>
               </div>
 
-              <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+              {/* <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
                 Studio
-              </div>
+              </div> */}
 
               <div>
                 <CreateMenu />
@@ -279,7 +279,7 @@ const PrimaryHeader = () => {
                 />
               </div>
             </div>
-            <div className="w-full flex items-center mt-[4px] ml-[15px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
+            <div className="w-full flex items-center mt-[4px] ml-[25px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search"

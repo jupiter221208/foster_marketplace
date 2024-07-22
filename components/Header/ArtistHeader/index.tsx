@@ -251,9 +251,9 @@ const PrimaryHeader = () => {
                   <div className={styles.logoFont}>foster</div>
                 </div>
 
-                <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
+                {/* <div className={styles.studioMenu} onClick={() => router.push('/studio')}>
                   Studio
-                </div>
+                </div> */}
 
                 <div>
                   <CreateMenu />

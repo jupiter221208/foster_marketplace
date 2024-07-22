@@ -17,6 +17,12 @@
       "label": "Live Editions",
       "query": "live_editions",
       "path": "/explore"
+    },
+    {
+      "id": 3,
+      "label": "Studio Merch",
+      "query": "studio_merch",
+      "path": "/studio"
     }
   ],
   "filterList": [

@@ -64,10 +64,10 @@ const ExploreMenu = props => {
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
             <div className="flex flex-row justify-between w-full px-6 py-4 h-full">
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
-                <div className={styles.title}>Active Listings</div>
+                <div className={styles.title}>Shop</div>
                 <div className="flex flex-col gap-4 font-normal">
                   {activeList?.map((item, index) => (
-                    <Link key={index} href={`/explore`} passHref>
+                    <Link key={index} href={item.query === 'studio_merch' ? '/studio' : '/explore'} passHref>
                       <a>
                         <div
                           className={styles.text}
@@ -81,7 +81,8 @@ const ExploreMenu = props => {
                             } else {
                               dispatch({ type: 'set', availabilityFilter: 0 })
                             }
-                            router.push('/explore')
+                            if (item.query === 'studio_merch') router.push('/studio')
+                            else router.push('/explore')
                           }}
                         >
                           {item.label}

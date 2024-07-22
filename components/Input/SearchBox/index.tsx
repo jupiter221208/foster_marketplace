@@ -96,7 +96,7 @@ const SearchBox = props => {
             color={'var(--text-gray-200-color)'}
           />
         </div>
-      ) : value !== '' ? (
+      ) : focus ? (
         <div>
           <OutlineButton
             label="Cancel"
@@ -120,108 +120,108 @@ const SearchBox = props => {
       {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? (
         value?.length > 0 ? (
           <div className={styles.contentArea}>
-            <div className="flex flex-wrap gap-[28px] px-[16px] py-[10px]">
+            <div className="flex flex-wrap gap-[25px] px-[16px] py-[10px]">
               <div>
                 <div className={styles.searchTopic}>ARTWORKS</div>
-                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                <div className="w-[230px] flex gap-[10px] mt-[20px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[230px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[230px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[230px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-36px] h-[36px] lg:w-[176px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
               </div>
               <div>
                 <div className={styles.searchTopic}>USERS</div>
-                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                <div className="w-[220px] flex gap-[10px] mt-[20px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[22px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
               </div>
               <div>
                 <div className={styles.searchTopic}>COLLECTIONS</div>
-                <div className="w-[225px] flex gap-[10px] mt-[20px]">
+                <div className="w-[220px] flex gap-[10px] mt-[20px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
-                <div className="w-[225px] flex gap-[10px] mt-[15px]">
+                <div className="w-[220px] flex gap-[10px] mt-[15px]">
                   <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
-                  <div className="w-[171px] h-[36px] lg:w-[44px] lg:h-[44px] rounded-[5px] overflow-hidden">
+                  <div className="w-[171px] h-[36px] lg:w-[171px] lg:h-[44px] rounded-[5px] overflow-hidden">
                     <div className="skeletonLoader" />
                   </div>
                 </div>
@@ -231,8 +231,8 @@ const SearchBox = props => {
         ) : null
       ) : (
         <div className={styles.contentArea}>
-          <div className="w-full flex flex-wrap gap-[20px] mx-[16px] my-[10px]">
-            <div className="w-[225px]">
+          <div className="w-full flex flex-wrap gap-[20px] mx-[15px] my-[10px]">
+            <div className="w-[230px]">
               {searchList.nfts.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>ARTWORKS</div>}
               <div className="w-full flex flex-wrap">
                 {searchList.nfts.map((item, index) => (
@@ -245,7 +245,7 @@ const SearchBox = props => {
                       onClose()
                     }}
                   >
-                    <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
+                    <div className="w-[36px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
                       {item.image_url !== null && item.image_url !== '' ? (
                         <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
                       ) : (
@@ -260,7 +260,7 @@ const SearchBox = props => {
                 ))}
               </div>
             </div>
-            <div className="w-[225px]">
+            <div className="w-[220px]">
               {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>USERS</div>}
               <div className="w-full flex flex-wrap gap-[9px]">
                 {searchList.artists.map((item, index) => (
@@ -273,7 +273,7 @@ const SearchBox = props => {
                       onClose()
                     }}
                   >
-                    <div className="w-[36px] h-[36px] mr-5">
+                    <div className="w-[36px] h-[36px] lg:w-[44px] lg:h-[44px] mr-5">
                       {item.image_url.length > 0 ? (
                         <ImageWithFoster
                           width={50}
@@ -297,7 +297,7 @@ const SearchBox = props => {
                 ))}
               </div>
             </div>
-            <div className="w-[225px]">
+            <div className="w-[220px]">
               {searchList.collections.length !== 0 && (
                 <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
               )}
