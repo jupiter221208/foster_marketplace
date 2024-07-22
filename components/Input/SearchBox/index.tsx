@@ -231,93 +231,102 @@ const SearchBox = props => {
         ) : null
       ) : (
         <div className={styles.contentArea}>
-          {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Artwork</div>}
-          <div className="w-full flex flex-wrap">
-            {searchList.nfts.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/nft/${item.id}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
-                  {item.image_url !== null && item.image_url !== '' ? (
-                    <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
-                  )}
-                </div>
-                <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
-                </div>
+          <div className="w-full flex flex-wrap gap-[20px] mx-[16px] my-[10px]">
+            <div className="w-[225px]">
+              {searchList.nfts.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>ARTWORKS</div>}
+              <div className="w-full flex flex-wrap">
+                {searchList.nfts.map((item, index) => (
+                  <div
+                    key={index}
+                    className={styles.selection}
+                    onClick={() => {
+                      router.push(`/nft/${item.id}`)
+                      setFocus(false)
+                      onClose()
+                    }}
+                  >
+                    <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
+                      {item.image_url !== null && item.image_url !== '' ? (
+                        <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
+                      ) : (
+                        <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
+                      )}
+                    </div>
+                    <div>
+                      <div className={styles.text}>{item.name}</div>
+                      <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Profile</div>}
-          <div className="w-full flex flex-wrap gap-[9px]">
-            {searchList.artists.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/${item.name}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] h-[36px] mr-5">
-                  {item.image_url.length > 0 ? (
-                    <ImageWithFoster
-                      width={50}
-                      src={item.image_url}
-                      className="object-cover rounded-full w-full h-full"
-                    />
-                  ) : (
-                    <Image
-                      src={DefaultAvatar}
-                      alt=""
-                      width={35}
-                      height={35}
-                      layout="responsive"
-                      objectFit="cover"
-                      className="rounded-full"
-                    />
-                  )}
-                </div>
-                <div className={styles.text}>{getDisplayUserName(item.name)}</div>
+            </div>
+            <div className="w-[225px]">
+              {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>USERS</div>}
+              <div className="w-full flex flex-wrap gap-[9px]">
+                {searchList.artists.map((item, index) => (
+                  <div
+                    key={index}
+                    className={styles.selection}
+                    onClick={() => {
+                      router.push(`/${item.name}`)
+                      setFocus(false)
+                      onClose()
+                    }}
+                  >
+                    <div className="w-[36px] h-[36px] mr-5">
+                      {item.image_url.length > 0 ? (
+                        <ImageWithFoster
+                          width={50}
+                          src={item.image_url}
+                          className="object-cover rounded-full w-full h-full"
+                        />
+                      ) : (
+                        <Image
+                          src={DefaultAvatar}
+                          alt=""
+                          width={35}
+                          height={35}
+                          layout="responsive"
+                          objectFit="cover"
+                          className="rounded-full"
+                        />
+                      )}
+                    </div>
+                    <div className={styles.text}>{getDisplayUserName(item.name)}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          {(searchList.nfts.length !== 0 || searchList.artists.length !== 0) && searchList.collections.length !== 0 && (
-            <div className="w-full h-10" />
-          )}
-          {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Collection</div>}
-          <div className="w-full flex flex-wrap gap-[9px]">
-            {searchList.collections.map((item, index) => (
-              <div
-                key={index}
-                className={styles.selection}
-                onClick={() => {
-                  router.push(`/collection/${item.id}`)
-                  onClose()
-                }}
-              >
-                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
-                  <ImageWithFoster
-                    src={item.image_url}
-                    width={50}
-                    className="object-cover rounded-[10px] w-full h-full"
-                  />
-                </div>
-                <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
-                </div>
+            </div>
+            <div className="w-[225px]">
+              {searchList.collections.length !== 0 && (
+                <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
+              )}
+              <div className="w-full flex flex-wrap gap-[9px]">
+                {searchList.collections.map((item, index) => (
+                  <div
+                    key={index}
+                    className={styles.selection}
+                    onClick={() => {
+                      router.push(`/collection/${item.id}`)
+                      setFocus(false)
+                      onClose()
+                    }}
+                  >
+                    <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
+                      <ImageWithFoster
+                        src={item.image_url}
+                        width={50}
+                        className="object-cover rounded-[10px] w-full h-full"
+                      />
+                    </div>
+                    <div>
+                      <div className={styles.text}>{item.name}</div>
+                      <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       )}
