@@ -51,7 +51,7 @@ const LimitedEditionSection = props => {
     }
   }, [editionList])
 
-  return editionList?.length === 0 ? (
+  return editionList?.length > 0 ? (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10 ml-[5px]">
         <div className={styles.title}>Limited&nbsp;Editions</div>
