@@ -177,7 +177,7 @@ const HeroNewCard = ({ data }) => {
             )}
           </div>
         </div>
-        <div className="h-full">
+        <div className="h-full flex items-center">
           {data.list_price === undefined ? (
             <div className={`w-[100px] h-[30px] rounded-full overflow-hidden mt-4`}>
               <div className="skeletonLoader" />
