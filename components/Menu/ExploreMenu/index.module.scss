@@ -22,12 +22,13 @@
   width: auto;
   height: 360px;
   padding: 8px;
-  background-color: var(--background-main-color);
+  background-color: var(--bg-1E1E1E-F3F2F0);
   // backdrop-filter: blur(30px);
   // -webkit-backdrop-filter: blur(30px);
   border-radius: 10px;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
   color: var(--text-gray-200-color);
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
   cursor: pointer;
 }
 

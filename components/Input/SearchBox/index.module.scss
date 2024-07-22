@@ -124,11 +124,12 @@
     max-height: 600px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background-color: var(--main-search-bg-color);
+    background-color: var(--bg-1E1E1E-F3F2F0);
     border-radius: 15px;
-    border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+    border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
   }
   padding: 20px 16px;
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
 }
 
 .title {

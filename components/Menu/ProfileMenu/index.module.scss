@@ -42,11 +42,12 @@
   right: 0;
   min-width: 272px;
   padding: 12px;
-  background-color: var(--background-main-color);
+  background-color: var(--bg-1E1E1E-F3F2F0);
   // backdrop-filter: blur(20px);
   // -webkit-backdrop-filter: blur(20px);
   border-radius: 10px;
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
+  box-shadow: 0px 3px 10px rgba(#000, 0.16);
 }
 
 .menuItem {
