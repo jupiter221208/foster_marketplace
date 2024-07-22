@@ -62,7 +62,7 @@ const ExploreMenu = props => {
         </HMenu.Button>
         {isMenuOpen && (
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
-            <div className="flex flex-row justify-between w-full gap-[60px] px-[16px] py-[12px] h-full">
+            <div className="flex flex-row justify-between w-full gap-[60px] px-[27px] py-[12px] h-full">
               <div className="flex flex-col gap-4">
                 <div className={styles.title}>Shop</div>
                 <div className="flex flex-col gap-4 font-normal">

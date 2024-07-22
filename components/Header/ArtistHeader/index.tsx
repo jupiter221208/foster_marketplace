@@ -37,7 +37,6 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 // call apis
-import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getShortAddress } from 'utils/wallet.util'
 import ShoppingCartMenu from 'components/Menu/ShoppingCartMenu'
@@ -52,8 +51,6 @@ const PrimaryHeader = () => {
   const { connected } = useWallet()
   const { profileInfo } = useAuthentication()
   const { activeList, filterList, categoryList, performerList } = ExploreMenuList
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [isNewNotification, setIsNewNotification] = useState(false)
   const [isScrollTop, setIsScrollTop] = useState(true)
   const [isScrollingTop, setIsScrollingTop] = useState(true)
@@ -126,35 +123,6 @@ const PrimaryHeader = () => {
   }, [profileInfo])
 
   useEffect(() => {
-    if (searchKeyword !== '' && searchKeyword.length >= 2) {
-      if (timer) {
-        clearTimeout(timer)
-        setTimer(null)
-      }
-      setTimer(
-        setTimeout(() => {
-          setSearchList({ nfts: [], artists: [], collections: [] })
-          searchAPI.search(searchKeyword).then(
-            response => {
-              let object: any = {}
-              object.nfts = response.nfts
-              object.artists = response.artists
-              object.collections = response.collections
-              setSearchList(object)
-            },
-            error => {
-              console.log(error)
-            }
-          )
-        }, 500)
-      )
-    } else {
-      setSearchList({ nfts: [], artists: [], collections: [] })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchKeyword])
-
-  useEffect(() => {
     if (markAsRead) {
       setIsNewNotification(false)
       dispatch({ type: 'set', markAsRead: false })
@@ -180,16 +148,6 @@ const PrimaryHeader = () => {
       localStorage.setItem('lightDarkMode', 'false')
     }
     setLightMode(changeTo)
-  }
-
-  const handleClear = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
-  }
-
-  const handleClose = () => {
-    setSearchKeyword('')
-    setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
   const handleSelectMenu = (item: any) => {
@@ -232,12 +190,7 @@ const PrimaryHeader = () => {
   return (
     <div className="fixed top-0 left-0 z-50 w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <div
-          className={`${styles.blurContainer}  flex justify-center transition-all`}
-          // className={`${styles.blurContainer} ${
-          //   isScrollingTop ? 'top-0' : '-top-28'
-          // } flex justify-center transition-all`}
-        >
+        <div className={`${styles.blurContainer}  flex justify-center transition-all`}>
           <nav className="w-full max-w-[1920px] relative">
             <div className="w-full h-full flex justify-between g-container">
               <div className={`flex lg:gap-[10px] xl:gap-[20px] 2xl:gap-[40px] my-auto items-center z-[10001]`}>
@@ -265,14 +218,7 @@ const PrimaryHeader = () => {
               </div>
 
               <div className="w-full flex items-center mt-[4px] ml-[20px] mr-[30px] xl:mr-[40px] 2xl:mr-[40px]">
-                <SearchBox
-                  value={searchKeyword}
-                  placeholder="Search"
-                  onChange={value => setSearchKeyword(value)}
-                  searchList={searchList}
-                  onClick={() => handleClear()}
-                  onClose={() => handleClose()}
-                />
+                <SearchBox placeholder="Search" />
               </div>
 
               <div className="flex items-center my-auto min-w-max z-[10001]">
