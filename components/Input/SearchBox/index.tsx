@@ -316,7 +316,7 @@ const SearchBox = props => {
                           handleClose()
                         }}
                       >
-                        <div className="w-[36px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
+                        <div className="min-w-[36px] w-[36px] lg:min-w-[44px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
                           {item.image_url !== null && item.image_url !== '' ? (
                             <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
                           ) : (
@@ -324,7 +324,7 @@ const SearchBox = props => {
                           )}
                         </div>
                         <div>
-                          <div className={styles.text}>{getShortName(item.name)}</div>
+                          <div className={styles.text}>{item.name}</div>
                           <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                         </div>
                       </div>
@@ -386,7 +386,7 @@ const SearchBox = props => {
                         handleClose()
                       }}
                     >
-                      <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
+                      <div className="min-w-[36px] w-[36px] lg:w-[46px] lg:min-w-[46px] h-[36px] lg:h-[46px] mr-5">
                         <ImageWithFoster
                           src={item.image_url}
                           width={50}
@@ -394,7 +394,7 @@ const SearchBox = props => {
                         />
                       </div>
                       <div>
-                        <div className={styles.text}>{getShortName(item.name)}</div>
+                        <div className={styles.text}>{item.name}</div>
                         <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                       </div>
                     </div>
