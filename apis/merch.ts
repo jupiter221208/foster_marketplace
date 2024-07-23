@@ -166,6 +166,12 @@ export async function payOrder(id, params) {
   })
 }
 
+export async function writeReview(id, params) {
+  return client.post(`${API_URL}v1/merch-logs/${id}`, params).then(response => {
+    return response?.data
+  })
+}
+
 export async function getOrderStats() {
   return client.get(API_URL + 'v1/merch/orders/stats').then(response => {
     return response?.data
@@ -207,6 +213,7 @@ export default {
   checkout,
   getOrder,
   payOrder,
+  writeReview,
   getAllOrder,
   getBuyerOrder,
   getSellerOrder,
