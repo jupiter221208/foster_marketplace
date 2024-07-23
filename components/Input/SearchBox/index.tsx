@@ -73,12 +73,13 @@ const SearchBox = props => {
 
   const handleClose = () => {
     setSearchKeyword('')
+    setPlaceHolder('')
     setSearchList({ nfts: [], artists: [], collections: [] })
     if (onCloseSearch) onCloseSearch()
   }
 
   return (
-    <div className={`${styles.container} ${focus ? styles.borderLine : ''}`}>
+    <div className={`${styles.container} ${focus ? styles.borderLine : 'w-[50%]'}`}>
       <div className={styles.searchArea}>
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className={styles.iconArea} onClick={() => handleClear()}>

@@ -11,6 +11,7 @@ import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import InfoIcon from 'assets/icons/info-green-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
@@ -260,7 +261,10 @@ const MerchOrderMain = props => {
                 <a>
                   <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
                     <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
-                      <ImageWithFoster src={userDetail.profile_picture} alt="" />
+                      <ImageWithFoster
+                        src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
+                        alt=""
+                      />
                     </div>
                     {userDetail.username}
                   </div>
