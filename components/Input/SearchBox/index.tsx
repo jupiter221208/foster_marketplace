@@ -78,6 +78,14 @@ const SearchBox = props => {
     if (onCloseSearch) onCloseSearch()
   }
 
+  const getShortName = name => {
+    if (name?.length >= 10) {
+      return name.slice(0, 10) + '...'
+    } else {
+      return name
+    }
+  }
+
   return (
     <div className={`${styles.container} ${focus ? styles.borderLine : 'w-[50%]'}`}>
       <div className={styles.searchArea}>
@@ -316,7 +324,7 @@ const SearchBox = props => {
                           )}
                         </div>
                         <div>
-                          <div className={styles.text}>{item.name}</div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
                           <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                         </div>
                       </div>
@@ -386,7 +394,7 @@ const SearchBox = props => {
                         />
                       </div>
                       <div>
-                        <div className={styles.text}>{item.name}</div>
+                        <div className={styles.text}>{getShortName(item.name)}</div>
                         <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                       </div>
                     </div>
