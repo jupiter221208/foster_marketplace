@@ -78,8 +78,8 @@ const MerchReviewCard = props => {
             )}
           </div>
           <div className="flex justify-end gap-[15px] mt-[20px] sm:mt-[30px]">
-            {data.images.map(image => (
-              <div className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
+            {data.images.map((image, index) => (
+              <div key={index} className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
                 <ImageWithFoster src={image} width={100} className="w-full h-full object-cover" />
               </div>
             ))}
