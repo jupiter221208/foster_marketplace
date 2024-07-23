@@ -172,6 +172,12 @@ export async function writeReview(id, params) {
   })
 }
 
+export async function getReview(id) {
+  return client.get(`${API_URL}v1/creators/${id}/reviews`).then(response => {
+    return response?.data
+  })
+}
+
 export async function getOrderStats() {
   return client.get(API_URL + 'v1/merch/orders/stats').then(response => {
     return response?.data

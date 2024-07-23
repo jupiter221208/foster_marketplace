@@ -145,7 +145,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] ">
             {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} userId={artistInfo?.id} />}
-            {activeTab === 1 && <CreatorMerchReviews />}
+            {activeTab === 1 && <CreatorMerchReviews userId={artistInfo?.id} />}
             {activeTab === 2 && <CreatorMerchBadges />}
           </div>
         </div>

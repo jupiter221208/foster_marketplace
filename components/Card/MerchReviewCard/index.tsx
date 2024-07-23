@@ -14,20 +14,16 @@ import merchImageLeft from 'assets/images/merch-order-left.png'
 import styles from './index.module.scss'
 import ImageWithFoster from 'components/ImageWithFoster'
 import RatingBar from 'components/RatingBar'
+import { getDateLabel, getLocalDateWithoutTime } from 'utils/helpers'
 
 const MerchReviewCard = props => {
+  const { data } = props
   const viewport = useViewport()
   const [isTruncated, setIsTruncated] = useState(true)
-  const [tempNftDescription, setTempNftDescription] = useState('')
+  const [tempNftDescription, setTempNftDescription] = useState(data.review)
   let count = viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 220 : 1000
   const processedNftDescription = isTruncated ? tempNftDescription.slice(0, count) : tempNftDescription
   const shouldShowReadMore = tempNftDescription.length > count
-
-  useEffect(() => {
-    setTempNftDescription(
-      "I absolutely love the packaging. The amount of product for this price was amazing well worth it. You get a lot of the body spray. I love how easy it is to open and spray. The smell is so light and long lasting. My husband absolutely loves the smell. My daughter keeps taking my spray...lol. This is a great spray for anyone who loves body sprays or wants something that last a long time or someone who doesn't want an over powering strong smothering scent this scent is light and flowery. I look forward to purchasing more of this spray the deodorant and the lotion. I look forward to other scents and products they may be developing."
-    )
-  }, [])
 
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
@@ -53,7 +49,7 @@ const MerchReviewCard = props => {
         <div>
           <div className={`${styles.reviewer} text-end sm:block hidden`}>Overall Rating</div>
           <div className="mt-[0px] sm:mt-[9px]">
-            <RatingBar value={4} onRating={() => {}} clickable={false} />
+            <RatingBar value={data.rating} onRating={() => {}} clickable={false} />
           </div>
         </div>
       </div>
@@ -70,8 +66,8 @@ const MerchReviewCard = props => {
         <div className="flex-1 mt-[25px] sm:mt-[0px]">
           <div className={styles.username}>
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-              ? 'February 6, 2024'
-              : 'Review submitted on February 6, 2024'}
+              ? getDateLabel(new Date(data.createdAt))
+              : data.headline + ' on ' + getDateLabel(new Date(data.createdAt))}
           </div>
           <div className={`${styles.desc} mt-[12px] sm:mt-[22px]`}>
             {processedNftDescription}
@@ -82,15 +78,11 @@ const MerchReviewCard = props => {
             )}
           </div>
           <div className="flex justify-end gap-[15px] mt-[20px] sm:mt-[30px]">
-            <div className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
-              <ImageWithFoster src={merchImageFront.src} width={100} className="w-full h-full object-cover" />
-            </div>
-            <div className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
-              <ImageWithFoster src={merchImageBack.src} width={100} className="w-full h-full object-cover" />
-            </div>
-            <div className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
-              <ImageWithFoster src={merchImageLeft.src} width={100} className="w-full h-full object-cover" />
-            </div>
+            {data.images.map(image => (
+              <div className="w-[53px] h-[53px] rounded-[10px] overflow-hidden">
+                <ImageWithFoster src={image} width={100} className="w-full h-full object-cover" />
+              </div>
+            ))}
           </div>
         </div>
       </div>

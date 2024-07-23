@@ -79,7 +79,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, userId, merc
 
   const handleRating = rating => {
     setRating(rating)
-    console.log(`The user rated: ${rating}/5`)
   }
 
   async function writeReviewAPI(photos) {
@@ -169,7 +168,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, userId, merc
 
         const filename = namePublicFile(`photo${index}.jpg`)
         let photo = await uploadFileToS3API(file, filename)
-        console.log(photo, '=============photo============')
         photos.push(photo.url)
       }
     }

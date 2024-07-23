@@ -6,28 +6,24 @@ import MerchBadgeCard from 'components/Card/MerchBadgeCard'
 // styles
 import styles from './index.module.scss'
 import MerchReviewCard from 'components/Card/MerchReviewCard'
+import { getReview } from 'apis/merch'
 
-const CreatorMerchReviews = () => {
+const CreatorMerchReviews = props => {
+  const { userId } = props
   const [merchList, setMerchList] = useState([])
 
-  useEffect(() => {
-    setMerchList([
-      {
-        title: 'Merch Craftsman',
-      },
-      {
-        title: 'Solana Visionary',
-      },
-      {
-        title: 'Studio God',
-      },
-    ])
-  }, [])
+  async function getReviewFromAPI() {
+    await getReview(userId).then(setMerchList)
+  }
 
+  useEffect(() => {
+    getReviewFromAPI()
+  }, [])
+  console.log(merchList, '=============merchList==========')
   return (
     <div className="w-full">
       <div>
-        {merchList.map((item, index) => (
+        {merchList?.map((item, index) => (
           <div className="w-full mb-[20px]" key={index}>
             <MerchReviewCard data={item} />
           </div>
