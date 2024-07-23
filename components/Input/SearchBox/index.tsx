@@ -79,8 +79,9 @@ const SearchBox = props => {
   }
 
   const getShortName = name => {
-    if (name?.length >= 10) {
-      return name.slice(0, 10) + '...'
+    let limit_length = 20
+    if (name?.length >= limit_length) {
+      return name.slice(0, limit_length) + '...'
     } else {
       return name
     }
@@ -324,7 +325,7 @@ const SearchBox = props => {
                           )}
                         </div>
                         <div>
-                          <div className={styles.text}>{item.name}</div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
                           <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                         </div>
                       </div>
@@ -394,7 +395,7 @@ const SearchBox = props => {
                         />
                       </div>
                       <div>
-                        <div className={styles.text}>{item.name}</div>
+                        <div className={styles.text}>{getShortName(item.name)}</div>
                         <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                       </div>
                     </div>
