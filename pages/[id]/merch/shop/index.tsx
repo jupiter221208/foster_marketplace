@@ -30,6 +30,7 @@ const CreatorMerchShop = props => {
   }, [])
 
   useEffect(() => {
+    if (userId === undefined || userId === null) return
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
         setMerchList(

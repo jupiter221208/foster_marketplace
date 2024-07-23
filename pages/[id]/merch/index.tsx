@@ -13,6 +13,8 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
 import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 import LeftArrowIcon from 'assets/icons/arrow-left-white-big.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import BannerImage from 'assets/images/banner-image.png'
 
 // json
 import ShopList from 'assets/json/merch-shop/menu-list.json'
@@ -45,14 +47,18 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   return (
     <div className="w-full pb-[60px]">
       <div className="w-full h-[187px] sm:h-[350px] relative">
-        <img src={artistInfo?.banner_picture} alt="" className="w-full h-full object-cover" />
+        <img
+          src={artistInfo?.banner_picture?.length > 0 ? artistInfo?.banner_picture : BannerImage.src}
+          alt=""
+          className="w-full h-full object-cover"
+        />
         <div className="absolute inset-0">
           <div className={styles.overlayBG}>
             <div>
               <div className="flex justify-center mb-[15px]">
                 <div className="w-[60px] sm:w-[100px] rounded-full overflow-hidden">
                   <img
-                    src={artistInfo?.profile_picture}
+                    src={artistInfo?.profile_picture?.length > 0 ? artistInfo?.profile_picture : DefaultAvatar.src}
                     alt=""
                     className="w-[60px] sm:w-[100px] h-[60px] sm:h-[100px] object-cover"
                   />

@@ -73,12 +73,21 @@ const SearchBox = props => {
 
   const handleClose = () => {
     setSearchKeyword('')
+    setPlaceHolder('')
     setSearchList({ nfts: [], artists: [], collections: [] })
     if (onCloseSearch) onCloseSearch()
   }
 
+  const getShortName = name => {
+    if (name?.length >= 10) {
+      return name.slice(0, 10) + '...'
+    } else {
+      return name
+    }
+  }
+
   return (
-    <div className={`${styles.container} ${focus ? styles.borderLine : ''}`}>
+    <div className={`${styles.container} ${focus ? styles.borderLine : 'w-[50%]'}`}>
       <div className={styles.searchArea}>
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className={styles.iconArea} onClick={() => handleClear()}>
@@ -315,7 +324,7 @@ const SearchBox = props => {
                           )}
                         </div>
                         <div>
-                          <div className={styles.text}>{item.name}</div>
+                          <div className={styles.text}>{getShortName(item.name)}</div>
                           <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                         </div>
                       </div>
@@ -385,7 +394,7 @@ const SearchBox = props => {
                         />
                       </div>
                       <div>
-                        <div className={styles.text}>{item.name}</div>
+                        <div className={styles.text}>{getShortName(item.name)}</div>
                         <div className={styles.username}>{getDisplayUserName(item.artist_name)}</div>
                       </div>
                     </div>

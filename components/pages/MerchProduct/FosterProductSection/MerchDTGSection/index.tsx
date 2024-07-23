@@ -93,6 +93,7 @@ const MerchDTGSection = props => {
     setAssetUrl(null)
     setCurPercentage(0)
     setEmbPlace('front')
+    setCardSide('front')
     setShowEmbPosModal(true)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas) {

@@ -2,6 +2,7 @@
 
 .container {
   width: 100%;
+  overflow: auto;
   @media (min-width: 1024px) {
     min-height: 700px;
     background: var(--background-main-color);
