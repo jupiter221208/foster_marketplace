@@ -108,7 +108,11 @@ const MerchDetail = () => {
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
       if (options) {
+        console.log(itemData, '=======itemData==========')
+        let item = orderData.items[0]
         let itemDetails = {
+          userId: item.userId,
+          merchId: item.id,
           print: nftName ? nftName['value'] : '',
           quantity: itemData.quantity,
           product: itemData.name,
@@ -1150,7 +1154,6 @@ const MerchDetail = () => {
         open={showReviewModal}
         previewUrl={previewUrl}
         itemDetails={itemDetails}
-        userId={orderData?.userId}
         merchId={id}
         onClose={() => setShowReviewModal(false)}
       />

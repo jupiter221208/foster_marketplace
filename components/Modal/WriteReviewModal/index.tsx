@@ -27,7 +27,7 @@ import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, userId, merchId }) => {
+const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
@@ -82,40 +82,44 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, userId, merc
   }
 
   async function writeReviewAPI(photos) {
+    console.log(itemDetails, '==========itemDetail========itemDetails')
     let params = {
-      user_id: userId,
-      merch_id: parseInt(merchId),
+      user_id: itemDetails.userId,
+      merch_id: itemDetails.merchId,
       rating: rating,
       headline: title,
       review: content,
       images: photos,
     }
-    let response = await writeReview(merchId, params)
-    setLoading(false)
-
-    if (typeof response != 'string') {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Successful Submission!',
-          description: "You've successfully submitted the review",
-          type: 'success',
-        },
-      ])
-      setSuccessReview(true)
-      setShowAlert(true)
-    } else {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Submit Failure!',
-          description: "You've failed to submit the review",
-          type: 'failure',
-        },
-      ])
-      setSuccessReview(false)
-      setShowAlert(true)
-    }
+    writeReview(merchId, params).then(
+      response => {
+        console.log(response)
+        setLoading(false)
+        setAlertData([
+          {
+            id: 0,
+            title: 'Successful Submission!',
+            description: "You've successfully submitted the review",
+            type: 'success',
+          },
+        ])
+        setSuccessReview(true)
+        setShowAlert(true)
+      },
+      error => {
+        setLoading(false)
+        setAlertData([
+          {
+            id: 0,
+            title: 'Submit Failure!',
+            description: "You've failed to submit the review",
+            type: 'failure',
+          },
+        ])
+        setSuccessReview(false)
+        setShowAlert(true)
+      }
+    )
   }
 
   const onClickSubmit = async () => {
@@ -160,6 +164,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, userId, merc
       setLoading(true)
       for (let index = 0; index < urls.length; index++) {
         let url = urls[index]
+        console.log(url, '=============url==============')
         let response = await fetch(url.src)
         let blob = await response.blob()
         const file = new File([blob], `photo${index}.jpg`, {
