@@ -265,7 +265,10 @@ const MerchActivity = () => {
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
-          if (keys.length > 0) creator = keys[1]
+          if (keys.length > 0) {
+            if (keys[0] === 'BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT') creator = keys[1]
+            else creator = keys[0]
+          }
 
           let new_order = {
             id: order.id,
@@ -315,7 +318,10 @@ const MerchActivity = () => {
         response.forEach(order => {
           let keys = Object.keys(order.paymentSplits)
           let creator = ''
-          if (keys.length > 0) creator = keys[0]
+          if (keys.length > 0) {
+            if (keys[0] === 'BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT') creator = keys[1]
+            else creator = keys[0]
+          }
 
           let new_order = {
             id: order.id,

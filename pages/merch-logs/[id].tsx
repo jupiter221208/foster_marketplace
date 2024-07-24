@@ -108,7 +108,6 @@ const MerchDetail = () => {
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
       if (options) {
-        console.log(itemData, '=======itemData==========')
         let item = orderData.items[0]
         let itemDetails = {
           userId: item.userId,

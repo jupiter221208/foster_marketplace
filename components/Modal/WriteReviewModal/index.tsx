@@ -82,7 +82,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) =
   }
 
   async function writeReviewAPI(photos) {
-    console.log(itemDetails, '==========itemDetail========itemDetails')
     let params = {
       user_id: itemDetails.userId,
       merch_id: itemDetails.merchId,
@@ -93,7 +92,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) =
     }
     writeReview(merchId, params).then(
       response => {
-        console.log(response)
         setLoading(false)
         setAlertData([
           {
@@ -164,7 +162,6 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) =
       setLoading(true)
       for (let index = 0; index < urls.length; index++) {
         let url = urls[index]
-        console.log(url, '=============url==============')
         let response = await fetch(url.src)
         let blob = await response.blob()
         const file = new File([blob], `photo${index}.jpg`, {
