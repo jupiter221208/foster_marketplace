@@ -61,9 +61,9 @@ const StoreMerchActivateModal = props => {
                 <div className={styles.separator} />
                 <div className="w-full px-[21px] sm:px-[32px] mt-[12px] sm:mt-[25px]">
                   <div className={styles.text}>
-                    To activate this merch item as a bonus for each edition purchase, go to your dashboard, select an
+                    {`To activate this merch item as a bonus for each edition purchase, go to your dashboard, select an
                     edition to list, and attach the merch item. If you haven't minted an edition yet, you can do so now.
-                    Don't worry if you're not ready—your merch item is saved for later activation.
+                    Don't worry if you're not ready—your merch item is saved for later activation.`}
                   </div>
                 </div>
                 <div className="w-full flex justify-center sm:justify-end px-[21px] sm:px-[32px] mt-[20px] sm:mt-[50px]">
