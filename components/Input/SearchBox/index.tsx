@@ -80,6 +80,7 @@ const SearchBox = props => {
 
   const getShortName = name => {
     let limit_length = 20
+    if (viewport === 'xs') limit_length = 40
     if (name?.length >= limit_length) {
       return name.slice(0, limit_length) + '...'
     } else {
@@ -304,7 +305,7 @@ const SearchBox = props => {
           <div className={styles.contentArea}>
             <div className="w-full flex flex-wrap gap-[20px] mx-[15px] my-[10px]">
               {searchList.nfts.length !== 0 && (
-                <div className="w-[230px]">
+                <div className="w-full sm:w-[230px]">
                   {searchList.nfts.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>ARTWORKS</div>}
                   <div className="w-full flex flex-wrap">
                     {searchList.nfts.map((item, index) => (
@@ -334,7 +335,7 @@ const SearchBox = props => {
                 </div>
               )}
               {searchList.artists.length !== 0 && (
-                <div className="w-[220px]">
+                <div className="w-full sm:w-[220px]">
                   {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>USERS</div>}
                   <div className="w-full flex flex-wrap gap-[9px]">
                     {searchList.artists.map((item, index) => (
@@ -372,7 +373,7 @@ const SearchBox = props => {
                   </div>
                 </div>
               )}
-              <div className="w-[220px]">
+              <div className="w-full sm:w-[220px]">
                 {searchList.collections.length !== 0 && (
                   <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
                 )}
