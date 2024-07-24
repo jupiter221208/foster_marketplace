@@ -7,14 +7,26 @@
   },
   {
     "id": 1,
+    "label": "Editions",
+    "type": "edition",
+    "path": "/create/single-nft"
+  },
+  {
+    "id": 2,
     "label": "Collection",
     "type": "collection_nft",
     "path": "/create/collection"
   },
   {
-    "id": 2,
-    "label": "Limited or Open Edition",
-    "type": "edition",
-    "path": "/create/single-nft"
+    "id": 3,
+    "label": "Import EA Series",
+    "type": "collection_ea",
+    "path": "/create/collection"
+  },
+  {
+    "id": 4,
+    "label": "Studio Merch",
+    "type": "studio",
+    "path": "/studio"
   }
 ]
