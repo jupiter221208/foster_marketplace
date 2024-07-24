@@ -39,11 +39,13 @@ const MostPopularSection = props => {
   const [allMostPopularList, setAllMostPopularList] = useState<NftData[]>([])
   const [mostPopularList, setMostPopularList] = useState<NftData[]>([])
   const [cardLoop, setCardLoop] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     setAllMostPopularList([])
     dashboardAPI.getMostPopular(category).then(
       response => {
+        setIsLoaded(true)
         if (response !== null && response !== undefined) {
           setAllMostPopularList(response)
           if (response.length > 4) setCardLoop(true)
@@ -51,6 +53,7 @@ const MostPopularSection = props => {
         }
       },
       error => {
+        setIsLoaded(true)
         console.log(error)
       }
     )
@@ -61,93 +64,133 @@ const MostPopularSection = props => {
     setMostPopularList(allMostPopularList)
   }, [viewport, allMostPopularList])
 
-  return (
-    mostPopularList.length > 0 && (
-      <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-between items-center z-10">
-                <div className={styles.title}>Most Popular</div>
+  return mostPopularList.length > 0 ? (
+    <section className={styles.container}>
+      <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className="w-full flex justify-between items-center z-10">
+              <div className={styles.title}>Most Popular</div>
+            </div>
+          ) : (
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
+          )}
+        </div>
+        <div className="hidden lg:flex z-10">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', artworkSort: 'popular' })
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+          />
+        </div>
+      </div>
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={
+            viewport === 'xs'
+              ? 1.13
+              : viewport === 'sm'
+              ? 1.92
+              : viewport === 'md'
+              ? 2
+              : viewport === '2xl'
+              ? 5
+              : viewport === 'xl'
+              ? 4
+              : 4
+          }
+          spaceBetween={
+            viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
+          }
+          modules={[Autoplay, Lazy, Navigation]}
+          className={mostPopularList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
+          loop={cardLoop}
+        >
+          {mostPopularList.map((item: any, index) => (
+            <SwiperSlide key={index}>
+              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+                <NFTCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  artistName={item.artist_username}
+                  collectionName={item.collection_name}
+                  price={item.list_price}
+                  onClick={() => {
+                    router.push(`/nft/${item.token_id}`)
+                  }}
+                />
               </div>
-            ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
-            )}
-          </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', artworkSort: 'popular' })
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            />
-          </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
+        <div className="w-full max-w-[300px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', artworkSort: 'popular' })
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+            fontSize="16px"
+            height="41px"
+            borderRadius="8px"
+          />
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={
-              viewport === 'xs'
-                ? 1.13
-                : viewport === 'sm'
-                ? 1.92
-                : viewport === 'md'
-                ? 2
-                : viewport === '2xl'
-                ? 5
-                : viewport === 'xl'
-                ? 4
-                : 4
-            }
-            spaceBetween={
-              viewport === 'xs' ? 9 : viewport === 'sm' || viewport === 'md' ? 30 : viewport === 'lg' ? 30 : 30
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className={mostPopularList.length >= 4 ? 'navigationSwiper' : 'noScrollNavigationSwiper'}
-            loop={cardLoop}
-          >
-            {mostPopularList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  <NFTCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+      </div>
+    </section>
+  ) : !isLoaded ? (
+    <div>
+      <div className="w-full h-[645px] lg:h-[610px]">
+        <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
+          <div className="skeletonLoader" />
         </div>
-        <div className="w-full flex sm:hidden justify-center lg:mt-0 mt-[20px]">
-          <div className="w-full max-w-[300px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', artworkSort: 'popular' })
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              fontSize="16px"
-              height="41px"
-              borderRadius="8px"
-            />
+        <div className="min-w-full h-[415px] lg:flex hidden justify-center gap-[29px] mt-[26px]">
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+          <div className="max-w-[295px] w-[20%] max-h-[415px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
           </div>
         </div>
-      </section>
-    )
+        <div className="w-full lg:hidden flex gap-[15px] justify-center mt-[20px]">
+          <div className="min-w-[300px] w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+
+          <div className="w-[300px] h-[458px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+        </div>
+
+        <div className="w-full lg:hidden flex justify-center mt-[30px]">
+          <div className="w-[300px] h-[45px] rounded-[10px] overflow-hidden">
+            <div className="skeletonLoader" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <></>
   )
 }
 

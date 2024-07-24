@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -31,10 +31,18 @@ import styles from './index.module.scss'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import LimitedEditionSection from 'components/pages/Home/LimitedEditionSection'
 
+// apis
+import dashboardAPI from 'apis/dashboard'
+import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
+
 const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const [limitedEditionList, setLimitedEditionList] = useState<any>([])
+  const [openEditionList, setOpenEditionList] = useState<any>([])
+  const [isEditionLoaded, setIsEditionLoaded] = useState(false)
+
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo({
@@ -46,9 +54,29 @@ const Category = () => {
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
   const cateQuery = rawQuery.toLowerCase()
+
   useEffect(() => {
     if (rawQuery !== cateQuery) router.replace(`/category/${cateQuery}`, undefined, { shallow: true, scroll: false })
   }, [rawQuery, cateQuery, router])
+
+  useEffect(() => {
+    if (cateQuery?.length > 0) {
+      dashboardAPI.getListedEditions(cateQuery, '', 1, 15).then(response => {
+        if (Array.isArray(response.limitedEditions)) {
+          setLimitedEditionList(response.limitedEditions)
+        }
+        if (Array.isArray(response.openEditions)) {
+          setOpenEditionList(response.openEditions)
+        }
+        setIsEditionLoaded(true)
+      }),
+        error => {
+          console.log(error)
+        }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cateQuery])
+
   const categoryInfo = PopularCategoryList.find(({ query }) => query === cateQuery)
 
   let categoryTitle = `${categoryInfo?.name} | Foster Marketplace`
@@ -113,12 +141,22 @@ const Category = () => {
               <MarketplaceReleaseSection category={cateQuery} setVisibleBoundary={() => {}} />
               <LiveAuctionSection category={cateQuery} fromPage={'category'} />
               <FreshMintSection category={cateQuery} />
-              <LimitedEditionSection />
               {/* <PopularCategorySection type="category" /> */}
+
+              <OpenEditionSection
+                category={cateQuery}
+                isEditionLoaded={isEditionLoaded}
+                editionList={openEditionList}
+              />
+
+              <LimitedEditionSection
+                category={cateQuery}
+                isEditionLoaded={isEditionLoaded}
+                editionList={limitedEditionList}
+              />
             </div>
           </div>
         )}
-        {/* <FullScreenLoadingModal open={isLoading} /> */}
       </div>
     </div>
   )
