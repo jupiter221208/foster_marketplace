@@ -35,7 +35,7 @@ import MobileMerchIcon from 'assets/icons/create-merch-icon-mobile.svg?component
 import styles from './index.module.scss'
 
 const AccordionMenu = props => {
-  const { icon, openIcon = '', label, type = '', data, path = '' } = props
+  const { icon, openIcon = '', label, type = '', data, path = '', username = '' } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -75,6 +75,9 @@ const AccordionMenu = props => {
         dispatch({ type: 'set', collectionMintAddress: '' })
         dispatch({ type: 'set', collectionCoverUrl: '' })
         dispatch({ type: 'set', collectionKind: 'ea' })
+      } else if (item.type == 'studio') {
+        router.push(`/${username.replaceAll(' ', '%20')}/merch/new`)
+        return
       }
     }
 
@@ -161,7 +164,7 @@ const AccordionMenu = props => {
                     ) : item.type === 'collection_ea' ? (
                       <MobileEAIcon />
                     ) : item.type === 'studio' ? (
-                      <MerchIcon />
+                      <MobileMerchIcon />
                     ) : item.type === 'stats_creators' ? (
                       <CreatorIcon />
                     ) : item.type === 'stats_collectors' ? (

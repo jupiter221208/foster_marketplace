@@ -9,6 +9,12 @@
   },
   {
     "id": 2,
+    "label": "Studio Merch",
+    "type": "merch",
+    "path": "/studio"
+  },
+  {
+    "id": 3,
     "icon": "/icons/ecosystem-icon.svg",
     "label": "Ecosystem",
     "type": "nft_category",
