@@ -108,7 +108,10 @@ const MerchDetail = () => {
       let fosterUrlValue = previewUrl ? previewUrl : fosterUrl.value
 
       if (options) {
+        let item = orderData.items[0]
         let itemDetails = {
+          userId: item.userId,
+          merchId: item.id,
           print: nftName ? nftName['value'] : '',
           quantity: itemData.quantity,
           product: itemData.name,
@@ -420,6 +423,24 @@ const MerchDetail = () => {
               )}
 
               <div className="mt-[12px]">
+                <a
+                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                    subject: helpTitle,
+                    body: helpBody,
+                  })}`}
+                >
+                  <OutlineButton
+                    borderColor="var(--follow-btn-border-mobile)"
+                    width={335}
+                    label="Get help"
+                    onClick={() => {
+                      window.location.href = 'mailto:admin@Fostermarketplace.app'
+                    }}
+                  />
+                </a>
+              </div>
+
+              <div className="mt-[12px]">
                 {orderTabType === 'sales' ? (
                   <Button
                     height="48px"
@@ -447,23 +468,7 @@ const MerchDetail = () => {
                   />
                 )}
               </div>
-              <div className="mt-[12px]">
-                <a
-                  href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                    subject: helpTitle,
-                    body: helpBody,
-                  })}`}
-                >
-                  <OutlineButton
-                    borderColor="var(--follow-btn-border-mobile)"
-                    width={335}
-                    label="Get help"
-                    onClick={() => {
-                      window.location.href = 'mailto:admin@Fostermarketplace.app'
-                    }}
-                  />
-                </a>
-              </div>
+
               {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
                 <div className="mt-[12px]">
                   <GradientButton
@@ -728,6 +733,23 @@ const MerchDetail = () => {
                   </div>
                 )}
                 <div className="mt-[12px]">
+                  <a
+                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
+                      subject: helpTitle,
+                      body: helpBody,
+                    })}`}
+                  >
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={335}
+                      label="Get help"
+                      onClick={() => {
+                        window.location.href = 'mailto:admin@Fostermarketplace.app'
+                      }}
+                    />
+                  </a>
+                </div>
+                <div className="mt-[12px]">
                   {orderTabType === 'sales' ? (
                     <Button
                       height="48px"
@@ -755,23 +777,6 @@ const MerchDetail = () => {
                       }}
                     />
                   )}
-                </div>
-                <div className="mt-[12px]">
-                  <a
-                    href={`mailto:admin@Fostermarketplace.app?${new URLSearchParams({
-                      subject: helpTitle,
-                      body: helpBody,
-                    })}`}
-                  >
-                    <OutlineButton
-                      borderColor="var(--follow-btn-border-mobile)"
-                      width={335}
-                      label="Get help"
-                      onClick={() => {
-                        window.location.href = 'mailto:admin@Fostermarketplace.app'
-                      }}
-                    />
-                  </a>
                 </div>
 
                 {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
@@ -1077,6 +1082,24 @@ const MerchDetail = () => {
             )}
 
             <div className="mt-[12px]">
+              <Button
+                height="48px"
+                fontSize="16px"
+                paddingLeft="37px"
+                paddingRight="37px"
+                label="Get help"
+                backgroundColor="transparent"
+                borderColor="var(--follow-btn-border-mobile)"
+                borderWidth={1}
+                color={'var(--text-gray-200-color)'}
+                width={335}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@Fostermarketplace.app'
+                }}
+              />
+            </div>
+
+            <div className="mt-[12px]">
               {orderTabType === 'sales' ? (
                 <Button
                   height="48px"
@@ -1112,24 +1135,6 @@ const MerchDetail = () => {
               )}
             </div>
 
-            <div className="mt-[12px]">
-              <Button
-                height="48px"
-                fontSize="16px"
-                paddingLeft="37px"
-                paddingRight="37px"
-                label="Get help"
-                backgroundColor="transparent"
-                borderColor="var(--follow-btn-border-mobile)"
-                borderWidth={1}
-                color={'var(--text-gray-200-color)'}
-                width={335}
-                onClick={() => {
-                  window.location.href = 'mailto:admin@Fostermarketplace.app'
-                }}
-              />
-            </div>
-
             {SSOrder?.orderStatus !== 'shipped' && merchType === 'user' && orderTabType === 'sales' && (
               <div className="mt-[12px]">
                 <GradientButton
@@ -1148,6 +1153,7 @@ const MerchDetail = () => {
         open={showReviewModal}
         previewUrl={previewUrl}
         itemDetails={itemDetails}
+        merchId={id}
         onClose={() => setShowReviewModal(false)}
       />
 

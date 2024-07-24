@@ -28,7 +28,7 @@ import styles from './index.module.scss'
 // call apis
 
 const OpenEditionSection = props => {
-  const { category, editionList } = props
+  const { category, isEditionLoaded, editionList } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -116,7 +116,7 @@ const OpenEditionSection = props => {
         </div>
       </div>
     </section>
-  ) : (
+  ) : !isEditionLoaded ? (
     <div className="w-full h-[645px] lg:h-[760px]">
       <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
         <div className="skeletonLoader" />
@@ -151,6 +151,8 @@ const OpenEditionSection = props => {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   )
 }
 

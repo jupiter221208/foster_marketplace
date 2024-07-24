@@ -29,7 +29,6 @@ import OpenEditionSection from 'components/pages/Home/OpenEditionSection'
 
 // api
 import dashboardAPI from 'apis/dashboard'
-import GradientButton from 'components/Button/GradientButton'
 import ShopMerchSection from 'components/pages/Home/ShopMerchSection'
 
 const Home = () => {
@@ -45,15 +44,15 @@ const Home = () => {
     'Pushing the boundaries of digital art on Solana.'
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
-  const [editionList, setEditionList] = useState<any>([])
+
   const [limitedEditionList, setLimitedEditionList] = useState<any>([])
   const [openEditionList, setOpenEditionList] = useState<any>([])
   const [visibleBoundary, setVisibleBoundary] = useState(false)
+  const [isEditionLoaded, setIsEditionLoaded] = useState(false)
 
   useEffect(() => {
     setColorTheme(lightDarkMode)
 
-    setEditionList([])
     dashboardAPI.getListedEditions('', '', 1, 15).then(response => {
       if (Array.isArray(response.limitedEditions)) {
         setLimitedEditionList(response.limitedEditions)
@@ -61,9 +60,11 @@ const Home = () => {
       if (Array.isArray(response.openEditions)) {
         setOpenEditionList(response.openEditions)
       }
+      setIsEditionLoaded(true)
     }),
       error => {
         console.log(error)
+        setIsEditionLoaded(true)
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -112,14 +113,14 @@ const Home = () => {
       {/* {openEditionList.length > 0 && ( */}
       <div className={styles.editionSection}>
         <div className="g-container w-full">
-          <OpenEditionSection category={''} editionList={openEditionList} />
+          <OpenEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={openEditionList} />
         </div>
       </div>
       {/* )} */}
       {/* {limitedEditionList.length > 0 && ( */}
       <div className={styles.limitEditionSection}>
         <div className="g-container">
-          <LimitedEditionSection category={''} editionList={limitedEditionList} />
+          <LimitedEditionSection category={''} isEditionLoaded={isEditionLoaded} editionList={limitedEditionList} />
         </div>
       </div>
       {/* )} */}

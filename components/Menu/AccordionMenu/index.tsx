@@ -13,9 +13,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 import ExploreIcon from 'assets/icons/explore-icon.svg?component'
-import ExploreGrayIcon from 'assets/icons/explore-gray.svg?component'
 import PlusIcon from 'assets/icons/plus-icon.svg?component'
-import PlusGrayIcon from 'assets/icons/plus-gray.svg?component'
 import LeaderboardsIcon from 'assets/icons/leaderboards-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon-menu.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon-menu.svg?component'
@@ -25,19 +23,19 @@ import EcosystemIcon from 'assets/icons/ecosystem-icon.svg?component'
 import NftCategoryIcon from 'assets/icons/dashboard-icon.svg?component'
 import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
 import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
-import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
-import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
 import SettingsIcon from 'assets/icons/setting-icon.svg?component'
 import MerchIcon from 'assets/icons/merch-menu-icon.svg?component'
 import StudioIcon from 'public/icons/merch-icon.svg?component'
 import CreatorIcon from 'assets/icons/creator-icon.svg?component'
 import CollectorIcon from 'assets/icons/collector-icon.svg?component'
+import MobileEAIcon from 'assets/icons/create-ea-icon-mobile.svg?component'
+import MobileMerchIcon from 'assets/icons/create-merch-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 const AccordionMenu = props => {
-  const { icon, openIcon = '', label, type = '', data, path = '' } = props
+  const { icon, openIcon = '', label, type = '', data, path = '', username = '' } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -69,6 +67,17 @@ const AccordionMenu = props => {
       else if (item.type === 'edition') dispatch({ type: 'set', createTab: 1 })
       else if (item.type === 'collection_nft') {
         dispatch({ type: 'set', mintCollectionStep: 1 })
+        dispatch({ type: 'set', collectionMintAddress: '' })
+        dispatch({ type: 'set', collectionCoverUrl: '' })
+        dispatch({ type: 'set', collectionKind: 'foster' })
+      } else if (item.type === 'collection_ea') {
+        dispatch({ type: 'set', mintCollectionStep: 1 })
+        dispatch({ type: 'set', collectionMintAddress: '' })
+        dispatch({ type: 'set', collectionCoverUrl: '' })
+        dispatch({ type: 'set', collectionKind: 'ea' })
+      } else if (item.type == 'studio') {
+        router.push(`/${username.replaceAll(' ', '%20')}/merch/new`)
+        return
       }
     }
 
@@ -148,10 +157,14 @@ const AccordionMenu = props => {
                       <NftArtistIcon />
                     ) : item.type === 'single_nft' ? (
                       <NftArtistIcon />
-                    ) : item.type === 'collection_nft' ? (
-                      <NftCollectionIcon />
                     ) : item.type === 'edition' ? (
                       <NftCategoryIcon />
+                    ) : item.type === 'collection_nft' ? (
+                      <NftCollectionIcon />
+                    ) : item.type === 'collection_ea' ? (
+                      <MobileEAIcon />
+                    ) : item.type === 'studio' ? (
+                      <MobileMerchIcon />
                     ) : item.type === 'stats_creators' ? (
                       <CreatorIcon />
                     ) : item.type === 'stats_collectors' ? (

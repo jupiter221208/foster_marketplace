@@ -4,10 +4,12 @@ import { Fragment, useEffect, useState } from 'react'
 import Image from 'next/image'
 
 // third party components
-import { useViewport } from 'utils'
 import { Dialog, Transition } from '@headlessui/react'
+import { writeReview } from 'apis/merch'
+import { namePublicFile } from 'utils'
 
 // componenets
+import uploadFileToS3API from 'apis/aws'
 
 // resources
 import CloseIcon from 'assets/icons/close-wallet.svg?component'
@@ -15,18 +17,26 @@ import PlusIcon from 'assets/icons/plus-circle-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
+
+import Alert from 'components/Alert'
 import ImageWithFoster from 'components/ImageWithFoster'
 import RatingBar from 'components/RatingBar'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
-const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
+const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
   const [descCount, setDescCount] = useState(110)
+  const [rating, setRating] = useState(null)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [successReview, setSuccessReview] = useState(false)
 
   useEffect(() => {
     function handleResize() {
@@ -41,6 +51,16 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
 
     return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    if (open) {
+      setRating(null)
+      setTitle('')
+      setContent('')
+      setUrls([])
+      setSuccessReview(false)
+    }
+  }, [open])
 
   const removeItem = index => {
     let list = [...urls]
@@ -58,7 +78,102 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
   }
 
   const handleRating = rating => {
-    console.log(`The user rated: ${rating}/5`)
+    setRating(rating)
+  }
+
+  async function writeReviewAPI(photos) {
+    let params = {
+      user_id: itemDetails.userId,
+      merch_id: itemDetails.merchId,
+      rating: rating,
+      headline: title,
+      review: content,
+      images: photos,
+    }
+    writeReview(merchId, params).then(
+      response => {
+        setLoading(false)
+        setAlertData([
+          {
+            id: 0,
+            title: 'Successful Submission!',
+            description: "You've successfully submitted the review",
+            type: 'success',
+          },
+        ])
+        setSuccessReview(true)
+        setShowAlert(true)
+      },
+      error => {
+        setLoading(false)
+        setAlertData([
+          {
+            id: 0,
+            title: 'Submit Failure!',
+            description: "You've failed to submit the review",
+            type: 'failure',
+          },
+        ])
+        setSuccessReview(false)
+        setShowAlert(true)
+      }
+    )
+  }
+
+  const onClickSubmit = async () => {
+    if (!rating) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Overall rating missing',
+          description: `You must select overall rating, please select rating`,
+          type: 'failure',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
+    if (title.length === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Headline missing',
+          description: `You must add a headline, please add a headline`,
+          type: 'failure',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
+    if (content.length === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Review missing',
+          description: `You must write a reivew, please write a headline`,
+          type: 'failure',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
+    let photos = []
+    if (urls.length > 0) {
+      setLoading(true)
+      for (let index = 0; index < urls.length; index++) {
+        let url = urls[index]
+        let response = await fetch(url.src)
+        let blob = await response.blob()
+        const file = new File([blob], `photo${index}.jpg`, {
+          type: 'image/jpeg',
+        })
+
+        const filename = namePublicFile(`photo${index}.jpg`)
+        let photo = await uploadFileToS3API(file, filename)
+        photos.push(photo.url)
+      }
+    }
+    writeReviewAPI(photos)
   }
 
   return (
@@ -211,18 +326,32 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
                 <div className={styles.border} />
 
                 <div className="pt-[0px] lg:pt-[25px] px-[16px] lg:px-[30px] pb-[25px]">
-                  <GradientButton
-                    fullWidth
-                    height={50}
-                    label="Submit"
-                    backgroundColor01="var(--main-icon-color)"
-                    backgroundColor02="var(--main-icon-color)"
-                    color="var(--background-main-color)"
-                  />
+                  {loading ? (
+                    <LoadingButton fullWidth height={50} />
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={50}
+                      label="Submit"
+                      backgroundColor01="var(--main-icon-color)"
+                      backgroundColor02="var(--main-icon-color)"
+                      color="var(--background-main-color)"
+                      onClick={() => onClickSubmit()}
+                    />
+                  )}
                 </div>
               </div>
             </Dialog.Panel>
           </Transition.Child>
+
+          <Alert
+            open={showAlert}
+            close={() => {
+              setShowAlert(false)
+              if (successReview) onClose()
+            }}
+            data={alertData}
+          />
         </div>
       </Dialog>
     </Transition>

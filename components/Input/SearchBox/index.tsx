@@ -79,8 +79,10 @@ const SearchBox = props => {
   }
 
   const getShortName = name => {
-    if (name?.length >= 10) {
-      return name.slice(0, 10) + '...'
+    let limit_length = 20
+    if (viewport === 'xs') limit_length = 40
+    if (name?.length >= limit_length) {
+      return name.slice(0, limit_length) + '...'
     } else {
       return name
     }
@@ -294,6 +296,7 @@ const SearchBox = props => {
                     </div>
                   </div>
                 </div>
+                <div className="lg:hidden block w-full h-[50px]" />
               </div>
             </div>
           )
@@ -303,7 +306,7 @@ const SearchBox = props => {
           <div className={styles.contentArea}>
             <div className="w-full flex flex-wrap gap-[20px] mx-[15px] my-[10px]">
               {searchList.nfts.length !== 0 && (
-                <div className="w-[230px]">
+                <div className="w-full sm:w-[230px]">
                   {searchList.nfts.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>ARTWORKS</div>}
                   <div className="w-full flex flex-wrap">
                     {searchList.nfts.map((item, index) => (
@@ -316,7 +319,7 @@ const SearchBox = props => {
                           handleClose()
                         }}
                       >
-                        <div className="w-[36px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
+                        <div className="min-w-[36px] w-[36px] lg:min-w-[44px] lg:w-[44px] h-[36px] lg:h-[44px] mr-[15px] overflow-hidden rounded-[10px]">
                           {item.image_url !== null && item.image_url !== '' ? (
                             <ImageWithFoster src={item.image_url} width={50} className="object-cover w-full h-full" />
                           ) : (
@@ -333,7 +336,7 @@ const SearchBox = props => {
                 </div>
               )}
               {searchList.artists.length !== 0 && (
-                <div className="w-[220px]">
+                <div className="w-full sm:w-[220px]">
                   {searchList.artists.length !== 0 && <div className={`${styles.searchTopic} mb-[18px]`}>USERS</div>}
                   <div className="w-full flex flex-wrap gap-[9px]">
                     {searchList.artists.map((item, index) => (
@@ -371,7 +374,7 @@ const SearchBox = props => {
                   </div>
                 </div>
               )}
-              <div className="w-[220px]">
+              <div className="w-full sm:w-[220px]">
                 {searchList.collections.length !== 0 && (
                   <div className={`${styles.searchTopic} mb-[18px]`}>COLLECTIONS</div>
                 )}
@@ -386,7 +389,7 @@ const SearchBox = props => {
                         handleClose()
                       }}
                     >
-                      <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
+                      <div className="min-w-[36px] w-[36px] lg:w-[46px] lg:min-w-[46px] h-[36px] lg:h-[46px] mr-5">
                         <ImageWithFoster
                           src={item.image_url}
                           width={50}
@@ -401,6 +404,7 @@ const SearchBox = props => {
                   ))}
                 </div>
               </div>
+              <div className="lg:hidden block w-full h-[100px]" />
             </div>
           </div>
         )

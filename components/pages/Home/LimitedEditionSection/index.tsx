@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -8,13 +8,12 @@ import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -30,7 +29,7 @@ import styles from './index.module.scss'
 // call apis
 
 const LimitedEditionSection = props => {
-  const { category, editionList } = props
+  const { category, isEditionLoaded, editionList } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -118,7 +117,7 @@ const LimitedEditionSection = props => {
         </div>
       </div>
     </section>
-  ) : (
+  ) : !isEditionLoaded ? (
     <div>
       <div className="w-full h-[645px] lg:h-[610px]">
         <div className="w-[163px] h-[36px] mt-[60px] rounded-[18px] overflow-hidden">
@@ -158,6 +157,8 @@ const LimitedEditionSection = props => {
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   )
 }
 
