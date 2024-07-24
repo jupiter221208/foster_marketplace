@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,17 +11,9 @@ import SearchBox from 'components/Input/SearchBox'
 // styles
 import styles from './index.module.scss'
 
-// apis
-import searchAPI from 'apis/search'
-
 const MobileSearchBox = () => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const dispatch = useDispatch()
-
-  const [searchKeyword, setSearchKeyword] = useState<any>('')
-
-  const [searchList, setSearchList] = useState<any>({ nfts: [], artists: [], collections: [] })
-  const [searchData, setSearchData] = useState<any>({ nfts: [], artists: [], collections: [] })
 
   const handleClose = () => {
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })

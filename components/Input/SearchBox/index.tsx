@@ -296,6 +296,7 @@ const SearchBox = props => {
                     </div>
                   </div>
                 </div>
+                <div className="lg:hidden block w-full h-[50px]" />
               </div>
             </div>
           )
@@ -403,6 +404,7 @@ const SearchBox = props => {
                   ))}
                 </div>
               </div>
+              <div className="lg:hidden block w-full h-[100px]" />
             </div>
           </div>
         )
