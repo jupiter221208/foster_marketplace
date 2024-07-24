@@ -16,7 +16,7 @@ import StoreAPI from 'apis/store'
 import { getTimeDifference } from 'utils/helpers'
 
 const CreatorMerchShop = props => {
-  const { username, userId } = props
+  const { username, userId, isCreator } = props
   const [merchList, setMerchList] = useState([])
   const [editionList, setEditionList] = useState([])
   const [physicalList, setPhysicalList] = useState([])
@@ -46,7 +46,12 @@ const CreatorMerchShop = props => {
 
     StoreAPI.getStoreItemByEdition(userId).then(
       res => {
-        setEditionList(res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0))
+        let result = res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0)
+        if (isCreator) {
+          setEditionList(result)
+        } else {
+          setEditionList(result.filter(item => item.master_edition_address?.length > 0))
+        }
       },
       error => {}
     )
@@ -64,7 +69,7 @@ const CreatorMerchShop = props => {
       error => {}
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId])
+  }, [userId, isCreator])
 
   return (
     <div className="w-full">

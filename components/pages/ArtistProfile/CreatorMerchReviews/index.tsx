@@ -19,7 +19,7 @@ const CreatorMerchReviews = props => {
   useEffect(() => {
     getReviewFromAPI()
   }, [])
-  console.log(merchList, '=============merchList==========')
+
   return (
     <div className="w-full">
       <div>
