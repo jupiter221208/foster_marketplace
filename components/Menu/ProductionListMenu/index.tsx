@@ -21,7 +21,10 @@ const ProductionListMenu = props => {
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
       <Menu>
-        <Menu.Button className="lg:w-auto w-full" style={{ width }}>
+        <Menu.Button
+          className="lg:w-auto w-full"
+          style={{ width: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : width }}
+        >
           <div className={styles.btnArea}>
             {label}
             <div>
