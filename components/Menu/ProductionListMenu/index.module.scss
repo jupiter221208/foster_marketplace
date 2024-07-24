@@ -3,7 +3,8 @@
 .btnArea {
   width: 100% !important;
   @media (min-width: 1024px) {
-    width: 600px !important;
+    width: 100% !important;
+    max-width: 600px;
     font-size: 16px;
     gap: 7px;
     padding: 13px 15px;
@@ -34,7 +35,8 @@
   width: 100% !important;
   max-height: 200px;
   @media (min-width: 1024px) {
-    width: 600px !important;
+    width: 100% !important;
+    max-width: 600px;
     top: 50px;
     padding: 10px 15px;
     background: var(--background-main-color);
