@@ -1153,7 +1153,6 @@ const MerchDetail = () => {
         open={showReviewModal}
         previewUrl={previewUrl}
         itemDetails={itemDetails}
-        merchId={id}
         onClose={() => setShowReviewModal(false)}
       />
 
