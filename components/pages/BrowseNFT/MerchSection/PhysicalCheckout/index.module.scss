@@ -164,6 +164,7 @@
   border-radius: 15px;
   background: var(--bg-1E1E1E-F7F6F4);
   cursor: pointer;
+  overflow: hidden;
 }
 
 .currencyName {
@@ -172,6 +173,25 @@
   line-height: 23px;
   color: var(--text-gray-200-color);
   text-align: center;
+}
+
+.helioContainer {
+  width: 100%;
+  height: 125px;
+}
+
+.helioContainer > div > div  {
+  border-radius: 20px !important;  
+  background: transparent !important;
+}
+
+.helioContainer > div > div > div {
+  box-shadow: transparent 0px 0px 0px !important;
+  background: transparent !important;
+}
+
+.helioContainer > div > div > div > div > button {
+  height: 125px
 }
 
 .selectedCurrency {
