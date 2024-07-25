@@ -90,6 +90,7 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
       review: content,
       images: photos,
     }
+
     writeReview(itemDetails.merchId, params).then(
       response => {
         setLoading(false)

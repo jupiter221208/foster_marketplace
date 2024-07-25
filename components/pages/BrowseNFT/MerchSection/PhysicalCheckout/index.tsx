@@ -38,11 +38,12 @@ export interface PhysicalCheckoutProps {
   orderData?: any
   orderType: string
   total?: number
+  paymentId?: number
   onBack: () => any
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, paymentId }: PhysicalCheckoutProps) => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -55,6 +56,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
   const [helioOpacity, setHelioOpacity] = useState(0)
+  const [helioConfig, setHelioConfig] = useState(null)
 
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
@@ -73,19 +75,22 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
     }
   }
 
-  const helioConfig = {
-    paylinkId: '6571e7cd4a2bee8095ee84da',
-    display: 'button' as DisplayType,
-    loadingMessage: '',
-    amount: total.toFixed(2),
-    theme: {
-      colors: {
-        primaryButtonBackground: 'transparent',
-        primaryButtonBackgroundHover: 'transparent',
-        primaryButtonText: 'transparent',
-      },
-    } as HelioEmbedTheme,
-  }
+  useEffect(() => {
+    const helioConfig = {
+      paylinkId: paymentId, //'6571e7cd4a2bee8095ee84da',
+      display: 'button' as DisplayType,
+      loadingMessage: '',
+      amount: total.toFixed(2),
+      theme: {
+        colors: {
+          primaryButtonBackground: 'transparent',
+          primaryButtonBackgroundHover: 'transparent',
+          primaryButtonText: 'transparent',
+        },
+      } as HelioEmbedTheme,
+    }
+    setHelioConfig(helioConfig)
+  }, [paymentId])
 
   useEffect(() => {
     setTimeout(() => {
@@ -311,7 +316,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
                       opacity: helioOpacity,
                     }}
                   >
-                    <HelioCheckout config={helioConfig} />
+                    {helioConfig && <HelioCheckout config={helioConfig} />}
                   </div>
                 </div>
               </div>
