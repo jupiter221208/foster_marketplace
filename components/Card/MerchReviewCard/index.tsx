@@ -67,9 +67,9 @@ const MerchReviewCard = props => {
           <div className="w-full flex justify-between">
             <div>
               <div className={styles.username}>{data.headline}</div>
-              <div className="block sm:hidden mt-[8px]">
+              {/* <div className="block sm:hidden mt-[8px]">
                 <RatingBar value={data.rating} onRating={() => {}} clickable={false} />
-              </div>
+              </div> */}
               <div className={`mt-[7px] ${styles.reviewer}`}>
                 {'Reviewed on ' + getDateLabel(new Date(data.created_at))}
               </div>
