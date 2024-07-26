@@ -28,9 +28,9 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
   const auctionMerch = () => {
     setIsLoading(true)
     if (type === 'delist' || type === 'cancel') {
-      if (data.master_edition_address?.length > 0) {
+      if (data?.master_edition_address?.length > 0) {
         if (type === 'delist') {
-          router.push(`/nft/${data.master_edition_address}`)
+          router.push(`/nft/${data?.master_edition_address}`)
           return
         }
       }
@@ -83,11 +83,11 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                 <div className={styles.topSection}>
                   <div className={styles.title}>
                     {type === 'delist'
-                      ? data.master_edition_address?.length > 0
+                      ? data?.master_edition_address?.length > 0
                         ? 'Delist Merch Edition'
                         : 'Do you want to delist this item?'
                       : type === 'cancel'
-                      ? data.master_edition_address?.length > 0
+                      ? data?.master_edition_address?.length > 0
                         ? 'Do you want to cancel the listing?'
                         : 'Do you want to cancel this item?'
                       : type === 'remove'
@@ -101,7 +101,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                 <div className="relative w-full px-[16px] lg:px-[33px] pt-[24px]">
                   <div className={styles.content}>
                     {type === 'delist' ? (
-                      data.master_edition_address?.length > 0 ? (
+                      data?.master_edition_address?.length > 0 ? (
                         <div className="h-[40px]">
                           To delist this merch item, first delist its associated edition from your dashboard.
                         </div>
@@ -109,7 +109,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                         'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
                       )
                     ) : type === 'cancel' ? (
-                      data.master_edition_address?.length > 0 ? (
+                      data?.master_edition_address?.length > 0 ? (
                         <div className="h-[40px]">
                           To cancel an upcoming merch edition listing, first delist its associated edition from your
                           dashboard.
@@ -136,7 +136,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                         <LoadingButton width={130} height={40} />
                       ) : (
                         <GradientButton
-                          label={data.master_edition_address?.length > 0 ? 'Delist Edition' : 'Yes, continue'}
+                          label={data?.master_edition_address?.length > 0 ? 'Delist Edition' : 'Yes, continue'}
                           width={130}
                           height={40}
                           fontSize={16}
