@@ -105,13 +105,13 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                           click <span>cancel listing.</span>
                         </div>
                       ) : (
-                        'To delist this merch item, you must delist its associated edition. Go to the edition page and click cancel listing.'
+                        'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
                       )
                     ) : type === 'cancel' ? (
                       data?.master_edition_address?.length > 0 ? (
-                        <div className="h-[40px]">
-                          To cancel an upcoming merch edition listing, first delist its associated edition from your
-                          dashboard.
+                        <div className={styles.cancelContent}>
+                          To cancel an upcoming merch edition listing, delist its associated edition. Go to the edition
+                          page and click <span>cancel listing.</span>
                         </div>
                       ) : (
                         'If you choose to cancel, it will remove the item from your merch store. You can republish it at a later time if you wish.'

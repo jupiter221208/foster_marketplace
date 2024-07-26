@@ -104,11 +104,11 @@
 }
 
 .delistContent {
-  font-family: 'Muli-Light';
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 100;
-  color: var(--text-gray-200-color);
+  span {
+    font-family: 'Muli-Bold';
+  }
+}
+.cancelContent {
   span {
     font-family: 'Muli-Bold';
   }

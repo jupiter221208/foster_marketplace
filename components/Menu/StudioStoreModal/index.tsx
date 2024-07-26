@@ -29,6 +29,13 @@ const StudioStoreModal = props => {
   const getStatus = item => {
     if (item.master_edition_address === '') return 'unassigned'
 
+    if (item.master_edition_address?.length > 0) {
+      if (getTimeDifference(item.listed_master_edition.startTime) > 0) return 'scheduled'
+
+      if (item.listed_master_edition?.endTime !== null && getTimeDifference(item.listed_master_edition?.endTime) < 0)
+        return 'expired'
+    }
+
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
       if (item.sale_end_at === null) {
@@ -148,17 +155,21 @@ const StudioStoreModal = props => {
                         }}
                       />
                     ) : getStatus(item) === 'expired' ? (
-                      <GradientButton
-                        fullWidth
-                        label="Update"
-                        fontSize={16}
-                        width={100}
-                        height={43}
-                        onClick={() => {
-                          onUpdate(item)
-                          close()
-                        }}
-                      />
+                      item.master_edition_address === null ? (
+                        <GradientButton
+                          fullWidth
+                          label="Update"
+                          fontSize={16}
+                          width={100}
+                          height={43}
+                          onClick={() => {
+                            onUpdate(item)
+                            close()
+                          }}
+                        />
+                      ) : (
+                        <></>
+                      )
                     ) : getStatus(item) === 'unassigned' ? (
                       <GradientButton
                         fullWidth

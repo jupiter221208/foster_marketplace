@@ -34,23 +34,19 @@ const MerchStoreTable = props => {
   const getStatus = item => {
     if (item.master_edition_address === '') return 'unassigned'
 
-    if (
-      item.master_edition_address?.length > 0 &&
-      item.listed_master_edition?.endTime !== null &&
-      getTimeDifference(item.listed_master_edition?.endTime) < 0
-    )
-      return 'expired'
+    if (item.master_edition_address?.length > 0) {
+      if (getTimeDifference(item.listed_master_edition.startTime) > 0) return 'scheduled'
+
+      if (item.listed_master_edition?.endTime !== null && getTimeDifference(item.listed_master_edition?.endTime) < 0)
+        return 'expired'
+    }
 
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
-      if (item.sale_end_at === null) {
+      if (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) {
         return 'live'
       } else {
-        if (getTimeDifference(item.sale_end_at) > 0) {
-          return 'live'
-        } else {
-          return 'expired'
-        }
+        return 'expired'
       }
     }
   }
@@ -119,9 +115,11 @@ const MerchStoreTable = props => {
                     ) : getStatus(item) === 'expired' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Expired</div>
-                        <div className={styles.remove} onClick={() => onUpdate(item)}>
-                          Update
-                        </div>
+                        {item.master_edition_address === null && (
+                          <div className={styles.remove} onClick={() => onUpdate(item)}>
+                            Update
+                          </div>
+                        )}
                       </div>
                     ) : getStatus(item) === 'unassigned' ? (
                       <div className={styles.expired}>
