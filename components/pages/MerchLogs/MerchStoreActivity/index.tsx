@@ -37,6 +37,12 @@ const MerchStoreActivity = props => {
     setShowEditModal(true)
   }
 
+  const onUnassignMerch = data => {
+    seSelectedCard(data)
+    setEditType('unassign')
+    setShowEditModal(true)
+  }
+
   const onCancelMerch = data => {
     seSelectedCard(data)
     setEditType('cancel')
@@ -62,6 +68,7 @@ const MerchStoreActivity = props => {
             onUpdate={data => onUpdateMerch(data)}
             onDelist={data => onDelistMerch(data)}
             onCancel={data => onCancelMerch(data)}
+            onUnassign={data => onUnassignMerch(data)}
           />
         </div>
       )}

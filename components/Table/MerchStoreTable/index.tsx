@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const MerchStoreTable = props => {
-  const { username, data, onUpdate, onDelist, onCancel } = props
+  const { username, data, onUpdate, onDelist, onCancel, onUnassign } = props
   const router = useRouter()
 
   const getTechnique = item => {
@@ -124,7 +124,7 @@ const MerchStoreTable = props => {
                     ) : getStatus(item) === 'unassigned' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Unassigned</div>
-                        <div className={styles.remove} onClick={() => onUpdate(item)}>
+                        <div className={styles.remove} onClick={() => onUnassign(item)}>
                           Update
                         </div>
                       </div>

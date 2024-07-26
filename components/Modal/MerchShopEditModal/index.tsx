@@ -27,6 +27,9 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
 
   const auctionMerch = () => {
     setIsLoading(true)
+
+    if (type === 'unassign') router.push('/dashboard?tab=0&filter=1')
+
     if (type === 'delist' || type === 'cancel') {
       if (data?.master_edition_address?.length > 0) {
         router.push(`/nft/${data?.master_edition_address}`)
@@ -88,6 +91,8 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                       ? data?.master_edition_address?.length > 0
                         ? 'Do you want to cancel the listing?'
                         : 'Do you want to cancel this item?'
+                      : type === 'unassign'
+                      ? 'Unassigned Merch Edition'
                       : type === 'remove'
                       ? 'Do you want to remove this item?'
                       : ''}
@@ -116,6 +121,8 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                       ) : (
                         'If you choose to cancel, it will remove the item from your merch store. You can republish it at a later time if you wish.'
                       )
+                    ) : type === 'unassign' ? (
+                      'To assign this merch item to an edition, go to your dashboard, select the edition, and attach the merch item. To delete this merch item, click remove.'
                     ) : type === 'remove' ? (
                       'This action is irreversible. If you choose to remove, it will remove the item from your merch store and dashboard.'
                     ) : (
@@ -135,7 +142,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                         <LoadingButton width={130} height={40} />
                       ) : (
                         <GradientButton
-                          label={'Yes, continue'}
+                          label={type === 'unassign' ? 'Select Edition' : 'Yes, continue'}
                           width={130}
                           height={40}
                           fontSize={16}
