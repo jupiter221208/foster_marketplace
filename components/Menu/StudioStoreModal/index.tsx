@@ -15,7 +15,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ImageWithFoster from 'components/ImageWithFoster'
 
 const StudioStoreModal = props => {
-  const { open, close, item, onUpdate, onDelist, onCancel } = props
+  const { open, close, item, onUpdate, onDelist, onCancel, onUnassign } = props
 
   const getTechnique = item => {
     if (item.fulfillment_type === 'foster') {
@@ -178,7 +178,7 @@ const StudioStoreModal = props => {
                         width={100}
                         height={43}
                         onClick={() => {
-                          onUpdate(item)
+                          onUnassign(item)
                           close()
                         }}
                       />

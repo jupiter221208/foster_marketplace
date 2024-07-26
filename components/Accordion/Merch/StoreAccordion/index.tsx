@@ -15,7 +15,7 @@ import StudioStoreModal from 'components/Menu/StudioStoreModal'
 import { useRouter } from 'next/router'
 
 const StoreAccordion = props => {
-  const { username, data, onUpdate, onDelist, onCancel } = props
+  const { username, data, onUpdate, onDelist, onCancel, onUnassign } = props
   const router = useRouter()
   const [item, setItem] = useState(null)
   const [openModal, setOpenModal] = useState(false)
@@ -101,6 +101,7 @@ const StoreAccordion = props => {
           onUpdate={onUpdate}
           onDelist={onDelist}
           onCancel={onCancel}
+          onUnassign={onUnassign}
         />
       )}
     </div>
