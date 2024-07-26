@@ -392,12 +392,12 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
               className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('card')}
             >
-              <div className="w-full h-full flex justify-center items-center">
+              {/* <div className="w-full h-full flex justify-center items-center">
                 <div className="flex flex-col justify-center gap-[15px]">
                   <Image src={HelioIcon} width={37} height={37} alt="" />
                   <div className={styles.currencyName}>Helio</div>
                 </div>
-              </div>
+              </div> */}
               <div className="absolute inset-0 flex justify-center">
                 <div
                   className={styles.helioContainer}
@@ -405,17 +405,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     opacity: helioOpacity,
                   }}
                 >
-                  {/* <HelioCheckout
-                    config={{
-                      paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
-                      network: 'test' as NetworkType,
-                      display: 'button' as DisplayType,
-                      amount: total.toFixed(2),
-                      onSuccess: payment => {
-                        onCheckoutWithHelio(payment)
-                      },
-                    }}
-                  /> */}
+                  <HelioCheckout config={helioConfig} />
                 </div>
               </div>
             </div>
