@@ -1325,6 +1325,7 @@ const MainSection = ({
                   setShowListEditionDetail(false)
                   setShowAuctionSection(false)
                 }}
+                merchItem={merchCard}
               />
             </div>
           ) : showAuctionDetail ? (

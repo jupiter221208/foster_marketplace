@@ -52,9 +52,17 @@ export interface ListEditionDetailProps {
   onSuccess: (name: string) => void
   onClose: () => void
   fromNFT: boolean
+  merchItem?: any
 }
 
-const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
+const ListEditionDetail = ({
+  data,
+  listingType,
+  onSuccess,
+  onClose,
+  fromNFT,
+  merchItem = null,
+}: ListEditionDetailProps) => {
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const { metaplex } = useMetaplex()
@@ -87,6 +95,12 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     else setMerchProdCost(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchCard])
+
+  // useEffect(() => {
+  //   if (merchItem) {
+  //     setMerchCard(merchItem)
+  //   }
+  // }, [merchItem])
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
