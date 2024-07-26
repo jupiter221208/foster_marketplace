@@ -34,6 +34,13 @@ const MerchStoreTable = props => {
   const getStatus = item => {
     if (item.master_edition_address === '') return 'unassigned'
 
+    if (
+      item.master_edition_address?.length > 0 &&
+      item.listed_master_edition?.endTime !== null &&
+      getTimeDifference(item.listed_master_edition?.endTime) < 0
+    )
+      return 'expired'
+
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
       if (item.sale_end_at === null) {
@@ -79,9 +86,15 @@ const MerchStoreTable = props => {
                       />
                     </div>
                     <div className={styles.name}>
-                      <Link href={`/${username}/merch/${item.id}`} passHref>
-                        <a>{item.name}</a>
-                      </Link>
+                      {item.master_edition_address === null ? (
+                        <Link href={`/${username}/merch/${item.id}`} passHref>
+                          <a>{item.name}</a>
+                        </Link>
+                      ) : (
+                        <Link href={`/nft/${item.master_edition_address}`} passHref>
+                          <a>{item.name}</a>
+                        </Link>
+                      )}
                     </div>
                   </div>
                   <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>

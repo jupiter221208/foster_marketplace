@@ -27,6 +27,8 @@ const StudioStoreModal = props => {
   }
 
   const getStatus = item => {
+    if (item.master_edition_address === '') return 'unassigned'
+
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
       if (item.sale_end_at === null) {
@@ -90,6 +92,8 @@ const StudioStoreModal = props => {
                           <div className={styles.live}>Live</div>
                         ) : getStatus(item) === 'expired' ? (
                           <div className={styles.expired}>Expired</div>
+                        ) : getStatus(item) === 'unassigned' ? (
+                          <div className={styles.expired}>Unassigned</div>
                         ) : (
                           <div></div>
                         )}
@@ -144,6 +148,18 @@ const StudioStoreModal = props => {
                         }}
                       />
                     ) : getStatus(item) === 'expired' ? (
+                      <GradientButton
+                        fullWidth
+                        label="Update"
+                        fontSize={16}
+                        width={100}
+                        height={43}
+                        onClick={() => {
+                          onUpdate(item)
+                          close()
+                        }}
+                      />
+                    ) : getStatus(item) === 'unassigned' ? (
                       <GradientButton
                         fullWidth
                         label="Update"

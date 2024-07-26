@@ -21,6 +21,8 @@ const StoreAccordion = props => {
   const [openModal, setOpenModal] = useState(false)
 
   const getStatus = item => {
+    if (item.master_edition_address === '') return 'unassigned'
+
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
       if (item.sale_end_at === null) {
@@ -68,6 +70,8 @@ const StoreAccordion = props => {
                     <div className={styles.live}>Live</div>
                   ) : getStatus(item) === 'expired' ? (
                     <div className={styles.expired}>Expired</div>
+                  ) : getStatus(item) === 'unassigned' ? (
+                    <div className={styles.expired}>Unassigned</div>
                   ) : (
                     <div></div>
                   )}
