@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import MerchBadgeCard from 'components/Card/MerchBadgeCard'
 import { compareDate } from 'utils/helpers'
 // json
 
 // styles
-import styles from './index.module.scss'
 import MerchReviewCard from 'components/Card/MerchReviewCard'
 import { getReview } from 'apis/merch'
 

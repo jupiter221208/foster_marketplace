@@ -185,7 +185,13 @@ const MerchShopCard = props => {
               <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
             </div>
             <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
-              ${(data.selling_price / 100).toFixed(2)}
+              $
+              {(
+                data.selling_price / 100 +
+                (data.listed_master_edition
+                  ? solToUsdRate * parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                  : 0)
+              ).toFixed(2)}
             </div>
           </div>
         </div>
