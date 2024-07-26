@@ -23,12 +23,12 @@ const StoreAccordion = props => {
   const getStatus = item => {
     if (item.master_edition_address === '') return 'unassigned'
 
-    if (
-      item.master_edition_address?.length > 0 &&
-      item.listed_master_edition?.endTime !== null &&
-      getTimeDifference(item.listed_master_edition?.endTime) < 0
-    )
-      return 'expired'
+    if (item.master_edition_address?.length > 0) {
+      if (getTimeDifference(item.listed_master_edition.startTime) > 0) return 'scheduled'
+
+      if (item.listed_master_edition?.endTime !== null && getTimeDifference(item.listed_master_edition?.endTime) < 0)
+        return 'expired'
+    }
 
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
