@@ -282,8 +282,6 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
           setShowAlert(true)
         }, 1000)
       }
-    } else {
-      console.log(event, '=============event===============')
     }
   }
 
@@ -349,16 +347,24 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     <div className={styles.currencyName}>Helio</div>
                   </div>
                 </div> */}
-                <div className="absolute inset-0 flex justify-center">
-                  <div
-                    className={styles.helioContainer}
-                    style={{
-                      opacity: helioOpacity,
-                    }}
-                  >
-                    <HelioCheckout config={helioConfig} />
+                {helioOpacity === 1 ? (
+                  <div className="absolute inset-0 flex justify-center">
+                    <div
+                      className={styles.helioContainer}
+                      style={{
+                        opacity: helioOpacity,
+                      }}
+                    >
+                      <HelioCheckout config={helioConfig} />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="absolute inset-0 flex flex-col justify-center items-center">
+                    <div className={styles.payWithHelio}>PAY</div>
+                    <div className={styles.payWithHelio}>WITH</div>
+                    <div className={styles.payWithHelio}>HELIO</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -398,16 +404,24 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                   <div className={styles.currencyName}>Helio</div>
                 </div>
               </div> */}
-              <div className="absolute inset-0 flex justify-center">
-                <div
-                  className={styles.helioContainer}
-                  style={{
-                    opacity: helioOpacity,
-                  }}
-                >
-                  <HelioCheckout config={helioConfig} />
+              {helioOpacity === 1 ? (
+                <div className="absolute inset-0 flex justify-center">
+                  <div
+                    className={styles.helioContainer}
+                    style={{
+                      opacity: helioOpacity,
+                    }}
+                  >
+                    <HelioCheckout config={helioConfig} />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="absolute inset-0 flex flex-col justify-center items-center">
+                  <div className={styles.payWithHelio}>PAY</div>
+                  <div className={styles.payWithHelio}>WITH</div>
+                  <div className={styles.payWithHelio}>HELIO</div>
+                </div>
+              )}
             </div>
           </div>
         </div>
