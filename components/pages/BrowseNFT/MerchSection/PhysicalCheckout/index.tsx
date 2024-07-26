@@ -335,7 +335,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                         display: 'button' as DisplayType,
                         amount: total.toFixed(2),
                         onSuccess: payment => {
-                          console.log(payment, '=========================success=====================')
+                          // console.log(payment, '=========================success=====================')
                         },
                       }}
                     />
@@ -343,7 +343,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                 </div>
               </div>
             </div>
-            <div className="w-full h-[200px]">
+            {/* <div className="w-full h-[200px]">
               <HelioCheckout
                 config={{
                   paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
@@ -355,7 +355,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                   },
                 }}
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
