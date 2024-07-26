@@ -263,9 +263,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   const onCheckoutWithHelio = async event => {
     let signature = event.data.transactionSignature
     let method = event.blockchainSymbol
-    alert(JSON.stringify(event))
-    alert(signature)
-    alert(method)
+
     if (signature?.length > 0) {
       // TODO: send signature to backend and update order
       let params = {
