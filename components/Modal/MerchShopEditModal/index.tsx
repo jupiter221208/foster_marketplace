@@ -29,10 +29,8 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
     setIsLoading(true)
     if (type === 'delist' || type === 'cancel') {
       if (data?.master_edition_address?.length > 0) {
-        if (type === 'delist') {
-          router.push(`/nft/${data?.master_edition_address}`)
-          return
-        }
+        router.push(`/nft/${data?.master_edition_address}`)
+        return
       }
       let current_date = new Date()
       current_date.setHours(current_date.getHours() - 1)
@@ -102,11 +100,12 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                   <div className={styles.content}>
                     {type === 'delist' ? (
                       data?.master_edition_address?.length > 0 ? (
-                        <div className="h-[40px]">
-                          To delist this merch item, first delist its associated edition from your dashboard.
+                        <div className={styles.delistContent}>
+                          To delist this merch item, you must delist its associated edition. Go to the edition page and
+                          click <span>cancel listing.</span>
                         </div>
                       ) : (
-                        'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
+                        'To delist this merch item, you must delist its associated edition. Go to the edition page and click cancel listing.'
                       )
                     ) : type === 'cancel' ? (
                       data?.master_edition_address?.length > 0 ? (
@@ -136,7 +135,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                         <LoadingButton width={130} height={40} />
                       ) : (
                         <GradientButton
-                          label={data?.master_edition_address?.length > 0 ? 'Delist Edition' : 'Yes, continue'}
+                          label={'Yes, continue'}
                           width={130}
                           height={40}
                           fontSize={16}
