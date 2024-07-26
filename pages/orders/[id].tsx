@@ -59,7 +59,7 @@ const OrderSection = props => {
     StoreAPI.getPaymentId(id).then(
       response => {
         console.log(response)
-        setPaymentId(response)
+        if (response) setPaymentId(response.paylink_id)
       },
       error => {}
     )

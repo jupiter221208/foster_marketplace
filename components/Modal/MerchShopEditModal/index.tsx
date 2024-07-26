@@ -15,9 +15,11 @@ import GradientButton from 'components/Button/GradientButton'
 
 import StoreAPI from 'apis/store'
 import LoadingButton from 'components/Button/LoadingButton'
+import { useRouter } from 'next/router'
 
 const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const closeModal = () => {
     onClose()
@@ -26,6 +28,12 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
   const auctionMerch = () => {
     setIsLoading(true)
     if (type === 'delist' || type === 'cancel') {
+      if (data.master_edition_address?.length > 0) {
+        if (type === 'delist') {
+          router.push(`/nft/${data.master_edition_address}`)
+          return
+        }
+      }
       let current_date = new Date()
       current_date.setHours(current_date.getHours() - 1)
 
@@ -75,9 +83,13 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                 <div className={styles.topSection}>
                   <div className={styles.title}>
                     {type === 'delist'
-                      ? 'Do you want to delist this item?'
+                      ? data.master_edition_address?.length > 0
+                        ? 'Delist Merch Edition'
+                        : 'Do you want to delist this item?'
                       : type === 'cancel'
-                      ? 'Do you want to cancel this item?'
+                      ? data.master_edition_address?.length > 0
+                        ? 'Do you want to cancel the listing?'
+                        : 'Do you want to cancel this item?'
                       : type === 'remove'
                       ? 'Do you want to remove this item?'
                       : ''}
@@ -86,15 +98,30 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                     <CloseIcon />
                   </div>
                 </div>
-                <div className="w-full px-[16px] lg:px-[33px] pt-[24px]">
+                <div className="relative w-full px-[16px] lg:px-[33px] pt-[24px]">
                   <div className={styles.content}>
-                    {type === 'delist'
-                      ? 'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
-                      : type === 'cancel'
-                      ? 'If you choose to cancel, it will remove the item from your merch store. You can republish it at a later time if you wish.'
-                      : type === 'remove'
-                      ? 'This action is irreversible. If you choose to remove, it will remove the item from your merch store and dashboard.'
-                      : ''}
+                    {type === 'delist' ? (
+                      data.master_edition_address?.length > 0 ? (
+                        <div className="h-[40px]">
+                          To delist this merch item, first delist its associated edition from your dashboard.
+                        </div>
+                      ) : (
+                        'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
+                      )
+                    ) : type === 'cancel' ? (
+                      data.master_edition_address?.length > 0 ? (
+                        <div className="h-[40px]">
+                          To cancel an upcoming merch edition listing, first delist its associated edition from your
+                          dashboard.
+                        </div>
+                      ) : (
+                        'If you choose to cancel, it will remove the item from your merch store. You can republish it at a later time if you wish.'
+                      )
+                    ) : type === 'remove' ? (
+                      'This action is irreversible. If you choose to remove, it will remove the item from your merch store and dashboard.'
+                    ) : (
+                      ''
+                    )}
                   </div>
                   <div className="w-full flex justify-end mt-[30px] lg:mt-[15px]">
                     <div className="flex gap-[20px]">
@@ -109,7 +136,7 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                         <LoadingButton width={130} height={40} />
                       ) : (
                         <GradientButton
-                          label="Yes, continue"
+                          label={data.master_edition_address?.length > 0 ? 'Delist Edition' : 'Yes, continue'}
                           width={130}
                           height={40}
                           fontSize={16}

@@ -43,7 +43,7 @@ export interface PhysicalCheckoutProps {
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, paymentId }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, paymentId = null }: PhysicalCheckoutProps) => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -56,12 +56,35 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
   const [helioOpacity, setHelioOpacity] = useState(0)
-  const [helioConfig, setHelioConfig] = useState(null)
+
+  //   {paylinkId: '6571e7cd4a2bee8095ee84da',
+  //   network: 'test',
+  //   display: 'button' as DisplayType,
+  //   amount: '0',
+  //   theme: {
+  //     colors: {
+  //       primaryButtonBackground: 'transparent',
+  //       primaryButtonBackgroundHover: 'transparent',
+  //       primaryButtonText: 'transparent',
+  //     },
+  //   } as HelioEmbedTheme,
+  // }
 
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
+  const [helioConfig, setHelioConfig] = useState({
+    paylinkId: '6571e7cd4a2bee8095ee84da',
+    network: 'test' as NetworkType,
+    display: 'button' as DisplayType,
+    amount: total.toFixed(2),
+    onSuccess: event => console.log(event, '=========================success====================='),
+    onError: event => console.log(event, '=========================error====================='),
+    onCancel: () => console.log('Cancelled payment'),
+  })
+
   type DisplayType = 'inline' | 'button'
+  type NetworkType = 'main' | 'test'
   type EmbedThemeMode = 'light' | 'dark'
 
   interface HelioEmbedTheme {
@@ -76,20 +99,9 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   }
 
   useEffect(() => {
-    const helioConfig = {
-      paylinkId: paymentId, //'6571e7cd4a2bee8095ee84da',
-      display: 'button' as DisplayType,
-      loadingMessage: '',
-      amount: total.toFixed(2),
-      theme: {
-        colors: {
-          primaryButtonBackground: 'transparent',
-          primaryButtonBackgroundHover: 'transparent',
-          primaryButtonText: 'transparent',
-        },
-      } as HelioEmbedTheme,
+    if (paymentId) {
+      setHelioConfig({ ...helioConfig, paylinkId: paymentId.toString() })
     }
-    setHelioConfig(helioConfig)
   }, [paymentId])
 
   useEffect(() => {
@@ -303,12 +315,12 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                 className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
                 onClick={() => setCurrency('card')}
               >
-                <div className="w-full h-full flex justify-center items-center">
+                {/* <div className="w-full h-full flex justify-center items-center">
                   <div className="flex flex-col justify-center gap-[15px]">
                     <Image src={HelioIcon} width={37} height={37} alt="" />
                     <div className={styles.currencyName}>Helio</div>
                   </div>
-                </div>
+                </div> */}
                 <div className="absolute inset-0 flex justify-center">
                   <div
                     className={styles.helioContainer}
@@ -316,7 +328,17 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                       opacity: helioOpacity,
                     }}
                   >
-                    {helioConfig && <HelioCheckout config={helioConfig} />}
+                    <HelioCheckout
+                      config={{
+                        paylinkId: paymentId ? paymentId.toString() : '0.1',
+                        network: 'test' as NetworkType,
+                        display: 'button' as DisplayType,
+                        amount: total.toFixed(2),
+                        onSuccess: payment => {
+                          console.log(payment, '=========================success=====================')
+                        },
+                      }}
+                    />
                   </div>
                 </div>
               </div>
