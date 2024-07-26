@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MerchBadgeCard from 'components/Card/MerchBadgeCard'
-
+import { compareDate } from 'utils/helpers'
 // json
 
 // styles
@@ -13,7 +13,13 @@ const CreatorMerchReviews = props => {
   const [merchList, setMerchList] = useState([])
 
   async function getReviewFromAPI() {
-    await getReview(userId).then(setMerchList)
+    getReview(userId).then(
+      response => {
+        let dateSorted = response.sort(compareDate)
+        setMerchList(dateSorted)
+      },
+      error => {}
+    )
   }
 
   useEffect(() => {
