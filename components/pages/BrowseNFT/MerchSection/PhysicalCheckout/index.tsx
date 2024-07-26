@@ -73,16 +73,6 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
-  const [helioConfig, setHelioConfig] = useState({
-    paylinkId: '6571e7cd4a2bee8095ee84da',
-    network: 'test' as NetworkType,
-    display: 'button' as DisplayType,
-    amount: total.toFixed(2),
-    onSuccess: event => console.log(event, '=========================success====================='),
-    onError: event => console.log(event, '=========================error====================='),
-    onCancel: () => console.log('Cancelled payment'),
-  })
-
   type DisplayType = 'inline' | 'button'
   type NetworkType = 'main' | 'test'
   type EmbedThemeMode = 'light' | 'dark'
@@ -99,15 +89,9 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   }
 
   useEffect(() => {
-    if (paymentId) {
-      setHelioConfig({ ...helioConfig, paylinkId: paymentId.toString() })
-    }
-  }, [paymentId])
-
-  useEffect(() => {
     setTimeout(() => {
       setHelioOpacity(1)
-    }, 5000)
+    }, 4000)
 
     setAlertData([
       {
@@ -259,6 +243,35 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
     }
   }
 
+  const onCheckoutWithHelio = async event => {
+    let signature = event.data.transactionSignature
+    let method = event.blockchainSymbol
+    alert(JSON.stringify(event))
+    alert(signature)
+    alert(method)
+    if (signature?.length > 0) {
+      // TODO: send signature to backend and update order
+      let params = {
+        payment_method: method.toUpperCase(),
+        payment_reference: signature,
+      }
+
+      let response
+      if (orderData.id > 1000) {
+        response = await StoreAPI.payStoreOrder(orderData.id, params)
+      } else {
+        response = await payOrder(orderData.id, params)
+      }
+      if (response?.status === 'success') {
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }
+    } else {
+      console.log(event, '=============event===============')
+    }
+  }
+
   return (
     <section className={styles.container}>
       <div className="w-full px-[0px] lg:px-[30px] mt-[20px] lg:mt-[30px]">
@@ -335,7 +348,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                         display: 'button' as DisplayType,
                         amount: total.toFixed(2),
                         onSuccess: payment => {
-                          // console.log(payment, '=========================success=====================')
+                          onCheckoutWithHelio(payment)
                         },
                       }}
                     />
@@ -343,19 +356,6 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                 </div>
               </div>
             </div>
-            {/* <div className="w-full h-[200px]">
-              <HelioCheckout
-                config={{
-                  paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
-                  network: 'test' as NetworkType,
-                  display: 'button' as DisplayType,
-                  amount: total.toFixed(2),
-                  onSuccess: payment => {
-                    console.log(payment, '=========================success=====================')
-                  },
-                }}
-              />
-            </div> */}
           </div>
         </div>
 
@@ -400,7 +400,17 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     opacity: helioOpacity,
                   }}
                 >
-                  {/* <HelioCheckout config={helioConfig} /> */}
+                  <HelioCheckout
+                    config={{
+                      paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
+                      network: 'test' as NetworkType,
+                      display: 'button' as DisplayType,
+                      amount: total.toFixed(2),
+                      onSuccess: payment => {
+                        onCheckoutWithHelio(payment)
+                      },
+                    }}
+                  />
                 </div>
               </div>
             </div>
