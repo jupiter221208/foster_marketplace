@@ -73,6 +73,23 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
+  const helioConfig = {
+    paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
+    network: 'test' as NetworkType,
+    display: 'button' as DisplayType,
+    amount: total.toFixed(2),
+    theme: {
+      colors: {
+        primaryButtonBackground: 'var(--bg-242424-E8E7E6)',
+        primaryButtonBackgroundHover: 'var(--bg-242424-E8E7E6)',
+        primaryButtonText: 'var(--main-bg-color)',
+      },
+    } as HelioEmbedTheme,
+    onSuccess: payment => {
+      onCheckoutWithHelio(payment)
+    },
+  }
+
   type DisplayType = 'inline' | 'button'
   type NetworkType = 'main' | 'test'
   type EmbedThemeMode = 'light' | 'dark'
@@ -91,7 +108,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   useEffect(() => {
     setTimeout(() => {
       setHelioOpacity(1)
-    }, 4000)
+    }, 5000)
 
     setAlertData([
       {
@@ -341,17 +358,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                       opacity: helioOpacity,
                     }}
                   >
-                    <HelioCheckout
-                      config={{
-                        paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
-                        network: 'test' as NetworkType,
-                        display: 'button' as DisplayType,
-                        amount: total.toFixed(2),
-                        onSuccess: payment => {
-                          onCheckoutWithHelio(payment)
-                        },
-                      }}
-                    />
+                    <HelioCheckout config={helioConfig} />
                   </div>
                 </div>
               </div>
@@ -400,7 +407,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     opacity: helioOpacity,
                   }}
                 >
-                  <HelioCheckout
+                  {/* <HelioCheckout
                     config={{
                       paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
                       network: 'test' as NetworkType,
@@ -410,7 +417,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                         onCheckoutWithHelio(payment)
                       },
                     }}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
