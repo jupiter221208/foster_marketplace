@@ -21,6 +21,9 @@ import PreviewImage from 'assets/images/preview-image.png'
 import FosterLogoIcon from 'assets/icons/foster-hero-logo-medium.svg?component'
 import FosterLogoMobileIcon from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
+// resources
+import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
+
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
@@ -37,9 +40,11 @@ import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import MerchStoreActivity from 'components/pages/MerchLogs/MerchStoreActivity'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { useRouter } from 'next/router'
 
 const MerchActivity = () => {
   const viewport = useViewport()
+  const router = useRouter()
   const { publicKey } = useWallet()
   const { connection } = useConnection()
   const { metaplex: mx } = useMetaplex()
@@ -612,6 +617,23 @@ const MerchActivity = () => {
                   : ''
                 : ''}
             </div>
+            {activeTab === 0 && (
+              <div className="w-full lg:w-auto mt-[15px] lg:mt-[0px] flex justify-end">
+                {publicKey?.toBase58() === profileInfo?.wallet_id && (
+                  <div
+                    className={styles.add}
+                    onClick={() => {
+                      router.push(`/${profileInfo?.username}/merch/new`)
+                    }}
+                  >
+                    <div className="">
+                      <PlusIcon />
+                    </div>
+                    <div className="">Add</div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {activeTab === 1 && (
               <div className="w-full mt-[20px] lg:mt-[0px] lg:w-auto flex gap-[16px]">
