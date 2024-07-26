@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import MerchBadgeCard from 'components/Card/MerchBadgeCard'
-
+import { compareDate } from 'utils/helpers'
 // json
 
 // styles
-import styles from './index.module.scss'
 import MerchReviewCard from 'components/Card/MerchReviewCard'
 import { getReview } from 'apis/merch'
 
@@ -13,13 +11,19 @@ const CreatorMerchReviews = props => {
   const [merchList, setMerchList] = useState([])
 
   async function getReviewFromAPI() {
-    await getReview(userId).then(setMerchList)
+    getReview(userId).then(
+      response => {
+        let dateSorted = response.sort(compareDate)
+        setMerchList(dateSorted)
+      },
+      error => {}
+    )
   }
 
   useEffect(() => {
     getReviewFromAPI()
   }, [])
-  console.log(merchList, '=============merchList==========')
+
   return (
     <div className="w-full">
       <div>

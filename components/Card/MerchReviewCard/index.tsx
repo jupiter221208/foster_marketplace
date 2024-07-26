@@ -32,21 +32,24 @@ const MerchReviewCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.topSection}>
-        <div className="flex gap-[15px] sm:gap-[20px] items-center">
+        <div className="w-full sm:w-auto flex gap-[15px] sm:gap-[20px] items-center">
           <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
-            <ImageWithFoster
-              src={
-                'https://cdn.helius-rpc.com/cdn-cgi/image/quality=75,width=100/https%3A%2F%2Farweave.net%2FWahgeZMr4XjfqsWupp2p4FMXIz1hfj6QYqBFHP3NGvU'
-              }
-              className="w-full h-full object-cover"
-            />
+            <ImageWithFoster src={data.user_picture} className="w-full h-full object-cover" />
           </div>
-          <div>
-            <div className={styles.reviewer}>Reviewer</div>
-            <div className={`mt-[8px] ${styles.username}`}>Username</div>
+          <div className="w-full">
+            <div className="w-full flex justify-between">
+              <div className={styles.username}>{data.username}</div>
+              <div className="block sm:hidden">
+                <RatingBar value={data.rating} onRating={() => {}} clickable={false} />
+              </div>
+            </div>
+            <div className={`mt-[8px] ${styles.reviewer}`}>
+              {'Reviewed on ' + getDateLabel(new Date(data.created_at))}
+            </div>
           </div>
         </div>
-        <div>
+
+        <div className="hidden sm:block">
           <div className={`${styles.reviewer} text-end sm:block hidden`}>Overall Rating</div>
           <div className="mt-[0px] sm:mt-[9px]">
             <RatingBar value={data.rating} onRating={() => {}} clickable={false} />
@@ -54,21 +57,21 @@ const MerchReviewCard = props => {
         </div>
       </div>
       <div className="w-full px-[15px] sm:px-[27px] py-[23px] block lg:flex gap-[20px]">
-        <div>
-          <div className="sm:w-[125px] w-full flex justify-center sm:block">
+        <div className="sm:w-[150px] w-full">
+          <div className="w-full flex justify-center">
             <div className="w-[125px] h-[125px]">
-              <ImageWithFoster src={merchImageFront.src} width={400} className="w-full h-full object-cover" />
+              <ImageWithFoster
+                src={data.product_options.addons[0].mockup_url}
+                width={400}
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
-          <div className={`mt-[8px] text-center ${styles.username}`}>product_name</div>
-          <div className={`mt-[7px] text-center ${styles.productType}`}>product_type</div>
+          <div className={`mt-[8px] text-center ${styles.username}`}>{data.product_name}</div>
+          {/* <div className={`mt-[7px] text-center ${styles.productType}`}>{data.product_type}</div> */}
         </div>
         <div className="flex-1 mt-[25px] sm:mt-[0px]">
-          <div className={styles.username}>
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-              ? getDateLabel(new Date(data.createdAt))
-              : data.headline + ' on ' + getDateLabel(new Date(data.createdAt))}
-          </div>
+          <div className={styles.username}>{data.headline}</div>
           <div className={`${styles.desc} mt-[12px] sm:mt-[22px]`}>
             {processedNftDescription}
             {shouldShowReadMore && (

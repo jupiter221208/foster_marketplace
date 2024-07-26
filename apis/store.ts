@@ -75,6 +75,12 @@ class Store {
     })
   }
 
+  getPaymentId(order_id) {
+    return client.post(API_URL + `v1/stores/orders/${order_id}/pay-fiat`).then(response => {
+      return response.data
+    })
+  }
+
   prepareCart(data) {
     return client.post(API_URL + 'v1/stores/prepare_cart', data).then(response => {
       return response.data

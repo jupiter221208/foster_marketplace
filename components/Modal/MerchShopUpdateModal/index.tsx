@@ -1,4 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
+import { useViewport } from 'utils'
+import { useRouter } from 'next/router'
 
 // components
 import Input from 'components/Input'
@@ -20,7 +22,6 @@ import styles from './index.module.scss'
 // json
 import ReleaseDurationList from 'assets/json/creator-merch/release-duration-list.json'
 
-import { useViewport } from 'utils'
 import ImageWithFoster from 'components/ImageWithFoster'
 import { validDigits } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
@@ -32,6 +33,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess }) => {
   const viewport = useViewport()
+  const router = useRouter()
   const [merchImage, setMerchImage] = useState('')
   const [startType, setStartType] = useState('soon')
   const [startDate, setStartDate] = useState(new Date())
@@ -109,6 +111,11 @@ const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess
       }
   }
 
+  const selectEdition = () => {
+    setIsLoading(true)
+    router.push('/dashboard?tab=0&filter=1')
+  }
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -164,188 +171,233 @@ const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess
                   </div>
                 )}
 
-                <div className="w-full g-container lg:px-0 lg:flex-1 relative">
-                  <div className="w-full mt-[25px] lg:mt-[0px]">
-                    <div className={styles.title}>
-                      Republish Date <span>*</span>
-                    </div>
-                  </div>
-
-                  <div className="w-full flex gap-[35px] mt-[15px]">
-                    <div
-                      className={`flex items-center ${
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                      }`}
-                    >
-                      <input
-                        className={styles.radio}
-                        type="radio"
-                        id="reserve"
-                        checked={startType === 'soon'}
-                        onChange={() => {
-                          setStartDate(new Date())
-                          setStartType('soon')
-                        }}
-                      />
-                      <div
-                        className={styles.radioText}
-                        onClick={() => {
-                          setStartDate(new Date())
-                          setStartType('soon')
-                        }}
-                      >
-                        Immediately
+                {data?.master_edition_address === null ? (
+                  <div className="w-full g-container lg:px-0 lg:flex-1 relative">
+                    <div className="w-full mt-[25px] lg:mt-[0px]">
+                      <div className={styles.title}>
+                        Republish Date <span>*</span>
                       </div>
                     </div>
-                    <div
-                      className={`flex items-center z-10001 ${
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
-                      }`}
-                    >
-                      <input
-                        className={styles.radio}
-                        type="radio"
-                        id="reserve"
-                        checked={startType === 'later'}
-                        onChange={() => {
-                          setStartType('later')
-                        }}
-                      />
-                      <div>
-                        <div className="w-full startAuctionDatePicker">
-                          <div className="relative">
-                            <DatePicker
-                              selected={startDate}
-                              onChange={date => {
-                                setStartDate(date)
-                              }}
-                              dateFormat={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? 'MM/dd/yyyy'
-                                  : 'MM/dd/yyyy h:mm aa'
-                              }
-                              formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                              minDate={moment().toDate()}
-                              showTimeInput
-                              timeInputLabel=""
-                              className={styles.datePicker}
-                              disabled={startType === 'soon'}
-                              customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                            />
-                            <div className="absolute top-[20px] right-4">
-                              <ArrowDownIcon alt="" />
+
+                    <div className="w-full flex gap-[35px] mt-[15px]">
+                      <div
+                        className={`flex items-center ${
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                        }`}
+                      >
+                        <input
+                          className={styles.radio}
+                          type="radio"
+                          id="reserve"
+                          checked={startType === 'soon'}
+                          onChange={() => {
+                            setStartDate(new Date())
+                            setStartType('soon')
+                          }}
+                        />
+                        <div
+                          className={styles.radioText}
+                          onClick={() => {
+                            setStartDate(new Date())
+                            setStartType('soon')
+                          }}
+                        >
+                          Immediately
+                        </div>
+                      </div>
+                      <div
+                        className={`flex items-center z-10001 ${
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'gap-2' : 'gap-4'
+                        }`}
+                      >
+                        <input
+                          className={styles.radio}
+                          type="radio"
+                          id="reserve"
+                          checked={startType === 'later'}
+                          onChange={() => {
+                            setStartType('later')
+                          }}
+                        />
+                        <div>
+                          <div className="w-full startAuctionDatePicker">
+                            <div className="relative">
+                              <DatePicker
+                                selected={startDate}
+                                onChange={date => {
+                                  setStartDate(date)
+                                }}
+                                dateFormat={
+                                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                                    ? 'MM/dd/yyyy'
+                                    : 'MM/dd/yyyy h:mm aa'
+                                }
+                                formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                                minDate={moment().toDate()}
+                                showTimeInput
+                                timeInputLabel=""
+                                className={styles.datePicker}
+                                disabled={startType === 'soon'}
+                                customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                              />
+                              <div className="absolute top-[20px] right-4">
+                                <ArrowDownIcon alt="" />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="w-full mt-[20px]">
-                    <div className={styles.title}>
-                      Duration <span>*</span>
-                    </div>
-                    <div className="mt-[15px]">
-                      <ProductionListMenu
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 343 : 390}
-                        label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
-                        data={ReleaseDurationList}
-                        selectedItem={releaseDurationItem}
-                        setSelectedItem={item => {
-                          setReleaseDurationItem(item)
-                        }}
-                      />
-                    </div>
-                  </div>
-                  {releaseDurationItem.id === 1 && (
                     <div className="w-full mt-[20px]">
                       <div className={styles.title}>
-                        Limited Duration <span>*</span>
+                        Duration <span>*</span>
                       </div>
-                      <div className="mt-[15px] w-full flex gap-5">
-                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                          <Input
-                            value={days}
-                            placeholder="0"
-                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                            fullWidth
-                            borderColor="transparent"
-                            borderRadius="9px"
-                            min={0}
-                            onChange={value => {
-                              let days = validDigits(value)
-                              if (days < 0) {
-                                setDays('')
-                              } else {
-                                setDays(days)
-                              }
-                            }}
-                          />
-                          <div className={styles.dateFont}>Days</div>
-                        </div>
-                        <div className="w-[170px] flex justify-start items-end gap-[10px]">
-                          <Input
-                            value={hours}
-                            placeholder="0"
-                            backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
-                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
-                            fullWidth
-                            borderColor="transparent"
-                            borderRadius="9px"
-                            min={0}
-                            onChange={value => {
-                              let hours = validDigits(value)
-                              if (hours < 0) {
-                                setHours('')
-                              } else {
-                                setHours(hours)
-                              }
-                            }}
-                          />
-                          <div className={styles.dateFont}>Hours</div>
-                        </div>
-                      </div>
-                      <div className="mt-2 w-full text-start">
-                        <div className={styles.label}>
-                          The release is due to end&nbsp;
-                          <span className={styles.dateLabel}>
-                            {day}
-                            {', '}
-                            {endDate.toLocaleDateString()}&nbsp;
-                          </span>
-                        </div>
+                      <div className="mt-[15px]">
+                        <ProductionListMenu
+                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 343 : 390}
+                          label={releaseDurationItem.id === -1 ? 'Limited Supply' : releaseDurationItem.label}
+                          data={ReleaseDurationList}
+                          selectedItem={releaseDurationItem}
+                          setSelectedItem={item => {
+                            setReleaseDurationItem(item)
+                          }}
+                        />
                       </div>
                     </div>
-                  )}
-                  <div className="absolute w-full bottom-0 right-0 lg:block hidden">
-                    <div className="w-full mt-[20px]">
-                      {isLoading ? (
-                        <LoadingButton fullWidth height={50} />
-                      ) : (
-                        <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
-                      )}
+                    {releaseDurationItem.id === 1 && (
+                      <div className="w-full mt-[20px]">
+                        <div className={styles.title}>
+                          Limited Duration <span>*</span>
+                        </div>
+                        <div className="mt-[15px] w-full flex gap-5">
+                          <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                            <Input
+                              value={days}
+                              placeholder="0"
+                              backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                              fullWidth
+                              borderColor="transparent"
+                              borderRadius="9px"
+                              min={0}
+                              onChange={value => {
+                                let days = validDigits(value)
+                                if (days < 0) {
+                                  setDays('')
+                                } else {
+                                  setDays(days)
+                                }
+                              }}
+                            />
+                            <div className={styles.dateFont}>Days</div>
+                          </div>
+                          <div className="w-[170px] flex justify-start items-end gap-[10px]">
+                            <Input
+                              value={hours}
+                              placeholder="0"
+                              backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
+                              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                              fullWidth
+                              borderColor="transparent"
+                              borderRadius="9px"
+                              min={0}
+                              onChange={value => {
+                                let hours = validDigits(value)
+                                if (hours < 0) {
+                                  setHours('')
+                                } else {
+                                  setHours(hours)
+                                }
+                              }}
+                            />
+                            <div className={styles.dateFont}>Hours</div>
+                          </div>
+                        </div>
+                        <div className="mt-2 w-full text-start">
+                          <div className={styles.label}>
+                            The release is due to end&nbsp;
+                            <span className={styles.dateLabel}>
+                              {day}
+                              {', '}
+                              {endDate.toLocaleDateString()}&nbsp;
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <div className="absolute w-full bottom-0 right-0 lg:block hidden">
+                      <div className="w-full mt-[20px]">
+                        {isLoading ? (
+                          <LoadingButton fullWidth height={50} />
+                        ) : (
+                          <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
+                        )}
+                      </div>
+                      <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                        <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                      </div>
                     </div>
-                    <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
-                      <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                    <div className="lg:hidden block">
+                      <div className="w-full mt-[20px]">
+                        {isLoading ? (
+                          <LoadingButton fullWidth height={50} />
+                        ) : (
+                          <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
+                        )}
+                      </div>
+                      <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                        <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                      </div>
                     </div>
+                    <div className="w-full h-[50px] block lg:hidden" />
                   </div>
-                  <div className="lg:hidden block">
-                    <div className="w-full mt-[20px]">
-                      {isLoading ? (
-                        <LoadingButton fullWidth height={50} />
-                      ) : (
-                        <GradientButton fullWidth label="Republish" height={50} onClick={() => republishMerch()} />
-                      )}
+                ) : (
+                  <div className="w-full g-container lg:px-0 lg:flex-1 relative">
+                    <div className={styles.modalTitle}>Unassigned Merch Edition</div>
+                    <div className={styles.modalContent}>
+                      To activate this merch item as a bonus for edition purchases, select an edition to list and attach
+                      the merch item. To remove this edition, click remove.
                     </div>
-                    <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
-                      <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                    <div className="absolute w-full bottom-0 right-0 lg:block hidden mt-[30px]">
+                      <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                        <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                      </div>
+                      <div className="w-full mt-[20px]">
+                        {isLoading ? (
+                          <LoadingButton fullWidth height={50} />
+                        ) : (
+                          <GradientButton
+                            fullWidth
+                            label="Select Edition"
+                            height={50}
+                            onClick={() => selectEdition()}
+                          />
+                        )}
+                      </div>
                     </div>
+                    <div className="lg:hidden block mt-[50px]">
+                      <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">
+                        <OutlineButton fullWidth label="Remove" height={50} onClick={onRemove} />
+                      </div>
+                      <div className="w-full mt-[20px]">
+                        {isLoading ? (
+                          <LoadingButton fullWidth height={50} />
+                        ) : (
+                          <GradientButton
+                            fullWidth
+                            label="Select Edition"
+                            height={50}
+                            onClick={() => selectEdition()}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div className="w-full h-[50px] block lg:hidden" />
                   </div>
-                  <div className="w-full h-[50px] block lg:hidden" />
-                </div>
+                )}
               </div>
             </Dialog.Panel>
           </Transition.Child>

@@ -76,6 +76,27 @@
   }
 }
 
+.modalTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  margin-top: 30px;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+  }
+}
+
+.modalContent {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 100;
+  color: var(--text-gray-200-color);
+  margin-top: 20px;
+}
+
 .radio {
   appearance: none;
   border: 2px solid rgba(var(--text-gray-200-color-rgb), 1);

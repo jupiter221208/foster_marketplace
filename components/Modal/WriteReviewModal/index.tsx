@@ -27,7 +27,7 @@ import Dropzone from 'react-dropzone'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) => {
+const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [urls, setUrls] = useState([])
@@ -90,7 +90,8 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails, merchId }) =
       review: content,
       images: photos,
     }
-    writeReview(merchId, params).then(
+
+    writeReview(itemDetails.merchId, params).then(
       response => {
         setLoading(false)
         setAlertData([

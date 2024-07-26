@@ -43,7 +43,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
   const [merchMenu, setMerchMenu] = useState(ShopList[0])
-
+  console.log(publicKey?.toBase58() === artistInfo?.wallet_id)
   return (
     <div className="w-full pb-[60px]">
       <div className="w-full h-[187px] sm:h-[350px] relative">
@@ -144,7 +144,13 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
             </div>
           </div>
           <div className="w-full mt-[20px] sm:mt-[30px] ">
-            {activeTab === 0 && <CreatorMerchShop username={artistInfo?.username} userId={artistInfo?.id} />}
+            {activeTab === 0 && artistInfo && (
+              <CreatorMerchShop
+                username={artistInfo?.username}
+                userId={artistInfo?.id}
+                isCreator={publicKey?.toBase58() === artistInfo?.wallet_id}
+              />
+            )}
             {activeTab === 1 && <CreatorMerchReviews userId={artistInfo?.id} />}
             {activeTab === 2 && <CreatorMerchBadges />}
           </div>

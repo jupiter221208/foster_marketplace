@@ -25,7 +25,7 @@ const OrderSection = props => {
   const [merchType, setMerchType] = useState('')
   const [orderType, setOrderType] = useState('v1')
   const [merchList, setMerchList] = useState([])
-
+  const [paymentId, setPaymentId] = useState(null)
   const [selectedMerch, setSelectedMerch] = useState(null)
 
   const onClickMerch = key => {
@@ -55,6 +55,14 @@ const OrderSection = props => {
       setOrderType('v1')
       getOrder(id).then(setOrderData)
     }
+
+    StoreAPI.getPaymentId(id).then(
+      response => {
+        console.log(response)
+        if (response) setPaymentId(response.paylink_id)
+      },
+      error => {}
+    )
   }, [id])
 
   useEffect(() => {
@@ -156,6 +164,7 @@ const OrderSection = props => {
                 <PhysicalCheckout
                   orderData={orderData}
                   orderType={orderType}
+                  paymentId={paymentId}
                   onBack={() => {
                     router.back()
                   }}

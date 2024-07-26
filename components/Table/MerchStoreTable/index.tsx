@@ -32,6 +32,8 @@ const MerchStoreTable = props => {
   }
 
   const getStatus = item => {
+    if (item.master_edition_address === '') return 'unassigned'
+
     if (getTimeDifference(item.sale_start_at) > 0) return 'scheduled'
     else {
       if (item.sale_end_at === null) {
@@ -56,8 +58,8 @@ const MerchStoreTable = props => {
               <div className="w-[20%] text-center">Created on</div>
               <div className="w-[20%] text-center">Print Technique</div>
               <div className="w-[10%] text-center">Price</div>
-              <div className="w-[15%] text-center">Sales</div>
-              <div className="w-[15%] text-start">Status</div>
+              <div className="w-[13%] text-center">Sales</div>
+              <div className="w-[17%] text-start">Status</div>
             </div>
           </th>
         </tr>
@@ -85,8 +87,8 @@ const MerchStoreTable = props => {
                   <div className="w-[20%] text-center">{getYMDString(new Date(item.created_at))}</div>
                   <div className="w-[20%] text-center">{getTechnique(item)}</div>
                   <div className="w-[10%] text-center">${item.selling_price / 100}</div>
-                  <div className="w-[15%] text-center">{item.current_supply}</div>
-                  <div className="w-[15%]">
+                  <div className="w-[13%] text-center">{item.current_supply}</div>
+                  <div className="w-[17%]">
                     {getStatus(item) === 'scheduled' ? (
                       <div className={styles.scheduled}>
                         <div className="w-[60%]">Upcoming</div>
@@ -104,6 +106,13 @@ const MerchStoreTable = props => {
                     ) : getStatus(item) === 'expired' ? (
                       <div className={styles.expired}>
                         <div className="w-[60%]">Expired</div>
+                        <div className={styles.remove} onClick={() => onUpdate(item)}>
+                          Update
+                        </div>
+                      </div>
+                    ) : getStatus(item) === 'unassigned' ? (
+                      <div className={styles.expired}>
+                        <div className="w-[60%]">Unassigned</div>
                         <div className={styles.remove} onClick={() => onUpdate(item)}>
                           Update
                         </div>

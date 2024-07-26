@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { HelioCheckout } from '@heliofi/checkout-react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport, ensureMaxDecimals } from 'utils'
+import { ensureMaxDecimals } from 'utils'
 import { createPaymentTransaction, createV2PaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -17,6 +17,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
 import CARDIcon from 'assets/icons/card-icon.svg'
+import HelioIcon from 'assets/icons/helio-icon.svg'
 import SolanaIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -37,27 +38,78 @@ export interface PhysicalCheckoutProps {
   orderData?: any
   orderType: string
   total?: number
+  paymentId?: number
   onBack: () => any
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, paymentId = null }: PhysicalCheckoutProps) => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
   const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
-
   const [currency, setCurrency] = useState<'sol' | 'usdc' | 'card'>('sol')
   const [isLoad, setIsLoad] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [shipping, setShipping] = useState({ address: '', city: '', state: '', code: '', country: '' })
   const [alertData, setAlertData] = useState<any[]>([])
+  const [helioOpacity, setHelioOpacity] = useState(0)
+
+  //   {paylinkId: '6571e7cd4a2bee8095ee84da',
+  //   network: 'test',
+  //   display: 'button' as DisplayType,
+  //   amount: '0',
+  //   theme: {
+  //     colors: {
+  //       primaryButtonBackground: 'transparent',
+  //       primaryButtonBackgroundHover: 'transparent',
+  //       primaryButtonText: 'transparent',
+  //     },
+  //   } as HelioEmbedTheme,
+  // }
+
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
+  const helioConfig = {
+    paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
+    network: 'test' as NetworkType,
+    display: 'button' as DisplayType,
+    amount: total.toFixed(2),
+    theme: {
+      colors: {
+        primaryButtonBackground: 'var(--bg-242424-E8E7E6)',
+        primaryButtonBackgroundHover: 'var(--bg-242424-E8E7E6)',
+        primaryButtonText: 'var(--main-bg-color)',
+      },
+    } as HelioEmbedTheme,
+    onSuccess: payment => {
+      onCheckoutWithHelio(payment)
+    },
+  }
+
+  type DisplayType = 'inline' | 'button'
+  type NetworkType = 'main' | 'test'
+  type EmbedThemeMode = 'light' | 'dark'
+
+  interface HelioEmbedTheme {
+    themeMode: EmbedThemeMode
+    colors: {
+      primaryButtonBackground?: string
+      primaryButtonBackgroundHover?: string
+      primaryButtonText?: string
+      primaryButtonShadow?: string
+      shadowPrimaryGray?: string
+    }
+  }
+
   useEffect(() => {
+    setTimeout(() => {
+      setHelioOpacity(1)
+    }, 5000)
+
     setAlertData([
       {
         id: 0,
@@ -208,6 +260,33 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
     }
   }
 
+  const onCheckoutWithHelio = async event => {
+    let signature = event.data.transactionSignature
+    let method = event.blockchainSymbol
+
+    if (signature?.length > 0) {
+      // TODO: send signature to backend and update order
+      let params = {
+        payment_method: method.toUpperCase(),
+        payment_reference: signature,
+      }
+
+      let response
+      if (orderData.id > 1000) {
+        response = await StoreAPI.payStoreOrder(orderData.id, params)
+      } else {
+        response = await payOrder(orderData.id, params)
+      }
+      if (response?.status === 'success') {
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }
+    } else {
+      console.log(event, '=============event===============')
+    }
+  }
+
   return (
     <section className={styles.container}>
       <div className="w-full px-[0px] lg:px-[30px] mt-[20px] lg:mt-[30px]">
@@ -261,13 +340,25 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
                 <div className={styles.currencyName}>USDC</div>
               </div>
               <div
-                className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+                className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
                 onClick={() => setCurrency('card')}
               >
-                <div className="w-full flex justify-center mt-[26px] mb-[15px]">
-                  <Image src={CARDIcon} width={37} height={37} alt="" />
+                {/* <div className="w-full h-full flex justify-center items-center">
+                  <div className="flex flex-col justify-center gap-[15px]">
+                    <Image src={HelioIcon} width={37} height={37} alt="" />
+                    <div className={styles.currencyName}>Helio</div>
+                  </div>
+                </div> */}
+                <div className="absolute inset-0 flex justify-center">
+                  <div
+                    className={styles.helioContainer}
+                    style={{
+                      opacity: helioOpacity,
+                    }}
+                  >
+                    <HelioCheckout config={helioConfig} />
+                  </div>
                 </div>
-                <div className={styles.currencyName}>CARD</div>
               </div>
             </div>
           </div>
@@ -298,13 +389,25 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total }: Physi
               <div className={styles.currencyName}>USDC</div>
             </div>
             <div
-              className={`${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
+              className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('card')}
             >
-              <div className="w-full flex justify-center mt-[22px] lg:mt-[26px] mb-[13px] lg:mb-[15px]">
-                <Image src={CARDIcon} width={37} height={37} alt="" />
+              {/* <div className="w-full h-full flex justify-center items-center">
+                <div className="flex flex-col justify-center gap-[15px]">
+                  <Image src={HelioIcon} width={37} height={37} alt="" />
+                  <div className={styles.currencyName}>Helio</div>
+                </div>
+              </div> */}
+              <div className="absolute inset-0 flex justify-center">
+                <div
+                  className={styles.helioContainer}
+                  style={{
+                    opacity: helioOpacity,
+                  }}
+                >
+                  <HelioCheckout config={helioConfig} />
+                </div>
               </div>
-              <div className={styles.currencyName}>CARD</div>
             </div>
           </div>
         </div>

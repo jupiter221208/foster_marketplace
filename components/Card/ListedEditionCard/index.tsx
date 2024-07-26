@@ -18,7 +18,6 @@ import ImageWithFoster from 'components/ImageWithFoster'
 
 // api
 import { revokeDelegateEdition } from 'utils/editions'
-import { cancelListingEdition } from 'apis/editions'
 import LoadingSecondaryButton from 'components/Button/LoadingSecondaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import PrimaryDashboardButton from 'components/Button/PrimaryDashboardButton'

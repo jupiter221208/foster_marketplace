@@ -24,6 +24,7 @@ import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
 import StoreMerchModal from 'components/Menu/StoreMerchModal'
 import { getPriceValue } from 'utils/strings'
+import StoreMerchActivateModal from 'components/Menu/StoreMerchActivateModal'
 
 const MerchShopCard = props => {
   const { username, data } = props
@@ -35,6 +36,7 @@ const MerchShopCard = props => {
   const [showTimer, setShowTimer] = useState(false)
   const [timeLeft, setTimeLeft] = useState<any>(null)
   const [openModal, setOpenModal] = useState(false)
+  const [showActivateModal, setShowActivateModal] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -87,8 +89,12 @@ const MerchShopCard = props => {
     if (data.master_edition_address === null) {
       router.push(`/${username}/merch/${data.id}`)
     } else {
-      if (getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0)
-        router.push(`/nft/${data.master_edition_address}`)
+      if (getTimeDifference(data.sale_start_at) <= 0) {
+        if (data.master_edition_address?.length > 0) router.push(`/nft/${data.master_edition_address}`)
+        else {
+          setShowActivateModal(true)
+        }
+      }
     }
   }
   return (
@@ -179,7 +185,13 @@ const MerchShopCard = props => {
               <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
             </div>
             <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
-              ${(data.selling_price / 100).toFixed(2)}
+              $
+              {(
+                data.selling_price / 100 +
+                (data.listed_master_edition
+                  ? solToUsdRate * parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                  : 0)
+              ).toFixed(2)}
             </div>
           </div>
         </div>
@@ -274,6 +286,10 @@ const MerchShopCard = props => {
             gotoDetail()
           }}
         />
+      )}
+
+      {showActivateModal && (
+        <StoreMerchActivateModal open={showActivateModal} close={() => setShowActivateModal(false)} />
       )}
     </div>
   )

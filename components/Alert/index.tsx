@@ -13,7 +13,6 @@ import { useViewport } from 'utils'
 import SuccessIcon from 'assets/lottery/success.json'
 import SuccessLightIcon from 'assets/lottery/success-light.json'
 import FailureIcon from 'assets/lottery/failure.json'
-import CloseIcon from 'assets/icons/close-black-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
