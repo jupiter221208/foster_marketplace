@@ -68,6 +68,21 @@ const MerchShopCard = props => {
         }
       }
     }
+    if (data.listed_master_edition !== null && data.listed_master_edition.endTime !== null) {
+      let timeDiff = getTimeDifference(data.listed_master_edition.endTime)
+      if (timeDiff > 0) {
+        setShowTimer(true)
+        setTimeLeft(calculateAuctionTimeLeft(data.listed_master_edition.endTime))
+        const timer = setInterval(() => {
+          let time_left = calculateAuctionTimeLeft(data.listed_master_edition.endTime)
+          setTimeLeft(time_left)
+        }, 1000)
+
+        return () => {
+          clearTimeout(timer)
+        }
+      }
+    }
   }, [data])
 
   useEffect(() => {
@@ -220,6 +235,13 @@ const MerchShopCard = props => {
                 )}
               </div>
             ) : data.master_edition_address?.length === 0 ? (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>Goes live on</div>
+                </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
+            ) : data.listed_master_edition !== null && getTimeDifference(data.listed_master_edition.startTime) > 0 ? (
               <div>
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>Goes live on</div>
