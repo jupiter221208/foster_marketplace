@@ -96,11 +96,12 @@ const ListEditionDetail = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchCard])
 
-  // useEffect(() => {
-  //   if (merchItem) {
-  //     setMerchCard(merchItem)
-  //   }
-  // }, [merchItem])
+  useEffect(() => {
+    if (merchItem) {
+      setMerchCard(merchItem)
+      setEnableMerch(true)
+    }
+  }, [merchItem])
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
