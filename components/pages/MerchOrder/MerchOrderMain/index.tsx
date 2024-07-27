@@ -52,6 +52,7 @@ const MerchOrderMain = props => {
   const [printArea, setPrintArea] = useState('')
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
+  const [isExpired, setIsExpired] = useState(false)
 
   useEffect(() => {
     function handleResize() {
@@ -72,6 +73,8 @@ const MerchOrderMain = props => {
   }, [description])
 
   useEffect(() => {
+    if (productDetail.sale_end_at !== null && getTimeDifference(productDetail.sale_end_at) < 0) setIsExpired(true)
+
     let size_list
     switch (productDetail.product_type_id) {
       case 1:
@@ -382,7 +385,7 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+            {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
               <div className="w-full mt-[10px]">
                 <div className={styles.mintQty}>
                   <div
@@ -534,7 +537,7 @@ const MerchOrderMain = props => {
                   fullWidth
                   type="buy-now"
                   label="Buy Now"
-                  disabled={getStartStatus() === 'Starts in'}
+                  disabled={getStartStatus() === 'Starts in' || isExpired}
                   onClick={() => onClickBuyNow()}
                 />
               )}
