@@ -45,7 +45,6 @@ const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    console.log(data, '==========data===========')
     if (data) {
       if (data.fulfillment_type === 'foster') {
         setMerchImage(data.options.addons[0].mockup_url)
