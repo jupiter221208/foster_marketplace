@@ -246,7 +246,9 @@ const MerchShopCard = props => {
                 <div className="w-full flex justify-between">
                   <div className={styles.saleType}>Goes live on</div>
                 </div>
-                <div className={styles.saleCount}>TBD</div>
+                <div className={styles.saleCount}>
+                  {getDateTimeLabel(new Date(data.listed_master_edition.startTime))}
+                </div>
               </div>
             ) : (
               <div>
