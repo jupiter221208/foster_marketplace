@@ -55,8 +55,9 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
   }
 
   const deleteMerchStore = () => {
+    var dateNow = new Date()
     let param = {
-      deleted_at: new Date().toISOString().split('.')[0],
+      deleted_at: new Date(dateNow.getTime() - 300000).toISOString().split('.')[0],
     }
     StoreAPI.deleteStoreById(userId, data.id, param).then(response => {
       setIsLoading(false)
