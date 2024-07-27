@@ -50,9 +50,22 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
           console.log(error)
         }
     } else if (type === 'remove') {
+      deleteMerchStore()
+    }
+  }
+
+  const deleteMerchStore = () => {
+    let param = {
+      deleted_at: new Date().toISOString().split('.')[0],
+    }
+    StoreAPI.deleteStoreById(userId, data.id, param).then(response => {
       setIsLoading(false)
       onSuccess()
-    }
+    }),
+      error => {
+        setIsLoading(false)
+        console.log(error)
+      }
   }
   return (
     <Transition appear show={open} as={Fragment}>
@@ -132,11 +145,14 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                   <div className="w-full flex justify-end mt-[30px] lg:mt-[15px]">
                     <div className="flex gap-[20px]">
                       <OutlineButton
-                        label="Cancel"
+                        label={type === 'unassign' ? 'Remove' : 'Cancel'}
                         width={100}
                         height={40}
                         fontSize={16}
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          if (type === 'unassign') deleteMerchStore()
+                          else closeModal()
+                        }}
                       />
                       {isLoading ? (
                         <LoadingButton width={130} height={40} />

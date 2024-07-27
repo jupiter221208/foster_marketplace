@@ -195,6 +195,21 @@ const ListEditionDetail = ({
     try {
       setIsLoading(true)
 
+      if (merchItem) {
+        if (merchCard === null || merchItem.id != merchCard.id) {
+          await StoreAPI.updateStoreById(profileInfo.id, merchItem.id, {
+            master_edition_address: '',
+            supply: null,
+          })
+        }
+      }
+
+      if (profileInfo && merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: data.mintAddress,
+          supply: data.supply?.max,
+        })
+
       updateEditionListing({
         mintAddress: data.mintAddress,
         price: (parseFloat(mintPrice) * LAMPORTS_PER_SOL).toFixed(0),
@@ -288,6 +303,10 @@ const ListEditionDetail = ({
               onChange={() => {
                 setEnableMerch(!enableMerch)
                 setShowMerchModal(!enableMerch)
+                if (enableMerch === true) {
+                  setMerchProdCost(0)
+                  setMerchCard(null)
+                }
               }}
               className={`${
                 enableMerch ? styles.active : styles.inactive
@@ -688,6 +707,7 @@ const ListEditionDetail = ({
         </div>
       </div>
       <MerchShopSelectModal
+        oldCard={merchItem}
         open={showMerchModal}
         close={status => {
           setShowMerchModal(false)
