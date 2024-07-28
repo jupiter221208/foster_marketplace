@@ -27,12 +27,13 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
 
   const auctionMerch = () => {
     setIsLoading(true)
+
+    if (type === 'unassign') router.push('/dashboard?tab=0&filter=1')
+
     if (type === 'delist' || type === 'cancel') {
       if (data?.master_edition_address?.length > 0) {
-        if (type === 'delist') {
-          router.push(`/nft/${data?.master_edition_address}`)
-          return
-        }
+        router.push(`/nft/${data?.master_edition_address}`)
+        return
       }
       let current_date = new Date()
       current_date.setHours(current_date.getHours() - 1)
@@ -49,9 +50,23 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
           console.log(error)
         }
     } else if (type === 'remove') {
+      deleteMerchStore()
+    }
+  }
+
+  const deleteMerchStore = () => {
+    var dateNow = new Date()
+    let param = {
+      deleted_at: new Date(dateNow.getTime() - 300000).toISOString().split('.')[0],
+    }
+    StoreAPI.deleteStoreById(userId, data.id, param).then(response => {
       setIsLoading(false)
       onSuccess()
-    }
+    }),
+      error => {
+        setIsLoading(false)
+        console.log(error)
+      }
   }
   return (
     <Transition appear show={open} as={Fragment}>
@@ -90,6 +105,8 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                       ? data?.master_edition_address?.length > 0
                         ? 'Do you want to cancel the listing?'
                         : 'Do you want to cancel this item?'
+                      : type === 'unassign'
+                      ? 'Unassigned Merch Edition'
                       : type === 'remove'
                       ? 'Do you want to remove this item?'
                       : ''}
@@ -102,21 +119,24 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                   <div className={styles.content}>
                     {type === 'delist' ? (
                       data?.master_edition_address?.length > 0 ? (
-                        <div className="h-[40px]">
-                          To delist this merch item, first delist its associated edition from your dashboard.
+                        <div className={styles.delistContent}>
+                          To delist this merch item, you must delist its associated edition. Go to the edition page and
+                          click <span>cancel listing.</span>
                         </div>
                       ) : (
                         'If you choose to delist, it will remove the item from your merch store. You can republish it at a later time if you wish.'
                       )
                     ) : type === 'cancel' ? (
                       data?.master_edition_address?.length > 0 ? (
-                        <div className="h-[40px]">
-                          To cancel an upcoming merch edition listing, first delist its associated edition from your
-                          dashboard.
+                        <div className={styles.cancelContent}>
+                          To cancel an upcoming merch edition listing, delist its associated edition. Go to the edition
+                          page and click <span>cancel listing.</span>
                         </div>
                       ) : (
                         'If you choose to cancel, it will remove the item from your merch store. You can republish it at a later time if you wish.'
                       )
+                    ) : type === 'unassign' ? (
+                      'To assign this merch item to an edition, go to your dashboard, select the edition, and attach the merch item. To delete this merch item, click remove.'
                     ) : type === 'remove' ? (
                       'This action is irreversible. If you choose to remove, it will remove the item from your merch store and dashboard.'
                     ) : (
@@ -126,17 +146,20 @@ const MerchShopEditModal = ({ userId, data, type, open, onClose, onSuccess }) =>
                   <div className="w-full flex justify-end mt-[30px] lg:mt-[15px]">
                     <div className="flex gap-[20px]">
                       <OutlineButton
-                        label="Cancel"
+                        label={type === 'unassign' ? 'Remove' : 'Cancel'}
                         width={100}
                         height={40}
                         fontSize={16}
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          if (type === 'unassign') deleteMerchStore()
+                          else closeModal()
+                        }}
                       />
                       {isLoading ? (
                         <LoadingButton width={130} height={40} />
                       ) : (
                         <GradientButton
-                          label={data?.master_edition_address?.length > 0 ? 'Delist Edition' : 'Yes, continue'}
+                          label={type === 'unassign' ? 'Select Edition' : 'Yes, continue'}
                           width={130}
                           height={40}
                           fontSize={16}

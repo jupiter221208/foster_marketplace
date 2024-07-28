@@ -122,11 +122,6 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                   <div className="">
                     <PlusIcon />
                   </div>
-                  {/* <div className="block sm:hidden">
-                    <div className={styles.plus}>
-                      <PlusIconMobile />
-                    </div>
-                  </div> */}
                   <div className="">Add</div>
                 </div>
               )}
@@ -134,11 +129,6 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
                 <div className="">
                   <ShareDesktopIcon alt="" />
                 </div>
-                {/* <div className="sm:hidden block">
-                  <div className={styles.plus}>
-                    <ShareSmallIcon alt="" />
-                  </div>
-                </div> */}
                 <div className={`${styles.shareText} mt-[-2px]`}>Share</div>
               </div>
             </div>

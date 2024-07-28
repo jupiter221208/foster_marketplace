@@ -73,9 +73,11 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
   total ??= orderType === 'v1' ? orderData?.order.amount : orderData?.externalOrder.amountPaid
   const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
+  const WALLET_ADAPTER_NETWORK = process.env.WALLET_ADAPTER_NETWORK
+
   const helioConfig = {
     paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
-    network: 'test' as NetworkType,
+    network: (WALLET_ADAPTER_NETWORK === 'devnet' ? 'test' : 'main') as NetworkType,
     display: 'button' as DisplayType,
     amount: total.toFixed(2),
     theme: {
@@ -282,8 +284,6 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
           setShowAlert(true)
         }, 1000)
       }
-    } else {
-      console.log(event, '=============event===============')
     }
   }
 
@@ -349,16 +349,24 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     <div className={styles.currencyName}>Helio</div>
                   </div>
                 </div> */}
-                <div className="absolute inset-0 flex justify-center">
-                  <div
-                    className={styles.helioContainer}
-                    style={{
-                      opacity: helioOpacity,
-                    }}
-                  >
-                    <HelioCheckout config={helioConfig} />
+                {helioOpacity === 1 ? (
+                  <div className="absolute inset-0 flex justify-center">
+                    <div
+                      className={styles.helioContainer}
+                      style={{
+                        opacity: helioOpacity,
+                      }}
+                    >
+                      <HelioCheckout config={helioConfig} />
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="absolute inset-0 flex flex-col justify-center items-center">
+                    <div className={styles.payWithHelio}>PAY</div>
+                    <div className={styles.payWithHelio}>WITH</div>
+                    <div className={styles.payWithHelio}>HELIO</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -398,16 +406,24 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                   <div className={styles.currencyName}>Helio</div>
                 </div>
               </div> */}
-              <div className="absolute inset-0 flex justify-center">
-                <div
-                  className={styles.helioContainer}
-                  style={{
-                    opacity: helioOpacity,
-                  }}
-                >
-                  <HelioCheckout config={helioConfig} />
+              {helioOpacity === 1 ? (
+                <div className="absolute inset-0 flex justify-center">
+                  <div
+                    className={styles.helioContainer}
+                    style={{
+                      opacity: helioOpacity,
+                    }}
+                  >
+                    <HelioCheckout config={helioConfig} />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="absolute inset-0 flex flex-col justify-center items-center">
+                  <div className={styles.payWithHelio}>PAY</div>
+                  <div className={styles.payWithHelio}>WITH</div>
+                  <div className={styles.payWithHelio}>HELIO</div>
+                </div>
+              )}
             </div>
           </div>
         </div>

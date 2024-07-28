@@ -52,9 +52,17 @@ export interface ListEditionDetailProps {
   onSuccess: (name: string) => void
   onClose: () => void
   fromNFT: boolean
+  merchItem?: any
 }
 
-const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: ListEditionDetailProps) => {
+const ListEditionDetail = ({
+  data,
+  listingType,
+  onSuccess,
+  onClose,
+  fromNFT,
+  merchItem = null,
+}: ListEditionDetailProps) => {
   const viewport = useViewport()
   const { solToUsdRate } = useSolToUsdRate()
   const { metaplex } = useMetaplex()
@@ -87,6 +95,13 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
     else setMerchProdCost(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [merchCard])
+
+  useEffect(() => {
+    if (merchItem) {
+      setMerchCard(merchItem)
+      setEnableMerch(true)
+    }
+  }, [merchItem])
 
   const endDate = useMemo(() => {
     if (durationType == 'noTime') return null
@@ -179,6 +194,21 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
   const handleUpdateEdition = async () => {
     try {
       setIsLoading(true)
+
+      if (merchItem) {
+        if (merchCard === null || merchItem.id != merchCard.id) {
+          await StoreAPI.updateStoreById(profileInfo.id, merchItem.id, {
+            master_edition_address: '',
+            supply: null,
+          })
+        }
+      }
+
+      if (profileInfo && merchCard)
+        await StoreAPI.updateStoreById(profileInfo.id, merchCard.id, {
+          master_edition_address: data.mintAddress,
+          supply: data.supply?.max,
+        })
 
       updateEditionListing({
         mintAddress: data.mintAddress,
@@ -273,6 +303,10 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
               onChange={() => {
                 setEnableMerch(!enableMerch)
                 setShowMerchModal(!enableMerch)
+                if (enableMerch === true) {
+                  setMerchProdCost(0)
+                  setMerchCard(null)
+                }
               }}
               className={`${
                 enableMerch ? styles.active : styles.inactive
@@ -673,6 +707,7 @@ const ListEditionDetail = ({ data, listingType, onSuccess, onClose, fromNFT }: L
         </div>
       </div>
       <MerchShopSelectModal
+        oldCard={merchItem}
         open={showMerchModal}
         close={status => {
           setShowMerchModal(false)

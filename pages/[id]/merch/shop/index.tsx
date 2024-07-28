@@ -48,9 +48,24 @@ const CreatorMerchShop = props => {
       res => {
         let result = res.filter(item => item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0)
         if (isCreator) {
-          setEditionList(result)
+          setEditionList(
+            result.filter(
+              item =>
+                item.master_edition_address?.length === 0 ||
+                (item.master_edition_address?.length > 0 &&
+                  (item.listed_master_edition.endTime === null ||
+                    getTimeDifference(item.listed_master_edition.endTime) > 0))
+            )
+          )
         } else {
-          setEditionList(result.filter(item => item.master_edition_address?.length > 0))
+          setEditionList(
+            result.filter(
+              item =>
+                item.master_edition_address?.length > 0 &&
+                (item.listed_master_edition.endTime === null ||
+                  getTimeDifference(item.listed_master_edition.endTime) > 0)
+            )
+          )
         }
       },
       error => {}

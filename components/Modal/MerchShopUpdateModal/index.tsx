@@ -48,6 +48,8 @@ const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess
     if (data) {
       if (data.fulfillment_type === 'foster') {
         setMerchImage(data.options.addons[0].mockup_url)
+      } else {
+        setMerchImage(data.options.product_images[0])
       }
     }
   }, [data])
@@ -358,8 +360,8 @@ const MerchShopUpdateModal = ({ userId, data, open, onClose, onRemove, onSuccess
                   <div className="w-full g-container lg:px-0 lg:flex-1 relative">
                     <div className={styles.modalTitle}>Unassigned Merch Edition</div>
                     <div className={styles.modalContent}>
-                      To activate this merch item as a bonus for edition purchases, select an edition to list and attach
-                      the merch item. To remove this edition, click remove.
+                      To assign this merch item to an edition, go to your dashboard, select the edition, and attach the
+                      merch item. To delete this merch item, click remove.
                     </div>
                     <div className="absolute w-full bottom-0 right-0 lg:block hidden mt-[30px]">
                       <div className="w-full mt-[15px] mb-[50px] lg:mb-[0px]">

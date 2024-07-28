@@ -29,7 +29,7 @@ import ListEditionModal from 'components/Modal/ListEditionModal'
 import DropdownFilterMenu from 'components/Menu/DropdownFilterMenu'
 
 const MyNFTSection = props => {
-  const { changeActiveTab, filter } = props
+  const { changeActiveTab, filter = 0 } = props
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
