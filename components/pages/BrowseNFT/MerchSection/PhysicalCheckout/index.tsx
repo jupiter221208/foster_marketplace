@@ -33,6 +33,7 @@ import { payOrder } from 'apis/merch'
 import PrimaryButton from 'components/Button/PrimaryButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import GradientButton from 'components/Button/GradientButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: any
@@ -75,11 +76,20 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
 
   const WALLET_ADAPTER_NETWORK = process.env.WALLET_ADAPTER_NETWORK
 
+  type DisplayType = 'inline' | 'button'
+  type NetworkType = 'main' | 'test'
+  type EmbedThemeMode = 'light' | 'dark'
+  type PrimaryPaymentMethod = 'fiat' | 'crypto'
+
   const helioConfig = {
     paylinkId: paymentId ? paymentId.toString() : '65f1ed912d926efac71bbed1',
     network: (WALLET_ADAPTER_NETWORK === 'devnet' ? 'test' : 'main') as NetworkType,
     display: 'button' as DisplayType,
+    primaryPaymentMethod: 'fiat' as PrimaryPaymentMethod,
     amount: total.toFixed(2),
+    customTexts: {
+      mainButtonTitle: 'Pay With Card',
+    },
     theme: {
       colors: {
         primaryButtonBackground: 'var(--bg-242424-E8E7E6)',
@@ -91,10 +101,6 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
       onCheckoutWithHelio(payment)
     },
   }
-
-  type DisplayType = 'inline' | 'button'
-  type NetworkType = 'main' | 'test'
-  type EmbedThemeMode = 'light' | 'dark'
 
   interface HelioEmbedTheme {
     themeMode: EmbedThemeMode
@@ -339,16 +345,16 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                 </div>
                 <div className={styles.currencyName}>USDC</div>
               </div>
-              <div
+              {/* <div
                 className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
                 onClick={() => setCurrency('card')}
               >
-                {/* <div className="w-full h-full flex justify-center items-center">
+                <div className="w-full h-full flex justify-center items-center">
                   <div className="flex flex-col justify-center gap-[15px]">
                     <Image src={HelioIcon} width={37} height={37} alt="" />
                     <div className={styles.currencyName}>Helio</div>
                   </div>
-                </div> */}
+                </div>
                 {helioOpacity === 1 ? (
                   <div className="absolute inset-0 flex justify-center">
                     <div
@@ -367,7 +373,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                     <div className={styles.payWithHelio}>HELIO</div>
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -396,16 +402,16 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
               </div>
               <div className={styles.currencyName}>USDC</div>
             </div>
-            <div
+            {/* <div
               className={`relative ${styles.paymentBG} ${currency === 'card' ? styles.selectedCurrency : ''}`}
               onClick={() => setCurrency('card')}
             >
-              {/* <div className="w-full h-full flex justify-center items-center">
+              <div className="w-full h-full flex justify-center items-center">
                 <div className="flex flex-col justify-center gap-[15px]">
                   <Image src={HelioIcon} width={37} height={37} alt="" />
                   <div className={styles.currencyName}>Helio</div>
                 </div>
-              </div> */}
+              </div>
               {helioOpacity === 1 ? (
                 <div className="absolute inset-0 flex justify-center">
                   <div
@@ -424,7 +430,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                   <div className={styles.payWithHelio}>HELIO</div>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -445,15 +451,26 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
           {isLoad ? (
             <LoadingPrimaryButton fullWidth />
           ) : (
-            <PrimaryButton
+            // <PrimaryButton
+            //   disabled={currency.length === 0}
+            //   label="Make Payment"
+            //   type="payment"
+            //   fullWidth
+            //   onClick={() => onCheckout()}
+            // />
+            <GradientButton
               disabled={currency.length === 0}
-              label="Make Payment"
-              type="payment"
+              label="Use Selected Payment Method"
               fullWidth
               onClick={() => onCheckout()}
             />
           )}
-          <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />
+
+          <div className={styles.helioContainer}>
+            <HelioCheckout config={helioConfig} />
+          </div>
+
+          {/* <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth /> */}
         </div>
       </div>
       <Alert
