@@ -63,7 +63,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (printData) return
+    if (printData || !publicArtistData) return
 
     StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
       response => {
@@ -86,7 +86,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
-
           setSelectedMerch(imageList[0])
           setPrintData({
             id: 1,
@@ -95,6 +94,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             color: response.options.color,
             name: response.name,
             description: response.description,
+            shipping: getShippingData(response.options.shipping_responsibility),
             technique: response.options.print_technique,
             cost: response.selling_price / 100,
           })
@@ -104,6 +104,16 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicArtistData])
+
+  const getShippingData = shipping => {
+    if (!shipping) {
+      return ''
+    }
+    if (shipping === 'di_seller') return 'Domestic & international shipping will be paid by the seller.'
+    else if (shipping === 'di_buyer') return 'Domestic & international shipping will be paid by the buyer.'
+    else if (shipping === 'd_buyer') return 'Domestic shipping will be paid by the buyer.'
+    else if (shipping === 'd_seller') return 'Domestic shipping will be paid by the buyer.'
+  }
 
   useEffect(() => {
     setPrintData({ ...printData, size: merchSize })
@@ -244,19 +254,17 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           ) : (
             merchList.map((merch, index) => {
               return (
-                <div
-                  key={index}
-                  className={merch.selected ? styles.selected : styles.unselected}
-                  onClick={() => onClickMerch(index)}
-                >
-                  <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
+                  <div className={merch.selected ? styles.selected : styles.unselected}>
+                    <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                  </div>
                 </div>
               )
             })
           )}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px]">
+        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px] mt-[20px] lg:mt-[0px]">
           {currentStep === 1 &&
             (productDetail ? (
               <div className="w-full mt-[0px] lg:mt-[75px]">

@@ -281,10 +281,9 @@ const MerchOrderMain = props => {
             </div>
             <div>
               <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+
               <div className={styles.creatorRound}>
-                {productDetail.supply
-                  ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
-                  : `${productDetail.current_supply} sold`}
+                {productDetail.supply ? `3/3 left` : `${productDetail.current_supply} sold`}
               </div>
             </div>
           </div>
@@ -583,7 +582,7 @@ const MerchOrderMain = props => {
             <div className={`${styles.endsTime} mt-[15px]`}>
               {type === 'foster'
                 ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                : 'Domestic & international shipping will be paid by the buyer.'}
+                : productDetail.shipping}
             </div>
           )}
           <div className={`mt-[15px] ${styles.divider}`} />
