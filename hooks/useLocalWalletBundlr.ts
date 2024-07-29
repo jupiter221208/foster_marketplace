@@ -53,7 +53,7 @@ export const useLocalWalletBundlr = () => {
     let difference = toBigNumber(amount).sub(toBigNumber(currentBalance));
 
     // ensure minimum balance for rent-exemption
-    const MINIMUM_BALANCE = 900_000;
+    const MINIMUM_BALANCE = 1_400_000;
     if (difference.neg().toNumber() < MINIMUM_BALANCE)
       difference.iadd(toBigNumber(MINIMUM_BALANCE));
 
@@ -72,7 +72,7 @@ export const useLocalWalletBundlr = () => {
         units: 500
       }),
       ComputeBudgetProgram.setComputeUnitPrice({
-        microLamports: 2_000_000
+        microLamports: 1_500_000
       }),
       SystemProgram.transfer({
         fromPubkey: publicKey,

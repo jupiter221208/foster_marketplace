@@ -389,7 +389,7 @@ const SingleNft = () => {
       if (metadataCost.currency.symbol != assetCost.currency.symbol)
         throw new Error(`currency symbol mismatch: ${metadataCost.currency.symbol} != ${assetCost.currency.symbol}`)
 
-      let totalCost = metadataCost.basisPoints.add(assetCost.basisPoints)
+      let totalCost = metadataCost.basisPoints.add(assetCost.basisPoints).muln(1.5);
 
       // fund local wallet
       await ensureLocalWalletBalance(totalCost)
