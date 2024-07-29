@@ -162,6 +162,16 @@ const MerchOrderMain = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productDetail])
 
+  const getShippingData = shipping => {
+    if (!shipping) {
+      return ''
+    }
+    if (shipping === 'di_seller') return 'Domestic & international shipping will be paid by the seller.'
+    else if (shipping === 'di_buyer') return 'Domestic & international shipping will be paid by the buyer.'
+    else if (shipping === 'd_buyer') return 'Domestic shipping will be paid by the buyer.'
+    else if (shipping === 'd_seller') return 'Domestic shipping will be paid by the buyer.'
+  }
+
   const getStartTime = () => {
     let difference = getTimeDifference(productDetail.sale_start_at)
 
@@ -637,7 +647,7 @@ const MerchOrderMain = props => {
             <div className={`${styles.endsTime} mt-[15px]`}>
               {type === 'foster'
                 ? 'Please note that the actual embroidered design may vary from the digital preview shown. While we strive for accuracy, the nature of embroidery can result in differences in color, texture, and placement.'
-                : productDetail.shipping}
+                : getShippingData(productDetail.options.shipping_responsibility)}
             </div>
           )}
           <div className={`mt-[15px] ${styles.divider}`} />

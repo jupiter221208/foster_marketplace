@@ -94,7 +94,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             color: response.options.color,
             name: response.name,
             description: response.description,
-            shipping: getShippingData(response.options.shipping_responsibility),
             technique: response.options.print_technique,
             cost: response.selling_price / 100,
           })
@@ -104,16 +103,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicArtistData])
-
-  const getShippingData = shipping => {
-    if (!shipping) {
-      return ''
-    }
-    if (shipping === 'di_seller') return 'Domestic & international shipping will be paid by the seller.'
-    else if (shipping === 'di_buyer') return 'Domestic & international shipping will be paid by the buyer.'
-    else if (shipping === 'd_buyer') return 'Domestic shipping will be paid by the buyer.'
-    else if (shipping === 'd_seller') return 'Domestic shipping will be paid by the buyer.'
-  }
 
   useEffect(() => {
     setPrintData({ ...printData, size: merchSize })
