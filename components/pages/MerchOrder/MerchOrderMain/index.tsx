@@ -269,7 +269,7 @@ const MerchOrderMain = props => {
               <Link href={`/${userDetail.username}`} passHref>
                 <a>
                   <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
-                    <div className="w-[30px] h-[30px] rounded-full overflow-hidden ml-[-5px]">
+                    <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
                       <ImageWithFoster
                         src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
                         alt=""
@@ -323,7 +323,7 @@ const MerchOrderMain = props => {
 
         <div className="w-full">
           <div className="lg:mt-[35px] mt-[30px]">
-            <div className={`w-full ${timeLeft != null ? 'flex justify-between' : ''}`}>
+            <div className="w-full flex justify-between">
               <div className="flex flex-col gap-[8px]">
                 <div className={styles.selectSize}>{getStartStatus()}</div>
                 <div className={styles.bidCountContainer}>
