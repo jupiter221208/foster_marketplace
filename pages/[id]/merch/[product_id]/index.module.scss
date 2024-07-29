@@ -19,14 +19,6 @@
 .selected {
   width: 75px;
   height: 75px;
-  @media (min-width: 640px) {
-    width: 116px;
-    height: 116px;
-  }
-  @media (min-width: 1024px) {
-    width: 126px;
-    height: 126px;
-  }
   border-radius: 10px;  
   // border: 2px solid var(--main-icon-color);
   opacity: 100%;
@@ -36,14 +28,6 @@
 .unselected {
   width: 75px;
   height: 75px;
-  @media (min-width: 640px) {
-    width: 116px;
-    height: 116px;
-  }
-  @media (min-width: 1024px) {
-    width: 126px;
-    height: 126px;
-  }
   opacity: 60%;
   border-radius: 10px;  
   // border: 2px solid var(--bg-303030-DDDCDC);

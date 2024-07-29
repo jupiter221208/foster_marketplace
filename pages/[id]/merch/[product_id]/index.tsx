@@ -126,7 +126,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
         </div>
 
         {productDetail ? (
-          <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
+          <div className="lg:flex hidden w-[75px] flex flex-col gap-[11px] mt-[30px]">
             {merchList.length > 1 &&
               merchList.map((merch, index) => {
                 return (
@@ -149,13 +149,13 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           </div>
         ) : (
           <div className="mt-[30px] lg:block hidden">
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden">
               <div className="skeletonLoader" />
             </div>
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
               <div className="skeletonLoader" />
             </div>
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
               <div className="skeletonLoader" />
             </div>
           </div>
@@ -182,7 +182,11 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               </div>
             </div>
           </div>
-          <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+          <div
+            className={`sm:block hidden sm:w-[640px] sm:h-[640px] ${
+              type === 'physical' ? 'lg:w-[625px] lg:h-[625px]' : 'lg:w-[700px] lg:h-[700px]'
+            } mt-[20px] lg:mt-[75px]`}
+          >
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}
