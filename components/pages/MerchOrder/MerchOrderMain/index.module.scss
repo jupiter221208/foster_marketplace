@@ -42,6 +42,7 @@
 
 .productName {
   font-family: 'Muli-Bold';
+  word-break: break-all;
   font-size: 24px;
   line-height: 31px;
   color: var(--text-gray-200-color);
@@ -168,6 +169,7 @@
 .bidCountContainer {
   display: flex;
   align-items: center;
+  margin-left: -1px;
 }
 
 .endTimeContainer {

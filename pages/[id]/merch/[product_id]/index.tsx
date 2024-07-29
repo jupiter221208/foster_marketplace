@@ -196,7 +196,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             </div>
           </div>
 
-          <div className={`sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}>
+          <div className={`sm:block hidden sm:w-[640px] sm:h-[auto] lg:w-[625px] lg:h-[725px] mt-[20px] lg:mt-[75px]`}>
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}

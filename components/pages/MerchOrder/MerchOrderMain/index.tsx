@@ -252,7 +252,7 @@ const MerchOrderMain = props => {
     <div className={styles.container}>
       <div className="w-full h-auto">
         <div className="w-full">
-          <div className="w-full flex justify-between">
+          <div className="w-full flex justify-between gap-[35px]">
             <div className={styles.productName}>{productDetail?.name}</div>
 
             <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
@@ -263,7 +263,7 @@ const MerchOrderMain = props => {
             </div>
           </div>
 
-          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px]">
+          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[30px]">
             <div>
               <div className={styles.creator}>Seller</div>
               <Link href={`/${userDetail.username}`} passHref>
