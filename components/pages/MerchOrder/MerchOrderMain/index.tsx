@@ -318,7 +318,7 @@ const MerchOrderMain = props => {
 
         <div className="w-full">
           <div className="mt-[58px]">
-            <div className="w-full flex justify-between">
+            <div className={`w-full ${timeLeft != null ? 'flex justify-between' : ''}`}>
               <div className="flex gap-[6px] items-center">
                 <div className={styles.endsIn}>{getStartStatus()}</div>
                 <div className={styles.bidCountContainer}>
@@ -570,11 +570,12 @@ const MerchOrderMain = props => {
           <div className={`mt-[15px] ${styles.divider}`} />
 
           {/* Embroidery Disclaimer */}
-          <div className="w-full flex justify-between items-center mt-[15px]">
+          <div
+            className="w-full flex justify-between items-center mt-[15px]"
+            onClick={() => setShowEmbroidery(!showEmbroidery)}
+          >
             <div className={styles.desc}>{type === 'foster' ? 'Embroidery Disclaimer' : 'Shipping & Handling'}</div>
-            <div onClick={() => setShowEmbroidery(!showEmbroidery)}>
-              {showEmbroidery ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}
-            </div>
+            <div>{showEmbroidery ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
           </div>
           {showEmbroidery && (
             <div className={`${styles.endsTime} mt-[15px]`}>
@@ -586,11 +587,12 @@ const MerchOrderMain = props => {
           <div className={`mt-[15px] ${styles.divider}`} />
 
           {/* Customs Notice */}
-          <div className="w-full flex justify-between items-center mt-[15px]">
+          <div
+            className="w-full flex justify-between items-center mt-[15px]"
+            onClick={() => setShowNotice(!showNotice)}
+          >
             <div className={styles.desc}>{type === 'foster' ? 'Customs Notice' : 'Liability Disclaimer'}</div>
-            <div onClick={() => setShowNotice(!showNotice)}>
-              {showNotice ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}
-            </div>
+            <div>{showNotice ? <ArrowDownWhiteIcon /> : <ArrowRightWhiteIcon />}</div>
           </div>
           {showNotice && (
             <div className={`${styles.endsTime} mt-[15px]`}>

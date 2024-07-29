@@ -117,7 +117,7 @@ const OrderSection = props => {
                   })}
                 </div>
                 {selectedMerch && (
-                  <div className="hidden lg:flex-1 h-full lg:max-h-[700px] lg:flex items-center justify-center">
+                  <div className="hidden lg:flex-1 h-full lg:max-h-[700px] lg:flex items-center justify-center mt-[30px]">
                     <ImageWithFoster
                       src={selectedMerch.url}
                       width={700}
