@@ -262,9 +262,9 @@ const MerchOrderMain = props => {
             </div>
           </div>
 
-          <div className="mt-[35px]">
-            <div className={styles.creator}>Seller</div>
-            <div className="mt-[7px] flex flex-wrap gap-[15px]">
+          <div className="mt-[35px] flex flex-wrap gap-[15px]">
+            <div>
+              <div className={styles.creator}>Seller</div>
               <Link href={`/${userDetail.username}`} passHref>
                 <a>
                   <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
@@ -278,7 +278,9 @@ const MerchOrderMain = props => {
                   </div>
                 </a>
               </Link>
-              <div className={styles.creatorRound}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+            </div>
+            <div>
+              <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
               <div className={styles.creatorRound}>
                 {productDetail.supply
                   ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
@@ -555,7 +557,7 @@ const MerchOrderMain = props => {
               )}
               {productDetail.fulfillment_type === 'user' && (
                 <div className="mt-[15px]">
-                  <div className={`mt-[10px] ${styles.content}`}>
+                  <div className={`mt-[10px] ${styles.endsTime}`}>
                     {processedNftDescription}
                     {shouldShowReadMore && (
                       <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>

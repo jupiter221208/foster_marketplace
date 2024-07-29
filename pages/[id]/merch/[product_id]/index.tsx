@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 // components
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+import LeftBtnIcon from 'assets/icons/arrow-left-17x13.svg?component'
+import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 
 // json
 
@@ -47,10 +49,10 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
     let list = []
     merchList.map((merch, index) => {
       if (key === index) {
-        list.push({ url: merch.url, selected: true })
-        setSelectedMerch({ url: merch.url, selected: true })
+        list.push({ id: index, url: merch.url, selected: true })
+        setSelectedMerch({ id: index, url: merch.url, selected: true })
       } else {
-        list.push({ url: merch.url, selected: false })
+        list.push({ id: index, url: merch.url, selected: false })
       }
     })
     setMerchList(list)
@@ -71,19 +73,20 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             rawList = []
           if (response.fulfillment_type === 'foster') {
             response.options.addons.map((item, index) => {
-              imageList.push({ url: item.mockup_url, selected: index === 0 })
+              imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
               rawList.push({ url: item.raw_url })
             })
             setType('foster')
           } else {
             response.options.product_images.map((item, index) => {
-              imageList.push({ url: item, selected: index === 0 })
+              imageList.push({ id: index, url: item, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
             else setType('')
           }
           setMerchList(imageList)
           setRawUrlList(rawList)
+
           setSelectedMerch(imageList[0])
           setPrintData({
             id: 1,
@@ -126,14 +129,14 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
         </div>
 
         {productDetail ? (
-          <div className="lg:flex hidden w-[75px] flex flex-col gap-[11px] mt-[30px]">
+          <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
             {merchList.length > 1 &&
               merchList.map((merch, index) => {
                 return (
                   <div
                     key={index}
                     onClick={() => onClickMerch(index)}
-                    className={merch.selected ? '' : styles.imageHover}
+                    className={merch.selected ? styles.image : styles.imageHover}
                   >
                     <div className={merch.selected ? styles.selected : styles.unselected}>
                       <ImageWithFoster
@@ -182,16 +185,19 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               </div>
             </div>
           </div>
+
           <div
             className={`sm:block hidden sm:w-[640px] sm:h-[640px] ${
-              type === 'physical' ? 'lg:w-[625px] lg:h-[625px]' : 'lg:w-[700px] lg:h-[700px]'
+              type === 'physical' ? 'lg:w-[625px] lg:h-[705px]' : 'lg:w-[700px] lg:h-[700px]'
             } mt-[20px] lg:mt-[75px]`}
           >
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}
                 style={{
-                  background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                  background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
+                  borderRadius: '15px',
+                  overflow: 'hidden',
                 }}
               >
                 <ImageWithFoster
@@ -201,6 +207,24 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 />
               </div>
             </div>
+            {type === 'physical' && merchList.length > 1 && selectedMerch && (
+              <div className="w-full mt-[30px] flex justify-center">
+                <div className="flex gap-[50px]">
+                  <div
+                    className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
+                    onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
+                  >
+                    <LeftBtnIcon />
+                  </div>
+                  <div
+                    className={selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton}
+                    onClick={() => selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)}
+                  >
+                    <RightBtnIcon />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

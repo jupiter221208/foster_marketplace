@@ -17,26 +17,32 @@
 }
 
 .selected {
-  width: 75px;
-  height: 75px;
-  border-radius: 10px;  
-  // border: 2px solid var(--main-icon-color);
+  width: 100%;
+  height: 100%;
   opacity: 100%;
-  overflow: hidden;
 }
 
 .unselected {
+  width: 100%;
+  height: 100%;
+  opacity: 60%;
+}
+
+.image {
   width: 75px;
   height: 75px;
-  opacity: 60%;
-  border-radius: 10px;  
-  // border: 2px solid var(--bg-303030-DDDCDC);
+  min-height: 75px;
   overflow: hidden;
+  border-radius: 12px;  
 }
 
 .imageHover {
+  width: 75px;
+  height: 75px;
+  min-height: 75px;
+  overflow: hidden;
+  border-radius: 12px;  
   &:hover {
-    border-radius: 10px;  
     border: 2px solid var(--main-icon-color);
   }
 }
@@ -90,4 +96,24 @@
   }
   display: flex;
   gap: 15px;
+}
+
+.arrowBtnDisabled {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrowButton {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
