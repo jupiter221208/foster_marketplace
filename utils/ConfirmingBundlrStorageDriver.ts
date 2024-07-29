@@ -33,13 +33,15 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
 
       let retryCount = 5;
       let signature: string | null = null;
-      for (let i = 0; i < retryCount; i++) {
+      outer: for (let i = 0; i < retryCount; i++) {
         let { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
         data.blockhash = blockhash;
         data.lastValidBlockHeight = lastValidBlockHeight;
         let signedTransaction = await currency.wallet.signTransaction(data);
 
-        console.log(`attempting to send transaction: attempt ${i + 1} of ${retryCount}`);
+        console.log(
+          `attempting to send irys funding transaction: attempt ${i + 1} of ${retryCount}`
+        );
         signature = await sendTransactionWithRetry({
           connection,
           transaction: signedTransaction,
@@ -52,7 +54,9 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
           if (i == retryCount - 1)
             console.error(`failed to confirm transaction ${signature}: retry attempts exceeded`);
           else {
-            console.warn(`failed to confirm transaction ${signature}: attempt ${i + 1} of ${retryCount}`);
+            console.warn(
+              `failed to confirm transaction ${signature}: attempt ${i + 1} of ${retryCount}`
+            );
             // if transaction fails then wait for one second before retrying
             await sleep(1000);
           }
@@ -67,7 +71,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
             },
             body: JSON.stringify({ tx_id: signature }),
           });
-          if (response.ok) break;
+          if (response.ok) break outer;
           else {
             console.warn(
               `failed to post fund transaction ${signature} to bundlr: attempt ${i}`,

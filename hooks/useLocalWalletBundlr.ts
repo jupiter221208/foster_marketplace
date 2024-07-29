@@ -72,7 +72,7 @@ export const useLocalWalletBundlr = () => {
         units: 500
       }),
       ComputeBudgetProgram.setComputeUnitPrice({
-        microLamports: 2_000_000
+        microLamports: 1_500_000
       }),
       SystemProgram.transfer({
         fromPubkey: publicKey,
