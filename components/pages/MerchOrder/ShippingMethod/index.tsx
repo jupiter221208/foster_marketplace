@@ -228,8 +228,8 @@ const MerchOrderShippingMethod = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] lg:h-[540px] pt-[25px] pb-[15px]">
-        <div className={styles.selecteCategory}>Shipping Details</div>
+      <div className="w-full lg:h-[540px]">
+        <div className={styles.selecteCategory}>Shipping Method</div>
         <div className="w-full">
           <div className="w-full min-w-[375px] mt-[12px]">
             {shipping && (
@@ -271,8 +271,8 @@ const MerchOrderShippingMethod = props => {
           </div>
         </div>
       </div>
-      <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      {/* <div className={styles.borderLine} /> */}
+      <div className="w-full mt-[20px]">
         <div className="w-full mt-[20px]">
           {isLoading ? (
             <LoadingPrimaryButton fullWidth />

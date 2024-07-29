@@ -25,9 +25,11 @@ import merchAPI from 'apis/store'
 import storeAPI from 'apis/store'
 
 import LoadingButton from 'components/Button/LoadingButton'
+import { useViewport } from 'utils'
 
 const MerchOrderShipping = props => {
   const { productId, type, data, onBack, onNext, onNextOrder, merchList, rawList } = props
+  const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
@@ -225,7 +227,7 @@ const MerchOrderShipping = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full lg:px-[30px] pt-[25px] pb-[15px]">
+      <div className="w-full">
         <div className={styles.selecteCategory}>Shipping Details</div>
 
         <div className="w-full mt-[20px]">
@@ -308,14 +310,14 @@ const MerchOrderShipping = props => {
           </div>
         </div>
       </div>
-      <div className={styles.borderLine} />
-      <div className="w-full lg:px-[30px] mt-[20px]">
+      {/* <div className={styles.borderLine} /> */}
+      <div className="w-full mt-[25px]">
         <div className="w-full mt-[22px]">
           {isLoading ? (
             <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
-              label="Select Shipping"
+              label={viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'}
               type="shipping"
               disabled={!enabled}
               fullWidth

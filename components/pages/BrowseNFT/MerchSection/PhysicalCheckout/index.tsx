@@ -295,7 +295,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
 
   return (
     <section className={styles.container}>
-      <div className="w-full px-[0px] lg:px-[30px] mt-[20px] lg:mt-[30px]">
+      <div className="w-full px-[0px] mt-[20px] lg:mt-[30px]">
         <div className={styles.summary}>Order Summary</div>
         <div className="w-full mt-[20px] lg:mt-[30px] h-[auto] overflow-auto">
           <div className={styles.productDetails}>Production Details</div>
@@ -315,9 +315,8 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
           <div className={styles.productDetails}>Shipping Address</div>
           <div className="mt-[7px]">
             <div className={styles.itemDetails}>{shipping.address}</div>
-            <div className={styles.itemDetails}>{shipping.city + ' ' + shipping.code}</div>
-            <div className={styles.itemDetails}>{shipping.state}</div>
-            <div className={styles.itemDetails}>{shipping.country}</div>
+            <div className={styles.itemDetails}>{shipping.city + ', ' + shipping.state + ' ' + shipping.code}</div>
+            <div className={styles.itemDetails}>{shipping.country === 'US' ? 'USA' : shipping.country}</div>
           </div>
         </div>
 
@@ -460,7 +459,13 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
             // />
             <GradientButton
               disabled={currency.length === 0}
-              label="Use Selected Payment Method"
+              label={
+                currency === 'sol'
+                  ? 'Pay with SOL'
+                  : currency === 'usdc'
+                  ? 'Pay with USDC'
+                  : 'Use Selected Payment Method'
+              }
               fullWidth
               onClick={() => onCheckout()}
             />

@@ -652,6 +652,7 @@ const MainSection = ({
       setEditionType('normal')
       type = 'normal'
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supply])
 

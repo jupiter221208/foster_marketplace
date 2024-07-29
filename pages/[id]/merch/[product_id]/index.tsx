@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 // components
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+import LeftBtnIcon from 'assets/icons/arrow-left-17x13.svg?component'
+import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 
 // json
 
@@ -47,10 +49,10 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
     let list = []
     merchList.map((merch, index) => {
       if (key === index) {
-        list.push({ url: merch.url, selected: true })
-        setSelectedMerch({ url: merch.url, selected: true })
+        list.push({ id: index, url: merch.url, selected: true })
+        setSelectedMerch({ id: index, url: merch.url, selected: true })
       } else {
-        list.push({ url: merch.url, selected: false })
+        list.push({ id: index, url: merch.url, selected: false })
       }
     })
     setMerchList(list)
@@ -61,7 +63,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }
 
   useEffect(() => {
-    if (printData) return
+    if (printData || !publicArtistData) return
 
     StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
       response => {
@@ -71,13 +73,13 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             rawList = []
           if (response.fulfillment_type === 'foster') {
             response.options.addons.map((item, index) => {
-              imageList.push({ url: item.mockup_url, selected: index === 0 })
+              imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
               rawList.push({ url: item.raw_url })
             })
             setType('foster')
           } else {
             response.options.product_images.map((item, index) => {
-              imageList.push({ url: item, selected: index === 0 })
+              imageList.push({ id: index, url: item, selected: index === 0 })
             })
             if (response.master_edition_address === null) setType('physical')
             else setType('')
@@ -126,30 +128,36 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
         </div>
 
         {productDetail ? (
-          <div className="lg:flex hidden w-[130px] flex flex-col gap-[16px] mt-[30px]">
-            {merchList.map((merch, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => onClickMerch(index)}
-                  className={merch.selected ? '' : styles.imageHover}
-                >
-                  <div className={merch.selected ? styles.selected : styles.unselected}>
-                    <ImageWithFoster width={350} height={350} src={merch.url} className="w-full h-full object-cover" />
+          <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
+            {merchList.length > 1 &&
+              merchList.map((merch, index) => {
+                return (
+                  <div
+                    key={index}
+                    onClick={() => onClickMerch(index)}
+                    className={merch.selected ? styles.image : styles.imageHover}
+                  >
+                    <div className={merch.selected ? styles.selected : styles.unselected}>
+                      <ImageWithFoster
+                        width={350}
+                        height={350}
+                        src={merch.url}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
           </div>
         ) : (
           <div className="mt-[30px] lg:block hidden">
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden">
               <div className="skeletonLoader" />
             </div>
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
               <div className="skeletonLoader" />
             </div>
-            <div className="w-[130px] h-[130px] rounded-[10px] overflow-hidden mt-[16px]">
+            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
               <div className="skeletonLoader" />
             </div>
           </div>
@@ -164,7 +172,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 <div
                   className={styles.imageContent}
                   style={{
-                    background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                    background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
                   }}
                 >
                   <ImageWithFoster
@@ -176,12 +184,17 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               </div>
             </div>
           </div>
-          <div className="sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[700px] lg:h-[700px] mt-[20px] lg:mt-[75px]">
+
+          <div
+            className={`sm:block hidden mb-[200px] sm:w-[640px] sm:h-[auto] lg:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+          >
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}
                 style={{
-                  background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                  background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
+                  borderRadius: '15px',
+                  overflow: 'hidden',
                 }}
               >
                 <ImageWithFoster
@@ -191,6 +204,24 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 />
               </div>
             </div>
+            {merchList.length > 1 && selectedMerch && (
+              <div className="w-full mt-[30px] flex justify-center">
+                <div className="flex gap-[50px]">
+                  <div
+                    className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
+                    onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
+                  >
+                    <LeftBtnIcon />
+                  </div>
+                  <div
+                    className={selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton}
+                    onClick={() => selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)}
+                  >
+                    <RightBtnIcon />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -210,19 +241,17 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           ) : (
             merchList.map((merch, index) => {
               return (
-                <div
-                  key={index}
-                  className={merch.selected ? styles.selected : styles.unselected}
-                  onClick={() => onClickMerch(index)}
-                >
-                  <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
+                  <div className={merch.selected ? styles.selected : styles.unselected}>
+                    <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                  </div>
                 </div>
               )
             })
           )}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px]">
+        <div className="w-full 2xl:w-[37%] lg:w-[45%] mb-[50px] mt-[20px] lg:mt-[0px]">
           {currentStep === 1 &&
             (productDetail ? (
               <div className="w-full mt-[0px] lg:mt-[75px]">
@@ -240,7 +269,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               <div>
                 <div className="lg:block hidden mt-[75px]">
                   <div className={styles.skeltonContainer}>
-                    <div className="w-full h-[700px] px-[30px] pt-[20px] pb-[20px] flex flex-col justify-between">
+                    <div className="w-full h-[700px] flex flex-col justify-between">
                       <div className="w-full">
                         <div className="w-full flex justify-between">
                           <div className="w-[200px] h-[35px] rounded-full overflow-hidden">
@@ -251,7 +280,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                           </div>
                         </div>
 
-                        <div className="mt-[20px] flex gap-[20px]">
+                        <div className="mt-[35px] flex gap-[20px]">
                           <div className="w-[150px] h-[35px] rounded-full overflow-hidden">
                             <div className="skeletonLoader" />
                           </div>
@@ -263,21 +292,11 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                           </div>
                         </div>
 
-                        <div className={`mt-[20px] ${styles.divider}`} />
-
-                        <div className="w-full h-[110px] rounded-[10px] overflow-hidden mt-[20px]">
+                        <div className="w-full h-[70px] rounded-[10px] overflow-hidden mt-[58px]">
                           <div className="skeletonLoader" />
                         </div>
 
-                        <div className={`mt-[20px] ${styles.divider}`} />
-
-                        <div className="w-full h-[70px] rounded-[10px] overflow-hidden mt-[20px]">
-                          <div className="skeletonLoader" />
-                        </div>
-
-                        <div className={`mt-[20px] ${styles.divider}`} />
-
-                        <div className="w-[250px] h-[30px] rounded-[10px] overflow-hidden mt-[20px]">
+                        <div className="w-[250px] h-[30px] rounded-[10px] overflow-hidden mt-[58px]">
                           <div className="skeletonLoader" />
                         </div>
 
@@ -285,13 +304,17 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                           <div className="skeletonLoader" />
                         </div>
 
-                        <div className={`mt-[20px] ${styles.divider}`} />
+                        <div className="w-full h-[45px] rounded-[10px] overflow-hidden mt-[10px]">
+                          <div className="skeletonLoader" />
+                        </div>
 
-                        <div className="w-full flex justify-between mt-[20px]">
-                          <div className="w-[200px] h-[30px] rounded-[10px] overflow-hidden">
+                        <div className="w-full flex justify-between mt-[58px]">
+                          <div className="w-[150px] h-[30px] rounded-[10px] overflow-hidden">
                             <div className="skeletonLoader" />
                           </div>
-                          <div className="w-[60px] h-[30px] rounded-[10px] overflow-hidden">
+                        </div>
+                        <div className="w-full flex justify-between mt-[20px]">
+                          <div className="w-[200px] h-[30px] rounded-[10px] overflow-hidden">
                             <div className="skeletonLoader" />
                           </div>
                         </div>
@@ -299,12 +322,6 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                           <div className="w-[150px] h-[30px] rounded-[10px] overflow-hidden">
                             <div className="skeletonLoader" />
                           </div>
-                          <div className="w-[60px] h-[30px] rounded-[10px] overflow-hidden">
-                            <div className="skeletonLoader" />
-                          </div>
-                        </div>
-                        <div className="w-full h-[45px] rounded-[10px] overflow-hidden mt-[20px]">
-                          <div className="skeletonLoader" />
                         </div>
                       </div>
                     </div>
