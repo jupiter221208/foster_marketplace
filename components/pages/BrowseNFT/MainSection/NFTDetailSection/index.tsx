@@ -59,7 +59,7 @@ const NFTDetailSection = props => {
           <div className="w-full flex justify-between items-center mt-[10px]">
             <div className={styles.label}>Token Type</div>
             <div className={styles.value}>
-              {editionType === 'print_le' || 'master_le' ? 'Limited Edition' : 'Open Edition'}
+              {editionType === 'print_le' || editionType === 'master_le' ? 'Limited Edition' : 'Open Edition'}
             </div>
           </div>
 
