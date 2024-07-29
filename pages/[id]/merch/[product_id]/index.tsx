@@ -172,7 +172,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 <div
                   className={styles.imageContent}
                   style={{
-                    background: type === 'physical' ? 'var(--background-main-color)' : 'transparent',
+                    background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
                   }}
                 >
                   <ImageWithFoster
@@ -185,7 +185,9 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             </div>
           </div>
 
-          <div className={`sm:block hidden sm:w-[640px] sm:h-[auto] lg:w-[625px] lg:h-[725px] mt-[20px] lg:mt-[75px]`}>
+          <div
+            className={`sm:block hidden mb-[200px] sm:w-[640px] sm:h-[auto] lg:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+          >
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}
