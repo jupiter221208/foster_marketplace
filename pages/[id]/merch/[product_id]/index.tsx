@@ -196,11 +196,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
             </div>
           </div>
 
-          <div
-            className={`sm:block hidden sm:w-[640px] sm:h-[640px] ${
-              type === 'physical' ? 'lg:w-[625px] lg:h-[705px]' : 'lg:w-[700px] lg:h-[700px]'
-            } mt-[20px] lg:mt-[75px]`}
-          >
+          <div className={`sm:block hidden sm:w-[640px] sm:h-[640px] lg:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}>
             <div className={styles.imageArea}>
               <div
                 className={styles.imageContent}
@@ -217,7 +213,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
                 />
               </div>
             </div>
-            {type === 'physical' && merchList.length > 1 && selectedMerch && (
+            {merchList.length > 1 && selectedMerch && (
               <div className="w-full mt-[30px] flex justify-center">
                 <div className="flex gap-[50px]">
                   <div
@@ -264,7 +260,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           )}
         </div>
 
-        <div className="w-full 2xl:w-[42%] lg:w-[45%] mb-[50px] mt-[20px] lg:mt-[0px]">
+        <div className="w-full 2xl:w-[37%] lg:w-[45%] mb-[50px] mt-[20px] lg:mt-[0px]">
           {currentStep === 1 &&
             (productDetail ? (
               <div className="w-full mt-[0px] lg:mt-[75px]">

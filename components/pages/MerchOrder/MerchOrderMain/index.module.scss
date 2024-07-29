@@ -56,6 +56,7 @@
 .creator {
   font-family: 'Muli-Light';
   font-size: 14px;
+  font-weight: 100;
   line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
   margin-bottom: 7px;
@@ -66,7 +67,7 @@
   background: var(--background-main-color);
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 20px;
-  padding: 5px 13px;
+  padding: 5px 18px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,8 +81,36 @@
   cursor: pointer;
 }
 
+.supplyRound {
+  height: 40px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border-radius: 20px;
+  padding: 5px 19px;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  // min-width: 50px;
+  cursor: pointer;
+}
+
 .desc {
   font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  cursor: pointer;
+}
+
+.selectSize {
+  font-family: 'Muli-Regular';
   font-size: 16px;
   font-weight: 100;
   line-height: 20px;
@@ -224,12 +253,15 @@
 
 .mintQty {
   width: 100%;
+  @media (min-width: 1024px) {
+    width: 180px;
+  }
   height: 45px;
   display: flex;
   align-items: center;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   background: var(--background-main-color);
-  border-radius: 10px;
+  border-radius: 23px;
   justify-content: space-between;
 }
 

@@ -29,6 +29,7 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import SizeChartModal from 'components/Modal/SizeChartModal'
 import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
 import Link from 'next/link'
+import GradientButton from 'components/Button/GradientButton'
 
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
@@ -262,7 +263,7 @@ const MerchOrderMain = props => {
             </div>
           </div>
 
-          <div className="mt-[35px] flex flex-wrap gap-[15px]">
+          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px]">
             <div>
               <div className={styles.creator}>Seller</div>
               <Link href={`/${userDetail.username}`} passHref>
@@ -281,9 +282,12 @@ const MerchOrderMain = props => {
             </div>
             <div>
               <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
-
-              <div className={styles.creatorRound}>
-                {productDetail.supply ? `3/3 left` : `${productDetail.current_supply} sold`}
+              <div>
+                <div className={styles.supplyRound}>
+                  {productDetail.supply
+                    ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                    : `${productDetail.current_supply} sold`}
+                </div>
               </div>
             </div>
           </div>
@@ -291,15 +295,15 @@ const MerchOrderMain = props => {
           {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
 
           {type === 'foster' && (
-            <div className="lg:mt-[58px] mt-[20px]">
+            <div className="lg:mt-[35px] mt-[30px]">
               <div className="w-full flex justify-between items-center">
-                <div className={styles.desc}>Select Size</div>
+                <div className={styles.selectSize}>Select Size</div>
                 <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
                   Size Chart »
                 </div>
               </div>
               <div className="mt-[15px]">
-                <div className="w-full flex flex-wrap gap-[9px]">
+                <div className="w-full flex flex-wrap gap-[10px]">
                   {sizeList.map((item, index) => (
                     <div
                       key={index}
@@ -318,10 +322,10 @@ const MerchOrderMain = props => {
         </div>
 
         <div className="w-full">
-          <div className="lg:mt-[58px] mt-[20px]">
+          <div className="lg:mt-[35px] mt-[30px]">
             <div className={`w-full ${timeLeft != null ? 'flex justify-between' : ''}`}>
-              <div className="flex gap-[6px] items-center">
-                <div className={styles.endsIn}>{getStartStatus()}</div>
+              <div className="flex flex-col gap-[8px]">
+                <div className={styles.selectSize}>{getStartStatus()}</div>
                 <div className={styles.bidCountContainer}>
                   {timeLeft && timeLeft['days'] !== '00' && (
                     <div>
@@ -359,11 +363,11 @@ const MerchOrderMain = props => {
                     {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
                   </div>
                 </div>
-                {/* <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div> */}
+                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
               </div>
             </div>
-            {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
-              <div className="w-full mt-[10px]">
+            <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
+              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                 <div className={styles.mintQty}>
                   <div
                     onClick={() => {
@@ -394,8 +398,74 @@ const MerchOrderMain = props => {
                     <div className={styles.minus}>+</div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                <div className="flex-1">
+                  {buyNowLoading ? (
+                    <LoadingPrimaryButton fullWidth />
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={45}
+                      borderRadius={23}
+                      label="Buy Now"
+                      disabled={getStartStatus() === 'Starts in' || isExpired}
+                      onClick={() => onClickBuyNow()}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="w-full block lg:hidden mt-[15px] gap-[30px]">
+              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
+                <div className={styles.mintQty}>
+                  <div
+                    onClick={() => {
+                      if (mintQty > 1) {
+                        setMintQty(mintQty - 1)
+                        setQuantity(mintQty - 1)
+                      }
+                    }}
+                  >
+                    <div className={styles.minus}>-</div>
+                  </div>
+                  <div className={styles.mintLabel}>
+                    Qty&nbsp;<div className={styles.mintValue}>{mintQty}</div>
+                  </div>
+                  <div
+                    onClick={() => {
+                      if (productDetail.supply) {
+                        if (mintQty < productDetail.supply - productDetail.current_supply) {
+                          setMintQty(mintQty + 1)
+                          setQuantity(mintQty + 1)
+                        }
+                      } else {
+                        setMintQty(mintQty + 1)
+                        setQuantity(mintQty + 1)
+                      }
+                    }}
+                  >
+                    <div className={styles.minus}>+</div>
+                  </div>
+                </div>
+              )}
+              {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
+                <div className="mt-[15px]">
+                  {buyNowLoading ? (
+                    <LoadingPrimaryButton fullWidth />
+                  ) : (
+                    <GradientButton
+                      fullWidth
+                      height={45}
+                      borderRadius={23}
+                      label="Buy Now"
+                      disabled={getStartStatus() === 'Starts in' || isExpired}
+                      onClick={() => onClickBuyNow()}
+                    />
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           {/* {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
             <div className={`mt-[20px] ${styles.divider}`} />
@@ -505,24 +575,9 @@ const MerchOrderMain = props => {
               </div>
             </div>
           )} */}
-          {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
-            <div className="w-full mt-[20px]">
-              {buyNowLoading ? (
-                <LoadingPrimaryButton fullWidth />
-              ) : (
-                <PrimaryButton
-                  fullWidth
-                  type="buy-now"
-                  label="Buy Now"
-                  disabled={getStartStatus() === 'Starts in' || isExpired}
-                  onClick={() => onClickBuyNow()}
-                />
-              )}
-            </div>
-          )}
 
           <div
-            className="w-full flex justify-between items-center lg:mt-[58px] mt-[30px]"
+            className="w-full flex justify-between items-center lg:mt-[35px] mt-[30px]"
             onClick={() => setShowDescription(!showDescription)}
           >
             <div className={styles.desc}>Description</div>
