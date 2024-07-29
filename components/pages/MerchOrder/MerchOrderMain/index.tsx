@@ -290,7 +290,7 @@ const MerchOrderMain = props => {
           {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
 
           {type === 'foster' && (
-            <div className="mt-[58px]">
+            <div className="lg:mt-[58px] mt-[20px]">
               <div className="w-full flex justify-between items-center">
                 <div className={styles.desc}>Select Size</div>
                 <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
@@ -317,7 +317,7 @@ const MerchOrderMain = props => {
         </div>
 
         <div className="w-full">
-          <div className="mt-[58px]">
+          <div className="lg:mt-[58px] mt-[20px]">
             <div className={`w-full ${timeLeft != null ? 'flex justify-between' : ''}`}>
               <div className="flex gap-[6px] items-center">
                 <div className={styles.endsIn}>{getStartStatus()}</div>
@@ -521,7 +521,7 @@ const MerchOrderMain = props => {
           )}
 
           <div
-            className="w-full flex justify-between items-center mt-[58px]"
+            className="w-full flex justify-between items-center lg:mt-[58px] mt-[30px]"
             onClick={() => setShowDescription(!showDescription)}
           >
             <div className={styles.desc}>Description</div>
