@@ -40,11 +40,20 @@ export interface PhysicalCheckoutProps {
   orderType: string
   total?: number
   paymentId?: number
+  helioEnabled: any
   onBack: () => any
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, paymentId = null }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({
+  orderData,
+  orderType,
+  onBack,
+  onNext,
+  total,
+  paymentId = null,
+  helioEnabled,
+}: PhysicalCheckoutProps) => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -483,10 +492,11 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
             />
           )}
 
-          <div className={styles.helioContainer}>
-            <HelioCheckout config={helioConfig} />
-          </div>
-
+          {helioEnabled && (
+            <div className={styles.helioContainer}>
+              <HelioCheckout config={helioConfig} />
+            </div>
+          )}
           {/* <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth /> */}
         </div>
       </div>
