@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 import { getOrder } from 'apis/merch'
 import StoreAPI from 'apis/store'
 import { findElement } from 'utils/helpers'
@@ -12,11 +11,12 @@ import styles from './index.module.scss'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
-import { error } from 'console'
+import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+import { useViewport } from 'utils'
 
 const OrderSection = props => {
   const router = useRouter()
-  const dispatch = useDispatch()
+  const viewport = useViewport()
   const { id } = router.query
 
   const [orderData, setOrderData] = useState<any | null>(null)
@@ -85,48 +85,62 @@ const OrderSection = props => {
   }, [orderData])
 
   return (
-    <div className="g-container">
-      <div className={styles.container}>
-        <div className="w-full flex lg:flex-row flex-col lg:gap-[50px]">
-          <div className="w-full">
-            {merchType === 'apparel' ? (
-              <div className={styles.blurBackground}>
-                <div className="absolute w-full h-full flex items-center justify-center">
-                  <ImageWithFoster src={previewUrl} width={800} className="w-[80%] lg:w-auto h-auto object-cover" />
-                </div>
+    <div className="w-full">
+      <div className="w-full flex lg:flex-row flex-col">
+        <div
+          className={`w-[58%] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
+          }`}
+        >
+          {merchType === 'apparel' ? (
+            <div className={styles.blurBackground}>
+              <div className="absolute w-full h-full flex items-center justify-center">
+                <ImageWithFoster src={previewUrl} width={800} className="w-[80%] lg:w-auto h-auto object-cover" />
               </div>
-            ) : merchType === 'wallart' ? (
-              <div className={styles.blurBackground}>
-                <div className="w-full h-full">
-                  <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-auto h-full object-cover" />
-                </div>
+            </div>
+          ) : merchType === 'wallart' ? (
+            <div className={styles.blurBackground}>
+              <div className="w-full h-full">
+                <ImageWithFoster src={previewUrl} className="w-[80%] lg:w-auto h-full object-cover" />
               </div>
-            ) : merchType === 'foster' || merchType === 'user' ? (
-              <div className="w-full lg:flex lg:gap-[50px] lg:h-[700px]">
-                <div className="w-[130px] lg:flex hidden flex-col gap-[16px]">
+            </div>
+          ) : merchType === 'foster' || merchType === 'user' ? (
+            <div className="w-full lg:flex lg:h-[705px]">
+              <div className="hidden lg:block mt-[70px] w-[130px]">
+                <div className="lg:block hidden">
+                  <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
+                    <ArrowLeftIcon />
+                    Back to store
+                  </div>
+                </div>
+                <div className="w-[130x] mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
                   {merchList.map((merch, index) => {
                     return (
                       <div
                         key={index}
-                        className={merch.selected ? styles.selected : styles.unselected}
                         onClick={() => onClickMerch(index)}
+                        className={merch.selected ? styles.image : styles.imageHover}
                       >
-                        <ImageWithFoster width={130} src={merch.url} />
+                        <div className={merch.selected ? styles.selected : styles.unselected}>
+                          <ImageWithFoster width={130} src={merch.url} />
+                        </div>
                       </div>
                     )
                   })}
                 </div>
-                {selectedMerch && (
-                  <div className="hidden lg:flex-1 h-full lg:max-h-[700px] lg:flex items-center justify-center mt-[30px]">
-                    <ImageWithFoster
-                      src={selectedMerch.url}
-                      width={700}
-                      className="w-[80%] lg:w-auto h-auto object-cover"
-                    />
-                  </div>
-                )}
+              </div>
+              {selectedMerch && (
+                <div className="hidden lg:flex-1 h-full lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:max-h-[705px] lg:flex items-center justify-center mt-[70px]">
+                  <ImageWithFoster
+                    src={selectedMerch.url}
+                    width={700}
+                    className="w-[80%] lg:w-auto h-auto object-cover"
+                  />
+                </div>
+              )}
 
-                <div className={`lg:hidden block h-auto w-full mb-[20px] mt-[20px]`}>
+              <div className={`lg:hidden block h-auto w-full flex justify-center mb-[20px] mt-[20px]`}>
+                <div className="max-w-[400px]">
                   <div className={styles.mobileImageArea}>
                     <div className={styles.imageArea}>
                       <div className={styles.imageContent}>
@@ -139,38 +153,40 @@ const OrderSection = props => {
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className={styles.imageSlider}>
-                  {merchList.map((merch, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={merch.selected ? styles.selected : styles.unselected}
-                        onClick={() => onClickMerch(index)}
-                      >
+              <div className={styles.imageSlider}>
+                {merchList.map((merch, index) => {
+                  return (
+                    <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
+                      <div className={merch.selected ? styles.selected : styles.unselected}>
                         <ImageWithFoster width={130} src={merch.url} />
                       </div>
-                    )
-                  })}
-                </div>
+                    </div>
+                  )
+                })}
               </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
-          <div className="z-10">
-            <div className={styles.contentContainer}>
-              {orderData && (
-                <PhysicalCheckout
-                  orderData={orderData}
-                  orderType={orderType}
-                  paymentId={paymentId}
-                  onBack={() => {
-                    router.back()
-                  }}
-                />
-              )}
             </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+        <div
+          className={`w-full lg:max-w-[42%] lg:max-w-[42%] z-10 ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
+          } lg:flex lg:justify-end ${styles.rightBG}`}
+        >
+          <div className="lg:max-w-[545px] w-full mb-[50px] mt-[20px] lg:mt-[50px] lg:ml-[30px]">
+            {orderData && (
+              <PhysicalCheckout
+                orderData={orderData}
+                orderType={orderType}
+                paymentId={paymentId}
+                onBack={() => {
+                  router.back()
+                }}
+              />
+            )}
           </div>
         </div>
       </div>
