@@ -14,7 +14,7 @@ import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch } from 'react-redux'
@@ -192,7 +192,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
               </div>
 
               <div
-                className={`lg:block hidden lg:mb-[200px] sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+                className={`lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
               >
                 <div className={styles.imageArea}>
                   <div
@@ -439,7 +439,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
 export default MerchOrderPage
 
 MerchOrderPage.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <SecondaryLayout>{page}</SecondaryLayout>
 }
 
 MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {

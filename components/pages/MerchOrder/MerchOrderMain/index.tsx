@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // next component
+import axios from 'axios'
 
 //components
 import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
@@ -14,6 +15,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
+import DownloadIcon from 'assets/icons/download-icon.svg?component'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
@@ -56,7 +58,7 @@ const MerchOrderMain = props => {
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
-  const [showDescription, setShowDescription] = useState(false)
+  const [showDescription, setShowDescription] = useState(true)
   const [showEmbroidery, setShowEmbroidery] = useState(false)
   const [showNotice, setShowNotice] = useState(false)
 
@@ -255,7 +257,43 @@ const MerchOrderMain = props => {
 
     if (productDetail.sale_end_at === null) return ''
 
-    return 'Ends in'
+    return 'Time Remaining'
+  }
+
+  const downloadFiles = async () => {
+    let urls = []
+    if (productDetail.fulfillment_type === 'foster') {
+      productDetail.options.addons.map((item, index) => {
+        urls.push(item.mockup_url)
+      })
+    } else {
+      productDetail.options.product_images.map((item, index) => {
+        urls.push(item)
+      })
+    }
+    for (let index = 0; index < urls.length; index++) {
+      const data = {
+        url: urls[index],
+      }
+      let response = await fetch('/api/download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+
+      // Create an anchor tag to perform the download
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.setAttribute('download', `MerchFile-${index}.png`) // Set the default filename
+      document.body.appendChild(link)
+      link.click()
+      link.parentNode.removeChild(link)
+      window.URL.revokeObjectURL(downloadUrl)
+    }
   }
 
   return (
@@ -309,41 +347,43 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            <div>
-              <div className={styles.creator}>Time Remaining</div>
+            {timeLeft && (
               <div>
-                <div className={styles.supplyRound}>
-                  <div className={styles.bidCountContainer}>
-                    {timeLeft && timeLeft['days'] !== '00' && (
-                      <div>
+                <div className={styles.creator}>{getStartStatus()}</div>
+                <div>
+                  <div className={styles.supplyRound}>
+                    <div className={styles.bidCountContainer}>
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div>
+                          <div className={styles.endTime}>
+                            {timeLeft && timeLeft['days']}
+                            {timeLeft && <div className={styles.bidDesc}>d</div>}
+                          </div>
+                        </div>
+                      )}
+                      <div className={styles.endTimeContainer}>
                         <div className={styles.endTime}>
-                          {timeLeft && timeLeft['days']}
-                          {timeLeft && <div className={styles.bidDesc}>d</div>}
+                          {timeLeft && timeLeft['hours']}
+                          {timeLeft && <div className={styles.bidDesc}>h</div>}
                         </div>
                       </div>
-                    )}
-                    <div className={styles.endTimeContainer}>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['hours']}
-                        {timeLeft && <div className={styles.bidDesc}>h</div>}
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['minutes']}
+                          {timeLeft && <div className={styles.bidDesc}>m</div>}
+                        </div>
                       </div>
-                    </div>
-                    <div className={styles.endTimeContainer}>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['minutes']}
-                        {timeLeft && <div className={styles.bidDesc}>m</div>}
-                      </div>
-                    </div>
-                    <div className={styles.endTimeContainer}>
-                      <div className={styles.endTime}>
-                        {timeLeft && timeLeft['seconds']}
-                        {timeLeft && <div className={styles.bidDesc}>s</div>}
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['seconds']}
+                          {timeLeft && <div className={styles.bidDesc}>s</div>}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
@@ -702,6 +742,14 @@ const MerchOrderMain = props => {
             </div>
           )}
           <div className={`mt-[15px] ${styles.divider}`} />
+
+          {/* Download Mockups */}
+          <div className="w-full flex justify-end mt-[35px]">
+            <div className={styles.mockups} onClick={() => downloadFiles()}>
+              <DownloadIcon />
+              <div>Download Mockups</div>
+            </div>
+          </div>
         </div>
       </div>
 
