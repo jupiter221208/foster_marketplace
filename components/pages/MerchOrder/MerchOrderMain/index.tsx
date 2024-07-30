@@ -262,7 +262,7 @@ const MerchOrderMain = props => {
     <div className={styles.container}>
       <div className="w-full h-auto">
         <div className="w-full">
-          <div className="w-full flex justify-between gap-[35px]">
+          <div className="w-full flex justify-between gap-[35px] items-start">
             <div className={styles.productName}>{productDetail?.name}</div>
 
             <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
@@ -273,6 +273,15 @@ const MerchOrderMain = props => {
             </div>
           </div>
 
+          <div className="flex gap-[8px] mt-[10px]">
+            <div className="flex gap-[6px] items-center mb-[2px]">
+              <SolanaLogoIcon className="mt-[4px]" />
+              <div className={styles.price}>
+                {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+              </div>
+            </div>
+            <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
+          </div>
           <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[30px]">
             <div>
               <div className={styles.creator}>Seller</div>
@@ -297,6 +306,41 @@ const MerchOrderMain = props => {
                   {productDetail.supply
                     ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
                     : `${productDetail.current_supply} sold`}
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className={styles.creator}>Time Remaining</div>
+              <div>
+                <div className={styles.supplyRound}>
+                  <div className={styles.bidCountContainer}>
+                    {timeLeft && timeLeft['days'] !== '00' && (
+                      <div>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['days']}
+                          {timeLeft && <div className={styles.bidDesc}>d</div>}
+                        </div>
+                      </div>
+                    )}
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['hours']}
+                        {timeLeft && <div className={styles.bidDesc}>h</div>}
+                      </div>
+                    </div>
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['minutes']}
+                        {timeLeft && <div className={styles.bidDesc}>m</div>}
+                      </div>
+                    </div>
+                    <div className={styles.endTimeContainer}>
+                      <div className={styles.endTime}>
+                        {timeLeft && timeLeft['seconds']}
+                        {timeLeft && <div className={styles.bidDesc}>s</div>}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -333,7 +377,7 @@ const MerchOrderMain = props => {
 
         <div className="w-full">
           <div className="lg:mt-[35px] mt-[30px]">
-            <div className="w-full flex justify-between">
+            {/* <div className="w-full flex justify-between">
               <div className="flex flex-col gap-[8px]">
                 <div className={styles.selectSize}>{getStartStatus()}</div>
                 <div className={styles.bidCountContainer}>
@@ -365,17 +409,7 @@ const MerchOrderMain = props => {
                   </div>
                 </div>
               </div>
-
-              <div>
-                <div className="flex gap-[6px] items-center mb-[2px]">
-                  <SolanaLogoIcon className="mt-[4px]" />
-                  <div className={styles.price}>
-                    {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
-                  </div>
-                </div>
-                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
-              </div>
-            </div>
+            </div> */}
             <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
               {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                 <div className={styles.mintQty}>

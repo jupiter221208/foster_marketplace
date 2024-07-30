@@ -14,7 +14,7 @@
 .shareIcon {
   display: flex;
   gap: 9px;
-  height: 35px;
+  height: 20px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -42,8 +42,8 @@
 
 .productName {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 31px;
+  font-size: 26px;
+  line-height: 32px;
   color: var(--text-gray-200-color);
 }
 
@@ -54,7 +54,7 @@
 }
 
 .creator {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-ExtraLight';
   font-size: 14px;
   font-weight: 100;
   line-height: 18px;
@@ -277,11 +277,9 @@
 
 .priceUS {
   font-family: 'Muli-Light';
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 100;
-  line-height: 20px;
-  margin-top: 7px;
-  text-align: end;
+  line-height: 22px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useViewport } from 'utils'
 
 // next component
 
@@ -30,7 +31,7 @@ interface MerchOrderPageProps {
 const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
-
+  const viewport = useViewport()
   const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
@@ -118,113 +119,128 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   }, [merchQuantity])
 
   return (
-    <div className="g-container flex">
-      <div className="mt-[75px]">
-        <div className="lg:block hidden">
-          <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
-            <ArrowLeftIcon />
-            Back to store
-          </div>
-        </div>
+    <div className="w-full block lg:flex">
+      <div
+        className={`w-full lg:max-w-[58%] lg:min-w-[58%] ${
+          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
+        }`}
+      >
+        <div className="w-full flex">
+          <div className="hidden lg:block mt-[75px] min-w-[130px]">
+            <div className="lg:block hidden">
+              <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
+                <ArrowLeftIcon />
+                Back to store
+              </div>
+            </div>
 
-        {productDetail ? (
-          <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
-            {merchList.length > 1 &&
-              merchList.map((merch, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => onClickMerch(index)}
-                    className={merch.selected ? styles.image : styles.imageHover}
-                  >
-                    <div className={merch.selected ? styles.selected : styles.unselected}>
-                      <ImageWithFoster
-                        width={350}
-                        height={350}
-                        src={merch.url}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                )
-              })}
-          </div>
-        ) : (
-          <div className="mt-[30px] lg:block hidden">
-            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden">
-              <div className="skeletonLoader" />
-            </div>
-            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
-              <div className="skeletonLoader" />
-            </div>
-            <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
-              <div className="skeletonLoader" />
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="w-full lg:flex-1 flex flex-wrap justify-between">
-        <div className="2xl:w-[58%] lg:w-[55%] w-full flex justify-center lg:px-[20px]">
-          <div className={`sm:hidden block h-auto w-full mb-[20px] mt-[${type === 'foster' ? 20 : 0}px]`}>
-            <div className={styles.mobileImageArea}>
-              <div className={styles.imageArea}>
-                <div
-                  className={styles.imageContent}
-                  style={{
-                    background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
-                  }}
-                >
-                  <ImageWithFoster
-                    width={700}
-                    src={selectedMerch ? selectedMerch.url : ''}
-                    className="w-full h-full object-contain"
-                  />
+            {productDetail ? (
+              <div className="lg:flex hidden w-[75px] h-[75px] flex flex-col gap-[11px] mt-[30px]">
+                {merchList.length > 1 &&
+                  merchList.map((merch, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => onClickMerch(index)}
+                        className={merch.selected ? styles.image : styles.imageHover}
+                      >
+                        <div className={merch.selected ? styles.selected : styles.unselected}>
+                          <ImageWithFoster
+                            width={350}
+                            height={350}
+                            src={merch.url}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    )
+                  })}
+              </div>
+            ) : (
+              <div className="mt-[30px] lg:block hidden">
+                <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden">
+                  <div className="skeletonLoader" />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`sm:block hidden mb-[200px] sm:w-[640px] sm:h-[auto] lg:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
-          >
-            <div className={styles.imageArea}>
-              <div
-                className={styles.imageContent}
-                style={{
-                  background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
-                  borderRadius: '15px',
-                  overflow: 'hidden',
-                }}
-              >
-                <ImageWithFoster
-                  width={700}
-                  src={selectedMerch ? selectedMerch.url : ''}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </div>
-            {merchList.length > 1 && selectedMerch && (
-              <div className="w-full mt-[30px] flex justify-center">
-                <div className="flex gap-[50px]">
-                  <div
-                    className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
-                    onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
-                  >
-                    <LeftBtnIcon />
-                  </div>
-                  <div
-                    className={selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton}
-                    onClick={() => selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)}
-                  >
-                    <RightBtnIcon />
-                  </div>
+                <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
+                  <div className="skeletonLoader" />
+                </div>
+                <div className="w-[75px] h-[75px] rounded-[10px] overflow-hidden mt-[11px]">
+                  <div className="skeletonLoader" />
                 </div>
               </div>
             )}
           </div>
-        </div>
+          <div className="flex-1 flex justify-center">
+            <div className="w-full flex justify-center max-w-[400px] lg:max-w-[625px]">
+              <div className={`lg:hidden block h-auto w-full mb-[20px] mt-[${type === 'foster' ? 20 : 0}px]`}>
+                <div className={styles.mobileImageArea}>
+                  <div className={styles.imageArea}>
+                    <div
+                      className={styles.imageContent}
+                      style={{
+                        background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
+                      }}
+                    >
+                      <ImageWithFoster
+                        width={700}
+                        src={selectedMerch ? selectedMerch.url : ''}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+              <div
+                className={`lg:block hidden lg:mb-[200px] sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]`}
+              >
+                <div className={styles.imageArea}>
+                  <div
+                    className={styles.imageContent}
+                    style={{
+                      background: type === 'physical' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
+                      borderRadius: '15px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <ImageWithFoster
+                      width={700}
+                      src={selectedMerch ? selectedMerch.url : ''}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                {merchList.length > 1 && selectedMerch && (
+                  <div className="w-full mt-[30px] flex justify-center">
+                    <div className="flex gap-[50px]">
+                      <div
+                        className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
+                        onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
+                      >
+                        <LeftBtnIcon />
+                      </div>
+                      <div
+                        className={
+                          selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton
+                        }
+                        onClick={() => selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)}
+                      >
+                        <RightBtnIcon />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className={`w-full lg:max-w-[42%] lg:max-w-[42%] ${
+          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
+        } lg:flex lg:justify-end ${styles.rightBG}`}
+      >
         <div className={styles.imageSlider}>
           {productDetail === null ? (
             <div className="w-full flex gap-[15px]">
@@ -251,7 +267,7 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
           )}
         </div>
 
-        <div className="w-full 2xl:w-[37%] lg:w-[45%] mb-[50px] mt-[20px] lg:mt-[0px]">
+        <div className="lg:max-w-[545px] w-full mb-[50px] mt-[20px] lg:mt-[0px] lg:ml-[30px]">
           {currentStep === 1 &&
             (productDetail ? (
               <div className="w-full mt-[0px] lg:mt-[75px]">
