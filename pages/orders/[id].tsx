@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 
 // component
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
 import LeftBtnIcon from 'assets/icons/arrow-left-17x13.svg?component'
@@ -24,7 +24,6 @@ const OrderSection = props => {
 
   const [orderData, setOrderData] = useState<any | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
-  const [coverUrl, setCoverUrl] = useState('')
   const [merchType, setMerchType] = useState('')
   const [orderType, setOrderType] = useState('v1')
   const [merchList, setMerchList] = useState([])
@@ -76,7 +75,6 @@ const OrderSection = props => {
       setMerchType(type)
       if (type === 'apparel' || type === 'wallart') {
         setPreviewUrl(itemData.imageUrl)
-        setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
       } else {
         let list = []
         let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
@@ -109,7 +107,7 @@ const OrderSection = props => {
             </div>
           ) : merchType === 'foster' || merchType === 'user' ? (
             <div className="w-full lg:flex lg:h-[705px]">
-              <div className="hidden lg:block mt-[70px] w-[130px]">
+              <div className="hidden lg:block mt-[70px] w-[140px]">
                 <div className="lg:block hidden">
                   <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
                     <ArrowLeftIcon />
@@ -225,5 +223,5 @@ const OrderSection = props => {
 export default OrderSection
 
 OrderSection.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <SecondaryLayout>{page}</SecondaryLayout>
 }

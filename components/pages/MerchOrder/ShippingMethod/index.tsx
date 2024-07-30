@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react'
 
 //components
 import Radio from 'components/Radio/SwipRadio'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
 import PrimaryButton from 'components/Button/PrimaryButton'
+import LoadingButton from 'components/Button/LoadingButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 // images
@@ -275,7 +275,7 @@ const MerchOrderShippingMethod = props => {
       <div className="w-full mt-[20px]">
         <div className="w-full mt-[20px]">
           {isLoading ? (
-            <LoadingPrimaryButton fullWidth />
+            <LoadingButton fullWidth />
           ) : (
             <PrimaryButton disabled={!total} label="Checkout" type="buy-now" fullWidth onClick={() => onCheckout()} />
           )}
