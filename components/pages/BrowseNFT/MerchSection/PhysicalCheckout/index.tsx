@@ -445,8 +445,8 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
       <div className={styles.bottomSection}>
         <div className="w-full flex justify-between mb-[20px] px-[5px]">
           <div>
-          <div className={styles.orderTotal}>Total</div>
-          <div className={styles.orderDesc}>Including taxes and shipping</div>
+            <div className={styles.orderTotal}>Total</div>
+            <div className={styles.orderDesc}>Including taxes and shipping</div>
           </div>
           <div className="">
             {/* <div className={styles.costDivider} /> */}
@@ -478,6 +478,7 @@ const PhysicalCheckout = ({ orderData, orderType, onBack, onNext, total, payment
                   : 'Use Selected Payment Method'
               }
               fullWidth
+              height={50}
               onClick={() => onCheckout()}
             />
           )}
