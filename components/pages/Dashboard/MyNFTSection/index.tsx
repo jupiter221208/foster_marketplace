@@ -116,6 +116,7 @@ const MyNFTSection = props => {
   }
 
   const handleListEdition = item => {
+    if (item.supply?.max === 0) return
     setSelectedData(item)
     setShowListEditionModal(true)
   }

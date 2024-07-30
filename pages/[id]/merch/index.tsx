@@ -43,7 +43,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [openShareModal, setOpenShareModal] = useState(false)
   const [merchMenu, setMerchMenu] = useState(ShopList[0])
-  console.log(publicKey?.toBase58() === artistInfo?.wallet_id)
+
   return (
     <div className="w-full pb-[60px]">
       <div className="w-full h-[187px] sm:h-[350px] relative">

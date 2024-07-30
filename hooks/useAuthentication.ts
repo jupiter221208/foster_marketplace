@@ -50,9 +50,11 @@ export function useAuthentication(): UseAuthenticationReturn {
     async (force: boolean = false): Promise<User | null> => {
       if (!connected) return null
       else if (isCurrentTokenValid() && fetchUserPromise && !force) return fetchUserPromise
-
+      
       let signature = await getLoginMessageSignature(publicKey)
       if (!signature) return null
+      
+      if (fetchUserPromise) return
 
       fetchUserPromise = authAPI
         .login({
@@ -77,13 +79,16 @@ export function useAuthentication(): UseAuthenticationReturn {
 
       return fetchUserPromise
     },
-    [connected, fetchUserPromise, publicKey]
+    [publicKey]
   )
 
   useEffect(() => {
-    if (!connected || !publicKey) return
+    if (!connected || !publicKey) {
+      fetchUserPromise = null
+      return
+    }
     refreshToken().then(setUser)
-  }, [connected, publicKey, refreshToken])
+  }, [publicKey, refreshToken])
 
   return { isCurrentTokenValid, refreshToken, profileInfo: userInfo,  }
 }
