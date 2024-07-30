@@ -116,7 +116,18 @@ const MyNFTSection = props => {
   }
 
   const handleListEdition = item => {
-    if (item.supply?.max === 0) return
+    if (item.supply?.max === 0) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Invalid NFT',
+          description: 'This nft should be Edition instead of Single NFT.',
+          type: 'failure',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
     setSelectedData(item)
     setShowListEditionModal(true)
   }
