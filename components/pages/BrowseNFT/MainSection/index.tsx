@@ -1550,6 +1550,7 @@ const MainSection = ({
                           <MintEditionCard
                             price={price}
                             maxSupply={editionDetail.maxSupply}
+                            currentSupply={editionDetail.supply}
                             buyLimit={nftInfo?.master_edition?.buyLimit}
                             endTime={nftInfo?.master_edition?.endTime}
                             startTime={nftInfo?.master_edition?.startTime}

@@ -16,6 +16,7 @@ const MintEditionCard = props => {
   const {
     price,
     maxSupply,
+    currentSupply,
     buyLimit,
     endTime,
     startTime,
@@ -157,7 +158,7 @@ const MintEditionCard = props => {
                   <div
                     onClick={() => {
                       if (maxSupply !== null) {
-                        if (mintQty + 1 > maxSupply) return
+                        if (mintQty + 1 > maxSupply - currentSupply) return
                       }
                       if (buyLimit !== null && buyLimit > 0) {
                         if (mintQty + 1 > parseInt(buyLimit)) {
