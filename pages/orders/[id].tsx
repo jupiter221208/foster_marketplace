@@ -208,6 +208,7 @@ const OrderSection = props => {
               <PhysicalCheckout
                 orderData={orderData}
                 orderType={orderType}
+                helioEnabled={true}
                 paymentId={paymentId}
                 onBack={() => {
                   router.back()

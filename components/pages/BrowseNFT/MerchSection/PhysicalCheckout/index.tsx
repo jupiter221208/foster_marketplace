@@ -497,7 +497,7 @@ const PhysicalCheckout = ({
               <HelioCheckout config={helioConfig} />
             </div>
           )}
-          {/* <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth /> */}
+          {!helioEnabled && <SecondaryButton label="Back" type="back" onClick={onBack} fullWidth />}
         </div>
       </div>
       <Alert
