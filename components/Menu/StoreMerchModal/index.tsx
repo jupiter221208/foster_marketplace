@@ -3,8 +3,10 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // resources
+import { getPriceValue } from 'utils/strings'
 
 // styles
 import styles from './index.module.scss'
@@ -13,6 +15,7 @@ import { convertMerchDescription, getDateTimeLabel, getTimeDifference } from 'ut
 
 const StoreMerchModal = props => {
   const { open, close, item, onBuyNow, showTimer, timeLeft, startDate } = props
+  const { solToUsdRate } = useSolToUsdRate()
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -60,7 +63,15 @@ const StoreMerchModal = props => {
                 <div className="w-full px-[31px] mt-[15px] mb-[40px]">
                   <div className="w-full flex justify-between">
                     <div className={styles.label}>Price</div>
-                    <div className={styles.time}>${item.selling_price / 100}</div>
+                    <div className={styles.time}>
+                      $
+                      {(
+                        item.selling_price / 100 +
+                        (item.listed_master_edition
+                          ? solToUsdRate * parseFloat(getPriceValue(Number(item.listed_master_edition.price)))
+                          : 0)
+                      ).toFixed(2)}
+                    </div>
                   </div>
                   {(item.master_edition_address === null || item.master_edition_address?.length > 0) && (
                     <div className="w-full flex justify-between mt-[9px]">
