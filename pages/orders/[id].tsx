@@ -12,6 +12,9 @@ import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCh
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import ImageWithFoster from 'components/ImageWithFoster'
 import ArrowLeftIcon from 'assets/icons/arrow-left-24x24.svg?component'
+import LeftBtnIcon from 'assets/icons/arrow-left-17x13.svg?component'
+import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
+
 import { useViewport } from 'utils'
 
 const OrderSection = props => {
@@ -32,8 +35,8 @@ const OrderSection = props => {
     let list = []
     merchList.map((merch, index) => {
       if (key === index) {
-        list.push({ url: merch.url, selected: true })
-        setSelectedMerch({ url: merch.url, selected: true })
+        list.push({ id: index, url: merch.url, selected: true })
+        setSelectedMerch({ id: index, url: merch.url, selected: true })
       } else {
         list.push({ url: merch.url, selected: false })
       }
@@ -77,7 +80,7 @@ const OrderSection = props => {
       } else {
         let list = []
         let mockupUrl = findElement(itemData.options, 'name', 'mockupUrl')['value']
-        mockupUrl.split(',').map((item, index) => list.push({ url: item, selected: index === 0 }))
+        mockupUrl.split(',').map((item, index) => list.push({ id: index, url: item, selected: index === 0 }))
         setSelectedMerch(list[0])
         setMerchList(list)
       }
@@ -130,12 +133,36 @@ const OrderSection = props => {
                 </div>
               </div>
               {selectedMerch && (
-                <div className="hidden lg:flex-1 h-full lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:max-h-[705px] lg:flex items-center justify-center mt-[70px]">
-                  <ImageWithFoster
-                    src={selectedMerch.url}
-                    width={700}
-                    className="w-[80%] lg:w-auto h-auto object-cover"
-                  />
+                <div className="hidden lg:flex-1 h-full lg:w-[400px] xl:w-[500px] 2xl:w-[600px] lg:flex items-center justify-center mt-[70px]">
+                  <div>
+                    <ImageWithFoster
+                      src={selectedMerch.url}
+                      width={625}
+                      className="w-[80%] lg:w-auto h-auto object-cover"
+                    />
+                    {merchList.length > 1 && (
+                      <div className="w-full mt-[30px] flex justify-center">
+                        <div className="flex gap-[50px]">
+                          <div
+                            className={selectedMerch.id === 0 ? styles.arrowBtnDisabled : styles.arrowButton}
+                            onClick={() => selectedMerch.id > 0 && onClickMerch(selectedMerch.id - 1)}
+                          >
+                            <LeftBtnIcon />
+                          </div>
+                          <div
+                            className={
+                              selectedMerch.id === merchList.length - 1 ? styles.arrowBtnDisabled : styles.arrowButton
+                            }
+                            onClick={() =>
+                              selectedMerch.id < merchList.length - 1 && onClickMerch(selectedMerch.id + 1)
+                            }
+                          >
+                            <RightBtnIcon />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -172,7 +199,7 @@ const OrderSection = props => {
           )}
         </div>
         <div
-          className={`w-full lg:max-w-[42%] lg:max-w-[42%] z-10 ${
+          className={`w-full h-full lg:max-w-[42%] lg:max-w-[42%] z-10 ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
           } lg:flex lg:justify-end ${styles.rightBG}`}
         >
