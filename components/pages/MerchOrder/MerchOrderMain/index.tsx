@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next component
-import axios from 'axios'
 
 //components
 import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
@@ -36,6 +36,7 @@ import GradientButton from 'components/Button/GradientButton'
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
   const router = useRouter()
+  const { publicKey } = useWallet()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
@@ -744,12 +745,14 @@ const MerchOrderMain = props => {
           <div className={`mt-[15px] ${styles.divider}`} />
 
           {/* Download Mockups */}
-          <div className="w-full flex justify-end mt-[35px]">
-            <div className={styles.mockups} onClick={() => downloadFiles()}>
-              <DownloadIcon />
-              <div>Download Mockups</div>
+          {publicKey?.toBase58() === userDetail?.wallet_id && (
+            <div className="w-full flex justify-end mt-[35px]">
+              <div className={styles.mockups} onClick={() => downloadFiles()}>
+                <DownloadIcon />
+                <div>Download Mockups</div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
