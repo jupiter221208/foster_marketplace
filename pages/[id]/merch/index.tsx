@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // next component
+import Head from 'next/head'
 
 //components
 import SocialShareModal from 'components/Menu/SocialShareModal'
@@ -15,6 +16,7 @@ import PlusIcon from 'assets/icons/cross-plus-icon.svg?component'
 import LeftArrowIcon from 'assets/icons/arrow-left-white-big.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
+import PreviewImage from 'assets/images/studio-preview-image-user.png'
 
 // json
 import ShopList from 'assets/json/merch-shop/menu-list.json'
@@ -24,6 +26,8 @@ import styles from './index.module.scss'
 import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadges'
 import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
 import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
+
+import { getAbsoluteOgUrl } from 'utils/seo'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -44,8 +48,29 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   const [openShareModal, setOpenShareModal] = useState(false)
   const [merchMenu, setMerchMenu] = useState(ShopList[0])
 
+  let username = publicArtistData?.username ?? '<not found>'
+  let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
+  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
+  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+
   return (
     <div className="w-full pb-[60px]">
+      <Head>
+        <title>{pageTitle}</title>
+        <meta property="description" content={pageDescription} />
+
+        <meta name="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta name="og:image" content={pageImageUrl} />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={pageImageUrl} />
+
+        <link rel="icon" href="/logo.png" />
+      </Head>
+
       <div className="w-full h-[187px] sm:h-[350px] relative">
         <img
           src={artistInfo?.banner_picture?.length > 0 ? artistInfo?.banner_picture : BannerImage.src}
