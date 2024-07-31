@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getOrder } from 'apis/merch'
-import StoreAPI from 'apis/store'
 import { findElement } from 'utils/helpers'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // styles
 import styles from './index.module.scss'
@@ -17,11 +17,17 @@ import RightBtnIcon from 'assets/icons/arrow-right-17x13.svg?component'
 
 import { useViewport } from 'utils'
 
+// api
+import UserAPI from 'apis/user'
+import StoreAPI from 'apis/store'
+
 const OrderSection = props => {
   const router = useRouter()
   const viewport = useViewport()
   const { id } = router.query
+  const { publicKey } = useWallet()
 
+  const [userName, setUsername] = useState('')
   const [orderData, setOrderData] = useState<any | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [merchType, setMerchType] = useState('')
@@ -82,14 +88,17 @@ const OrderSection = props => {
         setSelectedMerch(list[0])
         setMerchList(list)
       }
+      UserAPI.get(publicKey?.toBase58() || '').then(response => {
+        setUsername(response.username)
+      })
     }
   }, [orderData])
 
   return (
     <div className="w-full">
-      <div className="w-full flex lg:flex-row flex-col">
+      <div className="w-full h-full flex lg:flex-row flex-col">
         <div
-          className={`w-[58%] ${
+          className={`w-[58%] h-full ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
           }`}
         >
@@ -109,7 +118,7 @@ const OrderSection = props => {
             <div className="w-full lg:flex lg:h-[705px]">
               <div className="hidden lg:block mt-[70px] w-[140px]">
                 <div className="w-full lg:block hidden">
-                  <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
+                  <div className={styles.backStore} onClick={() => router.push(`/${userName}/merch`)}>
                     <ArrowLeftIcon />
                     Back&nbsp;to&nbsp;store
                   </div>
@@ -202,7 +211,7 @@ const OrderSection = props => {
           )}
         </div>
         <div
-          className={`w-full h-full lg:max-w-[42%] lg:max-w-[42%] z-10 ${
+          className={`w-full min-h-full lg:max-w-[42%] lg:max-w-[42%] z-10 ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-right-container'
           } lg:flex lg:justify-end ${styles.rightBG}`}
         >
