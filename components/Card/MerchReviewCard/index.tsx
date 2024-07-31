@@ -47,7 +47,7 @@ const MerchReviewCard = props => {
         <div className="hidden sm:block">
           <div className={`${styles.reviewer} text-end sm:block hidden`}>Overall Rating</div>
           <div className="mt-[0px] sm:mt-[9px]">
-            <RatingBar value={data.rating} onRating={() => {}} clickable={false} />
+            <RatingBar value={data.rating} onRating={() => {}} clickable={true} />
           </div>
         </div>
       </div>
