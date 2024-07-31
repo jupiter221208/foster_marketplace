@@ -16,6 +16,7 @@ const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) =>
 
         return (
           <div
+            key={index}
             className="ml-[4px]"
             onClick={() => {
               if (clickable) {
