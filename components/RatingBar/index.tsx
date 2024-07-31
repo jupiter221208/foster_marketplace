@@ -24,7 +24,7 @@ const RatingBar = ({ totalStars = 5, value = 0, onRating, clickable = true }) =>
               }
             }}
           >
-            {ratingValue <= rating ? <StarFullAsset /> : <StarEmptyAsset />}
+            {ratingValue <= rating ? <StarFullAsset /> : <StarEmptyAsset className={styles.starEmptyAsset} />}
           </div>
           // <img
           //   key={index}
