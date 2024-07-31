@@ -108,13 +108,13 @@ const OrderSection = props => {
           ) : merchType === 'foster' || merchType === 'user' ? (
             <div className="w-full lg:flex lg:h-[705px]">
               <div className="hidden lg:block mt-[70px] w-[140px]">
-                <div className="lg:block hidden">
+                <div className="w-full lg:block hidden">
                   <div className={styles.backStore} onClick={() => router.push(`/${router.query.id}/merch`)}>
                     <ArrowLeftIcon />
-                    Back to store
+                    Back&nbsp;to&nbsp;store
                   </div>
                 </div>
-                <div className="w-[130x] mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
+                <div className="mt-[30px] w-[75px] lg:flex hidden flex-col gap-[11px]">
                   {merchList.map((merch, index) => {
                     return (
                       <div
@@ -123,7 +123,7 @@ const OrderSection = props => {
                         className={merch.selected ? styles.image : styles.imageHover}
                       >
                         <div className={merch.selected ? styles.selected : styles.unselected}>
-                          <ImageWithFoster width={130} src={merch.url} />
+                          <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
                         </div>
                       </div>
                     )
@@ -131,13 +131,20 @@ const OrderSection = props => {
                 </div>
               </div>
               {selectedMerch && (
-                <div className="hidden lg:flex-1 h-full lg:w-[400px] xl:w-[500px] 2xl:w-[600px] lg:flex items-center justify-center mt-[70px]">
-                  <div>
-                    <ImageWithFoster
-                      src={selectedMerch.url}
-                      width={625}
-                      className="w-[80%] lg:w-auto h-auto object-cover"
-                    />
+                <div className="w-full flex justify-center">
+                  <div className="lg:block hidden sm:w-[640px] sm:h-[auto] lg:w-[400px] xl:w-[500px] 2xl:w-[625px] lg:h-[705px] mt-[20px] lg:mt-[75px]">
+                    <div className={styles.imageArea}>
+                      <div
+                        className={styles.imageContent}
+                        style={{
+                          background: merchType === 'user' ? 'rgba(var(--main-bg-color-rgb), 0.05)' : 'transparent',
+                          borderRadius: '15px',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <ImageWithFoster src={selectedMerch.url} width={625} className="w-ful h-full object-contain" />
+                      </div>
+                    </div>
                     {merchList.length > 1 && (
                       <div className="w-full mt-[30px] flex justify-center">
                         <div className="flex gap-[50px]">
@@ -164,17 +171,15 @@ const OrderSection = props => {
                 </div>
               )}
 
-              <div className={`lg:hidden block h-auto w-full flex justify-center mb-[20px] mt-[20px]`}>
-                <div className="max-w-[400px]">
-                  <div className={styles.mobileImageArea}>
-                    <div className={styles.imageArea}>
-                      <div className={styles.imageContent}>
-                        <ImageWithFoster
-                          width={700}
-                          src={selectedMerch ? selectedMerch.url : ''}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+              <div className={`lg:hidden block h-auto w-full mb-[20px] mt-[${merchType === 'foster' ? 20 : 0}px]`}>
+                <div className={styles.mobileImageArea}>
+                  <div className={styles.imageArea}>
+                    <div className={styles.imageContent}>
+                      <ImageWithFoster
+                        width={700}
+                        src={selectedMerch ? selectedMerch.url : ''}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
                   </div>
                 </div>
@@ -185,7 +190,7 @@ const OrderSection = props => {
                   return (
                     <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
                       <div className={merch.selected ? styles.selected : styles.unselected}>
-                        <ImageWithFoster width={130} src={merch.url} />
+                        <ImageWithFoster width={130} src={merch.url} className="w-full h-full object-cover" />
                       </div>
                     </div>
                   )

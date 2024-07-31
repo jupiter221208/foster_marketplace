@@ -53,6 +53,31 @@
   }
 }
 
+.mobileImageArea {
+  width: calc(100% + 32px);
+  left: -16px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+  object-fit: cover;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 321:378 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+
 .backStore {
   display: flex;
   gap: 7px;
