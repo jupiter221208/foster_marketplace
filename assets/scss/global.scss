@@ -5,6 +5,13 @@
 @import 'assets/scss/variable.module.scss';
 
 @font-face {
+  font-family: 'Muli-ExtraLight';
+  src: url('../fonts/muli/Muli-ExtraLight.ttf');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Muli-Light';
   src: url('../fonts/muli/Muli-Light.ttf');
   font-weight: 100;

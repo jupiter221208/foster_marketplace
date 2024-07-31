@@ -1048,7 +1048,7 @@ const MerchDTGSection = props => {
                   </div>
                   {technique === 'dtg' && (
                     <div
-                      className={`${styles.embFrontBtn} ${embPlace === 'full' ? styles.enabled : styles.disabled}`}
+                      className={`${styles.embFrontBtn} ${embPlace === 'front' ? styles.enabled : styles.disabled}`}
                       onClick={() => {
                         setEmbPlace('full')
                         setShowEmbPosModal(false)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next component
 
@@ -14,6 +15,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
 import ArrowDownWhiteIcon from 'assets/icons/arrow-down-white.svg?component'
+import DownloadIcon from 'assets/icons/download-icon.svg?component'
 
 // json
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
@@ -34,6 +36,7 @@ import GradientButton from 'components/Button/GradientButton'
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
   const router = useRouter()
+  const { publicKey } = useWallet()
   const { solToUsdRate } = useSolToUsdRate()
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
@@ -56,7 +59,7 @@ const MerchOrderMain = props => {
   const [mintQty, setMintQty] = useState(1)
   const [buyNowLoading, setBuyNowLoading] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
-  const [showDescription, setShowDescription] = useState(false)
+  const [showDescription, setShowDescription] = useState(true)
   const [showEmbroidery, setShowEmbroidery] = useState(false)
   const [showNotice, setShowNotice] = useState(false)
 
@@ -255,14 +258,50 @@ const MerchOrderMain = props => {
 
     if (productDetail.sale_end_at === null) return ''
 
-    return 'Ends in'
+    return 'Time Remaining'
+  }
+
+  const downloadFiles = async () => {
+    let urls = []
+    if (productDetail.fulfillment_type === 'foster') {
+      productDetail.options.addons.map((item, index) => {
+        urls.push(item.mockup_url)
+      })
+    } else {
+      productDetail.options.product_images.map((item, index) => {
+        urls.push(item)
+      })
+    }
+    for (let index = 0; index < urls.length; index++) {
+      const data = {
+        url: urls[index],
+      }
+      let response = await fetch('/api/download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      const blob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(blob)
+
+      // Create an anchor tag to perform the download
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.setAttribute('download', `MerchFile-${index}.png`) // Set the default filename
+      document.body.appendChild(link)
+      link.click()
+      link.parentNode.removeChild(link)
+      window.URL.revokeObjectURL(downloadUrl)
+    }
   }
 
   return (
     <div className={styles.container}>
       <div className="w-full h-auto">
         <div className="w-full">
-          <div className="w-full flex justify-between gap-[35px]">
+          <div className="w-full flex justify-between gap-[35px] items-center lg:items-start">
             <div className={styles.productName}>{productDetail?.name}</div>
 
             <div className={styles.shareIcon} onClick={() => setOpenShareModal(true)}>
@@ -273,33 +312,81 @@ const MerchOrderMain = props => {
             </div>
           </div>
 
-          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[30px]">
-            <div>
-              <div className={styles.creator}>Seller</div>
-              <Link href={`/${userDetail.username}`} passHref>
-                <a>
-                  <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
-                    <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
-                      <ImageWithFoster
-                        src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
-                        alt=""
-                      />
-                    </div>
-                    {userDetail.username}
-                  </div>
-                </a>
-              </Link>
+          <div className="flex gap-[8px] mt-[10px]">
+            <div className="flex gap-[6px] items-center mb-[2px]">
+              <SolanaLogoIcon className="mt-[4px]" />
+              <div className={styles.price}>
+                {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
+              </div>
             </div>
-            <div>
-              <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+            <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
+          </div>
+          <div className="mt-[20px] lg:mt-[30px] flex flex-wrap gap-[15px] lg:gap-[30px]">
+            <div className="flex gap-[30px]">
               <div>
-                <div className={styles.supplyRound}>
-                  {productDetail.supply
-                    ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
-                    : `${productDetail.current_supply} sold`}
+                <div className={styles.creator}>Seller</div>
+                <Link href={`/${userDetail.username}`} passHref>
+                  <a>
+                    <div className={styles.creatorRound} onClick={() => router.push(`/${userDetail.username}`)}>
+                      <div className="w-[30px] h-[30px] rounded-full overflow-hidden">
+                        <ImageWithFoster
+                          src={userDetail.profile_picture?.length > 0 ? userDetail.profile_picture : DefaultAvatar}
+                          alt=""
+                        />
+                      </div>
+                      {userDetail.username}
+                    </div>
+                  </a>
+                </Link>
+              </div>
+              <div>
+                <div className={styles.creator}>{productDetail.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                <div>
+                  <div className={styles.supplyRound}>
+                    {productDetail.supply
+                      ? `${productDetail.supply - productDetail.current_supply}/${productDetail.supply} left`
+                      : `${productDetail.current_supply} sold`}
+                  </div>
                 </div>
               </div>
             </div>
+            {timeLeft && (
+              <div>
+                <div className={styles.creator}>{getStartStatus()}</div>
+                <div>
+                  <div className={styles.supplyRound}>
+                    <div className={styles.bidCountContainer}>
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div>
+                          <div className={styles.endTime}>
+                            {timeLeft && timeLeft['days']}
+                            {timeLeft && <div className={styles.bidDesc}>d</div>}
+                          </div>
+                        </div>
+                      )}
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['hours']}
+                          {timeLeft && <div className={styles.bidDesc}>h</div>}
+                        </div>
+                      </div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['minutes']}
+                          {timeLeft && <div className={styles.bidDesc}>m</div>}
+                        </div>
+                      </div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['seconds']}
+                          {timeLeft && <div className={styles.bidDesc}>s</div>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* {type === 'foster' && <div className={`mt-[15px] ${styles.divider}`} />} */}
@@ -333,7 +420,7 @@ const MerchOrderMain = props => {
 
         <div className="w-full">
           <div className="lg:mt-[35px] mt-[30px]">
-            <div className="w-full flex justify-between">
+            {/* <div className="w-full flex justify-between">
               <div className="flex flex-col gap-[8px]">
                 <div className={styles.selectSize}>{getStartStatus()}</div>
                 <div className={styles.bidCountContainer}>
@@ -365,17 +452,7 @@ const MerchOrderMain = props => {
                   </div>
                 </div>
               </div>
-
-              <div>
-                <div className="flex gap-[6px] items-center mb-[2px]">
-                  <SolanaLogoIcon className="mt-[4px]" />
-                  <div className={styles.price}>
-                    {((productDetail.selling_price / 100 / solToUsdRate) * mintQty).toFixed(2)}
-                  </div>
-                </div>
-                <div className={styles.priceUS}> ${((productDetail.selling_price / 100) * mintQty).toFixed(2)}</div>
-              </div>
-            </div>
+            </div> */}
             <div className="w-full lg:flex hidden mt-[15px] gap-[30px]">
               {(productDetail.supply === null || productDetail.supply - productDetail.current_supply > 1) && (
                 <div className={styles.mintQty}>
@@ -668,6 +745,16 @@ const MerchOrderMain = props => {
             </div>
           )}
           <div className={`mt-[15px] ${styles.divider}`} />
+
+          {/* Download Mockups */}
+          {publicKey?.toBase58() === userDetail?.wallet_id && (
+            <div className="w-full flex justify-end mt-[35px]">
+              <div className={styles.mockups} onClick={() => downloadFiles()}>
+                <DownloadIcon />
+                <div>Download Mockups</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

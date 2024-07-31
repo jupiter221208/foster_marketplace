@@ -14,7 +14,7 @@
 .shareIcon {
   display: flex;
   gap: 9px;
-  height: 35px;
+  height: 20px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -42,8 +42,8 @@
 
 .productName {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 31px;
+  font-size: 26px;
+  line-height: 32px;
   color: var(--text-gray-200-color);
 }
 
@@ -54,7 +54,7 @@
 }
 
 .creator {
-  font-family: 'Muli-Light';
+  font-family: 'Muli-ExtraLight';
   font-size: 14px;
   font-weight: 100;
   line-height: 18px;
@@ -98,6 +98,24 @@
   line-height: 18px;
   color: var(--text-gray-200-color);
   // min-width: 50px;
+  cursor: pointer;
+}
+
+.mockups {
+  width: fit-content;
+  height: 44px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border-radius: 22px;
+  padding: 12px 21px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
   cursor: pointer;
 }
 
@@ -277,11 +295,9 @@
 
 .priceUS {
   font-family: 'Muli-Light';
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 100;
-  line-height: 20px;
-  margin-top: 7px;
-  text-align: end;
+  line-height: 22px;
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 

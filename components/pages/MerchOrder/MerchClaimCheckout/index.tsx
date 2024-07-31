@@ -30,6 +30,7 @@ const MerchClaimCheckout = props => {
         <PhysicalCheckout
           orderData={orderData}
           orderType="v2"
+          helioEnabled={false}
           onBack={() => {
             onBack()
           }}

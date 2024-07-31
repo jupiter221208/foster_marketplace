@@ -16,11 +16,11 @@ export interface UseAuthenticationReturn {
 
 let fetchUserPromise: null | Promise<User> = null
 let signLoginMessagePromise: null | Promise<string> = null
+let isFetching = false
 
 export function useAuthentication(): UseAuthenticationReturn {
   const dispatch = useDispatch()
   const { connected, publicKey, signMessage } = useWallet()
-
   const [user, setUser] = useState<User | null>(null)
   const userInfo = useSelector((state: any) => state.profileInfo)
 
@@ -54,6 +54,11 @@ export function useAuthentication(): UseAuthenticationReturn {
       let signature = await getLoginMessageSignature(publicKey)
       if (!signature) return null
 
+      if (isFetching) {
+        return fetchUserPromise
+      }
+
+      isFetching = true
       fetchUserPromise = authAPI
         .login({
           wallet_id: publicKey?.toBase58() || '',
@@ -64,6 +69,8 @@ export function useAuthentication(): UseAuthenticationReturn {
 
           user.profile_picture ??= AvatarImage.src;
           localStorage.setItem('token', token)
+          isFetching = false
+
           setCookie('token', token, { maxAge: 60 * 6 * 24 })
 
           if (new_user) dispatch({ type: 'set', profileSetup: true })
