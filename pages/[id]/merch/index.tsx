@@ -27,7 +27,7 @@ import CreatorMerchBadges from 'components/pages/ArtistProfile/CreatorMerchBadge
 import CreatorMerchReviews from 'components/pages/ArtistProfile/CreatorMerchReviews'
 import MerchFilterMenu from 'components/Menu/MerchFilterMenu'
 
-import { getAbsoluteOgUrl } from 'utils/seo'
+import { getAbsoluteOgUrl, getTwitterUsername } from 'utils/seo'
 
 interface CreatorMerchProps {
   artistPublicKey?: string
@@ -52,6 +52,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
   let pageTitle = `The Official Merch Store of ${username} | Foster Studio`
   let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
   let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let userTwitterHandle = getTwitterUsername(publicArtistData?.twitter_url)
 
   return (
     <div className="w-full pb-[60px]">
@@ -67,6 +68,8 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
         <meta property="twitter:image" content={pageImageUrl} />
+        <meta name="twitter:site" content="@silkrunway" />
+        {userTwitterHandle ? <meta name="twitter:creator" content={userTwitterHandle} /> : null}
 
         <link rel="icon" href="/logo.png" />
       </Head>
