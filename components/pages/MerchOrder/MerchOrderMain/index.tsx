@@ -349,7 +349,7 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            {timeLeft && (
+            {timeLeft && (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
               <div>
                 <div className={styles.creator}>{getStartStatus()}</div>
                 <div>
