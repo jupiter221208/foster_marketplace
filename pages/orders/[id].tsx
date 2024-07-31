@@ -20,12 +20,13 @@ import { useViewport } from 'utils'
 // api
 import UserAPI from 'apis/user'
 import StoreAPI from 'apis/store'
+import { useSelector } from 'react-redux'
 
 const OrderSection = props => {
   const router = useRouter()
   const viewport = useViewport()
   const { id } = router.query
-  const { publicKey } = useWallet()
+  let merchData = useSelector(state => (state as any).merchData)
 
   const [userName, setUsername] = useState('')
   const [orderData, setOrderData] = useState<any | null>(null)
@@ -88,9 +89,8 @@ const OrderSection = props => {
         setSelectedMerch(list[0])
         setMerchList(list)
       }
-      UserAPI.get(publicKey?.toBase58() || '').then(response => {
-        setUsername(response.username)
-      })
+
+      setUsername(merchData?.username)
     }
   }, [orderData])
 
