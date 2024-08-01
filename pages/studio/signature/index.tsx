@@ -17,6 +17,7 @@ import StudioSubCategoryMenu from 'components/Menu/StudioSubCategoryMenu'
 
 import StoreAPI from 'apis/store'
 import MerchShopCard from 'components/Card/MerchShopCard'
+import StudioPriceRangeMenu from 'components/Menu/StudioPriceRangeMenu'
 
 const StudioSignature = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -133,6 +134,12 @@ const StudioSignature = () => {
             handleSelectSubCategory={handleSelectSubCategory}
             icon={<FilterIcon />}
           />
+          <StudioPriceRangeMenu
+            menuLabel="Sort"
+            categoryList={colorList}
+            handleSelectCategory={handleSelectSort}
+            icon={<FilterIcon />}
+          />
           <StudioCategoryMenu
             menuLabel="Color"
             categoryList={colorList}
@@ -149,7 +156,7 @@ const StudioSignature = () => {
         />
       </div>
 
-      <div className="w-full mt-[45px]">
+      <div className="w-full mt-[45px] mb-[45px]">
         <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
