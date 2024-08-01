@@ -68,7 +68,7 @@ const CreatorMerch = ({ publicArtistData }: CreatorMerchProps) => {
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
         <meta property="twitter:image" content={pageImageUrl} />
-        <meta name="twitter:site" content="@silkrunway" />
+        <meta name="twitter:site" content="silkrunway" />
         {userTwitterHandle ? <meta name="twitter:creator" content={userTwitterHandle} /> : null}
 
         <link rel="icon" href="/logo.png" />
