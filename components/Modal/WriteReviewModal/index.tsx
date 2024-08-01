@@ -298,7 +298,10 @@ const WriteReviewModal = ({ open, onClose, previewUrl, itemDetails }) => {
                               urls.map(url => {
                                 assets.push({ src: url.src, selected: false })
                               })
-                              assets.push({ src: URL.createObjectURL(acceptedFiles[0]), selected: true })
+                              for (let index = 0; index < acceptedFiles.length; index++) {
+                                assets.push({ src: URL.createObjectURL(acceptedFiles[index]), selected: false })
+                                if (assets.length === 3) break
+                              }
                               setUrls(assets)
                             }
                           }}
