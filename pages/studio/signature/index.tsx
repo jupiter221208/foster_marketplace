@@ -61,6 +61,10 @@ const StudioSignature = () => {
       object.name = object.label
       array1.push(object)
     })
+    array1.push({
+      id: 12,
+      name: 'All',
+    })
     setSubCateList(array1)
 
     let array2: any[] = []

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, MutableRefObject } from 'react'
 import { Range, getTrackBackground } from 'react-range'
 
 // next components
@@ -20,14 +20,40 @@ const StudioPriceRangeMenu = props => {
   const STEP = 1
   const MIN = 0
   const MAX = 2000
+
+  const menuRef = useRef<HTMLElement | null>(null)
+  const itemRef = useRef<HTMLElement | null>(null)
+
+  const handleClickOutside = event => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target) &&
+      itemRef.current &&
+      !itemRef.current.contains(event.target)
+    ) {
+      setShowDropdown(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  })
+
   return (
     <div className={`relative ${styles.removeBlueHighlight}`}>
-      <div className={styles.btnArea} onClick={() => setShowDropdown(!showDropdown)}>
+      <div
+        ref={itemRef as MutableRefObject<HTMLDivElement>}
+        className={styles.btnArea}
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
         <div className="mb-[3px]">Price</div>
         <div>{icon}</div>
       </div>
       {showDropdown && (
-        <div className={styles.menuArea}>
+        <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
           <div className={styles.menuItem}>
             <div className="w-full">
               <div className={styles.priceRange}>

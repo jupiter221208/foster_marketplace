@@ -1,7 +1,7 @@
 // next components
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -14,7 +14,7 @@ import { useDetectRouterPath } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
@@ -24,12 +24,6 @@ import StudioCreateSection from 'components/pages/Studio/StudioCreateSection'
 import StudioBallonIcon from 'assets/icons/studio-ballon.svg?component'
 
 const Studio = () => {
-  const [heroState, setHeroState] = useState({
-    selected: true,
-    data: 'all',
-  })
-  // const isLoading = useSelector<any>(state => state.isLoading)
-  const dispatch = useDispatch()
   const router = useRouter()
   useDetectRouterPath(useRouter())
 
