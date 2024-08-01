@@ -120,7 +120,6 @@ const MerchOrderMain = props => {
       }
     })
     setSizeList(sizes)
-
     if (productDetail.fulfillment_type === 'foster') {
       // Print Area
       let directiction = []
@@ -136,7 +135,7 @@ const MerchOrderMain = props => {
             ? 'Right'
             : direct_id === 4
             ? 'Left'
-            : 'Front'
+            : ''
         )
       })
       setPrintArea(directiction.join().replaceAll(',', ', '))
@@ -350,7 +349,7 @@ const MerchOrderMain = props => {
                 </div>
               </div>
             </div>
-            {timeLeft && (
+            {timeLeft && (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) && (
               <div>
                 <div className={styles.creator}>{getStartStatus()}</div>
                 <div>

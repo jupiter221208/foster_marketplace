@@ -1,0 +1,48 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(var(--background-main-color-rgb), 0.6);
+  @media (min-width: 1024px) {
+    // backdrop-filter: blur(30px);
+    // -webkit-backdrop-filter: blur(30px);
+  }
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 16px;
+  @media (min-width: 1024px) {
+    overflow: unset;
+    display: flex;  
+  }
+}
+
+.mainView {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px;  
+  @media (min-width: 1024px) {
+    border-radius: 30px;  
+    width: 400px;
+    min-width: 400px;
+  }
+}
+
+.modalView::-webkit-scrollbar {
+  display: none;
+}

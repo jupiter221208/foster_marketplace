@@ -1624,6 +1624,13 @@ h6 {
   }
 }
 
+[data-name='studio-ballon-icon'] {
+  fill: var(--main-icon-color);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
+  }
+}
+
 [data-name='scroll-arrow'] {
   fill: var(--scroll-arrow-color)
 }
