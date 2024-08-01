@@ -11,6 +11,9 @@ import ColorList from 'assets/json/studio-color.json'
 import SortList from 'assets/json/studio-sort.json'
 import FilterIcon from 'assets/icons/filter-icon.svg?component'
 import SortIcon from 'assets/icons/sort-icon-normal.svg?component'
+import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
+import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
+
 import styles from './index.module.scss'
 import StudioCategoryMenu from 'components/Menu/StudioCategoryMenu'
 import StudioSubCategoryMenu from 'components/Menu/StudioSubCategoryMenu'
@@ -18,6 +21,9 @@ import StudioSubCategoryMenu from 'components/Menu/StudioSubCategoryMenu'
 import StoreAPI from 'apis/store'
 import MerchShopCard from 'components/Card/MerchShopCard'
 import StudioPriceRangeMenu from 'components/Menu/StudioPriceRangeMenu'
+import BlackButton from 'components/Button/BlackButton'
+import MobileStudioFilter from 'components/Filter/MobileStudioFilter'
+import MobileStudioSort from 'components/Menu/MobileStudioSort'
 
 const StudioSignature = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -26,6 +32,8 @@ const StudioSignature = () => {
   const [sortList, setSortList] = useState([])
   const [merchList, setMerchList] = useState([])
   const [username, setUserName] = useState('Nicholas-FPC')
+  const [openMobileFilter, setOpenMobileFilter] = useState(false)
+  const [openMobileSort, setOpenMobileSort] = useState(false)
 
   useEffect(() => {
     StoreAPI.getStoreItemByFoster(53).then(
@@ -116,12 +124,12 @@ const StudioSignature = () => {
 
   return (
     <div className="w-full g-container">
-      <div className="mt-[60px] mb-[45px]">
+      <div className="mt-[30px] lg:mt-[60px] mb-[15px] lg:mb-[45px]">
         <div className={styles.signature}>Signature Creator Merch</div>
         <div className={styles.result}>12,240 results</div>
       </div>
 
-      <div className="w-full flex justify-between">
+      <div className="lg:flex hidden w-full justify-between">
         <div className="flex gap-[15px]">
           <StudioCategoryMenu
             menuLabel="Category"
@@ -134,12 +142,7 @@ const StudioSignature = () => {
             handleSelectSubCategory={handleSelectSubCategory}
             icon={<FilterIcon />}
           />
-          <StudioPriceRangeMenu
-            menuLabel="Sort"
-            categoryList={colorList}
-            handleSelectCategory={handleSelectSort}
-            icon={<FilterIcon />}
-          />
+          <StudioPriceRangeMenu icon={<FilterIcon />} />
           <StudioCategoryMenu
             menuLabel="Color"
             categoryList={colorList}
@@ -150,13 +153,51 @@ const StudioSignature = () => {
 
         <StudioCategoryMenu
           menuLabel="Sort"
-          categoryList={colorList}
+          categoryList={sortList}
           handleSelectCategory={handleSelectSort}
           icon={<SortIcon />}
         />
       </div>
 
-      <div className="w-full mt-[45px] mb-[45px]">
+      <div className="w-full flex lg:hidden gap-[11px] justify-between">
+        <BlackButton
+          label="Filter"
+          onClick={() => setOpenMobileFilter(!openMobileFilter)}
+          fullWidth
+          height="40px"
+          color={'var(--text-gray-200-color)'}
+          icon1={<FilterGrayIcon alt="" />}
+          backgroundColor01="var(--background-main-color)"
+          backgroundColor02="var(--background-main-color)"
+          gradientDirection="bottom"
+          fontFamily="Muli-Regular"
+          fontSize={14}
+          borderRadius={8}
+          borderWidth={1}
+          borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+          direction="rtl"
+        />
+
+        <BlackButton
+          label="Sort"
+          onClick={() => setOpenMobileSort(!openMobileSort)}
+          fullWidth
+          height="40px"
+          color={'var(--text-gray-200-color)'}
+          icon1={<SortGrayIcon alt="" />}
+          backgroundColor01="var(--background-main-color)"
+          backgroundColor02="var(--background-main-color)"
+          gradientDirection="bottom"
+          fontFamily="Muli-Regular"
+          fontSize={14}
+          borderRadius={8}
+          borderWidth={1}
+          borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
+          direction="rtl"
+        />
+      </div>
+
+      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px]">
         <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
@@ -164,6 +205,32 @@ const StudioSignature = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="flex lg:hidden w-full">
+        {openMobileFilter && (
+          <MobileStudioFilter
+            category={categoryList}
+            subCategory={subCateList}
+            color={colorList}
+            onFilter={params => {
+              setOpenMobileFilter(false)
+            }}
+            onClose={() => setOpenMobileFilter(false)}
+          />
+        )}
+
+        {openMobileSort && (
+          <MobileStudioSort
+            open={openMobileSort}
+            data={SortList}
+            sort={sortList}
+            onSort={params => {
+              setOpenMobileSort(false)
+            }}
+            onClose={() => setOpenMobileSort(false)}
+          />
+        )}
       </div>
     </div>
   )

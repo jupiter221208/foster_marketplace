@@ -1,0 +1,52 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  background-color: var(--bg-new-color);
+  border-radius: 0px;
+  padding: 17px 0px 96px 0px;
+  z-index: 1000;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 16px;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--text-gray-200-color);
+}
+
+.subTitle {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 25px;
+  color: var(--text-gray-200-color);
+}
+
+.bottomArea {
+  width: 100%;
+  height: 96px;
+  background-color: var(--background-main-color);
+  border-top:1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.chevronUpIcon {
+  color: var(--chevron-up-icon-color);
+}

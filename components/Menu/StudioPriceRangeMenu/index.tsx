@@ -14,7 +14,6 @@ import styles from './index.module.scss'
 
 const StudioPriceRangeMenu = props => {
   const { icon } = props
-  const [label, setLabel] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const [values, setValues] = useState([0, 2000])
 
