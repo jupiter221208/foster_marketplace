@@ -20,19 +20,17 @@ import MerchOrderShipping from 'components/pages/MerchOrder/MerchOrderShipping'
 import { useDispatch } from 'react-redux'
 import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
-// API
-// import StoreAPI from 'apis/store'
-
 interface MerchOrderPageProps {
   publicArtistData?: any
-  productDetail?: any
+  productData?: any
   error?: string
 }
 
-const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps) => {
+const MerchOrderPage = ({ publicArtistData, productData }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const viewport = useViewport()
+  const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [shippingLocal, setShippingLocal] = useState(true)
@@ -64,88 +62,40 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   }
 
   useEffect(() => {
-    if (printData || !publicArtistData) return
+    if (!productData || !publicArtistData) return
 
+    setProductDetail(productData)
     let imageList = [],
       rawList = []
-    if (productDetail.fulfillment_type === 'foster') {
-      productDetail.options.addons.map((item, index) => {
+    if (productData.fulfillment_type === 'foster') {
+      productData.options.addons.map((item, index) => {
         imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
         rawList.push({ url: item.raw_url })
       })
       setType('foster')
     } else {
-      productDetail.options.product_images.map((item, index) => {
+      productData.options.product_images.map((item, index) => {
         imageList.push({ id: index, url: item, selected: index === 0 })
       })
-      if (productDetail.master_edition_address === null) setType('physical')
+      if (productData.master_edition_address === null) setType('physical')
       else setType('')
     }
     setMerchList(imageList)
     setRawUrlList(rawList)
     setSelectedMerch(imageList[0])
+
     setPrintData({
       id: 1,
       quantity: merchQuantity,
       size: merchSize,
-      color: productDetail.options.color,
-      name: productDetail.name,
-      description: productDetail.description,
-      technique: productDetail.options.print_technique,
-      cost: productDetail.selling_price / 100,
+      color: productData.options.color,
+      name: productData.name,
+      description: productData.description,
+      technique: productData.options.print_technique,
+      cost: productData.selling_price / 100,
     })
-
-    // StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
-    //   response => {
-    //     if (response) {
-    //       setProductDetail(response)
-    //       let imageList = [],
-    //         rawList = []
-    //       if (response.fulfillment_type === 'foster') {
-    //         response.options.addons.map((item, index) => {
-    //           imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
-    //           rawList.push({ url: item.raw_url })
-    //         })
-    //         setType('foster')
-    //       } else {
-    //         response.options.product_images.map((item, index) => {
-    //           imageList.push({ id: index, url: item, selected: index === 0 })
-    //         })
-    //         if (response.master_edition_address === null) setType('physical')
-    //         else setType('')
-    //       }
-    //       setMerchList(imageList)
-    //       setRawUrlList(rawList)
-    //       setSelectedMerch(imageList[0])
-    //       setPrintData({
-    //         id: 1,
-    //         quantity: merchQuantity,
-    //         size: merchSize,
-    //         color: response.options.color,
-    //         name: response.name,
-    //         description: response.description,
-    //         technique: response.options.print_technique,
-    //         cost: response.selling_price / 100,
-    //       })
-    //     }
-    //   },
-    //   error => {}
-    // )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productDetail])
-
-  useEffect(() => {
-    setPrintData({ ...printData, size: merchSize })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [merchSize])
-
-  useEffect(() => {
-    let newData = { ...printData }
-    newData.quantity = merchQuantity
-    newData.cost = (productDetail?.selling_price / 100) * merchQuantity
-    setPrintData(newData)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [merchQuantity])
+  }, [productData])
 
   return (
     <div className="w-full block lg:flex">
@@ -308,8 +258,15 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                   productDetail={productDetail}
                   userDetail={publicArtistData}
                   onClickBuyNow={onClickBuyNow}
-                  setQuantity={setMerchQuantity}
-                  setMerchSize={setMerchSize}
+                  setQuantity={quantity => {
+                    let newData = { ...printData }
+                    newData.quantity = quantity
+                    newData.cost = (productDetail?.selling_price / 100) * quantity
+                    setPrintData(newData)
+                  }}
+                  setMerchSize={size => {
+                    setPrintData({ ...printData, size: size })
+                  }}
                 />
               </div>
             ) : (
@@ -478,18 +435,16 @@ MerchOrderPage.getLayout = function getLayout(page) {
 MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {
   let artistUsername = encodeURIComponent(query.id)
   let productId = encodeURIComponent(query.product_id)
-
   try {
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
-    let productDetail = await fetch(
-      `${process.env.BACKEND_URL}v1/stores/${publicArtistData.id}/items/${productId}`
-    ).then(r => r.json())
-
+    let productData = await fetch(`${process.env.BACKEND_URL}v1/stores/${publicArtistData.id}/items/${productId}`).then(
+      r => r.json()
+    )
     return {
       publicArtistData,
-      productDetail,
+      productData,
     }
   } catch (e: any) {
     console.error(e)
