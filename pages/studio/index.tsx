@@ -5,10 +5,6 @@ import { useEffect, useState } from 'react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
-import MainSection from 'components/pages/Studio/MainSection'
-import StudioArtistsSection from 'components/pages/Studio/StudioArtistsSection'
-import NewStudioReleasesSection from 'components/pages/Studio/NewStudioReleasesSection'
-import ExploreStudioArtworkSection from 'components/pages/Studio/ExploreStudioArtworkSection'
 
 // images
 import StudioPreviewImage from 'assets/images/studio-preview-image.png'
@@ -22,7 +18,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
-import StudioHelpSection from 'components/pages/Studio/StudioHelpSection'
+import StudioClothSign from 'assets/images/studio-sign.png'
+import StudioClothDIY from 'assets/images/studio-diy.png'
+import StudioCreateSection from 'components/pages/Studio/StudioCreateSection'
+import StudioBallonIcon from 'assets/icons/studio-ballon.svg?component'
 
 const Studio = () => {
   const [heroState, setHeroState] = useState({
@@ -73,40 +72,79 @@ const Studio = () => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="w-full flex justify-center">
-        <MainSection onChange={setHeroState} heroValue={heroState} />
+
+      <div className="w-full flex z-10">
+        <div className="relative w-[50%]">
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              <div className="absolute inset-0">
+                <div className="absolute inset-0">
+                  <img src={StudioClothSign.src} alt="" />
+                </div>
+                <div className="absolute inset-0">
+                  <div className={styles.mask} />
+                </div>
+              </div>
+              <div className="absolute inset-0 flex justify-center items-center">
+                <div>
+                  <div className={styles.title}>Signature Creator Merch</div>
+                  <div className={styles.desc}>
+                    {'Shop exclusive merch by Solana’s top artists. Discover limited-edition apparel and collectibles.'}
+                  </div>
+                  <div className="flex justify-center mt-[30px]">
+                    <div className={styles.shopNow} onClick={() => router.push('/studio/signature')}>
+                      Shop Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="relative w-[50%]">
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              <div className="absolute inset-0">
+                <div className="absolute inset-0">
+                  <img src={StudioClothDIY.src} alt="" />
+                </div>
+                <div className="absolute inset-0">
+                  <div className={styles.mask} />
+                </div>
+              </div>
+              <div className="absolute inset-0 flex justify-center items-center">
+                <div>
+                  <div className={styles.title}>DIY: Curate Custom Merch</div>
+                  <div className={styles.desc}>
+                    {
+                      'Select artwork from our Studio NFT Library and create your own merch. Choose a garment and place the design.'
+                    }
+                  </div>
+                  <div className="flex justify-center mt-[30px]">
+                    <div className={styles.shopNow} onClick={() => router.push('/studio/legacy')}>
+                      Shop Now
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.border} />
+
+      <div className={styles.studioBG}>
+        <div className="flex justify-center">
+          <StudioBallonIcon />
+        </div>
+        <div className="flex justify-center mt-[30px]">
+          <div className={styles.studioDesc}>A MERCH TOOL FOR ARTISTS ON SOLANA</div>
+        </div>
       </div>
 
       <div className={styles.helpSectionBG}>
         <div className="g-container">
-          <StudioHelpSection />
-        </div>
-      </div>
-
-      {heroState?.selected && (
-        <div className="w-full flex justify-center mt-[30px]">
-          <div className="g-container">
-            <NewStudioReleasesSection type={'trending'} heroValue={heroState} onChange={setHeroState} />
-            {/* <FullScreenLoadingModal open={isLoading} /> */}
-          </div>
-        </div>
-      )}
-      {heroState?.selected && (
-        <div className="w-full flex justify-center mb-[30px]">
-          <div className="g-container">
-            <NewStudioReleasesSection type={'release'} heroValue={heroState} onChange={setHeroState} />
-            {/* <FullScreenLoadingModal open={isLoading} /> */}
-          </div>
-        </div>
-      )}
-      <div className={styles.artistSectionBG}>
-        <div className="g-container">
-          <StudioArtistsSection />
-        </div>
-      </div>
-      <div className="w-full flex justify-center mb-[100px] lg:mb-[0px]">
-        <div className="g-container">
-          <ExploreStudioArtworkSection category={''} loop={true} />
+          <StudioCreateSection />
         </div>
       </div>
     </div>

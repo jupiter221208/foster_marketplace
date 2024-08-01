@@ -15,10 +15,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // components
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
-// custom functions
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-
 // images and icons
 import StudioClothBG from 'assets/images/studio-cloth-bg.png'
 import StudioCloth from 'assets/images/studio-cloth.png'
