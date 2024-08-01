@@ -91,7 +91,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
 
   let username = publicArtistData?.username ?? '<not found>'
   let pageTitle = productDetail?.name ?? '<not found>'
-  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+  let pageDescription = `${pageTitle} by ${username} is now available on Foster Studio.`
 
   return (
     <div className="w-full block lg:flex">
@@ -108,7 +108,9 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content={imageList[0]?.url} />
+        {imageList.map(({ url }, index) => (
+          <meta key={index} property="twitter:image" content={url} />
+        ))}
       </Head>
 
       <div
