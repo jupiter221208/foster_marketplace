@@ -117,7 +117,6 @@ const MyProductSection = props => {
                 <div className="w-full h-full flex justify-center items-center">
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
-                      console.log('======================1111===============')
                       if (acceptedFiles.length !== 0) {
                         let newList = []
                         acceptedFiles.map(file => {
@@ -137,7 +136,7 @@ const MyProductSection = props => {
                         {
                           id: 0,
                           title: 'Upload Failed!',
-                          description: `File size is too large, size is limited to 30Mb.`,
+                          description: `File size is too large, size is limited to 10Mb.`,
                           type: 'failure',
                         },
                       ])
@@ -151,7 +150,7 @@ const MyProductSection = props => {
                       'image/png': [],
                     }}
                     maxFiles={4}
-                    maxSize={31457280}
+                    maxSize={10485760}
                   >
                     {({ getRootProps, getInputProps }) => (
                       <section className={styles.dropzone}>
