@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useViewport } from 'utils'
 
 // next component
+import Head from 'next/head'
 
 // components
 import MerchOrderMain from 'components/pages/MerchOrder/MerchOrderMain'
@@ -97,8 +98,29 @@ const MerchOrderPage = ({ publicArtistData, productData }: MerchOrderPageProps) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productData])
 
+  let username = publicArtistData?.username ?? '<not found>'
+  let pageTitle = productData?.name ?? '<not found>'
+  let pageImageUrls = productData?.options?.product_images || []
+  let pageDescription = `Shop limited-edition apparel and collectibles designed by ${username}.`
+
   return (
     <div className="w-full block lg:flex">
+      <Head>
+        <title>{pageTitle}</title>
+        <meta property="description" content={pageDescription} />
+
+        <meta name="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        {pageImageUrls.map((url, index) => (
+          <meta key={index} name="og:image" content={url} />
+        ))}
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={pageImageUrls[0]} />
+      </Head>
+
       <div
         className={`w-full lg:max-w-[58%] lg:min-w-[58%] ${
           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'g-container' : 'g-left-container'
