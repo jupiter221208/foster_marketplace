@@ -12,6 +12,7 @@ import MerchDTGCard from './MerchDTGCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import TechniqueClipboardChip from 'components/Chip/TechniqueClipboardChip'
+import Alert from 'components/Alert'
 
 // json
 import apparelList from 'assets/json/merch-shop/merch-apparel-list.json'
@@ -43,6 +44,8 @@ const MerchDTGSection = props => {
   const [questionType, setQuestionType] = useState('')
   const [showQuestionModal, setShowQuestionModal] = useState(false)
   const [curPercentage, setCurPercentage] = useState(0)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState([])
 
   const canvasId = 'canvas-mobile'
   const alertId = 'alert-tech'
@@ -721,10 +724,20 @@ const MerchDTGSection = props => {
                         setShowEmbPosModal(false)
                       }
                     }}
-                    onDropRejected={rejectedFiles => {}}
+                    onDropRejected={rejectedFiles => {
+                      setAlertData([
+                        {
+                          id: 0,
+                          title: 'Upload Failed!',
+                          description: `File size is too large, size is limited to 10Mb.`,
+                          type: 'failure',
+                        },
+                      ])
+                      setShowAlert(true)
+                    }}
                     maxFiles={1}
                     accept={{ 'image/jpeg': [], 'image/png': [] }}
-                    maxSize={31457280}
+                    maxSize={10485760}
                   >
                     {({ getRootProps, getInputProps, open }) => (
                       <section>
@@ -1139,6 +1152,14 @@ const MerchDTGSection = props => {
           newCanvas.clear()
           newCanvas.renderAll()
         }}
+      />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )

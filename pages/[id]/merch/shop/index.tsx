@@ -33,11 +33,13 @@ const CreatorMerchShop = props => {
     if (userId === undefined || userId === null) return
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
+        console.log(res, '===========res============')
         setMerchList(
           res.filter(
             item =>
               (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
-              item.master_edition_address === null
+              item.master_edition_address === null &&
+              (item.supply === null || item.supply - item.current_supply > 0)
           )
         )
       },
@@ -54,7 +56,8 @@ const CreatorMerchShop = props => {
                 item.master_edition_address?.length === 0 ||
                 (item.master_edition_address?.length > 0 &&
                   (item.listed_master_edition.endTime === null ||
-                    getTimeDifference(item.listed_master_edition.endTime) > 0))
+                    getTimeDifference(item.listed_master_edition.endTime) > 0) &&
+                  (item.supply === null || item.supply - item.current_supply > 0))
             )
           )
         } else {
@@ -63,7 +66,8 @@ const CreatorMerchShop = props => {
               item =>
                 item.master_edition_address?.length > 0 &&
                 (item.listed_master_edition.endTime === null ||
-                  getTimeDifference(item.listed_master_edition.endTime) > 0)
+                  getTimeDifference(item.listed_master_edition.endTime) > 0) &&
+                (item.supply === null || item.supply - item.current_supply > 0)
             )
           )
         }
@@ -77,7 +81,8 @@ const CreatorMerchShop = props => {
           res.filter(
             item =>
               item.master_edition_address === null &&
-              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0)
+              (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
+              (item.supply === null || item.supply - item.current_supply > 0)
           )
         )
       },

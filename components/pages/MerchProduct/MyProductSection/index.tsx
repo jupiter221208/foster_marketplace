@@ -23,6 +23,7 @@ import Input from 'components/Input'
 import { limit } from 'utils/strings'
 import Textarea from 'components/Input/Textarea'
 import ProductionListMenu from 'components/Menu/ProductionListMenu'
+import Alert from 'components/Alert'
 
 const MyProductSection = props => {
   const { productDetail, setProductDetail } = props
@@ -35,6 +36,8 @@ const MyProductSection = props => {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [productName, setProductName] = useState('')
   const [description, setDescription] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState([])
 
   const onSelectImage = index => {
     if (index >= imageList.length) return
@@ -129,6 +132,16 @@ const MyProductSection = props => {
                       }
                     }}
                     onDropRejected={rejectedFiles => {
+                      setAlertData([
+                        {
+                          id: 0,
+                          title: 'Upload Failed!',
+                          description: `File size is too large, size is limited to 10Mb.`,
+                          type: 'failure',
+                        },
+                      ])
+                      setShowAlert(true)
+
                       setImageList([])
                       setProductAssetUrl([])
                     }}
@@ -305,6 +318,13 @@ const MyProductSection = props => {
           </div>
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
