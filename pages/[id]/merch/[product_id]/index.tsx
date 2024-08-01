@@ -21,18 +21,18 @@ import { useDispatch } from 'react-redux'
 import MerchOrderShippingMethod from 'components/pages/MerchOrder/ShippingMethod'
 
 // API
-import StoreAPI from 'apis/store'
+// import StoreAPI from 'apis/store'
 
 interface MerchOrderPageProps {
   publicArtistData?: any
+  productDetail?: any
   error?: string
 }
 
-const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
+const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps) => {
   const dispatch = useDispatch()
   const router = useRouter()
   const viewport = useViewport()
-  const [productDetail, setProductDetail] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [shippingLocal, setShippingLocal] = useState(true)
@@ -66,44 +66,73 @@ const MerchOrderPage = ({ publicArtistData }: MerchOrderPageProps) => {
   useEffect(() => {
     if (printData || !publicArtistData) return
 
-    StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
-      response => {
-        if (response) {
-          setProductDetail(response)
-          let imageList = [],
-            rawList = []
-          if (response.fulfillment_type === 'foster') {
-            response.options.addons.map((item, index) => {
-              imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
-              rawList.push({ url: item.raw_url })
-            })
-            setType('foster')
-          } else {
-            response.options.product_images.map((item, index) => {
-              imageList.push({ id: index, url: item, selected: index === 0 })
-            })
-            if (response.master_edition_address === null) setType('physical')
-            else setType('')
-          }
-          setMerchList(imageList)
-          setRawUrlList(rawList)
-          setSelectedMerch(imageList[0])
-          setPrintData({
-            id: 1,
-            quantity: merchQuantity,
-            size: merchSize,
-            color: response.options.color,
-            name: response.name,
-            description: response.description,
-            technique: response.options.print_technique,
-            cost: response.selling_price / 100,
-          })
-        }
-      },
-      error => {}
-    )
+    let imageList = [],
+      rawList = []
+    if (productDetail.fulfillment_type === 'foster') {
+      productDetail.options.addons.map((item, index) => {
+        imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
+        rawList.push({ url: item.raw_url })
+      })
+      setType('foster')
+    } else {
+      productDetail.options.product_images.map((item, index) => {
+        imageList.push({ id: index, url: item, selected: index === 0 })
+      })
+      if (productDetail.master_edition_address === null) setType('physical')
+      else setType('')
+    }
+    setMerchList(imageList)
+    setRawUrlList(rawList)
+    setSelectedMerch(imageList[0])
+    setPrintData({
+      id: 1,
+      quantity: merchQuantity,
+      size: merchSize,
+      color: productDetail.options.color,
+      name: productDetail.name,
+      description: productDetail.description,
+      technique: productDetail.options.print_technique,
+      cost: productDetail.selling_price / 100,
+    })
+
+    // StoreAPI.getStoreById(publicArtistData.id, router.query.product_id).then(
+    //   response => {
+    //     if (response) {
+    //       setProductDetail(response)
+    //       let imageList = [],
+    //         rawList = []
+    //       if (response.fulfillment_type === 'foster') {
+    //         response.options.addons.map((item, index) => {
+    //           imageList.push({ id: index, url: item.mockup_url, selected: index === 0 })
+    //           rawList.push({ url: item.raw_url })
+    //         })
+    //         setType('foster')
+    //       } else {
+    //         response.options.product_images.map((item, index) => {
+    //           imageList.push({ id: index, url: item, selected: index === 0 })
+    //         })
+    //         if (response.master_edition_address === null) setType('physical')
+    //         else setType('')
+    //       }
+    //       setMerchList(imageList)
+    //       setRawUrlList(rawList)
+    //       setSelectedMerch(imageList[0])
+    //       setPrintData({
+    //         id: 1,
+    //         quantity: merchQuantity,
+    //         size: merchSize,
+    //         color: response.options.color,
+    //         name: response.name,
+    //         description: response.description,
+    //         technique: response.options.print_technique,
+    //         cost: response.selling_price / 100,
+    //       })
+    //     }
+    //   },
+    //   error => {}
+    // )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publicArtistData])
+  }, [productDetail])
 
   useEffect(() => {
     setPrintData({ ...printData, size: merchSize })
@@ -448,13 +477,19 @@ MerchOrderPage.getLayout = function getLayout(page) {
 
 MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchOrderPageProps> {
   let artistUsername = encodeURIComponent(query.id)
+  let productId = encodeURIComponent(query.product_id)
 
   try {
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/users/username/${artistUsername}`).then(r =>
       r.json()
     )
+    let productDetail = await fetch(
+      `${process.env.BACKEND_URL}v1/stores/${publicArtistData.id}/items/${productId}`
+    ).then(r => r.json())
+
     return {
       publicArtistData,
+      productDetail,
     }
   } catch (e: any) {
     console.error(e)
