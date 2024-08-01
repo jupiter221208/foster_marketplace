@@ -1,0 +1,119 @@
+@import 'assets/scss/variable.module.scss';
+
+.btnArea {
+  min-width: 120px;
+  gap: 14px;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 100%;
+    font-size: 14px;
+    padding: 13px 15px;
+  }
+  height: 45px;
+  padding: 13px 10px;
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+  background: var(--background-main-color);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.menuArea {
+  position: absolute;
+  width: 100%;
+  min-width: 205px;
+  @media (min-width: 1024px) {
+    width: 100%;
+    top: 50px;
+    padding: 10px 15px;
+  }
+  
+  top: 50px;
+  padding: 6px 8px;
+  background: var(--background-main-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  border-radius: 10px;
+  overflow: auto;
+  cursor: pointer;
+  z-index: 100;
+  outline: none;
+}
+
+.menuItem {
+  width: 100%;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.removeBlueHighlight {
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+  }
+}
+
+.checkbox {
+  appearance: none;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.8);
+  background-color: transparent;
+  &:checked {
+    border: 2px solid var(--main-icon-color);
+    background-color: var(--main-icon-color);
+    position: relative;
+    &:before {
+      content: '';
+      background-color: transparent;
+      /* position the checkbox */
+      position: absolute;
+      left: 7px;
+      top: 2px;
+
+      /* setting the checkbox */
+      /* short arm */
+      width: 7px;
+      border-bottom: 3px solid var(--stats-search-bg);
+      /* long arm */
+      height: 15px;
+      border-right: 3px solid var(--stats-search-bg);
+
+      /* rotate the mirrored L to make it a checkbox */
+      transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+  vertical-align: top;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.checkmark {
+  cursor: pointer;
+  font-family: 'Muli-Regular';
+  flex: 1;
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  letter-spacing: 0;
+}
