@@ -62,7 +62,10 @@
   font-weight: 100;
   color: var(#eff0f6, 0.9);
   margin-top: 9px;
-  max-width: 584px;
+  max-width: 350px;
+  @media (min-width:1024px) {
+    max-width: 584px;
+  }
   text-align: center;
 }
 
@@ -83,8 +86,12 @@
 
 .studioDesc {
   font-family: "Muli-ExtraLight" ;
-  font-size: 18px;
-  line-height: 21px;
+  font-size: 15px;
+  line-height: 19px;
+  @media (min-width: 640px) {
+    font-size: 18px;
+    line-height: 21px;
+  }
   font-weight: 1;
   color: var(--text-gray-200-color);
 }
@@ -98,8 +105,12 @@
 
 .studioBG {
   background: var(--bg-151515-E8E7E5);
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 37px;
+  padding-bottom: 37px;
+  @media (min-width: 640px) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
 }
 
 .imageArea {

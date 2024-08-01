@@ -73,8 +73,8 @@ const Studio = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      <div className="w-full flex z-10">
-        <div className="relative w-[50%]">
+      <div className="w-full flex flex-col sm:flex-row z-10">
+        <div className="relative w-full sm:w-[50%]">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
               <div className="absolute inset-0">
@@ -101,7 +101,9 @@ const Studio = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-[50%]">
+        <div className={`${styles.border} sm:hidden block`} />
+
+        <div className="relative w-full sm:w-[50%]">
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
               <div className="absolute inset-0">
@@ -137,7 +139,7 @@ const Studio = () => {
         <div className="flex justify-center">
           <StudioBallonIcon />
         </div>
-        <div className="flex justify-center mt-[30px]">
+        <div className="flex justify-center mt-[15px] sm:mt-[30px]">
           <div className={styles.studioDesc}>A MERCH TOOL FOR ARTISTS ON SOLANA</div>
         </div>
       </div>
