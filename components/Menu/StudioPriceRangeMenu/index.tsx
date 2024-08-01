@@ -31,7 +31,7 @@ const StudioPriceRangeMenu = props => {
           <div className={styles.menuItem}>
             <div className="w-full">
               <div className={styles.priceRange}>
-                Price Range:{' '}
+                Price Range:
                 <div className={styles.priceValue}>
                   ${values[0]} - ${values[1]}
                 </div>

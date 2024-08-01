@@ -29,6 +29,7 @@ const StudioSignature = () => {
   const [categoryList, setCategoryList] = useState([])
   const [subCateList, setSubCateList] = useState([])
   const [colorList, setColorList] = useState([])
+  const [priceValue, setPriceValue] = useState([0, 2000])
   const [sortList, setSortList] = useState([])
   const [merchList, setMerchList] = useState([])
   const [username, setUserName] = useState('Nicholas-FPC')
@@ -214,6 +215,10 @@ const StudioSignature = () => {
             subCategory={subCateList}
             color={colorList}
             onFilter={params => {
+              setCategoryList(params.category)
+              setSubCateList(params.subCategory)
+              setColorList(params.color)
+              setPriceValue(params.price)
               setOpenMobileFilter(false)
             }}
             onClose={() => setOpenMobileFilter(false)}
@@ -223,9 +228,9 @@ const StudioSignature = () => {
         {openMobileSort && (
           <MobileStudioSort
             open={openMobileSort}
-            data={SortList}
             sort={sortList}
             onSort={params => {
+              setSortList(params)
               setOpenMobileSort(false)
             }}
             onClose={() => setOpenMobileSort(false)}

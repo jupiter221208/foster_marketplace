@@ -6,16 +6,29 @@ import { Dialog, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 
-// solana
-import RadioMobile from 'components/RadioMobile'
-
 const MobileStudioSort = props => {
-  const { open, data, sort, onSort, onClose } = props
+  const { open, sort, onSort, onClose } = props
   const [selectedSort, setSelectedSort] = useState(sort)
+
+  const handleSelectSort = index => {
+    let array = [...selectedSort]
+    array.map(item => {
+      item.checked = false
+    })
+    array[index].checked = true
+    setSelectedSort(array)
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={onClose}>
+      <Dialog
+        as="div"
+        className={styles.container}
+        onClose={() => {
+          onSort(selectedSort)
+          onClose()
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -42,19 +55,27 @@ const MobileStudioSort = props => {
               <Dialog.Panel className="w-full h-full">
                 <div className={styles.title}>Sort By</div>
 
-                <RadioMobile
-                  data={data}
-                  selected={selectedSort}
-                  onChange={item => {
-                    setSelectedSort(item)
-                    setTimeout(() => {
-                      onSort({
-                        sort: item,
-                      })
-                    }, 500)
-                  }}
-                  direction="rtl"
-                />
+                {selectedSort.map((item, index) => (
+                  <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+                    <label
+                      className={`${styles.checkmark}`}
+                      onClick={() => {
+                        handleSelectSort(index)
+                      }}
+                    >
+                      {item.name}
+                    </label>
+                    <input
+                      className={`${styles.checkbox}`}
+                      type="checkbox"
+                      id={item.id}
+                      checked={item.checked}
+                      onChange={() => {
+                        handleSelectSort(index)
+                      }}
+                    />
+                  </div>
+                ))}
 
                 <div className="w-full flex justify-center">
                   <div className={styles.cancel} onClick={onClose}>
