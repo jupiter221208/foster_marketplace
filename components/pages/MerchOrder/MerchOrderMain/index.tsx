@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -6,11 +7,15 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // next component
 
 //components
-import MerchShopClipboardChip from 'components/Chip/MerchShopClipboardChip'
+import ImageWithFoster from 'components/ImageWithFoster'
+import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
+import SocialShareModal from 'components/Menu/SocialShareModal'
+import SizeChartModal from 'components/Modal/SizeChartModal'
+import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
+import GradientButton from 'components/Button/GradientButton'
 
 // images
 import ShareDesktopIcon from 'assets/icons/share-icon-707070.svg?component'
-import InfoIcon from 'assets/icons/info-green-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-13x11.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import ArrowRightWhiteIcon from 'assets/icons/arrow-right-white-medium.svg?component'
@@ -24,14 +29,6 @@ import SizeList from 'assets/json/print/size-chat-modal.json'
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFoster from 'components/ImageWithFoster'
-import LoadingPrimaryButton from 'components/Button/LoadingPrimaryButton'
-import PrimaryButton from 'components/Button/PrimaryButton'
-import SocialShareModal from 'components/Menu/SocialShareModal'
-import SizeChartModal from 'components/Modal/SizeChartModal'
-import { calculateAuctionTimeLeft, getFirstUpperString, getTimeDifference } from 'utils/helpers'
-import Link from 'next/link'
-import GradientButton from 'components/Button/GradientButton'
 
 const MerchOrderMain = props => {
   const { type, username, productDetail, userDetail, onClickBuyNow, setQuantity, setMerchSize } = props
@@ -41,10 +38,10 @@ const MerchOrderMain = props => {
   const [openShareModal, setOpenShareModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
-  const alertEmb = 'alert-emb'
-  const alertEmbMobile = 'alert-emb-mobile'
-  const alertNote = 'alert-note'
-  const alertNoteMobile = 'alert-mobile'
+  // const alertEmb = 'alert-emb'
+  // const alertEmbMobile = 'alert-emb-mobile'
+  // const alertNote = 'alert-note'
+  // const alertNoteMobile = 'alert-mobile'
   const [tableModal, setTableModal] = useState(false)
   const [sizeList, setSizeList] = useState([])
   const [timeLeft, setTimeLeft] = useState(null)
@@ -187,15 +184,6 @@ const MerchOrderMain = props => {
   function toggleIsTruncated() {
     setIsTruncated(!isTruncated)
   }
-
-  // useEffect(() => {
-  //   if (productDetail.supply === null || productDetail.supply - productDetail.current_supply > 0) {
-  //     document.getElementById(alertEmb).style.display = 'none'
-  //     document.getElementById(alertEmbMobile).style.display = 'none'
-  //     document.getElementById(alertNote).style.display = 'none'
-  //     document.getElementById(alertNoteMobile).style.display = 'none'
-  //   }
-  // }, [])
 
   const onClickSize = index => {
     let newSize = []
@@ -697,7 +685,7 @@ const MerchOrderMain = props => {
               )}
               {productDetail.fulfillment_type === 'user' && (
                 <div className="mt-[15px]">
-                  <div className={`mt-[10px] ${styles.endsTime}`}>
+                  <div className={`mt-[10px] ${styles.itemDesc}`}>
                     {processedNftDescription}
                     {shouldShowReadMore && (
                       <span onClick={toggleIsTruncated} className={`${styles.greenText} min-w-max cursor-pointer`}>

@@ -317,7 +317,9 @@ const MerchOrderShipping = props => {
             <LoadingButton height={50} fullWidth />
           ) : (
             <PrimaryButton
-              label={viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'}
+              label={
+                type === 'physical' ? 'Checkout' : viewport === 'xs' ? 'Select Shipping' : 'Select Shipping Method'
+              }
               type="shipping"
               disabled={!enabled}
               fullWidth

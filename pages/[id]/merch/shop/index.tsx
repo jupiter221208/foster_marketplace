@@ -33,7 +33,6 @@ const CreatorMerchShop = props => {
     if (userId === undefined || userId === null) return
     StoreAPI.getStoreItemByFoster(userId).then(
       res => {
-        console.log(res, '===========res============')
         setMerchList(
           res.filter(
             item =>

@@ -249,6 +249,15 @@
   cursor: pointer;
 }
 
+.itemDesc {
+  font-family: 'Muli-Light';
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 20px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  white-space: pre-wrap;
+}
+
 .endsIn {
   font-family: 'Muli-SemiBold';
   font-size: 16px;

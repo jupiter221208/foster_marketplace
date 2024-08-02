@@ -220,6 +220,7 @@ const OrderSection = props => {
               <PhysicalCheckout
                 orderData={orderData}
                 orderType={orderType}
+                merchType={merchType}
                 helioEnabled={true}
                 paymentId={paymentId}
                 onBack={() => {
