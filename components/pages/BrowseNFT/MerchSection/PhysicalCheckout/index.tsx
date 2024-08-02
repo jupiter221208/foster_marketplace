@@ -38,6 +38,7 @@ import GradientButton from 'components/Button/GradientButton'
 export interface PhysicalCheckoutProps {
   orderData?: any
   orderType: string
+  merchType?: string
   total?: number
   paymentId?: number
   helioEnabled: any
@@ -48,6 +49,7 @@ export interface PhysicalCheckoutProps {
 const PhysicalCheckout = ({
   orderData,
   orderType,
+  merchType,
   onBack,
   onNext,
   total,
@@ -455,7 +457,7 @@ const PhysicalCheckout = ({
         <div className="w-full flex justify-between mb-[20px] px-[5px]">
           <div>
             <div className={styles.orderTotal}>Total</div>
-            <div className={styles.orderDesc}>Including taxes and shipping</div>
+            {merchType !== 'user' && <div className={styles.orderDesc}>Including taxes and shipping</div>}
           </div>
           <div className="">
             {/* <div className={styles.costDivider} /> */}
@@ -463,7 +465,7 @@ const PhysicalCheckout = ({
               <SolanaIcon alt="" className="mt-[2px]" />
               <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
-            <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>
+            {merchType !== 'user' && <div className={styles.totalUSD}>${total ? total.toFixed(2) : '---'}</div>}
           </div>
         </div>
         <div className="w-full flex flex-col gap-[15px] mb-[30px]">
