@@ -187,11 +187,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                       overflow: 'hidden',
                     }}
                   >
-                    <ImageWithFoster
-                      width={700}
-                      src={selectedMerch ? selectedMerch.url : ''}
-                      className="w-full h-full object-contain"
-                    />
+                    <img src={selectedMerch ? selectedMerch.url : ''} className="w-full h-full object-contain" />
                   </div>
                 </div>
                 {merchList.length > 1 && selectedMerch && (
@@ -244,7 +240,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
                 return (
                   <div key={index} className={styles.image} onClick={() => onClickMerch(index)}>
                     <div className={merch.selected ? styles.selected : styles.unselected}>
-                      <ImageWithFoster width={350} src={merch.url} className="w-full h-full object-cover" />
+                      <img src={merch.url} className="w-full h-full object-cover" />
                     </div>
                   </div>
                 )
