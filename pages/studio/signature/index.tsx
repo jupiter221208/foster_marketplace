@@ -46,6 +46,16 @@ const StudioSignature = () => {
   }, [])
 
   useEffect(() => {
+    console.log(priceValue, categoryList)
+    let sort_param = 'price-ascending'
+    sortList.map(item => {
+      if (item.selected === true) {
+        sort_param = item.value
+      }
+    })
+  }, [priceValue, categoryList, sortList])
+
+  useEffect(() => {
     let array: any[] = []
     CategoryList.map(item => {
       let object: any = item
@@ -147,7 +157,7 @@ const StudioSignature = () => {
             handleSelectSubCategory={handleSelectSubCategory}
             icon={<FilterIcon />}
           />
-          <StudioPriceRangeMenu icon={<FilterIcon />} />
+          <StudioPriceRangeMenu icon={<FilterIcon />} setPriceValue={setPriceValue} />
           <StudioCategoryMenu
             menuLabel="Color"
             categoryList={colorList}
