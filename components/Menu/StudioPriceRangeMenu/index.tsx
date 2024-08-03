@@ -13,7 +13,7 @@ import styles from './index.module.scss'
 // solana
 
 const StudioPriceRangeMenu = props => {
-  const { icon } = props
+  const { icon, setPriceValue } = props
   const [showDropdown, setShowDropdown] = useState(false)
   const [values, setValues] = useState([0, 2000])
 
@@ -70,6 +70,7 @@ const StudioPriceRangeMenu = props => {
                   max={MAX}
                   onChange={values => {
                     setValues(values)
+                    setPriceValue(values)
                   }}
                   renderTrack={({ props, children }) => (
                     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

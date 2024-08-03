@@ -81,6 +81,18 @@ class Store {
     })
   }
 
+  getStoreTypes() {
+    return client.get(API_URL + 'v1/stores/product-types').then(response => {
+      return response.data
+    })
+  }
+
+  getStoreFeeds(page, page_count, params) {
+    return client.post(API_URL + `v1/stores/feed?per_page=${page_count}&page=${page}`, params).then(response => {
+      return response.data
+    })
+  }
+
   deleteStoreById(user_id, product_id, item) {
     return client.patch(API_URL + 'v1/stores/' + user_id + '/items/' + product_id, item).then(response => {
       return response.data
