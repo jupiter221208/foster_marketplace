@@ -42,7 +42,7 @@ const StudioSignature = () => {
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [pages, setPages] = useState(0)
-  const [rowCount, setRowCount] = useState(8)
+  const [rowCount, setRowCount] = useState(10)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
