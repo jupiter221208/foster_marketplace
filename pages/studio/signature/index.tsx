@@ -73,12 +73,15 @@ const StudioSignature = () => {
     sortList,
     reset = false
   ) => {
+    console.log(sortList, '======sortList==========')
     let sort = 'latest'
     sortList.map(item => {
-      if (item.cheched === true) {
+      if (item.checked === true) {
         sort = item.value
       }
     })
+    console.log(sort, '======sort==========')
+
     let category = null
 
     categoryList.map(item => {
