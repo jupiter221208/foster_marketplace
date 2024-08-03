@@ -7,11 +7,11 @@
   {
     "id": 1,
     "name": "Merch Edition",
-    "value": "user"
+    "value": "merch-edition"
   },
   {
     "id": 2,
     "name": "User Physical",
-    "value": "merch-edition"
+    "value": "user"
   }
 ]

@@ -41,64 +41,116 @@ const StudioSignature = () => {
   const [username, setUserName] = useState('Nicholas-FPC')
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
-  const [pages, setPages] = useState(1)
-  const [rowCount, setRowCount] = useState(10)
+  const [pages, setPages] = useState(0)
+  const [rowCount, setRowCount] = useState(8)
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
-
   useEffect(() => {
-    // StoreAPI.getStoreItemByFoster(53).then(
+    // StoreAPI.getStoreTypes().then(
     //   res => {
-    //     setMerchList(res)
     //   },
     //   error => {}
     // )
-    StoreAPI.getStoreTypes().then(
-      res => {
-        console.log(res, '================res===========')
-      },
-      error => {}
-    )
-    getStoreItem(pages)
+    // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
   }, [])
 
-  const getStoreItem = page => {
-    let sort = 'price-ascending'
+  useEffect(() => {
+    if (isFetching === true) {
+      let nextPage = pages + 1
+      getStoreItem(nextPage, categoryList, subCateList, printList, apparelList, priceValue, sortList)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching])
+
+  const getStoreItem = (
+    page,
+    categoryList,
+    subCateList,
+    printList,
+    apparelList,
+    priceValue,
+    sortList,
+    reset = false
+  ) => {
+    let sort = 'latest'
     sortList.map(item => {
-      if (item.selected === true) {
+      if (item.cheched === true) {
         sort = item.value
       }
     })
-    let category = ''
+    let category = null
+
     categoryList.map(item => {
-      if (item.selected === true) {
-        category = item.value
+      if (item.checked === true) {
+        category = item
       }
     })
+
+    let typeIds = []
+    if (category !== null && category !== undefined) {
+      if (category.id === 0 || category.id === 1 || category.id === 3) {
+        let print
+        printList.map(item => {
+          if (item.checked === true) {
+            print = item
+          }
+        })
+        apparelList.map(item => {
+          if (item.checked === true) {
+            // All
+            if (item.id !== 6) {
+              // All
+              if (print.id === 0) {
+                typeIds.push(item.id * 2 + 1)
+                typeIds.push(item.id * 2 + 2)
+              } else {
+                typeIds.push(item.id * 2 + print.id)
+              }
+            } else {
+              if (print.id === 1) typeIds.push(1, 3, 5, 7, 9)
+              else if (print.id === 2) typeIds.push(2, 4, 6, 8, 10)
+            }
+          }
+        })
+      }
+      if (category.id === 2 || category.id === 3) {
+        subCateList.map(item => {
+          if (item.checked === true) {
+            if (item.id !== 22)
+              // All
+              typeIds.push(item.id)
+          }
+        })
+      }
+    }
+
     let minPrice = priceValue[0]
     let maxPrice = priceValue[1]
 
     let params = {
       sort: sort,
-      typeIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       minPrice: minPrice,
       maxPrice: maxPrice,
     }
-    if (category !== '') {
-      params['category'] = category
+    if (category !== null && category.value !== '') {
+      params['category'] = category.value
+    }
+    if (typeIds.length > 0) {
+      params['typeIds'] = typeIds
     }
 
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsFetching(false)
-        setMerchList([...merchList, ...response])
+        setPages(page)
+        if (reset) setMerchList(response)
+        else setMerchList([...merchList, ...response])
 
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
           setIsVisibleFetching(true)
-          getStoreItem(page + 1)
         }
       },
       error => {
@@ -132,11 +184,10 @@ const StudioSignature = () => {
       array1.push(object)
     })
     array1.push({
-      id: 12,
+      id: 22,
       name: 'All',
       checked: true,
     })
-
     setSubCateList(array1)
 
     let array2: any[] = []
@@ -176,11 +227,11 @@ const StudioSignature = () => {
       array5.push(object)
     })
     array5.push({
-      id: 2,
+      id: 0,
       name: 'All',
       checked: true,
     })
-    setPrintList(array4)
+    setPrintList(array5)
   }, [])
 
   const handleSelectCategory = index => {
@@ -191,12 +242,26 @@ const StudioSignature = () => {
     array[index].checked = true
     setCategoryList(array)
     setSelectedCategory(array[index])
+    getStoreItem(1, array, subCateList, printList, apparelList, priceValue, sortList, true)
   }
 
   const handleSelectSubCategory = index => {
-    let array = [...subCateList]
-    array[index].checked = !array[index].checked
-    setSubCateList(array)
+    if (index === subCateList.length - 1) {
+      let array = []
+      subCateList.map(item => {
+        item.checked = false
+        array.push(item)
+      })
+      array[subCateList.length - 1].checked = true
+      setSubCateList(array)
+      getStoreItem(1, categoryList, array, printList, apparelList, priceValue, sortList, true)
+    } else {
+      let array = [...subCateList]
+      array[index].checked = !array[index].checked
+      array[subCateList.length - 1].checked = false
+      setSubCateList(array)
+      getStoreItem(1, categoryList, array, printList, apparelList, priceValue, sortList, true)
+    }
   }
 
   const handleSelectColor = index => {
@@ -215,6 +280,7 @@ const StudioSignature = () => {
     })
     array[index].checked = true
     setApparelList(array)
+    getStoreItem(1, categoryList, subCateList, printList, array, priceValue, sortList, true)
   }
 
   const handleSelectPrint = index => {
@@ -224,6 +290,7 @@ const StudioSignature = () => {
     })
     array[index].checked = true
     setPrintList(array)
+    getStoreItem(1, categoryList, subCateList, array, apparelList, priceValue, sortList, true)
   }
 
   const handleSelectSort = index => {
@@ -233,6 +300,7 @@ const StudioSignature = () => {
     })
     array[index].checked = true
     setSortList(array)
+    getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, array, true)
   }
 
   return (
@@ -257,7 +325,13 @@ const StudioSignature = () => {
               icon={<FilterIcon />}
             />
           )}
-          <StudioPriceRangeMenu icon={<FilterIcon />} setPriceValue={setPriceValue} />
+          <StudioPriceRangeMenu
+            icon={<FilterIcon />}
+            setPriceValue={value => {
+              setPriceValue(value)
+              getStoreItem(1, categoryList, subCateList, printList, apparelList, value, sortList, true)
+            }}
+          />
 
           {(selectedCategory?.id === 0 || selectedCategory?.id === 1 || selectedCategory?.id === 3) && (
             <StudioCategoryMenu
@@ -345,7 +419,7 @@ const StudioSignature = () => {
         </div>
       </div>
       {isVisibleFetching && (
-        <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
+        <div className="w-full mt-[0px] lg:mt-[0px] mb-[40px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}

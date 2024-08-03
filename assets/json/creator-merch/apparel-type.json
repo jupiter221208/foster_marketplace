@@ -1,22 +1,22 @@
 [
   {
-    "id": 1,
+    "id": 0,
     "name": "Hoodie"
   },
   {
-    "id": 2,
+    "id": 1,
     "name": "Long Sleeve"
   },
   {
-    "id": 3,
+    "id": 2,
     "name": "Crewneck"
   },
   {
-    "id": 4,
+    "id": 3,
     "name": "Unisex Tee"
   },
   {
-    "id": 5,
+    "id": 4,
     "name": "Women's Tee"
   }
 ]
