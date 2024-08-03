@@ -73,14 +73,12 @@ const StudioSignature = () => {
     sortList,
     reset = false
   ) => {
-    console.log(sortList, '======sortList==========')
     let sort = 'latest'
     sortList.map(item => {
       if (item.checked === true) {
         sort = item.value
       }
     })
-    console.log(sort, '======sort==========')
 
     let category = null
 
@@ -133,8 +131,8 @@ const StudioSignature = () => {
 
     let params = {
       sort: sort,
-      minPrice: minPrice,
-      maxPrice: maxPrice,
+      minPrice: minPrice * 100,
+      maxPrice: maxPrice * 100,
     }
     if (category !== null && category.value !== '') {
       params['category'] = category.value
