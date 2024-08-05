@@ -28,6 +28,7 @@ import MobileStudioFilter from 'components/Filter/MobileStudioFilter'
 import MobileStudioSort from 'components/Menu/MobileStudioSort'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
+import { getTimeDifference } from 'utils/helpers'
 
 const StudioSignature = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -38,7 +39,6 @@ const StudioSignature = () => {
   const [priceValue, setPriceValue] = useState([0, 2000])
   const [sortList, setSortList] = useState([])
   const [merchList, setMerchList] = useState([])
-  const [username, setUserName] = useState('Nicholas-FPC')
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [pages, setPages] = useState(0)
@@ -46,14 +46,15 @@ const StudioSignature = () => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
-  useEffect(() => {
-    // StoreAPI.getStoreTypes().then(
-    //   res => {
-    //   },
-    //   error => {}
-    // )
-    // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
-  }, [])
+  const [total, setTotal] = useState(0)
+  // useEffect(() => {
+  // StoreAPI.getStoreTypes().then(
+  //   res => {
+  //   },
+  //   error => {}
+  // )
+  // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
+  // }, [])
 
   useEffect(() => {
     if (isFetching === true) {
@@ -144,13 +145,19 @@ const StudioSignature = () => {
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsFetching(false)
-        setPages(page)
-        if (reset) setMerchList(response)
-        else setMerchList([...merchList, ...response])
-
-        if (response.length < rowCount) {
+        let filtered = getFilterData(response.products)
+        setTotal(response.total)
+        if (reset) setMerchList(filtered)
+        else setMerchList([...merchList, ...filtered])
+        if (response.products.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
+          setTimeout(() => {
+            if (filtered.length != response.products.length) {
+              setIsFetching(true)
+            }
+          }, 2000)
+          setPages(page)
           setIsVisibleFetching(true)
         }
       },
@@ -158,6 +165,16 @@ const StudioSignature = () => {
         setIsFetching(false)
       }
     )
+  }
+
+  const getFilterData = response => {
+    let list = response.filter(
+      item =>
+        item.master_edition_address !== '' &&
+        (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
+        (item.supply === null || item.supply - item.current_supply > 0)
+    )
+    return list
   }
 
   useEffect(() => {
@@ -308,7 +325,7 @@ const StudioSignature = () => {
     <div className="w-full g-container">
       <div className="mt-[30px] lg:mt-[60px] mb-[15px] lg:mb-[45px]">
         <div className={styles.signature}>Signature Creator Merch</div>
-        <div className={styles.result}>12,240 results</div>
+        <div className={styles.result}>{total} results</div>
       </div>
 
       <div className="lg:flex hidden w-full justify-between">
@@ -328,6 +345,7 @@ const StudioSignature = () => {
           )}
           <StudioPriceRangeMenu
             icon={<FilterIcon />}
+            priceValue={priceValue}
             setPriceValue={value => {
               setPriceValue(value)
               getStoreItem(1, categoryList, subCateList, printList, apparelList, value, sortList, true)
@@ -406,36 +424,45 @@ const StudioSignature = () => {
         />
       </div>
 
-      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px]">
+      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px] lg:mb-[100px]">
         <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
               {item.fulfillment_type === 'foster' ? (
-                <MerchShopCard username={username} data={item} />
+                <MerchShopCard username={item.username} data={item} />
               ) : (
-                <MerchPhysicalCard username={username} data={item} />
+                <MerchPhysicalCard username={item.username} data={item} />
               )}
             </div>
           ))}
         </div>
       </div>
       {isVisibleFetching && (
-        <div className="w-full mt-[0px] lg:mt-[0px] mb-[40px]">
+        <div className="w-full mt-[0px] lg:mt-[-100px] mb-[140px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
       <div className="flex lg:hidden w-full">
         {openMobileFilter && (
           <MobileStudioFilter
+            selectedCategory={selectedCategory}
             category={categoryList}
             subCategory={subCateList}
             color={colorList}
+            price={priceValue}
+            apparel={apparelList}
+            print={printList}
             onFilter={params => {
-              setCategoryList(params.category)
-              setSubCateList(params.subCategory)
-              setColorList(params.color)
-              setPriceValue(params.price)
+              let { category, subCategory, color, apparel, print, price } = params
+              setSelectedCategory(category.filter(item => item.checked === true)[0])
+              setCategoryList(category)
+              setSubCateList(subCategory)
+              setColorList(color)
+              setApparelList(apparel)
+              setPriceValue(price)
+              setPrintList(print)
               setOpenMobileFilter(false)
+              getStoreItem(1, category, subCategory, print, apparel, price, sortList, true)
             }}
             onClose={() => setOpenMobileFilter(false)}
           />
@@ -448,6 +475,7 @@ const StudioSignature = () => {
             onSort={params => {
               setSortList(params)
               setOpenMobileSort(false)
+              getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, params, true)
             }}
             onClose={() => setOpenMobileSort(false)}
           />

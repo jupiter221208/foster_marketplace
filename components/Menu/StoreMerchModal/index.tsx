@@ -12,6 +12,7 @@ import { getPriceValue } from 'utils/strings'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import { convertMerchDescription, getDateTimeLabel, getTimeDifference } from 'utils/helpers'
+import ImageWithFoster from 'components/ImageWithFoster'
 
 const StoreMerchModal = props => {
   const { open, close, item, onBuyNow, showTimer, timeLeft, startDate } = props
@@ -46,13 +47,15 @@ const StoreMerchModal = props => {
               <Dialog.Panel className="w-full h-full">
                 <div className={styles.topSection}>
                   <div className="w-[41px] h-[41px]">
-                    <img
+                    <ImageWithFoster
+                      width={100}
                       src={
                         item.fulfillment_type === 'foster'
                           ? item.options.addons[0].mockup_url
                           : item.options.product_images[0]
                       }
                       alt=""
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="flex flex-col justify-between">

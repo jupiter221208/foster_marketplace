@@ -13,9 +13,13 @@ import styles from './index.module.scss'
 // solana
 
 const StudioPriceRangeMenu = props => {
-  const { icon, setPriceValue } = props
+  const { icon, priceValue, setPriceValue } = props
   const [showDropdown, setShowDropdown] = useState(false)
-  const [values, setValues] = useState([0, 2000])
+  const [values, setValues] = useState(priceValue)
+
+  useEffect(() => {
+    setValues(priceValue)
+  }, [priceValue])
 
   const STEP = 1
   const MIN = 0
@@ -23,7 +27,6 @@ const StudioPriceRangeMenu = props => {
 
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
-
   const handleClickOutside = event => {
     if (
       menuRef.current &&

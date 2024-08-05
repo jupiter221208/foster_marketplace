@@ -77,9 +77,13 @@ const MobileStudioSort = props => {
                   </div>
                 ))}
 
-                <div className="w-full flex justify-center">
+                <div className="w-full flex justify-center gap-[50px]">
                   <div className={styles.cancel} onClick={onClose}>
                     Cancel
+                  </div>
+
+                  <div className={styles.cancel} onClick={() => onSort(selectedSort)}>
+                    OK
                   </div>
                 </div>
               </Dialog.Panel>
