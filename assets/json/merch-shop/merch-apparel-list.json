@@ -5,13 +5,13 @@
     "location": { 
       "dtg": {
         "front": {"width": 240, "height": 240, "width_chest": 90, "height_chest": 90, "width_center": 240, "height_center": 140, "top": 180, "top_chest": 180, "left": 230, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 255, "left": 230, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 255, "left": 225, "angle": 0 },
         "right": {"width": 44, "height": 176, "top": 370, "left": 310, "angle": -11 },
         "left": {"width": 44, "height": 176, "top": 370, "left": 350, "angle": 11 }
       },
       "emb": {
         "front": {"width": 90, "height": 90, "width_chest": 90, "height_chest": 90, "width_center": 90, "height_center": 90, "top": 180, "top_chest": 180, "left": 394, "angle": 0},
-        "back": {"width": 240, "height": 316, "top": 255, "left": 230, "angle": 0 },
+        "back": {"width": 240, "height": 316, "top": 255, "left": 225, "angle": 0 },
         "right": {"width": 47, "height": 70, "top": 560, "left": 345, "angle": -11 },
         "left": {"width": 47, "height": 70, "top": 555, "left": 310, "angle": 11 }
       }
