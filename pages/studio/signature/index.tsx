@@ -39,7 +39,6 @@ const StudioSignature = () => {
   const [priceValue, setPriceValue] = useState([0, 2000])
   const [sortList, setSortList] = useState([])
   const [merchList, setMerchList] = useState([])
-  const [username, setUserName] = useState('Nicholas-FPC')
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
   const [pages, setPages] = useState(0)
@@ -47,6 +46,7 @@ const StudioSignature = () => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
+  const [total, setTotal] = useState(0)
   // useEffect(() => {
   // StoreAPI.getStoreTypes().then(
   //   res => {
@@ -145,14 +145,15 @@ const StudioSignature = () => {
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsFetching(false)
-        let filtered = getFilterData(response)
+        let filtered = getFilterData(response.products)
+        setTotal(response.total)
         if (reset) setMerchList(filtered)
         else setMerchList([...merchList, ...filtered])
-        if (response.length < rowCount) {
+        if (response.products.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
           setTimeout(() => {
-            if (filtered.length != response.length) {
+            if (filtered.length != response.products.length) {
               setIsFetching(true)
             }
           }, 2000)
@@ -324,7 +325,7 @@ const StudioSignature = () => {
     <div className="w-full g-container">
       <div className="mt-[30px] lg:mt-[60px] mb-[15px] lg:mb-[45px]">
         <div className={styles.signature}>Signature Creator Merch</div>
-        <div className={styles.result}>12,240 results</div>
+        <div className={styles.result}>{total} results</div>
       </div>
 
       <div className="lg:flex hidden w-full justify-between">
@@ -428,9 +429,9 @@ const StudioSignature = () => {
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
               {item.fulfillment_type === 'foster' ? (
-                <MerchShopCard username={username} data={item} />
+                <MerchShopCard username={item.username} data={item} />
               ) : (
-                <MerchPhysicalCard username={username} data={item} />
+                <MerchPhysicalCard username={item.username} data={item} />
               )}
             </div>
           ))}
@@ -453,6 +454,7 @@ const StudioSignature = () => {
             print={printList}
             onFilter={params => {
               let { category, subCategory, color, apparel, print, price } = params
+              setSelectedCategory(category.filter(item => item.checked === true)[0])
               setCategoryList(category)
               setSubCateList(subCategory)
               setColorList(color)
