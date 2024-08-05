@@ -11,30 +11,49 @@ import GradientButton from 'components/Button/GradientButton'
 import styles from './index.module.scss'
 
 const MobileStudioFilter = props => {
-  const { category, subCategory, color, price, onClose, onFilter } = props
+  const { category, subCategory, color, price, apparel, print, onClose, onFilter } = props
 
-  const [selectedCategory, setSelectedCategory] = useState<any>(category)
-  const [selectedSubCate, setSelectedSubCate] = useState<any>(subCategory)
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [categoryList, setCategoryList] = useState<any>(category)
+  const [subCateList, setSubCateList] = useState<any>(subCategory)
   const [selectedColor, setSelectedColor] = useState<any>(color)
-  const [selectedPrice, setSelectedPrice] = useState<any>(price)
-  const [values, setValues] = useState([0, 2000])
+  const [apparelList, setApparelList] = useState<any>(apparel)
+  const [printList, setPrintList] = useState<any>(print)
+  const [values, setValues] = useState(price)
   const STEP = 1
   const MIN = 0
   const MAX = 2000
 
+  useEffect(() => {
+    categoryList.map(item => {
+      if (item.checked) setSelectedCategory(item)
+    })
+  }, [categoryList])
+
   const handleSelectCategory = index => {
-    let array = [...selectedCategory]
+    let array = [...categoryList]
     array.map(item => {
       item.checked = false
     })
     array[index].checked = true
-    setSelectedCategory(array)
+    setCategoryList(array)
   }
 
   const handleSelectSubCategory = index => {
-    let array = [...selectedSubCate]
-    array[index].checked = !array[index].checked
-    setSelectedSubCate(array)
+    if (index === subCateList.length - 1) {
+      let array = []
+      subCateList.map(item => {
+        item.checked = false
+        array.push(item)
+      })
+      array[subCateList.length - 1].checked = true
+      setSubCateList(array)
+    } else {
+      let array = [...subCateList]
+      array[index].checked = !array[index].checked
+      array[subCateList.length - 1].checked = false
+      setSubCateList(array)
+    }
   }
 
   const handleSelectColor = index => {
@@ -46,11 +65,29 @@ const MobileStudioFilter = props => {
     setSelectedColor(array)
   }
 
+  const handleSelectApparel = index => {
+    let array = [...apparelList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[index].checked = true
+    setApparelList(array)
+  }
+
+  const handleSelectPrint = index => {
+    let array = [...printList]
+    array.map(item => {
+      item.checked = false
+    })
+    array[index].checked = true
+    setPrintList(array)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.title}>Category</div>
-        {selectedCategory.map((item, index) => (
+        {categoryList.map((item, index) => (
           <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
             <label
               className={`${styles.checkmark}`}
@@ -73,7 +110,7 @@ const MobileStudioFilter = props => {
         ))}
 
         <div className={styles.title}>Sub-category</div>
-        {selectedSubCate.map((item, index) => (
+        {subCateList.map((item, index) => (
           <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
             <label
               className={`${styles.checkmark}`}
@@ -95,28 +132,85 @@ const MobileStudioFilter = props => {
           </div>
         ))}
 
-        <div className={styles.title}>Color</div>
-        {selectedColor.map((item, index) => (
-          <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
-            <label
-              className={`${styles.checkmark}`}
-              onClick={() => {
-                handleSelectColor(index)
-              }}
-            >
-              {item.name}
-            </label>
-            <input
-              className={`${styles.checkbox}`}
-              type="checkbox"
-              id={item.id}
-              checked={item.checked}
-              onChange={() => {
-                handleSelectColor(index)
-              }}
-            />
+        {(selectedCategory?.id === 0 || selectedCategory?.id === 1 || selectedCategory?.id === 3) && (
+          <div>
+            <div className={styles.title}>Color</div>
+            {selectedColor.map((item, index) => (
+              <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+                <label
+                  className={`${styles.checkmark}`}
+                  onClick={() => {
+                    handleSelectColor(index)
+                  }}
+                >
+                  {item.name}
+                </label>
+                <input
+                  className={`${styles.checkbox}`}
+                  type="checkbox"
+                  id={item.id}
+                  checked={item.checked}
+                  onChange={() => {
+                    handleSelectColor(index)
+                  }}
+                />
+              </div>
+            ))}
           </div>
-        ))}
+        )}
+
+        {(selectedCategory?.id === 0 || selectedCategory?.id === 1 || selectedCategory?.id === 3) && (
+          <div>
+            <div className={styles.title}>Apparel Type</div>
+            {apparelList.map((item, index) => (
+              <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+                <label
+                  className={`${styles.checkmark}`}
+                  onClick={() => {
+                    handleSelectApparel(index)
+                  }}
+                >
+                  {item.name}
+                </label>
+                <input
+                  className={`${styles.checkbox}`}
+                  type="checkbox"
+                  id={item.id}
+                  checked={item.checked}
+                  onChange={() => {
+                    handleSelectApparel(index)
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        {(selectedCategory?.id === 0 || selectedCategory?.id === 1 || selectedCategory?.id === 3) && (
+          <div>
+            <div className={styles.title}>Print Technique</div>
+            {print.map((item, index) => (
+              <div id={`check-label-${index}`} key={index} className="flex justify-between my-[8px]">
+                <label
+                  className={`${styles.checkmark}`}
+                  onClick={() => {
+                    handleSelectPrint(index)
+                  }}
+                >
+                  {item.name}
+                </label>
+                <input
+                  className={`${styles.checkbox}`}
+                  type="checkbox"
+                  id={item.id}
+                  checked={item.checked}
+                  onChange={() => {
+                    handleSelectPrint(index)
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="w-full mt-[30px] mb-[30px]">
           <div className={styles.priceRange}>
@@ -216,10 +310,12 @@ const MobileStudioFilter = props => {
             color="var(--background-main-color)"
             onClick={() =>
               onFilter({
-                category: selectedCategory,
-                subCategory: selectedSubCate,
+                category: categoryList,
+                subCategory: subCateList,
                 color: selectedColor,
-                price: selectedPrice,
+                price: values,
+                apparel: apparelList,
+                print: printList,
               })
             }
             fullWidth

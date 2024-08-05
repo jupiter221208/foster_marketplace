@@ -327,6 +327,7 @@ const StudioSignature = () => {
           )}
           <StudioPriceRangeMenu
             icon={<FilterIcon />}
+            priceValue={priceValue}
             setPriceValue={value => {
               setPriceValue(value)
               getStoreItem(1, categoryList, subCateList, printList, apparelList, value, sortList, true)
@@ -426,15 +427,23 @@ const StudioSignature = () => {
       <div className="flex lg:hidden w-full">
         {openMobileFilter && (
           <MobileStudioFilter
+            selectedCategory={selectedCategory}
             category={categoryList}
             subCategory={subCateList}
             color={colorList}
+            price={priceValue}
+            apparel={apparelList}
+            print={printList}
             onFilter={params => {
-              setCategoryList(params.category)
-              setSubCateList(params.subCategory)
-              setColorList(params.color)
-              setPriceValue(params.price)
+              let { category, subCategory, color, apparel, print, price } = params
+              setCategoryList(category)
+              setSubCateList(subCategory)
+              setColorList(color)
+              setApparelList(apparel)
+              setPriceValue(price)
+              setPrintList(print)
               setOpenMobileFilter(false)
+              getStoreItem(1, category, subCategory, print, apparel, price, sortList, true)
             }}
             onClose={() => setOpenMobileFilter(false)}
           />
@@ -447,6 +456,7 @@ const StudioSignature = () => {
             onSort={params => {
               setSortList(params)
               setOpenMobileSort(false)
+              getStoreItem(1, categoryList, subCateList, printList, apparelList, priceValue, params, true)
             }}
             onClose={() => setOpenMobileSort(false)}
           />
