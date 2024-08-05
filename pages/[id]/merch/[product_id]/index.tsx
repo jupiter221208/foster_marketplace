@@ -54,7 +54,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   const [totalCost, setTotalCost] = useState(null)
   const [merchSize, setMerchSize] = useState('L')
   const [merchList, setMerchList] = useState([])
-  const [selectedMerch, setSelectedMerch] = useState(imageList[0])
+  const [selectedMerch, setSelectedMerch] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
 
   const [printData, setPrintData] = useState(
@@ -75,6 +75,7 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   useEffect(() => {
     if (imageList.length > 0) {
       setMerchList(imageList)
+      setSelectedMerch(imageList[0])
     }
   }, [imageList])
 
