@@ -73,11 +73,23 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   )
 
   useEffect(() => {
-    if (imageList.length > 0) {
-      setMerchList(imageList)
-      setSelectedMerch(imageList[0])
+    if (productDetail) {
+      let list = []
+      if (productDetail.fulfillment_type === 'foster') {
+        productDetail?.options.addons.map((item, index) => {
+          list.push({ id: index, url: item.mockup_url, selected: index === 0 })
+        })
+      } else {
+        productDetail.options.product_images.map((item, index) => {
+          list.push({ id: index, url: item, selected: index === 0 })
+        })
+      }
+      if (list.length > 0) {
+        setMerchList(list)
+        setSelectedMerch(list[0])
+      }
     }
-  }, [imageList])
+  }, [productDetail])
 
   const onClickMerch = key => {
     let list = []
