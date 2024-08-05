@@ -4,6 +4,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // component
 import ImageWithFoster from 'components/ImageWithFoster'
+import StoreMerchModal from 'components/Menu/StoreMerchModal'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -16,12 +17,14 @@ import 'swiper/css/navigation'
 import SolanaLogoIcon from 'assets/icons/solana-logo-13x11.svg?component'
 import BackIcon from 'assets/icons/back-arrow.svg?component'
 import NextIcon from 'assets/icons/next-arrow.svg?component'
+import ThreeDotIcon from 'assets/icons/three-dot-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 import { getDateTimeLabel, getTimeDifference } from 'utils/helpers'
 import { calculateAuctionTimeLeft } from 'utils/helpers'
+import { getPriceValue } from 'utils/strings'
 
 const MerchPhysicalCard = props => {
   const { username, data } = props
@@ -33,6 +36,7 @@ const MerchPhysicalCard = props => {
   const [indicatorList, setIndicatorList] = useState([])
   const [showTimer, setShowTimer] = useState(false)
   const [timeLeft, setTimeLeft] = useState<any>(null)
+  const [openModal, setOpenModal] = useState(false)
 
   const goNext = () => {
     if (swiper !== null) swiper.slideNext()
@@ -93,13 +97,7 @@ const MerchPhysicalCard = props => {
   }, [currentStep])
 
   const gotoDetail = () => {
-    if (data.fulfillment_type === 'foster') {
-      dispatch({ type: 'set', merchOrderType: 'foster' })
-      router.push(`/${username}/merch/${data.id}`)
-    } else {
-      if (getTimeDifference(data.sale_start_at) <= 0 && data.master_edition_address?.length > 0)
-        router.push(`/nft/${data.master_edition_address}`)
-    }
+    router.push(`/${username}/merch/${data.id}`)
   }
   return (
     <div className={styles.container}>
@@ -119,11 +117,10 @@ const MerchPhysicalCard = props => {
           {data.fulfillment_type === 'foster'
             ? data.options.addons.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                  <div className={styles.imageArea}>
                     <div
                       className={styles.imageContent}
                       onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
                         router.push(`/${username}/merch/${data.id}`)
                       }}
                     >
@@ -134,11 +131,10 @@ const MerchPhysicalCard = props => {
               ))
             : data.options.product_images.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <div className={styles.imageArea} onClick={() => gotoDetail()}>
+                  <div className={styles.imageArea}>
                     <div
                       className={styles.imageContent}
                       onClick={() => {
-                        dispatch({ type: 'set', merchOrderType: 'foster' })
                         router.push(`/${username}/merch/${data.id}`)
                       }}
                     >
@@ -171,6 +167,159 @@ const MerchPhysicalCard = props => {
       </div>
 
       <div className={styles.bottomSection}>
+        <div className="sm:flex hidden w-full mt-[15px] justify-between gap-[10px]">
+          <div className={styles.nftName}>{data.name}</div>
+          {(data.master_edition_address === null || data.master_edition_address?.length > 0) && (
+            <div>
+              <div className="sm:flex hidden gap-[4px] mt-1 items-center">
+                <div className="mt-[2px]">
+                  <SolanaLogoIcon />
+                </div>
+                <div className={styles.price}>
+                  {(
+                    data.selling_price / 100 / solToUsdRate +
+                    (data.listed_master_edition
+                      ? parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                      : 0)
+                  ).toFixed(2)}
+                </div>
+              </div>
+              <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
+                $
+                {(
+                  data.selling_price / 100 +
+                  (data.listed_master_edition
+                    ? solToUsdRate * parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                    : 0)
+                ).toFixed(2)}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="sm:hidden block w-full">
+          <div className={styles.nftName}>{data.name}</div>
+          <div>
+            <div className="sm:flex hidden gap-[4px] mt-1 items-center">
+              <div className="mt-[2px]">
+                <SolanaLogoIcon />
+              </div>
+              <div className={styles.price}>{(data.selling_price / 100 / solToUsdRate).toFixed(2)}</div>
+            </div>
+            <div className={`${styles.dollarPrice} sm:text-end text-start mt-[7px]`}>
+              $
+              {(
+                data.selling_price / 100 +
+                (data.listed_master_edition
+                  ? solToUsdRate * parseFloat(getPriceValue(Number(data.listed_master_edition.price)))
+                  : 0)
+              ).toFixed(2)}
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="sm:hidden block absolute px-[10px] py-[15px] right-0 bottom-0"
+          onClick={() => {
+            setOpenModal(true)
+          }}
+        >
+          <div>
+            <ThreeDotIcon />
+          </div>
+        </div>
+        <div className={`${styles.divider} mt-[15px] sm:block hidden`} />
+
+        <div className="w-full sm:block hidden">
+          <div className="w-full mt-[15px] sm:mt-[15px]">
+            {getTimeDifference(data.sale_start_at) > 0 ? (
+              <div>
+                <div className={styles.saleType}>Goes live on </div>
+                {data.master_edition_address === null ? (
+                  <div className={styles.saleCount}>{getDateTimeLabel(new Date(data.sale_start_at))}</div>
+                ) : (
+                  <div className={styles.saleCount}>TBD</div>
+                )}
+              </div>
+            ) : data.master_edition_address?.length === 0 ? (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>Goes live on</div>
+                </div>
+                <div className={styles.saleCount}>TBD</div>
+              </div>
+            ) : data.listed_master_edition !== null && getTimeDifference(data.listed_master_edition.startTime) > 0 ? (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>Goes live on</div>
+                </div>
+                <div className={styles.saleCount}>
+                  {getDateTimeLabel(new Date(data.listed_master_edition.startTime))}
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleType}>{data.supply ? 'Limited Supply' : 'Open Supply'}</div>
+                  {showTimer && <div className={styles.saleType}>Ends in</div>}
+                </div>
+                <div className="w-full flex justify-between">
+                  <div className={styles.saleCount}>
+                    {data.supply
+                      ? `${data.supply - data.current_supply}/${data.supply} left`
+                      : `${data.current_supply} sold`}
+                  </div>
+                  {showTimer && (
+                    <div className="flex gap-[4px]">
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.saleCount}>{timeLeft['days']}</div>
+                          <div className={styles.saleCount}>d</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['hours'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.saleCount}>{timeLeft['hours']}</div>
+                          <div className={styles.saleCount}>h</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['minutes'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.saleCount}>{timeLeft && timeLeft['minutes']}</div>
+                          <div className={styles.saleCount}>m</div>
+                        </div>
+                      )}
+                      {timeLeft && timeLeft['seconds'] !== '00' && (
+                        <div className="flex block justify-center gap-[1px]">
+                          <div className={styles.saleCount}>{timeLeft && timeLeft['seconds']}</div>
+                          <div className={styles.saleCount}>s</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {openModal && (
+        <StoreMerchModal
+          open={openModal}
+          close={() => setOpenModal(false)}
+          item={data}
+          startDate={data.sale_start_at}
+          showTimer={showTimer}
+          timeLeft={timeLeft}
+          onBuyNow={() => {
+            setOpenModal(false)
+            gotoDetail()
+          }}
+        />
+      )}
+
+      {/* <div className={styles.bottomSection}>
         <div className="flex w-full mt-[15px] justify-between gap-[10px]">
           <div className={styles.nftName}>{data.name}</div>
           <div>
@@ -240,7 +389,7 @@ const MerchPhysicalCard = props => {
             )}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
