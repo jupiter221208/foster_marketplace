@@ -28,6 +28,7 @@ import MobileStudioFilter from 'components/Filter/MobileStudioFilter'
 import MobileStudioSort from 'components/Menu/MobileStudioSort'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import MerchPhysicalCard from 'components/Card/MerchPysicalCard'
+import { getTimeDifference } from 'utils/helpers'
 
 const StudioSignature = () => {
   const [categoryList, setCategoryList] = useState([])
@@ -144,12 +145,18 @@ const StudioSignature = () => {
     StoreAPI.getStoreFeeds(page, rowCount, params).then(
       response => {
         setIsFetching(false)
-        setPages(page)
-        if (reset) setMerchList(response)
-        else setMerchList([...merchList, ...response])
+        let filtered = getFilterData(response)
+        if (reset) setMerchList(filtered)
+        else setMerchList([...merchList, ...filtered])
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
+          setTimeout(() => {
+            if (filtered.length != response.length) {
+              setIsFetching(true)
+            }
+          }, 2000)
+          setPages(page)
           setIsVisibleFetching(true)
         }
       },
@@ -157,6 +164,16 @@ const StudioSignature = () => {
         setIsFetching(false)
       }
     )
+  }
+
+  const getFilterData = response => {
+    let list = response.filter(
+      item =>
+        item.master_edition_address !== '' &&
+        (item.sale_end_at === null || getTimeDifference(item.sale_end_at) > 0) &&
+        (item.supply === null || item.supply - item.current_supply > 0)
+    )
+    return list
   }
 
   useEffect(() => {
