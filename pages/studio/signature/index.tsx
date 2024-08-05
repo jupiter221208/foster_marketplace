@@ -46,14 +46,14 @@ const StudioSignature = () => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(true)
   const [isFetching, setIsFetching] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
-  useEffect(() => {
-    // StoreAPI.getStoreTypes().then(
-    //   res => {
-    //   },
-    //   error => {}
-    // )
-    // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
-  }, [])
+  // useEffect(() => {
+  // StoreAPI.getStoreTypes().then(
+  //   res => {
+  //   },
+  //   error => {}
+  // )
+  // getStoreItem(pages, rowCount, [], [], [], [], priceValue, false)
+  // }, [])
 
   useEffect(() => {
     if (isFetching === true) {
@@ -147,7 +147,6 @@ const StudioSignature = () => {
         setPages(page)
         if (reset) setMerchList(response)
         else setMerchList([...merchList, ...response])
-
         if (response.length < rowCount) {
           setIsVisibleFetching(false)
         } else {
@@ -406,7 +405,7 @@ const StudioSignature = () => {
         />
       </div>
 
-      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px]">
+      <div className="w-full mt-[15px] lg:mt-[45px] mb-[45px] lg:mb-[100px]">
         <div className="grid grid-cols-10 sm:grid-cols-20 gap-[9px] sm:gap-[20px] sm:gap-[20px] xl:gap-[30px] mt-[30px]">
           {merchList.map((item, index) => (
             <div className="col-span-5 sm:col-span-10 lg:col-span-5 2xl:col-span-4" key={index}>
@@ -420,7 +419,7 @@ const StudioSignature = () => {
         </div>
       </div>
       {isVisibleFetching && (
-        <div className="w-full mt-[0px] lg:mt-[0px] mb-[40px]">
+        <div className="w-full mt-[0px] lg:mt-[-100px] mb-[140px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
