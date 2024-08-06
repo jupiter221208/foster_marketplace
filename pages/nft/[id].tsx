@@ -91,6 +91,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   const [activityList, setActivityList] = useState([])
   const [merchImages, setMerchImages] = useState([])
   const [selectedMerchImage, setSelectedMerchImage] = useState('')
+  const [showStudioModal, setShowStudioModal] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -252,8 +253,10 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   useEffect(() => {
     let array: any[] = []
     let list
-    if (merchToggle) list = MerchTabList
-    else list = TabList
+    if (merchToggle) {
+      list = MerchTabList
+      setShowStudioModal(true)
+    } else list = TabList
     list.map(item => {
       let object: any = item
       if (item.id === activeTab) {
@@ -400,7 +403,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                 </div>
               ))}
 
-            {!showAuctionSection && nftDetail && nftOwner && (
+            {/* {!showAuctionSection && nftDetail && nftOwner && (
               <div className={`${styles.activityContainer} mt-[30px] lg:mt-[20px]`}>
                 <div className={styles.selectedTab}>
                   <div className="g-container">
@@ -446,10 +449,38 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         )}
       </div>
+
+      {showStudioModal && (
+        <div className={styles.fullScreen}>
+          <div className="w-full h-full flex items-center">
+            <div className="w-full h-[580px]">
+              <ShopApparelSection
+                title="Shop Apparel"
+                type="apparel"
+                nftDetail={nftDetail}
+                nftCreator={artistInfo?.name}
+                shopApparelList={ShopApparelList}
+                openMerchPage={data => {
+                  setMerchData(data)
+                  setOpenMerchPage(true)
+                }}
+              />
+            </div>
+          </div>
+          <div
+            className={styles.closeScreen}
+            onClick={() => {
+              setShowStudioModal(false)
+            }}
+          >
+            <Image src={CloseIcon} alt="" width={18} height={18} />
+          </div>
+        </div>
+      )}
 
       {fullScreen && (
         <div className={styles.fullScreen}>
