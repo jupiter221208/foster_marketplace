@@ -89,7 +89,7 @@ const MerchDTGSection = props => {
       return
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardSide, assetUrl, embPlace, color, technique])
+  }, [cardSide, assetUrl, embPlace, color])
 
   useEffect(() => {
     setSnapshotAsset({ front: '', back: '', right: '', left: '' })
@@ -223,8 +223,10 @@ const MerchDTGSection = props => {
 
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
+    console.log(newCanvas, '==========newCanvas=========')
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
+      console.log(newCanvas, '==========222=========')
     }
     newCanvas.clear()
     newCanvas.renderAll()
