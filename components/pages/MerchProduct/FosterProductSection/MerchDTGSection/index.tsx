@@ -223,10 +223,8 @@ const MerchDTGSection = props => {
 
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
-    console.log(newCanvas, '==========newCanvas=========')
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
-      console.log(newCanvas, '==========222=========')
     }
     newCanvas.clear()
     newCanvas.renderAll()
