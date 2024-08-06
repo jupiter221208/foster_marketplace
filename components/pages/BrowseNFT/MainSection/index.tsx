@@ -1233,7 +1233,7 @@ const MainSection = ({
         <div
           className={`lg:w-[58%] w-full lg:mt-[80px] ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'g-left-container'
-          } lg:mb-[100px] lg:pr-[55px]`}
+          } lg:mb-[50px] lg:pr-[55px]`}
         >
           <NFTAssetSection
             nftType={nftType}
@@ -1881,6 +1881,17 @@ const MainSection = ({
                   />
 
                   <NFTHistorySection mintAddress={nftDetail.mintAddress} />
+                </div>
+
+                <div className="mt-[30px]">
+                  <div className={styles.nftName}>Categories</div>
+                  <div className="w-full flex flex-wrap justify-start items-center mt-[9px] gap-[10px]">
+                    {nftCategories?.map((item, index) => (
+                      <div className={styles.category} key={index}>
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

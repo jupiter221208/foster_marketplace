@@ -747,3 +747,15 @@
   font-weight: 100;
   color: var(--text-gray-200-color);
 }
+
+.category {
+  padding: 11px 14px 13px 14px;
+  border-radius: 21px;
+  height: 41px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  background: var(--bg-1E1E1E-F7F6F4);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
+}
