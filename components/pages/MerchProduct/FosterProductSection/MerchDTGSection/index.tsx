@@ -349,6 +349,8 @@ const MerchDTGSection = props => {
                     ml: false,
                     mr: false,
                   })
+                  overlayImg.borderColor = color === 'white' ? '#202427' : '#95dbd5'
+                  overlayImg.cornerColor = color === 'white' ? '#202427' : '#95dbd5'
                   newCanvas.setActiveObject(overlayImg)
                   newCanvas.renderAll()
                 },

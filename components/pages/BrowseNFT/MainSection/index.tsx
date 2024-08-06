@@ -1450,7 +1450,7 @@ const MainSection = ({
 
                   {nftDescription ? (
                     <div>
-                      <div className={`w-full lg:max-h-[130px] mt-[15px] ${!isTruncated && 'overflow-scroll'} `}>
+                      <div className={`w-full h-[140px] mt-[15px] overflow-auto`}>
                         <div className={styles.descLabel}>Description</div>
                         <div className={styles.whiteDescription}>
                           <div className="lg:block hidden">
