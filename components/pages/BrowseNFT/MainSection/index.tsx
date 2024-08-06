@@ -1416,7 +1416,7 @@ const MainSection = ({
 
               <div className={styles.rightContainer}>
                 <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                  {nftCollectionAddress && (
+                  {/* {nftCollectionAddress && (
                     <div className={styles.collectionContainer}>
                       <div className="justify-between items-center mt-[15px] lg:mt-[0px] lg:mb-[15px]">
                         <Link href={`/collection/${nftCollectionAddress}`} passHref>
@@ -1441,19 +1441,35 @@ const MainSection = ({
                         </Link>
                       </div>
                     </div>
-                  )}
-
+                  )} */}
+                  <div className="w-full h-[25px]">
+                    <div className={styles.liveFont}>
+                      live
+                      <div className={styles.liveType}>
+                        {nftPrice > 0 && !liveAuction
+                          ? editionType === 'master_oe' || editionType === 'master_le'
+                            ? 'edition'
+                            : 'listing'
+                          : liveAuction === true
+                          ? 'auction'
+                          : ''}
+                      </div>
+                    </div>
+                  </div>
                   <NFTCreatorDataSection
                     nftName={nftName}
                     nftCreatorname={nftCreatorname}
                     nftOwnerUsername={nftOwnerUsername}
+                    nftCollectionAddress={nftCollectionAddress}
+                    nftCollectionName={nftCollectionName}
+                    nftCollectionImage={nftCollectionImage}
                     nameLoading={nameLoading}
                     profileImage={nftInfo?.creator_profile_image}
                   />
 
                   {nftDescription ? (
                     <div>
-                      <div className={`w-full h-[180px] mt-[15px] overflow-auto`}>
+                      <div className={`w-full h-[auto] max-h-[180px] mt-[30px]`}>
                         <div className={styles.descLabel}>Description</div>
                         <div className={styles.whiteDescription}>
                           <div className="lg:block hidden">
@@ -1506,7 +1522,7 @@ const MainSection = ({
                   )}
                 </div>
 
-                <div className="w-full flex flex-wrap mt-[0px] lg:mt-0">
+                <div className="w-full flex flex-wrap mt-[0px] lg:mt-[30px]">
                   <div className={`w-full ${styles.nftDetailCardPadding}`}>
                     {loadListing && (
                       <div
@@ -1564,18 +1580,20 @@ const MainSection = ({
                         <></>
                       ) : (
                         <>
-                          <div className={`w-full flex gap-[6px] ${styles.border_top}`}>
-                            <div className={styles.fixedPrice}>Listed&nbsp;for</div>
-                            <div className="w-full flex items-center">
+                          <div className={`w-full flex justify-end gap-[6px] ${styles.border_top}`}>
+                            <div className="flex items-center">
                               <div className="flex items-center mt-[4px]">
                                 <SolanaLogoMobileIcon alt="" />
                               </div>
-                              <div className={`${styles.whiteTitle} ml-[4px]`}>{nftPrice.toFixed(2)}</div>
+                              <div className={`${styles.solPrice} ml-[4px]`}>{nftPrice.toFixed(2)}</div>
+                              <div className={`${styles.dollarPrice} ml-[8px]`}>
+                                ${(nftPrice * solToUsdRate).toFixed(2)}
+                              </div>
                             </div>
                           </div>
 
                           {(isOwnNft === false || isOwnNft === null) && (
-                            <div className="w-full flex flex-wrap mt-[15px] lg:mt-[20px] gap-[15px] lg:gap-[15px]">
+                            <div className="w-full flex flex-wrap mt-[15px] lg:mt-[15px] gap-[15px] lg:gap-[15px]">
                               {tradeStateAddress && !buyLoading ? (
                                 <GradientButton
                                   fullWidth
@@ -1601,7 +1619,7 @@ const MainSection = ({
                           )}
 
                           {isOwnNft === true ? (
-                            <div className="w-full flex content-none mt-[15px] lg:mt-[20px]">
+                            <div className="w-full flex content-none mt-[15px] lg:mt-[15px]">
                               <GradientButton
                                 label="Delist or Update"
                                 fullWidth

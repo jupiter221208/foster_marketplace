@@ -64,7 +64,7 @@
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
     margin-top: 0px;
     min-height: 653px;
     padding: 0px;
@@ -189,6 +189,33 @@
   cursor: pointer;
 }
 
+.liveFont {
+  font-family: "Ibrand";
+  font-size: 20px;
+  line-height: 25px;
+  color: var(--text-gray-200-color);
+  display: flex;
+}
+
+.liveType {
+  color: var(--main-icon-color) !important;
+}
+
+.solPrice {
+  font-family: 'Muli-SemiBold';
+  font-weight: 100;
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.dollarPrice {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9)
+}
+
 .nftDetailCard {
   width: 100%;
   height: auto;
@@ -199,18 +226,12 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 700px;
-    padding: 80px 0px 0px 0px;
+    padding: 55px 0px 0px 0px;
   }  
 }
 
 .nftDetailCardPadding {
   padding: 0 13px 20px 13px;
-  // @media (min-width: 640px) {
-  //   padding: 0 25px 0 25px;
-  // }
-  // @media (min-width: 768px) {
-  //   padding: 0 35px 0 35px;
-  // }
   @media (min-width: 1024px) {
     padding: 0px;
   }
