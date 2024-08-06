@@ -57,10 +57,10 @@
   display: flex;
   flex-wrap: wrap;
   min-height: auto;
-  border: 1px solid var(--bg-303030-DDDCDC);
-  background: var(--background-main-color);
-  border-radius: 5px;
-  margin-top: 15px;
+  // border: 1px solid var(--bg-303030-DDDCDC);
+  // background: var(--background-main-color);
+  // border-radius: 5px;
+  margin-top: 10px;
   @media (min-width: 1024px) {
     display: flex;
     flex-direction: column;
@@ -231,7 +231,7 @@
 }
 
 .nftDetailCardPadding {
-  padding: 0 13px 20px 13px;
+  padding: 0px;
   @media (min-width: 1024px) {
     padding: 0px;
   }
@@ -330,11 +330,8 @@
 }
 
 .placeBidBG {
-  width: auto;
-  margin: 12px 0px 6px 0px;
-  @media (min-width: 1024px) {
-    margin: 15px 0px 10px 0px;
-  }
+  width: 100%;
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -641,7 +638,9 @@
 }
 
 .rightBG {
-  background: var(--background-main-color);
+  @media (min-width: 1024px) {
+    background: var(--background-main-color);
+  }
 }
 
 .greenRoyalties {

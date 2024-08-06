@@ -1230,7 +1230,11 @@ const MainSection = ({
   return (
     <div className={styles.container}>
       <div className="w-full h-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[58%] w-full mt-[80px] g-left-container mb-[100px] pr-[55px]`}>
+        <div
+          className={`lg:w-[58%] w-full lg:mt-[80px] ${
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'g-left-container'
+          } lg:mb-[100px] lg:pr-[55px]`}
+        >
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -1316,7 +1320,7 @@ const MainSection = ({
         </div>
 
         <div
-          className={`w-full lg:w-[42%] z-10 g-right-container 2xl:pl-[100px] lg:pl-[55px] xl:pl-[80px] ${styles.rightBG}`}
+          className={`w-full lg:w-[42%] z-10 g-container lg:g-right-container 2xl:pl-[100px] lg:pl-[55px] xl:pl-[80px] ${styles.rightBG}`}
         >
           {showListEditionDetail ? (
             <div className="">
@@ -1416,33 +1420,7 @@ const MainSection = ({
 
               <div className={styles.rightContainer}>
                 <div className={`w-full ${styles.nftDetailCardPadding}`}>
-                  {/* {nftCollectionAddress && (
-                    <div className={styles.collectionContainer}>
-                      <div className="justify-between items-center mt-[15px] lg:mt-[0px] lg:mb-[15px]">
-                        <Link href={`/collection/${nftCollectionAddress}`} passHref>
-                          <a>
-                            {!(nftCollectionImage || nftCollectionName) ? (
-                              <div className={`${styles.skeletonLoader} w-28 mt-[6px] h-11 rounded-3xl`} />
-                            ) : (
-                              <div className={styles.collectionName}>
-                                {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
-                                  <Image
-                                    src={nftCollectionImage}
-                                    alt=""
-                                    width={30}
-                                    height={30}
-                                    className="object-cover rounded-[10px]"
-                                  />
-                                )}
-                                {nftCollectionName}
-                              </div>
-                            )}
-                          </a>
-                        </Link>
-                      </div>
-                    </div>
-                  )} */}
-                  <div className="w-full h-[25px]">
+                  <div className="lg:block hidden w-full h-[25px]">
                     <div className={styles.liveFont}>
                       live
                       <div className={styles.liveType}>
@@ -1464,6 +1442,11 @@ const MainSection = ({
                     nftCollectionName={nftCollectionName}
                     nftCollectionImage={nftCollectionImage}
                     nameLoading={nameLoading}
+                    liveAuction={liveAuction}
+                    endTime={endTime}
+                    startTime={startTime}
+                    setIsEnded={setIsEnded}
+                    setIsStarted={setIsStarted}
                     profileImage={nftInfo?.creator_profile_image}
                   />
 
@@ -1688,76 +1671,79 @@ const MainSection = ({
                                         <div className={styles.highBidText}>You are currently the highest bidder!</div>
                                       </>
                                     ) : (
-                                      <div className="relative mt-[0px] lg:mt-[10px]">
-                                        <div className="w-full flex justify-center">
-                                          <PriceInput
-                                            value={price}
-                                            placeholder="Enter Bid amount"
-                                            backgroundColor={'transparent'}
-                                            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
-                                            borderWidth={1}
-                                            fullWidth
-                                            min={0}
-                                            height={
-                                              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                                ? '50px'
-                                                : '50px'
-                                            }
-                                            onChange={value => {
-                                              if (value < 0) {
-                                                setPrice('')
-                                              } else {
-                                                setPrice(value)
-                                              }
-                                            }}
-                                          />
-                                        </div>
-                                        <div
-                                          className={`${styles.placeBidBG}`}
-                                          onClick={async () => {
-                                            if (price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2)))
-                                              return
-
-                                            if (isEnded) return
-
-                                            if (!connected) {
-                                              setVisible(true)
-                                              return
-                                            }
-
-                                            if (
-                                              parseFloat(price) >
-                                              mainWalletBalance + biddingBalance - bidWalletLock
-                                            ) {
-                                              setAlertData([
-                                                {
-                                                  id: 0,
-                                                  title: 'Insufficient Funds',
-                                                  description: 'Not enough funds in wallet for bid amount',
-                                                  type: 'error',
-                                                },
-                                              ])
-                                              setShowAlert(true)
-                                              return
-                                            }
-
-                                            placeBidAndSave(price)
-                                          }}
-                                        >
-                                          {auctionLoading ? (
-                                            <LoadingPrimaryButton fullWidth height={45} borderRadius={23} />
-                                          ) : (
-                                            <GradientButton
-                                              label="Place Bid"
-                                              fullWidth
-                                              height={45}
+                                      <div className="relative mt-[0px] mt-[30px] lg:mt-[10px]">
+                                        <div className="w-full flex gap-[15px] lg:flex-row flex-col">
+                                          <div className="w-full flex justify-center">
+                                            <PriceInput
+                                              value={price}
+                                              placeholder="Enter Bid amount"
+                                              backgroundColor={'transparent'}
+                                              borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+                                              borderWidth={1}
                                               borderRadius={23}
-                                              disabled={
-                                                price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
-                                              }
-                                              onClick={() => {}}
+                                              fullWidth
+                                              min={0}
+                                              height={45}
+                                              onChange={value => {
+                                                if (value < 0) {
+                                                  setPrice('')
+                                                } else {
+                                                  setPrice(value)
+                                                }
+                                              }}
                                             />
-                                          )}
+                                          </div>
+                                          <div
+                                            className={`${styles.placeBidBG}`}
+                                            onClick={async () => {
+                                              if (
+                                                price === '' ||
+                                                parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                              )
+                                                return
+
+                                              if (isEnded) return
+
+                                              if (!connected) {
+                                                setVisible(true)
+                                                return
+                                              }
+
+                                              if (
+                                                parseFloat(price) >
+                                                mainWalletBalance + biddingBalance - bidWalletLock
+                                              ) {
+                                                setAlertData([
+                                                  {
+                                                    id: 0,
+                                                    title: 'Insufficient Funds',
+                                                    description: 'Not enough funds in wallet for bid amount',
+                                                    type: 'error',
+                                                  },
+                                                ])
+                                                setShowAlert(true)
+                                                return
+                                              }
+
+                                              placeBidAndSave(price)
+                                            }}
+                                          >
+                                            {auctionLoading ? (
+                                              <LoadingPrimaryButton fullWidth height={45} borderRadius={23} />
+                                            ) : (
+                                              <GradientButton
+                                                label="Place Bid"
+                                                fullWidth
+                                                height={45}
+                                                borderRadius={23}
+                                                disabled={
+                                                  price === '' ||
+                                                  parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
+                                                }
+                                                onClick={() => {}}
+                                              />
+                                            )}
+                                          </div>
                                         </div>
                                         <div className="w-full flex items-center justify-between">
                                           <div className={styles.minText}>
@@ -1870,7 +1856,7 @@ const MainSection = ({
                   </div>
                 </div>
 
-                <div className="mt-[30px]">
+                <div className="w-full mt-[30px]">
                   <NFTDetailSection
                     nftOwnerUsername={nftOwnerUsername}
                     nftType={nftType}

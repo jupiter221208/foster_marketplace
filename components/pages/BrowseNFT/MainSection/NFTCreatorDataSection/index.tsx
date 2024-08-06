@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Link from 'next/link'
 // components
 
 // utilies
 import { getDisplayUserName } from 'utils/strings'
+import { calculateTimeLeft } from 'utils/helpers'
 
 // resources
 
@@ -21,10 +22,52 @@ const NFTCreatorDataSection = props => {
     nftCollectionAddress,
     nftCollectionName,
     nftCollectionImage,
+    liveAuction,
+    endTime,
+    startTime,
+    setIsEnded,
+    setIsStarted,
     nameLoading,
     profileImage,
   } = props
 
+  const [timeLeft, setTimeLeft] = useState(null)
+  const [auctionStarted, setAuctionStarted] = useState(null)
+
+  useEffect(() => {
+    if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
+      setTimeLeft(calculateTimeLeft(getStartTime()))
+      const timer = setInterval(() => {
+        let time_left = calculateTimeLeft(getStartTime())
+        setTimeLeft(time_left)
+      }, 1000)
+
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startTime, endTime])
+
+  const getStartTime = () => {
+    let startDate = new Date(startTime)
+    let proposalStartTime = startDate.getTime()
+    let difference = proposalStartTime - new Date().getTime()
+
+    if (difference >= 0) {
+      setAuctionStarted(false)
+      return startTime
+    } else {
+      setIsStarted(true)
+      setAuctionStarted(true)
+
+      let endDate = new Date(endTime)
+      let proposalEndTime = endDate.getTime()
+      let end_difference = proposalEndTime - new Date().getTime()
+      if (end_difference < 0) setIsEnded(true)
+      return endTime
+    }
+  }
   return (
     <div>
       {nameLoading ? (
@@ -69,6 +112,43 @@ const NFTCreatorDataSection = props => {
                   </div>
                 </a>
               </Link>
+            )}
+            {liveAuction && (
+              <div>
+                <div className={styles.creator}>{auctionStarted === true ? 'Time Remaing' : 'Starts In'}</div>
+                <div>
+                  <div className={styles.userTile}>
+                    <div className={`${styles.bidCountContainer} px-[10px] mt-[-2px]`}>
+                      {timeLeft && timeLeft['days'] !== '00' && (
+                        <div>
+                          <div className={styles.endTime}>
+                            {timeLeft && timeLeft['days']}
+                            {timeLeft && <div className={styles.bidDesc}>d</div>}
+                          </div>
+                        </div>
+                      )}
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['hours']}
+                          {timeLeft && <div className={styles.bidDesc}>h</div>}
+                        </div>
+                      </div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['minutes']}
+                          {timeLeft && <div className={styles.bidDesc}>m</div>}
+                        </div>
+                      </div>
+                      <div className={styles.endTimeContainer}>
+                        <div className={styles.endTime}>
+                          {timeLeft && timeLeft['seconds']}
+                          {timeLeft && <div className={styles.bidDesc}>s</div>}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
           {/* <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
