@@ -116,6 +116,7 @@ import NFTDetailSection from './NFTDetailSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import ImageWithFoster from 'components/ImageWithFoster'
+import NFTHistorySection from './NFTHistorySection'
 
 export interface MainSectionProps {
   nftDetail: NftData
@@ -1228,8 +1229,8 @@ const MainSection = ({
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
-        <div className={`lg:w-[60%] w-full`}>
+      <div className="w-full h-full flex flex-wrap justify-between gap-[15px] lg:gap-0">
+        <div className={`lg:w-[58%] w-full mt-[80px] g-left-container mb-[100px] pr-[55px]`}>
           <NFTAssetSection
             nftType={nftType}
             nftAssetUrl={nftAssetUrl}
@@ -1314,7 +1315,9 @@ const MainSection = ({
           </div>
         </div>
 
-        <div className="w-full lg:w-[37%] z-10 ">
+        <div
+          className={`w-full lg:w-[42%] z-10 g-right-container 2xl:pl-[100px] lg:pl-[55px] xl:pl-[80px] ${styles.rightBG}`}
+        >
           {showListEditionDetail ? (
             <div className="">
               <ListEditionDetail
@@ -1450,7 +1453,7 @@ const MainSection = ({
 
                   {nftDescription ? (
                     <div>
-                      <div className={`w-full h-[140px] mt-[15px] overflow-auto`}>
+                      <div className={`w-full h-[180px] mt-[15px] overflow-auto`}>
                         <div className={styles.descLabel}>Description</div>
                         <div className={styles.whiteDescription}>
                           <div className="lg:block hidden">
@@ -1501,20 +1504,6 @@ const MainSection = ({
                       </div>
                     </div>
                   )}
-
-                  <div className={styles.descBorder} />
-
-                  <NFTDetailSection
-                    nftOwnerUsername={nftOwnerUsername}
-                    nftType={nftType}
-                    nftCoverUrl={nftCoverUrl}
-                    editionDetail={editionDetail}
-                    editionType={editionType}
-                    supply={supply}
-                    isNftMasterEdition={isNftMasterEdition()}
-                    isNftPrintEdition={isNftPrintEdition()}
-                    royalties={nftRoyalties}
-                  />
                 </div>
 
                 <div className="w-full flex flex-wrap mt-[0px] lg:mt-0">
@@ -1616,6 +1605,8 @@ const MainSection = ({
                               <GradientButton
                                 label="Delist or Update"
                                 fullWidth
+                                height={45}
+                                borderRadius={23}
                                 onClick={() => setShowUpdateListNFTModal(true)}
                               />
                             </div>
@@ -1736,11 +1727,13 @@ const MainSection = ({
                                           }}
                                         >
                                           {auctionLoading ? (
-                                            <LoadingPrimaryButton fullWidth height={50} />
+                                            <LoadingPrimaryButton fullWidth height={45} borderRadius={23} />
                                           ) : (
                                             <GradientButton
                                               label="Place Bid"
                                               fullWidth
+                                              height={45}
+                                              borderRadius={23}
                                               disabled={
                                                 price === '' || parseFloat(price) < parseFloat(minBidAmount.toFixed(2))
                                               }
@@ -1857,6 +1850,22 @@ const MainSection = ({
                       <div></div>
                     )}
                   </div>
+                </div>
+
+                <div className="mt-[30px]">
+                  <NFTDetailSection
+                    nftOwnerUsername={nftOwnerUsername}
+                    nftType={nftType}
+                    nftCoverUrl={nftCoverUrl}
+                    editionDetail={editionDetail}
+                    editionType={editionType}
+                    supply={supply}
+                    isNftMasterEdition={isNftMasterEdition()}
+                    isNftPrintEdition={isNftPrintEdition()}
+                    royalties={nftRoyalties}
+                  />
+
+                  <NFTHistorySection mintAddress={nftDetail.mintAddress} />
                 </div>
               </div>
             </div>

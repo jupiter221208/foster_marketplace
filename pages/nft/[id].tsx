@@ -40,8 +40,7 @@ import TabList from 'assets/json/browse-nft/auction-list.json'
 import MerchTabList from 'assets/json/browse-nft/merch-list.json'
 
 import nftsAPI from 'apis/nfts'
-import activityAPI from 'apis/activity'
-import { isString, compareDate, optimizeCdnUrlOgImage } from 'utils/helpers'
+import { isString, optimizeCdnUrlOgImage } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import ModelViewer from 'components/ModelViewer'
 import { NftData } from 'types/nft'
@@ -49,6 +48,7 @@ import { useViewport } from 'utils'
 import NFTActivityInfoSection from 'components/pages/BrowseNFT/MainSection/NFTActivityInfoSection'
 import collectionAPI from 'apis/collections'
 import dashboardAPI from 'apis/dashboard'
+import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 export interface EditionDetail {
   supply: number
@@ -175,14 +175,6 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
           error => {}
         )
       }
-
-      activityAPI.getNFTActivity(nftDetail.mintAddress).then(
-        response => {
-          let dateSorted = response.sort(compareDate)
-          setActivityList(dateSorted)
-        },
-        error => {}
-      )
     }
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -342,7 +334,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
   }, [categoryCollectionList, collectionList, collectionNFTs, connected])
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full min-h-full">
       <Head>
         <title>{nftTitle}</title>
         <meta property="description" content={nftDescription} />
@@ -372,7 +364,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
             </div>
           </div>
         ) : (
-          <div className="z-10">
+          <div className="z-10 w-full h-full">
             {nftDetail &&
               (nftOwner === null ? (
                 <div className="w-full flex justify-center lg:mt-[200px] mt-[150px]">
@@ -389,7 +381,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
                 </div>
               ) : (
                 <div className={styles.mainBG}>
-                  <div className="g-container">
+                  <div className="w-full h-full">
                     <MainSection
                       key={nftDetail.mintAddress.toString()}
                       nftDetail={nftDetail}
@@ -528,7 +520,7 @@ const BrowseNFT = ({ nftDetail, nftOwner, editionDetail }: BrowseNFTProps) => {
 export default BrowseNFT
 
 BrowseNFT.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <SecondaryLayout>{page}</SecondaryLayout>
 }
 
 BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTProps> {

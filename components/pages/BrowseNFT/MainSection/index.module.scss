@@ -7,9 +7,7 @@
   justify-content: center;
   position: relative;
   @media (min-width: 1024px) {
-    min-height: 800px;
-    height: calc(100vh - 100px);
-    padding-top: 30px;
+    height: 100%;
   }
 }
 
@@ -191,22 +189,17 @@
   cursor: pointer;
 }
 
-
-
 .nftDetailCard {
   width: 100%;
   height: auto;
   overflow: visible;
   padding: 0px 0px 20px 0px;
   @media (min-width: 1024px) {
-    background: var(--background-main-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 700px;
-    border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
-    border-radius: 10px;
-    padding: 20px 0 25px 0;
+    padding: 80px 0px 0px 0px;
   }  
 }
 
@@ -219,10 +212,7 @@
   //   padding: 0 35px 0 35px;
   // }
   @media (min-width: 1024px) {
-    padding: 0 20px 0 20px;
-  }
-  @media (min-width: 1680px) {
-    padding: 0 24px 0 30px;
+    padding: 0px;
   }
 }
 
@@ -627,6 +617,10 @@
     margin-bottom: 15px;
   }
   background: rgba(#707070, 0.25);
+}
+
+.rightBG {
+  background: var(--background-main-color);
 }
 
 .greenRoyalties {

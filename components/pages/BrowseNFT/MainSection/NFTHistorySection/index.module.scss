@@ -1,0 +1,19 @@
+@import 'assets/scss/variable.module.scss';
+
+.details {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 100;
+  color: var(--main-bg-color)
+}
+
+.descBorder {
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  @media (min-width: 1024px) {
+    margin-top: 15px;
+  }
+  background: rgba(#707070, 0.25);
+}
