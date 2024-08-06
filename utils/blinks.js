@@ -4,7 +4,7 @@ const actionsJson = {
   rules: [
     {
       pathPattern: '/*/merch/*',
-      apiPath: '/api/blinks/*/merch/*',
+      apiPath: '/v1/blinks/*/merch/*',
     },
   ],
 }
