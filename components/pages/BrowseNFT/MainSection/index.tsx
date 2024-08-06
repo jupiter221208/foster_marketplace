@@ -1534,9 +1534,15 @@ const MainSection = ({
                           />
                           <div className="mt-[15px]">
                             {cancelListLoading ? (
-                              <LoadingSecondaryButton fullWidth />
+                              <LoadingSecondaryButton fullWidth height={45} borderRadius={23} />
                             ) : (
-                              <OutlineButton fullWidth label="Cancel Listing" onClick={() => cancelListEdition()} />
+                              <OutlineButton
+                                fullWidth
+                                height={45}
+                                borderRadius={23}
+                                label="Cancel Listing"
+                                onClick={() => cancelListEdition()}
+                              />
                             )}
                           </div>
                         </div>
@@ -1633,11 +1639,30 @@ const MainSection = ({
                       connected ? (
                       <div className="w-full mb-1 mt-[0px] lg:mt-[10px] lg:mt-4 lg:mb-5">
                         {nftCurrentPrice > 0 ? (
-                          <OutlineButton label="Finalize Sale" fullWidth onClick={() => processFinalizeSale()} />
+                          <OutlineButton
+                            label="Finalize Sale"
+                            fullWidth
+                            height={45}
+                            borderRadius={23}
+                            onClick={() => processFinalizeSale()}
+                          />
                         ) : isCancelProcessing ? (
-                          <LoadingSecondaryButton label={'Cancel Auction'} type="cancel" onClick={() => {}} fullWidth />
+                          <LoadingSecondaryButton
+                            label={'Cancel Auction'}
+                            type="cancel"
+                            height={45}
+                            borderRadius={23}
+                            onClick={() => {}}
+                            fullWidth
+                          />
                         ) : (
-                          <OutlineButton label="Cancel Auction" fullWidth onClick={() => cancelAuction()} />
+                          <OutlineButton
+                            label="Cancel Auction"
+                            fullWidth
+                            height={45}
+                            borderRadius={23}
+                            onClick={() => cancelAuction()}
+                          />
                         )}
                       </div>
                     ) : liveAuction === true ? (
@@ -1658,6 +1683,8 @@ const MainSection = ({
                                   <OutlineButton
                                     label="Cancel Auction"
                                     fullWidth
+                                    height={45}
+                                    borderRadius={23}
                                     onClick={() => nftCurrentPrice === 0 && cancelAuction()}
                                     disabled={nftCurrentPrice > 0}
                                   />
@@ -1817,6 +1844,8 @@ const MainSection = ({
                                 <OutlineButton
                                   fullWidth
                                   label="List Edition"
+                                  height={45}
+                                  borderRadius={23}
                                   onClick={() => {
                                     setListEditionType('list')
                                     setShowListEditionDetail(true)
@@ -1827,9 +1856,17 @@ const MainSection = ({
                             )
                           ) : (
                             <div className="w-full flex flex-wrap gap-[15px] mt-[0px] lg:mt-[10px]">
-                              <OutlineButton fullWidth label="List Artwork" onClick={() => setShowListNFTModal(true)} />
+                              <OutlineButton
+                                fullWidth
+                                height={45}
+                                borderRadius={23}
+                                label="List Artwork"
+                                onClick={() => setShowListNFTModal(true)}
+                              />
                               <GradientButton
                                 fullWidth
+                                height={45}
+                                borderRadius={23}
                                 label="Start Auction"
                                 onClick={() => {
                                   setShowAuctionDetail(true)
@@ -1846,6 +1883,8 @@ const MainSection = ({
                           <div className="w-full flex gap-[20px] mt-[0px] lg:mt-[20px]">
                             <OutlineButton
                               fullWidth
+                              height={45}
+                              borderRadius={23}
                               label="Make Offer"
                               type="make-offer"
                               onClick={() => {
