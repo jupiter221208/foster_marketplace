@@ -3,6 +3,10 @@
 const actionsJson = {
   rules: [
     {
+      pathPattern: '/nft/*',
+      apiPath: '/v1/blinks/nft/*',
+    },
+    {
       pathPattern: '/*/merch/*',
       apiPath: '/v1/blinks/*/merch/*',
     },
