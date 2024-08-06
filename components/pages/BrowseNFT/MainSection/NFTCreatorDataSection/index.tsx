@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 // utilies
 import { getDisplayUserName } from 'utils/strings'
-import { calculateTimeLeft } from 'utils/helpers'
+import { calculateAuctionTimeLeft, calculateTimeLeft } from 'utils/helpers'
 
 // resources
 
@@ -23,8 +23,11 @@ const NFTCreatorDataSection = props => {
     nftCollectionName,
     nftCollectionImage,
     liveAuction,
+    isEditionListing,
     endTime,
     startTime,
+    endEditionTime,
+    startEditionTime,
     setIsEnded,
     setIsStarted,
     nameLoading,
@@ -49,6 +52,26 @@ const NFTCreatorDataSection = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startTime, endTime])
 
+  useEffect(() => {
+    if (
+      startEditionTime !== undefined &&
+      startEditionTime !== null &&
+      endEditionTime !== undefined &&
+      endEditionTime !== null
+    ) {
+      setTimeLeft(calculateAuctionTimeLeft(getStartEditionTime()))
+      const timer = setInterval(() => {
+        let time_left = calculateAuctionTimeLeft(getStartEditionTime())
+        setTimeLeft(time_left)
+      }, 1000)
+
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startEditionTime, endEditionTime])
+
   const getStartTime = () => {
     let startDate = new Date(startTime)
     let proposalStartTime = startDate.getTime()
@@ -68,6 +91,31 @@ const NFTCreatorDataSection = props => {
       return endTime
     }
   }
+
+  const getStartEditionTime = () => {
+    let startDate = new Date(startEditionTime)
+    let offset = startDate.getTimezoneOffset() * 60 * 1000
+    let proposalStartTime = startDate.getTime() - offset
+    let difference = proposalStartTime - new Date().getTime()
+
+    if (difference >= 0) {
+      setAuctionStarted(false)
+      return startTime
+    } else {
+      setIsStarted(true)
+      setAuctionStarted(true)
+
+      let endDate = new Date(endEditionTime)
+      let offset = startDate.getTimezoneOffset() * 60 * 1000
+      let proposalEndTime = endDate.getTime() - offset
+      let end_difference = proposalEndTime - new Date().getTime()
+      if (end_difference < 0) {
+        setIsEnded(true)
+      }
+      return endEditionTime
+    }
+  }
+
   return (
     <div>
       {nameLoading ? (
@@ -113,12 +161,12 @@ const NFTCreatorDataSection = props => {
                 </a>
               </Link>
             )}
-            {liveAuction && (
+            {timeLeft && (liveAuction || isEditionListing) && (
               <div>
                 <div className={styles.creator}>{auctionStarted === true ? 'Time Remaing' : 'Starts In'}</div>
                 <div>
                   <div className={styles.userTile}>
-                    <div className={`${styles.bidCountContainer} px-[10px] mt-[-2px]`}>
+                    <div className={`${styles.bidCountContainer} pl-[12px] mt-[-2px]`}>
                       {timeLeft && timeLeft['days'] !== '00' && (
                         <div>
                           <div className={styles.endTime}>

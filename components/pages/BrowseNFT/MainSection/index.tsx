@@ -1421,18 +1421,20 @@ const MainSection = ({
               <div className={styles.rightContainer}>
                 <div className={`w-full ${styles.nftDetailCardPadding}`}>
                   <div className="lg:block hidden w-full h-[25px]">
-                    <div className={styles.liveFont}>
-                      live
-                      <div className={styles.liveType}>
-                        {nftPrice > 0 && !liveAuction
-                          ? editionType === 'master_oe' || editionType === 'master_le'
-                            ? 'edition'
-                            : 'listing'
-                          : liveAuction === true
-                          ? 'auction'
-                          : ''}
+                    {(nftPrice > 0 || liveAuction) && (
+                      <div className={styles.liveFont}>
+                        live
+                        <div className={styles.liveType}>
+                          {nftPrice > 0 && !liveAuction
+                            ? editionType === 'master_oe' || editionType === 'master_le'
+                              ? 'edition'
+                              : 'listing'
+                            : liveAuction === true
+                            ? 'auction'
+                            : ''}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                   <NFTCreatorDataSection
                     nftName={nftName}
@@ -1442,9 +1444,12 @@ const MainSection = ({
                     nftCollectionName={nftCollectionName}
                     nftCollectionImage={nftCollectionImage}
                     nameLoading={nameLoading}
+                    isEditionListing={isEditionListing}
                     liveAuction={liveAuction}
                     endTime={endTime}
                     startTime={startTime}
+                    endEditionTime={nftInfo?.master_edition?.endTime}
+                    startEditionTime={nftInfo?.master_edition?.startTime}
                     setIsEnded={setIsEnded}
                     setIsStarted={setIsStarted}
                     profileImage={nftInfo?.creator_profile_image}
@@ -1518,6 +1523,8 @@ const MainSection = ({
                         <div className="w-full lg:mt-[10px]">
                           <GradientButton
                             fullWidth
+                            height={45}
+                            borderRadius={23}
                             label={'Update/Relist'}
                             onClick={() => {
                               setListEditionType('update')
@@ -1534,7 +1541,7 @@ const MainSection = ({
                           </div>
                         </div>
                       ) : (
-                        <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[0px] lg:mt-[10px]">
+                        <div className="w-full flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4 mt-[30px] lg:mt-[0px]">
                           <MintEditionCard
                             price={price}
                             maxSupply={editionDetail.maxSupply}
@@ -1580,6 +1587,8 @@ const MainSection = ({
                               {tradeStateAddress && !buyLoading ? (
                                 <GradientButton
                                   fullWidth
+                                  height={45}
+                                  borderRadius={23}
                                   label="Buy Now"
                                   disabled={!tradeStateAddress}
                                   onClick={() => quickBuy()}
@@ -1590,6 +1599,8 @@ const MainSection = ({
                               <OutlineButton
                                 label="Make Offer"
                                 fullWidth
+                                height={45}
+                                borderRadius={23}
                                 onClick={() => {
                                   if (!connected) {
                                     setVisible(true)
