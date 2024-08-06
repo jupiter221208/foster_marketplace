@@ -73,6 +73,10 @@ const MerchOrderPage = ({ publicArtistData, productDetail }: MerchOrderPageProps
   )
 
   useEffect(() => {
+    if (productDetail === undefined) {
+      router.push('/404')
+      return
+    }
     if (productDetail) {
       let list = []
       if (productDetail.fulfillment_type === 'foster') {
@@ -475,6 +479,13 @@ MerchOrderPage.getInitialProps = async function ({ res, query }): Promise<MerchO
     let productDetail = await fetch(
       `${process.env.BACKEND_URL}v1/stores/${publicArtistData.id}/items/${productId}`
     ).then(r => r.json())
+
+    if (productDetail && publicArtistData) {
+      if (productDetail.user_id !== publicArtistData.id) {
+        return {}
+      }
+    }
+
     return {
       publicArtistData,
       productDetail,
