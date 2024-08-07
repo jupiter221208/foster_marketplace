@@ -53,7 +53,8 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 import MerchGrayIcon from 'assets/icons/merch-gray-icon.svg?component'
-import MorDetalsIcon from 'assets/lottery/more-details.json'
+import MoreDetalsIcon from 'assets/lottery/more-details.json'
+import MoreDetalsLightIcon from 'assets/lottery/more-details-light.json'
 
 // json
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg?component'
@@ -155,9 +156,11 @@ const MainSection = ({
   const { setVisible } = useWalletModal()
   const { solToUsdRate } = useSolToUsdRate()
   const [loading, setLoading] = useState<boolean>(true)
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
   const detailViewRef = useRef(null)
+  const descriptionViewRef = useRef(null)
   const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
@@ -841,6 +844,8 @@ const MainSection = ({
   }, [nftDescription])
 
   function toggleIsTruncated() {
+    descriptionViewRef.current.scrollTop = 0
+
     setIsTruncated(!isTruncated)
   }
 
@@ -1238,7 +1243,7 @@ const MainSection = ({
         <div
           className={`lg:w-[58%] w-full lg:mt-[80px] ${
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'g-left-container'
-          } lg:mb-[50px] lg:pr-[55px]`}
+          } lg:mb-[20px] lg:pr-[55px]`}
         >
           <NFTAssetSection
             nftType={nftType}
@@ -1439,10 +1444,14 @@ const MainSection = ({
                     </div>
                     {nftDescription ? (
                       <div>
-                        <div className={`w-full h-[auto] max-h-[180px] mt-[30px]`}>
+                        <div
+                          className={`w-full h-[auto] mt-[30px] ${
+                            isTruncated ? 'max-h-[180px]' : 'max-h-[240px] overflow-auto'
+                          }`}
+                        >
                           <div className={styles.descLabel}>Description</div>
                           <div className={styles.whiteDescription}>
-                            <div className="lg:block hidden">
+                            <div ref={descriptionViewRef} className="lg:block hidden">
                               {processedNftDescription}
                               {shouldShowReadMore && (
                                 <span
@@ -1922,7 +1931,7 @@ const MainSection = ({
                     <div className={styles.moreDetails}>
                       More details
                       <div className="w-[30px] h-[30px] mt-[-5px]">
-                        <Lottie animationData={MorDetalsIcon} />
+                        <Lottie animationData={lightDarkMode ? MoreDetalsLightIcon : MoreDetalsIcon} />
                       </div>
                     </div>
                   </div>
